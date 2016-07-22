@@ -191,7 +191,7 @@ public class AdminMemberAction {
 	}
 	/**
 	 * 
-	 * @描述 会员信息查询页面
+	 * @描述 会员信息查询页面,git更新代码测试
 	 * @return
 	 * @throws Exception 
 	 * @返回类型 ModelAndView
