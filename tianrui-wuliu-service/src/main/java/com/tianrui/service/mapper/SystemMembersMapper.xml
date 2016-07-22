@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.SystemMemberMapper" >
+  <!-- 条件查询模糊查询 -->
+  <select id="findsMemberList" resultType="com.tianrui.service.admin.bean.Members" parameterType="com.tianrui.service.bean.MemberFind" >
+    select 
+	    m.ID id,
+		m.loginName loginName,
+		m.cellPhone cellPhone,
+		m.status status,
+		m.orgid organizationid,
+		m.registTime registtime,
+		m.userpercheck userpercheck,
+		m.driverpercheck driverpercheck,
+		m.companypercheck companypercheck,
+		m.submittime submitDate,
+		m.lastTime lastTime,
+		m.sourceType sourceType,
+		m.sex sex,
+		f.idcardimage idcardsImagePath,
+		f.memberid infoid,
+		f.driverimage driveImagePath,
+		f.idcard identityCard,
+		f.username userName,
+		f.telphone telphone,
+		f.companyname companyName,
+		f.companycode companycode,
+		f.companycontact companyContact,
+		f.companyAddress companyAddress,
+		f.licenseImagePath licenseImagePath,
+		f.companytel contactTel
+    from member m
+   	LEFT JOIN member_info f ON f.memberId = m.ID 
+   	<where> 1=1
+   		<!-- 0-查询普通用户, 1-查询司机用户   ,2-查询车主用户 -->
+   	  <if test="userType == 0">
+   	  	and m.driverpercheck = '0'
+   	  </if>
+   	  <if test="userType == 1">
+   	  	and m.driverpercheck != '0'
+   	  </if>
+   	  <if test="userType == 2">
+   	  	and m.ID in(select creator from wuliu_vehicle_driver)
+   	  </if>
+   	  <!--  2-个人账户， 1-企业账户 -->
+   	  <if test="personalType == 1">
+   	  	and m.companypercheck = '1'
+   	  </if>
+   	  <if test="personalType == 2">
+   	  	and m.userpercheck = '1'
+   	  </if>
+   	  <if test="userpercheck != null and userpercheck !=''">
+   	  	and (m.userpercheck = #{userpercheck,jdbcType=VARCHAR}
+   	  	or m.companypercheck = #{companypercheck,jdbcType=VARCHAR})
+   	  </if>
+   	  <if test="driverpercheck != null and driverpercheck !=''">
+   	  	and m.driverpercheck = #{driverpercheck,jdbcType=VARCHAR}
+   	  </if>
+      <if test="userName != null and userName !='' " >
+      and (f.username like "%" #{userName,jdbcType=VARCHAR} "%"
+      or f.companyname like "%" #{userName,jdbcType=VARCHAR} "%")
+      </if>
+      <if test="status != null and status !='' " >
+      and  m.status = #{status,jdbcType=VARCHAR}
+      </if>
+   	  <if test="cellPhone != null  and cellPhone != '' " >
+      and  m.cellPhone like "%" #{cellPhone,jdbcType=VARCHAR} "%"
+      </if>
+      <if test="sourcetype != null" >
+      and  m.sourceType = #{sourcetype,jdbcType=SMALLINT}
+      </if>
+      <if test="registtimeFor != null and registtimeFor !='' " >
+       and m.registTime <![CDATA[>]]> #{registtimeFor,jdbcType=VARCHAR}
+      </if>
+      <if test="registtimeEnd != null and registtimeEnd !='' " >
+       and m.registTime <![CDATA[<]]> #{registtimeEnd,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdateFor != null and submitdateFor !='' " >
+       and m.submittime <![CDATA[>]]> #{submitdateFor,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdateEnd != null and submitdateEnd !='' " >
+       and m.submittime <![CDATA[<]]> #{submitdateEnd,jdbcType=VARCHAR}
+      </if>
+      order by m.submittime desc
+   	</where>
+      <if test="pageNo != null and pageSize != null">
+       	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+  </select>
+  <!-- 条件查询模糊查询条数 -->
+  <select id="findsMemberListCount" resultType="long" parameterType="com.tianrui.service.bean.MemberFind" >
+     select 
+	   count(*)
+    from member m
+   	LEFT JOIN member_info f ON f.memberId = m.ID 
+   	<where> 1=1
+   			<!-- 0-查询普通用户, 1-查询司机用户   ,2-查询车主用户 -->
+   	  <if test="userType == 0">
+   	  	and m.driverpercheck = '0'
+   	  </if>
+   	  <if test="userType == 1">
+   	  	and m.driverpercheck != '0'
+   	  </if>
+   	  <if test="userType == 2">
+   	  	and m.ID in(select creator from wuliu_vehicle_driver)
+   	  </if>
+   	  <!--  2-个人账户， 1-企业账户 -->
+   	  <if test="personalType == 1">
+   	  	and m.companypercheck = '1'
+   	  </if>
+   	  <if test="personalType == 2">
+   	  	and m.userpercheck = '1'
+   	  </if>
+   	  <if test="userpercheck != null and userpercheck !=''">
+   	  	and (m.userpercheck = #{userpercheck,jdbcType=VARCHAR}
+   	  	or m.companypercheck = #{companypercheck,jdbcType=VARCHAR})
+   	  </if>
+   	  <if test="driverpercheck != null and driverpercheck !=''">
+   	  	and m.driverpercheck = #{driverpercheck,jdbcType=VARCHAR}
+   	  </if>
+      <if test="userName != null and userName !='' " >
+      and (f.username like "%" #{userName,jdbcType=VARCHAR} "%"
+      or f.companyname like "%" #{userName,jdbcType=VARCHAR} "%")
+      </if>
+      <if test="status != null and status !='' " >
+      and  m.status = #{status,jdbcType=VARCHAR}
+      </if>
+   	  <if test="cellPhone != null  and cellPhone != '' " >
+      and  m.cellPhone like "%" #{cellPhone,jdbcType=VARCHAR} "%"
+      </if>
+      <if test="sourcetype != null" >
+      and  m.sourceType = #{sourcetype,jdbcType=SMALLINT}
+      </if>
+      <if test="registtimeFor != null and registtimeFor !='' " >
+       and m.registTime <![CDATA[>]]> #{registtimeFor,jdbcType=VARCHAR}
+      </if>
+      <if test="registtimeEnd != null and registtimeEnd !='' " >
+       and m.registTime <![CDATA[<]]> #{registtimeEnd,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdateFor != null and submitdateFor !='' " >
+       and m.submittime <![CDATA[>]]> #{submitdateFor,jdbcType=VARCHAR}
+      </if>
+      <if test="submitdateEnd != null and submitdateEnd !='' " >
+       and m.submittime <![CDATA[<]]> #{submitdateEnd,jdbcType=VARCHAR}
+      </if>
+     </where>
+  </select>
+  
+  <!-- id关联查询 -->
+  <select id="findsMemberbyId" resultType="com.tianrui.service.admin.bean.Members" parameterType="java.lang.String" >
+    select 
+	    m.ID id,
+		m.loginName loginName,
+		m.cellPhone cellPhone,
+		m.status status,
+		m.orgid organizationid,
+		m.registTime registtime,
+		m.userpercheck userpercheck,
+		m.driverpercheck driverpercheck,
+		m.companypercheck companypercheck,
+		m.submittime submitDate,
+		m.lastTime lastTime,
+		m.sourceType sourceType,
+		m.sex sex,
+		f.idcardimage idcardsImagePath,
+		f.memberid infoid,
+		f.driverimage driveImagePath,
+		f.idcard identityCard,
+		f.username userName,
+		f.telphone telphone,
+		f.companyname companyName,
+		f.companycontact companyContact,
+		f.companytel contactTel,
+		f.companyAddress companyAddress,
+		f.auditname auditName,
+		f.audittime auditTime,
+		f.auditresson rejectReason
+    from member m
+   	LEFT JOIN member_info_record f ON f.memberId = m.ID AND f.submittime = m.submittime
+   	<where>
+   		m.ID = #{id,jdbcType=VARCHAR}
+   	</where>
+  </select>
+  
+</mapper>

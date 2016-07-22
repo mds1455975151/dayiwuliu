@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tianrui</groupId>
+		<artifactId>tianrui-wuliu</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+  	<artifactId>tianrui-wuliu-web</artifactId>
+	<name>tianrui-wuliu-admin</name>
+	<description>大物流前台</description>
+	<packaging>war</packaging>
+  
+	<dependencies>	
+		<dependency>
+			<groupId>com.tianrui</groupId>
+			<artifactId>tianrui-wuliu-service</artifactId>
+			<version>${ver.trwl}</version>
+		</dependency>
+		<!-- spring mvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<!-- spring mvc end -->
+		
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+				
+		<dependency> 
+		  <groupId>jstl</groupId> 
+		    <artifactId>jstl</artifactId> 
+		      <version>1.2</version> 
+		</dependency> 
+		
+		<dependency> 
+		    <groupId>taglibs</groupId> 
+		      <artifactId>standard</artifactId> 
+		<version>1.1.2</version> 
+		</dependency>
+
+	</dependencies>
+	
+	<build>  
+	  <plugins>  
+	    <plugin>  
+	      <groupId>org.apache.maven.plugins</groupId>  
+	      <artifactId>maven-compiler-plugin</artifactId>  
+	      <configuration>  
+	        <source>7</source>  
+	        <target>7</target>  
+	        <encoding>UTF-8</encoding>  
+	      </configuration>  
+	    </plugin>  
+	  </plugins>  
+	</build>  
+	
+</project>

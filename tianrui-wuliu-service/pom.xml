@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tianrui</groupId>
+		<artifactId>tianrui-wuliu</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+  	<artifactId>tianrui-wuliu-service</artifactId>
+	<name>tianrui-wuliu-service</name>
+	<description>大物流服务</description>
+	<packaging>jar</packaging>
+  
+  	<properties>
+  		<ver.mybatis>3.3.0</ver.mybatis>
+		<ver.mybatis-spring>1.2.2</ver.mybatis-spring>
+		<ver.mongo>2.13.0</ver.mongo>
+		<ver.mongodb-spring>1.7.0.RELEASE</ver.mongodb-spring>
+  	</properties>
+  
+	<dependencies>	
+		<dependency>
+			<groupId>com.tianrui</groupId>
+			<artifactId>tianrui-wuliu-api</artifactId>
+			<version>${ver.trwl}</version>
+		</dependency>
+			
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+	
+	
+		<!-- spring core begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<!-- spring end -->
+		
+		<!-- Spring Data Access/Integration start-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<!-- Spring Data Access/Integration end-->
+		
+		<!-- Spring AOP and Instrumentation start -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<!-- Spring AOP and Instrumentation end -->
+		
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${ver.junit}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${ver.spring}</version>
+		</dependency>
+		<!-- test end -->
+		
+	
+		<!-- mysql  mybatis -->	
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.34</version>
+		</dependency>
+		<dependency>
+	        <groupId>com.alibaba</groupId>
+	        <artifactId>druid</artifactId>
+	        <version>1.0.15</version>
+	    </dependency>
+	   <dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${ver.mybatis}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${ver.mybatis-spring}</version>
+		</dependency>
+		<!-- mysql  mybatis end -->
+		
+		<!-- mongo -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${ver.mongo}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${ver.mongodb-spring}</version>
+		</dependency>
+		
+		
+		<!-- mongo end -->
+		<dependency>
+		  <groupId>com.tianrui</groupId>
+		  <artifactId>tianrui-push-service</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.8.5</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+			<resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+		</resources>
+	</build>
+</project>

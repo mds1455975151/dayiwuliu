@@ -1,0 +1,268 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!Doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>司机档案管理</title>
+    <meta name="keywords" content=" 天瑞" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
+    <link href="${stylesRoot }/base.css" rel="stylesheet">
+    <link href="${stylesRoot }/style.css" rel="stylesheet">
+    <link href="${stylesRoot }/tr-media.css"  rel="stylesheet">
+    <link href="${stylesRoot }/easyTree.css"  rel="stylesheet">
+    <link href="${stylesRoot }/imgcut.css" rel="stylesheet">
+    <!--这个日历控件js必须放头部-->
+    <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
+</head>
+<body>
+
+<div class="container-fluid">
+    <!--公共头部begin-->
+    <jsp:include page="../common/header.jsp" flush="false"></jsp:include>
+     <!--后台左侧布局end-->
+                <!--后台右侧布局begin-->
+            <div class="col-md-10 ">
+                <div class="ht_content">
+                    <div id="content-header">
+                        <h3>司机管理</h3>
+                    </div>
+                    <!--查询框begin-->
+                    <div class="row">
+                            <div class="col-md-12">
+                                <div class="contuser_search">
+                                    <div class="ht_div">
+                                        <label>司机姓名：</label>
+                                        <input type="text" onchange="firstPage();" id="username" placeholder=" ">
+                                    </div>
+                                    <div class="ht_div">
+                                        <label>司机账号：</label>
+                                        <input type="text" onchange="firstPage();" id="cellphone" placeholder=" ">
+                                    </div>
+                                    <div class="ht_div">
+                                        <label>档案状态：</label>
+                                        <select id="status" onchange="firstPage();" class="form-control">
+                                            <option value="">请选择</option>
+                                            <option value="1">启用</option>
+                                            <option value="0">停用</option>
+                                        </select>
+                                    </div>
+                                    <div class="ht_div">
+                                        <label>认证状态:</label>
+                                        <select class="form-control" onchange="firstPage();" id="perCheckStatus">
+                                            <option value="">请选择</option>
+                                            <option value="2">认证中</option>
+                                            <option value="3">认证失败</option>
+                                            <option value="1">认证成功</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="contuser_search">
+                                    <div class="ht_div">
+                                        <label>注册时间：</label>
+                                        <input type="text" id="restimefor" onchange="firstPage();"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
+                                        <i>-</i>
+                                        <input type="text" id="restimeend" onchange="firstPage();" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
+                                    </div>
+                                    <div class="ht_div">
+                                        <label>认证时间：</label>
+                                        <input type="text" id="subtimefor" onchange="firstPage();" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
+                                        <i>-</i>
+                                        <input type="text" id="subtimeend" onchange="firstPage();" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
+                                    </div>
+                                    <div class="ht_divbtn">
+                                        <button class="btn btnblue " onclick="driverSearch();" type="button">搜索</button>
+                                        <button class="btn btngreen" onclick="clearSearch();" type="submit">重置</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <!--查询框end-->
+                    <div class="row mt15">
+                         <div class="col-md-12">
+                             <div class="content-user">
+                                <!-- 
+                                 <div class="content-tou">
+                                     <a href=" ">
+                                         <button><i class="iconfont icon-daoru06"></i>导入</button>
+                                     </a>
+                                     <button><i class="iconfont icon-daochu1"></i><span>导出</span></button>
+                                 </div>
+                                 -->
+                                 <!--用户表格begin-->
+                                 <table id="sample2" class="table table-bordered"   data-options="">
+                                     <thead>
+                                     <tr>
+                                         <th>序号</th>
+                                         <th >司机账号 </th>
+                                         <th >司机姓名 </th>
+                                         <th >联系方式</th>
+                                         <th >驾驶证号 </th>
+                                         <th >认证状态</th>
+                                         <th > 注册时间 </th>
+                                         <th > 认证时间 </th>
+                                         <th > 操作 </th>
+                                     </tr>
+                                     </thead>
+                                     <tbody id="innerHml">
+                                     </tbody>
+                                 </table>
+                                 <!--用户表格end-->
+                                 <!-- 分页部分  开始-->
+						            <div class="row pr20 fr">
+										<%@include file="../common/pagination.jsp" %>
+						            </div>
+						         <!-- 分页部分 结束 -->
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+                <!--后台右侧布局end-->
+            </div>
+            <!--后台整体布局end-->
+    </div>
+    <!--侧边栏end-->
+</div>
+
+<!--停用begin-->
+<div class="modal fade" id="tingyong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >提示</h4>
+            </div>
+            <div class="modal-body">
+                <h4><span id="satus"></span></h4>
+                <input type="hidden" id="memid" value="">
+                <input type="hidden" id="statustype" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="changeType();" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--停用end-->
+<!--查看详情begin-->
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >司机信息详情</h4>
+            </div>
+            <div class="modal-body" id="detailid" style=" ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看详情end-->
+<!--删除begin-->
+<div class="modal fade" id="dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">会员删除</h4>
+            </div>
+            <div class="modal-body">
+            	<input type="hidden" id="memberid" value="">
+                <h4>确定要删除此条信息吗?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteMember()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--删除end-->
+<%@include file="../common/footer.jsp" %>
+<script type="text/javascript">
+    $(function(){
+        //表格列宽度调整
+        $("table").resizableColumns({});
+
+        // 点击修改头像按钮，图片裁剪框显示出来
+        $(".tx_contr").on('click', function () {
+            $(".acc_touxiang").show();
+        });
+        // 修改头像的收起按钮
+        $(".tx_shouqi").on('click', function () {
+            $(".acc_touxiang").hide();
+        });
+        // 图片裁切块的大小自定义，margin-top是height一半，margin-left是width一半
+        var thumb = $(".imgBox_file .thumbBox");
+        thumb.height(150);
+        thumb.width(150);
+        thumb.css({ "margin-top": -75, "margin-left": -75 });
+        // 给cropbox.js传参
+        var options =
+        {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: ''
+        };
+        var cropper = $('.imgBox_file').cropbox(options);
+        // 文件上传按钮操作
+        $('#upload-file').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imgBox_file').cropbox(options);
+            };
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        });
+        $('#upload-file2').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imgBox_file').cropbox(options);
+            };
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        });
+        // 裁切按钮操作
+        $('#btnCrop').on('click', function () {
+            var img = cropper.getDataURL();
+            $('.user_oldtx').html('');
+            $('.user_oldtx').append('<img src="' + img + '" align="absmiddle" style="box-shadow:0px 0px 12px #7E7E7E;">');
+
+            $(".tx_cancel").on('click', function () {
+                $(".acc_touxiang").hide();
+            });
+        });
+        // 图片放大按钮操作
+        $('#btnZoomIn').on('click', function () {
+            cropper.zoomIn();
+        });
+        // 图片缩小按钮操作
+        $('#btnZoomOut').on('click', function () {
+            cropper.zoomOut();
+        });
+    });
+    var CONTEXTPATH="${contextPath}";
+    var imagesRoot="${imagesRoot }";
+</script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js" ></script>
+<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
+<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
+</body>
+</html>

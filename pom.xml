@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.tianrui</groupId>
+  <artifactId>tianrui-wuliu</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>tianrui-wuliu-parent</name>
+  <description>大物流父目录</description>
+  <packaging>pom</packaging>
+  
+  <properties>
+		<ver.junit>4.12</ver.junit>
+		<ver.log4j>1.2.16</ver.log4j>
+		<ver.slf4j>1.6.6</ver.slf4j>
+		<ver.trwl>0.0.1-SNAPSHOT</ver.trwl>
+		<ver.json>1.2.3</ver.json>
+		<ver.commons.lang>2.6</ver.commons.lang>
+		<ver.spring>4.0.9.RELEASE</ver.spring>
+		<ver.mybatis>3.3.0</ver.mybatis>
+  </properties>
+  	
+	
+  <modules>
+		<module>tianrui-wuliu-api</module>
+		<module>tianrui-wuliu-comm</module>
+		<module>tianrui-wuliu-service</module>
+		<module>tianrui-wuliu-web</module>
+		<module>tianrui-wuliu-admin</module>
+  </modules>
+<distributionManagement> 
+    <repository> 
+        <id>nexus-releases</id> 
+        <name>Nexus Releases Repository</name> 
+        <url>http://172.19.4.48:8081/nexus/content/repositories/releases/</url> 
+    </repository> 
+    <snapshotRepository> 
+        <id>nexus-snapshots</id> 
+        <name>Nexus Snapshots Repository</name> 
+        <url>http://172.19.4.48:8081/nexus/content/repositories/snapshots/</url> 
+    </snapshotRepository> 
+</distributionManagement>	
+ 
+</project>

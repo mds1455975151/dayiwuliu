@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.SystemMemberInfoRecordMapper" >
+
+  <select id="selectByRecordEntity" resultType="com.tianrui.service.bean.MemberInfoRecord" parameterType="com.tianrui.service.bean.MemberInfoRecord" >
+	  	SELECT
+			f.id id,
+			f.memberid memberid,
+			f.username username,
+			f.telphone telphone,
+			f.idcard idcard,
+			f.idcardimage idcardimage,
+			f.driverimage driverimage,
+			f.submittime submittime,
+			f.companyname companyname,
+			f.companycontact companycontact,
+			f.companytel companytel,
+			f.companyAddress companyAddress,
+			f.companycode companycode,
+			f.licenseImagePath licenseImagePath,
+			f.status status,
+			m.cellphone cellphone,
+			m.companypercheck companypercheck,
+			m.driverpercheck driverpercheck,
+			m.userpercheck userpercheck,
+			m.registtime registtime
+	FROM
+		member_info_record f
+	LEFT JOIN member m ON m.ID = f.memberid
+	WHERE
+		1 = 1
+		<if test="memberid != null and memberid != ''">
+		   and	f.memberid = #{memberid,jdbcType=VARCHAR}
+		</if>
+		<if test="status != null and status != ''">
+			and f.status = #{status,jdbcType=VARCHAR}
+		</if>
+		
+  </select>
+</mapper>

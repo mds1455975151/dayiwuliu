@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.admin.mapper.MyVehicleMapper" >
+  <select id="findByEntity" resultType="com.tianrui.service.admin.bean.MyVehicle" parameterType="com.tianrui.service.admin.bean.MyVehicle" >
+	SELECT
+		mv.id id,
+		mv.vehicleprefix vehicleprefix,
+		mv.vehicleno vehicleno,
+		mv.memberid memberid,
+		mv.vehicletype vehicletype,
+		mv.vehiweight vehiweight,
+		mv.vehilength vehilength,
+		mv.status status,
+		mv.vehilicenseimgpath vehilicenseimgpath,
+		mv.vehiheadimgpath vehiheadimgpath,
+		mv.createtime createtime,
+		mv.vehiOwnerName userName,
+		mv.vehiOwnerTel telphone
+	FROM
+		wuliu_member_vehicle mv
+    <where> 1=1
+ 	  <if test="vehicleprefix != null  and vehicleprefix !='' " >
+       and mv.vehicleprefix like "%" #{vehicleprefix,jdbcType=VARCHAR} "%"
+      </if>
+ 	  <if test="vehicleno != null  and vehicleno !='' " >
+       and mv.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+      </if>
+ 	  <if test="userName != null  and userName !='' " >
+       and mv.vehiOwnerName like "%" #{userName,jdbcType=VARCHAR} "%"
+      </if>
+ 	  <if test="telphone != null  and telphone !='' " >
+       and mv.vehiOwnerTel like "%" #{telphone,jdbcType=VARCHAR} "%"
+      </if>
+      order by mv.createtime desc
+    </where>
+     <if test="pageNo != null and pageSize != null">
+       	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <select id="findByEntityCount" resultType="long" parameterType="com.tianrui.service.admin.bean.MyVehicle" >
+	SELECT
+		count(*)
+	FROM
+		wuliu_member_vehicle mv
+    <where> 1=1
+ 	  <if test="vehicleprefix != null  and vehicleprefix !='' " >
+       and mv.vehicleprefix like "%" #{vehicleprefix,jdbcType=VARCHAR} "%"
+      </if>
+ 	  <if test="vehicleno != null  and vehicleno !='' " >
+       and mv.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+      </if>
+ 	  <if test="userName != null  and userName !='' " >
+       and mv.vehiOwnerName like "%" #{userName,jdbcType=VARCHAR} "%"
+      </if>
+ 	  <if test="telphone != null  and telphone !='' " >
+       and mv.vehiOwnerTel like "%" #{telphone,jdbcType=VARCHAR} "%"
+      </if>
+    </where>
+  </select>
+  
+  <select id="findByid" resultType="com.tianrui.service.admin.bean.MyVehicle" parameterType="java.lang.String" >
+    SELECT
+		mv.id id,
+		mv.vehicleprefix vehicleprefix,
+		mv.vehicleno vehicleno,
+		mv.memberid memberid,
+		mv.vehiOwnerName userName,
+		mv.vehiOwnerTel telphone,
+		mv.vehicletype vehicletype,
+		mv.vehiweight vehiweight,
+		mv.vehilength vehilength,
+		mv.status status,
+		mv.vehilicenseimgpath vehilicenseimgpath,
+		mv.vehiheadimgpath vehiheadimgpath,
+		mv.createtime createtime
+	FROM
+		wuliu_member_vehicle mv
+    <where> 
+        mv.id = #{id,jdbcType=VARCHAR}
+    </where>
+  </select>
+</mapper>
