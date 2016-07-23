@@ -25,6 +25,7 @@
 		<module>tianrui-wuliu-service</module>
 		<module>tianrui-wuliu-web</module>
 		<module>tianrui-wuliu-admin</module>
+		<module>tianrui-wuliu-weixin</module>
   </modules>
 <distributionManagement> 
     <repository> 
