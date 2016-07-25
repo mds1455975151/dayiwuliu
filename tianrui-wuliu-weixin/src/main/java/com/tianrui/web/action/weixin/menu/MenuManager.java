@@ -37,61 +37,52 @@ public class MenuManager {
 	 * @throws UnsupportedEncodingException 
 	 */
 	private static Menu getMenu() throws UnsupportedEncodingException {
+		//服务地址
 		String baseuri="http://183-lisijia.imwork.net";
+		//微信公众号id
 		String appid="wxf22ce076abf3d066";
-		String scope = "snsapi_userinfo";
-//		ClickButton btn11 = new ClickButton();
-//		btn11.setName("我的车辆");
-//		btn11.setType("click");
-//		btn11.setKey("oschina");
-//
+		//授权类型
+		String scope = "snsapi_base";
+		//项目网页授权访问地址
+		String url = baseuri + "/authorize/authorize";
+		String state = "";
+		
 		ViewButton btn12 = new ViewButton();
-		String btn12Url = baseuri + "/authorize/authorize";
-		String state = "mycare";
+		state = "myCare";
 		btn12.setName("我的车辆");
 		btn12.setType("view");
-		btn12.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(btn12Url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn12.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn13 = new ViewButton();
+		state = "myDriver";
 		btn13.setName("我的司机");
 		btn13.setType("view");
-		btn13.setUrl("http://www.iteye.com");
+		btn13.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn21 = new ViewButton();
+		state = "fabubill";
 		btn21.setName("发布的运单");
 		btn21.setType("view");
-		btn21.setUrl("http://m.taobao.com");
+		btn21.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn22 = new ViewButton();
+		state = "chengyunbill";
 		btn22.setName("承运的运单");
 		btn22.setType("view");
-		btn22.setUrl("http://m.jd.com");
+		btn22.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn23 = new ViewButton();
+		state = "yunshubill";
 		btn23.setName("运输的运单");
 		btn23.setType("view");
-		btn23.setUrl("http://m.vipshop.com");
-
-//		ViewButton btn24 = new ViewButton();
-//		btn24.setName("当当网");
-//		btn24.setType("view");
-//		btn24.setUrl("http://m.dangdang.com");
-//
-//		ViewButton btn25 = new ViewButton();
-//		btn25.setName("苏宁易购");
-//		btn25.setType("view");
-//		btn25.setUrl("http://m.suning.com");
+		btn23.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn31 = new ViewButton();
+		state = "myrenzhegn";
 		btn31.setName("我的认证");
 		btn31.setType("view");
-		btn31.setUrl("http://www.duopao.com");
+		btn31.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
-//		ViewButton btn32 = new ViewButton();
-//		btn32.setName("一窝88");
-//		btn32.setType("view");
-//		btn32.setUrl("http://www.yi588.com");
-		
 		ComplexButton mainBtn1 = new ComplexButton();
 		mainBtn1.setName("我的运力");
 		mainBtn1.setSub_button(new Button[] { btn12, btn13 });

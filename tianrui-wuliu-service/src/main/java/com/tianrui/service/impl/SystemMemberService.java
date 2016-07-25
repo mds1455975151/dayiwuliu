@@ -21,6 +21,7 @@ import com.tianrui.api.req.front.member.MemberMassageReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
+import com.tianrui.api.req.weixin.WeixinMemberReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoResp;
@@ -180,7 +181,6 @@ public class SystemMemberService implements ISystemMemberService{
 
 	@Override
 	public boolean saveMember(MemberSaveReq memberSaveReq) throws Exception {
-		// TODO Auto-generated method stub
 		String memberid = UUIDUtil.getId();
 		SystemMember member = copyPropertiesMemberSaveReq(memberSaveReq);
 		member.setId(memberid);
@@ -197,7 +197,6 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public MemberResp login(MemberReq req) throws Exception {
-		// TODO Auto-generated method stub
 		SystemMember member = new SystemMember();
 		member.setCellphone(req.getTelnum());
 		List<SystemMember> list = systemMemberMapper.selectByCondition(member);
@@ -231,13 +230,11 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public MemberResp findById(String id) throws Exception {
-		// TODO Auto-generated method stub
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(id);
 		return copyPropertiesMemberResp(member);
 	}
 	@Override
 	public boolean updateMember(MemberUpdateReq req) throws Exception {
-		// TODO Auto-generated method stub
 		SystemMember member = copyPropertiesUpdateReq(req);
 		int a = systemMemberMapper.updateByPrimaryKeySelective(member);
 		if(a==1){
@@ -248,7 +245,6 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public PageResp<MemberResp> findMemberlist(MemberFindReq req) throws Exception {
-		// TODO Auto-generated method stub
 		MemberFind find = new MemberFind();
 		PropertyUtils.copyProperties(find, req);
 		List<Members> list = systemMemberMapper.findsMemberList(find);
@@ -281,7 +277,6 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public List<SystemMemberResp> findMemberByMassage(MemberMassageReq req) throws Exception {
-		// TODO Auto-generated method stub
 		SystemMember member = new SystemMember();
 		PropertyUtils.copyProperties(member, req);
 		List<SystemMember> list = systemMemberMapper.selectByCondition(member);
@@ -289,7 +284,6 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public MemberInfoMassageResp findInfoMassageById(String id) throws Exception {
-		// TODO Auto-generated method stub
 		Members m = systemMemberMapper.findsMemberbyId(id);
 		MemberInfoMassageResp resp = new MemberInfoMassageResp();
 		PropertyUtils.copyProperties(resp, m);
@@ -297,7 +291,6 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public Result getValCode(String telnum, String type, String resource) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		//验证码
 		int userCode=(int)((Math.random()*9+1)*100000);
@@ -398,6 +391,79 @@ public class SystemMemberService implements ISystemMemberService{
 		return rs;
 	}
 	@Override
+	public Result wxlogin(WeixinMemberReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		
+		//微信未绑定账户,验证手机号密码是否正确
+		SystemMember member = new SystemMember();
+		member.setCellphone(req.getCellPhone());
+		List<SystemMember> list = systemMemberMapper.selectByCondition(member);
+		
+		MemberResp resp = new MemberResp();
+		if(list.size()!=1){
+			rs.setCode("1");
+			rs.setError("您输入的手机号未注册，请先注册或者重新输入...");
+			return rs;
+		}else if("0".equals(list.get(0).getStatus())){// 1-启用，0禁用
+			rs.setCode("1");
+			rs.setError("此账号以禁用，请联系管理员");
+			return rs;
+		}else if(list.get(0).getPassword().equalsIgnoreCase(req.getPassWord())){
+			resp = copyPropertiesMemberResp(list.get(0));
+			SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(list.get(0).getId());
+			resp.setUserName(info.getUsername());
+			resp.setTelphone(info.getTelphone());
+			resp.setIdentityCard(info.getIdcard());
+			resp.setIdcardsImagePath(info.getIdcardimage());
+			resp.setDriveImagePath(info.getDriverimage());
+			resp.setCompanyName(info.getCompanyname());
+			resp.setCompanyContact(info.getCompanycontact());
+			resp.setContactTel(info.getCompanytel());
+			resp.setLicenseImagePath(info.getLicenseImagePath());
+			//登陆时间
+			SystemMember upt = new SystemMember();
+			upt.setId(list.get(0).getId());
+			upt.setLasttime(new Date().getTime());
+			upt.setOpenid(req.getOpenid());
+			systemMemberMapper.updateByPrimaryKeySelective(upt);
+		}else{
+			rs.setCode("1");
+			rs.setError("您输入的密码错误，请重新输入...");
+			return rs;
+		}
+		rs.setData(resp);
+		return rs;
+	}
+	@Override
+	public MemberResp findByOpenid(String openid) throws Exception {
+		// TODO Auto-generated method stub
+		SystemMember member = new SystemMember();
+		member.setOpenid(openid);
+		List<SystemMember> list = systemMemberMapper.selectByCondition(member);
+		MemberResp resp = new MemberResp();
+		if(list.size()==1){
+			resp = copyPropertiesMemberResp(list.get(0));
+			SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(list.get(0).getId());
+			resp.setUserName(info.getUsername());
+			resp.setTelphone(info.getTelphone());
+			resp.setIdentityCard(info.getIdcard());
+			resp.setIdcardsImagePath(info.getIdcardimage());
+			resp.setDriveImagePath(info.getDriverimage());
+			resp.setCompanyName(info.getCompanyname());
+			resp.setCompanyContact(info.getCompanycontact());
+			resp.setContactTel(info.getCompanytel());
+			resp.setLicenseImagePath(info.getLicenseImagePath());
+			//登陆时间
+			SystemMember upt = new SystemMember();
+			upt.setId(list.get(0).getId());
+			upt.setLasttime(new Date().getTime());
+			systemMemberMapper.updateByPrimaryKeySelective(upt);
+			return resp;
+		}
+		return null;
+	}
+	
+	@Override
 	public Result applogin(AppMemberReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		boolean successFlag =false;
@@ -449,13 +515,11 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public Result sendAuthCodeMsg(AppGetCodeReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = getValCode(req.getAccount(),req.getType(),"app");
 		return rs;
 	}
 	@Override
 	public MemberInfoResp authenticationInfoByid(String id) throws Exception {
-		// TODO Auto-generated method stub
 		Members fo = systemMemberMapper.findsMemberbyId(id);
 		MemberInfoResp resp = new MemberInfoResp(); 
 		resp.setAuditName(fo.getAuditName());
@@ -471,5 +535,4 @@ public class SystemMemberService implements ISystemMemberService{
 		resp.setIdentityCard(fo.getIdentityCard());
 		return resp;
 	}
-
 }

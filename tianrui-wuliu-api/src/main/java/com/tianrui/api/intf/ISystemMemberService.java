@@ -9,6 +9,7 @@ import com.tianrui.api.req.front.member.MemberMassageReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
+import com.tianrui.api.req.weixin.WeixinMemberReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoResp;
@@ -84,7 +85,28 @@ public interface ISystemMemberService {
 	 * @创建时间 2016年6月21日上午8:41:22
 	 */
 	MemberResp login(MemberReq req)throws Exception;
-	
+	/**
+	 * 
+	 * @描述:微信端登陆
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 * @返回类型 MemberResp
+	 * @创建人 lsj
+	 * @创建时间 2016年7月25日下午1:59:46
+	 */
+	Result wxlogin(WeixinMemberReq req)throws Exception;
+	/**
+	 * 
+	 * @描述:openid登陆
+	 * @param openid
+	 * @return
+	 * @throws Exception
+	 * @返回类型 MemberResp
+	 * @创建人 lsj
+	 * @创建时间 2016年7月25日下午3:01:49
+	 */
+	MemberResp findByOpenid(String openid)throws Exception;
 	/**
 	 * 
 	 * @描述:移动端登录

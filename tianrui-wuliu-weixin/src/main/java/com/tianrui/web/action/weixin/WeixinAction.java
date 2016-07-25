@@ -21,6 +21,7 @@ import com.tianrui.web.action.weixin.util.entity.ReceiveXmlEntity;
 import com.tianrui.web.action.weixin.util.util.FormatXmlProcess;
 import com.tianrui.web.action.weixin.util.util.ReceiveXmlProcess;
 import com.tianrui.web.action.weixin.util.util.SignUtil;
+import com.tianrui.web.filter.TimeFilter;
 
 
 @Controller
@@ -104,11 +105,11 @@ public String processRequest(HttpServletRequest request, HttpServletResponse res
 			String longitude = xmlEntity.getLongitude();
 			//精度
 			String precision = xmlEntity.getPrecision();
-			contxml = "当前位置：\n  维度："+latitude+"\n  经度："+longitude+"\n  精度："+precision;
+			contxml = "当前位置：\n  维度："+latitude+"\n  经度："+longitude+"\n  精度："+precision+"\n token:"+TimeFilter.TOKEN.getAccessToken();
 			//拼装查询条件
-			PositionSaveReq saveBean = new PositionSaveReq();	
-//			saveBean.setCurrId(uId);
-			Result rs =positionService.savePosition(saveBean);
+//			PositionSaveReq saveBean = new PositionSaveReq();	
+////			saveBean.setCurrId(uId);
+//			Result rs =positionService.savePosition(saveBean);
 		}
 		respXml = formatxmls.formatXmlAllContent(xmlEntity.getFromUserName(), xmlEntity.getToUserName(), contxml);
 		return respXml;

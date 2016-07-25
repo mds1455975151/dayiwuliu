@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
-import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.impl.VehicleDriverService;
 import com.tianrui.web.util.SessionManager;
 import com.tianrui.web.util.WebUtils;

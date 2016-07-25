@@ -13,28 +13,6 @@ $(function() {
 	$("#header_home").addClass("active");
 });
 
-/*// 验证手机号
-$("#login_tel").blur(function () {
-	// 获取输入的手机号
-	var login_tel = $("#login_tel").val();
-	
-	if (login_tel == "") {
-		$("#message_loginTel").html("手机号不能为空");
-		return ;
-	}
-});
-
-// 验证密码
-$("#login_psw").blur(function () {
-	// 获取输入的密码
-	var login_psw = $("#login_psw").val();
-	
-	if (login_psw == "") {
-		$("#message_loginPsw").html("密码不能为空");
-		return ;
-	}
-});*/
-
 // 个人登录按钮事件
 $("#login_button").click(function() {
 	// 获取输入的手机号
@@ -56,8 +34,9 @@ $("#login_button").click(function() {
 	$.ajax({
 		url : PATH + '/publicMember/login',// 跳转到 action
 		data : {
-					telnum:login_tel, 
+					cellphone:login_tel, 
 					passWord:md5Psw, 
+					openid:$("#openid").val()
 			   },
 		type : "post",
 		success : function(result) {

@@ -21,6 +21,7 @@ import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
+import com.tianrui.api.req.weixin.WeixinMemberReq;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.utils.DateUtil;
@@ -303,18 +304,20 @@ public class PublicMemberAction {
 	 */
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
-	public Result login(@RequestParam(defaultValue = "") String telnum,
+	public Result login(@RequestParam(defaultValue = "") String cellphone,
 			@RequestParam(defaultValue = "") String passWord,
+			@RequestParam(defaultValue = "") String openid,
 			HttpServletRequest request) throws Exception {
 		Result rs =Result.getSuccessResult();
-		MemberReq req =new MemberReq();
-		req.setTelnum(telnum);
+		WeixinMemberReq req =new WeixinMemberReq();
+		req.setCellPhone(cellphone);
 		req.setPassWord(passWord);
-		if(telnum != "" && passWord != ""){
+		req.setOpenid(openid);
+		if(cellphone != "" && passWord != ""){
 			try {
-				MemberResp member= systemMemberService.login(req);
-				SessionManager.setSessionMember(request, member);//会员登录缓存存储
-				//TODO 登录记录  member.setLastTime(DateUtil.getDateString());
+				rs = systemMemberService.wxlogin(req);
+				MemberResp resp = (MemberResp) rs.getData();
+				SessionManager.setSessionMember(request, resp);//会员登录缓存存储
 			}catch (ApplicationExectpion e) {
 				logger.debug("{}",e.getMessage(),e);
 				rs.setCode("0");

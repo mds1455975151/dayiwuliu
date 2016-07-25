@@ -39,7 +39,7 @@
 	</context-param>
 	<context-param>  
 	 <param-name>webAppRootKey</param-name>  
-	  <param-value>tianrui-wuliu-web</param-value>  
+	  <param-value>tianrui-wuliu-weixin</param-value>  
 	 </context-param>  
 	  
 	 <context-param>  

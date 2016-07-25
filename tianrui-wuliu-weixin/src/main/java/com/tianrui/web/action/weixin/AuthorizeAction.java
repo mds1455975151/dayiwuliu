@@ -1,11 +1,24 @@
 package com.tianrui.web.action.weixin;
 
-import org.apache.commons.lang.StringUtils;
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.tianrui.api.intf.ISystemMemberService;
+import com.tianrui.api.req.weixin.WeixinMemberReq;
+import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.common.vo.Result;
 import com.tianrui.web.action.weixin.util.util.CommonUtil;
+import com.tianrui.web.action.weixin.util.util.Count;
+import com.tianrui.web.filter.TimeFilter;
+import com.tianrui.web.util.SessionManager;
+
 import net.sf.json.JSONObject;
 /**
  * 
@@ -21,40 +34,49 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/authorize")
 public class AuthorizeAction {
-
+	private static Logger log = LoggerFactory.getLogger(AuthorizeAction.class);
+	
+	@Autowired
+	private ISystemMemberService systemMemberService;
 	/**
 	 * 
 	 * @描述:网页授权获取openid
 	 * @param code
 	 * @param state
 	 * @return
+	 * @throws Exception 
 	 * @返回类型 ModelAndView
 	 * @创建人 lsj
 	 * @创建时间 2016年7月23日下午3:30:59
 	 */
 	@RequestMapping(value="/authorize",method=RequestMethod.GET)
-	public ModelAndView authorize(String code,String state){
+	public ModelAndView authorize(HttpServletRequest request,String code,String state) throws Exception{
 		ModelAndView view = new ModelAndView();
-		if(StringUtils.isBlank(code)||StringUtils.isBlank(state)){
-			return view;
-		}
+		//获取微信用户openid
 		String openid = getopenId(code);
-		System.out.println("code="+code+"state"+state+"openid="+openid);
-		view.addObject("openid", openid);
-		view.setViewName("/member/loginPage");
+		System.out.println("code="+code+"state="+state+"openid="+openid);
+		WeixinMemberReq req = new WeixinMemberReq();
+		req.setOpenid(openid);
+		MemberResp resp = systemMemberService.findByOpenid(openid);
+		if(resp != null){
+			SessionManager.setSessionMember(request, resp);
+			view.setViewName("/member/registerPage");
+		}else{
+			view.addObject("openid", openid);
+			view.setViewName("/member/loginPage");
+		}
 		return view;
 	}
-	
+	//网页授权通过code获取openid
 	public String getopenId(String code){
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-		String appid="wxf22ce076abf3d066";
-		String secret = "4add7800a76bf23866778b14d69bf6d4";
-		JSONObject js = CommonUtil.httpsRequest(url.replace("APPID", appid).replace("SECRET", secret).replace("CODE", code), "POST", null);
+		JSONObject js = CommonUtil.httpsRequest(url.replace("APPID", Count.APPID).replace("SECRET", Count.APPSECRET).replace("CODE", code), "POST", null);
 		String openid=null;
 		try {
 			openid = js.getString("openid");
 		} catch (Exception e) {
-
+			openid = "";
+			log.debug("获取openid失败");
 		}
 		return openid;
 	}
