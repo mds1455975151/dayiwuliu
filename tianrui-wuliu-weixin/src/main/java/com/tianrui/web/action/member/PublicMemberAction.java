@@ -56,8 +56,6 @@ public class PublicMemberAction {
 	CacheClient cache ;
 	@Autowired
 	private ISystemMemberService systemMemberService;
-	@Autowired
-	private ISystemMemberInfoService systemMemberInfoService;
 	/**
 	 * 
 	 * @描述:平台协议查看

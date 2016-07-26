@@ -16,6 +16,8 @@ public class MemberResp extends BaseResp{
 	 * 注册手机号（登录账号1）
 	 */
 	private String cellPhone;
+	/** 微信唯一标识*/
+	private String openid;
 	/**
 	 * 组织id
 	 */
@@ -175,6 +177,14 @@ public class MemberResp extends BaseResp{
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 
 	public void setCompanycode(String companycode) {

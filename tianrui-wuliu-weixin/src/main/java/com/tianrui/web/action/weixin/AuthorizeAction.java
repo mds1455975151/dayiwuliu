@@ -2,6 +2,7 @@ package com.tianrui.web.action.weixin;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,11 @@ public class AuthorizeAction {
 	public ModelAndView authorize(HttpServletRequest request,String code,String state) throws Exception{
 		ModelAndView view = new ModelAndView();
 		//获取微信用户openid
+		if(StringUtils.isBlank(code)){
+			view.setViewName("/member/loginPage");
+			return view;
+		}
 		String openid = getopenId(code);
-		System.out.println("code="+code+"state="+state+"openid="+openid);
 		WeixinMemberReq req = new WeixinMemberReq();
 		req.setOpenid(openid);
 		MemberResp resp = systemMemberService.findByOpenid(openid);

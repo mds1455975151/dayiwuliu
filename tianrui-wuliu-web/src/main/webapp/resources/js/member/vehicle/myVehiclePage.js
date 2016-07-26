@@ -54,9 +54,8 @@ function appendContentToBody(result, flag) {
 		$("#vehicle_tbody").empty();
 		rowIndex = 0;
 	}
-	
 	// 数据为空时
-	if (data == null || data.length <= 0) {
+	if (data == null) {
 		var hml = "";
 		hml+= '<div class="nodata">';
 		hml+= '<img src="'+trImgRoot+'/none_car.png">';

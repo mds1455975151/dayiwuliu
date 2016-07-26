@@ -22,6 +22,7 @@ import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.req.front.system.FileUploadReq;
+import com.tianrui.api.req.weixin.CancelMember;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberInfoResp;
@@ -213,6 +214,31 @@ public class MemberAction{
 	@RequestMapping("/memberPage")
 	public ModelAndView memberPage() throws IOException{
 		return new ModelAndView("/member/memberPage");
+	}
+	/**
+	 * 
+	 * @描述:微信取消绑定
+	 * @param request
+	 * @param openid
+	 * @return
+	 * @throws Exception
+	 * @返回类型 Result
+	 * @创建人 lsj
+	 * @创建时间 2016年7月26日下午3:10:34
+	 */
+	@RequestMapping(value = "/cancelLogin", method = RequestMethod.POST)
+	@ResponseBody
+	public Result cancelLogin(HttpServletRequest request, String openid) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		CancelMember req = new CancelMember();
+		req.setId(vo.getId());
+		req.setOpenid(openid);
+		rs = systemMemberService.cancelLogin(req);
+		MemberResp sessionMember = new MemberResp();
+		sessionMember.setId(vo.getId());
+		SessionManager.flushMember(request, sessionMember);
+		return rs;
 	}
 	
 	/**

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tianrui.web.action.weixin.menu.entity.Button;
-import com.tianrui.web.action.weixin.menu.entity.ClickButton;
 import com.tianrui.web.action.weixin.menu.entity.ComplexButton;
 import com.tianrui.web.action.weixin.menu.entity.Menu;
 import com.tianrui.web.action.weixin.menu.entity.MenuUtil;
@@ -29,7 +28,7 @@ import com.tianrui.web.action.weixin.util.util.CommonUtil;
 public class MenuManager {
 	private static Logger log = LoggerFactory.getLogger(MenuManager.class);
 	//网页授权url
-	public final static String redirect_uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
+	public final static String REDIRECT_URI = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 	/**
 	 * 定义菜单结构
 	 * 
@@ -51,37 +50,37 @@ public class MenuManager {
 		state = "myCare";
 		btn12.setName("我的车辆");
 		btn12.setType("view");
-		btn12.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn12.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn13 = new ViewButton();
 		state = "myDriver";
 		btn13.setName("我的司机");
 		btn13.setType("view");
-		btn13.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn13.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn21 = new ViewButton();
 		state = "fabubill";
 		btn21.setName("发布的运单");
 		btn21.setType("view");
-		btn21.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn21.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn22 = new ViewButton();
 		state = "chengyunbill";
 		btn22.setName("承运的运单");
 		btn22.setType("view");
-		btn22.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn22.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn23 = new ViewButton();
 		state = "yunshubill";
 		btn23.setName("运输的运单");
 		btn23.setType("view");
-		btn23.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn23.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ViewButton btn31 = new ViewButton();
 		state = "myrenzhegn";
 		btn31.setName("我的认证");
 		btn31.setType("view");
-		btn31.setUrl(redirect_uri.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+		btn31.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
 		ComplexButton mainBtn1 = new ComplexButton();
 		mainBtn1.setName("我的运力");

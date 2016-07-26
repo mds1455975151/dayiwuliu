@@ -21,6 +21,7 @@ import com.tianrui.api.req.front.member.MemberMassageReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
+import com.tianrui.api.req.weixin.CancelMember;
 import com.tianrui.api.req.weixin.WeixinMemberReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
@@ -143,6 +144,7 @@ public class SystemMemberService implements ISystemMemberService{
 		MemberResp rs = new MemberResp();
 		rs =new MemberResp();
 		rs.setId(member.getId());
+		rs.setOpenid(member.getOpenid());
 		rs.setCellPhone(member.getCellphone());
 		rs.setNickname(member.getNickname());
 		rs.setUserpercheck(member.getUserpercheck());
@@ -436,7 +438,6 @@ public class SystemMemberService implements ISystemMemberService{
 	}
 	@Override
 	public MemberResp findByOpenid(String openid) throws Exception {
-		// TODO Auto-generated method stub
 		SystemMember member = new SystemMember();
 		member.setOpenid(openid);
 		List<SystemMember> list = systemMemberMapper.selectByCondition(member);
@@ -534,5 +535,29 @@ public class SystemMemberService implements ISystemMemberService{
 		resp.setIdcardsImagePath(fo.getIdcardsImagePath());
 		resp.setIdentityCard(fo.getIdentityCard());
 		return resp;
+	}
+	@Override
+	public Result cancelLogin(CancelMember req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getId());
+		if(StringUtils.isBlank(member.getOpenid())){
+			rs.setCode("1");
+			rs.setError("该用户暂未绑定");
+			return rs;
+		}else if(!member.getOpenid().equals(req.getOpenid())){
+			rs.setCode("1");
+			rs.setError("微信账户与该账户无法对应");
+			return rs;
+		}else {
+			member.setOpenid("");
+			int a = systemMemberMapper.updateByPrimaryKeySelective(member);
+			if(a!=1){
+				rs.setCode("1");
+				rs.setError("修改失败");
+				return rs;
+			}
+		}
+		return rs;
 	}
 }

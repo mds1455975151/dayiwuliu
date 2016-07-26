@@ -86,6 +86,7 @@ public class MemberVoService implements IMemberVoService{
 		}
 		if( meber !=null){
 			memberVo.setId(meber.getId());
+			memberVo.setOpenid(meber.getOpenid());
 			memberVo.setCellphone(meber.getCellphone());
 			memberVo.setNickname(meber.getNickname());
 			memberVo.setAvatarspath(meber.getAvatarspath());

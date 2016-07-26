@@ -15,6 +15,9 @@ public class MemberVo {
 	private String id;
 	private String cellphone;
 	
+	//微信唯一标识
+	private String openid;
+	
 	//用户名称
 	private String nickname;
 	private String userName;
@@ -90,6 +93,12 @@ public class MemberVo {
 	}
 	public String getDriverpercheck() {
 		return driverpercheck;
+	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 	public void setDriverpercheck(String driverpercheck) {
 		this.driverpercheck = driverpercheck;
