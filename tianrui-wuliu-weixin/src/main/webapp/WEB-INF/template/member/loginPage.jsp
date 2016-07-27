@@ -26,11 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="loginbox">
                         <!--手机输入beigin-->
                             <div class="login_tel">
-                                <h4>手机号e${session_member.cellphone }//${session_member.openid }</h4>
+                                <h4>手机号</h4>
                                  <input type="hidden" id="openid" value="${openid }">
                                  <input type="text" maxlength="11" placeholder="请输入手机号" id="login_tel">
                                  <p id="message_loginTel"></p>
-                                <h4>密码${openid }</h4>
+                                <h4>密码</h4>
                                 <input type="password" placeholder="请输入密码" maxlength="16" id="login_psw">
                                 <p id="message_loginPsw"></p>
                             </div>

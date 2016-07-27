@@ -422,6 +422,14 @@ public class SystemMemberService implements ISystemMemberService{
 			resp.setCompanyContact(info.getCompanycontact());
 			resp.setContactTel(info.getCompanytel());
 			resp.setLicenseImagePath(info.getLicenseImagePath());
+			SystemMember sys = new SystemMember();
+			sys.setOpenid(req.getOpenid());
+			List<SystemMember> openlist = systemMemberMapper.selectByCondition(sys);
+			//判断是否有绑定关系，有的话取消绑定关系
+			for(SystemMember systemMember : openlist){
+				systemMember.setOpenid("");
+				systemMemberMapper.updateByPrimaryKeySelective(systemMember);
+			}
 			//登陆时间
 			SystemMember upt = new SystemMember();
 			upt.setId(list.get(0).getId());

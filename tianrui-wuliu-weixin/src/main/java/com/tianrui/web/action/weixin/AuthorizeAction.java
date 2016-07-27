@@ -62,6 +62,7 @@ public class AuthorizeAction {
 		WeixinMemberReq req = new WeixinMemberReq();
 		req.setOpenid(openid);
 		MemberResp resp = systemMemberService.findByOpenid(openid);
+		request.getSession().setAttribute("openid", openid);
 		if(resp != null){
 			SessionManager.setSessionMember(request, resp);
 			view.setViewName("/member/registerPage");
