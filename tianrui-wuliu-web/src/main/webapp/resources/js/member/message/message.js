@@ -13,9 +13,10 @@ $(function(){
 				}else{
 					var data = rs.data.list ||[];
 					var hm = "";
-					var aa = "";
+					
 					if(data.length && data.length > 0){
 						for(var i=0;i<data.length;i++){
+							var aa = "";
 							var item =data[i];
 							//查看按钮
 							if(item.uri){

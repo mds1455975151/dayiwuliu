@@ -5,10 +5,8 @@
 /tianrui-wuliu-admin/target
 /tianrui-wuliu-admin/.classpath
 /tianrui-wuliu-api/*.project
-/tianrui-wuliu-api/*
 /tianrui-wuliu-api/*.classpath
 /tianrui-wuliu-comm/*.project
-/tianrui-wuliu-comm/*
 /tianrui-wuliu-comm/*.classpath
 /tianrui-wuliu-service/.settings
 /tianrui-wuliu-service/target
@@ -21,3 +19,11 @@
 
 /.metadata
 /RemoteSystemsTempFiles
+/tianrui-wuliu-api/target
+/tianrui-wuliu-api/.settings
+/tianrui-wuliu-weixin/.settings
+/tianrui-wuliu-weixin/target
+/tianrui-wuliu-weixin/.classpath
+/tianrui-wuliu-weixin/.project
+/tianrui-wuliu-comm/target
+/tianrui-wuliu-comm/.settings
