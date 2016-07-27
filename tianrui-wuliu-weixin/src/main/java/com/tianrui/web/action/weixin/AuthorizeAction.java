@@ -14,10 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.weixin.WeixinMemberReq;
 import com.tianrui.api.resp.front.member.MemberResp;
-import com.tianrui.common.vo.Result;
 import com.tianrui.web.action.weixin.util.util.CommonUtil;
 import com.tianrui.web.action.weixin.util.util.Count;
-import com.tianrui.web.filter.TimeFilter;
 import com.tianrui.web.util.SessionManager;
 
 import net.sf.json.JSONObject;
