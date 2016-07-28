@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>计价单位</th>
-                                <th>单价</th>
+                                <th>非含税单价</th>
                             </tr>
                             </thead>
                             <tbody>

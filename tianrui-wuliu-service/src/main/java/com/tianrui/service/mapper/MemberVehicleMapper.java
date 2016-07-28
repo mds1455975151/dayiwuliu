@@ -107,4 +107,14 @@ public interface MemberVehicleMapper {
      * @time 2016年6月06日 上午11:14:00
      */
     long selectVehicleAndDriverBycount(VehicleAndDriver argCondition);
+    /**
+     * 根据vehicleIds进行车辆司机联合信息查询
+     * <p>
+     * @param vehicleIds
+     * @return
+     * <p>
+     * @author zhanggh
+     * @time 2016年7月28日 上午11:33:00
+     */
+    List<MemberVehicle> selectVehicleByIds(List<String> vehicleIds);
 }

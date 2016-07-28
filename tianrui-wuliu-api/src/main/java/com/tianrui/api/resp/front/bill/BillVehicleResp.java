@@ -8,6 +8,10 @@ public class BillVehicleResp {
 	private String driverName;
 	/** 司机电话 */
 	private String driverTel;
+	/** 车辆类型 */
+	private String vehicleTypeName;
+	/** 载重 */
+	private String vehiweight;
 	
 	private String vehicleNo;
 	//1 该车辆已被实用 0该车辆未被实用
@@ -42,6 +46,17 @@ public class BillVehicleResp {
 	public void setIsUsed(int isUsed) {
 		this.isUsed = isUsed;
 	}
-	
+	public String getVehicleTypeName() {
+		return vehicleTypeName;
+	}
+	public void setVehicleTypeName(String vehicleTypeName) {
+		this.vehicleTypeName = vehicleTypeName;
+	}
+	public String getVehiweight() {
+		return vehiweight;
+	}
+	public void setVehiweight(String vehiweight) {
+		this.vehiweight = vehiweight;
+	}
 	
 }

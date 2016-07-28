@@ -734,5 +734,15 @@
       </if>
    	</where>
   </select>
-  
+  <select id="selectVehicleByIds" resultMap="BaseResultMap">
+  		select vehicleid,vehiweight from wuliu_member_vehicle 
+  		<where>
+  			<if test="list !=null">
+  				vehicleid in 
+  				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+				 	#{item}  
+				</foreach>
+  			</if>
+  		</where>
+  </select>
 </mapper>

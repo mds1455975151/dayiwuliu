@@ -122,4 +122,14 @@ public interface IMemberVehicleService {
 	 * @time 2016年6月1日 下午2:15:37
 	 */
 	public Result deleteByPrimaryKey(String id) throws Exception;
+	/**
+     * 根据vehicleIds进行车辆司机联合信息查询
+     * <p>
+     * @param vehicleIds
+     * @return
+     * <p>
+     * @author zhanggh
+     * @time 2016年7月28日 上午11:33:00
+     */
+	public List<MemberVehicleResp> selectVehicleByIds(List<String> vehicleIds) throws Exception;
 }

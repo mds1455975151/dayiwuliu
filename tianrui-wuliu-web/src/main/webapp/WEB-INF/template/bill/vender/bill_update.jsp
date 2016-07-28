@@ -114,12 +114,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                 <div class="goods_line">
                     <div class="bill_yunshu mr20">
-                        <label> 运输量：</label>
-                        <input type="text" class="weightInput" placeholder="请输入8.88" maxlength="10" value="${bill.weight }" />${bill.desc1}
+	                    <div class="bill_danjia">
+	                        <label> 运输量：</label>
+	                        <input type="text" class="weightInput" placeholder="请输入8.88" maxlength="10" value="${bill.weight }" />${bill.desc1}
+	                    </div>
                     </div>
                     <div class="bill_yunshu">
-                        <label> 运单价格：</label>
-                        <input type="text" class="priceInput" readOnly maxlength="10" value="${bill.price }" />元
+	                    <div class="bill_danjia">
+	                    <label> 非含税单价：</label>
+	                        <input type="text" class="priceInput" readOnly maxlength="10" value="${bill.price }" />元
+                        </div>
                     </div>
                 </div>
                   <div class="bill_fabu">
@@ -141,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             				<li >
 	                                		<input type="radio" dataId="${item.id }" class="checkInput" name="driverId"  >
 	                                	</c:if>
-	                                    <label>${item.vehicleNo }</label><label>${item.driverName }</label> <label>${item.driverTel }</label>
+	                                    <label>${item.vehicleNo }</label><label>${item.driverName }</label> <label>${item.vehicleTypeName }</label> <label>${item.vehiweight }吨</label>
 	                                </li>
                             	</c:forEach>
                             </ul>

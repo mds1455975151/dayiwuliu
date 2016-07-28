@@ -34,6 +34,7 @@ import com.tianrui.api.resp.front.bill.BillTrackResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
+import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
@@ -50,6 +51,7 @@ import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
+import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
@@ -1127,6 +1129,13 @@ public class BillService implements IBillService{
 			VehicleDriverReq query =new  VehicleDriverReq();
 			query.setCreator(plan.getVehicleownerid());
 			List<VehicleDriverResp> vehicleDriverList =vehicleDriverService.queryVehiDriverByCondition(query);
+			List<String> vehicleIds = new ArrayList<String>();
+			if( CollectionUtils.isNotEmpty(vehicleDriverList) ){
+				for(int i=0;i<vehicleDriverList.size();i++){
+					vehicleIds.add(vehicleDriverList.get(i).getVehicleId());
+				}
+			}
+			List<MemberVehicleResp> memberVehicleRespList = memberVehicleService.selectVehicleByIds(vehicleIds);
 			//查询计划实用车辆信息
 			Bill query2 =new Bill();
 			query2.setPlanid(pId);
@@ -1147,6 +1156,14 @@ public class BillService implements IBillService{
 					itemResp.setDriverName(item.getDriverName());
 					itemResp.setDriverTel(item.getDriverTel());
 					itemResp.setVehicleNo(item.getVehicleNo());
+					itemResp.setVehicleTypeName(item.getVehicleTypeName());
+					if(CollectionUtils.isNotEmpty(memberVehicleRespList)){
+						for(MemberVehicleResp mvr : memberVehicleRespList){
+							if(StringUtils.equals(mvr.getVehicleId(), item.getVehicleId())){
+								itemResp.setVehiweight(mvr.getVehiWeight());
+							}
+						}
+					}
 					if( flag ){
 						itemResp.setIsUsed(1);
 					}

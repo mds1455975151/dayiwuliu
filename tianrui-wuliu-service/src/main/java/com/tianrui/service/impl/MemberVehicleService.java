@@ -634,4 +634,16 @@ public class MemberVehicleService implements IMemberVehicleService {
 		}
 		return rs;
 	}
+	
+	@Override
+	public List<MemberVehicleResp> selectVehicleByIds(List<String> vehicleIds) throws Exception {
+		if(vehicleIds != null){
+			// 查询数量
+			List<MemberVehicle>  memberVehicleList =  memberVehicleMapper.selectVehicleByIds(vehicleIds);
+			// 数据转换
+			List<MemberVehicleResp> memberVehicleRespList = convert2MemberVehicleList(memberVehicleList);
+			return memberVehicleRespList;
+		}
+		return null;
+	}
 }
