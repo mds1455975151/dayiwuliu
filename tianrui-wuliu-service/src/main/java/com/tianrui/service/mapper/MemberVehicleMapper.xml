@@ -737,7 +737,7 @@
   <select id="selectVehicleByIds" resultMap="BaseResultMap">
   		select vehicleid,vehiweight from wuliu_member_vehicle 
   		<where>
-  			<if test="list !=null">
+  			<if test="list !=null and list.size()>0">
   				vehicleid in 
   				<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
 				 	#{item}  
