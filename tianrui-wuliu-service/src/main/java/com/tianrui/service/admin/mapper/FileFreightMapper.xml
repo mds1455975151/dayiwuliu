@@ -89,6 +89,7 @@
   <select id="findByEntity" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.FileFreight" >
     select 
     	f.ID ID,
+    	f.organizationname organizationname,
 		f.freightName freightName,
 		f.status status, 
 		f.price price,

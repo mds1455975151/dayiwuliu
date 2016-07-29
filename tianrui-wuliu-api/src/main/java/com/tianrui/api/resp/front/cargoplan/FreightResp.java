@@ -12,6 +12,10 @@ public class FreightResp extends BaseResp{
      */
     private String organizationid;
     /**
+     * 所属组织名称 
+     */
+    private String organizationname;
+    /**
      /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
      */
@@ -110,6 +114,12 @@ public class FreightResp extends BaseResp{
 	}
 	public String getStatus() {
 		return status;
+	}
+	public String getOrganizationname() {
+		return organizationname;
+	}
+	public void setOrganizationname(String organizationname) {
+		this.organizationname = organizationname;
 	}
 	public void setStatus(String status) {
 		this.status = status;
