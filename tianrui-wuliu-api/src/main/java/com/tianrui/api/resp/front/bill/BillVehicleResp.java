@@ -12,6 +12,8 @@ public class BillVehicleResp {
 	private String vehicleTypeName;
 	/** 载重 */
 	private String vehiweight;
+	/** 车辆状态 */
+	private String billstatus;
 	
 	private String vehicleNo;
 	//1 该车辆已被实用 0该车辆未被实用
@@ -57,6 +59,12 @@ public class BillVehicleResp {
 	}
 	public void setVehiweight(String vehiweight) {
 		this.vehiweight = vehiweight;
+	}
+	public String getBillstatus() {
+		return billstatus;
+	}
+	public void setBillstatus(String billstatus) {
+		this.billstatus = billstatus;
 	}
 	
 }

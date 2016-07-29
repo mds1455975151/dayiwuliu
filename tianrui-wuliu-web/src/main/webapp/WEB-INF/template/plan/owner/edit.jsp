@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!--tab切换标题-->
                         <ul class="plan_tabmenu">
                             <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
-                            <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li>
+                            <%-- <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
                             <input type="hidden" name="isFamily" value="0" id="isFamily" >
                         </ul>
                         <!--tab切换标题end-->
@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <!--我的车主内容end-->
                             
                             <!--我的熟车内容begin-->
-                            <div class="plan_tabcont hide familayVenderDiv">
+                            <%-- <div class="plan_tabcont hide familayVenderDiv">
                                 <!--车主信息begin-->
                                     <ul class="plan_line">
                                          <c:forEach items="${ownerResp}" var="item">
@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</c:forEach>
                                     </ul>
                                 <!--车主信息begin-->
-                            </div>
+                            </div> --%>
                             <!--我的熟车内容end-->
                         </div>
                         <!--tab切换的内容end-->
