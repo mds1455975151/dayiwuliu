@@ -34,7 +34,6 @@ import com.tianrui.api.resp.front.bill.BillTrackResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
-import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
@@ -55,6 +54,7 @@ import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mongo.BillTrackDao;
@@ -94,6 +94,8 @@ public class BillService implements IBillService{
 	IVehicleDriverService vehicleDriverService;
 	@Autowired
 	MemberVehicleService memberVehicleService;
+	@Autowired
+	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
 	MemberPositionService memberPositionService;
 	@Autowired
@@ -1135,7 +1137,7 @@ public class BillService implements IBillService{
 					vehicleIds.add(vehicleDriverList.get(i).getVehicleId());
 				}
 			}
-			List<MemberVehicleResp> memberVehicleRespList = memberVehicleService.selectVehicleByIds(vehicleIds);
+			List<MemberVehicle>  memberVehicleList =  memberVehicleMapper.selectVehicleByIds(vehicleIds);
 			//查询计划实用车辆信息
 			Bill query2 =new Bill();
 			query2.setPlanid(pId);
@@ -1157,10 +1159,11 @@ public class BillService implements IBillService{
 					itemResp.setDriverTel(item.getDriverTel());
 					itemResp.setVehicleNo(item.getVehicleNo());
 					itemResp.setVehicleTypeName(item.getVehicleTypeName());
-					if(CollectionUtils.isNotEmpty(memberVehicleRespList)){
-						for(MemberVehicleResp mvr : memberVehicleRespList){
-							if(StringUtils.equals(mvr.getVehicleId(), item.getVehicleId())){
-								itemResp.setVehiweight(mvr.getVehiWeight());
+					if(CollectionUtils.isNotEmpty(memberVehicleList)){
+						for(MemberVehicle mv : memberVehicleList){
+							if(StringUtils.equals(mv.getVehicleid(), item.getVehicleId())){
+								itemResp.setVehiweight(mv.getVehiweight().toString());
+								itemResp.setBillstatus(mv.getBillstatus());
 							}
 						}
 					}
