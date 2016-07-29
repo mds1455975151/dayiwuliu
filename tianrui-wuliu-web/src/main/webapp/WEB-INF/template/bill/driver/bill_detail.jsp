@@ -102,26 +102,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>开始时间</th>
                                 <th >结束时间</th>
-                                <th>非含税单价 </th>
+                              <!--   <th>非含税单价 </th> -->
+                                <th>车辆</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td >${bill.starttime }</td>
                                 <td >${bill.endtime }</td>
-                                <td >${bill.price}元 </td>
+                               <%--  <td >${bill.price}元 </td> --%>
+                                <td >${bill.vehicleno }</td>
                             </tr>
                             </tbody>
                             <thead>
                             <tr>
-                                <th>车辆</th>
                                 <th >司机</th>
                                 <th>联系方式 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td >${bill.vehicleno }</td>
                                 <td >${bill.drivername }</td>
                                 <td >${bill.drivertel } </td>
                             </tr>
@@ -143,13 +143,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                              	<thead>
                             	<tr>
 	                                <th colspan="1">磅单</th>
-	                                <th colspan="2">运单总价</th>
+	                               <!--  <th colspan="2">运单总价</th> -->
 	                            </tr>
 	                            </thead>
 	                            <tbody>
 		                            <tr>
 		                                <td colspan="1"><a href="${bill.signimgurl }" target="_blank">查看磅单</a></td>
-		                                <td colspan="2">${bill.price*bill.weight}元</td>
+		                                <%-- <td colspan="2">${bill.price*bill.weight}元</td> --%>
 		                            </tr>
 	                            </tbody>
                              </c:if>
