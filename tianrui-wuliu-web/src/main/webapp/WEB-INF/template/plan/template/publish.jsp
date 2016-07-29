@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!--tab切换标题-->
                         <ul class="plan_tabmenu">
                             <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
-                            <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li>
+                            <%-- <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
                             <input type="hidden" name="isFamily" value="${plan.isfamily }" id="isFamily" >
                         </ul>
                         <!--tab切换标题end-->

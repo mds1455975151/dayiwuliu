@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
                         	</c:if>
                         	<c:if test="${plan.isfamily ==1 }" >
-	                            <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li>
+	                           <%--  <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
                         	</c:if>
                         </ul>
                         <!--tab切换标题end-->
