@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.weixin.WeixinMemberReq;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.web.action.weixin.util.entity.Tokens;
 import com.tianrui.web.action.weixin.util.util.CommonUtil;
 import com.tianrui.web.action.weixin.util.util.Count;
+import com.tianrui.web.filter.TimeFilter;
 import com.tianrui.web.util.SessionManager;
 
 import net.sf.json.JSONObject;
@@ -61,9 +63,11 @@ public class AuthorizeAction {
 		req.setOpenid(openid);
 		MemberResp resp = systemMemberService.findByOpenid(openid);
 		request.getSession().setAttribute("openid", openid);
+		JSONObject obj = getMassage(openid);
 		if(resp != null){
 			SessionManager.setSessionMember(request, resp);
-			view.setViewName("/member/registerPage");
+			view.addObject("headimgurl", obj.get("headimgurl"));
+			view.setViewName("/weixin/about");
 		}else{
 			view.addObject("openid", openid);
 			view.setViewName("/member/loginPage");
@@ -82,5 +86,17 @@ public class AuthorizeAction {
 			log.debug("获取openid失败");
 		}
 		return openid;
+	}
+	//获取用户基本信息
+	public JSONObject getMassage(String openid){
+		String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+		Tokens token = TimeFilter.TOKEN;
+		String access_token = "";
+		if(token == null){
+			token = CommonUtil.getToken();
+		}
+		JSONObject js = CommonUtil.httpsRequest(url.replace("ACCESS_TOKEN", token.getAccessToken()).replace("OPENID", openid), "POST", null);
+		System.out.println(js.toString());
+		return js;
 	}
 }

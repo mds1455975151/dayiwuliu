@@ -14,6 +14,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IMemberPositionService;
 import com.tianrui.api.intf.ISystemMemberService;
@@ -37,21 +38,18 @@ public class WeixinAction {
 	IMemberPositionService positionService;
 	
 	@RequestMapping(value = "index",method=RequestMethod.GET)
-	public void indxe(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		String signature = request.getParameter("signature");
-		// 时间�?
-		String timestamp = request.getParameter("timestamp");
-		// 随机�?
-		String nonce = request.getParameter("nonce");
-		// 随机字符�?
-		String echostr = request.getParameter("echostr");
-		PrintWriter out = response.getWriter();
-		// 通过�?�� signature 对请求进行校验，若校验成功则原样返回 echostr，表示接入成功，否则接入失败
-		if (SignUtil.checkSignature(signature, timestamp, nonce)) {
-			out.print(echostr);
+	@ResponseBody
+	public String indxe(
+			String signature,
+			String timestamp,
+			String nonce,
+			String echostr 
+			) throws IOException{
+		// 通过 signature 对请求进行校验，若校验成功则原样返回 echostr，表示接入成功，否则接入失败
+		if (!SignUtil.checkSignature(signature, timestamp, nonce)) {
+			echostr = "";
 		}
-		out.close();
-		out = null;
+		return echostr;
 	}
 	
 	/**
@@ -59,25 +57,21 @@ public class WeixinAction {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "index",method=RequestMethod.POST)
-	public void main(HttpServletRequest request, HttpServletResponse response)
+	@ResponseBody
+	public String main(
+			String signature,
+			String timestamp,
+			String nonce,
+			String echostr ,
+			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		// 将请求�?响应的编码均设置为UTF-8（防止中文乱码）
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
 
-		// 接收参数微信加密签名�?时间戳�?随机�?
-		String signature = request.getParameter("signature");
-		String timestamp = request.getParameter("timestamp");
-		String nonce = request.getParameter("nonce");
-		PrintWriter out = response.getWriter();
 		if (SignUtil.checkSignature(signature, timestamp, nonce)) {
 			String respXml = null;
 			respXml = processRequest(request,response);
-			System.out.println("lastxml="+respXml);
-			out.print(respXml);	
+			return respXml;
 		}
-		out.close();
-		out = null;	
+		return null;
 	}
 	public String processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			

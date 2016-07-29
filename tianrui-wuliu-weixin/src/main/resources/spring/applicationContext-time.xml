@@ -14,13 +14,13 @@
 	    </property>  
 	   
 	    <property name="targetMethod" value="runTime" />  
-	    <property name="concurrent" value="false" /><!-- 作业不并发调度 -->  
+	    <property name="concurrent" value="false" />  
     </bean> 
     
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
 		<property name="jobDetail" ref="TimeFilter" />  
-		<!-- 每天12:00运行一次 --> 
-		<property name="cronExpression" value="0 */5 * * * ?" />  
+		<!-- 每个小时 --> 
+		<property name="cronExpression" value="0 0 */1 * * ?" />  
 	</bean> 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
 		<property name="triggers">  

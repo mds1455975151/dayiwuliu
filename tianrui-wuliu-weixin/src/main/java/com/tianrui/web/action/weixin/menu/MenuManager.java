@@ -107,7 +107,7 @@ public class MenuManager {
 		String appSecret = "4add7800a76bf23866778b14d69bf6d4";
 
 		// 调用接口获取凭证
-		Tokens token = CommonUtil.getToken(appId, appSecret);
+		Tokens token = CommonUtil.getToken();
 
 		if (null != token) {
 			// 创建菜单
