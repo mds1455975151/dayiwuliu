@@ -109,11 +109,11 @@ public class FileFrieghtAction {
 			HttpServletRequest request
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
-		if(freightService.findByName(req.getDesc1()) != null){
+		if(freightService.findByName(req.getFreightName()) != null){
 			rs.setCode("11");
 			rs.setError("策略名称已存在，请重新输入");
 		}else {
-			req.getDesc1();
+			req.getFreightName();
 			Users user = SessionManager.getSessionMember(request);
 			Date date = new Date();
 			req.setId(UUIDUtil.getId());
@@ -179,8 +179,8 @@ public class FileFrieghtAction {
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
 		
-		if(req.getDesc1()!= null ){
-			if(!req.getId().equals(freightService.findByName(req.getDesc1()))){
+		if(req.getFreightName()!= null ){
+			if(req.getId().equals(freightService.findByName(req.getFreightName()))){
 				rs.setCode("11");
 				rs.setError("策略名称已存在，请重新输入");
 				return rs;

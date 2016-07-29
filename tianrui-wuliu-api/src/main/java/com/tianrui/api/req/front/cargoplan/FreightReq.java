@@ -77,12 +77,14 @@ public class FreightReq extends BaseReq{
     /**
      * 运价名称
      */
-    private String desc1;
+    private String freightName;
 
     /**
      *	价格类型 0-自由；1-合同
      */
-    private String desc2;
+    private String freightType;
+    /** 税率*/
+    private Double tallage;
     
     private Integer limit;
    
@@ -92,12 +94,6 @@ public class FreightReq extends BaseReq{
 	}
 	public void setLimit(Integer limit) {
 		this.limit = limit;
-	}
-	public String getDesc2() {
-		return desc2;
-	}
-	public void setDesc2(String desc2) {
-		this.desc2 = desc2;
 	}
 	public String getId() {
 		return id;
@@ -113,6 +109,24 @@ public class FreightReq extends BaseReq{
 	}
 	public String getCargoid() {
 		return cargoid;
+	}
+	public Double getTallage() {
+		return tallage;
+	}
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
+	}
+	public String getFreightName() {
+		return freightName;
+	}
+	public void setFreightName(String freightName) {
+		this.freightName = freightName;
+	}
+	public String getFreightType() {
+		return freightType;
+	}
+	public void setFreightType(String freightType) {
+		this.freightType = freightType;
 	}
 	public String getOrganizationname() {
 		return organizationname;
@@ -188,11 +202,5 @@ public class FreightReq extends BaseReq{
 	}
 	public void setModifytime(Long modifytime) {
 		this.modifytime = modifytime;
-	}
-	public String getDesc1() {
-		return desc1;
-	}
-	public void setDesc1(String desc1) {
-		this.desc1 = desc1;
 	}
 }

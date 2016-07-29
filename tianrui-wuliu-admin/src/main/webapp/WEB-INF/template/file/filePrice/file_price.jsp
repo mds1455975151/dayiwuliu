@@ -81,6 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>策略名称</th>
                                 <th>单价</th>
                                 <th>计价单位</th>
+                                <th>税率</th>
                                 <th>状态</th>
                                 <th>货物名称</th>
                                 <th>路线名称</th>
@@ -122,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body" style=" ">
                 <div class="usermodal userlabel3">
                     <div class="model_width">
-                        <label><i style="color: #ff2f00;">*</i>策略名称：</label><input id="adddesc1" name="desc1" type="text">
+                        <label><i style="color: #ff2f00;">*</i>策略名称：</label><input id="adddesc1" name="freightName" type="text">
                     </div>
                     <div class="model_width" id="blurcargo">
                         <label><i style="color: #ff2f00;">*</i>货物：</label>
@@ -144,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>价格类型：</label>
-                        <select class="form-control" id="adddesc2" name="desc2">
+                        <select class="form-control" id="adddesc2" name="freightType">
                            	<option value="">请选择</option>
                             <option value="1">合同</option>
                             <option value="2">指导</option>
@@ -159,6 +160,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label><i style="color: #ff2f00;">*</i>计价单位：</label>
                         <input type="text" readonly="readonly" id="addpriceunits" name="priceunits">
                         <input type="hidden" id="addmeasure" name="measure">
+                    </div>
+                    <div class="model_width" id="blurmeasure">
+                        <label><i style="color: #ff2f00;">*</i>税率：</label>
+                        <select class="form-control" id="tallage" name="tallage">
+                      		<option value="4">4%</option>
+                            <option value="10">10%</option>
+                            <option value="12">12%</option>
+                        </select>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -187,7 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="usermodal userlabel3">
                     <div class="model_width">
                         <input type="hidden" name="id" value="" id="uptId">
-                        <label><i style="color: #ff2f00;">*</i>策略名称：</label><input maxlength="10"  type="text" id="uptdesc1" name="desc1" value="策略1">
+                        <label><i style="color: #ff2f00;">*</i>策略名称：</label><input maxlength="10"  type="text" id="uptdesc1" name="freightName" value="策略1">
                     </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>货物：</label>
@@ -207,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                    <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>价格类型：</label>
-                        <select class="form-control" name="desc2" id="uptdesc2">
+                        <select class="form-control" name="freightType" id="uptdesc2">
                             <option value="1">合同</option>
                             <option value="2">指导</option>
                         </select>
@@ -222,6 +231,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label><i style="color: #ff2f00;">*</i>计价单位：</label>
                         <input type="text" readonly="readonly" id="uptpriceunits" name="priceunits">
                     	<input type="hidden" id="uptmeasure" name="measure">
+                    </div>
+                    <div class="model_width" id="blurmeasure">
+                        <label><i style="color: #ff2f00;">*</i>税率：</label>
+                        <select class="form-control" id="tallage" name="tallage">
+                           	<option value="4">4%</option>
+                            <option value="10">10%</option>
+                            <option value="12">12%</option>
+                        </select>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -340,7 +357,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/filePrice/file_price.js" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_price.js" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

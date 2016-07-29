@@ -54,11 +54,6 @@
 	
 	<!-- interceptors -->
 	<mvc:interceptors>
-		<!-- 拦截所有APP接口请求，处理公共ApiParam参数，及拦截非法请求 -->
-		<mvc:interceptor>
-			<mvc:mapping path="/app/**"/>
-			<bean class="com.tianrui.web.smvc.ApiParamInterceptor" />
-		</mvc:interceptor>
 		<!-- 拦截所有Web端需要拦截的路径,做日志以及权限验证-->
 		<mvc:interceptor>
 			<mvc:mapping path="/trwuliu/**"/>

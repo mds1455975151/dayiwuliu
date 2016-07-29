@@ -114,7 +114,7 @@ public class FreightService implements IFreightService{
 	@Override
 	public String findByName(String desc1Name) throws Exception {
 		FileFreight freight = new FileFreight();
-		freight.setDesc1(desc1Name);
+		freight.setFreightName(desc1Name);
 		List<FileFreight> ls =  fileFreightMapper.findByName(freight);
 		if(ls != null && ls.size() > 0){
 			return ls.get(0).getId();

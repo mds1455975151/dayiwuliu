@@ -92,28 +92,18 @@ public class FileFreight implements IModel {
     /**
      * 运价名称
      */
-    private String desc1;
+    private String freightName;
 
     /**
-     *	价格类型 1-合同；2-指导
+     *	价格类型 0-自由；1-合同
      */
+    private String freightType;
+    
+    /** 税率*/
+    private Double tallage;
+    
+    private String desc1;
     private String desc2;
-
-    public String getcStatus() {
-		return cStatus;
-	}
-
-	public void setcStatus(String cStatus) {
-		this.cStatus = cStatus;
-	}
-
-	public String getrStatus() {
-		return rStatus;
-	}
-
-	public void setrStatus(String rStatus) {
-		this.rStatus = rStatus;
-	}
 
 	/**
      *
@@ -147,6 +137,46 @@ public class FileFreight implements IModel {
 
     public Integer getLimit() {
 		return limit;
+	}
+
+    public String getcStatus() {
+		return cStatus;
+	}
+
+	public void setcStatus(String cStatus) {
+		this.cStatus = cStatus;
+	}
+
+	public String getFreightName() {
+		return freightName;
+	}
+
+	public void setFreightName(String freightName) {
+		this.freightName = freightName;
+	}
+
+	public String getFreightType() {
+		return freightType;
+	}
+
+	public void setFreightType(String freightType) {
+		this.freightType = freightType;
+	}
+
+	public Double getTallage() {
+		return tallage;
+	}
+
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
+	}
+
+	public String getrStatus() {
+		return rStatus;
+	}
+
+	public void setrStatus(String rStatus) {
+		this.rStatus = rStatus;
 	}
 
 	public void setLimit(Integer limit) {

@@ -44,6 +44,15 @@ public class FreightlistResp extends BaseResp{
     /**
      * 运价名称
      */
+    private String freightName;
+
+    /**
+     *	价格类型 0-自由；1-合同
+     */
+    private String freightType;
+    
+    /** 税率*/
+    private Double tallage;
     private String desc1;
     
     /**
@@ -82,6 +91,30 @@ public class FreightlistResp extends BaseResp{
 
 	public String getDesc4() {
 		return desc4;
+	}
+
+	public String getFreightName() {
+		return freightName;
+	}
+
+	public void setFreightName(String freightName) {
+		this.freightName = freightName;
+	}
+
+	public String getFreightType() {
+		return freightType;
+	}
+
+	public void setFreightType(String freightType) {
+		this.freightType = freightType;
+	}
+
+	public Double getTallage() {
+		return tallage;
+	}
+
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
 	}
 
 	public void setDesc4(String desc4) {

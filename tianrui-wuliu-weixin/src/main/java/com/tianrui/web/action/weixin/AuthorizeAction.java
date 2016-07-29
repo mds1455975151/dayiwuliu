@@ -18,6 +18,7 @@ import com.tianrui.web.action.weixin.util.entity.Tokens;
 import com.tianrui.web.action.weixin.util.util.CommonUtil;
 import com.tianrui.web.action.weixin.util.util.Count;
 import com.tianrui.web.filter.TimeFilter;
+import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
 
 import net.sf.json.JSONObject;
@@ -51,6 +52,7 @@ public class AuthorizeAction {
 	 * @创建时间 2016年7月23日下午3:30:59
 	 */
 	@RequestMapping(value="/authorize",method=RequestMethod.GET)
+	@AuthValidation
 	public ModelAndView authorize(HttpServletRequest request,String code,String state) throws Exception{
 		ModelAndView view = new ModelAndView();
 		//获取微信用户openid

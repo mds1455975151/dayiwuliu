@@ -99,7 +99,7 @@ $(function(){
                       response( $.map( data, function( item ) {
                           return {
                               key:item.id,
-                              value:item.desc1,
+                              value:item.freightName,
                               cargoid:item.cargoid,
                               routeid:item.routeid,
                               price:item.price,

@@ -125,9 +125,14 @@ function interHTML(data){
 			hml +="<tr>"+
 			'<td></td>';
 		}
-		hml +="<td>"+data[a].desc1+"</td>"+ 
+		var tallage = "";
+		if(data[a].tallage != undefined){
+			tallage = data[a].tallage;
+		}
+		hml +="<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+data[a].price+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
+			"<td>"+tallage+"</td>"+ 
 			"<td>"+pricestatus+"</td>"+ 
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td><td>";
@@ -267,11 +272,11 @@ function findById(id){
 			if(rs.code=="000000"){
 				var data = rs.data;
 				document.getElementById("uptId").value = data.id;
-				document.getElementById("uptdesc1").value = data.desc1;
+				document.getElementById("uptdesc1").value = data.freightName;
 				document.getElementById("uptcargoid").value = data.cargoid;
 				document.getElementById("uptrouteid").value = data.routeid;
 				document.getElementById("uptprice").value = data.price;
-				document.getElementById("uptdesc2").value = data.desc2;
+				document.getElementById("uptdesc2").value = data.freightType;
 				document.getElementById("uptpriceunits").value = data.priceunits;
 				document.getElementById("uptmeasure").value = data.measure;
 			}

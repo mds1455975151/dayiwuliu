@@ -51,18 +51,6 @@ public class FreightResp extends BaseResp{
      */
     private Double price;
 
-    public String getcStatus() {
-		return cStatus;
-	}
-	public void setcStatus(String cStatus) {
-		this.cStatus = cStatus;
-	}
-	public String getrStatus() {
-		return rStatus;
-	}
-	public void setrStatus(String rStatus) {
-		this.rStatus = rStatus;
-	}
 	/**
      * 创建者 
      */
@@ -86,24 +74,39 @@ public class FreightResp extends BaseResp{
     /**
      * 运价名称
      */
-    private String desc1;
+    private String freightName;
+
     /**
-     *	价格类型 1-合同；2-指导
+     *	价格类型 0-自由；1-合同
      */
-    private String desc2;
+    private String freightType;
     
+    /** 税率*/
+    private Double tallage;
     
-	public String getDesc2() {
-		return desc2;
-	}
-	public void setDesc2(String desc2) {
-		this.desc2 = desc2;
-	}
 	public String getOrganizationid() {
 		return organizationid;
 	}
 	public void setOrganizationid(String organizationid) {
 		this.organizationid = organizationid;
+	}
+	public String getFreightName() {
+		return freightName;
+	}
+	public void setFreightName(String freightName) {
+		this.freightName = freightName;
+	}
+	public String getFreightType() {
+		return freightType;
+	}
+	public void setFreightType(String freightType) {
+		this.freightType = freightType;
+	}
+	public Double getTallage() {
+		return tallage;
+	}
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
 	}
 	public String getStatus() {
 		return status;
@@ -125,6 +128,18 @@ public class FreightResp extends BaseResp{
 	}
 	public String getRouteid() {
 		return routeid;
+	}
+	public String getcStatus() {
+		return cStatus;
+	}
+	public void setcStatus(String cStatus) {
+		this.cStatus = cStatus;
+	}
+	public String getrStatus() {
+		return rStatus;
+	}
+	public void setrStatus(String rStatus) {
+		this.rStatus = rStatus;
 	}
 	public void setRouteid(String routeid) {
 		this.routeid = routeid;
@@ -164,12 +179,6 @@ public class FreightResp extends BaseResp{
 	}
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-	public String getDesc1() {
-		return desc1;
-	}
-	public void setDesc1(String desc1) {
-		this.desc1 = desc1;
 	}
 	public String getId() {
 		return id;
