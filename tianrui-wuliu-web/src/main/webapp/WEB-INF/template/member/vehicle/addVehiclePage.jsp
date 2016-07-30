@@ -182,6 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--内容部分end-->
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
+		<script type="text/javascript">var trRoot = "${trRoot}/tianrui/images/";</script>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js" ></script>
 		<script type="text/javascript" src="/resources/js/member/vehicle/addVehiclePage.js" ></script>

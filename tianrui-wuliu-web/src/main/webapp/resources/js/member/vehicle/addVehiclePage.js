@@ -236,7 +236,7 @@ function invokeCropBoxMethod() {
     {
         thumbBox: '.thumbBox',
         spinner: '.spinner',
-        imgSrc: ''
+        imgSrc: trRoot+'democar.jpg'
     };
     var cropper = $('.imgBox_car').cropbox(options);
     
