@@ -58,9 +58,14 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
-    <include refid="Base_Column_List" />
-    from wuliu_bill
-    where ID = #{id,jdbcType=VARCHAR}
+    b.ID, b.planid, b.vehicleid, b.driverid, b.routeid, b.vehicleno, b.vehicletypeName, 
+    b.cargoname, b.startcity, b.consignorname, b.consignortel, b.endTime, b.startTime, b.endcity, b.receivername, 
+    b.receivertel, b.priceUnits, b.distance, b.price, b.type, b.status, b.waybillno, b.weight, b.trueweight, 
+    b.ownerid, b.venderid, b.venderdelflag, b.ownerdelflag, b.driverdelflag, b.orgid,b.plancode,b.creator, b.createtime, 
+    b.modifier, b.modifytime, b.signimgurl,b.DESC1, b.DESC2, b.DESC3, b.DESC4, vb.drivername,vb.drivertel 
+    from wuliu_bill b left join wuliu_vehicle_driver vb 
+    on b.vehicleid = vb.vehicleid 
+    where b.ID = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.Bill" >
     select 
