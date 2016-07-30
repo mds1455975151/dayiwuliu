@@ -47,6 +47,7 @@ public class WaybillResp extends BaseResp{
     private Long modifytime;
     private String signimgurl;
     private String desc1;
+    private Double tallage;
     
 	
 	//拒绝原因类型
@@ -344,10 +345,11 @@ public class WaybillResp extends BaseResp{
 	public void setRefuseReson(String refuseReson) {
 		this.refuseReson = refuseReson;
 	}
+	public Double getTallage() {
+		return tallage;
+	}
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
+	}
 	
-    
-	
-	
-    
-    
 }

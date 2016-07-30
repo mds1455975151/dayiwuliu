@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -95,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>计价单位</th>
-                                <th>非含税单价</th>
+                                <th>含税单价</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -104,8 +105,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             	<td><span id="hprice">${plan.price }</span></td>
                             </tr>
                             </tbody>
+                            <thead>
+                            <tr>
+                                <th>税率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            	<td style="height: 35px"><span id="tallage">
+                            	<c:if test="${not empty plan.tallage}">
+                            		<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
+                            	</c:if>
+                            	</span></td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="goods_line">
+                    <label> 发货单位：</label>
+                    <input type="text" name="organizationname" id ="organizationname" value="${plan.orgname }" readonly>
                 </div>
                 <div class="goods_line">
                     <label> 计划总量：</label>

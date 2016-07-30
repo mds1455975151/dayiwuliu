@@ -127,5 +127,6 @@ public interface FileFreightMapper {
      */
 	List<FileFreight> findByName(FileFreight freight);
     
+	FileFreight selectOne(String id);
     
 }

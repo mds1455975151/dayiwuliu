@@ -57,6 +57,7 @@ public class BillPlanResp extends BaseResp{
     private String price;
     
     private String vender;
+    private Double tallage;
 	public String getStartcity() {
 		return startcity;
 	}
@@ -147,7 +148,11 @@ public class BillPlanResp extends BaseResp{
 	public void setPrice(String price) {
 		this.price = price;
 	}
-    
-    
+	public Double getTallage() {
+		return tallage;
+	}
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
+	}
     
 }

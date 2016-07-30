@@ -103,7 +103,9 @@ $(function(){
                               cargoid:item.cargoid,
                               routeid:item.routeid,
                               price:item.price,
-                              priceunits:item.priceunits
+                              priceunits:item.priceunits,
+                              tallage:item.tallage,
+                              organizationname:item.organizationname
                           }
                       }));
                   }
@@ -116,6 +118,10 @@ $(function(){
             $("#hpriceunits").html( ui.item.priceunits);
             $(".cargoSel").val( ui.item.cargoid);
             $(".routeSel").val( ui.item.routeid);
+            if(ui.item.tallage && $.isNumeric(ui.item.tallage)){
+            	$("#tallage").html(parseInt(ui.item.tallage)+'%');
+            }
+            $("#organizationname").val(ui.item.organizationname);
             queryCargo(true);
             queryRoute(true);
             //总价

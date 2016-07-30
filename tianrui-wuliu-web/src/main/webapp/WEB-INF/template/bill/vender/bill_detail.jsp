@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>开始时间</th>
                                 <th >结束时间</th>
-                                <th>非含税单价 </th>
+                                <th>含税单价 </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -124,6 +124,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td >${bill.vehicleno }</td>
                                 <td >${bill.drivername }</td>
                                 <td >${bill.drivertel } </td>
+                            </tr>
+                            </tbody>
+                            <thead>
+                            <tr>
+                                <th>税率</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                	<c:if test="${not empty bill.tallage }">
+                                		<fmt:formatNumber type="number" value="${bill.tallage }" maxFractionDigits="0"></fmt:formatNumber>%
+                                	</c:if>
+                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                             <!-- 榜单图片 -->

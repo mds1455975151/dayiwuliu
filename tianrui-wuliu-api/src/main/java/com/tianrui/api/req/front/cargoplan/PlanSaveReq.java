@@ -40,6 +40,8 @@ public class PlanSaveReq extends BaseReq{
     private String istemplate;
     //当前用户id
     private String curruId;
+    //发货单位名称
+    private String organizationname;
 
 	public String getFreightid() {
 		return freightid;
@@ -144,10 +146,12 @@ public class PlanSaveReq extends BaseReq{
 	public void setCurruId(String curruId) {
 		this.curruId = curruId;
 	}
-    
-    
-    
-    
-    
-   
+
+	public String getOrganizationname() {
+		return organizationname;
+	}
+
+	public void setOrganizationname(String organizationname) {
+		this.organizationname = organizationname;
+	}
 }

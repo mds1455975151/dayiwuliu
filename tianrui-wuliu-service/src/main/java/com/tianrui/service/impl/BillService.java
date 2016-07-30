@@ -43,9 +43,11 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.impl.OrganizationService;
+import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.Bill;
@@ -102,6 +104,8 @@ public class BillService implements IBillService{
 	FileUploadService fileUploadService;
 	@Autowired
 	protected ICargoPlanService cargoPlanService;
+	@Autowired
+	FileFreightMapper fileFreightMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -705,6 +709,10 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				resp = conver2billResp(db);
 			}
+			FileFreight fileFreight = fileFreightMapper.selectOne(planMapper.selectByPrimaryKey(db.getPlanid()).getFreightid());
+			if(fileFreight != null){
+				resp.setTallage(fileFreight.getTallage());
+			}
 		}
 		return resp;
 	}
@@ -828,6 +836,10 @@ public class BillService implements IBillService{
 				resp.setReceivepersionphone(plan.getReceivepersonphone());
 				resp.setSendpersion(plan.getSendperson());
 				resp.setSendpersionphone(plan.getSendpersonphone());
+				FileFreight fileFreight = fileFreightMapper.selectOne(plan.getFreightid());
+				if(fileFreight != null){
+					resp.setTallage(fileFreight.getTallage());
+				}
 			}
 		}
 		return resp;

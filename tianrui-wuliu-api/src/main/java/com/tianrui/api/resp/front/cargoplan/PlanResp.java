@@ -86,6 +86,7 @@ public class PlanResp extends BaseResp{
     private String orgid;
     private String orgname;
     private String ownerName;
+    private Double tallage;
 	public String getId() {
 		return id;
 	}
@@ -374,7 +375,10 @@ public class PlanResp extends BaseResp{
 	public void setOrgname(String orgname) {
 		this.orgname = orgname;
 	}
-	
-	
-	
+	public Double getTallage() {
+		return tallage;
+	}
+	public void setTallage(Double tallage) {
+		this.tallage = tallage;
+	}
 }

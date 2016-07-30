@@ -97,7 +97,9 @@
 		f.cargoid cargoid,
 		f.routeid routeid,
 		c.status cStatus,
-		r.status rStatus
+		r.status rStatus,
+		f.tallage tallage,
+		f.organizationname organizationname 
 	FROM
 		file_freight f 
 	LEFT JOIN file_org_cargo c ON c.ID = f.cargoid
@@ -516,4 +518,10 @@
     </set>
     where ID in (${id})
   </update>
+  <select id="selectOne" parameterType="string" resultType="com.tianrui.service.admin.bean.FileFreight">
+  		select 
+  		<include refid="Base_Column_List" /> 
+  		from file_freight 
+  		where id = #{id}
+  </select>
 </mapper>

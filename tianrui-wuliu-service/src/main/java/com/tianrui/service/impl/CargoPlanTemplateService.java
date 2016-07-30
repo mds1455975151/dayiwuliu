@@ -16,6 +16,8 @@ import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FileFreight;
+import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.mongo.PlanTemplateDao;
 @Service
@@ -26,6 +28,8 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 	PlanTemplateDao planTemplateDao;
 	@Autowired
 	MemberVoService memberVoService;
+	@Autowired
+	FileFreightMapper fileFreightMapper;
 
 	@Override
 	public List<PlanResp> findPlanTemplat(PlanTemplateReq req) {
@@ -46,6 +50,9 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 		if( req !=null && StringUtils.isNotBlank(req.getId())){
 			try {
 				resp=copyPropertie(planTemplateDao.findOne(req.getId()));
+				FileFreight fileFreight = fileFreightMapper.selectOne(resp.getFreightid());
+				resp.setTallage(fileFreight.getTallage());
+				resp.setOrgname(fileFreight.getOrganizationname());
 			} catch (Exception e) {
 				loger.error(e.getMessage(),e);
 			}

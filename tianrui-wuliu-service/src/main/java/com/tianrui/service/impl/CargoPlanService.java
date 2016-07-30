@@ -125,6 +125,9 @@ public class CargoPlanService implements ICargoPlanService{
 				plan.setCompleted((double) 0);
 			}
 			resp =copyPropertie(plan);
+			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
+			resp.setTallage(fileFreight.getTallage());
+			resp.setOrgname(fileFreight.getOrganizationname());
 		}
 		return resp;
 	}
@@ -381,7 +384,9 @@ public class CargoPlanService implements ICargoPlanService{
 				
 				//发送消息
 				if( plan.getIsfamily()==0 ){
-					MemberVo owner =memberVoService.get(plan.getCreator());
+					MemberVo owner = new MemberVo();
+					owner.setUserName(req.getOrganizationname());
+					owner.setId(req.getCurruId());
 					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "owner");
 				}
 

@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
 String path = request.getContextPath();
@@ -81,8 +82,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>发货人</th>
-                                <th >收货人</th>
-                                <th> </th>
+                                <th>收货人</th>
+                                <th>税率</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -95,7 +96,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <h4>${bill.receivername }</h4>
                                     <h4>${bill.receivertel }</h4>
                                 </td>
-                                <td > </td>
+                                <td>
+                                	<c:if test="${not empty bill.tallage}">
+                            			<fmt:formatNumber type="number" value="${bill.tallage}" maxFractionDigits="0"/>%
+                            		</c:if>
+                            	</td>
                             </tr>
                             </tbody>
                         </table>
@@ -114,16 +119,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                 <div class="goods_line">
                     <div class="bill_yunshu mr20">
-	                    <div class="bill_danjia">
-	                        <label> 运输量：</label>
-	                        <input type="text" class="weightInput" placeholder="请输入8.88" maxlength="10" value="${bill.weight }" />${bill.desc1}
-	                    </div>
+                        <label> 运输量：</label>
+                        <input type="text" class="weightInput" placeholder="请输入8.88" maxlength="10" value="${bill.weight }" />${bill.desc1}
                     </div>
                     <div class="bill_yunshu">
-	                    <div class="bill_danjia">
-	                    <label> 非含税单价：</label>
-	                        <input type="text" class="priceInput" readOnly maxlength="10" value="${bill.price }" />元
-                        </div>
+	                    <label> 含税单价：</label>
+                        <input type="text" class="priceInput" readOnly maxlength="10" value="${bill.price }" />元
                     </div>
                 </div>
                   <div class="bill_fabu">
