@@ -317,91 +317,91 @@
     -->
     update wuliu_member_vehicle
     <set >
-      <if test="memberid != null" >
+      <if test="memberid != null and memberid != ''" >
         memberid = #{memberid,jdbcType=VARCHAR},
       </if>
-      <if test="billstatus != null" >
+      <if test="billstatus != null and billstatus != ''" >
         billstatus = #{billstatus,jdbcType=BIGINT},
       </if>
-      <if test="vehiOwnerName != null" >
+      <if test="vehiOwnerName != null and vehiOwnerName != ''" >
         vehiOwnerName = #{vehiOwnerName,jdbcType=BIGINT},
       </if>
-      <if test="vehiOwnerTel != null" >
+      <if test="vehiOwnerTel != null and vehiOwnerTel != ''" >
         vehiOwnerTel = #{vehiOwnerTel,jdbcType=BIGINT},
       </if>
-      <if test="audittime != null" >
+      <if test="audittime != null and audittime != '' " >
         audittime = #{audittime,jdbcType=BIGINT},
       </if>
-      <if test="vehicleid != null" >
+      <if test="vehicleid != null and vehicleid != '' " >
         vehicleid = #{vehicleid,jdbcType=VARCHAR},
       </if>
-      <if test="vehicleprefix != null" >
+      <if test="vehicleprefix != null and vehicleprefix != '' " >
         vehicleprefix = #{vehicleprefix,jdbcType=VARCHAR},
       </if>
-      <if test="vehicleno != null" >
+      <if test="vehicleno != null and vehicleno != '' " >
         vehicleno = #{vehicleno,jdbcType=VARCHAR},
       </if>
-      <if test="vehicletype != null" >
+      <if test="vehicletype != null and vehicletype != '' " >
         vehicletype = #{vehicletype,jdbcType=VARCHAR},
       </if>
-      <if test="vehicletypename != null" >
+      <if test="vehicletypename != null and vehicletypename != '' " >
         vehicletypename = #{vehicletypename,jdbcType=VARCHAR},
       </if>
-      <if test="vehilength != null" >
+      <if test="vehilength != null and vehilength != '' " >
         vehilength = #{vehilength,jdbcType=DOUBLE},
       </if>
-      <if test="vehiwidth != null" >
+      <if test="vehiwidth != null and vehiwidth != '' " >
         vehiwidth = #{vehiwidth,jdbcType=DOUBLE},
       </if>
-      <if test="vehiheight != null" >
+      <if test="vehiheight != null and vehiheight != '' " >
         vehiheight = #{vehiheight,jdbcType=DOUBLE},
       </if>
-      <if test="vehiweight != null" >
+      <if test="vehiweight != null and vehiweight != '' " >
         vehiweight = #{vehiweight,jdbcType=DOUBLE},
       </if>
-      <if test="vehilicenseimgpath != null" >
+      <if test="vehilicenseimgpath != null and vehilicenseimgpath != '' " >
         vehilicenseimgpath = #{vehilicenseimgpath,jdbcType=VARCHAR},
       </if>
-      <if test="vehiheadimgpath != null" >
+      <if test="vehiheadimgpath != null and vehiheadimgpath != '' " >
         vehiheadimgpath = #{vehiheadimgpath,jdbcType=VARCHAR},
       </if>
-      <if test="vehileftimgpath != null" >
+      <if test="vehileftimgpath != null and vehileftimgpath != '' " >
         vehileftimgpath = #{vehileftimgpath,jdbcType=VARCHAR},
       </if>
-      <if test="vehirightimgpath != null" >
+      <if test="vehirightimgpath != null and vehirightimgpath != '' " >
         vehirightimgpath = #{vehirightimgpath,jdbcType=VARCHAR},
       </if>
-      <if test="vehiandownerimgpath != null" >
+      <if test="vehiandownerimgpath != null and vehiandownerimgpath != '' " >
         vehiandownerimgpath = #{vehiandownerimgpath,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
+      <if test="status != null and status != '' " >
         status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="memo != null" >
+      <if test="memo != null and memo != '' " >
         memo = #{memo,jdbcType=VARCHAR},
       </if>
-      <if test="desc1 != null" >
+      <if test="desc1 != null and desc1 != '' " >
         desc1 = #{desc1,jdbcType=VARCHAR},
       </if>
-      <if test="desc2 != null" >
+      <if test="desc2 != null and desc2 != '' " >
         desc2 = #{desc2,jdbcType=VARCHAR},
       </if>
-      <if test="desc3 != null" >
+      <if test="desc3 != null and desc3 != '' " >
         desc3 = #{desc3,jdbcType=VARCHAR},
       </if>
-      <if test="desc4 != null" >
+      <if test="desc4 != null and desc4 != '' " >
         desc4 = #{desc4,jdbcType=VARCHAR},
       </if>
-      <if test="creator != null" >
+      <if test="creator != null and creator != '' " >
         creator = #{creator,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
+      <if test="createtime != null and createtime != '' " >
         createtime = #{createtime,jdbcType=BIGINT},
       </if>
-      <if test="modifier != null" >
+      <if test="modifier != null and modifier != '' " >
         modifier = #{modifier,jdbcType=VARCHAR},
       </if>
-      <if test="modifytime != null" >
+      <if test="modifytime != null and modifytime != '' " >
         modifytime = #{modifytime,jdbcType=BIGINT},
       </if>
     </set>

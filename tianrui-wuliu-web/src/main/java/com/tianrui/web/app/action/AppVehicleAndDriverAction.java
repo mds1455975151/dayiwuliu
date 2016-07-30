@@ -267,6 +267,8 @@ public class AppVehicleAndDriverAction {
 			if("000000".equals(result.getCode())){
 				req.setVehiHeadImgPath(img);
 			}
+		}else{
+			req.setVehiHeadImgPath(null);
 		}
 		//上传驾驶证照片
 		if(!"".equals(req.getVehiLicenseImgPath())){
@@ -277,6 +279,8 @@ public class AppVehicleAndDriverAction {
 			if("000000".equals(result.getCode())){
 				req.setVehiLicenseImgPath(img);
 			}
+		}else{
+			req.setVehiLicenseImgPath(null);
 		}
 		result = memberVehicleService.insert(req);
 		
