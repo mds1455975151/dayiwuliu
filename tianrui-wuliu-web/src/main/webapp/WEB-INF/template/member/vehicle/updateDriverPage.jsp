@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	    <title>天瑞物流平台-添加车辆</title>
+	    <title>天瑞物流平台-修改车辆</title>
 	    <meta name="keywords" content=" 天瑞"/>
 	    <meta name="description" content="">
 	    <meta name="author" content="">
@@ -185,6 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
+		<script type="text/javascript">var trRoot = "${trRoot}/tianrui/images/";</script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js" ></script>
 		<script type="text/javascript" src="/resources/js/member/vehicle/updateVehiclePage.js" ></script>
 		

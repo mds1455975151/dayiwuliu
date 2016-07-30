@@ -238,6 +238,7 @@ function invokeCropBoxMethod() {
         spinner: '.spinner',
         imgSrc: trRoot+'democar.jpg'
     };
+    
     var cropper = $('.imgBox_car').cropbox(options);
     
     // 文件上传按钮操作
@@ -301,14 +302,20 @@ function invokeCropBoxMethod() {
     thumbcom2.width(200);
     thumbcom2.css({ "margin-top": -57, "margin-left": -100 });
 
-    var cropper2 = $('.imgBox_car2').cropbox(options);
+    var options2 =
+    {
+    		thumbBox: '.thumbBox',
+    		spinner: '.spinner',
+    		imgSrc: trRoot+'demoxsz.jpg'
+    };
+    var cropper2 = $('.imgBox_car2').cropbox(options2);
     
     // 行驶证文件上传按钮操作
     $('#upload-file_p2').on('change', function () {
         var reader2 = new FileReader();
         reader2.onload = function (e) {
-            options.imgSrc = e.target.result;
-            cropper2 = $('.imgBox_car2').cropbox(options);
+        	options2.imgSrc = e.target.result;
+            cropper2 = $('.imgBox_car2').cropbox(options2);
         };
         reader2.readAsDataURL(this.files[0]);
         this.files = [];
