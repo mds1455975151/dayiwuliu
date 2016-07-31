@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.TransferMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.Transfer" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="billid" property="billid" jdbcType="VARCHAR" />
+    <result column="vehicleno" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="startid" property="startid" jdbcType="VARCHAR" />
+    <result column="starter" property="starter" jdbcType="VARCHAR" />
+    <result column="starttele" property="starttele" jdbcType="VARCHAR" />
+    <result column="sendid" property="sendid" jdbcType="VARCHAR" />
+    <result column="sender" property="sender" jdbcType="VARCHAR" />
+    <result column="sendtele" property="sendtele" jdbcType="VARCHAR" />
+    <result column="sendtime" property="sendtime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, billid, vehicleno, startid, starter, starttele, sendid, sender, sendtele, sendtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_transfer
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuliu_transfer
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.Transfer" >
+    insert into wuliu_transfer (id, billid, vehicleno, 
+      startid, starter, starttele, 
+      sendid, sender, sendtele, 
+      sendtime)
+    values (#{id,jdbcType=VARCHAR}, #{billid,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, 
+      #{startid,jdbcType=VARCHAR}, #{starter,jdbcType=VARCHAR}, #{starttele,jdbcType=VARCHAR}, 
+      #{sendid,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, #{sendtele,jdbcType=VARCHAR}, 
+      #{sendtime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.Transfer" >
+    insert into wuliu_transfer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billid != null" >
+        billid,
+      </if>
+      <if test="vehicleno != null" >
+        vehicleno,
+      </if>
+      <if test="startid != null" >
+        startid,
+      </if>
+      <if test="starter != null" >
+        starter,
+      </if>
+      <if test="starttele != null" >
+        starttele,
+      </if>
+      <if test="sendid != null" >
+        sendid,
+      </if>
+      <if test="sender != null" >
+        sender,
+      </if>
+      <if test="sendtele != null" >
+        sendtele,
+      </if>
+      <if test="sendtime != null" >
+        sendtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="billid != null" >
+        #{billid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="startid != null" >
+        #{startid,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null" >
+        #{starter,jdbcType=VARCHAR},
+      </if>
+      <if test="starttele != null" >
+        #{starttele,jdbcType=VARCHAR},
+      </if>
+      <if test="sendid != null" >
+        #{sendid,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtele != null" >
+        #{sendtele,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Transfer" >
+    update wuliu_transfer
+    <set >
+      <if test="billid != null" >
+        billid = #{billid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="startid != null" >
+        startid = #{startid,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null" >
+        starter = #{starter,jdbcType=VARCHAR},
+      </if>
+      <if test="starttele != null" >
+        starttele = #{starttele,jdbcType=VARCHAR},
+      </if>
+      <if test="sendid != null" >
+        sendid = #{sendid,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtele != null" >
+        sendtele = #{sendtele,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.Transfer" >
+    update wuliu_transfer
+    set billid = #{billid,jdbcType=VARCHAR},
+      vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      startid = #{startid,jdbcType=VARCHAR},
+      starter = #{starter,jdbcType=VARCHAR},
+      starttele = #{starttele,jdbcType=VARCHAR},
+      sendid = #{sendid,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      sendtele = #{sendtele,jdbcType=VARCHAR},
+      sendtime = #{sendtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
