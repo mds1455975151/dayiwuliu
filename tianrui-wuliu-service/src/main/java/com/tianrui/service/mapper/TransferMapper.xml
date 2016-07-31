@@ -5,16 +5,21 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="billid" property="billid" jdbcType="VARCHAR" />
     <result column="vehicleno" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="startid" property="startid" jdbcType="VARCHAR" />
     <result column="starter" property="starter" jdbcType="VARCHAR" />
     <result column="starttele" property="starttele" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="BIGINT" />
     <result column="sendid" property="sendid" jdbcType="VARCHAR" />
     <result column="sender" property="sender" jdbcType="VARCHAR" />
     <result column="sendtele" property="sendtele" jdbcType="VARCHAR" />
     <result column="sendtime" property="sendtime" jdbcType="BIGINT" />
+    <result column="delete" property="delete" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, billid, vehicleno, startid, starter, starttele, sendid, sender, sendtele, sendtime
+    id, billid, vehicleno, status, reason, startid, starter, starttele, starttime, sendid, 
+    sender, sendtele, sendtime, delete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -28,13 +33,15 @@
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.Transfer" >
     insert into wuliu_transfer (id, billid, vehicleno, 
-      startid, starter, starttele, 
+      status, reason, startid, 
+      starter, starttele, starttime, 
       sendid, sender, sendtele, 
-      sendtime)
+      sendtime, delete)
     values (#{id,jdbcType=VARCHAR}, #{billid,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, 
-      #{startid,jdbcType=VARCHAR}, #{starter,jdbcType=VARCHAR}, #{starttele,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{startid,jdbcType=VARCHAR}, 
+      #{starter,jdbcType=VARCHAR}, #{starttele,jdbcType=VARCHAR}, #{starttime,jdbcType=BIGINT}, 
       #{sendid,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, #{sendtele,jdbcType=VARCHAR}, 
-      #{sendtime,jdbcType=BIGINT})
+      #{sendtime,jdbcType=BIGINT}, #{delete,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.Transfer" >
     insert into wuliu_transfer
@@ -48,6 +55,12 @@
       <if test="vehicleno != null" >
         vehicleno,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
       <if test="startid != null" >
         startid,
       </if>
@@ -56,6 +69,9 @@
       </if>
       <if test="starttele != null" >
         starttele,
+      </if>
+      <if test="starttime != null" >
+        starttime,
       </if>
       <if test="sendid != null" >
         sendid,
@@ -69,6 +85,9 @@
       <if test="sendtime != null" >
         sendtime,
       </if>
+      <if test="delete != null" >
+        delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,6 +99,12 @@
       <if test="vehicleno != null" >
         #{vehicleno,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
       <if test="startid != null" >
         #{startid,jdbcType=VARCHAR},
       </if>
@@ -88,6 +113,9 @@
       </if>
       <if test="starttele != null" >
         #{starttele,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=BIGINT},
       </if>
       <if test="sendid != null" >
         #{sendid,jdbcType=VARCHAR},
@@ -101,6 +129,9 @@
       <if test="sendtime != null" >
         #{sendtime,jdbcType=BIGINT},
       </if>
+      <if test="delete != null" >
+        #{delete,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Transfer" >
@@ -112,6 +143,12 @@
       <if test="vehicleno != null" >
         vehicleno = #{vehicleno,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
       <if test="startid != null" >
         startid = #{startid,jdbcType=VARCHAR},
       </if>
@@ -120,6 +157,9 @@
       </if>
       <if test="starttele != null" >
         starttele = #{starttele,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=BIGINT},
       </if>
       <if test="sendid != null" >
         sendid = #{sendid,jdbcType=VARCHAR},
@@ -133,6 +173,9 @@
       <if test="sendtime != null" >
         sendtime = #{sendtime,jdbcType=BIGINT},
       </if>
+      <if test="delete != null" >
+        delete = #{delete,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -140,13 +183,17 @@
     update wuliu_transfer
     set billid = #{billid,jdbcType=VARCHAR},
       vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
       startid = #{startid,jdbcType=VARCHAR},
       starter = #{starter,jdbcType=VARCHAR},
       starttele = #{starttele,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=BIGINT},
       sendid = #{sendid,jdbcType=VARCHAR},
       sender = #{sender,jdbcType=VARCHAR},
       sendtele = #{sendtele,jdbcType=VARCHAR},
-      sendtime = #{sendtime,jdbcType=BIGINT}
+      sendtime = #{sendtime,jdbcType=BIGINT},
+      delete = #{delete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -7,11 +7,17 @@ public class Transfer {
 
     private String vehicleno;
 
+    private String status;
+
+    private String reason;
+
     private String startid;
 
     private String starter;
 
     private String starttele;
+
+    private Long starttime;
 
     private String sendid;
 
@@ -20,6 +26,8 @@ public class Transfer {
     private String sendtele;
 
     private Long sendtime;
+
+    private String delete;
 
     public String getId() {
         return id;
@@ -45,6 +53,22 @@ public class Transfer {
         this.vehicleno = vehicleno == null ? null : vehicleno.trim();
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason == null ? null : reason.trim();
+    }
+
     public String getStartid() {
         return startid;
     }
@@ -67,6 +91,14 @@ public class Transfer {
 
     public void setStarttele(String starttele) {
         this.starttele = starttele == null ? null : starttele.trim();
+    }
+
+    public Long getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Long starttime) {
+        this.starttime = starttime;
     }
 
     public String getSendid() {
@@ -99,5 +131,13 @@ public class Transfer {
 
     public void setSendtime(Long sendtime) {
         this.sendtime = sendtime;
+    }
+
+    public String getDelete() {
+        return delete;
+    }
+
+    public void setDelete(String delete) {
+        this.delete = delete == null ? null : delete.trim();
     }
 }
