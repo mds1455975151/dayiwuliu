@@ -20,4 +20,6 @@ public interface TransferMapper {
     int updateByPrimaryKey(Transfer record);
     
     int updateByBillId(Transfer transfer);
+    
+    int deleteByBillId(String billId);
 }

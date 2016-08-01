@@ -251,7 +251,7 @@ public class BillService implements IBillService{
 						update.setDrivertel(vehicleDriver.getDrivertel());
 						
 						billMapper.updateByPrimaryKeySelective(update);
-						
+						//更新运单日志
 						Transfer transfer = new Transfer();
 						transfer.setId(UUIDUtil.getId());
 						transfer.setBillid(update.getId());
@@ -259,6 +259,7 @@ public class BillService implements IBillService{
 						transfer.setSendid(update.getDriverid());
 						transfer.setSender(update.getDrivername());
 						transfer.setSendtele(update.getDrivertel());
+						transfer.setIsvalid("1");
 						transferMapper.updateByBillId(transfer);
 						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP1,req.getCurruId(),db.getStatus());
@@ -297,6 +298,10 @@ public class BillService implements IBillService{
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
+						Transfer transfer = new Transfer();
+						transfer.setBillid(update.getId());
+						transfer.setIsvalid("0");
+						transferMapper.updateByBillId(transfer);
 						saveBillTrack(db.getId(),0,BIllTrackMsg.STEP2,req.getCurruId(),db.getStatus());
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
@@ -329,6 +334,10 @@ public class BillService implements IBillService{
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
+						Transfer transfer = new Transfer();
+						transfer.setBillid(update.getId());
+						transfer.setIsvalid("2");
+						transferMapper.updateByBillId(transfer);
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP3,req.getCurruId(),BillStatusEnum.CANCLE.getStatus());
 						//为司机发送站内信
 						MemberVo currUser =getMember(req.getCurruId());

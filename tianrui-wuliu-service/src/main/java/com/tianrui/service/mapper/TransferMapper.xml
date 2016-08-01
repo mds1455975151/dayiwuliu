@@ -261,4 +261,8 @@
     </set>
     where billid = #{billid,jdbcType=VARCHAR}
   </update>
+  <delete id="deleteByBillId" parameterType="string">
+  	delete from wuliu_transfer
+    where billid = #{billid,jdbcType=VARCHAR}
+  </delete>
 </mapper>
