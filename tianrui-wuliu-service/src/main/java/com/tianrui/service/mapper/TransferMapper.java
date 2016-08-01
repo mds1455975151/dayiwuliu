@@ -18,4 +18,6 @@ public interface TransferMapper {
     int updateByPrimaryKeySelective(Transfer record);
 
     int updateByPrimaryKey(Transfer record);
+    
+    int updateByBillId(Transfer transfer);
 }

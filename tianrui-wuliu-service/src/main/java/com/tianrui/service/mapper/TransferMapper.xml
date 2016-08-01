@@ -219,4 +219,46 @@
       isvalid = #{isvalid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateByBillId" parameterType="com.tianrui.service.bean.Transfer">
+  	update wuliu_transfer
+    <set >
+      <if test="vehicleno != null" >
+        vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startid != null" >
+        startid = #{startid,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null" >
+        starter = #{starter,jdbcType=VARCHAR},
+      </if>
+      <if test="starttele != null" >
+        starttele = #{starttele,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="sendid != null" >
+        sendid = #{sendid,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null" >
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtele != null" >
+        sendtele = #{sendtele,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=BIGINT},
+      </if>
+      <if test="isvalid != null" >
+        isvalid = #{isvalid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where billid = #{billid,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -181,9 +181,9 @@ public class BillService implements IBillService{
 						//生成运单日志
 						tf.setId(UUIDUtil.getId());
 						tf.setBillid(bill.getId());
-						tf.setVehicleno(item.getVehicleno());
+						tf.setVehicleno(bill.getVehicleno());
 						tf.setStatus("0");
-						tf.setStartid(bill.getCreator());
+						tf.setStartid(plan.getVehicleownerid());
 						tf.setStarter(plan.getVehicleownername());
 						tf.setStarttele(plan.getVehicleownerphone());
 						tf.setStarttime(System.currentTimeMillis());
@@ -251,6 +251,16 @@ public class BillService implements IBillService{
 						update.setDrivertel(vehicleDriver.getDrivertel());
 						
 						billMapper.updateByPrimaryKeySelective(update);
+						
+						Transfer transfer = new Transfer();
+						transfer.setId(UUIDUtil.getId());
+						transfer.setBillid(update.getId());
+						transfer.setStarttime(System.currentTimeMillis());
+						transfer.setSendid(update.getDriverid());
+						transfer.setSender(update.getDrivername());
+						transfer.setSendtele(update.getDrivertel());
+						transferMapper.updateByBillId(transfer);
+						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP1,req.getCurruId(),db.getStatus());
 						//为司机发送站内信
 						MemberVo currUser =getMember(req.getCurruId());
