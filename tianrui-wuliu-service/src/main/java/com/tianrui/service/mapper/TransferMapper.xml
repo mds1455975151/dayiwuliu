@@ -27,6 +27,29 @@
     from wuliu_transfer
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.Transfer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_transfer
+    <where>
+    	<if test="billid != null and billid != ''">
+    	and billid = #{id,jdbcType=VARCHAR}
+    	</if>
+    	<if test="vehicleno != null and vehicleno != ''">
+    	and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+    	</if>
+    	<if test="status != null and status != ''">
+    	and status = #{status,jdbcType=VARCHAR}
+    	</if>
+    	<if test="startid != null and startid != ''">
+    	and startid = #{startid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="sendid != null and sendid != ''">
+    	and sendid = #{sendid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by sendtime desc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_transfer
     where id = #{id,jdbcType=VARCHAR}

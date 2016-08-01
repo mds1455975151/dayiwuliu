@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.Transfer;
 
 public interface TransferMapper {
@@ -10,6 +12,8 @@ public interface TransferMapper {
     int insertSelective(Transfer record);
 
     Transfer selectByPrimaryKey(String id);
+    
+    List<Transfer> selectByCondition(Transfer record);
 
     int updateByPrimaryKeySelective(Transfer record);
 
