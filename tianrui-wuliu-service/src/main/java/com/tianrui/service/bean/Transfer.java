@@ -27,7 +27,7 @@ public class Transfer {
 
     private Long sendtime;
 
-    private String delete;
+    private String isvalid;
 
     public String getId() {
         return id;
@@ -133,11 +133,11 @@ public class Transfer {
         this.sendtime = sendtime;
     }
 
-    public String getDelete() {
-        return delete;
+    public String getIsvalid() {
+        return isvalid;
     }
 
-    public void setDelete(String delete) {
-        this.delete = delete == null ? null : delete.trim();
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid == null ? null : isvalid.trim();
     }
 }

@@ -15,11 +15,11 @@
     <result column="sender" property="sender" jdbcType="VARCHAR" />
     <result column="sendtele" property="sendtele" jdbcType="VARCHAR" />
     <result column="sendtime" property="sendtime" jdbcType="BIGINT" />
-    <result column="delete" property="delete" jdbcType="VARCHAR" />
+    <result column="isvalid" property="isvalid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, billid, vehicleno, status, reason, startid, starter, starttele, starttime, sendid, 
-    sender, sendtele, sendtime, delete
+    sender, sendtele, sendtime, isvalid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -59,12 +59,12 @@
       status, reason, startid, 
       starter, starttele, starttime, 
       sendid, sender, sendtele, 
-      sendtime, delete)
+      sendtime, isvalid)
     values (#{id,jdbcType=VARCHAR}, #{billid,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{startid,jdbcType=VARCHAR}, 
       #{starter,jdbcType=VARCHAR}, #{starttele,jdbcType=VARCHAR}, #{starttime,jdbcType=BIGINT}, 
       #{sendid,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, #{sendtele,jdbcType=VARCHAR}, 
-      #{sendtime,jdbcType=BIGINT}, #{delete,jdbcType=VARCHAR})
+      #{sendtime,jdbcType=BIGINT}, #{isvalid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.Transfer" >
     insert into wuliu_transfer
@@ -108,8 +108,8 @@
       <if test="sendtime != null" >
         sendtime,
       </if>
-      <if test="delete != null" >
-        delete,
+      <if test="isvalid != null" >
+        isvalid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -152,8 +152,8 @@
       <if test="sendtime != null" >
         #{sendtime,jdbcType=BIGINT},
       </if>
-      <if test="delete != null" >
-        #{delete,jdbcType=VARCHAR},
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -196,8 +196,8 @@
       <if test="sendtime != null" >
         sendtime = #{sendtime,jdbcType=BIGINT},
       </if>
-      <if test="delete != null" >
-        delete = #{delete,jdbcType=VARCHAR},
+      <if test="isvalid != null" >
+        isvalid = #{isvalid,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -216,7 +216,7 @@
       sender = #{sender,jdbcType=VARCHAR},
       sendtele = #{sendtele,jdbcType=VARCHAR},
       sendtime = #{sendtime,jdbcType=BIGINT},
-      delete = #{delete,jdbcType=VARCHAR}
+      isvalid = #{isvalid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

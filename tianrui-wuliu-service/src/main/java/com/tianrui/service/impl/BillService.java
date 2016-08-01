@@ -54,10 +54,12 @@ import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
+import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.PlanMapper;
+import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -106,11 +108,14 @@ public class BillService implements IBillService{
 	protected ICargoPlanService cargoPlanService;
 	@Autowired
 	FileFreightMapper fileFreightMapper;
+	@Autowired
+	TransferMapper transferMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		List<Bill> bills =null;
+		Transfer tf = new Transfer();
 		if( req !=null && StringUtils.isNotBlank(req.getPlanId()) ){
 			//获取车辆驾驶员信息
 			List<VehicleDriverVO> vehicleDrivers =getVehicleDriver(req.getVehicleDriverIds());
@@ -172,6 +177,20 @@ public class BillService implements IBillService{
 						bill.setReceivertel(plan.getReceivepersonphone());
 						
 						bills.add(bill);
+						
+						//生成运单日志
+						tf.setId(UUIDUtil.getId());
+						tf.setBillid(bill.getId());
+						tf.setVehicleno(item.getVehicleno());
+						tf.setStatus("0");
+						tf.setStartid(bill.getCreator());
+						tf.setStarter(plan.getVehicleownername());
+						tf.setStarttele(plan.getVehicleownerphone());
+						tf.setStarttime(System.currentTimeMillis());
+						tf.setSendid(bill.getDriverid());
+						tf.setSender(bill.getDrivername());
+						tf.setSendtele(bill.getDrivertel());
+						tf.setIsvalid("1");
 					}
 				}
 			}
@@ -183,6 +202,8 @@ public class BillService implements IBillService{
 			MemberVo currUser =getMember(req.getCurruId());
 			for( Bill item:bills ){
 				billMapper.insert(item);
+				//保存运单日志
+				transferMapper.insertSelective(tf);
 				saveBillTrack(item.getId(),1,BIllTrackMsg.INIT,req.getCurruId(),item.getStatus());
 				//为司机发送站内信
 				MemberVo receive =getMember(item.getDriverid());
