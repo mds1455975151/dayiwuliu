@@ -3,6 +3,7 @@ package com.tianrui.service.mapper;
 import java.util.List;
 
 import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.BillUpdate;
 
 public interface BillMapper {
     /**
@@ -55,6 +56,10 @@ public interface BillMapper {
     
     
     List<Bill> selectByCondition(Bill record);
+    /** 批量修改运单*/
+    int updateByBillTransfer(BillUpdate record);
+    /** 查询可以转运的运单*/
+    List<Bill> selectByBillTransfer(String driverid);
     
     long countByCondition(Bill record);
     

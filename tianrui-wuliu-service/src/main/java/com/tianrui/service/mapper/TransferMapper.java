@@ -16,6 +16,8 @@ public interface TransferMapper {
     List<Transfer> selectByCondition(Transfer record);
 
     int updateByPrimaryKeySelective(Transfer record);
+    /** 用户接收-拒绝转运请求*/
+    int updateByStatus(Transfer transfer);
 
     int updateByPrimaryKey(Transfer record);
     

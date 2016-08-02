@@ -261,8 +261,21 @@
     </set>
     where billid = #{billid,jdbcType=VARCHAR}
   </update>
+  
   <delete id="deleteByBillId" parameterType="string">
   	delete from wuliu_transfer
     where billid = #{billid,jdbcType=VARCHAR}
   </delete>
+  <!-- 修改请求状态 -->
+  <update id="updateByStatus" parameterType="com.tianrui.service.bean.Transfer">
+  	update wuliu_transfer
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where billid = #{billid,jdbcType=VARCHAR} 
+    and startid = #{startid,jdbcType=VARCHAR} 
+    and sendid = #{sendid,jdbcType=VARCHAR}
+  </update>
 </mapper>

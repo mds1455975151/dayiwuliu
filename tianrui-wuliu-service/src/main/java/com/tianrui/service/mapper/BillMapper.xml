@@ -634,4 +634,20 @@
       DESC4 = #{desc4,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateByBillTransfer" parameterType="com.tianrui.service.bean.BillUpdate" >
+  	update wuliu_bill
+	set	
+		driverid = #{driverid,jdbcType=VARCHAR},
+		drivername = #{drivername,jdbcType=VARCHAR},
+		drivertel = #{drivertel,jdbcType=VARCHAR}
+	WHERE
+		driverid = #{startdriverid,jdbcType=VARCHAR}
+	AND status IN (0,1,2,3,4,5)  
+   </update>
+   <select id="selectByBillTransfer" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_bill
+   	where driverid = #{driverid,jdbcType=VARCHAR} and driverid,jdbcType=VARCHAR
+  </select>
 </mapper>

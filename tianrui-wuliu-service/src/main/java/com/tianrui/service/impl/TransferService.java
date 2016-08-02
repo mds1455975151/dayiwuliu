@@ -1,15 +1,21 @@
 package com.tianrui.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ITransferService;
+import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.front.transfer.TransferReq;
+import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.BillUpdate;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.BillMapper;
@@ -20,21 +26,61 @@ public class TransferService implements ITransferService{
 	TransferMapper transferMapper;
 	@Autowired
 	BillMapper billMapper;
+	@Autowired
+	IMessageService messageService;
 	
 	@Override
 	public Result update(TransferReq req)throws Exception {
 		Result rs = Result.getSuccessResult();
+		if(StringUtils.isBlank(req.getStartid())){
+			rs.setCode("1");
+			rs.setError("请求人id不能为空");
+			return rs;
+		}
+		if(StringUtils.isBlank(req.getSendid())){
+			rs.setCode("2");
+			rs.setError("接收人id不能为空");
+			return rs;
+		}
+		
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
 		//查询司机名下所有运单未完成
-		Bill bill = new Bill();
-		List<Bill> list = billMapper.selectByCondition(bill);
-		int a = transferMapper.updateByPrimaryKeySelective(record);
-		
-		if(a!=1){
-			rs.setCode("1");
-			rs.setError("修改失败");
+		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid());
+		for(Bill b : list){
+			record.setBillid(b.getId());
+			transferMapper.updateByStatus(record);
 		}
+		//发送消息提醒
+		SendMsgReq mreq = new SendMsgReq();
+		List<String> strs = new ArrayList<String>();
+		strs.add(record.getSender());
+		mreq.setParams(strs);
+		//转运记录 发起人，接收人。请查看数据库注释
+		mreq.setSendid(record.getSendid());//发信人id
+		mreq.setSendname(record.getSender());//发信人名称
+		mreq.setType("1");
+		mreq.setRecid(record.getStartid());//收信人
+		mreq.setRecname(record.getStarter());//收信人名称
+		
+		//判断同意 还是拒绝  0-未处理，1-同意，2 -拒绝'
+		if("1".equals(record.getStatus())){
+			//同意换班
+			//批量修改运单司机
+			BillUpdate upt = new BillUpdate();
+			upt.setStartdriverid(req.getStartid());
+			upt.setDriverid(req.getSendid());
+			upt.setDrivername(req.getSender());
+			upt.setDrivertel(req.getSendtele());
+			billMapper.updateByBillTransfer(upt);
+			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_AGREE);
+			messageService.sendMessageInside(mreq);
+		}else if("2".equals(record.getStatus())){
+			//拒绝换班
+			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_REFUSE);
+			messageService.sendMessageInside(mreq);
+		}
+		
 		return rs;
 	}
 
@@ -43,11 +89,24 @@ public class TransferService implements ITransferService{
 		Result rs = Result.getSuccessResult();
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
-		int a = transferMapper.insertSelective(record);
-		if(a!=1){
-			rs.setCode("1");
-			rs.setError("添加失败");
+		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid());
+		for(Bill b : list){
+			record.setBillid(b.getId());
+			transferMapper.insertSelective(record);
 		}
+		//发送消息提醒
+		SendMsgReq mreq = new SendMsgReq();
+		List<String> strs = new ArrayList<String>();
+		strs.add(record.getStarter());
+		//转运记录 发起人，接收人。请查看数据库注释
+		mreq.setSendid(record.getStartid());//发信人id
+		mreq.setSendname(record.getStarter());//发信人名称
+		mreq.setParams(strs);
+		mreq.setType("1");
+		mreq.setRecid(record.getSendid());//收信人id
+		mreq.setRecname(record.getSender());//收信人名称
+		mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_BEG);
+		messageService.sendMessageInside(mreq);
 		return rs;
 	}
 

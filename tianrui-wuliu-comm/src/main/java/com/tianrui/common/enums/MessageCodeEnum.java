@@ -59,7 +59,12 @@ public enum MessageCodeEnum {
 	ADMIN_VEHICLE_PASS(205,"车牌号[<_>],车辆认证后台审核通过"),
 	ADMIN_VEHICLE_NOTPASS(206,"车牌号[<_>],车辆认证后台审核未通过"),
 	ADMIN_COMPANY_PASS(207,"账号[<_>],企业认证后台审核通过"),
-	ADMIN_COMPANY_NOTPASS(208,"账号[<_>],企业认证后台审核未通过");
+	ADMIN_COMPANY_NOTPASS(208,"账号[<_>],企业认证后台审核未通过"),
+	
+	/** ========================= 司机换班相关(221 - 240) ======================= */
+	DRIVER_TRANSFER_BEG(221,"司机[<_>],请求与您换班"),
+	DRIVER_TRANSFER_AGREE(222,"司机[<_>],同意了您的换班请求"),
+	DRIVER_TRANSFER_REFUSE(223,"司机[<_>],拒绝了您的换班请求");
 	//消息code
 	private int code;
 	//消息描述
