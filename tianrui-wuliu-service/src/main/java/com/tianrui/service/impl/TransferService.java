@@ -17,7 +17,9 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
 import com.tianrui.service.bean.Transfer;
+import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.TransferMapper;
+import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.BillMapper;
 @Service
 public class TransferService implements ITransferService{
@@ -28,6 +30,8 @@ public class TransferService implements ITransferService{
 	BillMapper billMapper;
 	@Autowired
 	IMessageService messageService;
+	@Autowired
+	VehicleDriverMapper vehicleDriverMapper;
 	
 	@Override
 	public Result update(TransferReq req)throws Exception {
@@ -42,7 +46,16 @@ public class TransferService implements ITransferService{
 			rs.setError("接收人id不能为空");
 			return rs;
 		}
-		
+		//判断司机车辆当前绑定关系
+		VehicleDriver vehicleDriver = new VehicleDriver();
+		vehicleDriver.setVehicleno(req.getVehicleno());
+		vehicleDriver.setDriverid(req.getStartid());
+		List<VehicleDriver> vd = vehicleDriverMapper.selectMyVehiDriverByCondition(vehicleDriver);
+		if(vd.size()!=1){//司机晕车辆绑定关系不唯一，操作失败
+			rs.setCode("3");
+			rs.setError("绑定关系出错，转运失败");
+			return rs;
+		}
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
 		//查询司机名下所有运单未完成
@@ -66,6 +79,12 @@ public class TransferService implements ITransferService{
 		//判断同意 还是拒绝  0-未处理，1-同意，2 -拒绝'
 		if("1".equals(record.getStatus())){
 			//同意换班
+			//修改车辆司机绑定关系
+			VehicleDriver vhd = vd.get(0);
+			vhd.setDriverid(record.getSendid());
+			vhd.setDrivername(record.getSender());
+			vhd.setDrivertel(record.getSendtele());
+			vehicleDriverMapper.updateByPrimaryKeySelective(vhd);
 			//批量修改运单司机
 			BillUpdate upt = new BillUpdate();
 			upt.setStartdriverid(req.getStartid());
