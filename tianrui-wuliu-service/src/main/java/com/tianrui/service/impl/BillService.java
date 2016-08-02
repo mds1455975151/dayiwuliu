@@ -2,6 +2,8 @@ package com.tianrui.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -54,12 +56,10 @@ import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
-import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.PlanMapper;
-import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -108,14 +108,11 @@ public class BillService implements IBillService{
 	protected ICargoPlanService cargoPlanService;
 	@Autowired
 	FileFreightMapper fileFreightMapper;
-	@Autowired
-	TransferMapper transferMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		List<Bill> bills =null;
-		Transfer tf = new Transfer();
 		if( req !=null && StringUtils.isNotBlank(req.getPlanId()) ){
 			//获取车辆驾驶员信息
 			List<VehicleDriverVO> vehicleDrivers =getVehicleDriver(req.getVehicleDriverIds());
@@ -177,20 +174,6 @@ public class BillService implements IBillService{
 						bill.setReceivertel(plan.getReceivepersonphone());
 						
 						bills.add(bill);
-						
-						//生成运单日志
-						tf.setId(UUIDUtil.getId());
-						tf.setBillid(bill.getId());
-						tf.setVehicleno(bill.getVehicleno());
-						tf.setStatus("0");
-						tf.setStartid(plan.getVehicleownerid());
-						tf.setStarter(plan.getVehicleownername());
-						tf.setStarttele(plan.getVehicleownerphone());
-						tf.setStarttime(System.currentTimeMillis());
-						tf.setSendid(bill.getDriverid());
-						tf.setSender(bill.getDrivername());
-						tf.setSendtele(bill.getDrivertel());
-						tf.setIsvalid("1");
 					}
 				}
 			}
@@ -202,8 +185,6 @@ public class BillService implements IBillService{
 			MemberVo currUser =getMember(req.getCurruId());
 			for( Bill item:bills ){
 				billMapper.insert(item);
-				//保存运单日志
-				transferMapper.insertSelective(tf);
 				saveBillTrack(item.getId(),1,BIllTrackMsg.INIT,req.getCurruId(),item.getStatus());
 				//为司机发送站内信
 				MemberVo receive =getMember(item.getDriverid());
@@ -251,17 +232,6 @@ public class BillService implements IBillService{
 						update.setDrivertel(vehicleDriver.getDrivertel());
 						
 						billMapper.updateByPrimaryKeySelective(update);
-						//更新运单日志
-						Transfer transfer = new Transfer();
-						transfer.setId(UUIDUtil.getId());
-						transfer.setBillid(update.getId());
-						transfer.setStarttime(System.currentTimeMillis());
-						transfer.setSendid(update.getDriverid());
-						transfer.setSender(update.getDrivername());
-						transfer.setSendtele(update.getDrivertel());
-						transfer.setIsvalid("1");
-						transferMapper.updateByBillId(transfer);
-						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP1,req.getCurruId(),db.getStatus());
 						//为司机发送站内信
 						MemberVo currUser =getMember(req.getCurruId());
@@ -298,10 +268,6 @@ public class BillService implements IBillService{
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
-						Transfer transfer = new Transfer();
-						transfer.setBillid(update.getId());
-						transfer.setIsvalid("0");
-						transferMapper.updateByBillId(transfer);
 						saveBillTrack(db.getId(),0,BIllTrackMsg.STEP2,req.getCurruId(),db.getStatus());
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
@@ -334,10 +300,6 @@ public class BillService implements IBillService{
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
-						Transfer transfer = new Transfer();
-						transfer.setBillid(update.getId());
-						transfer.setIsvalid("2");
-						transferMapper.updateByBillId(transfer);
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP3,req.getCurruId(),BillStatusEnum.CANCLE.getStatus());
 						//为司机发送站内信
 						MemberVo currUser =getMember(req.getCurruId());
@@ -817,7 +779,26 @@ public class BillService implements IBillService{
 			if( total>0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
 				query.setLimit(req.getPageSize());
-				page.setList(conver2billResp(billMapper.selectByCondition(query)));
+				List<Bill> list = billMapper.selectByCondition(query);
+				for(int i=0;list!=null&&i<list.size();i++){
+					Bill b = list.get(i);
+					if(!StringUtils.equals(req.getCurrId(), b.getDriverid())){
+						b.setStatus(Byte.parseByte("-10"));
+					}
+				}
+				Collections.sort(list, new Comparator<Bill>() {
+					@Override
+					public int compare(Bill o1, Bill o2) {
+						if(o1.getCreatetime()-o2.getCreatetime() < 0){
+							return 1;
+						}else if(o1.getCreatetime()-o2.getCreatetime() > 0){
+							return -1;
+						}else{
+							return 0;
+						}
+					}
+				});
+				page.setList(conver2billResp(list));
 			}
 			page.setTotal(total);
 			page.setPageNo(req.getPageNo());

@@ -39,7 +39,12 @@ $(function(){
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
-			dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+item.status+'</a></td>');
+			//已交班
+			if(item.status == -10){
+				dataArr.push('<td><span>'+item.waybillno+item.status+'</span></td>');
+			}else{
+				dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+item.status+'</a></td>');
+			}
 			dataArr.push('<td>'+item.cargoname+'</td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
 			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
@@ -62,6 +67,8 @@ $(function(){
 				dataArr.push('已完成');
 			}else if(item.status ==-1 ){
 				dataArr.push('已拒绝');
+			}else if(item.status ==-10 ){
+				dataArr.push('已交班');
 			}
 			dataArr.push('</td>');
 			dataArr.push('<td>'+item.modifytimeStr+'</td>');
