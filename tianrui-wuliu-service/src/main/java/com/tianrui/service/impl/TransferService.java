@@ -12,7 +12,9 @@ import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ITransferService;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.front.transfer.TransferReq;
+import com.tianrui.api.resp.front.transfer.TransferResp;
 import com.tianrui.common.enums.MessageCodeEnum;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
@@ -119,7 +121,9 @@ public class TransferService implements ITransferService{
 		PropertyUtils.copyProperties(record, req);
 		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid());
 		for(Bill b : list){
+			record.setId(UUIDUtil.getId());
 			record.setBillid(b.getId());
+			record.setVehicleno(b.getVehicleno());
 			transferMapper.insertSelective(record);
 		}
 		//发送消息提醒
@@ -156,5 +160,40 @@ public class TransferService implements ITransferService{
 		}
 		return rs;
 	}
-
+	//是否已申请过交班
+	public int isHand(String driverid){
+		Transfer qure = new Transfer();
+		qure.setStartid(driverid);
+		qure.setStatus("0");
+		List<Transfer> count = transferMapper.selectByCondition(qure);
+		if(count.size()==0){
+			return 0;
+		}else{
+			return 1;
+		}
+	}
+	//是否有收到交班申请
+	public List<TransferResp> isAccept(String driverid) throws Exception{
+		Transfer qure = new Transfer();
+		qure.setSendid(driverid);
+		qure.setStatus("0");
+		List<TransferResp> listResp = new ArrayList<TransferResp>();
+		List<Transfer> list = transferMapper.selectByCondition(qure);
+		if(list!=null){
+			for(int i=0;i<list.size();i++){
+				list.get(i).setBillid(billMapper.selectByPrimaryKey(list.get(i).getBillid()).getWaybillno());
+				TransferResp trp = conver2TransferResp(list.get(i));
+				listResp.add(trp);
+			}
+		}
+		return listResp;
+	}
+	public TransferResp conver2TransferResp(Transfer transfer) throws Exception{
+		TransferResp resp = null;
+		if(transfer!=null){
+			resp = new TransferResp();
+			PropertyUtils.copyProperties(resp, transfer);
+		}
+		return resp;
+	}
 }
