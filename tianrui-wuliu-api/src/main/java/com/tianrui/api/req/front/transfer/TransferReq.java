@@ -29,7 +29,7 @@ public class TransferReq extends BaseReq{
 
     private Long sendtime;
 
-    private String delete;
+    private String isvalid;
 
 	public String getId() {
 		return id;
@@ -135,12 +135,12 @@ public class TransferReq extends BaseReq{
 		this.sendtime = sendtime;
 	}
 
-	public String getDelete() {
-		return delete;
+	public String getIsvalid() {
+		return isvalid;
 	}
 
-	public void setDelete(String delete) {
-		this.delete = delete;
+	public void setIsvalid(String isvalid) {
+		this.isvalid = isvalid;
 	}
 
 }

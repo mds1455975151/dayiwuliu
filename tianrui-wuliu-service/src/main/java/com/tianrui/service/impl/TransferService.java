@@ -106,6 +106,15 @@ public class TransferService implements ITransferService{
 	@Override
 	public Result save(TransferReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
+		Transfer qure = new Transfer();
+		qure.setStartid(req.getStartid());
+		qure.setStatus("0");
+		List<Transfer> count = transferMapper.selectByCondition(qure);
+		if(count.size()!=0){
+			rs.setCode("1");
+			rs.setError("有未处理转运请请求，不能重复申请转运");
+			return rs;
+		}
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
 		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid());
@@ -126,6 +135,25 @@ public class TransferService implements ITransferService{
 		mreq.setRecname(record.getSender());//收信人名称
 		mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_BEG);
 		messageService.sendMessageInside(mreq);
+		return rs;
+	}
+
+	@Override
+	public Result delete(String driverid) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		Transfer qure = new Transfer();
+		qure.setStartid(driverid);
+		qure.setStatus("0");
+		List<Transfer> count = transferMapper.selectByCondition(qure);
+		if(count.size()==0){
+			rs.setCode("1");
+			rs.setError("该司机暂无转运申请");
+			return rs;
+		}
+		for(Transfer t : count){
+			transferMapper.deleteByPrimaryKey(t.getId());
+		}
 		return rs;
 	}
 

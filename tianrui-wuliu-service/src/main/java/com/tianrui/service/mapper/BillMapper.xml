@@ -650,6 +650,6 @@
     select 
     <include refid="Base_Column_List" />
     from wuliu_bill
-   	where driverid = #{driverid,jdbcType=VARCHAR} and driverid,jdbcType=VARCHAR
+   	where driverid = #{driverid,jdbcType=VARCHAR} AND status IN (0,1,2,3,4,5)
   </select>
 </mapper>

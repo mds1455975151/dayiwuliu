@@ -15,9 +15,11 @@ import com.tianrui.common.vo.Result;
  */
 public interface ITransferService {
 
-	/** 修改*/
+	/** 修改--同意或拒绝交班申请*/
 	public Result update(TransferReq req)throws Exception;
-	/** 新增*/
+	/** 新增--发起交班申请*/
 	public Result save(TransferReq req)throws Exception;
+	/** 删除--司机收回转运请求*/
+	public Result delete(String driverid)throws Exception;
 	
 }
