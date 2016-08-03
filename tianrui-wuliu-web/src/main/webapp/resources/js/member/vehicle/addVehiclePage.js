@@ -193,28 +193,18 @@ $("#vehicle_addBtn").click(function() {
 		},
 		type : "post",
 		beforeSend : function() {
-		        //请求前的处理
-			alert("车辆图片上传中");
+	        //请求前的处理
+			$("#showload").click();
 		},
 		success : function(result) {
+			setTimeout(function(){$("#commonModal").modal("hide");},3000);
 			if (result.code == "000000") {
-				alert("请求成功");
-				$("#modal_common_content").html("添加成功！");
-				$("#commonModal").modal();
-				setTimeout(function(){$("#commonModal").modal("hide");},3000);
-				$("#commonModal").on("hidden.bs.modal", function() {
-//					window.location.href = PATH + "/trwuliu/Member/myVehicle/myVehiclePage";
-				});
+				window.location.href = PATH + "/trwuliu/Member/myVehicle/myVehiclePage";
 			} else {
 				$("#modal_common_content").html("添加失败，系统出错！");
 				$("#commonModal").modal();
 			}
 		}
-//		,
-//		complete: function() {
-//			//请求完成的处理
-//			alert("请求完成");
-//		}
 	});
 });
 

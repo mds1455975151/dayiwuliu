@@ -644,12 +644,16 @@
 		drivertel = #{drivertel,jdbcType=VARCHAR}
 	WHERE
 		driverid = #{startdriverid,jdbcType=VARCHAR}
+		AND vehicleno = #{vehicleno,jdbcType=VARCHAR}
 	AND status IN (0,1,2,3,4,5)  
    </update>
    <select id="selectByBillTransfer" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from wuliu_bill
-   	where driverid = #{driverid,jdbcType=VARCHAR} AND status IN (0,1,2,3,4,5)
+   	where 
+   	driverid = #{driverid,jdbcType=VARCHAR} 
+   	AND vehicleno = #{vehicleno,jdbcType=VARCHAR} 
+   	AND status IN (0,1,2,3,4,5)
   </select>
 </mapper>

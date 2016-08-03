@@ -92,6 +92,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                    	
 				                    </tbody>
 				                </table>
+				                <div class="goods_more pageMore" style="display:hide">
+					                     <h4 onclick="addPage();">查看更多</h4>
+					            </div>
 				            </div>
 				          </div>
 			        </div>

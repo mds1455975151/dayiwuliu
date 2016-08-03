@@ -10,7 +10,8 @@ public class BillUpdate {
 	private String drivername;
 	
 	private String drivertel;
-
+	
+	private String vehicleno;
 
 	public String getStartdriverid() {
 		return startdriverid;
@@ -26,6 +27,14 @@ public class BillUpdate {
 
 	public void setDriverid(String driverid) {
 		this.driverid = driverid;
+	}
+
+	public String getVehicleno() {
+		return vehicleno;
+	}
+
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
 	}
 
 	public String getDrivername() {

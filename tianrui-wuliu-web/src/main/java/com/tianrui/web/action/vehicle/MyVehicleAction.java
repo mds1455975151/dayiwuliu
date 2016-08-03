@@ -261,6 +261,8 @@ public class MyVehicleAction {
 									              String vehiWholeNo, 
 									               String vehiLenth, 
 									                String vehiType,
+									                String pageNo,
+									                String pageSize,
 									                 String driverName,
 									                  String driverTel) throws Exception{
 		
@@ -290,7 +292,12 @@ public class MyVehicleAction {
 		vehiAndDriverReq.setDriverName(driverName);
 		// 司机电话
 		vehiAndDriverReq.setDriverTel(driverTel);
-		
+		if(StringUtils.isNotBlank(pageNo)){
+			vehiAndDriverReq.setPageNo(Integer.valueOf(pageNo));
+		}
+		if(StringUtils.isNotBlank(pageSize)){
+			vehiAndDriverReq.setPageSize(Integer.valueOf(pageSize));
+		}
 		PaginationVO<VehicleAndDriverResp> vehiAndDriverRespList = memberVehicleService.queryVehicleAndDriverByCondition(vehiAndDriverReq);
 		rs.setData(vehiAndDriverRespList);
 		return rs;

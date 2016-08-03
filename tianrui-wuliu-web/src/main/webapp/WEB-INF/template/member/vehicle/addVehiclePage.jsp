@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        <!--行驶证照片修改end-->
 		                        <!--行驶证照片内容begin-->
 		                        <div class="car_addbtn">
-		                            <button type="submit" class="btn btnyello" id="vehicle_addBtn">添加</button>
+		                        	<button type="submit" class="btn btnyello" id="vehicle_addBtn">添加</button>
 		                            <button type="submit" class="btn btnblue" id="vehicle_cancelBtn">取消</button>
 		                        </div>
 		                    </div>
@@ -179,6 +179,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </div>
 		    </div>
 		</div>
+		<!--上传进度条-->
+		<a id="showload" data-toggle="modal" data-target="#detail"></a>
+		<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		    <div class="modal-dialog" role="document" style="width: 400px;">
+		        <div class="upmodal">
+		            <div class="modal-content" >
+		                <div class="modal-body" >
+		                    <div class="upload">
+		                        <img src="${trRoot}/tianrui/images/upload.gif">
+		                        <div class="upload_font">
+		                            <img src="${trRoot}/tianrui/images/sc.png">
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		
+		    </div>
+		</div>
+		<!--上传进度条end--> 
 		<!--内容部分end-->
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
@@ -186,6 +206,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js" ></script>
 		<script type="text/javascript" src="/resources/js/member/vehicle/addVehiclePage.js" ></script>
-		
 	</body>
 </html>
