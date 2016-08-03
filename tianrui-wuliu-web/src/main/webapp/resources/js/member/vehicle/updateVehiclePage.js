@@ -185,14 +185,14 @@ $("#vehicle_addBtn").click(function() {
 			vehiLicenseImgPath: vehiLiceImgPath
 		},
 		type : "post",
+		beforeSend : function() {
+	        //请求前的处理
+			$("#showload").click();
+		},
 		success : function(result) {
+			setTimeout(function(){$("#commonModal").modal("hide");},3000);
 			if (result.code == "000000") {
-				$("#modal_common_content").html("修改成功！");
-				$("#commonModal").modal();
-				setTimeout(function(){$("#commonModal").modal("hide");},3000);
-				$("#commonModal").on("hidden.bs.modal", function() {
-					window.location.href = PATH + "/trwuliu/Member/myVehicle/myVehiclePage";
-				});
+				window.location.href = PATH + "/trwuliu/Member/myVehicle/myVehiclePage";
 			} else {
 				$("#modal_common_content").html("添加失败，系统出错！");
 				$("#commonModal").modal();

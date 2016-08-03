@@ -13,6 +13,8 @@ var bindDiv = $("#bindDiv");
 /** 我的未绑定司机信息 */
 var driverList = null;
 
+var pageNo = 1;
+
 // 初始化处理
 $(function() { 
     // 左侧导航选中效果
@@ -28,11 +30,24 @@ function vehiAndDriver(){
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/getVehiAndDriver',// 跳转到 action
 		data : {
-			memberId: member_id
+			memberId: member_id,
 		},
 		type : "post",
 		success : function(result) {
 			appendContentToBody(result, 0);
+		}
+	});
+}
+function addPage(){
+	$.ajax({
+		url : PATH + '/trwuliu/Member/myVehicle/getVehiAndDriver',// 跳转到 action
+		data : {
+			memberId: member_id,
+			pageNo : pageNo,
+		},
+		type : "post",
+		success : function(result) {
+			appendContentToBody(result, 1);
 		}
 	});
 }
@@ -48,14 +63,19 @@ function vehiAndDriver(){
 function appendContentToBody(result, flag) {
 	
 	var data = result.data.list;
-	
+	var total = result.data.total;
+	pageNo = result.data.pageNo;
+	if(total / 10 < pageNo){
+		$(".pageMore").hide();
+	}
+	pageNo = pageNo + 1;
 	// 搜索查询时清空表体，防止表体重复附加数据
 	if (flag == 0) {
 		$("#vehicle_tbody").empty();
 		rowIndex = 0;
 	}
 	// 数据为空时
-	if (data == null) {
+	if (total == 0) {
 		var hml = "";
 		hml+= '<div class="nodata">';
 		hml+= '<img src="'+trImgRoot+'/none_car.png">';
@@ -159,14 +179,6 @@ function appendContentToBody(result, flag) {
 										 .append("认证中");
 						td4.append(button1);
 					} 
-					
-					
-				/*TODO:测试用------BEGIN-------*/
-				if (flag != 0) {
-					td1.css("color", "red");
-				}
-				/*TODO:测试用------END-------*/
-				
 				tr1.append(td1).append(td2).append(td3).append(td4);
 			
 			if (flag == 0) {
@@ -174,7 +186,8 @@ function appendContentToBody(result, flag) {
 				$("#vehicle_tbody").append(tr1);
 			} else if (flag == 1) {
 				// 新增时新增数据附加至表体第一行
-				$("#vehicle_tbody").prepend(tr1);
+//				$("#vehicle_tbody").prepend(tr1);
+				$("#vehicle_tbody").append(tr1);
 			}
 		}
 	}

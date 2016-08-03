@@ -56,6 +56,7 @@ public class TransferService implements ITransferService{
 			rs.setError("绑定关系出错，转运失败");
 			return rs;
 		}
+		
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
 		//查询司机名下所有运单未完成

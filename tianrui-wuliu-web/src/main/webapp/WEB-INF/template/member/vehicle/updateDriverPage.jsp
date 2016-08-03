@@ -181,6 +181,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        </div>
 		    </div>
 		</div>
+		<!--上传进度条-->
+		<a id="showload" data-toggle="modal" data-target="#detail"></a>
+		<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		    <div class="modal-dialog" role="document" style="width: 400px;">
+		        <div class="upmodal">
+		            <div class="modal-content" >
+		                <div class="modal-body" >
+		                    <div class="upload">
+		                        <img src="${trRoot}/tianrui/images/upload.gif">
+		                        <div class="upload_font">
+		                            <img src="${trRoot}/tianrui/images/sc.png">
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!--上传进度条end--> 
 		<!--内容部分end-->
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
