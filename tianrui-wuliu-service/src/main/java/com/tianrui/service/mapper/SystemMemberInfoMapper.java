@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.SystemMemberInfo;
 
 public interface SystemMemberInfoMapper {
@@ -50,4 +52,10 @@ public interface SystemMemberInfoMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SystemMemberInfo record);
+    /**
+     * 根据司机id查询车主信息
+     * @param driverId
+     * @return
+     */
+    List<SystemMemberInfo> selectVenderByDriverId(String driverId);
 }

@@ -56,10 +56,13 @@ import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
+import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
+import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -108,6 +111,10 @@ public class BillService implements IBillService{
 	protected ICargoPlanService cargoPlanService;
 	@Autowired
 	FileFreightMapper fileFreightMapper;
+	@Autowired
+	OwnerDriverMapper ownerDriverMapper;
+	@Autowired
+	SystemMemberInfoMapper systemMemberInfoMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -1210,5 +1217,10 @@ public class BillService implements IBillService{
 		return resp;
 	}
 	
+	public List<SystemMemberInfo> handView(String dirverId){
+//		List<OwnerDriver> list = ownerDriverMapper.selectHandByDriverId(dirverId);
+		List<SystemMemberInfo> list = systemMemberInfoMapper.selectVenderByDriverId(dirverId);
+		return list;
+	}
 	
 }

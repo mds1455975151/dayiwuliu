@@ -38,6 +38,7 @@
                         <li ><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
                         <li ><a href="/trwuliu/billvender/main" id="billvender">我承运的运单</a></li>
                         <li><a href="/trwuliu/billdriver/main"  id="billdriver">我运输的运单</a></li>
+                        <li><a href="/trwuliu/billdriver/handView"  id="handdriver">司机交班</a></li>
                     </ul>
                 </div>
             </div>

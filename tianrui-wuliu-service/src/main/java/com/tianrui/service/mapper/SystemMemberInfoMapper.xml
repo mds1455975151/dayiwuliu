@@ -239,4 +239,13 @@
       createtime = #{createtime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectVenderByDriverId" parameterType="string" resultMap="BaseResultMap">
+  	select m.id, m.memberid, m.submittime, m.licenseImagePath, m.username, m.telphone, m.idcard, m.idcardimage, m.driverimage, m.companyname, 
+    	m.companycontact, m.companycode, m.companytel, m.companyaddress, m.createtime 
+	from wuliu_member_vehicle v left join member_info m 
+	on v.memberid = m.memberid
+	where v.vehicleid in (
+	select vehicleid from wuliu_vehicle_driver where driverid=#{driverId,jdbcType=VARCHAR}
+	)
+  </select>
 </mapper>

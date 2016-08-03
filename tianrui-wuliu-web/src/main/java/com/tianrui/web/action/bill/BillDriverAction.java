@@ -1,5 +1,7 @@
 package com.tianrui.web.action.bill;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,10 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
+import com.tianrui.api.req.front.transfer.TransferReq;
+import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
+import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.BillService;
+import com.tianrui.service.impl.OwnerDriverService;
+import com.tianrui.service.impl.TransferService;
 import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
 
@@ -34,6 +41,12 @@ public class BillDriverAction {
 	
 	@Autowired
 	BillService billService;
+	
+	@Autowired
+	TransferService transferService;
+	
+	@Autowired
+	OwnerDriverService ownerDriverService;
 	
 	
 	@RequestMapping("/main")
@@ -161,6 +174,71 @@ public class BillDriverAction {
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setCurruId(currUser.getId());
 			rs=billService.driverdelete(req);
+		}
+		return rs;
+	}
+	
+	//初始化司机交班页面
+	@RequestMapping("/handView")
+	public ModelAndView handView(HttpServletRequest request) throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("bill/driver/bill_hand");
+		MemberVo currUser =SessionManager.getSessionMember(request);
+		view.addObject("list",billService.handView(currUser.getId()));
+		view.addObject("isHand", transferService.isHand(currUser.getId()));
+		view.addObject("isAccept", transferService.isAccept(currUser.getId()));
+		return view;
+	}
+	//初始化司机交班页面
+	@RequestMapping("/queryDriver")
+	@ResponseBody
+	public Result queryDriver(String memberId, HttpServletRequest request) throws Exception{
+		Result rs =Result.getSuccessResult();
+		OwnerDriverReq driverReq = new OwnerDriverReq();
+		// 用户主键
+		driverReq.setVehicleownerid(memberId);
+		List<OwnerDriverResp> driverRespList = ownerDriverService.queryMyDriverOutsideByCondition(driverReq);
+		rs.setData(driverRespList);
+		return rs;
+	}
+	
+	//申请交班
+	@RequestMapping("/applyHand")
+	@ResponseBody
+	public Result applyHand(TransferReq req,HttpServletRequest request) throws Exception{
+		Result rs =Result.getSuccessResult();
+		if( req !=null ){
+			MemberVo currUser =SessionManager.getSessionMember(request);
+			req.setStatus("0");
+			req.setStartid(currUser.getId());
+			req.setStarter(currUser.getRealName());
+			req.setStarttele(currUser.getCellphone());
+			req.setStarttime(System.currentTimeMillis());
+			req.setIsvalid("1");
+			rs = transferService.save(req);
+		}
+		return rs;
+	}
+	//收回交班
+	@RequestMapping("/recover")
+	@ResponseBody
+	public Result recover(HttpServletRequest request) throws Exception{
+		Result rs =Result.getSuccessResult();
+		MemberVo currUser =SessionManager.getSessionMember(request);
+		rs = transferService.delete(currUser.getId());
+		return rs;
+	}
+	//同意或拒绝交班申请
+	@RequestMapping("/updateHand")
+	@ResponseBody
+	public Result updateHand(TransferReq req, HttpServletRequest request) throws Exception{
+		Result rs =Result.getSuccessResult();
+		if( req !=null ){
+			MemberVo currUser =SessionManager.getSessionMember(request);
+			req.setSendid(currUser.getId());
+			req.setSender(currUser.getRealName());
+			req.setSendtele(currUser.getCellphone());
+			rs = transferService.update(req);
 		}
 		return rs;
 	}
