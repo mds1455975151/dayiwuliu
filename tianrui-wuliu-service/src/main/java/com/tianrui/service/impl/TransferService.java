@@ -59,8 +59,8 @@ public class TransferService implements ITransferService{
 		
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
-		//查询司机名下所有运单未完成
-		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid());
+		//查询司机同一车主下未完成运单
+		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid(),req.getVehicleno());
 		for(Bill b : list){
 			record.setBillid(b.getId());
 			transferMapper.updateByStatus(record);
@@ -92,6 +92,7 @@ public class TransferService implements ITransferService{
 			upt.setDriverid(req.getSendid());
 			upt.setDrivername(req.getSender());
 			upt.setDrivertel(req.getSendtele());
+			upt.setVehicleno(req.getVehicleno());
 			billMapper.updateByBillTransfer(upt);
 			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_AGREE);
 			messageService.sendMessageInside(mreq);
@@ -118,7 +119,7 @@ public class TransferService implements ITransferService{
 		}
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
-		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid());
+		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid(),req.getVehicleno());
 		for(Bill b : list){
 			record.setBillid(b.getId());
 			transferMapper.insertSelective(record);

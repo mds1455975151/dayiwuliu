@@ -59,7 +59,7 @@ public interface BillMapper {
     /** 批量修改运单*/
     int updateByBillTransfer(BillUpdate record);
     /** 查询可以转运的运单*/
-    List<Bill> selectByBillTransfer(String driverid);
+    List<Bill> selectByBillTransfer(String driverid,String vehicleno);
     
     long countByCondition(Bill record);
     
