@@ -5,7 +5,7 @@ public class Transfer {
 
     private String billid;
 
-    private String vehicleno;
+    private String vehicleid;
 
     private String status;
 
@@ -45,12 +45,12 @@ public class Transfer {
         this.billid = billid == null ? null : billid.trim();
     }
 
-    public String getVehicleno() {
-        return vehicleno;
+    public String getVehicleid() {
+        return vehicleid;
     }
 
-    public void setVehicleno(String vehicleno) {
-        this.vehicleno = vehicleno == null ? null : vehicleno.trim();
+    public void setVehicleid(String vehicleid) {
+        this.vehicleid = vehicleid == null ? null : vehicleid.trim();
     }
 
     public String getStatus() {

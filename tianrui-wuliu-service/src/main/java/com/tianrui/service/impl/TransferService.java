@@ -131,7 +131,7 @@ public class TransferService implements ITransferService{
 		for(Bill b : list){
 			record.setId(UUIDUtil.getId());
 			record.setBillid(b.getId());
-			record.setVehicleno(b.getVehicleno());
+			record.setVehicleid(b.getVehicleid());
 			transferMapper.insertSelective(record);
 		}
 		//发送消息提醒

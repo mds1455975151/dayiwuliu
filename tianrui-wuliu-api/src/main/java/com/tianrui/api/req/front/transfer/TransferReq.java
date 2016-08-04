@@ -7,7 +7,7 @@ public class TransferReq extends BaseReq{
 
     private String billid;
 
-    private String vehicleno;
+    private String vehicleid;
 
     private String status;
 
@@ -49,12 +49,12 @@ public class TransferReq extends BaseReq{
 		this.billid = billid;
 	}
 
-	public String getVehicleno() {
-		return vehicleno;
+	public String getVehicleid() {
+		return vehicleid;
 	}
 
-	public void setVehicleno(String vehicleno) {
-		this.vehicleno = vehicleno;
+	public void setVehicleid(String vehicleid) {
+		this.vehicleid = vehicleid;
 	}
 
 	public String getStatus() {

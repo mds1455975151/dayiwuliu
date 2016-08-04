@@ -10,7 +10,7 @@ public class TransferResp extends BaseResp{
 
     private String billid;
 
-    private String vehicleno;
+    private String vehicleid;
 
     private String status;
 
@@ -50,12 +50,12 @@ public class TransferResp extends BaseResp{
 		this.billid = billid;
 	}
 
-	public String getVehicleno() {
-		return vehicleno;
+	public String getVehicleid() {
+		return vehicleid;
 	}
 
-	public void setVehicleno(String vehicleno) {
-		this.vehicleno = vehicleno;
+	public void setVehicleid(String vehicleid) {
+		this.vehicleid = vehicleid;
 	}
 
 	public String getStatus() {

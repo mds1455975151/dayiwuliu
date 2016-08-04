@@ -653,7 +653,7 @@
     from wuliu_bill
    	where 
    	driverid = #{driverid,jdbcType=VARCHAR} 
-   	AND vehicleno = #{vehicleno,jdbcType=VARCHAR} 
+   	AND venderid = #{venderid,jdbcType=VARCHAR} 
    	AND status IN (0,1,2,3,4,5)
   </select>
 </mapper>

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tianrui.service.bean.Transfer" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="billid" property="billid" jdbcType="VARCHAR" />
-    <result column="vehicleno" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="vehicleid" property="vehicleid" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="startid" property="startid" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
     <result column="isvalid" property="isvalid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, billid, vehicleno, status, reason, startid, starter, starttele, starttime, sendid, 
+    id, billid, vehicleid, status, reason, startid, starter, starttele, starttime, sendid, 
     sender, sendtele, sendtime, isvalid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -35,8 +35,8 @@
     	<if test="billid != null and billid != ''">
     	and billid = #{id,jdbcType=VARCHAR}
     	</if>
-    	<if test="vehicleno != null and vehicleno != ''">
-    	and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+    	<if test="vehicleid != null and vehicleid != ''">
+    	and vehicleid = #{vehicleid,jdbcType=VARCHAR}
     	</if>
     	<if test="status != null and status != ''">
     	and status = #{status,jdbcType=VARCHAR}
@@ -55,12 +55,12 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.Transfer" >
-    insert into wuliu_transfer (id, billid, vehicleno, 
+    insert into wuliu_transfer (id, billid, vehicleid, 
       status, reason, startid, 
       starter, starttele, starttime, 
       sendid, sender, sendtele, 
       sendtime, isvalid)
-    values (#{id,jdbcType=VARCHAR}, #{billid,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{billid,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{startid,jdbcType=VARCHAR}, 
       #{starter,jdbcType=VARCHAR}, #{starttele,jdbcType=VARCHAR}, #{starttime,jdbcType=BIGINT}, 
       #{sendid,jdbcType=VARCHAR}, #{sender,jdbcType=VARCHAR}, #{sendtele,jdbcType=VARCHAR}, 
@@ -75,8 +75,8 @@
       <if test="billid != null" >
         billid,
       </if>
-      <if test="vehicleno != null" >
-        vehicleno,
+      <if test="vehicleid != null" >
+        vehicleid,
       </if>
       <if test="status != null" >
         status,
@@ -119,8 +119,8 @@
       <if test="billid != null" >
         #{billid,jdbcType=VARCHAR},
       </if>
-      <if test="vehicleno != null" >
-        #{vehicleno,jdbcType=VARCHAR},
+      <if test="vehicleid != null" >
+        #{vehicleid,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -163,8 +163,8 @@
       <if test="billid != null" >
         billid = #{billid,jdbcType=VARCHAR},
       </if>
-      <if test="vehicleno != null" >
-        vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      <if test="vehicleid != null" >
+        vehicleid = #{vehicleid,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
@@ -205,7 +205,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.Transfer" >
     update wuliu_transfer
     set billid = #{billid,jdbcType=VARCHAR},
-      vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      vehicleid = #{vehicleid,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       reason = #{reason,jdbcType=VARCHAR},
       startid = #{startid,jdbcType=VARCHAR},
@@ -222,8 +222,8 @@
   <update id="updateByBillId" parameterType="com.tianrui.service.bean.Transfer">
   	update wuliu_transfer
     <set >
-      <if test="vehicleno != null" >
-        vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      <if test="vehicleid != null" >
+        vehicleid = #{vehicleid,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
