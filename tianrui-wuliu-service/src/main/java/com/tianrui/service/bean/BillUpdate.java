@@ -12,6 +12,8 @@ public class BillUpdate {
 	private String drivertel;
 	
 	private String vehicleno;
+	/** 车主id*/
+	private String venderid;
 
 	public String getStartdriverid() {
 		return startdriverid;
@@ -51,6 +53,14 @@ public class BillUpdate {
 
 	public void setDrivertel(String drivertel) {
 		this.drivertel = drivertel;
+	}
+
+	public String getVenderid() {
+		return venderid;
+	}
+
+	public void setVenderid(String venderid) {
+		this.venderid = venderid;
 	}
 	
 	

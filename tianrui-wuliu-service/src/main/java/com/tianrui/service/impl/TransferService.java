@@ -48,9 +48,9 @@ public class TransferService implements ITransferService{
 			rs.setError("接收人id不能为空");
 			return rs;
 		}
-		//判断司机车辆当前绑定关系
+		//判断司机车主当前绑定关系
 		VehicleDriver vehicleDriver = new VehicleDriver();
-		vehicleDriver.setVehicleno(req.getVehicleno());
+		vehicleDriver.setCreator(req.getMemberid());
 		vehicleDriver.setDriverid(req.getStartid());
 		List<VehicleDriver> vd = vehicleDriverMapper.selectMyVehiDriverByCondition(vehicleDriver);
 		if(vd.size()!=1){//司机晕车辆绑定关系不唯一，操作失败
@@ -62,7 +62,10 @@ public class TransferService implements ITransferService{
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
 		//查询司机同一车主下未完成运单
-		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid(),req.getVehicleno());
+		Bill bil = new Bill();
+		bil.setDriverid(req.getStartid());
+		bil.setVenderid(req.getMemberid());
+		List<Bill> list = billMapper.selectByBillTransfer(bil);
 		for(Bill b : list){
 			record.setBillid(b.getId());
 			transferMapper.updateByStatus(record);
@@ -94,7 +97,7 @@ public class TransferService implements ITransferService{
 			upt.setDriverid(req.getSendid());
 			upt.setDrivername(req.getSender());
 			upt.setDrivertel(req.getSendtele());
-			upt.setVehicleno(req.getVehicleno());
+			upt.setVenderid(req.getMemberid());
 			billMapper.updateByBillTransfer(upt);
 			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_AGREE);
 			messageService.sendMessageInside(mreq);
@@ -121,7 +124,10 @@ public class TransferService implements ITransferService{
 		}
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
-		List<Bill> list = billMapper.selectByBillTransfer(req.getStartid(),req.getVehicleno());
+		Bill bil =new Bill();
+		bil.setDriverid(req.getStartid());
+		bil.setVenderid(req.getMemberid());
+		List<Bill> list = billMapper.selectByBillTransfer(bil);
 		for(Bill b : list){
 			record.setId(UUIDUtil.getId());
 			record.setBillid(b.getId());

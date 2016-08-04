@@ -647,7 +647,7 @@
 		AND vehicleno = #{vehicleno,jdbcType=VARCHAR}
 	AND status IN (0,1,2,3,4,5)  
    </update>
-   <select id="selectByBillTransfer" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   <select id="selectByBillTransfer" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.Bill" >
     select 
     <include refid="Base_Column_List" />
     from wuliu_bill
