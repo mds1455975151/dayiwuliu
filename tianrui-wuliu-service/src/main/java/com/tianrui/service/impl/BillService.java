@@ -56,7 +56,6 @@ import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
-import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
@@ -1215,12 +1214,6 @@ public class BillService implements IBillService{
 			}
 		}
 		return resp;
-	}
-	
-	public List<SystemMemberInfo> handView(String dirverId){
-//		List<OwnerDriver> list = ownerDriverMapper.selectHandByDriverId(dirverId);
-		List<SystemMemberInfo> list = systemMemberInfoMapper.selectVenderByDriverId(dirverId);
-		return list;
 	}
 	
 }

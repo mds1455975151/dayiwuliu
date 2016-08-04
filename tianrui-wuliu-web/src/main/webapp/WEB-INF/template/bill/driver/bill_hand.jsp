@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
 	<style type="text/css">
-	/* .venderList {
+	.venderList {
 		width: 200px;
 		height: 400px;
 		float: left;
@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	.venderList li:hover {
 	    background: #a2e0ff;
-	} */
+	}
 	</style>
 </head>
 <body>

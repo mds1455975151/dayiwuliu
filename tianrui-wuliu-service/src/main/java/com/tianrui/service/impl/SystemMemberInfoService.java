@@ -214,5 +214,12 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		moberVoService.flush(member.getId());
 		return rs;
 	}
+	
+	public Result handView(String dirverId){
+		List<SystemMemberInfo> list = systemMemberInfoMapper.selectVenderByDriverId(dirverId);
+		Result result = Result.getSuccessResult();
+		result.setData(list);
+		return result;
+	}
 
 }

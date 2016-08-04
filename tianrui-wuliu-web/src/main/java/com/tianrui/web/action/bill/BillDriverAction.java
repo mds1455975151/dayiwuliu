@@ -22,6 +22,7 @@ import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.BillService;
 import com.tianrui.service.impl.OwnerDriverService;
+import com.tianrui.service.impl.SystemMemberInfoService;
 import com.tianrui.service.impl.TransferService;
 import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
@@ -47,6 +48,9 @@ public class BillDriverAction {
 	
 	@Autowired
 	OwnerDriverService ownerDriverService;
+	
+	@Autowired
+	SystemMemberInfoService systemMemberInfoService;
 	
 	
 	@RequestMapping("/main")
@@ -185,7 +189,7 @@ public class BillDriverAction {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("bill/driver/bill_hand");
 		MemberVo currUser =SessionManager.getSessionMember(request);
-		view.addObject("list",billService.handView(currUser.getId()));
+		view.addObject("list",systemMemberInfoService.handView(currUser.getId()).getData());
 		view.addObject("isHand", transferService.isHand(currUser.getId()));
 		view.addObject("isAccept", transferService.isAccept(currUser.getId()));
 		return view;

@@ -1,5 +1,7 @@
 package com.tianrui.api.intf;
 
+import java.util.List;
+
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.common.vo.Result;
 
@@ -50,5 +52,5 @@ public interface ISystemMemberInfoService {
 	 */
 	Result companyReview(MemberInfoReq req)throws Exception;
 	
-	
+	public Result handView(String dirverId);
 }
