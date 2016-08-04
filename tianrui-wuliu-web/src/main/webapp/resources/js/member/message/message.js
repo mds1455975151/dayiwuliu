@@ -23,7 +23,7 @@ $(function(){
 								aa = "<button class='btn btnyello detailBtn'  dataId='"+data[i].id+"'   dataUrl='"+data[i].uri+"' >查看</button>";
 							}
 							//特殊处理
-							if( item.code=="161" ||  item.code=="162"){
+							if( item.code=="161" ||  item.code=="162" || item.code=="221" ){
 								if( item.isreply =="0" ){
 									aa = "<button class='btn btnblue refuseBtn' dataId='"+data[i].id+"' >拒绝</button><button class='btn btnyello applyBtn'  dataId='"+data[i].id+"' >同意</button>";
 								}else if(data[i].isreply == "1"){

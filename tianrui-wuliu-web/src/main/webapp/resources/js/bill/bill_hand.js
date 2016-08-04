@@ -40,9 +40,9 @@ $(function(){
 	}
 	
 	if($('.handBtn').attr('item') == '0'){
-		$('.handBtn').val('申请交班');
+		$('.handBtn').val('申请交班').removeClass('btngray').addClass('btnblue');
 	}else{
-		$('.handBtn').val('收回');
+		$('.handBtn').val('收回').removeClass('btnblue').addClass('btngray');
 	}
 	$('.handBtn').off('click').on('click',function(){
 		if($(this).attr('item') == '0'){
@@ -78,7 +78,7 @@ $(function(){
 				if(result.code == '000000'){
 					//按钮颜色置灰
 					alert('申请交班成功');
-					$('.handBtn').attr('item','1').val('收回').off('click').on('click',recover);
+					$('.handBtn').attr('item','1').val('收回').removeClass('btnblue').addClass('btngray').off('click').on('click',recover);
 				}else{
 					alert(result.error);
 				}
@@ -97,7 +97,7 @@ $(function(){
 				if(result.code == '000000'){
 					//按钮颜色置亮
 					alert('收回成功');
-					$('.handBtn').attr('item','0').val('申请交班').off('click').on('click',applyHand);
+					$('.handBtn').attr('item','0').val('申请交班').removeClass('btngray').addClass('btnblue').off('click').on('click',applyHand);
 				}else{
 					alert(result.error);
 				}

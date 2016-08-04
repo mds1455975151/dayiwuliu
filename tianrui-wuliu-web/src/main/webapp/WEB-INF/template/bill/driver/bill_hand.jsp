@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
 	<style type="text/css">
-	.venderList {
+	/* .venderList {
 		width: 200px;
 		height: 400px;
 		float: left;
@@ -42,7 +42,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	.venderList li:hover {
 	    background: #a2e0ff;
-	}
+	} */
+	.sj_search{
+    padding: 15px 20px;
+    font-size: 13px;
+
+}
+.sj_search li{
+    width: 280px;
+    display: inline-block;
+}
+.sj_search li input{
+    width: 180px;
+    display: inline-block;
+}
+.sj_left, .sj_right{
+    padding: 15px;
+    width:350px;
+    float: left;
+ }
+.sj_left h4,.sj_right h4{
+    font-size: 16px;
+}
+.venderList, .driverList{
+    border: 1px solid #f4f4f4;
+    width:300px;
+    float: left;
+ }
+.venderList ul, .driverList ul{
+    padding:8px 0px;
+    height: 400px;
+    overflow-y: scroll;
+}
+.venderList ul li, .driverList ul li{
+   font-size: 13px;
+    line-height: 26px;
+    text-indent: 15px;
+    cursor: pointer;
+}
+.venderList ul li.active,.venderList ul li:focus,.venderList ul li:hover{
+    color: #ffffff;
+    background: #0093dd;
+}
+.driverList ul li.active,.driverList ul li:focus,.driverList ul li:hover{
+    color: #ffffff;
+    background: #fb841b;
+}
+.sj_total{
+    overflow: hidden;
+    width: 700px;
+}
+.sj_total input[type="button"]{
+    display: block;
+    width: 140px;
+    margin: 15px auto;
+}
 	</style>
 </head>
 <body>
@@ -68,11 +122,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h2>司机交班</h2>
             </div>
             <!-- 司机换班内容begin -->
-            <div class="goods_box">
            		<c:choose>
             		<c:when test="${empty isAccept }">
+	            		<div class="sj_search">
+			                <ul>
+			                    <li>
+			                        <label>司机姓名：</label>
+			                        <input type="text" placeholder="请输入司机名">
+			                    </li>
+			
+			                    <li>
+			                        <button type="submit" class="btn btnyello">搜索</button>
+			                    </li>
+			                </ul>
+			            </div>
             			<c:choose>
 				            <c:when test="${not empty list }">
+					            <div class="sj_left">
+					            <h4>请选择所属车主</h4>
 				            	<div class="venderList">
 					            	<ul>
 					            		<c:forEach items="${list }" var="m">
@@ -80,9 +147,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					            		</c:forEach>
 					            	</ul>
 					            </div>
+					            </div>
+			            		<div class="sj_right">
+			            		<h4>请选择交接司机</h4>
 					            <div class="driverList"></div>
+					            </div>
 					            <c:if test="${not empty list }">
-					        		<input type="button" item="${isHand }" class="handBtn" value="申请交班"/>
+						            <div class="sj_total">
+						        		<input type="button" item="${isHand }" class="handBtn btn btnblue" value="申请交班"/>
+						            </div>
 					        	</c:if>
 				            </c:when>
 				            <c:otherwise>
@@ -93,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             		<c:otherwise>
             			<ul class="isAcceptUl" startid="${isAccept[0].startid }" starter="${isAccept[0].starter }" starttele="${isAccept[0].starttele }">
 			            	<c:forEach items="${isAccept }" var="s">
-			            		<li><span>${s.starter }</span><span>${s.starttele }</span><span>--${s.starttime }--</span><span>订单(${s.billid })</span><span>申请与您交班。</span></li>
+			            		<li><span>${s.starter }</span><span>${s.starttele }</span><span>${s.starttime }</span><span>订单(${s.billid })</span><span>申请与您交班。</span></li>
 			            	</c:forEach>
 		            	</ul>
 		            	<c:if test="${not empty isAccept }">

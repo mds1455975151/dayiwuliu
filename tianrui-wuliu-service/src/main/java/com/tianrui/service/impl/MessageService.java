@@ -18,6 +18,7 @@ import com.tianrui.api.req.front.message.MessageQueryReq;
 import com.tianrui.api.req.front.message.MessageReplayReq;
 import com.tianrui.api.req.front.message.MessageReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.req.front.transfer.TransferReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.resp.front.message.MessageResp;
@@ -39,6 +40,9 @@ public class MessageService implements IMessageService {
 	private IMemberOwnerService memberOwnerService;
 	@Autowired
 	IMemberPushService pushService;
+	
+	@Autowired
+	TransferService transferService;
 	
 	
 	
@@ -145,7 +149,11 @@ public class MessageService implements IMessageService {
 				//绑定车主	
 				}else if( db.getCode().equals("162") && StringUtils.isNotBlank(req.getIsreply())){
 					bindVender(db,req.getIsreply());
+				//同意交班	
+				}else if( db.getCode().equals("221") && StringUtils.isNotBlank(req.getIsreply())){
+					driverTransfer(db, req.getIsreply());
 				}
+				
 			}
 		}
 		return rs;
@@ -162,6 +170,20 @@ public class MessageService implements IMessageService {
 		}
 		
 		return total;
+	}
+	
+	private void driverTransfer(Message message,String isReplay)throws Exception{
+		TransferReq req = new TransferReq();
+		req.setStartid(message.getSendid());
+		req.setStarter(message.getSendname());
+		req.setSendid(message.getRecid());
+		req.setSender(message.getRecname());
+		if("1".equals(isReplay)){
+			req.setStatus("1");
+		}else{
+			req.setStatus("2");
+		}
+		transferService.update(req);
 	}
 	
 	private void bindDriver(Message dbMessage,String isReplay) throws Exception{
