@@ -30,6 +30,8 @@ public class TransferReq extends BaseReq{
     private Long sendtime;
 
     private String isvalid;
+    
+    private String memberid;
 
 	public String getId() {
 		return id;
@@ -141,6 +143,14 @@ public class TransferReq extends BaseReq{
 
 	public void setIsvalid(String isvalid) {
 		this.isvalid = isvalid;
+	}
+
+	public String getMemberid() {
+		return memberid;
+	}
+
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
 	}
 
 }

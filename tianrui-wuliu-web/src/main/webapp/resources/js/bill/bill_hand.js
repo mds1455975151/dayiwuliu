@@ -58,6 +58,7 @@ $(function(){
 		}
 	});
 	var applyHand = function(){
+		var memberid = $('.venderList li.active').attr('item');
 		var driverid = $('.driverList li.active').attr('driverid');
 		var drivername = $('.driverList li.active').attr('drivername');
 		var drivertel = $('.driverList li.active').attr('drivertel');
@@ -66,7 +67,8 @@ $(function(){
 			data:{
 				sendid:driverid,
 				sender:drivername,
-				sendtele:drivertel
+				sendtele:drivertel,
+				memberid:memberid
 			},
 			dataType:'json',
 			type:'POST',
