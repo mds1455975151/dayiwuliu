@@ -180,6 +180,7 @@ public class BillDriverAction {
 	
 	//初始化司机交班页面
 	@RequestMapping("/handView")
+	@AuthValidation(autyType=Constant.AUTHCHECK_DRIVBR)
 	public ModelAndView handView(HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();
 		view.setViewName("bill/driver/bill_hand");

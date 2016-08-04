@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
 	<style type="text/css">
-	.venderList {
+	/* .venderList {
 		width: 200px;
 		height: 400px;
 		float: left;
@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	.venderList li:hover {
 	    background: #a2e0ff;
-	}
+	} */
 	</style>
 </head>
 <body>
@@ -71,17 +71,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="goods_box">
            		<c:choose>
             		<c:when test="${empty isAccept }">
-			            <div class="venderList">
-			            	<ul>
-			            		<c:forEach items="${list }" var="m">
-			            			<li item="${m.memberid }" class="">${empty m.username ? m.companyname : m.username }</li>
-			            		</c:forEach>
-			            	</ul>
-			            </div>
-			            <div class="driverList"></div>
-			            <c:if test="${not empty list }">
-			        		<input type="button" item="${isHand }" class="handBtn" value="申请交班"/>
-			        	</c:if>
+            			<c:choose>
+				            <c:when test="${not empty list }">
+				            	<div class="venderList">
+					            	<ul>
+					            		<c:forEach items="${list }" var="m">
+					            			<li item="${m.memberid }" class="">${empty m.username ? m.companyname : m.username }</li>
+					            		</c:forEach>
+					            	</ul>
+					            </div>
+					            <div class="driverList"></div>
+					            <c:if test="${not empty list }">
+					        		<input type="button" item="${isHand }" class="handBtn" value="申请交班"/>
+					        	</c:if>
+				            </c:when>
+				            <c:otherwise>
+				            	<span>您暂无与车辆绑定</span>
+				            </c:otherwise>
+			            </c:choose>
 					</c:when>
             		<c:otherwise>
             			<ul class="isAcceptUl" startid="${isAccept[0].startid }" starter="${isAccept[0].starter }" starttele="${isAccept[0].starttele }">
