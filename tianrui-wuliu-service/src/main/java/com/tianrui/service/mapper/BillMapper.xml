@@ -92,7 +92,7 @@
 		  </foreach> 
       </if> 
       <if test="driverid != null and driverid!=''" >
-	 	driverid=#{driverid,jdbcType=VARCHAR}
+	 	and driverid=#{driverid,jdbcType=VARCHAR}
 		UNION
 		select <include refid="Base_Column_List" /> from wuliu_bill where id in (select billid from wuliu_transfer where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP BY billid) 
       </if>
@@ -137,7 +137,7 @@
 		  </foreach> 
       </if> 
       <if test="driverid != null and driverid!=''" >
-	 	driverid=#{driverid,jdbcType=VARCHAR}
+	 	and driverid=#{driverid,jdbcType=VARCHAR}
 		UNION
 		select id from wuliu_bill where id in (select billid from wuliu_transfer where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP BY billid) 
       </if>
