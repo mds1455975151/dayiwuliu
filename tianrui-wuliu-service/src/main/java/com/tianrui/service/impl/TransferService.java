@@ -18,11 +18,13 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
+import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberVehicleMapper;
 @Service
 public class TransferService implements ITransferService{
 
@@ -34,6 +36,8 @@ public class TransferService implements ITransferService{
 	IMessageService messageService;
 	@Autowired
 	VehicleDriverMapper vehicleDriverMapper;
+	@Autowired
+	MemberVehicleMapper memberVehicleMapper;
 	
 	@Override
 	public Result update(TransferReq req)throws Exception {
@@ -48,9 +52,23 @@ public class TransferService implements ITransferService{
 			rs.setError("接收人id不能为空");
 			return rs;
 		}
+		
+		//判断司机是否收回请求
+		Transfer qure = new Transfer();
+		qure.setStartid(req.getStartid());
+		qure.setStatus("0");
+		List<Transfer> count = transferMapper.selectByCondition(qure);
+		if(count.size()==0){
+			rs.setCode("1");
+			rs.setError("该司机暂无转运申请，或司机已近收回转运请求");
+			return rs;
+		}
+		//通过车辆id查询车辆
+		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(count.get(0).getVehicleid());
+				
 		//判断司机车主当前绑定关系
 		VehicleDriver vehicleDriver = new VehicleDriver();
-		vehicleDriver.setCreator(req.getMemberid());
+		vehicleDriver.setCreator(vehicle.getMemberid());
 		vehicleDriver.setDriverid(req.getStartid());
 		List<VehicleDriver> vd = vehicleDriverMapper.selectMyVehiDriverByCondition(vehicleDriver);
 		if(vd.size()!=1){//司机晕车辆绑定关系不唯一，操作失败
@@ -58,13 +76,12 @@ public class TransferService implements ITransferService{
 			rs.setError("绑定关系出错，转运失败");
 			return rs;
 		}
-		
 		Transfer record = new Transfer();
 		PropertyUtils.copyProperties(record, req);
 		//查询司机同一车主下未完成运单
 		Bill bil = new Bill();
 		bil.setDriverid(req.getStartid());
-		bil.setVenderid(req.getMemberid());
+		bil.setVenderid(vehicle.getMemberid());
 		List<Bill> list = billMapper.selectByBillTransfer(bil);
 		for(Bill b : list){
 			record.setBillid(b.getId());
@@ -152,7 +169,6 @@ public class TransferService implements ITransferService{
 
 	@Override
 	public Result delete(String driverid) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		Transfer qure = new Transfer();
 		qure.setStartid(driverid);
