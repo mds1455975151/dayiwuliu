@@ -1,6 +1,9 @@
 package com.tianrui.api.intf;
 
+import java.util.List;
+
 import com.tianrui.api.req.front.transfer.TransferReq;
+import com.tianrui.api.resp.front.transfer.TransferResp;
 import com.tianrui.common.vo.Result;
 /**
  * 
@@ -21,5 +24,9 @@ public interface ITransferService {
 	public Result save(TransferReq req)throws Exception;
 	/** 删除--司机收回转运请求*/
 	public Result delete(String driverid)throws Exception;
+	/** 查询--是否已申请过交班*/
+	public int isHand(String driverid)throws Exception;
+	/** 查询--是否有收到交班申请*/
+	public List<TransferResp> isAccept(String driverid) throws Exception;
 	
 }

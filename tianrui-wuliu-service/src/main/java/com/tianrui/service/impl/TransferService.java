@@ -185,7 +185,8 @@ public class TransferService implements ITransferService{
 		return rs;
 	}
 	//是否已申请过交班
-	public int isHand(String driverid){
+	@Override
+	public int isHand(String driverid) throws Exception{
 		Transfer qure = new Transfer();
 		qure.setStartid(driverid);
 		qure.setStatus("0");
@@ -197,6 +198,7 @@ public class TransferService implements ITransferService{
 		}
 	}
 	//是否有收到交班申请
+	@Override
 	public List<TransferResp> isAccept(String driverid) throws Exception{
 		Transfer qure = new Transfer();
 		qure.setSendid(driverid);
