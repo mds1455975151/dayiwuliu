@@ -644,7 +644,7 @@
 		drivertel = #{drivertel,jdbcType=VARCHAR}
 	WHERE
 		driverid = #{startdriverid,jdbcType=VARCHAR}
-		AND vehicleno = #{vehicleno,jdbcType=VARCHAR}
+		AND venderid = #{venderid,jdbcType=VARCHAR}
 	AND status IN (0,1,2,3,4,5)  
    </update>
    <select id="selectByBillTransfer" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.Bill" >

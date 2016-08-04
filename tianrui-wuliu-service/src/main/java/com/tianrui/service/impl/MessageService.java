@@ -151,7 +151,7 @@ public class MessageService implements IMessageService {
 					bindVender(db,req.getIsreply());
 				//同意交班	
 				}else if( db.getCode().equals("221") && StringUtils.isNotBlank(req.getIsreply())){
-					driverTransfer(db, req.getIsreply());
+					rs = driverTransfer(db, req.getIsreply());
 				}
 				
 			}
@@ -172,7 +172,7 @@ public class MessageService implements IMessageService {
 		return total;
 	}
 	
-	private void driverTransfer(Message message,String isReplay)throws Exception{
+	private Result driverTransfer(Message message,String isReplay)throws Exception{
 		TransferReq req = new TransferReq();
 		req.setStartid(message.getSendid());
 		req.setStarter(message.getSendname());
@@ -183,7 +183,7 @@ public class MessageService implements IMessageService {
 		}else{
 			req.setStatus("2");
 		}
-		transferService.update(req);
+		return transferService.update(req);
 	}
 	
 	private void bindDriver(Message dbMessage,String isReplay) throws Exception{

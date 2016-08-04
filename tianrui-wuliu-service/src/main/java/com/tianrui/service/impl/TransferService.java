@@ -19,12 +19,14 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 @Service
 public class TransferService implements ITransferService{
 
@@ -38,6 +40,8 @@ public class TransferService implements ITransferService{
 	VehicleDriverMapper vehicleDriverMapper;
 	@Autowired
 	MemberVehicleMapper memberVehicleMapper;
+	@Autowired
+	SystemMemberMapper systemMemberMapper;
 	
 	@Override
 	public Result update(TransferReq req)throws Exception {
@@ -108,13 +112,15 @@ public class TransferService implements ITransferService{
 			vhd.setDrivername(record.getSender());
 			vhd.setDrivertel(record.getSendtele());
 			vehicleDriverMapper.updateByPrimaryKeySelective(vhd);
+			//TODO
+			SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getSendid());
 			//批量修改运单司机
 			BillUpdate upt = new BillUpdate();
 			upt.setStartdriverid(req.getStartid());
 			upt.setDriverid(req.getSendid());
 			upt.setDrivername(req.getSender());
-			upt.setDrivertel(req.getSendtele());
-			upt.setVenderid(req.getMemberid());
+			upt.setDrivertel(member.getCellphone());
+			upt.setVenderid(vehicle.getMemberid());
 			billMapper.updateByBillTransfer(upt);
 			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_AGREE);
 			messageService.sendMessageInside(mreq);
