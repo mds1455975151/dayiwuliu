@@ -143,14 +143,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" disabled >
 	                                	</c:if>
                             			<c:if test="${item.isUsed==0}">
-                            				<li >
+                            				<li>
 	                                		<input type="checkbox" dataId="${item.id }" class="checkInput"  >
 	                                	</c:if>
-	                                    <label>${item.vehicleNo }</label>
-	                                    <label>${item.driverName }</label>
-	                                    <label>${item.vehicleTypeName }</label>
-	                                    <label>${item.vehiweight }吨</label>
-	                                    <label>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</label>
+	                                    <span>${item.vehicleNo }</span>
+	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
+	                                    <span><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</span>
+	                                    <span>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</span>
+	                                    <input type="button" value="车次号" hidden>
 	                                </li>
                             	</c:forEach>
                             </ul>

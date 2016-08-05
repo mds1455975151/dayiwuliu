@@ -786,10 +786,12 @@ public class BillService implements IBillService{
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
 				query.setLimit(req.getPageSize());
 				List<Bill> list = billMapper.selectByCondition(query);
-				for(int i=0;list!=null&&i<list.size();i++){
-					Bill b = list.get(i);
-					if(!StringUtils.equals(req.getCurrId(), b.getDriverid())){
-						b.setStatus(Byte.parseByte("-10"));
+				if(req.getQueryType() == 3){
+					for(int i=0;list!=null&&i<list.size();i++){
+						Bill b = list.get(i);
+						if(!StringUtils.equals(req.getCurrId(), b.getDriverid())){
+							b.setStatus(Byte.parseByte("-10"));
+						}
 					}
 				}
 				Collections.sort(list, new Comparator<Bill>() {

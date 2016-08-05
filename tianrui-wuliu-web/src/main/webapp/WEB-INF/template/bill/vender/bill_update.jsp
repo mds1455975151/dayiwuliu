@@ -140,17 +140,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             		
                             			<c:if test="${item.isUsed==1 }">
                             				<li title="该车与当前计划已经有未完成的运单." >
-	                                		<input type="radio" dataId="${item.id }" class="checkInput" disabled  name="driverId"  >
+	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" disabled  name="driverId"  >
 	                                	</c:if>
                             			<c:if test="${item.isUsed==0}">
                             				<li >
-	                                		<input type="radio" dataId="${item.id }" class="checkInput" name="driverId"  >
+	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" name="driverId"  >
 	                                	</c:if>
-	                                     <label>${item.vehicleNo }</label>
-	                                    <label>${item.driverName }</label>
-	                                    <label>${item.vehicleTypeName }</label>
-	                                    <label>${item.vehiweight }吨</label>
-	                                    <label>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</label>
+	                                    <span>${item.vehicleNo }</span>
+	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
+	                                    <span><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</span>
+	                                    <span>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</span>
 	                                </li>
                             	</c:forEach>
                             </ul>

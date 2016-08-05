@@ -19,62 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
-	<style type="text/css">
-	.sj_search{
-	    padding: 15px 20px;
-	    font-size: 13px;
-	
-	}
-	.sj_search li{
-	    width: 280px;
-	    display: inline-block;
-	}
-	.sj_search li input{
-	    width: 180px;
-	    display: inline-block;
-	}
-	.sj_left, .sj_right{
-	    padding: 15px;
-	    width:350px;
-	    float: left;
-	 }
-	.sj_left h4,.sj_right h4{
-	    font-size: 16px;
-	}
-	.venderList, .driverList{
-	    border: 1px solid #f4f4f4;
-	    width:300px;
-	    float: left;
-	 }
-	.venderList ul, .driverList ul{
-	    padding:8px 0px;
-	    height: 400px;
-	    overflow-y: scroll;
-	}
-	.venderList ul li, .driverList ul li{
-	   font-size: 13px;
-	    line-height: 26px;
-	    text-indent: 15px;
-	    cursor: pointer;
-	}
-	.venderList ul li.active,.venderList ul li:focus,.venderList ul li:hover{
-	    color: #ffffff;
-	    background: #0093dd;
-	}
-	.driverList ul li.active,.driverList ul li:focus,.driverList ul li:hover{
-	    color: #ffffff;
-	    background: #fb841b;
-	}
-	.sj_total{
-	    overflow: hidden;
-	    width: 700px;
-	}
-	.sj_total input[type="button"]{
-	    display: block;
-	    width: 140px;
-	    margin: 15px auto;
-	}
-	</style>
 </head>
 <body>
 <!-- 引用公共header部分 -->
