@@ -22,7 +22,7 @@ public class Constant {
     public final static String apiAuthKey ="!&@#2016#";
     
     
-    //redis 缓存的前缀
+    //redis 缓存的前缀 wl2_|-测试|  wl_|-开发|
     //public final static String PRE_REDIS ="wl2_";
     public final static String PRE_REDIS ="wl_";
     
