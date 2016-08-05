@@ -799,7 +799,7 @@ public class BillService implements IBillService{
 					public int compare(Bill o1, Bill o2) {
 						if(o1.getCreatetime()-o2.getCreatetime() < 0){
 							return 1;
-						}else if(o1.getCreatetime()-o2.getCreatetime() > 0){
+						}else if(o1.getModifytime()-o2.getModifytime() > 0){
 							return -1;
 						}else{
 							return 0;
