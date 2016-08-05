@@ -1208,9 +1208,9 @@ public class BillService implements IBillService{
 							}
 						}
 					}
-					if( flag ){
-						itemResp.setIsUsed(1);
-					}
+//					if( flag ){
+//						itemResp.setIsUsed(1);
+//					}
 					resp.add(itemResp);
 				}
 			}
