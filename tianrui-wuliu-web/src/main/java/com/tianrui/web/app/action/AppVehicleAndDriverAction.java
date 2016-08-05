@@ -120,9 +120,9 @@ public class AppVehicleAndDriverAction {
 		member.setTelnum(appParam.getHead().getAccount());
 		MemberResp resp = systemMemberService.findMemberByTelnum(member);
 		String userName = "";
-		if(!"".equals(resp.getUserName())){
+		if(StringUtils.isNotBlank(resp.getUserName())){
 			userName = resp.getUserName();
-		}else if(!"".equals(resp.getNickname())){
+		}else if(StringUtils.isNotBlank(resp.getNickname())){
 			userName = resp.getNickname();
 		}else{
 			userName = resp.getCellPhone();
