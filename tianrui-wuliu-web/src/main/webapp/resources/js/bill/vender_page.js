@@ -21,6 +21,7 @@ $(function(){
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
 					renderDate(rs.data.list || [],pageNo);
+					$(".pageMore").off('click').on('click',moreData);
 				}else{
 					alert(rs.error);
 				}
@@ -97,10 +98,11 @@ $(function(){
 	}
 
 	//更多绑定事件
-	$(".pageMore").click(function(){
+	$(".pageMore").off('click').on('click',moreData);
+	var moreData = function(){
+		$(".pageMore").off('click');
 		pageData($(this).attr("pageNo"));
-	});
-	
+	}
 	//查询按钮点击
 	$(".searchBtn").click(function(){
 		pageData(1);
