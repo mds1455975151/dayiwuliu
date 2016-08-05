@@ -104,38 +104,4 @@ $(function(){
 			}
 		});
 	};
-	
-	
-	
-	$('.agreeBtn').off('click').on('click',function(){
-		updateHand(1);
-	});
-	$('.RefuseBtn').off('click').on('click',function(){
-		updateHand(2);
-	});
-	var updateHand = function(status){
-		var startid = $('.isAcceptUl').attr('startid');
-		var starter = $('.isAcceptUl').attr('starter');
-		var starttele = $('.isAcceptUl').attr('starttele');
-		$.ajax({
-			url:'/trwuliu/billdriver/updateHand',
-			data:{
-				status:status,
-				startid:startid,
-				starter:starter,
-				starttele:starttele
-			},
-			dataType:'json',
-			type:'POST',
-			async:true,
-			cache:false,
-			success:function(result){
-				if(result.code == "000000"){
-					window.location.reload();
-				}else{
-					alert(result.error);
-				}
-			}
-		});
-	};
 });

@@ -191,7 +191,6 @@ public class BillDriverAction {
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		view.addObject("list",systemMemberInfoService.handView(currUser.getId()).getData());
 		view.addObject("isHand", transferService.isHand(currUser.getId()));
-		view.addObject("isAccept", transferService.isAccept(currUser.getId()));
 		return view;
 	}
 	//初始化司机交班页面
@@ -233,19 +232,4 @@ public class BillDriverAction {
 		rs = transferService.delete(currUser.getId());
 		return rs;
 	}
-	//同意或拒绝交班申请
-	@RequestMapping("/updateHand")
-	@ResponseBody
-	public Result updateHand(TransferReq req, HttpServletRequest request) throws Exception{
-		Result rs =Result.getSuccessResult();
-		if( req !=null ){
-			MemberVo currUser =SessionManager.getSessionMember(request);
-			req.setSendid(currUser.getId());
-			req.setSender(currUser.getRealName());
-			req.setSendtele(currUser.getCellphone());
-			rs = transferService.update(req);
-		}
-		return rs;
-	}
-	
 }
