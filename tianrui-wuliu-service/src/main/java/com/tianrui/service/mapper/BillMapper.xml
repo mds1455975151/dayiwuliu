@@ -94,7 +94,33 @@
       <if test="driverid != null and driverid!=''" >
 	 	and driverid=#{driverid,jdbcType=VARCHAR}
 		UNION
-		select <include refid="Base_Column_List" /> from wuliu_bill where id in (select billid from wuliu_transfer where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP BY billid) 
+		select <include refid="Base_Column_List" /> 
+		from wuliu_bill 
+		where id in (select billid from wuliu_transfer where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP BY billid) 
+		<if test="planid != null and planid!=''" >
+        and planid =#{planid,jdbcType=VARCHAR}
+      </if>
+      <if test="venderid != null and venderid!=''" >
+       and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+      </if>
+      <if test="vehicleid != null and vehicleid!=''" >
+       and vehicleid=#{vehicleid,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null " >
+        and status =#{status,jdbcType=TINYINT}
+      </if>
+      <if test="ownerid != null and ownerid!=''" >
+        and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+      </if>
+      <if test="queryKey != null and queryKey!=''" >
+        and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+      </if>
+  	  <if test="statusStrs != null" >
+        and status in 
+	      <foreach   collection="statusStrs" item="itemId" open="("  separator=","  close=")">  
+		         #{itemId}  
+		  </foreach> 
+      </if> 
       </if>
    	</where>
    	order by modifytime desc
@@ -140,6 +166,30 @@
 	 	and driverid=#{driverid,jdbcType=VARCHAR}
 		UNION
 		select id from wuliu_bill where id in (select billid from wuliu_transfer where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP BY billid) 
+      	<if test="planid != null and planid!=''" >
+        and planid =#{planid,jdbcType=VARCHAR}
+      </if>
+      <if test="venderid != null and venderid!=''" >
+       and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+      </if>
+      <if test="vehicleid != null and vehicleid!=''" >
+       and vehicleid=#{vehicleid,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null " >
+        and status =#{status,jdbcType=TINYINT}
+      </if>
+      <if test="ownerid != null and ownerid!=''" >
+        and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+      </if>
+      <if test="queryKey != null and queryKey!=''" >
+        and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+      </if>
+  	  <if test="statusStrs != null" >
+        and status in 
+	      <foreach   collection="statusStrs" item="itemId" open="("  separator=","  close=")">  
+		         #{itemId}  
+		  </foreach> 
+      </if> 
       </if>
    	</where>
     ) b
