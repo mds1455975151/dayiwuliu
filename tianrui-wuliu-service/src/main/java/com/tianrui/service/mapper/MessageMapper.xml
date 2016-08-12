@@ -262,6 +262,15 @@
 	      <if test="recid != null" >
 	        and recid = #{recid,jdbcType=VARCHAR}
 	      </if>
+	      <if test="sendid != null" >
+	        and sendid = #{sendid,jdbcType=VARCHAR}
+	      </if>
+	      <if test="code != null" >
+	        and code = #{code,jdbcType=VARCHAR}
+	      </if>
+	      <if test="isreply != null" >
+	        and isreply = #{isreply,jdbcType=VARCHAR}
+	      </if>
 	    </where> 
 	       order by status asc,sendtime desc
 	    <if test="start != null and start != '0'">

@@ -1,5 +1,6 @@
 package com.tianrui.web.app.action;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,6 +99,42 @@ public class AppMemberInfoAction {
 		}
 		req.setIdcardsImagePath(result.getData().toString());
 		result= systemMemberInfoRecordService.personalAuthentication(req);
+		return AppResult.valueOf(result);
+	}
+	/**
+	 * 
+	 * @描述:企业认证
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 * @返回类型 AppResult
+	 * @创建人 lsj
+	 * @创建时间 2016年8月11日下午3:12:43
+	 */
+	@RequestMapping(value="/companyAuthen",method=RequestMethod.POST)
+	@ApiParamRawType(MemberInfoReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult companyAuthen(AppParam<MemberInfoReq> appParam) throws Exception{
+		Result result = Result.getSuccessResult();
+		
+		MemberInfoReq req = appParam.getBody();
+		req.setMemberId(appParam.getHead().getId());
+		if(StringUtils.isNotBlank(req.getLicenseImagePath())){
+			FileUploadReq freq = new FileUploadReq();
+			freq.setImgStr(req.getLicenseImagePath());
+			result = iFileService.uploadImg(freq);
+			if("000000".equals(result.getCode())){
+				req.setLicenseImagePath(result.getData().toString());
+			}else{
+				return AppResult.valueOf(result);
+			}
+		}else{
+			result.setCode("1");
+			result.setError("照片不能为空");
+			return AppResult.valueOf(result);
+		}
+		result= systemMemberInfoRecordService.enterpriseAuthentication(req);
 		return AppResult.valueOf(result);
 	}
 	/**

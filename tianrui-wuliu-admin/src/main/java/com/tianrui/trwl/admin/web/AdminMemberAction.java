@@ -491,6 +491,8 @@ public class AdminMemberAction {
 	public Result carReviw(
 			String id,
 			String type,
+			String vehiclePrefix,
+			String vehicleNo,
 			String massage,
 			String memberid) throws Exception{
 		Result rs = Result.getSuccessResult();
@@ -509,6 +511,7 @@ public class AdminMemberAction {
 			rs.setError("数据不能为空");
 			return rs;
 		}
+		
 		MemberVehicleReq req = new MemberVehicleReq();
 		req.setId(id);
 		req.setStatus(type);

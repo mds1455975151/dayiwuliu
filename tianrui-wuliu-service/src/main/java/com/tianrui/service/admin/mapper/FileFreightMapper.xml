@@ -80,8 +80,8 @@
     <include refid="Base_Column_List" />
     from file_freight
     where 1=1 
-    <if test="desc1 != null and desc1 != ''" >
-    	and desc1 = #{desc1,jdbcType=VARCHAR}
+    <if test="freightName != null and freightName != ''" >
+    	and freightName = #{freightName,jdbcType=VARCHAR}
     </if>
      	and status != 2
   </select>

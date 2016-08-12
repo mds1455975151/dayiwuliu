@@ -19,6 +19,7 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.Message;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
@@ -26,6 +27,7 @@ import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.MessageMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 @Service
 public class TransferService implements ITransferService{
@@ -42,6 +44,8 @@ public class TransferService implements ITransferService{
 	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
 	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	private MessageMapper messagemapper;
 	
 	@Override
 	public Result update(TransferReq req)throws Exception {
@@ -112,7 +116,7 @@ public class TransferService implements ITransferService{
 			vhd.setDrivername(record.getSender());
 			vhd.setDrivertel(record.getSendtele());
 			vehicleDriverMapper.updateByPrimaryKeySelective(vhd);
-			//TODO
+			
 			SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getSendid());
 			//批量修改运单司机
 			BillUpdate upt = new BillUpdate();
@@ -187,6 +191,16 @@ public class TransferService implements ITransferService{
 		}
 		for(Transfer t : count){
 			transferMapper.deleteByPrimaryKey(t.getId());
+		}
+		//TODO
+		Message mass = new Message();
+		mass.setSendid(driverid);
+		mass.setIsreply("0");
+		mass.setCode("221");
+		List<Message> list = messagemapper.findByEntity(mass);
+		for(Message mes : list){
+			mes.setIsreply("3");
+			messagemapper.updateByPrimaryKeySelective(mes);
 		}
 		return rs;
 	}
