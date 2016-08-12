@@ -1,8 +1,10 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,14 @@ import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.front.member.MemberTransferResp;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberInfoRecordMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
@@ -31,6 +36,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	MemberVoService moberVoService;
 	@Autowired
 	IMessageService messageService;
+	@Autowired
+	BillMapper billMapper;
 	
 	@Override
 	public Result userReview(MemberInfoReq req) throws Exception {
@@ -94,7 +101,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 
 	@Override
 	public Result driverReview(MemberInfoReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		SystemMemberInfoRecord record = systemMemberInfoRecorMapper.selectByPrimaryKey(req.getId());
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(record.getMemberid());
@@ -156,7 +162,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 
 	@Override
 	public Result companyReview(MemberInfoReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		SystemMemberInfoRecord record = systemMemberInfoRecorMapper.selectByPrimaryKey(req.getId());
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(record.getMemberid());
@@ -215,11 +220,30 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		return rs;
 	}
 	
-	public Result handView(String dirverId){
+	public Result handView(String dirverId) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<SystemMemberInfo> list = systemMemberInfoMapper.selectVenderByDriverId(dirverId);
+		List<MemberTransferResp> rlist = copyProperties(list);
+		for (int i = 0; i < rlist.size(); i++) {
+			Bill bil =new Bill();
+			bil.setDriverid(dirverId);
+			bil.setVenderid(rlist.get(i).getMemberid());
+			List<Bill> blist = billMapper.selectByBillTransfer(bil);
+			rlist.get(i).setCount(blist.size());
+		}
+		
 		Result result = Result.getSuccessResult();
-		result.setData(list);
+		result.setData(rlist);
 		return result;
+	}
+	
+	public List<MemberTransferResp> copyProperties(List<SystemMemberInfo> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+		List<MemberTransferResp> cop = new ArrayList<MemberTransferResp>();
+		for(SystemMemberInfo info : list){
+			MemberTransferResp resp = new MemberTransferResp();
+			PropertyUtils.copyProperties(resp, info);
+			cop.add(resp);
+		}
+		return cop;
 	}
 
 }

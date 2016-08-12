@@ -18,7 +18,6 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
-import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Message;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.Transfer;
@@ -61,22 +60,9 @@ public class TransferService implements ITransferService{
 			return rs;
 		}
 		
-		//判断司机是否收回请求
-		Transfer qure = new Transfer();
-		qure.setStartid(req.getStartid());
-		qure.setStatus("0");
-		List<Transfer> count = transferMapper.selectByCondition(qure);
-		if(count.size()==0){
-			rs.setCode("1");
-			rs.setError("该司机暂无转运申请，或司机已近收回转运请求");
-			return rs;
-		}
-		//通过车辆id查询车辆
-		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(count.get(0).getVehicleid());
-				
 		//判断司机车主当前绑定关系
 		VehicleDriver vehicleDriver = new VehicleDriver();
-		vehicleDriver.setCreator(vehicle.getMemberid());
+		vehicleDriver.setCreator(req.getMemberid());
 		vehicleDriver.setDriverid(req.getStartid());
 		List<VehicleDriver> vd = vehicleDriverMapper.selectMyVehiDriverByCondition(vehicleDriver);
 		if(vd.size()!=1){//司机晕车辆绑定关系不唯一，操作失败
@@ -89,7 +75,7 @@ public class TransferService implements ITransferService{
 		//查询司机同一车主下未完成运单
 		Bill bil = new Bill();
 		bil.setDriverid(req.getStartid());
-		bil.setVenderid(vehicle.getMemberid());
+		bil.setVenderid(req.getMemberid());
 		List<Bill> list = billMapper.selectByBillTransfer(bil);
 		for(Bill b : list){
 			record.setBillid(b.getId());
@@ -124,7 +110,7 @@ public class TransferService implements ITransferService{
 			upt.setDriverid(req.getSendid());
 			upt.setDrivername(req.getSender());
 			upt.setDrivertel(member.getCellphone());
-			upt.setVenderid(vehicle.getMemberid());
+			upt.setVenderid(req.getMemberid());
 			billMapper.updateByBillTransfer(upt);
 			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_AGREE);
 			messageService.sendMessageInside(mreq);
@@ -155,6 +141,11 @@ public class TransferService implements ITransferService{
 		bil.setDriverid(req.getStartid());
 		bil.setVenderid(req.getMemberid());
 		List<Bill> list = billMapper.selectByBillTransfer(bil);
+//		if(list.size()==0){
+//			rs.setCode("1");
+//			rs.setError("该车主名下无可转运运单");
+//			return rs;
+//		}
 		for(Bill b : list){
 			record.setId(UUIDUtil.getId());
 			record.setBillid(b.getId());
@@ -169,6 +160,7 @@ public class TransferService implements ITransferService{
 		mreq.setSendid(record.getStartid());//发信人id
 		mreq.setSendname(record.getStarter());//发信人名称
 		mreq.setParams(strs);
+		mreq.setKeyid(req.getMemberid());//车主id
 		mreq.setType("1");
 		mreq.setRecid(record.getSendid());//收信人id
 		mreq.setRecname(record.getSender());//收信人名称

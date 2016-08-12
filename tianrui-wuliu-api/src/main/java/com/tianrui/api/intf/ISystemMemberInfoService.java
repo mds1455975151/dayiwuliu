@@ -1,5 +1,6 @@
 package com.tianrui.api.intf;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.tianrui.api.req.front.member.MemberInfoReq;
@@ -51,6 +52,17 @@ public interface ISystemMemberInfoService {
 	 * @创建时间 2016年6月22日下午2:31:29
 	 */
 	Result companyReview(MemberInfoReq req)throws Exception;
-	
-	public Result handView(String dirverId);
+	/**
+	 * 
+	 * @描述:司机换班 查询所属车主
+	 * @param dirverId
+	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @返回类型 Result
+	 * @创建人 lsj
+	 * @创建时间 2016年8月12日上午10:20:14
+	 */
+	public Result handView(String dirverId) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 }

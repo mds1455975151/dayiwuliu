@@ -1,5 +1,6 @@
 package com.tianrui.web.app.action;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 
@@ -158,6 +159,9 @@ public class AppTransferAction {
 	 * @描述:查询我所属的车主
 	 * @param appParam
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 * @返回类型 AppResult
 	 * @创建人 lsj
 	 * @创建时间 2016年8月4日下午2:42:13
@@ -166,7 +170,7 @@ public class AppTransferAction {
 	@ApiParamRawType(TransferReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult headView(AppParam<TransferReq> appParam){
+	public AppResult headView(AppParam<TransferReq> appParam) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		Result rs = Result.getSuccessResult();
 		String driverid = appParam.getHead().getId();
 		rs = systemMemberInfoService.handView(driverid);

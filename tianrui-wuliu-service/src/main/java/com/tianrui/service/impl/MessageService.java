@@ -178,6 +178,7 @@ public class MessageService implements IMessageService {
 		req.setStarter(message.getSendname());
 		req.setSendid(message.getRecid());
 		req.setSender(message.getRecname());
+		req.setMemberid(message.getKeyid());//获取车主id
 		if("1".equals(isReplay)){
 			req.setStatus("1");
 		}else{
