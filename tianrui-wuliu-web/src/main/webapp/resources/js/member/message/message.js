@@ -30,6 +30,8 @@ $(function(){
 									aa = "已同意"
 								}else if(data[i].isreply == "2"){
 									aa = "已拒绝"
+								}else if(data[i].isreply == "3"){
+									aa = "已收回";
 								}
 							}
 							
