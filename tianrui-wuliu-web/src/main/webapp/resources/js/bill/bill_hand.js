@@ -38,7 +38,7 @@ $(function(){
 			});
 		}
 	}
-	
+	$('.venderList li.active:eq(0)').trigger('click');
 	if($('.handBtn').attr('item') == '0'){
 		$('.handBtn').val('申请交班').removeClass('btnyello').addClass('btnblue');
 	}else{

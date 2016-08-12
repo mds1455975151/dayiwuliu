@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            	<div class="venderList">
 		            	<ul>
 		            		<c:forEach items="${list }" var="m">
-		            			<li item="${m.memberid }" class="">${m.count}${empty m.username ? m.companyname : m.username }</li>
+		            			<li item="${m.memberid }" class="<c:if test="${m.count > 0}">active</c:if>">${empty m.username ? m.companyname : m.username }</li>
 		            		</c:forEach>
 		            	</ul>
 		            </div>

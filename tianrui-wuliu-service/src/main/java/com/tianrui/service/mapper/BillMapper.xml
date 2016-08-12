@@ -704,6 +704,6 @@
    	where 
    	driverid = #{driverid,jdbcType=VARCHAR} 
    	AND venderid = #{venderid,jdbcType=VARCHAR} 
-   	AND status IN (0,1,2,3,4,5)
+   	AND status IN (0,1,2,3,4,5) and driverdelflag = 0
   </select>
 </mapper>
