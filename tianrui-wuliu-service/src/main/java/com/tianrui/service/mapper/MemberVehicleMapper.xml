@@ -683,7 +683,9 @@
         and a.vehilength like "%" #{vehilength,jdbcType=DOUBLE} "%"
       </if>
    	</where>
+   	<!-- 
    		group by a.memberid, a.vehicleprefix, a.vehicleno, b.driverid
+   	 -->
    		order by a.vehicleprefix, a.vehicleno
    		<if test="start != null and start != 0 and limit != null">
 	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}

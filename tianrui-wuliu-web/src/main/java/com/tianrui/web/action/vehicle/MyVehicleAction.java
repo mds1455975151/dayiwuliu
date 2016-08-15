@@ -179,6 +179,7 @@ public class MyVehicleAction {
 	public Result queryMyVehicleByCondition(String id, 
 			                                 String memberId,
 								              String vehiId, 
+								              String status,
 								               String vehiWholeNo) throws Exception{
 		
 		Result rs = Result.getSuccessResult();
@@ -189,6 +190,8 @@ public class MyVehicleAction {
 		vehicleReq.setMemberId(memberId);
 		// 车辆主键
 		vehicleReq.setVehicleId(vehiId);
+		
+		vehicleReq.setStatus(status);
 		// 车牌号
 		if (vehiWholeNo != null && !"".equals(vehiWholeNo)) {
 			// 车牌号前缀
@@ -381,6 +384,17 @@ public class MyVehicleAction {
 	@ResponseBody
 	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq) throws Exception{
 		Result rs = Result.getSuccessResult();
+		
+		MemberVehicleReq rreq = new MemberVehicleReq();
+		rreq.setVehicleNo(vehiReq.getVehicleNo());
+		rreq.setVehiclePrefix(vehiReq.getVehiclePrefix());
+		rreq.setStatus("1");
+		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
+		if(list.size()!=0){
+			rs.setCode("1");
+			rs.setError("该车牌号已被认证");
+			return rs;
+		}
 		String headImg = vehiReq.getVehiHeadImgPath();
 		String licenseImg = vehiReq.getVehiLicenseImgPath();
 		if(StringUtils.isNotBlank(headImg)){

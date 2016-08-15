@@ -155,6 +155,19 @@ public class MemberVehicleService implements IMemberVehicleService {
 	public Result insert(MemberVehicleReq req) throws Exception {
 		
 		Result rs = Result.getSuccessResult();
+		//判断车辆唯一
+		MemberVehicle vehic = new MemberVehicle();
+		vehic.setVehicleprefix(req.getVehiclePrefix());
+		vehic.setVehicleno(req.getVehicleNo());
+		vehic.setStatus("1");
+		long f = memberVehicleMapper.selectCountByCondition(vehic);
+		long x = 0;
+		if(f != x){
+			rs.setCode("1");
+			rs.setError("车牌号已被认证");
+			return rs;
+		}
+		
 		// 复制操作
 		MemberVehicle memberVehicle = copyProperties(req);
 		
@@ -168,7 +181,6 @@ public class MemberVehicleService implements IMemberVehicleService {
 			memberVehicle.setStatus("2");
 			memberVehicle.setBillstatus("5");
 		}
-		
 		// 数据插入操作
 		long count = memberVehicleMapper.insert(memberVehicle);
 		long a = 1;

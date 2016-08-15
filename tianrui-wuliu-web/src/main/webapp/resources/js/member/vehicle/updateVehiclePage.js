@@ -187,14 +187,16 @@ $("#vehicle_addBtn").click(function() {
 		type : "post",
 		beforeSend : function() {
 	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
 			$("#showload").click();
 		},
 		success : function(result) {
-			setTimeout(function(){$("#commonModal").modal("hide");},3000);
+//			setTimeout(function(){$("#commonModal").modal("hide");},3000);
 			if (result.code == "000000") {
 				window.location.href = PATH + "/trwuliu/Member/myVehicle/myVehiclePage";
 			} else {
-				$("#modal_common_content").html("添加失败，系统出错！");
+				$('#detail').modal("hide");
+				$("#modal_common_content").html(result.error);
 				$("#commonModal").modal();
 			}
 		}

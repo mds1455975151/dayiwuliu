@@ -243,15 +243,7 @@ public class AppVehicleAndDriverAction {
 	public AppResult addVehicle(AppParam<MemberVehicleReq> appParam) throws Exception{
 		
 		Result result = Result.getSuccessResult();
-		MemberVehicleReq rreq = new MemberVehicleReq();
-		rreq.setVehicleNo(appParam.getBody().getVehicleNo());
-		rreq.setVehiclePrefix(appParam.getBody().getVehiclePrefix());
-		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
-		if(list.size()!=0){
-			result.setCode("1");
-			result.setError("该车辆已存在");
-			return AppResult.valueOf(result);
-		}
+		
 		MemberVehicleReq req = appParam.getBody();
 		String id = UUIDUtil.getId();
 		req.setId(id);
@@ -305,6 +297,18 @@ public class AppVehicleAndDriverAction {
 		
 		Result rs = Result.getSuccessResult();
 		MemberVehicleReq vehiReq = appParam.getBody();
+		
+		MemberVehicleReq rreq = new MemberVehicleReq();
+		rreq.setVehicleNo(appParam.getBody().getVehicleNo());
+		rreq.setVehiclePrefix(appParam.getBody().getVehiclePrefix());
+		rreq.setStatus("1");
+		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
+		if(list.size()!=0){
+			rs.setCode("1");
+			rs.setError("该车辆已存在");
+			return AppResult.valueOf(rs);
+		}
+		
 		String headImg = vehiReq.getVehiHeadImgPath();
 		String licenseImg = vehiReq.getVehiLicenseImgPath();
 		if(StringUtils.isNotBlank(headImg)){
