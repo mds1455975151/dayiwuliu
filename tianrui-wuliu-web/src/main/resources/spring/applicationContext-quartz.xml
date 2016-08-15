@@ -27,7 +27,7 @@
         </property>  
         <property name="cronExpression">  
          <!-- 每 30分执行一次 -->
-            <value> * 0/30 * * * ?</value>    
+            <value> 0 0/30 * * * ?</value>    
         </property>  
     </bean>     
     <!-- 引用，配置要运行的方法 -->  
