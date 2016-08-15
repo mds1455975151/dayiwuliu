@@ -789,7 +789,7 @@ public class BillService implements IBillService{
 				if(req.getQueryType() == 3){
 					for(int i=0;list!=null&&i<list.size();i++){
 						Bill b = list.get(i);
-						if(!StringUtils.equals(req.getCurrId(), b.getDriverid())){
+						if(!StringUtils.equals(req.getCurrId(), b.getDriverid()) && !StringUtils.equals(b.getStatus().toString(), BillStatusEnum.COMPLETE.getStatus()+"")){
 							b.setStatus(Byte.parseByte("-10"));
 						}
 					}
