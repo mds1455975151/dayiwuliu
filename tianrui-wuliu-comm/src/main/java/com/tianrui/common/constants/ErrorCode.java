@@ -26,7 +26,8 @@ public enum ErrorCode {
 	BILL_PERMISSIONS("E301002","该用户没有权限操作此运单."),
 	BILL_STATUS_ERROR("E301003","操作失败,请刷新"),
 	BILL_STATUS_VEHICLE_ONLYONE("E301004","同一个运力只能有一个在途运单"),
-	BILL_STATUS_IMG_UPLOAD("E301005","榜单图片上传失败")
+	BILL_STATUS_IMG_UPLOAD("E301005","榜单图片上传失败"),
+	BILL_VEHICLE_BILLSTATUS("E301006","非空闲车辆不能接单")
 	;
 	
 	private String code;

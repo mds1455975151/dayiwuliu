@@ -50,6 +50,8 @@ public class MemberVehicleResp extends BaseResp{
 	private String vehiAndOwnerImgPath;
 	/** 车辆状态(-1:认证失败,0:未认证,1:认证成功,2:认证中) */
 	private String status;
+	/** 车辆运输状态(2-发货中3-运货中4-卸货中5-空闲中)*/
+	private String billstatus;
 	/** 认证失败原因 */
 	private String memo;
 	/** 自定义项1 */
@@ -93,6 +95,14 @@ public class MemberVehicleResp extends BaseResp{
 	 */
 	public String getMemberId() {
 		return memberId;
+	}
+
+	public String getBillstatus() {
+		return billstatus;
+	}
+
+	public void setBillstatus(String billstatus) {
+		this.billstatus = billstatus;
 	}
 
 	/**

@@ -36,6 +36,7 @@ import com.tianrui.api.resp.front.bill.BillTrackResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
+import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
@@ -418,7 +419,14 @@ public class BillService implements IBillService{
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
+			//TODO
 			if( db !=null ){
+				MemberVehicleResp vehicle = memberVehicleService.queryMyVehicleInfoById(db.getVehicleid());
+				/** 车辆运输状态(2-发货中3-运货中4-卸货中5-空闲中)*/
+				if(!"5".equals(vehicle.getBillstatus())){
+					rs.setErrorCode(ErrorCode.BILL_VEHICLE_BILLSTATUS);
+					return rs;
+				}
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"accept") ){
 						Bill update =new Bill();
@@ -430,6 +438,11 @@ public class BillService implements IBillService{
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP6,req.getCurruId(),BillStatusEnum.ACCEPT.getStatus());
+						//修改运力车辆 状态信息
+						MemberVehicleReq req2 =new MemberVehicleReq();
+						req2.setId(db.getVehicleid());
+						req2.setBillstatus("2");
+						memberVehicleService.updateVehiclebillStatus(req2);
 						//为车主发送站内信
 						MemberVo currUser =getMember(req.getCurruId());
 						MemberVo receive =getMember(db.getVenderid());

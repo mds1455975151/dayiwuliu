@@ -126,10 +126,11 @@ public class TransferService implements ITransferService{
 	@Override
 	public Result save(TransferReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
-		Transfer qure = new Transfer();
-		qure.setStartid(req.getStartid());
-		qure.setStatus("0");
-		List<Transfer> count = transferMapper.selectByCondition(qure);
+		Message message = new Message();
+		message.setSendid(req.getStartid());
+		message.setIsreply("0");
+		message.setCode("221");
+		List<Message> count = messagemapper.findByEntity(message);
 		if(count.size()!=0){
 			rs.setCode("1");
 			rs.setError("有未处理转运请请求，不能重复申请转运");
@@ -141,11 +142,6 @@ public class TransferService implements ITransferService{
 		bil.setDriverid(req.getStartid());
 		bil.setVenderid(req.getMemberid());
 		List<Bill> list = billMapper.selectByBillTransfer(bil);
-//		if(list.size()==0){
-//			rs.setCode("1");
-//			rs.setError("该车主名下无可转运运单");
-//			return rs;
-//		}
 		for(Bill b : list){
 			record.setId(UUIDUtil.getId());
 			record.setBillid(b.getId());
@@ -172,19 +168,23 @@ public class TransferService implements ITransferService{
 	@Override
 	public Result delete(String driverid) throws Exception {
 		Result rs = Result.getSuccessResult();
-		Transfer qure = new Transfer();
-		qure.setStartid(driverid);
-		qure.setStatus("0");
-		List<Transfer> count = transferMapper.selectByCondition(qure);
-		if(count.size()==0){
+		Message message = new Message();
+		message.setSendid(driverid);
+		message.setIsreply("0");
+		message.setCode("221");
+		List<Message> siz = messagemapper.findByEntity(message);
+		if(siz.size()==0){
 			rs.setCode("1");
 			rs.setError("该司机暂无转运申请");
 			return rs;
 		}
+		Transfer qure = new Transfer();
+		qure.setStartid(driverid);
+		qure.setStatus("0");
+		List<Transfer> count = transferMapper.selectByCondition(qure);
 		for(Transfer t : count){
 			transferMapper.deleteByPrimaryKey(t.getId());
 		}
-		//TODO
 		Message mass = new Message();
 		mass.setSendid(driverid);
 		mass.setIsreply("0");
@@ -199,10 +199,11 @@ public class TransferService implements ITransferService{
 	//是否已申请过交班
 	@Override
 	public int isHand(String driverid) throws Exception{
-		Transfer qure = new Transfer();
-		qure.setStartid(driverid);
-		qure.setStatus("0");
-		List<Transfer> count = transferMapper.selectByCondition(qure);
+		Message message = new Message();
+		message.setSendid(driverid);
+		message.setIsreply("0");
+		message.setCode("221");
+		List<Message> count = messagemapper.findByEntity(message);
 		if(count.size()==0){
 			return 0;
 		}else{

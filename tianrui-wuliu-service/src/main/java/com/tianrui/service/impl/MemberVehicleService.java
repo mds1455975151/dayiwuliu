@@ -306,6 +306,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 		memberVehicleResp.setVehiAndOwnerImgPath(memberVehicle.getVehiandownerimgpath());
 		// 车辆状态
 		memberVehicleResp.setStatus(memberVehicle.getStatus());
+		//车辆运输状态
+		memberVehicleResp.setBillstatus(memberVehicle.getBillstatus());
 		// 认证失败原因
 		memberVehicleResp.setMemo(memberVehicle.getMemo());
 		// 自定义项1
@@ -635,9 +637,10 @@ public class MemberVehicleService implements IMemberVehicleService {
 		//运单状态为2，3，4，5 修改车辆状态
 		//2-发货中3-运货中4-卸货中5-空闲中
 		if("|2|3|4|5|".contains("|"+req.getBillstatus()+"|")){
+			String sd = req.getBillstatus();
 			MemberVehicle vehicle = new MemberVehicle();
 			vehicle.setId(req.getId());
-			vehicle.setBillstatus(req.getBillstatus());
+			vehicle.setBillstatus(sd);
 			int a = memberVehicleMapper.updateByPrimaryKeySelective(vehicle);
 			if(a!=1){
 				rs.setCode("1");
