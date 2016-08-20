@@ -122,6 +122,7 @@ public class FileFrieghtAction {
 			req.setCreatetime(date.getTime());
 			req.setOrganizationid(user.getOrgid());
 			req.setOrganizationname(user.getOrgname());
+			req.setAuditstatus("0");
 			if(!freightService.saveEntity(req)){
 				rs.setCode("1");
 				rs.setError("添加失败");

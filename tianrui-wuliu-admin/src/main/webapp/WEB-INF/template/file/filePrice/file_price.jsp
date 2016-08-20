@@ -83,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>计价单位</th>
                                 <th>税率</th>
                                 <th>状态</th>
+								<th>审核状态</th>
                                 <th>货物名称</th>
                                 <th>路线名称</th>
                                 <th>操作</th>
@@ -164,9 +165,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="model_width" id="blurmeasure">
                         <label><i style="color: #ff2f00;">*</i>税率：</label>
                         <select class="form-control" id="tallage" name="tallage">
-                      		<option value="4">4%</option>
-                            <option value="10">10%</option>
-                            <option value="12">12%</option>
+                      		<option value="3">3%</option>
+                            <option value="11">11%</option>
+                            <option value="17">17%</option>
                         </select>
                     </div>
                 </div>

@@ -270,10 +270,7 @@ public class PlanOwnerAction {
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
 		PlanResp planResp = cargoPlanService.detail(req);
-		
 		model.addObject("plan",planResp);
-		
-		model.addObject("plan",cargoPlanService.detail(req));
 		return model;
 	}
 }

@@ -23,8 +23,8 @@ public class Constant {
     
     
     //redis 缓存的前缀 wl2_|-测试-43|  wl_|-开发-23|
-    public final static String PRE_REDIS ="wl2_";
-    //public final static String PRE_REDIS ="wl_";
+    //public final static String PRE_REDIS ="wl2_";
+    public final static String PRE_REDIS ="wl_";
     
     //日志文件 访问日志 记录访问来源
     public final static String ACCESS ="access";

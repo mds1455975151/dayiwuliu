@@ -12,6 +12,10 @@ public class FreightReq extends BaseReq{
      */
     private String organizationid;
     /**
+     * 审核状态
+     */
+    private String auditstatus;
+    /**
      * 所属组织名称 
      */
     private String organizationname;
@@ -97,6 +101,13 @@ public class FreightReq extends BaseReq{
 	}
 	public String getId() {
 		return id;
+	}
+	
+	public String getAuditstatus() {
+		return auditstatus;
+	}
+	public void setAuditstatus(String auditstatus) {
+		this.auditstatus = auditstatus;
 	}
 	public void setId(String id) {
 		this.id = id;
