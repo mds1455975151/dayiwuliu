@@ -58,6 +58,12 @@ public class BillPlanResp extends BaseResp{
     
     private String vender;
     private Double tallage;
+    
+    /**
+     * 剩余运输量
+     */
+    private Double overweight;
+    
 	public String getStartcity() {
 		return startcity;
 	}
@@ -153,6 +159,12 @@ public class BillPlanResp extends BaseResp{
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
+	}
+	public Double getOverweight() {
+		return overweight;
+	}
+	public void setOverweight(Double overweight) {
+		this.overweight = overweight;
 	}
     
 }

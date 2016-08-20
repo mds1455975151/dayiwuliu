@@ -44,6 +44,7 @@
     <result column="modifier" property="modifier" jdbcType="VARCHAR" />
     <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
     <result column="signimgurl" property="signimgurl" jdbcType="BIGINT" />
+    <result column="overnumber" property="overnumber" jdbcType="VARCHAR" />
     <result column="DESC1" property="desc1" jdbcType="VARCHAR" />
     <result column="DESC2" property="desc2" jdbcType="VARCHAR" />
     <result column="DESC3" property="desc3" jdbcType="VARCHAR" />
@@ -54,7 +55,7 @@
     cargoname, startcity, consignorname, consignortel, endTime, startTime, endcity, receivername, 
     receivertel, priceUnits, distance, price, type, status, waybillno, weight, trueweight, 
     ownerid, venderid, venderdelflag, ownerdelflag, driverdelflag, orgid,plancode,creator, createtime, 
-    modifier, modifytime, signimgurl,DESC1, DESC2, DESC3, DESC4
+    modifier, modifytime, signimgurl,overnumber,DESC1, DESC2, DESC3, DESC4
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -91,6 +92,9 @@
 		         #{itemId}  
 		  </foreach> 
       </if> 
+      <if test="overnumber != null and overnumber != ''" >
+        and overnumber=#{overnumber,jdbcType=VARCHAR}
+      </if>
       <if test="driverid != null and driverid!=''" >
 	 	and driverid=#{driverid,jdbcType=VARCHAR} and driverdelflag=0 and status != -1
 		UNION
@@ -121,6 +125,9 @@
 		         #{itemId}  
 		  </foreach> 
       </if> 
+      <if test="overnumber != null and overnumber != ''" >
+        and overnumber=#{overnumber,jdbcType=VARCHAR}
+      </if>
       </if>
    	</where>
    	order by modifytime desc
@@ -162,6 +169,9 @@
 		         #{itemId}  
 		  </foreach> 
       </if> 
+      <if test="overnumber != null and overnumber != ''" >
+        and overnumber=#{overnumber,jdbcType=VARCHAR}
+      </if>
       <if test="driverid != null and driverid!=''" >
 	 	and driverid=#{driverid,jdbcType=VARCHAR} and driverdelflag=0 and status != -1
 		UNION
@@ -190,6 +200,9 @@
 		         #{itemId}  
 		  </foreach> 
       </if> 
+      <if test="overnumber != null and overnumber != ''" >
+        and overnumber=#{overnumber,jdbcType=VARCHAR}
+      </if>
       </if>
    	</where>
     ) b
@@ -230,7 +243,7 @@
       weight, trueweight, ownerid, 
       venderid, venderdelflag, ownerdelflag, 
       driverdelflag, orgid,plancode,creator, createtime, 
-      modifier, modifytime, DESC1, 
+      modifier, modifytime, overnumber, DESC1, 
       DESC2, DESC3, DESC4
       )
     values (#{id,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, 
@@ -244,7 +257,7 @@
       #{weight,jdbcType=DOUBLE}, #{trueweight,jdbcType=DOUBLE}, #{ownerid,jdbcType=VARCHAR}, 
       #{venderid,jdbcType=VARCHAR}, #{venderdelflag,jdbcType=TINYINT}, #{ownerdelflag,jdbcType=TINYINT}, 
       #{driverdelflag,jdbcType=TINYINT}, #{orgid,jdbcType=VARCHAR},#{plancode,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, 
-      #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, #{overnumber,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, 
       #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
       )
   </insert>
@@ -365,6 +378,9 @@
       </if>
       <if test="modifytime != null" >
         modifytime,
+      </if>
+      <if test="overnumber != null" >
+        overnumber,
       </if>
       <if test="desc1 != null" >
         DESC1,
@@ -490,6 +506,9 @@
       </if>
       <if test="modifytime != null" >
         #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="overnumber != null" >
+        #{overnumber,jdbcType=VARCHAR},
       </if>
       <if test="desc1 != null" >
         #{desc1,jdbcType=VARCHAR},
@@ -623,6 +642,9 @@
       <if test="modifytime != null" >
         modifytime = #{modifytime,jdbcType=BIGINT},
       </if>
+      <if test="overnumber != null" >
+        overnumber = #{overnumber,jdbcType=VARCHAR},
+      </if>
       <if test="desc1 != null" >
         DESC1 = #{desc1,jdbcType=VARCHAR},
       </if>
@@ -705,5 +727,10 @@
    	driverid = #{driverid,jdbcType=VARCHAR} 
    	AND venderid = #{venderid,jdbcType=VARCHAR} 
    	AND status IN (0,1,2,3,4,5) and driverdelflag = 0
+  </select>
+  <select id="selectByPlanId" resultMap="BaseResultMap" parameterType="string">
+  	select <include refid="Base_Column_List" />
+    from wuliu_bill
+    where planid = #{planid,jdbcType=VARCHAR} and venderdelflag = 0 and venderdelflag = 0 and driverdelflag = 0
   </select>
 </mapper>

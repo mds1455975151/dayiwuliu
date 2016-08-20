@@ -48,7 +48,10 @@ public class WaybillResp extends BaseResp{
     private String signimgurl;
     private String desc1;
     private Double tallage;
-    
+    /**
+     * 剩余运输量
+     */
+    private Double overweight;
 	
 	//拒绝原因类型
 	private String refuseType;
@@ -61,6 +64,9 @@ public class WaybillResp extends BaseResp{
     //承运商名称
     private String venderName;
     private String plancode;
+    
+    //剩余趟数
+    private String overnumber;
     
     
     private List<BillTrackResp> billTrackList;
@@ -350,6 +356,18 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
+	}
+	public String getOvernumber() {
+		return overnumber;
+	}
+	public void setOvernumber(String overnumber) {
+		this.overnumber = overnumber;
+	}
+	public Double getOverweight() {
+		return overweight;
+	}
+	public void setOverweight(Double overweight) {
+		this.overweight = overweight;
 	}
 	
 }

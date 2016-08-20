@@ -37,6 +37,7 @@ import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
+import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
@@ -147,7 +148,12 @@ public class BillService implements IBillService{
 						bill.setVenderdelflag(Byte.valueOf("0"));
 						bill.setOwnerdelflag(Byte.valueOf("0"));
 						bill.setDriverdelflag(Byte.valueOf("0"));
-						bill.setType(Byte.valueOf("0"));
+						if(Integer.parseInt(item.getOvernumber()) > 1){
+							//批量运单
+							bill.setType(Byte.valueOf("2"));
+						}else{
+							bill.setType(Byte.valueOf("0"));
+						}
 						//车主 货主信息
 						bill.setOwnerid(plan.getCreator());
 						bill.setVenderid(plan.getVehicleownerid());
@@ -158,6 +164,7 @@ public class BillService implements IBillService{
 						bill.setVehicletypename(item.getVehicleTypeName());
 						bill.setDrivername(item.getDriverName());
 						bill.setDrivertel(item.getDriverTel());
+						bill.setOvernumber(item.getOvernumber());
 						//货物信息
 						bill.setCargoname(plan.getCargoname());
 						bill.setPriceunits(plan.getPriceunits());
@@ -216,7 +223,8 @@ public class BillService implements IBillService{
 						update.setEndtime(req.getBillEndTime());
 						update.setWeight(Double.valueOf(req.getWeight()));
 						update.setPrice(Double.valueOf(req.getPrice()));
-						
+						update.setOvernumber(req.getOvernumber());
+
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						
@@ -419,14 +427,7 @@ public class BillService implements IBillService{
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
-			//TODO
 			if( db !=null ){
-				MemberVehicleResp vehicle = memberVehicleService.queryMyVehicleInfoById(db.getVehicleid());
-				/** 车辆运输状态(2-发货中3-运货中4-卸货中5-空闲中)*/
-				if(!"5".equals(vehicle.getBillstatus())){
-					rs.setErrorCode(ErrorCode.BILL_VEHICLE_BILLSTATUS);
-					return rs;
-				}
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"accept") ){
 						Bill update =new Bill();
@@ -438,11 +439,6 @@ public class BillService implements IBillService{
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP6,req.getCurruId(),BillStatusEnum.ACCEPT.getStatus());
-						//修改运力车辆 状态信息
-						MemberVehicleReq req2 =new MemberVehicleReq();
-						req2.setId(db.getVehicleid());
-						req2.setBillstatus("2");
-						memberVehicleService.updateVehiclebillStatus(req2);
 						//为车主发送站内信
 						MemberVo currUser =getMember(req.getCurruId());
 						MemberVo receive =getMember(db.getVenderid());
@@ -730,10 +726,22 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				resp = conver2billResp(db);
 			}
-			FileFreight fileFreight = fileFreightMapper.selectOne(planMapper.selectByPrimaryKey(db.getPlanid()).getFreightid());
+			Plan plan = planMapper.selectByPrimaryKey(db.getPlanid());
+			FileFreight fileFreight = fileFreightMapper.selectOne(plan.getFreightid());
 			if(fileFreight != null){
 				resp.setTallage(fileFreight.getTallage());
 			}
+			double alreadyTransport = 0;
+			List<Bill> list = billMapper.selectByPlanId(plan.getId());
+			if(list != null){
+				for(int i=0;i<list.size();i++){
+					Bill b = list.get(i);
+					if(!StringUtils.equals(b.getId(), req.getId())){
+						alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+					}
+				}	
+			}
+			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
 		}
 		return resp;
 	}
@@ -882,6 +890,15 @@ public class BillService implements IBillService{
 				if(fileFreight != null){
 					resp.setTallage(fileFreight.getTallage());
 				}
+				double alreadyTransport = 0;
+				List<Bill> list = billMapper.selectByPlanId(plan.getId());
+				if(list != null){
+					for(int i=0;i<list.size();i++){
+						Bill b = list.get(i);
+						alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+					}	
+				}
+				resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
 			}
 		}
 		return resp;
@@ -929,7 +946,7 @@ public class BillService implements IBillService{
 			String[]  idarr =ids.split(";");
 			for(String id :idarr ){
 				if( StringUtils.isNotBlank(id) ){
-					VehicleDriver db =vehicleDriverMapper.selectByPrimaryKey(id);
+					VehicleDriver db =vehicleDriverMapper.selectByPrimaryKey(id.split(",")[0]);
 					if( db!=null ){
 						VehicleDriverVO vo =new VehicleDriverVO();
 						vo.setDriverId(db.getDriverid());
@@ -938,6 +955,7 @@ public class BillService implements IBillService{
 						vo.setVehicleId(db.getVehicleid());
 						vo.setVehicleno(db.getVehicleno());
 						vo.setVehicleTypeName(db.getVehicletypename());
+						vo.setOvernumber(id.split(",")[1]);
 						list.add(vo);
 					}
 				}
@@ -1196,7 +1214,7 @@ public class BillService implements IBillService{
 			Bill query2 =new Bill();
 			query2.setPlanid(pId);
 			query2.setStatusStrs(new Byte[]{(byte)2,(byte)3,(byte)4,(byte)1,(byte)0});
-			List<Bill> billList=billMapper.selectByCondition(query2);
+//			List<Bill> billList=billMapper.selectByCondition(query2);
 			if( CollectionUtils.isNotEmpty(vehicleDriverList) ){
 				for(VehicleDriverResp item:vehicleDriverList){
 					boolean flag =false;
@@ -1208,6 +1226,12 @@ public class BillService implements IBillService{
 					}
 					
 					BillVehicleResp itemResp =new BillVehicleResp();
+//					for( Bill bill: billList){
+//						if( bill.getVehicleid().equals(item.getVehicleId()) ){
+//							itemResp.setOvernumber(bill.getOvernumber());
+//							break;
+//						}
+//					}
 					itemResp.setId(item.getId());
 					itemResp.setDriverName(item.getDriverName());
 					itemResp.setDriverTel(item.getDriverTel());
@@ -1221,9 +1245,6 @@ public class BillService implements IBillService{
 							}
 						}
 					}
-//					if( flag ){
-//						itemResp.setIsUsed(1);
-//					}
 					resp.add(itemResp);
 				}
 			}

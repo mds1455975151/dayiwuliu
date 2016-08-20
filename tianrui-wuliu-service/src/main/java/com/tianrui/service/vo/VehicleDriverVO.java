@@ -16,6 +16,7 @@ public class VehicleDriverVO {
 	private String vehicleId;
 	private String vehicleno;
 	private String vehicleTypeName;
+	private String overnumber;
 	public String getDriverId() {
 		return driverId;
 	}
@@ -51,6 +52,12 @@ public class VehicleDriverVO {
 	}
 	public void setVehicleTypeName(String vehicleTypeName) {
 		this.vehicleTypeName = vehicleTypeName;
+	}
+	public String getOvernumber() {
+		return overnumber;
+	}
+	public void setOvernumber(String overnumber) {
+		this.overnumber = overnumber;
 	}
 	
 	
