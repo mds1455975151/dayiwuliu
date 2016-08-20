@@ -170,7 +170,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_foot">
                 	<c:if test="${bill.status ==0}">
                     	<button class="btn btnyello mr20 acceptBtn" type="button">接收运单</button>
-                    	<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
+                    	<c:if test="${bill.type != 2 }">
+	                    	<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
+                    	</c:if>
                 	</c:if>
                 	<c:if test="${bill.status ==1}">
                     	<button class="btn btnblue pickupBtn" type="button">提货确认</button>

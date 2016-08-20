@@ -39,6 +39,7 @@ import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
 import com.tianrui.common.enums.MessageCodeEnum;
@@ -428,17 +429,46 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
+				MemberVehicleResp vehicle = memberVehicleService.queryMyVehicleInfoById(db.getVehicleid());
+				/** 车辆运输状态(2-发货中3-运货中4-卸货中5-空闲中)*/
+				if(!"5".equals(vehicle.getBillstatus())){
+					rs.setErrorCode(ErrorCode.BILL_VEHICLE_BILLSTATUS);
+					return rs;
+				}
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"accept") ){
 						Bill update =new Bill();
 						update.setId(req.getId());
-						
-						update.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
-						
-						update.setModifier(req.getCurruId());
-						update.setModifytime(System.currentTimeMillis());
-						billMapper.updateByPrimaryKeySelective(update);
+						if(StringUtils.equals(Constant.BILL_TYPE_0, req.getType())){//普通运单
+							update.setModifier(req.getCurruId());
+							update.setModifytime(System.currentTimeMillis());
+							update.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
+							billMapper.updateByPrimaryKeySelective(update);
+						}else if(StringUtils.equals(Constant.BILL_TYPE_1, req.getType())){
+						}else if(StringUtils.equals(Constant.BILL_TYPE_2, req.getType())){//批量运单
+							Bill b = new Bill();
+							PropertyUtils.copyProperties(b, db);
+							if(Integer.parseInt(db.getOvernumber()) > 1){
+								update.setOvernumber((Integer.parseInt(db.getOvernumber())-1)+"");
+								billMapper.updateByPrimaryKeySelective(update);
+							}else{
+								billMapper.deleteByPrimaryKey(db.getId());
+							}
+							b.setId(UUIDUtil.getId());
+							b.setWaybillno(codeGenDao.codeGen(2));
+							b.setType(Byte.parseByte(Constant.BILL_TYPE_0));
+							b.setOvernumber("1");
+							b.setModifier(req.getCurruId());
+							b.setModifytime(System.currentTimeMillis());
+							b.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
+							billMapper.insert(b);
+						}
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP6,req.getCurruId(),BillStatusEnum.ACCEPT.getStatus());
+						//修改运力车辆 状态信息
+						MemberVehicleReq req2 =new MemberVehicleReq();
+						req2.setId(db.getVehicleid());
+						req2.setBillstatus("2");
+						memberVehicleService.updateVehiclebillStatus(req2);
 						//为车主发送站内信
 						MemberVo currUser =getMember(req.getCurruId());
 						MemberVo receive =getMember(db.getVenderid());

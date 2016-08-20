@@ -18,6 +18,10 @@ public class WaybillConfirmReq extends BaseReq{
 	private String curruId;
 	
 	private String weight;
+	
+	//运单类型
+	private String type;
+	
 	public String getId() {
 		return id;
 	}
@@ -65,6 +69,13 @@ public class WaybillConfirmReq extends BaseReq{
 	public void setRefuseReson(String refuseReson) {
 		this.refuseReson = refuseReson;
 	}
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 }

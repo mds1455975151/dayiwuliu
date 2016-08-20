@@ -38,44 +38,54 @@ $(function(){
 	var renderDate=function(bills,pageNo){
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
-			dataArr.push('<tr>');
-			//已交班
-			if(item.status == -10){
-				dataArr.push('<td><span>'+item.waybillno+item.status+'</span></td>');
+			dataArr.push('<tr item="'+item.type+'">');
+			if(item.type == 2){
+				dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">批量运单</a></td>');
 			}else{
-				dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+item.status+'</a></td>');
+				//已交班
+				if(item.status == -10){
+					dataArr.push('<td><span>'+item.waybillno+item.status+'</span></td>');
+				}else{
+					dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+item.status+'</a></td>');
+				}
 			}
 			dataArr.push('<td>'+item.cargoname+'</td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
 			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
 			dataArr.push('<td>');
-			if(item.status ==0){
-				dataArr.push('新建');
-			}else if(item.status ==7){
-				dataArr.push('已取消');
-			}else if(item.status ==1 ){
-				dataArr.push('已接受');
-			}else if(item.status ==2 ){
-				dataArr.push('已提货');
-			}else if(item.status ==3 ){
-				dataArr.push('运输中');
-			}else if(item.status ==4 ){
-				dataArr.push('已到达');
-			}else if(item.status ==5 ){
-				dataArr.push('已卸货');
-			}else if(item.status ==6 ){
-				dataArr.push('已完成');
-			}else if(item.status ==-1 ){
-				dataArr.push('已拒绝');
-			}else if(item.status ==-10 ){
-				dataArr.push('已交班');
+			if(item.type == 2){
+				dataArr.push('剩余'+item.overnumber+'趟');
+			}else{
+				if(item.status ==0){
+					dataArr.push('新建');
+				}else if(item.status ==7){
+					dataArr.push('已取消');
+				}else if(item.status ==1 ){
+					dataArr.push('已接受');
+				}else if(item.status ==2 ){
+					dataArr.push('已提货');
+				}else if(item.status ==3 ){
+					dataArr.push('运输中');
+				}else if(item.status ==4 ){
+					dataArr.push('已到达');
+				}else if(item.status ==5 ){
+					dataArr.push('已卸货');
+				}else if(item.status ==6 ){
+					dataArr.push('已完成');
+				}else if(item.status ==-1 ){
+					dataArr.push('已拒绝');
+				}else if(item.status ==-10 ){
+					dataArr.push('已交班');
+				}
 			}
 			dataArr.push('</td>');
 			dataArr.push('<td>'+item.modifytimeStr+'</td>');
 			dataArr.push('<td>');
 			/*dataArr.push('<a href="'+URL.detailViewUrl+'?id='+item.id+'"><button class="btn btnyello">查看</button></a>');*/
 			if(item.status ==0){
-				dataArr.push('<a ><button class="btn btnyello refuseBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >拒绝</button></a>');
+				if(item.type != 2){
+					dataArr.push('<a ><button class="btn btnyello refuseBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >拒绝</button></a>');
+				}
 				dataArr.push('<a ><button class="btn btnyello acceptBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >接受</button></a>');
 			}else if(item.status ==7 ||item.status ==8){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'"   dataCode="'+item.waybillno+'">删除</button></a>');
@@ -194,10 +204,11 @@ $(function(){
 	//接受按钮点击
 	$(".table").on("click",".acceptBtn",function(){
 		var dId= $(this).attr("dataId");
+		var type = $(this).closest('tr').attr('item');
 		confirm("确认","确认接受承运运单["+$(this).attr("dataCode")+"]吗,确认/取消?",function(){
 			$.ajax({
 				url:URL.acceptConfirmUrl,
-				data:{"id":dId},
+				data:{"id":dId,"type":type},
 				type : "post",
 				dataType:"json",
 				success:function(rs){

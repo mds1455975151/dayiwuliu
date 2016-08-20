@@ -96,6 +96,8 @@ $(function(){
     		confirm("ok","当前运输量已超过计划剩余运输量，是否继续？",function(){
     			saveBills(param);
     		});
+    	}else{
+    		saveBills(param);
     	}
     });
    
