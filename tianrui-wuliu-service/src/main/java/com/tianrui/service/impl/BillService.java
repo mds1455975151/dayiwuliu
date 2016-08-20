@@ -1217,14 +1217,6 @@ public class BillService implements IBillService{
 //			List<Bill> billList=billMapper.selectByCondition(query2);
 			if( CollectionUtils.isNotEmpty(vehicleDriverList) ){
 				for(VehicleDriverResp item:vehicleDriverList){
-					boolean flag =false;
-					for( Bill bill: billList){
-						if( bill.getVehicleid().equals(item.getVehicleId()) ){
-							flag =true;
-							break;
-						}
-					}
-					
 					BillVehicleResp itemResp =new BillVehicleResp();
 //					for( Bill bill: billList){
 //						if( bill.getVehicleid().equals(item.getVehicleId()) ){
