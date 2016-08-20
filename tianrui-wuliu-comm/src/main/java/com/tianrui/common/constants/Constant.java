@@ -17,14 +17,14 @@ public class Constant {
     
     public final static int MAX_PAGESIZE = 200;
     
-    public final static String FILE_URL_PRE="http://www.trwl.com/img/";
+    public final static String FILE_URL_PRE="http://www.appb2b.com/uploadimgs/";
     
     public final static String apiAuthKey ="!&@#2016#";
     
     
     //redis 缓存的前缀 wl2_|-测试-43|  wl_|-开发-23|
-    //public final static String PRE_REDIS ="wl2_";
-    public final static String PRE_REDIS ="wl_";
+    public final static String PRE_REDIS ="wl2_";
+    //public final static String PRE_REDIS ="wl_";
     
     //日志文件 访问日志 记录访问来源
     public final static String ACCESS ="access";
