@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
     <style type="text/css">
-    .ts {
+   /*  .ts {
    	    width: 20px!important;
 	    height: 20px!important;
 	    padding: 0px!important;
@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	li.active {
 	    background: #d0d0c8!important;	
-	}
+	} */
 	</style>
 </head>
 <body>
@@ -164,11 +164,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             				<li >
 	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" name="driverId"  >
 	                                	</c:if>
-	                                    <span>${item.vehicleNo }</span>
+	                                    <label>${item.vehicleNo }</label>
 	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
-	                                    <span><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</span>
-	                                    <span>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</span>
-                              		    <input type="text" class="ts" value="${item.overnumber }"/><label class="ts_label">趟</label>
+	                                    <em><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</em>
+	                                    <em>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</em>
+                              		    <input type="text" class="ts" placeholder="输入趟数" value="${item.overnumber }">
+                                    	<i>趟</i>
 	                                </li>
                             	</c:forEach>
                             </ul>
