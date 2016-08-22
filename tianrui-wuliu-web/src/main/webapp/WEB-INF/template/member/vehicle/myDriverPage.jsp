@@ -33,6 +33,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <div class="car_title bgblue">
 		                    <h2>我的司机</h2><a href="${path}/trwuliu/Member/myDriver/addDriverPage"><span>添加司机</span></a>
 		                </div>
+		               	<div class="car_search">
+			                <ul>
+			                    <li>
+			                        <div class="addr-box">
+			                            <p >司机姓名：</p>
+			                            <input class="em" type="text" id="drivername"/>
+			                        </div>
+			                    </li>
+			                    <li>
+			                        <div class="addr-box">
+			                            <p >司机电话：</p>
+			                            <input class="em" type="text" id="drivertell"/>
+			                        </div>
+			
+			                    </li>
+			                    <li>
+			                        <button type="submit" class="btn btnyello" onclick="searchDriver()">搜索司机</button>
+			                    </li>
+			                </ul>
+			            </div>
 		                <div class="driver_all" id="driver_div">
 		                
 		                	<!-- TO GET DATA! -->

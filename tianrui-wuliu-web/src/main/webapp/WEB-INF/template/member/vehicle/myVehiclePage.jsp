@@ -44,17 +44,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    </li>
 			                    <li>
 			                        <div class="addr-box">
+			                            <p >车牌前缀：</p>
+			                            <input class="em" type="text" id="vehiFix"/>
+			                        </div>
+			
+			                    </li>
+			                    <li>
+			                        <div class="addr-box">
 			                            <p >车牌号：</p>
 			                            <input class="em" type="text" id="vehiNo"/>
 			                        </div>
 			
 			                    </li>
+								<!-- 
 			                    <li>
 			                        <div class="addr-box">
 			                            <p >车长：</p>
 			                            <input class="em" type="text" id="vehiLength"/>
 			                        </div>
 			                    </li>
+								 -->
 			                    <li>
 			                        <div class="addr-box">
 			                            <p >车型：</p>

@@ -32,6 +32,25 @@ function getMyDriver(){
 		}
 	});
 }
+function searchDriver(){
+	var drivername = $("#drivername").val();
+	var drivertell = $("#drivertell").val();
+	$.ajax({
+		url : PATH + '/trwuliu/Member/myDriver/getMyDriver',// 跳转到 action
+		data : {
+			memberId: memberId,
+			driverName:drivername,
+			driverTel:drivertell
+		},
+		type : "post",
+		success : function(result) {
+			if(result && result.code=="000000") {
+				var data = result.data;
+				appendContentToBody(data, 0);
+			}
+		}
+	});
+}
 /**
  * 搜索功能使用的循环函数体，用于附加动态表体内容至<body/>标签
  * 
@@ -55,7 +74,7 @@ function appendContentToBody(data, flag) {
 		$(".goods_more").hide();
 		hml+= '<div class="nodata">';
 		hml+= '<img src="'+trImgRoot+'/none_drive.png">';
-		hml+= '<h3>您还未添加司机！赶快添加司机给他派单吧！</h3>';
+		hml+= '<h3>暂未找到司机！赶快添加司机给他派单吧！</h3>';
 		hml+= '</div>';
 		document.getElementById("driver_div").innerHTML = hml;
 	// 有数据信息时

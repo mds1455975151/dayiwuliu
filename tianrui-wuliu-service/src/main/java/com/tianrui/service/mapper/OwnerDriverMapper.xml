@@ -251,10 +251,10 @@
         and od.driverid = #{driverid,jdbcType=VARCHAR}
       </if>
       <if test="drivername != null and drivername != ''" >
-        and od.drivername = #{drivername,jdbcType=VARCHAR}
+        and od.drivername like "%" #{drivername,jdbcType=VARCHAR}"%"
       </if>
       <if test="drivertel != null and drivertel != ''" >
-        and od.drivertel = #{drivertel,jdbcType=VARCHAR}
+        and od.drivertel like "%" #{drivertel,jdbcType=VARCHAR}"%"
       </if>
       <if test="remarkname != null and remarkname != ''" >
         and od.remarkname = #{remarkname,jdbcType=VARCHAR}

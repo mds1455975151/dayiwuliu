@@ -74,6 +74,7 @@ function appendContentToBody(result, flag) {
 		$("#vehicle_tbody").empty();
 		rowIndex = 0;
 	}
+	$("#vehicle_count").html("共" + total + "辆车");
 	// 数据为空时
 	if (total == 0) {
 		var hml = "";
@@ -85,10 +86,10 @@ function appendContentToBody(result, flag) {
 			hml+= '<h3>您还未添加车辆！赶快添加车辆接活吧！</h3>';
 		}
 		hml+= '</div>';
-		document.getElementById("vehicle_none").innerHTML = hml;
+		document.getElementById("vehicle_tbody").innerHTML = hml;
 	// 有数据信息时
 	} else {
-		$("#vehicle_count").html("共" + data.length + "辆车");
+		//document.getElementById("vehicle_none").innerHTML = "";
 		for (var i = 0; i < data.length; i++) {
 			// 表体行号++
 			rowIndex++;
@@ -241,13 +242,10 @@ $("#vehicle_searchBtn").click(function() {
 	
 	// 车牌号
 	var vehiNo = $("#vehiNo").val();
-	if (vehiNo != "" && vehiNo.length < 2) {
-		$("#modal_common_content").html("请输入正确车牌号！");
-		$("#commonModal").modal();
-		return ;
-	}
+	// 车牌前缀
+	var vehiFix = $("#vehiFix").val();
 	// 车长
-	var vehiLength = $("#vehiLength").val();
+	//var vehiLength = $("#vehiLength").val();
 	// 车型
 	var vehiType = $("#vehiType option:selected").val();
 	if (vehiType == "0") {
@@ -258,8 +256,8 @@ $("#vehicle_searchBtn").click(function() {
 		url : PATH + '/trwuliu/Member/myVehicle/getVehiAndDriver',// 跳转到 action
 		data : {
 			memberId: member_id,
-            vehiWholeNo: vehiNo, 
-            vehiLenth: vehiLength, 
+			vehiNo: vehiNo, 
+			vehiFix: vehiFix, 
             vehiType: vehiType,
             driverName: driverName,
             driverTel: driverTel

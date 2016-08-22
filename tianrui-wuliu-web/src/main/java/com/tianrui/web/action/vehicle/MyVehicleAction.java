@@ -261,7 +261,8 @@ public class MyVehicleAction {
 	@ResponseBody
 	public Result queryVehiAndDriverByCondition(String memberId, 
 									             String vehiId, 
-									              String vehiWholeNo, 
+									              String vehiNo, 
+									              String vehiFix, 
 									               String vehiLenth, 
 									                String vehiType,
 									                String pageNo,
@@ -275,17 +276,10 @@ public class MyVehicleAction {
 		vehiAndDriverReq.setMemberId(memberId);
 		// 车辆主键
 		vehiAndDriverReq.setVehiId(vehiId);
-		if (vehiWholeNo != null && !"".equals(vehiWholeNo)) {
-			// 车牌号前缀
-			vehiAndDriverReq.setVehiPrefix(vehiWholeNo.substring(0,2));
-			// 车牌号
-			vehiAndDriverReq.setVehiNo(vehiWholeNo.substring(2));
-		} else {
-			// 车牌号前缀
-			vehiAndDriverReq.setVehiPrefix(null);
-			// 车牌号
-			vehiAndDriverReq.setVehiNo(null);
-		}
+		// 车牌号前缀
+		vehiAndDriverReq.setVehiPrefix(vehiFix);
+		// 车牌号
+		vehiAndDriverReq.setVehiNo(vehiNo);
 		
 		// 车长
 		vehiAndDriverReq.setVehiLength(vehiLenth);

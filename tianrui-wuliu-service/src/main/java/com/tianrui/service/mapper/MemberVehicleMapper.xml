@@ -665,16 +665,16 @@
       	and a.vehicleno like "%"#{searchno,jdbcType=VARCHAR}"%" 
       </if>
       <if test="drivername != null and drivername != ''" >
-        and b.drivername = #{drivername,jdbcType=VARCHAR}
+        and b.drivername like "%" #{drivername,jdbcType=VARCHAR}"%"
       </if>
       <if test="drivertel != null and drivertel != ''" >
-        and b.drivertel = #{drivertel,jdbcType=VARCHAR}
+        and b.drivertel like "%" #{drivertel,jdbcType=VARCHAR}"%"
       </if>
       <if test="vehiprefix != null and vehiprefix != ''" >
-        and a.vehicleprefix = #{vehiprefix,jdbcType=VARCHAR}
+        and a.vehicleprefix like "%" #{vehiprefix,jdbcType=VARCHAR}"%"
       </if>
       <if test="vehino != null and vehino != ''" >
-        and a.vehicleno = #{vehino,jdbcType=VARCHAR}
+        and a.vehicleno like "%" #{vehino,jdbcType=VARCHAR}"%"
       </if>
       <if test="vehitype != null and vehitype != ''" >
         and a.vehicletype = #{vehitype,jdbcType=VARCHAR}
@@ -717,16 +717,16 @@
       	or a.vehicleno like "%"#{searchno,jdbcType=VARCHAR}"%" 
       </if>
       <if test="drivername != null and drivername != ''" >
-        and b.drivername = #{drivername,jdbcType=VARCHAR}
+        and b.drivername like "%" #{drivername,jdbcType=VARCHAR}"%"
       </if>
       <if test="drivertel != null and drivertel != ''" >
-        and b.drivertel = #{drivertel,jdbcType=VARCHAR}
+        and b.drivertel like "%" #{drivertel,jdbcType=VARCHAR}"%"
       </if>
       <if test="vehiprefix != null and vehiprefix != ''" >
-        and a.vehicleprefix = #{vehiprefix,jdbcType=VARCHAR}
+        and a.vehicleprefix like "%" #{vehiprefix,jdbcType=VARCHAR}"%"
       </if>
       <if test="vehino != null and vehino != ''" >
-        and a.vehicleno = #{vehino,jdbcType=VARCHAR}
+        and a.vehicleno like "%" #{vehino,jdbcType=VARCHAR}"%"
       </if>
       <if test="vehitype != null and vehitype != ''" >
         and a.vehicletype = #{vehitype,jdbcType=VARCHAR}
