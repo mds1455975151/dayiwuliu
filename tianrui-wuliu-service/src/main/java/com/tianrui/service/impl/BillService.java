@@ -145,15 +145,16 @@ public class BillService implements IBillService{
 						bill.setModifier(req.getCurruId());
 						bill.setModifytime(System.currentTimeMillis());
 						//状态标记信息
-						bill.setStatus(Byte.valueOf("0"));
 						bill.setVenderdelflag(Byte.valueOf("0"));
 						bill.setOwnerdelflag(Byte.valueOf("0"));
 						bill.setDriverdelflag(Byte.valueOf("0"));
 						if(Integer.parseInt(item.getOvernumber()) > 1){
 							//批量运单
 							bill.setType(Byte.valueOf("2"));
+							bill.setStatus(Byte.valueOf("1"));
 						}else{
 							bill.setType(Byte.valueOf("0"));
+							bill.setStatus(Byte.valueOf("0"));
 						}
 						//车主 货主信息
 						bill.setOwnerid(plan.getCreator());

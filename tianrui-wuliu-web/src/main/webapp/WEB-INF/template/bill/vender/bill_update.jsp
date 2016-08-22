@@ -168,8 +168,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
 	                                    <em><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</em>
 	                                    <em>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</em>
-                              		    <input type="text" class="ts" placeholder="输入趟数" value="${item.overnumber }">
-                                    	<i>趟</i>
+                              		    <%-- <input type="text" class="ts" placeholder="输入趟数" value="${item.overnumber }" hidden> --%>
+                              		    <input type="text" class="ts" placeholder="输入趟数" value="1" hidden>
+                                    	<i hidden>趟</i>
 	                                </li>
                             	</c:forEach>
                             </ul>

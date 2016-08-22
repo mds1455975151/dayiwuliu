@@ -22,7 +22,10 @@ $(function(){
         $(this).addClass('selected');
     });
     //限制输入格式位数字
-    $('.ts').change(function(){
+    $('.ts').off('click').on('click',function(e){
+    	$(this).siblings('.checkInput')[0].checked = true;
+    	e.stopPropagation();
+    }).change(function(){
     	if(!/^[1-9]\d*$/.test($(this).val())){
     		$(this).val('');
     	}
