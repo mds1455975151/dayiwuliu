@@ -2,7 +2,7 @@ $(function(){
 	$("#billvender").addClass("selected");
 	var URL={
 		addUrl:"/trwuliu/billvender/add",
-		cancleUrl:"/trwuliu/Member/cargoPlan/planchengyun",
+		cancleUrl:"/trwuliu/planvender/main",
 		successUrl:"/trwuliu/billvender/main",
 	}
 	$('.bill_cllist ul li .checkInput').off('click').on('click',function(e){
