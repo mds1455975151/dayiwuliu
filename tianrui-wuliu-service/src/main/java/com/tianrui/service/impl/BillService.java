@@ -986,7 +986,8 @@ public class BillService implements IBillService{
 						vo.setVehicleId(db.getVehicleid());
 						vo.setVehicleno(db.getVehicleno());
 						vo.setVehicleTypeName(db.getVehicletypename());
-						vo.setOvernumber(id.split(",")[1]);
+						//vo.setOvernumber(id.split(",")[1]);
+						vo.setOvernumber("1");
 						list.add(vo);
 					}
 				}
