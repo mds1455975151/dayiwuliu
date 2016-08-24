@@ -540,8 +540,23 @@ public class MemberAction{
 	}
 	
 	@RequestMapping("/chooseRole")
-	public ModelAndView chooseRole(){
+	public ModelAndView chooseRole(HttpSession session){
+		session.removeAttribute("role");
 		return new ModelAndView("/member/chooseRole");
+	}
+	
+	@RequestMapping("/bindRole")
+	@ResponseBody
+	public Result bindRole(HttpSession session, String role){
+		Result re = Result.getSuccessResult();
+		if(StringUtils.isNotBlank(role)){
+			session.setAttribute("role", role);
+			re.setCode("000000");
+		}else{
+			re.setCode("000001");
+			re.setError("选择角色错误！");
+		}
+		return re;
 	}
 	
 }

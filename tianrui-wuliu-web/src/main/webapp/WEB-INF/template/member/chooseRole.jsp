@@ -35,9 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="id_selctbody bgwhite">
                 <h5>我的身份</h5>
                 <div class="id_selbtn">
-                    <button class="btn btn_hz"><img src="${trRoot}/tianrui/images/hzwhite.png">货主</button>
-                    <button class="btn btn_cz"><img src="${trRoot}/tianrui/images/czwhite.png">车主</button>
-                    <button class="btn btn_sj"><img src="${trRoot}/tianrui/images/sj.png">司机</button>
+                    <button id="hzBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/hzwhite.png">货主</button>
+                    <button id="czBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/czwhite.png">车主</button>
+                    <button id="sjBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/sjwhite.png">司机</button>
                 </div>
             </div>
         </div>
