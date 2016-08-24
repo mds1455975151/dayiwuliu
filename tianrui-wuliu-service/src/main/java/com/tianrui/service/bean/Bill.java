@@ -58,6 +58,8 @@ public class Bill {
     private String orgid;
     
     private Byte[] statusStrs;
+    //总趟数
+    private String totalnumber;
     //剩余趟数
     private String overnumber;
     
@@ -1067,6 +1069,14 @@ public class Bill {
 
 	public void setOvernumber(String overnumber) {
 		this.overnumber = overnumber;
+	}
+
+	public String getTotalnumber() {
+		return totalnumber;
+	}
+
+	public void setTotalnumber(String totalnumber) {
+		this.totalnumber = totalnumber;
 	}
 
 }

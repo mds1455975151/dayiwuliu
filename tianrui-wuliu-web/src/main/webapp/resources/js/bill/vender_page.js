@@ -35,11 +35,7 @@ $(function(){
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
 			dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">');
-			if(item.type == 2){
-				dataArr.push('批量运单');
-			}else{
-				dataArr.push(item.waybillno);
-			}
+			dataArr.push(item.waybillno);
 			dataArr.push('</a></td>');
 			dataArr.push('<td><p>'+item.vehicleno+'</p><p>'+item.drivertel+'</p></td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');

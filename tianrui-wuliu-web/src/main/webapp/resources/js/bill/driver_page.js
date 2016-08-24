@@ -83,7 +83,7 @@ $(function(){
 			dataArr.push('<td>');
 			/*dataArr.push('<a href="'+URL.detailViewUrl+'?id='+item.id+'"><button class="btn btnyello">查看</button></a>');*/
 			if(item.status ==0){
-				if(item.type != 2){
+				if(item.totalnumber == item.overnumber){
 					dataArr.push('<a ><button class="btn btnyello refuseBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >拒绝</button></a>');
 				}
 				dataArr.push('<a ><button class="btn btnyello acceptBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >接受</button></a>');

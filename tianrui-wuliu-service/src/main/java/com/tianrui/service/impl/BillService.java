@@ -37,7 +37,6 @@ import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
-import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
@@ -137,8 +136,6 @@ public class BillService implements IBillService{
 						bill.setPlancode(plan.getPlancode());
 						bill.setOrgid(plan.getOrgid());
 						bill.setRouteid(plan.getRouteid());
-						//计划编码
-						bill.setWaybillno(codeGenDao.codeGen(2));
 						//创建人 修改人
 						bill.setCreatetime(System.currentTimeMillis());
 						bill.setCreator(req.getCurruId());
@@ -148,13 +145,15 @@ public class BillService implements IBillService{
 						bill.setVenderdelflag(Byte.valueOf("0"));
 						bill.setOwnerdelflag(Byte.valueOf("0"));
 						bill.setDriverdelflag(Byte.valueOf("0"));
-						if(Integer.parseInt(item.getOvernumber()) > 1){
-							//批量运单
+						bill.setStatus(Byte.valueOf("0"));
+						if(Integer.parseInt(item.getOvernumber()) > 1){//批量运单
+							//计划编码
+							bill.setWaybillno("批量运单");
 							bill.setType(Byte.valueOf("2"));
-							bill.setStatus(Byte.valueOf("1"));
 						}else{
+							//计划编码
+							bill.setWaybillno(codeGenDao.codeGen(2));
 							bill.setType(Byte.valueOf("0"));
-							bill.setStatus(Byte.valueOf("0"));
 						}
 						//车主 货主信息
 						bill.setOwnerid(plan.getCreator());
@@ -167,6 +166,7 @@ public class BillService implements IBillService{
 						bill.setDrivername(item.getDriverName());
 						bill.setDrivertel(item.getDriverTel());
 						bill.setOvernumber(item.getOvernumber());
+						bill.setTotalnumber(item.getOvernumber());
 						//货物信息
 						bill.setCargoname(plan.getCargoname());
 						bill.setPriceunits(plan.getPriceunits());
@@ -440,11 +440,12 @@ public class BillService implements IBillService{
 					if( checkBillauthForstatus(db,"accept") ){
 						Bill update =new Bill();
 						update.setId(req.getId());
+						int index = 0;
 						if(StringUtils.equals(Constant.BILL_TYPE_0, req.getType())){//普通运单
 							update.setModifier(req.getCurruId());
 							update.setModifytime(System.currentTimeMillis());
 							update.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
-							billMapper.updateByPrimaryKeySelective(update);
+							index = billMapper.updateByPrimaryKeySelective(update);
 						}else if(StringUtils.equals(Constant.BILL_TYPE_1, req.getType())){
 						}else if(StringUtils.equals(Constant.BILL_TYPE_2, req.getType())){//批量运单
 							Bill b = new Bill();
@@ -462,18 +463,22 @@ public class BillService implements IBillService{
 							b.setModifier(req.getCurruId());
 							b.setModifytime(System.currentTimeMillis());
 							b.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
-							billMapper.insert(b);
+							index = billMapper.insert(b);
 						}
-						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP6,req.getCurruId(),BillStatusEnum.ACCEPT.getStatus());
-						//修改运力车辆 状态信息
-						MemberVehicleReq req2 =new MemberVehicleReq();
-						req2.setId(db.getVehicleid());
-						req2.setBillstatus("2");
-						memberVehicleService.updateVehiclebillStatus(req2);
-						//为车主发送站内信
-						MemberVo currUser =getMember(req.getCurruId());
-						MemberVo receive =getMember(db.getVenderid());
-						sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_ACCEPT, "vender");
+						if(index > 0){
+							saveBillTrack(db.getId(),1,BIllTrackMsg.STEP6,req.getCurruId(),BillStatusEnum.ACCEPT.getStatus());
+							//修改运力车辆 状态信息
+							MemberVehicleReq req2 =new MemberVehicleReq();
+							req2.setId(db.getVehicleid());
+							req2.setBillstatus("2");
+							memberVehicleService.updateVehiclebillStatus(req2);
+							//为车主发送站内信
+							MemberVo currUser =getMember(req.getCurruId());
+							MemberVo receive =getMember(db.getVenderid());
+							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_ACCEPT, "vender");
+						}else{
+							rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
+						}
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
 					}
@@ -767,9 +772,7 @@ public class BillService implements IBillService{
 			if(list != null){
 				for(int i=0;i<list.size();i++){
 					Bill b = list.get(i);
-					if(!StringUtils.equals(b.getId(), req.getId())){
-						alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-					}
+					alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
 				}	
 			}
 			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
@@ -986,8 +989,8 @@ public class BillService implements IBillService{
 						vo.setVehicleId(db.getVehicleid());
 						vo.setVehicleno(db.getVehicleno());
 						vo.setVehicleTypeName(db.getVehicletypename());
-						//vo.setOvernumber(id.split(",")[1]);
-						vo.setOvernumber("1");
+						vo.setOvernumber(id.split(",")[1]);
+//						vo.setOvernumber("1");
 						list.add(vo);
 					}
 				}

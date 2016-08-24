@@ -1,6 +1,7 @@
 package com.tianrui.web.action.message;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,8 @@ public class MessageAction {
 	* @date 2016年6月7日
 	 */
 	@RequestMapping("/message")
-	public ModelAndView planProgress(){
+	public ModelAndView planProgress(HttpSession session,String role){
+		session.setAttribute("role", role);
 		return new ModelAndView("/member/message/message");
 	}
 	/**

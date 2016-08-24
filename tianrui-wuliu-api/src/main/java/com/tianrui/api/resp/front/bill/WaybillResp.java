@@ -65,6 +65,8 @@ public class WaybillResp extends BaseResp{
     private String venderName;
     private String plancode;
     
+    //总趟数
+    private String totalnumber;
     //剩余趟数
     private String overnumber;
     
@@ -368,6 +370,12 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setOverweight(Double overweight) {
 		this.overweight = overweight;
+	}
+	public String getTotalnumber() {
+		return totalnumber;
+	}
+	public void setTotalnumber(String totalnumber) {
+		this.totalnumber = totalnumber;
 	}
 	
 }

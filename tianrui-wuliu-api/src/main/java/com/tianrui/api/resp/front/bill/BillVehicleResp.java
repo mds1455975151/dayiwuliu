@@ -14,6 +14,8 @@ public class BillVehicleResp {
 	private String vehiweight;
 	/** 车辆状态 */
 	private String billstatus;
+	/** 总趟数 */
+	private String totalnumber;
 	/** 剩余趟数 */
 	private String overnumber;
 	
@@ -73,6 +75,12 @@ public class BillVehicleResp {
 	}
 	public void setOvernumber(String overnumber) {
 		this.overnumber = overnumber;
+	}
+	public String getTotalnumber() {
+		return totalnumber;
+	}
+	public void setTotalnumber(String totalnumber) {
+		this.totalnumber = totalnumber;
 	}
 	
 }

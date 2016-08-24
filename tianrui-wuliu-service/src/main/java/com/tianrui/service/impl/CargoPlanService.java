@@ -128,6 +128,15 @@ public class CargoPlanService implements ICargoPlanService{
 			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
 			resp.setTallage(fileFreight.getTallage());
 			resp.setOrgname(fileFreight.getOrganizationname());
+			double alreadyTransport = 0;
+			List<Bill> list = billMapper.selectByPlanId(plan.getId());
+			if(list != null){
+				for(int i=0;i<list.size();i++){
+					Bill b = list.get(i);
+					alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+				}	
+			}
+			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
 		}
 		return resp;
 	}

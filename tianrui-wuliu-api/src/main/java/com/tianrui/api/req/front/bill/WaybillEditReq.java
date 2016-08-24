@@ -19,7 +19,9 @@ public class WaybillEditReq extends BaseReq{
 	private String driverId;
 	
 	private String curruId;
-	//趟数
+	//总趟数
+	private String totalnumber;
+	//剩余趟数
 	private String overnumber;
 
 	public String getId() {
@@ -101,6 +103,13 @@ public class WaybillEditReq extends BaseReq{
 	public void setOvernumber(String overnumber) {
 		this.overnumber = overnumber;
 	}
-	
+
+	public String getTotalnumber() {
+		return totalnumber;
+	}
+
+	public void setTotalnumber(String totalnumber) {
+		this.totalnumber = totalnumber;
+	}
 	
 }
