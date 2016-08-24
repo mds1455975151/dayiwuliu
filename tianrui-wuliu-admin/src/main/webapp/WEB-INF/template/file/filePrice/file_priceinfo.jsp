@@ -68,19 +68,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="row mt15">
                 <div class="col-md-12">
                     <div class="content-user">
-                        <div class="content-tou">
-                            <button data-toggle="modal" data-target="#addModal"><i
-                                    class="glyphicon glyphicon-plus"></i><span>新增</span></button>
-                            <button id="batchDisable"><i class="iconfont icon-tingyong"></i><span>批量停用</span></button>
-                        </div>
                         <!--用户表格begin-->
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th>策略名称</th>
-                                <th>单价</th>
+                                <th>原价</th>
+                                <th>审核价</th>
                                 <th>计价单位</th>
-                                <th>税率</th>
+                                <th>原税率</th>
+                                <th>审核税率</th>
                                 <th>状态</th>
                                 <th>货物名称</th>
                                 <th>路线名称</th>
@@ -127,16 +124,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">提示</h4>
+                <h4 class="modal-title">审核</h4>
             </div>
             <div class="modal-body">
 				<input type="hidden" value="" id="tyId">
 				<input type="hidden" value="" id="tystatue">
-                <h4>只有启用后的策略才能被下游单据使用！请确定操作？</h4>
+                <input type="radio">通过<br>
+                <input type="radio">不通过  不通过原因：
+                <h4>是否 通过运价策略审核</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="tingyongPrice();" data-dismiss="modal" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" onclick="shenhe();" data-dismiss="modal" class="btn btn-primary">审核通过</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">审核不通过</button>
             </div>
         </div>
     </div>
@@ -146,63 +145,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        // 表格列宽度手动调整
-        $("table").resizableColumns({});
-
-        // 点击修改头像按钮，图片裁剪框显示出来
-        $(".tx_contr").on('click', function () {
-            $(".acc_touxiang").show();
-        });
-        // 修改头像的收起按钮
-        $(".tx_shouqi").on('click', function () {
-            $(".acc_touxiang").hide();
-        });
-        // 图片裁切块的大小自定义，margin-top是height一半，margin-left是width一半
-        var thumb = $(".imgBox_file .thumbBox");
-        thumb.height(150);
-        thumb.width(150);
-        thumb.css({ "margin-top": -75, "margin-left": -75 });
-        // 给cropbox.js传参
-        var options =
-        {
-            thumbBox: '.thumbBox',
-            spinner: '.spinner',
-            imgSrc: ''
-        };
-        var cropper = $('.imgBox_file').cropbox(options);
-        // 文件上传按钮操作
-        $('#upload-file').on('change', function () {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                options.imgSrc = e.target.result;
-                cropper = $('.imgBox_file').cropbox(options);
-            };
-            reader.readAsDataURL(this.files[0]);
-            this.files = [];
-        });
-        // 裁切按钮操作
-        $('#btnCrop').on('click', function () {
-            var img = cropper.getDataURL();
-            $('.user_oldtx').html('');
-            $('.user_oldtx').append('<img src="' + img + '" align="absmiddle" style="box-shadow:0px 0px 12px #7E7E7E;">');
-
-            $(".tx_cancel").on('click', function () {
-                $(".acc_touxiang").hide();
-            });
-        });
-        // 图片放大按钮操作
-        $('#btnZoomIn').on('click', function () {
-            cropper.zoomIn();
-        });
-        // 图片缩小按钮操作
-        $('#btnZoomOut').on('click', function () {
-            cropper.zoomOut();
-        })
-    });
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
+<script type="text/javascript" src="/resources/js/filePrice/file_priceinfo.js" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

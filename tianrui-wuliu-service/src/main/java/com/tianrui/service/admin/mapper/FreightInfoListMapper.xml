@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.admin.mapper.FreightInfoMapper" >
+  <select id="selectByCondition" resultType="com.tianrui.service.admin.bean.FileFreight" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
+   SELECT
+		f.ID ID,
+		f.freightName freightName,
+		f. STATUS STATUS,
+		f.tallage tallage,
+		i.tallage tallageInfo,
+		f.price price,
+		i.price priceInfo,
+		f.freightType freightType,
+		i.freightType freightTypeInfo,
+		f.auditstatus auditstatus,
+		f.auditreason auditreason,
+		f.priceUnits priceunits,
+		c.cargoname cargoid,
+		c. STATUS DESC3,
+		r.routename routeid,
+		r. STATUS DESC4,
+		m.measureName measure
+	FROM
+		file_freight f
+		LEFT JOIN file_org_cargo c ON c.ID = f.cargoid
+		LEFT JOIN file_route r ON r.ID = f.routeid
+		LEFT JOIN wuliu_measure m ON m.ID = f.measure
+		LEFT JOIN file_freight_info i ON i.freightid = f.ID
+		AND i.recent = 1
+	<where>
+		AND f. STATUS != 2
+		ORDER BY
+		f.createtime DESC
+	</where>
+  </select>
+</mapper>

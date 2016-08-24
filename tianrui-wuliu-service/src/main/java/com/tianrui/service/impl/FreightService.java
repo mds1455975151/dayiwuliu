@@ -16,11 +16,15 @@ import com.tianrui.api.resp.front.cargoplan.FreightlistResp;
 import com.tianrui.api.resp.front.cargoplan.FreightsResp;
 import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.Freight;
+import com.tianrui.service.admin.bean.FreightInfo;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
+import com.tianrui.service.admin.mapper.FreightInfoMapper;
 @Service
 public class FreightService implements IFreightService{
 	@Autowired
 	private FileFreightMapper fileFreightMapper;
+	@Autowired
+	private FreightInfoMapper freightInfoMapper;
 	@Override
 	public List<FreightResp> findByEntity(FreightReq req) throws Exception{
 		FileFreight freight = new FileFreight();
@@ -86,6 +90,21 @@ public class FreightService implements IFreightService{
 	@Override
 	public boolean saveEntity(FreightReq req) throws Exception {
 		FileFreight freight = new FileFreight();
+		
+		FreightInfo info = new FreightInfo();
+		info.setFreightid(req.getId());
+		info.setPrice(req.getPrice());
+		req.setPrice(null);
+		info.setTallage(req.getTallage());
+		req.setTallage(null);
+		info.setFreighttype(req.getFreightType());
+		req.setFreightType(null);
+		info.setCreater(req.getCreator());
+		info.setCreatetime(req.getCreatetime());
+		info.setRecent("1");
+		info.setStatus("0");
+		//TODO
+		freightInfoMapper.insertSelective(info);
 		PropertyUtils.copyProperties(freight, req);
 		if(fileFreightMapper.insertSelective(freight)!=1){
 			return false;

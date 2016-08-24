@@ -129,10 +129,25 @@ function interHTML(data){
 		if(data[a].tallage != undefined){
 			tallage = data[a].tallage;
 		}
+		var auditstatus = "";
+		if(data[a].auditstatus != undefined){
+			if(data[a].auditstatus=="0"){
+				auditstatus = "审核中";
+			}else if(data[a].auditstatus=="1"){
+				auditstatus = "审核成功";
+			}else if(data[a].auditstatus=="2"){
+				auditstatus = "审核失败";
+			}
+		}
+		var price = "";
+		if(data[a].price != undefined){
+			price = data[a].price;
+		}
 		hml +="<td>"+data[a].freightName+"</td>"+ 
-			"<td>"+data[a].price+"</td>"+ 
+			"<td>"+price+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
 			"<td>"+tallage+"</td>"+ 
+			"<td>"+auditstatus+"</td>"+ 
 			"<td>"+pricestatus+"</td>"+ 
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td><td>";

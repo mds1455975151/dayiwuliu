@@ -66,7 +66,7 @@ public class MyVehicleOwnerAction {
 	 * @time 2016年6月1日 上午11:54:00
 	 */
 	@RequestMapping("/myVehiOwnerPage")
-	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
+	@AuthValidation(autyType=Constant.AUTHCHECK_USER)
 	public ModelAndView indexPage() throws IOException{
 		return new ModelAndView("/member/vehicle/myVehiOwnerPage");
 	}

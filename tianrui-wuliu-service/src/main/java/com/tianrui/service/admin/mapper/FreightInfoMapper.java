@@ -1,5 +1,8 @@
 package com.tianrui.service.admin.mapper;
 
+import java.util.List;
+
+import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FreightInfo;
 
 public interface FreightInfoMapper {
@@ -14,4 +17,6 @@ public interface FreightInfoMapper {
     int updateByPrimaryKeySelective(FreightInfo record);
 
     int updateByPrimaryKey(FreightInfo record);
+    
+    List<FileFreight> selectByCondition(FreightInfo record);
 }

@@ -21,6 +21,7 @@ public class FileFreight implements IModel {
      * 审核状态
      */
     private String auditstatus;
+    
     /**
      * 审核原因
      */
@@ -77,6 +78,7 @@ public class FileFreight implements IModel {
      */
     private Double price;
 
+    private Double priceInfo;
     /**
      * 创建者 
      */
@@ -107,9 +109,12 @@ public class FileFreight implements IModel {
      */
     private String freightType;
     
+    private String freightTypeInfo;
+    
     /** 税率*/
     private Double tallage;
     
+    private Double tallageInfo;
     private String desc1;
     private String desc2;
 
@@ -143,7 +148,31 @@ public class FileFreight implements IModel {
         return id;
     }
 
-    public Integer getLimit() {
+	public Double getPriceInfo() {
+		return priceInfo;
+	}
+
+	public void setPriceInfo(Double priceInfo) {
+		this.priceInfo = priceInfo;
+	}
+
+	public String getFreightTypeInfo() {
+		return freightTypeInfo;
+	}
+
+	public void setFreightTypeInfo(String freightTypeInfo) {
+		this.freightTypeInfo = freightTypeInfo;
+	}
+
+	public Double getTallageInfo() {
+		return tallageInfo;
+	}
+
+	public void setTallageInfo(Double tallageInfo) {
+		this.tallageInfo = tallageInfo;
+	}
+
+	public Integer getLimit() {
 		return limit;
 	}
 

@@ -1,29 +1,21 @@
 package com.tianrui.service.admin.bean;
-/**
- * 
- * @类描述：运价策略审核记录
- * @创建人：lsj
- * @创建时间：2016年8月20日下午2:15:38
- *
- * @修改人：lsj
- * @修改时间：2016年8月20日下午2:15:38
- * @修改备注：
- *
- */
+
 public class FreightInfo {
     private String id;
 
     private String freightid;
 
-    private String freightname;
-
-    private Double oldprice;
-
-    private Double newprice;
-
     private Long taketime;
 
+    private Double price;
+
+    private Double tallage;
+
+    private String freighttype;
+
     private String status;
+
+    private String recent;
 
     private String creater;
 
@@ -57,30 +49,6 @@ public class FreightInfo {
         this.freightid = freightid == null ? null : freightid.trim();
     }
 
-    public String getFreightname() {
-        return freightname;
-    }
-
-    public void setFreightname(String freightname) {
-        this.freightname = freightname == null ? null : freightname.trim();
-    }
-
-    public Double getOldprice() {
-        return oldprice;
-    }
-
-    public void setOldprice(Double oldprice) {
-        this.oldprice = oldprice;
-    }
-
-    public Double getNewprice() {
-        return newprice;
-    }
-
-    public void setNewprice(Double newprice) {
-        this.newprice = newprice;
-    }
-
     public Long getTaketime() {
         return taketime;
     }
@@ -89,12 +57,44 @@ public class FreightInfo {
         this.taketime = taketime;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getTallage() {
+        return tallage;
+    }
+
+    public void setTallage(Double tallage) {
+        this.tallage = tallage;
+    }
+
+    public String getFreighttype() {
+        return freighttype;
+    }
+
+    public void setFreighttype(String freighttype) {
+        this.freighttype = freighttype == null ? null : freighttype.trim();
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getRecent() {
+        return recent;
+    }
+
+    public void setRecent(String recent) {
+        this.recent = recent == null ? null : recent.trim();
     }
 
     public String getCreater() {

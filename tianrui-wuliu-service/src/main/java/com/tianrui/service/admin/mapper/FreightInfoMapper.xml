@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.tianrui.service.admin.bean.FreightInfo" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="freightid" property="freightid" jdbcType="VARCHAR" />
-    <result column="freightname" property="freightname" jdbcType="VARCHAR" />
-    <result column="oldprice" property="oldprice" jdbcType="DOUBLE" />
-    <result column="newprice" property="newprice" jdbcType="DOUBLE" />
     <result column="taketime" property="taketime" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="tallage" property="tallage" jdbcType="DOUBLE" />
+    <result column="freightType" property="freighttype" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="recent" property="recent" jdbcType="VARCHAR" />
     <result column="creater" property="creater" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
     <result column="updater" property="updater" jdbcType="VARCHAR" />
@@ -19,7 +20,7 @@
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, freightid, freightname, oldprice, newprice, taketime, status, creater, createtime, 
+    id, freightid, taketime, price, tallage, freightType, status, recent, creater, createtime, 
     updater, updatetime, desc1, desc2, desc3, desc4
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -33,18 +34,18 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
-    insert into file_freight_info (id, freightid, freightname, 
-      oldprice, newprice, taketime, 
-      status, creater, createtime, 
-      updater, updatetime, desc1, 
-      desc2, desc3, desc4
-      )
-    values (#{id,jdbcType=VARCHAR}, #{freightid,jdbcType=VARCHAR}, #{freightname,jdbcType=VARCHAR}, 
-      #{oldprice,jdbcType=DOUBLE}, #{newprice,jdbcType=DOUBLE}, #{taketime,jdbcType=BIGINT}, 
-      #{status,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, 
-      #{updater,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, 
-      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
-      )
+    insert into file_freight_info (id, freightid, taketime, 
+      price, tallage, freightType, 
+      status, recent, creater, 
+      createtime, updater, updatetime, 
+      desc1, desc2, desc3, 
+      desc4)
+    values (#{id,jdbcType=VARCHAR}, #{freightid,jdbcType=VARCHAR}, #{taketime,jdbcType=BIGINT}, 
+      #{price,jdbcType=DOUBLE}, #{tallage,jdbcType=DOUBLE}, #{freighttype,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{recent,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=BIGINT}, #{updater,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT}, 
+      #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
+      #{desc4,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
     insert into file_freight_info
@@ -55,20 +56,23 @@
       <if test="freightid != null" >
         freightid,
       </if>
-      <if test="freightname != null" >
-        freightname,
-      </if>
-      <if test="oldprice != null" >
-        oldprice,
-      </if>
-      <if test="newprice != null" >
-        newprice,
-      </if>
       <if test="taketime != null" >
         taketime,
       </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="tallage != null" >
+        tallage,
+      </if>
+      <if test="freighttype != null" >
+        freightType,
+      </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="recent != null" >
+        recent,
       </if>
       <if test="creater != null" >
         creater,
@@ -102,20 +106,23 @@
       <if test="freightid != null" >
         #{freightid,jdbcType=VARCHAR},
       </if>
-      <if test="freightname != null" >
-        #{freightname,jdbcType=VARCHAR},
-      </if>
-      <if test="oldprice != null" >
-        #{oldprice,jdbcType=DOUBLE},
-      </if>
-      <if test="newprice != null" >
-        #{newprice,jdbcType=DOUBLE},
-      </if>
       <if test="taketime != null" >
         #{taketime,jdbcType=BIGINT},
       </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="tallage != null" >
+        #{tallage,jdbcType=DOUBLE},
+      </if>
+      <if test="freighttype != null" >
+        #{freighttype,jdbcType=VARCHAR},
+      </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="recent != null" >
+        #{recent,jdbcType=VARCHAR},
       </if>
       <if test="creater != null" >
         #{creater,jdbcType=VARCHAR},
@@ -149,20 +156,23 @@
       <if test="freightid != null" >
         freightid = #{freightid,jdbcType=VARCHAR},
       </if>
-      <if test="freightname != null" >
-        freightname = #{freightname,jdbcType=VARCHAR},
-      </if>
-      <if test="oldprice != null" >
-        oldprice = #{oldprice,jdbcType=DOUBLE},
-      </if>
-      <if test="newprice != null" >
-        newprice = #{newprice,jdbcType=DOUBLE},
-      </if>
       <if test="taketime != null" >
         taketime = #{taketime,jdbcType=BIGINT},
       </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="tallage != null" >
+        tallage = #{tallage,jdbcType=DOUBLE},
+      </if>
+      <if test="freighttype != null" >
+        freightType = #{freighttype,jdbcType=VARCHAR},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="recent != null" >
+        recent = #{recent,jdbcType=VARCHAR},
       </if>
       <if test="creater != null" >
         creater = #{creater,jdbcType=VARCHAR},
@@ -194,11 +204,12 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
     update file_freight_info
     set freightid = #{freightid,jdbcType=VARCHAR},
-      freightname = #{freightname,jdbcType=VARCHAR},
-      oldprice = #{oldprice,jdbcType=DOUBLE},
-      newprice = #{newprice,jdbcType=DOUBLE},
       taketime = #{taketime,jdbcType=BIGINT},
+      price = #{price,jdbcType=DOUBLE},
+      tallage = #{tallage,jdbcType=DOUBLE},
+      freightType = #{freighttype,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
+      recent = #{recent,jdbcType=VARCHAR},
       creater = #{creater,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=BIGINT},
       updater = #{updater,jdbcType=VARCHAR},
