@@ -226,6 +226,7 @@ public class BillService implements IBillService{
 						update.setWeight(Double.valueOf(req.getWeight()));
 						update.setPrice(Double.valueOf(req.getPrice()));
 						update.setOvernumber(req.getOvernumber());
+						update.setTotalnumber(req.getOvernumber());
 
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
