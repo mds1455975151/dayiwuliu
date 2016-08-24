@@ -118,12 +118,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th >司机</th>
                                 <th>联系方式 </th>
+                                <th>总趟数</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td >${bill.drivername }</td>
                                 <td >${bill.drivertel } </td>
+                                <td >共${bill.totalnumber }趟 </td>
                             </tr>
                             </tbody>
                             <!-- 榜单图片 -->
