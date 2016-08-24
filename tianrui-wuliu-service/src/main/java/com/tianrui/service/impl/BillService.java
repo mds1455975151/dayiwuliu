@@ -227,6 +227,10 @@ public class BillService implements IBillService{
 						update.setPrice(Double.valueOf(req.getPrice()));
 						update.setOvernumber(req.getOvernumber());
 						update.setTotalnumber(req.getOvernumber());
+						if(StringUtils.equals(req.getOvernumber(), "1")){
+							update.setWaybillno(codeGenDao.codeGen(2));
+							update.setType(Byte.valueOf("0"));
+						}
 
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
