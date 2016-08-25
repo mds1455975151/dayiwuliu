@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <!-- 引用公共header部分 -->
-<jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
+<jsp:include page="../common/member/header_busi.jsp"></jsp:include>
 <div class="bghui">
     <div class="container">
         <div class="id_selct">
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!--底部begin-->
 <!-- 引用公共footer部分 -->
-<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
+<jsp:include page="../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="/resources/js/member/chooseRole.js" ></script>
 </body>
