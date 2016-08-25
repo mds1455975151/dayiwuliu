@@ -1128,6 +1128,7 @@ public class BillService implements IBillService{
 				MemberVo member =getMember(resp.getVenderid());
 				if( member !=null ){
 					resp.setVenderName(member.getRealName());
+					resp.setVenderTel(member.getCellphone());
 				}
 			}
 		}

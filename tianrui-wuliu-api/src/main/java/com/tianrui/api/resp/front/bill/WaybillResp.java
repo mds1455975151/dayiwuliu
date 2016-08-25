@@ -63,6 +63,8 @@ public class WaybillResp extends BaseResp{
     private String orgName;
     //承运商名称
     private String venderName;
+    //承运商电话
+    private String venderTel;
     private String plancode;
     
     //总趟数
@@ -376,6 +378,12 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setTotalnumber(String totalnumber) {
 		this.totalnumber = totalnumber;
+	}
+	public String getVenderTel() {
+		return venderTel;
+	}
+	public void setVenderTel(String venderTel) {
+		this.venderTel = venderTel;
 	}
 	
 }

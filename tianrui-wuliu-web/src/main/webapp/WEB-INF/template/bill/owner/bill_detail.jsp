@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>税率</th>
                                 <th>车主</th>
-                                <th></th>
+                                <th>车主电话</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 	</c:if>
 								</td>
                                 <td>${bill.venderName }</td>
-                                <td></td>
+                                <td>${bill.venderTel }</td>
                             </tr>
                             </tbody>
                              <!-- 榜单图片 -->

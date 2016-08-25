@@ -52,28 +52,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>运单号	</th>
                                 <th>车主</th>
-                                <th>货物名称	</th>
+                                <th>车主电话</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>${bill.waybillno} </td>
                                 <td>${bill.venderName}</td>
-                                <td>${bill.cargoname}</td>
+                                <td>${bill.venderTel}</td>
                             </tr>
                             </tbody>
                             <thead>
                             <tr>
+                                <th>货物名称	</th>
                                 <th>起运地</th>
                                 <th>目的地</th>
-                                <th> 结算里程数</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
+                                <td>${bill.cargoname}</td>
                                 <td>${bill.startcity }  </td>
                                 <td>${bill.endcity }  </td>
-                                <td>${bill.distance}</td>
                             </tr>
                             </tbody>
                             <thead>
