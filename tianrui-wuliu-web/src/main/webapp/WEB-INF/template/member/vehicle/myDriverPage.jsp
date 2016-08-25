@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			                    </li>
 			                    <li>
-			                        <button type="submit" class="btn btnyello" onclick="searchDriver()">搜索司机</button>
+			                        <button type="submit" class="btn btnyello" id="searchDriver">搜索司机</button>
 			                    </li>
 			                </ul>
 			            </div>
@@ -58,6 +58,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                	<!-- TO GET DATA! -->
 		                	
 		                </div>
+		                <div class="goods_more pageMore" style="display:hide">
+		                     <h4 onclick="moreDriver();">查看更多</h4>
+			            </div>
 		            </div>
 		            <!--个人中心右侧end-->
 		        </div>

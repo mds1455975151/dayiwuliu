@@ -111,7 +111,8 @@ public class MyDriverAction {
 			                             String driverName,
 			                              String driverTel,
 			                               String remarkName,
-			                                String pageNo) throws Exception {
+			                                String pageNo,
+			                                 String pageSize) throws Exception {
 		Result rs = Result.getSuccessResult();
 		OwnerDriverReq driverReq = new OwnerDriverReq();
 		// 主键
@@ -128,9 +129,12 @@ public class MyDriverAction {
 		driverReq.setRemarkname(remarkName);
 		// 页码
 		if (pageNo != null) {
-			driverReq.setPageNo(Integer.parseInt("XXXXXXX"));
+			driverReq.setPageNo(Integer.parseInt(pageNo));
 		} else {
 			driverReq.setPageNo(0);
+		}
+		if(StringUtils.isNotBlank(pageSize) && Integer.parseInt(pageSize) >= 1){
+			driverReq.setPageSize(Integer.parseInt(pageSize));
 		}
 		PaginationVO<OwnerDriverResp> pageVo = ownerDriverService.queryMyDriverInfoByPage(driverReq);
 		rs.setData(pageVo);

@@ -230,6 +230,9 @@ public class BillService implements IBillService{
 						if(StringUtils.equals(req.getOvernumber(), "1")){
 							update.setWaybillno(codeGenDao.codeGen(2));
 							update.setType(Byte.valueOf("0"));
+						}else if(Integer.parseInt(req.getOvernumber())>1){
+							update.setWaybillno("批量运单");
+							update.setType(Byte.valueOf("2"));
 						}
 
 						update.setModifier(req.getCurruId());

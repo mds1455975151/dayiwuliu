@@ -299,7 +299,7 @@
         and drivername = #{drivername,jdbcType=VARCHAR}
       </if>
       <if test="drivertel != null and drivertel != ''" >
-        and drivertel = #{drivertel,jdbcType=VARCHAR}
+        and drivertel like "%" #{drivertel,jdbcType=VARCHAR}"%"
       </if>
       <if test="remarkname != null and remarkname != ''" >
         and remarkname = #{remarkname,jdbcType=VARCHAR}
