@@ -38,29 +38,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="col-md-12">
                     <div class="contuser_search">
                         <div class="ht_div">
-                            <label>货物名称：</label>
-                            <input type="text" maxlength="16" id="Scargo" placeholder=" ">
+                            <label>策略名称：</label>
+                            <input type="text" maxlength="16" id="SfreightName" placeholder=" ">
                         </div>
                         <div class="ht_div">
-                            <label>策略名称：</label>
-                            <input type="text" maxlength="16" id="Sdesc1" placeholder=" ">
+                            <label>货物名称：</label>
+                            <input type="text" maxlength="16" id="Scargo" placeholder=" ">
                         </div>
                         <div class="ht_div">
                             <label>路线名称：</label>
                             <input type="text" maxlength="16" id="SRoute" placeholder=" ">
                         </div>
                         <div class="ht_div">
-                            <label>价格类型：</label>
-                            <select class="form-control" id="Sdesc2">
+                            <label>审核状态：</label>
+                            <select class="form-control" id="Saudit">
                                 <option value="">请选择</option>
-	                            <option value="1">合同</option>
-	                            <option value="2">指导</option>
+	                            <option value="0">审核中</option>
+	                            <option value="1">调价成功</option>
+	                            <option value="2">调价失败</option>
                             </select>
                         </div>
-	                        <div class="ht_divbtn">
-	                            <button onclick="SearchPrice();" class="btn btnblue" type="submit">搜索</button>
-	                            <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
-	                        </div>
+                        <div class="ht_divbtn">
+                            <button onclick="SearchPrice();" class="btn btnblue" type="submit">搜索</button>
+                            <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,6 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>状态</th>
                                 <th>货物名称</th>
                                 <th>路线名称</th>
+                                <th>历史价格</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -126,16 +128,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">审核</h4>
             </div>
-            <div class="modal-body">
-				<input type="hidden" value="" id="tyId">
-				<input type="hidden" value="" id="tystatue">
-                <input type="radio">通过<br>
-                <input type="radio">不通过  不通过原因：
-                <h4>是否 通过运价策略审核</h4>
-            </div>
+            <form id="updateform">
+	          <div class="modal-body">
+	          	<input type="hidden" id="freightid" name="id">
+	          	<input type="hidden" id="freightInfoid" name="infoid">
+	              <input type="radio" value="1" name="audit">通过<br>
+	              <input type="radio" value="2" name="audit">不通过  
+	              <br>不通过原因：<br><textarea name="auditresson" rows="3" cols="20"></textarea>
+	          </div>
+            </form>
             <div class="modal-footer">
-                <button type="button" onclick="shenhe();" data-dismiss="modal" class="btn btn-primary">审核通过</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">审核不通过</button>
+            	<span id="hiden" data-dismiss="modal"></span>
+                <button type="button" onclick="shenhe();" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>

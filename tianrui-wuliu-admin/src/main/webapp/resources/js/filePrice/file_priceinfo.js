@@ -11,38 +11,50 @@ function SearchPrice(){
 	displayData(0);
 }
 
-function displayData(pageNo){
+function copyid(id,infoid){
+	$("#freightid").val(id);
+	$("#freightInfoid").val(infoid);
+}
+
+/**
+ * 
+ */
+function shenhe(){
 	$.ajax({
-		url : CONTEXTPATH + '/freightinfo/index',// 跳转到 action
-		data : {
-		},
+		url : CONTEXTPATH + '/freightinfo/update',
+		data : $('#updateform').serialize(),
 		type : "post",
 		success : function(result) {
-			var data = result.data.list;
-			interHTML(data);
+			if(result.code != "000000"){
+				alert(result.error);
+			}
+			$("#hiden").click()
+			SearchPrice();
 		}
 	});
 }
 
-function displayDatatt(pageNo){
+function displayData(pageNo){
+	var pageSize = 10;
 	var Scargo = $("#Scargo").val();
-	var Sdesc1 = $("#Sdesc1").val();
+	var SfreightName = $("#SfreightName").val();
 	var SRoute = $("#SRoute").val();
-	var Sdesc2 = $("#Sdesc2").val();
+	var Saudit = $("#Saudit").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
-		url : CONTEXTPATH + '/frieght/findByFreightEntity',// 跳转到 action
+		url : CONTEXTPATH + '/freightinfo/index',// 跳转到 action
 		data : {"cargoid":Scargo,
-				"desc1":Sdesc1,
-				"routeid":SRoute,
-				"desc2":Sdesc2,
-				"pageNo":(pageNo + 1),
-				"pageSize":pageSize
+			"routeid":SRoute,
+			"freightName":SfreightName,
+			"auditstatus":Saudit,
+			"pageNo":(pageNo + 1),
+			"pageSize":pageSize
 		},
 		type : "post",
 		success : function(result) {
 			if( result && result.code=="000000"  ){
 				var data = result.data.list;
+				pageSize = result.data.pageSize;
 				$("#totalRecords").html(result.data.count);
 		    	document.getElementById("goPage").value = pageNo+1;
 			    if(result.data.count == 0) {
@@ -137,9 +149,9 @@ function interHTML(data){
 			if(data[a].auditstatus=="0"){
 				auditstatus = "审核中";
 			}else if(data[a].auditstatus=="1"){
-				auditstatus = "审核成功";
+				auditstatus = "调价成功";
 			}else if(data[a].auditstatus=="2"){
-				auditstatus = "审核失败";
+				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【调价失败】</a>";
 			}
 		}
 		var tallage = "";
@@ -169,15 +181,19 @@ function interHTML(data){
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td>"+
 			"<td>" +
-			"<span><a data-toggle='modal' data-target='#tingyong'>审核</a></span>" +
+			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
+			"</td>" +
+			"<td>" +
+			"<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"')\" data-target='#tingyong'>审核</a></span>" +
 			"</td>" +
 			"</tr>";
 	}
 	document.getElementById("tablelist").innerHTML=hml;
 }
-/**
- * 
- */
-function shenhe(){
-	
+function linkChart(id){
+	window.location.href="/freightinfo/freightLine?menuId=9&id="+id;
+}
+
+function showreason(massage){
+	alert(massage);
 }

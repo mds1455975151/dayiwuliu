@@ -9,16 +9,17 @@ function SearchPrice(){
 }
 function displayData(pageNo){
 	var Scargo = $("#Scargo").val();
-	var Sdesc1 = $("#Sdesc1").val();
+	var SfreightName = $("#SfreightName").val();
 	var SRoute = $("#SRoute").val();
-	var Sdesc2 = $("#Sdesc2").val();
+	var Saudit = $("#Saudit").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
-		url : CONTEXTPATH + '/frieght/findByFreightEntity',// 跳转到 action
+		url : CONTEXTPATH + '/freightinfo/index',// 跳转到 action
+//		url : CONTEXTPATH + '/frieght/findByFreightEntity',// 跳转到 action
 		data : {"cargoid":Scargo,
-				"desc1":Sdesc1,
 				"routeid":SRoute,
-				"desc2":Sdesc2,
+				"freightName":SfreightName,
+				"auditstatus":Saudit,
 				"pageNo":(pageNo + 1),
 				"pageSize":pageSize
 		},
@@ -129,20 +130,40 @@ function interHTML(data){
 		if(data[a].tallage != undefined){
 			tallage = data[a].tallage;
 		}
-		var auditstatus = "";
-		if(data[a].auditstatus != undefined){
-			if(data[a].auditstatus=="0"){
-				auditstatus = "审核中";
-			}else if(data[a].auditstatus=="1"){
-				auditstatus = "审核成功";
-			}else if(data[a].auditstatus=="2"){
-				auditstatus = "审核失败";
-			}
-		}
 		var price = "";
 		if(data[a].price != undefined){
 			price = data[a].price;
 		}
+		var auditstatus = "";
+		if(data[a].auditstatus != undefined){
+			if(data[a].auditstatus=="0"){
+				auditstatus = "审核中";
+				if(data[a].priceInfo != undefined){
+					price = data[a].priceInfo;
+				}
+				if(data[a].tallageInfo != undefined){
+					tallage = data[a].tallageInfo;
+				}
+			}else if(data[a].auditstatus=="1"){
+				auditstatus = "调价成功";
+				if(data[a].price != undefined){
+					price = data[a].price;
+				}
+				if(data[a].tallage != undefined){
+					tallage = data[a].tallage;
+				}
+				
+			}else if(data[a].auditstatus=="2"){
+				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【调价失败】</a>";
+				if(data[a].priceInfo != undefined){
+					price = data[a].priceInfo;
+				}
+				if(data[a].tallageInfo != undefined){
+					tallage = data[a].tallageInfo;
+				}
+			}
+		}
+		
 		hml +="<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
@@ -294,6 +315,7 @@ function findById(id){
 				document.getElementById("uptdesc2").value = data.freightType;
 				document.getElementById("uptpriceunits").value = data.priceunits;
 				document.getElementById("uptmeasure").value = data.measure;
+				document.getElementById("upttallage").value = data.tallage;
 			}
 		}
 	});
@@ -404,3 +426,8 @@ $("#batchDisable").click(function() {
         return false;
     }
 });
+
+
+function showreason(massage){
+	alert(massage);
+}

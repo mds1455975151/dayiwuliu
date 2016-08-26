@@ -179,6 +179,7 @@ public class PlanOwnerAction {
 			req.setRouteid(routeId);
 			req.setrStatus("1");
 			req.setStatus("0");
+			req.setAuditstatus("1");//审核通过
 			list = freightService.findByEntity(req);
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);

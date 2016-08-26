@@ -38,29 +38,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="col-md-12">
                     <div class="contuser_search">
                         <div class="ht_div">
-                            <label>货物名称：</label>
-                            <input type="text" maxlength="16" id="Scargo" placeholder=" ">
+                            <label>策略名称：</label>
+                            <input type="text" maxlength="16" id="SfreightName" placeholder=" ">
                         </div>
                         <div class="ht_div">
-                            <label>策略名称：</label>
-                            <input type="text" maxlength="16" id="Sdesc1" placeholder=" ">
+                            <label>货物名称：</label>
+                            <input type="text" maxlength="16" id="Scargo" placeholder=" ">
                         </div>
                         <div class="ht_div">
                             <label>路线名称：</label>
                             <input type="text" maxlength="16" id="SRoute" placeholder=" ">
                         </div>
                         <div class="ht_div">
-                            <label>价格类型：</label>
-                            <select class="form-control" id="Sdesc2">
+                            <label>审核状态：</label>
+                            <select class="form-control" id="Saudit">
                                 <option value="">请选择</option>
-	                            <option value="1">合同</option>
-	                            <option value="2">指导</option>
+	                            <option value="0">审核中</option>
+	                            <option value="1">调价成功</option>
+	                            <option value="2">调价失败</option>
                             </select>
                         </div>
-	                        <div class="ht_divbtn">
-	                            <button onclick="SearchPrice();" class="btn btnblue" type="submit">搜索</button>
-	                            <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
-	                        </div>
+                        <div class="ht_divbtn">
+                            <button onclick="SearchPrice();" class="btn btnblue" type="submit">搜索</button>
+                            <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="usermodal userlabel3">
                     <div class="model_width">
                         <input type="hidden" name="id" value="" id="uptId">
-                        <label><i style="color: #ff2f00;">*</i>策略名称：</label><input maxlength="10"  type="text" id="uptdesc1" name="freightName" value="策略1">
+                        <label><i style="color: #ff2f00;">*</i>策略名称：</label><input maxlength="10" readonly="readonly"  type="text" id="uptdesc1" name="freightName" value="">
                     </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>货物：</label>
@@ -235,10 +236,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="model_width" id="blurmeasure">
                         <label><i style="color: #ff2f00;">*</i>税率：</label>
-                        <select class="form-control" id="tallage" name="tallage">
-                           	<option value="4">4%</option>
-                            <option value="10">10%</option>
-                            <option value="12">12%</option>
+                        <select class="form-control" id="upttallage" name="tallage">
+                           	<option value="3">3%</option>
+                            <option value="11">11%</option>
+                            <option value="17">17%</option>
                         </select>
                     </div>
                 </div>

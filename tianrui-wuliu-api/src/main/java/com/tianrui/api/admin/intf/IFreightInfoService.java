@@ -1,8 +1,13 @@
 package com.tianrui.api.admin.intf;
 
+import java.util.List;
+
 import com.tianrui.api.req.admin.freight.AdminFreightReq;
+import com.tianrui.api.req.admin.freight.AdminFreightUptReq;
+import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.freight.AdminFreightResp;
-import com.tianrui.common.vo.PaginationVO;
+import com.tianrui.api.resp.admin.freight.FreightLineResp;
+import com.tianrui.common.vo.Result;
 /**
  * 
  * @类描述：运价策略审核
@@ -16,5 +21,9 @@ import com.tianrui.common.vo.PaginationVO;
  */
 public interface IFreightInfoService {
 	/** 审核运价策略查询*/
-	PaginationVO<AdminFreightResp> find(AdminFreightReq req) throws Exception;
+	PageResp<AdminFreightResp> find(AdminFreightReq req) throws Exception;
+	
+	Result update(AdminFreightUptReq req)throws Exception;
+	
+	List<FreightLineResp> lineChart(AdminFreightReq req) throws Exception;
 }

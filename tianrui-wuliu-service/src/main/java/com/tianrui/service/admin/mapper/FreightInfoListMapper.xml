@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tianrui.service.admin.mapper.FreightInfoMapper" >
-  <select id="selectByCondition" resultType="com.tianrui.service.admin.bean.FileFreight" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
+  <select id="selectByCondition" resultType="com.tianrui.service.admin.bean.FileFreight" parameterType="com.tianrui.service.admin.bean.FileFreight" >
    SELECT
 		f.ID ID,
 		f.freightName freightName,
 		f. STATUS STATUS,
+		i.ID infoid,
 		f.tallage tallage,
 		i.tallage tallageInfo,
 		f.price price,
@@ -19,7 +20,8 @@
 		c. STATUS DESC3,
 		r.routename routeid,
 		r. STATUS DESC4,
-		m.measureName measure
+		m.measureName measure,
+		(select count(*) from wuliu_plan p where p.freightid = f.id) count
 	FROM
 		file_freight f
 		LEFT JOIN file_org_cargo c ON c.ID = f.cargoid
@@ -29,8 +31,74 @@
 		AND i.recent = 1
 	<where>
 		AND f. STATUS != 2
+		<if test="organizationid != null and organizationid != ''">
+    		and f.organizationid = #{organizationid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="cargoid != null and cargoid != ''" >
+	   		and f.cargoid in (select ID from file_org_cargo where cargoname like "%" #{cargoid,jdbcType=VARCHAR} "%")
+	    </if>
+	    <if test="routeid != null and routeid != ''" >
+	    	and f.routeid in (select ID from file_route where routename like "%" #{routeid,jdbcType=VARCHAR} "%")
+	    </if>
+	    <if test="freightName != null and freightName != ''" >
+	    	and f.freightName like "%" #{freightName,jdbcType=VARCHAR} "%"
+	    </if>
+	    <if test="auditstatus != null and auditstatus != ''" >
+	    	and f.auditstatus = #{auditstatus,jdbcType=VARCHAR}
+	    </if>
 		ORDER BY
 		f.createtime DESC
+		<if test="limit != null and pageSize != null">
+    		limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   		</if>
 	</where>
+  </select>
+  <select id="selectByConunt" resultType="long" parameterType="com.tianrui.service.admin.bean.FileFreight" >
+   SELECT
+		count(*)
+	FROM
+		file_freight f
+		LEFT JOIN file_org_cargo c ON c.ID = f.cargoid
+		LEFT JOIN file_route r ON r.ID = f.routeid
+		LEFT JOIN wuliu_measure m ON m.ID = f.measure
+		LEFT JOIN file_freight_info i ON i.freightid = f.ID
+		AND i.recent = 1
+	<where>
+		AND f. STATUS != 2
+		<if test="organizationid != null and organizationid != ''">
+    		and f.organizationid = #{organizationid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="cargoid != null and cargoid != ''" >
+	   		and f.cargoid in (select ID from file_org_cargo where cargoname like "%" #{cargoid,jdbcType=VARCHAR} "%")
+	    </if>
+	    <if test="routeid != null and routeid != ''" >
+	    	and f.routeid in (select ID from file_route where routename like "%" #{routeid,jdbcType=VARCHAR} "%")
+	    </if>
+	    <if test="freightName != null and freightName != ''" >
+	    	and f.freightName like "%" #{freightName,jdbcType=VARCHAR} "%"
+	    </if>
+	    <if test="auditstatus != null and auditstatus != ''" >
+	    	and f.auditstatus = #{auditstatus,jdbcType=VARCHAR}
+	    </if>
+	</where>
+  </select>
+  
+  <select id="selectByInfo" resultType="com.tianrui.service.admin.bean.FreightInfo" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
+    select 
+    *
+    from file_freight_info
+    <where>
+    <if test="freightid != null and freightid != ''">
+     and freightid = #{freightid,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != ''">
+     and status = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="recent != null and recent != ''">
+     and recent = #{recent,jdbcType=VARCHAR}
+    </if>
+    ORDER BY
+		createtime
+    </where>
   </select>
 </mapper>

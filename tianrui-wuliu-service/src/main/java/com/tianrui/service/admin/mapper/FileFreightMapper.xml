@@ -112,6 +112,9 @@
      <if test="organizationid != null and organizationid != ''">
     	and f.organizationid = #{organizationid,jdbcType=VARCHAR}
      </if>
+     <if test="auditstatus != null and auditstatus != ''">
+     	and f.auditstatus = #{auditstatus,jdbcType=VARCHAR}
+     </if>
      <if test="cStatus != null and cStatus != ''">
      	and c.status = #{cStatus,jdbcType=VARCHAR}
      </if>

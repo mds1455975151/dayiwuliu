@@ -155,10 +155,7 @@ public class FileFrieghtAction {
 		Date data = new Date();
 		req.setModifier(user.getAccount());
 		req.setModifytime(data.getTime());
-		if(!freightService.updateEntity(req)){
-			rs.setCode("1");
-			rs.setError("删除失败");
-		}
+		rs = freightService.delectEntity(req);
 		return rs;
 	}
 	/**
@@ -179,22 +176,12 @@ public class FileFrieghtAction {
 			HttpServletRequest request
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
-		
-		if(req.getFreightName()!= null ){
-			if(req.getId().equals(freightService.findByName(req.getFreightName()))){
-				rs.setCode("11");
-				rs.setError("策略名称已存在，请重新输入");
-				return rs;
-			}
-		}
 		Users user = SessionManager.getSessionMember(request);
 		req.setModifier(user.getAccount());
 		Date date = new Date();
 		req.setModifytime(date.getTime());
-		if(!freightService.updateEntity(req)){
-			rs.setCode("1");
-			rs.setError("修改失败");
-		}
+		req.setAuditstatus("0");
+		rs = freightService.updateEntity(req);
 		return rs;
 	}
 	/**

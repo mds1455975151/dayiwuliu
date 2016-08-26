@@ -18,5 +18,9 @@ public interface FreightInfoMapper {
 
     int updateByPrimaryKey(FreightInfo record);
     
-    List<FileFreight> selectByCondition(FreightInfo record);
+    List<FileFreight> selectByCondition(FileFreight record);
+    
+    long selectByConunt(FileFreight record);
+    
+    List<FreightInfo> selectByInfo(FreightInfo record);
 }

@@ -32,6 +32,15 @@ public class FreightInfo {
     private String desc3;
 
     private String desc4;
+    
+    /**
+     * 第几页
+     */
+    private Integer limit;
+    /**
+     * 每页几条数据
+     */
+    private Integer pageSize;
 
     public String getId() {
         return id;
@@ -57,7 +66,23 @@ public class FreightInfo {
         this.taketime = taketime;
     }
 
-    public Double getPrice() {
+    public Integer getLimit() {
+		return limit;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Double getPrice() {
         return price;
     }
 

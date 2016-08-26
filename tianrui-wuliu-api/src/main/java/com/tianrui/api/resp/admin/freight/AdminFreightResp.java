@@ -7,6 +7,8 @@ public class AdminFreightResp extends BaseResp{
      * id
      */
     private String id;
+    
+    private String infoid;
 
     /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
@@ -87,6 +89,14 @@ public class AdminFreightResp extends BaseResp{
 
 	public void setCount(String count) {
 		this.count = count;
+	}
+
+	public String getInfoid() {
+		return infoid;
+	}
+
+	public void setInfoid(String infoid) {
+		this.infoid = infoid;
 	}
 
 	public Double getPriceInfo() {
