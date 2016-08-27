@@ -73,6 +73,12 @@ public class FreightInfoService implements IFreightInfoService{
 			rs.setErrorCode(ErrorCode.FILE_FREIGHT_AUDIT0);
 			return rs;
 		}
+		if("2".equals(req.getAudit())){
+			if(StringUtils.isBlank(req.getAuditresson())){
+				rs.setErrorCode(ErrorCode.FILE_FREIGHT_AUDIT_NULL);
+				return rs;
+			}
+		}
 		//修改认证信息
 		info.setStatus(req.getAudit());
 		info.setUpdater(req.getUpdater());
@@ -89,10 +95,6 @@ public class FreightInfoService implements IFreightInfoService{
 			record.setFreightType(info.getFreighttype());
 			record.setTallage(info.getTallage());
 		}else if("2".equals(req.getAudit())){
-			if(StringUtils.isBlank(req.getAuditresson())){
-				rs.setErrorCode(ErrorCode.FILE_FREIGHT_AUDIT_NULL);
-				return rs;
-			}
 		}else{
 			rs.setErrorCode(ErrorCode.FILE_FREIGHT_NULL);
 			return rs;

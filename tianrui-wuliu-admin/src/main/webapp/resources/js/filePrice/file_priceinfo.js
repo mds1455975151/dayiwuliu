@@ -27,9 +27,10 @@ function shenhe(){
 		success : function(result) {
 			if(result.code != "000000"){
 				alert(result.error);
+			}else{
+				$("#hiden").click();
+				SearchPrice();
 			}
-			$("#hiden").click()
-			SearchPrice();
 		}
 	});
 }
