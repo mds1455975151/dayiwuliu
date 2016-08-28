@@ -35,7 +35,10 @@ public enum ErrorCode {
 	FILE_FREIGHT_ERROR("E401002","操作失败，请稍后再试"),
 	FILE_FREIGHT_INFO("E401003","未查到审核信息"),
 	FILE_FREIGHT_AUDIT0("E401004","非审核中不能审核"),
-	FILE_FREIGHT_UPDATE("E401005","审核中策略不能修改")
+	FILE_FREIGHT_UPDATE("E401005","审核中策略不能修改"),
+	BILL_DRIVER_DEL("E301007","改运单司机已删除"),
+	BILL_VENDER_DEL("E301008","改运单车主已删除"),
+	BILL_OWNER_DEL("E301009","改运单货主已删除")
 	;
 	
 	private String code;

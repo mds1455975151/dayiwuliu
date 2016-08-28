@@ -444,6 +444,14 @@ public class BillService implements IBillService{
 					rs.setErrorCode(ErrorCode.BILL_VEHICLE_BILLSTATUS);
 					return rs;
 				}
+				if("1".equals(db.getVenderdelflag())){
+					rs.setErrorCode(ErrorCode.BILL_VENDER_DEL);
+					return rs;
+				}
+				if("1".equals(db.getOwnerdelflag())){
+					rs.setErrorCode(ErrorCode.BILL_DRIVER_DEL);
+					return rs;
+				}
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"accept") ){
 						Bill update =new Bill();
