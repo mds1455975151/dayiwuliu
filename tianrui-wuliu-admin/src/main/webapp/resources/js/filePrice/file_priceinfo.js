@@ -168,6 +168,10 @@ function interHTML(data){
 		if(data[a].priceInfo != undefined){
 			priceInfo = data[a].priceInfo;
 		}
+		var taketimeStr = "";
+		if(data[a].taketimeStr != undefined){
+			taketimeStr = data[a].taketimeStr;
+		}
 		hml +="<tr>" +
 				"<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
@@ -178,6 +182,7 @@ function interHTML(data){
 			"<td>"+auditstatus+"</td>"+ 
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td>"+
+			"<td>"+taketimeStr+"</td>"+
 			"<td>" +
 			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
 			"</td>" +

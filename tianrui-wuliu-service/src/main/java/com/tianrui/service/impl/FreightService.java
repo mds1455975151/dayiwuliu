@@ -1,6 +1,7 @@
 package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -135,8 +136,9 @@ public class FreightService implements IFreightService{
 		saveFreightInfo(req);
 		return rs;
 	}
-	/** 插入审核记录*/
-	protected int saveFreightInfo(FreightReq req) {
+	/** 插入审核记录
+	 * @throws ParseException */
+	protected int saveFreightInfo(FreightReq req) throws ParseException {
 		FreightInfo info = new FreightInfo();
 		info.setId(UUIDUtil.getId());
 		info.setFreightid(req.getId());
@@ -145,6 +147,7 @@ public class FreightService implements IFreightService{
 		info.setFreighttype(req.getFreightType());
 		info.setCreater(req.getModifier());
 		info.setCreatetime(new Date().getTime());
+		info.setTaketime(req.getTaketime());
 		info.setRecent("1");
 		info.setStatus("0");
 		return freightInfoMapper.insertSelective(info);

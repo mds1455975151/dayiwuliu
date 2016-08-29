@@ -1,5 +1,11 @@
 package com.tianrui.api.req.front.cargoplan;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.req.BaseReq;
 
 public class FreightReq extends BaseReq{
@@ -19,6 +25,10 @@ public class FreightReq extends BaseReq{
      * 所属组织名称 
      */
     private String organizationname;
+    /** 生效时间*/
+    private String taketimeStr;
+    
+    private Long taketime;
     /**
      /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
@@ -214,4 +224,22 @@ public class FreightReq extends BaseReq{
 	public void setModifytime(Long modifytime) {
 		this.modifytime = modifytime;
 	}
+	public String getTaketimeStr() {
+		return taketimeStr;
+	}
+	public void setTaketimeStr(String taketimeStr) {
+		this.taketimeStr = taketimeStr;
+	}
+	public Long getTaketime() throws ParseException {
+		if(StringUtils.isNotBlank(taketimeStr)){
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date = sdf.parse(taketimeStr);
+			taketime = date.getTime();
+		}
+		return taketime;
+	}
+	public void setTaketime(Long taketime) {
+		this.taketime = taketime;
+	}
+	
 }

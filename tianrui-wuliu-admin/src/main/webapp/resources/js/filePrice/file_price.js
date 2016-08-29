@@ -331,6 +331,11 @@ function updatePrice(){
 	var addprice = $("#uptprice").val();
 	var adddesc2 = $("#uptdesc2").val();
 	var uptmeasure = $("#uptmeasure").val();
+	var taketimeStr = $("#taketimeStr").val();
+	if(taketimeStr == ""){
+		alert("生效时间不能为空");
+		return;
+	}
 	if(adddesc1 == ""){
 		alert("策略名称不能为空");
 		return;

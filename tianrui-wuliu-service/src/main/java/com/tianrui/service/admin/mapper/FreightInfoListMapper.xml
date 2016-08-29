@@ -16,6 +16,7 @@
 		f.auditstatus auditstatus,
 		f.auditreason auditreason,
 		f.priceUnits priceunits,
+		i.taketime taketime,
 		c.cargoname cargoid,
 		c. STATUS DESC3,
 		r.routename routeid,
@@ -101,4 +102,22 @@
 		createtime
     </where>
   </select>
+  
+  <update id="uptPlanForFreight" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
+    update wuliu_plan
+    set price = #{price,jdbcType=DOUBLE},
+      type = #{freighttype,jdbcType=VARCHAR}
+    where freightid = #{freightid,jdbcType=VARCHAR}
+    	and status in (0,2)
+  </update>
+  
+  <update id="uptBilForFreight" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
+    update wuliu_bill
+    set price = #{price,jdbcType=DOUBLE},
+      type = #{freighttype,jdbcType=VARCHAR}
+    where 
+    	planid IN (SELECT id FROM wuliu_plan WHERE freightid = #{freightid,jdbcType=VARCHAR})
+    	and status in (0,1,2,3,4)
+  </update>
+  
 </mapper>

@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.admin.freight;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.tianrui.api.resp.BaseResp;
 
 public class AdminFreightResp extends BaseResp{
@@ -10,6 +13,9 @@ public class AdminFreightResp extends BaseResp{
     
     private String infoid;
 
+    private String taketimeStr;
+    
+    private Long taketime;
     /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
      */
@@ -237,6 +243,25 @@ public class AdminFreightResp extends BaseResp{
 
 	public void setDesc1(String desc1) {
 		this.desc1 = desc1;
+	}
+
+	public String getTaketimeStr() {
+		if(taketime != null){
+			taketimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(taketime));
+		}
+		return taketimeStr;
+	}
+
+	public void setTaketimeStr(String taketimeStr) {
+		this.taketimeStr = taketimeStr;
+	}
+
+	public Long getTaketime() {
+		return taketime;
+	}
+
+	public void setTaketime(Long taketime) {
+		this.taketime = taketime;
 	}
     
     

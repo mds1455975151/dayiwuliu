@@ -17,6 +17,10 @@ public interface FreightInfoMapper {
     int updateByPrimaryKeySelective(FreightInfo record);
 
     int updateByPrimaryKey(FreightInfo record);
+    /** 批量修改计划*/
+    int uptPlanForFreight(FreightInfo record);
+    /** 批量修改运单*/
+    int uptBilForFreight(FreightInfo record);
     
     List<FileFreight> selectByCondition(FileFreight record);
     

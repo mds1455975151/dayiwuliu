@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="Shortcut Icon" href="${imagesRoot}/favicon.ico" type="image/x-icon">
     <link href="${stylesRoot }/imgcut.css" rel="stylesheet">
 	 <link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
+	<script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 
@@ -241,6 +242,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <option value="11">11%</option>
                             <option value="17">17%</option>
                         </select>
+                    </div>
+                    <div class="ht_div">
+                        <label>生效时间：</label>
+                        <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
                     </div>
                 </div>
                 <div class="clear"></div>

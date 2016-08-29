@@ -94,6 +94,7 @@ public class FreightInfoService implements IFreightInfoService{
 			record.setPrice(info.getPrice());
 			record.setFreightType(info.getFreighttype());
 			record.setTallage(info.getTallage());
+			updatePlanAndBill(info);
 		}else if("2".equals(req.getAudit())){
 		}else{
 			rs.setErrorCode(ErrorCode.FILE_FREIGHT_NULL);
@@ -105,7 +106,12 @@ public class FreightInfoService implements IFreightInfoService{
 		}
 		return rs;
 	}
-
+	/** 修改 历史 计划，运单 单价*/
+	protected void updatePlanAndBill(FreightInfo info) {
+		freightInfoMapper.uptBilForFreight(info);
+		freightInfoMapper.uptPlanForFreight(info);
+	}
+	
 	@Override
 	public List<FreightLineResp> lineChart(AdminFreightReq req) throws Exception {
 		FreightInfo info = new FreightInfo();
