@@ -38,15 +38,10 @@
    <bean id="resourcePathExposer" class="com.tianrui.web.util.ResourcePathExposer"
 		init-method="init" >
 		<property name="localScripts" value="/resources/js" />
-		<property name="imagesRoot" value="http://www.appb2b.com/trwlWebStatic/images" />
-		<property name="scriptsRoot" value="http://www.appb2b.com/trwlWebStatic/js" />
-		<property name="stylesRoot" value="http://www.appb2b.com/trwlWebStatic/css" />
-		<property name="mhImagesRoot" value="http://www.appb2b.com/trwlWebStatic/images/trxxkj" />
-		<property name="mhScriptsRoot" value="http://www.appb2b.com/trwlWebStatic/js/trxxkj" />
-		<property name="mhStylesRoot" value="http://www.appb2b.com/trwlWebStatic/css/trxxkj" />
+		<property name="imagesRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/images" />
+		<property name="scriptsRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/js" />
+		<property name="stylesRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/css" />
 		<property name="trRoot" value="http://www.appb2b.com/trwlWebStatic" />
-		<property name="newsUpload" value="/news/upload" />
-		<property name="nginxRoot" value="http://file.tmkrewuliu.cn/" />
 	</bean>
 	
 	<!-- 资源文件路径 css js images -->

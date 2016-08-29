@@ -159,15 +159,13 @@ public class MemberVehicleService implements IMemberVehicleService {
 		MemberVehicle vehic = new MemberVehicle();
 		vehic.setVehicleprefix(req.getVehiclePrefix());
 		vehic.setVehicleno(req.getVehicleNo());
-		vehic.setStatus("1");
 		long f = memberVehicleMapper.selectCountByCondition(vehic);
 		long x = 0;
 		if(f != x){
 			rs.setCode("1");
-			rs.setError("车牌号已被认证");
+			rs.setError("车牌号已存在");
 			return rs;
 		}
-		
 		// 复制操作
 		MemberVehicle memberVehicle = copyProperties(req);
 		

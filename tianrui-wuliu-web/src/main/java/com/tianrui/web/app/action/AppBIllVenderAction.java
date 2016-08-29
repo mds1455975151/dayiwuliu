@@ -89,7 +89,11 @@ public class AppBIllVenderAction {
 		WaybillResp bill  =billService.queryWayBill(query);
 		
 		appResult.setCode("000000");
-		appResult.setReturnData(bill);
+		if(bill == null){
+			appResult.setReturnData("");
+		}else{
+			appResult.setReturnData(bill);
+		}
 		return appResult;
 	}
 	//获取承运计划轨迹

@@ -34,29 +34,35 @@ $(function(){
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
-			dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+'</a></td>');
+			dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">');
+			dataArr.push(item.waybillno);
+			dataArr.push('</a></td>');
 			dataArr.push('<td><p>'+item.vehicleno+'</p><p>'+item.drivertel+'</p></td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
 			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
 			dataArr.push('<td>');
-			if(item.status ==0){
-				dataArr.push('新建');
-			}else if(item.status ==7 ){
-				dataArr.push('已拒绝');
-			}else if(item.status ==1 ){
-				dataArr.push('已接受');
-			}else if(item.status ==2 ){
-				dataArr.push('已提货');
-			}else if(item.status ==3 ){
-				dataArr.push('运输中');
-			}else if(item.status ==4 ){
-				dataArr.push('已到达');
-			}else if(item.status ==5 ){
-				dataArr.push('已卸货');
-			}else if(item.status ==6 ){
-				dataArr.push('已完成');
-			}else if(item.status ==-1 ){
-				dataArr.push('已收回');
+			if(item.type == 2){
+				dataArr.push('剩余'+item.overnumber+'趟');
+			}else{
+				if(item.status ==0){
+					dataArr.push('新建');
+				}else if(item.status ==7 ){
+					dataArr.push('已拒绝');
+				}else if(item.status ==1 ){
+					dataArr.push('已接受');
+				}else if(item.status ==2 ){
+					dataArr.push('已提货');
+				}else if(item.status ==3 ){
+					dataArr.push('运输中');
+				}else if(item.status ==4 ){
+					dataArr.push('已到达');
+				}else if(item.status ==5 ){
+					dataArr.push('已卸货');
+				}else if(item.status ==6 ){
+					dataArr.push('已完成');
+				}else if(item.status ==-1 ){
+					dataArr.push('已收回');
+				}
 			}
 			dataArr.push('</td>');
 			dataArr.push('<td>'+item.modifytimeStr+'</td>');

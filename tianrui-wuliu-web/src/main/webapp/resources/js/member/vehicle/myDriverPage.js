@@ -9,12 +9,20 @@
 // div块编号
 var divNo = 0;
 
+//页码
+var pageNo = 1;
+//每页条数
+var pageSize = 4;
+
 // 初始化处理
 $(function() { 
     // 左侧导航选中效果
 	$('#myDriverPage').addClass('selected');
-	
-	getMyDriver();
+	$('#searchDriver').off('click').on('click',function(){
+		pageNo = 1;
+		searchDriver(pageNo, pageSize, 0);
+	});
+	searchDriver(pageNo, pageSize, 0);
 });
 
 function getMyDriver(){
@@ -31,6 +39,44 @@ function getMyDriver(){
 			}
 		}
 	});
+}
+function searchDriver(pagenum, pagesize, flag){
+	var drivername = $("#drivername").val();
+	var drivertell = $("#drivertell").val();
+	$.ajax({
+		url : PATH + '/trwuliu/Member/myDriver/getMyDriverByPage',// 跳转到 action
+		data : {
+			memberId: memberId,
+			driverName:drivername,
+			driverTel:drivertell,
+			pageNo:pagenum,
+			pageSize:pagesize
+		},
+		type : "post",
+		success : function(result) {
+			if(result && result.code=="000000") {
+				var data = result.data.list;
+				if(data && data.length > 0){
+					if(data.length == 4){
+						$('.pageMore').show();
+					}else{
+						$('.pageMore').hide();
+					}
+					appendContentToBody(data, flag);
+				}else{
+					$('.pageMore').hide();
+				}
+			}
+		}
+	});
+}
+function moreDriver(){
+	if(($('#driver_div').children().length)%2 == 0){
+		searchDriver(++pageNo,pageSize,1);
+	}else{
+		$('#driver_div').children(':last').remove();
+		searchDriver(pageNo,pageSize,1);
+	}
 }
 /**
  * 搜索功能使用的循环函数体，用于附加动态表体内容至<body/>标签
@@ -55,7 +101,7 @@ function appendContentToBody(data, flag) {
 		$(".goods_more").hide();
 		hml+= '<div class="nodata">';
 		hml+= '<img src="'+trImgRoot+'/none_drive.png">';
-		hml+= '<h3>您还未添加司机！赶快添加司机给他派单吧！</h3>';
+		hml+= '<h3>暂未找到司机！赶快添加司机给他派单吧！</h3>';
 		hml+= '</div>';
 		document.getElementById("driver_div").innerHTML = hml;
 	// 有数据信息时

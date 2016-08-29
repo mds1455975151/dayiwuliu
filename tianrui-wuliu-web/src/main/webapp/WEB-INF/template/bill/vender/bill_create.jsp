@@ -120,7 +120,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <div class="bill_yunshu mr20">
                         <label> 运输量：</label>
-                        <input type="text" class="weightInput" placeholder="请输入8.88" maxlength="10" />${plan.measure}
+                        <input id="overweight" value="${plan.overweight }" type="hidden" />
+                        <input type="text" class="weightInput" placeholder="剩余运输量${plan.overweight }" maxlength="10" />${plan.measure}
                     </div>
                     <div class="bill_yunshu">
                         <label> 含税单价：</label>
@@ -146,11 +147,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             				<li>
 	                                		<input type="checkbox" dataId="${item.id }" class="checkInput"  >
 	                                	</c:if>
-	                                    <span>${item.vehicleNo }</span>
+	                                    <label>${item.vehicleNo }</label>
 	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
-	                                    <span><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</span>
-	                                    <span>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</span>
-	                                    <input type="button" value="车次号" hidden>
+	                                    <em><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</em>
+	                                    <em>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</em>
+	                                    <input type="text" class="ts" placeholder="输入趟数" value="1" />
+                                    	<i>趟</i>
 	                                </li>
                             	</c:forEach>
                             </ul>

@@ -122,6 +122,7 @@ public class FileFrieghtAction {
 			req.setCreatetime(date.getTime());
 			req.setOrganizationid(user.getOrgid());
 			req.setOrganizationname(user.getOrgname());
+			req.setAuditstatus("0");
 			if(!freightService.saveEntity(req)){
 				rs.setCode("1");
 				rs.setError("添加失败");
@@ -154,10 +155,7 @@ public class FileFrieghtAction {
 		Date data = new Date();
 		req.setModifier(user.getAccount());
 		req.setModifytime(data.getTime());
-		if(!freightService.updateEntity(req)){
-			rs.setCode("1");
-			rs.setError("删除失败");
-		}
+		rs = freightService.delectEntity(req);
 		return rs;
 	}
 	/**
@@ -178,24 +176,28 @@ public class FileFrieghtAction {
 			HttpServletRequest request
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
-		
-		if(req.getFreightName()!= null ){
-			if(req.getId().equals(freightService.findByName(req.getFreightName()))){
-				rs.setCode("11");
-				rs.setError("策略名称已存在，请重新输入");
-				return rs;
-			}
-		}
 		Users user = SessionManager.getSessionMember(request);
 		req.setModifier(user.getAccount());
 		Date date = new Date();
 		req.setModifytime(date.getTime());
-		if(!freightService.updateEntity(req)){
-			rs.setCode("1");
-			rs.setError("修改失败");
-		}
+		req.setAuditstatus("0");
+		rs = freightService.updateEntity(req);
 		return rs;
 	}
+	/** 策略停用*启用
+	 * @throws Exception */
+	@RequestMapping("/closeFreight")
+	@ResponseBody
+	public Result closeFreight(FreightReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Users user = SessionManager.getSessionMember(request);
+		req.setModifier(user.getAccount());
+		Date date = new Date();
+		req.setModifytime(date.getTime());
+		rs = freightService.closeFreight(req);
+		return rs;
+	}
+	
 	/**
 	 * 
 	 * @描述:批量停用

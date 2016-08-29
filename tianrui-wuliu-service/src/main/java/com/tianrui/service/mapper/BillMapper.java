@@ -65,4 +65,5 @@ public interface BillMapper {
     
     Double querySumWithPlan(Bill record);
     
+    List<Bill> selectByPlanId(String billId);
 }

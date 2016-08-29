@@ -7,6 +7,7 @@ import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.cargoplan.FreightResp;
 import com.tianrui.api.resp.front.cargoplan.FreightlistResp;
 import com.tianrui.api.resp.front.cargoplan.FreightsResp;
+import com.tianrui.common.vo.Result;
 
 /**
  * 
@@ -65,7 +66,11 @@ public interface IFreightService {
 	
 	boolean saveEntity(FreightReq req)throws Exception;
 	
-	boolean updateEntity(FreightReq req)throws Exception;
+	Result updateEntity(FreightReq req)throws Exception;
+	/** 运价策略停用启用*/
+	Result closeFreight(FreightReq req)throws Exception;
+	
+	Result delectEntity(FreightReq req)throws Exception;
 	/**
 	 * 
 	 * @描述:批量修改

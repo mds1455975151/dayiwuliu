@@ -7,6 +7,7 @@
  */
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <link href="${trRoot}/tianrui/css/bootstrap.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
@@ -26,6 +27,7 @@
             <div class="header_left">
                 <a><i class=" iconfont icon-hert"></i><label>收藏</label></a>
                 <a><i class=" iconfont icon-shouji"></i><label>手机版</label></a>
+                 <a href="/trwuliu/Member/chooseRole"><i class=" iconfont icon-huiyuan"></i><label>切换角色</label></a>
             </div>
             <div class="header_right">
                 <label id="header_welcome">欢迎来到天瑞物流 </label>
@@ -67,9 +69,11 @@
                 <span>发布货源</span>
                 </a>
             </div> -->
-            <div class="regbtn" id="countMessage" >
-                
-            </div>
+            <c:if test="${not empty role }">
+	            <div class="regbtn" id="countMessage" >
+	                
+	            </div>
+            </c:if>
         </div>
         <!--导航条end-->
     </div>

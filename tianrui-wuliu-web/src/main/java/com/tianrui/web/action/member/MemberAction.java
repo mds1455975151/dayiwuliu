@@ -3,6 +3,7 @@ package com.tianrui.web.action.member;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberInfoResp;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.util.SessionManager;
@@ -535,6 +537,26 @@ public class MemberAction{
 	public ModelAndView logout(HttpServletRequest request) throws IOException{
 		SessionManager.removeSessionMember(request);
 		return new ModelAndView("/member/loginPage");
+	}
+	
+	@RequestMapping("/chooseRole")
+	public ModelAndView chooseRole(HttpSession session){
+		session.removeAttribute("role");
+		return new ModelAndView("/member/chooseRole");
+	}
+	
+	@RequestMapping("/bindRole")
+	@ResponseBody
+	public Result bindRole(HttpSession session, String role){
+		Result re = Result.getSuccessResult();
+		if(StringUtils.isNotBlank(role)){
+			session.setAttribute("role", role);
+			re.setCode("000000");
+		}else{
+			re.setCode("000001");
+			re.setError("选择角色错误！");
+		}
+		return re;
 	}
 	
 }

@@ -17,6 +17,14 @@ public class FreightlistResp extends BaseResp{
      */
     private String count;
     /**
+     * 审核状态
+     */
+    private String auditstatus;
+    /**
+     * 审核原因
+     */
+    private String auditreason;
+    /**
      * 货物id
      */
     private String cargoid;
@@ -91,6 +99,22 @@ public class FreightlistResp extends BaseResp{
 
 	public String getDesc4() {
 		return desc4;
+	}
+
+	public String getAuditstatus() {
+		return auditstatus;
+	}
+
+	public void setAuditstatus(String auditstatus) {
+		this.auditstatus = auditstatus;
+	}
+
+	public String getAuditreason() {
+		return auditreason;
+	}
+
+	public void setAuditreason(String auditreason) {
+		this.auditreason = auditreason;
 	}
 
 	public String getFreightName() {

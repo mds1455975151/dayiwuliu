@@ -50,36 +50,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <table class="table " >
                             <thead>
                             <tr>
-                                <th  >运单号	</th>
-                                <th >货物名称	</th>
-                                <th >计价单位</th>
+                                <th>运单号	</th>
+                                <th>车主</th>
+                                <th>车主电话</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td >${bill.waybillno} </td>
-                                <td > ${bill.cargoname}</td>
-                                <td >${bill.priceunits}</td>
+                                <td>${bill.waybillno} </td>
+                                <td>${bill.venderName}</td>
+                                <td>${bill.venderTel}</td>
                             </tr>
                             </tbody>
                             <thead>
                             <tr>
+                                <th>货物名称	</th>
                                 <th>起运地</th>
-                                <th >目的地</th>
-                                <th> 结算里程数</th>
+                                <th>目的地</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td >${bill.startcity }  </td>
-                                <td >${bill.endcity }  </td>
-                                <td >${bill.distance}</td>
+                                <td>${bill.cargoname}</td>
+                                <td>${bill.startcity }  </td>
+                                <td>${bill.endcity }  </td>
                             </tr>
                             </tbody>
                             <thead>
                             <tr>
                                 <th>发货人</th>
-                                <th >收货人</th>
+                                <th>收货人</th>
                                 <th> 运输量</th>
                             </tr>
                             </thead>
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <h4>${bill.consignorname }</h4>
                                     <h4>${bill.consignortel }</h4>
                                 </td>
-                                <td >
+                                <td>
                                     <h4>${bill.receivername }</h4>
                                     <h4>${bill.receivertel }</h4>
                                 </td>
@@ -101,29 +101,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>开始时间</th>
-                                <th >结束时间</th>
+                                <th>结束时间</th>
                               <!--   <th>含税单价 </th> -->
                                 <th>车辆</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td >${bill.starttime }</td>
-                                <td >${bill.endtime }</td>
-                               <%--  <td >${bill.price}元 </td> --%>
-                                <td >${bill.vehicleno }</td>
+                                <td>${bill.starttime }</td>
+                                <td>${bill.endtime }</td>
+                               <%--  <td>${bill.price}元 </td> --%>
+                                <td>${bill.vehicleno }</td>
                             </tr>
                             </tbody>
                             <thead>
                             <tr>
-                                <th >司机</th>
+                                <th>司机</th>
                                 <th>联系方式 </th>
+                                <th>总趟数</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td >${bill.drivername }</td>
-                                <td >${bill.drivertel } </td>
+                                <td>${bill.drivername }</td>
+                                <td>${bill.drivertel } </td>
+                                <td>共${bill.totalnumber }趟 </td>
                             </tr>
                             </tbody>
                             <!-- 榜单图片 -->
@@ -170,7 +172,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_foot">
                 	<c:if test="${bill.status ==0}">
                     	<button class="btn btnyello mr20 acceptBtn" type="button">接收运单</button>
-                    	<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
+                    	<c:if test="${bill.type != 2 }">
+	                    	<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
+                    	</c:if>
                 	</c:if>
                 	<c:if test="${bill.status ==1}">
                     	<button class="btn btnblue pickupBtn" type="button">提货确认</button>

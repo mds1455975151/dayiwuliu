@@ -6,7 +6,27 @@ $(function(){
 		successUrl:"/trwuliu/billvender/main",
 	}
 	
-    
+	$('.bill_cllist ul li').off('click').on('click',function(){
+		$(this).siblings().removeClass('active').find('.checkInput').each(function(){
+			this.checked = false;
+		});
+		$(this).addClass('active').find('.checkInput')[0].checked = true;
+	});
+	//限制输入格式位数字
+    $('.ts').change(function(){
+    	if(!/^[1-9]\d*$/.test($(this).val())){
+    		$(this).val('');
+    	}
+    }).off('keyup').on('keyup',function(){
+    	$(this).trigger('change');
+    });
+
+	$(".checkInput").change(function(){
+		$(this).closest('li').siblings().find('.checkInput').each(function(){
+			this.checked = false;
+		});
+	});
+	
     //返回
     $(".cancleBtn").click(function(){
     	window.location.href=URL.cancleUrl;
@@ -56,6 +76,10 @@ $(function(){
     		alert("运输量格式非法");
     		return ;
     	}
+    	var ts = $(".checkInput:checked ~ input.ts").val();
+    	if(!ts){
+    		alert('请输入趟数！');return; 
+    	}
     	//参数拼装
     	var param={
     		"id":id,	
@@ -63,8 +87,21 @@ $(function(){
     		"billEndTime":billEndTimeInput,	
     		"weight":weightInput,	
     		"price":priceInput,	
-    		"vehicleId":$(".checkInput:checked").attr("dataId")
+    		"vehicleId":$(".checkInput:checked").attr("dataId"),
+    		"overnumber":ts
     	}
+    	var overweight = parseFloat($('#overweight').val());//剩余运输量
+    	var sumweight = parseFloat(weightInput)*ts;
+    	if(sumweight > overweight){
+    		confirm("ok","当前运输量已超过计划剩余运输量，是否继续？",function(){
+    			saveBills(param);
+    		});
+    	}else{
+    		saveBills(param);
+    	}
+    });
+   
+    function saveBills(param){
     	//表单数据提交
     	$.ajax({
     		url:URL.updateUrl,
@@ -80,6 +117,6 @@ $(function(){
 				}
 			}
     	})
-    });
+    }
     
 });

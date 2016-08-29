@@ -24,7 +24,7 @@ public class Bill {
     private String priceunits;
     private Double distance;
     private Double price;
-    //0 普通运单  1熟车运单
+    //0 普通运单  1熟车运单 2批量运单
     private Byte type;
     private Byte status;
     private String waybillno;
@@ -58,6 +58,10 @@ public class Bill {
     private String orgid;
     
     private Byte[] statusStrs;
+    //总趟数
+    private String totalnumber;
+    //剩余趟数
+    private String overnumber;
     
     public String getId() {
         return id;
@@ -1059,5 +1063,20 @@ public class Bill {
 		this.signimgurl = signimgurl;
 	}
 
-    
+	public String getOvernumber() {
+		return overnumber;
+	}
+
+	public void setOvernumber(String overnumber) {
+		this.overnumber = overnumber;
+	}
+
+	public String getTotalnumber() {
+		return totalnumber;
+	}
+
+	public void setTotalnumber(String totalnumber) {
+		this.totalnumber = totalnumber;
+	}
+
 }

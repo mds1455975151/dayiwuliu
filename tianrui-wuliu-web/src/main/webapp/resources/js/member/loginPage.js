@@ -62,7 +62,7 @@ $("#login_button").click(function() {
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){
-				window.location.href = PATH + "/trwuliu/Member/message/message";
+				window.location.href = PATH + "/trwuliu/Member/chooseRole";
 			}else if(result && result.error){
 				$("#modal_common_content").html(result.error);
 				$("#commonModal").modal();

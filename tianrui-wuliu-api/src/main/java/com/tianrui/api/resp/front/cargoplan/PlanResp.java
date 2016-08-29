@@ -87,6 +87,7 @@ public class PlanResp extends BaseResp{
     private String orgname;
     private String ownerName;
     private Double tallage;
+    private Double overweight;
 	public String getId() {
 		return id;
 	}
@@ -381,4 +382,11 @@ public class PlanResp extends BaseResp{
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
 	}
+	public Double getOverweight() {
+		return overweight;
+	}
+	public void setOverweight(Double overweight) {
+		this.overweight = overweight;
+	}
+	
 }
