@@ -184,6 +184,20 @@ public class FileFrieghtAction {
 		rs = freightService.updateEntity(req);
 		return rs;
 	}
+	/** 策略停用*启用
+	 * @throws Exception */
+	@RequestMapping("/closeFreight")
+	@ResponseBody
+	public Result closeFreight(FreightReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Users user = SessionManager.getSessionMember(request);
+		req.setModifier(user.getAccount());
+		Date date = new Date();
+		req.setModifytime(date.getTime());
+		rs = freightService.closeFreight(req);
+		return rs;
+	}
+	
 	/**
 	 * 
 	 * @描述:批量停用

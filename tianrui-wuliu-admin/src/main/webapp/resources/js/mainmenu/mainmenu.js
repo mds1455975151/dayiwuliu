@@ -111,7 +111,10 @@ function getNodeList(menu) {
 		} else if (nodesList[i].nodename == "平台运单管理") {
 			_i.removeAttr("class");
 			_i.addClass("iconfont icon-order");
-		} 
+		} else if (nodesList[i].nodename == "调价管控"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont icon-cost");
+		}
 		href.append(_i).append(span);
 		li.append(href);
 		var subUrl = "";

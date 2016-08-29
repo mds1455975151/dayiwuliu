@@ -33,7 +33,7 @@ function displayData(pageNo){
 			    	$("#totalPages").html(1); 
 			    	$("#tablelist").empty();
 			    	var html;
-			    	if(Scargo || Sdesc1 || SRoute ||Sdesc2){
+			    	if(Scargo || SfreightName || SRoute ||Saudit){
 			    		html +='<td colspan="12">';
 			    		html +='<div class="ht_none">';
 			    		html +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
@@ -81,9 +81,9 @@ function displayData(pageNo){
  */
 function clearSearch(){
 	document.getElementById("Scargo").value="";
-	document.getElementById("Sdesc1").value="";
+	document.getElementById("SfreightName").value="";
 	document.getElementById("SRoute").value="";
-	document.getElementById("Sdesc2").value="";
+	document.getElementById("Saudit").value="";
 }
 /**
  * 查询结果写在页面
@@ -280,7 +280,7 @@ function tingyongPrice(){
 	}
 	$.ajax({
 		type: "POST",
-		url:CONTEXTPATH + '/frieght/updateFreight',// 跳转到 action
+		url:CONTEXTPATH + '/frieght/closeFreight',// 跳转到 action
 		data:{"id":id,
 				"status":sta
 				},// 你的formid

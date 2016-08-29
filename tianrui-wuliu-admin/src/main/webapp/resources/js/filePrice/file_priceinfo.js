@@ -35,6 +35,12 @@ function shenhe(){
 	});
 }
 
+function clearSearch(){
+	document.getElementById("Scargo").value="";
+	document.getElementById("SfreightName").value="";
+	document.getElementById("SRoute").value="";
+	document.getElementById("Saudit").value="";
+}
 function displayData(pageNo){
 	var pageSize = 10;
 	var Scargo = $("#Scargo").val();
@@ -43,7 +49,7 @@ function displayData(pageNo){
 	var Saudit = $("#Saudit").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
-		url : CONTEXTPATH + '/freightinfo/index',// 跳转到 action
+		url : CONTEXTPATH + '/freightinfo/indexAudit',// 跳转到 action
 		data : {"cargoid":Scargo,
 			"routeid":SRoute,
 			"freightName":SfreightName,
@@ -62,7 +68,7 @@ function displayData(pageNo){
 			    	$("#totalPages").html(1); 
 			    	$("#tablelist").empty();
 			    	var html;
-			    	if(Scargo || Sdesc1 || SRoute ||Sdesc2){
+			    	if(Scargo || SfreightName || SRoute ||Saudit){
 			    		html +='<td colspan="12">';
 			    		html +='<div class="ht_none">';
 			    		html +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
@@ -104,15 +110,6 @@ function displayData(pageNo){
 			}
 		}
 	});
-}
-/**
- * 清空搜索
- */
-function clearSearch(){
-	document.getElementById("Scargo").value="";
-	document.getElementById("Sdesc1").value="";
-	document.getElementById("SRoute").value="";
-	document.getElementById("Sdesc2").value="";
 }
 /**
  * 查询结果写在页面

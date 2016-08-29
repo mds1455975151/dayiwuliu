@@ -57,13 +57,22 @@ public class FileFreightInfoAction {
 		return view;
 	}
 	
-	/** 运价策略审核查询页面*/
+	/** 运价策略查询页面*/
 	@RequestMapping("index")
 	@ResponseBody
 	public Result index(AdminFreightReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 		Users user = SessionManager.getSessionMember(request);
 		req.setOrganizationid(user.getOrgid());
+		PageResp<AdminFreightResp> resp = freightInfoService.find(req);
+		rs.setData(resp);
+		return rs;
+	}
+	/** 运价策略审核查询页面*/
+	@RequestMapping("indexAudit")
+	@ResponseBody
+	public Result indexAudit(AdminFreightReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
 		PageResp<AdminFreightResp> resp = freightInfoService.find(req);
 		rs.setData(resp);
 		return rs;

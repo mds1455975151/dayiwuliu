@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--侧边栏end-->
 </div>
 
-<!--停用begin-->
+<!--审核begin-->
 <div class="modal fade" id="tingyong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -130,11 +130,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <form id="updateform">
 	          <div class="modal-body">
-	          	<input type="hidden" id="freightid" name="id">
-	          	<input type="hidden" id="freightInfoid" name="infoid">
-	              <input type="radio" value="1" name="audit">通过<br>
-	              <input type="radio" value="2" name="audit">不通过  
-	              <br>不通过原因：<br><textarea name="auditresson" rows="3" cols="20"></textarea>
+	          	<div class="user_shenno">
+	          	    <input type="hidden" id="freightid" name="id">
+	          	    <input type="hidden" id="freightInfoid" name="infoid">
+		          	<div class="shenhe_alt">
+		              <input type="radio" value="1" name="audit"><label>审核通过</label>
+		              <input type="radio" value="2" name="audit"><label>审核不通过</label>
+		         	</div>
+		         	<h4>请输入不通过审核原因：</h4>
+		            <textarea name="auditresson" class="form-control" rows="3"></textarea>
+	         	</div>
 	          </div>
             </form>
             <div class="modal-footer">
@@ -145,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-<!--停用end-->
+<!--审核end-->
 <%@include file="../../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>

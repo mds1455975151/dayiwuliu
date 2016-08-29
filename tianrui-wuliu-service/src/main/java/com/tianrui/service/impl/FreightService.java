@@ -194,4 +194,18 @@ public class FreightService implements IFreightService{
 		return false;
 		
 	}
+
+	@Override
+	public Result closeFreight(FreightReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		FileFreight file = new FileFreight();
+		PropertyUtils.copyProperties(file, req);
+		int a = fileFreightMapper.updateByPrimaryKeySelective(file);
+		if(a != 1){
+			rs.setCode("1");
+			rs.setError("修改失败");
+		}
+		return rs;
+	}
 }

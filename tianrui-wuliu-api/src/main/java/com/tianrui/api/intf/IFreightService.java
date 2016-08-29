@@ -67,6 +67,9 @@ public interface IFreightService {
 	boolean saveEntity(FreightReq req)throws Exception;
 	
 	Result updateEntity(FreightReq req)throws Exception;
+	/** 运价策略停用启用*/
+	Result closeFreight(FreightReq req)throws Exception;
+	
 	Result delectEntity(FreightReq req)throws Exception;
 	/**
 	 * 
