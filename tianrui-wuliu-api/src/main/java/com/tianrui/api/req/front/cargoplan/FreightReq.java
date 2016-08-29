@@ -97,6 +97,8 @@ public class FreightReq extends BaseReq{
      *	价格类型 0-自由；1-合同
      */
     private String freightType;
+    /** 调价原因*/
+    private String desc1;
     /** 税率*/
     private Double tallage;
     
@@ -136,6 +138,12 @@ public class FreightReq extends BaseReq{
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
+	}
+	public String getDesc1() {
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 	public String getFreightName() {
 		return freightName;
