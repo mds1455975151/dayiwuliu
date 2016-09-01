@@ -17,6 +17,8 @@ public class CapaReq extends BaseReq{
 	private String ownerid;
 	
 	private String search;
+	
+	private String status;
 
 	public String getId() {
 		return id;
@@ -24,6 +26,14 @@ public class CapaReq extends BaseReq{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getMemberid() {

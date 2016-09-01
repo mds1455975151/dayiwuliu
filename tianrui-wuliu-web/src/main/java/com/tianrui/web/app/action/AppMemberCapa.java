@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.req.front.capa.CapaReq;
-import com.tianrui.api.req.front.transfer.TransferReq;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
@@ -41,7 +41,9 @@ public class AppMemberCapa {
 	@ResponseBody
 	public AppResult index(AppParam<CapaReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
+		Head head = appParam.getHead();
 		CapaReq req = appParam.getBody();
+		req.setMemberid(head.getId());
 		rs = memberCapa.index(req);
 		return AppResult.valueOf(rs);
 	}
@@ -63,7 +65,10 @@ public class AppMemberCapa {
 	@ResponseBody
 	public AppResult save(AppParam<CapaReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
+		Head head = appParam.getHead();
 		CapaReq req = appParam.getBody();
+		req.setMemberid(head.getId());
+		req.setCellphone(head.getAccount());
 		rs = memberCapa.save(req);
 		return AppResult.valueOf(rs);
 	}

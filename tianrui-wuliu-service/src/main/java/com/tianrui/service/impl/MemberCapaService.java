@@ -15,8 +15,10 @@ import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberCapa;
+import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.MemberCapaMapper;
@@ -37,8 +39,19 @@ public class MemberCapaService implements IMemberCapaService{
 	
 	@Override
 	public Result index(CapaReq req) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Result rs = Result.getSuccessResult();
+		MemberCapa capa = new MemberCapa();
+		capa.setMemberid(req.getMemberid());
+		capa.setStart((req.getPageNo()-1)*req.getPageSize());
+		capa.setLimit(req.getPageSize());
+		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
+		long total = memberCapaMapper.selectByCount(capa);
+		PaginationVO<MemberCapaList> page = new PaginationVO<MemberCapaList>();
+		page.setList(list);
+		page.setPageNo(req.getPageNo());
+		page.setTotal(total);
+		rs.setData(page);
+		return rs;
 	}
 
 	@Override
@@ -57,17 +70,21 @@ public class MemberCapaService implements IMemberCapaService{
 
 	@Override
 	public Result save(CapaReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		MemberCapa mc = new MemberCapa();
-		long a = memberCapaMapper.selectByCount(mc);
-		if(a != 0){
-			rs.setErrorCode(ErrorCode.VEHICLE_CAPA_EXIST);
-			return rs;
+		mc.setVehicleid(req.getVehicleid());
+		mc.setMemberid(req.getMemberid());
+		List<MemberCapaList> list = memberCapaMapper.selectByCondition(mc);
+		if(list.size() != 0){
+			if("2".equals(list.get(0).getStatus())){
+				memberCapaMapper.deleteByPrimaryKey(list.get(0).getId());
+			}else{
+				rs.setErrorCode(ErrorCode.VEHICLE_CAPA_EXIST);
+				return rs;
+			}
 		}
 		String id = UUIDUtil.getId();
 		req.setId(id);
-		//
 		insert(req);
 		
 		SystemMemberInfo info = systemInfoMember.selectByPrimaryKey(req.getOwnerid());
@@ -109,8 +126,16 @@ public class MemberCapaService implements IMemberCapaService{
 	
 	@Override
 	public Result update(CapaReq req) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Result rs = Result.getSuccessResult();
+		MemberCapa capa = new MemberCapa();
+		capa.setId(req.getId());
+		capa.setStatus(req.getStatus());
+		int a = memberCapaMapper.updateByPrimaryKeySelective(capa);
+		if(a != 1){
+			rs.setCode("1");
+			rs.setError("修改失败");
+		}
+		return rs;
 	}
 
 	@Override

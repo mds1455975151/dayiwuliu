@@ -21,7 +21,7 @@ public interface IMemberCapaService {
 	Result selectVehicle(CapaReq req)throws Exception;
 	/** 添加运力*/
 	Result save(CapaReq req)throws Exception;
-	/** 修改运力状态*/
+	/** 同意/拒绝*/
 	Result update(CapaReq req)throws Exception;
 	/** 删除我的运力*/
 	Result delete(CapaReq req)throws Exception;

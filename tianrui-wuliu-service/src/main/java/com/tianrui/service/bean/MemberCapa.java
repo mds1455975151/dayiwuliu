@@ -26,6 +26,10 @@ public class MemberCapa {
     private String desc3;
 
     private String desc4;
+    
+    private Integer start;
+    
+    private Integer limit;
 
     public String getId() {
         return id;
@@ -47,7 +51,23 @@ public class MemberCapa {
         return vehicleid;
     }
 
-    public void setVehicleid(String vehicleid) {
+    public Integer getStart() {
+		return start;
+	}
+
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+
+	public void setVehicleid(String vehicleid) {
         this.vehicleid = vehicleid == null ? null : vehicleid.trim();
     }
 

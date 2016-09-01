@@ -3,6 +3,7 @@ package com.tianrui.service.mapper;
 import java.util.List;
 
 import com.tianrui.service.bean.MemberCapa;
+import com.tianrui.service.bean.MemberCapaList;
 
 public interface MemberCapaMapper {
     int deleteByPrimaryKey(String id);
@@ -17,7 +18,7 @@ public interface MemberCapaMapper {
 
     int updateByPrimaryKey(MemberCapa record);
     
-    List<MemberCapa> selectByCondition(MemberCapa record);
+    List<MemberCapaList> selectByCondition(MemberCapa record);
     
     long selectByCount(MemberCapa record);
 }

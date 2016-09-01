@@ -46,13 +46,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                        <th > </th>
 			                        <th >车牌号</th>
 			                        <th >司机</th>
-			                        <th > 电话</th>
+			                        <th >司机电话</th>
+			                        <th >车主</th>
+			                        <th >车主电话</th>
 			                        <th> 车辆类型</th>
 			                        <th> 承重</th>
-			                        <th> 状态</th>
+			                        <th> 车辆状态</th>
 			                    </tr>
 			                    </thead>
-			                    <tbody>
+			                    <tbody id="innerHML">
 			                    <tr>
 			                        <td > <img src="${trRoot}/tianrui/images/round1.png"></td>
 			                        <td >豫A12125 </td>
@@ -73,8 +75,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    </tr>
 			                    </tbody>
 			                </table>
+			                <div class="row pr20 fr">
+		                 		<ul class="pagination ">
+		                        	<li><a onclick="index(1)">&laquo;首页</a></li>
+			                        <li><a onclick="uppage()">&lsaquo;上一页</a></li>
+			                        <li><a> <span id="pagenow"></span></a></li>
+			                        <li><a onclick="downpage()">下一页&rsaquo;</a></li>
+			                        <li><a onclick="lastpage()">尾页&raquo;</a></li>
+			                    </ul>
+			                </div>
 			            </div>
-			
 			        </div>
 		            <!--个人中心右侧end-->
 		        </div>
@@ -84,6 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
+		<script type="text/javascript"> var trRoot = "${trRoot}";</script>
 		<script type="text/javascript" src="/resources/js/member/vehicle/myCapa.js" ></script>
 	</body>
 </html>

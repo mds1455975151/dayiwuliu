@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tianrui.service.mapper.MemberCapaMapper" >
-  <select id="selectByCondition" resultType="com.tianrui.service.bean.MemberCapa" 
+  <select id="selectByCondition" resultType="com.tianrui.service.bean.MemberCapaList" 
   		parameterType="com.tianrui.service.bean.MemberCapa" >
-    select 
-    *
-    from wuliu_member_capa
-    <where>
+   SELECT
+		c.id id,
+		c.status status,
+		d.vehicleno vehicleno,
+		d.drivername drivername,
+		d.drivertel drivertel,
+		v.vehicletypename vehicletype,
+		v.billstatus billstatus,
+		v.vehiweight weight,
+		v.vehilength length,
+		f.username username,
+		f.telphone telphone,
+		f.companyname companyname,
+		f.companytel companytel
+	FROM
+		wuliu_member_capa c
+	LEFT JOIN wuliu_member_vehicle v ON c.vehicleid = v.id
+	LEFT JOIN member_info f ON f.id = c.ownerid
+	LEFT JOIN wuliu_vehicle_driver d ON c.vehicleid = d.vehicleid
+  	<where>
     	<if test="memberid != null and memberid != ''">
-    		and memberid = #{memberid,jdbcType=VARCHAR}
+    		and c.memberid = #{memberid,jdbcType=VARCHAR}
     	</if>
     	<if test="vehicleid != null and vehicleid != ''">
-    		and vehicleid = #{vehicleid,jdbcType=VARCHAR}
+    		and c.vehicleid = #{vehicleid,jdbcType=VARCHAR}
     	</if>
+    	<if test="start != null and start != '0'">
+	    	<if test="limit !=null" >
+	     		limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+	    	</if>
+    	</if> 
     </where>
   </select>
   <select id="selectByCount" resultType="long" 
@@ -29,4 +50,5 @@
     	</if>
     </where>
   </select>
+  
 </mapper>

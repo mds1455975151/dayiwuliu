@@ -37,8 +37,10 @@ public class MemberCapaAction {
 	/** 我的运力查询*/
 	@RequestMapping("index")
 	@ResponseBody
-	public Result index(CapaReq req) throws Exception{
+	public Result index(CapaReq req ,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setMemberid(vo.getId());
 		rs = memberCapaService.index(req);
 		return rs;
 	}
