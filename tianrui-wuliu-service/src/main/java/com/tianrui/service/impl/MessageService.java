@@ -152,6 +152,9 @@ public class MessageService implements IMessageService {
 				//同意交班	
 				}else if( db.getCode().equals("221") && StringUtils.isNotBlank(req.getIsreply())){
 					rs = driverTransfer(db, req.getIsreply());
+				//同意运力共享
+				}else if( db.getCode().equals("241") && StringUtils.isNotBlank(req.getIsreply())){
+					rs = memberCapa(db, req.getIsreply());
 				}
 				
 			}
@@ -170,6 +173,12 @@ public class MessageService implements IMessageService {
 		}
 		
 		return total;
+	}
+	
+	private Result memberCapa(Message message,String isReplay)throws Exception{
+		Result rs = Result.getSuccessResult();
+		
+		return rs;
 	}
 	
 	private Result driverTransfer(Message message,String isReplay)throws Exception{

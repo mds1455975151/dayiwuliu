@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.MemberCapaMapper" >
+  <select id="selectByCondition" resultType="com.tianrui.service.bean.MemberCapa" 
+  		parameterType="com.tianrui.service.bean.MemberCapa" >
+    select 
+    *
+    from wuliu_member_capa
+    <where>
+    	<if test="memberid != null and memberid != ''">
+    		and memberid = #{memberid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="vehicleid != null and vehicleid != ''">
+    		and vehicleid = #{vehicleid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  <select id="selectByCount" resultType="long" 
+  		parameterType="com.tianrui.service.bean.MemberCapa" >
+    select 
+    count(*)
+    from wuliu_member_capa
+    <where>
+    	<if test="memberid != null and memberid != ''">
+    		and memberid = #{memberid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="vehicleid != null and vehicleid != ''">
+    		and vehicleid = #{vehicleid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+</mapper>

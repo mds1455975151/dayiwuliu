@@ -64,7 +64,13 @@ public enum MessageCodeEnum {
 	/** ========================= 司机换班相关(221 - 240) ======================= */
 	DRIVER_TRANSFER_BEG(221,"司机[<_>],请求与您换班"),
 	DRIVER_TRANSFER_AGREE(222,"司机[<_>],同意了您的换班请求"),
-	DRIVER_TRANSFER_REFUSE(223,"司机[<_>],拒绝了您的换班请求");
+	DRIVER_TRANSFER_REFUSE(223,"司机[<_>],拒绝了您的换班请求"),
+	
+	/** ========================= 运力共享相关(221 - 240) ======================= */
+	DRIVER_CAPA_BEG(241,"用户[<_>],请求使用您的车辆[<_>]"),
+	DRIVER_CAPA_AGREE(242,"车主[<_>],同意了您的使用请求"),
+	DRIVER_CAPA_REFUSE(243,"车主[<_>],拒绝了您的使用请求");
+	
 	//消息code
 	private int code;
 	//消息描述
