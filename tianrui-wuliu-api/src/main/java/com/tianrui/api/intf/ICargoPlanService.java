@@ -3,13 +3,11 @@ package com.tianrui.api.intf;
 import java.util.List;
 
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
-import com.tianrui.api.req.front.cargoplan.PlanReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
-import com.tianrui.api.resp.admin.AdminPlanResp;
-import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanStatResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -54,6 +52,10 @@ public interface ICargoPlanService {
 	public Result refuseConfirm(PlanConfirmReq req)throws Exception;
 	//删除确认
 	public Result venderDelConfirm(PlanConfirmReq req)throws Exception;
+	//委派计划
+	public Result addAppointPlan(PlanAppointReq req)throws Exception;
+	//修改委派计划
+	public Result editAppointPlan(PlanAppointReq req)throws Exception;
 	
 	/**
 	 * 货主操作
@@ -73,5 +75,6 @@ public interface ICargoPlanService {
 	public PlanStatResp planstat(PlanQueryReq req)throws Exception;
 
 	public List<PlanResp> findPlanByEndTime(Long st) throws Exception;
+
 	
 }

@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>新建计划</title>
+    <title>委派计划详情</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--网站位置-->
     <div class="row">
             <div class="rz_line">
-                <label>当前位置：计划管理-计划详情</label>
+                <label>当前位置：计划管理-委派计划详情</label>
             </div>
     </div>
     <div class="row">
@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--个人中心右侧begin-->
         <div class="rz_right">
             <div class=" bgblue">
-                <h2>计划详情</h2>
+                <h2>委派计划详情</h2>
             </div>
             <!-- 货源计划内容begin -->
              <div class="goods_box">
@@ -96,13 +96,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>计价单位</th>
-                                <th>含税单价</th>
+                                <th>车主</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                             	<td style="height: 35px"><span id="hpriceunits">${plan.priceunits }</span></td>
-                            	<td><span id="hprice">${plan.price }</span></td>
+                            	<td><span id="hprice">${plan.ownerName }</span></td>
                             </tr>
                             </tbody>
                             <thead>
@@ -137,13 +137,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </div>
                 </c:if>
                 <div class="goods_line">
-                    <label> 发货单位：</label>
-                    <input type="text" name="organizationname" id ="organizationname" value="${plan.orgname }" readonly>
-                </div>
-                <div class="goods_line">
                     <label> 计划总量：</label>
                     <input type="text" name="totalplanned" placeholder="保留两位小数" readOnly id ="totalplanned" style="width:180px" value="${plan.totalplanned }"  maxlength="10">
-                    <span id="measure_name">${plan.measure }</span><span id="totalPrice">.总价:${plan.totalplanned * plan.price }元</span>
+                    <span id="measure_name">${plan.measure }</span>
                 </div>
                 <div class="goods_line">
                     <div class="good_time mr20">
@@ -176,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
                         	</c:if>
                         	<c:if test="${plan.isfamily ==1 }" >
-	                           <%--  <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
+	                            <%-- <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
                         	</c:if>
                         </ul>
                         <!--tab切换标题end-->
@@ -196,9 +192,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                 </div>
                 <!--发布对象end-->
-               
+
                 <div class="goods_foot">
-                    <button class="btn btnyello mr20 submitBtn"  type="button" isAppoint='${plan.isAppoint }'>返回</button>
+                    <button class="btn btnyello mr20 submitBtn"  type="button">返回</button>
                 </div>
             </div>
             <!-- 货源计划内容end -->
@@ -215,15 +211,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(function(){
 	//左侧选中
-	$("#planvender").addClass("selected");
+	$("#planowner").addClass("selected");
 	$(".submitBtn").click(function(){
-		var isAppoint = $(this).attr('isAppoint');
-		if(isAppoint == 0){
-			window.location.href = "/trwuliu/planvender/main";
-		}
-		if(isAppoint == 1){
-			window.location.href = "/trwuliu/planAppoint/main";
-		}
+		window.location.href = "/trwuliu/planvender/main";
 	});
 });
 </script>

@@ -48,6 +48,8 @@
     <result column="cargocode" property="cargocode" jdbcType="VARCHAR" />
     <result column="freightname" property="freightname" jdbcType="VARCHAR" />
     <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="isAppoint" property="isAppoint" jdbcType="VARCHAR" />
+    
     <result column="DESC1" property="desc1" jdbcType="VARCHAR" />
 
     <result column="DESC2" property="desc2" jdbcType="VARCHAR" />
@@ -60,7 +62,7 @@
     endtime, acceptedtime, status, linkman, telephone, vehicleownerid, vehicleownername, 
     vehicleownerphone, creator, createtime, modifier, modifytime, isFamily, planCode, 
     ownerDelFlag, venderDelFlag, refuseReson, refuseResonType, sendPerson, sendPersonPhone, 
-    receivePerson, receivePersonPhone, cargocode,freightname,orgid,DESC1, DESC2, DESC3, DESC4
+    receivePerson, receivePersonPhone, cargocode,freightname,orgid,isAppoint,DESC1, DESC2, DESC3, DESC4
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -97,6 +99,9 @@
       <if test="vehicleownerid != null" >
        and vehicleownerid=#{vehicleownerid,jdbcType=VARCHAR} and venderDelFlag =0 and status != -1
       </if>
+      <if test="venderdelflag != null" >
+       and venderDelFlag=#{venderdelflag,jdbcType=VARCHAR}
+      </if>
       <if test="creator != null" >
        and creator=#{creator,jdbcType=VARCHAR} and ownerdelflag =0
       </if>
@@ -109,6 +114,9 @@
       <if test="orgid != null" >
        and orgid=#{orgid,jdbcType=VARCHAR}
       </if>
+      <if test="isAppoint != null" >
+       and isAppoint=#{isAppoint,jdbcType=VARCHAR}
+      </if>
       <if test="cargoname != null and cargoname !='' " >
        and cargoname like concat(#{cargoname,jdbcType=VARCHAR},'%')
       </if>
@@ -120,6 +128,9 @@
       </if>
       <if test="createTimeEnd !=null and createTimeEnd !='0' ">
       	and createtime &lt; #{createTimeEnd,jdbcType=BIGINT}
+      </if>
+      <if test="queryKey != null and queryKey != ''">
+    	and (planCode like CONCAT('%',#{queryKey},'%') or cargoname like CONCAT('%',#{queryKey},'%') or vehicleownername like CONCAT('%',#{queryKey},'%') or vehicleownerphone like CONCAT('%',#{queryKey},'%')) 
       </if>
     </where>
        order by modifytime desc
@@ -152,6 +163,9 @@
       <if test="vehicleownerid != null" >
        and vehicleownerid=#{vehicleownerid,jdbcType=VARCHAR} and venderDelFlag =0 and status != -1
       </if>
+      <if test="venderdelflag != null" >
+       and venderDelFlag=#{venderdelflag,jdbcType=VARCHAR}
+      </if>
       <if test="creator != null" >
        and creator=#{creator,jdbcType=VARCHAR} and ownerdelflag =0
       </if>
@@ -170,12 +184,18 @@
        <if test="orgid != null" >
        and orgid=#{orgid,jdbcType=VARCHAR}
       </if>
+       <if test="isAppoint != null" >
+       and isAppoint=#{isAppoint,jdbcType=VARCHAR}
+      </if>
       <if test="cargoname != null and cargoname !='' " >
        and cargoname like concat(#{cargoname,jdbcType=VARCHAR},'%')
       </if>
       <if test="vehicleownername != null and vehicleownername !='' " >
        and vehicleownername like concat(#{vehicleownername,jdbcType=VARCHAR},'%')
       </if>
+      <if test="queryKey != null and queryKey != ''">
+ 	   and (planCode like CONCAT('%',#{queryKey},'%') or cargoname like CONCAT('%',#{queryKey},'%') or vehicleownername like CONCAT('%',#{queryKey},'%') or vehicleownerphone like CONCAT('%',#{queryKey},'%'))
+   	  </if>
     </where>
   </select>
   
@@ -203,7 +223,7 @@
       modifier, modifytime, isFamily, 
       planCode, ownerDelFlag, venderDelFlag, 
       refuseReson, refuseResonType, sendPerson, 
-      sendPersonPhone, receivePerson, receivePersonPhone,cargocode,freightname,orgid, 
+      sendPersonPhone, receivePerson, receivePersonPhone,cargocode,freightname,orgid,isAppoint,
       DESC1, DESC2, DESC3, 
       DESC4)
     values (#{id,jdbcType=VARCHAR}, #{freightid,jdbcType=VARCHAR}, #{routeid,jdbcType=VARCHAR}, 
@@ -219,7 +239,7 @@
       #{plancode,jdbcType=VARCHAR}, #{ownerdelflag,jdbcType=TINYINT}, #{venderdelflag,jdbcType=TINYINT}, 
       #{refusereson,jdbcType=VARCHAR}, #{refuseresontype,jdbcType=VARCHAR}, #{sendperson,jdbcType=VARCHAR}, 
       #{sendpersonphone,jdbcType=VARCHAR}, #{receiveperson,jdbcType=VARCHAR}, #{receivepersonphone,jdbcType=VARCHAR},
-      #{cargocode,jdbcType=VARCHAR},#{freightname,jdbcType=VARCHAR},#{orgid,jdbcType=VARCHAR}, 
+      #{cargocode,jdbcType=VARCHAR},#{freightname,jdbcType=VARCHAR},#{orgid,jdbcType=VARCHAR},#{isAppoint,jdbcType=VARCHAR},
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
       #{desc4,jdbcType=VARCHAR})
   </insert>
@@ -351,6 +371,9 @@
       </if>
       <if test="orgid != null" >
         orgid,
+      </if>
+      <if test="isAppoint != null" >
+        isAppoint,
       </if>
       <if test="desc1 != null" >
         DESC1,
@@ -491,6 +514,9 @@
       </if>
       <if test="orgid != null" >
         #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="isAppoint != null" >
+        #{isAppoint,jdbcType=VARCHAR},
       </if>
       <if test="desc1 != null" >
         #{desc1,jdbcType=VARCHAR},
@@ -636,6 +662,9 @@
       <if test="orgid != null" >
         orgid = #{orgid,jdbcType=VARCHAR},
       </if>
+      <if test="isAppoint != null" >
+        isAppoint = #{isAppoint,jdbcType=VARCHAR},
+      </if>
       <if test="desc1 != null" >
         DESC1 = #{desc1,jdbcType=VARCHAR},
       </if>
@@ -698,6 +727,7 @@
       cargocode = #{cargocode,jdbcType=VARCHAR},
       freightname = #{freightname,jdbcType=VARCHAR},
       orgid = #{orgid,jdbcType=VARCHAR},
+      isAppoint = #{isAppoint,jdbcType=VARCHAR},
       DESC1 = #{desc1,jdbcType=VARCHAR},
       DESC2 = #{desc2,jdbcType=VARCHAR},
       DESC3 = #{desc3,jdbcType=VARCHAR},

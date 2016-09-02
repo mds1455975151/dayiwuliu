@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
@@ -105,6 +106,11 @@ public class CargoPlanService implements ICargoPlanService{
 			if(StringUtils.isNotBlank(req.getStatus()))plan.setStatus(Byte.valueOf(req.getStatus()));
 			if(StringUtils.isNotBlank(req.getOwnerId()))plan.setCreator(req.getOwnerId());
 			if(StringUtils.isNotBlank(req.getVenderId()))plan.setVehicleownerid(req.getVenderId());
+			if(StringUtils.isNotBlank(req.getIsAppoint()))plan.setIsAppoint(req.getIsAppoint());
+			if(StringUtils.isNotBlank(req.getSearchParam())){
+				plan.setQueryKey(req.getSearchParam());
+			}
+			plan.setVenderdelflag(Byte.valueOf("0"));
 			long total = planMapper.countByCondition(plan);
 			if(total>0){
 				plan.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -389,6 +395,7 @@ public class CargoPlanService implements ICargoPlanService{
 					plan.setStatus(PlanStatusEnum.NEW.getStatus());
 					plan.setIsfamily((byte)0);
 				}
+				plan.setIsAppoint("0");
 				planMapper.insert(plan);
 				
 				//发送消息
@@ -487,6 +494,9 @@ public class CargoPlanService implements ICargoPlanService{
 			case "vender":
 				uri ="/trwuliu/planvender/detail?id="+keyId;
 				break;
+			case "appoint":
+				uri ="/trwuliu/planAppoint/detail?id="+keyId;
+				break;
 			}
 			req.setURI(uri);
 			try {
@@ -522,6 +532,76 @@ public class CargoPlanService implements ICargoPlanService{
 	public List<PlanResp> findPlanByEndTime(Long st) throws Exception {
 		return copyProperties(planMapper.selectByEndTime(st));
 	}
-	
+
+
+	@Override
+	public Result addAppointPlan(PlanAppointReq req) throws Exception {
+		Result result = Result.getSuccessResult();
+		Plan plan = planMapper.selectByPrimaryKey(req.getPlanid());
+		if(plan == null){
+			result.setCode("000001");
+			result.setError("该计划不存在");
+		}
+		plan.setId(UUIDUtil.getId());
+		//自定义属性
+		plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
+		plan.setStarttime(DateUtil.parse(req.getBegintime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setEndtime(DateUtil.parse(req.getEndtime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setStatus(Byte.valueOf("0"));
+		
+		plan.setCreator(req.getMemberVo().getId());
+		plan.setCreatetime(System.currentTimeMillis());
+		plan.setModifier(req.getMemberVo().getId());
+		plan.setModifytime(System.currentTimeMillis());
+		//执行计划车主
+		plan.setVehicleownerid(req.getVenderid());
+		plan.setVehicleownername(req.getVenderName());
+		plan.setVehicleownerphone(req.getVenderTel());
+		//委派运单
+		plan.setIsAppoint("1");
+		planMapper.insert(plan);
+		//发送消息
+		MemberVo owner = new MemberVo();
+		owner.setUserName(req.getVenderName());
+		owner.setId(req.getVenderid());
+		sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),req.getMemberVo().getRealName()}), plan.getId(), req.getMemberVo(), owner, MessageCodeEnum.PLAN_2VENDER_APPOINT, "appoint");
+		result.setCode("000000");
+		result.setData("委派计划成功");
+		return result;
+	}
+
+
+	@Override
+	public Result editAppointPlan(PlanAppointReq req) throws Exception {
+		Result result = Result.getSuccessResult();
+		Plan plan = planMapper.selectByPrimaryKey(req.getPlanid());
+		if(plan == null){
+			result.setCode("000001");
+			result.setError("该计划不存在");
+		}
+		//自定义属性
+		plan.setId(req.getPlanid());
+		plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
+		plan.setStarttime(DateUtil.parse(req.getBegintime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setEndtime(DateUtil.parse(req.getEndtime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setStatus(Byte.valueOf("0"));
+		
+		plan.setModifier(req.getMemberVo().getId());
+		plan.setModifytime(System.currentTimeMillis());
+		//执行计划车主
+		plan.setVehicleownerid(req.getVenderid());
+		plan.setVehicleownername(req.getVenderName());
+		plan.setVehicleownerphone(req.getVenderTel());
+		//委派运单
+		planMapper.updateByPrimaryKeySelective(plan);
+		//发送消息
+		MemberVo owner = new MemberVo();
+		owner.setUserName(req.getVenderName());
+		owner.setId(req.getVenderid());
+		sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),req.getMemberVo().getRealName()}), plan.getId(), req.getMemberVo(), owner, MessageCodeEnum.PLAN_2VENDER_APPOINT, "appoint");
+		result.setCode("000000");
+		result.setData("委派计划成功");
+		return result;
+	}
 	
 }

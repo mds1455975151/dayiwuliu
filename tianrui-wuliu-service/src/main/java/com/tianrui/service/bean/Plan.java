@@ -173,6 +173,9 @@ public class Plan implements IModel{
     private Long createTimeBegin;
     private Long createTimeEnd;
     
+    //是否为委派计划
+    private String isAppoint;
+    
     private String desc1;
     private String desc2;
     private String desc3;
@@ -1104,6 +1107,13 @@ public class Plan implements IModel{
 	public void setCreateTimeEnd(Long createTimeEnd) {
 		this.createTimeEnd = createTimeEnd;
 	}
-    
+
+	public String getIsAppoint() {
+		return isAppoint;
+	}
+
+	public void setIsAppoint(String isAppoint) {
+		this.isAppoint = isAppoint;
+	}
     
 }

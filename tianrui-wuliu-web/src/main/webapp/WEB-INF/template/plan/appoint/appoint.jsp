@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>新建计划</title>
+    <title>委派计划</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--网站位置-->
     <div class="row">
             <div class="rz_line">
-                <label>当前位置：计划管理-计划详情</label>
+                <label>当前位置：计划管理-委派计划</label>
             </div>
     </div>
     <div class="row">
@@ -36,82 +36,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--个人中心右侧begin-->
         <div class="rz_right">
             <div class=" bgblue">
-                <h2>计划详情</h2>
+                <h2>委派计划</h2>
             </div>
             <!-- 货源计划内容begin -->
              <div class="goods_box">
                 <form id="saveplan">
-                <input type="hidden" name="id" value="${plan.id }" />
+                <input type="hidden" id="planid" value="${plan.id }" />
+                <input type="hidden" id="operate" value="${operate }" />
                 <div class="goods_line">
                     <div class="plan_table">
                         <table class="table " >
                             <thead>
                             <tr>
-                                <th>计划编码</th>
                                 <th>货物名称</th>
+                                <th>计量单位</th>
+                                <th>计价单位</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                            	<td style="height: 35px"><span id="hcargono">${plan.plancode }</span></td>
                             	<td><span id="hcargoname">${plan.cargoname }</span></td>
+                            	<td style="height: 35px"><span id="hmeasure">${plan.measure }</span></td>
+                            	<td style="height: 35px"><span id="hpriceunits">${plan.priceunits }</span></td>
                             </tr>
                             </tbody>
                             <thead>
                             <tr>
                                 <th>起运地</th>
-                                <th >目的地</th>
+                                <th>目的地</th>
+                                <th>结算里程数</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                             	<td style="height: 35px"><span id="hstartcity">${plan.startcity }</span></td>
                             	<td><span id="hendcity">${plan.endcity }</span></td>
+                            	<td><span id="distance">${plan.distance }</span></td>
                             </tr>
                             </tbody>
                             <thead>
-                            <tr>
-                                <th>计量单位</th>
-                                <th >里程数</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            	<td style="height: 35px"><span id="hmeasure">${plan.measure }</span></td>
-                            	<td><span id="hdistance">${plan.distance }</span> </td>
-                            </tr>
                             </tbody>
                             <thead>
                             <tr>
                                 <th>发货人</th>
                                 <th>收货人</th>
+                                <th>税率</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                             	<td style="height: 35px"><span id="sendpersion">${plan.sendperson }<br/>${plan.sendpersonphone }</span></td>
                             	<td><span id="receivepersion">${plan.receiveperson }<br/>${plan.receivepersonphone }</span> </td>
-                            </tr>
-                            </tbody>
-                            <thead>
-                            <tr>
-                                <th>计价单位</th>
-                                <th>含税单价</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            	<td style="height: 35px"><span id="hpriceunits">${plan.priceunits }</span></td>
-                            	<td><span id="hprice">${plan.price }</span></td>
-                            </tr>
-                            </tbody>
-                            <thead>
-                            <tr>
-                                <th>税率</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
                             	<td style="height: 35px"><span id="tallage">
                             	<c:if test="${not empty plan.tallage}">
                             		<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
@@ -137,34 +112,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </div>
                 </c:if>
                 <div class="goods_line">
-                    <label> 发货单位：</label>
-                    <input type="text" name="organizationname" id ="organizationname" value="${plan.orgname }" readonly>
-                </div>
-                <div class="goods_line">
-                    <label> 计划总量：</label>
-                    <input type="text" name="totalplanned" placeholder="保留两位小数" readOnly id ="totalplanned" style="width:180px" value="${plan.totalplanned }"  maxlength="10">
-                    <span id="measure_name">${plan.measure }</span><span id="totalPrice">.总价:${plan.totalplanned * plan.price }元</span>
-                </div>
-                <div class="goods_line">
-                    <div class="good_time mr20">
+                    <div class="bill_yunshu mr20">
                         <label>开始时间：</label>
-                        <input type="text" id="begintime" name="starttimeStr" value="${plan.starttimeStr}:00" readOnly  class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="begintime" name="starttimeStr" value='<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:00:00"/>' onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate billStartTimeInput" style="width:160px"/>
                     </div>
-                </div>
-                <div class="goods_line">
-                    <div class="good_time">
+                    <div class="bill_yunshu">
                         <label>结束时间：</label>
-                        <input type="text" id="endtime" name="endtimeStr" value="${plan.endtimeStr}:00" readOnly  class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="endtime" name="endtimeStr" value='<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:00:00"/>' onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate billStartTimeInput" style="width:160px"/>
                     </div>
                 </div>
                 <div class="goods_line">
-                    <label> 联系人：</label>
-                    <input type="text" value="${plan.linkman }" name="linkman" placeholder="" maxlength="20" class="goods_lxr" id="linkman" readOnly>
-                      
-                </div>
-                <div class="goods_line">
-                    <label> 联系电话：</label>
-                    <input type="text" placeholder="" name="telephone"  value="${plan.telephone }" class="goods_tel" id="telephone" maxlength="20" readOnly>
+                    <label>运输量：</label>
+                    <input type="text" id="totalplanned" name="totalplanned" placeholder="保留两位小数" style="width:180px" maxlength="10"/>吨
                 </div>
                 <!--发布对象begin-->
                 <div class="plan_fabu">
@@ -173,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!--tab切换标题-->
                         <ul class="plan_tabmenu">
                         	<c:if test="${plan.isfamily ==0 }" >
-	                            <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
+	                            <li class="allVender ${plan.isfamily=='0'?'select':''}">我的车主</li>
                         	</c:if>
                         	<c:if test="${plan.isfamily ==1 }" >
 	                           <%--  <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
@@ -183,11 +142,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                         <!--tab切换的内容-->
                         <div class="plan_tabbox">
-                            <div class="plan_tabcont  ">
-                                <ul class="plan_line">
-                                	<li>
-                                       <input type="radio"  checked ><label>${plan.vehicleownername }</label><label>${plan.vehicleownerphone }</label>
-                                	</li>
+                            <div class="plan_tabcont">
+                                <ul class="plan_line venderList">
+                               		<c:forEach items="${venderList }" var="v" varStatus="status">
+    	                            	<li class="<c:if test="${status.index eq 0}">active</c:if>" venderid="${v.ownerId }" venderName="${v.ownerName }" venderTel="${v.ownerTel }">
+											<input name="venderid" type="radio" <c:if test="${status.index eq 0}">checked</c:if>><label>${v.ownerName }</label><label>${v.ownerTel }</label>
+	                                	</li>
+                               		</c:forEach>
                                 </ul>
                             </div>
                             
@@ -198,7 +159,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--发布对象end-->
                
                 <div class="goods_foot">
-                    <button class="btn btnyello mr20 submitBtn"  type="button" isAppoint='${plan.isAppoint }'>返回</button>
+                    <button class="btn btnyello mr20 appointBtn"  type="button">委派计划</button>
+                    <button class="btn btnyello mr20 backBtn"  type="button">返回</button>
                 </div>
             </div>
             <!-- 货源计划内容end -->
@@ -212,21 +174,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript">
-$(function(){
-	//左侧选中
-	$("#planvender").addClass("selected");
-	$(".submitBtn").click(function(){
-		var isAppoint = $(this).attr('isAppoint');
-		if(isAppoint == 0){
-			window.location.href = "/trwuliu/planvender/main";
-		}
-		if(isAppoint == 1){
-			window.location.href = "/trwuliu/planAppoint/main";
-		}
-	});
-});
-</script>
+<script type="text/javascript" src="/resources/js/plan/appoint.js" ></script>
 </body>
-
 </html>

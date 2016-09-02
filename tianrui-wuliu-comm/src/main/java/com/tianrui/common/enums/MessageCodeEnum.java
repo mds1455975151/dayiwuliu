@@ -9,6 +9,7 @@ public enum MessageCodeEnum {
 	//发送给车主
 	PLAN_2VENDER_CREATE(30,"货运计划[<_>]已被用户(<_>)指派给您，请查看详情"),
 	PLAN_2VENDER_CANCLE(31,"货运计划[<_>]已被用户(<_>)收回."),
+	PLAN_2VENDER_APPOINT(32,"货运计划[<_>]已被用户(<_>)委派给您，请查看详情"),
 	//发送给货主
 	PLAN_2OWNER_CREATE(50,"货运计划[<_>]已被您创建成功，请查看详情"),
 	PLAN_2OWNER_UPDATE(51,"货运计划[<_>]已被您修改成功，请查看详情"),
