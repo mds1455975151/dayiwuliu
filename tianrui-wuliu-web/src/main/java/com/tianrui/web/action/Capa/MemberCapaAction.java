@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.req.front.capa.CapaReq;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.vo.MemberVo;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.util.SessionManager;
 
@@ -41,7 +43,8 @@ public class MemberCapaAction {
 		Result rs = Result.getSuccessResult();
 		MemberVo vo = SessionManager.getSessionMember(request);
 		req.setMemberid(vo.getId());
-		rs = memberCapaService.index(req);
+		PaginationVO<MemberCapaListResp> vg = memberCapaService.index(req);
+		rs.setData(vg);
 		return rs;
 	}
 	/** 查询车辆*/

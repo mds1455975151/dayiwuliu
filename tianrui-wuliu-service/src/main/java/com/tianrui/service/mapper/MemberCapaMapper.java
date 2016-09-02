@@ -20,5 +20,7 @@ public interface MemberCapaMapper {
     
     List<MemberCapaList> selectByCondition(MemberCapa record);
     
-    long selectByCount(MemberCapa record);
+    long selectByMCCount(MemberCapa record);
+    
+    long selectByVDCount(MemberCapa record);
 }

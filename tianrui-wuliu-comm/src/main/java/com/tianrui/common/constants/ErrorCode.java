@@ -42,7 +42,7 @@ public enum ErrorCode {
 	
 	//运力共享
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
-	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在")
+	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机")
 	;
 	
 	private String code;

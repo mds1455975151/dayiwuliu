@@ -1,6 +1,8 @@
 package com.tianrui.api.intf;
 
 import com.tianrui.api.req.front.capa.CapaReq;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
 /**
@@ -16,7 +18,7 @@ import com.tianrui.common.vo.Result;
  */
 public interface IMemberCapaService {
 	/** 我的运力查询*/
-	Result index(CapaReq req)throws Exception;
+	PaginationVO<MemberCapaListResp> index(CapaReq req)throws Exception;
 	/** 查询运力*/
 	Result selectVehicle(CapaReq req)throws Exception;
 	/** 添加运力*/

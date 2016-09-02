@@ -74,14 +74,18 @@ function innerHTML(result){
 			billstatus = "空闲中";
 		}
 		var status = "";//0-未处理 1-同意 2-拒绝
+		var image = "round1.png";
 		if(data[a].status == "0"){
 			status = "未同意";
 		}else if(data[a].status == "1"){
 			status = "已同意";
 		}else if(data[a].status == "2"){
 			status = "拒绝";
+		}else if(data[a].status == "-1"){
+			status = "原有运力";
+			image = "round2.png";
 		}
-		hml += "<tr><td ><img src='"+trRoot+"/tianrui/images/round1.png'></td>" +
+		hml += "<tr><td ><img src='"+trRoot+"/tianrui/images/"+image+"'></td>" +
 				"<td >"+data[a].vehicleno+" </td>" +
 				"<td>"+data[a].drivername+"</td>" +
 				"<td>"+data[a].drivertel+"</td>" +

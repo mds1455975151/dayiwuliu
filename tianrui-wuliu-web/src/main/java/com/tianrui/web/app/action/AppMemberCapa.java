@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.req.front.capa.CapaReq;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
@@ -40,15 +42,20 @@ public class AppMemberCapa {
 	@ApiTokenValidation
 	@ResponseBody
 	public AppResult index(AppParam<CapaReq> appParam) throws Exception{
-		Result rs = Result.getSuccessResult();
+		AppResult app = new AppResult();
+		
 		Head head = appParam.getHead();
 		CapaReq req = appParam.getBody();
 		req.setMemberid(head.getId());
-		rs = memberCapa.index(req);
-		return AppResult.valueOf(rs);
+		PaginationVO<MemberCapaListResp> vo = memberCapa.index(req);
+		
+		app.setCode("000000");
+		app.setReturnData(vo.getList());
+		app.setTotal(vo.getTotalInt());
+		return app;
 	}
 	/**查询车辆*/
-	@RequestMapping(value="/selectVhicle",method=RequestMethod.POST)
+	@RequestMapping(value="/selectVehicle",method=RequestMethod.POST)
 	@ApiParamRawType(CapaReq.class)
 	@ApiTokenValidation
 	@ResponseBody

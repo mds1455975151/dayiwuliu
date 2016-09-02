@@ -1,9 +1,11 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
@@ -38,20 +41,31 @@ public class MemberCapaService implements IMemberCapaService{
 	SystemMemberInfoMapper systemInfoMember;
 	
 	@Override
-	public Result index(CapaReq req) throws Exception {
+	public PaginationVO<MemberCapaListResp> index(CapaReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		MemberCapa capa = new MemberCapa();
 		capa.setMemberid(req.getMemberid());
 		capa.setStart((req.getPageNo()-1)*req.getPageSize());
 		capa.setLimit(req.getPageSize());
 		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
-		long total = memberCapaMapper.selectByCount(capa);
-		PaginationVO<MemberCapaList> page = new PaginationVO<MemberCapaList>();
-		page.setList(list);
+		long total = memberCapaMapper.selectByVDCount(capa);
+		long mc = memberCapaMapper.selectByMCCount(capa);
+		PaginationVO<MemberCapaListResp> page = new PaginationVO<MemberCapaListResp>();
+		page.setList(copyMembercapa(list));
 		page.setPageNo(req.getPageNo());
-		page.setTotal(total);
+		page.setTotal(total+mc);
 		rs.setData(page);
-		return rs;
+		return page;
+	}
+	
+	private List<MemberCapaListResp> copyMembercapa(List<MemberCapaList> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+		List<MemberCapaListResp> n = new ArrayList<MemberCapaListResp>();
+		for(MemberCapaList cop : list){
+			MemberCapaListResp resp = new MemberCapaListResp();
+			PropertyUtils.copyProperties(resp, cop);
+			n.add(resp);
+		}
+		return n;
 	}
 
 	@Override
