@@ -11,7 +11,8 @@ public class MemberCapaList {
 	private String billstatus;
 	private String weight;
 	private String length;
-	
+	private String vehfix;
+	private String vehno;
 	private String username;
 	private String telphone;
 	private String companyname;
@@ -23,7 +24,21 @@ public class MemberCapaList {
 		this.id = id;
 	}
 	public String getVehicleno() {
+		vehicleno = vehfix + vehno;
 		return vehicleno;
+	}
+	
+	public String getVehfix() {
+		return vehfix;
+	}
+	public void setVehfix(String vehfix) {
+		this.vehfix = vehfix;
+	}
+	public String getVehno() {
+		return vehno;
+	}
+	public void setVehno(String vehno) {
+		this.vehno = vehno;
 	}
 	public String getStatus() {
 		return status;

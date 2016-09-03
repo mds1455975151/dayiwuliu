@@ -155,6 +155,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     	<i>趟</i>
 	                                </li>
                             	</c:forEach>
+                            	<!-- 
+                            	<c:forEach var="clist" items="${clist }">
+                            		<li>
+                                		<input type="checkbox" dataId="${clist.id }" class="checkInput"  >
+	                                    <label>${clist.vehicleno }</label>
+	                                    <span>${clist.drivername }--${clist.vehicletype }</span>
+	                                    <em><fmt:formatNumber type="number" value="${clist.weight }" maxFractionDigits="0"/>吨</em>
+	                                    <em>${clist.billstatus eq 2 ? '发货中' : clist.billstatus eq 3 ? '运货中' : clist.billstatus eq 4 ? '卸货中' : clist.billstatus eq 5 ? '空闲中' : ''}</em>
+	                                    <input type="text" class="ts" placeholder="输入趟数" value="1" />
+                                    	<i>趟</i>
+                                   	</li>
+                            	</c:forEach>
+                            	 -->
                             </ul>
                         </div>
                      </div>

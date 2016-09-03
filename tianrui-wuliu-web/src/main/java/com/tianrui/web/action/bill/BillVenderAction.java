@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.bill.WaybillSaveReq;
-import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
-import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
@@ -49,7 +49,8 @@ public class BillVenderAction {
 	BillService billService;
 	@Autowired
 	IVehicleDriverService vehicleDriverService;
-	
+	@Autowired
+	IMemberCapaService memberCapaService;
 	
 	@RequestMapping("/main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_VEHICLE_OWNER)
@@ -73,7 +74,9 @@ public class BillVenderAction {
 		if( plan !=null && StringUtils.isNotBlank(plan.getVender())){
 			List<BillVehicleResp> list =billService.queryVehicle(planId);
 			view.addObject("vlist", list);
+			view.addObject("clist", memberCapaService.createBill(planId));
 		}
+		//TODO
 		return view;
 	}
 	

@@ -1,5 +1,7 @@
 package com.tianrui.api.intf;
 
+import java.util.List;
+
 import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -27,4 +29,6 @@ public interface IMemberCapaService {
 	Result update(CapaReq req)throws Exception;
 	/** 删除我的运力*/
 	Result delete(CapaReq req)throws Exception;
+	/** 新建计划查询运力*/
+	List<MemberCapaListResp> createBill(String planid)throws Exception;
 }

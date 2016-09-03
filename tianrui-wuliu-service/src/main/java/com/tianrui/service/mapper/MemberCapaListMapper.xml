@@ -7,7 +7,6 @@
 	vd.id id,
 	vd.drivername drivername,
 	vd.drivertel drivertel,
-	vd.vehicleno vehicleno,
 	vd.vehicleTypeName vehicleType,
 	f.username username,
 	f.telphone telphone,
@@ -15,6 +14,8 @@
 	f.companytel companytel,
 	v.vehilength length,
 	v.vehiweight weight,
+	v.vehicleprefix vehfix,
+	v.vehicleno vehno,
 	v.billstatus billstatus,
 	(-1) status
 	FROM
@@ -34,7 +35,6 @@
 		c.id id,
 		d.drivername drivername,
 		d.drivertel drivertel,
-		d.vehicleno vehicleno,
 		v.vehicletypename vehicletype,
 	  	f.username username,
 		f.telphone telphone,
@@ -42,6 +42,8 @@
 		f.companytel companytel,
 		v.vehilength length,
 		v.vehiweight weight,
+		v.vehicleprefix vehfix,
+		v.vehicleno vehno,
 		v.billstatus billstatus,
 		c.status status
 	FROM
@@ -92,6 +94,39 @@
   	<where>
     	<if test="memberid != null and memberid != ''">
     		and c.memberid = #{memberid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="vehicleid != null and vehicleid != ''">
+    		and c.vehicleid = #{vehicleid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  <select id="selectByCreateBill" resultType="com.tianrui.service.bean.MemberCapaList" 
+  		parameterType="com.tianrui.service.bean.MemberCapa" >
+	SELECT
+		c.id id,
+		d.drivername drivername,
+		d.drivertel drivertel,
+		v.vehicletypename vehicletype,
+	  	f.username username,
+		f.telphone telphone,
+		f.companyname companyname,
+		f.companytel companytel,
+		v.vehilength length,
+		v.vehiweight weight,
+		v.vehicleprefix vehfix,
+		v.vehicleno vehno,
+		v.billstatus billstatus,
+		c.status status
+	FROM
+		wuliu_member_capa c
+		LEFT JOIN wuliu_member_vehicle v ON c.vehicleid = v.id
+		LEFT JOIN member_info f ON f.id = c.ownerid
+		LEFT JOIN wuliu_vehicle_driver d ON c.vehicleid = d.vehicleid
+  	<where>
+    	<if test="memberid != null and memberid != ''">
+    		and c.memberid = #{memberid,jdbcType=VARCHAR}
+    		and d.vehicleid IS NOT NULL
+    		and c.status = 1
     	</if>
     	<if test="vehicleid != null and vehicleid != ''">
     		and c.vehicleid = #{vehicleid,jdbcType=VARCHAR}

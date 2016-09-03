@@ -22,9 +22,11 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.MemberCapaMapper;
+import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
@@ -39,6 +41,8 @@ public class MemberCapaService implements IMemberCapaService{
 	IMessageService messageService;
 	@Autowired
 	SystemMemberInfoMapper systemInfoMember;
+	@Autowired
+	PlanMapper planMapper;
 	
 	@Override
 	public PaginationVO<MemberCapaListResp> index(CapaReq req) throws Exception {
@@ -156,6 +160,16 @@ public class MemberCapaService implements IMemberCapaService{
 	public Result delete(CapaReq req) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<MemberCapaListResp> createBill(String planid) throws Exception {
+		// TODO Auto-generated method stub
+		Plan plan =planMapper.selectByPrimaryKey(planid);
+		MemberCapa capa = new MemberCapa();
+		capa.setMemberid(plan.getVehicleownerid());
+		List<MemberCapaList> list = memberCapaMapper.selectByCreateBill(capa);
+		return copyMembercapa(list);
 	}
 
 }

@@ -85,10 +85,16 @@ function innerHTML(result){
 			status = "原有运力";
 			image = "round2.png";
 		}
+		var drivername = data[a].drivername;
+		var drivertel = data[a].drivertel;
+		if(data[a].drivername == undefined){
+			drivername = "未绑定车辆";
+			drivertel = "未绑定车辆"
+		}
 		hml += "<tr><td ><img src='"+trRoot+"/tianrui/images/"+image+"'></td>" +
 				"<td >"+data[a].vehicleno+" </td>" +
-				"<td>"+data[a].drivername+"</td>" +
-				"<td>"+data[a].drivertel+"</td>" +
+				"<td>"+drivername+"</td>" +
+				"<td>"+drivertel+"</td>" +
 				"<td>"+data[a].username+"</td>" +
 				"<td>"+data[a].telphone+"</td>" +
 				"<td>"+data[a].vehicletype+"/"+data[a].length+"米</td>" +
