@@ -1,4 +1,5 @@
 $(function(){
+	$("#handdriver").addClass("selected");
 	$('.venderList li').off('click').on('click',function(){
 		$(this).addClass('active').siblings().removeClass('active');
 		initDriver($(this).attr('item'));
