@@ -121,6 +121,7 @@
 	<script type="text/javascript" src="/resources/js/plan/appoint_page.js" ></script>
 	<script type="text/javascript">
 		$(function(){
+			$("#planAppoint").addClass("selected");
 			initAppointPlanList(true);
 		});
 	</script>

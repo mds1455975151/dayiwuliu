@@ -31,7 +31,7 @@
 	                        <li><a href="/trwuliu/Member/myVehiOwner/myVehiOwnerPage" id="myVehiOwnerPage">我的车主</a></li>
 	                        <li><a href="/trwuliu/Member/capa/indexPage" id="mycapaPage">我的运力</a></li>
 	                        <li><a href="/trwuliu/planvender/main" id="planvender">我承运的计划</a></li>
-	                        <li><a href="/trwuliu/planAppoint/main" id="planvender">我委派的计划</a></li>
+	                        <li><a href="/trwuliu/planAppoint/main" id="planAppoint">我委派的计划</a></li>
 	                        <li><a href="/trwuliu/billvender/main" id="billvender">我承运的运单</a></li>
 	                    </ul>
 	                </div>
