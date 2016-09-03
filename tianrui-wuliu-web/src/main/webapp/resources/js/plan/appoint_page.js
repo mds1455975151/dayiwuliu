@@ -23,8 +23,7 @@
 			url:'/trwuliu/planAppoint/page',
 			data:{
 				pageNo:pageNo,
-				searchParam:$.trim(search_v),
-				isAppoint:"1"
+				searchParam:$.trim(search_v)
 			},
 			dataType:'json',
 			type:'POST',
@@ -94,7 +93,7 @@
 				}else if(item.status=="1"){
 					sta="被拒绝";
 					hm = "<button class='btn btnblue editBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>修改</button>"+
-					"<button  class='btn btnyello deleteBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
+					"<button  class='btn btnyello deleteBtn ml5' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
 				}else if(item.status=="2"){
 					sta="执行中";
 				}else if(item.status=="3"){
@@ -102,7 +101,7 @@
 				}else if(item.status=="-1"){
 					sta="已收回";
 					hm = "<button class='btn btnblue editBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>修改</button>"+
-					"<button  class='btn btnyello deleteBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
+					"<button  class='btn btnyello deleteBtn ml5' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
 				}
 			}
 			

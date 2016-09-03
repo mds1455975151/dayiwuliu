@@ -19,7 +19,7 @@ public class PlanAppointReq extends BaseReq{
     private String begintime;
     //结束时间
     private String endtime;
-    //计划总量
+    //运输量
     private String totalplanned;
     //车主id
     private String venderid;

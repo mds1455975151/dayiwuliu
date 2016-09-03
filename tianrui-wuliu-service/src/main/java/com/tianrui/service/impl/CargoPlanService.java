@@ -162,7 +162,7 @@ public class CargoPlanService implements ICargoPlanService{
 				
 				MemberVo owner =memberVoService.get(plan.getCreator());
 				MemberVo vender=memberVoService.get(plan.getVehicleownerid());
-				sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),vender.getRealName()}), plan.getId(), vender, owner, MessageCodeEnum.PLAN_2OWNER_ACCEPT, "owner");
+				sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),vender.getRealName()}), plan.getId(), vender, owner, MessageCodeEnum.PLAN_2OWNER_ACCEPT, "vender");
 			}
 		}else{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);

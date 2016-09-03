@@ -189,14 +189,14 @@ $(function(){
 				if(item.status=="0"){
 					sta="待接单";
 					hm = "<button class='btn btnblue acceptBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"' >接受</button>"+
-					 "<button class='btn btnyello refuseBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"' >拒绝</button>"
+					 "<button class='btn btnyello refuseBtn ml5' dataId='"+item.id+"' dataCode='"+item.plancode+"' >拒绝</button>"
 				}else if(item.status=="1"){
 					sta="已拒绝";
 					hm ="<button  class='btn btnyello deleteBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
 				}else if(item.status=="2"){
 					sta="执行中";
 					hm = "<button class='btn btnblue createPlanBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>直接派车</button>"+
-						 "<button class='btn btnblue appointPlanBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>委派车主</button>";
+						 "<button class='btn btnblue appointPlanBtn ml5' dataId='"+item.id+"' dataCode='"+item.plancode+"'>委派车主</button>";
 				}else if(item.status=="3"){
 					sta="已完成";
 				}

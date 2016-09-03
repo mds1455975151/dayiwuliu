@@ -55,6 +55,7 @@ public class PlanAppointAction {
 		Result result = Result.getSuccessResult();
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		req.setOwnerId(currUser.getId());
+		req.setIsAppoint("1");
 		result.setData(cargoPlanService.pageForApp(req));
 		return result;
 	}
@@ -68,7 +69,7 @@ public class PlanAppointAction {
 		return rs;
 	}
 	
-	//计划删除操作
+	//删除委派计划
 	@RequestMapping("plandel")
 	@ResponseBody
 	public Result plandel(PlanConfirmReq req,HttpServletRequest request) throws Exception {
