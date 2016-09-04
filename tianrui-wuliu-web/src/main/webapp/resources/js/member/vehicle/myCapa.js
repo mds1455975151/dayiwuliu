@@ -91,12 +91,18 @@ function innerHTML(result){
 			drivername = "未绑定车辆";
 			drivertel = "未绑定车辆"
 		}
+		var username = data[a].username;
+		var telphone = data[a].telphone;
+		if(data[a].username == undefined){
+			username = data[a].companyname;
+			telphone = data[a].companytel;
+		}
 		hml += "<tr><td ><img src='"+trRoot+"/tianrui/images/"+image+"'></td>" +
 				"<td >"+data[a].vehicleno+" </td>" +
 				"<td>"+drivername+"</td>" +
 				"<td>"+drivertel+"</td>" +
-				"<td>"+data[a].username+"</td>" +
-				"<td>"+data[a].telphone+"</td>" +
+				"<td>"+username+"</td>" +
+				"<td>"+telphone+"</td>" +
 				"<td>"+data[a].vehicletype+"/"+data[a].length+"米</td>" +
 				"<td>"+data[a].weight+"吨</td>" +
 				"<td>"+billstatus+"/"+status+"</td></tr>";

@@ -47,7 +47,7 @@ function addCapa(){
 		type : "post",
 		success : function(result){
 			if(result.code == "000000"){
-				innerHTML(result.data);
+				window.location.href="/trwuliu/Member/capa/indexPage";
 			}else{
 				alert(result.error);
 			}

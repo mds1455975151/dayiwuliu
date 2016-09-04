@@ -15,9 +15,14 @@
 		mv.vehiheadimgpath vehiheadimgpath,
 		mv.createtime createtime,
 		mv.vehiOwnerName userName,
-		mv.vehiOwnerTel telphone
+		mv.vehiOwnerTel telphone,
+		i.username ownername,
+		i.telphone ownerphone,
+		i.companyname companyname,
+		i.companytel companytel
 	FROM
 		wuliu_member_vehicle mv
+		LEFT JOIN member_info i ON mv.memberid = i.id
     <where> 1=1
  	  <if test="vehicleprefix != null  and vehicleprefix !='' " >
        and mv.vehicleprefix like "%" #{vehicleprefix,jdbcType=VARCHAR} "%"

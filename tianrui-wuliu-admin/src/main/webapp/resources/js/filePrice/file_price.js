@@ -307,11 +307,15 @@ function findById(id){
 		success: function(rs) {
 			if(rs.code=="000000"){
 				var data = rs.data;
+				var price = ""
+				if(data.price != undefined){
+					price = data.price;
+				}
 				document.getElementById("uptId").value = data.id;
 				document.getElementById("uptdesc1").value = data.freightName;
 				document.getElementById("uptcargoid").value = data.cargoid;
 				document.getElementById("uptrouteid").value = data.routeid;
-				document.getElementById("uptprice").value = data.price;
+				document.getElementById("uptprice").value = price;
 				document.getElementById("uptdesc2").value = data.freightType;
 				document.getElementById("uptpriceunits").value = data.priceunits;
 				document.getElementById("uptmeasure").value = data.measure;

@@ -77,6 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <th>车牌号</th>
                                         <th>所有人姓名</th>
                                         <th>联系方式</th>
+                                        <th>车主姓名</th>
+                                        <th>车主联系方式</th>
                                         <th>车型</th>
                                         <th>载重（吨）</th>
                                         <th>车长(米)</th>

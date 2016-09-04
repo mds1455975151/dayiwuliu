@@ -72,11 +72,19 @@ function displayData(pageNo){
 						if(d[a].telphone == undefined){
 							telphone = "";
 						}
+						var ownerphone = d[a].ownerphone;
+						var ownername = d[a].ownername;
+						if(d[a].ownerphone == undefined){
+							ownerphone = d[a].companytel;
+							ownername = d[a].companyname;
+						}
 						hml += "<tr><td>"+c+"</td>"+
 							"<td>"+d[a].vehicleprefix+"</td>"+
 							"<td>"+d[a].vehicleprefix+d[a].vehicleno+"</td>"+
 							"<td>"+userName+"</td>"+
 							"<td>"+telphone+"</td>"+
+							"<td>"+ownername+"</td>"+
+							"<td>"+ownerphone+"</td>"+
 							"<td>"+type+"</td>"+
 							"<td>"+d[a].vehiweight+"</td>"+
 							"<td>"+d[a].vehilength+"</td>"+
