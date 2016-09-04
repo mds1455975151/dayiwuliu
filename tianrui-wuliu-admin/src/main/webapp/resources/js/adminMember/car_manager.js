@@ -7,6 +7,8 @@ function displayData(pageNo){
 	var vehicleno = $("#vehicleno").val();
 	var userName = $("#userName").val();
 	var telphone = $("#telphone").val();
+	var ownername = $("#ownername").val();
+	var ownerphone = $("#ownerphone").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCarManager',
@@ -14,6 +16,8 @@ function displayData(pageNo){
 			"vehicleno":vehicleno,
 			"userName":userName,
 			"telphone":telphone,
+			"ownername":ownername,
+			"ownerphone":ownerphone,
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -124,6 +128,8 @@ function clearSearch(){
 	$("#vehicleno").val("");
 	$("#userName").val("");
 	$("#telphone").val("");
+	$("#ownername").val("");
+	$("#ownerphone").val("");
 }
 
 /**

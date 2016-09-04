@@ -54,6 +54,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <label>联系方式：</label>
                                     <input type="text" id="telphone" placeholder=" ">
                                 </div>
+                                <div class="ht_div">
+                                    <label>车主姓名：</label>
+                                    <input type="text" id="ownername" placeholder=" ">
+                                </div>
+                                <div class="ht_div">
+                                    <label>车主电话：</label>
+                                    <input type="text" id="ownerphone" placeholder=" ">
+                                </div>
                             </div>
                             <div class="contuser_search">
                                 <div class="ht_divbtn">
