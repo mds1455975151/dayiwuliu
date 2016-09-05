@@ -163,7 +163,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <!-- 根据条件进行我的车主信息查询 -->
+  <!-- 根据条件进行我的车主信息查询b -->
   <select id="selectMyVehiOwnerByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.MemberOwner" >
     select 
     		A.id, A.memberid, A.ownerid, A.ownername, A.ownertelno, 
@@ -176,7 +176,8 @@
         and A.id = #{id,jdbcType=VARCHAR}
       </if>
       <if test="search != null and search != ''">
-      	and A.ownername like "%"#{search,jdbcType=VARCHAR}"%" or A.ownertelno like "%"#{search,jdbcType=VARCHAR}"%"
+      	and (A.ownername like "%"#{search,jdbcType=VARCHAR}"%" 
+      	or A.ownertelno like "%"#{search,jdbcType=VARCHAR}"%")
       </if>
       <if test="memberid != null and memberid != ''" >
         and A.memberid = #{memberid,jdbcType=VARCHAR}
@@ -218,7 +219,8 @@
         and id = #{id,jdbcType=VARCHAR}
       </if>
        <if test="search != null and search != ''">
-      	and ownername like "%"#{search,jdbcType=VARCHAR}"%" or ownertelno like "%"#{search,jdbcType=VARCHAR}"%"
+      	and (ownername like "%"#{search,jdbcType=VARCHAR}"%" 
+      	or ownertelno like "%"#{search,jdbcType=VARCHAR}"%")
       </if>
       <if test="memberid != null and memberid != ''" >
         and memberid = #{memberid,jdbcType=VARCHAR}

@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.front.bill.WaybillQueryReq;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
@@ -24,8 +27,11 @@ import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.enums.MessageCodeEnum;
+import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.MemberVo;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.MemberOwnerService;
 import com.tianrui.service.impl.MessageService;
@@ -54,6 +60,8 @@ public class AppMyVenderAction {
 	protected IVehicleDriverService iVehicleDriverService;
 	@Autowired
 	protected MessageService messageService;
+	@Autowired
+	private IMemberCapaService memberCapaService;
 	
 	/**
 	 * 查询我的车主
@@ -65,11 +73,16 @@ public class AppMyVenderAction {
 	@ApiParamRawType(MemberOwnerReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult getMyVender(MemberOwnerReq req) throws Exception{
+	public AppResult getMyVender(AppParam<MemberOwnerReq> appParam) throws Exception{
 		AppResult appResult = new AppResult();
-		List<MemberOwnerResp> list = memberOwnerService.queryMyVehiOwnerByCondition(req);
+		Head he = appParam.getHead();
+		MemberOwnerReq req = appParam.getBody();
+		req.setMemberId(he.getId());
+//		List<MemberOwnerResp> list = memberOwnerService.queryMyVehiOwnerByCondition(req);
+		PaginationVO<MemberOwnerResp> pageVo = memberOwnerService.queryMyVehiOwnerByPage(req);
 		appResult.setCode("000000");
-		appResult.setReturnData(list);
+		appResult.setTotal(pageVo.getTotalInt());
+		appResult.setReturnData(pageVo.getList());
 		return appResult;
 	}
 	/**
@@ -82,8 +95,10 @@ public class AppMyVenderAction {
 	@ApiParamRawType(MemberOwnerReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult searchMyVender(MemberOwnerReq req) throws Exception {
+	public AppResult searchMyVender(AppParam<MemberOwnerReq> appParam) throws Exception {
 		AppResult appResult = new AppResult();
+		appResult.setCode("000000");
+		MemberOwnerReq req = appParam.getBody();
 		MemberReq re = new MemberReq();
 		re.setTelnum(req.getOwnerTel());
 		MemberResp member = systemMemberService.findMemberByTelnum(re);
@@ -96,12 +111,16 @@ public class AppMyVenderAction {
 			// 用户ID
 			String id = member.getId();
 			// 根据创建人查询数据
-			VehicleDriverReq vehiDriverReq = new VehicleDriverReq();
-			// 创建人
-			vehiDriverReq.setCreator(id);
-			List<VehicleDriverResp> vehiDriverRespList = iVehicleDriverService.queryVehiDriverByCondition(vehiDriverReq);
+//			VehicleDriverReq vehiDriverReq = new VehicleDriverReq();
+//			// 创建人
+//			vehiDriverReq.setCreator(id);
+//			List<VehicleDriverResp> vehiDriverRespList = iVehicleDriverService.queryVehiDriverByCondition(vehiDriverReq);
+			//TODO
+			CapaReq creq = new CapaReq();
+			creq.setMemberid(id);
+			long count = memberCapaService.indexCount(creq);
 			// 不是车主
-			if (vehiDriverRespList == null || vehiDriverRespList.size() < 1) {
+			if (count == 0) {
 				appResult.setCode("2");
 				appResult.setMessage("该用户尚不是车主，请联系其认证！");
 				return appResult;
@@ -130,17 +149,12 @@ public class AppMyVenderAction {
 	@ApiParamRawType(MemberOwnerReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult saveMyVender(MemberOwnerReq req, HttpServletRequest request) throws Exception{
+	public AppResult saveMyVender(AppParam<MemberOwnerReq> appParam) throws Exception{
 		AppResult appResult = new AppResult();
-		MemberVo voca= SessionManager.getSessionMember(request);
-		String userName = "";
-		if(StringUtils.isNotBlank(voca.getCompanyName())){
-			userName = voca.getCompanyName();
-		}else if(StringUtils.isNotBlank(voca.getUserName())){
-			userName = voca.getUserName();
-		}else if(StringUtils.isNotBlank(voca.getCellphone())){
-			userName = voca.getCellphone();
-		}
+		appResult.setCode("000000");
+		Head he = appParam.getHead();
+		String userName = he.getAccount();
+		MemberOwnerReq req = appParam.getBody();
 		MemberOwnerReq req1 = new MemberOwnerReq();
 		// 会员主键
 		req1.setMemberId(req.getMemberId());

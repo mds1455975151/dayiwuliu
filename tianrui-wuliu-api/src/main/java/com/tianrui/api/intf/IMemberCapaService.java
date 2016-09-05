@@ -21,6 +21,8 @@ import com.tianrui.common.vo.Result;
 public interface IMemberCapaService {
 	/** 我的运力查询*/
 	PaginationVO<MemberCapaListResp> index(CapaReq req)throws Exception;
+	/** 我的运力查询条数*/
+	long indexCount(CapaReq req)throws Exception;
 	/** 查询运力*/
 	Result selectVehicle(CapaReq req)throws Exception;
 	/** 添加运力*/

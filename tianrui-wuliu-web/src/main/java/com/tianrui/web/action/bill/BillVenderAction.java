@@ -72,9 +72,9 @@ public class BillVenderAction {
 		//车辆列表
 		//MemberResp currUser =SessionManager.getSessionMember(request);
 		if( plan !=null && StringUtils.isNotBlank(plan.getVender())){
-			List<BillVehicleResp> list =billService.queryVehicle(planId);
-			view.addObject("vlist", list);
-			view.addObject("clist", memberCapaService.createBill(planId));
+//			List<BillVehicleResp> list =billService.queryVehicle(planId);
+//			view.addObject("vlist", list);
+			view.addObject("vlist", memberCapaService.createBill(planId));
 		}
 		//TODO
 		return view;

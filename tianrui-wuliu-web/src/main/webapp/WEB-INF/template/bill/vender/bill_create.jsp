@@ -138,36 +138,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="bill_cllist">
                             <ul>
                             	<c:forEach var="item" items="${vlist}" > 
-                            		
-                            			<c:if test="${item.isUsed==1 }">
-                            				<li title="该车与当前计划已经有未完成的运单." >
-	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" disabled >
-	                                	</c:if>
-                            			<c:if test="${item.isUsed==0}">
-                            				<li>
-	                                		<input type="checkbox" dataId="${item.id }" class="checkInput"  >
-	                                	</c:if>
-	                                    <label>${item.vehicleNo }</label>
-	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
-	                                    <em><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</em>
+	                                    <label>${item.vehicleno }</label>
+	                                    <span>${item.drivername }--${item.vehicletype }</span>
+	                                    <em><fmt:formatNumber type="number" value="${item.weight }" maxFractionDigits="0"/>吨</em>
 	                                    <em>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</em>
 	                                    <input type="text" class="ts" placeholder="输入趟数" value="1" />
                                     	<i>趟</i>
 	                                </li>
                             	</c:forEach>
-                            	<!-- 
-                            	<c:forEach var="clist" items="${clist }">
-                            		<li>
-                                		<input type="checkbox" dataId="${clist.id }" class="checkInput"  >
-	                                    <label>${clist.vehicleno }</label>
-	                                    <span>${clist.drivername }--${clist.vehicletype }</span>
-	                                    <em><fmt:formatNumber type="number" value="${clist.weight }" maxFractionDigits="0"/>吨</em>
-	                                    <em>${clist.billstatus eq 2 ? '发货中' : clist.billstatus eq 3 ? '运货中' : clist.billstatus eq 4 ? '卸货中' : clist.billstatus eq 5 ? '空闲中' : ''}</em>
-	                                    <input type="text" class="ts" placeholder="输入趟数" value="1" />
-                                    	<i>趟</i>
-                                   	</li>
-                            	</c:forEach>
-                            	 -->
                             </ul>
                         </div>
                      </div>

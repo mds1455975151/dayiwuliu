@@ -47,6 +47,18 @@ public class MemberCapaAction {
 		rs.setData(vg);
 		return rs;
 	}
+	
+	/** 车主运力查询*/
+	@RequestMapping("venderCapa")
+	@ResponseBody
+	public Result venderCapa(CapaReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		//查询类型，车主运力查询时，后台筛选未绑定车辆
+		req.setType("capa");
+		PaginationVO<MemberCapaListResp> vg = memberCapaService.index(req);
+		rs.setData(vg);
+		return rs;
+	}
 	/** 查询车辆*/
 	@RequestMapping("selectVehicle")
 	@ResponseBody

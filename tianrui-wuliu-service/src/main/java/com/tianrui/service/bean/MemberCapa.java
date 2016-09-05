@@ -4,7 +4,13 @@ public class MemberCapa {
     private String id;
 
     private String memberid;
+    //查询类型
+    private String type;
 
+    private String vehicleno;
+    private String drivername;
+    private String drivertel;
+    
     private String vehicleid;
 
     private String ownerid;
@@ -43,7 +49,39 @@ public class MemberCapa {
         return memberid;
     }
 
-    public void setMemberid(String memberid) {
+    public String getVehicleno() {
+		return vehicleno;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
+	}
+
+	public String getDrivername() {
+		return drivername;
+	}
+
+	public void setDrivername(String drivername) {
+		this.drivername = drivername;
+	}
+
+	public String getDrivertel() {
+		return drivertel;
+	}
+
+	public void setDrivertel(String drivertel) {
+		this.drivertel = drivertel;
+	}
+
+	public void setMemberid(String memberid) {
         this.memberid = memberid == null ? null : memberid.trim();
     }
 

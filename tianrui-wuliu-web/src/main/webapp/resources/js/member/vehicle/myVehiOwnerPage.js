@@ -8,6 +8,7 @@
 
 // 表体行编号
 var rowIndex = 0;
+var pageNo = 1;
 
 // 初始化处理
 $(function() { 
@@ -15,9 +16,11 @@ $(function() {
 	$('#myVehiOwnerPage').addClass('selected');
 	
 	$.ajax({
-		url : PATH + '/trwuliu/Member/myVehiOwner/getMyVehiOwner',// 跳转到 action
+		url : PATH + '/trwuliu/Member/myVehiOwner/getMyVehiOwnerByPage',// 跳转到 action
+//		url : PATH + '/trwuliu/Member/myVehiOwner/getMyVehiOwner',// 跳转到 action
 		data : {
-			memberId: memberId
+			memberId: memberId,
+			pageNo:pageNo
 		},
 		type : "post",
 		success : function(result) {
@@ -37,14 +40,16 @@ $(function() {
  * @author guyuke
  * @time 2016.06.05
  */
-function appendContentToBody(data, flag) {
+function appendContentToBody(ret, flag) {
+	var data = ret.list;
+	var total = ret.total;
 	// 搜索查询时清空表体，防止表体重复附加数据
 	if (flag == 0) {
 		$("#vehiOwner_tbody").empty();
 		rowIndex = 0;
 	}
 	// 数据为空时
-	if (data == null || data.length <= 0) {
+	if (data == null || total == 0) {
 		var hml = "";
 		$(".goods_more").hide();
 		hml+= '<div class="nodata">';
@@ -58,13 +63,6 @@ function appendContentToBody(data, flag) {
 		document.getElementById("vehicle_none").innerHTML = hml;
 	// 有数据信息时
 	} else {
-		if (data.length > 99) {
-			// 显示查看更多
-			$(".goods_more").show(1000);
-		} else {
-			// 隐藏查看更多
-			$(".goods_more").hide();
-		}
 		
 		for (var i = 0; i < data.length; i++) {
 			// 表体行号++
@@ -124,61 +122,40 @@ function appendContentToBody(data, flag) {
 					td4.append(href4_2);
 					
 				/*TODO:测试用------BEGIN-------*/
-				if (flag != 0) {
-					td1.css("color", "red");
-				}
+//				if (flag != 0) {
+//					td1.css("color", "red");
+//				}
 				/*TODO:测试用------END-------*/
 				
 				tr1.append(td1).append(td2).append(td3).append(td4);
 			
-			if (flag == 0) {
-				// 搜索查询时表体正常附加数据
 				$("#vehiOwner_tbody").append(tr1);
-			} else if (flag == 1) {
-				// 新增时新增数据附加至表体第一行
-				$("#vehiOwner_tbody").prepend(tr1);
-			}
 		}
+	}
+	if (total > rowIndex) {
+		// 显示查看更多
+		$(".goods_more").show(1000);
+	} else {
+		// 隐藏查看更多
+		$(".goods_more").hide();
 	}
 }
 
 //『搜索』按钮点击事件
-$("#vehiOwner_search").click(function() {
-	
+function vehiOwnerSearch(flag){
 	// 搜索框输入的内容
 	var searchText = $("#searchText").val();
-	// 车主名字
-	var ownerName = null;
-	// 车主电话
-	var ownerTel = null;
-	
-	if (searchText != null && searchText != "") {
-		// 验证手机号,手机号11位并且前三位只能为大陆手机号段
-		var regTel = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
-		// 姓名，2个汉字以上，包含少数民族
-		var regName =  /^\s*[\u4e00-\u9fa5]{1,}[\u4e00-\u9fa5.·]{0,15}[\u4e00-\u9fa5]{1,}\s*$/;
-		if (!regTel.test(searchText) && !regName.test(searchText)) {
-			$("#modal_common_content").html("请输入正确的汉字姓名或11位手机账号！");
-			$("#commonModal").modal();
-			return ;
-		} else if (regTel.test(searchText)) {
-			ownerTel = searchText;
-		} else if (regName.test(searchText)) {
-			ownerName = searchText;
-		}
-	}
-	
 	$.ajax({
-		url : PATH + '/trwuliu/Member/myVehiOwner/getMyVehiOwner',// 跳转到 action
+		url : PATH + '/trwuliu/Member/myVehiOwner/getMyVehiOwnerByPage',// 跳转到 action
 		data : {
 			memberId: memberId,
-			ownerTel: ownerTel,
-			ownerName: ownerName
+			pageNo:pageNo,
+			search: searchText
 		},
 		type : "post",
 		success : function(result) {
 			if(result.code = "000000"){
-				appendContentToBody( result.data, 0);
+				appendContentToBody( result.data, flag);
 			}else {
 				$("#modal_common_content").html(result.error);
 				$("#commonModal").modal();
@@ -187,7 +164,12 @@ $("#vehiOwner_search").click(function() {
 		}
 	});
 	
-});
+}
+
+function addpage(){
+	pageNo += 1;
+	vehiOwnerSearch(1)
+}
 
 /**
  * 表体行『显示车辆』按钮点击事件
@@ -228,21 +210,21 @@ $('#detailModal').on('shown.bs.modal', function (e) {
  * @author guyuke
  * @time 2016.06.07
  */
-function appendContentToDetailModal(data) {
+function appendContentToDetailModal(list) {
 	
 	// 清空div
 	$("#modal_detail_div").empty();
-	
+	var data = list.list;
 	// 循环体
 	for (var i = 0; i < data.length; i++) {
 		/** <div> */
 		var div1 = $("<div></div>").addClass("chezhu_modal_line");
 			/** <label> */
-			var label1_1 = $("<label></label>").append(data[i].vehicleNo);
+			var label1_1 = $("<label></label>").append(data[i].vehicleno);
 			/** <label> */
-			var label1_2 = $("<label></label>").append(data[i].driverName);
+			var label1_2 = $("<label></label>").append(data[i].drivername);
 			/** <span> */
-			var span1_1 = $("<span></span>").append(data[i].driverTel);
+			var span1_1 = $("<span></span>").append(data[i].drivertel);
 			div1.append(label1_1).append(label1_2).append(span1_1);
 		$("#modal_detail_div").append(div1);
 	}
@@ -284,9 +266,10 @@ $("#modal_detail_search").click(function() {
 	$("#modal_detail_div").empty();
 	
 	$.ajax({
-		url : PATH + '/trwuliu/Member/vehiDriver/getVehiDriver',// 跳转到 action
+//		url : PATH + '/trwuliu/Member/vehiDriver/getVehiDriver',// 跳转到 action
+		url : PATH + '/trwuliu/Member/capa/venderCapa',// 跳转到 action
 		data : {
-			memberId: ownerId,
+			memberid: ownerId,
 			vehicleNo: vehicleNo,
 			driverName: driverName,
 			driverTel: driverTel

@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IMemberOwnerService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
@@ -55,6 +57,8 @@ public class MyVehicleOwnerAction {
 	private IMessageService messageService;
 	@Autowired
 	private ISystemMemberService systemMemberService;
+	@Autowired
+	private IMemberCapaService memberCapaService;
 	
 	/**
 	 * 我的车主跳转页面
@@ -106,8 +110,7 @@ public class MyVehicleOwnerAction {
 	public Result queryMyVehiOwnerByPage(String id, 
 		                                  String memberId, 
 		                                   String ownerId, 
-		                                    String ownerName, 
-		                                     String ownerTel, 
+		                                    String search, 
 		                                      String status, 
 		                                       String pageNo) throws Exception{
 		Result rs = Result.getSuccessResult();
@@ -118,10 +121,8 @@ public class MyVehicleOwnerAction {
 		ownerReq.setMemberId(memberId);
 		// 车主主键
 		ownerReq.setOwnerId(ownerId);
-		// 车主名字
-		ownerReq.setOwnerName(ownerName);
-		// 车主电话
-		ownerReq.setOwnerTel(ownerTel);
+		
+		ownerReq.setSearch(search);
 		// 状态
 		ownerReq.setStatus(status);
 		// 页码
@@ -173,7 +174,7 @@ public class MyVehicleOwnerAction {
 		ownerReq.setOwnerTel(ownerTel);
 		// 状态
 		ownerReq.setStatus(status);
-		
+		//queryMyVehiOwnerByPage
 		List<MemberOwnerResp> ownerRespList = memberOwnerService.queryMyVehiOwnerByCondition(ownerReq);
 		rs.setData(ownerRespList);
 		return rs;
@@ -208,13 +209,18 @@ public class MyVehicleOwnerAction {
 		} else {
 			// 用户ID
 			String id = member.getId();
-			// 根据创建人查询数据
-			VehicleDriverReq vehiDriverReq = new VehicleDriverReq();
-			// 创建人
-			vehiDriverReq.setCreator(id);
-			List<VehicleDriverResp> vehiDriverRespList = iVehicleDriverService.queryVehiDriverByCondition(vehiDriverReq);
+//			// 根据创建人查询数据
+//			VehicleDriverReq vehiDriverReq = new VehicleDriverReq();
+//			// 创建人
+//			vehiDriverReq.setCreator(id);
+//			List<VehicleDriverResp> vehiDriverRespList = iVehicleDriverService.queryVehiDriverByCondition(vehiDriverReq);
+			//TODO
+			CapaReq creq = new CapaReq();
+			creq.setMemberid(id);
+			creq.setStatus("1");
+			long count = memberCapaService.indexCount(creq);
 			// 不是车主
-			if (vehiDriverRespList == null || vehiDriverRespList.size() < 1) {
+			if (count == 0) {
 				rs.setCode("2");
 				rs.setError("该用户尚不是车主，请联系其认证！");
 				return rs;

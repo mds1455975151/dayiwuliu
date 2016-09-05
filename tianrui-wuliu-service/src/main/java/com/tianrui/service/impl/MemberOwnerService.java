@@ -39,7 +39,7 @@ public class MemberOwnerService implements IMemberOwnerService {
 	@Override
 	public PaginationVO<MemberOwnerResp> queryMyVehiOwnerByPage(MemberOwnerReq req)
 			throws Exception {
-		
+		//TODO
 		// 分页VO
 		PaginationVO<MemberOwnerResp> pageVo =new PaginationVO<MemberOwnerResp>();
 		MemberOwner reqCondition = new MemberOwner();
@@ -78,7 +78,7 @@ public class MemberOwnerService implements IMemberOwnerService {
 	@Override
 	public List<MemberOwnerResp> queryMyVehiOwnerByCondition(MemberOwnerReq req)
 			throws Exception {
-		
+		//TODO
 		MemberOwner reqCondition = new MemberOwner();
 		// 复制前台内容至查询条件
 		copyProperties(reqCondition, req);

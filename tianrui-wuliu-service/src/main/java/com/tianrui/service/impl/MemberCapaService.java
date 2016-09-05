@@ -49,6 +49,10 @@ public class MemberCapaService implements IMemberCapaService{
 		Result rs = Result.getSuccessResult();
 		MemberCapa capa = new MemberCapa();
 		capa.setMemberid(req.getMemberid());
+		capa.setVehicleno(req.getVehicleno());
+		capa.setDrivername(req.getDrivername());
+		capa.setDrivertel(req.getDrivertel());
+		capa.setType(req.getType());
 		capa.setStart((req.getPageNo()-1)*req.getPageSize());
 		capa.setLimit(req.getPageSize());
 		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
@@ -164,12 +168,23 @@ public class MemberCapaService implements IMemberCapaService{
 
 	@Override
 	public List<MemberCapaListResp> createBill(String planid) throws Exception {
-		// TODO Auto-generated method stub
 		Plan plan =planMapper.selectByPrimaryKey(planid);
 		MemberCapa capa = new MemberCapa();
 		capa.setMemberid(plan.getVehicleownerid());
-		List<MemberCapaList> list = memberCapaMapper.selectByCreateBill(capa);
+		capa.setType("capa");
+		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
 		return copyMembercapa(list);
+	}
+
+	@Override
+	public long indexCount(CapaReq req) throws Exception {
+		// TODO Auto-generated method stub
+		MemberCapa capa = new MemberCapa();
+		capa.setMemberid(req.getMemberid());
+		capa.setStatus(req.getStatus());
+		long total = memberCapaMapper.selectByVDCount(capa);
+		long mc = memberCapaMapper.selectByMCCount(capa);
+		return total + mc;
 	}
 
 }

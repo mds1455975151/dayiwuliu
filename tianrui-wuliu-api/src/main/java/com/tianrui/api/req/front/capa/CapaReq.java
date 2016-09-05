@@ -10,6 +10,11 @@ public class CapaReq extends BaseReq{
 	
 	private String cellphone;
 	
+    private String drivername;
+    private String drivertel;
+    
+    private String type;
+	
 	private String vehicleid;
 	
 	private String vehicleno;
@@ -28,12 +33,36 @@ public class CapaReq extends BaseReq{
 		this.id = id;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getDrivername() {
+		return drivername;
+	}
+
+	public void setDrivername(String drivername) {
+		this.drivername = drivername;
+	}
+
+	public String getDrivertel() {
+		return drivertel;
+	}
+
+	public void setDrivertel(String drivertel) {
+		this.drivertel = drivertel;
 	}
 
 	public String getMemberid() {
