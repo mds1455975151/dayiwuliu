@@ -336,7 +336,7 @@ public class CargoPlanService implements ICargoPlanService{
 				//发送消息
 				if( plan.getIsfamily()==0 ){
 					MemberVo owner =memberVoService.get(plan.getCreator());
-					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "owner");
+					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
 				}
 			}else{
 				rs.setErrorCode(ErrorCode.PARAM_ERROR);
@@ -403,7 +403,7 @@ public class CargoPlanService implements ICargoPlanService{
 					MemberVo owner = new MemberVo();
 					owner.setUserName(req.getOrganizationname());
 					owner.setId(req.getCurruId());
-					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "owner");
+					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
 				}
 
 				//保存模版
