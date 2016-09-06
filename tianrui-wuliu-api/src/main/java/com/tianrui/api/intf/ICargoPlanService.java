@@ -76,5 +76,7 @@ public interface ICargoPlanService {
 
 	public List<PlanResp> findPlanByEndTime(Long st) throws Exception;
 
+	PlanResp appointDetail(PlanQueryReq req) throws Exception;
+
 	
 }

@@ -58,4 +58,6 @@ public interface PlanMapper {
     long countByCondition(Plan record);
 
 	List<Plan> selectByEndTime(Long st);
+	
+	List<Plan> selectAppointByParams(String pid);
 }

@@ -50,7 +50,7 @@ public class AppPlanAppointAction {
 		//获取当前用户
 		String uId =appParam.getHead().getId();
 		//拼装查询条件
-		PlanQueryReq query =appParam.getBody();
+		PlanQueryReq query = appParam.getBody();
 		query.setOwnerId(uId);
 		query.setIsAppoint("1");
 		PaginationVO<PlanResp> page = cargoPlanService.pageForApp(query);
@@ -69,7 +69,7 @@ public class AppPlanAppointAction {
 		//获取当前用户
 		String uId = appParam.getHead().getId();
 		//拼装查询条件
-		PlanConfirmReq query =appParam.getBody();
+		PlanConfirmReq query = appParam.getBody();
 		query.setCurruId(uId);
 		Result rs= cargoPlanService.cancleConfirm(query);
 		return AppResult.valueOf(rs);
@@ -84,7 +84,7 @@ public class AppPlanAppointAction {
 		//获取当前用户
 		String uId = appParam.getHead().getId();
 		//拼装查询条件
-		PlanConfirmReq query =appParam.getBody();
+		PlanConfirmReq query = appParam.getBody();
 		query.setCurruId(uId);
 		Result rs= cargoPlanService.venderDelConfirm(query);
 		return AppResult.valueOf(rs);
@@ -121,7 +121,8 @@ public class AppPlanAppointAction {
 	@ResponseBody
 	public AppResult detail(AppParam<PlanQueryReq> appParam) throws Exception {
 		AppResult appResult = new AppResult();
-		PlanResp resp = cargoPlanService.detail(appParam.getBody());
+		PlanQueryReq query = appParam.getBody();
+		PlanResp resp = cargoPlanService.appointDetail(query);
 		appResult.setCode("000000");
 		appResult.setReturnData(resp);
 		return appResult;

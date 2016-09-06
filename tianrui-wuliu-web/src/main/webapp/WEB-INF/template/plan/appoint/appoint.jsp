@@ -123,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="goods_line">
                     <label>运输量：</label>
-                    <input type="text" id="totalplanned" name="totalplanned" placeholder="保留两位小数" style="width:180px" maxlength="10"/>吨
+                    <input type="text" id="totalplanned" name="totalplanned" placeholder="剩余运输量${plan.overweight }" style="width:180px" maxlength="10"/>吨
                 </div>
                 <!--发布对象begin-->
                 <div class="plan_fabu">

@@ -79,7 +79,7 @@ public class PlanAppointAction {
 		return rs;
 	}
 	
-	//发布委派计划页面
+	//委派计划发布页面
 	@RequestMapping("initAppointPage")
 	public ModelAndView initAppointPage(PlanQueryReq req, HttpServletRequest request) throws Exception {
 		ModelAndView model = new ModelAndView("plan/appoint/appoint");
@@ -106,6 +106,7 @@ public class PlanAppointAction {
 		ModelAndView model = new ModelAndView("plan/appoint/appoint");
 		try {
 			model.addObject("plan", cargoPlanService.detail(req));
+			model.addObject("plan", cargoPlanService.appointDetail(req));
 			MemberOwnerReq ownerReq = new MemberOwnerReq();
 			ownerReq.setMemberId(SessionManager.getSessionMember(request).getId());
 			ownerReq.setStatus("1");
@@ -129,9 +130,9 @@ public class PlanAppointAction {
 	@RequestMapping("detail")
 	public ModelAndView detail(HttpServletRequest request,PlanQueryReq req) throws Exception {
 		ModelAndView model=new ModelAndView("plan/appoint/detail");
-		MemberVo currUser =SessionManager.getSessionMember(request);
+		MemberVo currUser = SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
-		model.addObject("plan",cargoPlanService.detail(req));
+		model.addObject("plan",cargoPlanService.appointDetail(req));
 		return model;
 	}
 	

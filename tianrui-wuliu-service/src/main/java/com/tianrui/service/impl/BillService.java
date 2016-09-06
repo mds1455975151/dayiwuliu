@@ -793,15 +793,7 @@ public class BillService implements IBillService{
 			if(fileFreight != null){
 				resp.setTallage(fileFreight.getTallage());
 			}
-			double alreadyTransport = 0;
-			List<Bill> list = billMapper.selectByPlanId(plan.getId());
-			if(list != null){
-				for(int i=0;i<list.size();i++){
-					Bill b = list.get(i);
-					alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-				}	
-			}
-			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
+			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
 		return resp;
 	}
@@ -950,16 +942,9 @@ public class BillService implements IBillService{
 				if(fileFreight != null){
 					resp.setTallage(fileFreight.getTallage());
 				}
-				double alreadyTransport = 0;
-				List<Bill> list = billMapper.selectByPlanId(plan.getId());
-				if(list != null){
-					for(int i=0;i<list.size();i++){
-						Bill b = list.get(i);
-						alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-					}	
-				}
-				resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
+				resp.setOverweight(inspectTraffic(pid));
 			}
+			
 		}
 		return resp;
 	}
@@ -1310,5 +1295,23 @@ public class BillService implements IBillService{
 		}
 		return resp;
 	}
-	
+	//计划剩余运输量
+	private Double inspectTraffic(String planid) {
+		double overweight = 0D;
+		Plan  plan = planMapper.selectByPrimaryKey(planid);
+		overweight = plan.getTotalplanned();
+		List<Plan> listPlanAppoint = planMapper.selectAppointByParams(plan.getId());
+		if(listPlanAppoint != null){
+			for(Plan p : listPlanAppoint){
+				overweight -= p.getTotalplanned();
+			}
+		}
+		List<Bill> listBill = billMapper.selectByPlanId(plan.getId());
+		if(listBill != null){
+			for(Bill b : listBill){
+				overweight -= (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+			}	
+		}
+		return overweight;
+	}
 }

@@ -134,15 +134,7 @@ public class CargoPlanService implements ICargoPlanService{
 			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
 			resp.setTallage(fileFreight.getTallage());
 			resp.setOrgname(fileFreight.getOrganizationname());
-			double alreadyTransport = 0;
-			List<Bill> list = billMapper.selectByPlanId(plan.getId());
-			if(list != null){
-				for(int i=0;i<list.size();i++){
-					Bill b = list.get(i);
-					alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-				}	
-			}
-			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
+			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
 		return resp;
 	}
@@ -541,6 +533,12 @@ public class CargoPlanService implements ICargoPlanService{
 		if(plan == null){
 			result.setCode("000001");
 			result.setError("该计划不存在");
+			return result;
+		}
+		if(inspectTraffic(plan.getId()) - Double.valueOf(req.getTotalplanned()) < 0){
+			result.setCode("000002");
+			result.setError("运输量已超出计划剩余运输量");
+			return result;
 		}
 		plan.setId(UUIDUtil.getId());
 		//自定义属性
@@ -559,6 +557,7 @@ public class CargoPlanService implements ICargoPlanService{
 		plan.setVehicleownerphone(req.getVenderTel());
 		//委派运单
 		plan.setIsAppoint("1");
+		plan.setPid(req.getPlanid());
 		planMapper.insert(plan);
 		//发送消息
 		MemberVo owner = new MemberVo();
@@ -569,7 +568,7 @@ public class CargoPlanService implements ICargoPlanService{
 		result.setData("委派计划成功");
 		return result;
 	}
-
+	
 
 	@Override
 	public Result editAppointPlan(PlanAppointReq req) throws Exception {
@@ -578,6 +577,12 @@ public class CargoPlanService implements ICargoPlanService{
 		if(plan == null){
 			result.setCode("000001");
 			result.setError("该计划不存在");
+			return result;
+		}
+		if(inspectTraffic(plan.getPid()) - Double.valueOf(req.getTotalplanned()) < 0){
+			result.setCode("000002");
+			result.setError("运输量已超出计划剩余运输量");
+			return result;
 		}
 		//自定义属性
 		plan.setId(req.getPlanid());
@@ -602,6 +607,43 @@ public class CargoPlanService implements ICargoPlanService{
 		result.setCode("000000");
 		result.setData("委派计划成功");
 		return result;
+	}
+
+	@Override
+	public PlanResp appointDetail(PlanQueryReq req) throws Exception {
+		PlanResp resp = null;
+		if( req!=null && StringUtils.isNotBlank(req.getId()) ){
+			Plan  plan =planMapper.selectByPrimaryKey(req.getId());
+			if(plan.getCompleted() == null){
+				plan.setCompleted((double) 0);
+			}
+			resp =copyPropertie(plan);
+			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
+			resp.setTallage(fileFreight.getTallage());
+			resp.setOrgname(fileFreight.getOrganizationname());
+			resp.setOverweight(inspectTraffic(plan.getPid()));
+		}
+		return resp;
+	}
+
+	//计划剩余运输量
+	private Double inspectTraffic(String planid) {
+		double overweight = 0D;
+		Plan  plan = planMapper.selectByPrimaryKey(planid);
+		overweight = plan.getTotalplanned();
+		List<Plan> listPlanAppoint = planMapper.selectAppointByParams(plan.getId());
+		if(listPlanAppoint != null){
+			for(Plan p : listPlanAppoint){
+				overweight -= p.getTotalplanned();
+			}
+		}
+		List<Bill> listBill = billMapper.selectByPlanId(plan.getId());
+		if(listBill != null){
+			for(Bill b : listBill){
+				overweight -= (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+			}	
+		}
+		return overweight;
 	}
 	
 }

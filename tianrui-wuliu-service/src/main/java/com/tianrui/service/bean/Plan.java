@@ -175,6 +175,8 @@ public class Plan implements IModel{
     
     //是否为委派计划
     private String isAppoint;
+    //委派计划父级id
+    private String pid;
     
     private String desc1;
     private String desc2;
@@ -1114,6 +1116,14 @@ public class Plan implements IModel{
 
 	public void setIsAppoint(String isAppoint) {
 		this.isAppoint = isAppoint;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
     
 }
