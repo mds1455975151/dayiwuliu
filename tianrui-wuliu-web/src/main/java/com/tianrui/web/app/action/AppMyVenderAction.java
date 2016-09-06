@@ -157,7 +157,7 @@ public class AppMyVenderAction {
 		MemberOwnerReq req = appParam.getBody();
 		MemberOwnerReq req1 = new MemberOwnerReq();
 		// 会员主键
-		req1.setMemberId(req.getMemberId());
+		req1.setMemberId(he.getId());
 		// 车主主键
 		req1.setOwnerId(req.getOwnerId());
 		List<MemberOwnerResp> list = memberOwnerService.queryMyVehiOwnerByCondition(req1);
@@ -176,7 +176,7 @@ public class AppMyVenderAction {
 		// 主键
 		ownerReq.setId(getUUId());
 		// 会员主键
-		ownerReq.setMemberId(req.getMemberId());
+		ownerReq.setMemberId(he.getId());
 		// 车主主键
 		ownerReq.setOwnerId(req.getOwnerId());
 		// 车主名字
@@ -205,7 +205,7 @@ public class AppMyVenderAction {
 			List<String> paramList = new ArrayList<String>();
 			paramList.add(userName);
 			sendMsgReq.setParams(paramList);
-			sendMsgReq.setSendid(req.getMemberId());
+			sendMsgReq.setSendid(he.getId());
 			sendMsgReq.setSendname(userName);
 			sendMsgReq.setRecid(req.getOwnerId());
 			sendMsgReq.setRecname(req.getOwnerName());

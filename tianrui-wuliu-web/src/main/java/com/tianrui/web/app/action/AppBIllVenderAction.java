@@ -1,6 +1,7 @@
 package com.tianrui.web.app.action;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IBillService;
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
@@ -20,6 +22,7 @@ import com.tianrui.api.req.front.bill.WaybillSaveReq;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
@@ -47,6 +50,8 @@ public class AppBIllVenderAction {
 	protected IBillService billService;
 	@Autowired
 	IVehicleDriverService vehicleDriverService;
+	@Autowired
+	IMemberCapaService memberCapaService;
 
 	
 	//获取承运计划列表
@@ -210,12 +215,25 @@ public class AppBIllVenderAction {
 	public AppResult queryVehicle(AppParam<WaybillQueryReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
 		//获取当前用户
-		
-		List<BillVehicleResp> list =billService.queryVehicle(appParam.getBody().getPlanId());
-		rs.setData(list);
+		//TODO
+		List<MemberCapaListResp> list = memberCapaService.createBill(appParam.getBody().getPlanId());
+//		List<BillVehicleResp> list =billService.queryVehicle(appParam.getBody().getPlanId());
+		List<BillVehicleResp> resp = new ArrayList<BillVehicleResp>();
+		for(MemberCapaListResp mc : list){
+			BillVehicleResp bv = new BillVehicleResp();
+			bv.setId(mc.getId());
+			bv.setVehicleNo(mc.getVehicleno());
+			bv.setDriverName(mc.getDrivername());
+			bv.setDriverTel(mc.getDrivertel());
+			bv.setVehicleTypeName(mc.getVehicletype());
+			bv.setVehiweight(mc.getWeight());
+			resp.add(bv);
+		}
+		rs.setData(resp);
 		return AppResult.valueOf(rs);
 		
 	}
+	
 	//查询已完成运单轨迹
 	@RequestMapping(value="/queryBillAllTrack",method=RequestMethod.POST)
 	@ApiParamRawType(WaybillQueryReq.class)

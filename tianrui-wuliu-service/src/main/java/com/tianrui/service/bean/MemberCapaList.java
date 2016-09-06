@@ -4,6 +4,8 @@ public class MemberCapaList {
 
 	private String id;
 	private String status;
+	private String driverid;
+	private String vehicleid;
 	private String vehicleno;
 	private String drivername;
 	private String drivertel;
@@ -28,6 +30,18 @@ public class MemberCapaList {
 		return vehicleno;
 	}
 	
+	public String getDriverid() {
+		return driverid;
+	}
+	public void setDriverid(String driverid) {
+		this.driverid = driverid;
+	}
+	public String getVehicleid() {
+		return vehicleid;
+	}
+	public void setVehicleid(String vehicleid) {
+		this.vehicleid = vehicleid;
+	}
 	public String getVehfix() {
 		return vehfix;
 	}

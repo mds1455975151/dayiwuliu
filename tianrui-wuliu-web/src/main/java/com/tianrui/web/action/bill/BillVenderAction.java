@@ -76,7 +76,6 @@ public class BillVenderAction {
 //			view.addObject("vlist", list);
 			view.addObject("vlist", memberCapaService.createBill(planId));
 		}
-		//TODO
 		return view;
 	}
 	

@@ -56,10 +56,13 @@ import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
+import com.tianrui.service.bean.MemberCapa;
+import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
@@ -116,6 +119,8 @@ public class BillService implements IBillService{
 	OwnerDriverMapper ownerDriverMapper;
 	@Autowired
 	SystemMemberInfoMapper systemMemberInfoMapper;
+	@Autowired
+	MemberCapaMapper memberCapaMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -124,6 +129,11 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getPlanId()) ){
 			//获取车辆驾驶员信息
 			List<VehicleDriverVO> vehicleDrivers =getVehicleDriver(req.getVehicleDriverIds());
+			if(vehicleDrivers.size()==0){
+				rs.setCode("1");
+				rs.setError("上传数据有误");
+				return rs;
+			}
 			if( CollectionUtils.isNotEmpty(vehicleDrivers) ){
 				bills =new ArrayList<Bill>();
 				Plan plan =planMapper.selectByPrimaryKey(req.getPlanId());
@@ -996,15 +1006,20 @@ public class BillService implements IBillService{
 			String[]  idarr =ids.split(";");
 			for(String id :idarr ){
 				if( StringUtils.isNotBlank(id) ){
-					VehicleDriver db =vehicleDriverMapper.selectByPrimaryKey(id.split(",")[0]);
-					if( db!=null ){
+
+//					VehicleDriver db =vehicleDriverMapper.selectByPrimaryKey(id.split(",")[0]);
+					//查询我的运力
+					MemberCapa capa = new MemberCapa();
+					capa.setId(id.split(",")[0]);
+					List<MemberCapaList> cp = memberCapaMapper.selectByCondition(capa);
+					if( cp.size()==1 ){
 						VehicleDriverVO vo =new VehicleDriverVO();
-						vo.setDriverId(db.getDriverid());
-						vo.setDriverName(db.getDrivername());
-						vo.setDriverTel(db.getDrivertel());
-						vo.setVehicleId(db.getVehicleid());
-						vo.setVehicleno(db.getVehicleno());
-						vo.setVehicleTypeName(db.getVehicletypename());
+						vo.setDriverId(cp.get(0).getDriverid());
+						vo.setDriverName(cp.get(0).getDrivername());
+						vo.setDriverTel(cp.get(0).getDrivertel());
+						vo.setVehicleId(cp.get(0).getVehicleid());
+						vo.setVehicleno(cp.get(0).getVehicleno());
+						vo.setVehicleTypeName(cp.get(0).getVehicletype());
 						vo.setOvernumber(id.split(",")[1]);
 //						vo.setOvernumber("1");
 						list.add(vo);
