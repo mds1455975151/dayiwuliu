@@ -547,6 +547,9 @@ public class CargoPlanService implements ICargoPlanService{
 		plan.setEndtime(DateUtil.parse(req.getEndtime(), "yyyy-MM-dd HH:mm:ss"));
 		plan.setStatus(Byte.valueOf("0"));
 		
+		//联系人信息
+		plan.setTelephone(req.getMemberVo().getCellphone());
+		plan.setLinkman(req.getMemberVo().getRealName());
 		plan.setCreator(req.getMemberVo().getId());
 		plan.setCreatetime(System.currentTimeMillis());
 		plan.setModifier(req.getMemberVo().getId());
