@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <ul class="plan_line venderList">
                                		<c:forEach items="${venderList }" var="v" varStatus="status">
     	                            	<li class="<c:if test="${status.index eq 0}">active</c:if>" venderid="${v.ownerId }" venderName="${v.ownerName }" venderTel="${v.ownerTel }">
-											<input name="venderid" type="radio" <c:if test="${status.index eq 0}">checked</c:if>><label>${v.ownerName }</label><label>${v.ownerTel }</label>
+											<input class="checkInput" type="radio" <c:if test="${status.index eq 0}">checked</c:if>><label>${v.ownerName }</label><label>${v.ownerTel }</label>
 	                                	</li>
                                		</c:forEach>
                                 </ul>

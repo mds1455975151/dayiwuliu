@@ -1,4 +1,15 @@
 ;(function($,win){
+	$('.venderList li').off('click').on('click',function(){
+		$(this).siblings().removeClass('active').find('.checkInput').each(function(){
+			this.checked = false;
+		});
+		$(this).addClass('active').find('.checkInput')[0].checked = true;
+	});
+	$(".checkInput").change(function(){
+		$(this).closest('li').siblings().find('.checkInput').each(function(){
+			this.checked = false;
+		});
+	});
 	//返回
 	$(".backBtn").off('click').on('click',function(){
 		var operate = $('#operate').val();
@@ -86,9 +97,9 @@
 		var begintime = $('#begintime').val();
 		var endtime = $('#endtime').val();
 		var totalplanned = $('#totalplanned').val();
-		var venderid = $('ul.venderList li').attr('venderid');
-		var venderName = $('ul.venderList li').attr('venderName');
-		var venderTel = $('ul.venderList li').attr('venderTel');
+		var venderid = $('ul.venderList li.active').attr('venderid');
+		var venderName = $('ul.venderList li.active').attr('venderName');
+		var venderTel = $('ul.venderList li.active').attr('venderTel');
 		if(!$.trim(planid)){
 			alert("请刷新重试");return false;
 		}

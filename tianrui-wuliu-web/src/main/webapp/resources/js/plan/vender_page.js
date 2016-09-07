@@ -202,8 +202,13 @@ $(function(){
 				}
 			}
 			
+			var appointHtml = '';
+			if(item.isAppoint == '1'){
+				appointHtml = '<h5 class="plan_yunshu">运输服务单</h5>';
+			}
+			
 			hml +="<tr>"+
-					"<td ><a class='detailBtn' dataId='"+item.id+"' isAppoint='"+item.isAppoint+"'  target='_blank'>"+item.plancode+isfamily+"</a></td>"+
+					"<td ><a class='detailBtn' dataId='"+item.id+"' isAppoint='"+item.isAppoint+"'  target='_blank'>"+item.plancode+isfamily+"</a>"+appointHtml+"</td>"+
 					"<td title='"+item.startcity+"—>"+item.endcity+"'>"+item.startcity+"—>"+item.endcity+"</td>"+
 					"<td >"+item.cargoname+" </td>"+
 					"<td >"+item.vehicleownername+"</td>"+
