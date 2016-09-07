@@ -17,7 +17,9 @@ public class Constant {
     
     public final static int MAX_PAGESIZE = 200;
     
-    public final static String FILE_URL_PRE="http://www.appb2b.com/uploadimgs/";
+    //public final static String FILE_URL_PRE="http://www.appb2b.com/uploadimgs/";
+    
+    public final static String FILE_URL_PRE="http://www.trwl.com/img/";
     
     public final static String apiAuthKey ="!&@#2016#";
     
