@@ -362,7 +362,9 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
-				if( checkBillauthForCuser(db,req.getCurruId(),"owner")){
+				Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
+				Plan rootPlan = planMapper.selectRootPlanByPlanId(plan.getId());
+				if( checkBillauthForCuser(db,req.getCurruId(),"owner") || (StringUtils.equals(plan.getIsAppoint(), "1") && StringUtils.equals(rootPlan.getCreator(), req.getCurruId()))){
 					if( checkBillauthForstatus(db,"sign") ){
 						Bill update =new Bill();
 						update.setId(req.getId());
@@ -373,20 +375,36 @@ public class BillService implements IBillService{
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
-						Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
 						Plan planUpdate =new Plan();
-						planUpdate.setId(plan.getId());
-						if( plan.getCompleted() !=null ){
-							planUpdate.setCompleted(plan.getCompleted()+Double.valueOf(req.getWeight()));
+						if(StringUtils.equals(plan.getIsAppoint(), "1")){
+							planUpdate.setId(rootPlan.getId());
+							if( rootPlan.getCompleted() !=null ){
+								planUpdate.setCompleted(rootPlan.getCompleted()+Double.valueOf(req.getWeight()));
+							}else{
+								planUpdate.setCompleted(Double.valueOf(req.getWeight()));
+							}
+							//判断总计签收量 是否大于计划总量
+							if(rootPlan.getCompleted() != null){
+								if(rootPlan.getCompleted() >= rootPlan.getTotalplanned()){
+									PlanConfirmReq planReq = new PlanConfirmReq();
+									planReq.setId(rootPlan.getId());
+									cargoPlanService.completePlan(planReq);
+								}
+							}
 						}else{
-							planUpdate.setCompleted(Double.valueOf(req.getWeight()));
-						}
-						//判断总计签收量 是否大于计划总量
-						if(plan.getCompleted() != null){
-							if(plan.getCompleted() >= plan.getTotalplanned()){
-								PlanConfirmReq planReq = new PlanConfirmReq();
-								planReq.setId(plan.getId());
-								cargoPlanService.completePlan(planReq);
+							planUpdate.setId(plan.getId());
+							if( plan.getCompleted() !=null ){
+								planUpdate.setCompleted(plan.getCompleted()+Double.valueOf(req.getWeight()));
+							}else{
+								planUpdate.setCompleted(Double.valueOf(req.getWeight()));
+							}
+							//判断总计签收量 是否大于计划总量
+							if(plan.getCompleted() != null){
+								if(plan.getCompleted() >= plan.getTotalplanned()){
+									PlanConfirmReq planReq = new PlanConfirmReq();
+									planReq.setId(plan.getId());
+									cargoPlanService.completePlan(planReq);
+								}
 							}
 						}
 						planMapper.updateByPrimaryKeySelective(planUpdate);
@@ -676,7 +694,9 @@ public class BillService implements IBillService{
 								MemberVo receive =getMember(db.getVenderid());
 								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DISCHARGE, "vender");
 								//为货主发送
-								receive=getMember(db.getOwnerid());
+								
+								Plan plan = planMapper.selectRootPlanByPlanId(db.getPlanid());
+								receive=getMember(plan.getCreator());
 								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
 								rs.setCode("000000");
 								rs.setData("操作成功");

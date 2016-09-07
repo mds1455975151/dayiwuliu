@@ -60,4 +60,6 @@ public interface PlanMapper {
 	List<Plan> selectByEndTime(Long st);
 	
 	List<Plan> selectAppointByParams(String pid);
+	
+	Plan selectRootPlanByPlanId(String planid);
 }

@@ -754,4 +754,9 @@
   <select id="selectAppointByParams" resultMap="BaseResultMap" parameterType="string">
   	select * from wuliu_plan where pid=#{pid,jdbcType=VARCHAR} and `status` in (0,1,2,3);
   </select>
+  <select id="selectRootPlanByPlanId" resultType="com.tianrui.service.bean.Plan" parameterType="string">
+  	select <include refid="Base_Column_List" />
+    from wuliu_plan 
+    where planCode=(select planCode from wuliu_plan where id=#{planid,jdbcType=VARCHAR}) and ISNULL(pid);
+  </select>
 </mapper>

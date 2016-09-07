@@ -51,9 +51,10 @@ $(function(){
 	
 	//接受按钮点击
 	$(".detailDiv").on("click",".acceptBtn",function(){
+		var type = $('#billType').val();
 		$.ajax({
 			url:URL.acceptConfirmUrl,
-			data:{"id":$("#billId").val()},
+			data:{"id":$("#billId").val(),"type":type},
 			type : "post",
 			dataType:"json",
 			success:function(rs){
