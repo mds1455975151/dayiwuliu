@@ -83,7 +83,6 @@ function displayData(pageNo){
 							ownername = d[a].companyname;
 						}
 						hml += "<tr><td>"+c+"</td>"+
-							"<td>"+d[a].vehicleprefix+"</td>"+
 							"<td>"+d[a].vehicleprefix+d[a].vehicleno+"</td>"+
 							"<td>"+userName+"</td>"+
 							"<td>"+telphone+"</td>"+
@@ -91,7 +90,6 @@ function displayData(pageNo){
 							"<td>"+ownerphone+"</td>"+
 							"<td>"+type+"</td>"+
 							"<td>"+d[a].vehiweight+"</td>"+
-							"<td>"+d[a].vehilength+"</td>"+
 							"<td>"+sta+"</td>"+
 							"<td>"+d[a].createtimeStr+"</td>"+
 							"<td><span><a data-toggle='modal' onclick=\"details('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";

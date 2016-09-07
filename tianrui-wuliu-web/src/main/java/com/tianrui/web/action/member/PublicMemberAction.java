@@ -1,6 +1,8 @@
 package com.tianrui.web.action.member;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +32,7 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheModule;
+import com.tianrui.web.util.ExcilUtil;
 import com.tianrui.web.util.SessionManager;
 
 
@@ -110,6 +114,23 @@ public class PublicMemberAction {
 		return new ModelAndView("/member/resetPSu");
 	}
 	
+
+    /** 
+    * 导出Excel 
+    * @param model 
+    * @param projectId 
+    * @param request 
+    * @return 
+    */  
+    @RequestMapping(value="/doExcel",method=RequestMethod.GET)  
+    public ModelAndView toDcExcel(HttpServletRequest request){  
+    	Map map = new HashMap();
+    	map.put("list", null);
+    	ExcilUtil excilUtil = new ExcilUtil(); 
+      
+	   return new ModelAndView(excilUtil, map);   
+    }  
+   
 	/**
 	 * 
 	 * @描述:重置会员密码页面跳转
