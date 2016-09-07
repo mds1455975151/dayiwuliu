@@ -583,6 +583,8 @@ public class BillService implements IBillService{
 						req2.setId(db.getVehicleid());
 						req2.setBillstatus(""+BillStatusEnum.TRANSIT.getStatus());
 						memberVehicleService.updateVehiclebillStatus(req2);
+						rs.setCode("000000");
+						rs.setData("操作成功");
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
 					}
@@ -624,6 +626,8 @@ public class BillService implements IBillService{
 						req2.setId(db.getVehicleid());
 						req2.setBillstatus(""+BillStatusEnum.DISCHARGECARGO.getStatus());
 						memberVehicleService.updateVehiclebillStatus(req2);
+						rs.setCode("000000");
+						rs.setData("操作成功");
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
 					}
@@ -674,6 +678,8 @@ public class BillService implements IBillService{
 								//为货主发送
 								receive=getMember(db.getOwnerid());
 								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
+								rs.setCode("000000");
+								rs.setData("操作成功");
 							}else{
 								//榜单图片上传失败
 								rs.setErrorCode(ErrorCode.BILL_STATUS_IMG_UPLOAD);
@@ -730,6 +736,8 @@ public class BillService implements IBillService{
 							MemberVo currUser =getMember(req.getCurruId());
 							MemberVo receive =getMember(db.getVenderid());
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_PICKUP, "vender");
+							rs.setCode("000000");
+							rs.setData("操作成功");
 						}else{
 							rs.setErrorCode(ErrorCode.BILL_STATUS_VEHICLE_ONLYONE);
 						}

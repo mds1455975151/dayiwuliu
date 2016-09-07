@@ -175,6 +175,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
+						alert(rs.data);
 						$("#upbangdan").modal("hide");
 						$(".searchBtn").trigger("click");
 					}else{
@@ -252,6 +253,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
+						alert(rs.data);
 						$(".searchBtn").trigger("click");
 					}else{
 						alert(rs.error);
@@ -277,6 +279,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
+						alert(rs.data);
 						$(".searchBtn").trigger("click");
 					}else{
 						alert(rs.error);
@@ -296,6 +299,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
+						alert(rs.data);
 						$(".searchBtn").trigger("click");
 					}else{
 						alert(rs.error);
