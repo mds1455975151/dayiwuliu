@@ -98,6 +98,7 @@ public class AppMyVenderAction {
 	public AppResult searchMyVender(AppParam<MemberOwnerReq> appParam) throws Exception {
 		AppResult appResult = new AppResult();
 		appResult.setCode("000000");
+		Head head = appParam.getHead();
 		MemberOwnerReq req = appParam.getBody();
 		MemberReq re = new MemberReq();
 		re.setTelnum(req.getOwnerTel());
@@ -110,11 +111,6 @@ public class AppMyVenderAction {
 		} else {
 			// 用户ID
 			String id = member.getId();
-			// 根据创建人查询数据
-//			VehicleDriverReq vehiDriverReq = new VehicleDriverReq();
-//			// 创建人
-//			vehiDriverReq.setCreator(id);
-//			List<VehicleDriverResp> vehiDriverRespList = iVehicleDriverService.queryVehiDriverByCondition(vehiDriverReq);
 			//TODO
 			CapaReq creq = new CapaReq();
 			creq.setMemberid(id);
@@ -127,7 +123,7 @@ public class AppMyVenderAction {
 			} else {
 				MemberOwnerReq ownerReq = new MemberOwnerReq();
 				// 车主ID
-				ownerReq.setMemberId(req.getMemberId());
+				ownerReq.setMemberId(head.getId());
 				// 司机ID
 				ownerReq.setOwnerId(id);
 				// 根据车主ID与司机ID查询数据

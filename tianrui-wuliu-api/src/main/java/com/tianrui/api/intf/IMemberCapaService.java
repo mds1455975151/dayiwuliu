@@ -32,5 +32,5 @@ public interface IMemberCapaService {
 	/** 删除我的运力*/
 	Result delete(CapaReq req)throws Exception;
 	/** 新建计划查询运力*/
-	List<MemberCapaListResp> createBill(String planid)throws Exception;
+	List<MemberCapaListResp> createBill(CapaReq req)throws Exception;
 }

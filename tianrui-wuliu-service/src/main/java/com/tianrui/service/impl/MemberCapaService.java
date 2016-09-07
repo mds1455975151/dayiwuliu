@@ -167,10 +167,10 @@ public class MemberCapaService implements IMemberCapaService{
 	}
 
 	@Override
-	public List<MemberCapaListResp> createBill(String planid) throws Exception {
-		Plan plan =planMapper.selectByPrimaryKey(planid);
+	public List<MemberCapaListResp> createBill(CapaReq req) throws Exception {
 		MemberCapa capa = new MemberCapa();
-		capa.setMemberid(plan.getVehicleownerid());
+		capa.setMemberid(req.getMemberid());
+		capa.setSearch(req.getSearch());
 		capa.setType("capa");
 		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
 		return copyMembercapa(list);

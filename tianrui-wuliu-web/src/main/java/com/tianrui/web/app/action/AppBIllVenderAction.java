@@ -19,6 +19,7 @@ import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.bill.WaybillSaveReq;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
@@ -26,6 +27,7 @@ import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
@@ -209,14 +211,16 @@ public class AppBIllVenderAction {
 	}
 	//查询车辆
 	@RequestMapping(value="/queryVehicle",method=RequestMethod.POST)
-	@ApiParamRawType(WaybillQueryReq.class)
+	@ApiParamRawType(CapaReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult queryVehicle(AppParam<WaybillQueryReq> appParam) throws Exception{
+	public AppResult queryVehicle(AppParam<CapaReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
 		//获取当前用户
-		//TODO
-		List<MemberCapaListResp> list = memberCapaService.createBill(appParam.getBody().getPlanId());
+		Head head = appParam.getHead();
+		CapaReq req = appParam.getBody();
+		req.setMemberid(head.getId());
+		List<MemberCapaListResp> list = memberCapaService.createBill(req);
 //		List<BillVehicleResp> list =billService.queryVehicle(appParam.getBody().getPlanId());
 		List<BillVehicleResp> resp = new ArrayList<BillVehicleResp>();
 		for(MemberCapaListResp mc : list){

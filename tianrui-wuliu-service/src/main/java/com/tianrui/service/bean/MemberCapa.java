@@ -6,6 +6,8 @@ public class MemberCapa {
     private String memberid;
     //查询类型
     private String type;
+    
+    private String search;
 
     private String vehicleno;
     private String drivername;
@@ -117,7 +119,15 @@ public class MemberCapa {
         this.ownerid = ownerid == null ? null : ownerid.trim();
     }
 
-    public String getStatus() {
+    public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getStatus() {
         return status;
     }
 

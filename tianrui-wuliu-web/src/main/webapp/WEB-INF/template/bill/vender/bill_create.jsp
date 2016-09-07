@@ -131,12 +131,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="bill_fabu">
                     <label> 车辆选择：</label>
                     <div class="bill_fabu_cont">
-<!--                         <div class="bill_search">
-                            <input type="text"  placeholder="车牌号/司机姓名/司机电话">
-                            <button class="btn btnyello">搜索</button>
-                        </div> -->
+                        <div class="bill_search">
+                            <input type="text" id="search"  placeholder="车牌号/司机姓名/司机电话">
+                            <button id="searchVehicle" class="btn btnyello">搜索</button>
+                        </div> 
                         <div class="bill_cllist">
-                            <ul>
+                            <ul id="capa">
                             	<c:forEach var="item" items="${vlist}" > 
                             		<li>
 	                                    <input type="checkbox" dataId="${item.id }" class="checkInput"  >

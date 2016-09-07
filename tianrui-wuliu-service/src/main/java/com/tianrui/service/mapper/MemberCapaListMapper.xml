@@ -25,6 +25,11 @@
 		LEFT JOIN member_info f ON f.id = vd.creator
 		LEFT JOIN wuliu_member_vehicle v ON v.id = vd.vehicleid 
 	<where>
+		<if test="search != null and search != ''">
+			and (vd.vehicleno like "%" #{search,jdbcType=VARCHAR} "%"
+			or vd.drivername like "%" #{search,jdbcType=VARCHAR} "%"
+			or vd.drivertel like "%" #{search,jdbcType=VARCHAR} "%")
+		</if>
 		<if test="id != null and id!= ''">
 			and vd.id = #{id,jdbcType=VARCHAR}
 		</if>
@@ -68,11 +73,17 @@
 		LEFT JOIN member_info f ON f.id = c.ownerid
 		LEFT JOIN wuliu_vehicle_driver d ON c.vehicleid = d.vehicleid
   	<where>
+  		<if test="search != null and search != ''">
+			and (d.vehicleno like "%" #{search,jdbcType=VARCHAR} "%"
+			or d.drivername like "%" #{search,jdbcType=VARCHAR} "%"
+			or d.drivertel like "%" #{search,jdbcType=VARCHAR} "%")
+		</if>
   		<if test="id != null and id!= ''">
 			and c.id = #{id,jdbcType=VARCHAR}
 		</if>
   		<if test="type == 'capa'">
   			and d.vehicleid is not null
+  			and c.status = 1
   		</if>
     	<if test="vehicleno != null and vehicleno != ''">
     		and d.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
@@ -108,9 +119,23 @@
 		LEFT JOIN member_info f ON f.id = vd.creator
 		LEFT JOIN wuliu_member_vehicle v ON v.id = vd.vehicleid 
 	<where>
-    	<if test="id != null and id!= ''">
+    	<if test="search != null and search != ''">
+			and (vd.vehicleno like "%" #{search,jdbcType=VARCHAR} "%"
+			or vd.drivername like "%" #{search,jdbcType=VARCHAR} "%"
+			or vd.drivertel like "%" #{search,jdbcType=VARCHAR} "%")
+		</if>
+		<if test="id != null and id!= ''">
 			and vd.id = #{id,jdbcType=VARCHAR}
 		</if>
+    	<if test="vehicleno != null and vehicleno != ''">
+    		and vd.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="drivername != null and drivername != ''">
+    		and vd.drivername like "%" #{drivername,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="drivertel != null and drivertel != ''">
+    		and vd.drivertel like "%" #{drivertel,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="memberid != null and memberid != ''">
     		and vd.creator = #{memberid,jdbcType=VARCHAR}
     	</if>
@@ -129,9 +154,27 @@
 		LEFT JOIN member_info f ON f.id = c.ownerid
 		LEFT JOIN wuliu_vehicle_driver d ON c.vehicleid = d.vehicleid
   	<where>
+  		<if test="search != null and search != ''">
+			and (d.vehicleno like "%" #{search,jdbcType=VARCHAR} "%"
+			or d.drivername like "%" #{search,jdbcType=VARCHAR} "%"
+			or d.drivertel like "%" #{search,jdbcType=VARCHAR} "%")
+		</if>
   		<if test="id != null and id!= ''">
 			and c.id = #{id,jdbcType=VARCHAR}
 		</if>
+  		<if test="type == 'capa'">
+  			and d.vehicleid is not null
+  			and c.status = 1
+  		</if>
+    	<if test="vehicleno != null and vehicleno != ''">
+    		and d.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="drivername != null and drivername != ''">
+    		and d.drivername like "%" #{drivername,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="drivertel != null and drivertel != ''">
+    		and d.drivertel like "%" #{drivertel,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="memberid != null and memberid != ''">
     		and c.memberid = #{memberid,jdbcType=VARCHAR}
     	</if>
@@ -140,39 +183,6 @@
     	</if>
     	<if test="status != null and status != ''">
     		and c.status = #{status,jdbcType=VARCHAR}
-    	</if>
-    </where>
-  </select>
-  <select id="selectByCreateBill" resultType="com.tianrui.service.bean.MemberCapaList" 
-  		parameterType="com.tianrui.service.bean.MemberCapa" >
-	SELECT
-		c.id id,
-		d.drivername drivername,
-		d.drivertel drivertel,
-		v.vehicletypename vehicletype,
-	  	f.username username,
-		f.telphone telphone,
-		f.companyname companyname,
-		f.companytel companytel,
-		v.vehilength length,
-		v.vehiweight weight,
-		v.vehicleprefix vehfix,
-		v.vehicleno vehno,
-		v.billstatus billstatus,
-		c.status status
-	FROM
-		wuliu_member_capa c
-		LEFT JOIN wuliu_member_vehicle v ON c.vehicleid = v.id
-		LEFT JOIN member_info f ON f.id = c.ownerid
-		LEFT JOIN wuliu_vehicle_driver d ON c.vehicleid = d.vehicleid
-  	<where>
-    	<if test="memberid != null and memberid != ''">
-    		and c.memberid = #{memberid,jdbcType=VARCHAR}
-    		and d.vehicleid IS NOT NULL
-    		and c.status = 1
-    	</if>
-    	<if test="vehicleid != null and vehicleid != ''">
-    		and c.vehicleid = #{vehicleid,jdbcType=VARCHAR}
     	</if>
     </where>
   </select>
