@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>计价单位</th>
-                                <th> 含税单价</th>
+                                <th>含税单价</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--发布对象end-->
                
                 <div class="goods_foot">
-                    <button class="btn btnyello mr20 submitBtn"  type="button">返回</button>
+                    <button class="btn btnyello mr20 submitBtn"  type="button" isAppoint='${plan.isAppoint }'>返回</button>
                 </div>
             </div>
             <!-- 货源计划内容end -->
@@ -217,7 +217,13 @@ $(function(){
 	//左侧选中
 	$("#planvender").addClass("selected");
 	$(".submitBtn").click(function(){
-		window.location.href = "/trwuliu/planvender/main";
+		var isAppoint = $(this).attr('isAppoint');
+		if(isAppoint == 0){
+			window.location.href = "/trwuliu/planvender/main";
+		}
+		if(isAppoint == 1){
+			window.location.href = "/trwuliu/planAppoint/main";
+		}
 	});
 });
 </script>

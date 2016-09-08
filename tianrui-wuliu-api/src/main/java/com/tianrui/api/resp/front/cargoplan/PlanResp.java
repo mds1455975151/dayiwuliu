@@ -88,6 +88,9 @@ public class PlanResp extends BaseResp{
     private String ownerName;
     private Double tallage;
     private Double overweight;
+    //是否是委派计划（0：否，1：是）
+    private String isAppoint;
+    
 	public String getId() {
 		return id;
 	}
@@ -387,6 +390,12 @@ public class PlanResp extends BaseResp{
 	}
 	public void setOverweight(Double overweight) {
 		this.overweight = overweight;
+	}
+	public String getIsAppoint() {
+		return isAppoint;
+	}
+	public void setIsAppoint(String isAppoint) {
+		this.isAppoint = isAppoint;
 	}
 	
 }

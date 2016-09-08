@@ -21,6 +21,7 @@
 		c. STATUS DESC3,
 		r.routename routeid,
 		r. STATUS DESC4,
+		i.desc1 desc1,
 		m.measureName measure,
 		(select count(*) from wuliu_plan p where p.freightid = f.id) count
 	FROM
@@ -109,6 +110,7 @@
       type = #{freighttype,jdbcType=VARCHAR}
     where freightid = #{freightid,jdbcType=VARCHAR}
     	and status in (0,2)
+    	and createtime <![CDATA[>]]> #{taketime,jdbcType=BIGINT}
   </update>
   
   <update id="uptBilForFreight" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
@@ -118,6 +120,7 @@
     where 
     	planid IN (SELECT id FROM wuliu_plan WHERE freightid = #{freightid,jdbcType=VARCHAR})
     	and status in (0,1,2,3,4)
+    	and createtime <![CDATA[>]]> #{taketime,jdbcType=BIGINT}
   </update>
   
 </mapper>

@@ -47,6 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--个人中心右侧搜索框end-->
             <div class="plan_fege">  </div>
             <!--计划模板表格begin-->
+             <div id="emptyCont" style="display: none;"></div>
              <div class="planfabu " id="dateContent" >
                  <table class="table table-hover" >
                      <thead>

@@ -19,6 +19,12 @@ public class MyVehicle{
 	 * 车主id
 	 */
 	private String memberid;
+	
+	
+	private String ownername;
+	private String ownerphone;
+	private String companyname;
+	private String companytel;
 	/**
 	 * 车牌号前缀
 	 */
@@ -174,6 +180,38 @@ public class MyVehicle{
 	public String getVehiheadimgpath() {
 		return vehiheadimgpath;
 	}
+	public String getOwnername() {
+		return ownername;
+	}
+
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
+	}
+
+	public String getOwnerphone() {
+		return ownerphone;
+	}
+
+	public void setOwnerphone(String ownerphone) {
+		this.ownerphone = ownerphone;
+	}
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
+	public String getCompanytel() {
+		return companytel;
+	}
+
+	public void setCompanytel(String companytel) {
+		this.companytel = companytel;
+	}
+
 	public void setVehiheadimgpath(String vehiheadimgpath) {
 		this.vehiheadimgpath = vehiheadimgpath;
 	}

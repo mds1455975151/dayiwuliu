@@ -15,10 +15,23 @@
 		mv.vehiheadimgpath vehiheadimgpath,
 		mv.createtime createtime,
 		mv.vehiOwnerName userName,
-		mv.vehiOwnerTel telphone
+		mv.vehiOwnerTel telphone,
+		i.username ownername,
+		i.telphone ownerphone,
+		i.companyname companyname,
+		i.companytel companytel
 	FROM
 		wuliu_member_vehicle mv
+		LEFT JOIN member_info i ON mv.memberid = i.id
     <where> 1=1
+ 	  <if test="ownername != null  and ownername !='' " >
+       and (i.username like "%" #{ownername,jdbcType=VARCHAR} "%"
+       or i.companyname like "%" #{ownername,jdbcType=VARCHAR} "%")
+      </if>
+ 	  <if test="ownerphone != null  and ownerphone !='' " >
+       and (i.telphone like "%" #{ownerphone,jdbcType=VARCHAR} "%"
+       or i.companytel like "%" #{ownerphone,jdbcType=VARCHAR} "%")
+      </if>
  	  <if test="vehicleprefix != null  and vehicleprefix !='' " >
        and mv.vehicleprefix like "%" #{vehicleprefix,jdbcType=VARCHAR} "%"
       </if>
@@ -43,7 +56,16 @@
 		count(*)
 	FROM
 		wuliu_member_vehicle mv
+		LEFT JOIN member_info i ON mv.memberid = i.id
     <where> 1=1
+ 	  <if test="ownername != null  and ownername !='' " >
+       and (i.username like "%" #{ownername,jdbcType=VARCHAR} "%"
+       or i.companyname like "%" #{ownername,jdbcType=VARCHAR} "%")
+      </if>
+ 	  <if test="ownerphone != null  and ownerphone !='' " >
+       and (i.telphone like "%" #{ownerphone,jdbcType=VARCHAR} "%"
+       or i.companytel like "%" #{ownerphone,jdbcType=VARCHAR} "%")
+      </if>
  	  <if test="vehicleprefix != null  and vehicleprefix !='' " >
        and mv.vehicleprefix like "%" #{vehicleprefix,jdbcType=VARCHAR} "%"
       </if>

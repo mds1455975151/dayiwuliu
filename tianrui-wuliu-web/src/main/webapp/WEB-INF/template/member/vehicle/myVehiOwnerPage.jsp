@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	    <title>天瑞物流平台-我的车主</title>
+	    <title>天瑞物流平台-二级运营商</title>
 	    <meta name="keywords" content=" 天瑞"/>
 	    <meta name="description" content="">
 	    <meta name="author" content="">
@@ -31,12 +31,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <!--个人中心右侧begin-->
 		            <div class="rz_right">
 		                <div class="car_title bgblue">
-		                    <h2>我的车主</h2><a href="${path}/trwuliu/Member/myVehiOwner/addVehiOwnerPage"><span>添加车主</span></a>
+		                    <h2>二级运营商</h2><a href="${path}/trwuliu/Member/myVehiOwner/addVehiOwnerPage"><span>添加车主</span></a>
 		                </div>
 		                <!--个人中心右侧搜索框begin-->
 		                <div class="plan_search">
 		                    <input type="text" placeholder="请出入车主姓名或电话" id="searchText">
-		                    <button type="submit" class="btn btnyello" id="vehiOwner_search">搜索</button>
+		                    <button type="submit" class="btn btnyello" onclick="vehiOwnerSearch(0)">搜索</button>
 		                </div>
 		                <!--个人中心右侧搜索框end-->
 		                <div class="plan_fege"></div>
@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        </tbody>
 		                    </table>
 		                    <div class="goods_more">
-		                        <h4>查看更多</h4>
+		                        <h4 onclick = "addpage()">查看更多</h4>
 		                    </div>
 		                </div>
 		              </div>

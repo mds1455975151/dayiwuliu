@@ -1,9 +1,5 @@
 package com.tianrui.api.req.front.cargoplan;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.tianrui.api.req.BaseReq;
 
 /**
@@ -27,6 +23,11 @@ public class PlanQueryReq extends BaseReq{
     private String ownerId;
     //车主
     private String venderId;
+    //是否为委派计划（0：否，1：是）
+    private String isAppoint;
+    
+    private String searchParam;
+    
 	public String getId() {
 		return id;
 	}
@@ -51,7 +52,16 @@ public class PlanQueryReq extends BaseReq{
 	public void setVenderId(String venderId) {
 		this.venderId = venderId;
 	}
-    
-    
-   
+	public String getIsAppoint() {
+		return isAppoint;
+	}
+	public void setIsAppoint(String isAppoint) {
+		this.isAppoint = isAppoint;
+	}
+	public String getSearchParam() {
+		return searchParam;
+	}
+	public void setSearchParam(String searchParam) {
+		this.searchParam = searchParam;
+	}
 }

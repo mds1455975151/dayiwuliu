@@ -20,6 +20,11 @@ public class MyVehicleReq extends BaseReq{
 	 * 车牌号前缀
 	 */
 	private String vehicleprefix;
+
+	private String ownername;
+	private String ownerphone;
+	private String companyname;
+	private String companytel;
 	/**
 	 * 车牌号
 	 */
@@ -118,6 +123,30 @@ public class MyVehicleReq extends BaseReq{
 	}
 	public Long getCreatetime() {
 		return createtime;
+	}
+	public String getOwnername() {
+		return ownername;
+	}
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
+	}
+	public String getOwnerphone() {
+		return ownerphone;
+	}
+	public void setOwnerphone(String ownerphone) {
+		this.ownerphone = ownerphone;
+	}
+	public String getCompanyname() {
+		return companyname;
+	}
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+	public String getCompanytel() {
+		return companytel;
+	}
+	public void setCompanytel(String companytel) {
+		this.companytel = companytel;
 	}
 	public void setCreatetime(Long createtime) {
 		this.createtime = createtime;

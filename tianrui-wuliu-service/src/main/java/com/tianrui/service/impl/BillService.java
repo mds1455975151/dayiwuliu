@@ -56,10 +56,13 @@ import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
+import com.tianrui.service.bean.MemberCapa;
+import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
@@ -116,6 +119,8 @@ public class BillService implements IBillService{
 	OwnerDriverMapper ownerDriverMapper;
 	@Autowired
 	SystemMemberInfoMapper systemMemberInfoMapper;
+	@Autowired
+	MemberCapaMapper memberCapaMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -124,6 +129,11 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getPlanId()) ){
 			//获取车辆驾驶员信息
 			List<VehicleDriverVO> vehicleDrivers =getVehicleDriver(req.getVehicleDriverIds());
+			if(vehicleDrivers.size()==0){
+				rs.setCode("1");
+				rs.setError("上传数据有误");
+				return rs;
+			}
 			if( CollectionUtils.isNotEmpty(vehicleDrivers) ){
 				bills =new ArrayList<Bill>();
 				Plan plan =planMapper.selectByPrimaryKey(req.getPlanId());
@@ -352,7 +362,9 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
-				if( checkBillauthForCuser(db,req.getCurruId(),"owner")){
+				Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
+				Plan rootPlan = planMapper.selectRootPlanByPlanId(plan.getId());
+				if( checkBillauthForCuser(db,req.getCurruId(),"owner") || (StringUtils.equals(plan.getIsAppoint(), "1") && StringUtils.equals(rootPlan.getCreator(), req.getCurruId()))){
 					if( checkBillauthForstatus(db,"sign") ){
 						Bill update =new Bill();
 						update.setId(req.getId());
@@ -363,20 +375,36 @@ public class BillService implements IBillService{
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
-						Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
 						Plan planUpdate =new Plan();
-						planUpdate.setId(plan.getId());
-						if( plan.getCompleted() !=null ){
-							planUpdate.setCompleted(plan.getCompleted()+Double.valueOf(req.getWeight()));
+						if(StringUtils.equals(plan.getIsAppoint(), "1")){
+							planUpdate.setId(rootPlan.getId());
+							if( rootPlan.getCompleted() !=null ){
+								planUpdate.setCompleted(rootPlan.getCompleted()+Double.valueOf(req.getWeight()));
+							}else{
+								planUpdate.setCompleted(Double.valueOf(req.getWeight()));
+							}
+							//判断总计签收量 是否大于计划总量
+							if(rootPlan.getCompleted() != null){
+								if(rootPlan.getCompleted() >= rootPlan.getTotalplanned()){
+									PlanConfirmReq planReq = new PlanConfirmReq();
+									planReq.setId(rootPlan.getId());
+									cargoPlanService.completePlan(planReq);
+								}
+							}
 						}else{
-							planUpdate.setCompleted(Double.valueOf(req.getWeight()));
-						}
-						//判断总计签收量 是否大于计划总量
-						if(plan.getCompleted() != null){
-							if(plan.getCompleted() >= plan.getTotalplanned()){
-								PlanConfirmReq planReq = new PlanConfirmReq();
-								planReq.setId(plan.getId());
-								cargoPlanService.completePlan(planReq);
+							planUpdate.setId(plan.getId());
+							if( plan.getCompleted() !=null ){
+								planUpdate.setCompleted(plan.getCompleted()+Double.valueOf(req.getWeight()));
+							}else{
+								planUpdate.setCompleted(Double.valueOf(req.getWeight()));
+							}
+							//判断总计签收量 是否大于计划总量
+							if(plan.getCompleted() != null){
+								if(plan.getCompleted() >= plan.getTotalplanned()){
+									PlanConfirmReq planReq = new PlanConfirmReq();
+									planReq.setId(plan.getId());
+									cargoPlanService.completePlan(planReq);
+								}
 							}
 						}
 						planMapper.updateByPrimaryKeySelective(planUpdate);
@@ -573,6 +601,8 @@ public class BillService implements IBillService{
 						req2.setId(db.getVehicleid());
 						req2.setBillstatus(""+BillStatusEnum.TRANSIT.getStatus());
 						memberVehicleService.updateVehiclebillStatus(req2);
+						rs.setCode("000000");
+						rs.setData("操作成功");
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
 					}
@@ -614,6 +644,8 @@ public class BillService implements IBillService{
 						req2.setId(db.getVehicleid());
 						req2.setBillstatus(""+BillStatusEnum.DISCHARGECARGO.getStatus());
 						memberVehicleService.updateVehiclebillStatus(req2);
+						rs.setCode("000000");
+						rs.setData("操作成功");
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
 					}
@@ -662,8 +694,12 @@ public class BillService implements IBillService{
 								MemberVo receive =getMember(db.getVenderid());
 								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DISCHARGE, "vender");
 								//为货主发送
-								receive=getMember(db.getOwnerid());
+								
+								Plan plan = planMapper.selectRootPlanByPlanId(db.getPlanid());
+								receive=getMember(plan.getCreator());
 								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
+								rs.setCode("000000");
+								rs.setData("操作成功");
 							}else{
 								//榜单图片上传失败
 								rs.setErrorCode(ErrorCode.BILL_STATUS_IMG_UPLOAD);
@@ -720,6 +756,8 @@ public class BillService implements IBillService{
 							MemberVo currUser =getMember(req.getCurruId());
 							MemberVo receive =getMember(db.getVenderid());
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_PICKUP, "vender");
+							rs.setCode("000000");
+							rs.setData("操作成功");
 						}else{
 							rs.setErrorCode(ErrorCode.BILL_STATUS_VEHICLE_ONLYONE);
 						}
@@ -783,15 +821,7 @@ public class BillService implements IBillService{
 			if(fileFreight != null){
 				resp.setTallage(fileFreight.getTallage());
 			}
-			double alreadyTransport = 0;
-			List<Bill> list = billMapper.selectByPlanId(plan.getId());
-			if(list != null){
-				for(int i=0;i<list.size();i++){
-					Bill b = list.get(i);
-					alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-				}	
-			}
-			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
+			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
 		return resp;
 	}
@@ -940,16 +970,9 @@ public class BillService implements IBillService{
 				if(fileFreight != null){
 					resp.setTallage(fileFreight.getTallage());
 				}
-				double alreadyTransport = 0;
-				List<Bill> list = billMapper.selectByPlanId(plan.getId());
-				if(list != null){
-					for(int i=0;i<list.size();i++){
-						Bill b = list.get(i);
-						alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-					}	
-				}
-				resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
+				resp.setOverweight(inspectTraffic(pid));
 			}
+			
 		}
 		return resp;
 	}
@@ -996,15 +1019,20 @@ public class BillService implements IBillService{
 			String[]  idarr =ids.split(";");
 			for(String id :idarr ){
 				if( StringUtils.isNotBlank(id) ){
-					VehicleDriver db =vehicleDriverMapper.selectByPrimaryKey(id.split(",")[0]);
-					if( db!=null ){
+
+//					VehicleDriver db =vehicleDriverMapper.selectByPrimaryKey(id.split(",")[0]);
+					//查询我的运力
+					MemberCapa capa = new MemberCapa();
+					capa.setId(id.split(",")[0]);
+					List<MemberCapaList> cp = memberCapaMapper.selectByCondition(capa);
+					if( cp.size()==1 ){
 						VehicleDriverVO vo =new VehicleDriverVO();
-						vo.setDriverId(db.getDriverid());
-						vo.setDriverName(db.getDrivername());
-						vo.setDriverTel(db.getDrivertel());
-						vo.setVehicleId(db.getVehicleid());
-						vo.setVehicleno(db.getVehicleno());
-						vo.setVehicleTypeName(db.getVehicletypename());
+						vo.setDriverId(cp.get(0).getDriverid());
+						vo.setDriverName(cp.get(0).getDrivername());
+						vo.setDriverTel(cp.get(0).getDrivertel());
+						vo.setVehicleId(cp.get(0).getVehicleid());
+						vo.setVehicleno(cp.get(0).getVehicleno());
+						vo.setVehicleTypeName(cp.get(0).getVehicletype());
 						vo.setOvernumber(id.split(",")[1]);
 //						vo.setOvernumber("1");
 						list.add(vo);
@@ -1295,5 +1323,23 @@ public class BillService implements IBillService{
 		}
 		return resp;
 	}
-	
+	//计划剩余运输量
+	private Double inspectTraffic(String planid) {
+		double overweight = 0D;
+		Plan  plan = planMapper.selectByPrimaryKey(planid);
+		overweight = plan.getTotalplanned();
+		List<Plan> listPlanAppoint = planMapper.selectAppointByParams(plan.getId());
+		if(listPlanAppoint != null){
+			for(Plan p : listPlanAppoint){
+				overweight -= p.getTotalplanned();
+			}
+		}
+		List<Bill> listBill = billMapper.selectByPlanId(plan.getId());
+		if(listBill != null){
+			for(Bill b : listBill){
+				overweight -= (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+			}	
+		}
+		return overweight;
+	}
 }

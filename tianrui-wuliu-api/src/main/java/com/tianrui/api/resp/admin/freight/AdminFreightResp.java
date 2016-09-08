@@ -72,7 +72,7 @@ public class AdminFreightResp extends BaseResp{
     /** 税率*/
     private Double tallage;
     private Double tallageInfo;
-    
+    /** 调价原因*/
     private String desc1;
     
     /**

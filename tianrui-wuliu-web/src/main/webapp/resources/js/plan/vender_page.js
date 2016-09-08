@@ -10,7 +10,9 @@ $(function(){
 			del:	"/trwuliu/planvender/delete",
 			accept:	"/trwuliu/planvender/accept",
 			detail:	"/trwuliu/planvender/detail",
-			billCreate:"/trwuliu/billvender/addView"
+			billCreate:"/trwuliu/billvender/addView",
+			billAppoint:"/trwuliu/planAppoint/initAppointPage",
+			billAppointDetail:"/trwuliu/planAppoint/detail"
 	};
 
 	//查询按钮点击
@@ -70,12 +72,24 @@ $(function(){
 	//查看计划绑定事件
 	$("#planlist").on("click",".detailBtn",function(){
 		var dId= $(this).attr("dataId");
-		window.location.href=PlanUrl.detail+"?id="+dId;
+		debugger;
+		var isAppoint = $(this).attr('isAppoint');
+		if(isAppoint == 0){
+			window.location.href=PlanUrl.detail+"?id="+dId;
+		}
+		if(isAppoint == 1){
+			window.location.href=PlanUrl.billAppointDetail+"?id="+dId;
+		}
 	});
 	//生成运单
 	$("#planlist").on("click",".createPlanBtn",function(){
 		var dId= $(this).attr("dataId");
 		window.location.href=PlanUrl.billCreate+"?planId="+dId;
+	});
+	//委派计划
+	$("#planlist").on("click",".appointPlanBtn",function(){
+		var dId= $(this).attr("dataId");
+		window.location.href=PlanUrl.billAppoint+"?id="+dId;
 	});
 	//删除计划绑定事件
 	$("#planlist").on("click",".deleteBtn",function(){
@@ -117,7 +131,7 @@ $(function(){
 		
 		$.ajax({
 			url:PlanUrl.page,
-			data:{"pageNo":pageNo,"key":$("#search_v").val()},
+			data:{"pageNo":pageNo,"searchParam":$("#search_v").val()},
 			type:"post",
 			success: function(rs) {
 				if(rs.code!="000000"){
@@ -133,9 +147,12 @@ $(function(){
 						hml+= '<img src="'+trImgRoot+'/none_pro.png">';
 						hml+= '<h3>未发现承接的货运计划！</h3>';
 						hml+= '</div>';
-						document.getElementById("dateContent").innerHTML = hml;
+						$('#emptyCont').html(hml).show();
+						$('#dateContent').hide();
 					}else{
 						$(".pageNone").hide();
+						$('#dateContent').show();
+						$('#emptyCont').hide();
 					}
 					//是否显示更多
 					if( data.length ==10 ){
@@ -172,20 +189,26 @@ $(function(){
 				if(item.status=="0"){
 					sta="待接单";
 					hm = "<button class='btn btnblue acceptBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"' >接受</button>"+
-					 "<button class='btn btnyello refuseBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"' >拒绝</button>"
+					 "<button class='btn btnyello refuseBtn ml5' dataId='"+item.id+"' dataCode='"+item.plancode+"' >拒绝</button>"
 				}else if(item.status=="1"){
 					sta="已拒绝";
 					hm ="<button  class='btn btnyello deleteBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
 				}else if(item.status=="2"){
 					sta="执行中";
-					hm = "<button class='btn btnblue createPlanBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>生成运单</button>";
+					hm = "<button class='btn btnblue createPlanBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>直接派车</button>"+
+						 "<button class='btn btnblue appointPlanBtn ml5' dataId='"+item.id+"' dataCode='"+item.plancode+"'>委派车主</button>";
 				}else if(item.status=="3"){
 					sta="已完成";
 				}
 			}
 			
+			var appointHtml = '';
+			if(item.isAppoint == '1'){
+				appointHtml = '<h5 class="plan_yunshu">运输服务单</h5>';
+			}
+			
 			hml +="<tr>"+
-					"<td ><a class='detailBtn' dataId='"+item.id+"'  target='_blank'>"+item.plancode+isfamily+"</a></td>"+
+					"<td ><a class='detailBtn' dataId='"+item.id+"' isAppoint='"+item.isAppoint+"'  target='_blank'>"+item.plancode+isfamily+"</a>"+appointHtml+"</td>"+
 					"<td title='"+item.startcity+"—>"+item.endcity+"'>"+item.startcity+"—>"+item.endcity+"</td>"+
 					"<td >"+item.cargoname+" </td>"+
 					"<td >"+item.vehicleownername+"</td>"+

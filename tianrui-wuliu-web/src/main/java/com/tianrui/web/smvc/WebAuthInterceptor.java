@@ -11,10 +11,12 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
-import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.impl.MemberCapaService;
 import com.tianrui.service.impl.VehicleDriverService;
 import com.tianrui.web.util.SessionManager;
 import com.tianrui.web.util.WebUtils;
@@ -92,9 +94,14 @@ public class WebAuthInterceptor implements HandlerInterceptor{
 				//是否是车主
 			}else if(StringUtils.equals(authType.autyType(),Constant.AUTHCHECK_VEHICLE_OWNER )){
 				WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-				IVehicleDriverService vehicleDriverService=(VehicleDriverService)wac.getBean("vehicleDriverService");
-				Boolean vflag =  vehicleDriverService.getIFvehicleOwer(member.getId());
-				if(!vflag){
+//				IVehicleDriverService vehicleDriverService=(VehicleDriverService)wac.getBean("vehicleDriverService");
+//				Boolean vflag =  vehicleDriverService.getIFvehicleOwer(member.getId());
+				
+				IMemberCapaService memberCapaService = (MemberCapaService)wac.getBean("memberCapaService");
+				CapaReq req = new CapaReq();
+				req.setMemberid(member.getId());
+				long a = memberCapaService.indexCount(req);
+				if(a == 0){
 					response.sendRedirect("/trwuliu/common/certification?type=4"); 
 					flag =false;
 				}

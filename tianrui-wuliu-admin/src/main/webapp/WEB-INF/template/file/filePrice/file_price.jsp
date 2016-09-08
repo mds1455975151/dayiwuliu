@@ -247,6 +247,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label>生效时间：</label>
                         <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
                     </div>
+          			<div class="user_shenno">
+	                    <label><i style="color: #ff2f00;">*</i>调价原因：</label>
+			            <input type="text" name="desc1">
+          			</div>
                 </div>
                 <div class="clear"></div>
             </div>

@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.bill.WaybillSaveReq;
-import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
-import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
@@ -49,7 +50,8 @@ public class BillVenderAction {
 	BillService billService;
 	@Autowired
 	IVehicleDriverService vehicleDriverService;
-	
+	@Autowired
+	IMemberCapaService memberCapaService;
 	
 	@RequestMapping("/main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_VEHICLE_OWNER)
@@ -70,11 +72,22 @@ public class BillVenderAction {
 		
 		//车辆列表
 		//MemberResp currUser =SessionManager.getSessionMember(request);
-		if( plan !=null && StringUtils.isNotBlank(plan.getVender())){
-			List<BillVehicleResp> list =billService.queryVehicle(planId);
-			view.addObject("vlist", list);
-		}
+//		if( plan !=null && StringUtils.isNotBlank(plan.getVender())){
+//			List<BillVehicleResp> list =billService.queryVehicle(planId);
+//			view.addObject("vlist", list);
+//			view.addObject("vlist", memberCapaService.createBill(planId));
+//		}
 		return view;
+	}
+	@RequestMapping("/searchCapa")
+	@ResponseBody
+	public Result searchCapa(CapaReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setMemberid(vo.getId());
+		List<MemberCapaListResp> list = memberCapaService.createBill(req);
+		rs.setData(list);
+		return rs;
 	}
 	
 	@RequestMapping("/updateView")

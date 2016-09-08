@@ -10,10 +10,13 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IMemberOwnerService;
 import com.tianrui.api.intf.IMemberPushService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.IOwnerDriverService;
+import com.tianrui.api.intf.ITransferService;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.message.MessageQueryReq;
 import com.tianrui.api.req.front.message.MessageReplayReq;
 import com.tianrui.api.req.front.message.MessageReq;
@@ -42,7 +45,9 @@ public class MessageService implements IMessageService {
 	IMemberPushService pushService;
 	
 	@Autowired
-	TransferService transferService;
+	ITransferService transferService;
+	@Autowired
+	IMemberCapaService memberCapaService;
 	
 	
 	
@@ -152,12 +157,43 @@ public class MessageService implements IMessageService {
 				//同意交班	
 				}else if( db.getCode().equals("221") && StringUtils.isNotBlank(req.getIsreply())){
 					rs = driverTransfer(db, req.getIsreply());
+				//同意运力共享
+				}else if( db.getCode().equals("241") && StringUtils.isNotBlank(req.getIsreply())){
+					rs = memberCapa(db, req.getIsreply());
 				}
 				
 			}
 		}
 		return rs;
 	}
+
+	private Result memberCapa(Message dbMessage,String isReplay)throws Exception{
+		Result rs = Result.getSuccessResult();
+		CapaReq creq = new CapaReq();
+		creq.setId(dbMessage.getKeyid());
+		creq.setStatus(isReplay);
+		memberCapaService.update(creq);
+		//发送消息
+		SendMsgReq req =new SendMsgReq();
+		req.setKeyid(dbMessage.getKeyid());
+		//发送人
+		req.setSendid(dbMessage.getRecid());
+		req.setSendname(dbMessage.getRecname());
+		//接受人
+		req.setRecid(dbMessage.getSendid());
+		req.setRecname(dbMessage.getSendname());
+		req.setParams(Arrays.asList(new String[]{dbMessage.getRecname()}));
+		if( "1".equals(isReplay) ){
+			req.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_AGREE);
+		}else{
+			req.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_REFUSE);
+		}
+		//消息类别  系统 还是会员S
+		req.setType("2");
+		sendMessageInside(req);
+		return rs;
+	}
+	
 
 	@Override
 	public long queryUnreadTotal(MessageQueryReq req) throws Exception {

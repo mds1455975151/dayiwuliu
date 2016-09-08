@@ -148,6 +148,7 @@ public class FreightService implements IFreightService{
 		info.setCreater(req.getModifier());
 		info.setCreatetime(new Date().getTime());
 		info.setTaketime(req.getTaketime());
+		info.setDesc1(req.getDesc1());
 		info.setRecent("1");
 		info.setStatus("0");
 		return freightInfoMapper.insertSelective(info);

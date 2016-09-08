@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
@@ -105,6 +106,11 @@ public class CargoPlanService implements ICargoPlanService{
 			if(StringUtils.isNotBlank(req.getStatus()))plan.setStatus(Byte.valueOf(req.getStatus()));
 			if(StringUtils.isNotBlank(req.getOwnerId()))plan.setCreator(req.getOwnerId());
 			if(StringUtils.isNotBlank(req.getVenderId()))plan.setVehicleownerid(req.getVenderId());
+			if(StringUtils.isNotBlank(req.getIsAppoint()))plan.setIsAppoint(req.getIsAppoint());
+			if(StringUtils.isNotBlank(req.getSearchParam())){
+				plan.setQueryKey(req.getSearchParam());
+			}
+			plan.setVenderdelflag(Byte.valueOf("0"));
 			long total = planMapper.countByCondition(plan);
 			if(total>0){
 				plan.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -128,15 +134,7 @@ public class CargoPlanService implements ICargoPlanService{
 			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
 			resp.setTallage(fileFreight.getTallage());
 			resp.setOrgname(fileFreight.getOrganizationname());
-			double alreadyTransport = 0;
-			List<Bill> list = billMapper.selectByPlanId(plan.getId());
-			if(list != null){
-				for(int i=0;i<list.size();i++){
-					Bill b = list.get(i);
-					alreadyTransport += (b.getWeight()*Double.parseDouble(b.getOvernumber()));
-				}	
-			}
-			resp.setOverweight(plan.getTotalplanned() - alreadyTransport);
+			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
 		return resp;
 	}
@@ -156,7 +154,7 @@ public class CargoPlanService implements ICargoPlanService{
 				
 				MemberVo owner =memberVoService.get(plan.getCreator());
 				MemberVo vender=memberVoService.get(plan.getVehicleownerid());
-				sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),vender.getRealName()}), plan.getId(), vender, owner, MessageCodeEnum.PLAN_2OWNER_ACCEPT, "owner");
+				sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),vender.getRealName()}), plan.getId(), vender, owner, MessageCodeEnum.PLAN_2OWNER_ACCEPT, "vender");
 			}
 		}else{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
@@ -330,7 +328,7 @@ public class CargoPlanService implements ICargoPlanService{
 				//发送消息
 				if( plan.getIsfamily()==0 ){
 					MemberVo owner =memberVoService.get(plan.getCreator());
-					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "owner");
+					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
 				}
 			}else{
 				rs.setErrorCode(ErrorCode.PARAM_ERROR);
@@ -389,6 +387,7 @@ public class CargoPlanService implements ICargoPlanService{
 					plan.setStatus(PlanStatusEnum.NEW.getStatus());
 					plan.setIsfamily((byte)0);
 				}
+				plan.setIsAppoint("0");
 				planMapper.insert(plan);
 				
 				//发送消息
@@ -396,7 +395,7 @@ public class CargoPlanService implements ICargoPlanService{
 					MemberVo owner = new MemberVo();
 					owner.setUserName(req.getOrganizationname());
 					owner.setId(req.getCurruId());
-					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "owner");
+					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
 				}
 
 				//保存模版
@@ -487,6 +486,9 @@ public class CargoPlanService implements ICargoPlanService{
 			case "vender":
 				uri ="/trwuliu/planvender/detail?id="+keyId;
 				break;
+			case "appoint":
+				uri ="/trwuliu/planAppoint/detail?id="+keyId;
+				break;
 			}
 			req.setURI(uri);
 			try {
@@ -522,6 +524,129 @@ public class CargoPlanService implements ICargoPlanService{
 	public List<PlanResp> findPlanByEndTime(Long st) throws Exception {
 		return copyProperties(planMapper.selectByEndTime(st));
 	}
+
+
+	@Override
+	public Result addAppointPlan(PlanAppointReq req) throws Exception {
+		Result result = Result.getSuccessResult();
+		Plan plan = planMapper.selectByPrimaryKey(req.getPlanid());
+		if(plan == null){
+			result.setCode("000001");
+			result.setError("该计划不存在");
+			return result;
+		}
+		if(inspectTraffic(plan.getId()) - Double.valueOf(req.getTotalplanned()) < 0){
+			result.setCode("000002");
+			result.setError("运输量已超出计划剩余运输量");
+			return result;
+		}
+		plan.setId(UUIDUtil.getId());
+		//自定义属性
+		plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
+		plan.setStarttime(DateUtil.parse(req.getBegintime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setEndtime(DateUtil.parse(req.getEndtime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setStatus(Byte.valueOf("0"));
+		
+		//联系人信息
+		plan.setTelephone(req.getMemberVo().getCellphone());
+		plan.setLinkman(req.getMemberVo().getRealName());
+		plan.setCreator(req.getMemberVo().getId());
+		plan.setCreatetime(System.currentTimeMillis());
+		plan.setModifier(req.getMemberVo().getId());
+		plan.setModifytime(System.currentTimeMillis());
+		//执行计划车主
+		plan.setVehicleownerid(req.getVenderid());
+		plan.setVehicleownername(req.getVenderName());
+		plan.setVehicleownerphone(req.getVenderTel());
+		//委派运单
+		plan.setIsAppoint("1");
+		plan.setPid(req.getPlanid());
+		planMapper.insert(plan);
+		//发送消息
+		MemberVo owner = new MemberVo();
+		owner.setUserName(req.getVenderName());
+		owner.setId(req.getVenderid());
+		sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),req.getMemberVo().getRealName()}), plan.getId(), req.getMemberVo(), owner, MessageCodeEnum.PLAN_2VENDER_APPOINT, "appoint");
+		result.setCode("000000");
+		result.setData("委派计划成功");
+		return result;
+	}
 	
+
+	@Override
+	public Result editAppointPlan(PlanAppointReq req) throws Exception {
+		Result result = Result.getSuccessResult();
+		Plan plan = planMapper.selectByPrimaryKey(req.getPlanid());
+		if(plan == null){
+			result.setCode("000001");
+			result.setError("该计划不存在");
+			return result;
+		}
+		if(inspectTraffic(plan.getPid()) - Double.valueOf(req.getTotalplanned()) < 0){
+			result.setCode("000002");
+			result.setError("运输量已超出计划剩余运输量");
+			return result;
+		}
+		//自定义属性
+		plan.setId(req.getPlanid());
+		plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
+		plan.setStarttime(DateUtil.parse(req.getBegintime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setEndtime(DateUtil.parse(req.getEndtime(), "yyyy-MM-dd HH:mm:ss"));
+		plan.setStatus(Byte.valueOf("0"));
+		
+		plan.setModifier(req.getMemberVo().getId());
+		plan.setModifytime(System.currentTimeMillis());
+		//执行计划车主
+		plan.setVehicleownerid(req.getVenderid());
+		plan.setVehicleownername(req.getVenderName());
+		plan.setVehicleownerphone(req.getVenderTel());
+		//委派运单
+		planMapper.updateByPrimaryKeySelective(plan);
+		//发送消息
+		MemberVo owner = new MemberVo();
+		owner.setUserName(req.getVenderName());
+		owner.setId(req.getVenderid());
+		sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),req.getMemberVo().getRealName()}), plan.getId(), req.getMemberVo(), owner, MessageCodeEnum.PLAN_2VENDER_APPOINT, "appoint");
+		result.setCode("000000");
+		result.setData("委派计划成功");
+		return result;
+	}
+
+	@Override
+	public PlanResp appointDetail(PlanQueryReq req) throws Exception {
+		PlanResp resp = null;
+		if( req!=null && StringUtils.isNotBlank(req.getId()) ){
+			Plan  plan =planMapper.selectByPrimaryKey(req.getId());
+			if(plan.getCompleted() == null){
+				plan.setCompleted((double) 0);
+			}
+			resp =copyPropertie(plan);
+			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
+			resp.setTallage(fileFreight.getTallage());
+			resp.setOrgname(fileFreight.getOrganizationname());
+			resp.setOverweight(inspectTraffic(plan.getPid()));
+		}
+		return resp;
+	}
+
+	//计划剩余运输量
+	private Double inspectTraffic(String planid) {
+		double overweight = 0D;
+		Plan  plan = planMapper.selectByPrimaryKey(planid);
+		overweight = plan.getTotalplanned();
+		List<Plan> listPlanAppoint = planMapper.selectAppointByParams(plan.getId());
+		if(listPlanAppoint != null){
+			for(Plan p : listPlanAppoint){
+				overweight -= p.getTotalplanned();
+			}
+		}
+		List<Bill> listBill = billMapper.selectByPlanId(plan.getId());
+		if(listBill != null){
+			for(Bill b : listBill){
+				overweight -= (b.getWeight()*Double.parseDouble(b.getOvernumber()));
+			}	
+		}
+		return overweight;
+	}
 	
 }
