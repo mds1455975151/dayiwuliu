@@ -137,17 +137,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div> 
                         <div class="bill_cllist">
                             <ul id="capa">
-                            	<c:forEach var="item" items="${vlist}" > 
-                            		<li>
-	                                    <input type="checkbox" dataId="${item.id }" class="checkInput"  >
-	                                    <label>${item.vehicleno }</label>
-	                                    <span>${item.drivername }--${item.vehicletype }</span>
-	                                    <em><fmt:formatNumber type="number" value="${item.weight }" maxFractionDigits="0"/>吨</em>
-	                                    <em>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</em>
-	                                    <input type="text" class="ts" placeholder="输入趟数" value="1" />
-                                    	<i>趟</i>
-	                                </li>
-                            	</c:forEach>
                             </ul>
                         </div>
                      </div>

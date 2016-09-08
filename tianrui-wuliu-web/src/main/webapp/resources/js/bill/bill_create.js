@@ -7,17 +7,6 @@ $(function(){
 		successUrl:"/trwuliu/billvender/main",
 		searchUrl:"/trwuliu/billvender/searchCapa",
 	}
-	$('.bill_cllist ul li .checkInput').off('click').on('click',function(e){
-		if(this.checked){
-			$(this).closest('li').addClass('active');
-		}else{
-			$(this).closest('li').removeClass('active');
-		}
-		e.stopPropagation();
-	});
-	$('.bill_cllist ul li').off('click').on('click',function(){
-		$(this).addClass('active').find('.checkInput').trigger('click');
-	});
 	//样式控制
     var chren = $('.bill_fabu ul li');
     chren.click(function(){
@@ -185,6 +174,17 @@ $(function(){
     		"<i>趟</i></li>";
     	}
     	document.getElementById("capa").innerHTML=hml;
+    	$('.bill_cllist ul li .checkInput').off('click').on('click',function(e){
+    		if(this.checked){
+    			$(this).closest('li').addClass('active');
+    		}else{
+    			$(this).closest('li').removeClass('active');
+    		}
+    		e.stopPropagation();
+    	});
+    	$('.bill_cllist ul li').off('click').on('click',function(){
+    		$(this).addClass('active').find('.checkInput').trigger('click');
+    	});
     }
 });
 

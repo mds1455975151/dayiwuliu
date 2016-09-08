@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.bill.WaybillSaveReq;
 import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
-import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.constants.Constant;
@@ -69,14 +67,6 @@ public class BillVenderAction {
 		//计划信息
 		BillPlanResp plan =billService.queryWithPlanId(planId);
 		view.addObject("plan", plan);
-		
-		//车辆列表
-		//MemberResp currUser =SessionManager.getSessionMember(request);
-//		if( plan !=null && StringUtils.isNotBlank(plan.getVender())){
-//			List<BillVehicleResp> list =billService.queryVehicle(planId);
-//			view.addObject("vlist", list);
-//			view.addObject("vlist", memberCapaService.createBill(planId));
-//		}
 		return view;
 	}
 	@RequestMapping("/searchCapa")
@@ -97,10 +87,6 @@ public class BillVenderAction {
 		//计划信息
 		WaybillResp bill =billService.queryWayBill(req);
 		view.addObject("bill", bill);
-		if( bill !=null && StringUtils.isNotBlank(bill.getVenderid())){
-			List<BillVehicleResp> list =billService.queryVehicle(bill.getPlanid());
-			view.addObject("vlist", list);
-		}
 		return view;
 	}
 	

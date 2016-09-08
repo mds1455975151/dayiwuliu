@@ -148,31 +148,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <div class="bill_fabu">
                     <label> 车辆选择：</label>
                     <div class="bill_fabu_cont">
-<!--                         <div class="bill_search">
-                            <input type="text"  placeholder="车牌号/司机姓名/司机电话">
-                            <button class="btn btnyello">搜索</button>
-                        </div> -->
+	                    <div class="bill_search">
+                            <input type="text" id="search"  placeholder="车牌号/司机姓名/司机电话">
+                            <button id="searchVehicle" class="btn btnyello">搜索</button>
+                        </div>
                         <div class="bill_cllist">
-                            <ul>
-                            	<c:forEach var="item" items="${vlist}" > 
-                            		
-                            			<c:if test="${item.isUsed==1 }">
-                            				<li title="该车与当前计划已经有未完成的运单." >
-	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" disabled  name="driverId"  >
-	                                	</c:if>
-                            			<c:if test="${item.isUsed==0}">
-                            				<li >
-	                                		<input type="checkbox" dataId="${item.id }" class="checkInput" name="driverId"  >
-	                                	</c:if>
-	                                    <label>${item.vehicleNo }</label>
-	                                    <span>${item.driverName }--${item.vehicleTypeName }</span>
-	                                    <em><fmt:formatNumber type="number" value="${item.vehiweight }" maxFractionDigits="0"/>吨</em>
-	                                    <em>${item.billstatus eq 2 ? '发货中' : item.billstatus eq 3 ? '运货中' : item.billstatus eq 4 ? '卸货中' : item.billstatus eq 5 ? '空闲中' : ''}</em>
-                              		    <input type="text" class="ts" placeholder="输入趟数" value="${item.overnumber }">
-                              		    <%-- <input type="text" class="ts" placeholder="输入趟数" value="1" hidden> --%>
-                                    	<i>趟</i>
-	                                </li>
-                            	</c:forEach>
+                            <ul id="capa">
                             </ul>
                         </div>
                      </div>

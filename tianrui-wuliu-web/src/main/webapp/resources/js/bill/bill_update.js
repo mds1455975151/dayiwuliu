@@ -1,17 +1,12 @@
 $(function(){
 	$("#billvender").addClass("selected");
+	searchVehicle();
 	var URL={
 		updateUrl:"/trwuliu/billvender/update",
 		cancleUrl:"/trwuliu/billvender/main",
 		successUrl:"/trwuliu/billvender/main",
 	}
 	
-	$('.bill_cllist ul li').off('click').on('click',function(){
-		$(this).siblings().removeClass('active').find('.checkInput').each(function(){
-			this.checked = false;
-		});
-		$(this).addClass('active').find('.checkInput')[0].checked = true;
-	});
 	//限制输入格式位数字
     $('.ts').change(function(){
     	if(!/^[1-9]\d*$/.test($(this).val())){
@@ -20,12 +15,6 @@ $(function(){
     }).off('keyup').on('keyup',function(){
     	$(this).trigger('change');
     });
-
-	$(".checkInput").change(function(){
-		$(this).closest('li').siblings().find('.checkInput').each(function(){
-			this.checked = false;
-		});
-	});
 	
     //返回
     $(".cancleBtn").click(function(){
@@ -118,5 +107,57 @@ $(function(){
 			}
     	})
     }
-    
+    $("#searchVehicle").click(function(){
+    	searchVehicle();
+    })
+    function searchVehicle(){
+    	$.ajax({
+    		url:"/trwuliu/billvender/searchCapa",
+    		data:{"search":$("#search").val()},
+    		type : "post",
+    		dataType:"json",
+    		success:function(rs){
+    			if( rs && rs.code =="000000" ){
+    				innerHTML(rs.data);
+    			}else{
+    				alert(rs.error);
+    			}
+    		}
+    	});
+    }
+    function innerHTML(data){
+    	var hml = "";
+    	for (var a = 0; a < data.length; a++) {
+    		var billstatus = "";
+    		//2-发货中3-运货中4-卸货中5-空闲中
+    		if(data[a].billstatus == 2){
+    			billstatus = "发货中";
+    		}else if(data[a].billstatus == 3){
+    			billstatus = "运货中";
+    		}else if(data[a].billstatus == 4){
+    			billstatus = "卸货中";
+    		}else if(data[a].billstatus == 5){
+    			billstatus = "空闲中";
+    		}
+    		hml += "<li><input type='checkbox' dataId="+data[a].id+" class='checkInput'>"+
+    		"<label>"+data[a].vehicleno+"</label>"+
+    		"<span>"+data[a].drivername+"--"+data[a].vehicletype+"</span>"+
+    		"<em>"+data[a].weight+"吨</em>"+
+    		"<em>"+billstatus+"</em>"+
+    		"<input type='text' class='ts' placeholder='输入趟数' value='1' />"+
+    		"<i>趟</i></li>";
+    	}
+    	document.getElementById("capa").innerHTML=hml;
+    	$('.bill_cllist ul li').off('click').on('click',function(){
+    		$(this).siblings().removeClass('active').find('.checkInput').each(function(){
+    			this.checked = false;
+    		});
+    		$(this).addClass('active').find('.checkInput')[0].checked = true;
+    	});
+    	$(".checkInput").change(function(){
+    		$(this).closest('li').siblings().find('.checkInput').each(function(){
+    			this.checked = false;
+    		});
+    	});
+    }
 });
