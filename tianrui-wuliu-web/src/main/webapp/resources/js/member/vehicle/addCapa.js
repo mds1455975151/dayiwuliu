@@ -37,6 +37,10 @@ function innerHTML(data){
 }
 
 function addCapa(){
+	if($("#vhicleno").val()==""){
+		alert("请填写车辆信息");
+		return;
+	}
 	$.ajax({
 		url : PATH + '/trwuliu/Member/capa/save',// 跳转到 action
 		data : {

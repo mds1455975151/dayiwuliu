@@ -1,67 +1,50 @@
 var pagenow ;
-var pageSize = 10;
+var pageSize = 2;
+var hml;
 var total;
-var lastPage;
+var pageNo;
 $(function (){
 	$("#showtext").hide();
 	$('#mycapaPage').addClass('selected');
-	index(1);
+	index(1,0);
 });
 
-function index(pageNo){
-	
+function index(pageNo,flag){
 	$.ajax({
 		url : PATH + '/trwuliu/Member/capa/index',// 跳转到 action
 		data : {
 			"pageNo":pageNo,
+			"search":$("#searchText").val(),
 			"pageSize":pageSize
 		},
 		type : "post",
 		success : function(result){
 			if(result.code == "000000"){
-				innerHTML(result.data);
+				innerHTML(result.data,flag);
 			}else{
 				alert(result.error);
 			}
 		}
 	});
 }
-//上一页
-function uppage(){
-	if(pagenow - 1 == 0){
-		alert("已到第一页");
-	}else{
-		index(pagenow - 1);
-	}
-}
-//下一页
-function downpage(){
-	if(pagenow == lastPage){
-		alert("已到最后一页");
-	}else{
-		index(pagenow + 1);
-	}
-}
-//尾页
-function lastpage(){
-	index(lastPage);
+
+function moreSearch(){
+	index(pageNo+1,1);
 }
 
-function innerHTML(result){
+function innerHTML(result,flag){
 	var data = result.list;
-	pagenow = result.pageNo;
 	total = result.total;
-	if(total % pageSize != 0){
-		lastPage = total / pageSize +1;
+	pageNo = result.pageNo;
+	document.getElementById("total").innerHTML=total;
+	if(pageNo*pageSize>=total){
+		$("#moredate").hide();
 	}else{
-		lastPage = total / pageSize ;
+		$("#moredate").show();
 	}
-	lastPage = Math.floor(lastPage);
-	//Math.ceil() 向上取整
-	//Math.floor() 向下取整
-	//Math.round() 四舍五入
-	document.getElementById("pagenow").innerHTML=pagenow;
-	var hml = ""
+	if(flag == 0){
+		hml = "";
+	}
 	for (var a = 0; a < data.length; a++) {
 		var billstatus = "";//2-发货中3-运货中4-卸货中5-空闲中'
 		if(data[a].billstatus == "2"){
@@ -97,15 +80,20 @@ function innerHTML(result){
 			username = data[a].companyname;
 			telphone = data[a].companytel;
 		}
-		hml += "<tr><td ><img src='"+trRoot+"/tianrui/images/"+image+"'></td>" +
-				"<td >"+data[a].vehicleno+" </td>" +
-				"<td>"+drivername+"</td>" +
-				"<td>"+drivertel+"</td>" +
-				"<td>"+username+"</td>" +
-				"<td>"+telphone+"</td>" +
-				"<td>"+data[a].vehicletype+"/"+data[a].length+"米</td>" +
-				"<td>"+data[a].weight+"吨</td>" +
-				"<td>"+billstatus+"/"+status+"</td></tr>";
+		
+		hml += "<tr><td >" +
+		"<div class='car_cont1'>"+
+			"<p><i>车牌号："+data[a].vehicleno+"</i><em></em></p>"+
+			"<p><i>司机："+drivername+"</i><em>"+drivertel+"</em></p>" +
+			"<p>"+data[a].vehicletype+"<span>|</span>"+data[a].length+"<span>|</span>"+data[a].weight+"吨</p>" +
+		"</div>" +
+		"</td>" +
+		"<td >车主："+username+"-"+telphone+"</td>" +
+		"<td >"+status+" </td>" +
+		"<td>"+billstatus+"</td>" +
+		"<td class='f12 bill_lineh2'>" +
+		"<button class='btn btnyello'>查看</button>" +
+		"</td></tr>";
 	}
 	document.getElementById("innerHML").innerHTML=hml;
 }

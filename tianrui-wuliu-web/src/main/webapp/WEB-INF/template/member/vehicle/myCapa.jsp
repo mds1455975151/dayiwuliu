@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	    <title>天瑞物流平台-添加司机</title>
+	    <title>天瑞物流平台-我的运力</title>
 	    <meta name="keywords" content=" 天瑞"/>
 	    <meta name="description" content="">
 	    <meta name="author" content="">
@@ -33,57 +33,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			            <div class="car_title bgblue">
 			                <h2>我的运力</h2><a href="/trwuliu/Member/capa/capa"><span>新增</span></a>
 			            </div>
-			            <div class="yl_show">
-			                <span><img src="${trRoot}/tianrui/images/round1.png"></span>
-			                <label>新增</label>
-			                <span><img src="${trRoot}/tianrui/images/round2.png"></span>
-			                <label>原有</label>
+		                <!--个人中心右侧搜索框begin-->
+		                <div class="plan_search">
+		                    <input type="text" placeholder="司机姓名/司机电话/车牌号" id="searchText">
+		                    <button type="submit" class="btn btnyello" onclick="index(1,0)">搜索</button>
+		                </div>
+		                <!--个人中心右侧搜索框end-->
+			            <div style="height: 15px;background: #f0f0f0;"></div>
+			            <div class="car_shuliang">
+			                <h4>共<span id="total"></span>辆车</h4>
 			            </div>
-			            <div class="yl_mytable">
-			                <table class="table table-bordered" >
+			            <div class="car_mycar">
+			                <table class="table table-hover" >
 			                    <thead>
 			                    <tr>
-			                        <th > </th>
-			                        <th >车牌号</th>
-			                        <th >司机</th>
-			                        <th >司机电话</th>
-			                        <th >车主</th>
-			                        <th >车主电话</th>
-			                        <th> 车辆类型</th>
-			                        <th> 承重</th>
-			                        <th> 车辆状态</th>
+			                        <th >车辆信息</th>
+			                        <th >车主信息</th>
+			                        <th >状态</th>
+			                        <th > 位置信息</th>
+			                        <th> 操作</th>
 			                    </tr>
 			                    </thead>
 			                    <tbody id="innerHML">
-			                    <tr>
-			                        <td > <img src="${trRoot}/tianrui/images/round1.png"></td>
-			                        <td >豫A12125 </td>
-			                        <td>张大伟</td>
-			                        <td>1586525411</td>
-			                        <td>箱式/222米</td>
-			                        <td>100吨</td>
-			                        <td>空闲中</td>
-			                    </tr>
-			                    <tr>
-			                        <td > <img src="${trRoot}/tianrui/images/round2.png"></td>
-			                        <td >豫A12125 </td>
-			                        <td>张大伟</td>
-			                        <td>1586525411</td>
-			                        <td>箱式/20米</td>
-			                        <td>100吨</td>
-			                        <td>空闲中</td>
-			                    </tr>
+			                   
 			                    </tbody>
 			                </table>
-			                <div class="row pr20 fr">
-		                 		<ul class="pagination ">
-		                        	<li><a onclick="index(1)">&laquo;首页</a></li>
-			                        <li><a onclick="uppage()">&lsaquo;上一页</a></li>
-			                        <li><a> <span id="pagenow"></span></a></li>
-			                        <li><a onclick="downpage()">下一页&rsaquo;</a></li>
-			                        <li><a onclick="lastpage()">尾页&raquo;</a></li>
-			                    </ul>
-			                </div>
+						<div class="goods_more pageMore" id="moredate">
+		                     <h4 onclick="moreSearch();">查看更多</h4>
+			            </div>
 			            </div>
 			        </div>
 		            <!--个人中心右侧end-->

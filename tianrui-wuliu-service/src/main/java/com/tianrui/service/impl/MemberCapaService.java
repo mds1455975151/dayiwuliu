@@ -53,6 +53,7 @@ public class MemberCapaService implements IMemberCapaService{
 		capa.setDrivername(req.getDrivername());
 		capa.setDrivertel(req.getDrivertel());
 		capa.setType(req.getType());
+		capa.setSearch(req.getSearch());
 		capa.setStart((req.getPageNo()-1)*req.getPageSize());
 		capa.setLimit(req.getPageSize());
 		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
