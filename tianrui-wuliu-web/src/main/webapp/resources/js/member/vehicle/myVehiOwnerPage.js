@@ -340,6 +340,7 @@ $("#modal_enDisable_OK").click(function() {
 				$("#modal_common_content").html("修改失败！");
 			}
 			$("#commonModal").modal();
+			window.location.reload();
 		}
 	});
 });

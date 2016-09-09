@@ -40,7 +40,6 @@ $(function(){
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					alert("操作成功.")
 					window.location.reload();
 				}else{
 					alert(rs.error);
@@ -59,7 +58,6 @@ $(function(){
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					alert("操作成功.")
 					window.location.reload();
 				}else{
 					alert(rs.error);
@@ -76,7 +74,6 @@ $(function(){
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					alert("操作成功.")
 					window.location.href=URL.mainUrl;
 				}else{
 					alert(rs.error);
@@ -93,7 +90,6 @@ $(function(){
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					alert("操作成功.")
 					window.location.reload();
 				}else{
 					alert(rs.error);
@@ -114,7 +110,6 @@ $(function(){
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					alert("操作成功.")
 					window.location.reload();
 				}else{
 					alert(rs.error);
@@ -131,7 +126,6 @@ $(function(){
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					alert("操作成功.")
 					window.location.reload();
 				}else{
 					alert(rs.error);
@@ -158,7 +152,6 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
-						alert("操作成功.")
 						window.location.reload();
 					}else{
 						alert(rs.error);

@@ -91,11 +91,12 @@ $(function(){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'"   dataCode="'+item.waybillno+'">删除</button></a>');
 			}else if(item.status ==1){
 				dataArr.push('<a ><button class="btn btnyello pickupBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'">提货确认</button></a>');
+//			}else if(item.status ==2){
+//				dataArr.push('<a ><button class="btn btnyello departureBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >装货完成</button></a>');
+//			}else if(item.status ==3){
+//				dataArr.push('<a ><button class="btn btnyello arrivedBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'">到达确认</button></a>');
+//			}else if(item.status ==4){
 			}else if(item.status ==2){
-				dataArr.push('<a ><button class="btn btnyello departureBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >装货完成</button></a>');
-			}else if(item.status ==3){
-				dataArr.push('<a ><button class="btn btnyello arrivedBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'">到达确认</button></a>');
-			}else if(item.status ==4){
 				dataArr.push('<a ><button class="btn btnyello dischargeBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >卸货完成</button></a>');
 			}
 			

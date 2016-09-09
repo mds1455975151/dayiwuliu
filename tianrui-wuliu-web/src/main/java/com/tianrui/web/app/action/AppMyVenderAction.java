@@ -214,6 +214,21 @@ public class AppMyVenderAction {
 	}
 	
 	/**
+	 * 删除我的车主信息
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/deleteMyVender", method = RequestMethod.POST)
+	@ApiParamRawType(MemberOwnerReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult deleteMyVehiOwner(AppParam<MemberOwnerReq> appParam) throws Exception{
+		Result rs = memberOwnerService.deleteByPrimaryKey(appParam.getBody().getOwnerId());
+		return AppResult.valueOf(rs);
+	}
+	
+	/**
 	 * 获取UUID作为主键
 	 * @return
 	 */

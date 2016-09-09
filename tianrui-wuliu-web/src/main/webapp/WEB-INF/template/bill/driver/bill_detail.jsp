@@ -180,14 +180,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<c:if test="${bill.status ==1}">
                     	<button class="btn btnblue pickupBtn" type="button">提货确认</button>
                 	</c:if>
-                	<c:if test="${bill.status ==2}">
+                	<%-- <c:if test="${bill.status ==2}">
                     	<button class="btn btnblue departureBtn" type="button">装货完成确认</button>
                 	</c:if>
                 	<c:if test="${bill.status ==3}">
                     	<button class="btn btnblue arrivedBtn" type="button">到达目的地确认</button>
                 	</c:if>
-                	<c:if test="${bill.status ==4}">
-                    	<button class="btn btnblue dischargeBtn" type="button">卸货完成确认</button>
+                	<c:if test="${bill.status ==4}"> --%>
+                	<c:if test="${bill.status ==2}">
+                    	<button class="btn btnblue dischargeBtn" type="button">卸货确认</button>
                 	</c:if>
                 	<c:if test="${bill.status ==7 || bill.status==8}">
                     	<button class="btn btnblue delBtn" type="button">删除</button>
