@@ -1,4 +1,3 @@
-
 var list;
 function searchSubmit(){
 	displayData(0);
@@ -24,7 +23,6 @@ function displayData(pageNo){
 			"pageSize":pageSize
 		},
 		type:"post",
-		async: false,
 		success: function(ret) {
 			if(ret.code!="000000"){
 				alert("加载失败");

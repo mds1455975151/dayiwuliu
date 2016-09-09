@@ -921,7 +921,7 @@ public class BillService implements IBillService{
 			page=new PaginationVO<WaybillResp>();
 			
 			Bill query = new Bill();
-
+			query.setOrgid(req.getCurrOrgId());
 			if( StringUtils.isNotBlank(req.getKey()) ){
 				query.setQueryKey(req.getKey().trim());
 			}

@@ -10,7 +10,7 @@
 	-->
 	<appender name="errorAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Encoding" value="UTF-8" />
-		<param name="File" value="${catalina.home}/logs/trwlService/error.log" />
+		<param name="File" value="${catalina.home}/logs/trwlWeb/error.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="threshold" value="WARN" />
@@ -30,7 +30,7 @@
 	-->
 	<appender name="infoAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Encoding" value="UTF-8" />
-		<param name="File" value="${catalina.home}/logs/trwlService/info.log" />
+		<param name="File" value="${catalina.home}/logs/trwlWeb/info.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="threshold" value="INFO" />
@@ -46,7 +46,7 @@
 	<!-- Fop Performance Log appender -->
 	<appender name="accessAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Encoding" value="UTF-8" />
-		<param name="File" value="${catalina.home}/logs/trwlService/access.log" />
+		<param name="File" value="${catalina.home}/logs/trwlWeb/access.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -57,7 +57,7 @@
 	<!-- Fop Performance Log appender -->
 	<appender name="performanceAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Encoding" value="UTF-8" />
-		<param name="File" value="${catalina.home}/logs/trwlService/performance.log" />
+		<param name="File" value="${catalina.home}/logs/trwlWeb/performance.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -68,7 +68,7 @@
 	<!-- Fop External invoke Log appender -->
 	<appender name="externalAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="Encoding" value="UTF-8" />
-		<param name="File" value="${catalina.home}/logs/trwlService/external.log" />
+		<param name="File" value="${catalina.home}/logs/trwlWeb/external.log" />
 		<param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<param name="threshold" value="INFO" />
@@ -106,7 +106,7 @@
 	
 	<root>
 		<!--  <level value="debug" />  -->
-		 <level value="debug" /> 
+		 <level value="INFO" /> 
 		<appender-ref ref="infoAppender" />
 		<appender-ref ref="errorAppender" />
 		<appender-ref ref="consoleAppender" />

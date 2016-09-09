@@ -59,6 +59,12 @@
 	  <param-value>6000</param-value>  
 	 </context-param>  
 	 
+	 
+	 <!-- etc  -->
+	 <listener>
+		<listener-class>com.tianrui.trwl.admin.util.EtcFileSupportListener</listener-class>
+	 </listener>
+	 
 	 <listener>  
 	  	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
 	 </listener> 

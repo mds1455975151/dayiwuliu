@@ -84,6 +84,7 @@ public class CargoPlanService implements ICargoPlanService{
 			if(StringUtils.isNotBlank(req.getOrgId())) plan.setOrgid(req.getOrgId());
 			if(StringUtils.isNotBlank(req.getCreatetimeForStr())) plan.setCreateTimeBegin(DateUtil.parse(req.getCreatetimeForStr(), "yyyy-MM-dd HH:mm:ss"));
 			if(StringUtils.isNotBlank(req.getCreatetimeEndStr())) plan.setCreateTimeEnd(DateUtil.parse(req.getCreatetimeEndStr(), "yyyy-MM-dd HH:mm:ss"));
+			plan.setOrgid(req.getOrgId());
 			long total = planMapper.countByCondition(plan);
 			if(total>0){
 				plan.setStart((req.getPageNo()-1)*req.getPageSize());

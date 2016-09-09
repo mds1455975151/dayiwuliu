@@ -211,14 +211,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--删除end-->
-<%@include file="../common/footer.jsp" %>
-<script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
+
 <script type="text/javascript">
+	var CONTEXTPATH="${contextPath}";
+	var imagesRoot="${imagesRoot }";
     $(function(){
         $("table").resizableColumns({});
-
-        $('.form_date').datetimepicker({
+/*         $('.form_date').datetimepicker({
             language: 'zh-CN',
             weekStart: 1,
             todayBtn: 1,
@@ -227,12 +227,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             startView: 2,
             minView: 2,
             forceParse: 0
-        });
+        }); */
     });
-    var CONTEXTPATH="${contextPath}";
-    var imagesRoot="${imagesRoot }";
+
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/adminMember/navigation.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
 <script type="text/javascript" src="/resources/js/adminMember/user_person.js" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>

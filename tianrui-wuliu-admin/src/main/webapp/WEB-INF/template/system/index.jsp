@@ -85,14 +85,15 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 					var data = result.data;
 					if(!data || data.length == 0){
 						$("#role").append("<span  >您尚未被分配角色，请联系管理员！</span>");
-					}
-					for (var i = 0; i < data.length; i++) {
-							var userRole = "【"+data[i].name+"】";
-							if((i + 1)%2 == 0){
-								$("#role").append("<span>"+userRole+"</span><br>");
-							}else{
-								$("#role").append("<span>"+userRole+"</span>");
-							}
+					}else{
+						for (var i = 0; i < data.length; i++) {
+								var userRole = "【"+data[i].name+"】";
+								if((i + 1)%2 == 0){
+									$("#role").append("<span>"+userRole+"</span><br>");
+								}else{
+									$("#role").append("<span>"+userRole+"</span>");
+								}
+						}
 					}
 				}
 			}

@@ -111,9 +111,7 @@ public class FilePositionAction {
 	@ResponseBody
 	public Result deletePosition(String id,HttpServletRequest request)throws Exception{
 		//获取当前用户的
-		
 		Result rs = Result.getSuccessResult();
-		Users user=SessionManager.getSessionMember(request);
 		String[] idsrt = id.split(",");
 		for(String ids : idsrt){
 			filePositionService.deletePosition(ids);

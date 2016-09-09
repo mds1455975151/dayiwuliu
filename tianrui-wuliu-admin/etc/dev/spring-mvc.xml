@@ -37,23 +37,7 @@
 	
    <bean id="resourcePathExposer" class="com.tianrui.trwl.admin.util.ResourcePathExposer"
 		init-method="init" >
-		<property name="localScripts" value="/resources/js" />
-		<property name="imagesRoot" value="http://img.tmkrewuliu.cn:777/resources/images" />
-		<property name="scriptsRoot" value="http://img.tmkrewuliu.cn:777/resources/js" />
-		<property name="stylesRoot" value="http://img.tmkrewuliu.cn:777/resources/css" />
-		<property name="mhImagesRoot" value="http://img.tmkrewuliu.cn:777/resources/images/trxxkj" />
-		<property name="mhScriptsRoot" value="http://img.tmkrewuliu.cn:777/resources/js/trxxkj" />
-		<property name="mhStylesRoot" value="http://img.tmkrewuliu.cn:777/resources/css/trxxkj" />
-		<property name="trRoot" value="http://img.tmkrewuliu.cn:777/resources" />
-		<property name="imagesRoot" value="http://www.appb2b.com/trwlAdminStatic/images" />
-		<property name="scriptsRoot" value="http://www.appb2b.com/trwlAdminStatic/js" />
-		<property name="stylesRoot" value="http://www.appb2b.com/trwlAdminStatic/css" />
-		<property name="mhImagesRoot" value="http://www.appb2b.com/trwlAdminStatic/images/trxxkj" />
-		<property name="mhScriptsRoot" value="http://www.appb2b.com/trwlAdminStatic/js/trxxkj" />
-		<property name="mhStylesRoot" value="http://www.appb2b.com/trwlAdminStatic/css/trxxkj" />
 		<property name="trRoot" value="http://www.appb2b.com/trwlAdminStatic/resources" />
-		<property name="newsUpload" value="/news/upload" />
-		<property name="nginxRoot" value="http://file.tmkrewuliu.cn/" />
 		<!-- 
 		<property name="localScripts" value="/resources/js" />
 		<property name="imagesRoot" value="http://img.tmkrewuliu.cn:777/resources/images" />

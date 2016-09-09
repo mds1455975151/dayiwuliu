@@ -82,7 +82,6 @@
  	<script type="text/javascript">
 		var CONTEXTPATH="${contextPath}";
 	</script>
-    <script type="text/javascript" src="${scriptsRoot }/matrix.js"></script>
     <script type="text/javascript" src="${scriptsRoot }/bootstrap.min.js"></script>
     <script type="text/javascript" src="/resources/js/login/login.js" ></script>
 </body>

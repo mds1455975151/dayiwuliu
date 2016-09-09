@@ -3,7 +3,9 @@ package com.tianrui.trwl.admin.web;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,8 @@ import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.Users;
+import com.tianrui.trwl.admin.util.SessionManager;
 
 @Controller
 @RequestMapping("/admin/waybill")
@@ -71,9 +75,14 @@ public class WaybillAction {
 	 */
 	@RequestMapping("/findPlan")
 	@ResponseBody
-	public Result findPlan(AdminPlanReq req) throws Exception{
+	public Result findPlan(AdminPlanReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
-		PaginationVO<PlanResp> resp = cargoPlanService.pageForAdmin(req);
+		Users  currUser =SessionManager.getSessionMember(request);
+		PaginationVO<PlanResp> resp =null;
+		if( currUser !=null && StringUtils.isNotBlank(currUser.getOrgid()) ){
+			req.setOrgId(currUser.getOrgid());
+			resp = cargoPlanService.pageForAdmin(req);
+		}
 		rs.setData(resp);
 		return rs;
 	}
@@ -92,7 +101,12 @@ public class WaybillAction {
 	@ResponseBody
 	public Result findWaybill(WaybillQueryReq req,HttpServletRequest requset) throws Exception{
 		Result rs = Result.getSuccessResult();
-		PaginationVO<WaybillResp> page = billService.pageForBack(req);
+		Users  currUser =SessionManager.getSessionMember(requset);
+		PaginationVO<WaybillResp> page=null;
+		if( currUser !=null && StringUtils.isNotBlank(currUser.getOrgid()) ){
+			req.setCurrOrgId(currUser.getOrgid());
+			page = billService.pageForBack(req);
+		}
 		rs.setData(page);
 		return rs;
 	}

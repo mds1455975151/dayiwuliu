@@ -28,6 +28,7 @@ public class WaybillQueryReq extends BaseReq{
 	// 1:待确认   2 以拒绝   3 已收回  4 进行中 5 已完成
 	private String appStatus;
 	private String planId;
+	private String currOrgId;
 	
 	
 	public String getId() {
@@ -124,6 +125,14 @@ public class WaybillQueryReq extends BaseReq{
 
 	public void setPlanId(String planId) {
 		this.planId = planId;
+	}
+
+	public String getCurrOrgId() {
+		return currOrgId;
+	}
+
+	public void setCurrOrgId(String currOrgId) {
+		this.currOrgId = currOrgId;
 	}
 	
 	

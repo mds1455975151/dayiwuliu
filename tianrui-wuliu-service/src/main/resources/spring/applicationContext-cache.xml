@@ -25,8 +25,8 @@
 	</bean>
 
 	<bean id="jedis.shardInfo" class="redis.clients.jedis.JedisShardInfo">
-		<constructor-arg index="0" value="172.19.4.23" /><!-- redis服务器IP -->
-		<constructor-arg index="1" value="6379" /><!-- redis 端口 -->
+		<constructor-arg index="0" value="${redis.client.ip}" /><!-- redis服务器IP -->
+		<constructor-arg index="1" value="${redis.client.port}" /><!-- redis 端口 -->
 	</bean>
 
 	<bean id="jedisPool" class="redis.clients.jedis.ShardedJedisPool">
@@ -37,11 +37,12 @@
 			</list>
 		</constructor-arg>
 	</bean>
-	<!-- 不分片的redis客户端，管理使用 -->
+	<!-- 不分片的redis客户端，管理使用
 	<bean id="singleClient" class="redis.clients.jedis.Client">
 		<constructor-arg index="0" value="172.19.4.23" />
 		<constructor-arg index="1" value="6379" />
 	</bean>
+	 -->
 	<bean id="cacheClient" class="com.tianrui.service.cache.CacheClient">
 		<property name="jedisPool" ref="jedisPool"></property>
         <property name="localTTL" value="3600"></property>
