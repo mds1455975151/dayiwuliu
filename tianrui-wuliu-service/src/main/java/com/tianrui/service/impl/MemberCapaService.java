@@ -163,8 +163,13 @@ public class MemberCapaService implements IMemberCapaService{
 
 	@Override
 	public Result delete(CapaReq req) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Result rs = Result.getSuccessResult();
+		int a = memberCapaMapper.deleteByPrimaryKey(req.getId());
+		if(a!=1){
+			rs.setCode("1");
+			rs.setError("删除失败");
+		}
+		return rs;
 	}
 
 	@Override

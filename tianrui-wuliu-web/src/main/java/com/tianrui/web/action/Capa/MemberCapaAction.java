@@ -78,4 +78,15 @@ public class MemberCapaAction {
 		rs = memberCapaService.save(req);
 		return rs;
 	}
+	/** 删除我的运力*/
+	@RequestMapping("delete")
+	@ResponseBody
+	public Result delete(CapaReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setMemberid(vo.getId());
+		req.setCellphone(vo.getCellphone());
+		rs = memberCapaService.delete(req);
+		return rs;
+	}
 }
