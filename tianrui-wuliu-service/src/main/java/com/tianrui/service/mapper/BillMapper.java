@@ -2,6 +2,8 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
 
@@ -66,4 +68,6 @@ public interface BillMapper {
     Double querySumWithPlan(Bill record);
     
     List<Bill> selectByPlanId(String billId);
+    
+	List<Bill> selectBillByCapaId(@Param("capaId")String capaId, @Param("venderid")String venderid);
 }

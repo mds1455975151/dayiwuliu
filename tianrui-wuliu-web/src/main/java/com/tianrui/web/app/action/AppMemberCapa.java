@@ -1,5 +1,7 @@
 package com.tianrui.web.app.action;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +14,13 @@ import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
+import com.tianrui.web.util.SessionManager;
 
 /**
  * 移动端运力共享
@@ -34,6 +39,8 @@ public class AppMemberCapa {
 
 	@Autowired
 	IMemberCapaService memberCapa;
+	@Autowired
+	MemberVoService memberVoService;
 	
 	/** 查询我的运力
 	 * @throws Exception */
@@ -77,6 +84,30 @@ public class AppMemberCapa {
 		req.setMemberid(head.getId());
 		req.setCellphone(head.getAccount());
 		rs = memberCapa.save(req);
+		return AppResult.valueOf(rs);
+	}
+	/** 检查该运力是否有未完成的运单*/
+	@RequestMapping(value="/checkCapaState",method=RequestMethod.POST)
+	@ApiParamRawType(CapaReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult checkCapaState(AppParam<CapaReq> appParam) throws Exception{
+		//获取当前用户
+		String uId =appParam.getHead().getId();
+		Result rs = memberCapa.checkCapaState(appParam.getBody().getId(),uId);
+		return AppResult.valueOf(rs);
+	}
+	/** 删除我的运力*/
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ApiParamRawType(CapaReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult delete(AppParam<CapaReq> appParam) throws Exception{
+		MemberVo vo = memberVoService.get(appParam.getHead().getId());
+		CapaReq capa = appParam.getBody();
+		capa.setMemberid(vo.getId());
+		capa.setCellphone(vo.getCellphone());
+		Result rs = memberCapa.delete(capa);
 		return AppResult.valueOf(rs);
 	}
 }
