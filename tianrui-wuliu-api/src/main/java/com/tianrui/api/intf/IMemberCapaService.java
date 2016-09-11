@@ -33,4 +33,7 @@ public interface IMemberCapaService {
 	Result delete(CapaReq req)throws Exception;
 	/** 新建计划查询运力*/
 	List<MemberCapaListResp> createBill(CapaReq req)throws Exception;
+	/** 检查该运力是否有未完成的运单
+	 * @param venderid */
+	Result checkCapaState(String capaId, String venderid);
 }

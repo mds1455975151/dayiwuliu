@@ -20,15 +20,15 @@ import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
-import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
-import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 @Service
 public class MemberCapaService implements IMemberCapaService{
@@ -43,6 +43,8 @@ public class MemberCapaService implements IMemberCapaService{
 	SystemMemberInfoMapper systemInfoMember;
 	@Autowired
 	PlanMapper planMapper;
+	@Autowired
+	BillMapper billMapper;
 	
 	@Override
 	public PaginationVO<MemberCapaListResp> index(CapaReq req) throws Exception {
@@ -171,7 +173,18 @@ public class MemberCapaService implements IMemberCapaService{
 		}
 		return rs;
 	}
-
+	
+	@Override
+	public Result checkCapaState(String capaId, String venderid){
+		Result rs = Result.getSuccessResult();
+		List<Bill> list = billMapper.selectBillByCapaId(capaId,venderid);
+		if(list != null && list.size() > 0){
+			rs.setCode("000001");
+			rs.setData("该运力有未完成的运单！是否继续删除？");
+		}
+		return rs;
+	}
+	
 	@Override
 	public List<MemberCapaListResp> createBill(CapaReq req) throws Exception {
 		MemberCapa capa = new MemberCapa();

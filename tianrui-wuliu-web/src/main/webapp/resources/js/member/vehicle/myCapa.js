@@ -92,30 +92,48 @@ function innerHTML(result,flag){
 		"<td >"+status+" </td>" +
 		"<td>"+billstatus+"</td>" +
 		"<td class='f12 bill_lineh2'>" +
-		"<button class='btn btnyello' onclick=\"deletecapa('"+data[a].id+"','"+data[a].status+"')\" >删除</button>" +
+		"<button class='btn btnyello' onclick=\"checkCapaState('"+data[a].id+"','"+data[a].status+"')\" >删除</button>" +
 		"</td></tr>";
 	}
 	document.getElementById("innerHML").innerHTML=hml;
 }
-function deletecapa(id,status){
+function checkCapaState(id,status){
 	if(status==-1){
 		alert("自有运力请去我的车辆中解除绑定");
 		return;
 	}
-	confirm("删除确认","确定删除这条运力吗,确认/取消?",function(){
-		$.ajax({
-			url : PATH + '/trwuliu/Member/capa/delete',// 跳转到 action
-			data : {
-				"id":id
-			},
-			type : "post",
-			success : function(result){
-				if(result.code == "000000"){
-					index(pageNo,0);
-				}else{
-					alert(result.error);
-				}
+	$.ajax({
+		url : PATH + '/trwuliu/Member/capa/checkCapaState',// 跳转到 action
+		data : {
+			"capaId":id
+		},
+		type : "post",
+		success : function(result){
+			if(result.code == "000000"){
+				confirm("删除确认","确定删除这条运力吗,确认/取消?",function(){
+					deletecapa(id);
+				})
+			}else{
+				confirm("删除确认",result.data,function(){
+					deletecapa(id);
+				});
 			}
-		});
-	})
+		}
+	});
+}
+function deletecapa(id){
+	$.ajax({
+		url : PATH + '/trwuliu/Member/capa/delete',// 跳转到 action
+		data : {
+			"id":id
+		},
+		type : "post",
+		success : function(result){
+			if(result.code == "000000"){
+				index(pageNo,0);
+			}else{
+				alert(result.error);
+			}
+		}
+	});
 }

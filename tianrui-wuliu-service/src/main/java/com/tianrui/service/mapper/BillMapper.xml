@@ -755,4 +755,10 @@
     from wuliu_bill
     where planid = #{planid,jdbcType=VARCHAR} and venderdelflag = 0 and venderdelflag = 0 and driverdelflag = 0 and status not in (-1,7)
   </select>
+  <select id="selectBillByCapaId" parameterType="map" resultType="com.tianrui.service.bean.Bill">
+  	select b.* 
+	from wuliu_bill b RIGHT JOIN wuliu_member_capa c 
+	ON b.vehicleid = c.vehicleid 
+	where c.`status` = 1 and b.`status` != 6 and b.venderid = #{venderid,jdbcType=VARCHAR} and c.id = #{capaId,jdbcType=VARCHAR} 
+  </select>
 </mapper>

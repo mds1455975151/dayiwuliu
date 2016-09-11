@@ -78,6 +78,12 @@ public class MemberCapaAction {
 		rs = memberCapaService.save(req);
 		return rs;
 	}
+	/** 检查该运力是否有未完成的运单*/
+	@RequestMapping("checkCapaState")
+	@ResponseBody
+	public Result checkCapaState(String capaId, HttpServletRequest request) throws Exception{
+		return memberCapaService.checkCapaState(capaId,SessionManager.getSessionMember(request).getId());
+	}
 	/** 删除我的运力*/
 	@RequestMapping("delete")
 	@ResponseBody
