@@ -11,6 +11,12 @@ public class Members{
 	 * 注册手机号（登录账号1）
 	 */
 	private String cellPhone;
+	/** 添加运力数量*/
+	private String capacount;
+	/** 车辆司机绑定关系数量*/
+	private String vdcount;
+	/** 我的车主数量*/
+	private String mocount;
 	/**
 	 * 认证信息id
 	 */
@@ -304,6 +310,30 @@ public class Members{
 
 	public Short getCompanypercheck() {
 		return companypercheck;
+	}
+
+	public String getCapacount() {
+		return capacount;
+	}
+
+	public void setCapacount(String capacount) {
+		this.capacount = capacount;
+	}
+
+	public String getVdcount() {
+		return vdcount;
+	}
+
+	public void setVdcount(String vdcount) {
+		this.vdcount = vdcount;
+	}
+
+	public String getMocount() {
+		return mocount;
+	}
+
+	public void setMocount(String mocount) {
+		this.mocount = mocount;
 	}
 
 	public void setCompanypercheck(Short companypercheck) {

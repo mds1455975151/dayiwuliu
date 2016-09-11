@@ -121,22 +121,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body" >
                 <div class="contuser_search">
                     <div class="chezhu_div">
-                    <div class="chezhu_div">
-                        <label>司机姓名：</label>
-                        <input id="drivername" type="text" placeholder=" ">
-                    </div>
-                        <label>车型：</label><!-- (1:箱式,2:车板,3:冷藏) -->
-                        <select id="dvehicletype" class="form-control">
-                            <option value="">请选择</option>
-                            <option value="1">箱式</option>
-                            <option value="2">车板</option>
-                            <option value="3">冷藏</option>
-                        </select>
-                    </div>
-                    
-                </div>
-                <div class="contuser_search">
-                    <div class="chezhu_div">
                         <label>联系方式：</label>
                         <input id="dtelPhone" type="text" placeholder=" ">
                         <input type="hidden" value="" id="vehicleownerid">
@@ -146,7 +130,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <button class="btn btngreen" onclick="clearDriver()" type="button">重置</button>
                     </div>
                 </div>
-
                 <div class="chezhu_box">
                     <table class="table">
                         <thead>
@@ -154,8 +137,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <th>序号</th>
                             <th>车牌号</th>
                             <th>车型</th>
-                            <th>载重(吨)</th>
-                            <th>长度(米)</th>
+                            <th>车辆来源</th>
+                            <th>车主姓名</th>
+                            <th>车主电话</th>
                             <th>司机姓名</th>
                             <th>联系方式</th>
                         </tr>
@@ -175,6 +159,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
+
+<!--承运商详情begin-->
+<div class="modal fade" id="chengyun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >承运商信息</h4>
+            </div>
+            <div class="modal-body" >
+                <div class="contuser_search">
+                    <div class="chezhu_div">
+                        <label>联系方式：</label>
+                        <input id="ownersearch" type="text" placeholder=" ">
+                    </div>
+                    <div class="ht_divbtn">
+                        <button class="btn btnblue" onclick="driverdetails();" type="button">搜索</button>
+                        <button class="btn btngreen" onclick="clearDriver()" type="button">重置</button>
+                    </div>
+                </div>
+                <div class="chezhu_box">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>运营商名称</th>
+                            <th>联系方式</th>
+                        </tr>
+                        </thead>
+                        <tbody id="ownerlist">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--承运商详情end-->
 <!--银行查看详情begin-->
 <div class="modal fade" id="credit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >

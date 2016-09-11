@@ -18,6 +18,12 @@ public class MemberResp extends BaseResp{
 	private String cellPhone;
 	/** 微信唯一标识*/
 	private String openid;
+	
+	private String capacount;
+	/** 车辆司机绑定关系数量*/
+	private String vdcount;
+	/** 我的车主数量*/
+	private String mocount;
 	/**
 	 * 组织id
 	 */
@@ -173,6 +179,30 @@ public class MemberResp extends BaseResp{
 
 	public void setVehicleOwnerState(Long vehicleOwnerState) {
 		this.vehicleOwnerState = vehicleOwnerState;
+	}
+
+	public String getCapacount() {
+		return capacount;
+	}
+
+	public void setCapacount(String capacount) {
+		this.capacount = capacount;
+	}
+
+	public String getVdcount() {
+		return vdcount;
+	}
+
+	public void setVdcount(String vdcount) {
+		this.vdcount = vdcount;
+	}
+
+	public String getMocount() {
+		return mocount;
+	}
+
+	public void setMocount(String mocount) {
+		this.mocount = mocount;
 	}
 
 	public void setNickname(String nickname) {

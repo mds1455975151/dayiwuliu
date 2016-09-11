@@ -23,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.admin.intf.IMyDriverService;
 import com.tianrui.api.admin.intf.IMyVehicleService;
 import com.tianrui.api.intf.IDataDictService;
+import com.tianrui.api.intf.IMemberCapaService;
+import com.tianrui.api.intf.IMemberOwnerService;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoRecordService;
@@ -30,17 +32,22 @@ import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.admin.MyDriverReq;
 import com.tianrui.api.req.admin.MyVehicleReq;
+import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.req.front.system.DataDictReq;
+import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.resp.admin.MyDriverResp;
 import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.common.DataDictResp;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
 import com.tianrui.trwl.admin.util.SessionManager;
@@ -72,9 +79,11 @@ public class AdminMemberAction {
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
 	@Autowired
-	private IMyDriverService driverService;
-	@Autowired
 	IMessageService messageService;
+	@Autowired
+	IMemberCapaService memberCapaService;
+	@Autowired
+	IMemberOwnerService memberOwnerService;
 	/**
 	 * @描述:车主查询
 	 * @return
@@ -236,6 +245,15 @@ public class AdminMemberAction {
 		rs.setData(list);
 		return rs;
 	}
+	/** 我的承运商查询*/
+	@RequestMapping("/vehicOwner")
+	@ResponseBody
+	public Result vehicOwner(MemberOwnerReq req)throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<MemberOwnerResp> pageVo = memberOwnerService.queryMyVehiOwnerByPage(req);
+		rs.setData(pageVo);
+		return rs;
+	}
 	/**
 	 * 
 	 * @描述:查询司机用户
@@ -286,10 +304,12 @@ public class AdminMemberAction {
 	 */
 	@RequestMapping("/findMyDriver")
 	@ResponseBody
-	public Result findMyDriver(MyDriverReq req) throws Exception{
+	public Result findMyDriver(CapaReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		List<MyDriverResp> list = driverService.findByEntity(req);
-		rs.setData(list);
+//		List<MyDriverResp> list = driverService.findByEntity(req);
+		//TODO
+		PaginationVO<MemberCapaListResp> pa = memberCapaService.index(req);
+		rs.setData(pa);
 		return rs;
 	}
 	

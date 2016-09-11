@@ -22,10 +22,12 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
+import com.tianrui.service.bean.MemberOwner;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.MemberCapaMapper;
+import com.tianrui.service.mapper.MemberOwnerMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
@@ -43,6 +45,8 @@ public class MemberCapaService implements IMemberCapaService{
 	SystemMemberInfoMapper systemInfoMember;
 	@Autowired
 	PlanMapper planMapper;
+	@Autowired
+	MemberOwnerMapper memberOwnerMapper;
 	
 	@Override
 	public PaginationVO<MemberCapaListResp> index(CapaReq req) throws Exception {
@@ -181,16 +185,20 @@ public class MemberCapaService implements IMemberCapaService{
 		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
 		return copyMembercapa(list);
 	}
-
+	/**判断是否为车主*/
 	@Override
 	public long indexCount(CapaReq req) throws Exception {
 		// TODO Auto-generated method stub
 		MemberCapa capa = new MemberCapa();
 		capa.setMemberid(req.getMemberid());
 		capa.setStatus(req.getStatus());
+		MemberOwner owner = new MemberOwner();
+		owner.setMemberid(req.getMemberid());
+		owner.setStatus("1");
+		long ow = memberOwnerMapper.selectCountByCondition(owner);
 		long total = memberCapaMapper.selectByVDCount(capa);
 		long mc = memberCapaMapper.selectByMCCount(capa);
-		return total + mc;
+		return total + mc + ow;
 	}
 
 }
