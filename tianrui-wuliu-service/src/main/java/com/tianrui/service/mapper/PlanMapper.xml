@@ -759,4 +759,9 @@
     from wuliu_plan 
     where planCode=(select planCode from wuliu_plan where id=#{planid,jdbcType=VARCHAR}) and ISNULL(pid);
   </select>
+  <select id="selectChildPlan" resultMap="BaseResultMap" parameterType="string">
+  	select <include refid="Base_Column_List" />
+    from wuliu_plan 
+    where planCode = #{planCode,jdbcType=VARCHAR} and pid = #{pid,jdbcType=VARCHAR} and venderDelFlag = '0' and isAppoint = '1';
+  </select>
 </mapper>

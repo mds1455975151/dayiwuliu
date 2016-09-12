@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <div class="plan_table">
                     	<input type="hidden" id="planId" value="${plan.planId }"/>
+                    	<input type="hidden" id="isAppoint" value="${plan.isAppoint }"/>
                         <table class="table " >
                             <thead>
                             <tr>

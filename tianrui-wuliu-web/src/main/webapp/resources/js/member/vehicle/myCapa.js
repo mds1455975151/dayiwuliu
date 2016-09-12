@@ -91,9 +91,11 @@ function innerHTML(result,flag){
 		"<td >车主："+username+"-"+telphone+"</td>" +
 		"<td >"+status+" </td>" +
 		"<td>"+billstatus+"</td>" +
-		"<td class='f12 bill_lineh2'>" +
-		"<button class='btn btnyello' onclick=\"checkCapaState('"+data[a].id+"','"+data[a].status+"')\" >删除</button>" +
-		"</td></tr>";
+		"<td class='f12 bill_lineh2'>";
+		if(data[a].status != -1){
+			hml +="<button class='btn btnyello' onclick=\"checkCapaState('"+data[a].id+"','"+data[a].status+"')\" >删除</button>";
+		}
+		hml += "</td></tr>";
 	}
 	document.getElementById("innerHML").innerHTML=hml;
 }

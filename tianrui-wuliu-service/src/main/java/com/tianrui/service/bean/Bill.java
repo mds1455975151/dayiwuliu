@@ -46,6 +46,7 @@ public class Bill {
     private String desc2;
     //拒绝类型
     private String desc3;
+    //是否由委派计划生成的运单
     private String desc4;
     
     private Integer start;

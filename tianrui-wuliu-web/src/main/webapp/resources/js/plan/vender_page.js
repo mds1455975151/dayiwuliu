@@ -204,7 +204,7 @@ $(function(){
 			
 			var appointHtml = '';
 			if(item.isAppoint == '1'){
-				appointHtml = '<h5 class="plan_yunshu">运输服务单</h5>';
+				appointHtml = '<h5 class="plan_yunshu">委派计划</h5>';
 			}
 			
 			hml +="<tr>"+

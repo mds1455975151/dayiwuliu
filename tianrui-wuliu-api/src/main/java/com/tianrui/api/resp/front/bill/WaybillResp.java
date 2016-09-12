@@ -47,6 +47,7 @@ public class WaybillResp extends BaseResp{
     private Long modifytime;
     private String signimgurl;
     private String desc1;
+    private String desc4;
     private Double tallage;
     /**
      * 剩余运输量
@@ -384,6 +385,12 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setVenderTel(String venderTel) {
 		this.venderTel = venderTel;
+	}
+	public String getDesc4() {
+		return desc4;
+	}
+	public void setDesc4(String desc4) {
+		this.desc4 = desc4;
 	}
 	
 }

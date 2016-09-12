@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -198,7 +200,8 @@ public class BillService implements IBillService{
 						//收货人
 						bill.setReceivername(plan.getReceiveperson());
 						bill.setReceivertel(plan.getReceivepersonphone());
-						
+						//是否由委派计划生成的运单
+						bill.setDesc4(plan.getIsAppoint());
 						bills.add(bill);
 					}
 				}
@@ -881,7 +884,8 @@ public class BillService implements IBillService{
 				}
 				query.setStatusStrs(status);
 			}
-			
+			//查询非委派计划生成的运单
+			query.setDesc4("0");
 			long total =billMapper.countByCondition(query);
 			if( total>0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -1341,5 +1345,56 @@ public class BillService implements IBillService{
 			}	
 		}
 		return overweight;
+	}
+	
+	public PaginationVO<WaybillResp> queryAppointBillPage(WaybillQueryReq req) throws Exception{
+		PaginationVO<WaybillResp> page =null;
+		if(req!=null && req.getPageNo() >0 ){
+			page=new PaginationVO<WaybillResp>();
+			List<String> list = new ArrayList<String>();
+			Plan plan = new Plan();
+			plan.setVehicleownerid(req.getCurrId());
+			//plan.setIsAppoint("1");
+			List<Plan> listPlan = planMapper.selectByCondition(plan);
+			if(listPlan != null && listPlan.size() > 0){
+				for(Plan p : listPlan){
+					this.getPlanIds(list, p.getPlancode(), p.getId());
+					if(StringUtils.equals(p.getIsAppoint(), "1")){
+						list.add(p.getId());
+					}
+				}
+			}
+			if(list.size() > 0){
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("list", list);
+				int count = billMapper.selectAppointCountByPlanIds(params);
+				if(count > 0){
+					params.put("start", (req.getPageNo()-1)*req.getPageSize());
+					params.put("limit", req.getPageSize());
+					List<Bill> bills = billMapper.selectAppointPageByPlanIds(params);
+					page.setList(conver2billResp(bills));
+				}
+				page.setTotal(count);
+				page.setPageNo(req.getPageNo());
+			}
+		}
+		return page;
+	}
+	/**
+	 * 递归查询委派的计划下所有生成的运单
+	 * @param list 计划id集合 ------用于查询运单
+	 * @param planCode 计划编码
+	 * @param pid 计划id
+	 */
+	private void getPlanIds(List<String> list, String planCode, String pid){
+		if(StringUtils.isNotBlank(planCode) && StringUtils.isNotBlank(pid)){
+			List<Plan> listPlan = planMapper.selectChildPlan(planCode, pid);
+			if(listPlan != null && listPlan.size()>0){
+				for(Plan plan : listPlan){
+					list.add(plan.getId());
+					this.getPlanIds(list, planCode, plan.getId());
+				}
+			}
+		}
 	}
 }

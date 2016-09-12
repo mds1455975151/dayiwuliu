@@ -63,6 +63,10 @@ public class BillPlanResp extends BaseResp{
      * 剩余运输量
      */
     private Double overweight;
+    /**
+     * 是否是委派运单（0：否，1：是）
+     */
+    private	String isAppoint;
     
 	public String getStartcity() {
 		return startcity;
@@ -165,6 +169,12 @@ public class BillPlanResp extends BaseResp{
 	}
 	public void setOverweight(Double overweight) {
 		this.overweight = overweight;
+	}
+	public String getIsAppoint() {
+		return isAppoint;
+	}
+	public void setIsAppoint(String isAppoint) {
+		this.isAppoint = isAppoint;
 	}
     
 }
