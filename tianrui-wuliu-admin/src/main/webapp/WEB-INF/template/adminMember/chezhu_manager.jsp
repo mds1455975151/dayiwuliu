@@ -121,12 +121,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body" >
                 <div class="contuser_search">
                     <div class="chezhu_div">
-                        <label>联系方式：</label>
-                        <input id="dtelPhone" type="text" placeholder=" ">
-                        <input type="hidden" value="" id="vehicleownerid">
+                        <label>查询条件：</label>
+                        <input id="driverSearch" type="text" placeholder=" ">
                     </div>
                     <div class="ht_divbtn">
-                        <button class="btn btnblue" onclick="driverdetails();" type="button">搜索</button>
+                        <button class="btn btnblue" onclick="driverdetails(1,0);" type="button">搜索</button>
                         <button class="btn btngreen" onclick="clearDriver()" type="button">重置</button>
                     </div>
                 </div>
@@ -147,6 +146,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tbody id="drivlist">
                         </tbody>
                     </table>
+                    <div class="goods_more">
+	                   <a onclick="vheicMore();"><h4>点击查看更多</h4></a>
+	                </div>
                 </div>
 
                 <div class="clear"></div>
@@ -171,11 +173,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body" >
                 <div class="contuser_search">
                     <div class="chezhu_div">
-                        <label>联系方式：</label>
+                        <label>查询条件：</label>
                         <input id="ownersearch" type="text" placeholder=" ">
                     </div>
                     <div class="ht_divbtn">
-                        <button class="btn btnblue" onclick="driverdetails();" type="button">搜索</button>
+                        <button class="btn btnblue" onclick="vehicOwner(1,0);" type="button">搜索</button>
                         <button class="btn btngreen" onclick="clearDriver()" type="button">重置</button>
                     </div>
                 </div>
@@ -191,6 +193,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tbody id="ownerlist">
                         </tbody>
                     </table>
+	                <div class="goods_more">
+	                   <a onclick="chenyunMore();"><h4>点击查看更多</h4></a>
+	                </div>
                 </div>
 
                 <div class="clear"></div>
