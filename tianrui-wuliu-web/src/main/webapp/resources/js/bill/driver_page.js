@@ -246,6 +246,10 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".table").on("click",".pickupBtn",function(){
 		var dId= $(this).attr("dataId");
+		$("#hidbid").val(dId);
+		$("#upbangdan").modal();
+		
+		var dId= $(this).attr("dataId");
 		confirm("确认","确认运单["+$(this).attr("dataCode")+"]提货确认吗,确认/取消?",function(){
 			$.ajax({
 				url:URL.pickupConfirmUrl,

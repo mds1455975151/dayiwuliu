@@ -28,6 +28,8 @@ public class PlanQueryReq extends BaseReq{
     
     private String searchParam;
     
+    private String planId;
+    
 	public String getId() {
 		return id;
 	}
@@ -64,4 +66,11 @@ public class PlanQueryReq extends BaseReq{
 	public void setSearchParam(String searchParam) {
 		this.searchParam = searchParam;
 	}
+	public String getPlanId() {
+		return planId;
+	}
+	public void setPlanId(String planId) {
+		this.planId = planId;
+	}
+	
 }

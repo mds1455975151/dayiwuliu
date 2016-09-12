@@ -108,6 +108,7 @@ public class CargoPlanService implements ICargoPlanService{
 			if(StringUtils.isNotBlank(req.getOwnerId()))plan.setCreator(req.getOwnerId());
 			if(StringUtils.isNotBlank(req.getVenderId()))plan.setVehicleownerid(req.getVenderId());
 			if(StringUtils.isNotBlank(req.getIsAppoint()))plan.setIsAppoint(req.getIsAppoint());
+			if(StringUtils.isNotBlank(req.getPlanId()))plan.setPid(req.getPlanId());
 			if(StringUtils.isNotBlank(req.getSearchParam())){
 				plan.setQueryKey(req.getSearchParam());
 			}

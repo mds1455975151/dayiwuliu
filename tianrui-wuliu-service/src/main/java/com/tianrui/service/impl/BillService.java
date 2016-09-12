@@ -851,6 +851,7 @@ public class BillService implements IBillService{
 				query.setOwnerid(req.getCurrId());
 			}else if(req.getQueryType() ==2 ){
 				query.setVenderid(req.getCurrId());
+//				query.setDesc4("0");
 			}else if(req.getQueryType() ==3 ){
 				query.setDriverid(req.getCurrId());
 			}
@@ -885,7 +886,6 @@ public class BillService implements IBillService{
 				query.setStatusStrs(status);
 			}
 			//查询非委派计划生成的运单
-			query.setDesc4("0");
 			long total =billMapper.countByCondition(query);
 			if( total>0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -1359,9 +1359,9 @@ public class BillService implements IBillService{
 			if(listPlan != null && listPlan.size() > 0){
 				for(Plan p : listPlan){
 					this.getPlanIds(list, p.getPlancode(), p.getId());
-					if(StringUtils.equals(p.getIsAppoint(), "1")){
-						list.add(p.getId());
-					}
+//					if(StringUtils.equals(p.getIsAppoint(), "1")){
+//						list.add(p.getId());
+//					}
 				}
 			}
 			if(list.size() > 0){

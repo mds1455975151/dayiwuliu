@@ -72,7 +72,6 @@ $(function(){
 	//查看计划绑定事件
 	$("#planlist").on("click",".detailBtn",function(){
 		var dId= $(this).attr("dataId");
-		debugger;
 		var isAppoint = $(this).attr('isAppoint');
 		if(isAppoint == 0){
 			window.location.href=PlanUrl.detail+"?id="+dId;
