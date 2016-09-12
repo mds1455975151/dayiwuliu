@@ -958,6 +958,7 @@ public class BillService implements IBillService{
 				resp.setDistance(plan.getDistance());
 				resp.setVender(plan.getVehicleownerid());
 				resp.setPrice(String.valueOf(plan.getPrice()));
+				resp.setIsAppoint(plan.getIsAppoint());
 		
 				if( plan.getStarttime() !=null ){
 					resp.setStartTime(DateUtil.getDateString(new Date(plan.getStarttime())));
@@ -1371,6 +1372,9 @@ public class BillService implements IBillService{
 				if(count > 0){
 					params.put("start", (req.getPageNo()-1)*req.getPageSize());
 					params.put("limit", req.getPageSize());
+					if(StringUtils.isNotBlank(req.getKey())){
+						params.put("queryKey", req.getKey());
+					}
 					List<Bill> bills = billMapper.selectAppointPageByPlanIds(params);
 					page.setList(conver2billResp(bills));
 				}

@@ -54,15 +54,20 @@
 		<result column="DESC4" property="desc4" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, planid, vehicleid, driverid, routeid, drivername, drivertel,
+		ID, planid, vehicleid, driverid, routeid, drivername,
+		drivertel,
 		vehicleno, vehicletypeName,
-		cargoname, startcity, consignorname, consignortel, endTime, startTime, endcity,
+		cargoname, startcity,
+		consignorname, consignortel, endTime, startTime, endcity,
 		receivername,
-		receivertel, priceUnits, distance, price, type, status, waybillno, weight,
+		receivertel, priceUnits, distance, price, type, status,
+		waybillno, weight,
 		trueweight,
-		ownerid, venderid, venderdelflag, ownerdelflag, driverdelflag,
+		ownerid, venderid, venderdelflag,
+		ownerdelflag, driverdelflag,
 		orgid,plancode,creator, createtime,
-		modifier, modifytime, signimgurl,overnumber,totalnumber,DESC1, DESC2, DESC3,
+		modifier, modifytime, signimgurl,overnumber,totalnumber,DESC1, DESC2,
+		DESC3,
 		DESC4
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -82,7 +87,8 @@
 				and planid =#{planid,jdbcType=VARCHAR}
 			</if>
 			<if test="venderid != null and venderid!=''">
-				and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+				and venderid=#{venderid,jdbcType=VARCHAR} and
+				venderdelflag=0
 			</if>
 			<if test="vehicleid != null and vehicleid!=''">
 				and vehicleid=#{vehicleid,jdbcType=VARCHAR}
@@ -91,11 +97,14 @@
 				and status =#{status,jdbcType=TINYINT}
 			</if>
 			<if test="ownerid != null and ownerid!=''">
-				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
+				=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%') or
-				waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+				and (cargoname like
+				concat(#{queryKey,jdbcType=VARCHAR},'%') or
+				waybillno like
+				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
 			</if>
 			<if test="statusStrs != null">
 				and status in
@@ -127,7 +136,8 @@
 					and planid =#{planid,jdbcType=VARCHAR}
 				</if>
 				<if test="venderid != null and venderid!=''">
-					and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+					and venderid=#{venderid,jdbcType=VARCHAR} and
+					venderdelflag=0
 				</if>
 				<if test="vehicleid != null and vehicleid!=''">
 					and vehicleid=#{vehicleid,jdbcType=VARCHAR}
@@ -136,11 +146,14 @@
 					and status =#{status,jdbcType=TINYINT}
 				</if>
 				<if test="ownerid != null and ownerid!=''">
-					and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+					and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
+					=0
 				</if>
 				<if test="queryKey != null and queryKey!=''">
-					and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%') or
-					waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+					and (cargoname like
+					concat(#{queryKey,jdbcType=VARCHAR},'%') or
+					waybillno like
+					concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
 				</if>
 				<if test="statusStrs != null">
 					and status in
@@ -180,7 +193,8 @@
 				and planid =#{planid,jdbcType=VARCHAR}
 			</if>
 			<if test="venderid != null and venderid!=''">
-				and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+				and venderid=#{venderid,jdbcType=VARCHAR} and
+				venderdelflag=0
 			</if>
 			<if test="vehicleid != null and vehicleid!=''">
 				and vehicleid=#{vehicleid,jdbcType=VARCHAR}
@@ -189,11 +203,14 @@
 				and status =#{status,jdbcType=TINYINT}
 			</if>
 			<if test="ownerid != null and ownerid!=''">
-				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
+				=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%') or
-				waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+				and (cargoname like
+				concat(#{queryKey,jdbcType=VARCHAR},'%') or
+				waybillno like
+				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
 			</if>
 			<if test="statusStrs != null">
 				and status in
@@ -209,20 +226,24 @@
 				and totalnumber=#{totalnumber,jdbcType=VARCHAR}
 			</if>
 			<if test="desc4 != null and desc4 != ''">
-					and desc4=#{desc4,jdbcType=VARCHAR}
-				</if>
+				and desc4=#{desc4,jdbcType=VARCHAR}
+			</if>
 			<if test="driverid != null and driverid!=''">
 				and driverid=#{driverid,jdbcType=VARCHAR} and driverdelflag=0 and
 				status != -1
 				UNION
-				select id from wuliu_bill where id in (select billid from wuliu_transfer
-				where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP
-				BY billid) and driverdelflag=0 and status != -1
+				select id from wuliu_bill where id in (select
+				billid from wuliu_transfer
+				where startid=#{driverid,jdbcType=VARCHAR}
+				and isvalid = "1" GROUP
+				BY billid) and driverdelflag=0 and status !=
+				-1
 				<if test="planid != null and planid!=''">
 					and planid =#{planid,jdbcType=VARCHAR}
 				</if>
 				<if test="venderid != null and venderid!=''">
-					and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+					and venderid=#{venderid,jdbcType=VARCHAR} and
+					venderdelflag=0
 				</if>
 				<if test="vehicleid != null and vehicleid!=''">
 					and vehicleid=#{vehicleid,jdbcType=VARCHAR}
@@ -231,11 +252,14 @@
 					and status =#{status,jdbcType=TINYINT}
 				</if>
 				<if test="ownerid != null and ownerid!=''">
-					and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+					and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
+					=0
 				</if>
 				<if test="queryKey != null and queryKey!=''">
-					and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%') or
-					waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+					and (cargoname like
+					concat(#{queryKey,jdbcType=VARCHAR},'%') or
+					waybillno like
+					concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
 				</if>
 				<if test="statusStrs != null">
 					and status in
@@ -276,45 +300,57 @@
 		</where>
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from wuliu_bill
+		delete from
+		wuliu_bill
 		where ID = #{id,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="com.tianrui.service.bean.Bill">
 		<!-- WARNING - @mbggenerated This element is automatically generated by 
 			MyBatis Generator, do not modify. -->
 		insert into wuliu_bill (ID, planid, vehicleid,
-		driverid, routeid, drivername,
+		driverid, routeid,
+		drivername,
 		drivertel, vehicleno, vehicletypeName,
-		cargoname, startcity, consignorname,
+		cargoname, startcity,
+		consignorname,
 		consignortel, endTime, startTime,
-		endcity, receivername, receivertel,
+		endcity, receivername,
+		receivertel,
 		priceUnits, distance, price,
 		type, status, waybillno,
 		weight, trueweight, ownerid,
 		venderid, venderdelflag, ownerdelflag,
 		driverdelflag, orgid,plancode,creator, createtime,
-		modifier, modifytime, overnumber,totalnumber, DESC1,
+		modifier,
+		modifytime, overnumber,totalnumber, DESC1,
 		DESC2, DESC3, DESC4
 		)
-		values (#{id,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR},
+		values
+		(#{id,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR},
 		#{vehicleid,jdbcType=VARCHAR},
-		#{driverid,jdbcType=VARCHAR}, #{routeid,jdbcType=VARCHAR}, #{drivername,jdbcType=VARCHAR},
+		#{driverid,jdbcType=VARCHAR},
+		#{routeid,jdbcType=VARCHAR}, #{drivername,jdbcType=VARCHAR},
 		#{drivertel,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR},
 		#{vehicletypename,jdbcType=VARCHAR},
-		#{cargoname,jdbcType=VARCHAR}, #{startcity,jdbcType=VARCHAR}, #{consignorname,jdbcType=VARCHAR},
+		#{cargoname,jdbcType=VARCHAR},
+		#{startcity,jdbcType=VARCHAR}, #{consignorname,jdbcType=VARCHAR},
 		#{consignortel,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR},
 		#{starttime,jdbcType=VARCHAR},
-		#{endcity,jdbcType=VARCHAR}, #{receivername,jdbcType=VARCHAR}, #{receivertel,jdbcType=VARCHAR},
+		#{endcity,jdbcType=VARCHAR},
+		#{receivername,jdbcType=VARCHAR}, #{receivertel,jdbcType=VARCHAR},
 		#{priceunits,jdbcType=VARCHAR}, #{distance,jdbcType=DOUBLE},
 		#{price,jdbcType=DOUBLE},
-		#{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{waybillno,jdbcType=VARCHAR},
+		#{type,jdbcType=TINYINT},
+		#{status,jdbcType=TINYINT}, #{waybillno,jdbcType=VARCHAR},
 		#{weight,jdbcType=DOUBLE}, #{trueweight,jdbcType=DOUBLE},
 		#{ownerid,jdbcType=VARCHAR},
-		#{venderid,jdbcType=VARCHAR}, #{venderdelflag,jdbcType=TINYINT}, #{ownerdelflag,jdbcType=TINYINT},
+		#{venderid,jdbcType=VARCHAR},
+		#{venderdelflag,jdbcType=TINYINT}, #{ownerdelflag,jdbcType=TINYINT},
 		#{driverdelflag,jdbcType=TINYINT},
 		#{orgid,jdbcType=VARCHAR},#{plancode,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},
 		#{createtime,jdbcType=BIGINT},
-		#{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, #{overnumber,jdbcType=VARCHAR},
+		#{modifier,jdbcType=VARCHAR},
+		#{modifytime,jdbcType=BIGINT}, #{overnumber,jdbcType=VARCHAR},
 		#{totalnumber,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR},
 		#{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR},
 		#{desc4,jdbcType=VARCHAR}
@@ -729,49 +765,72 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		set planid = #{planid,jdbcType=VARCHAR},
-		vehicleid = #{vehicleid,jdbcType=VARCHAR},
+		vehicleid =
+		#{vehicleid,jdbcType=VARCHAR},
 		driverid = #{driverid,jdbcType=VARCHAR},
 		routeid = #{routeid,jdbcType=VARCHAR},
-		drivername = #{drivername,jdbcType=VARCHAR},
-		drivertel = #{drivertel,jdbcType=VARCHAR},
-		vehicleno = #{vehicleno,jdbcType=VARCHAR},
-		vehicletypeName = #{vehicletypename,jdbcType=VARCHAR},
-		cargoname = #{cargoname,jdbcType=VARCHAR},
-		startcity = #{startcity,jdbcType=VARCHAR},
-		consignorname = #{consignorname,jdbcType=VARCHAR},
-		consignortel = #{consignortel,jdbcType=VARCHAR},
-		endTime = #{endtime,jdbcType=VARCHAR},
+		drivername =
+		#{drivername,jdbcType=VARCHAR},
+		drivertel =
+		#{drivertel,jdbcType=VARCHAR},
+		vehicleno =
+		#{vehicleno,jdbcType=VARCHAR},
+		vehicletypeName =
+		#{vehicletypename,jdbcType=VARCHAR},
+		cargoname =
+		#{cargoname,jdbcType=VARCHAR},
+		startcity =
+		#{startcity,jdbcType=VARCHAR},
+		consignorname =
+		#{consignorname,jdbcType=VARCHAR},
+		consignortel =
+		#{consignortel,jdbcType=VARCHAR},
+		endTime =
+		#{endtime,jdbcType=VARCHAR},
 		startTime = #{starttime,jdbcType=VARCHAR},
 		endcity = #{endcity,jdbcType=VARCHAR},
-		receivername = #{receivername,jdbcType=VARCHAR},
-		receivertel = #{receivertel,jdbcType=VARCHAR},
-		priceUnits = #{priceunits,jdbcType=VARCHAR},
+		receivername =
+		#{receivername,jdbcType=VARCHAR},
+		receivertel =
+		#{receivertel,jdbcType=VARCHAR},
+		priceUnits =
+		#{priceunits,jdbcType=VARCHAR},
 		distance = #{distance,jdbcType=DOUBLE},
 		price = #{price,jdbcType=DOUBLE},
 		type = #{type,jdbcType=TINYINT},
 		status = #{status,jdbcType=TINYINT},
-		waybillno = #{waybillno,jdbcType=VARCHAR},
+		waybillno =
+		#{waybillno,jdbcType=VARCHAR},
 		weight = #{weight,jdbcType=DOUBLE},
 		trueweight = #{trueweight,jdbcType=DOUBLE},
-		ownerid = #{ownerid,jdbcType=VARCHAR},
+		ownerid =
+		#{ownerid,jdbcType=VARCHAR},
 		venderid = #{venderid,jdbcType=VARCHAR},
 		venderdelflag = #{venderdelflag,jdbcType=TINYINT},
-		ownerdelflag = #{ownerdelflag,jdbcType=TINYINT},
-		driverdelflag = #{driverdelflag,jdbcType=TINYINT},
+		ownerdelflag =
+		#{ownerdelflag,jdbcType=TINYINT},
+		driverdelflag =
+		#{driverdelflag,jdbcType=TINYINT},
 		orgid = #{orgid,jdbcType=VARCHAR},
 		plancode = #{plancode,jdbcType=VARCHAR},
-		creator = #{creator,jdbcType=VARCHAR},
-		createtime = #{createtime,jdbcType=BIGINT},
+		creator =
+		#{creator,jdbcType=VARCHAR},
+		createtime =
+		#{createtime,jdbcType=BIGINT},
 		modifier = #{modifier,jdbcType=VARCHAR},
 		modifytime = #{modifytime,jdbcType=BIGINT},
-		DESC1 = #{desc1,jdbcType=VARCHAR},
+		DESC1 =
+		#{desc1,jdbcType=VARCHAR},
 		DESC2 = #{desc2,jdbcType=VARCHAR},
-		DESC3 = #{desc3,jdbcType=VARCHAR},
+		DESC3 =
+		#{desc3,jdbcType=VARCHAR},
 		DESC4 = #{desc4,jdbcType=VARCHAR}
-		where ID = #{id,jdbcType=VARCHAR}
+		where ID =
+		#{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByBillTransfer" parameterType="com.tianrui.service.bean.BillUpdate">
-		update wuliu_bill
+		update
+		wuliu_bill
 		set
 		driverid = #{driverid,jdbcType=VARCHAR},
 		drivername =
@@ -779,7 +838,8 @@
 		drivertel =
 		#{drivertel,jdbcType=VARCHAR}
 		WHERE
-		driverid = #{startdriverid,jdbcType=VARCHAR}
+		driverid =
+		#{startdriverid,jdbcType=VARCHAR}
 		AND venderid =
 		#{venderid,jdbcType=VARCHAR}
 		AND status IN (0,1,2,3,4,5)
@@ -791,31 +851,44 @@
 		from wuliu_bill
 		where
 		driverid = #{driverid,jdbcType=VARCHAR}
-		AND venderid = #{venderid,jdbcType=VARCHAR}
-		AND status IN (0,1,2,3,4,5) and driverdelflag = 0
+		AND
+		venderid = #{venderid,jdbcType=VARCHAR}
+		AND status IN (0,1,2,3,4,5) and
+		driverdelflag = 0
 	</select>
 	<select id="selectByPlanId" resultMap="BaseResultMap"
 		parameterType="string">
 		select
 		<include refid="Base_Column_List" />
 		from wuliu_bill
-		where planid = #{planid,jdbcType=VARCHAR} and venderdelflag = 0 and
-		venderdelflag = 0 and driverdelflag = 0 and status not in (-1,7)
+		where planid = #{planid,jdbcType=VARCHAR} and
+		venderdelflag = 0 and
+		venderdelflag = 0 and driverdelflag = 0 and
+		status not in (-1,7)
 	</select>
 	<select id="selectBillByCapaId" parameterType="map"
 		resultType="com.tianrui.service.bean.Bill">
 		select b.*
 		from wuliu_bill b RIGHT JOIN wuliu_member_capa c
 		ON b.vehicleid = c.vehicleid
-		where c.`status` = 1 and b.`status` != 6 and b.venderid =
-		#{venderid,jdbcType=VARCHAR} and c.id = #{capaId,jdbcType=VARCHAR}
+		where c.`status` = 1 and b.`status` != 6
+		and b.venderid =
+		#{venderid,jdbcType=VARCHAR} and c.id =
+		#{capaId,jdbcType=VARCHAR}
 	</select>
 	<select id="selectAppointPageByPlanIds" parameterType="map"
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from wuliu_bill
-		where venderdelflag = '0' and planid in
+		where venderdelflag = '0'
+		<if test="queryKey != null and queryKey!=''">
+			and (cargoname like
+			concat(#{queryKey,jdbcType=VARCHAR},'%') or
+			waybillno like
+			concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+		</if>
+		and planid in
 		<foreach collection="list" index="index" item="item" open="("
 			separator="," close=")">
 			#{item}
@@ -831,7 +904,12 @@
 		resultType="integer">
 		select count(0)
 		from wuliu_bill
-		where venderdelflag = '0' and planid in
+		where venderdelflag = '0'
+		<if test="queryKey != null and queryKey!=''">
+			and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%') or
+			waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+		</if>
+		and planid in
 		<foreach collection="list" index="index" item="item" open="("
 			separator="," close=")">
 			#{item}

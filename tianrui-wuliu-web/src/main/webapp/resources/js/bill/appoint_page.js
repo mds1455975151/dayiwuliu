@@ -35,13 +35,13 @@ $(function(){
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
-			dataArr.push('<td class="bill_withred">');
+			dataArr.push('<td>');
 			if(item.creator == currId){
 				dataArr.push('<a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+'</a>');
 			}else{
 				dataArr.push(item.waybillno);
 			}
-			dataArr.push('<h5 class="plan_yunshu">委派运单</h5></td>');
+			dataArr.push('</td>');
 			dataArr.push('<td><p>'+item.vehicleno+'</p><p>'+item.drivertel+'</p></td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
 			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
@@ -71,7 +71,7 @@ $(function(){
 			}
 			dataArr.push('</td>');
 			dataArr.push('<td>'+item.modifytimeStr+'</td>');
-			dataArr.push('<td>');
+			/*dataArr.push('<td>');
 			if(item.creator == currId){
 				if(item.status ==0){
 					dataArr.push('<a ><button class="btn btnyello cancleBtn" dataId="'+item.id+'" dataCode="'+item.waybillno+'"  >收回</button></a>');
@@ -84,7 +84,7 @@ $(function(){
 				}
 			}
 			
-			dataArr.push('</td>');
+			dataArr.push('</td>');*/
 			dataArr.push('</tr>');
 		});	
 		

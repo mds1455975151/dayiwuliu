@@ -34,9 +34,12 @@ $(function(){
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
-			dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">');
+			dataArr.push('<td class="bill_withred"><a href="'+URL.detailViewUrl+'?id='+item.id+'"></a>');
 			dataArr.push(item.waybillno);
-			dataArr.push('</a></td>');
+			if(item.desc4 == '1'){
+				dataArr.push('<h5 class="plan_yunshu">委派运单</h5>');
+			}
+			dataArr.push('</td>');
 			dataArr.push('<td><p>'+item.vehicleno+'</p><p>'+item.drivertel+'</p></td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
 			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
