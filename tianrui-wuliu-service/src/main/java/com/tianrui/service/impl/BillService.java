@@ -262,6 +262,7 @@ public class BillService implements IBillService{
 						update.setDesc2("");
 						//车辆信息
 						VehicleDriver vehicleDriver =vehicleDriverMapper.selectByPrimaryKey(req.getVehicleId());
+						
 						update.setVehicleid(vehicleDriver.getVehicleid());
 						update.setDriverid(vehicleDriver.getDriverid());
 						update.setVehicleno(vehicleDriver.getVehicleno());

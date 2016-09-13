@@ -5,6 +5,7 @@
   		parameterType="com.tianrui.service.bean.MemberCapa" >
   SELECT
 	vd.id id,
+	vd.id vehicledriverid,
 	vd.driverid driverid,
 	vd.vehicleid vehicleid,
 	vd.drivername drivername,
@@ -52,6 +53,7 @@
 	UNION ALL
 	SELECT
 		c.id id,
+		d.id vehicledriverid,
 		d.driverid driverid,
 		d.vehicleid vehicleid,
 		d.drivername drivername,

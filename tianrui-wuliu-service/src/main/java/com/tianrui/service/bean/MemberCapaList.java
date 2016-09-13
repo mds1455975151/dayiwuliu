@@ -3,6 +3,7 @@ package com.tianrui.service.bean;
 public class MemberCapaList {
 
 	private String id;
+	private String vehicledriverid;
 	private String status;
 	private String driverid;
 	private String vehicleid;
@@ -30,6 +31,12 @@ public class MemberCapaList {
 		return vehicleno;
 	}
 	
+	public String getVehicledriverid() {
+		return vehicledriverid;
+	}
+	public void setVehicledriverid(String vehicledriverid) {
+		this.vehicledriverid = vehicledriverid;
+	}
 	public String getDriverid() {
 		return driverid;
 	}
