@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -198,7 +200,8 @@ public class BillService implements IBillService{
 						//收货人
 						bill.setReceivername(plan.getReceiveperson());
 						bill.setReceivertel(plan.getReceivepersonphone());
-						
+						//是否由委派计划生成的运单
+						bill.setDesc4(plan.getIsAppoint());
 						bills.add(bill);
 					}
 				}
@@ -737,10 +740,19 @@ public class BillService implements IBillService{
 						query.setVehicleid(db.getVehicleid());
 						query.setStatusStrs(new Byte[]{(byte)2,(byte)3,(byte)4});
 						long count =billMapper.countByCondition(query);
-						if( count ==0 ){
+						if(count == 0){
 							Bill update =new Bill();
 							update.setId(req.getId());
-							
+							//如果上传榜单了就保存
+							if( StringUtils.isNotBlank(req.getImgdata()) ){
+								FileUploadReq uploadreq = new FileUploadReq();
+								uploadreq.setuId(req.getCurruId());
+								uploadreq.setImgStr(req.getImgdata());
+								Result uploadRs =fileUploadService.uploadImg(uploadreq);
+								if( uploadRs!=null &&StringUtils.equals(uploadRs.getCode(), "000000") ){
+									update.setPickupimgurl(String.valueOf(uploadRs.getData()));
+								}
+							}
 							update.setStatus((byte)BillStatusEnum.DEPARTURE.getStatus());
 							
 							update.setModifier(req.getCurruId());
@@ -845,9 +857,23 @@ public class BillService implements IBillService{
 			Bill query = new Bill();
 			//以 车主 货主 司机身份查找运单
 			if( req.getQueryType() ==1 ){
-				query.setOwnerid(req.getCurrId());
+				//query.setOwnerid(req.getCurrId());
+				Plan plan = new Plan();
+				plan.setCreator(req.getCurrId());
+				List<Plan> listPlan = planMapper.selectByCondition(plan);
+				if(listPlan == null || listPlan.size() == 0){
+					page.setTotal(0);
+					page.setPageNo(req.getPageNo());
+					return page;
+				}
+				String planCodes = "";
+				for(Plan p : listPlan){
+					planCodes += p.getPlancode()+",";
+				}
+				query.setPlancode(planCodes.substring(0, planCodes.length()-1));
 			}else if(req.getQueryType() ==2 ){
 				query.setVenderid(req.getCurrId());
+//				query.setDesc4("0");
 			}else if(req.getQueryType() ==3 ){
 				query.setDriverid(req.getCurrId());
 			}
@@ -881,7 +907,7 @@ public class BillService implements IBillService{
 				}
 				query.setStatusStrs(status);
 			}
-			
+			//查询非委派计划生成的运单
 			long total =billMapper.countByCondition(query);
 			if( total>0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -954,6 +980,7 @@ public class BillService implements IBillService{
 				resp.setDistance(plan.getDistance());
 				resp.setVender(plan.getVehicleownerid());
 				resp.setPrice(String.valueOf(plan.getPrice()));
+				resp.setIsAppoint(plan.getIsAppoint());
 		
 				if( plan.getStarttime() !=null ){
 					resp.setStartTime(DateUtil.getDateString(new Date(plan.getStarttime())));
@@ -1341,5 +1368,73 @@ public class BillService implements IBillService{
 			}	
 		}
 		return overweight;
+	}
+	
+	public PaginationVO<WaybillResp> queryAppointBillPage(WaybillQueryReq req) throws Exception{
+		PaginationVO<WaybillResp> page =null;
+		if(req!=null && req.getPageNo() >0 ){
+			page=new PaginationVO<WaybillResp>();
+			List<String> list = new ArrayList<String>();
+			Plan plan = new Plan();
+			plan.setVehicleownerid(req.getCurrId());
+			//plan.setIsAppoint("1");
+			List<Plan> listPlan = planMapper.selectByCondition(plan);
+			List<Plan> childsPlans = null; 
+			if(listPlan != null && listPlan.size() > 0){
+				for(Plan p : listPlan){
+					childsPlans = this.getPlanIds(list, p.getPlancode(), p.getId());
+//					if(StringUtils.equals(p.getIsAppoint(), "1")){
+//						list.add(p.getId());
+//					}
+				}
+			}
+			if(list.size() > 0){
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("list", list);
+				int count = billMapper.selectAppointCountByPlanIds(params);
+				if(count > 0){
+					params.put("start", (req.getPageNo()-1)*req.getPageSize());
+					params.put("limit", req.getPageSize());
+					if(StringUtils.isNotBlank(req.getKey())){
+						params.put("queryKey", req.getKey());
+					}
+					List<Bill> bills = billMapper.selectAppointPageByPlanIds(params);
+					List<WaybillResp> resp = conver2billResp(bills);
+					if(resp != null && resp.size() > 0){
+						for(WaybillResp wbr : resp){
+							for(Plan p : childsPlans){
+								if(StringUtils.equals(wbr.getPlancode(), p.getPlancode())){
+									wbr.setVenderName(p.getVehicleownername());
+									wbr.setVenderTel(p.getVehicleownerphone());
+								}
+							}
+						}
+					}
+					page.setList(resp);
+				}
+				page.setTotal(count);
+				page.setPageNo(req.getPageNo());
+			}
+		}
+		return page;
+	}
+	/**
+	 * 递归查询委派的计划下所有生成的运单
+	 * @param list 计划id集合 ------用于查询运单
+	 * @param planCode 计划编码
+	 * @param pid 计划id
+	 */
+	private List<Plan> getPlanIds(List<String> list, String planCode, String pid){
+		List<Plan> listPlan = null;
+		if(StringUtils.isNotBlank(planCode) && StringUtils.isNotBlank(pid)){
+			listPlan = planMapper.selectChildPlan(planCode, pid);
+			if(listPlan != null && listPlan.size()>0){
+				for(Plan plan : listPlan){
+					list.add(plan.getId());
+					this.getPlanIds(list, planCode, plan.getId());
+				}
+			}
+		}
+		return listPlan;
 	}
 }

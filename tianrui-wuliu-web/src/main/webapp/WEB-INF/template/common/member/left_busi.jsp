@@ -33,6 +33,7 @@
 	                        <li><a href="/trwuliu/planvender/main" id="planvender">我承运的计划</a></li>
 	                        <li><a href="/trwuliu/planAppoint/main" id="planAppoint">我委派的计划</a></li>
 	                        <li><a href="/trwuliu/billvender/main" id="billvender">我承运的运单</a></li>
+	                        <li><a href="/trwuliu/billAppoint/main" id="billAppoint">我委派的运单</a></li>
 	                    </ul>
 	                </div>
 	            </div>

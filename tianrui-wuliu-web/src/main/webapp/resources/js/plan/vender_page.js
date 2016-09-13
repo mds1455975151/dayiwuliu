@@ -72,7 +72,6 @@ $(function(){
 	//查看计划绑定事件
 	$("#planlist").on("click",".detailBtn",function(){
 		var dId= $(this).attr("dataId");
-		debugger;
 		var isAppoint = $(this).attr('isAppoint');
 		if(isAppoint == 0){
 			window.location.href=PlanUrl.detail+"?id="+dId;
@@ -204,7 +203,7 @@ $(function(){
 			
 			var appointHtml = '';
 			if(item.isAppoint == '1'){
-				appointHtml = '<h5 class="plan_yunshu">运输服务单</h5>';
+				appointHtml = '<h5 class="plan_yunshu">委派计划</h5>';
 			}
 			
 			hml +="<tr>"+

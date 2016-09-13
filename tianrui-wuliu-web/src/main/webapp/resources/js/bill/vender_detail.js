@@ -1,6 +1,10 @@
 $(function(){
-	
-	$("#billvender").addClass("selected");
+	var isAppoint = $('#isAppoint').val();
+	if(isAppoint == '0'){
+		$("#billvender").addClass("selected");
+	}else{
+		$("#billAppoint").addClass("selected");
+	}
 	var URL={
 		cancleUrl:"/trwuliu/billvender/cancle",
 		deleteUrl:"/trwuliu/billvender/delete",

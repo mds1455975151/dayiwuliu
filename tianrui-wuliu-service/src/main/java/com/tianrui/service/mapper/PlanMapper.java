@@ -2,6 +2,8 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tianrui.service.bean.Plan;
 
 public interface PlanMapper {
@@ -62,4 +64,6 @@ public interface PlanMapper {
 	List<Plan> selectAppointByParams(String pid);
 	
 	Plan selectRootPlanByPlanId(String planid);
+
+	List<Plan> selectChildPlan(@Param("planCode")String planCode, @Param("pid")String pid);
 }

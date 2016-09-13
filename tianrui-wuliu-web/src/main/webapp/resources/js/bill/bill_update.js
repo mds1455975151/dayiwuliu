@@ -1,10 +1,16 @@
 $(function(){
-	$("#billvender").addClass("selected");
+	var isAppoint = $('#isAppoint').val();
+	if(isAppoint == '0'){
+		$("#billvender").addClass("selected");
+	}else{
+		$("#billAppoint").addClass("selected");
+	}
 	searchVehicle();
 	var URL={
 		updateUrl:"/trwuliu/billvender/update",
 		cancleUrl:"/trwuliu/billvender/main",
 		successUrl:"/trwuliu/billvender/main",
+		successAppointUrl:"/trwuliu/billAppoint/main"
 	}
 	
 	//限制输入格式位数字
@@ -100,7 +106,11 @@ $(function(){
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
 					alert("操作成功");
-					window.location.href=URL.successUrl;
+					if(isAppoint == '0'){
+						window.location.href=URL.successUrl;
+					}else{
+						window.location.href=URL.successAppointUrl;
+					}
 				}else{
 					alert(rs.error);
 				}

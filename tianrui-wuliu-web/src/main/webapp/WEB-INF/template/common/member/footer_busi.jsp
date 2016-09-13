@@ -67,13 +67,19 @@ window.alert =function(msg,title){
 	$("#modal_common_title").html(title||"确认");
 	$("#commonModal").modal();
 }
-window.confirm =function(msg,title,callback){
+window.confirm =function(msg,title,commitCallback,cancelCallBack){
 	$("#modal_confirm_title").html(msg);
 	$("#modal_confirm_content").html(title||"确认");
-	if(callback){
+	if(commitCallback){
 		$("#confirmModal").off("click",".confirmsubmitbtn").on("click",".confirmsubmitbtn",function(){
 			$("#confirmModal").modal("hide");
-			callback();
+			commitCallback();
+		});
+	}
+	if(cancelCallBack){
+		$("#confirmModal").off("click",".cancelsubmitbtn").on("click",".cancelsubmitbtn",function(){
+			$("#confirmModal").modal("hide");
+			cancelCallBack();
 		});
 	}
 	

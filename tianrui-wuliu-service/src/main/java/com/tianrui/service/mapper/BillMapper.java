@@ -1,6 +1,7 @@
 package com.tianrui.service.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -70,4 +71,8 @@ public interface BillMapper {
     List<Bill> selectByPlanId(String billId);
     
 	List<Bill> selectBillByCapaId(@Param("capaId")String capaId, @Param("venderid")String venderid);
+	
+	List<Bill> selectAppointPageByPlanIds(Map<String, Object> params);
+	
+	int selectAppointCountByPlanIds(Map<String, Object> params);
 }

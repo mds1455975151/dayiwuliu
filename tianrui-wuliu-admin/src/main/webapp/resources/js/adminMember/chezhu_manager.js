@@ -1,3 +1,6 @@
+var ownerPage = 1;
+var vehicPage = 1;
+var pageSize = 10;
 /**
  * 初始化查询
  */
@@ -112,10 +115,14 @@ function displayData(pageNo){
 							"<td >"+username+"</td>"+
 							"<td >"+telphone+"</td>"+
 							"<td >"+identityCard+"</td>"+
-							"<td >"+submitDate+"</td>"+
-							"<td><span><a data-toggle='modal' onclick=\"details('"+data[a].id+"')\" data-target='#detail'>【运力详情】</a></span>"+
-							"<span><a data-toggle='modal' onclick=\"ownerdatail('"+data[a].id+"')\" data-target='#chengyun'>【承运商详情】</a></span>"+
-							"<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+staus+"】</a></span>"+
+							"<td >"+submitDate+"</td><td>";
+						if(data[a].capacount != 0 || data[a].vdcount != 0 ){
+							hml += "<span><a data-toggle='modal' onclick=\"details('"+data[a].id+"')\" data-target='#detail'>【运力详情】</a></span>";
+						}
+						if(data[a].mocount != 0){
+							hml += "<span><a data-toggle='modal' onclick=\"ownerdatail('"+data[a].id+"')\" data-target='#chengyun'>【承运商详情】</a></span>";
+						}
+						hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
 							//"<span><a data-toggle='modal' onclick=\"deletebyid('"+data[a].id+"')\" data-target='#dele'>删除</a></span>"+
 							"</td></tr>";
@@ -132,7 +139,7 @@ function displayData(pageNo){
 				    num_edge_entries:1, 
 				    maxentries: ret.data.count, 
 				    link_to:"javascript:void(0)"
-				}); 
+				});
 			}
 		}
 	});  
@@ -212,24 +219,21 @@ function changeType(){
 }
 
 function clearDriver(){
-	$("#drivername").val("");
-	$("#dvehicletype").val("");
-	$("#dtelPhone").val("");
+	$("#driverSearch").val("");
+	$("#ownersearch").val("");
 }
 /**
  * 司机信息查询
  */
-function driverdetails(){
+function driverdetails(pageNo,flag){
 	var memberid = $("#memberid").val();
-	var drivername = $("#drivername").val();
-	var dvehicletype = $("#dvehicletype").val();
-	var dtelPhone = $("#dtelPhone").val();
+	var search = $("#driverSearch").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findMyDriver',
 		data:{"memberid":memberid,
-			"drivername":drivername,
-			"vehicletype":dvehicletype,
-			"drivertel":dtelPhone
+			"search":search,
+			"pageNo":pageNo,
+			"pageSize":pageSize
 			
 		},
 		type:"post",
@@ -239,59 +243,7 @@ function driverdetails(){
 			if(ret.code!="000000"){
 				alert(ret.error);
 			}else{
-				var hml = "";
-				var data = ret.data.list;
-				for (var a = 0; a < data.length; a++) {
-					var s = a + 1; 
-					var vehiPrefix = data[a].vehicleprefix;
-					if(data[a].vehicleprefix == undefined){
-						vehiPrefix = "";
-					}
-					var vehiNo = data[a].vehicleno;
-					if(data[a].vehicleno == undefined){
-						vehiNo = "";
-					}
-					var vehiTypeName = data[a].vehicletype;
-					if(data[a].vehicletype == undefined){
-						vehiTypeName = "";
-					}
-					var username = data[a].username;
-					if(data[a].username == undefined){
-						username = "";
-					}
-					var telphone = data[a].telphone;
-					if(data[a].telphone == undefined){
-						telphone = "";
-					}
-					var driverName = data[a].drivername;
-					if(data[a].drivername == undefined){
-						driverName = "未绑定司机";
-					}
-					var driverTel = data[a].drivertel;
-					if(data[a].drivertel == undefined){
-						driverTel = "";
-					}
-					var identityCard = data[a].identityCard;
-					if(data[a].identityCard == undefined){
-						identityCard = "";
-					}
-					var status = data[a].status;
-					if(status == -1){
-						status = "自有车辆";
-					}else {
-						status = "调用车辆";
-					}
-					hml += "<tr><td>"+s+"</td>"+
-						"<td>"+vehiPrefix+vehiNo+"</td>"+
-						"<td>"+vehiTypeName+"</td>"+
-						"<td>"+status+"</td>"+
-						"<td>"+username+"</td>"+
-						"<td>"+telphone+"</td>"+
-						"<td>"+driverName+"</td>"+
-						"<td>"+driverTel+"</td>"+
-						"</tr>";
-				}
-				document.getElementById("drivlist").innerHTML=hml;
+				innVehicHtml(ret,flag);
 			}
 		}
 	});
@@ -301,19 +253,25 @@ function driverdetails(){
  */
 function details(id){
 	document.getElementById("memberid").value=id;
-	driverdetails();
+	driverdetails(1,0);
+	vehicPage = 1;
 }
 function ownerdatail(id){
 	document.getElementById("memberid").value=id;
-	vehicOwner();
+	vehicOwner(1,0);
+	ownerPage = 1;
 }
 /** 承运商详情*/
-function vehicOwner(){
+function vehicOwner(pageNo,flag){
 	var ownerid = $("#memberid").val();
 	var search = $("#ownersearch").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/vehicOwner',
-		data:{"memberId":ownerid ,"search":search},
+		data:{"memberId":ownerid ,
+			"search":search,
+			"pageNo":pageNo,
+			"pageSize":pageSize
+			},
 		type:"post",
 		beforeSend: function() {
 		},
@@ -321,25 +279,108 @@ function vehicOwner(){
 			if(retVal.code!="000000"){
 				alert(retVal.error);
 			}else{
-				innOwnerHtml(retVal);
+				innOwnerHtml(retVal,flag);
 			}
 		}
 	});
 }
+
+function chenyunMore(){
+	ownerPage += 1;
+	vehicOwner(ownerPage,1);
+}
+function vheicMore(){
+	vehicPage += 1;
+	driverdetails(vehicPage,1);
+}
+function showOrHide(page,total){
+	if(page * pageSize >= total){
+		$(".goods_more").hide();
+	}else{
+		$(".goods_more").show();
+	}
+}
 /** 我的承运商*/
-function innOwnerHtml(ret){
+function innOwnerHtml(ret,flag){
+	if(flag == 0){
+		$("#ownerlist").empty();
+	}
 	var da = ret.data.list;
 	var total = ret.data.total;
+	ownerPage = ret.data.pageNo;
+	showOrHide(ownerPage,total);
 	if(total == 0){
 		return ;
 	}
 	var hml = "";
 	for (var a = 0; a < da.length; a++) {
-		s = a+1;
+		s = ((ownerPage-1) * pageSize) + a + 1; 
 		hml += "<tr><td>"+s+"</td>"+
 		"<td>"+da[a].ownerName+"</td>"+
 		"<td>"+da[a].ownerTel+"</td>"+
 		"</tr>";
 	}
-	document.getElementById("ownerlist").innerHTML=hml;
+	$("#ownerlist").append(hml);
+}
+/** 我的运力*/
+function innVehicHtml(ret,flag){
+	if(flag == 0){
+		$("#drivlist").empty();
+	}
+	var hml = "";
+	var data = ret.data.list;
+	var total = ret.data.total;
+	var vehicPage = ret.data.pageNo;
+	showOrHide(vehicPage,total);
+	for (var a = 0; a < data.length; a++) {
+		var s = ((vehicPage-1) * pageSize) + a + 1; 
+		var vehiPrefix = data[a].vehicleprefix;
+		if(data[a].vehicleprefix == undefined){
+			vehiPrefix = "";
+		}
+		var vehiNo = data[a].vehicleno;
+		if(data[a].vehicleno == undefined){
+			vehiNo = "";
+		}
+		var vehiTypeName = data[a].vehicletype;
+		if(data[a].vehicletype == undefined){
+			vehiTypeName = "";
+		}
+		var username = data[a].username;
+		if(data[a].username == undefined){
+			username = "";
+		}
+		var telphone = data[a].telphone;
+		if(data[a].telphone == undefined){
+			telphone = "";
+		}
+		var driverName = data[a].drivername;
+		if(data[a].drivername == undefined){
+			driverName = "未绑定司机";
+		}
+		var driverTel = data[a].drivertel;
+		if(data[a].drivertel == undefined){
+			driverTel = "";
+		}
+		var identityCard = data[a].identityCard;
+		if(data[a].identityCard == undefined){
+			identityCard = "";
+		}
+		var status = data[a].status;
+		if(status == -1){
+			status = "自有车辆";
+		}else {
+			status = "调用车辆";
+		}
+		hml += "<tr><td>"+s+"</td>"+
+			"<td>"+vehiPrefix+vehiNo+"</td>"+
+			"<td>"+vehiTypeName+"</td>"+
+			"<td>"+status+"</td>"+
+			"<td>"+username+"</td>"+
+			"<td>"+telphone+"</td>"+
+			"<td>"+driverName+"</td>"+
+			"<td>"+driverTel+"</td>"+
+			"</tr>";
+	}
+	$("#drivlist").append(hml);
 }

@@ -83,22 +83,29 @@ $(function(){
 	});
 	//pickupBtn 提货确认
 	$(".detailDiv").on("click",".pickupBtn",function(){
-		$.ajax({
-			url:URL.pickupConfirmUrl,
-			data:{"id":$("#billId").val()},
-			type : "post",
-			dataType:"json",
-			success:function(rs){
-				if( rs && rs.code =="000000" ){
-					window.location.reload();
-				}else{
-					alert(rs.error);
+		var dId= $("#billId").val();
+		confirm("上传榜单","是否要上传提货榜单？",function(){
+			$("#urlReq").val(URL.pickupConfirmUrl);
+			$("#upbangdan").modal();
+		},function(){
+			$.ajax({
+				url:URL.pickupConfirmUrl,
+				data:{"id":dId},
+				type : "post",
+				dataType:"json",
+				success:function(rs){
+					if( rs && rs.code =="000000" ){
+						window.location.reload();
+					}else{
+						alert(rs.error);
+					}
 				}
-			}
-		})
+			});
+		});
 	});
 	//dischargeBtn 卸货完成确认
 	$(".detailDiv").on("click",".dischargeBtn",function(){
+		$("#urlReq").val(URL.dischargeConfirmUrl);
 		$("#upbangdan").modal();
 	});
 	//dischargeBtn 到达确认
@@ -144,9 +151,9 @@ $(function(){
 	
 	//上传榜单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
-		if( $("#billId").val() &&  $("#imgdata").val()){
+		if( $("#billId").val() &&  $("#imgdata").val() && $("#urlReq").val()){
 			$.ajax({
-				url:URL.dischargeConfirmUrl,
+				url:$("#urlReq").val(),
 				data:{"id":$("#billId").val(),"imgdata":$("#imgdata").val()},
 				type : "post",
 				dataType:"json",

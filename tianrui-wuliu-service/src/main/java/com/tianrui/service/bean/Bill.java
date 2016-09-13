@@ -46,6 +46,7 @@ public class Bill {
     private String desc2;
     //拒绝类型
     private String desc3;
+    //是否由委派计划生成的运单
     private String desc4;
     
     private Integer start;
@@ -62,6 +63,8 @@ public class Bill {
     private String totalnumber;
     //剩余趟数
     private String overnumber;
+    //取货单图片
+    private String pickupimgurl;
     
     public String getId() {
         return id;
@@ -1077,6 +1080,14 @@ public class Bill {
 
 	public void setTotalnumber(String totalnumber) {
 		this.totalnumber = totalnumber;
+	}
+
+	public String getPickupimgurl() {
+		return pickupimgurl;
+	}
+
+	public void setPickupimgurl(String pickupimgurl) {
+		this.pickupimgurl = pickupimgurl;
 	}
 
 }

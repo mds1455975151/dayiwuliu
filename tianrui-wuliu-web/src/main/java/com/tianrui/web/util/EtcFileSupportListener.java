@@ -21,7 +21,7 @@ public class EtcFileSupportListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent evt) {
 
-		File etcFileSupportFile = new File(System.getProperty("catalina.home") + "/etc/trwlAdmin/");
+		File etcFileSupportFile = new File(System.getProperty("catalina.home") + "/etc/trwlWeb/");
 		
 		logger.debug("etcFileSupportFile:" + etcFileSupportFile.getPath());
 

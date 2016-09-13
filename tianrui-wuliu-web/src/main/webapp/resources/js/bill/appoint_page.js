@@ -1,7 +1,7 @@
 $(function(){
-	$("#billvender").addClass("selected");
+	$("#billAppoint").addClass("selected");
 	var URL={
-		pageUrl:"/trwuliu/billvender/page",
+		pageUrl:"/trwuliu/billAppoint/page",
 		cancleUrl:"/trwuliu/billvender/cancle",
 		deleteUrl:"/trwuliu/billvender/delete",
 		updateViewUrl:"/trwuliu/billvender/updateView",
@@ -31,17 +31,12 @@ $(function(){
 	
 	//页面数据渲染
 	var renderDate=function(bills,pageNo){
+		var currId = $('#currId').val();
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
-			dataArr.push('<td class="bill_withred"><a href="'+URL.detailViewUrl+'?id='+item.id+'">');
-			dataArr.push(item.waybillno);
-			dataArr.push('</a>');
-			if(item.desc4 == '1'){
-				dataArr.push('<h5 class="plan_yunshu">委派运单</h5>');
-			}
-			dataArr.push('</td>');
-			dataArr.push('<td><p>'+item.vehicleno+'</p><p>'+item.drivertel+'</p></td>');
+			dataArr.push('<td>'+item.waybillno+'</td>');
+			dataArr.push('<td><p>'+item.cargoname+'</p></td>');
 			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
 			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
 			dataArr.push('<td>');
@@ -69,19 +64,22 @@ $(function(){
 				}
 			}
 			dataArr.push('</td>');
-			dataArr.push('<td>'+item.modifytimeStr+'</td>');
-			dataArr.push('<td>');
-			if(item.status ==0){
-				dataArr.push('<a ><button class="btn btnyello cancleBtn" dataId="'+item.id+'" dataCode="'+item.waybillno+'"  >收回</button></a>');
-			}else if(item.status ==7){
-				dataArr.push('<a  target="_blank"  href="'+URL.updateViewUrl+'?id='+item.id+'"><button class="btn btnyello">修改</button></a>');
-				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'" dataCode="'+item.waybillno+'" >删除</button></a>');
-			}else if(item.status ==-1){
-				dataArr.push('<a  target="_blank"  href="'+URL.updateViewUrl+'?id='+item.id+'"><button class="btn btnyello">修改</button></a>');
-				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'" dataCode="'+item.waybillno+'" >删除</button></a>');
+			dataArr.push('<td>'+item.weight+'</td>');
+			dataArr.push('<td>'+item.venderName+'</td>');
+			/*dataArr.push('<td>');
+			if(item.creator == currId){
+				if(item.status ==0){
+					dataArr.push('<a ><button class="btn btnyello cancleBtn" dataId="'+item.id+'" dataCode="'+item.waybillno+'"  >收回</button></a>');
+				}else if(item.status ==7){
+					dataArr.push('<a  target="_blank"  href="'+URL.updateViewUrl+'?id='+item.id+'"><button class="btn btnyello">修改</button></a>');
+					dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'" dataCode="'+item.waybillno+'" >删除</button></a>');
+				}else if(item.status ==-1){
+					dataArr.push('<a  target="_blank"  href="'+URL.updateViewUrl+'?id='+item.id+'"><button class="btn btnyello">修改</button></a>');
+					dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'" dataCode="'+item.waybillno+'" >删除</button></a>');
+				}
 			}
 			
-			dataArr.push('</td>');
+			dataArr.push('</td>');*/
 			dataArr.push('</tr>');
 		});	
 		

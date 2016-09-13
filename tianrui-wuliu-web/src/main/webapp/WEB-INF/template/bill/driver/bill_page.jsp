@@ -133,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body">
                 <!--磅单图片上传弹出-->
                 <input type="hidden" id="imgdata" />
+                <input id="urlReq" type="hidden"/>
                 <div class="bd_alert">
                     <div class="bangdan_note">
                         <label>磅单图片：</label>
