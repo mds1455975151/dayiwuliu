@@ -34,8 +34,9 @@ $(function(){
 		var dataArr=[]; 
 		$(bills).each(function(i,item){
 			dataArr.push('<tr>');
-			dataArr.push('<td class="bill_withred"><a href="'+URL.detailViewUrl+'?id='+item.id+'"></a>');
+			dataArr.push('<td class="bill_withred"><a href="'+URL.detailViewUrl+'?id='+item.id+'">');
 			dataArr.push(item.waybillno);
+			dataArr.push('</a>');
 			if(item.desc4 == '1'){
 				dataArr.push('<h5 class="plan_yunshu">委派运单</h5>');
 			}
