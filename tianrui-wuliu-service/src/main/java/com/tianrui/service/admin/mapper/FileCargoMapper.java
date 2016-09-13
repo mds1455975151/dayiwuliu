@@ -83,4 +83,11 @@ public interface FileCargoMapper {
      * @time 2016年5月22日 下午5:55:28
      */
     long selectCountByCondition(FileCargo argCondition);
+    
+    /**
+     * 根据计划id关联查询货物档案信息
+     * @param planId
+     * @return
+     */
+    FileCargo selectByPlanId(String planId);
 }

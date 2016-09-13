@@ -37,19 +37,8 @@
 	
    <bean id="resourcePathExposer" class="com.tianrui.trwl.admin.util.ResourcePathExposer"
 		init-method="init" >
-		<property name="trRoot" value="http://www.appb2b.com/trwlAdminStatic/resources" />
-		<!-- 
-		<property name="localScripts" value="/resources/js" />
-		<property name="imagesRoot" value="http://img.tmkrewuliu.cn:777/resources/images" />
-		<property name="scriptsRoot" value="http://img.tmkrewuliu.cn:777/resources/js" />
-		<property name="stylesRoot" value="http://img.tmkrewuliu.cn:777/resources/css" />
-		<property name="mhImagesRoot" value="http://img.tmkrewuliu.cn:777/resources/images/trxxkj" />
-		<property name="mhScriptsRoot" value="http://img.tmkrewuliu.cn:777/resources/js/trxxkj" />
-		<property name="mhStylesRoot" value="http://img.tmkrewuliu.cn:777/resources/css/trxxkj" />
-		<property name="trRoot" value="http://img.tmkrewuliu.cn:777/resources" />
-		<property name="newsUpload" value="/news/upload" />
-		<property name="nginxRoot" value="http://file.tmkrewuliu.cn/" />
-		 -->
+		<property name="trRoot" value="http://www.appb2b.com/trwlAdminStatic" />
+
 	</bean>
 	
 	<!-- 资源文件路径 css js images -->

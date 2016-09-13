@@ -40,6 +40,10 @@ public enum ErrorCode {
 	BILL_VENDER_DEL("E301008","改运单车主已删除"),
 	BILL_OWNER_DEL("E301009","改运单货主已删除"),
 	
+	//账单
+	PAY_ITEMS_THAN_MAX("E401001","请最多选择20个账单."),
+	PAY_DATA_NOT_EXIST("E401002","部分账单信息异常,请重试."),
+	PAY_DATA_TYPE_NOT_EQUAL("E401003","账单发票类型不一致."),
 	//运力共享
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机")

@@ -43,6 +43,14 @@
     from file_cargo
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByPlanId" resultType="com.tianrui.service.admin.bean.FileCargo" parameterType="String" >
+   select 
+   		<include refid="Base_Column_List" />
+   from 
+   		file_org_cargo 
+   where 
+   		id = (select  cargoid from wuliu_plan where id = #{planId} )
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--
       WARNING - @mbggenerated

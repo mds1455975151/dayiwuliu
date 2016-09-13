@@ -50,6 +50,9 @@ public class Result implements Serializable{
 	public static Result getSuccessResult(){
 		return new Result("000000");
 	}
+	public static Result getErrorResult(){
+		return new Result("-1");
+	}
 	
 	public void setErrorCode(ErrorCode errorCode ){
 		this.code=errorCode.getCode();

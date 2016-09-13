@@ -120,6 +120,9 @@
       <if test="ownerid != null and ownerid!=''" >
         and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
       </if>
+      <if test="orgid != null and orgid != '' " >
+        and orgid=#{orgid,jdbcType=VARCHAR} 
+      </if>
       <if test="queryKey != null and queryKey!=''" >
         and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
       </if>
@@ -166,6 +169,9 @@
       </if>
       <if test="ownerid != null and ownerid!=''" >
         and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+      </if>
+      <if test="orgid != null and orgid != '' " >
+        and orgid=#{orgid,jdbcType=VARCHAR} 
       </if>
       <if test="queryKey != null and queryKey!=''" >
         and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
