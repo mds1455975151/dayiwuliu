@@ -139,7 +139,7 @@ function displayData(pageNo){
 				    num_edge_entries:1, 
 				    maxentries: ret.data.count, 
 				    link_to:"javascript:void(0)"
-				}); 
+				});
 			}
 		}
 	});  
@@ -226,7 +226,6 @@ function clearDriver(){
  * 司机信息查询
  */
 function driverdetails(pageNo,flag){
-	//TODO
 	var memberid = $("#memberid").val();
 	var search = $("#driverSearch").val();
 	$.ajax({
@@ -264,7 +263,6 @@ function ownerdatail(id){
 }
 /** 承运商详情*/
 function vehicOwner(pageNo,flag){
-	//TODO
 	var ownerid = $("#memberid").val();
 	var search = $("#ownersearch").val();
 	$.ajax({
