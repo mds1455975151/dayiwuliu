@@ -84,6 +84,9 @@
       <if test="ownerid != null and ownerid!=''" >
         and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
       </if>
+      <if test="orgid != null and orgid!=''" >
+        and orgid=#{orgid,jdbcType=VARCHAR} 
+      </if>
       <if test="queryKey != null and queryKey!=''" >
         and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
       </if>
@@ -164,6 +167,9 @@
       <if test="status != null " >
         and status =#{status,jdbcType=TINYINT}
       </if>
+      <if test="orgid != null and orgid!=''" >
+        and orgid=#{orgid,jdbcType=VARCHAR} 
+      </if>
       <if test="ownerid != null and ownerid!=''" >
         and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
       </if>
@@ -187,35 +193,35 @@
 		UNION
 		select id from wuliu_bill where id in (select billid from wuliu_transfer where startid=#{driverid,jdbcType=VARCHAR} and isvalid = "1" GROUP BY billid) and driverdelflag=0 and status != -1 
       	<if test="planid != null and planid!=''" >
-        and planid =#{planid,jdbcType=VARCHAR}
-      </if>
-      <if test="venderid != null and venderid!=''" >
-       and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
-      </if>
-      <if test="vehicleid != null and vehicleid!=''" >
-       and vehicleid=#{vehicleid,jdbcType=VARCHAR}
-      </if>
-      <if test="status != null " >
-        and status =#{status,jdbcType=TINYINT}
-      </if>
-      <if test="ownerid != null and ownerid!=''" >
-        and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
-      </if>
-      <if test="queryKey != null and queryKey!=''" >
-        and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
-      </if>
-  	  <if test="statusStrs != null" >
-        and status in 
-	      <foreach   collection="statusStrs" item="itemId" open="("  separator=","  close=")">  
-		         #{itemId}  
-		  </foreach> 
-      </if> 
-      <if test="overnumber != null and overnumber != ''" >
-        and overnumber=#{overnumber,jdbcType=VARCHAR}
-      </if>
-      <if test="totalnumber != null and totalnumber != ''" >
-        and totalnumber=#{totalnumber,jdbcType=VARCHAR}
-      </if>
+	        and planid =#{planid,jdbcType=VARCHAR}
+	      </if>
+	      <if test="venderid != null and venderid!=''" >
+	       and venderid=#{venderid,jdbcType=VARCHAR} and venderdelflag=0
+	      </if>
+	      <if test="vehicleid != null and vehicleid!=''" >
+	       and vehicleid=#{vehicleid,jdbcType=VARCHAR}
+	      </if>
+	      <if test="status != null " >
+	        and status =#{status,jdbcType=TINYINT}
+	      </if>
+	      <if test="ownerid != null and ownerid!=''" >
+	        and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag =0
+	      </if>
+	      <if test="queryKey != null and queryKey!=''" >
+	        and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%')   or waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+	      </if>
+	  	  <if test="statusStrs != null" >
+	        and status in 
+		      <foreach   collection="statusStrs" item="itemId" open="("  separator=","  close=")">  
+			         #{itemId}  
+			  </foreach> 
+	      </if> 
+	      <if test="overnumber != null and overnumber != ''" >
+	        and overnumber=#{overnumber,jdbcType=VARCHAR}
+	      </if>
+	      <if test="totalnumber != null and totalnumber != ''" >
+	        and totalnumber=#{totalnumber,jdbcType=VARCHAR}
+	      </if>
       </if>
    	</where>
     ) b
