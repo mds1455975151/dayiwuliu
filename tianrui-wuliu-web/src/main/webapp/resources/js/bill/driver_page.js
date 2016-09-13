@@ -168,9 +168,9 @@ $(function(){
 	})
 	//上传榜单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
-		if( $("#hidbid").val()  &&  $("#imgdata").val()){
+		if( $("#hidbid").val()  &&  $("#imgdata").val() && $("#urlReq").val()){
 			$.ajax({
-				url:URL.dischargeConfirmUrl,
+				url:$("#urlReq").val(),
 				data:{"id":$("#hidbid").val(),"imgdata":$("#imgdata").val()},
 				type : "post",
 				dataType:"json",
@@ -183,7 +183,7 @@ $(function(){
 						alert(rs.error);
 					}
 				}
-			})
+			});
 		}else{
 			alert("请先裁剪图片")
 		}
@@ -246,11 +246,11 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".table").on("click",".pickupBtn",function(){
 		var dId= $(this).attr("dataId");
-		$("#hidbid").val(dId);
-		$("#upbangdan").modal();
-		
-		var dId= $(this).attr("dataId");
-		confirm("确认","确认运单["+$(this).attr("dataCode")+"]提货确认吗,确认/取消?",function(){
+		confirm("上传榜单","是否要上传提货榜单？",function(){
+			$("#urlReq").val(URL.pickupConfirmUrl);
+			$("#hidbid").val(dId);
+			$("#upbangdan").modal();
+		},function(){
 			$.ajax({
 				url:URL.pickupConfirmUrl,
 				data:{"id":dId},
@@ -264,12 +264,13 @@ $(function(){
 						alert(rs.error);
 					}
 				}
-			})
-		})
+			});
+		});
 	});
 	//dischargeBtn 卸货完成
 	$(".table").on("click",".dischargeBtn",function(){
 		var dId= $(this).attr("dataId");
+		$("#urlReq").val(URL.dischargeConfirmUrl);
 		$("#hidbid").val(dId);
 		$("#upbangdan").modal();
 	});

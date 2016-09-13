@@ -63,6 +63,8 @@ public class Bill {
     private String totalnumber;
     //剩余趟数
     private String overnumber;
+    //取货单图片
+    private String pickupimgurl;
     
     public String getId() {
         return id;
@@ -1078,6 +1080,14 @@ public class Bill {
 
 	public void setTotalnumber(String totalnumber) {
 		this.totalnumber = totalnumber;
+	}
+
+	public String getPickupimgurl() {
+		return pickupimgurl;
+	}
+
+	public void setPickupimgurl(String pickupimgurl) {
+		this.pickupimgurl = pickupimgurl;
 	}
 
 }

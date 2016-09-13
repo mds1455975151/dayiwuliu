@@ -3,6 +3,8 @@ package com.tianrui.api.resp.front.bill;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 import com.tianrui.common.utils.DateUtil;
 
@@ -49,6 +51,7 @@ public class WaybillResp extends BaseResp{
     private String desc1;
     private String desc4;
     private Double tallage;
+    private String pickupimgurl;
     /**
      * 剩余运输量
      */
@@ -391,6 +394,16 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setDesc4(String desc4) {
 		this.desc4 = desc4;
+	}
+	public String getPickupimgurl() {
+		if(StringUtils.isNotBlank(pickupimgurl)){
+			return pickupimgurl;
+		}else{
+			return "";
+		}
+	}
+	public void setPickupimgurl(String pickupimgurl) {
+		this.pickupimgurl = pickupimgurl;
 	}
 	
 }

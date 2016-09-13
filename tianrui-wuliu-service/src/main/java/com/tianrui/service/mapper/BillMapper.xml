@@ -45,6 +45,7 @@
 		<result column="createtime" property="createtime" jdbcType="BIGINT" />
 		<result column="modifier" property="modifier" jdbcType="VARCHAR" />
 		<result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+		<result column="pickupimgurl" property="pickupimgurl" jdbcType="BIGINT" />
 		<result column="signimgurl" property="signimgurl" jdbcType="BIGINT" />
 		<result column="overnumber" property="overnumber" jdbcType="VARCHAR" />
 		<result column="totalnumber" property="totalnumber" jdbcType="VARCHAR" />
@@ -66,7 +67,8 @@
 		ownerid, venderid, venderdelflag,
 		ownerdelflag, driverdelflag,
 		orgid,plancode,creator, createtime,
-		modifier, modifytime, signimgurl,overnumber,totalnumber,DESC1, DESC2,
+		modifier, modifytime, pickupimgurl,
+		signimgurl,overnumber,totalnumber,DESC1, DESC2,
 		DESC3,
 		DESC4
 	</sql>
@@ -97,8 +99,11 @@
 				and status =#{status,jdbcType=TINYINT}
 			</if>
 			<if test="ownerid != null and ownerid!=''">
-				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
-				=0
+				and ownerid=#{ownerid,jdbcType=VARCHAR} and
+				ownerdelflag=0
+			</if>
+			<if test="plancode != null and plancode != ''">
+				and plancode in (${plancode}) and ownerdelflag=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
 				and (cargoname like
@@ -148,6 +153,10 @@
 				<if test="ownerid != null and ownerid!=''">
 					and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
 					=0
+				</if>
+				<if test="plancode != null and plancode != ''">
+					and plancode in (${plancode}) and
+					ownerdelflag=0
 				</if>
 				<if test="queryKey != null and queryKey!=''">
 					and (cargoname like
@@ -206,6 +215,10 @@
 				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
 				=0
 			</if>
+			<if test="plancode != null and plancode != ''">
+				and plancode in (${plancode}) and
+				ownerdelflag=0
+			</if>
 			<if test="queryKey != null and queryKey!=''">
 				and (cargoname like
 				concat(#{queryKey,jdbcType=VARCHAR},'%') or
@@ -254,6 +267,10 @@
 				<if test="ownerid != null and ownerid!=''">
 					and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
 					=0
+				</if>
+				<if test="plancode != null and plancode != ''">
+					and plancode in (${plancode}) and
+					ownerdelflag=0
 				</if>
 				<if test="queryKey != null and queryKey!=''">
 					and (cargoname like
@@ -733,6 +750,9 @@
 			<if test="modifier != null">
 				modifier = #{modifier,jdbcType=VARCHAR},
 			</if>
+			<if test="pickupimgurl != null">
+				pickupimgurl = #{pickupimgurl,jdbcType=VARCHAR},
+			</if>
 			<if test="signimgurl != null">
 				signimgurl = #{signimgurl,jdbcType=VARCHAR},
 			</if>
@@ -906,8 +926,10 @@
 		from wuliu_bill
 		where venderdelflag = '0'
 		<if test="queryKey != null and queryKey!=''">
-			and (cargoname like concat(#{queryKey,jdbcType=VARCHAR},'%') or
-			waybillno like concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+			and (cargoname like
+			concat(#{queryKey,jdbcType=VARCHAR},'%') or
+			waybillno like
+			concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
 		</if>
 		and planid in
 		<foreach collection="list" index="index" item="item" open="("
