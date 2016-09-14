@@ -3,6 +3,7 @@ package com.tianrui.api.resp.front.capa;
 public class MemberCapaListResp {
 
 	private String id;
+	private String vehicledriverid;
 	private String status;
 	private String vehicleno;
 	private String drivername;
@@ -94,6 +95,10 @@ public class MemberCapaListResp {
 	public void setLength(String length) {
 		this.length = length;
 	}
-	
-	
+	public String getVehicledriverid() {
+		return vehicledriverid;
+	}
+	public void setVehicledriverid(String vehicledriverid) {
+		this.vehicledriverid = vehicledriverid;
+	}
 }

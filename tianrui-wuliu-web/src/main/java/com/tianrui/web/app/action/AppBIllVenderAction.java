@@ -225,7 +225,7 @@ public class AppBIllVenderAction {
 		List<BillVehicleResp> resp = new ArrayList<BillVehicleResp>();
 		for(MemberCapaListResp mc : list){
 			BillVehicleResp bv = new BillVehicleResp();
-			bv.setId(mc.getId());
+			bv.setId(mc.getVehicledriverid());
 			bv.setVehicleNo(mc.getVehicleno());
 			bv.setDriverName(mc.getDrivername());
 			bv.setDriverTel(mc.getDrivertel());

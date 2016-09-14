@@ -171,7 +171,7 @@ $(function(){
     		}else if(data[a].billstatus == 5){
     			billstatus = "空闲中";
     		}
-    		hml += "<li><input type='checkbox' dataId="+data[a].id+" class='checkInput'>"+
+    		hml += "<li><input type='checkbox' dataId="+data[a].vehicledriverid+" class='checkInput'>"+
     		"<label>"+data[a].vehicleno+"</label>"+
     		"<span>"+data[a].drivername+"--"+data[a].vehicletype+"</span>"+
     		"<em>"+data[a].weight+"吨</em>"+
