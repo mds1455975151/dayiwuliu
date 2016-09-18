@@ -22,6 +22,7 @@ public class MemberVo {
 	private String nickname;
 	private String userName;
 	private String companyName;
+	private String compCode;
 	
 	//头像
 	private String avatarspath;
@@ -154,7 +155,12 @@ public class MemberVo {
 	public void setTokenId(String tokenId) {
 		this.tokenId = tokenId;
 	}
-	
+	public String getCompCode() {
+		return compCode;
+	}
+	public void setCompCode(String compCode) {
+		this.compCode = compCode;
+	}
 	
 
 	

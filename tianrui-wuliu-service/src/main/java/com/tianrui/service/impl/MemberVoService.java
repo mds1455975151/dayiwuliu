@@ -101,6 +101,7 @@ public class MemberVoService implements IMemberVoService{
 			memberVo.setIdcard(memberInfo.getIdcard());
 			memberVo.setIdcardimage(memberInfo.getIdcardimage());
 			memberVo.setDriverimage(memberInfo.getDriverimage());
+			memberVo.setCompCode(memberInfo.getCompanycode());
 		}
 		return memberVo;
 	}
