@@ -171,6 +171,8 @@ public class PayInvoiceDetail {
      */
     private Long modifytime;
 
+    private String venderId;
+    private String ownerId;
     /**
      * this fileds not in db ,only for query;
      */
@@ -689,6 +691,22 @@ public class PayInvoiceDetail {
 
 	public void setIds(List<String> ids) {
 		this.ids = ids;
+	}
+
+	public String getVenderId() {
+		return venderId;
+	}
+
+	public void setVenderId(String venderId) {
+		this.venderId = venderId;
+	}
+
+	public String getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
 	}
 	
 	

@@ -23,4 +23,7 @@ public interface IPayInvoiceDetailService {
 	//生成运价发票单
 	public Result generalPayInvoice(PayInvoiceGenalReq req)throws Exception;
 	
+	//查询详情
+	public PayInvoiceDetailResp queryPayInvoice(PayInvoiceDetailQueryReq req)throws Exception;
+	
 }

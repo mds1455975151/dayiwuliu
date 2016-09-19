@@ -2,6 +2,7 @@ package com.tianrui.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,8 +15,10 @@ import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
+import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.PayStatusEnum;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
@@ -61,6 +64,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				 * 货主信息
 				 */
 				MemberVo owner =memberVoService.get(bill.getOwnerid());
+				payInvoiceDetail.setOwnerId(bill.getOwnerid());
 				payInvoiceDetail.setOrgid(owner.getOrgid());
 				payInvoiceDetail.setOrgName(owner.getCompanyName());
 				/**
@@ -98,7 +102,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 					payInvoiceDetail.setVenderType((byte)0);
 					payInvoiceDetail.setVenderName(vender.getUserName());
 				}
-				payInvoiceDetailMapper.insertSelective(payInvoiceDetail);
+				payInvoiceDetail.setVenderId(bill.getVenderid());
+				payInvoiceDetailMapper.insert(payInvoiceDetail);
 			}
 		}
 		
@@ -161,20 +166,23 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setAdviceStatus((byte)0);
 						payInvoice.setAdviceTime(System.currentTimeMillis());
 						
+						payInvoice.setOwnerId(item.getOwnerId());
 						payInvoice.setOrgid(item.getOrgid());
 						payInvoice.setOrgName(item.getOrgName());
 						
+						payInvoice.setVenderId(item.getVenderId());
 						payInvoice.setVenderName(item.getVenderName());
 						payInvoice.setVenderCode(item.getVenderCode());
 						payInvoice.setVenderType(item.getVenderType());
 						
 						payInvoice.setCreator(req.getCurruId());
 						payInvoice.setCreatetime(System.currentTimeMillis());
+						payInvoice.setApplyDate(DateUtil.getDateString(new Date(), "yyyy-MM-dd"));
 						payInvoice.setModifier(req.getCurruId());
 						payInvoice.setModifytime(System.currentTimeMillis());
 						
 						//保存发票单数据
-						payInvoiceMapper.insertSelective(payInvoice);
+						payInvoiceMapper.insert(payInvoice);
 						//修改账单状态及主表id
 						payInvoiceDetailMapper.updateStatusByIds(Arrays.asList(idArr),id);
 						
@@ -188,6 +196,17 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	}
 
 	
+	
+	@Override
+	public PayInvoiceDetailResp queryPayInvoice(PayInvoiceDetailQueryReq req) throws Exception {
+		PayInvoiceDetailResp rs =null;
+		if( req !=null && StringUtils.isNotBlank(req.getId())){
+			PayInvoiceDetail db =payInvoiceDetailMapper.selectByPrimaryKey(req.getId());
+			rs =convert2PayInvoiceDetailResp(db);
+		}
+		return rs;
+	}
+
 	private List<PayInvoiceDetailResp> convert2PayInvoiceDetailResps(List<PayInvoiceDetail> list){
 		List<PayInvoiceDetailResp> rs =null;
 		if( CollectionUtils.isNotEmpty(list) ){

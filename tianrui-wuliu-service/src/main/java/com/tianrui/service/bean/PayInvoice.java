@@ -129,6 +129,10 @@ public class PayInvoice {
      */
     private Long modifytime;
     
+    private String venderId;
+    private String ownerId;
+    private String applyDate;
+    
     /**
      * this fileds not in db ,only for query;
      */
@@ -533,6 +537,30 @@ public class PayInvoice {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public String getVenderId() {
+		return venderId;
+	}
+
+	public void setVenderId(String venderId) {
+		this.venderId = venderId;
+	}
+
+	public String getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public String getApplyDate() {
+		return applyDate;
+	}
+
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
 	}
     
     

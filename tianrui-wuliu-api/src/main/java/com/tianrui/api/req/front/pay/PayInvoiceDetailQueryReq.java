@@ -12,6 +12,7 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	private String billNO;
 	private String signTime;
 	private String cargoName;
+	private String id;
 	
 	
 	
@@ -44,6 +45,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	}
 	public void setCargoName(String cargoName) {
 		this.cargoName = cargoName;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
