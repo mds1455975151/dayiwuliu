@@ -31,7 +31,7 @@ public class PayInvoiceDetailAction {
 	
 	@RequestMapping("main")
 	public ModelAndView main(HttpServletRequest request){
-		ModelAndView model = new ModelAndView("pay/main");
+		ModelAndView model = new ModelAndView("pay/payInvoiceItem/yunfei_page");
 		MemberVo vo = SessionManager.getSessionMember(request);
 		model.addObject("currId", vo.getId());
 		return model;
