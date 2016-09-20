@@ -132,6 +132,7 @@ public class PayInvoice {
     private String venderId;
     private String ownerId;
     private String applyDate;
+    private String invoiceTypeName;
     
     /**
      * this fileds not in db ,only for query;
@@ -561,6 +562,14 @@ public class PayInvoice {
 
 	public void setApplyDate(String applyDate) {
 		this.applyDate = applyDate;
+	}
+
+	public String getInvoiceTypeName() {
+		return invoiceTypeName;
+	}
+
+	public void setInvoiceTypeName(String invoiceTypeName) {
+		this.invoiceTypeName = invoiceTypeName;
 	}
     
     

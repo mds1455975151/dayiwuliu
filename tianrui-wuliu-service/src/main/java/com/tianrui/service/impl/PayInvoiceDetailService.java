@@ -17,7 +17,6 @@ import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
-import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.PayStatusEnum;
 import com.tianrui.common.utils.DateUtil;
@@ -77,7 +76,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setBillPrice(bill.getPrice());
 				payInvoiceDetail.setBillWeight(bill.getTrueweight());
 				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getTrueweight());
-				//到货时间 TODO
+				//TODO 到货时间 税率 
 //				payInvoiceDetail.setSignTime(bill);
 				/**
 				 * 货物信息
@@ -85,8 +84,10 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				FileCargo cargo=fileCargoMapper.selectByPlanId(bill.getPlanid());
 				payInvoiceDetail.setCargoId(cargo.getId());
 				payInvoiceDetail.setCargoCode(cargo.getCargono());
+				payInvoiceDetail.setCargoName(bill.getCargoname());
 				//货物发票类型
 				payInvoiceDetail.setInvoiceType(cargo.getDesc1());
+				payInvoiceDetail.setInvoiceTypeName(cargo.getDesc2());
 				
 				/**
 				 * 车主信息
@@ -118,7 +119,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		if( req !=null && StringUtils.isNotBlank(req.getCurruId())  ){
 			page = new PaginationVO<PayInvoiceDetailResp> ();
 			PayInvoiceDetail query = new PayInvoiceDetail();
-			//TODO
+			//TODO  分页查询条件封装.
 			long total =payInvoiceDetailMapper.countByCondition(query);
 			if(total >0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -162,6 +163,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						PayInvoiceDetail item =items.get(0);
 						
 						payInvoice.setInvoiceType(item.getInvoiceType());
+						payInvoice.setInvoiceTypeName(item.getInvoiceTypeName());
 						payInvoice.setPaidPrice(getTotalPrice(items));
 						payInvoice.setPayDealPrice(0d);
 						payInvoice.setPayStatus(PayStatusEnum.create.getStatus());

@@ -25,11 +25,12 @@
     <result column="vender_id" property="venderId" jdbcType="VARCHAR" />
     <result column="owner_id" property="ownerId" jdbcType="VARCHAR" />
     <result column="apply_date" property="applyDate" jdbcType="VARCHAR" />
+    <result column="invoice_typename" property="invoiceTypeName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, invoice_type, pay_deal_price, paid_price, advice_status, advice_time, pay_status, 
     orgid, org_name, vender_name, vender_type, vender_code, creator, createtime, modifier, 
-    modifytime,vender_id,owner_id,apply_date
+    modifytime,vender_id,owner_id,apply_date,invoice_typename
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -94,13 +95,14 @@
       pay_status, orgid, org_name, 
       vender_name, vender_type, vender_code, 
       creator, createtime, modifier, 
-      modifytime,vender_id,owner_id,apply_date)
+      modifytime,vender_id,owner_id,apply_date,invoice_typename)
     values (#{id,jdbcType=VARCHAR}, #{invoiceType,jdbcType=VARCHAR}, #{payDealPrice,jdbcType=DOUBLE}, 
       #{paidPrice,jdbcType=DOUBLE}, #{adviceStatus,jdbcType=TINYINT}, #{adviceTime,jdbcType=BIGINT}, 
       #{payStatus,jdbcType=TINYINT}, #{orgid,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR}, 
       #{venderName,jdbcType=VARCHAR}, #{venderType,jdbcType=TINYINT}, #{venderCode,jdbcType=VARCHAR}, 
       #{creator,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, 
-      #{modifytime,jdbcType=BIGINT},#{venderId,jdbcType=VARCHAR},#{ownerId,jdbcType=VARCHAR},#{applyDate,jdbcType=VARCHAR})
+      #{modifytime,jdbcType=BIGINT},#{venderId,jdbcType=VARCHAR},#{ownerId,jdbcType=VARCHAR},
+      #{applyDate,jdbcType=VARCHAR},#{invoiceTypeName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.PayInvoice" >
     update pay_invoice

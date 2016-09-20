@@ -173,6 +173,9 @@ public class PayInvoiceDetail {
 
     private String venderId;
     private String ownerId;
+    private String cargoName;
+    private String invoiceTypeName;
+    private String taxRate;//税率
     /**
      * this fileds not in db ,only for query;
      */
@@ -707,6 +710,30 @@ public class PayInvoiceDetail {
 
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
+	}
+
+	public String getCargoName() {
+		return cargoName;
+	}
+
+	public void setCargoName(String cargoName) {
+		this.cargoName = cargoName;
+	}
+
+	public String getInvoiceTypeName() {
+		return invoiceTypeName;
+	}
+
+	public void setInvoiceTypeName(String invoiceTypeName) {
+		this.invoiceTypeName = invoiceTypeName;
+	}
+
+	public String getTaxRate() {
+		return taxRate;
+	}
+
+	public void setTaxRate(String taxRate) {
+		this.taxRate = taxRate;
 	}
 	
 	
