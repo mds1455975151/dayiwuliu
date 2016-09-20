@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btnblue fpbtn">搜索</button>
+                <button type="submit" onclick="index(1,0)" class="btn btnblue fpbtn">搜索</button>
             </div>
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <thead>
                      <tr>
                          <th >账单编号</th>
-                         <th >货物名称</th>
+                         <th >账单类型</th>
                          <th >申请时间</th>
                          <th>账单总价</th>
                          <th>已付款</th>
@@ -128,6 +128,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </tr>
                      </tbody>
                  </table>
+               	<div class="goods_more pageMore" id="moredate">
+               		<h4 onclick="moreSearch();">查看更多</h4>
+       	 		</div>
              </div>
             <!--计划模板表格end-->
         </div>

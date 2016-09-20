@@ -59,6 +59,9 @@ public class PayInvoiceResp {
 	}
 
 	public Double getPayDealPrice() {
+		if(payDealPrice == null){
+			payDealPrice = (double) 0;
+		}
 		return payDealPrice;
 	}
 
@@ -67,6 +70,9 @@ public class PayInvoiceResp {
 	}
 
 	public Double getPaidPrice() {
+		if(paidPrice == null){
+			paidPrice = (double) 0;
+		}
 		return paidPrice;
 	}
 
@@ -83,6 +89,9 @@ public class PayInvoiceResp {
 	}
 
 	public Long getAdviceTime() {
+		if(adviceTime == null){
+			adviceTime = (long) 0;
+		}
 		return adviceTime;
 	}
 
@@ -190,7 +199,4 @@ public class PayInvoiceResp {
 	public void setItems(List<PayInvoiceDetailResp> items) {
 		this.items = items;
 	}
-	
-	
-    
 }

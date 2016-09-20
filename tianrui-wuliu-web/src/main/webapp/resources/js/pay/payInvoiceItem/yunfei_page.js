@@ -29,7 +29,13 @@ function moreSearch(){
 function innerHTML(ret,flag){
 	var data = ret.list;
 	var hml = "";
+	var total = ret.total;
 	pageNo = ret.pageNo;
+	if(pageNo * pageSize > total){
+		$("#moredate").hide();
+	}else{
+		$("#moredate").show();
+	}
 	if(flag == 0){
 		$("#yunfeilist").empty();
 	}

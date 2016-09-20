@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btnblue">搜索</button>
+                <button type="submit" onclick="index(1,0)" class="btn btnblue">搜索</button>
             </div>
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
@@ -131,7 +131,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 <!--内容部分end-->
-
+<!--操作提示begin-->
+<div class="modal fade" id="yf_choose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id=" ">支付发票账单详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="fapiao_body">
+                    <div class="fapiao_dt">
+                        <h4>数量：10单</h4>
+                    </div>
+                    <div class="fapiao_dt">
+                        <h4>总价：100万</h4>
+                    </div>
+                    <div class="fapiao_dt">
+                        <h4>到货量：100万吨</h4>
+                    </div>
+                    <div class="fapiao_dt">
+                        <h4>货物名称：ps2.5水泥</h4>
+                    </div>
+                    <div class="fapiao_dt">
+                        <h4>含税价：1000元</h4>
+                    </div>
+                    <div class="fapiao_dt">
+                        <h4>税率：51%</h4>
+                    </div>
+                    <div class="fapiao_dt">
+                        <h4>账单总价：1000元</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--操作提示end-->
 
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
