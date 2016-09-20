@@ -1,10 +1,12 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -207,7 +209,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		return rs;
 	}
 
-	private List<PayInvoiceDetailResp> convert2PayInvoiceDetailResps(List<PayInvoiceDetail> list){
+	private List<PayInvoiceDetailResp> convert2PayInvoiceDetailResps(List<PayInvoiceDetail> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<PayInvoiceDetailResp> rs =null;
 		if( CollectionUtils.isNotEmpty(list) ){
 			rs =new ArrayList<PayInvoiceDetailResp>();
@@ -218,11 +220,11 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		return rs;
 	}
 	
-	private PayInvoiceDetailResp convert2PayInvoiceDetailResp(PayInvoiceDetail payInvoiceDetail){
+	private PayInvoiceDetailResp convert2PayInvoiceDetailResp(PayInvoiceDetail payInvoiceDetail) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		PayInvoiceDetailResp rs =null;
 		if( payInvoiceDetail !=null ){
 			rs =new PayInvoiceDetailResp();
-			//TODO
+			PropertyUtils.copyProperties(rs, payInvoiceDetail);
 		}
 		return rs;
 	}

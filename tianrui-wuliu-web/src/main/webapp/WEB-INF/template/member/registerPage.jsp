@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <!--手机输入beigin-->
 	                    <div class="reg_tel">
 	                        <label><i>*</i>手机号:</label>
-	                         <input type="text" placeholder="请输入手机号" id="register_tel">
+	                         <input type="text" maxlength="11" placeholder="请输入手机号" id="register_tel">
 	                         <p class="reg_hui" id="message_tel">请输入大陆手机号，用于登陆、找回密码</p>
 	                    </div>
 	                    <!--手机输入end-->

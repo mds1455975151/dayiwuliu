@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th> 账单状态</th>
                      </tr>
                      </thead>
-                     <tbody>
+                     <tbody id = "paylist">
                      <!--每一行点击都可以弹出对应的运单信息-->
                      <tr data-toggle="modal" data-target="#fp_dtail">
                          <td >t545415</td>
