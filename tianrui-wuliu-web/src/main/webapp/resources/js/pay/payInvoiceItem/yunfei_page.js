@@ -21,22 +21,39 @@ function index(No,flag){
 		}
 	});
 }
-
-function innerHTML(data,flag){
+//查看更多
+function moreSearch(){
+	var no = pageNo + 1;
+	index(no,1);
+}
+function innerHTML(ret,flag){
+	var data = ret.list;
 	var hml = "";
+	pageNo = ret.pageNo;
 	if(flag == 0){
 		$("#yunfeilist").empty();
 	}
 	for (var a = 0; a < data.length; a++) {
-		hml += "<tr><td ><input type='checkbox'></td>" +
-				"<td >4545121231 </td>" +
-				"<td >这是散装的水泥啊 </td>" +
-				"<td >2016-06-09</td>" +
-				"<td >45吨</td>" +
-				"<td >20.6元</td>" +
-				"<td >20%</td>" +
-				"<td >20.6元</td>" +
-				"<td >已开票</td>" +
+		var piao = "";
+		var ao = "";
+		if(data[a].isInvoice == 0){
+			//未开发票
+			ao = "未开票";
+			piao = "<input type='checkbox'>";
+		}else{
+			//已开发票
+			ao = "已开票";
+			piao = "已开发票";
+		}
+		hml += "<tr><td >"+piao+"</td>" +
+				"<td >"+data[a].billCode+"</td>" +
+				"<td >"+data[a].cargoName+"</td>" +
+				"<td >"+data[a].signTime+"</td>" +
+				"<td >"+data[a].billWeight+"吨</td>" +
+				"<td >"+data[a].billPrice+"元</td>" +
+				"<td >"+data[a].taxRate+"%</td>" +
+				"<td >"+data[a].billTotalPrice+"元</td>" +
+				"<td >"+ao+"</td>" +
 				"</tr>";
 		
 	}

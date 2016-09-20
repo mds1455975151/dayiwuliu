@@ -120,6 +120,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </tr>
                      </tbody>
                  </table>
+                 <div class="goods_more pageMore" id="moredate">
+                     <h4 onclick="moreSearch();">查看更多</h4>
+	            </div>
              </div>
             <!--计划模板表格end-->
         </div>

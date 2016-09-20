@@ -17,8 +17,12 @@ import com.baidu.yun.push.model.PushMsgToSingleDeviceResponse;
 
 
 public class IosPushUtils {
+	//测试
 	static String apiKey = "yUce10Fm65N3R5TwdC6y0c3A";
 	static String secretKey = "EW8tOyTdDrwtpf9yXzEum4wnsGsGb2Hw";
+	//正式
+//	static String apiKey = "lTootP7bdqUxMtzmDmB6iOrG";
+//	static String secretKey = "wlNwiNLploUCfpiy9D7nOX9oGMUEtIYh";
 	
 	static Logger logger=LoggerFactory.getLogger(IosPushUtils.class);
 	

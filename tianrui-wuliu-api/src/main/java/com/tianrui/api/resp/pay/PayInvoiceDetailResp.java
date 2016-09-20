@@ -39,6 +39,12 @@ public class PayInvoiceDetailResp {
     private String venderId;
    
     private String ownerId;
+    
+    private String cargoName;
+    
+    private String invoiceTypeName;
+   
+    private String taxRate;//税率
 
 	public String getId() {
 		return id;
@@ -126,6 +132,9 @@ public class PayInvoiceDetailResp {
 	}
 
 	public Double getBillWeight() {
+		if(billWeight == null){
+			billWeight = (double) 0;
+		}
 		return billWeight;
 	}
 
@@ -134,6 +143,9 @@ public class PayInvoiceDetailResp {
 	}
 
 	public Double getBillPrice() {
+		if(billPrice == null){
+			billPrice = (double) 0;
+		}
 		return billPrice;
 	}
 
@@ -142,6 +154,9 @@ public class PayInvoiceDetailResp {
 	}
 
 	public Double getBillTotalPrice() {
+		if(billTotalPrice == null){
+			billTotalPrice = (double) 0;;
+		}
 		return billTotalPrice;
 	}
 
@@ -218,6 +233,39 @@ public class PayInvoiceDetailResp {
 
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
+	}
+
+	public String getCargoName() {
+		if(StringUtils.isBlank(cargoName)){
+			cargoName = "";
+		}
+		return cargoName;
+	}
+
+	public void setCargoName(String cargoName) {
+		this.cargoName = cargoName;
+	}
+
+	public String getInvoiceTypeName() {
+		if(StringUtils.isBlank(invoiceTypeName)){
+			invoiceTypeName = "";
+		}
+		return invoiceTypeName;
+	}
+
+	public void setInvoiceTypeName(String invoiceTypeName) {
+		this.invoiceTypeName = invoiceTypeName;
+	}
+
+	public String getTaxRate() {
+		if(StringUtils.isBlank(taxRate)){
+			taxRate = "";
+		}
+		return taxRate;
+	}
+
+	public void setTaxRate(String taxRate) {
+		this.taxRate = taxRate;
 	}
     
     
