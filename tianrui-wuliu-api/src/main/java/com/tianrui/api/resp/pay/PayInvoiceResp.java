@@ -1,5 +1,181 @@
 package com.tianrui.api.resp.pay;
 
+import org.apache.commons.lang.StringUtils;
+
 public class PayInvoiceResp {
 
+	private String id;
+
+    private String invoiceType;
+
+    private Double payDealPrice;
+
+    private Double paidPrice;
+
+    private Byte adviceStatus;
+
+    private Long adviceTime;
+
+    private Byte payStatus;
+
+    private String orgid;
+
+    private String orgName;
+
+    private String venderName;
+
+    private Byte venderType;
+
+    private String venderCode;
+
+    private String venderId;
+   
+    private String ownerId;
+   
+    private String applyDate;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getInvoiceType() {
+		if(StringUtils.isBlank(invoiceType)){
+			invoiceType = "";
+		}
+		return invoiceType;
+	}
+
+	public void setInvoiceType(String invoiceType) {
+		this.invoiceType = invoiceType;
+	}
+
+	public Double getPayDealPrice() {
+		return payDealPrice;
+	}
+
+	public void setPayDealPrice(Double payDealPrice) {
+		this.payDealPrice = payDealPrice;
+	}
+
+	public Double getPaidPrice() {
+		return paidPrice;
+	}
+
+	public void setPaidPrice(Double paidPrice) {
+		this.paidPrice = paidPrice;
+	}
+
+	public Byte getAdviceStatus() {
+		return adviceStatus;
+	}
+
+	public void setAdviceStatus(Byte adviceStatus) {
+		this.adviceStatus = adviceStatus;
+	}
+
+	public Long getAdviceTime() {
+		return adviceTime;
+	}
+
+	public void setAdviceTime(Long adviceTime) {
+		this.adviceTime = adviceTime;
+	}
+
+	public Byte getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(Byte payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public String getOrgid() {
+		if(StringUtils.isBlank(orgid)){
+			orgid = "";
+		}
+		return orgid;
+	}
+
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
+	}
+
+	public String getOrgName() {
+		if(StringUtils.isBlank(orgName)){
+			orgName = "";
+		}
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public String getVenderName() {
+		if(StringUtils.isBlank(venderName)){
+			venderName = "";
+		}
+		return venderName;
+	}
+
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+
+	public Byte getVenderType() {
+		return venderType;
+	}
+
+	public void setVenderType(Byte venderType) {
+		this.venderType = venderType;
+	}
+
+	public String getVenderCode() {
+		if(StringUtils.isBlank(venderCode)){
+			venderCode = "";
+		}
+		return venderCode;
+	}
+
+	public void setVenderCode(String venderCode) {
+		this.venderCode = venderCode;
+	}
+
+	public String getVenderId() {
+		if(StringUtils.isBlank(venderId)){
+			venderId = "";
+		}
+		return venderId;
+	}
+
+	public void setVenderId(String venderId) {
+		this.venderId = venderId;
+	}
+
+	public String getOwnerId() {
+		if(StringUtils.isBlank(ownerId)){
+			ownerId = "";
+		}
+		return ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public String getApplyDate() {
+		if(StringUtils.isBlank(applyDate)){
+			applyDate = "";
+		}
+		return applyDate;
+	}
+
+	public void setApplyDate(String applyDate) {
+		this.applyDate = applyDate;
+	}
+    
 }

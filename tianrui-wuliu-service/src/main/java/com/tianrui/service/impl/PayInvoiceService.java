@@ -1,8 +1,10 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +102,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 	
 	
 	
-	private List<PayInvoiceResp> convert2PayInvoiceResps(List<PayInvoice> list){
+	private List<PayInvoiceResp> convert2PayInvoiceResps(List<PayInvoice> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<PayInvoiceResp> rs =null;
 		if( CollectionUtils.isNotEmpty(list) ){
 			rs =new ArrayList<PayInvoiceResp>();
@@ -111,11 +113,11 @@ public class PayInvoiceService implements IPayInvoiceService {
 		return rs;
 	}
 	
-	private PayInvoiceResp convert2PayInvoiceResp(PayInvoice payInvoice){
+	private PayInvoiceResp convert2PayInvoiceResp(PayInvoice payInvoice) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		PayInvoiceResp rs =null;
 		if( payInvoice !=null ){
 			rs =new PayInvoiceResp();
-			//TODO
+			PropertyUtils.copyProperties(rs, payInvoice);
 		}
 		return rs;
 	}
