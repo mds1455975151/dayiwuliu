@@ -128,7 +128,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 	
 	
 	
-	private List<PayInvoiceResp> convert2PayInvoiceResps(List<PayInvoice> list){
+	private List<PayInvoiceResp> convert2PayInvoiceResps(List<PayInvoice> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<PayInvoiceResp> rs =null;
 		if( CollectionUtils.isNotEmpty(list) ){
 			rs =new ArrayList<PayInvoiceResp>();
@@ -139,11 +139,12 @@ public class PayInvoiceService implements IPayInvoiceService {
 		return rs;
 	}
 	
-	private PayInvoiceResp convert2PayInvoiceResp(PayInvoice payInvoice){
+	private PayInvoiceResp convert2PayInvoiceResp(PayInvoice payInvoice) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		PayInvoiceResp rs =null;
 		if( payInvoice !=null ){
 			rs =new PayInvoiceResp();
 			//TODO 发票账单信息返回
+		PropertyUtils.copyProperties(rs, payInvoice);		
 		}
 		return rs;
 	}
