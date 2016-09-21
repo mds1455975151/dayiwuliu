@@ -133,6 +133,7 @@ public class PayInvoice {
     private String ownerId;
     private String applyDate;
     private String invoiceTypeName;
+    private String payCode;
     
     /**
      * this fileds not in db ,only for query;
@@ -571,6 +572,15 @@ public class PayInvoice {
 	public void setInvoiceTypeName(String invoiceTypeName) {
 		this.invoiceTypeName = invoiceTypeName;
 	}
+
+	public String getPayCode() {
+		return payCode;
+	}
+
+	public void setPayCode(String payCode) {
+		this.payCode = payCode;
+	}
+	
     
     
 }
