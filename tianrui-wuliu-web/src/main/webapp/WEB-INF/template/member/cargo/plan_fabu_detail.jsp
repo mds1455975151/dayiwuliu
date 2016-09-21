@@ -127,13 +127,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
-<script type="text/javascript">
-	var PATH = "${path}";
-	var memberId = "<%= member.getId() %>";
-	var loginName = "<%= member.getLoginName() %>";
-	var cellPhone = "<%= member.getCellPhone() %>";
-	var CONTEXTPATH="${contextPath}";
-</script>
 <script>
     // 点击联系人输入框，显示常用联系人
     var kuang = $('.goods_lxr');
