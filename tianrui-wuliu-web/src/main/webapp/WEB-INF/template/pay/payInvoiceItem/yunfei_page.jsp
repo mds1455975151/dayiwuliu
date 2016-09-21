@@ -142,27 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body">
                 <div class="fapiao_body">
-                    <div class="fapiao_dt">
-                        <h4>数量：10单</h4>
-                    </div>
-                    <div class="fapiao_dt">
-                        <h4>总价：100万</h4>
-                    </div>
-                    <div class="fapiao_dt">
-                        <h4>到货量：100万吨</h4>
-                    </div>
-                    <div class="fapiao_dt">
-                        <h4>货物名称：ps2.5水泥</h4>
-                    </div>
-                    <div class="fapiao_dt">
-                        <h4>含税价：1000元</h4>
-                    </div>
-                    <div class="fapiao_dt">
-                        <h4>税率：51%</h4>
-                    </div>
-                    <div class="fapiao_dt">
-                        <h4>账单总价：1000元</h4>
-                    </div>
+                <!-- 运费总和 -->
                 </div>
             </div>
             <div class="modal-footer">

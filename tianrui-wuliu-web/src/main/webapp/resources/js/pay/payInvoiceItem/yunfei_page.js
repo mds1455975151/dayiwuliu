@@ -76,11 +76,43 @@ $("#allcheck").click(function(){
 });
 //申请支付发票账单
 function checkdetail(){
-	 var text="";  
+	$(".fapiao_body").empty();
+	 var ids="";  
 	 var a = 0;
      $("#yunfeilist input[type=checkbox]:checked").each(function() {  
     	 a += 1;
-    	 text += $(this).val()+",";
+    	 ids += $(this).val()+";";
      }); 
-     alert(a);
+    
+     $.ajax({
+ 		url : "/trwuliu/payInvoiceItem/calculated",//
+ 		data : {"ids":ids},
+ 		type : "post",
+ 		success : function(rs){
+ 			if(rs.code=="000000"){
+ 			}else{
+ 			}
+ 		}
+ 	});
+     var hml = "<div class='fapiao_dt'>" +
+	     			"<h4>数量："+a+"单</h4>" +
+	     		"</div><div class='fapiao_dt'>" +
+	     			"<h4>总价：100万</h4>" +
+	     		"</div>" +
+	     		"<div class='fapiao_dt'>" +
+	     			"<h4>到货量：100万吨</h4>" +
+	     		"</div>" +
+	     		"<div class='fapiao_dt'>" +
+	     			"<h4>货物名称：ps2.5水泥</h4>" +
+	     		"</div>" +
+	     		"<div class='fapiao_dt'>" +
+	     			"<h4>含税价：1000元</h4>" +
+	     		"</div>" +
+	     		"<div class='fapiao_dt'>" +
+	     			"<h4>税率：51%</h4>" +
+	     		"</div>" +
+	     		"<div class='fapiao_dt'>" +
+	     			"<h4>账单总价：1000元</h4>" +
+	     		"</div>";
+     $(".fapiao_body").append(hml);
 }

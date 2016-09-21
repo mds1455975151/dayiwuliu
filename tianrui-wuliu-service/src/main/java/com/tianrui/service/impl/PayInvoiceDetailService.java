@@ -47,7 +47,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	
 	@Override
 	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req) throws Exception {
-		Result  rs =Result.getErrorResult();
+		Result  rs =Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotEmpty(req.getBillId()) ){
 			//运单信息
 			Bill bill =billMapper.selectByPrimaryKey(req.getBillId());
@@ -136,7 +136,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 
 	@Override
 	public Result generalPayInvoice(PayInvoiceGenalReq req) throws Exception {
-		Result  rs =Result.getErrorResult();
+		Result  rs =Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getCurruId()) && StringUtils.isNotBlank(req.getIds())  ){
 			String[] idArr = req.getIds().split(";");
 			//验证数量
@@ -189,12 +189,17 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoiceMapper.insert(payInvoice);
 						//修改账单状态及主表id
 						payInvoiceDetailMapper.updateStatusByIds(Arrays.asList(idArr),id);
-						
+						//前台展示
+						rs.setData(payInvoice);
+					}else{
+						rs.setErrorCode(ErrorCode.PAY_DATA_NOT_STATUS_EQUALE);	
 					}
 				}else{
 					rs.setErrorCode(ErrorCode.PAY_DATA_NOT_EXIST);	
 				}
 			}
+		}else{
+			rs.setErrorCode(ErrorCode.PAY_DATA_NOT_STATUS_NULL);	
 		}
 		return rs;
 	}

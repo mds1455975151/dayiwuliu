@@ -6,18 +6,17 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
-import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
+import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
-import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.PayInvoiceDetailService;
-import com.tianrui.service.impl.PayInvoiceService;
 import com.tianrui.web.util.SessionManager;
 
 @Controller
@@ -64,6 +63,17 @@ public class PayInvoiceDetailAction {
 			view.addObject("bill",payInvoiceDetailService.queryPayInvoice(req));
 		}
 		return view;
+	}
+	/** 计算运单总和
+	 * @throws Exception */
+	@RequestMapping(value="/calculated",method = RequestMethod.POST)
+	@ResponseBody
+	public Result calculated (PayInvoiceGenalReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setCurruId(vo.getId());
+		rs = payInvoiceDetailService.generalPayInvoice(req);
+		return rs;
 	}
 }
 	

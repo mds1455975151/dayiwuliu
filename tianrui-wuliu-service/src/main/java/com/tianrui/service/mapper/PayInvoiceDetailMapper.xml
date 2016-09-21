@@ -70,6 +70,13 @@
       <if test="venderId != null" >
         vender_id = #{venderId,jdbcType=VARCHAR},
       </if>
+      <if test="ids != null">
+      	id in 
+      	<foreach collection="ids" item="employeeId" index="index"
+            open="(" close=")" separator=",">
+            #{employeeId}
+        </foreach> 
+      </if>
 	</where>
 	<if test="start != null and start != '0'">
 		<if test="limit !=null">

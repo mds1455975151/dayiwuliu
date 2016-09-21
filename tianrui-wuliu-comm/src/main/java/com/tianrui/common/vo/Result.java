@@ -51,7 +51,7 @@ public class Result implements Serializable{
 		return new Result("000000");
 	}
 	public static Result getErrorResult(){
-		return new Result("-1");
+		return new Result("-1","参数异常");
 	}
 	
 	public void setErrorCode(ErrorCode errorCode ){
