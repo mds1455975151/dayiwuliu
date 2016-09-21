@@ -44,6 +44,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>运单编码：</label>
                             <input type="text" id="waybillno" placeholder=" ">
                         </div>
+                        <div class="ht_div">
+                            <label>状态：</label>
+                            <select class="form-control" id="status">
+                                <option value="">请选择</option>
+                                <option value="-1">车主回收</option>
+                                <option value="0">司机未确认</option>
+                                <option value="1">司机已接受</option>
+                                <option value="2">司机已装货</option>
+                                <option value="3">司机运输中</option>
+                                <option value="4">司机已到达</option>
+                                <option value="5">司机已卸货</option>
+                                <option value="6">已签收</option>
+                                <option value="7">司机拒绝接单</option>
+                            </select>
+                        </div>
+                        
+                        
 <!--                         <div class="ht_div">
                             <label>计划编码：</label>
                             <input type="text" id="plancode" placeholder=" ">

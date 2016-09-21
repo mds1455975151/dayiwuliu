@@ -13,13 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.intf.IPayInvoiceDetailService;
 import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanReq;
+import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.resp.admin.AdminPlanResp;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
+import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
@@ -34,8 +37,8 @@ public class WaybillAction {
 	
 	@Autowired
 	protected IBillService billService;
-	
-	
+	@Autowired
+	protected IPayInvoiceDetailService payInvoiceDetailService;
 	/**
 	 * 
 	 * @描述:平台运单管理
@@ -108,6 +111,30 @@ public class WaybillAction {
 			page = billService.pageForBack(req);
 		}
 		rs.setData(page);
+		return rs;
+	}
+	/**
+	 * 
+	 * @描述:后台运单管理查询
+	 * @param req
+	 * @param requset
+	 * @return
+	 * @throws Exception 
+	 * @返回类型 Result
+	 * @创建人 lsj
+	 * @创建时间 2016年6月18日下午2:01:36
+	 */
+	@RequestMapping("/priceConfrim")
+	@ResponseBody
+	public Result priceConfrim(PayInvoiceDetailSaveReq req,HttpServletRequest requset) throws Exception{
+		Result rs = Result.getErrorResult();
+		Users  currUser =SessionManager.getSessionMember(requset);
+		if( currUser !=null && StringUtils.isNotBlank(currUser.getOrgid()) ){
+			req.setCurruId(currUser.getAccount());
+			rs =payInvoiceDetailService.saveByBillPriceConfirm(req);
+		}else{
+			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+		}
 		return rs;
 	}
 	

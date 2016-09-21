@@ -98,9 +98,9 @@
 			<if test="status != null ">
 				and status =#{status,jdbcType=TINYINT}
 			</if>
-			<if test="orgid != null and orgid != '' " >
-        		and orgid=#{orgid,jdbcType=VARCHAR} 
-      		</if>
+			<if test="orgid != null and orgid != '' ">
+				and orgid=#{orgid,jdbcType=VARCHAR}
+			</if>
 			<if test="ownerid != null and ownerid!=''">
 				and ownerid=#{ownerid,jdbcType=VARCHAR} and
 				ownerdelflag=0
@@ -214,9 +214,9 @@
 			<if test="status != null ">
 				and status =#{status,jdbcType=TINYINT}
 			</if>
-			<if test="orgid != null and orgid != '' " >
-        		and orgid=#{orgid,jdbcType=VARCHAR} 
-      		</if>
+			<if test="orgid != null and orgid != '' ">
+				and orgid=#{orgid,jdbcType=VARCHAR}
+			</if>
 			<if test="ownerid != null and ownerid!=''">
 				and ownerid=#{ownerid,jdbcType=VARCHAR} and ownerdelflag
 				=0
@@ -942,5 +942,41 @@
 			separator="," close=")">
 			#{item}
 		</foreach>
+	</select>
+	
+	<select id="selectByConditionForBack" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.Bill">
+		select
+		<include refid="Base_Column_List" />
+		from wuliu_bill
+		<where>
+			<if test="status != null ">
+				and status =#{status,jdbcType=TINYINT}
+			</if>
+			<if test="orgid != null and orgid != '' " >
+        		and orgid=#{orgid,jdbcType=VARCHAR}  and type != 2
+      		</if>
+      		
+		</where>
+		order by modifytime desc
+		<if test="start != null and start != '0'">
+			<if test="limit !=null">
+				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+			</if>
+		</if>
+
+	</select>
+	<select id="countByConditionForBack" resultType="long" parameterType="com.tianrui.service.bean.Bill">
+		select 
+			count(0)
+		from wuliu_bill
+		<where>
+			<if test="status != null ">
+				and status =#{status,jdbcType=TINYINT}
+			</if>
+			<if test="orgid != null and orgid != '' " >
+        		and orgid=#{orgid,jdbcType=VARCHAR} and type != 2
+      		</if>
+      		
+		</where>
 	</select>
 </mapper>

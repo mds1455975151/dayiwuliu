@@ -949,14 +949,17 @@ public class BillService implements IBillService{
 			
 			Bill query = new Bill();
 			query.setOrgid(req.getCurrOrgId());
+			if( StringUtils.isNotBlank(req.getStatus()) ){
+				query.setStatus(Byte.valueOf(req.getStatus()));
+			}
 			if( StringUtils.isNotBlank(req.getKey()) ){
 				query.setQueryKey(req.getKey().trim());
 			}
-			long total =billMapper.countByCondition(query);
+			long total =billMapper.countByConditionForBack(query);
 			if( total>0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
 				query.setLimit(req.getPageSize());
-				page.setList(conver2billResp(billMapper.selectByCondition(query)));
+				page.setList(conver2billResp(billMapper.selectByConditionForBack(query)));
 			}
 			page.setTotal(total);
 			page.setPageNo(req.getPageNo());
