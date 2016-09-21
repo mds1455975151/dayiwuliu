@@ -254,7 +254,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	}
 	//获取所选中数据的状态  true 都为未开   false 有已开票数据
 	private boolean payInvoiceCheckStats(List<PayInvoiceDetail> items){
-		boolean rs =false;
+		boolean rs =true;
 		if( CollectionUtils.isNotEmpty(items) ){
 			for(PayInvoiceDetail item:items){ 
 				if(item !=null && item.getIsInvoice() ==1 ){
