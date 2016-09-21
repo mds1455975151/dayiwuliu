@@ -45,7 +45,7 @@ function innerHTML(ret,flag){
 		if(data[a].isInvoice == 0){
 			//未开发票
 			ao = "未开票";
-			piao = "<input type='checkbox'>";
+			piao = "<input name='ckbox' value="+data[a].id+" type='checkbox'>";
 		}else{
 			//已开发票
 			ao = "已开票";
@@ -64,4 +64,23 @@ function innerHTML(ret,flag){
 		
 	}
 	$("#yunfeilist").append(hml);
+}
+//全选-反选
+$("#allcheck").click(function(){
+	if($("#allcheck").is(':checked')){
+		$("[name = 'ckbox']:checkbox").prop("checked", true);
+	}else{
+		$("[name = 'ckbox']:checkbox").prop("checked", false);
+	}
+	
+});
+//申请支付发票账单
+function checkdetail(){
+	 var text="";  
+	 var a = 0;
+     $("#yunfeilist input[type=checkbox]:checked").each(function() {  
+    	 a += 1;
+    	 text += $(this).val()+",";
+     }); 
+     alert(a);
 }

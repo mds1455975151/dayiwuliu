@@ -76,13 +76,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
              <div class="yunfei">
-                 <button data-toggle="modal" data-target="#yf_choose" class="colorblue">
+                 <button data-toggle="modal" data-target="#yf_choose" onclick="checkdetail()" class="colorblue">
                      <i class="icononline">&#xe60f;</i>申请支付发票账单
                  </button>
                  <table class="table table-hover" >
                      <thead>
                      <tr>
-                         <th > <input type="checkbox">全选</th>
+                         <th > <input id="allcheck" type="checkbox">全选</th>
                          <th >运单号</th>
                          <th >货物名称</th>
                          <th >截止时间</th>
