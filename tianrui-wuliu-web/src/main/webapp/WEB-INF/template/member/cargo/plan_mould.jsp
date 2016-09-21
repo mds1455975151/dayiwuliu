@@ -3,7 +3,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-MemberResp member = (MemberResp) request.getSession().getAttribute("session_member");
 %>
 <!Doctype html>
 <html>

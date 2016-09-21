@@ -82,8 +82,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                        <div class="ht_divbtn">
 			                        <button class="btn btnblue" type="submit" id="myCargo_search">搜索</button>
 			                        <button class="btn btngreen" type="reset" id="myCargo_reset">重置</button>
-		                        </div
-		                        
+		                        </div>
 		                    </div>
 		                </div>
 		            </div>
