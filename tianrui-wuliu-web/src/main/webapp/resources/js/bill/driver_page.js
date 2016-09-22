@@ -215,10 +215,10 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
-						
 						$(".searchBtn").trigger("click");
 					}else{
 						alert(rs.error);
+						$(".searchBtn").trigger("click");
 					}
 				}
 			})

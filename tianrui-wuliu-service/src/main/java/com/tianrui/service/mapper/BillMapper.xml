@@ -888,7 +888,7 @@
 		<include refid="Base_Column_List" />
 		from wuliu_bill
 		where planid = #{planid,jdbcType=VARCHAR} and
-		venderdelflag = 0 and
+		ownerdelflag = 0 and
 		venderdelflag = 0 and driverdelflag = 0 and
 		status not in (-1,7)
 	</select>

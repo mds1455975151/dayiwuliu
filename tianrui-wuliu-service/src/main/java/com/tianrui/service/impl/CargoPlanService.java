@@ -241,11 +241,13 @@ public class CargoPlanService implements ICargoPlanService{
 				update.setModifytime(System.currentTimeMillis());
 				update.setStatus(PlanStatusEnum.COMPLETE.getStatus());
 				planMapper.updateByPrimaryKeySelective(update);
-				
+				update.setPlancode(plan.getPlancode());
+				planMapper.updateComplete(update);
 				// 修改未接受的0  已拒绝的 7 已收回 -1的运单并删除.
 				Bill query =new Bill();
 				Byte[] status=new Byte[]{(byte)0,(byte)7,(byte)-1};
-				query.setPlanid(req.getId());
+				//query.setPlanid(req.getId());
+				query.setPlancode(plan.getPlancode());
 				query.setStatusStrs(status);
 				List<Bill> billList= billMapper.selectByCondition(query);
 				if( CollectionUtils.isNotEmpty(billList) ){
@@ -254,15 +256,17 @@ public class CargoPlanService implements ICargoPlanService{
 						//未接受的发送消息
 						if( item.getStatus()==(byte)0 ){
 							MemberVo receiver =memberVoService.get(item.getDriverid());
-							sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),item.getWaybillno()}), item.getId(), sender, receiver, MessageCodeEnum.BILL_2DRIVER_PLANCOMPLATE, "");
+							sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),item.getWaybillno()}), item.getId(), sender, receiver, MessageCodeEnum.BILL_2DRIVER_PLANCOMPLATE, "driver");
 						}
 						Bill updateBill = new Bill();
+						updateBill.setId(item.getId());
 						updateBill.setOwnerdelflag((byte)1);
 						updateBill.setVenderdelflag((byte)1);
 						updateBill.setDriverdelflag((byte)1);
 						billMapper.updateByPrimaryKeySelective(updateBill);
 					}
 				}
+				
 			}
 		}else{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
@@ -490,6 +494,9 @@ public class CargoPlanService implements ICargoPlanService{
 				break;
 			case "appoint":
 				uri ="/trwuliu/planAppoint/detail?id="+keyId;
+				break;
+			case "driver":
+				uri = "/trwuliu/billdriver/detail?id="+keyId;
 				break;
 			}
 			req.setURI(uri);

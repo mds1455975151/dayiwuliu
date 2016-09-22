@@ -66,4 +66,6 @@ public interface PlanMapper {
 	Plan selectRootPlanByPlanId(String planid);
 
 	List<Plan> selectChildPlan(@Param("planCode")String planCode, @Param("pid")String pid);
+	
+	int updateComplete(Plan plan);
 }
