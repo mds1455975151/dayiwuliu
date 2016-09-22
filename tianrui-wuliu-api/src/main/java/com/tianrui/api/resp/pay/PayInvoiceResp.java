@@ -37,6 +37,10 @@ public class PayInvoiceResp {
    
     private String applyDate;
     
+    private String invoiceTypeName;
+    
+    private String payCode;
+    
     private List<PayInvoiceDetailResp> items;
 
 	public String getId() {
@@ -45,6 +49,28 @@ public class PayInvoiceResp {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getInvoiceTypeName() {
+		if(StringUtils.isBlank(invoiceTypeName)){
+			invoiceTypeName = "";
+		}
+		return invoiceTypeName;
+	}
+
+	public void setInvoiceTypeName(String invoiceTypeName) {
+		this.invoiceTypeName = invoiceTypeName;
+	}
+
+	public String getPayCode() {
+		if(StringUtils.isBlank(payCode)){
+			payCode = "";
+		}
+		return payCode;
+	}
+
+	public void setPayCode(String payCode) {
+		this.payCode = payCode;
 	}
 
 	public String getInvoiceType() {

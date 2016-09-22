@@ -2,6 +2,7 @@ package com.tianrui.web.action.pay;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,24 @@ public class PayInvoiceDetailAction {
 		MemberVo vo = SessionManager.getSessionMember(request);
 		req.setCurruId(vo.getId());
 		rs = payInvoiceDetailService.generalPayInvoice(req);
+		return rs;
+	}
+	
+	/** 查询多选数据
+	 * @throws Exception */
+	@RequestMapping(value="/selectIds",method = RequestMethod.POST)
+	@ResponseBody
+	public Result selectIds(PayInvoiceDetailQueryReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setCurruId(vo.getId());
+		if(StringUtils.isBlank(req.getIds())){
+			rs.setCode("1");
+			rs.setError("请选择数据");
+			return rs;
+		}
+		PaginationVO<PayInvoiceDetailResp> page =payInvoiceDetailService.page(req);
+		rs.setData(page);
 		return rs;
 	}
 }

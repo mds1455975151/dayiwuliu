@@ -120,6 +120,11 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			page = new PaginationVO<PayInvoiceDetailResp> ();
 			PayInvoiceDetail query = new PayInvoiceDetail();
 			//TODO  分页查询条件封装.
+			if(StringUtils.isNotBlank(req.getIds())){
+				String[] idArr = req.getIds().split(";");
+				query.setIds(Arrays.asList(idArr));
+			}
+			query.setPayId(req.getPayId());
 			long total =payInvoiceDetailMapper.countByCondition(query);
 			if(total >0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -164,8 +169,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						
 						payInvoice.setInvoiceType(item.getInvoiceType());
 						payInvoice.setInvoiceTypeName(item.getInvoiceTypeName());
-						payInvoice.setPaidPrice(getTotalPrice(items));
-						payInvoice.setPayDealPrice(0d);
+						payInvoice.setPaidPrice(0d);
+						payInvoice.setPayDealPrice(getTotalPrice(items));
 						payInvoice.setPayStatus(PayStatusEnum.create.getStatus());
 						payInvoice.setAdviceStatus((byte)0);
 						payInvoice.setAdviceTime(System.currentTimeMillis());
@@ -184,13 +189,10 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setApplyDate(DateUtil.getDateString(new Date(), "yyyy-MM-dd"));
 						payInvoice.setModifier(req.getCurruId());
 						payInvoice.setModifytime(System.currentTimeMillis());
-						
 						//保存发票单数据
 						payInvoiceMapper.insert(payInvoice);
 						//修改账单状态及主表id
 						payInvoiceDetailMapper.updateStatusByIds(Arrays.asList(idArr),id);
-						//前台展示
-						rs.setData(payInvoice);
 					}else{
 						rs.setErrorCode(ErrorCode.PAY_DATA_NOT_STATUS_EQUALE);	
 					}
@@ -270,8 +272,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		double rs =0d;
 		if( CollectionUtils.isNotEmpty(items) ){
 			for(PayInvoiceDetail item:items){ 
-				if(item !=null && item.getIsInvoice() ==1 ){
-					
+				if(item !=null){
+					rs += item.getBillTotalPrice();
 				}
 			}
 		}

@@ -9,10 +9,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	private String curruId;
 	
 	private String status;
+	private String payId;
 	private String billNO;
 	private String signTime;
 	private String cargoName;
 	private String id;
+	private String ids;
 	
 	
 	
@@ -27,6 +29,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getPayId() {
+		return payId;
+	}
+	public void setPayId(String payId) {
+		this.payId = payId;
 	}
 	public String getBillNO() {
 		return billNO;
@@ -52,7 +60,10 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
-	
+	public String getIds() {
+		return ids;
+	}
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
 }

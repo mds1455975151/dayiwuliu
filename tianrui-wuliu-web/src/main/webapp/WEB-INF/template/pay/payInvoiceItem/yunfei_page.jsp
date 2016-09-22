@@ -76,9 +76,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
              <div class="yunfei">
-                 <button data-toggle="modal" data-target="#yf_choose" onclick="checkdetail()" class="colorblue">
+                 <button onclick="selectids()" class="colorblue">
                      <i class="icononline">&#xe60f;</i>申请支付发票账单
                  </button>
+                 <input type="hidden" data-toggle="modal" data-target="#yf_choose" id="showmodal">
                  <table class="table table-hover" >
                      <thead>
                      <tr>
@@ -94,30 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      </tr>
                      </thead>
                      <tbody id="yunfeilist">
-                     <tr>
-                         <td ><input type="checkbox"></td>
-                         <td >4545121231 </td>
-                         <td >这是散装的水泥啊 </td>
-                         <td >2016-06-09
-                         </td>
-                         <td >45吨</td>
-                         <td >20.6元</td>
-                         <td >20%</td>
-                         <td >20.6元</td>
-                         <td >已开票</td>
-                     </tr>
-                     <tr>
-                         <td > 未开票没有选择框</td>
-                         <td >4545121231 </td>
-                         <td >这是散装的水泥啊 </td>
-                         <td >2014-01-09
-                         </td>
-                         <td >45吨</td>
-                         <td >20.6元</td>
-                         <td >20%</td>
-                         <td >20.6元</td>
-                         <td >未开票</td>
-                     </tr>
+                     <!-- 加载数据  -->
                      </tbody>
                  </table>
                  <div class="goods_more pageMore" id="moredate">
@@ -146,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" onclick="saveDetail()" class="btn btn-primary" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
