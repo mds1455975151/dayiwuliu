@@ -44,6 +44,7 @@ import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
 import com.tianrui.common.enums.MessageCodeEnum;
+import com.tianrui.common.enums.PlanStatusEnum;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
@@ -486,6 +487,16 @@ public class BillService implements IBillService{
 				}
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"accept") ){
+						Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
+						if(plan.getStatus() != PlanStatusEnum.ACCEPT.getStatus()){
+							Bill b =new Bill();
+							b.setId(req.getId());
+							b.setDriverdelflag((byte)1);
+							billMapper.updateByPrimaryKeySelective(b);
+							rs.setCode("1");
+							rs.setError("计划已经完成，不能生成运单");
+							return rs;
+						}
 						Bill update =new Bill();
 						update.setId(req.getId());
 						int index = 0;

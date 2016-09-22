@@ -49,6 +49,7 @@ public enum ErrorCode {
 	PAY_DATA_NOT_STATUS_PUSHED("E401006","账单发票状态不合法.不是已推单状态."),
 	PAY_DATA_NOT_STATUS_NULL("E401007","提交数据不全"),
 	PAY_DATA_NOT_STATUS_EQUALE("E401008","有已经开票的运单,数据不合法."),
+	PAY_DATA_NOT_USERPAY("E401009","非本人账单不能操作."),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机")

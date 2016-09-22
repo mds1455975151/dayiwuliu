@@ -9,6 +9,8 @@ public class PayInvoiceGenalReq  extends BaseReq{
 	private String curruId;
 	
 	private String ids;
+	//请求类型，0-计算 1保存
+	private String qtype;
 
 	public String getCurruId() {
 		return curruId;
@@ -26,9 +28,11 @@ public class PayInvoiceGenalReq  extends BaseReq{
 		this.ids = ids;
 	}
 
-	
-	
-	
-	
-	
+	public String getQtype() {
+		return qtype;
+	}
+
+	public void setQtype(String qtype) {
+		this.qtype = qtype;
+	}
 }

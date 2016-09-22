@@ -49,6 +49,9 @@
       <if test="billCode != null" >
         and bill_code = #{billCode,jdbcType=VARCHAR}
       </if>
+      <if test="payId != null ">
+      	and pay_id = #{payId,jdbcType=VARCHAR}
+      </if>
       <if test="cargoId != null" >
         and cargo_id = #{cargoId,jdbcType=VARCHAR}
       </if>

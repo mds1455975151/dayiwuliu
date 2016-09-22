@@ -84,48 +84,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th>已付款</th>
                          <th >待付款</th>
                          <th> 账单状态</th>
+                         <th>操作</th>
                      </tr>
                      </thead>
                      <tbody id = "paylist">
-                     <!--每一行点击都可以弹出对应的运单信息-->
-                     <tr data-toggle="modal" data-target="#fp_dtail">
-                         <td >t545415</td>
-                         <td >psjwkej水泥 </td>
-                         <td >2016-03-05 </td>
-                         <td >2000万</td>
-                         <td >20.6元</td>
-                         <td >2000万</td>
-                         <td>未完成</td>
-                     </tr>
-                     <!--每一行点击都可以弹出对应的运单信息-->
-                     <tr data-toggle="modal" data-target="#fp_dtail">
-                         <td >t545415</td>
-                         <td >psjwkej水泥 </td>
-                         <td >2016-03-05 </td>
-                         <td >2000万</td>
-                         <td >20.6元</td>
-                         <td >2000万</td>
-                         <td >未完成</td>
-                     </tr>
-                     <!--每一行点击都可以弹出对应的运单信息-->
-                     <tr data-toggle="modal" data-target="#fp_dtail">
-                         <td >t545415</td>
-                         <td >psjwkej水泥 </td>
-                         <td >2016-03-05 </td>
-                         <td >2000万</td>
-                         <td >20.6元</td>
-                         <td >2000万</td>
-                         <td >未完成</td>
-                     </tr>
-                     <tr data-toggle="modal" data-target="#fp_dtail">
-                         <td >t545415</td>
-                         <td >psjwkej水泥 </td>
-                         <td >2016-03-05 </td>
-                         <td >2000万</td>
-                         <td >20.6元</td>
-                         <td >2000万</td>
-                         <td >未完成</td>
-                     </tr>
+                     
                      </tbody>
                  </table>
                	<div class="goods_more pageMore" id="moredate">
@@ -162,87 +125,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <th >结算总价</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td >454512123100 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2016-06-09
-                            </td>
-                            <td >45吨</td>
-                            <td >2000000元</td>
-                            <td >20%</td>
-                            <td >2000000.6元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >200000元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >20.6元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >20.6元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >20.6元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >20.6元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >20.6元</td>
-                        </tr>
-                        <tr>
-                            <td >4545121231 </td>
-                            <td >这是散装的水泥啊 </td>
-                            <td >2014-01-09
-                            </td>
-                            <td >45吨</td>
-                            <td >20.6元</td>
-                            <td >20%</td>
-                            <td >20.6元</td>
-                        </tr>
+                        <tbody id="paydetails">
+                        
                         </tbody>
                     </table>
                 </div>

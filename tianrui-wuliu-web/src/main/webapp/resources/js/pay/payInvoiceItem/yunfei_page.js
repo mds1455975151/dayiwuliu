@@ -83,36 +83,87 @@ function checkdetail(){
     	 a += 1;
     	 ids += $(this).val()+";";
      }); 
-    
-     $.ajax({
- 		url : "/trwuliu/payInvoiceItem/calculated",//
+     if(a==0){
+    	 alert("请选择数据");
+    	 return;
+     }
+     if(a>20){
+    	 alert("最多不能超过20条数据");
+    	 return;
+     }
+     return ids;
+}
+//插入一条记录
+function saveDetail(){
+	var ids = checkdetail();
+	 $.ajax({
+	 		url : "/trwuliu/payInvoiceItem/calculated",//
+	 		data : {"ids":ids},
+	 		type : "post",
+	 		success : function(rs){
+	 			if(rs.code=="000000"){
+	 				index(1,0);
+	 			}else{
+	 				alert(rs.error);
+	 			}
+	 		}
+	 	});
+	     
+}
+//获取选中数据
+function selectids(){
+	var ids = checkdetail();
+	$.ajax({
+ 		url : "/trwuliu/payInvoiceItem/selectIds",//
  		data : {"ids":ids},
  		type : "post",
  		success : function(rs){
  			if(rs.code=="000000"){
+ 				innerDetail(rs.data);
  			}else{
+ 				alert(rs.error);
  			}
  		}
  	});
-     var hml = "<div class='fapiao_dt'>" +
-	     			"<h4>数量："+a+"单</h4>" +
-	     		"</div><div class='fapiao_dt'>" +
-	     			"<h4>总价：100万</h4>" +
-	     		"</div>" +
-	     		"<div class='fapiao_dt'>" +
-	     			"<h4>到货量：100万吨</h4>" +
-	     		"</div>" +
-	     		"<div class='fapiao_dt'>" +
-	     			"<h4>货物名称：ps2.5水泥</h4>" +
-	     		"</div>" +
-	     		"<div class='fapiao_dt'>" +
-	     			"<h4>含税价：1000元</h4>" +
-	     		"</div>" +
-	     		"<div class='fapiao_dt'>" +
-	     			"<h4>税率：51%</h4>" +
-	     		"</div>" +
-	     		"<div class='fapiao_dt'>" +
-	     			"<h4>账单总价：1000元</h4>" +
-	     		"</div>";
-     $(".fapiao_body").append(hml);
+}
+//生成结算单
+function innerDetail(ret){
+	$("#showmodal").click();
+	var data = ret.list
+	var price = 0;
+	var totprice = 0;
+	var weight = 0;
+	var taxRate ;
+	var flag = true;
+	for (var a = 0; a < data.length; a++) {
+		if(data[0].bill_price != data[a].bill_price){
+			flag = false;
+		}
+		taxRate = data[a].taxRate;
+		price = Number(price + data[a].billPrice);
+		totprice = Number(totprice + data[a].billTotalPrice);
+		weight = Number(weight + data[a].billWeight);
+	}
+	if(!flag){
+		alert("税率不同无法计算。");
+		return;
+	}
+	var hml = "<div class='fapiao_dt'>" +
+				"<h4>数量："+data.length+"单</h4>" +
+			"</div><div class='fapiao_dt'>" +
+				"<h4>总价："+price+"元</h4>" +
+			"</div>" +
+			"<div class='fapiao_dt'>" +
+				"<h4>到货量："+weight+"万吨</h4>" +
+			"</div>" +
+			"<div class='fapiao_dt'>" +
+				"<h4>货物名称：ps2.5水泥</h4>" +
+			"</div>" +
+			"<div class='fapiao_dt'>" +
+				"<h4>含税价："+totprice+"元</h4>" +
+			"</div>" +
+			"<div class='fapiao_dt'>" +
+				"<h4>税率："+taxRate+"%</h4>" +
+			"</div>";
+		$(".fapiao_body").append(hml);
 }

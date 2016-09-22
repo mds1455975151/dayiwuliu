@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </table>
                     </div>
                 </div>
-                 <c:if test="${plan.refuseresontype!= null }">
+                 <c:if test="${not empty plan.refuseresontype }">
 					<div class="goods_line">
 	                    <div class="good_time callback_dtl">
 	                        <label>拒绝原因</label>
