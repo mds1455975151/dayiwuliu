@@ -31,6 +31,7 @@ import com.tianrui.common.utils.MakePrimaryKey;
 import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
 import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.util.ExcilUtil;
 import com.tianrui.web.util.SessionManager;
@@ -229,7 +230,7 @@ public class PublicMemberAction {
 				rs.setError("您输入的手机号已注册，请重新输入");
 			}else{
 				boolean codeValidate = false;//验证码认证
-				String key = cache.getCacheHelper().buildKey(CacheModule.REGISTER, new String[]{"0",telnum});
+				String key = CacheHelper.buildKey(CacheModule.REGISTER, new String[]{"0",telnum});
 				UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
 				if(value!=null){
 					String validateCode=value.getUserCode()+"";
@@ -290,7 +291,7 @@ public class PublicMemberAction {
 				rs.setError("您输入的手机号未注册，请重新输入");
 			}else{
 				boolean codeValidate = false;//验证码认证
-				String key = cache.getCacheHelper().buildKey(CacheModule.RESETPASS, new String[]{"1",telnum});
+				String key = CacheHelper.buildKey(CacheModule.RESETPASS, new String[]{"1",telnum});
 				UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
 				if(value!=null){
 					String validateCode=value.getUserCode()+"";
@@ -374,7 +375,7 @@ public class PublicMemberAction {
 		MemberReq req =new MemberReq();
 		req.setTelnum(telnum);
 		boolean codeValidate = false;//验证码认证
-		String key = cache.getCacheHelper().buildKey(CacheModule.RESETPASS, new String[]{"1",telnum});
+		String key = CacheHelper.buildKey(CacheModule.RESETPASS, new String[]{"1",telnum});
 		UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
 		if(value!=null){
 			String validateCode=value.getUserCode()+"";

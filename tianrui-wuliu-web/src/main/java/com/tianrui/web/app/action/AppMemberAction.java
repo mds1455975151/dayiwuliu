@@ -24,6 +24,7 @@ import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
 import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.smvc.ApiParamRawType;
 
@@ -113,7 +114,7 @@ public class AppMemberAction {
 				rs.setError("您输入的手机号已注册，请重新输入");
 			}else{
 				boolean codeValidate = false;//验证码认证
-				String key = cache.getCacheHelper().buildKey(CacheModule.REGISTER_APP, new String[]{"0",appParam.getBody().getAccount()});
+				String key = CacheHelper.buildKey(CacheModule.REGISTER_APP, new String[]{"0",appParam.getBody().getAccount()});
 				UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
 				if(value!=null){
 					String validateCode=value.getUserCode()+"";
@@ -167,7 +168,7 @@ public class AppMemberAction {
 		MemberReq req =new MemberReq();
 		req.setTelnum(appParam.getBody().getAccount());
 		boolean codeValidate = false;//验证码认证
-		String key = cache.getCacheHelper().buildKey(CacheModule.RESETPASS_APP, new String[]{"1",appParam.getBody().getAccount()});
+		String key = CacheHelper.buildKey(CacheModule.RESETPASS_APP, new String[]{"1",appParam.getBody().getAccount()});
 		UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
 		if(value!=null){
 			String validateCode=value.getUserCode()+"";

@@ -1,25 +1,19 @@
 package com.tianrui.service.cache;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import com.alibaba.fastjson.JSON;
-
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
-import redis.clients.util.SafeEncoder;
 
 
 public class CacheClient {
 
-	private ShardedJedisPool jedisPool;
-	
-	private final CacheHelper cacheHelper = new CacheHelper();
 
-	private long shutdownTimeout = 1000;
 
-	private ShardedJedis jedis;
-
-	private int localTTL = 60 * 60;//默认生命周期
+	private int localTTL = 2* 60 * 60;//默认生命周期 2 小时
 
 	private static Logger logger = Logger.getLogger(CacheClient.class);
 
@@ -27,14 +21,8 @@ public class CacheClient {
 		this.localTTL = localTTL;
 	}
 
-	public ShardedJedis getJedis() {
-		jedis = jedisPool.getResource();
-		return jedis;
-	}
-
-	public void returnJedis(ShardedJedis jedis) {
-		jedisPool.returnResource(jedis);
-	}
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 
 	/**
 	 * 
@@ -45,33 +33,25 @@ public class CacheClient {
 	 * @创建人 tank
 	 * @创建时间 2016年1月16日下午2:36:51
 	 */
-	public <T> T getObj(String key,Class clazz) {
-		ShardedJedis jedis = jedisPool.getResource();
-		T rs = null;
+	public <T> T getObj(String key,Class<?> clazz) {
+		T rs =null;
 		try {
-			String jsonStr =jedis.get(key);
-			rs= (T)JSON.parseObject(jsonStr,clazz);
+			String  str=redisTemplate.opsForValue().get(key).toString();
+			rs= (T)JSON.parseObject(str,clazz);
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
-		} finally {
-		    if(jedis != null)
-		        jedisPool.returnResource(jedis);
-		}
+		} 
 		return rs;
 	}
 	
 	public String getString(String key) {
-		ShardedJedis jedis = jedisPool.getResource();
-		String obj = null;
+		String rs=null;
 		try {
-			obj =jedis.get(key);
+			rs=redisTemplate.opsForValue().get(key).toString();
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
-		} finally {
-			if(jedis != null)
-				jedisPool.returnResource(jedis);
-		}
-		return obj;
+		} 
+		return rs;
 		
 	}
 
@@ -88,142 +68,47 @@ public class CacheClient {
 	 * @创建时间 2016年1月16日下午2:47:24
 	 */
 	public boolean saveObject(String key, Object value, Integer expiredTime) {
-		ShardedJedis jedis = jedisPool.getResource();
-		boolean tag =true;
+		boolean rs =false;
 		try {
-			jedis.set(key, JSON.toJSONString(value));
-			if(expiredTime>0){
-			    jedis.expire(key, expiredTime);
+			String value_str = JSON.toJSONString(value);
+			if( expiredTime==null ){
+				redisTemplate.opsForValue().set(key,value_str,localTTL,TimeUnit.SECONDS);
+			}else if(expiredTime ==0 ){
+				redisTemplate.opsForValue().set(key,value_str);
+			}else{
+				redisTemplate.opsForValue().set(key,value_str,expiredTime,TimeUnit.SECONDS);
 			}
+			rs=true;
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
-			tag =false;
-		} finally {
-		    if(jedis != null)
-                jedisPool.returnResource(jedis);
-		}
-		return tag;
+		} 
+		return rs;
 	}
 	
 	
 	public boolean saveString(String key, String value, Integer expiredTime) {
-		ShardedJedis jedis = jedisPool.getResource();
-		boolean tag =true;
+		boolean rs =false;
 		try {
-			jedis.set(key, value);
-			if(expiredTime>0){
-				jedis.expire(key, expiredTime);
-			}
+			redisTemplate.opsForValue().set(key, value, expiredTime,TimeUnit.SECONDS);
+			rs=true;
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
-			tag =false;
-		} finally {
-			if(jedis != null)
-				jedisPool.returnResource(jedis);
-		}
-		return tag;
+		} 
+		return rs;
 	}
 
-	/**
-	 * 
-	 * @描述: 根据key值删除redis中的数据
-	 * @param key
-	 * @return 成功或者失败
-	 * @返回类型 boolean
-	 * @创建人 tank
-	 * @创建时间 2016年1月16日下午2:45:58
-	 */
-	public boolean remove(String key) {
-			ShardedJedis jedis = jedisPool.getResource();
-			boolean tag = true;
-			try {
-				jedis.del(key);
-			} catch (Exception e) {
-				logger.error(e.getLocalizedMessage());
-				tag = false;
-			} finally {
-				jedisPool.returnResource(jedis);
-			}
-			return tag;
-	}
-	
 
-	/**
-	 * 
-	 * @描述: 判断对象是否存在
-	 * @param key
-	 * @返回类型 boolean
-	 * @创建人 tank
-	 * @创建时间 2016年1月16日下午3:39:15
-	 */
-	public boolean isExist(String key) {
-        ShardedJedis jedis = jedisPool.getResource();
-        try {
-            return jedis.exists(key);
-        } catch (Exception e) {
-            logger.error(e.getLocalizedMessage());
-            return false;
-        } finally {
-            jedisPool.returnResource(jedis);
-        }
-    }
-	/**
-	 * 
-	 * @描述: 获取key的有效时间,返回有效时间单位是秒
-	 * @param key
-	 * @return key的有效时间
-	 * @返回类型 long
-	 * @创建人 tank
-	 * @创建时间 2016年1月16日下午3:35:07
-	 */
-	public long getTTL(String key){
-		long ttl=0;
-		ShardedJedis jedis = jedisPool.getResource();
-		try {
-			ttl = jedis.ttl(SafeEncoder.encode(key));
-		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
-		} finally {
-		    if(jedis != null)
-		        jedisPool.returnResource(jedis);
-		}
-		return ttl;
+	public void remove(String key){
+		redisTemplate.opsForValue().set(key, "",1L, TimeUnit.MICROSECONDS );
 	}
 
 	public boolean saveObject(String key, Object value) {
 		return saveObject(key, value, localTTL);
 	}
 
-	public boolean saveString(String key,String val) {
-		return saveString(key, val, localTTL);
-	}
-	
-	public ShardedJedisPool getJedisPool() {
-		return jedisPool;
-	}
-
-	public void setJedisPool(ShardedJedisPool jedisPool) {
-		this.jedisPool = jedisPool;
-	}
-
-	public CacheHelper getCacheHelper() {
-		return cacheHelper;
-	}
-
-	public long getShutdownTimeout() {
-		return shutdownTimeout;
-	}
-
-	public void setShutdownTimeout(long shutdownTimeout) {
-		this.shutdownTimeout = shutdownTimeout;
-	}
 
 	public int getLocalTTL() {
 		return localTTL;
-	}
-
-	public void setJedis(ShardedJedis jedis) {
-		this.jedis = jedis;
 	}
 
 }

@@ -32,6 +32,7 @@ import com.tianrui.service.admin.mapper.FileOrgMapper;
 import com.tianrui.service.admin.mapper.UserRoleMapper;
 import com.tianrui.service.admin.mapper.UsersMapper;
 import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 
 @Service
@@ -185,7 +186,7 @@ public class UserService implements IUserService{
 			//用户电话号码存在
 			if( StringUtils.isNotBlank(users.getTelnum()) ){
 				//redis存在的key
-				String key = cache.getCacheHelper().buildKey(CacheModule.ADMINLOGIN, users.getTelnum());
+				String key = CacheHelper.buildKey(CacheModule.ADMINLOGIN, users.getTelnum());
 				UserLoginVo value = (UserLoginVo) cache.getObj(key,UserLoginVo.class);
 				//用户为第一次发送
 				if( value ==null ){

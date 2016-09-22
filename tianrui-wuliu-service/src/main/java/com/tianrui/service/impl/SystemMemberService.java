@@ -338,7 +338,7 @@ public class SystemMemberService implements ISystemMemberService{
 					}
 				}
 				
-				String key = cacheClient.getCacheHelper().buildKey(module, new String[]{type,telnum});
+				String key = CacheHelper.buildKey(module, new String[]{type,telnum});
 				UserLoginVo value = (UserLoginVo) cacheClient.getObj(key, UserLoginVo.class);
 				String msg="";
 				String sendPermit=GetApplicationPropertery.getValueByKey("sendPermit");

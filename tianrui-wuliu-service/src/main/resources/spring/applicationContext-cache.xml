@@ -1,51 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="   
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
-	http://www.springframework.org/schema/data/mongo
-    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
-    http://www.springframework.org/schema/mvc
-			   http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-			   
-	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxActive" value="200" />
-		<property name="maxIdle" value="50" />
-		<property name="maxWait" value="1000" />
-		<property name="testOnBorrow" value="true" />
-	</bean>
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+ 	xmlns:redis="http://www.springframework.org/schema/redis"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+ 	xmlns:c="http://www.springframework.org/schema/c"
+ 	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd 
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/redis
+    http://www.springframework.org/schema/redis/spring-redis.xsd
+	http://www.springframework.org/schema/cache 
+	http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<bean id="jedis.shardInfo" class="redis.clients.jedis.JedisShardInfo">
-		<constructor-arg index="0" value="${redis.client.ip}" /><!-- redis服务器IP -->
-		<constructor-arg index="1" value="${redis.client.port}" /><!-- redis 端口 -->
-	</bean>
-
-	<bean id="jedisPool" class="redis.clients.jedis.ShardedJedisPool">
-		<constructor-arg index="0" ref="jedisPoolConfig" />
-		<constructor-arg index="1">
-			<list>
-				<ref bean="jedis.shardInfo" />
-			</list>
-		</constructor-arg>
-	</bean>
-	<!-- 不分片的redis客户端，管理使用
-	<bean id="singleClient" class="redis.clients.jedis.Client">
-		<constructor-arg index="0" value="172.19.4.23" />
-		<constructor-arg index="1" value="6379" />
-	</bean>
-	 -->
-	<bean id="cacheClient" class="com.tianrui.service.cache.CacheClient">
-		<property name="jedisPool" ref="jedisPool"></property>
-        <property name="localTTL" value="3600"></property>
+	
+	<cache:annotation-driven />
+	
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+        <!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例。 --> 
+        <property name="maxIdle" value="100" />  
+        <!-- 表示当borrow(引入)一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException； -->
+        <property name="maxWaitMillis" value="100000" />  
+        <!-- 在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的 -->
+        <property name="testOnBorrow" value="false" />  
+    </bean>
+    
+    <bean id="sentinelConfig" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+    	<property name="master">
+			<bean class="org.springframework.data.redis.connection.RedisNode">
+				<property name="name" value="master1">
+				</property>
+			</bean>
+		</property>
+   		<property name="sentinels">
+	      <set>
+				<bean class="org.springframework.data.redis.connection.RedisNode ">
+					<constructor-arg name="host" value="172.19.4.73" />
+					<constructor-arg name="port" value="27000" />
+				</bean>
+				<bean class="org.springframework.data.redis.connection.RedisNode ">
+					<constructor-arg name="host" value="172.19.4.73" />
+					<constructor-arg name="port" value="27001" />
+				</bean>
+			</set>
+	    </property>
+	  </bean> 
+    
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">  
+        <property name="usePool" value="true"></property>  
+        <property name="database" value="0"></property>  
+        <property name="timeout" value="100000" /> 
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+        <constructor-arg name="sentinelConfig" ref="sentinelConfig" />    
+    </bean> 
+	
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnectionFactory">
+	 	  
+	 	<property name="keySerializer">  
+	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />  
+	    </property>  
+	    <property name="valueSerializer">  
+	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />  
+	    </property> 
+	   
+	    <property name="hashKeySerializer">  
+	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />  
+	    </property>  
+	    <property name="hashValueSerializer">
+	        <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />  
+	    </property>  
 	</bean>
 	
+	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager" c:template-ref="redisTemplate" p:usePrefix="true"/> 
+	<bean id="cacheClient" class="com.tianrui.service.cache.CacheClient" />
 </beans>
