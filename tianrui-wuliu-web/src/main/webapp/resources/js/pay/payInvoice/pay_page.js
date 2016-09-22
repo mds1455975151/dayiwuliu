@@ -48,7 +48,7 @@ function innerHTML(ret,flag){
 		if(data[a].payStatus == "0"){
 			if(data[a].adviceStatus == "0"){
 				statusStr = "未审核";
-				shenhe = "<button class='btn btnyello'>审核</button>"
+				shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 			}else if(data[a].adviceStatus == "1"){
 				statusStr = "已审核";
 			}
@@ -106,4 +106,19 @@ function innerDetail(ret){
 			"<td >"+data[a].billTotalPrice+"元</td></tr>";
 	}
 	$("#paydetails").append(hml);
+}
+/** 运费单自审*/
+function payAudit(id){
+	$.ajax({
+		url : "/trwuliu/payInvoice/payAudit",//
+		data : {"id":id},
+		type : "post",
+		success : function(rs){
+			if(rs.code=="000000"){
+				index(1,0);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
 }

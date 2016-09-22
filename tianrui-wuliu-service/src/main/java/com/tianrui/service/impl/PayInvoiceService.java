@@ -54,7 +54,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 
 	@Override
 	public Result advice(PayInvoiceAdviceReq req) throws Exception {
-		Result rs = Result.getErrorResult();
+		Result rs = Result.getSuccessResult();
 		if( req!=null && StringUtils.isNotBlank(req.getId()) && StringUtils.isNotBlank(req.getCurruId()) ){
 			PayInvoice db =payInvoiceMapper.selectByPrimaryKey(req.getId());
 			if( db !=null && StringUtils.equals(db.getCreator(),req.getCurruId() )){
@@ -65,14 +65,18 @@ public class PayInvoiceService implements IPayInvoiceService {
 				update.setAdviceStatus((byte)1);
 				update.setAdviceTime(System.currentTimeMillis());
 				payInvoiceMapper.updateByPrimaryKeySelective(update);
+			}else{
+				rs.setErrorCode(ErrorCode.PAY_DATA_NOT_USERPAY);
 			}
+		}else{
+			rs.setErrorCode(ErrorCode.PAY_DATA_NOT_STATUS_NULL);
 		}
 		return rs;
 	}                                                                                                                                                                                                                                            
 
 	@Override
 	public Result payNcCallBack(PayInvoiceAdviceReq req) throws Exception {
-		Result rs = Result.getErrorResult();
+		Result rs = Result.getSuccessResult();
 		if( req!=null && StringUtils.isNotBlank(req.getId())  ){
 			PayInvoice db =payInvoiceMapper.selectByPrimaryKey(req.getId());
 			if( db !=null && StringUtils.equals(db.getCreator(),req.getCurruId() )){

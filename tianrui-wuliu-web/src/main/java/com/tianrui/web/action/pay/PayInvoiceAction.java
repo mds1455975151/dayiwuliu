@@ -3,11 +3,15 @@ package com.tianrui.web.action.pay;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
 import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.vo.MemberVo;
@@ -48,7 +52,19 @@ public class PayInvoiceAction {
 		}
 		return rs;
 	}
-	
+	/** 运费单据自审
+	 * @throws Exception */
+	@RequestMapping(value="payAudit",method=RequestMethod.POST)
+	@ResponseBody
+	public Result payAudit(String id,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		PayInvoiceAdviceReq req = new PayInvoiceAdviceReq();
+		req.setId(id);
+		req.setCurruId(vo.getId());
+		rs = payInvoiceService.advice(req);
+		return rs;
+	}
 	
 	@RequestMapping("/detail")
 	public ModelAndView detail(PayInvoiceQueryReq req,HttpServletRequest request) throws Exception{
