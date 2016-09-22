@@ -66,7 +66,7 @@ function innerHTML(data){
 		var d = a+1;
 		var sta = "";
 		if(data[a].status == "0"){
-			sta = "待司机接受";
+			sta = "司机未确认";
 		}
 		if(data[a].status == "1"){
 			sta = "已接受";
@@ -89,7 +89,7 @@ function innerHTML(data){
 		if(data[a].status == "7"){
 			sta = "司机拒绝接单";
 		}
-		if(data[a].status == "8"){
+		if(data[a].status == "-1"){
 			sta = "车主取消";
 		}
 		var orgName = data[a].orgName;
@@ -109,6 +109,7 @@ function innerHTML(data){
 		"<td>"+data[a].createtimeStr+"</td>"+
 		"<td>"+sta+"</td>"+
 		"<td><span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【查看详情】</a></span>"+
+		(data[a].status == "6"? "<span><a  class='priceConfrim' dataid='"+data[a].id+"'>【运价确认】</a></span>":"")+
 //		"<span><a data-toggle='modal' data-target='#tingyong'>停用</a></span>" +
 		"</td>";
 	}
@@ -145,3 +146,25 @@ function details(a){
 				"<div class='clear'></div>";
 	document.getElementById("dateilshml").innerHTML=hml;
 }
+
+
+$(function(){
+	$("table").on("click",".priceConfrim",function(){
+		var bid=$(this).attr("dataid");
+		if(window.confirm('确定对运单进行运价确认吗,确定/取消?')){
+			$.ajax({
+				url:"/admin/waybill/priceConfrim",
+				data:{"billId":bid},
+				type : "post",
+				dataType:"json",
+				success:function(rs){
+					if( rs && rs.code =="000000" ){
+						window.location.reload();
+					}else{
+						alert(rs.error);
+					}
+				}
+			});
+		}
+	});
+});

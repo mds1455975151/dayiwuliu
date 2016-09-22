@@ -59,12 +59,14 @@ public interface BillMapper {
     
     
     List<Bill> selectByCondition(Bill record);
+    List<Bill> selectByConditionForBack(Bill record);
     /** 批量修改运单*/
     int updateByBillTransfer(BillUpdate record);
     /** 查询可以转运的运单*/
     List<Bill> selectByBillTransfer(Bill record);
     
     long countByCondition(Bill record);
+    long countByConditionForBack(Bill record);
     
     Double querySumWithPlan(Bill record);
     

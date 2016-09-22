@@ -3,7 +3,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-MemberResp member = (MemberResp) request.getSession().getAttribute("session_member");
 %>
 <!Doctype html>
 <html>
@@ -133,13 +132,6 @@ MemberResp member = (MemberResp) request.getSession().getAttribute("session_memb
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
-<script type="text/javascript">
-	var PATH = "${path}";
-	var memberId = "<%= member.getId() %>";
-	var loginName = "<%= member.getLoginName() %>";
-	var cellPhone = "<%= member.getCellPhone() %>";
-	var CONTEXTPATH="${contextPath}";
-</script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="/resources/js/member/cargo/plan_mould.js" ></script>
 </body>

@@ -75,7 +75,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setBillCode(bill.getWaybillno());
 				payInvoiceDetail.setBillPrice(bill.getPrice());
 				payInvoiceDetail.setBillWeight(bill.getTrueweight());
-				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getTrueweight());
+				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
 				//TODO 到货时间 税率 
 //				payInvoiceDetail.setSignTime(bill);
 				/**

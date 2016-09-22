@@ -259,13 +259,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
-<script type="text/javascript">
-	var PATH = "${path}";
-	var PATH = "${path}";
-	var memberId = "<%= member.getId() %>";
-	var loginName = "<%= member.getLoginName() %>";
-	var cellPhone = "<%= member.getCellPhone() %>";
-</script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>

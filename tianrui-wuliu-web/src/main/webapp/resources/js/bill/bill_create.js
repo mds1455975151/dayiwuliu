@@ -1,13 +1,11 @@
 $(function(){
-	var isAppoint = $('#isAppoint').val();
 	$("#billvender").addClass("selected");
 	searchVehicle();
 	var URL={
 		addUrl:"/trwuliu/billvender/add",
 		cancleUrl:"/trwuliu/planvender/main",
 		successUrl:"/trwuliu/billvender/main",
-		searchUrl:"/trwuliu/billvender/searchCapa",
-		successAppointUrl:"/trwuliu/billAppoint/main"
+		searchUrl:"/trwuliu/billvender/searchCapa"
 	}
 	//样式控制
     var chren = $('.bill_fabu ul li');
@@ -128,11 +126,7 @@ $(function(){
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
 					alert("操作成功");
-					if(isAppoint == '0'){
-						window.location.href=URL.successUrl;
-					}else{
-						window.location.href=URL.successAppointUrl;
-					}
+					window.location.href=URL.successUrl;
 				}else{
 					alert(rs.error);
 				}

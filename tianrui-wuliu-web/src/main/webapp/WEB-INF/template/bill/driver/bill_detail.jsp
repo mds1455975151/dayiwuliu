@@ -166,30 +166,32 @@
 								</c:if>
 							</div>
 						</div>
-						<div class="goods_foot">
-							<c:if test="${bill.status ==0}">
-								<button class="btn btnyello mr20 acceptBtn" type="button">接收运单</button>
-								<c:if test="${bill.type != 2 }">
-									<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
+						<c:if test="${bill.driverdelflag eq 0 }">
+							<div class="goods_foot">
+								<c:if test="${bill.status ==0}">
+									<button class="btn btnyello mr20 acceptBtn" type="button">接收运单</button>
+									<c:if test="${bill.type != 2 }">
+										<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
+									</c:if>
 								</c:if>
-							</c:if>
-							<c:if test="${bill.status ==1}">
-								<button class="btn btnblue pickupBtn" type="button">提货确认</button>
-							</c:if>
-							<%-- <c:if test="${bill.status ==2}">
-                    	<button class="btn btnblue departureBtn" type="button">装货完成确认</button>
-                	</c:if>
-                	<c:if test="${bill.status ==3}">
-                    	<button class="btn btnblue arrivedBtn" type="button">到达目的地确认</button>
-                	</c:if>
-                	<c:if test="${bill.status ==4}"> --%>
-							<c:if test="${bill.status ==2}">
-								<button class="btn btnblue dischargeBtn" type="button">卸货确认</button>
-							</c:if>
-							<c:if test="${bill.status ==7 || bill.status==8}">
-								<button class="btn btnblue delBtn" type="button">删除</button>
-							</c:if>
-						</div>
+								<c:if test="${bill.status ==1}">
+									<button class="btn btnblue pickupBtn" type="button">提货确认</button>
+								</c:if>
+								<%-- <c:if test="${bill.status ==2}">
+			                    	<button class="btn btnblue departureBtn" type="button">装货完成确认</button>
+			                	</c:if>
+			                	<c:if test="${bill.status ==3}">
+			                    	<button class="btn btnblue arrivedBtn" type="button">到达目的地确认</button>
+			                	</c:if>
+			                	<c:if test="${bill.status ==4}"> --%>
+								<c:if test="${bill.status ==2}">
+									<button class="btn btnblue dischargeBtn" type="button">卸货确认</button>
+								</c:if>
+								<c:if test="${bill.status ==7 || bill.status==8}">
+									<button class="btn btnblue delBtn" type="button">删除</button>
+								</c:if>
+							</div>
+						</c:if>
 					</div>
 					<!-- 货源计划内容end -->
 				</div>

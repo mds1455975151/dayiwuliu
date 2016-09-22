@@ -1,5 +1,4 @@
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE HTML>
 <!--[if lt IE 7]> <html class="ie ie6"> <![endif]-->
 <!--[if IE 7]> <html class="ie ie7"> <![endif]-->
