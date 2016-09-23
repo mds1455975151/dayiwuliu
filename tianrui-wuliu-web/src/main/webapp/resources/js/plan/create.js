@@ -64,11 +64,11 @@ $(function(){
 		$(this).attr("disabled",true);
 		if(validateForm()){
 			$.ajax({
-				cache: true,
+				cache: false,
 				type:"post",
 				url:URL.savePlan,
 				data:$('#saveplan').serialize(),// 你的formid
-				async: false,
+				async: true,
 				success: function(rs) {
 					$(this).attr("disabled",false);
 					if(rs.code=="000000"){
@@ -78,8 +78,9 @@ $(function(){
 					}
 				}
 			});
+		}else{
+			$(this).attr("disabled",false);
 		}
-		$(this).attr("disabled",false);
 	});
 	//运价策略 自动加载
 	$( "#freightname_v" ).autocomplete({
