@@ -245,8 +245,7 @@ public class CargoPlanService implements ICargoPlanService{
 				planMapper.updateComplete(update);
 				// 修改未接受的0  已拒绝的 7 已收回 -1的运单并删除.
 				Bill query =new Bill();
-				//Byte[] status=new Byte[]{(byte)0,(byte)7,(byte)-1};
-				Byte[] status=new Byte[]{(byte)7,(byte)-1};
+				Byte[] status=new Byte[]{(byte)0,(byte)7,(byte)-1};
 				//query.setPlanid(req.getId());
 				query.setPlancode(plan.getPlancode());
 				query.setStatusStrs(status);

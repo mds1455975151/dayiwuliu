@@ -169,7 +169,7 @@
 													<td><a href="${bill.signimgurl }" target="_blank">查看磅单</a></td>
 												</c:if>
 												<c:if test="${bill.status==6}">
-													<td>${bill.price*bill.weight}元</td>
+													<td><fmt:formatNumber type="number" value="${bill.price*bill.weight}" pattern="0.00" maxFractionDigits="2"/>元</td>
 												</c:if>
 											</tr>
 										</tbody>

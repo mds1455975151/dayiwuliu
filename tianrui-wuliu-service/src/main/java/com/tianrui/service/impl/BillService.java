@@ -404,8 +404,8 @@ public class BillService implements IBillService{
 								planUpdate.setCompleted(Double.valueOf(req.getWeight()));
 							}
 							//判断总计签收量 是否大于计划总量
-							if(rootPlan.getCompleted() != null){
-								if(rootPlan.getCompleted() >= rootPlan.getTotalplanned()){
+							if(planUpdate.getCompleted() != null){
+								if(planUpdate.getCompleted() >= rootPlan.getTotalplanned()){
 									PlanConfirmReq planReq = new PlanConfirmReq();
 									planReq.setId(rootPlan.getId());
 									cargoPlanService.completePlan(planReq);
@@ -419,8 +419,8 @@ public class BillService implements IBillService{
 								planUpdate.setCompleted(Double.valueOf(req.getWeight()));
 							}
 							//判断总计签收量 是否大于计划总量
-							if(plan.getCompleted() != null){
-								if(plan.getCompleted() >= plan.getTotalplanned()){
+							if(planUpdate.getCompleted() != null){
+								if(planUpdate.getCompleted() >= plan.getTotalplanned()){
 									PlanConfirmReq planReq = new PlanConfirmReq();
 									planReq.setId(plan.getId());
 									cargoPlanService.completePlan(planReq);

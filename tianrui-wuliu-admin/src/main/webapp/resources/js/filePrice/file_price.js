@@ -145,7 +145,7 @@ function interHTML(data){
 					tallage = data[a].tallageInfo;
 				}
 			}else if(data[a].auditstatus=="1"){
-				auditstatus = "调价成功";
+				auditstatus = "审批成功";
 				if(data[a].price != undefined){
 					price = data[a].price;
 				}
@@ -154,7 +154,7 @@ function interHTML(data){
 				}
 				
 			}else if(data[a].auditstatus=="2"){
-				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【调价失败】</a>";
+				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【审批失败】</a>";
 				if(data[a].priceInfo != undefined){
 					price = data[a].priceInfo;
 				}

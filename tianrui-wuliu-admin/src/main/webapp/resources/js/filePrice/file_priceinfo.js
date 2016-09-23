@@ -147,9 +147,9 @@ function interHTML(data){
 			if(data[a].auditstatus=="0"){
 				auditstatus = "审核中";
 			}else if(data[a].auditstatus=="1"){
-				auditstatus = "调价成功";
+				auditstatus = "审批成功";
 			}else if(data[a].auditstatus=="2"){
-				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【调价失败】</a>";
+				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【审批失败】</a>";
 			}
 		}
 		var tallage = "";

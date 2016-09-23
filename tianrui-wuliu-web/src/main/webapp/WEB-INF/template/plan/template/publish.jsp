@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <label> 计划总量：</label>
                     <input type="text" name="totalplanned" placeholder="保留两位小数" id ="totalplanned" style="width:180px" value="${plan.totalplanned }"  maxlength="10">
-                    <span id="measure_name">${plan.measure }</span><span id="totalPrice">.总价:${plan.totalplanned * plan.price }元</span>
+                    <span id="measure_name">${plan.measure }</span><span id="totalPrice">.总价:<fmt:formatNumber type="number" value="${plan.totalplanned * plan.price }" pattern="0.00" maxFractionDigits="2"/>元</span>
                 </div>
                 <div class="goods_line">
                     <div class="good_time mr20">
