@@ -46,35 +46,38 @@
     <include refid="Base_Column_List" />
     from pay_invoice_detail
 	<where>
-      <if test="billCode != null" >
-        and bill_code = #{billCode,jdbcType=VARCHAR}
+      <if test="billCode != null and billCode != ''" >
+        and bill_code like '%' #{billCode,jdbcType=VARCHAR} '%'
       </if>
-      <if test="payId != null ">
+      <if test="payId != null and payId != ''">
       	and pay_id = #{payId,jdbcType=VARCHAR}
       </if>
-      <if test="cargoId != null" >
+      <if test="cargoId != null and cargoId != ''" >
         and cargo_id = #{cargoId,jdbcType=VARCHAR}
       </if>
-      <if test="cargoCode != null" >
+      <if test="cargoCode != null and cargoCode != ''" >
         and cargo_code = #{cargoCode,jdbcType=VARCHAR}
       </if>
-      <if test="invoiceType != null" >
+      <if test="cargoName != null and cargoName != ''" >
+        and cargo_name like '%' #{cargoName,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="invoiceType != null and invoiceType != ''" >
         and invoice_type = #{invoiceType,jdbcType=VARCHAR}
       </if>
-      <if test="signTime != null" >
-        and sign_time = #{signTime,jdbcType=VARCHAR}
+      <if test="signTime != null and signTime != ''" >
+        and sign_time <![CDATA[<=]]> #{signTime,jdbcType=VARCHAR}
       </if>
       <if test="isInvoice != null" >
-        and is_invoice = #{isInvoice,jdbcType=TINYINT},
+        and is_invoice = #{isInvoice,jdbcType=TINYINT}
       </if>
-      <if test="creator != null" >
-        and creator = #{creator,jdbcType=VARCHAR},
+      <if test="creator != null and creator != ''" >
+        and creator = #{creator,jdbcType=VARCHAR}
       </if>
-      <if test="venderId != null" >
-        vender_id = #{venderId,jdbcType=VARCHAR},
+      <if test="venderId != null and venderId != ''" >
+        and vender_id = #{venderId,jdbcType=VARCHAR}
       </if>
       <if test="ids != null">
-      	id in 
+      	and id in 
       	<foreach collection="ids" item="employeeId" index="index"
             open="(" close=")" separator=",">
             #{employeeId}
@@ -93,29 +96,42 @@
     	count(1)
     from pay_invoice_detail
 	<where>
-      <if test="billCode != null" >
-        and bill_code = #{billCode,jdbcType=VARCHAR}
+      <if test="billCode != null and billCode != ''" >
+        and bill_code like '%' #{billCode,jdbcType=VARCHAR} '%'
       </if>
-      <if test="cargoId != null" >
+      <if test="payId != null and payId != ''">
+      	and pay_id = #{payId,jdbcType=VARCHAR}
+      </if>
+      <if test="cargoId != null and cargoId != ''" >
         and cargo_id = #{cargoId,jdbcType=VARCHAR}
       </if>
-      <if test="cargoCode != null" >
+      <if test="cargoCode != null and cargoCode != ''" >
         and cargo_code = #{cargoCode,jdbcType=VARCHAR}
       </if>
-      <if test="invoiceType != null" >
+      <if test="cargoName != null and cargoName != ''" >
+        and cargo_name like '%' #{cargoName,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="invoiceType != null and invoiceType != ''" >
         and invoice_type = #{invoiceType,jdbcType=VARCHAR}
       </if>
-      <if test="signTime != null" >
-        and sign_time = #{signTime,jdbcType=VARCHAR}
+      <if test="signTime != null and signTime != ''" >
+        and sign_time <![CDATA[<=]]> #{signTime,jdbcType=VARCHAR}
       </if>
-      <if test="isInvoice != null" >
-        and is_invoice = #{isInvoice,jdbcType=TINYINT},
+      <if test="isInvoice != null">
+        and is_invoice = #{isInvoice,jdbcType=TINYINT}
       </if>
-      <if test="creator != null" >
-        and creator = #{creator,jdbcType=VARCHAR},
+      <if test="creator != null and creator != ''" >
+        and creator = #{creator,jdbcType=VARCHAR}
       </if>
-      <if test="venderId != null" >
-        vender_id = #{venderId,jdbcType=VARCHAR},
+      <if test="venderId != null and venderId != ''" >
+        and vender_id = #{venderId,jdbcType=VARCHAR}
+      </if>
+      <if test="ids != null">
+      	and id in 
+      	<foreach collection="ids" item="employeeId" index="index"
+            open="(" close=")" separator=",">
+            #{employeeId}
+        </foreach> 
       </if>
 	</where>
   </select>

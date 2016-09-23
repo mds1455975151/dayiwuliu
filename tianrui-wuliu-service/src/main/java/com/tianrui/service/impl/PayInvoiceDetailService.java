@@ -1,6 +1,7 @@
 package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -18,6 +19,7 @@ import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.enums.BillStatusEnum;
 import com.tianrui.common.enums.PayStatusEnum;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
@@ -27,11 +29,14 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
 import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.PayInvoice;
 import com.tianrui.service.bean.PayInvoiceDetail;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.PayInvoiceDetailMapper;
 import com.tianrui.service.mapper.PayInvoiceMapper;
+import com.tianrui.service.mongo.BillTrackDao;
+import com.tianrui.service.mongo.CodeGenDao;
 @Service
 public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	@Autowired
@@ -44,6 +49,10 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	MemberVoService memberVoService;
 	@Autowired
 	FileCargoMapper fileCargoMapper;
+	@Autowired
+	CodeGenDao codeGenDao;
+	@Autowired
+	BillTrackDao billTrackDao;
 	
 	@Override
 	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req) throws Exception {
@@ -77,7 +86,9 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setBillWeight(bill.getTrueweight());
 				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
 				//TODO 到货时间 税率 
-//				payInvoiceDetail.setSignTime(bill);
+				payInvoiceDetail.setSignTime(getBillSignTime(bill.getId()));
+				
+				
 				/**
 				 * 货物信息
 				 */
@@ -118,13 +129,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		PaginationVO<PayInvoiceDetailResp> page =null;
 		if( req !=null && StringUtils.isNotBlank(req.getCurruId())  ){
 			page = new PaginationVO<PayInvoiceDetailResp> ();
-			PayInvoiceDetail query = new PayInvoiceDetail();
-			//TODO  分页查询条件封装.
-			if(StringUtils.isNotBlank(req.getIds())){
-				String[] idArr = req.getIds().split(";");
-				query.setIds(Arrays.asList(idArr));
-			}
-			query.setPayId(req.getPayId());
+			//封装查询条件
+			PayInvoiceDetail query = copyQuery(req);
 			long total =payInvoiceDetailMapper.countByCondition(query);
 			if(total >0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
@@ -138,7 +144,27 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		
 		return page;
 	}
-
+	/** 分页查询条件封装.*/
+	protected PayInvoiceDetail copyQuery(PayInvoiceDetailQueryReq req) {
+		PayInvoiceDetail query = new PayInvoiceDetail();
+		if(StringUtils.isNotBlank(req.getIds())){
+			String[] idArr = req.getIds().split(";");
+			query.setIds(Arrays.asList(idArr));
+		}
+		query.setVenderId(req.getCurruId());
+		query.setPayId(req.getPayId());
+		query.setBillCode(req.getBillNO());
+		query.setSignTime(req.getSignTime());
+		if(StringUtils.isNotBlank(req.getIsInvoice())){
+			if("0".equals(req.getIsInvoice())){
+				query.setIsInvoice((byte)0);
+			}else if("1".equals(req.getIsInvoice())){
+				query.setIsInvoice((byte)1);
+			}
+		}
+		query.setCargoName(req.getCargoName());
+		return query;
+	}
 	@Override
 	public Result generalPayInvoice(PayInvoiceGenalReq req) throws Exception {
 		Result  rs =Result.getSuccessResult();
@@ -174,6 +200,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setPayStatus(PayStatusEnum.create.getStatus());
 						payInvoice.setAdviceStatus((byte)0);
 						payInvoice.setAdviceTime(System.currentTimeMillis());
+						payInvoice.setPayCode(codeGenDao.codeGen(3));
 						
 						payInvoice.setOwnerId(item.getOwnerId());
 						payInvoice.setOrgid(item.getOrgid());
@@ -279,6 +306,16 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		}
 		return rs;
 	}
-
+	/** 获取运单到货时间*/
+	private String getBillSignTime(String id){
+		//TODO
+		String signtime = null;
+		List<BillTrack> list = billTrackDao.findWithBidAndStatus(id, "5");
+		if(list.size()!=0){
+			long time = list.get(0).getTimestamp();
+			signtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time));
+		}
+		return signtime;
+	}
 
 }

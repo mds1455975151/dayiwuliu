@@ -9,6 +9,7 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	private String curruId;
 	
 	private String status;
+	private String isInvoice;
 	private String payId;
 	private String billNO;
 	private String signTime;
@@ -29,6 +30,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getIsInvoice() {
+		return isInvoice;
+	}
+	public void setIsInvoice(String isInvoice) {
+		this.isInvoice = isInvoice;
 	}
 	public String getPayId() {
 		return payId;

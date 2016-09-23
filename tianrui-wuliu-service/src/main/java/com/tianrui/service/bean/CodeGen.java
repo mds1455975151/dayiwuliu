@@ -16,7 +16,7 @@ public class CodeGen implements Serializable{
 	private static final long serialVersionUID = 8379994076474746067L;
 	
 	private String id;
-	//类型  1为计划 2为运单  
+	//类型  1为计划 2为运单 3为账单
 	private int type;
 	//当前日期
 	private int currdata;

@@ -48,8 +48,11 @@
    	  <if test="createtime != null" >
         and createtime = #{createtime,jdbcType=BIGINT}
       </if>
-   	  <if test="payStatus != null" >
+   	  <if test="payStatus != null " >
         and pay_status = #{payStatus,jdbcType=TINYINT}
+      </if>
+      <if test="adviceStatus != null">
+      	and advice_status = #{adviceStatus,jdbcType=TINYINT}
       </if>
       <if test="invoiceType != null" >
         and invoice_type = #{invoiceType,jdbcType=VARCHAR}
@@ -57,8 +60,11 @@
    	  <if test="venderId != null" >
         and vender_id = #{venderId,jdbcType=VARCHAR}
       </if>
-   	  <if test="payCode != null" >
-        and pay_code = #{payCode,jdbcType=VARCHAR}
+   	  <if test="payCode != null and payCode != ''" >
+        and pay_code like '%' #{payCode,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="applyDate != null and applyDate != ''">
+      	and apply_date <![CDATA[<=]]> #{applyDate,jdbcType=VARCHAR}
       </if>
    	</where>
    	<if test="start != null and start != '0'">
@@ -79,14 +85,20 @@
    	  <if test="payStatus != null" >
         and pay_status = #{payStatus,jdbcType=TINYINT}
       </if>
+      <if test="adviceStatus != null">
+      	and advice_status = #{adviceStatus,jdbcType=TINYINT}
+      </if>
       <if test="invoiceType != null" >
         and invoice_type = #{invoiceType,jdbcType=VARCHAR}
       </if>
    	  <if test="venderId != null" >
         and vender_id = #{venderId,jdbcType=VARCHAR}
       </if>
-      <if test="payCode != null" >
-        and pay_code = #{payCode,jdbcType=VARCHAR}
+   	  <if test="payCode != null and payCode != ''" >
+        and pay_code like '%' #{payCode,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="applyDate != null and applyDate != ''">
+      	and apply_date <![CDATA[<=]]> #{applyDate,jdbcType=VARCHAR}
       </if>
    	</where>
   </select>

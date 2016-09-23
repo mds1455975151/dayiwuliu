@@ -37,7 +37,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 		PaginationVO<PayInvoiceResp> page =null;
 		if( req !=null && StringUtils.isNotBlank(req.getCurruId())  ){
 			page = new PaginationVO<PayInvoiceResp> ();
-			PayInvoice query = new PayInvoice();
+			PayInvoice query = copyQuery(req);
 			//TODO 查询条件赋值
 			long total =payInvoiceMapper.countByCondition(query);
 			if(total >0 ){
@@ -51,7 +51,19 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}
 		return page;
 	}
-
+	
+	/** 封装查询条件*/
+	protected PayInvoice copyQuery(PayInvoiceQueryReq req) {
+		PayInvoice query = new PayInvoice();
+		query.setVenderId(req.getCurruId());
+		query.setPayCode(req.getPaycode());
+		query.setApplyDate(req.getApplytime());
+		query.setAdviceStatus(req.getAdviceStatus());
+		query.setPayStatus(req.getPaystatus());
+		query.setCreator(req.getCurruId());
+		return query;
+	}
+	
 	@Override
 	public Result advice(PayInvoiceAdviceReq req) throws Exception {
 		Result rs = Result.getSuccessResult();

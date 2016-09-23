@@ -18,6 +18,8 @@ import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.PayInvoiceDetailService;
+import com.tianrui.service.mongo.CodeGenDao;
+import com.tianrui.service.mongo.impl.CodeGenDaoImpl;
 import com.tianrui.web.util.SessionManager;
 
 @Controller

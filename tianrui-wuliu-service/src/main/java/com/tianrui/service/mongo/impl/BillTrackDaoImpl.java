@@ -36,4 +36,20 @@ public class BillTrackDaoImpl extends BaseDaoImpl<BillTrack,String> implements B
 		}
 		return rs;
 	}
+
+	@Override
+	public List<BillTrack> findWithBidAndStatus(String bId, String status) {
+		// TODO Auto-generated method stub
+		List<BillTrack> rs =null;
+		if( StringUtils.isNotBlank(bId)&&StringUtils.isNotBlank(status) ){
+			//拼装条件
+			Query query =new Query();
+			Criteria criteria =Criteria.where("billId").is(bId).and("isShow").is(1).and("status").is(status);
+			query.addCriteria(criteria);
+			//排序条件
+			query.with(new Sort(Direction.ASC,"timestamp"));
+			rs=mongoTemplate.find(query, BillTrack.class);
+		}
+		return rs;
+	}
 }

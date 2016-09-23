@@ -7,9 +7,37 @@ $(function(){
 });
 
 function index(No,flag){
+	var paycode = $("#paycode").val();
+	var applytime = $("#applytime").val();
+	var status = $("#paystatus").val();
+	var paystatus ;
+	var adviceStatus ;
+	//审核状态 0未审核  1 已审核
+	//发票单 0新建  1 已推单 2支付中  3支付完成 
+	if(status ==""){
+		
+	}else if(status == 0){
+		adviceStatus = 0;
+	}else if(status == 1){
+		adviceStatus = 1;
+	}else if(status == 2){
+		paystatus = 0;
+	}else if(status == 3){
+		paystatus = 1;
+	}else if(status == 4){
+		paystatus = 2;
+	}else if(status == 5){
+		paystatus = 3;
+	}
 	$.ajax({
 		url : "/trwuliu/payInvoice/page",//
-		data : {"pageNo":No,
+		data : {
+			"paystatus":paystatus,
+			"adviceStatus":adviceStatus,
+			"paycode":paycode,
+			"applytime":applytime,
+			"paystatus":paystatus,
+			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
 		success : function(rs){
@@ -99,7 +127,7 @@ function innerDetail(ret){
 	for (var a = 0; a < data.length; a++) {
 		hml += "<tr><td >"+data[a].billCode+"</td>" +
 			"<td >"+data[a].cargoName+"</td>" +
-			"<td >"+data[a].cargoName+"</td>" +
+			"<td >"+data[a].signTime+"</td>" +
 			"<td >"+data[a].billWeight+"吨</td>" +
 			"<td >"+data[a].billPrice+"元</td>" +
 			"<td >"+data[a].taxRate+"%</td>" +

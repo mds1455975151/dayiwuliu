@@ -9,6 +9,8 @@ public class PayInvoiceGenalReq  extends BaseReq{
 	private String curruId;
 	
 	private String ids;
+	//账单编号
+	private String payCode;
 	//请求类型，0-计算 1保存
 	private String qtype;
 
@@ -30,6 +32,14 @@ public class PayInvoiceGenalReq  extends BaseReq{
 
 	public String getQtype() {
 		return qtype;
+	}
+
+	public String getPayCode() {
+		return payCode;
+	}
+
+	public void setPayCode(String payCode) {
+		this.payCode = payCode;
 	}
 
 	public void setQtype(String qtype) {

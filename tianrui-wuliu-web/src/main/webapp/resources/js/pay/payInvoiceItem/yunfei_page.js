@@ -7,9 +7,18 @@ $(function(){
 });
 
 function index(No,flag){
+	var billcode = $("#billcode").val();
+	var signtime = $("#signtime").val();
+	var cargoName = $("#cargoName").val();
+	var isvoid = $("#isvoid").val();
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem/page",//
-		data : {"pageNo":No,
+		data : {
+			"billNO":billcode,
+			"signTime":signtime,
+			"cargoName":cargoName,
+			"isInvoice":isvoid,
+			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
 		success : function(rs){
@@ -38,6 +47,9 @@ function innerHTML(ret,flag){
 	}
 	if(flag == 0){
 		$("#yunfeilist").empty();
+	}
+	if(total == 0){
+		return;
 	}
 	for (var a = 0; a < data.length; a++) {
 		var piao = "";

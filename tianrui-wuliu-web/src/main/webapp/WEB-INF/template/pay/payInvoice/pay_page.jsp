@@ -19,6 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
+    
+    <!--这个日历控件js必须放头部-->
+    <script language="javascript" type="text/javascript" src="${trRoot }/tianrui/My97DatePicker/WdatePicker.js"></script>
+    
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -46,26 +50,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="yf_search">
                 <div class="yf_fl">
                     <div class="yf_sline">
-                        <label>货物名称：</label>
+                        <label>账单编号：</label>
+                         <input type="text" id="paycode" placeholder="请输入账单编号">
+                        <!-- 
                         <select class="form-control">
                             <option>请选择</option>
                             <option>水泥</option>
                             <option>大沙</option>
                             <option>3</option>
                         </select>
+                         -->
                     </div>
                     <div class="yf_sline">
                         <label>申请时间：</label>
-                        <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_fapiao" style="width:200px"/>
+                        <input type="text" id="applytime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_fapiao" style="width:200px"/>
                     </div>
                 </div>
                 <div class="yf_fl">
                     <div class="yf_sline">
                         <label>状态：</label>
-                        <select class="form-control">
-                            <option>请选择</option>
-                            <option>未开票</option>
-                            <option>已开票</option>
+                        <select id="paystatus" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="0">未审核</option>
+                            <option value="1">已审核</option>
+                            <option value="2">新建</option>
+                            <option value="3">已推单</option>
+                            <option value="4">支付中</option>
+                            <option value="5">支付完成 </option>
                         </select>
                     </div>
                 </div>
@@ -118,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tr>
                             <th >运单号</th>
                             <th >货物名称</th>
-                            <th >截止时间</th>
+                            <th >到货时间</th>
                             <th>到货量</th>
                             <th>含税价</th>
                             <th >税率</th>
