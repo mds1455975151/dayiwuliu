@@ -245,7 +245,8 @@ public class CargoPlanService implements ICargoPlanService{
 				planMapper.updateComplete(update);
 				// 修改未接受的0  已拒绝的 7 已收回 -1的运单并删除.
 				Bill query =new Bill();
-				Byte[] status=new Byte[]{(byte)0,(byte)7,(byte)-1};
+				//Byte[] status=new Byte[]{(byte)0,(byte)7,(byte)-1};
+				Byte[] status=new Byte[]{(byte)7,(byte)-1};
 				//query.setPlanid(req.getId());
 				query.setPlancode(plan.getPlancode());
 				query.setStatusStrs(status);
@@ -549,6 +550,11 @@ public class CargoPlanService implements ICargoPlanService{
 			result.setError("运输量已超出计划剩余运输量");
 			return result;
 		}
+		if(plan.getStatus() != PlanStatusEnum.COMPLETE.getStatus()){
+			result.setCode("1");
+			result.setError("计划已经完成，不能继续委派运单了！");
+			return result;
+		}
 		plan.setId(UUIDUtil.getId());
 		//自定义属性
 		plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
@@ -594,6 +600,11 @@ public class CargoPlanService implements ICargoPlanService{
 		if(inspectTraffic(plan.getPid()) - Double.valueOf(req.getTotalplanned()) < 0){
 			result.setCode("000002");
 			result.setError("运输量已超出计划剩余运输量");
+			return result;
+		}
+		if(plan.getStatus() != PlanStatusEnum.COMPLETE.getStatus()){
+			result.setCode("1");
+			result.setError("计划已经完成，不能继续委派运单了！");
 			return result;
 		}
 		//自定义属性

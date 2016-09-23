@@ -60,7 +60,7 @@ $(function(){
 			dataArr.push('<td>');
 			/*dataArr.push('<a target="_blank" href="'+URL.detailViewUrl+'?id='+item.id+'"><button class="btn btnyello">查看</button></a>');*/
 			if(item.status ==5){
-				dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'">签收</button></a>');
+				dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'" qhdataImg="'+item.pickupimgurl+'">签收</button></a>');
 			}else if(item.status ==7 ||item.status ==-1){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'">删除</button></a>');
 			}
@@ -100,10 +100,12 @@ $(function(){
 	}).trigger("click");
 	
 	//签收按钮点击
-	var _imgurl_defult = $("#bdimgurl").attr("src");
+	var _qhimgurl_defult = $("#bdimgurl").attr("src");
+	var _xhimgurl_defult = $("#bdimgurl").attr("src");
 	$(".table").on("click",".signBtn",function(){
 		var dId= $(this).attr("dataId");
 		$("#hidid").val(dId);
+		$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg"))
 		$("#bdimgurl").attr( "src",$(this).attr("dataImg"))
 		$("#signModal").modal();
 	});
@@ -111,7 +113,8 @@ $(function(){
 	$('#signModal').on('hidden.bs.modal', function (e) {
 		$("#hidid").val("");
 		$("#weighttext").val("");
-		$("#bdimgurl").attr( "src",_imgurl_defult);
+		$("#qhbdImgUrl").attr( "src",_qhimgurl_defult);
+		$("#bdimgurl").attr( "src",_xhimgurl_defult);
 	});
 	
 	

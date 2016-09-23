@@ -140,6 +140,11 @@ public class BillService implements IBillService{
 			if( CollectionUtils.isNotEmpty(vehicleDrivers) ){
 				bills =new ArrayList<Bill>();
 				Plan plan =planMapper.selectByPrimaryKey(req.getPlanId());
+				if(plan.getStatus() == PlanStatusEnum.COMPLETE.getStatus()){
+					rs.setCode("1");
+					rs.setError("计划已经完成，不能生成运单了！");
+					return rs;
+				}
 				if( plan !=null && StringUtils.isNotBlank(plan.getRouteid())){
 					for(  VehicleDriverVO item:vehicleDrivers){
 						Bill bill =new Bill();
@@ -232,6 +237,16 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				if( checkBillauthForCuser(db,req.getCurruId(),"creator")){
 					if( checkBillauthForstatus(db,"edit") ){
+						Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
+						if(plan.getStatus() == PlanStatusEnum.COMPLETE.getStatus()){
+							Bill b =new Bill();
+							b.setId(req.getId());
+							b.setDriverdelflag((byte)1);
+							billMapper.updateByPrimaryKeySelective(b);
+							rs.setCode("1");
+							rs.setError("计划已经完成，不能生成运单了！");
+							return rs;
+						}
 						Bill update =new Bill();
 						update.setId(req.getId());
 						

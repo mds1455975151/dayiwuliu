@@ -95,6 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body">
             	<input type="hidden" id="hidid"/>
                 <div class="bdimg">
+                    <img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl">
                     <img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl">
                     <p><label>磅单重量：</label><input type="text" id="weighttext"></p>
                 </div>
