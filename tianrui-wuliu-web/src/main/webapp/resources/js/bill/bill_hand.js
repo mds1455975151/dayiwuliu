@@ -15,7 +15,6 @@ $(function(){
 			async:false,
 			cache:false,
 			success:function(result){
-				console.info(result);
 				if(result.code == "000000"){
 					loadDriverList(result.data);
 				}else{
@@ -82,6 +81,7 @@ $(function(){
 					$('.handBtn').attr('item','1').val('收回').removeClass('btnblue').addClass('btnyello').off('click').on('click',recover);
 				}else{
 					alert(result.error);
+					$('.handBtn').off('click').on('click',applyHand);
 				}
 			}
 		});
@@ -101,6 +101,7 @@ $(function(){
 					$('.handBtn').attr('item','0').val('申请交班').removeClass('btnyello').addClass('btnblue').off('click').on('click',applyHand);
 				}else{
 					alert(result.error);
+					$('.handBtn').off('click').on('click',applyHand);
 				}
 			}
 		});

@@ -879,8 +879,8 @@
 		driverid = #{driverid,jdbcType=VARCHAR}
 		AND
 		venderid = #{venderid,jdbcType=VARCHAR}
-		AND status IN (0,1,2,3,4,5) and
-		driverdelflag = 0
+		AND status IN (0,1,2,3,4)
+		AND ownerdelflag = 0 and venderdelflag = 0 and driverdelflag = 0
 	</select>
 	<select id="selectByPlanId" resultMap="BaseResultMap"
 		parameterType="string">
@@ -976,7 +976,6 @@
 			<if test="orgid != null and orgid != '' " >
         		and orgid=#{orgid,jdbcType=VARCHAR} and type != 2
       		</if>
-      		
 		</where>
 	</select>
 </mapper>

@@ -142,6 +142,11 @@ public class TransferService implements ITransferService{
 		bil.setDriverid(req.getStartid());
 		bil.setVenderid(req.getMemberid());
 		List<Bill> list = billMapper.selectByBillTransfer(bil);
+		if(list == null || list.size() == 0){
+			rs.setCode("2");
+			rs.setError("该车主下暂没有可交班的运单");
+			return rs;
+		}
 		for(Bill b : list){
 			record.setId(UUIDUtil.getId());
 			record.setBillid(b.getId());
