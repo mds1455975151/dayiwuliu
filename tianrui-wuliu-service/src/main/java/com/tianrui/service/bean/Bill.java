@@ -65,6 +65,8 @@ public class Bill {
     private String overnumber;
     //取货单图片
     private String pickupimgurl;
+    //税率
+    private double tallage;
     
     public String getId() {
         return id;
@@ -1088,6 +1090,14 @@ public class Bill {
 
 	public void setPickupimgurl(String pickupimgurl) {
 		this.pickupimgurl = pickupimgurl;
+	}
+
+	public double getTallage() {
+		return tallage;
+	}
+
+	public void setTallage(double tallage) {
+		this.tallage = tallage;
 	}
 
 }

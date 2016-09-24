@@ -187,6 +187,8 @@ public class Plan implements IModel{
     private Integer limit;
     
     private String queryKey;
+    //税率
+    private double tallage;
     
 	public Integer getStart() {
 		return start;
@@ -1124,6 +1126,14 @@ public class Plan implements IModel{
 
 	public void setPid(String pid) {
 		this.pid = pid;
+	}
+
+	public double getTallage() {
+		return tallage;
+	}
+
+	public void setTallage(double tallage) {
+		this.tallage = tallage;
 	}
     
 }

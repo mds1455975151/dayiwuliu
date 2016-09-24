@@ -49,6 +49,7 @@
 		<result column="signimgurl" property="signimgurl" jdbcType="BIGINT" />
 		<result column="overnumber" property="overnumber" jdbcType="VARCHAR" />
 		<result column="totalnumber" property="totalnumber" jdbcType="VARCHAR" />
+		<result column="tallage" property="tallage" jdbcType="DOUBLE" />
 		<result column="DESC1" property="desc1" jdbcType="VARCHAR" />
 		<result column="DESC2" property="desc2" jdbcType="VARCHAR" />
 		<result column="DESC3" property="desc3" jdbcType="VARCHAR" />
@@ -68,7 +69,7 @@
 		ownerdelflag, driverdelflag,
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
-		signimgurl,overnumber,totalnumber,DESC1, DESC2,
+		signimgurl,overnumber,totalnumber,tallage,DESC1, DESC2,
 		DESC3,
 		DESC4
 	</sql>
@@ -127,6 +128,9 @@
 			<if test="totalnumber != null and totalnumber != ''">
 				and totalnumber=#{totalnumber,jdbcType=VARCHAR}
 			</if>
+			<if test="tallage != null and tallage != ''">
+				and tallage=#{tallage,jdbcType=DOUBLE}
+			</if>
 			<if test="desc4 != null and desc4 != ''">
 				and desc4=#{desc4,jdbcType=VARCHAR}
 			</if>
@@ -179,6 +183,9 @@
 				</if>
 				<if test="totalnumber != null and totalnumber != ''">
 					and totalnumber=#{totalnumber,jdbcType=VARCHAR}
+				</if>
+				<if test="tallage != null and tallage != ''">
+					and tallage=#{tallage,jdbcType=DOUBLE}
 				</if>
 				<if test="desc4 != null and desc4 != ''">
 					and desc4=#{desc4,jdbcType=VARCHAR}
@@ -244,6 +251,9 @@
 			<if test="totalnumber != null and totalnumber != ''">
 				and totalnumber=#{totalnumber,jdbcType=VARCHAR}
 			</if>
+			<if test="tallage != null and tallage != ''">
+				and tallage=#{tallage,jdbcType=DOUBLE}
+			</if>
 			<if test="desc4 != null and desc4 != ''">
 				and desc4=#{desc4,jdbcType=VARCHAR}
 			</if>
@@ -297,6 +307,9 @@
 				<if test="totalnumber != null and totalnumber != ''">
 					and totalnumber=#{totalnumber,jdbcType=VARCHAR}
 				</if>
+				<if test="tallage != null and tallage != ''">
+					and tallage=#{tallage,jdbcType=DOUBLE}
+				</if>
 				<if test="desc4 != null and desc4 != ''">
 					and desc4=#{desc4,jdbcType=VARCHAR}
 				</if>
@@ -345,7 +358,7 @@
 		venderid, venderdelflag, ownerdelflag,
 		driverdelflag, orgid,plancode,creator, createtime,
 		modifier,
-		modifytime, overnumber,totalnumber, DESC1,
+		modifytime, overnumber,totalnumber, tallage, DESC1,
 		DESC2, DESC3, DESC4
 		)
 		values
@@ -374,7 +387,8 @@
 		#{createtime,jdbcType=BIGINT},
 		#{modifier,jdbcType=VARCHAR},
 		#{modifytime,jdbcType=BIGINT}, #{overnumber,jdbcType=VARCHAR},
-		#{totalnumber,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR},
+		#{totalnumber,jdbcType=VARCHAR},
+		#{tallage,jdbcType=DOUBLE}, #{desc1,jdbcType=VARCHAR},
 		#{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR},
 		#{desc4,jdbcType=VARCHAR}
 		)
@@ -500,6 +514,9 @@
 			</if>
 			<if test="totalnumber != null">
 				totalnumber,
+			</if>
+			<if test="tallage != null">
+				tallage,
 			</if>
 			<if test="desc1 != null">
 				DESC1,
@@ -631,6 +648,9 @@
 			</if>
 			<if test="totalnumber != null">
 				#{totalnumber,jdbcType=VARCHAR},
+			</if>
+			<if test="tallage != null">
+				#{tallage,jdbcType=DOUBLE},
 			</if>
 			<if test="desc1 != null">
 				#{desc1,jdbcType=VARCHAR},
@@ -770,6 +790,9 @@
 			</if>
 			<if test="totalnumber != null">
 				totalnumber = #{totalnumber,jdbcType=VARCHAR},
+			</if>
+			<if test="tallage != null">
+				tallage = #{tallage,jdbcType=DOUBLE},
 			</if>
 			<if test="desc1 != null">
 				DESC1 = #{desc1,jdbcType=VARCHAR},
