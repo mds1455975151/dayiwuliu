@@ -6,6 +6,7 @@ $(function(){
 		queryFreight:"/trwuliu/planowner/queryFreights",
 		queryCargo:"/trwuliu/planowner/queryCargo",
 		queryRoute:"/trwuliu/planowner/queryRoute",
+		queryFreightInfo:"/trwuliu/planowner/queryFreightInfo",
 		savePlan:"/trwuliu/planowner/save"
 	}
 	
@@ -123,6 +124,7 @@ $(function(){
             	$("#tallage").html(parseInt(ui.item.tallage)+'%');
             }
             $("#organizationname").val(ui.item.organizationname);
+            queryFreightinfoVo(true);
             queryCargo(true);
             queryRoute(true);
             //总价
@@ -158,6 +160,29 @@ $(function(){
         $("#hpriceunits").html("");
         $("#totalPrice").html("");
 	}
+	//判断该运价策略当前状态
+	//TODO
+	var queryFreightinfoVo = function(flag){
+		$.ajax({
+			url : URL.queryFreightInfo,
+			method : "POST",
+			dataType : "json",
+			data : {
+				id : $("#freightname_v_id").val(),
+			},
+			success : function(rs) {
+				if( rs.code=="000000" ){
+					var data = rs.data;
+		            $("#hprice").html( rs.data.price);
+	            	$("#tallage").html(parseInt(rs.data.tallage)+'%');
+				}else{
+					alert(rs.error);
+				}
+			}
+		})  
+		return false;
+	 }
+	
 	//获取货物详情 flag:false 不重置策略  true 重置策略
 	var queryCargo=function(flag){
 		$.ajax({

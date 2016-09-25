@@ -176,6 +176,9 @@ function interHTML(data){
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td>" +
 			"<td>"+taketimeStr+"</td>" +
+			"<td>" +
+			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
+			"</td>" +
 					"<td>";
 		if(flag){
 			hml +="<span><a data-toggle='modal' onclick=\"tyPrice('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+status+"】</a></span>";
@@ -476,7 +479,9 @@ $("#batchDisable").click(function() {
     }
 });
 
-
+function linkChart(id){
+	window.location.href="/freightinfo/freightLine?menuId=9&id="+id;
+}
 function showreason(massage){
 	alert(massage);
 }

@@ -105,6 +105,9 @@
     <if test="recent != null and recent != ''">
      and recent = #{recent,jdbcType=VARCHAR}
     </if>
+    <if test="taketime != null">
+    and taketime <![CDATA[<=]]> #{taketime,jdbcType=BIGINT}
+    </if>
     
     ORDER BY
 		taketime

@@ -163,4 +163,32 @@ public class FreightInfoService implements IFreightInfoService{
 		}
 		return resp;
 	}
+
+	@Override
+	public Result findFreightInfo(String id, Date date) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		FileFreight freight = freightMapper.selectByPrimaryKey(id);
+		Long time = date.getTime();
+		List<FreightInfo> list = new ArrayList<FreightInfo>();
+		if(time<freight.getTaketime()){
+			FreightInfo info = new FreightInfo();
+			info.setFreightid(id);
+			info.setStatus("1");
+			info.setDesc4("!=0");
+			info.setTaketime(time);
+			list = freightInfoMapper.selectByInfo(info);
+			if(list.size() == 0){
+				rs.setCode("1");
+				rs.setError("运价策略未到生效日期，暂不可用");
+				return rs;
+			}
+		}
+		if(list.size() != 0 ){
+			freight.setPrice(list.get(list.size()-1).getPrice());
+			freight.setTallage(list.get(list.size()-1).getTallage());
+		}
+		rs.setData(freight);
+		return rs;
+	}
 }

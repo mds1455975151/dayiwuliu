@@ -1,6 +1,9 @@
 package com.tianrui.web.action.plan;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IFileOrgCargoService;
+import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IFreightService;
 import com.tianrui.api.intf.IMemberOwnerService;
@@ -60,6 +64,8 @@ public class PlanOwnerAction {
 	protected IFreightService freightService;
 	@Autowired
 	protected IRouteService routeService;
+	@Autowired
+	private IFreightInfoService freightInfoService;
 
 	//计划修改页面
 	@RequestMapping("editView")
@@ -185,6 +191,21 @@ public class PlanOwnerAction {
 			logger.error(e.getMessage(),e);
 		}
 		return list;
+	}
+	/** 查询本条运价策略当前状态
+	 * @throws Exception */
+	@RequestMapping("queryFreightInfo")
+	@ResponseBody
+	public Result queryFreightInfo(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		//TODO
+		//获取当前时间
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String dateStr = sdf.format(date);
+		Date te = sdf.parse(dateStr);
+		rs = freightInfoService.findFreightInfo(id, te);
+		return rs;
 	}
 	//查询运价策略是否可用
 	@RequestMapping("/queryFreightById")

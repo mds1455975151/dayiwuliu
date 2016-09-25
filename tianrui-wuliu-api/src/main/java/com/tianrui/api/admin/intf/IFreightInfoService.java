@@ -1,5 +1,6 @@
 package com.tianrui.api.admin.intf;
 
+import java.util.Date;
 import java.util.List;
 
 import com.tianrui.api.req.admin.freight.AdminFreightReq;
@@ -26,4 +27,9 @@ public interface IFreightInfoService {
 	Result update(AdminFreightUptReq req)throws Exception;
 	/** 查询运价变化折线图*/
 	List<FreightLineResp> lineChart(AdminFreightReq req) throws Exception;
+	/** 查询运价策略
+	 * id:freight的id
+	 *  Date:yyyy-MM-dd
+	 *  */
+	Result findFreightInfo(String id,Date date)throws Exception;
 }

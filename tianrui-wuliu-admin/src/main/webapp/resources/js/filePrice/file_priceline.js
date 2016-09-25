@@ -9,7 +9,7 @@ $(function(){
 				var dat = [];
 				var data = result.data;
 				for (var i = 0; i < data.length; i++) {
-					tem.push(data[i].taketimeStr);
+					tem.push(data[i].taketimeStr+"/"+data[i].price);
 					dat.push(data[i].price);
 				}
 				// 折线图
