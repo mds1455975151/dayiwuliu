@@ -67,6 +67,8 @@ public class Bill {
     private String pickupimgurl;
     //税率
     private double tallage;
+    //卸货完成时间
+    private Long unloadtime;
     
     public String getId() {
         return id;
@@ -1098,6 +1100,14 @@ public class Bill {
 
 	public void setTallage(double tallage) {
 		this.tallage = tallage;
+	}
+
+	public Long getUnloadtime() {
+		return unloadtime;
+	}
+
+	public void setUnloadtime(Long unloadtime) {
+		this.unloadtime = unloadtime;
 	}
 
 }

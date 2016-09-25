@@ -709,7 +709,7 @@ public class BillService implements IBillService{
 								update.setId(req.getId());
 								update.setSignimgurl(String.valueOf(uploadRs.getData()));
 								update.setStatus((byte)BillStatusEnum.SIGN.getStatus());
-								
+								update.setUnloadtime(System.currentTimeMillis());
 								update.setModifier(req.getCurruId());
 								update.setModifytime(System.currentTimeMillis());
 								billMapper.updateByPrimaryKeySelective(update);
