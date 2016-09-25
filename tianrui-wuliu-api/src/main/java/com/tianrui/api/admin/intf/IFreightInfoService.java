@@ -24,6 +24,6 @@ public interface IFreightInfoService {
 	PageResp<AdminFreightResp> find(AdminFreightReq req) throws Exception;
 	
 	Result update(AdminFreightUptReq req)throws Exception;
-	
+	/** 查询运价变化折线图*/
 	List<FreightLineResp> lineChart(AdminFreightReq req) throws Exception;
 }

@@ -163,7 +163,10 @@ function interHTML(data){
 				}
 			}
 		}
-		
+		var taketimeStr = "";
+		if(data[a].taketimeStr != undefined){
+			taketimeStr = data[a].taketimeStr;
+		}
 		hml +="<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
@@ -171,11 +174,13 @@ function interHTML(data){
 			"<td>"+auditstatus+"</td>"+ 
 			"<td>"+pricestatus+"</td>"+ 
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
-			"<td>"+data[a].routeid+"/("+routestatus+")</td><td>";
+			"<td>"+data[a].routeid+"/("+routestatus+")</td>" +
+			"<td>"+taketimeStr+"</td>" +
+					"<td>";
 		if(flag){
 			hml +="<span><a data-toggle='modal' onclick=\"tyPrice('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+status+"】</a></span>";
 		}
-		if(data[a].count == 0){
+		if(data[a].auditstatus!="0"){
 			hml +="<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"+ 
 			"<span><a data-toggle='modal' onclick=\"delectPrice1('"+data[a].id+"')\" data-target='#dele_price'>【删除】</a></span>";
 		}
@@ -210,6 +215,7 @@ function savePrice(){
 		alert("请选择价格类型");
 		return;
 	}
+	//TODO
 	if(addprice == ""){
 		alert("请输入单价");
 		return;
@@ -218,23 +224,32 @@ function savePrice(){
 			alert("单价必须为数值");
 			return;
 		}else{
-			$.ajax({
-				cache: true,
-				type: "POST",
-				url:CONTEXTPATH + '/frieght/saveFreight',// 跳转到 action
-				data:$('#saveFreight').serialize(),// 你的formid
-				async: false,
-				success: function(rs) {
-					if(rs.code=="000000"){
-						SearchPrice();
-						document.getElementById("addclick").click();
-					}else{
-						alert(rs.error);
-					}
-				}
-			});
+		    var dot = addprice.indexOf(".");
+            if(dot != -1){
+                var dotCnt = addprice.substring(dot+1,addprice.length);
+                if(dotCnt.length > 2){
+                    alert("单价请保存两位小数");
+                    return;
+                }
+            }
 		}
 	}
+	
+	$.ajax({
+		cache: true,
+		type: "POST",
+		url:CONTEXTPATH + '/frieght/saveFreight',// 跳转到 action
+		data:$('#saveFreight').serialize(),// 你的formid
+		async: false,
+		success: function(rs) {
+			if(rs.code=="000000"){
+				SearchPrice();
+				document.getElementById("addclick").click();
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
 }
 /**
  * 删除提示
@@ -320,6 +335,8 @@ function findById(id){
 				document.getElementById("uptpriceunits").value = data.priceunits;
 				document.getElementById("uptmeasure").value = data.measure;
 				document.getElementById("upttallage").value = data.tallage;
+				document.getElementById("taketime").value = data.taketimeStr;
+				document.getElementById("oldtaketime").value = data.taketimeStr;
 			}
 		}
 	});
@@ -335,7 +352,20 @@ function updatePrice(){
 	var addprice = $("#uptprice").val();
 	var adddesc2 = $("#uptdesc2").val();
 	var uptmeasure = $("#uptmeasure").val();
-	var taketimeStr = $("#taketimeStr").val();
+	var taketimeStr = $("#taketime").val();
+	var uptreason = $("#uptreason").val();
+	var oldtaketime = $("#oldtaketime").val();
+	if(taketimeStr < oldtaketime){
+		if(window.confirm('本次生效时间早于原生效时间，确定修改将会覆盖掉原生效时间')){
+			
+		}else{
+			return;
+		}
+	}
+	if(uptreason == ""){
+		alert("原因不能为空");
+		return;
+	}
 	if(taketimeStr == ""){
 		alert("生效时间不能为空");
 		return;
@@ -362,7 +392,17 @@ function updatePrice(){
 	}else{
 		if(!regDouble.test(addprice)){
 			alert("单价必须为数值");
+			//TODO
 			return;
+		}else{
+			var dot = addprice.indexOf(".");
+            if(dot != -1){
+                var dotCnt = addprice.substring(dot+1,addprice.length);
+                if(dotCnt.length > 2){
+                    alert("单价请保存两位小数");
+                    return;
+                }
+            }
 		}
 	}
 	$.ajax({

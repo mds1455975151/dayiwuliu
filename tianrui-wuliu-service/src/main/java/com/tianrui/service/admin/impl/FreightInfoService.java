@@ -1,6 +1,7 @@
 package com.tianrui.service.admin.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -79,22 +80,43 @@ public class FreightInfoService implements IFreightInfoService{
 				return rs;
 			}
 		}
+		//获取当前时间
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String dateStr = sdf.format(date);
+		Date te = sdf.parse(dateStr);
+		Long sta = te.getTime();
+		
 		//修改认证信息
 		info.setStatus(req.getAudit());
 		info.setUpdater(req.getUpdater());
 		info.setUpdatetime(new Date().getTime());
+		if(info.getTaketime()==null){
+			info.setTaketime(sta);
+		}
 		freightInfoMapper.updateByPrimaryKeySelective(info);
 		//修改运价策略
-		FileFreight record = new FileFreight();
-		record.setId(req.getId());
+		FileFreight record = freightMapper.selectByPrimaryKey(req.getId());
 		record.setAuditreason(req.getAuditresson());
 		record.setAuditstatus(req.getAudit());
+		//原生效时间
+		Long taketime = record.getTaketime();
+		//新生效时间
+		Long newtaketime = info.getTaketime();
 		//1-审核成功 2-审核失败
 		if("1".equals(req.getAudit())){
+			//
+			updateFreightInfoLine(taketime,newtaketime);
+			record.setOldprice(record.getPrice());
+			record.setOldtallage(record.getTallage());
 			record.setPrice(info.getPrice());
 			record.setFreightType(info.getFreighttype());
 			record.setTallage(info.getTallage());
-			updatePlanAndBill(info);
+			if(info.getTaketime()==null){
+				record.setTaketime(sta);
+			}else{
+				record.setTaketime(info.getTaketime());
+			}
 		}else if("2".equals(req.getAudit())){
 		}else{
 			rs.setErrorCode(ErrorCode.FILE_FREIGHT_NULL);
@@ -111,12 +133,23 @@ public class FreightInfoService implements IFreightInfoService{
 		freightInfoMapper.uptBilForFreight(info);
 		freightInfoMapper.uptPlanForFreight(info);
 	}
+	/** 判断是否需要调整运价策略历史纪录，需要修改进行修改*/
+	protected void updateFreightInfoLine(Long taketime, Long newtaketime){
+		//原生效时间不为空，且新生效时间比原生效时间早，隐藏掉新生效时间之后的修改记录
+		if(taketime != null&&newtaketime<taketime){
+			FreightInfo info = new FreightInfo();
+			info.setTaketime(newtaketime);
+			info.setDesc4("0");
+			freightInfoMapper.updFreightInfo(info);
+		}
+	}
 	
 	@Override
 	public List<FreightLineResp> lineChart(AdminFreightReq req) throws Exception {
 		FreightInfo info = new FreightInfo();
 		info.setFreightid(req.getId());
 		info.setStatus("1");
+		info.setDesc4("!=0");
 		List<FreightInfo> list = freightInfoMapper.selectByInfo(info);
 		return copyFreightLine(list); 
 	}

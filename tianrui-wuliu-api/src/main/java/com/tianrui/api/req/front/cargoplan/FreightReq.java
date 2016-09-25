@@ -240,7 +240,7 @@ public class FreightReq extends BaseReq{
 	}
 	public Long getTaketime() throws ParseException {
 		if(StringUtils.isNotBlank(taketimeStr)){
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(taketimeStr);
 			taketime = date.getTime();
 		}

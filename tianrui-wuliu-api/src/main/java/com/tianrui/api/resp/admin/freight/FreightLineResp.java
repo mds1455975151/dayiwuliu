@@ -18,9 +18,32 @@ public class FreightLineResp {
     private Long updatetime;
     
     private String updatetimeStr;
+    
+    private Long taketime;
+    
+    private String taketimeStr;
 
 	public String getId() {
 		return id;
+	}
+
+	public Long getTaketime() {
+		return taketime;
+	}
+
+	public void setTaketime(Long taketime) {
+		this.taketime = taketime;
+	}
+
+	public String getTaketimeStr() {
+		if(taketime != null){
+			taketimeStr =new SimpleDateFormat("MM-dd").format(new Date(taketime));
+		}
+		return taketimeStr;
+	}
+
+	public void setTaketimeStr(String taketimeStr) {
+		this.taketimeStr = taketimeStr;
 	}
 
 	public void setId(String id) {

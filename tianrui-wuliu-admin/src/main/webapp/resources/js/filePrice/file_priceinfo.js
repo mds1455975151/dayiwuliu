@@ -169,8 +169,8 @@ function interHTML(data){
 			priceInfo = data[a].priceInfo;
 		}
 		var taketimeStr = "";
-		if(data[a].taketimeStr != undefined){
-			taketimeStr = data[a].taketimeStr;
+		if(data[a].taketimeStrinfo != undefined){
+			taketimeStr = data[a].taketimeStrinfo;
 		}
 		var uptReason = "";
 		if(data[a].desc1 != undefined){

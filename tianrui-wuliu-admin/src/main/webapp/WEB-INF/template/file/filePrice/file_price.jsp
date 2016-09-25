@@ -88,6 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>状态</th>
                                 <th>货物名称</th>
                                 <th>路线名称</th>
+                                <th>生效时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -172,6 +173,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <option value="17">17%</option>
                         </select>
                     </div>
+                    <div class="model_width" id="blurmeasure">
+                        <label>生效日期：</label>
+                    生效日期为审核通过日期
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -219,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                    <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>价格类型：</label>
-                        <select class="form-control" name="freightType" id="uptdesc2">
+                        <select disabled="disabled" class="form-control" name="freightType" id="uptdesc2">
                             <option value="1">合同</option>
                             <option value="2">指导</option>
                         </select>
@@ -244,12 +249,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </select>
                     </div>
                     <div class="ht_div">
-                        <label>生效时间：</label>
-                        <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
+                        <label><i style="color: #ff2f00;">*</i>生效时间：</label>
+                        <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width:160px"/>
+                    	<input type="hidden" id="oldtaketime">
                     </div>
           			<div class="user_shenno">
 	                    <label><i style="color: #ff2f00;">*</i>调价原因：</label>
-			            <input type="text" name="desc1">
+			            <input type="text" id="uptreason" name="desc1">
           			</div>
                 </div>
                 <div class="clear"></div>

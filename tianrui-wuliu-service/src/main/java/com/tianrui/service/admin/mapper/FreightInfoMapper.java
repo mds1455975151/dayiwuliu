@@ -21,6 +21,9 @@ public interface FreightInfoMapper {
     int uptPlanForFreight(FreightInfo record);
     /** 批量修改运单*/
     int uptBilForFreight(FreightInfo record);
+    /** 批量修改修改记录*/
+    int updFreightInfo(FreightInfo record);
+    
     
     List<FileFreight> selectByCondition(FileFreight record);
     

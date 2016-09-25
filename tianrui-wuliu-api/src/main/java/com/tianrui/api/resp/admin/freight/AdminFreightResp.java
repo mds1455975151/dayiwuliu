@@ -14,8 +14,14 @@ public class AdminFreightResp extends BaseResp{
     private String infoid;
 
     private String taketimeStr;
+    private String taketimeStrinfo;
     
     private Long taketime;
+    private Long taketimeinfo;
+    /** 生效前单价*/
+    private Double oldprice;
+    /** 生效前税率*/
+    private Double oldtallage;
     /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
      */
@@ -247,7 +253,7 @@ public class AdminFreightResp extends BaseResp{
 
 	public String getTaketimeStr() {
 		if(taketime != null){
-			taketimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(taketime));
+			taketimeStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date(taketime));
 		}
 		return taketimeStr;
 	}
@@ -263,6 +269,39 @@ public class AdminFreightResp extends BaseResp{
 	public void setTaketime(Long taketime) {
 		this.taketime = taketime;
 	}
-    
-    
+
+	public Long getTaketimeinfo() {
+		return taketimeinfo;
+	}
+
+	public void setTaketimeinfo(Long taketimeinfo) {
+		this.taketimeinfo = taketimeinfo;
+	}
+
+	public Double getOldprice() {
+		return oldprice;
+	}
+
+	public void setOldprice(Double oldprice) {
+		this.oldprice = oldprice;
+	}
+
+	public Double getOldtallage() {
+		return oldtallage;
+	}
+
+	public String getTaketimeStrinfo() {
+		if(taketimeinfo != null){
+			taketimeStrinfo = new SimpleDateFormat("yyyy-MM-dd").format(new Date(taketimeinfo));
+		}
+		return taketimeStrinfo;
+	}
+
+	public void setTaketimeStrinfo(String taketimeStrinfo) {
+		this.taketimeStrinfo = taketimeStrinfo;
+	}
+
+	public void setOldtallage(Double oldtallage) {
+		this.oldtallage = oldtallage;
+	}
 }

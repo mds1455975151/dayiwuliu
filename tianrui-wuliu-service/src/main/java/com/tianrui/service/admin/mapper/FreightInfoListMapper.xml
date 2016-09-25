@@ -7,8 +7,11 @@
 		f.freightName freightName,
 		f. STATUS STATUS,
 		i.ID infoid,
+		f.taketime taketime,
 		f.tallage tallage,
+		f.oldtallage oldtallage,
 		i.tallage tallageInfo,
+		f.oldprice oldprice,
 		f.price price,
 		i.price priceInfo,
 		f.freightType freightType,
@@ -16,7 +19,7 @@
 		f.auditstatus auditstatus,
 		f.auditreason auditreason,
 		f.priceUnits priceunits,
-		i.taketime taketime,
+		i.taketime taketimeinfo,
 		c.cargoname cargoid,
 		c. STATUS DESC3,
 		r.routename routeid,
@@ -93,16 +96,28 @@
     <if test="freightid != null and freightid != ''">
      and freightid = #{freightid,jdbcType=VARCHAR}
     </if>
+    <if test="desc4 != null">
+     and desc4 is null
+    </if>
     <if test="status != null and status != ''">
      and status = #{status,jdbcType=VARCHAR}
     </if>
     <if test="recent != null and recent != ''">
      and recent = #{recent,jdbcType=VARCHAR}
     </if>
+    
     ORDER BY
-		createtime
+		taketime
     </where>
   </select>
+  
+  <update id="updFreightInfo" parameterType="com.tianrui.service.admin.bean.FreightInfo">
+  	update file_freight_info 
+  		set desc4 = #{desc4,jdbcType=DOUBLE}
+  	where taketime <![CDATA[>=]]> #{taketime,jdbcType=BIGINT}
+  		and status = 1
+  		and recent = 0
+  </update>
   
   <update id="uptPlanForFreight" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
     update wuliu_plan

@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.front.cargoplan;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.tianrui.api.resp.BaseResp;
 
 public class FreightResp extends BaseResp{
@@ -64,6 +67,10 @@ public class FreightResp extends BaseResp{
      * 创建时间
      */
     private Long createtime;
+    
+    private String taketimeStr;
+    /** 生效时间*/
+    private Long taketime;
 
     /**
      * 修改者 
@@ -196,4 +203,20 @@ public class FreightResp extends BaseResp{
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getTaketimeStr() {
+		if(taketime != null){
+			taketimeStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date(taketime));
+		}
+		return taketimeStr;
+	}
+	public void setTaketimeStr(String taketimeStr) {
+		this.taketimeStr = taketimeStr;
+	}
+	public Long getTaketime() {
+		return taketime;
+	}
+	public void setTaketime(Long taketime) {
+		this.taketime = taketime;
+	}
+	
 }
