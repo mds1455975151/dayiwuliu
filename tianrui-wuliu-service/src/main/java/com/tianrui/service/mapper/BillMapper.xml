@@ -51,6 +51,7 @@
 		<result column="totalnumber" property="totalnumber" jdbcType="VARCHAR" />
 		<result column="tallage" property="tallage" jdbcType="DOUBLE" />
 		<result column="unloadtime" property="unloadtime" jdbcType="BIGINT" />
+		<result column="isClearing" property="isClearing" jdbcType="VARCHAR" />
 		<result column="DESC1" property="desc1" jdbcType="VARCHAR" />
 		<result column="DESC2" property="desc2" jdbcType="VARCHAR" />
 		<result column="DESC3" property="desc3" jdbcType="VARCHAR" />
@@ -58,7 +59,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
-		drivertel,
+		drivertel,isClearing,
 		vehicleno, vehicletypeName,
 		cargoname, startcity,
 		consignorname, consignortel, endTime, startTime, endcity,
@@ -372,7 +373,7 @@
 		driverdelflag, orgid,plancode,creator, createtime,
 		modifier,
 		modifytime, overnumber,totalnumber, tallage,unloadtime, DESC1,
-		DESC2, DESC3, DESC4
+		DESC2, DESC3, DESC4,isClearing
 		)
 		values
 		(#{id,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR},
@@ -403,7 +404,7 @@
 		#{totalnumber,jdbcType=VARCHAR},
 		#{tallage,jdbcType=DOUBLE},#{unloadtime,jdbcType=BIGINT},
 		#{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR},
-		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},#{isClearing,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -546,6 +547,9 @@
 			<if test="desc4 != null">
 				DESC4,
 			</if>
+			<if test="isClearing != null">
+				isClearing,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -682,6 +686,9 @@
 			</if>
 			<if test="desc4 != null">
 				#{desc4,jdbcType=VARCHAR},
+			</if>
+			<if test="isClearing != null">
+				#{isClearing,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -828,6 +835,9 @@
 			<if test="desc4 != null">
 				DESC4 = #{desc4,jdbcType=VARCHAR},
 			</if>
+			<if test="isClearing != null">
+				isClearing = #{isClearing,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
@@ -896,6 +906,7 @@
 		DESC3 =
 		#{desc3,jdbcType=VARCHAR},
 		DESC4 = #{desc4,jdbcType=VARCHAR}
+		isClearing = #{isClearing,jdbcType=VARCHAR}
 		where ID =
 		#{id,jdbcType=VARCHAR}
 	</update>
