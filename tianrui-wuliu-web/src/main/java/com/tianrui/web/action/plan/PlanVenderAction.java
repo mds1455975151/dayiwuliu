@@ -1,10 +1,8 @@
 package com.tianrui.web.action.plan;
 
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.ICargoPlanService;
-import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
-import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
-import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
@@ -36,7 +31,6 @@ import com.tianrui.web.util.SessionManager;
 @RequestMapping("/trwuliu/planvender")
 public class PlanVenderAction {
 
-	private static Logger logger =org.slf4j.LoggerFactory.getLogger(PlanVenderAction.class);
 	@Autowired
 	protected ICargoPlanService cargoPlanService;
 	@Autowired

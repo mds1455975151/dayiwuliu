@@ -2,6 +2,7 @@ package com.tianrui.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -34,6 +35,7 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FileOrgCargo;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
@@ -69,6 +71,8 @@ public class CargoPlanService implements ICargoPlanService{
 	PlanTemplateDao planTempateDao;
 	@Autowired
 	OrganizationService orgService;
+	@Autowired
+	private FreightInfoService freightInfoService;
 	
 
 	@Override
@@ -133,9 +137,15 @@ public class CargoPlanService implements ICargoPlanService{
 				plan.setCompleted((double) 0);
 			}
 			resp =copyPropertie(plan);
-			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
-			resp.setTallage(fileFreight.getTallage());
-			resp.setOrgname(fileFreight.getOrganizationname());
+			if(plan.getStatus() != PlanStatusEnum.COMPLETE.getStatus()){
+				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(resp.getFreightid(),new Date()).getData();
+				resp.setPrice(fileFreight.getPrice());
+				resp.setTallage(fileFreight.getTallage());
+				resp.setOrgname(fileFreight.getOrganizationname());
+			}else{
+				FileFreight fileFreight = freightMapper.selectByPrimaryKey(resp.getFreightid());
+				resp.setOrgname(fileFreight.getOrganizationname());
+			}
 			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
 		return resp;
@@ -428,6 +438,7 @@ public class CargoPlanService implements ICargoPlanService{
 		plan.setFreightid(fileFreight.getId());
 		plan.setPriceunits(fileFreight.getPriceunits());
 		plan.setPrice(fileFreight.getPrice());
+		plan.setTallage(fileFreight.getTallage());
 		plan.setFreightname(fileFreight.getDesc1());
 		plan.setOrgid(fileFreight.getOrganizationid());
 		//路径信息
@@ -629,23 +640,6 @@ public class CargoPlanService implements ICargoPlanService{
 		result.setCode("000000");
 		result.setData("委派计划成功");
 		return result;
-	}
-
-	@Override
-	public PlanResp appointDetail(PlanQueryReq req) throws Exception {
-		PlanResp resp = null;
-		if( req!=null && StringUtils.isNotBlank(req.getId()) ){
-			Plan  plan =planMapper.selectByPrimaryKey(req.getId());
-			if(plan.getCompleted() == null){
-				plan.setCompleted((double) 0);
-			}
-			resp =copyPropertie(plan);
-			FileFreight fileFreight = freightMapper.selectOne(resp.getFreightid());
-			resp.setTallage(fileFreight.getTallage());
-			resp.setOrgname(fileFreight.getOrganizationname());
-			resp.setOverweight(inspectTraffic(plan.getPid()));
-		}
-		return resp;
 	}
 
 	//计划剩余运输量

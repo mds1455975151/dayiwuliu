@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +33,6 @@ import com.tianrui.web.util.SessionManager;
 @RequestMapping("/trwuliu/plantemplate")
 public class PlanTemplateAction {
 
-	private static Logger logger =org.slf4j.LoggerFactory.getLogger(PlanTemplateAction.class);
 	@Autowired
 	protected ICargoPlanTemplateService cargoPlanTemplateService;
 	@Autowired

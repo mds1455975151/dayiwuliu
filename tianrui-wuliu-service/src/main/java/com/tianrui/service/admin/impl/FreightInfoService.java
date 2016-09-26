@@ -3,6 +3,7 @@ package com.tianrui.service.admin.impl;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-import com.mysql.fabric.xmlrpc.base.Data;
 import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.req.admin.freight.AdminFreightReq;
 import com.tianrui.api.req.admin.freight.AdminFreightUptReq;
@@ -20,10 +19,8 @@ import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.freight.AdminFreightResp;
 import com.tianrui.api.resp.admin.freight.FreightLineResp;
 import com.tianrui.common.constants.ErrorCode;
-import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
-import com.tianrui.service.admin.bean.Freight;
 import com.tianrui.service.admin.bean.FreightInfo;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FreightInfoMapper;
@@ -169,7 +166,16 @@ public class FreightInfoService implements IFreightInfoService{
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		FileFreight freight = freightMapper.selectByPrimaryKey(id);
-		Long time = date.getTime();
+		Calendar c = Calendar.getInstance();
+		if(date == null) {
+			date = new Date();
+		}
+		c.setTime(date);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MILLISECOND, 0);
+		Long time = c.getTimeInMillis();
 		List<FreightInfo> list = new ArrayList<FreightInfo>();
 		if(time<freight.getTaketime()){
 			FreightInfo info = new FreightInfo();

@@ -106,7 +106,6 @@ public class PlanAppointAction {
 		ModelAndView model = new ModelAndView("plan/appoint/appoint");
 		try {
 			model.addObject("plan", cargoPlanService.detail(req));
-			model.addObject("plan", cargoPlanService.appointDetail(req));
 			MemberOwnerReq ownerReq = new MemberOwnerReq();
 			ownerReq.setMemberId(SessionManager.getSessionMember(request).getId());
 			ownerReq.setStatus("1");
@@ -132,7 +131,7 @@ public class PlanAppointAction {
 		ModelAndView model=new ModelAndView("plan/appoint/detail");
 		MemberVo currUser = SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
-		model.addObject("plan",cargoPlanService.appointDetail(req));
+		model.addObject("plan",cargoPlanService.detail(req));
 		return model;
 	}
 	

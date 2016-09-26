@@ -1,6 +1,7 @@
 package com.tianrui.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -17,7 +18,7 @@ import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
-import com.tianrui.service.admin.mapper.FileFreightMapper;
+import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.mongo.PlanTemplateDao;
 @Service
@@ -29,7 +30,7 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 	@Autowired
 	MemberVoService memberVoService;
 	@Autowired
-	FileFreightMapper fileFreightMapper;
+	private FreightInfoService freightInfoService;
 
 	@Override
 	public List<PlanResp> findPlanTemplat(PlanTemplateReq req) {
@@ -50,8 +51,9 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 		if( req !=null && StringUtils.isNotBlank(req.getId())){
 			try {
 				resp=copyPropertie(planTemplateDao.findOne(req.getId()));
-				FileFreight fileFreight = fileFreightMapper.selectOne(resp.getFreightid());
+				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(resp.getFreightid(), new Date()).getData();
 				resp.setTallage(fileFreight.getTallage());
+				resp.setPrice(fileFreight.getPrice());
 				resp.setOrgname(fileFreight.getOrganizationname());
 			} catch (Exception e) {
 				loger.error(e.getMessage(),e);

@@ -122,7 +122,7 @@ public class AppPlanAppointAction {
 	public AppResult detail(AppParam<PlanQueryReq> appParam) throws Exception {
 		AppResult appResult = new AppResult();
 		PlanQueryReq query = appParam.getBody();
-		PlanResp resp = cargoPlanService.appointDetail(query);
+		PlanResp resp = cargoPlanService.detail(query);
 		appResult.setCode("000000");
 		appResult.setReturnData(resp);
 		return appResult;

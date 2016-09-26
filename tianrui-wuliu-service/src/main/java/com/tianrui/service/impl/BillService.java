@@ -53,6 +53,7 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
@@ -124,6 +125,8 @@ public class BillService implements IBillService{
 	SystemMemberInfoMapper systemMemberInfoMapper;
 	@Autowired
 	MemberCapaMapper memberCapaMapper;
+	@Autowired
+	private FreightInfoService freightInfoService;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -140,12 +143,16 @@ public class BillService implements IBillService{
 			if( CollectionUtils.isNotEmpty(vehicleDrivers) ){
 				bills =new ArrayList<Bill>();
 				Plan plan =planMapper.selectByPrimaryKey(req.getPlanId());
-				if(plan.getStatus() == PlanStatusEnum.COMPLETE.getStatus()){
-					rs.setCode("1");
-					rs.setError("计划已经完成，不能生成运单了！");
-					return rs;
-				}
 				if( plan !=null && StringUtils.isNotBlank(plan.getRouteid())){
+					if(plan.getStatus() == PlanStatusEnum.COMPLETE.getStatus()){
+						rs.setCode("1");
+						rs.setError("计划已经完成，不能生成运单了！");
+						return rs;
+					}
+					Plan planRoot = null;
+					if(StringUtils.equals(plan.getIsAppoint(), "1")){
+						planRoot = planMapper.selectRootPlanByPlanId(plan.getId());
+					}
 					for(  VehicleDriverVO item:vehicleDrivers){
 						Bill bill =new Bill();
 						//基本信息
@@ -174,7 +181,11 @@ public class BillService implements IBillService{
 							bill.setType(Byte.valueOf("0"));
 						}
 						//车主 货主信息
-						bill.setOwnerid(plan.getCreator());
+						if(StringUtils.equals(plan.getIsAppoint(), "1")){
+							bill.setOwnerid(planRoot.getCreator());
+						}else{
+							bill.setOwnerid(plan.getCreator());
+						}
 						bill.setVenderid(plan.getVehicleownerid());
 						//车辆司机信息
 						bill.setVehicleid(item.getVehicleId());
@@ -856,9 +867,21 @@ public class BillService implements IBillService{
 				resp = conver2billResp(db);
 			}
 			Plan plan = planMapper.selectByPrimaryKey(db.getPlanid());
-			FileFreight fileFreight = fileFreightMapper.selectOne(plan.getFreightid());
-			if(fileFreight != null){
-				resp.setTallage(fileFreight.getTallage());
+			if(StringUtils.isNotBlank(db.getUnloadtime().toString())){
+				
+			}
+			Date date = null;
+			if(StringUtils.equals(db.getIsClearing(), "0")){
+				if(db.getUnloadtime() == null){
+					date = new Date();
+				}else{
+					date = new Date(db.getUnloadtime());
+				}
+				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(plan.getFreightid(), date).getData();
+				if(fileFreight != null){
+					resp.setTallage(fileFreight.getTallage());
+					resp.setPrice(fileFreight.getPrice());
+				}
 			}
 			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
@@ -1023,9 +1046,10 @@ public class BillService implements IBillService{
 				resp.setReceivepersionphone(plan.getReceivepersonphone());
 				resp.setSendpersion(plan.getSendperson());
 				resp.setSendpersionphone(plan.getSendpersonphone());
-				FileFreight fileFreight = fileFreightMapper.selectOne(plan.getFreightid());
+				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(plan.getFreightid(), new Date()).getData();
 				if(fileFreight != null){
 					resp.setTallage(fileFreight.getTallage());
+					resp.setPrice(fileFreight.getPrice()+"");
 				}
 				resp.setOverweight(inspectTraffic(pid));
 			}
