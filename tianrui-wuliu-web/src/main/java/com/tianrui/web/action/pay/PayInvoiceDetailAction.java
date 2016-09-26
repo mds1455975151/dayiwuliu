@@ -67,7 +67,7 @@ public class PayInvoiceDetailAction {
 		}
 		return view;
 	}
-	/** 计算运单总和
+	/** 生成发票单
 	 * @throws Exception */
 	@RequestMapping(value="/calculated",method = RequestMethod.POST)
 	@ResponseBody

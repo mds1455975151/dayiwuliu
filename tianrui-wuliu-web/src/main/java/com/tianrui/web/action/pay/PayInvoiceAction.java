@@ -66,6 +66,20 @@ public class PayInvoiceAction {
 		return rs;
 	}
 	
+	/** 运费单据提交
+	 * @throws Exception */
+	@RequestMapping(value="payInvoiceSave",method=RequestMethod.POST)
+	@ResponseBody
+	public Result payInvoiceSave(String id,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		PayInvoiceAdviceReq req = new PayInvoiceAdviceReq();
+		req.setId(id);
+		req.setCurruId(vo.getId());
+		rs = payInvoiceService.advice(req);
+		return rs;
+	}
+	
 	@RequestMapping("/detail")
 	public ModelAndView detail(PayInvoiceQueryReq req,HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();

@@ -91,22 +91,17 @@ public class PayInvoiceService implements IPayInvoiceService {
 		Result rs = Result.getSuccessResult();
 		if( req!=null && StringUtils.isNotBlank(req.getId())  ){
 			PayInvoice db =payInvoiceMapper.selectByPrimaryKey(req.getId());
-			if( db !=null && StringUtils.equals(db.getCreator(),req.getCurruId() )){
-				if( db.getAdviceStatus()==(byte)1 ){
-					if( db.getPayStatus()==PayStatusEnum.pushed.getStatus() ){
-						PayInvoice update =new PayInvoice();
-						update.setId(db.getId());
-						update.setModifier(req.getId());
-						update.setModifytime(System.currentTimeMillis());
-						update.setAdviceStatus((byte)1);
-						update.setAdviceTime(System.currentTimeMillis());
-						payInvoiceMapper.updateByPrimaryKeySelective(update);
-						rs=Result.getSuccessResult();
-					}else{
-						rs.setErrorCode(ErrorCode.PAY_DATA_NOT_EXISTSS);
-					}
+			if( db.getAdviceStatus()==(byte)1 ){
+				if( db.getPayStatus()==PayStatusEnum.pushed.getStatus() ){
+					PayInvoice update =new PayInvoice();
+					update.setId(db.getId());
+					update.setModifier(req.getId());
+					update.setModifytime(System.currentTimeMillis());
+					update.setPayStatus((byte)2);//支付中
+					payInvoiceMapper.updateByPrimaryKeySelective(update);
+					rs=Result.getSuccessResult();
 				}else{
-					rs.setErrorCode(ErrorCode.PAY_DATA_NOT_ADVICE);
+					rs.setErrorCode(ErrorCode.PAY_DATA_NOT_EXISTSS);
 				}
 			}else{
 				rs.setErrorCode(ErrorCode.PAY_DATA_NOT_EXISTSS);
