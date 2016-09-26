@@ -108,7 +108,6 @@ public class FreightService implements IFreightService{
 
 	@Override
 	public Result delectEntity(FreightReq req) throws Exception {
-		// TODO Auto-generated method stub
 		FileFreight file = new FileFreight();
 		PropertyUtils.copyProperties(file, req);
 		int a = fileFreightMapper.updateByPrimaryKeySelective(file);
@@ -121,7 +120,6 @@ public class FreightService implements IFreightService{
 	}
 	@Override
 	public Result updateEntity(FreightReq req) throws Exception {
-		//TODO
 		Result rs = Result.getSuccessResult();
 		FileFreight freight = fileFreightMapper.selectByPrimaryKey(req.getId());
 		if("0".equals(freight.getAuditstatus())){
@@ -201,7 +199,6 @@ public class FreightService implements IFreightService{
 
 	@Override
 	public Result closeFreight(FreightReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		FileFreight file = new FileFreight();
 		PropertyUtils.copyProperties(file, req);

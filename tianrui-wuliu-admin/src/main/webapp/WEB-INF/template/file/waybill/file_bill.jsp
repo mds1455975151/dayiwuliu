@@ -19,7 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
     <link href="${stylesRoot }/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link rel="Shortcut Icon" href="${imagesRoot}/favicon.ico" type="image/x-icon">
-    <link href="${imagesRoot}/imgcut.css" rel="stylesheet">
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />

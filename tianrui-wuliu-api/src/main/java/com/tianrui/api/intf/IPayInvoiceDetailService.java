@@ -15,7 +15,7 @@ import com.tianrui.common.vo.Result;
 public interface IPayInvoiceDetailService {
 
 	//保存 运价确认
-	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req)throws Exception;
+	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req,String orgid)throws Exception;
 	
 	//分页查询
 	public PaginationVO<PayInvoiceDetailResp> page(PayInvoiceDetailQueryReq req)throws Exception;

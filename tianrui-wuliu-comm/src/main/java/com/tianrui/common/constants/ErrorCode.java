@@ -50,6 +50,8 @@ public enum ErrorCode {
 	PAY_DATA_NOT_STATUS_NULL("E401007","提交数据不全"),
 	PAY_DATA_NOT_STATUS_EQUALE("E401008","有已经开票的运单,数据不合法."),
 	PAY_DATA_NOT_USERPAY("E401009","非本人账单不能操作."),
+	PAY_DATA_NOT_ADMIN("E401010","非本组织账单不能操作."),
+	PAY_DATA_NOT_ISCLEAN("E401011","运单已确认，不能重复操作"),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机")

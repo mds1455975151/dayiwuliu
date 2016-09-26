@@ -115,7 +115,7 @@ public class WaybillAction {
 	}
 	/**
 	 * 
-	 * @描述:后台运单管理查询
+	 * @描述:后台运单确认运价
 	 * @param req
 	 * @param requset
 	 * @return
@@ -131,7 +131,7 @@ public class WaybillAction {
 		Users  currUser =SessionManager.getSessionMember(requset);
 		if( currUser !=null && StringUtils.isNotBlank(currUser.getOrgid()) ){
 			req.setCurruId(currUser.getAccount());
-			rs =payInvoiceDetailService.saveByBillPriceConfirm(req);
+			rs =payInvoiceDetailService.saveByBillPriceConfirm(req,currUser.getOrgid());
 		}else{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
 		}

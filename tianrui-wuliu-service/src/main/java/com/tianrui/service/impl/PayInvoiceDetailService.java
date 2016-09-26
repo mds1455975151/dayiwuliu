@@ -1,6 +1,7 @@
 package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
@@ -27,16 +29,20 @@ import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
+import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.PayInvoice;
 import com.tianrui.service.bean.PayInvoiceDetail;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.PayInvoiceDetailMapper;
 import com.tianrui.service.mapper.PayInvoiceMapper;
+import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
+import com.tianrui.service.util.TimeUtils;
 @Service
 public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	@Autowired
@@ -46,6 +52,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	@Autowired
 	BillMapper billMapper;
 	@Autowired
+	PlanMapper planMapper;
+	@Autowired
 	MemberVoService memberVoService;
 	@Autowired
 	FileCargoMapper fileCargoMapper;
@@ -53,14 +61,19 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	CodeGenDao codeGenDao;
 	@Autowired
 	BillTrackDao billTrackDao;
-	
+	@Autowired
+	IFreightInfoService freightInfoService;
 	@Override
-	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req) throws Exception {
+	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req,String orgid) throws Exception {
 		Result  rs =Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotEmpty(req.getBillId()) ){
 			//运单信息
 			Bill bill =billMapper.selectByPrimaryKey(req.getBillId());
-			if( bill !=null ){
+			if(!orgid.equals(bill.getOrgid())){
+				rs.setErrorCode(ErrorCode.PAY_DATA_NOT_ADMIN);
+			}else if("1".equals(bill.getIsClearing())){
+				rs.setErrorCode(ErrorCode.PAY_DATA_NOT_ISCLEAN);
+			}else if( bill !=null ){
 				PayInvoiceDetail payInvoiceDetail =new PayInvoiceDetail();
 				payInvoiceDetail.setId(UUIDUtil.getId());
 				//状态信息
@@ -82,12 +95,17 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				 */
 				payInvoiceDetail.setBillId(bill.getId());
 				payInvoiceDetail.setBillCode(bill.getWaybillno());
-				payInvoiceDetail.setBillPrice(bill.getPrice());
 				payInvoiceDetail.setBillWeight(bill.getTrueweight());
 				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
-				//TODO 到货时间 税率 
-				payInvoiceDetail.setSignTime(getBillSignTime(bill.getId()));
+				payInvoiceDetail.setSignTime(TimeUtils.LongZoString(bill.getUnloadtime()));
 				
+				/**
+				 * 运价策略
+				 */
+				Plan plan = planMapper.selectByPrimaryKey(bill.getPlanid());
+				FileFreight freight = getFileFreight(plan.getFreightid(),bill.getUnloadtime());
+				payInvoiceDetail.setBillPrice(freight.getPrice());
+				payInvoiceDetail.setTaxRate(freight.getTallage().toString());
 				
 				/**
 				 * 货物信息
@@ -118,12 +136,23 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				}
 				payInvoiceDetail.setVenderId(bill.getVenderid());
 				payInvoiceDetailMapper.insert(payInvoiceDetail);
+				
+				updateBill(bill.getId(),freight);
 			}
 		}
 		
 		return rs;
 	}
-
+	/** 修改运单为已结算状态 并为价格和税率赋值*/
+	protected void updateBill(String billid,FileFreight freight) {
+		Bill bill = new Bill();
+		bill.setId(billid);
+		bill.setIsClearing("1");
+		bill.setPrice(freight.getPrice());
+		bill.setTallage(freight.getTallage());
+		billMapper.updateByPrimaryKeySelective(bill);
+	}
+	
 	@Override
 	public PaginationVO<PayInvoiceDetailResp> page(PayInvoiceDetailQueryReq req) throws Exception {
 		PaginationVO<PayInvoiceDetailResp> page =null;
@@ -306,16 +335,25 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		}
 		return rs;
 	}
-	/** 获取运单到货时间*/
-	private String getBillSignTime(String id){
+	/** 获取运价策略
+	 * @throws Exception */
+	private FileFreight getFileFreight(String id,Long time) throws Exception{
 		//TODO
-		String signtime = null;
-		List<BillTrack> list = billTrackDao.findWithBidAndStatus(id, "5");
-		if(list.size()!=0){
-			long time = list.get(0).getTimestamp();
-			signtime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time));
+		FileFreight freight = null;
+		Date date = null;
+		if(time != null){
+			date = TimeUtils.LongZoDate(time);
+		}else{
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			Date da = new Date();
+			String dateStr = sdf.format(da);
+			date = sdf.parse(dateStr);
 		}
-		return signtime;
+		Result rs = freightInfoService.findFreightInfo(id, date);
+		if("000000".equals(rs.getCode())){
+			freight = (FileFreight) rs.getData();
+		}
+		return freight;
 	}
 
 }
