@@ -115,6 +115,9 @@
 		if(!$.isNumeric(totalplanned)){
 			alert("运输量必须为数字");return false;
 		}
+		if(+totalplanned > 0){
+			alert("运输量必须大于零");return false;
+		}
 		if(!$.trim(venderid)){
 			alert("必须选择一个车主");return false;
 		}

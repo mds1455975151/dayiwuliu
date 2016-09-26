@@ -77,4 +77,8 @@ public interface BillMapper {
 	List<Bill> selectAppointPageByPlanIds(Map<String, Object> params);
 	
 	int selectAppointCountByPlanIds(Map<String, Object> params);
+	
+	List<Bill> queryAppointPage(Bill record);
+	
+	int queryAppointCount(Bill record);
 }

@@ -303,7 +303,7 @@ public class CargoPlanService implements ICargoPlanService{
 		}
 		return rs;
 	}
-
+	
 	@Override
 	public Result editPlan(PlanEditReq req) throws Exception {
 		Result rs =Result.getSuccessResult();
@@ -404,6 +404,7 @@ public class CargoPlanService implements ICargoPlanService{
 					plan.setIsfamily((byte)0);
 				}
 				plan.setIsAppoint("0");
+				plan.setPathID(req.getCurruId());
 				planMapper.insert(plan);
 				
 				//发送消息
@@ -560,7 +561,7 @@ public class CargoPlanService implements ICargoPlanService{
 			result.setError("运输量已超出计划剩余运输量");
 			return result;
 		}
-		if(plan.getStatus() != PlanStatusEnum.COMPLETE.getStatus()){
+		if(plan.getStatus() == PlanStatusEnum.COMPLETE.getStatus()){
 			result.setCode("1");
 			result.setError("计划已经完成，不能继续委派运单了！");
 			return result;
@@ -586,6 +587,7 @@ public class CargoPlanService implements ICargoPlanService{
 		//委派运单
 		plan.setIsAppoint("1");
 		plan.setPid(req.getPlanid());
+		plan.setPathID(plan.getPathID()+","+req.getMemberVo().getId());
 		planMapper.insert(plan);
 		//发送消息
 		MemberVo owner = new MemberVo();
@@ -630,6 +632,7 @@ public class CargoPlanService implements ICargoPlanService{
 		plan.setVehicleownerid(req.getVenderid());
 		plan.setVehicleownername(req.getVenderName());
 		plan.setVehicleownerphone(req.getVenderTel());
+		plan.setPathID(plan.getPathID().substring(0, plan.getPathID().lastIndexOf(","))+","+req.getMemberVo().getId());
 		//委派运单
 		planMapper.updateByPrimaryKeySelective(plan);
 		//发送消息

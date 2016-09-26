@@ -71,6 +71,8 @@ public class Bill {
     private double tallage;
     //卸货完成时间
     private Long unloadtime;
+    //计划分配路径
+    private String pathID;
     
     public String getId() {
         return id;
@@ -1118,6 +1120,14 @@ public class Bill {
 
 	public void setUnloadtime(Long unloadtime) {
 		this.unloadtime = unloadtime;
+	}
+
+	public String getPathID() {
+		return pathID;
+	}
+
+	public void setPathID(String pathID) {
+		this.pathID = pathID;
 	}
 
 }

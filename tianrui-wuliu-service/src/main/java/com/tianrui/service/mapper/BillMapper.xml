@@ -52,6 +52,7 @@
 		<result column="tallage" property="tallage" jdbcType="DOUBLE" />
 		<result column="unloadtime" property="unloadtime" jdbcType="BIGINT" />
 		<result column="isClearing" property="isClearing" jdbcType="VARCHAR" />
+		<result column="pathID" property="pathID" jdbcType="VARCHAR" />
 		<result column="DESC1" property="desc1" jdbcType="VARCHAR" />
 		<result column="DESC2" property="desc2" jdbcType="VARCHAR" />
 		<result column="DESC3" property="desc3" jdbcType="VARCHAR" />
@@ -71,7 +72,7 @@
 		ownerdelflag, driverdelflag,
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
-		signimgurl,overnumber,totalnumber,tallage,unloadtime,DESC1, DESC2,
+		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,DESC1, DESC2,
 		DESC3,
 		DESC4
 	</sql>
@@ -373,7 +374,7 @@
 		driverdelflag, orgid,plancode,creator, createtime,
 		modifier,
 		modifytime, overnumber,totalnumber, tallage,unloadtime, DESC1,
-		DESC2, DESC3, DESC4,isClearing
+		DESC2, DESC3, DESC4,isClearing,pathID
 		)
 		values
 		(#{id,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR},
@@ -404,7 +405,8 @@
 		#{totalnumber,jdbcType=VARCHAR},
 		#{tallage,jdbcType=DOUBLE},#{unloadtime,jdbcType=BIGINT},
 		#{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR},
-		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},#{isClearing,jdbcType=VARCHAR}
+		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
+		#{isClearing,jdbcType=VARCHAR}, #{pathID,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -550,6 +552,9 @@
 			<if test="isClearing != null">
 				isClearing,
 			</if>
+			<if test="pathID != null">
+				pathID,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -689,6 +694,9 @@
 			</if>
 			<if test="isClearing != null">
 				#{isClearing,jdbcType=VARCHAR},
+			</if>
+			<if test="pathID != null">
+				#{pathID,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -838,6 +846,9 @@
 			<if test="isClearing != null">
 				isClearing = #{isClearing,jdbcType=VARCHAR},
 			</if>
+			<if test="pathID != null">
+				pathID = #{pathID,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
@@ -905,8 +916,9 @@
 		DESC2 = #{desc2,jdbcType=VARCHAR},
 		DESC3 =
 		#{desc3,jdbcType=VARCHAR},
-		DESC4 = #{desc4,jdbcType=VARCHAR}
-		isClearing = #{isClearing,jdbcType=VARCHAR}
+		DESC4 = #{desc4,jdbcType=VARCHAR},
+		isClearing = #{isClearing,jdbcType=VARCHAR},
+		pathID = #{pathID,jdbcType=VARCHAR}
 		where ID =
 		#{id,jdbcType=VARCHAR}
 	</update>
@@ -1033,5 +1045,35 @@
         		and orgid=#{orgid,jdbcType=VARCHAR} and type != 2
       		</if>
 		</where>
+	</select>
+	<select id="queryAppointPage" parameterType="com.tianrui.service.bean.Bill" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from wuliu_bill 
+		where INSTR(pathID,'${pathID}') 
+			<if test="queryKey != null and queryKey!=''">
+				and (cargoname like
+				concat(#{queryKey,jdbcType=VARCHAR},'%') or
+				waybillno like
+				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+			</if>
+			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
+			order by modifytime desc
+			<if test="start != null and start != '0'">
+				<if test="limit !=null">
+					limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+				</if>
+			</if>
+	</select>
+	<select id="queryAppointCount" parameterType="com.tianrui.service.bean.Bill" resultType="int">
+		select count(0) 
+		from wuliu_bill 
+		where INSTR(pathID,'${pathID}') 
+			<if test="queryKey != null and queryKey!=''">
+				and (cargoname like
+				concat(#{queryKey,jdbcType=VARCHAR},'%') or
+				waybillno like
+				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+			</if>
+			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
 	</select>
 </mapper>

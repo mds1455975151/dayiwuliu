@@ -188,7 +188,9 @@ public class Plan implements IModel{
     
     private String queryKey;
     //税率
-    private double tallage;
+    private Double tallage;
+    //计划分配路径
+    private String pathID;
     
 	public Integer getStart() {
 		return start;
@@ -1128,12 +1130,20 @@ public class Plan implements IModel{
 		this.pid = pid;
 	}
 
-	public double getTallage() {
+	public Double getTallage() {
 		return tallage;
 	}
 
-	public void setTallage(double tallage) {
+	public void setTallage(Double tallage) {
 		this.tallage = tallage;
+	}
+
+	public String getPathID() {
+		return pathID;
+	}
+
+	public void setPathID(String pathID) {
+		this.pathID = pathID;
 	}
     
 }

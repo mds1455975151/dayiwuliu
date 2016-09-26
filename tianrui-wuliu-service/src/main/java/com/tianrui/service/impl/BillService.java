@@ -219,6 +219,7 @@ public class BillService implements IBillService{
 						bill.setReceivertel(plan.getReceivepersonphone());
 						//是否由委派计划生成的运单
 						bill.setDesc4(plan.getIsAppoint());
+						bill.setPathID(plan.getPathID());
 						bills.add(bill);
 					}
 				}
@@ -1428,47 +1429,68 @@ public class BillService implements IBillService{
 		PaginationVO<WaybillResp> page =null;
 		if(req!=null && req.getPageNo() >0 ){
 			page=new PaginationVO<WaybillResp>();
-			List<String> list = new ArrayList<String>();
-			Plan plan = new Plan();
-			plan.setVehicleownerid(req.getCurrId());
-			//plan.setIsAppoint("1");
-			List<Plan> listPlan = planMapper.selectByCondition(plan);
-			List<Plan> childsPlans = null; 
-			if(listPlan != null && listPlan.size() > 0){
-				for(Plan p : listPlan){
-					childsPlans = this.getPlanIds(list, p.getPlancode(), p.getId());
-//					if(StringUtils.equals(p.getIsAppoint(), "1")){
-//						list.add(p.getId());
+			Bill bill = new Bill();
+			bill.setPathID(req.getCurrId());
+			bill.setStart((req.getPageNo()-1)*req.getPageSize());
+			bill.setLimit(req.getPageSize());
+			//关键字过滤
+			if( StringUtils.isNotBlank(req.getKey()) ){
+				bill.setQueryKey(req.getKey().trim());
+			}
+			int count = billMapper.queryAppointCount(bill);
+			if(count > 0){
+				List<Bill> list = billMapper.queryAppointPage(bill);
+				List<WaybillResp> resp = conver2billResp(list);
+				page.setList(resp);
+			}
+			page.setTotal(count);
+			page.setPageNo(req.getPageNo());
+			return page;
+			
+			
+			
+			
+//			List<String> list = new ArrayList<String>();
+//			Plan plan = new Plan();
+//			plan.setVehicleownerid(req.getCurrId());
+//			//plan.setIsAppoint("1");
+//			List<Plan> listPlan = planMapper.selectByCondition(plan);
+//			List<Plan> childsPlans = null; 
+//			if(listPlan != null && listPlan.size() > 0){
+//				for(Plan p : listPlan){
+//					childsPlans = this.getPlanIds(list, p.getPlancode(), p.getId());
+////					if(StringUtils.equals(p.getIsAppoint(), "1")){
+////						list.add(p.getId());
+////					}
+//				}
+//			}
+//			if(list.size() > 0){
+//				Map<String, Object> params = new HashMap<String, Object>();
+//				params.put("list", list);
+//				int count = billMapper.selectAppointCountByPlanIds(params);
+//				if(count > 0){
+//					params.put("start", (req.getPageNo()-1)*req.getPageSize());
+//					params.put("limit", req.getPageSize());
+//					if(StringUtils.isNotBlank(req.getKey())){
+//						params.put("queryKey", req.getKey());
 //					}
-				}
-			}
-			if(list.size() > 0){
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("list", list);
-				int count = billMapper.selectAppointCountByPlanIds(params);
-				if(count > 0){
-					params.put("start", (req.getPageNo()-1)*req.getPageSize());
-					params.put("limit", req.getPageSize());
-					if(StringUtils.isNotBlank(req.getKey())){
-						params.put("queryKey", req.getKey());
-					}
-					List<Bill> bills = billMapper.selectAppointPageByPlanIds(params);
-					List<WaybillResp> resp = conver2billResp(bills);
-					if(resp != null && resp.size() > 0){
-						for(WaybillResp wbr : resp){
-							for(Plan p : childsPlans){
-								if(StringUtils.equals(wbr.getPlancode(), p.getPlancode())){
-									wbr.setVenderName(p.getVehicleownername());
-									wbr.setVenderTel(p.getVehicleownerphone());
-								}
-							}
-						}
-					}
-					page.setList(resp);
-				}
-				page.setTotal(count);
-				page.setPageNo(req.getPageNo());
-			}
+//					List<Bill> bills = billMapper.selectAppointPageByPlanIds(params);
+//					List<WaybillResp> resp = conver2billResp(bills);
+//					if(resp != null && resp.size() > 0){
+//						for(WaybillResp wbr : resp){
+//							for(Plan p : childsPlans){
+//								if(StringUtils.equals(wbr.getPlancode(), p.getPlancode())){
+//									wbr.setVenderName(p.getVehicleownername());
+//									wbr.setVenderTel(p.getVehicleownerphone());
+//								}
+//							}
+//						}
+//					}
+//					page.setList(resp);
+//				}
+//				page.setTotal(count);
+//				page.setPageNo(req.getPageNo());
+//			}
 		}
 		return page;
 	}
