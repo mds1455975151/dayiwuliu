@@ -187,10 +187,10 @@ function interHTML(data){
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td>"+
 			"<td>"+taketimeStr+"</td>"+
-			"<td>"+uptReason+"</td>"+
-			"<td>" +
-			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
-			"</td>" +
+//			"<td>"+uptReason+"</td>"+
+//			"<td>" +
+//			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
+//			"</td>" +
 			"<td>" +
 			"<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"')\" data-target='#tingyong'>审核</a></span>" +
 			"</td>" +

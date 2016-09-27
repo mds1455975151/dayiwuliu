@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
+import com.tianrui.api.req.front.pay.PayInvoiceReq;
 import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
@@ -73,10 +74,10 @@ public class PayInvoiceAction {
 	public Result payInvoiceSave(String id,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 		MemberVo vo = SessionManager.getSessionMember(request);
-		PayInvoiceAdviceReq req = new PayInvoiceAdviceReq();
+		PayInvoiceReq req = new PayInvoiceReq();
 		req.setId(id);
 		req.setCurruId(vo.getId());
-		rs = payInvoiceService.advice(req);
+		rs = payInvoiceService.PayNcSave(req);
 		return rs;
 	}
 	

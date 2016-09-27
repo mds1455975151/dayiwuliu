@@ -52,6 +52,7 @@ public enum ErrorCode {
 	PAY_DATA_NOT_USERPAY("E401009","非本人账单不能操作."),
 	PAY_DATA_NOT_ADMIN("E401010","非本组织账单不能操作."),
 	PAY_DATA_NOT_ISCLEAN("E401011","运单已确认，不能重复操作"),
+	PAY_DATA_PAY_ADVICE("E401012","不合法的支付单状态"),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机")

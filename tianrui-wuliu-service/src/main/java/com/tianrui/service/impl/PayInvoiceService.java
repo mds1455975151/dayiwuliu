@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.tianrui.api.intf.IPayInvoiceService;
 import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
+import com.tianrui.api.req.front.pay.PayInvoiceReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
 import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.constants.ErrorCode;
@@ -70,13 +71,17 @@ public class PayInvoiceService implements IPayInvoiceService {
 		if( req!=null && StringUtils.isNotBlank(req.getId()) && StringUtils.isNotBlank(req.getCurruId()) ){
 			PayInvoice db =payInvoiceMapper.selectByPrimaryKey(req.getId());
 			if( db !=null && StringUtils.equals(db.getCreator(),req.getCurruId() )){
-				PayInvoice update =new PayInvoice();
-				update.setId(db.getId());
-				update.setModifier(req.getId());
-				update.setModifytime(System.currentTimeMillis());
-				update.setAdviceStatus((byte)1);
-				update.setAdviceTime(System.currentTimeMillis());
-				payInvoiceMapper.updateByPrimaryKeySelective(update);
+				if(db.getAdviceStatus()==(byte)1){
+					rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
+				}else{
+					PayInvoice update =new PayInvoice();
+					update.setId(db.getId());
+					update.setModifier(req.getId());
+					update.setModifytime(System.currentTimeMillis());
+					update.setAdviceStatus((byte)1);
+					update.setAdviceTime(System.currentTimeMillis());
+					payInvoiceMapper.updateByPrimaryKeySelective(update);
+				}
 			}else{
 				rs.setErrorCode(ErrorCode.PAY_DATA_NOT_USERPAY);
 			}
@@ -176,6 +181,24 @@ public class PayInvoiceService implements IPayInvoiceService {
 		if( payInvoiceDetail !=null ){
 			rs =new PayInvoiceDetailResp();
 			PropertyUtils.copyProperties(rs, payInvoiceDetail);
+		}
+		return rs;
+	}
+
+	@Override
+	public Result PayNcSave(PayInvoiceReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		PayInvoice invoice = payInvoiceMapper.selectByPrimaryKey(req.getId());
+		if(!req.getCurruId().equals(invoice.getCreator())){
+			rs.setErrorCode(ErrorCode.PAY_DATA_NOT_USERPAY);
+		}else if(invoice.getAdviceStatus()!=(byte)1){
+			rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
+		}else if(invoice.getPayStatus()!=(byte)0){
+			rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
+		}else{
+			rs.setCode("1");
+			rs.setError("nc支付开发中");
 		}
 		return rs;
 	}

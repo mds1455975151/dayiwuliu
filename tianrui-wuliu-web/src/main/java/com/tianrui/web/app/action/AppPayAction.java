@@ -1,5 +1,6 @@
 package com.tianrui.web.app.action;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
+import com.tianrui.api.req.front.pay.PayInvoiceReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
 import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.vo.AppParam;
@@ -101,6 +103,21 @@ public class AppPayAction {
 		req.setCurruId(head.getId());
 		Result rs =payInvoiceService.advice(req);
 		return AppResult.valueOf(rs);
+	}
+	
+	/** 运费单据提交
+	 * @throws Exception */
+	@RequestMapping(value="payInvoiceSave",method=RequestMethod.POST)
+	@ApiParamRawType(PayInvoiceReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public Result payInvoiceSave(AppParam<PayInvoiceReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Head head = appParam.getHead();
+		PayInvoiceReq req = appParam.getBody();
+		req.setCurruId(head.getId());
+		rs = payInvoiceService.PayNcSave(req);
+		return rs;
 	}
 	
 }

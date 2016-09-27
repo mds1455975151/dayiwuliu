@@ -79,6 +79,7 @@ function innerHTML(ret,flag){
 				shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 			}else if(data[a].adviceStatus == "1"){
 				statusStr = "已审核";
+				shenhe = "<button onclick=\"payInvoiceSave('"+data[a].id+"')\" class='btn btnyello'>提交</button>"
 			}
 		}else if(data[a].payStatus == "1"){
 			statusStr = "已推单";
@@ -139,6 +140,21 @@ function innerDetail(ret){
 function payAudit(id){
 	$.ajax({
 		url : "/trwuliu/payInvoice/payAudit",//
+		data : {"id":id},
+		type : "post",
+		success : function(rs){
+			if(rs.code=="000000"){
+				index(1,0);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+/** 运费单提交*/
+function payInvoiceSave(id){
+	$.ajax({
+		url : "/trwuliu/payInvoice/payInvoiceSave",//
 		data : {"id":id},
 		type : "post",
 		success : function(rs){

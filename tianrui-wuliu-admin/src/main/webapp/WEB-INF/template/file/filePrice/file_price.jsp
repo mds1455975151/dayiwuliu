@@ -55,8 +55,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <select class="form-control" id="Saudit">
                                 <option value="">请选择</option>
 	                            <option value="0">审核中</option>
-	                            <option value="1">调价成功</option>
-	                            <option value="2">调价失败</option>
+	                            <option value="1">审批成功</option>
+	                            <option value="2">审批失败</option>
                             </select>
                         </div>
                         <div class="ht_divbtn">
@@ -89,7 +89,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>货物名称</th>
                                 <th>路线名称</th>
                                 <th>生效时间</th>
+                               <!-- 
                                 <th>历史价格</th>
+                                -->
                                 <th>操作</th>
                             </tr>
                             </thead>

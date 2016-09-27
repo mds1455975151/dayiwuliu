@@ -96,6 +96,7 @@ public class FreightInfoService implements IFreightInfoService{
 		FileFreight record = freightMapper.selectByPrimaryKey(req.getId());
 		record.setAuditreason(req.getAuditresson());
 		record.setAuditstatus(req.getAudit());
+		record.setFreightType(info.getFreighttype());
 		//原生效时间
 		Long taketime = record.getTaketime();
 		//新生效时间
@@ -107,7 +108,6 @@ public class FreightInfoService implements IFreightInfoService{
 			record.setOldprice(record.getPrice());
 			record.setOldtallage(record.getTallage());
 			record.setPrice(info.getPrice());
-			record.setFreightType(info.getFreighttype());
 			record.setTallage(info.getTallage());
 			if(info.getTaketime()==null){
 				record.setTaketime(sta);
@@ -166,34 +166,34 @@ public class FreightInfoService implements IFreightInfoService{
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		FileFreight freight = freightMapper.selectByPrimaryKey(id);
-		Calendar c = Calendar.getInstance();
-		if(date == null) {
-			date = new Date();
-		}
-		c.setTime(date);
-		c.set(Calendar.HOUR_OF_DAY, 0);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-		c.set(Calendar.MILLISECOND, 0);
-		Long time = c.getTimeInMillis();
-		List<FreightInfo> list = new ArrayList<FreightInfo>();
-		if(time<freight.getTaketime()){
-			FreightInfo info = new FreightInfo();
-			info.setFreightid(id);
-			info.setStatus("1");
-			info.setDesc4("!=0");
-			info.setTaketime(time);
-			list = freightInfoMapper.selectByInfo(info);
-			if(list.size() == 0){
-				rs.setCode("1");
-				rs.setError("运价策略未到生效日期，暂不可用");
-				return rs;
-			}
-		}
-		if(list.size() != 0 ){
-			freight.setPrice(list.get(list.size()-1).getPrice());
-			freight.setTallage(list.get(list.size()-1).getTallage());
-		}
+//		Calendar c = Calendar.getInstance();
+//		if(date == null) {
+//			date = new Date();
+//		}
+//		c.setTime(date);
+//		c.set(Calendar.HOUR_OF_DAY, 0);
+//		c.set(Calendar.MINUTE, 0);
+//		c.set(Calendar.SECOND, 0);
+//		c.set(Calendar.MILLISECOND, 0);
+//		Long time = c.getTimeInMillis();
+//		List<FreightInfo> list = new ArrayList<FreightInfo>();
+//		if(time<freight.getTaketime()){
+//			FreightInfo info = new FreightInfo();
+//			info.setFreightid(id);
+//			info.setStatus("1");
+//			info.setDesc4("!=0");
+//			info.setTaketime(time);
+//			list = freightInfoMapper.selectByInfo(info);
+//			if(list.size() == 0){
+//				rs.setCode("1");
+//				rs.setError("运价策略未到生效日期，暂不可用");
+//				return rs;
+//			}
+//		}
+//		if(list.size() != 0 ){
+//			freight.setPrice(list.get(list.size()-1).getPrice());
+//			freight.setTallage(list.get(list.size()-1).getTallage());
+//		}
 		rs.setData(freight);
 		return rs;
 	}
