@@ -869,9 +869,6 @@ public class BillService implements IBillService{
 				resp = conver2billResp(db);
 			}
 			Plan plan = planMapper.selectByPrimaryKey(db.getPlanid());
-			if(StringUtils.isNotBlank(db.getUnloadtime().toString())){
-				
-			}
 			Date date = null;
 			if(StringUtils.equals(db.getIsClearing(), "0")){
 				if(db.getUnloadtime() == null){
