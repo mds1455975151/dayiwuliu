@@ -105,8 +105,6 @@ public class FreightInfoService implements IFreightInfoService{
 		if("1".equals(req.getAudit())){
 			//
 			updateFreightInfoLine(taketime,newtaketime);
-			record.setOldprice(record.getPrice());
-			record.setOldtallage(record.getTallage());
 			record.setPrice(info.getPrice());
 			record.setTallage(info.getTallage());
 			if(info.getTaketime()==null){
