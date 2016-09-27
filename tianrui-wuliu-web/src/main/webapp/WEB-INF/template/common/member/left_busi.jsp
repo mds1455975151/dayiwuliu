@@ -15,6 +15,7 @@
 	                        <li><a href="/trwuliu/planowner/main" id="planowner">我发布的计划</a></li>
 	                        <li><a href="/trwuliu/plantemplate/main" id="plantemplate">我的计划模板</a></li>
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
+	                        <!-- <li><a href="/trwuliu/billreport/main" id="billreport">我的报表</a></li> -->
 	                    </ul>
 	                </div>
 	            </div>

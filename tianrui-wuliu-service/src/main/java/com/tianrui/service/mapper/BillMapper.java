@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tianrui.common.vo.ReportVo;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
 
@@ -81,4 +82,6 @@ public interface BillMapper {
 	List<Bill> queryAppointPage(Bill record);
 	
 	int queryAppointCount(Bill record);
+	
+	List<Bill> queryTJBillByParams(ReportVo vo);
 }

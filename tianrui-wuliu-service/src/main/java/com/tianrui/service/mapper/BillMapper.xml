@@ -1076,4 +1076,30 @@
 			</if>
 			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
 	</select>
+	<select id="queryTJBillByParams" parameterType="com.tianrui.common.vo.ReportVo" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from wuliu_bill 
+		where 1=1 
+		<if test="starttime != null and starttime != ''">
+			and unloadtime >= #{starttime,jdbcType=BIGINT}
+		</if>
+		<if test="endtime != null and endtime != ''">
+			and unloadtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+		</if>
+		<if test="venderid != null and venderid != ''">
+			and venderid = #{venderid,jdbcType=VARCHAR}
+		</if>
+		<if test="cargoname != null and cargoname != ''">
+			and cargoname = #{cargoname,jdbcType=VARCHAR}
+		</if>
+		<if test="startcity != null and startcity != ''">
+			and startcity = #{startcity,jdbcType=VARCHAR}
+		</if>
+		<if test="endcity != null and endcity != ''">
+			and endcity = #{endcity,jdbcType=VARCHAR}
+		</if>
+		<if test="order != null and order != ''">
+			order by createtime desc,vehicleno,cargoname,venderid
+		</if>
+	</select>
 </mapper>
