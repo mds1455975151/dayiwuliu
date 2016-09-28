@@ -86,6 +86,7 @@ $(function(){
 		var dId= $("#billId").val();
 		confirm("上传榜单","是否要上传提货榜单？",function(){
 			$("#urlReq").val(URL.pickupConfirmUrl);
+			$('.imageBox_bd').removeAttr('style');
 			$("#upbangdan").modal();
 		},function(){
 			$.ajax({
@@ -106,6 +107,7 @@ $(function(){
 	//dischargeBtn 卸货完成确认
 	$(".detailDiv").on("click",".dischargeBtn",function(){
 		$("#urlReq").val(URL.dischargeConfirmUrl);
+		$('.imageBox_bd').removeAttr('style');
 		$("#upbangdan").modal();
 	});
 	//dischargeBtn 到达确认

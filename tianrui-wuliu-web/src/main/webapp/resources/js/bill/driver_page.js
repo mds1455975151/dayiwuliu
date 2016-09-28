@@ -249,6 +249,7 @@ $(function(){
 		confirm("上传榜单","是否要上传提货榜单？",function(){
 			$("#urlReq").val(URL.pickupConfirmUrl);
 			$("#hidbid").val(dId);
+			$('.imageBox_bd').removeAttr('style');
 			$("#upbangdan").modal();
 		},function(){
 			$.ajax({
@@ -272,6 +273,7 @@ $(function(){
 		var dId= $(this).attr("dataId");
 		$("#urlReq").val(URL.dischargeConfirmUrl);
 		$("#hidbid").val(dId);
+		$('.imageBox_bd').removeAttr('style');
 		$("#upbangdan").modal();
 	});
 	//arrivedBtn 到达确认
