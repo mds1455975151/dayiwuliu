@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th data-options="field:'ck',checkbox:true"><input type="checkbox" onclick="selectAll()" name="allUser"></th>
                                 <th>策略名称</th>
-                                <th>单价</th>
+                                <th>含税单价</th>
                                 <th>计价单位</th>
                                 <th>税率</th>
 								<th>审核状态</th>
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>
-                       	 单价：</label>
+                       	 含税单价：</label>
                         <input id="addprice" maxlength="8" name="price" type="text">
                     </div>
                     <div class="model_width" id="blurmeasure">
@@ -234,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>
-                       	 单价：</label>
+                       	 含税单价：</label>
                         <input name="price" id="uptprice" type="text"  maxlength="8" value="">
                        
                     </div>
