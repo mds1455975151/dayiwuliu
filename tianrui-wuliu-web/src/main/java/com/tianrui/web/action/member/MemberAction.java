@@ -277,7 +277,6 @@ public class MemberAction{
 			}
 		
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.info("personalAuthentication错误信息：{}",e.getMessage());
 			rs.setCode("1");
 			rs.setError("操作失败");
@@ -338,7 +337,6 @@ public class MemberAction{
 				SessionManager.setSessionMember(request,member);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.info("enterpriseAuthentication错误信息：{}",e.getMessage());
 			rs.setCode("1");
 			rs.setError("操作失败");
@@ -369,7 +367,6 @@ public class MemberAction{
 			MemberInfoResp resp = systemMemberService.authenticationInfoByid(id);
 			rs.setData(resp);
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.info("authenticationInfoByid错误信息：{}",e.getMessage());
 			rs.setCode("1");
 			rs.setError("操作失败");
@@ -467,7 +464,6 @@ public class MemberAction{
 			MemberInfoRecordResp resp = systemMemberInfoRecordService.findByMemberId(memberId);
 			rs.setData(resp);
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.info("错误提示:{}","操作失败，请核对信息");
 			rs.setCode("1");
 			rs.setError("操作失败，请核对信息");
@@ -498,7 +494,6 @@ public class MemberAction{
 			MemberResp member = systemMemberService.findById(id);
 			rs.setData(member);
 		} catch (Exception e) {
-			// TODO: handle exception
 			logger.info("memberInfoByid错误信息：{}","操作失败");
 			rs.setCode("1");
 			rs.setError("操作失败");
@@ -557,6 +552,35 @@ public class MemberAction{
 			re.setError("选择角色错误！");
 		}
 		return re;
+	}
+	/** 修改密码
+	 * @throws Exception */
+	@RequestMapping("/uptPassword")
+	@ResponseBody
+	public Result uptPassword(String passWord,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+//		MemberResp resp = systemMemberService.findById(vo.getId());
+		MemberUpdateReq req = new MemberUpdateReq();
+		req.setPassword(passWord);
+		req.setId(vo.getId());
+		if(!systemMemberService.updateMember(req)){
+			rs.setCode("1");
+			rs.setError("修改失败");
+		}
+		return rs;
+	}
+	/** 修改密码页面跳转
+	 * @throws Exception */
+	@RequestMapping("/uptPassPage")
+	@ResponseBody
+	public ModelAndView uptPassPage(HttpServletRequest request) throws Exception{
+		ModelAndView view = new ModelAndView();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		MemberResp resp = systemMemberService.findById(vo.getId());
+		view.setViewName("/member/uptPass");
+		view.addObject("password", resp.getPassWord());
+		return view;
 	}
 	
 }
