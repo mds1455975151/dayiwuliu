@@ -290,6 +290,7 @@ ul, li {
                                 <th>地图坐标</th>
                                 <th>创建者</th>
                                 <th>状态</th>
+                                <th>备注</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -342,6 +343,10 @@ ul, li {
                     <label>具体地点：</label><input class="addrInput formV" name="addr" type="text" readonly="readonly"  data-backdrop="static" >
                     <input type="hidden" class="formV lat" name="lat"  dataType="*"/>
                     <input type="hidden" class="formV lon" name="lng"/>
+                </div>
+              	<div class="usermodal userlabel4">
+                    <label>备注：</label>
+                    <input class="formV remark" name="remark" type="text"  data-backdrop="static" >
                 </div>
                 <!-- body内容  end -->
             </div>

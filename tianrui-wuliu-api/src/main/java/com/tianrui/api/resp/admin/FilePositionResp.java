@@ -27,6 +27,9 @@ public class FilePositionResp extends BaseResp {
 	private String orgId;
 	private short status;
 	private String createTime;
+	/** 备注*/
+    private String remark;
+
 
 	public String getId() {
 		return id;
@@ -38,6 +41,14 @@ public class FilePositionResp extends BaseResp {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public void setName(String name) {

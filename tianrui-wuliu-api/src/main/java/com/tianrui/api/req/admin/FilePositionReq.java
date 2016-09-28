@@ -18,6 +18,9 @@ public class FilePositionReq extends BaseReq{
 	private String addr;
 	private Integer lat;
 	private Integer lng;
+	/** 备注*/
+    private String remark;
+
 	
 	//当前登录用户组织id
 	private String currOrgId;
@@ -43,6 +46,13 @@ public class FilePositionReq extends BaseReq{
 	}
 	public void setOpc(String opc) {
 		this.opc = opc;
+	}
+	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	public String getOp() {
 		return op;
