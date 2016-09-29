@@ -1,14 +1,6 @@
 package com.tianrui.service.cache;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import com.tianrui.common.constants.Constant;
-
-import redis.clients.util.SafeEncoder;
 
 /**
  * 

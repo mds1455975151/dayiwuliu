@@ -27,6 +27,13 @@
      <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
           <property name="properties" ref="configProperties" />
      </bean>
+     
+    <bean class="com.tianrui.common.constants.Constant">
+		<property name="PRE_REDIS" value="${redis.client.pref}"></property>
+		<property name="apiAuthKey" value="${app.auth.key}"></property>
+		<property name="FILE_URL_PRE" value="${file.url.pref}"></property>
+	</bean>
+     
      <import resource="applicationContext-db.xml"/>
      <import resource="applicationContext-mongo.xml"/>
      <import resource="applicationContext-cache.xml"/>

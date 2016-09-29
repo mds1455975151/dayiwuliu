@@ -17,15 +17,15 @@ public class Constant {
     
     public final static int MAX_PAGESIZE = 200;
     
-    public final static String FILE_URL_PRE="http://www.appb2b.com/uploadimgs/";
+    public  static String FILE_URL_PRE="http://www.appb2b.com/uploadimgs/";
     
     //public final static String FILE_URL_PRE="http://www.trwl.com/img/";
     
-    public final static String apiAuthKey ="!&@#2016#";
+    public static String apiAuthKey ="!&@#2016#";
     
     
     //redis 缓存的前缀 wl2_|-正式-43|  wl_|-开发-23|
-    public final static String PRE_REDIS ="wl2_";
+    public  static String PRE_REDIS ="wl2_";
     //public final static String PRE_REDIS ="wl_";
     
     //日志文件 访问日志 记录访问来源
@@ -65,4 +65,25 @@ public class Constant {
     public final static String BILL_TYPE_1 = "1";
     //批量运单
     public final static String BILL_TYPE_2 = "2";
+	public static String getFILE_URL_PRE() {
+		return FILE_URL_PRE;
+	}
+	
+	
+	
+	
+	public void setFILE_URL_PRE(String fILE_URL_PRE) {
+		FILE_URL_PRE = fILE_URL_PRE;
+	}
+	public void setApiAuthKey(String apiAuthKey) {
+		Constant.apiAuthKey = apiAuthKey;
+	}
+	public void setPRE_REDIS(String pRE_REDIS) {
+		PRE_REDIS = pRE_REDIS;
+	}
+    
+    
+    
+    
+    
 }
