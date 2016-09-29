@@ -17,6 +17,8 @@ public class Members{
 	private String vdcount;
 	/** 我的车主数量*/
 	private String mocount;
+	/** 仅在后台会员管理使用*/
+	private String remarkname;
 	/**
 	 * 认证信息id
 	 */
@@ -124,6 +126,14 @@ public class Members{
 	 */
 	private String licenseImagePath;
 	
+
+	public String getRemarkname() {
+		return remarkname;
+	}
+
+	public void setRemarkname(String remarkname) {
+		this.remarkname = remarkname;
+	}
 
 	public String getLicenseImagePath() {
 		return licenseImagePath;

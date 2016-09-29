@@ -24,6 +24,8 @@ public class MemberResp extends BaseResp{
 	private String vdcount;
 	/** 我的车主数量*/
 	private String mocount;
+	/** 尽后台会员管理使用*/
+	private String remarkname;
 	/**
 	 * 组织id
 	 */
@@ -159,6 +161,14 @@ public class MemberResp extends BaseResp{
 
 	public String getNickname() {
 		return nickname;
+	}
+
+	public String getRemarkname() {
+		return remarkname;
+	}
+
+	public void setRemarkname(String remarkname) {
+		this.remarkname = remarkname;
 	}
 
 	public String getCompanycode() {

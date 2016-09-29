@@ -124,8 +124,7 @@ public class AppMemberAction {
 					}
 				}
 				//增加万能验证码 111111,系统正式上线需要去除
-				if(codeValidate){
-//					if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
+				if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
 					MemberSaveReq memberSaveReq =new MemberSaveReq();
 					memberSaveReq.setCellphone(appParam.getBody().getAccount());
 					memberSaveReq.setPassword(appParam.getBody().getPswdMd5());
@@ -179,29 +178,31 @@ public class AppMemberAction {
 			}
 		}
 		//增加万能验证码 111111,系统正式上线需要去除
-		if(codeValidate){
+		if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
+			if(!"".equals(appParam.getBody().getAccount()) && MakePrimaryKey.isMobileNO(appParam.getBody().getAccount())){
+				MemberResp member= systemMemberService.findMemberByTelnum(req);
+				if( member == null){
+					rs.setCode("1");
+					rs.setError("您输入的手机号未注册，请重新输入");
+				}else {
+//					member.setPassWord(appParam.getBody().getPswdMd5());
+//					memberService.update(member);
+					MemberUpdateReq up = new MemberUpdateReq();
+					up.setId(member.getId());
+					up.setPassword(appParam.getBody().getPswdMd5());
+					systemMemberService.updateMember(up);
+					rs.setCode("000000");
+					//TODO 会员登录缓存存储
+				}
+			}else {
+				rs.setCode("2");
+				rs.setError("您输入的手机号不正确，请重新输入");
+			}
+		}else{
 			rs.setCode("0");
 			rs.setError("非法访问，认证码输入错误请确认");
 		}
-		if(!"".equals(appParam.getBody().getAccount()) && MakePrimaryKey.isMobileNO(appParam.getBody().getAccount())){
-			MemberResp member= systemMemberService.findMemberByTelnum(req);
-			if( member == null){
-				rs.setCode("1");
-				rs.setError("您输入的手机号未注册，请重新输入");
-			}else {
-//				member.setPassWord(appParam.getBody().getPswdMd5());
-//				memberService.update(member);
-				MemberUpdateReq up = new MemberUpdateReq();
-				up.setId(member.getId());
-				up.setPassword(appParam.getBody().getPswdMd5());
-				systemMemberService.updateMember(up);
-				rs.setCode("000000");
-				//TODO 会员登录缓存存储
-			}
-		}else {
-			rs.setCode("2");
-			rs.setError("您输入的手机号不正确，请重新输入");
-		}
+		
 		appResult.setCode(rs.getCode());
 		appResult.setMessage(rs.getError());
 		return appResult;
