@@ -34,9 +34,12 @@
                 <label id="header_loginHref"> <a href="/publicMember/loginPage">请登录</a></label>
                 <label id="header_registerHref"> <a href="/publicMember/registerPage">免费注册</a></label>
                 <label id="header_logout"><a href="/trwuliu/Member/logout">注销</a></label>
+                <label id="header_uptpassword"><a href="/trwuliu/Member/uptPassPage">修改密码</a></label>
+                <!-- 
                 <label> <a href="">我的运力</a></label>
                 <label> <a href="">我的计划</a></label>
                 <label> <a href="">我的运单</a></label>
+                 -->
             </div>
         </div>
         <!--登录头部行end-->

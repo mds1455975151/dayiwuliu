@@ -23,10 +23,6 @@ public class FileFreight implements IModel {
     private Long taketime;
     
     private Long taketimeinfo;
-    /** 生效前单价*/
-    private Double oldprice;
-    /** 生效前税率*/
-    private Double oldtallage;
     /**
      * 审核状态
      */
@@ -550,22 +546,6 @@ public class FileFreight implements IModel {
 
 	public void setTaketimeinfo(Long taketimeinfo) {
 		this.taketimeinfo = taketimeinfo;
-	}
-
-	public Double getOldprice() {
-		return oldprice;
-	}
-
-	public void setOldprice(Double oldprice) {
-		this.oldprice = oldprice;
-	}
-
-	public Double getOldtallage() {
-		return oldtallage;
-	}
-
-	public void setOldtallage(Double oldtallage) {
-		this.oldtallage = oldtallage;
 	}
 
 	/**

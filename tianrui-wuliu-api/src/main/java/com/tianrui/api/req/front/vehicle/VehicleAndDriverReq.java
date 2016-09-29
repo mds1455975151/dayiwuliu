@@ -22,7 +22,7 @@ public class VehicleAndDriverReq extends BaseReq{
 	private String vehiPrefix;
 	/** 车牌号 */
 	private String vehiNo;
-	/** 车辆类型(1:箱式,2:车板,3:冷藏) */
+	/** 车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车) */
 	private String vehiType;
 	/** 车辆类型名称 */
 	private String vehiTypeName;
@@ -113,7 +113,7 @@ public class VehicleAndDriverReq extends BaseReq{
 	}
 
 	/**
-	 * 获取车辆类型(1:箱式,2:车板,3:冷藏)
+	 * 获取车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 * @return vehiType
 	 */
 	public String getVehiType() {
@@ -121,7 +121,7 @@ public class VehicleAndDriverReq extends BaseReq{
 	}
 
 	/**
-	 * 设置车辆类型(1:箱式,2:车板,3:冷藏)
+	 * 设置车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 * @param newVehiType
 	 */
 	public void setVehiType(String newVehiType) {

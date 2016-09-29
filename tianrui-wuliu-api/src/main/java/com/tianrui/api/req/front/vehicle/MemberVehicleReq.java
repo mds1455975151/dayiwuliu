@@ -22,7 +22,7 @@ public class MemberVehicleReq extends BaseReq{
 	private String vehiclePrefix;
 	/** 车牌号 */
 	private String vehicleNo;
-	/** 车辆类型(1:箱式,2:车板,3:冷藏) */
+	/** 车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车) */
 	private String vehicleType;
 	/** 车辆类型名称 */
 	private String vehicleTypeName;
@@ -188,7 +188,7 @@ public class MemberVehicleReq extends BaseReq{
 	}
 
 	/**
-	 * 获取车辆类型(1:箱式,2:车板,3:冷藏)
+	 * 获取车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 * @return vehicleType
 	 */
 	public String getVehicleType() {
@@ -196,7 +196,7 @@ public class MemberVehicleReq extends BaseReq{
 	}
 
 	/**
-	 * 获取车辆类型(1:箱式,2:车板,3:冷藏)
+	 * 获取车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 * @return newVehicleType
 	 */
 	public void setVehicleType(String newVehicleType) {

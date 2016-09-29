@@ -44,9 +44,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        <label>车辆类型：</label>
 		                        <select class="form-control w350" id="vehicle_add_vehiType">
 		                            <option value="0">请选择</option>
+		                            <option value="5">半挂车</option>
 		                            <option value="1">厢式</option>
 		                            <option value="2">板车</option>
 		                            <option value="3">冷藏</option>
+		                            <option value="4">散装罐车</option>
 		                        </select>
 		                        <div class="clear"></div>
 		                        <p id="message_vehiType"></p>

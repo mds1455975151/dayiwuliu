@@ -27,7 +27,7 @@ public class VehicleAndDriver implements IModel {
 	private String vehiprefix;
 	/** 车牌号 */
 	private String vehino;
-	/** 车辆类型(1:箱式,2:车板,3:冷藏) */
+	/** 车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车) */
 	private String vehitype;
 	/** 车辆类型名称 */
 	private String vehitypename;
@@ -249,7 +249,7 @@ public class VehicleAndDriver implements IModel {
 	}
 
 	/**
-	 * 获取车辆类型(1:箱式,2:车板,3:冷藏)
+	 * 获取车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 * @return vehitype
 	 */
 	public String getVehitype() {
@@ -257,7 +257,7 @@ public class VehicleAndDriver implements IModel {
 	}
 
 	/**
-	 * 设置车辆类型(1:箱式,2:车板,3:冷藏)
+	 * 设置车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 * @param newVehitype
 	 */
 	public void setVehitype(String newVehitype) {

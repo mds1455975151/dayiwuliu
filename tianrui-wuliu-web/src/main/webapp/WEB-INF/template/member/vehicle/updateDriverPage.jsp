@@ -46,9 +46,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        <select class="form-control w350" id="vehicle_add_vehiType">
 		                            
 		                            <option value="0">请选择</option>
+		                            <option <c:if test="${vehicle.vehicleType eq '5' }">selected="true"</c:if> value="5" >半挂车</option>
 		                            <option <c:if test="${vehicle.vehicleType eq '1' }">selected="true"</c:if> value="1" >厢式</option>
 		                            <option <c:if test="${vehicle.vehicleType eq '2' }">selected="true"</c:if> value="2" >板车</option>
 		                            <option <c:if test="${vehicle.vehicleType eq '3' }">selected="true"</c:if> value="3" >冷藏</option>
+		                            <option <c:if test="${vehicle.vehicleType eq '4' }">selected="true"</c:if> value="4" >散装罐车</option>
 		                        </select>
 		                        <div class="clear"></div>
 		                        <p id="message_vehiType"></p>

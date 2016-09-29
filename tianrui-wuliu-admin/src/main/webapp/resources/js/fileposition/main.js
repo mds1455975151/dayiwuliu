@@ -140,6 +140,8 @@ $(function(){
  				}else{
  					dataArr.push(  "<td>正常</td>");
  				}
+ 				//<th>备注</th>
+ 				dataArr.push(  "<td>"+ (item.remark ||"") +"</td>");
 				//<th>操作</th>
 				dataArr.push("<td>");
 				/**
@@ -266,7 +268,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code=="000000" ){
-						alert("添加成功");
+						alert("操作成功");
 						$(".searchbtn").trigger("click");
 					}else{
 						alert(rs.error);

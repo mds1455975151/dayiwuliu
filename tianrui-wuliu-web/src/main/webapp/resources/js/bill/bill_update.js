@@ -81,16 +81,20 @@ $(function(){
     	}
     	var overweight = parseFloat($('#overweight').val());//剩余运输量
     	var sumweight = parseFloat(weightInput)*ts;
+    	var _this = this;
+    	$(_this).attr('disabled',true);
     	if(sumweight > overweight){
     		confirm("ok","当前运输量已超过计划剩余运输量，是否继续？",function(){
-    			saveBills(param);
+    			saveBills(param,_this);
+    		},function(){
+    			$(_this).attr('disabled',false);
     		});
     	}else{
-    		saveBills(param);
+    		saveBills(param,_this);
     	}
     });
    
-    function saveBills(param){
+    function saveBills(param,_this){
     	//表单数据提交
     	$.ajax({
     		url:URL.updateUrl,
@@ -103,6 +107,7 @@ $(function(){
 					window.location.href=URL.successUrl;
 				}else{
 					alert(rs.error);
+					$(_this).attr('disabled',false);
 				}
 			}
     	})

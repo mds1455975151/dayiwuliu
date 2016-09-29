@@ -68,6 +68,12 @@ function displayData(pageNo){
 						if(d[a].vehicletype=="3"){
 							type = "冷藏";
 						}
+						if(d[a].vehicletype=="4"){
+							type = "散装罐车";
+						}
+						if(d[a].vehicletype=="5"){
+							type = "半挂车";
+						}
 						var userName = d[a].userName;
 						if(d[a].userName == undefined){
 							userName = "";
@@ -178,6 +184,12 @@ function details(id){
 			}
 			if(d.vehicletype=="3"){
 				type = "冷藏";
+			}
+			if(d.vehicletype=="4"){
+				type = "散装罐车";
+			}
+			if(d.vehicletype=="5"){
+				type = "半挂车";
 			}
 			var hml = 
 				"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+

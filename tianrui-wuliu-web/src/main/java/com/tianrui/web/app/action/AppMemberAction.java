@@ -124,7 +124,8 @@ public class AppMemberAction {
 					}
 				}
 				//增加万能验证码 111111,系统正式上线需要去除
-				if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
+				if(codeValidate){
+//					if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
 					MemberSaveReq memberSaveReq =new MemberSaveReq();
 					memberSaveReq.setCellphone(appParam.getBody().getAccount());
 					memberSaveReq.setPassword(appParam.getBody().getPswdMd5());
@@ -178,9 +179,7 @@ public class AppMemberAction {
 			}
 		}
 		//增加万能验证码 111111,系统正式上线需要去除
-		if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
-			
-		}else {
+		if(codeValidate){
 			rs.setCode("0");
 			rs.setError("非法访问，认证码输入错误请确认");
 		}
@@ -196,6 +195,7 @@ public class AppMemberAction {
 				up.setId(member.getId());
 				up.setPassword(appParam.getBody().getPswdMd5());
 				systemMemberService.updateMember(up);
+				rs.setCode("000000");
 				//TODO 会员登录缓存存储
 			}
 		}else {
