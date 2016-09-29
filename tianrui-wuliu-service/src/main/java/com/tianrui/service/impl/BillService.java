@@ -1427,28 +1427,37 @@ public class BillService implements IBillService{
 		PaginationVO<WaybillResp> page =null;
 		if(req!=null && req.getPageNo() >0 ){
 			page=new PaginationVO<WaybillResp>();
-//			Bill bill = new Bill();
-//			bill.setPathID(req.getCurrId());
-//			bill.setStart((req.getPageNo()-1)*req.getPageSize());
-//			bill.setLimit(req.getPageSize());
-//			//关键字过滤
-//			if( StringUtils.isNotBlank(req.getKey()) ){
-//				bill.setQueryKey(req.getKey().trim());
-//			}
-//			int count = billMapper.queryAppointCount(bill);
-//			if(count > 0){
-//				List<Bill> list = billMapper.queryAppointPage(bill);
-//				List<WaybillResp> resp = conver2billResp(list);
-//				page.setList(resp);
-//			}
-//			page.setTotal(count);
-//			page.setPageNo(req.getPageNo());
+			Bill bill = new Bill();
+			bill.setPathID(req.getCurrId());
+			bill.setStart((req.getPageNo()-1)*req.getPageSize());
+			bill.setLimit(req.getPageSize());
+			//关键字过滤
+			if( StringUtils.isNotBlank(req.getKey()) ){
+				bill.setQueryKey(req.getKey().trim());
+			}
+			int count = billMapper.queryAppointCount(bill);
+			if(count > 0){
+				List<Bill> list = billMapper.queryAppointPage(bill);
+				for(Bill bi : list){
+					if(bi.getPathID().endsWith(req.getCurrId())){
+						for(Bill b : list){
+							if(b.getPathID().contains(bi.getVenderid())){
+								b.setVenderid(bi.getVenderid());
+							}
+						}
+					}
+				}
+				List<WaybillResp> resp = conver2billResp(list);
+				page.setList(resp);
+			}
+			page.setTotal(count);
+			page.setPageNo(req.getPageNo());
 //			return page;
 			
 			
 			
 			
-			List<String> list = new ArrayList<String>();
+			/*List<String> list = new ArrayList<String>();
 			Plan plan = new Plan();
 			plan.setVehicleownerid(req.getCurrId());
 			//plan.setIsAppoint("1");
@@ -1488,7 +1497,7 @@ public class BillService implements IBillService{
 				}
 				page.setTotal(count);
 				page.setPageNo(req.getPageNo());
-			}
+			}*/
 		}
 		return page;
 	}
