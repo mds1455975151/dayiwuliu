@@ -297,6 +297,7 @@ $(function(){
 		$("#addModal .addrInput").val("");
 		$("#addModal .lat").val("");
 		$("#addModal .lon").val("");
+		$("#addModal .remark").val("");
 		//验证样式去除
 		$(".Validform_checktip").html("").removeClass("Validform_wrong").removeClass("Validform_right");
 	})
