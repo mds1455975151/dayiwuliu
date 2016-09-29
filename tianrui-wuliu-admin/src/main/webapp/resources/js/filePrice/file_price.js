@@ -137,7 +137,7 @@ function interHTML(data){
 		var auditstatus = "";
 		if(data[a].auditstatus != undefined){
 			if(data[a].auditstatus=="0"){
-				auditstatus = "审核中";
+				auditstatus = "审批中";
 				if(data[a].priceInfo != undefined){
 					price = data[a].priceInfo;
 				}

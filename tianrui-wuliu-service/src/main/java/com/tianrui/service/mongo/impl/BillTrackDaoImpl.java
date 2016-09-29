@@ -44,7 +44,7 @@ public class BillTrackDaoImpl extends BaseDaoImpl<BillTrack,String> implements B
 		if( StringUtils.isNotBlank(bId)&&StringUtils.isNotBlank(status) ){
 			//拼装条件
 			Query query =new Query();
-			Criteria criteria =Criteria.where("billId").is(bId).and("isShow").is(1).and("status").is(status);
+			Criteria criteria =Criteria.where("billId").is(bId).and("isShow").is(1).and("status").is(Integer.valueOf(status));
 			query.addCriteria(criteria);
 			//排序条件
 			query.with(new Sort(Direction.ASC,"timestamp"));
