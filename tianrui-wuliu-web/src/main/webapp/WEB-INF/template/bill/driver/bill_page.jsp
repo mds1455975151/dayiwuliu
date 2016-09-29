@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label>磅单图片：</label>
                         <button class="btn btnbd bdup">点此上传</button>
                         <div class="bangdan_img">
-                            <img src="${trRoot}/tianrui/images/bd.png">
+                             <img src="${trRoot}/tianrui/images/bd.png" width="570px"  height="225px" > 
                         </div>
                         <p>注：图片上传按照上面样式，大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</p>
                     </div>

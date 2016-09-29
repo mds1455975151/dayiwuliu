@@ -28,7 +28,7 @@
                 <a><i class=" iconfont icon-hert"></i><label>收藏</label></a>
                 <a><i class=" iconfont icon-shouji"></i><label>手机版</label></a>
             </div>
-            <div class="header_right">
+            <div class="header_right" style="width:230px">
 				<label id="header_welcome">欢迎来到天瑞物流 </label>
                 <label id="header_loginHref"> <a href="/publicMember/loginPage">请登录</a></label>
                 <label id="header_registerHref"> <a href="/publicMember/registerPage">免费注册</a></label>
@@ -47,7 +47,7 @@
             <div class="login_logo">
                 <img src="${trRoot}/tianrui/images/logo2.png">
             </div>
-            <div class="mynav">
+            <!-- <div class="mynav">
                 <ul>
                     <li id="header_home">
                         <a ><p>Capacity</p><h4>运力管理</h4></a>
@@ -62,7 +62,7 @@
                         <a ><p>My kernel</p><h4>账户中心</h4></a>
                     </li> 
                 </ul>
-            </div>
+            </div> -->
             <img src="${trRoot}/tianrui/images/tel.png">
         </div>
         <!--导航条end-->
