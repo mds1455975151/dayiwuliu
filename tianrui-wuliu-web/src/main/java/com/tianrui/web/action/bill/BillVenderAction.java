@@ -98,7 +98,7 @@ public class BillVenderAction {
 		if( req !=null ){
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setCurruId(currUser.getId());
-			rs.setData(billService.saveWayBill(req));
+			rs = billService.saveWayBill(req);
 		}
 		return rs;
 	}
