@@ -250,7 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	var CONTEXTPATH="${path}";
 </script>
-<script type="text/javascript" src="${scriptsRoot}/treeTable.js?99"></script>
+<script type="text/javascript" src="${scriptsRoot}/treeTable.js?"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.selectbox-0.2.js"></script>
 <script type="text/javascript" src="/resources/js/menu/menu.js" ></script>
 </body>

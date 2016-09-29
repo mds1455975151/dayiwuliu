@@ -240,8 +240,8 @@ $(function(){
 		//详细地址赋值
 		$("#addModal .addrInput").val(data.address);
 		//经纬度赋值
-		$("#addModal .lat").val(+(data.lat ||"0")*1000000);
-		$("#addModal .lon").val(+(data.lon ||"0")*1000000);
+		$("#addModal .lat").val(+((data.lat ||"0")*1000000).toFixed(0));
+		$("#addModal .lon").val(+((data.lon ||"0")*1000000).toFixed(0));
 	}
 
 	var validFrom=$("#addForm").Validform({

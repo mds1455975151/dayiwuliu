@@ -232,7 +232,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?22" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
