@@ -120,11 +120,12 @@ $(function(){
 	
 	$(".signsubmitbtn").click(function(){
 		var weightInput=$("#weighttext").val();
+		weightInput = parseFloat(weightInput);
     	if( !weightInput ){
     		alert("签收重量不能为空.");
     		return ;
-    	}else if(!(/^([1-9]?\d+)(\.\d+)?$/.exec(weightInput)) ){
-    		alert("签收重量格式非法");
+    	}else if(!(/^\d{1,6}(\.\d{0,2})?$/.test(weightInput)) ){
+    		alert("签收重量格式整数最大6位，小数最大2位");
     		return ;
     	}
     	
