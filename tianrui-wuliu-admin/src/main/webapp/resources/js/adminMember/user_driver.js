@@ -89,6 +89,9 @@ function displayData(pageNo){
 						}
 						var userName = data[a].userName;
 						var telphone = data[a].telphone;
+						if(data[a].driverpercheck=="2" || data[a].driverpercheck=="3"){
+							userName = data[a].remarkname;
+						}
 						if(userName == undefined){
 							userName = "";
 						}

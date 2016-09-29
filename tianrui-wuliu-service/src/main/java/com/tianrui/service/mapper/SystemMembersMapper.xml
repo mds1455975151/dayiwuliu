@@ -17,6 +17,7 @@
 		m.lastTime lastTime,
 		m.sourceType sourceType,
 		m.sex sex,
+		m.remarkname remarkname,
 		f.idcardimage idcardsImagePath,
 		f.memberid infoid,
 		f.driverimage driveImagePath,

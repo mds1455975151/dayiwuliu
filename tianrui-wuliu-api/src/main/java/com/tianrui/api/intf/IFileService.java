@@ -17,4 +17,5 @@ import com.tianrui.common.vo.Result;
 public interface IFileService  {
 	
 	Result uploadImg(FileUploadReq fileUploadReq)throws Exception;
+	
 }

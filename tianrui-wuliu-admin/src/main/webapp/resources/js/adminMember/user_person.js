@@ -74,7 +74,9 @@ function displayData(pageNo){
 						}
 						var userName = "";
 						var telphone = "";
-						if(data[a].companypercheck=='0'){//企业未认证个人用户
+						if(data[a].companypercheck=='2' || data[a].userpercheck=="2" || data[a].companypercheck=='3' || data[a].userpercheck=="3" ){
+							userName = data[a].remarkname;
+						}else if(data[a].companypercheck=='0'){//企业未认证个人用户
 							userName = data[a].userName;
 							telphone = data[a].telphone;
 						}else{//"个人用户"

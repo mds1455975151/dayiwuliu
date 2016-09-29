@@ -66,6 +66,7 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		if(a==1){
 			member.setUserpercheck((short)2);//认证中
 			member.setSubmittime(t);
+			member.setRemarkname(req.getUserName());
 			systemMemberMapper.updateByPrimaryKeySelective(member);
 			moberVoService.flush(req.getMemberId());
 		}else{
@@ -127,6 +128,7 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		if(a==1){
 			member.setCompanypercheck((short)2);//认证中
 			member.setSubmittime(t);
+			member.setRemarkname(req.getCompanyName());
 			systemMemberMapper.updateByPrimaryKeySelective(member);
 			moberVoService.flush(req.getMemberId());
 		}else{
@@ -161,6 +163,7 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		if(a==1){
 			member.setDriverpercheck((short)2);//认证中
 			member.setSubmittime(t);
+			member.setRemarkname(req.getUserName());
 			systemMemberMapper.updateByPrimaryKeySelective(member);
 			moberVoService.flush(req.getMemberId());
 		}else{
