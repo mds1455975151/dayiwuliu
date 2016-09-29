@@ -15,7 +15,7 @@ public class SessionManager {
 	public static void setSessionMember(HttpServletRequest request,MemberResp sessionMember) {
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		IMemberVoService memberVoService =wac.getBean(IMemberVoService.class);
-		MemberVo memberVo =memberVoService.get(sessionMember.getId());
+		MemberVo memberVo =memberVoService.get(sessionMember.getId(),true);
 		request.getSession().setAttribute("session_member", memberVo);
 	}
 	public static MemberVo getSessionMember(HttpServletRequest request) {
