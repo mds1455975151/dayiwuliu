@@ -51,6 +51,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <c:if test="${Vehicle.vehicletype eq '3' }">
                                  		冷藏
                                 </c:if>
+                                <c:if test="${Vehicle.vehicletype eq '4' }">
+                                 		散装罐车
+                                </c:if>
+                                <c:if test="${Vehicle.vehicletype eq '5' }">
+                                 		半挂车
+                                </c:if>
                                 </span>
                                 <label>载重(吨)：</label><span>${Vehicle.vehiweight }</span>
                                 <label>长度(米)：</label><span>${Vehicle.vehilength }</span><br>

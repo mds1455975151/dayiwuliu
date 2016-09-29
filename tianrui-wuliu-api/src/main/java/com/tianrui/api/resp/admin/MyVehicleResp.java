@@ -44,7 +44,7 @@ public class MyVehicleResp extends BaseResp{
 	 */
 	private String telphone;
 	/**
-	 * 车辆类型 1：箱式	2：车板3：冷藏
+	 * 车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 */
 	private String vehicletype;
 	/**
