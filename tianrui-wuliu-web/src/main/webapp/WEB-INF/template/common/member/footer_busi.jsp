@@ -34,8 +34,8 @@
                     </ul>
                 </div>
                 <div class="foot_er mt20">
-                    <img src="${trRoot}/tianrui/images/er.png">
-                    <img src="${trRoot}/tianrui/images/er.png">
+                    <img title="IOS" width="130" height="130" src="${trRoot}/tianrui/images/erios.png">
+                    <img title="android" width="130" height="130" src="${trRoot}/tianrui/images/erandroid.png">
                 </div>
             </div>
         </div>
