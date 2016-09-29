@@ -145,7 +145,7 @@ function interHTML(data){
 		var auditstatus = "";
 		if(data[a].auditstatus != undefined){
 			if(data[a].auditstatus=="0"){
-				auditstatus = "审核中";
+				auditstatus = "审批中";
 			}else if(data[a].auditstatus=="1"){
 				auditstatus = "审批成功";
 			}else if(data[a].auditstatus=="2"){

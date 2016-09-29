@@ -1,6 +1,12 @@
 package com.tianrui.service.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +16,19 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IPayInvoiceService;
 import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
 import com.tianrui.api.resp.pay.PayInvoiceResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.PayStatusEnum;
+import com.tianrui.common.utils.Md5Utils;
+import com.tianrui.common.vo.AppParam;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.PayInvoice;
@@ -201,5 +212,27 @@ public class PayInvoiceService implements IPayInvoiceService {
 			rs.setError("nc支付开发中");
 		}
 		return rs;
+	}
+	
+	private String httpNcurl() throws IOException{
+		URL url = new URL("http://172.20.10.108/tcp/payinvoice/queryPayStatus");
+		// 打开url连接
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		// 设置url请求方式 ‘get’ 或者 ‘post’
+		connection.setRequestMethod("POST");
+		StringBuffer params = new StringBuffer();
+		
+		
+//        System.out.println(aa);
+//        byte[] bypes = params.toString().getBytes();
+        connection.getOutputStream().write(null);// 输入参数
+		
+		
+		// 发送
+		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		String response = in.readLine();
+		System.out.println(response);
+		
+		return null;
 	}
 }

@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>审核状态：</label>
                             <select class="form-control" id="Saudit">
                                 <option value="">请选择</option>
-	                            <option value="0">审核中</option>
+	                            <option value="0">审批中</option>
 	                            <option value="1">审批成功</option>
 	                            <option value="2">审批失败</option>
                             </select>
