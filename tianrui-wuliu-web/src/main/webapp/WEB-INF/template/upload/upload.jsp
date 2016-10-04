@@ -19,15 +19,13 @@
 <script type="text/javascript">
 function index(){
 	$.ajax({
-		cache: true,
 		type:"post",
 		url:"add",
 		data:$('#file').serialize(),// 你的formid
-		async: false,
 		success: function(rs) {
 			$(this).attr("disabled",false);
 			if(rs.code=="000000"){
-				window.location.href = CONTEXTPATH + "/trwuliu/planowner/main";
+				
 			}else{
 				alert(rs.error);
 			}

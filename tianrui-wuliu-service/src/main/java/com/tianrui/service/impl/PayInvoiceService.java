@@ -31,6 +31,8 @@ import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FileOrg;
+import com.tianrui.service.admin.mapper.FileOrgMapper;
 import com.tianrui.service.bean.PayInvoice;
 import com.tianrui.service.bean.PayInvoiceDetail;
 import com.tianrui.service.mapper.PayInvoiceDetailMapper;
@@ -43,6 +45,8 @@ public class PayInvoiceService implements IPayInvoiceService {
 	PayInvoiceMapper  payInvoiceMapper;
 	@Autowired
 	PayInvoiceDetailMapper payInvoiceDetailMapper;
+	@Autowired
+	FileOrgMapper fileOrgMapper;
 	
 	@Override
 	public PaginationVO<PayInvoiceResp> page(PayInvoiceQueryReq req) throws Exception {
@@ -208,31 +212,32 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}else if(invoice.getPayStatus()!=(byte)0){
 			rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
 		}else{
+			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
+			invoice.setOrgid(org.getOrganizationno());
 			rs.setCode("1");
-			rs.setError("nc支付开发中");
+			rs.setError(httpNcurl(invoice));
 		}
 		return rs;
 	}
 	
-	private String httpNcurl() throws IOException{
-		URL url = new URL("http://172.20.10.108/tcp/payinvoice/queryPayStatus");
+	protected  String httpNcurl(PayInvoice invoice) throws IOException{
+		URL url = new URL("http://172.20.10.90/tcp/payinvoice/queryPayStatus");
 		// 打开url连接
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		// 设置url请求方式 ‘get’ 或者 ‘post’
 		connection.setRequestMethod("POST");
-		StringBuffer params = new StringBuffer();
 		
-		
+		JSON.toJSON(invoice);
 //        System.out.println(aa);
-//        byte[] bypes = params.toString().getBytes();
-        connection.getOutputStream().write(null);// 输入参数
-		
-		
+		String sd = "payInvoice="+JSON.toJSON(invoice).toString();
+		System.out.println("nc请求数据=="+sd);
+        byte[] bypes = sd.getBytes();
+        connection.getOutputStream().write(bypes);// 输入参数
 		// 发送
 		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		String response = in.readLine();
 		System.out.println(response);
 		
-		return null;
+		return response;
 	}
 }

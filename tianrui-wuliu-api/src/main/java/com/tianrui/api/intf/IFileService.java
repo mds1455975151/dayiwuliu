@@ -15,7 +15,9 @@ import com.tianrui.common.vo.Result;
  *
  */
 public interface IFileService  {
-	
+	/** base64 上传图片*/
 	Result uploadImg(FileUploadReq fileUploadReq)throws Exception;
+	/** byte[]上传图片*/ 
+	Result uploadByteImg(byte[] out) throws Exception;
 	
 }

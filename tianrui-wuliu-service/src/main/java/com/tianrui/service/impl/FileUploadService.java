@@ -59,4 +59,23 @@ public class FileUploadService implements IFileService{
 		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
 		return result;
 	}
+	
+	public Result uploadByteImg(byte[] out) throws Exception {
+		Result result=Result.getSuccessResult();
+		//验证图片格式
+		try {
+			String imgURI = UUIDUtil.getId()+".png";
+			
+			InputStream input = new ByteArrayInputStream(out);
+			gridFsTemplate.store(input, imgURI);
+			String imgURL = Constant.FILE_URL_PRE+imgURI;
+			result.setData(imgURL);
+			
+		} catch (Exception e) {
+			logger.error("{}",e.getMessage(),e);
+			result =new Result("error","上传图片服务异常" );
+		}
+		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
+		return result;
+	}
 }

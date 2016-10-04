@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IFileService;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
+import com.tianrui.web.util.ImageUtils;
 @Controller
 @RequestMapping("upload")
 public class UploadAction {
@@ -33,16 +35,25 @@ public class UploadAction {
 		Result rs = Result.getSuccessResult();
 		// 判断文件是否为空  
         if (!file.isEmpty()) {  
-            try {  
-                // 文件保存路径  
-                String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/js/temp/"  
-                        + file.getOriginalFilename();  
-                System.out.println("path="+filePath);
-                // 转存文件  
-                file.transferTo(new File(filePath));  
-            } catch (Exception e) {  
-                e.printStackTrace();  
-            }  
+        	String sd = file.getOriginalFilename();
+        	String fix = sd.substring(sd.lastIndexOf(".")+1);
+        	System.out.println(fix+"="+fix.indexOf("|jpg|png|JPG|PNG|"));
+        	if("jpg".equals(fix)||"png".equals(fix)||"JPG".equals(fix)||"".equals(fix)||"PNG".equals(fix)){
+        		try {  
+        			// 文件保存路径  
+        			String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/js/temp/"  
+        					+ file.getOriginalFilename();  
+        			// 转存文件  
+        			file.transferTo(new File(filePath));
+        			byte[] b = ImageUtils.getBytesDelFile(filePath);
+        			rs = iFileService.uploadByteImg(b);
+        		} catch (Exception e) {  
+        			e.printStackTrace();  
+        		}  
+        	}else{
+        		rs.setCode("1");
+        		rs.setError("图片格式有误");
+        	}
         }  
 		return rs;
 	}
