@@ -290,6 +290,6 @@ function getType(id,status){
 			"<div class='file_detail'><label>注册时间：</label><span>"+registtime+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+submitDate+"</span></div><br>"+
 			"<div class='file_detail3'><label>营业执照号/身份证号：</label><span>"+identityCard+"</span></div>"+
-			"<div class='file_detail3'><label>营业执照/身份证照片：</label><span><img width='180' src='"+idcardsImagePath+"'></span></div>";
+			"<div class='file_detail3'><label>营业执照/身份证照片：</label><span><a href='"+idcardsImagePath+"' target='_blank'><img width='180' src='"+idcardsImagePath+"'></a></span></div>";
 		document.getElementById("detailid").innerHTML = hml;	
   }

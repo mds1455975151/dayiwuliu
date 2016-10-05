@@ -61,7 +61,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="row ">
                         <div class="person_cont">
-                            <label>驾驶证照片：</label><span><img width="200" src="${memberInfo.driverimage }"></span>
+                            <label>驾驶证照片：</label>
+                            <span> 
+                            <a href="${memberInfo.driverimage }" target="_blank">
+                            <img width="200" src="${memberInfo.driverimage }">
+                            </a>
+                            </span>
                        		<input type="hidden" id="infoid" value="${memberInfo.id }">
                         </div>
                     </div>

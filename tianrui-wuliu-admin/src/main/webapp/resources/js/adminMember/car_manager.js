@@ -201,8 +201,8 @@ function details(id){
 				"<div class='file_detail'><label>长度：</label><span>"+d.vehilength+"米</span></div>"+
 				"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 				"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
-				"<div class='file_detail2'><label>车辆照片：</label><span><img width='180' src='"+d.vehiheadimgpath+"'></span></div>"+
-				"<div class='file_detail2'><label>行驶证照片：</label><span><img width='180' src='"+d.vehilicenseimgpath+"'></span></div>";
+				"<div class='file_detail2'><label>车辆照片：</label><span><a href='"+d.vehiheadimgpath+"' target='_blank'><img width='180' src='"+d.vehiheadimgpath+"'></a></span></div>"+
+				"<div class='file_detail2'><label>行驶证照片：</label><span><a href='"+d.vehilicenseimgpath+"' target='_blank'><img width='180' src='"+d.vehilicenseimgpath+"'></a></span></div>";
 			document.getElementById("detailid").innerHTML = hml;
 		}
 	});

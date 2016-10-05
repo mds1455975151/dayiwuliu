@@ -63,10 +63,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="person_cont">
                             <label>证件照：</label><span id="imgid">
                             <c:if test="${memberInfo.companypercheck eq '2' }">
+                            <a href="${memberInfo.licenseImagePath }" target="_blank">
                             <img width="200" src="${memberInfo.licenseImagePath }">
+                            </a>
                             </c:if>
                             <c:if test="${memberInfo.userpercheck eq '2' }">
+                            <a href="${memberInfo.idcardimage }" target="_blank">
                             <img width="200" src="${memberInfo.idcardimage }">
+                            </a>
                             </c:if>
                             </span>
                         </div>
