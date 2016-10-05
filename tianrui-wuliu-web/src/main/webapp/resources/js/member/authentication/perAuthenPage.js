@@ -145,7 +145,6 @@ $("#perAuthen_button").click(function() {
 	});
 });
 
-// 调用cropbox.js方法
 function invokeCropBoxMethod() {
     // 身份证驾照上传的按钮tab切换
     var $tab_li = $('.rz_persontab ul li');

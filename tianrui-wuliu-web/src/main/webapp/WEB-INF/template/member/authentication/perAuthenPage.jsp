@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="author" content="">
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-    
 <!-- 引用公共header部分 -->
 <jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 <!--内容部分begin-->
@@ -57,11 +56,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    <div class="rz_persontab">
                        <!--tab切换标题-->
                        <ul class="rz_personmenu">
-                           <li class="rz_p1" style="cursor: pointer;">选择上传身份证</li>
-                           <li class="rz_p2" style="cursor: pointer;">选择上传驾驶证</li>
+                           <li class="select rz_p1">选择上传身份证</li>
+                           <li class="rz_p2" >选择上传驾驶证</li>
                        </ul>
                        <!--tab切换标题end-->
-                       <div style="font-size: 12px;color: #828282;">
+                       <div class="samples">
+                  			<img class="sfz" src="${trRoot}/tianrui/images/sfz.png">
+                  			<img class="jsz hide" src="${trRoot}/tianrui/images/jz.png">
                        </div>
 	                   <div class="rz_persontab">
 	                       <div class="img_upload">
@@ -86,13 +87,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/member/authentication/perAuthenPage.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 
 <script type="text/javascript">
+	//身份证驾照上传的按钮tab切换
+	var $tab_li = $('.rz_persontab ul li');
+	$tab_li.click(function(){
+	    $(this).addClass('select').siblings().removeClass('select');
+	    var index = $tab_li.index(this);
+	    $('.rz_personbox > .rz_personcont').eq(index).show().siblings().hide();
+	    if($(this).hasClass('rz_p1')){
+	    	$('.sfz').show();
+	    	$('.jsz').hide();
+	    }
+	    if($(this).hasClass('rz_p2')){
+	    	$('.sfz').hide();
+	    	$('.jsz').show();
+	    }
+	});
 	$("#file_jsz").fileinput({
         language:'zh',
 	    showUpload: false,
