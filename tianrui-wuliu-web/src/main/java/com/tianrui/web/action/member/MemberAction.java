@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IFileService;
@@ -27,7 +28,6 @@ import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberInfoResp;
 import com.tianrui.api.resp.front.member.MemberResp;
-import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.util.SessionManager;
@@ -232,8 +232,8 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String id,
 			@RequestParam(defaultValue = "")String identityCard,
 			@RequestParam(defaultValue = "")String telphone,
-			@RequestParam(defaultValue = "")String imgStr,
 			@RequestParam(defaultValue = "")String type,//2-驾驶证；1-身份证
+			MultipartFile file,
 			HttpServletRequest request
 			) throws Exception{
 		
@@ -242,7 +242,7 @@ public class MemberAction{
 				id==null||"".equals(id)||
 				identityCard==null||"".equals(identityCard)||
 				telphone==null||"".equals(telphone)||
-				imgStr==null||"".equals(imgStr)
+				file==null
 				){
 			rs.setCode("1");
 			rs.setError("数据不能为空");
@@ -250,10 +250,7 @@ public class MemberAction{
 		}
 		try {
 			//保存图片
-			FileUploadReq freq =new FileUploadReq();
-			freq.setImgStr(imgStr);
-			freq.setuId(SessionManager.getSessionMember(request).getId());
-			rs = iFileService.uploadImg(freq);
+			rs = iFileService.uploadByteImg(file, request);
 			//图片保存成功，进行下一步操作
 			if("000000".equals(rs.getCode())){
 				MemberInfoReq req = new MemberInfoReq();

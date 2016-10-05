@@ -1,7 +1,6 @@
 package com.tianrui.service.impl;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,6 @@ import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.util.ImageUtils;
 
 @Service
 public class FileUploadService implements IFileService{
@@ -72,17 +70,10 @@ public class FileUploadService implements IFileService{
         	String sd = file.getOriginalFilename();
         	String fix = sd.substring(sd.lastIndexOf(".")+1);
         	//限制文件格式
-        	if("jpg".equals(fix)||"png".equals(fix)||"JPG".equals(fix)||"".equals(fix)||"PNG".equals(fix)){
+        	if("jpg".equals(fix)||"png".equals(fix)||"JPG".equals(fix)||"".equals(fix)||"PNG".equals(fix)||"JPEG".equals(fix)||"".equals(fix)||"jpeg".equals(fix)){
         		try {  
-        			// 文件保存路径  
-        			String filePath = request.getSession().getServletContext().getRealPath("/") + "resources/js/temp/"  
-        					+ file.getOriginalFilename();  
-        			// 本地保存文件  
-        			file.transferTo(new File(filePath));
-        			byte[] out = ImageUtils.getBytesDelFile(filePath);
-        			
-        			String imgURI = UUIDUtil.getId()+".png";
-        			InputStream input = new ByteArrayInputStream(out);
+        			InputStream input = file.getInputStream();
+        			String imgURI = UUIDUtil.getId()+"."+fix;
         			gridFsTemplate.store(input, imgURI);
         			String imgURL = Constant.FILE_URL_PRE+imgURI;
         			result.setData(imgURL);
