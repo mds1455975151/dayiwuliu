@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IFileService;
@@ -312,29 +315,24 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/saveMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result saveMyVehicleInfo(MemberVehicleReq vehiReq, String vehiWholeNo) throws Exception{
+	public Result saveMyVehicleInfo(
+			MemberVehicleReq vehiReq,
+			String vehiWholeNo,
+			MultipartFile filehead,
+			MultipartFile fileLicense,
+			HttpServletRequest request
+			) throws Exception{
 		
 		Result rs = Result.getSuccessResult();
-		
 		String vehiHeadImgPath = null;
 		String vehiLicenseImgPath = null;
-		if (vehiReq.getVehiHeadImgPath() != null) {
-			// 转换并上传车辆图片地址
-			FileUploadReq fileUploadReq = new FileUploadReq();
-			fileUploadReq.setImgStr(vehiReq.getVehiHeadImgPath());
-			rs = iFileService.uploadImg(fileUploadReq);
-			if (rs.getData() != null) {
-				vehiHeadImgPath = rs.getData().toString();
-			}
+		rs = iFileService.uploadByteImg(filehead, request);
+		if (rs.getData() != null) {
+			vehiHeadImgPath = rs.getData().toString();
 		}
-		if (vehiReq.getVehiLicenseImgPath() != null) {
-			// 转换并上传行驶证图片地址
-			FileUploadReq fileUploadReq = new FileUploadReq();
-			fileUploadReq.setImgStr(vehiReq.getVehiLicenseImgPath());
-			rs = iFileService.uploadImg(fileUploadReq);
-			if (rs.getData() != null) {
-				vehiLicenseImgPath = rs.getData().toString();
-			}
+		rs = iFileService.uploadByteImg(fileLicense, request);
+		if (rs.getData() != null) {
+			vehiLicenseImgPath = rs.getData().toString();
 		}
 		
 		MemberVehicleReq vehicleReq = new MemberVehicleReq();
