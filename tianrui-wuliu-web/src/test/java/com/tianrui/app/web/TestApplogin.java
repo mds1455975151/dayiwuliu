@@ -25,7 +25,7 @@ public class TestApplogin {
 		//URL url = new URL("http://127.0.0.1:8080/app/member/login");
 		//URL url = new URL("http://172.19.4.23:8091/app/member/login");
 		//URL url = new URL("http://172.19.4.23:8091/app/planvender/page");
-		URL url = new URL("http://172.20.10.108/tcp/payinvoice/queryPayStatus");
+		URL url = new URL("http://172.20.10.90/tcp/payinvoice/queryPayStatus");
 		// 打开url连接
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		// 设置url请求方式 ‘get’ 或者 ‘post’

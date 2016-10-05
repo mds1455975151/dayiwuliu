@@ -1,5 +1,9 @@
 package com.tianrui.api.intf;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.common.vo.Result;
 
@@ -18,6 +22,6 @@ public interface IFileService  {
 	/** base64 上传图片*/
 	Result uploadImg(FileUploadReq fileUploadReq)throws Exception;
 	/** byte[]上传图片*/ 
-	Result uploadByteImg(byte[] out) throws Exception;
+	Result uploadByteImg(MultipartFile file,HttpServletRequest request) throws Exception;
 	
 }
