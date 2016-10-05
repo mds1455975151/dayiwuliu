@@ -12,9 +12,6 @@ $(function() {
     // 左侧导航选中效果
 	$('#authenPage').addClass('selected');
 
-	// 调用cropbox.js方法
-	invokeCropBoxMethod();
-	
 	// 阅读协议绑定跳转链接
 	$("#corpAuthen_protocol").attr("href", PATH + "/publicMember/protocol");
 	// 联系人电话
@@ -91,15 +88,13 @@ $("#corpAuthen_button").click(function() {
 	// 联系人电话
 	var corpAuthen_tel = $("#corpAuthen_tel").val();
 	// 营业执照图片路径
-	var busiLicensePath = $("#busiLicense").attr("src");
+	var file_yyzz = $("#file_yyzz")[0].files[0];
 	
 	var companycode = $("#corpAuthen_code").val();
-	
-	var imgPath = "";
-	if (busiLicensePath != undefined) {
-		imgPath = busiLicensePath;
+	if($('.file-input').hasClass('has-error')){
+		alert('图片格式不正确，请重新选择图片！');
+		return;
 	}
-	
 	if (corpAuthen_name == "") {
 		$("#message_corpAuthenName").html("企业名称不能为空！");
 		return;
@@ -116,7 +111,7 @@ $("#corpAuthen_button").click(function() {
 		$("#modal_common_content").html("请阅读并同意《天瑞物流平台》的协议！");
 		$("#commonModal").modal();
 		return;
-	} else if(imgPath == ""){
+	} else if(!file_yyzz){
 		$("#modal_common_content").html("请上传营业执照图片");
 		$("#commonModal").modal();
 		return;
@@ -124,19 +119,20 @@ $("#corpAuthen_button").click(function() {
 		$("#message_corpAuthencode").html("营业执照号码不能为空！");
 		return;
 	}
-	
+	var formData = new FormData();
+	formData.append("id",member_id);
+	formData.append("companyName",corpAuthen_name);
+	formData.append("companyAddress",corpAuthen_address);
+	formData.append("companyContact",corpAuthen_linkman);
+	formData.append("contactTel",corpAuthen_tel);
+	formData.append("companycode",companycode);
+	formData.append("file",file_yyzz);
 	// 后台处理
 	$.ajax({
 		url : PATH + '/trwuliu/Member/enterpriseAuthentication',// 跳转到 action
-		data : {
-					id:member_id, 
-					companyName:corpAuthen_name, 
-					companyAddress:corpAuthen_address, 
-					companyContact:corpAuthen_linkman, 
-					contactTel:corpAuthen_tel,
-					companycode:companycode,
-					imgStr:imgPath
-				},
+		data : formData, 
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
 		type : "post",
 		success : function(result) {
 			var ret = result.code;
@@ -152,75 +148,3 @@ $("#corpAuthen_button").click(function() {
 		}
 	});
 });
-
-// 调用cropbox.js方法
-function invokeCropBoxMethod() {
-    // 点击选择上传图片按钮，图片裁剪框显示出来
-    $(".tx_contr").on('click',function(){
-        $(".acc_txqiyerz").show();
-    });
-    // 营业照上传的收起按钮
-    $(".tx_shouqi").on('click',function(){
-        $(".acc_txqiyerz").hide();
-    });
-
-    var thumbcom = $(".imgBox_company .thumbBox");
-    thumbcom.height(114);
-    thumbcom.width(200);
-    thumbcom.css({ "margin-top": -57, "margin-left": -100 });
-
-    var options =
-    {
-        thumbBox: '.thumbBox',
-        spinner: '.spinner',
-        imgSrc: 'images/img1.jpg'
-    };
-    var cropper = $('.imgBox_company').cropbox(options);
-    // 文件上传按钮操作
-    $('#upload-file').on('change', function(){
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            options.imgSrc = e.target.result;
-            cropper = $('.imgBox_company').cropbox(options);
-        };
-        reader.readAsDataURL(this.files[0]);
-        this.files = [];
-    });
-    // 裁切按钮操作
-    $('#btnCrop').on('click', function(){
-        var img = cropper.getDataURL();
-        $('.user_oldtx').html('');
-        $('.user_oldtx').append('<img id="busiLicense" src="'+img+'" align="absmiddle" style="box-shadow:0px 0px 12px #7E7E7E;">');
-        // 裁剪次数自增
-        count++;
-        $("#busiLicenseImgBack_2").val($("#busiLicenseImgBack_3").val());
-        $("#busiLicenseImgBack_3").val($("#busiLicense").attr("src"));
-        $(".tx_config").on('click',function(){
-            $(".acc_touxiang").hide();
-
-        });
-    });
-    
-    // 回退按钮
-    $(".tx_cancel").on('click',function() {
-    	// 裁剪次数自减
-    	count--;
-    	if (count <= 0) {
-    		count = 0;
-    		$('.user_oldtx').empty();
-        	$('.user_oldtx').append('<img id="busiLicenseImg" src=' + $('#busiLicenseImgBack_1').val() + ' class="img-rounded">');
-    	} else {
-    		$("#busiLicense").removeAttr("src");
-    		$("#busiLicense").attr("src", $("#busiLicenseImgBack_2").val());
-    	}
-    });
-    
-    // 营业照上传图片放大按钮操作
-    $('#btnZoomIn').on('click', function(){
-        cropper.zoomIn();
-    });
-    // 营业照上传图片缩小按钮操作
-    $('#btnZoomOut').on('click', function(){
-        cropper.zoomOut();
-    });
-}

@@ -134,7 +134,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         console.log(data.reader);
         console.log(data.files);
     }).on('fileuploaded', function(event, data, previewId, index) {
-    	debugger;
         var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
         console.log('File uploaded triggered');

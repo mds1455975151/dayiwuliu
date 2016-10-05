@@ -298,7 +298,7 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String companyContact,
 			@RequestParam(defaultValue = "")String contactTel,
 			@RequestParam(defaultValue = "")String companycode,
-			@RequestParam(defaultValue = "")String imgStr,//身份证照片
+			MultipartFile file,//身份证照片
 			HttpServletRequest request
 			) throws Exception{
 		Result rs =Result.getSuccessResult();
@@ -307,7 +307,7 @@ public class MemberAction{
 				companyAddress==null||"".equals(companyAddress)||
 				companyContact==null||"".equals(companyContact)||
 				contactTel==null||"".equals(contactTel)||
-				imgStr==null||"".equals(imgStr)
+				file==null
 				){
 			rs.setCode("1");
 			rs.setError("请求数据不能为空");
@@ -315,10 +315,7 @@ public class MemberAction{
 		}
 		try {
 			//保存图片
-			FileUploadReq freq =new FileUploadReq();
-			freq.setImgStr(imgStr);
-			freq.setuId(SessionManager.getSessionMember(request).getId());
-			rs = iFileService.uploadImg(freq);
+			rs = iFileService.uploadByteImg(file, request);
 			if("000000".equals(rs.getCode())){
 				MemberInfoReq req = new MemberInfoReq();
 				req.setMemberId(id);

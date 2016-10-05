@@ -14,8 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link href="${trRoot}/tianrui/css/imgcut.css" rel="stylesheet">
-<link href="${trRoot}/tianrui/css/fileinput.css" media="all"
-	rel="stylesheet" type="text/css" />
+<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 <!-- 引用公共header部分 -->
 <jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 <!--内容部分begin-->
@@ -57,7 +56,7 @@
 						<label><i class="coryel">*</i>驾驶证:</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="jsz" src="${trRoot}/tianrui/images/jz.png">
+								<img src="${trRoot}/tianrui/images/jz.png">
 							</div>
 							<div class="img_upload">
 								<input id="file_jsz" class="file" type="file"> <span
@@ -78,55 +77,40 @@
 	<!--内容部分end-->
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
-
-	<script type="text/javascript"
-		src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
-	<script type="text/javascript"
-		src="/resources/js/member/authentication/authenStatePage.js"></script>
+	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
-	<script type="text/javascript"
-		src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
+	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 	<script type="text/javascript">
-		$("#file_jsz")
-				.fileinput({
-					language : 'zh',
-					showUpload : false,
-					dropZoneEnabled : false,
-					maxFileCount : 1,
-					//      minImageWidth: 50, //图片的最小宽度
-					//	    minImageHeight: 50,//图片的最小高度
-					//      maxImageWidth: 600,//图片的最大宽度
-					//	    maxImageHeight: 600,//图片的最大高度
-					maxFileSize : 5000,//单位为kb，如果为0表示不限制文件大小
-					resizeImage : true,
-					showCaption : true,
-					showPreview : true,
-					allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]
-				// 支持的图片类型
-				})
-				.on(
-						'fileuploaderror',
-						function(event, data, previewId, index) {
-							var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-							console.log(data);
-							console.log('File upload error');
-						})
-				.on('fileerror', function(event, data) {
-					console.log(data.id);
-					console.log(data.index);
-					console.log(data.file);
-					console.log(data.reader);
-					console.log(data.files);
-				})
-				.on(
-						'fileuploaded',
-						function(event, data, previewId, index) {
-							debugger;
-							var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-							console.log('File uploaded triggered');
-						});
+		$("#file_jsz").fileinput({
+			language : 'zh',
+			showUpload : false,
+			dropZoneEnabled : false,
+			maxFileCount : 1,
+//       	minImageWidth: 50, //图片的最小宽度
+//	  	 	minImageHeight: 50,//图片的最小高度
+//   	  	maxImageWidth: 600,//图片的最大宽度
+//	 	  	maxImageHeight: 600,//图片的最大高度
+			maxFileSize : 5000,//单位为kb，如果为0表示不限制文件大小
+			resizeImage : true,
+			showCaption : true,
+			showPreview : true,
+			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
+		}).on('fileuploaderror',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log(data);
+			console.log('File upload error');
+		}).on('fileerror', function(event, data) {
+			console.log(data.id);
+			console.log(data.index);
+			console.log(data.file);
+			console.log(data.reader);
+			console.log(data.files);
+		}).on('fileuploaded',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log('File uploaded triggered');
+		});
 	</script>
 	</body>
 </html>
