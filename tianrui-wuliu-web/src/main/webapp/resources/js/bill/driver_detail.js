@@ -87,6 +87,7 @@ $(function(){
 		confirm("上传榜单","是否要上传提货榜单？",function(){
 			$("#urlReq").val(URL.pickupConfirmUrl);
 			$('.imageBox_bd').removeAttr('style');
+			initFileInput();
 			$("#upbangdan").modal();
 		},function(){
 			$.ajax({
@@ -108,6 +109,7 @@ $(function(){
 	$(".detailDiv").on("click",".dischargeBtn",function(){
 		$("#urlReq").val(URL.dischargeConfirmUrl);
 		$('.imageBox_bd').removeAttr('style');
+		initFileInput();
 		$("#upbangdan").modal();
 	});
 	//dischargeBtn 到达确认
@@ -141,9 +143,41 @@ $(function(){
 				}
 			}
 		})
-		
-		
 	});
+	
+	function initFileInput(){
+		$('#file_bd').val('').fileinput('destroy');
+		$("#file_bd").fileinput({
+			language : 'zh',
+			initialPreview: ['<img src="'+trRoot+'/tianrui/images/bd.png" class="file-preview-image">'],
+			showUpload : false,
+			dropZoneEnabled : true,
+			maxFileCount : 1,
+		//	minImageWidth: 50, //图片的最小宽度
+		//	 	minImageHeight: 50,//图片的最小高度
+		// 	maxImageWidth: 600,//图片的最大宽度
+		//	  	maxImageHeight: 600,//图片的最大高度
+			maxFileSize : 5000,//单位为kb，如果为0表示不限制文件大小
+			resizeImage : true,
+			showCaption : true,
+			showPreview : true,
+			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
+		}).on('fileuploaderror',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log(data);
+			console.log('File upload error');
+		}).on('fileerror', function(event, data) {
+			console.log(data.id);
+			console.log(data.index);
+			console.log(data.file);
+			console.log(data.reader);
+			console.log(data.files);
+		}).on('fileuploaded',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log('File uploaded triggered');
+		});
+	}
+	
 	var _htmlsrc =$(".bangdan_img").html();
 	//监听上传模态框关闭事件
 	$('#upbangdan').on('hidden.bs.modal', function (e) {
@@ -153,10 +187,18 @@ $(function(){
 	
 	//上传榜单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
-		if( $("#billId").val() &&  $("#imgdata").val() && $("#urlReq").val()){
+		var id = $("#billId").val();
+		var file = $("#file_bd")[0].files[0];
+		var url = $("#urlReq").val();
+		if(id && file && url){
+			var formData = new FormData();
+			formData.append("file",file);
+			formData.append("id",id);
 			$.ajax({
-				url:$("#urlReq").val(),
-				data:{"id":$("#billId").val(),"imgdata":$("#imgdata").val()},
+				url:PATH + url,
+				data : formData, 
+				processData : false,//告诉jQuery不要去处理发送的数据
+				contentType : false,//告诉jQuery不要去设置Content-Type请求头
 				type : "post",
 				dataType:"json",
 				success:function(rs){
@@ -168,61 +210,8 @@ $(function(){
 				}
 			})
 		}else{
-			alert("请先裁剪图片")
+			alert("请先选择图片")
 		}
 		
 	});
-	
-
-	
-	//图片上传相关
-	 // 点击修改头像按钮，图片裁剪框显示出来
-   $(".bdup").on('click',function(){
-       $(".bangdan_upload").show();
-   });
-   // 修改头像的收起按钮
-   $(".tx_shouqi").on('click',function(){
-       $(".bangdan_upload").hide();
-   });
-   // 图片裁切块的大小自定义，margin-top是height一半，margin-left是width一半
-   var thumb = $(".imageBox_bd .thumbBox");
-   thumb.width(350);
-   thumb.height(140);
-   thumb.css({ "margin-top": -70, "margin-left": -175 });
-   // 给cropbox.js传参
-   var options =
-   {
-       thumbBox: '.thumbBox',
-       spinner: '.spinner'
-   }
-   var cropper = $('.imageBox_bd').cropbox(options);
-   // 文件上传按钮操作
-   $('#upload-file').on('change', function(){
-       var reader = new FileReader();
-       reader.onload = function(e) {
-           options.imgSrc = e.target.result;
-           cropper = $('.imageBox_bd').cropbox(options);
-       }
-       reader.readAsDataURL(this.files[0]);
-       this.files = [];
-   })
-   // 裁切按钮操作
-   $('#btnCrop').on('click', function(){
-       var img = cropper.getDataURL();
-       $('.bangdan_img').html('');
-       $('.bangdan_img').append('<img src="'+img+'" align="absmiddle" >');
-       $("#imgdata").val(img)
-       $(".tx_cancel").on('click',function(){
-           $(".acc_touxiang").hide();
-       });
-   })
-   // 图片放大按钮操作
-   $('#btnZoomIn').on('click', function(){
-       cropper.zoomIn();
-   })
-   // 图片缩小按钮操作
-   $('#btnZoomOut').on('click', function(){
-       cropper.zoomOut();
-   })
-	
 });

@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript">
-var trRoot = "${trRoot}";	
+	var trRoot = "${trRoot}";	
 </script>
 </body>
 </html>
