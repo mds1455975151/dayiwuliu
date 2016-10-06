@@ -324,13 +324,18 @@ public class MyVehicleAction {
 			) throws Exception{
 		
 		Result rs = Result.getSuccessResult();
+		if(filehead == null || fileLicense ==null){
+			rs.setCode("1");
+			rs.setError("车辆照片不能为空");
+			return rs;
+		}
 		String vehiHeadImgPath = null;
 		String vehiLicenseImgPath = null;
-		rs = iFileService.uploadByteImg(filehead, request);
+		rs = iFileService.uploadByteImg(filehead);
 		if (rs.getData() != null) {
 			vehiHeadImgPath = rs.getData().toString();
 		}
-		rs = iFileService.uploadByteImg(fileLicense, request);
+		rs = iFileService.uploadByteImg(fileLicense);
 		if (rs.getData() != null) {
 			vehiLicenseImgPath = rs.getData().toString();
 		}
@@ -374,7 +379,8 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/updateMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq) throws Exception{
+	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq,MultipartFile filehead,
+			MultipartFile fileLicense) throws Exception{
 		Result rs = Result.getSuccessResult();
 		
 		MemberVehicleReq rreq = new MemberVehicleReq();
@@ -387,20 +393,14 @@ public class MyVehicleAction {
 			rs.setError("该车牌号已被认证");
 			return rs;
 		}
-		String headImg = vehiReq.getVehiHeadImgPath();
-		String licenseImg = vehiReq.getVehiLicenseImgPath();
-		if(StringUtils.isNotBlank(headImg)){
-			FileUploadReq req = new FileUploadReq();
-			req.setImgStr(headImg);
-			rs = iFileService.uploadImg(req);
+		if(filehead != null){
+			rs = iFileService.uploadByteImg(filehead);
 			if(rs.getCode().equals("000000")){
 				vehiReq.setVehiHeadImgPath(rs.getData().toString());
 			}
 		}
-		if(StringUtils.isNotBlank(licenseImg)){
-			FileUploadReq req = new FileUploadReq();
-			req.setImgStr(licenseImg);
-			rs = iFileService.uploadImg(req);
+		if(fileLicense != null){
+			rs = iFileService.uploadByteImg(fileLicense);
 			if(rs.getCode().equals("000000")){
 				vehiReq.setVehiLicenseImgPath(rs.getData().toString());
 			}

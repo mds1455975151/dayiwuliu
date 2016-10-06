@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <meta name="description" content="">
 	    <meta name="author" content="">
     	<link href="${trRoot}/tianrui//css/imgcut.css" rel="stylesheet">
+    	<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 	<!-- 引用公共header部分 -->
 	<jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 		<!--内容部分begin-->
@@ -74,102 +75,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </div>
 		                    <div class="reg_tel">
 		                        <label>联系电话：</label>
-		                        <input type="text" value="${vehicle.vehiOwnerTel }" id="vehicle_add_vehiTel">
+		                        <input type="text" value="${vehicle.vehiOwnerTel }" maxlength="11" id="vehicle_add_vehiTel">
 		                        <p id="message_vehiTel"></p>
 		                    </div>
-		                    <div class="reg_tel">
+		                    <div class="rz_personline">
 		                        <label>车辆照片：</label>
-		                        <button class="btn  byellow carbtn">上传</button>
-		                        <em>图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</em>
+		                        <div class="rz_persontab">
+			                        <div class="samples">
+			                  			<a href="${vehicle.vehiHeadImgPath }" target="_blank">
+			                  			<img class="cel" width="240" src="${vehicle.vehiHeadImgPath }">
+			                  			</a>
+			                       	</div>
+				                    <div class="rz_persontab">
+				                       <div class="img_upload">
+				                            <input id="file_cel" class="file" type="file">
+				                            <span class="annotation">* 图片大小不超过2M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+				                        </div>
+				                   </div>
+			                   </div>
 		                    </div>
-		                    <!--车辆照片内容begin-->
-		                    <div class="car_photo">
-		                        <!--车辆照片裁切后内容在这里显示-->
-		                        <div class="user_oldtx1 mb20">
-		                        	<img src="${vehicle.vehiHeadImgPath }">
-		                        </div>
-		                        <!-- 隐藏项：图片，剪切后回退用 -->
-								<input type="hidden" id="vehiImgBack_1">
-								<input type="hidden" id="vehiImgBack_2">
-								<input type="hidden" id="vehiImgBack_3">
-		                        <!--车辆照片修改begin-->
-		                        <div class="car_edit">
-		                            <div class="imageBox imgBox350 imgBox_car">
-		                                <div class="thumbBox"></div>
-		                                <div class="spinner" style="display: none">Loading...</div>
-		                            </div>
-		                            <!--操作按钮begin-->
-		                            <div class="action wcompany">
-		                                <!-- <input type="file" id="file" style=" width: 200px">-->
-		                                <div class="new-contentarea tc">
-		                                    <a href="javascript:void(0)" class="upload-img">
-		                                        <label for="upload-file">选择图片</label>
-		                                    </a>
-		                                    <input type="file" class="" name="upload-file" id="upload-file"/>
-		                                </div>
-		                                <button id="btncancel_p1" class="Btnsty_peyton peytonbg1"><i
-		                                        class="iconfont icon-huitui"></i></button>
-		                                <button id="btnCrop_p1" class="Btnsty_peyton peytonbg1"> 裁切</button>
-		                                <button id="btnZoomIn_p1" class="Btnsty_peyton peytonbg1"><i
-		                                        class="iconfont icon-bf-add"></i></button>
-		                                <button id="btnZoomOut_p1" class="Btnsty_peyton peytonbg1"><i
-		                                        class="iconfont icon-jianhao"></i></button>
-		                            </div>
-		                            <!--操作按钮end-->
-		                            <div class="tx_shouqi carshouq1">
-		                                <img src="${trRoot}/tianrui/images/jtup.png">
-		                                <h4>收起</h4>
-		                            </div>
-		                        </div>
-		                        <!--车辆照片修改end-->
-		                    </div>
-		                    <!--车辆照片内容begin-->
-		
-		                    <div class="reg_tel">
+		                    <div class="rz_personline">
 		                        <label>行驶证：</label>
-		                        <button class="btn  byellow jszbtn">上传</button>
-		                        <em>图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</em>
+		                        <div class="rz_persontab">
+			                        <div class="samples">
+			                        	<a href="${vehicle.vehiLicenseImgPath }" target="_blank">
+			                  			<img class="xsz" width="120" src="${vehicle.vehiLicenseImgPath }">
+			                        	</a>
+			                       	</div>
+									<div class="rz_persontab">
+				                       <div class="img_upload">
+				                            <input id="file_xsz" class="file" type="file">
+				                            <span class="annotation">* 图片大小不超过2M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+				                        </div>
+				                   </div>
+			                   </div>
 		                    </div>
-		
-		                    <!--行驶证照片内容begin-->
-		                    <div class="car_photo">
-		                        <div class="user_oldtx2 mb20">
-		                        	<img src="${vehicle.vehiLicenseImgPath }">
-		                        </div>
-		                        <!-- 隐藏项：图片，剪切后回退用 -->
-								<input type="hidden" id="vehiLiceImgBack_1">
-								<input type="hidden" id="vehiLiceImgBack_2">
-								<input type="hidden" id="vehiLiceImgBack_3">
-		                        <!--行驶证照片修改begin-->
-		                        <div class="car_edit2">
-		                            <div class="imageBox imgBox350 imgBox_car2">
-		                                <div class="thumbBox"></div>
-		                                <div class="spinner" style="display: none">Loading...</div>
-		                            </div>
-		                            <!--操作按钮begin-->
-		                            <div class="action wcompany">
-		                                <!-- <input type="file" id="file" style=" width: 200px">-->
-		                                <div class="new-contentarea tc">
-		                                    <a href="javascript:void(0)" class="upload-img">
-		                                        <label for="upload-file_p2">选择图片</label>
-		                                    </a>
-		                                    <input type="file" class="" name="upload-file" id="upload-file_p2"/>
-		                                </div>
-		                                <button id="btncancel_p2" class="Btnsty_peyton peytonbg1"><i
-		                                        class="iconfont icon-huitui"></i></button>
-		                                <button id="btnCrop_p2" class="Btnsty_peyton peytonbg1"> 裁切</button>
-		                                <button id="btnZoomIn_p2" class="Btnsty_peyton peytonbg1"><i
-		                                        class="iconfont icon-bf-add"></i></button>
-		                                <button id="btnZoomOut_p2" class="Btnsty_peyton peytonbg1"><i
-		                                        class="iconfont icon-jianhao"></i></button>
-		                            </div>
-		                            <!--操作按钮end-->
-		                            <div class=" tx_shouqi carshouq2">
-		                                <img src="${trRoot}/tianrui/images/jtup.png">
-		                                <h4>收起</h4>
-		                            </div>
-		                        </div>
-		                        <!--行驶证照片修改end-->
 		                        <!--行驶证照片内容begin-->
 		                        <div class="car_addbtn">
 		                            <button type="submit" class="btn btnyello" id="vehicle_addBtn">修改</button>
@@ -209,6 +149,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">var trRoot = "${trRoot}/tianrui/images/";</script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js" ></script>
 		<script type="text/javascript" src="/resources/js/member/vehicle/updateVehiclePage.js" ></script>
+		<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
+		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js" ></script>
+		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 		
+		<script type="text/javascript">
+			$("#file_cel").fileinput({
+		        language:'zh',
+			    showUpload: false,
+		        dropZoneEnabled:false,
+		        maxFileCount: 1,
+		//      minImageWidth: 50, //图片的最小宽度
+		//	    minImageHeight: 50,//图片的最小高度
+		//      maxImageWidth: 600,//图片的最大宽度
+		//	    maxImageHeight: 600,//图片的最大高度
+		        maxFileSize: 5000,//单位为kb，如果为0表示不限制文件大小
+		        resizeImage: true,
+		        showCaption: true,
+		        showPreview: true,
+			    allowedFileExtensions: ['jpg', 'png','jpeg']// 支持的图片类型
+			}).on('fileuploaderror', function(event, data, previewId, index) {
+		        var form = data.form, files = data.files, extra = data.extra,
+		                response = data.response, reader = data.reader;
+		        console.log(data);
+		        console.log('File upload error');
+		    }).on('fileerror', function(event, data) {
+		        console.log(data.id);
+		        console.log(data.index);
+		        console.log(data.file);
+		        console.log(data.reader);
+		        console.log(data.files);
+		    }).on('fileuploaded', function(event, data, previewId, index) {
+		        var form = data.form, files = data.files, extra = data.extra,
+		                response = data.response, reader = data.reader;
+		        console.log('File uploaded triggered');
+		    });
+			$("#file_xsz").fileinput({
+		        language:'zh',
+			    showUpload: false,
+		        dropZoneEnabled:false,
+		        maxFileCount: 1,
+		//      minImageWidth: 50, //图片的最小宽度
+		//	    minImageHeight: 50,//图片的最小高度
+		//      maxImageWidth: 600,//图片的最大宽度
+		//	    maxImageHeight: 600,//图片的最大高度
+		        maxFileSize: 5000,//单位为kb，如果为0表示不限制文件大小
+		        resizeImage: true,
+		        showCaption: true,
+		        showPreview: true,
+			    allowedFileExtensions: ['jpg', 'png','jpeg']// 支持的图片类型
+			}).on('fileuploaderror', function(event, data, previewId, index) {
+		        var form = data.form, files = data.files, extra = data.extra,
+		                response = data.response, reader = data.reader;
+		        console.log(data);
+		        console.log('File upload error');
+		    }).on('fileerror', function(event, data) {
+		        console.log(data.id);
+		        console.log(data.index);
+		        console.log(data.file);
+		        console.log(data.reader);
+		        console.log(data.files);
+		    }).on('fileuploaded', function(event, data, previewId, index) {
+		        var form = data.form, files = data.files, extra = data.extra,
+		                response = data.response, reader = data.reader;
+		        console.log('File uploaded triggered');
+		    });
+		</script>
 	</body>
 </html>

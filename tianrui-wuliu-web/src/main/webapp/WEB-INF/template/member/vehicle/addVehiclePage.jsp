@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <meta name="author" content="">
     	<link href="${trRoot}/tianrui//css/imgcut.css" rel="stylesheet">
     	<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-    	<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 	<!-- 引用公共header部分 -->
 	<jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 		<!--内容部分begin-->
@@ -74,14 +73,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </div>
 		                    <div class="reg_tel">
 		                        <label>联系电话：</label>
-		                        <input type="text" id="vehicle_add_vehiTel">
+		                        <input type="text" maxlength="11" id="vehicle_add_vehiTel">
 		                        <p id="message_vehiTel"></p>
 		                    </div>
 		                    <div class="rz_personline">
 		                        <label>车辆照片：</label>
 		                        <div class="rz_persontab">
 			                        <div class="samples">
-			                  			<img class="sfz" src="${trRoot}/tianrui/images/democar.jpg">
+			                  			<img class="cel" src="${trRoot}/tianrui/images/democar.jpg">
 			                       	</div>
 				                    <div class="rz_persontab">
 				                       <div class="img_upload">
@@ -151,22 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 		
 		<script type="text/javascript">
-			//身份证驾照上传的按钮tab切换
-			var $tab_li = $('.rz_persontab ul li');
-			$tab_li.click(function(){
-			    $(this).addClass('select').siblings().removeClass('select');
-			    var index = $tab_li.index(this);
-			    $('.rz_personbox > .rz_personcont').eq(index).show().siblings().hide();
-			    if($(this).hasClass('rz_p1')){
-			    	$('.sfz').show();
-			    	$('.jsz').hide();
-			    }
-			    if($(this).hasClass('rz_p2')){
-			    	$('.sfz').hide();
-			    	$('.jsz').show();
-			    }
-			});
-			$("#file_jsz").fileinput({
+			$("#file_cel").fileinput({
 		        language:'zh',
 			    showUpload: false,
 		        dropZoneEnabled:false,
@@ -192,7 +176,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        console.log(data.reader);
 		        console.log(data.files);
 		    }).on('fileuploaded', function(event, data, previewId, index) {
-		    	debugger;
+		        var form = data.form, files = data.files, extra = data.extra,
+		                response = data.response, reader = data.reader;
+		        console.log('File uploaded triggered');
+		    });
+			$("#file_xsz").fileinput({
+		        language:'zh',
+			    showUpload: false,
+		        dropZoneEnabled:false,
+		        maxFileCount: 1,
+		//      minImageWidth: 50, //图片的最小宽度
+		//	    minImageHeight: 50,//图片的最小高度
+		//      maxImageWidth: 600,//图片的最大宽度
+		//	    maxImageHeight: 600,//图片的最大高度
+		        maxFileSize: 5000,//单位为kb，如果为0表示不限制文件大小
+		        resizeImage: true,
+		        showCaption: true,
+		        showPreview: true,
+			    allowedFileExtensions: ['jpg', 'png','jpeg']// 支持的图片类型
+			}).on('fileuploaderror', function(event, data, previewId, index) {
+		        var form = data.form, files = data.files, extra = data.extra,
+		                response = data.response, reader = data.reader;
+		        console.log(data);
+		        console.log('File upload error');
+		    }).on('fileerror', function(event, data) {
+		        console.log(data.id);
+		        console.log(data.index);
+		        console.log(data.file);
+		        console.log(data.reader);
+		        console.log(data.files);
+		    }).on('fileuploaded', function(event, data, previewId, index) {
 		        var form = data.form, files = data.files, extra = data.extra,
 		                response = data.response, reader = data.reader;
 		        console.log('File uploaded triggered');

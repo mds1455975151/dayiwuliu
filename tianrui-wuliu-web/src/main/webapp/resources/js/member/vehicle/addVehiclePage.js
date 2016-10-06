@@ -112,9 +112,10 @@ $("#vehicle_addBtn").click(function() {
 	// 联系电话
 	var vehiTel = $("#vehicle_add_vehiTel").val();
 	// 车辆图片路径
-	var vehiImgPath = $("#vehicle").attr("src");
+	var file_cel = $("#file_cel")[0].files[0];
+	
 	// 行驶证图片路径
-	var vehiLiceImgPath = $("#vehiLicense").attr("src");
+	var file_xsz = $("#file_xsz")[0].files[0];
 	
 	var flag = false;
 	if (vehiNo == "") {
@@ -149,12 +150,12 @@ $("#vehicle_addBtn").click(function() {
 		$("#message_vehiTel").html("请输入联系电话！");
 		flag = true;
 	}
-	if (vehiImgPath == undefined) {
+	if (!file_cel) {
 		$("#modal_common_content").html("请上传车辆图片！");
 		$("#commonModal").modal();
 		flag = true;
 	}
-	if (vehiLiceImgPath == undefined) {
+	if (!file_xsz) {
 		$("#modal_common_content").html("请上传行驶证图片！");
 		$("#commonModal").modal();
 		flag = true;
@@ -163,21 +164,36 @@ $("#vehicle_addBtn").click(function() {
 	if (flag) {
 		return;
 	}
+	
+	var formData = new FormData();
+	formData.append("memberId",member_id);
+	formData.append("vehiWholeNo",vehiNo);
+	formData.append("vehicleType",vehiType);
+	formData.append("vehicleTypeName",vehiTypeName);
+	formData.append("vehiLength",vehiLength);
+	formData.append("vehiWeight",vehiWeight);
+	formData.append("filehead",file_cel);
+	formData.append("vehiOwnerName",vehiOwnerName);
+	formData.append("vehiOwnerTel",vehiTel);
+	formData.append("fileLicense",file_xsz);
+//	data : {
+//		memberId: member_id,
+//		vehiWholeNo: vehiNo,
+//		vehicleType: vehiType,
+//		vehicleTypeName: vehiTypeName,
+//		vehiLength: vehiLength,
+//		vehiWeight: vehiWeight,
+//		filehead: file_cel,
+//		vehiOwnerName:vehiOwnerName,
+//		vehiOwnerTel:vehiTel,
+//		fileLicense: file_xsz
+//	},
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveMyVehicle',// 跳转到 action
-		data : {
-			memberId: member_id,
-			vehiWholeNo: vehiNo,
-			vehicleType: vehiType,
-			vehicleTypeName: vehiTypeName,
-			vehiLength: vehiLength,
-			vehiWeight: vehiWeight,
-			vehiHeadImgPath: vehiImgPath,
-			vehiOwnerName:vehiOwnerName,
-			vehiOwnerTel:vehiTel,
-			vehiLicenseImgPath: vehiLiceImgPath
-		},
+		data : formData,
 		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
 		beforeSend : function() {
 	        //请求前的处理
 			$('#detail').modal({backdrop: 'static', keyboard: false});
