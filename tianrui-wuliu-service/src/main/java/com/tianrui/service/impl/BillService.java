@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -20,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
@@ -128,6 +127,8 @@ public class BillService implements IBillService{
 	MemberCapaMapper memberCapaMapper;
 	@Autowired
 	private FreightInfoService freightInfoService;
+	@Autowired
+	private IFileService iFileService;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -712,44 +713,47 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"transit") ){
-						if( StringUtils.isNotBlank(req.getImgdata()) ){
+						//移动端图片保存
+						if(StringUtils.isNotBlank(req.getImgdata())){
 							FileUploadReq uploadreq = new FileUploadReq();
 							uploadreq.setuId(req.getCurruId());
 							uploadreq.setImgStr(req.getImgdata());
-							Result uploadRs =fileUploadService.uploadImg(uploadreq);
-							if( uploadRs!=null &&StringUtils.equals(uploadRs.getCode(), "000000") ){
-								Bill update =new Bill();
-								update.setId(req.getId());
-								update.setSignimgurl(String.valueOf(uploadRs.getData()));
-								update.setStatus((byte)BillStatusEnum.SIGN.getStatus());
-								update.setUnloadtime(System.currentTimeMillis());
-								update.setModifier(req.getCurruId());
-								update.setModifytime(System.currentTimeMillis());
-								billMapper.updateByPrimaryKeySelective(update);
-								saveBillTrack(db.getId(),1,BIllTrackMsg.STEP11,req.getCurruId(),BillStatusEnum.SIGN.getStatus());
-								//修改运力车辆 状态信息
-								MemberVehicleReq req2 =new MemberVehicleReq();
-								req2.setId(db.getVehicleid());
-								req2.setBillstatus(""+BillStatusEnum.SIGN.getStatus());
-								memberVehicleService.updateVehiclebillStatus(req2);
-								//为车主发送站内信
-								MemberVo currUser =getMember(req.getCurruId());
-								MemberVo receive =getMember(db.getVenderid());
-								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DISCHARGE, "vender");
-								//为货主发送
-								
-								Plan plan = planMapper.selectRootPlanByPlanId(db.getPlanid());
-								receive=getMember(plan.getCreator());
-								sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
-								rs.setCode("000000");
-								rs.setData("操作成功");
-							}else{
-								//榜单图片上传失败
-								rs.setErrorCode(ErrorCode.BILL_STATUS_IMG_UPLOAD);
-							}
+							rs =fileUploadService.uploadImg(uploadreq);
+						}else if(req.getFile() != null){
+							rs = iFileService.uploadByteImg(req.getFile());
 						}else{
-							//参数异常
-							rs.setErrorCode(ErrorCode.PARAM_ERROR);
+							rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+							return rs;
+						}
+						if(rs!=null &&StringUtils.equals(rs.getCode(), "000000") && StringUtils.isNotBlank(rs.getData().toString())){
+							Bill update =new Bill();
+							update.setId(req.getId());
+							update.setSignimgurl(String.valueOf(rs.getData()));
+							update.setStatus((byte)BillStatusEnum.SIGN.getStatus());
+							update.setUnloadtime(System.currentTimeMillis());
+							update.setModifier(req.getCurruId());
+							update.setModifytime(System.currentTimeMillis());
+							billMapper.updateByPrimaryKeySelective(update);
+							saveBillTrack(db.getId(),1,BIllTrackMsg.STEP11,req.getCurruId(),BillStatusEnum.SIGN.getStatus());
+							//修改运力车辆 状态信息
+							MemberVehicleReq req2 =new MemberVehicleReq();
+							req2.setId(db.getVehicleid());
+							req2.setBillstatus(""+BillStatusEnum.SIGN.getStatus());
+							memberVehicleService.updateVehiclebillStatus(req2);
+							//为车主发送站内信
+							MemberVo currUser =getMember(req.getCurruId());
+							MemberVo receive =getMember(db.getVenderid());
+							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DISCHARGE, "vender");
+							//为货主发送
+							
+							Plan plan = planMapper.selectRootPlanByPlanId(db.getPlanid());
+							receive=getMember(plan.getCreator());
+							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
+							rs.setCode("000000");
+							rs.setData("操作成功");
+						}else{
+							//榜单图片上传失败
+							rs.setErrorCode(ErrorCode.BILL_STATUS_IMG_UPLOAD);
 						}
 					}else{
 						rs.setErrorCode(ErrorCode.BILL_STATUS_ERROR);
@@ -775,7 +779,7 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"pickup") ){
-						//TODO 如果有已经确认装货的话 就不能操作 就不能
+						// 如果有已经确认装货的话 就不能操作 就不能
 						Bill query = new Bill();
 						query.setVehicleid(db.getVehicleid());
 						query.setStatusStrs(new Byte[]{(byte)2,(byte)3,(byte)4});
@@ -784,14 +788,18 @@ public class BillService implements IBillService{
 							Bill update =new Bill();
 							update.setId(req.getId());
 							//如果上传榜单了就保存
-							if( StringUtils.isNotBlank(req.getImgdata()) ){
+							if( StringUtils.isNotBlank(req.getImgdata()) ){//移动端图片保存
 								FileUploadReq uploadreq = new FileUploadReq();
 								uploadreq.setuId(req.getCurruId());
 								uploadreq.setImgStr(req.getImgdata());
 								Result uploadRs =fileUploadService.uploadImg(uploadreq);
 								if( uploadRs!=null &&StringUtils.equals(uploadRs.getCode(), "000000") ){
-									update.setPickupimgurl(String.valueOf(uploadRs.getData()));
+									update.setPickupimgurl(uploadRs.getData().toString());
 								}
+							}
+							if(req.getFile() != null){//PC端图片保存
+								rs = iFileService.uploadByteImg(req.getFile());
+								update.setPickupimgurl(rs.getData().toString());
 							}
 							update.setStatus((byte)BillStatusEnum.DEPARTURE.getStatus());
 							
@@ -1452,73 +1460,8 @@ public class BillService implements IBillService{
 			}
 			page.setTotal(count);
 			page.setPageNo(req.getPageNo());
-//			return page;
-			
-			
-			
-			
-			/*List<String> list = new ArrayList<String>();
-			Plan plan = new Plan();
-			plan.setVehicleownerid(req.getCurrId());
-			//plan.setIsAppoint("1");
-			List<Plan> listPlan = planMapper.selectByCondition(plan);
-			List<Plan> childsPlans = null; 
-			if(listPlan != null && listPlan.size() > 0){
-				for(Plan p : listPlan){
-					childsPlans = this.getPlanIds(list, p.getPlancode(), p.getId());
-//					if(StringUtils.equals(p.getIsAppoint(), "1")){
-//						list.add(p.getId());
-//					}
-				}
-			}
-			if(list.size() > 0){
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("list", list);
-				int count = billMapper.selectAppointCountByPlanIds(params);
-				if(count > 0){
-					params.put("start", (req.getPageNo()-1)*req.getPageSize());
-					params.put("limit", req.getPageSize());
-					if(StringUtils.isNotBlank(req.getKey())){
-						params.put("queryKey", req.getKey());
-					}
-					List<Bill> bills = billMapper.selectAppointPageByPlanIds(params);
-					List<WaybillResp> resp = conver2billResp(bills);
-					if(resp != null && resp.size() > 0){
-						for(WaybillResp wbr : resp){
-							for(Plan p : childsPlans){
-								if(StringUtils.equals(wbr.getPlancode(), p.getPlancode())){
-									wbr.setVenderName(p.getVehicleownername());
-									wbr.setVenderTel(p.getVehicleownerphone());
-								}
-							}
-						}
-					}
-					page.setList(resp);
-				}
-				page.setTotal(count);
-				page.setPageNo(req.getPageNo());
-			}*/
 		}
 		return page;
-	}
-	/**
-	 * 递归查询委派的计划下所有生成的运单
-	 * @param list 计划id集合 ------用于查询运单
-	 * @param planCode 计划编码
-	 * @param pid 计划id
-	 */
-	private List<Plan> getPlanIds(List<String> list, String planCode, String pid){
-		List<Plan> listPlan = null;
-		if(StringUtils.isNotBlank(planCode) && StringUtils.isNotBlank(pid)){
-			listPlan = planMapper.selectChildPlan(planCode, pid);
-			if(listPlan != null && listPlan.size()>0){
-				for(Plan plan : listPlan){
-					list.add(plan.getId());
-					this.getPlanIds(list, planCode, plan.getId());
-				}
-			}
-		}
-		return listPlan;
 	}
 	
 	public List<WaybillResp> queryTJBillByParams(ReportVo vo) throws Exception{

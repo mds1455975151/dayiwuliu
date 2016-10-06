@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
+	<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -132,48 +133,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body">
                 <!--磅单图片上传弹出-->
-                <input type="hidden" id="imgdata" />
                 <input id="urlReq" type="hidden"/>
                 <div class="bd_alert">
                     <div class="bangdan_note">
-                        <label>磅单图片：</label>
-                        <button class="btn btnbd bdup">点此上传</button>
-                        <div class="bangdan_img">
-                             <img src="${trRoot}/tianrui/images/bd.png" width="570px"  height="225px" > 
-                        </div>
-                        <p>注：图片上传按照上面样式，大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</p>
+                        <label>磅单示例图片：</label>
                     </div>
                     <!--磅单图片begin-->
-                    <div class="bangdan_upload">
-                        <!--图片裁剪框-->
-                        <div class="imageBox imageBox_bd">
-                            <div class="thumbBox"></div>
-                            <div class="spinner" style="display: none">Loading...</div>
-                        </div>
-                        <!--图片裁剪框end-->
-                        <!--操作按钮begin-->
-                        <div class="action wbd">
-                            <div class="new-contentarea tc">
-                                <a href="javascript:void(0)" class="upload-img">
-                                    <label for="upload-file">选择图片</label>
-                                </a>
-                                <input type="file" class="" name="upload-file" id="upload-file" />
-                            </div>
-                            <button id="btncancel" class="Btnsty_peyton peytonbg1 tx_cancel" ><i class="iconfont icon-huitui"></i></button>
-                            <button  id="btnCrop"  class="Btnsty_peyton peytonbg1" > 裁切 </button>
-                            <button  id="btnZoomIn" class="Btnsty_peyton peytonbg1"  > <i class="iconfont icon-bf-add"></i></button>
-                            <button id="btnZoomOut" class="Btnsty_peyton peytonbg1" > <i class="iconfont icon-jianhao"></i></button>
-                        </div>
-                        <!--操作按钮end-->
-                        <div class="tx_shouqi">
-                            <img src="${trRoot}/tianrui/images/jtup.png">
-                            <h4>收起</h4>
-                        </div>
-                    </div>
+                    <div class="img_upload">
+						<input id="file_bd" class="file" type="file">
+						<span class="annotation">* 图片大小不超过2M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+					</div>
                     <!--磅单图片end-->
                 </div>
                 <!--磅单图片上传弹出-->
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary departsubmitbtn">确定</button>
@@ -189,6 +161,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="/resources/js/bill/driver_page.js" ></script>
-
+<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript">
+var trRoot = "${trRoot}";	
+</script>
 </body>
 </html>

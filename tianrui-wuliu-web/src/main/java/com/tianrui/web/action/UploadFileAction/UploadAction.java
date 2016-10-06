@@ -1,7 +1,5 @@
 package com.tianrui.web.action.UploadFileAction;
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ public class UploadAction {
 	@ResponseBody
 	public Result upload(MultipartFile file,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = iFileService.uploadByteImg(file, request);
+		rs = iFileService.uploadByteImg(file);
 		return rs;
 	}
 }

@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$("#file_jsz").fileinput({
         language:'zh',
 	    showUpload: false,
-        dropZoneEnabled:false,
+        dropZoneEnabled: false,
         maxFileCount: 1,
 //      minImageWidth: 50, //图片的最小宽度
 //	    minImageHeight: 50,//图片的最小高度

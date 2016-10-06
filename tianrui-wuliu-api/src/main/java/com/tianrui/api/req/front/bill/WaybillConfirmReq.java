@@ -1,5 +1,7 @@
 package com.tianrui.api.req.front.bill;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.tianrui.api.req.BaseReq;
 
 public class WaybillConfirmReq extends BaseReq{
@@ -21,6 +23,8 @@ public class WaybillConfirmReq extends BaseReq{
 	
 	//运单类型
 	private String type;
+	
+	private MultipartFile file;
 	
 	public String getId() {
 		return id;
@@ -77,5 +81,13 @@ public class WaybillConfirmReq extends BaseReq{
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 }

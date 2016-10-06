@@ -250,7 +250,7 @@ public class MemberAction{
 		}
 		try {
 			//保存图片
-			rs = iFileService.uploadByteImg(file, request);
+			rs = iFileService.uploadByteImg(file);
 			//图片保存成功，进行下一步操作
 			if("000000".equals(rs.getCode())){
 				MemberInfoReq req = new MemberInfoReq();
@@ -315,7 +315,7 @@ public class MemberAction{
 		}
 		try {
 			//保存图片
-			rs = iFileService.uploadByteImg(file, request);
+			rs = iFileService.uploadByteImg(file);
 			if("000000".equals(rs.getCode())){
 				MemberInfoReq req = new MemberInfoReq();
 				req.setMemberId(id);

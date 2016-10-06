@@ -3,8 +3,6 @@ package com.tianrui.service.impl;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +61,7 @@ public class FileUploadService implements IFileService{
 		return result;
 	}
 	
-	public Result uploadByteImg(MultipartFile file,HttpServletRequest request) throws Exception {
+	public Result uploadByteImg(MultipartFile file) throws Exception {
 		Result result=Result.getSuccessResult();
 		// 判断文件是否为空  
         if (!file.isEmpty()) {  

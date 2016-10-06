@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.transfer.TransferReq;
@@ -51,6 +53,9 @@ public class BillDriverAction {
 	
 	@Autowired
 	SystemMemberInfoService systemMemberInfoService;
+	
+	@Autowired
+	IFileService iFileService;
 	
 	
 	@RequestMapping("/main")
@@ -114,9 +119,9 @@ public class BillDriverAction {
 		return rs;
 	}
 	//提货确认
-	@RequestMapping("/pickupConfirm")
+	@RequestMapping(value = "/pickupConfirm", method = RequestMethod.POST)
 	@ResponseBody
-	public Result pickupConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception{
+	public Result pickupConfirm(WaybillConfirmReq req, HttpServletRequest request) throws Exception{
 		Result rs =Result.getSuccessResult();
 		if( req !=null ){
 			MemberVo currUser =SessionManager.getSessionMember(request);
@@ -142,7 +147,7 @@ public class BillDriverAction {
 	
 	//司机已卸货完成，等待签收
 	//司机卸货完成确认
-	@RequestMapping("/dischargeConfirm")
+	@RequestMapping(value = "/dischargeConfirm", method = RequestMethod.POST)
 	@ResponseBody
 	public Result dischargeConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception{
 		Result rs =Result.getSuccessResult();
