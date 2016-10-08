@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div class="img_upload">
 							<input id="file_yyzz" class="file" type="file">
-							<span class="annotation">* 图片大小不超过2M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
 					</div>
                </div>
@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 //	  	 	minImageHeight: 50,//图片的最小高度
 //   	  	maxImageWidth: 600,//图片的最大宽度
 //	 	  	maxImageHeight: 600,//图片的最大高度
-			maxFileSize : 5000,//单位为kb，如果为0表示不限制文件大小
+			maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
 			resizeImage : true,
 			showCaption : true,
 			showPreview : true,

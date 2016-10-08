@@ -157,7 +157,7 @@ $(function(){
 		//	 	minImageHeight: 50,//图片的最小高度
 		// 	maxImageWidth: 600,//图片的最大宽度
 		//	  	maxImageHeight: 600,//图片的最大高度
-			maxFileSize : 5000,//单位为kb，如果为0表示不限制文件大小
+			maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
 			resizeImage : true,
 			showCaption : true,
 			showPreview : true,

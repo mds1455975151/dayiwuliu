@@ -276,7 +276,7 @@
 						<!--磅单图片begin-->
 	                    <div class="img_upload">
 							<input id="file_bd" class="file" type="file">
-							<span class="annotation">* 图片大小不超过2M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
 	                    <!--磅单图片end-->
 					</div>

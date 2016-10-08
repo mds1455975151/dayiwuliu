@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                   <div class="rz_persontab">
 	                       <div class="img_upload">
 	                            <input id="file_jsz" class="file" type="file">
-	                            <p style="color: red;padding-top: 5px;">* 图片大小不超过2M，限上传1张，只支持JPG、JPEG、PNG格式</p>
+	                            <p style="color: red;padding-top: 5px;">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</p>
 	                        </div>
 	                   </div>
                    </div>
