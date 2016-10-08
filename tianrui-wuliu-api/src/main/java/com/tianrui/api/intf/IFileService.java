@@ -1,6 +1,5 @@
 package com.tianrui.api.intf;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
