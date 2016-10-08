@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <em>图片大小不超过3M，限上传1张，支持JPG、JPEG、PNG格式</em>
                 </div>
                 <!--修改头像begin-->
-                <div class="acc_touxiang">
+                <div class="acc_touxiang hide">
                     <div class="imageBox imageBox_tx">
                         <div class="thumbBox"></div>
                         <div class="spinner" style="display: none">Loading...</div>
