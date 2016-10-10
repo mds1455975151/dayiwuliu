@@ -11,11 +11,13 @@ public class ReportVo implements Serializable {
 
 	private static final long serialVersionUID = 7548300858102200849L;
 	//开始时间
-	private String starttime;
+	private Long starttime;
 	//结束时间
-	private String endtime;
+	private Long endtime;
+	//货主
+	private String memberid;
 	//承运商
-	private String venderid;
+	private String vendername;
 	//物料
 	private String cargoname;
 	//起运地
@@ -25,23 +27,29 @@ public class ReportVo implements Serializable {
 	//排序方式
 	private String order;
 	
-	public String getStarttime() {
+	public Long getStarttime() {
 		return starttime;
 	}
-	public void setStarttime(String starttime) {
+	public void setStarttime(Long starttime) {
 		this.starttime = starttime;
 	}
-	public String getEndtime() {
+	public Long getEndtime() {
 		return endtime;
 	}
-	public void setEndtime(String endtime) {
+	public void setEndtime(Long endtime) {
 		this.endtime = endtime;
 	}
-	public String getVenderid() {
-		return venderid;
+	public String getMemberid() {
+		return memberid;
 	}
-	public void setVenderid(String venderid) {
-		this.venderid = venderid;
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
+	}
+	public String getVendername() {
+		return vendername;
+	}
+	public void setVendername(String vendername) {
+		this.vendername = vendername;
 	}
 	public String getCargoname() {
 		return cargoname;

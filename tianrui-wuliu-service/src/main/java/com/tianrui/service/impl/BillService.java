@@ -222,6 +222,7 @@ public class BillService implements IBillService{
 						//是否由委派计划生成的运单
 						bill.setDesc4(plan.getIsAppoint());
 						bill.setPathID(plan.getPathID());
+						bill.setIsClearing("0");
 						bills.add(bill);
 					}
 				}
@@ -878,7 +879,7 @@ public class BillService implements IBillService{
 			}
 			Plan plan = planMapper.selectByPrimaryKey(db.getPlanid());
 			Date date = null;
-			if(StringUtils.equals(db.getIsClearing(), "0")){
+			if(StringUtils.isBlank(db.getIsClearing()) || StringUtils.equals(db.getIsClearing(), "0")){
 				if(db.getUnloadtime() == null){
 					date = new Date();
 				}else{
@@ -1464,10 +1465,10 @@ public class BillService implements IBillService{
 		return page;
 	}
 	
-	public List<WaybillResp> queryTJBillByParams(ReportVo vo) throws Exception{
-		if(vo == null){
-			return null;
+	public List<Bill> queryReportBill(ReportVo vo) throws Exception{
+		if(vo != null){
+			return billMapper.queryReportBill(vo);
 		}
-		return conver2billResp(billMapper.queryTJBillByParams(vo));
+		return null;
 	}
 }

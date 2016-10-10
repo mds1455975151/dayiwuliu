@@ -1076,30 +1076,33 @@
 			</if>
 			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
 	</select>
-	<select id="queryTJBillByParams" parameterType="com.tianrui.common.vo.ReportVo" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" /> 
-		from wuliu_bill 
+	<select id="queryReportBill" parameterType="com.tianrui.common.vo.ReportVo" resultType="com.tianrui.service.bean.Bill">
+		select A.*, B.ownername as vendername from wuliu_bill A right join wuliu_member_owner B
+		on A.venderid=B.ownerid 
 		where 1=1 
 		<if test="starttime != null and starttime != ''">
-			and unloadtime >= #{starttime,jdbcType=BIGINT}
+			and A.unloadtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
 		</if>
 		<if test="endtime != null and endtime != ''">
-			and unloadtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+			and A.unloadtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
 		</if>
-		<if test="venderid != null and venderid != ''">
-			and venderid = #{venderid,jdbcType=VARCHAR}
+		<if test="memberid != null and memberid != ''">
+			and B.memberid = #{memberid,jdbcType=VARCHAR}
+		</if>
+		<if test="vendername != null and vendername != ''">
+			and B.ownername like '%${vendername}%'
 		</if>
 		<if test="cargoname != null and cargoname != ''">
-			and cargoname = #{cargoname,jdbcType=VARCHAR}
+			and A.cargoname like '%${cargoname}%'
 		</if>
 		<if test="startcity != null and startcity != ''">
-			and startcity = #{startcity,jdbcType=VARCHAR}
+			and A.startcity like '%${startcity}%'
 		</if>
 		<if test="endcity != null and endcity != ''">
-			and endcity = #{endcity,jdbcType=VARCHAR}
+			and A.endcity like '%${endcity}%'
 		</if>
 		<if test="order != null and order != ''">
-			order by createtime desc,vehicleno,cargoname,venderid
+			order by ${order}
 		</if>
 	</select>
 </mapper>
