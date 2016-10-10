@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tianrui.api.resp.front.bill.WaybillResp;
+import com.alibaba.fastjson.JSON;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.ReportVo;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.impl.BillService;
+import com.tianrui.web.smvc.AuthValidation;
 
 @Controller
 @RequestMapping("trwuliu/billreport")
@@ -25,8 +28,20 @@ public class ReportAction {
 	private BillService billService;
 	
 	@RequestMapping("main")
-	public ModelAndView report(){
+	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
+	public ModelAndView main(){
 		ModelAndView model = new ModelAndView("report/owner/main");
+		return model;
+	}
+	
+	@RequestMapping("report")
+	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
+	public ModelAndView report(ReportVo vo, String groups, String statistical, Boolean summation){
+		ModelAndView model = new ModelAndView("report/owner/report");
+		model.addObject("vo", JSON.toJSON(vo));
+		model.addObject("groups", groups);
+		model.addObject("statistical", statistical);
+		model.addObject("summation", summation);
 		return model;
 	}
 	
@@ -35,7 +50,7 @@ public class ReportAction {
 	public Result getReport(ReportVo vo){
 		Result result = Result.getErrorResult();
 		try {
-			List<WaybillResp> list = billService.queryTJBillByParams(vo);
+			List<Bill> list = billService.queryReportBill(vo);
 			if(list != null){
 				result.setData(list);
 			}else{

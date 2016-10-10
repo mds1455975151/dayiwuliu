@@ -83,5 +83,5 @@ public interface BillMapper {
 	
 	int queryAppointCount(Bill record);
 	
-	List<Bill> queryTJBillByParams(ReportVo vo);
+	List<Bill> queryReportBill(ReportVo vo);
 }
