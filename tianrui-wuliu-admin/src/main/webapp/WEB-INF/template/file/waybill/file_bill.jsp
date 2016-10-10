@@ -169,7 +169,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
