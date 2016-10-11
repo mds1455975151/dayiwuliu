@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tianrui.common.vo.MemberVo;
+import com.tianrui.web.util.SessionManager;
 
 /**
  * 
@@ -37,12 +38,12 @@ public class PortalsFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
-			HttpSession session = req.getSession(true);
 			String contextPath=req.getContextPath();
-			MemberVo sessionMember = (MemberVo) session.getAttribute("session_member");
 			if(req.getRequestURI().equals("/")){
 				res.sendRedirect(contextPath+"/publicMember/index");
 			}else if(req.getRequestURI().contains("/trwuliu/")){
+				//MemberVo sessionMember = (MemberVo) session.getAttribute("session_member");
+				MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);
 				if (sessionMember == null) {
 					res.sendRedirect(contextPath+"/publicMember/loginPage");	
 				}else {

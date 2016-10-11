@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.ISendMobileMessage;
-import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.MakePrimaryKey;
@@ -60,8 +61,6 @@ public class PublicMemberAction {
 	CacheClient cache ;
 	@Autowired
 	private ISystemMemberService systemMemberService;
-	@Autowired
-	private ISystemMemberInfoService systemMemberInfoService;
 	/**
 	 * 
 	 * @描述:平台协议查看
@@ -218,7 +217,7 @@ public class PublicMemberAction {
 			@RequestParam(defaultValue = "") String passWord,
 			@RequestParam(defaultValue = "") String registerCode,
 			@RequestParam(defaultValue = "") String referrerTel,
-			HttpServletRequest request) throws Exception{
+			HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
 		Result rs =Result.getSuccessResult();
 		if(!"".equals(telnum) && MakePrimaryKey.isMobileNO(telnum)){
@@ -239,8 +238,7 @@ public class PublicMemberAction {
 						cache.remove(key);
 					}
 				}
-				//增加万能验证码 111111,系统正式上线需要去除
-				if(registerCode.equals("111111") || codeValidate){
+				if(StringUtils.equals(registerCode,Constant.authCodeValue ) || codeValidate){
 					MemberSaveReq memberSaveReq =new MemberSaveReq();
 					memberSaveReq.setCellphone(telnum);
 					memberSaveReq.setPassword(passWord);
@@ -252,7 +250,7 @@ public class PublicMemberAction {
 					systemMemberService.saveMember(memberSaveReq);
 					//会员注册缓存存储
 					member= systemMemberService.findMemberByTelnum(req);
-					SessionManager.setSessionMember(request, member);
+					SessionManager.setSessionMember(request, member,response);
 				}else {
 					rs.setCode("1");
 					rs.setError("您输入的验证码不正确，请重新输入");
@@ -299,8 +297,7 @@ public class PublicMemberAction {
 						codeValidate=true;
 					}
 				}
-				//增加万能验证码 111111,系统正式上线需要去除
-				if(registerCode.equals("111111") || codeValidate){
+				if(StringUtils.equals(registerCode,Constant.authCodeValue ) || codeValidate){
 				}else {
 					rs.setCode("1");
 					rs.setError("认证码输入错误请确认");
@@ -327,7 +324,7 @@ public class PublicMemberAction {
 	@ResponseBody
 	public Result login(@RequestParam(defaultValue = "") String telnum,
 			@RequestParam(defaultValue = "") String passWord,
-			HttpServletRequest request) throws Exception {
+			HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Result rs =Result.getSuccessResult();
 		MemberReq req =new MemberReq();
 		req.setTelnum(telnum);
@@ -335,7 +332,7 @@ public class PublicMemberAction {
 		if(telnum != "" && passWord != ""){
 			try {
 				MemberResp member= systemMemberService.login(req);
-				SessionManager.setSessionMember(request, member);//会员登录缓存存储
+				SessionManager.setSessionMember(request, member,response);//会员登录缓存存储
 				//TODO 登录记录  member.setLastTime(DateUtil.getDateString());
 			}catch (ApplicationExectpion e) {
 				logger.debug("{}",e.getMessage(),e);
@@ -360,7 +357,7 @@ public class PublicMemberAction {
 	 * @param passWord
 	 * @return
 	 * @throws Exception
-	 * @返回类型 Result-->json
+	 * @返回类型 Result-->jsonp
 	 * @创建人 tank
 	 * @创建时间 2016年5月5日上午9:15:02
 	 */
@@ -370,7 +367,7 @@ public class PublicMemberAction {
 			@RequestParam(defaultValue = "") String telnum,
 			@RequestParam(defaultValue = "") String registerCode,
 			@RequestParam(defaultValue = "") String passWord,
-			HttpServletRequest request) throws Exception{
+			HttpServletRequest request,HttpServletResponse response) throws Exception{
 		Result rs =Result.getSuccessResult();
 		MemberReq req =new MemberReq();
 		req.setTelnum(telnum);
@@ -384,8 +381,7 @@ public class PublicMemberAction {
 				cache.remove(key);
 			}
 		}
-		//增加万能验证码 111111,系统正式上线需要去除
-		if(registerCode.equals("111111") || codeValidate){
+		if(StringUtils.equals(registerCode,Constant.authCodeValue ) || codeValidate){
 			
 		}else {
 			rs.setCode("0");
@@ -401,7 +397,7 @@ public class PublicMemberAction {
 				up.setId(member.getId());
 				up.setPassword(passWord);
 				systemMemberService.updateMember(up);
-				SessionManager.setSessionMember(request, member);//会员登录缓存存储
+				SessionManager.setSessionMember(request, member,response);//会员登录缓存存储
 			}
 		}else {
 			rs.setCode("2");

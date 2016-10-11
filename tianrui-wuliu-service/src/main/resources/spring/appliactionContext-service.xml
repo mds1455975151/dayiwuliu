@@ -32,6 +32,8 @@
 		<property name="PRE_REDIS" value="${redis.client.pref}"></property>
 		<property name="apiAuthKey" value="${app.auth.key}"></property>
 		<property name="FILE_URL_PRE" value="${file.url.pref}"></property>
+		<property name="isAuthCodeUsed" value="${auth.code.used.flag}"></property>
+		<property name="authCodeValue" value="${auth.code.value}"></property>
 	</bean>
      
      <import resource="applicationContext-db.xml"/>

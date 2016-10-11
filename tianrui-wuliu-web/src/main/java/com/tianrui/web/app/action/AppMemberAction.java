@@ -1,6 +1,7 @@
 package com.tianrui.web.app.action;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.MakePrimaryKey;
 import com.tianrui.common.vo.AppParam;
@@ -123,8 +125,7 @@ public class AppMemberAction {
 						cache.remove(key);
 					}
 				}
-				//增加万能验证码 111111,系统正式上线需要去除
-				if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
+				if(StringUtils.equals(Constant.authCodeValue, appParam.getBody().getAuthCode() )|| codeValidate){
 					MemberSaveReq memberSaveReq =new MemberSaveReq();
 					memberSaveReq.setCellphone(appParam.getBody().getAccount());
 					memberSaveReq.setPassword(appParam.getBody().getPswdMd5());
@@ -177,8 +178,7 @@ public class AppMemberAction {
 				cache.remove(key);
 			}
 		}
-		//增加万能验证码 111111,系统正式上线需要去除
-		if(appParam.getBody().getAuthCode().equals("111111") || codeValidate){
+		if(StringUtils.equals(Constant.authCodeValue, appParam.getBody().getAuthCode() ) || codeValidate){
 			if(!"".equals(appParam.getBody().getAccount()) && MakePrimaryKey.isMobileNO(appParam.getBody().getAccount())){
 				MemberResp member= systemMemberService.findMemberByTelnum(req);
 				if( member == null){

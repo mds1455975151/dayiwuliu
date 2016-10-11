@@ -85,14 +85,7 @@ public class MemberAction{
 	 */
 	@RequestMapping("/authenPage")
 	public ModelAndView authenPage(HttpServletRequest request) throws Exception{
-		MemberVo vo = SessionManager.getSessionMember(request);
-		MemberReq req = new MemberReq();
-		req.setTelnum(vo.getCellphone());
-		MemberResp resp = systemMemberService.findMemberByTelnum(req);
-		System.out.println(resp.getDriverpercheck());
-		if(resp != null){
-			SessionManager.flushMember(request, resp);
-		}
+		SessionManager.flushMember(request);
 		return new ModelAndView("/member/authentication/authenPage");
 	}
 	/**
@@ -265,9 +258,8 @@ public class MemberAction{
 					req.setDriveImagePath(rs.getData().toString());
 					rs= systemMemberInfoRecordService.driverAuthentication(req);
 				}
-//				更新session
-				MemberResp member = systemMemberService.findById(id);
-				SessionManager.setSessionMember(request,member);
+				//更新session
+				SessionManager.flushMember(request);
 			}else{
 				rs.setCode("1");
 				rs.setError("图片保存失败");
@@ -327,8 +319,7 @@ public class MemberAction{
 				req.setLicenseImagePath(rs.getData().toString());
 				rs = systemMemberInfoRecordService.enterpriseAuthentication(req);
 				//更新session
-				MemberResp member = systemMemberService.findById(id);
-				SessionManager.setSessionMember(request,member);
+				SessionManager.flushMember(request);
 			}
 		} catch (Exception e) {
 			logger.info("enterpriseAuthentication错误信息：{}",e.getMessage());
@@ -357,7 +348,6 @@ public class MemberAction{
 			return rs;
 		}
 		try {
-//			MemberInfoResp resp = infoService.authenticationInfoByid(id);.
 			MemberInfoResp resp = systemMemberService.authenticationInfoByid(id);
 			rs.setData(resp);
 		} catch (Exception e) {
@@ -424,12 +414,7 @@ public class MemberAction{
 			}
 		}
 		//更新session
-		MemberReq req = new MemberReq();
-		req.setTelnum(SessionManager.getSessionMember(request).getCellphone());
-		MemberResp member = systemMemberService.findMemberByTelnum(req);
-		if(member != null){
-			SessionManager.flushMember(request, member);
-		}
+		SessionManager.flushMember(request);
 		return rs;
 	}
 	
