@@ -93,5 +93,15 @@ public class PayInvoiceAction {
 		}
 		return view;
 	}
+	
+	@RequestMapping(value="payNcCallBack",method=RequestMethod.POST)
+	@ResponseBody
+	public Result payNcCallBack(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PayInvoiceAdviceReq req = new PayInvoiceAdviceReq();
+		rs = payInvoiceService.payNcCallBack(req);
+		return rs;
+	}
+	
 }
 	
