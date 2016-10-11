@@ -16,6 +16,8 @@ public enum CacheModule {
 	MEMBERVO("mvo-","用户实体"),
 	ORG("org-","组织档案"),
 	
+	WEB_ROLE("r-","组织档案"),
+	
 	
 	REGISTER("register-","PC注册"),
 	REGISTER_APP("register1-","APP注册"),

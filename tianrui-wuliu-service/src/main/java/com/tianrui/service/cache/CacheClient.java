@@ -97,9 +97,13 @@ public class CacheClient {
 		return rs;
 	}
 
-
+	//设置过期时间 单位为秒
+	public void setExpire(String key,Long second){
+		redisTemplate.expire(key, second, TimeUnit.SECONDS);
+	}
+	//删除key
 	public void remove(String key){
-		redisTemplate.opsForValue().set(key, "",1L, TimeUnit.MICROSECONDS );
+		redisTemplate.delete(key);
 	}
 
 	public boolean saveObject(String key, Object value) {

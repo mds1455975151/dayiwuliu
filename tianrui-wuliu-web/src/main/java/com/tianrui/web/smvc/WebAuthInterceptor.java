@@ -29,8 +29,6 @@ public class WebAuthInterceptor implements HandlerInterceptor{
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception arg3)
 			throws Exception {
 		if (handler != null && HandlerMethod.class.isAssignableFrom(handler.getClass())) {
-
-
 			// 记录性能日志
 			Object[] logParams = { System.currentTimeMillis() - PerformanceCache.get(),
 					request.getRequestURI(), request.getRemoteAddr(), WebUtils.getIpAddr(request),
@@ -52,6 +50,8 @@ public class WebAuthInterceptor implements HandlerInterceptor{
 		if( model!=null && StringUtils.isNotBlank(model.getViewName()) ){
 			MemberVo member =SessionManager.getSessionMember(request);
 			model.addObject("user",member);
+			String role =SessionManager.getSessionRole(request);
+			model.addObject("role",role);
 		}
 	}
 

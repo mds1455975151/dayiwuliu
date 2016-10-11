@@ -48,28 +48,6 @@
 					<constructor-arg name="host" value="${redis.client.node2.ip}" />
 					<constructor-arg name="port" value="${redis.client.node2.port}" />
 			</bean>
-	      
-<!-- 				<bean class="org.springframework.data.redis.connection.RedisNode ">
-					<constructor-arg name="host" value="172.19.4.73" />
-					<constructor-arg name="port" value="27000" />
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode ">
-					<constructor-arg name="host" value="172.19.4.73" />
-					<constructor-arg name="port" value="27001" />
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode ">
-					<constructor-arg name="host" value="172.19.4.87" />
-					<constructor-arg name="port" value="26379" />
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode ">
-					<constructor-arg name="host" value="172.19.4.88" />
-					<constructor-arg name="port" value="26379" />
-				</bean>
-				<bean class="org.springframework.data.redis.connection.RedisNode ">
-					<constructor-arg name="host" value="172.19.4.89" />
-					<constructor-arg name="port" value="26379" />
-				</bean>
-				 -->
 			</set>
 	    </property>
 	  </bean> 

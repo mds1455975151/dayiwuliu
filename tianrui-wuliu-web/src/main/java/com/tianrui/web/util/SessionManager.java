@@ -13,6 +13,8 @@ import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 
 public class SessionManager {
 
@@ -47,6 +49,41 @@ public class SessionManager {
 			cacheClient.remove(cookie.getValue());
 		}
 	}
+	
+	//用户选择之后添加角色信息
+	public static void setSessionRole(HttpServletRequest request,String role) {
+		Cookie cookie =getCookie(request);
+		if( cookie !=null && StringUtils.isNotBlank(cookie.getValue())){
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			CacheClient cacheClient =wac.getBean(CacheClient.class);
+			String key=CacheHelper.buildKey(CacheModule.WEB_ROLE, cookie.getValue());
+			//保存cookie到共享缓存2小时
+			cacheClient.saveString(key, role,8*60*60);
+		}
+		
+	}
+	//获取用户角色信息
+	public static String getSessionRole(HttpServletRequest request) {
+		String rs =null;
+		Cookie cookie =getCookie(request);
+		if( cookie !=null && StringUtils.isNotBlank(cookie.getValue())){
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			CacheClient cacheClient =wac.getBean(CacheClient.class);
+			String key=CacheHelper.buildKey(CacheModule.WEB_ROLE, cookie.getValue());
+			rs =cacheClient.getString(key);
+		}
+		return rs;
+	}
+	//删除用户角色信息
+	public static void removeSessionRole(HttpServletRequest request){
+		Cookie cookie =getCookie(request);
+		if( cookie !=null && StringUtils.isNotBlank(cookie.getValue())){
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			CacheClient cacheClient =wac.getBean(CacheClient.class);
+			String key=CacheHelper.buildKey(CacheModule.WEB_ROLE, cookie.getValue());
+			cacheClient.remove(key);
+		}
+	}
 	//通过cookie获取当前登录用户 并更新缓存
 	public static void flushMember(HttpServletRequest request){
 		Cookie cookie =getCookie(request);
@@ -65,20 +102,20 @@ public class SessionManager {
 	}
 	
 	
-	static String setCookie(HttpServletResponse response){
+	
+	public static String setCookie(HttpServletResponse response){
 		String ksessionid =UUIDUtil.getId();
 		Cookie cookie = new Cookie("KSESSIONID",ksessionid);
 		cookie.setPath("/");
 		response.addCookie(cookie);
 		return ksessionid;
 	}
-	static Cookie getCookie(HttpServletRequest request){
+	public static Cookie getCookie(HttpServletRequest request){
 		Cookie cookie =null;
 		Cookie[] cookies = request.getCookies();//这样便可以获取一个cookie数组
 		for(Cookie item : cookies){
 		    if(item.getName().equalsIgnoreCase("KSESSIONID")){
 		    	cookie=item;
-		    	System.out.println("###  COOKIIE ["+cookie.getName()+","+cookie.getValue()+","+cookie.getPath()+"]");
 		    	break;
 		    };
 		}

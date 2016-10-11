@@ -30,6 +30,7 @@ import com.tianrui.api.resp.front.member.MemberInfoResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.cache.CacheClient;
 import com.tianrui.web.util.SessionManager;
 
 /**
@@ -54,6 +55,8 @@ public class MemberAction{
 	protected ISystemMemberInfoRecordService systemMemberInfoRecordService;
 	@Autowired
 	private ISystemMemberService systemMemberService;
+	@Autowired
+	private CacheClient cacheClient;
 	/**
 	 * 
 	 * @描述:页面跳转
@@ -514,17 +517,17 @@ public class MemberAction{
 	}
 	
 	@RequestMapping("/chooseRole")
-	public ModelAndView chooseRole(HttpSession session){
-		session.removeAttribute("role");
+	public ModelAndView chooseRole(HttpServletRequest request){
+		SessionManager.removeSessionRole(request);
 		return new ModelAndView("/member/chooseRole");
 	}
 	
 	@RequestMapping("/bindRole")
 	@ResponseBody
-	public Result bindRole(HttpSession session, String role){
+	public Result bindRole(HttpServletRequest request,String role){
 		Result re = Result.getSuccessResult();
 		if(StringUtils.isNotBlank(role)){
-			session.setAttribute("role", role);
+			SessionManager.setSessionRole(request, role);
 			re.setCode("000000");
 		}else{
 			re.setCode("000001");
