@@ -46,11 +46,11 @@
 							<h2>我的报表</h2>
 							<div class="report_oprate">
 								<ul>
-									<li class="active"><i class="icononline">&#xe611;</i>
+									<li id="exportReport" class="active"><i class="icononline">&#xe611;</i>
 										<p>导出</p></li>
-									<li><i class="icononline">&#xe612;</i>
+									<li id=""><i class="icononline">&#xe612;</i>
 										<p>打印</p></li>
-									<li><i class="icononline">&#xe613;</i>
+									<li id="backSearch"><i class="icononline">&#xe613;</i>
 										<p>返回</p></li>
 								</ul>
 							</div>
@@ -80,6 +80,10 @@
 		src="/resources/js/common/member/header_busi.js"></script>
 	<script type="text/javascript"
 		src="/resources/ui/report/jquery-report.js"></script>
+	<script type="text/javascript"
+		src="/resources/ui/exportExcel/jquery.base64.js"></script>
+	<script type="text/javascript"
+		src="/resources/ui/exportExcel/tableExport.js"></script>
 	<script type="text/javascript"
 		src="/resources/js/report/owner/report.js"></script>
 	<script type="text/javascript">

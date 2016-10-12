@@ -97,8 +97,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<input type="hidden" id="weight"/>
             	<input type="hidden" id="planweight"/>
                 <div class="bdimg">
-                    <a href="${trRoot}/tianrui/images/bd.png" target="_blank" id="qhbdImgUrla"><img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl" style="max-height:200px;"></a>
-                    <a href="${trRoot}/tianrui/images/bd.png"  target="_blank" id="bdimgurla">  <img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl" style="max-height:200px;"></a>
+	                <div class="modal-body">
+		                <ul class="nav nav-tabs">
+		                    <li class="active"><a href="#single" data-toggle="tab">提货榜单</a></li>
+		                    <li><a href="#multiple" data-toggle="tab">卸货榜单</a></li>
+		                </ul>
+		                <div class="tab-content">
+		                    <div class="tab-pane fade in active" id="single">
+		                        <div class="bdimg">
+				                    <img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl">
+				                    <label></label>
+				                    <div id="notImg" class="bd_note" hidden>
+	                        			<label>司机未上传榜单</label>
+					                </div>
+		                        </div>
+		                    </div>
+		                    <div class="tab-pane fade" id="multiple">
+		                        <div class="bdimg">
+				                    <img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl">
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
                     <p><label>磅单重量：</label><input type="text" id="weighttext"></p>
                 </div>
             </div>
@@ -116,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--底部end-->
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/bill/owner_page.js" ></script>
+<script type="text/javascript" src="/resources/js/bill/owner_page.js?11" ></script>
 
 </body>
 </html>

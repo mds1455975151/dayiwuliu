@@ -10,6 +10,8 @@ $(function(){
 	var id =$("#billId").val();
 	//签收按钮点击
 	$(".detaildiv").on("click",".signBtn",function(){
+		$('.nav-tabs li:first').addClass('active').siblings('li').removeClass('active');
+		$('.tab-content div:first').addClass('in active').siblings('div.tab-pane').removeClass('in active');
 		$("#signModal").modal();
 	});
 	

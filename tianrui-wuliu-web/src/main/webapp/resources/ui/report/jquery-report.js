@@ -47,7 +47,7 @@
 						return this == x.field;
 					},col.field);
 				if(group && group.length>0){
-					if(obj[col.field] == $tbody.find('tr').not('tr.statistical').last().find('td').eq(j).data(col.field)){
+					if(obj[col.field] == $tbody.find('tr').last().find('td').eq(j).data(col.field)){
 						if(!$tbody.find('tr:last').hasClass('statistical')){
 							var _tr = $tbody.find('tr').not('tr.statistical')[$thead_tr.find('th').eq(j).data('index')];
 							var rowspan = $(_tr).find('td').eq(j).attr('rowspan');
@@ -69,17 +69,47 @@
 								$xj_tr.addClass('statistical');
 								var $xj_td = $('<td>');
 								$xj_td.html('小计');
+								for(var style in col.tbodyStyle){
+									$xj_td.css(
+										style,col.tbodyStyle[style]
+									);
+								}
+								if(opts.fontSize){
+									$xj_td.css({
+										fontSize:opts.fontSize
+									});
+								}
+								if(opts.textAlign){
+									$xj_td.css({
+										textAlign:opts.textAlign
+									});
+								}
 								$xj_tr.append($xj_td);
 								for(var k=j+1;k<columns.length;k++){
 									var math = opts.statistical.filter(function(x){
 										return this.field == x.field;
 									},columns[k]);
+									var $appendTd = $('<td>');
 									if(math && math.length>0){
 										var sum = mathXJContent($tbody,j,k,math[0]);
-										$xj_tr.append("<td>"+sum+"</td>");
-									}else{
-										$xj_tr.append("<td></td>");
+										$appendTd.html(sum);
+										for(var style in col.tbodyStyle){
+											$appendTd.css(
+													style,col.tbodyStyle[style]
+											);
+										}
+										if(opts.fontSize){
+											$appendTd.css({
+												fontSize:opts.fontSize
+											});
+										}
+										if(opts.textAlign){
+											$appendTd.css({
+												textAlign:opts.textAlign
+											});
+										}
 									}
+									$xj_tr.append($appendTd);
 								}
 								if(opts.subtotalColor){
 									$xj_tr.find('td').css({
@@ -116,10 +146,20 @@
 						style,col.tbodyStyle[style]
 					);
 				}
-				$td.data(col.field,obj[col.field]);
+				if(opts.fontSize){
+					$td.css({
+						fontSize:opts.fontSize
+					});
+				}
+				if(opts.textAlign){
+					$td.css({
+						textAlign:opts.textAlign
+					});
+				}
 				if($.isNumeric(obj[col.field])){
 					$td.attr('style',$td.attr('style')+"mso-number-format:'\@';")
 				}
+				$td.data(col.field,obj[col.field]);
 				$tbody_tr.append($td);
 			}
 			$tbody.append($tbody_tr);
@@ -146,6 +186,21 @@
 									if(col.field == g.field){
 										index = k;
 										$td.html('小计');
+										for(var style in col.tbodyStyle){
+											$td.css(
+												style,col.tbodyStyle[style]
+											);
+										}
+										if(opts.fontSize){
+											$td.css({
+												fontSize:opts.fontSize
+											});
+										}
+										if(opts.textAlign){
+											$td.css({
+												textAlign:opts.textAlign
+											});
+										}
 									}
 									var math = opts.statistical.filter(function(x){
 										return this.field == x.field;
@@ -153,6 +208,21 @@
 									if(math && math.length>0){
 										var sum = mathXJContent($tbody,index,k,math[0]);
 										$td.html(sum);
+										for(var style in col.tbodyStyle){
+											$td.css(
+												style,col.tbodyStyle[style]
+											);
+										}
+										if(opts.fontSize){
+											$td.css({
+												fontSize:opts.fontSize
+											});
+										}
+										if(opts.textAlign){
+											$td.css({
+												textAlign:opts.textAlign
+											});
+										}
 									}
 									$xj_tr.append($td);
 									if(opts.subtotalColor){
@@ -168,17 +238,49 @@
 				}
 				//结尾总计
 				if(opts.summation){
-					var $zj_tr = $('<tr>').addClass('total').append('<td>总计</td>');
+					var $zjtd = $('<td>');
+					$zjtd.html('总计');
+					for(var style in col.tbodyStyle){
+						$zjtd.css(
+							style,col.tbodyStyle[style]
+						);
+					}
+					if(opts.fontSize){
+						$zjtd.css({
+							fontSize:opts.fontSize
+						});
+					}
+					if(opts.textAlign){
+						$zjtd.css({
+							textAlign:opts.textAlign
+						});
+					}
+					var $zj_tr = $('<tr>').addClass('total').append($zjtd);
 					for(var j=1;j<columns.length;j++){
 						var math = opts.statistical.filter(function(x){
 							return this.field == x.field;
 						},columns[j]);
+						var $appendTd = $('<td>');
 						if(math && math.length>0){
 							var sum = mathXJContent($tbody,-1,j,math[0]);
-							$zj_tr.append("<td>"+sum+"</td>");
-						}else{
-							$zj_tr.append("<td></td>");
+							$appendTd.html(sum);
+							for(var style in col.tbodyStyle){
+								$appendTd.css(
+									style,col.tbodyStyle[style]
+								);
+							}
+							if(opts.fontSize){
+								$appendTd.css({
+									fontSize:opts.fontSize
+								});
+							}
+							if(opts.textAlign){
+								$appendTd.css({
+									textAlign:opts.textAlign
+								});
+							}
 						}
+						$zj_tr.append($appendTd);
 					}
 					if(opts.summationColor){
 						$zj_tr.find('td').css({
@@ -193,16 +295,6 @@
 		if(opts.rowHeight){
 			$table.find('tr').css({
 				height:opts.rowHeight
-			});
-		}
-		if(opts.fontSize){
-			$table.find('td,th').css({
-				fontSize:opts.fontSize
-			});
-		}
-		if(opts.textAlign){
-			$table.find('td,th').css({
-				textAlign:opts.textAlign
 			});
 		}
 		$(target).append($table);
