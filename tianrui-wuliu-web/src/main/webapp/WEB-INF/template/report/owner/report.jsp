@@ -58,110 +58,8 @@
 						<div class="report_tbox">
 							<div class="report_tcont">
 								<!--明细表begin-->
-								<div class="report_table">
-									<table class="table table-bordered tablenone">
-										<thead>
-											<tr>
-												<th>时间</th>
-												<th>车牌号</th>
-												<th>物料</th>
-												<th>起运地</th>
-												<th>目的地</th>
-												<th>单价</th>
-												<th>承运商</th>
-												<th>车数</th>
-												<th>结算数量</th>
-												<th>运单编号</th>
-												<th>磅单号</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td rowspan="6">2016-03-12 08:12</td>
-												<td rowspan="2">豫A56551</td>
-												<td>熟料</td>
-												<td>河南省郑州市河南省郑州市</td>
-												<td>河南省郑州市</td>
-												<td>1550.00</td>
-												<td>河南省郑州市</td>
-												<td>2255</td>
-												<td>154200</td>
-												<td>415644555145</td>
-												<td>456456456</td>
-											</tr>
-											<tr>
-												<td>熟料熟料</td>
-												<td>河南省郑州市</td>
-												<td>河南省郑州市</td>
-												<td>1550.00</td>
-												<td>河南省郑州市</td>
-												<td>22</td>
-												<td>154200</td>
-												<td>4156455145</td>
-												<td>456456456</td>
-											</tr>
-											<tr class="withbg">
-												<td>小计：</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td>22</td>
-												<td>154200</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td rowspan="2">豫A56551</td>
-												<td>熟料</td>
-												<td>河南省郑州市河南省郑州市</td>
-												<td>河南省郑州市</td>
-												<td>1550.00</td>
-												<td>河南省郑州市</td>
-												<td>2255</td>
-												<td>154200</td>
-												<td>415644555145</td>
-												<td>456456456</td>
-											</tr>
-											<tr>
-												<td>熟料熟料</td>
-												<td>河南省郑州市</td>
-												<td>河南省郑州市</td>
-												<td>1550.00</td>
-												<td>河南省郑州市</td>
-												<td>22</td>
-												<td>154200</td>
-												<td>4156455145</td>
-												<td>456456456</td>
-											</tr>
-											<tr class="withbg">
-												<td>小计：</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td>22</td>
-												<td>154200</td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr class="withbg">
-												<td>合计：</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td>22</td>
-												<td>154200</td>
-												<td></td>
-												<td></td>
-											</tr>
-										</tbody>
-									</table>
+								<div id="reportContains" class="report_table">
+									
 								</div>
 								<!--明细表end-->
 							</div>
@@ -181,13 +79,35 @@
 	<script type="text/javascript"
 		src="/resources/js/common/member/header_busi.js"></script>
 	<script type="text/javascript"
+		src="/resources/ui/report/jquery-report.js"></script>
+	<script type="text/javascript"
 		src="/resources/js/report/owner/report.js"></script>
 	<script type="text/javascript">
-		var data = JSON.parse('${list}');
-		var groups = JSON.parse('${groups}');
-		var statistical = JSON.parse('${statistical}');
-		var summation = JSON.parse('${summation}');
-		var subtotal = JSON.parse('${subtotal}');
+		var data = '${list}';
+		if(data){
+			data = JSON.parse(data);
+		}
+		var item = '${item}';
+		var groups = '${groups}';
+		if(groups){
+			groups = JSON.parse(groups);
+		}
+		console.info(groups);
+		var statistical = '${statistical}';
+		if(statistical){
+			statistical = JSON.parse(statistical);
+		}
+		var summation = '${summation}';
+		if(summation){
+			summation = JSON.parse(summation);
+		}
+		var subtotal = '${subtotal}';
+		if(subtotal){
+			subtotal = JSON.parse(subtotal);
+		}
+		$(function(){
+			PAGE.main.init();
+		});
 	</script>
 </body>
 </html>

@@ -75,10 +75,13 @@ public class WaybillResp extends BaseResp{
     private String totalnumber;
     //剩余趟数
     private String overnumber;
-    
+    //卸货完成时间
+    private Long unloadtime;
     
     private List<BillTrackResp> billTrackList;
-    
+
+    //计划剩余量
+    private Double planweight;
     
     
 	public String getId() {
@@ -404,6 +407,18 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setPickupimgurl(String pickupimgurl) {
 		this.pickupimgurl = pickupimgurl;
+	}
+	public Long getUnloadtime() {
+		return unloadtime;
+	}
+	public void setUnloadtime(Long unloadtime) {
+		this.unloadtime = unloadtime;
+	}
+	public Double getPlanweight() {
+		return planweight;
+	}
+	public void setPlanweight(Double planweight) {
+		this.planweight = planweight;
 	}
 	
 }

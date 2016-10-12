@@ -140,6 +140,7 @@
 									var index = $thead_tr.find('th').eq(k).data('index');
 									var rowspan = $tbody.find('tr').not('tr.statistical').eq(index).find('td').eq(k).attr('rowspan');
 									$tbody.find('tr').not('tr.statistical').eq(index).find('td').eq(k).attr('rowspan',++rowspan);
+									index++;
 								}else{
 									var $td = $('<td>');
 									if(col.field == g.field){
@@ -216,7 +217,7 @@
 			var $td = $trs.eq(i).find('td').eq(j);
 			var rowspan = $td.attr('rowspan');
 			var num = $trs.eq(i).find('td').eq(k).data(math.field);
-			sum += num;
+			sum += parseFloat(num);
 			//默认求和
 			index++;
 			if(j < 0){
@@ -234,7 +235,12 @@
 		if(math.summation == '平均'){
 			sum = sum/index;
 		}
-		return sum.toFixed(2);
+		if(math.type == 'INT'){
+			return parseInt(sum);
+		}
+		if(math.type == 'DOUBLE'){
+			return sum.toFixed(2);
+		}
 	}
 	
 	

@@ -24,6 +24,7 @@ $(function(){
 	}
 	
 	$('#report').off('click').on('click',function(){
+		var item = $('.report_menu li.select').attr('item');
 		var starttime = $('#starttime').val();
 		var endtime = $('#endtime').val();
 		var carriers = $('#carriers').val();
@@ -43,20 +44,26 @@ $(function(){
 			if(isXJ){
 				subtotal = true;
 			}
+			if(col && col == 'venderName'){
+				col = 'venderid';
+			}
 			order += col+',';
 		});
 		order = order.substring(0,order.length-1);
 		var statistical = [];
 		$('#mathColumns tr').each(function(){
 			var col = $(this).find('td').eq(0).attr('col');
+			var type = $(this).find('td').eq(0).attr('type');
 			var mathType = $(this).find('td').eq(1).find('select').val();
 			statistical.push({
 				field:col,
-				summation:mathType
+				summation:mathType,
+				type:type
 			});
 		});
 		var summation = $('#summation')[0].checked;
-		window.location.href='/trwuliu/billreport/report?starttime='+dateStr2time(starttime)
+		window.location.href='/trwuliu/billreport/report?item='+item
+														+'&starttime='+dateStr2time(starttime)
 														+'&endtime='+dateStr2time(endtime)
 														+'&vendername='+encodeURI(encodeURI(carriers))
 														+'&cargoname='+encodeURI(encodeURI(material))

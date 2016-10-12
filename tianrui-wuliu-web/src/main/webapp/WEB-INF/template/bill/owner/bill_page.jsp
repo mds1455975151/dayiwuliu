@@ -94,6 +94,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body">
             	<input type="hidden" id="hidid"/>
+            	<input type="hidden" id="weight"/>
+            	<input type="hidden" id="planweight"/>
                 <div class="bdimg">
                     <img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl">
                     <img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl">

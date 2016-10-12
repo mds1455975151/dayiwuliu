@@ -1,5 +1,6 @@
 package com.tianrui.web.action.report;
 
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,15 +41,16 @@ public class ReportAction {
 	
 	@RequestMapping("report")
 	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
-	public ModelAndView report(ReportVo vo, String groups, String statistical, Boolean summation, Boolean subtotal, HttpServletRequest request){
+	public ModelAndView report(ReportVo vo, String item, String groups, String statistical, Boolean summation, Boolean subtotal, HttpServletRequest request){
 		ModelAndView model = new ModelAndView("report/owner/report");
 		try {
 			MemberVo memberVo = SessionManager.getSessionMember(request);
 			vo.setMemberid(memberVo.getId());
 			List<WaybillResp> list = billService.queryReportBill(vo);
 			model.addObject("list", JSON.toJSON(list));
-			model.addObject("groups", groups);
-			model.addObject("statistical", statistical);
+			model.addObject("item", item);
+			model.addObject("groups", URLDecoder.decode(groups, "UTF-8"));
+			model.addObject("statistical", URLDecoder.decode(statistical, "UTF-8"));
 			model.addObject("summation", summation);
 			model.addObject("subtotal", subtotal);
 		} catch (Exception e) {

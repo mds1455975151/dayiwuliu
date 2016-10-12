@@ -49,6 +49,8 @@
 						<div class="goods_line">
 							<div class="plan_table">
 								<input type="hidden" value="${bill.id}" id="billId" />
+								<input type="hidden" value="${bill.weight}" id="weight" />
+								<input type="hidden" value="${bill.planweight}" id="planweight" />
 								<table class="table ">
 									<thead>
 										<tr>
@@ -224,6 +226,7 @@
 				<div class="modal-body">
 					<input type="hidden" id="hidid" />
 					<div class="bdimg">
+						<img src="${bill.pickupimgurl}" id="qhbdImgUrl" <c:if test="${empty bill.pickupimgurl}">hidden</c:if>>
 						<img src="${bill.signimgurl }" id="bdimgurl">
 						<p>
 							<label>磅单重量：</label><input type="text" id="weighttext">

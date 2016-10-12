@@ -24,19 +24,31 @@ $(function(){
     		alert("签收重量格式整数最大6位，小数最大2位");
     		return ;
     	}
-    	$.ajax({
-			url:URL.signUrl,
-			data:{"id":id,"weight":weightInput},
-			type : "post",
-			dataType:"json",
-			success:function(rs){
-				if( rs && rs.code =="000000" ){
-					window.location.href=URL.mainUrl;
-				}else{
-					alert(rs.error);
-				}
-			}
-		})
+		
+		var title = "";
+    	if(parseFloat($('#planweight').val()) - weightInput <=0){
+    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认回使计划自动关闭，是否继续？";
+    	}else{
+    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，是否确认签收？";
+    	}
+    	confirm("确认",title,function(){
+    		$.ajax({
+    			url:URL.signUrl,
+    			data:{"id":id,"weight":weightInput},
+    			type : "post",
+    			dataType:"json",
+    			success:function(rs){
+    				if( rs && rs.code =="000000" ){
+    					window.location.href=URL.mainUrl;
+    				}else{
+    					alert(rs.error);
+    				}
+    			}
+    		});
+    	},function(){
+    		$("#signModal").modal('hide');
+    		$("#weighttext").val("");
+    	});
 	});
 	
 	//删除按钮点击

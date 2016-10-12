@@ -1077,10 +1077,10 @@
 			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
 	</select>
 	<select id="queryReportBill" parameterType="com.tianrui.common.vo.ReportVo" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" /> 
+		select A.*
 		from wuliu_bill A left join wuliu_member_owner B
 		on A.venderid=B.ownerid 
-		where venderdelflag=0 and ownerdelflag=0 and driverdelflag=0
+		where A.venderdelflag=0 and A.ownerdelflag=0 and A.driverdelflag=0 and A.type=0 and A.status=6
 			<if test="starttime != null and starttime != ''">
 				and A.unloadtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
 			</if>

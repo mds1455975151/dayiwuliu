@@ -45,8 +45,8 @@
 						<h2>我的报表</h2>
 						<!--切换begin-->
 						<ul class="report_menu">
-							<li class="dayReport select">日报表</li>
-							<li class="monthReport">月报表</li>
+							<li class="dayReport select" item="D">日报表</li>
+							<li class="monthReport" item="M">月报表</li>
 						</ul>
 						<!--切换begin-->
 					</div>
@@ -92,7 +92,7 @@
 											<h5>待选字段列表</h5>
 											<ul class="report_rtopul">
 												<li col="unloadtime">时间</li>
-												<li col="venderid">承运商</li>
+												<li col="venderName">承运商</li>
 												<li col="cargoname">物料</li>
 												<li col="vehicleno">车牌号</li>
 												<li col="startcity">起运地</li>
@@ -134,9 +134,9 @@
 									<div class="report_rbot">
 										<div class="report_wait">
 											<ul class="report_rdownul">
-												<li col="price">单价</li>
-												<li col="carSum">车数</li>
-												<li col="weightSum">结算数量</li>
+												<li col="price" type="DOUBLE">单价</li>
+												<li col="totalnumber" type="INT">车数</li>
+												<li col="trueweight" type="DOUBLE">结算数量</li>
 											</ul>
 										</div>
 										<div class="report_switch fl">

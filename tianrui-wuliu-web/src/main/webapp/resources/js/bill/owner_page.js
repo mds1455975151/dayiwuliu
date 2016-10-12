@@ -60,7 +60,7 @@ $(function(){
 			dataArr.push('<td>');
 			/*dataArr.push('<a target="_blank" href="'+URL.detailViewUrl+'?id='+item.id+'"><button class="btn btnyello">查看</button></a>');*/
 			if(item.status ==5){
-				dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'" qhdataImg="'+item.pickupimgurl+'">签收</button></a>');
+				dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'" qhdataImg="'+item.pickupimgurl+'" weight="'+item.weight+'" planweight="'+item.planweight+'">签收</button></a>');
 			}else if(item.status ==7 ||item.status ==-1){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'">删除</button></a>');
 			}
@@ -104,14 +104,28 @@ $(function(){
 	var _xhimgurl_defult = $("#bdimgurl").attr("src");
 	$(".table").on("click",".signBtn",function(){
 		var dId= $(this).attr("dataId");
+		var weight= $(this).attr("weight");
+		var planweight= $(this).attr("planweight");
 		$("#hidid").val(dId);
-		$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg"))
-		$("#bdimgurl").attr( "src",$(this).attr("dataImg"))
+		$("#weight").val(weight);
+		$("#planweight").val(planweight);
+		if(!$(this).attr("qhdataImg")){
+			$("#qhbdImgUrl").hide();
+		}else{
+			$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg"))
+		}
+		if(!$(this).attr("dataImg")){
+			$("#bdimgurl").hide();
+		}else{
+			$("#bdimgurl").attr( "src",$(this).attr("dataImg"))
+		}
 		$("#signModal").modal();
 	});
 	//监听拒绝模态框关闭事件
 	$('#signModal').on('hidden.bs.modal', function (e) {
 		$("#hidid").val("");
+		$("#weight").val("");
+		$("#planweight").val("");
 		$("#weighttext").val("");
 		$("#qhbdImgUrl").attr( "src",_qhimgurl_defult);
 		$("#bdimgurl").attr( "src",_xhimgurl_defult);
@@ -128,21 +142,36 @@ $(function(){
     		alert("签收重量格式整数最大6位，小数最大2位");
     		return ;
     	}
+    	var title = "";
+    	if(parseFloat($('#planweight').val()) - weightInput <=0){
+    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认回使计划自动关闭，是否继续？";
+    	}else{
+    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，是否确认签收？";
+    	}
+    	confirm("确认",title,function(){
+    		$.ajax({
+    			url:URL.signUrl,
+    			data:{"id":$("#hidid").val(),"weight":weightInput},
+    			type : "post",
+    			dataType:"json",
+    			success:function(rs){
+    				if( rs && rs.code =="000000" ){
+    					$(".searchBtn").trigger("click");
+    					$("#signModal").modal("hide");
+    				}else{
+    					alert(rs.error);
+    				}
+    			}
+    		});
+    	},function(){
+    		$("#signModal").modal('hide');
+    		$("#hidid").val("");
+    		$("#weight").val("");
+    		$("#weighttext").val("");
+    		$("#qhbdImgUrl").attr( "src",_qhimgurl_defult);
+    		$("#bdimgurl").attr( "src",_xhimgurl_defult);
+    	});
     	
-		$.ajax({
-			url:URL.signUrl,
-			data:{"id":$("#hidid").val(),"weight":weightInput},
-			type : "post",
-			dataType:"json",
-			success:function(rs){
-				if( rs && rs.code =="000000" ){
-					$(".searchBtn").trigger("click");
-					$("#signModal").modal("hide");
-				}else{
-					alert(rs.error);
-				}
-			}
-		})
 	});
 	
 	//删除按钮点击

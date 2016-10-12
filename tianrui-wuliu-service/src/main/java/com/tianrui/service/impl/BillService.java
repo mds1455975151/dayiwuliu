@@ -549,6 +549,7 @@ public class BillService implements IBillService{
 							b.setWaybillno(codeGenDao.codeGen(2));
 							b.setType(Byte.parseByte(Constant.BILL_TYPE_0));
 							b.setOvernumber("1");
+							b.setTotalnumber("1");
 							b.setModifier(req.getCurruId());
 							b.setModifytime(System.currentTimeMillis());
 							b.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
@@ -1258,6 +1259,14 @@ public class BillService implements IBillService{
 					resp.setVenderName(member.getRealName());
 					resp.setVenderTel(member.getCellphone());
 				}
+			}
+			
+			if(StringUtils.isNotBlank(resp.getPlanid())){
+				Plan plan = planMapper.selectRootPlanByPlanId(resp.getPlanid());
+				if(plan.getCompleted() == null){
+					plan.setCompleted(0D);
+				}
+				resp.setPlanweight(plan.getTotalplanned() - plan.getCompleted());
 			}
 		}
 		return resp;
