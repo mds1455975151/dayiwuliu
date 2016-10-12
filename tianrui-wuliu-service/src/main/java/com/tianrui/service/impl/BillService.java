@@ -816,7 +816,7 @@ public class BillService implements IBillService{
 							//为车主发送站内信
 							MemberVo currUser =getMember(req.getCurruId());
 							MemberVo receive =getMember(db.getVenderid());
-							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_PICKUP, "vender");
+							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DEPARTURE, "vender");
 							rs.setCode("000000");
 							rs.setData("操作成功");
 						}else{
@@ -1465,10 +1465,53 @@ public class BillService implements IBillService{
 		return page;
 	}
 	
-	public List<Bill> queryReportBill(ReportVo vo) throws Exception{
+	public Result updateBillImage(WaybillConfirmReq req) throws Exception{
+		Result result = Result.getErrorResult();
+		if(req != null){
+			if(StringUtils.isNotBlank(req.getId())){
+				Bill bill = billMapper.selectByPrimaryKey(req.getId());
+				if(bill.getStatus() != BillStatusEnum.COMPLETE.getStatus()){
+					Bill b = new Bill();
+					b.setId(bill.getId());
+					if( StringUtils.isNotBlank(req.getImgdata()) ){//移动端图片保存
+						FileUploadReq uploadreq = new FileUploadReq();
+						uploadreq.setuId(req.getCurruId());
+						uploadreq.setImgStr(req.getImgdata());
+						result =fileUploadService.uploadImg(uploadreq);
+					}
+					if(req.getFile() != null){//PC端图片保存
+						result = iFileService.uploadByteImg(req.getFile());
+					}
+					if("TH".equals(req.getType())){
+						b.setPickupimgurl(result.getData().toString());
+					}else if("XH".equals(req.getType())){
+						b.setSignimgurl(result.getData().toString());
+					}
+					int i = billMapper.updateByPrimaryKeySelective(b);
+					if(i > 0){
+						result.setCode("000000");
+						result.setData(result.getData().toString());
+					}else{
+						result.setCode("000002");
+						result.setData("修改失败！");
+					}
+				}else{
+					result.setCode("000001");
+					result.setData("运单已签收不能修改榜单！");
+				}
+			}else{
+				result.setErrorCode(ErrorCode.PARAM_ERROR);
+			}
+		}
+		return result;
+	}
+	
+	public List<WaybillResp> queryReportBill(ReportVo vo) throws Exception{
 		if(vo != null){
-			return billMapper.queryReportBill(vo);
+			List<Bill> list = billMapper.queryReportBill(vo);
+			return conver2billResp(list);
 		}
 		return null;
 	}
+	
 }

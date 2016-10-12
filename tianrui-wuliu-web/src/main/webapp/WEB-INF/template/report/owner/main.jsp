@@ -10,8 +10,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>index</title>
-<meta name="keywords" content=" 天瑞" />
+<title>报表查询条件</title>
+<meta name="keywords" content="天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -22,7 +22,6 @@
 <link href="${trRoot}/tianrui/css/tr-media.css" rel="stylesheet">
 <script language="javascript" type="text/javascript"
 	src="${trRoot }/tianrui/My97DatePicker/WdatePicker.js"></script>
-
 </head>
 <body>
 	<!-- 引用公共header部分 -->
@@ -40,7 +39,6 @@
 			<div class="row">
 				<!-- 引用公共left部分 -->
 				<jsp:include page="../../common/member/left_busi.jsp"></jsp:include>
-				<!--个人中心左侧end-->
 				<!--个人中心右侧begin-->
 				<div class="car_right">
 					<div class="car_title bgblue">
@@ -65,20 +63,20 @@
 									<div class="report_lsearch">
 										<h5>开始时间：</h5>
 										<input type="text" id="starttime"
-											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})"
-											class="Wdate_report" />
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+											class="Wdate_report" readonly />
 										<h5>结束时间：</h5>
 										<input type="text" id="endtime"
-											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})"
-											class="Wdate_report" />
-										<h5>承认商：</h5>
-										<input type="text" />
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+											class="Wdate_report" readonly />
+										<h5>承运商：</h5>
+										<input id="carriers" type="text" />
 										<h5>物料：</h5>
-										<input type="text" />
+										<input id="material" type="text" />
 										<h5>起运地：</h5>
-										<input type="text" />
+										<input id="startplace" type="text" />
 										<h5>目的地：</h5>
-										<input type="text" />
+										<input id="endplace" type="text" />
 										<button type="submit" class="btn btnblue fr">重置</button>
 									</div>
 								</div>
@@ -93,12 +91,12 @@
 										<div class="report_wait ">
 											<h5>待选字段列表</h5>
 											<ul class="report_rtopul">
-												<li>时间</li>
-												<li>承运商</li>
-												<li>物料</li>
-												<li>车牌号</li>
-												<li>起运地</li>
-												<li>目的地</li>
+												<li col="unloadtime">时间</li>
+												<li col="venderid">承运商</li>
+												<li col="cargoname">物料</li>
+												<li col="vehicleno">车牌号</li>
+												<li col="startcity">起运地</li>
+												<li col="endcity">目的地</li>
 											</ul>
 										</div>
 										<div class="report_switch fl">
@@ -119,7 +117,7 @@
 														<th>是否小计</th>
 													</tr>
 												</thead>
-												<tbody>
+												<tbody id="groupColumns">
 												</tbody>
 											</table>
 										</div>
@@ -136,9 +134,9 @@
 									<div class="report_rbot">
 										<div class="report_wait">
 											<ul class="report_rdownul">
-												<li>单价</li>
-												<li>车数</li>
-												<li>结算数量</li>
+												<li col="price">单价</li>
+												<li col="carSum">车数</li>
+												<li col="weightSum">结算数量</li>
 											</ul>
 										</div>
 										<div class="report_switch fl">
@@ -160,15 +158,13 @@
 															<th>类型</th>
 														</tr>
 													</thead>
-													<tbody>
+													<tbody id="mathColumns">
 													</tbody>
 												</table>
 											</div>
 										</div>
-
-
 										<div class="report_show">
-											<input type="checkbox"><label class="ml5">显示合计</label>
+											<input id="summation" type="checkbox"><label class="ml5">显示合计</label>
 										</div>
 									</div>
 								</div>
@@ -178,131 +174,6 @@
 							</div>
 						</div>
 						<!--日报表end-->
-
-						<!--月报表begin-->
-						<div class="report_tcont month_report_tcont hide">
-							<div class="report_total">
-								<!--日报表过滤条件begin-->
-								<div class="report_left">
-									<div class="report_ltit">
-										<h3>过滤条件</h3>
-									</div>
-									<div class="report_lsearch">
-										<h5>开始时间：</h5>
-										<input type="text"
-											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})"
-											class="Wdate_report" />
-										<h5>结束时间：</h5>
-										<input type="text"
-											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})"
-											class="Wdate_report" />
-										<h5>承认商：</h5>
-										<input type="text" />
-										<h5>物料：</h5>
-										<input type="text" />
-										<h5>起运地：</h5>
-										<input type="text" />
-										<h5>目的地：</h5>
-										<input type="text" />
-										<button type="submit" class="btn btnblue fr">重置</button>
-									</div>
-								</div>
-								<!--日报表过滤条件end-->
-
-								<!--日报表报表规则begin-->
-								<div class="report_right">
-									<div class="report_ltit">
-										<h3>报表规则</h3>
-									</div>
-									<div class="report_rtop">
-										<div class="report_wait ">
-											<h5>待选字段列表</h5>
-											<ul class="report_rtopul">
-												<li>时间</li>
-												<li>承运商</li>
-												<li>物料</li>
-												<li>车牌号</li>
-												<li>起运地</li>
-												<li>目的地</li>
-											</ul>
-										</div>
-										<div class="report_switch fl">
-											<div class="report_sw1">
-												<img src="${imagesRoot}/tgup.png">
-											</div>
-											<div class="report_sw2">
-												<img src="${imagesRoot}/tgdown.png">
-											</div>
-										</div>
-										<div class="report_seled fl">
-											<h5>分组列表</h5>
-											<table class="table table-bordered table-hover"
-												id="report_ttop">
-												<thead>
-													<tr>
-														<th>分组字段名</th>
-														<th>是否小计</th>
-													</tr>
-												</thead>
-												<tbody>
-												</tbody>
-											</table>
-										</div>
-										<div class="report_updown fl">
-											<div class="imgup fl">
-												<img src="${imagesRoot}/jup.png">
-											</div>
-											<div class="imgdown fl">
-												<img src="${imagesRoot}/jdown.png">
-											</div>
-										</div>
-									</div>
-									<div class="clear"></div>
-									<div class="report_rbot">
-										<div class="report_wait">
-											<ul class="report_rdownul">
-												<li>单价</li>
-												<li>车数</li>
-												<li>结算数量</li>
-											</ul>
-										</div>
-										<div class="report_switch fl">
-											<div class="report_sw3">
-												<img src="${imagesRoot}/tgup.png">
-											</div>
-											<div class="report_sw4">
-												<img src="${imagesRoot}/tgdown.png">
-											</div>
-										</div>
-										<div class="report_botmag">
-											<div class="report_seled">
-												<h5>统计列表</h5>
-												<table class="table table-bordered tablenone"
-													id="report_tbot">
-													<thead>
-														<tr>
-															<th>字段名</th>
-															<th>类型</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
-											</div>
-										</div>
-
-
-										<div class="report_show">
-											<input type="checkbox"><label class="ml5">显示合计</label>
-										</div>
-									</div>
-								</div>
-								<!--日报表报表规则end-->
-								<div class="clear"></div>
-								<button type="submit" class="btn btnblue fr">生成报表</button>
-							</div>
-							<!--月报表end-->
-						</div>
 					</div>
 					<!--个人中心右侧end-->
 				</div>
@@ -321,15 +192,5 @@
 			src="/resources/js/common/member/header_busi.js"></script>
 		<script type="text/javascript"
 			src="/resources/js/report/owner/main.js"></script>
-		<script>
-			// 明细tab切换
-			var $tab_li = $('.report_menu li');
-			$tab_li.click(function() {
-				$(this).addClass('select').siblings().removeClass('select');
-				var index = $tab_li.index(this);
-				$('.report_tbox > .report_tcont').eq(index).show().siblings()
-						.hide();
-			});
-		</script>
 </body>
 </html>

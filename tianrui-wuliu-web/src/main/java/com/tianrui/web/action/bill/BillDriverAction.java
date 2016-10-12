@@ -237,4 +237,16 @@ public class BillDriverAction {
 		rs = transferService.delete(currUser.getId());
 		return rs;
 	}
+	
+	//修改榜单
+	@RequestMapping(value="/updateBillImage",method=RequestMethod.POST)
+	@ResponseBody
+	public Result updateBillImage(WaybillConfirmReq req) throws Exception{
+		Result rs =Result.getSuccessResult();
+		if(req !=null){
+			rs = billService.updateBillImage(req);
+		}
+		return rs;
+	}
+	
 }

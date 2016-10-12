@@ -3,10 +3,19 @@
 	function init(target){
 		var opts = $.data(target, 'report').options;
 		var data = opts.data;
-		var columns = opts.columns;
+		var columns = $.extend(true, [], opts.columns);;
 		if(!columns || columns.length == 0){
 			return;
 		}
+		var subColumns = [];
+		opts.groups.forEach(function(x, i, a){
+			var col = columns.filter(function(x1){
+				return x1.field == this.field;
+			},x);
+			var subcol = columns.splice(columns.indexOf(col[0]),1);
+			subColumns.push(subcol[0]);
+		});
+		columns = subColumns.concat(columns);
 		var $thead = $('<thead>')
 		var $thead_tr = $('<tr>');
 		for(var i=0;i<columns.length;i++){
@@ -202,11 +211,14 @@
 	function mathXJContent ($tbody,j,k,math) {
 		var $trs = $tbody.find('tr').not('tr.statistical');
 		var sum = 0;
+		var index = 0;
 		for(var i=$trs.length-1;i>=0;i--){
 			var $td = $trs.eq(i).find('td').eq(j);
 			var rowspan = $td.attr('rowspan');
 			var num = $trs.eq(i).find('td').eq(k).data(math.field);
 			sum += num;
+			//默认求和
+			index++;
 			if(j < 0){
 				continue;
 			}
@@ -218,9 +230,11 @@
 					break;
 				}
 			}
-			
 		}
-		return sum;
+		if(math.summation == '平均'){
+			sum = sum/index;
+		}
+		return sum.toFixed(2);
 	}
 	
 	

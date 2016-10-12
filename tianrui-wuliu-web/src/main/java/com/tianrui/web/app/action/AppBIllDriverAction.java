@@ -195,7 +195,14 @@ public class AppBIllDriverAction {
 		Result rs=billService.dischargeConfirm(req);
 		return AppResult.valueOf(rs);
 	}
-	
-	
+	//修改榜单
+	@RequestMapping(value="/updateBillImage",method=RequestMethod.POST)
+	@ApiParamRawType(WaybillConfirmReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult updateBillImage(AppParam<WaybillConfirmReq> appParam) throws Exception{
+		Result rs=billService.updateBillImage(appParam.getBody());
+		return AppResult.valueOf(rs);
+	}
 	
 }

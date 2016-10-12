@@ -14,7 +14,9 @@ $(function(){
 			//卸货完成
 			dischargeConfirmUrl:"/trwuliu/billdriver/dischargeConfirm",
 			acceptConfirmUrl:"/trwuliu/billdriver/acceptConfirm",
-			mainUrl:"/trwuliu/billdriver/main"
+			mainUrl:"/trwuliu/billdriver/main",
+			//重新上传榜单
+			updateBillImage:"/trwuliu/billdriver/updateBillImage"
 	}
 	
 	
@@ -86,7 +88,6 @@ $(function(){
 		var dId= $("#billId").val();
 		confirm("上传榜单","是否要上传提货榜单？",function(){
 			$("#urlReq").val(URL.pickupConfirmUrl);
-			$('.imageBox_bd').removeAttr('style');
 			initFileInput();
 			$("#upbangdan").modal();
 		},function(){
@@ -108,7 +109,6 @@ $(function(){
 	//dischargeBtn 卸货完成确认
 	$(".detailDiv").on("click",".dischargeBtn",function(){
 		$("#urlReq").val(URL.dischargeConfirmUrl);
-		$('.imageBox_bd').removeAttr('style');
 		initFileInput();
 		$("#upbangdan").modal();
 	});
@@ -190,10 +190,12 @@ $(function(){
 		var id = $("#billId").val();
 		var file = $("#file_bd")[0].files[0];
 		var url = $("#urlReq").val();
+		var type = $("#bdType").val();
 		if(id && file && url){
 			var formData = new FormData();
 			formData.append("file",file);
 			formData.append("id",id);
+			formData.append("type",type);
 			$.ajax({
 				url:PATH + url,
 				data : formData, 
@@ -214,4 +216,34 @@ $(function(){
 		}
 		
 	});
+	
+	$('#THBD').off('click').on('click',function(){
+		var url = $(this).attr('item');
+		$("#bdType").val('TH');
+		if(url){
+			$('#bdImg').attr('src',url);
+			$('#bdView').modal();
+		}else{
+			$('#bdts').modal();
+		}
+	});
+	
+	$('#XHBD').off('click').on('click',function(){
+		var url = $(this).attr('item');
+		$("#bdType").val('XH');
+		if(url){
+			$('#bdImg').attr('src',url);
+			$('#bdView').modal();
+		}else{
+			$('#bdts').modal();
+		}
+	});
+	
+	$('#uploadImg,#againUploadImg').off('click').on('click',function(){
+		$('#bdts,#bdView').modal('hide');
+		$("#urlReq").val(URL.updateBillImage);
+		initFileInput();
+		$("#upbangdan").modal();
+	});
+	
 });

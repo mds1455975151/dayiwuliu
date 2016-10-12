@@ -81,5 +81,10 @@ public interface IBillService {
 	public List<BillVehicleResp> queryVehicle(String pid)throws Exception;
 	
 	public List<PositionResp> getBIllTrack(WaybillQueryReq req) throws Exception;
+	
+	//查询委派运单
+	public PaginationVO<WaybillResp> queryAppointBillPage(WaybillQueryReq req) throws Exception;
 
+	//修改运单榜单
+	public Result updateBillImage(WaybillConfirmReq req) throws Exception;
 }

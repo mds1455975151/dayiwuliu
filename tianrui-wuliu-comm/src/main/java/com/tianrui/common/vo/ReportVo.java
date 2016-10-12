@@ -1,6 +1,7 @@
 package com.tianrui.common.vo;
 
 import java.io.Serializable;
+import java.net.URLDecoder;
 /**
  * 报表Vo
  * @author zhanggaohao
@@ -48,26 +49,26 @@ public class ReportVo implements Serializable {
 	public String getVendername() {
 		return vendername;
 	}
-	public void setVendername(String vendername) {
-		this.vendername = vendername;
+	public void setVendername(String vendername) throws Exception {
+		this.vendername = URLDecoder.decode(vendername, "UTF-8");
 	}
 	public String getCargoname() {
 		return cargoname;
 	}
-	public void setCargoname(String cargoname) {
-		this.cargoname = cargoname;
+	public void setCargoname(String cargoname) throws Exception {
+		this.cargoname = URLDecoder.decode(cargoname, "UTF-8");
 	}
 	public String getStartcity() {
 		return startcity;
 	}
-	public void setStartcity(String startcity) {
-		this.startcity = startcity;
+	public void setStartcity(String startcity) throws Exception {
+		this.startcity = URLDecoder.decode(startcity, "UTF-8");
 	}
 	public String getEndcity() {
 		return endcity;
 	}
-	public void setEndcity(String endcity) {
-		this.endcity = endcity;
+	public void setEndcity(String endcity) throws Exception {
+		this.endcity = URLDecoder.decode(endcity, "UTF-8");
 	}
 	public String getOrder() {
 		return order;
