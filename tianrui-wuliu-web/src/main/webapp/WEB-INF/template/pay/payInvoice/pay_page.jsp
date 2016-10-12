@@ -131,9 +131,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <th >货物名称</th>
                             <th >到货时间</th>
                             <th>到货量</th>
-                            <th>含税价</th>
+                            <th>含税单价</th>
                             <th >税率</th>
-                            <th >结算总价</th>
+                            <th >账单总价</th>
                         </tr>
                         </thead>
                         <tbody id="paydetails">

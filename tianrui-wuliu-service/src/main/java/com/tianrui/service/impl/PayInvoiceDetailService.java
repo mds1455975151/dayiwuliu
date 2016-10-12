@@ -95,7 +95,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				 */
 				payInvoiceDetail.setBillId(bill.getId());
 				payInvoiceDetail.setBillCode(bill.getWaybillno());
-				payInvoiceDetail.setBillWeight(bill.getWeight());
+				payInvoiceDetail.setBillWeight(bill.getTrueweight());
 				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
 				payInvoiceDetail.setSignTime(TimeUtils.LongZoString(bill.getUnloadtime()));
 				
