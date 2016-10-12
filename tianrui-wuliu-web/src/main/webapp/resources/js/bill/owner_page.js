@@ -111,13 +111,17 @@ $(function(){
 		$("#planweight").val(planweight);
 		if(!$(this).attr("qhdataImg")){
 			$("#qhbdImgUrl").hide();
+			$("#qhbdImgUrla").hide();
 		}else{
 			$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg"))
+			$("#qhbdImgUrla").attr( "href",$(this).attr("qhdataImg"))
 		}
 		if(!$(this).attr("dataImg")){
 			$("#bdimgurl").hide();
+			$("#bdimgurla").hide();
 		}else{
 			$("#bdimgurl").attr( "src",$(this).attr("dataImg"))
+			$("#bdimgurla").attr( "href",$(this).attr("dataImg"))
 		}
 		$("#signModal").modal();
 	});
@@ -128,7 +132,9 @@ $(function(){
 		$("#planweight").val("");
 		$("#weighttext").val("");
 		$("#qhbdImgUrl").attr( "src",_qhimgurl_defult);
+		$("#qhbdImgUrla").attr( "href",_qhimgurl_defult);
 		$("#bdimgurl").attr( "src",_xhimgurl_defult);
+		$("#bdimgurla").attr( "href",_xhimgurl_defult);
 	});
 	
 	

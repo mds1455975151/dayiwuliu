@@ -97,8 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<input type="hidden" id="weight"/>
             	<input type="hidden" id="planweight"/>
                 <div class="bdimg">
-                    <img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl">
-                    <img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl">
+                    <a href="${trRoot}/tianrui/images/bd.png" target="_blank" id="qhbdImgUrla"><img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl" style="max-height:200px;"></a>
+                    <a href="${trRoot}/tianrui/images/bd.png"  target="_blank" id="bdimgurla">  <img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl" style="max-height:200px;"></a>
                     <p><label>磅单重量：</label><input type="text" id="weighttext"></p>
                 </div>
             </div>

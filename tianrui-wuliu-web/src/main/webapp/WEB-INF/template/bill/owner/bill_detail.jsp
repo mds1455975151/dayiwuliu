@@ -226,8 +226,12 @@
 				<div class="modal-body">
 					<input type="hidden" id="hidid" />
 					<div class="bdimg">
-						<img src="${bill.pickupimgurl}" id="qhbdImgUrl" <c:if test="${empty bill.pickupimgurl}">hidden</c:if>>
-						<img src="${bill.signimgurl }" id="bdimgurl">
+						<c:if test="${not empty bill.pickupimgurl}">
+							<a href="${bill.pickupimgurl }" target="_blank"><img src="${bill.pickupimgurl}" id="qhbdImgUrl" style="max-height:200px;" ></a>
+						</c:if>
+						<c:if test="${not empty bill.signimgurl}">
+						<a href="${bill.signimgurl }" target="_blank"><img src="${bill.signimgurl }" id="bdimgurl" style="max-height:200px;"></a>
+						</c:if>
 						<p>
 							<label>磅单重量：</label><input type="text" id="weighttext">
 						</p>
@@ -251,7 +255,7 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 	<script type="text/javascript"
 		src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/bill/owner_detail.js"></script>
+	<script type="text/javascript" src="/resources/js/bill/owner_detail.js?11"></script>
 
 </body>
 </html>
