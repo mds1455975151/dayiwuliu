@@ -63,7 +63,16 @@
                     </li> 
                 </ul>
             </div> -->
+            <div class="lgtel">
+                <img src="${trRoot}/tianrui/images/tel.png">
+                <div class="lgtelcont">
+                    <p>联系方式</p>
+                    <h5>0375-6890116</h5>
+                </div>
+            </div>
+            <!-- 
             <img src="${trRoot}/tianrui/images/tel.png">
+             -->
         </div>
         <!--导航条end-->
     </div>

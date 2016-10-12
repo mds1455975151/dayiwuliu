@@ -405,7 +405,7 @@ public class BillService implements IBillService{
 						update.setId(req.getId());
 						
 						update.setStatus((byte)BillStatusEnum.COMPLETE.getStatus());
-						update.setWeight(Double.valueOf(req.getWeight()));
+						update.setTrueweight(Double.valueOf(req.getWeight()));
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
