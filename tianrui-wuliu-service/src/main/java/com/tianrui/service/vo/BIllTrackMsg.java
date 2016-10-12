@@ -11,7 +11,7 @@ public interface BIllTrackMsg {
 	 String STEP5="货主删除运单.";
 	 String STEP6="司机确认接受运单.";
 	 String STEP7="司机拒绝接受运单.";
-	 String STEP8="司机已装货确认.";
+	 String STEP8="司机已提货确认.";
 	 String STEP9="司机提货发车确认,运输中.";
 	 String STEP10="司机到达确认,等待卸货.";
 	 String STEP11="司机已到货确认.";
