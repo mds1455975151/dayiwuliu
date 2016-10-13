@@ -85,6 +85,6 @@ public interface IBillService {
 	//查询委派运单
 	public PaginationVO<WaybillResp> queryAppointBillPage(WaybillQueryReq req) throws Exception;
 
-	//修改运单榜单
+	//修改运单磅单
 	public Result updateBillImage(WaybillConfirmReq req) throws Exception;
 }
