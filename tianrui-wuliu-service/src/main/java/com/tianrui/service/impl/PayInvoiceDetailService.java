@@ -229,7 +229,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setPayStatus(PayStatusEnum.create.getStatus());
 						payInvoice.setAdviceStatus((byte)0);
 						payInvoice.setAdviceTime(System.currentTimeMillis());
-						payInvoice.setPayCode(codeGenDao.codeGen(3));
+						payInvoice.setPayCode(codeGenDao.codeGen(4));
 						
 						payInvoice.setOwnerId(item.getOwnerId());
 						payInvoice.setOrgid(item.getOrgid());
