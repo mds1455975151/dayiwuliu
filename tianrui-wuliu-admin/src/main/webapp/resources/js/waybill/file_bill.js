@@ -109,7 +109,7 @@ function innerHTML(data){
 		"<td>"+data[a].createtimeStr+"</td>"+
 		"<td>"+sta+"</td>"+
 		"<td><span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【查看详情】</a></span>"+
-		(data[a].status == "6"? "<span><a  class='priceConfrim' dataid='"+data[a].id+"'>【运价确认】</a></span>":"")+
+		(data[a].status == "6"&&data[a].isClearing=="0"? "<span><a  class='priceConfrim' dataid='"+data[a].id+"'>【运价确认】</a></span>":"")+
 //		"<span><a data-toggle='modal' data-target='#tingyong'>停用</a></span>" +
 		"</td>";
 	}

@@ -73,7 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <option value="">请选择</option>
                             <option value="0">未审核</option>
                             <option value="1">已审核</option>
+                            <!-- 
                             <option value="2">新建</option>
+                             -->
                             <option value="3">已推单</option>
                             <option value="4">支付中</option>
                             <option value="5">支付完成 </option>

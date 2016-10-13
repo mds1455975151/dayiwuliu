@@ -30,7 +30,9 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
 import com.tianrui.service.admin.bean.FileFreight;
+import com.tianrui.service.admin.bean.FileOrgCargo;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
+import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.PayInvoice;
@@ -57,6 +59,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	MemberVoService memberVoService;
 	@Autowired
 	FileCargoMapper fileCargoMapper;
+	@Autowired
+	FileOrgCargoMapper fileOrgCargoMapper;
 	@Autowired
 	CodeGenDao codeGenDao;
 	@Autowired
@@ -110,7 +114,9 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				/**
 				 * 货物信息
 				 */
-				FileCargo cargo=fileCargoMapper.selectByPlanId(bill.getPlanid());
+//				FileCargo cargo=fileCargoMapper.selectByPlanId(plan.getId());
+				FileOrgCargo orgcargo = fileOrgCargoMapper.selectByPrimaryKey(plan.getCargoid());
+				FileCargo cargo=fileCargoMapper.selectByPrimaryKey(orgcargo.getCargoid());
 				payInvoiceDetail.setCargoId(cargo.getId());
 				payInvoiceDetail.setCargoCode(cargo.getCargono());
 				payInvoiceDetail.setCargoName(bill.getCargoname());

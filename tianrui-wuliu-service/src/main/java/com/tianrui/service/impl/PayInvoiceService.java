@@ -245,7 +245,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 			return response;
 		} catch (Exception e) {
 			// TODO: handle exception
-			return "nc服务端报错";
+			return "网络异常";
 		}
 	}
 //	public static void main(String[] args) throws UnsupportedEncodingException {

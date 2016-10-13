@@ -56,7 +56,8 @@ public class WaybillResp extends BaseResp{
      * 剩余运输量
      */
     private Double overweight;
-	
+    /** 是否已结算 0-未结算 1-已结算*/
+    private String isClearing;
 	//拒绝原因类型
 	private String refuseType;
 	//拒绝原因
@@ -248,6 +249,12 @@ public class WaybillResp extends BaseResp{
 	}
 	public String getVenderid() {
 		return venderid;
+	}
+	public String getIsClearing() {
+		return isClearing;
+	}
+	public void setIsClearing(String isClearing) {
+		this.isClearing = isClearing;
 	}
 	public void setVenderid(String venderid) {
 		this.venderid = venderid;

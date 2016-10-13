@@ -6,36 +6,13 @@
                 <div class="foot_logo">
                         <img src="${trRoot}/tianrui/images/logobig.png">
                 </div>
-                    <div class="foot_line mt20">
-                        <h3>友情链接</h3>
-                        <ul>
-                            <li>>天瑞集团水泥责任有限公司</li>
-                            <li>>天瑞集团水泥</li>
-                            <li>>天瑞集团水泥</li>
-                            <li>>天瑞集团水泥</li>
-                        </ul>
-                    </div>
                 <div class="foot_line mt20">
-                    <h3>友情链接</h3>
-                    <ul>
-                        <li>>天瑞集团水泥责任有限公司</li>
-                        <li>>天瑞集团水泥</li>
-                        <li>>天瑞集团水泥</li>
-                        <li>>天瑞集团水泥</li>
-                    </ul>
                 </div>
                 <div class="foot_line mt20">
-                    <h3>友情链接</h3>
-                    <ul>
-                        <li>>天瑞集团水泥责任有限公司</li>
-                        <li>>天瑞集团水泥</li>
-                        <li>>天瑞集团水泥</li>
-                        <li>>天瑞集团水泥</li>
-                    </ul>
+                   	 <img title="android" width="130" height="130" src="${trRoot}/tianrui/images/erandroid.png">
                 </div>
                 <div class="foot_er mt20">
                     <img title="IOS" width="130" height="130" src="${trRoot}/tianrui/images/erios.png">
-                    <img title="android" width="130" height="130" src="${trRoot}/tianrui/images/erandroid.png">
                 </div>
             </div>
         </div>
