@@ -927,7 +927,7 @@ public class BillService implements IBillService{
 				}
 				String planCodes = "";
 				for(Plan p : listPlan){
-					planCodes += p.getPlancode()+",";
+					planCodes += "\""+p.getPlancode()+"\",";
 				}
 				query.setPlancode(planCodes.substring(0, planCodes.length()-1));
 			}else if(req.getQueryType() ==2 ){
