@@ -8,13 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.mysql.fabric.xmlrpc.base.Data;
-import com.mysql.jdbc.ConnectionPropertiesTransform;
-import com.tianrui.service.bean.Contacts;
-import com.tianrui.service.bean.FileReg;
 import com.tianrui.service.mongo.CodeGenDao;
-import com.tianrui.service.mongo.ContactDao;
-import com.tianrui.service.mongo.FileRegDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/appliactionContext-service.xml" })

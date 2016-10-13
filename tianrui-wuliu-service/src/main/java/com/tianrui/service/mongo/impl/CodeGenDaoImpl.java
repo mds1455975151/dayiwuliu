@@ -52,14 +52,28 @@ public class CodeGenDaoImpl extends BaseDaoImpl<CodeGen,String> implements CodeG
 			code.setCode(Long.parseLong(rs));
 			mongoTemplate.insert(code);
 		}
-		
+		switch(type){
+		  case 1:
+			  rs="JH"+rs;
+			  break;
+		  case 2:
+			  rs="YD"+rs;
+			  break;
+		  case 3:
+			  rs="JM"+rs;
+		  case 4:
+			  rs="ZD"+rs;		  
+			  break;
+		  default:
+			  
+		}
 		return rs;
 	}
 
 	
 	//获取当前日期 比如20140102
 	private int getCurrDate(){
-		return Integer.valueOf(DateUtil.getDateString(new Date(), "yyyyMMdd"));
+		return Integer.valueOf(DateUtil.getDateString(new Date(), "yyMMdd"));
 	}
 	
 	
