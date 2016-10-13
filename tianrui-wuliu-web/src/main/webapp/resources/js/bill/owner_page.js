@@ -111,18 +111,18 @@ $(function(){
 		$("#planweight").val(planweight);
 		if(!$(this).attr("qhdataImg")){
 			$("#qhbdImgUrl").hide();
-			$("#qhbdImgUrla").hide();
+			$("#notImg").show();
 		}else{
-			$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg"))
-			$("#qhbdImgUrla").attr( "href",$(this).attr("qhdataImg"))
+			$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg")).show();
+			$("#notImg").hide();
 		}
 		if(!$(this).attr("dataImg")){
 			$("#bdimgurl").hide();
-			$("#bdimgurla").hide();
 		}else{
 			$("#bdimgurl").attr( "src",$(this).attr("dataImg"))
-			$("#bdimgurla").attr( "href",$(this).attr("dataImg"))
 		}
+		$('.nav-tabs li:first').addClass('active').siblings('li').removeClass('active');
+		$('.tab-content div:first').addClass('in active').siblings('div.tab-pane').removeClass('in active');
 		$("#signModal").modal();
 	});
 	//监听拒绝模态框关闭事件
@@ -132,9 +132,7 @@ $(function(){
 		$("#planweight").val("");
 		$("#weighttext").val("");
 		$("#qhbdImgUrl").attr( "src",_qhimgurl_defult);
-		$("#qhbdImgUrla").attr( "href",_qhimgurl_defult);
 		$("#bdimgurl").attr( "src",_xhimgurl_defult);
-		$("#bdimgurla").attr( "href",_xhimgurl_defult);
 	});
 	
 	
@@ -150,7 +148,7 @@ $(function(){
     	}
     	var title = "";
     	if(parseFloat($('#planweight').val()) - weightInput <=0){
-    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认回使计划自动关闭，是否继续？";
+    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认会使计划自动关闭，是否继续？";
     	}else{
     		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，是否确认签收？";
     	}

@@ -7,14 +7,38 @@ PAGE = {
 }
 PAGE.main = {
 	init:function(){
+		var _this = this;
+		_this.loadReport();
+		_this.bindEvent();
+	},
+	bindEvent:function(){
+		//导出
+		$('#exportReport').off('click').on('click',function(){
+			var options = {
+				type:'excel',
+			}
+			if(item == 'D'){
+				options.tableName="日报表";
+			}
+			if(item == 'M'){
+				options.tableName="月报表";
+			}
+			$('#reportContains').find('table').tableExport(options);
+		});
+		//返回
+		$('#backSearch').off('click').on('click',function(){
+			
+		});
+	},
+	loadReport:function(){
 		if(data){
 			data.forEach(function(x,i,a){
 				var date = new Date(parseInt(x.unloadtime));
 				var formatStr = ''
 				formatStr += date.getFullYear()+"-";
-				formatStr += (date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1)+"-";
+				formatStr += date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1;
 				if(item == 'D'){
-					formatStr += (date.getDate()<10?"0"+date.getDate():date.getDate())+" ";
+					formatStr += "-" + (date.getDate()<10?"0"+date.getDate():date.getDate());
 				}
 //				if(item == 'M'){
 //				}

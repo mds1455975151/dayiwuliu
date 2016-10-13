@@ -226,12 +226,33 @@
 				<div class="modal-body">
 					<input type="hidden" id="hidid" />
 					<div class="bdimg">
-						<c:if test="${not empty bill.pickupimgurl}">
-							<a href="${bill.pickupimgurl }" target="_blank"><img src="${bill.pickupimgurl}" id="qhbdImgUrl" style="max-height:200px;" ></a>
-						</c:if>
-						<c:if test="${not empty bill.signimgurl}">
-						<a href="${bill.signimgurl }" target="_blank"><img src="${bill.signimgurl }" id="bdimgurl" style="max-height:200px;"></a>
-						</c:if>
+						<div class="modal-body">
+			                <ul class="nav nav-tabs">
+			                    <li class="active"><a href="#single" data-toggle="tab">提货榜单</a></li>
+			                    <li><a href="#multiple" data-toggle="tab">卸货榜单</a></li>
+			                </ul>
+			                <div class="tab-content">
+			                    <div class="tab-pane fade in active" id="single">
+			                        <div class="bdimg">
+			                        	<c:choose>
+			                        		<c:when test="${empty bill.pickupimgurl}">
+			                        			<div class="bd_note">
+				                        			<label>司机未上传榜单</label>
+								                </div>
+			                        		</c:when>
+			                        		<c:otherwise>
+												<img src="${bill.pickupimgurl}" id="qhbdImgUrl" >
+			                        		</c:otherwise>
+			                        	</c:choose>
+			                        </div>
+			                    </div>
+			                    <div class="tab-pane fade" id="multiple">
+			                        <div class="bdimg">
+										<img src="${bill.signimgurl }" id="bdimgurl">
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
 						<p>
 							<label>磅单重量：</label><input type="text" id="weighttext">
 						</p>
