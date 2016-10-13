@@ -166,7 +166,7 @@ $(function(){
 			}
 		})
 	})
-	//上传榜单点击完成按钮
+	//上传磅单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
 		var id = $("#hidbid").val();
 		var file = $("#file_bd")[0].files[0];
@@ -254,7 +254,7 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".table").on("click",".pickupBtn",function(){
 		var dId= $(this).attr("dataId");
-		confirm("上传榜单","是否要上传提货榜单？",function(){
+		confirm("上传磅单","是否要上传提货磅单？",function(){
 			$("#urlReq").val(URL.pickupConfirmUrl);
 			$("#hidbid").val(dId);
 			initFileInput();

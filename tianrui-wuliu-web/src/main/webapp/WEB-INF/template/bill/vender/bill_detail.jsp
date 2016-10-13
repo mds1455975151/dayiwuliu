@@ -148,13 +148,13 @@
 											<td></td>
 										</tr>
 									</tbody>
-									<!-- 榜单图片 -->
+									<!-- 磅单图片 -->
 									<c:if
 										test="${bill.status==2 || bill.status==3 || bill.status==4 || bill.status==5 || bill.status==6}">
 										<thead>
 											<tr>
 												<c:if test="${not empty bill.pickupimgurl}">
-													<th>提货榜单</th>
+													<th>提货磅单</th>
 												</c:if>
 												<c:if test="${bill.status==5 || bill.status==6}">
 													<th>卸货磅单</th>
@@ -173,12 +173,12 @@
 													<td><a href="${bill.signimgurl }" target="_blank">查看磅单</a></td>
 												</c:if>
 												<c:if test="${bill.status==6}">
-													<td><fmt:formatNumber type="number" value="${bill.price*bill.weight}" pattern="0.00" maxFractionDigits="2"/>元</td>
+													<td><fmt:formatNumber type="number" value="${bill.price*bill.trueweight}" pattern="0.00" maxFractionDigits="2"/>元</td>
 												</c:if>
 											</tr>
 										</tbody>
 									</c:if>
-									<!-- 榜单图片 -->
+									<!-- 磅单图片 -->
 								</table>
 								<c:if test="${ bill.refuseType !=null}">
 									<div class="callback_dtl">

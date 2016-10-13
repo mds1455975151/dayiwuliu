@@ -238,7 +238,7 @@ public class BillDriverAction {
 		return rs;
 	}
 	
-	//修改榜单
+	//修改磅单
 	@RequestMapping(value="/updateBillImage",method=RequestMethod.POST)
 	@ResponseBody
 	public Result updateBillImage(WaybillConfirmReq req) throws Exception{

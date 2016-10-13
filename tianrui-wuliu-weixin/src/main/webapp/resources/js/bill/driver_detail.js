@@ -147,7 +147,7 @@ $(function(){
 		$('.bangdan_img').html(_htmlsrc);
 	});
 	
-	//上传榜单点击完成按钮
+	//上传磅单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
 		if( $("#billId").val() &&  $("#imgdata").val()){
 			$.ajax({

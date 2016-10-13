@@ -15,7 +15,7 @@ $(function(){
 			dischargeConfirmUrl:"/trwuliu/billdriver/dischargeConfirm",
 			acceptConfirmUrl:"/trwuliu/billdriver/acceptConfirm",
 			mainUrl:"/trwuliu/billdriver/main",
-			//重新上传榜单
+			//重新上传磅单
 			updateBillImage:"/trwuliu/billdriver/updateBillImage"
 	}
 	
@@ -86,7 +86,7 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".detailDiv").on("click",".pickupBtn",function(){
 		var dId= $("#billId").val();
-		confirm("上传榜单","是否要上传提货榜单？",function(){
+		confirm("上传磅单","是否要上传提货磅单？",function(){
 			$("#urlReq").val(URL.pickupConfirmUrl);
 			initFileInput();
 			$("#upbangdan").modal();
@@ -185,7 +185,7 @@ $(function(){
 		$('.bangdan_img').html(_htmlsrc);
 	});
 	
-	//上传榜单点击完成按钮
+	//上传磅单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
 		var id = $("#billId").val();
 		var file = $("#file_bd")[0].files[0];

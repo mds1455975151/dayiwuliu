@@ -148,7 +148,7 @@ $(function(){
 			}
 		})
 	})
-	//上传榜单点击完成按钮
+	//上传磅单点击完成按钮
 	$(".departsubmitbtn").off("click").on("click",function(){
 		if( $("#hidbid").val()  &&  $("#imgdata").val()){
 			$.ajax({

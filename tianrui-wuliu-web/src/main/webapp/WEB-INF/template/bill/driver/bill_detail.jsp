@@ -134,11 +134,11 @@
 											<td>共${bill.totalnumber }趟</td>
 										</tr>
 									</tbody>
-									<!-- 榜单图片 -->
+									<!-- 磅单图片 -->
 									<c:if test="${bill.status==2 || bill.status==3 || bill.status==4 || bill.status==5 || bill.status==6}">
 										<thead>
 				                            <tr>
-				                                <th>查看榜单</th>
+				                                <th>查看磅单</th>
 				                                <th class="underline colorblue"><a id="THBD" item="${bill.pickupimgurl }">提货磅单</a></th>
 				                                <c:if test="${bill.status==5 || bill.status==6}">
 				                                	<th class="underline colorblue"><a id="XHBD" item="${bill.signimgurl }">卸货磅单</a></th>
@@ -146,7 +146,7 @@
 				                            </tr>
 			                            </thead>
 									</c:if>
-									<!-- 榜单图片 -->
+									<!-- 磅单图片 -->
 								</table>
 								<c:if test="${ bill.refuseType !=null}">
 									<div class="callback_dtl">

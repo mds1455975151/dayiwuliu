@@ -99,8 +99,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="bdimg">
 	                <div class="modal-body">
 		                <ul class="nav nav-tabs">
-		                    <li class="active"><a href="#single" data-toggle="tab">提货榜单</a></li>
-		                    <li><a href="#multiple" data-toggle="tab">卸货榜单</a></li>
+		                    <li class="active"><a href="#single" data-toggle="tab">提货磅单</a></li>
+		                    <li><a href="#multiple" data-toggle="tab">卸货磅单</a></li>
 		                </ul>
 		                <div class="tab-content">
 		                    <div class="tab-pane fade in active" id="single">
@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                    <img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl">
 				                    <label></label>
 				                    <div id="notImg" class="bd_note" hidden>
-	                        			<label>司机未上传榜单</label>
+	                        			<label>司机未上传磅单</label>
 					                </div>
 		                        </div>
 		                    </div>

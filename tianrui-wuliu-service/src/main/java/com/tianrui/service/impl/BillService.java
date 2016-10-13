@@ -754,7 +754,7 @@ public class BillService implements IBillService{
 							rs.setCode("000000");
 							rs.setData("操作成功");
 						}else{
-							//榜单图片上传失败
+							//磅单图片上传失败
 							rs.setErrorCode(ErrorCode.BILL_STATUS_IMG_UPLOAD);
 						}
 					}else{
@@ -789,7 +789,7 @@ public class BillService implements IBillService{
 						if(count == 0){
 							Bill update =new Bill();
 							update.setId(req.getId());
-							//如果上传榜单了就保存
+							//如果上传磅单了就保存
 							if( StringUtils.isNotBlank(req.getImgdata()) ){//移动端图片保存
 								FileUploadReq uploadreq = new FileUploadReq();
 								uploadreq.setuId(req.getCurruId());
@@ -1506,7 +1506,7 @@ public class BillService implements IBillService{
 					}
 				}else{
 					result.setCode("000001");
-					result.setData("运单已签收不能修改榜单！");
+					result.setData("运单已签收不能修改磅单！");
 				}
 			}else{
 				result.setErrorCode(ErrorCode.PARAM_ERROR);
