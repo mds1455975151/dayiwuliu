@@ -61,6 +61,7 @@ public class CodeGenDaoImpl extends BaseDaoImpl<CodeGen,String> implements CodeG
 			  break;
 		  case 3:
 			  rs="JM"+rs;
+			  break;
 		  case 4:
 			  rs="ZD"+rs;		  
 			  break;
