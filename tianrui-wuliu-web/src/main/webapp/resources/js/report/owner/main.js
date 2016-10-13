@@ -64,14 +64,14 @@ $(function(){
 		var summation = $('#summation')[0].checked;
 		window.location.href='/trwuliu/billreport/report?item='+item
 														+'&starttime='+dateStr2time(starttime)
-														+'&endtime='+dateStr2time(endtime)
+														+'&endtime='+(dateStr2time(endtime) + 86400)
 														+'&vendername='+encodeURI(encodeURI(carriers))
 														+'&cargoname='+encodeURI(encodeURI(material))
 														+'&startcity='+encodeURI(encodeURI(startplace))
 														+'&endcity='+encodeURI(encodeURI(endplace))
 														+'&order='+order
 														+'&groups='+JSON.stringify(groups)
-														+'&statistical='+JSON.stringify(statistical)
+														+'&statistical='+encodeURI(encodeURI(JSON.stringify(statistical)))
 														+'&summation='+summation
 														+'&subtotal='+subtotal
 		/*$.ajax({

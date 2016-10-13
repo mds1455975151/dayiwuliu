@@ -148,7 +148,7 @@ $(function(){
     	}
     	var title = "";
     	if(parseFloat($('#planweight').val()) - weightInput <=0){
-    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认回使计划自动关闭，是否继续？";
+    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认会使计划自动关闭，是否继续？";
     	}else{
     		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，是否确认签收？";
     	}

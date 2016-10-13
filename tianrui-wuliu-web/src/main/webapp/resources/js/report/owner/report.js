@@ -36,9 +36,9 @@ PAGE.main = {
 				var date = new Date(parseInt(x.unloadtime));
 				var formatStr = ''
 				formatStr += date.getFullYear()+"-";
-				formatStr += (date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1)+"-";
+				formatStr += date.getMonth()+1<10?"0"+(date.getMonth()+1):date.getMonth()+1;
 				if(item == 'D'){
-					formatStr += (date.getDate()<10?"0"+date.getDate():date.getDate())+" ";
+					formatStr += "-" + (date.getDate()<10?"0"+date.getDate():date.getDate());
 				}
 //				if(item == 'M'){
 //				}

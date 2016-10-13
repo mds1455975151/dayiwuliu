@@ -1085,7 +1085,7 @@
 				and A.unloadtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
 			</if>
 			<if test="endtime != null and endtime != ''">
-				and A.unloadtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+				and A.unloadtime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
 			</if>
 			<if test="memberid != null and memberid != ''">
 				and A.ownerid = #{memberid,jdbcType=VARCHAR}
