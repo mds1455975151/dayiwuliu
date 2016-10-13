@@ -50,7 +50,8 @@
 							<div class="plan_table">
 								<input type="hidden" value="${bill.id}" id="billId" />
 								<input type="hidden" value="${bill.weight}" id="weight" />
-								<input type="hidden" value="${bill.planweight}" id="planweight" />
+								<input type="hidden" value="${bill.planWeight}" id="planWeight" />
+								<input type="hidden" value="${bill.planCompleteWeight}" id="planCompleteWeight" />
 								<table class="table ">
 									<thead>
 										<tr>

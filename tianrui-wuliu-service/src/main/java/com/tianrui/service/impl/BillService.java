@@ -1266,7 +1266,8 @@ public class BillService implements IBillService{
 				if(plan.getCompleted() == null){
 					plan.setCompleted(0D);
 				}
-				resp.setPlanweight(plan.getTotalplanned() - plan.getCompleted());
+				resp.setPlanWeight(plan.getTotalplanned());
+				resp.setPlanCompleteWeight(plan.getCompleted());
 			}
 		}
 		return resp;

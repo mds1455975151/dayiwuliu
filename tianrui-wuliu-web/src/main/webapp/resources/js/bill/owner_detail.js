@@ -26,12 +26,11 @@ $(function(){
     		alert("签收重量格式整数最大6位，小数最大2位");
     		return ;
     	}
-		
-		var title = "";
-    	if(parseFloat($('#planweight').val()) - weightInput <=0){
-    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，计划剩余量为"+$('#planweight').val()+",<br/>确认会使计划自动关闭，是否继续？";
-    	}else{
-    		title = "该运单的运输量为"+$("#weight").val()+"，签收量为"+weightInput+"，是否确认签收？";
+		var planWeight = parseFloat($('#planWeight').val());
+		var planCompleteWeight = parseFloat($('#planCompleteWeight').val());
+		var title = "本次运单的计划运输量为"+$("#weight").val()+"吨，签收量为"+weightInput+"吨；货主计划总量为"+planWeight+"吨，已累计签收（含本次）数量为"+(planCompleteWeight+weightInput)+"吨；";
+    	if((planWeight - planCompleteWeight) <= weightInput){
+    		title += "现已超过计划总量，确认将关闭货运计划。";
     	}
     	confirm("确认",title,function(){
     		$.ajax({

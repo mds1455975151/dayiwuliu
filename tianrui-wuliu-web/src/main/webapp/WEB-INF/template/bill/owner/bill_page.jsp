@@ -95,7 +95,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body">
             	<input type="hidden" id="hidid"/>
             	<input type="hidden" id="weight"/>
-            	<input type="hidden" id="planweight"/>
+            	<input type="hidden" id="planWeight"/>
+            	<input type="hidden" id="planCompleteWeight"/>
                 <div class="bdimg">
 	                <div class="modal-body">
 		                <ul class="nav nav-tabs">

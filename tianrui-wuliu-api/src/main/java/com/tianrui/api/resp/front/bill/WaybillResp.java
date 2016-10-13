@@ -81,9 +81,11 @@ public class WaybillResp extends BaseResp{
     
     private List<BillTrackResp> billTrackList;
 
-    //计划剩余量
-    private Double planweight;
+    //计划总量
+    private Double planWeight;
     
+    //计划完成量
+    private Double planCompleteWeight;
     
 	public String getId() {
 		return id;
@@ -421,11 +423,17 @@ public class WaybillResp extends BaseResp{
 	public void setUnloadtime(Long unloadtime) {
 		this.unloadtime = unloadtime;
 	}
-	public Double getPlanweight() {
-		return planweight;
+	public Double getPlanWeight() {
+		return planWeight;
 	}
-	public void setPlanweight(Double planweight) {
-		this.planweight = planweight;
+	public void setPlanWeight(Double planWeight) {
+		this.planWeight = planWeight;
+	}
+	public Double getPlanCompleteWeight() {
+		return planCompleteWeight;
+	}
+	public void setPlanCompleteWeight(Double planCompleteWeight) {
+		this.planCompleteWeight = planCompleteWeight;
 	}
 	
 }
