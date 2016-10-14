@@ -219,7 +219,7 @@ function details(id){
 			"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+
-			"<div class='file_detail2'><label>驾驶证照片：</label><span><a href=\'"+a.driveImagePath+"\' target='_blank'><img width='180' src='"+a.driveImagePath+"'></a></span></div>";
+			"<div class='file_detail2'><label>驾驶证照片：</label><span><a href=\'"+a.driveImagePath+"\' target='_blank'><img height='180' src='"+a.driveImagePath+"'></a></span></div>";
 		document.getElementById("detailid").innerHTML = hml;	
 }
 /**
