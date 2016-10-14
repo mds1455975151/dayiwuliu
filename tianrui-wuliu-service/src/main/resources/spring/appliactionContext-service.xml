@@ -34,6 +34,7 @@
 		<property name="FILE_URL_PRE" value="${file.url.pref}"></property>
 		<property name="isAuthCodeUsed" value="${auth.code.used.flag}"></property>
 		<property name="authCodeValue" value="${auth.code.value}"></property>
+		<property name="NC_PAY_URL" value="${nc.pay.url}"></property>
 	</bean>
      
      <import resource="applicationContext-db.xml"/>

@@ -29,6 +29,8 @@ public class Constant {
     public static String isAuthCodeUsed="";
     //万能验证码值
     public static String authCodeValue="";
+    //nc支付url
+    public static String NC_PAY_URL="";
     
 
     
@@ -84,8 +86,13 @@ public class Constant {
 	public static void setAuthCodeValue(String authCodeValue) {
 		Constant.authCodeValue = authCodeValue;
 	}
-    
-    public static String getAuthCode(){
+    public static String getNC_PAY_URL() {
+		return NC_PAY_URL;
+	}
+	public static void setNC_PAY_URL(String nC_PAY_URL) {
+		NC_PAY_URL = nC_PAY_URL;
+	}
+	public static String getAuthCode(){
     	String authCode =null;
     	if( StringUtils.equals("1", isAuthCodeUsed) ){
     		authCode=authCodeValue;
