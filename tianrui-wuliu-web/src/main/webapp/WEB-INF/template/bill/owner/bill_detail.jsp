@@ -242,14 +242,14 @@
 								                </div>
 			                        		</c:when>
 			                        		<c:otherwise>
-												<img src="${bill.pickupimgurl}" id="qhbdImgUrl" >
+												<a href="${bill.pickupimgurl}" target="_blank"><img src="${bill.pickupimgurl}" id="qhbdImgUrl"/></a>
 			                        		</c:otherwise>
 			                        	</c:choose>
 			                        </div>
 			                    </div>
 			                    <div class="tab-pane fade" id="multiple">
 			                        <div class="bdimg">
-										<img src="${bill.signimgurl }" id="bdimgurl">
+										<a href="${bill.pickupimgurl}" target="_blank"><img src="${bill.signimgurl }" id="bdimgurl"/></a>
 			                        </div>
 			                    </div>
 			                </div>

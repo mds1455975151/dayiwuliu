@@ -113,15 +113,19 @@ $(function(){
 		$("#planCompleteWeight").val(planCompleteWeight);
 		if(!$(this).attr("qhdataImg")){
 			$("#qhbdImgUrl").hide();
+			$("#qhbdImgUrl").parent('a').removeAttr("href").hide();
 			$("#notImg").show();
 		}else{
 			$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg")).show();
+			$("#qhbdImgUrl").parent('a').attr("href",$(this).attr("qhdataImg")).show();
 			$("#notImg").hide();
 		}
 		if(!$(this).attr("dataImg")){
 			$("#bdimgurl").hide();
+			$("#bdimgurl").parent('a').removeAttr("href").hide();
 		}else{
 			$("#bdimgurl").attr( "src",$(this).attr("dataImg"))
+			$("#bdimgurl").parent('a').attr( "href",$(this).attr("dataImg"))
 		}
 		$('.nav-tabs li:first').addClass('active').siblings('li').removeClass('active');
 		$('.tab-content div:first').addClass('in active').siblings('div.tab-pane').removeClass('in active');
