@@ -3,7 +3,6 @@ package com.tianrui.web.action.member;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -518,7 +517,6 @@ public class MemberAction{
 	
 	@RequestMapping("/chooseRole")
 	public ModelAndView chooseRole(HttpServletRequest request){
-		SessionManager.removeSessionRole(request);
 		return new ModelAndView("/member/chooseRole");
 	}
 	

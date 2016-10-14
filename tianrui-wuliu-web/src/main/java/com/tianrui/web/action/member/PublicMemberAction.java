@@ -332,8 +332,11 @@ public class PublicMemberAction {
 		if(telnum != "" && passWord != ""){
 			try {
 				MemberResp member= systemMemberService.login(req);
-				SessionManager.setSessionMember(request, member,response);//会员登录缓存存储
-				//TODO 登录记录  member.setLastTime(DateUtil.getDateString());
+				//会员登录缓存存储
+				SessionManager.setSessionMember(request, member,response);
+				//默认data 
+				String data =SessionManager.getSessionRole(member.getId());
+				rs.setData(data);
 			}catch (ApplicationExectpion e) {
 				logger.debug("{}",e.getMessage(),e);
 				rs.setCode("0");

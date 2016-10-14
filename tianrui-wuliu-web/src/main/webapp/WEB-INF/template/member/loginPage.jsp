@@ -57,6 +57,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var PATH = "${path}";
 </script>
 <script type="text/javascript" src="/resources/js/utils/md5.js" ></script>
-<script type="text/javascript" src="/resources/js/member/loginPage.js" ></script>
+<script type="text/javascript" src="/resources/js/member/loginPage.js?version=161014" ></script>
 </body>
 </html>

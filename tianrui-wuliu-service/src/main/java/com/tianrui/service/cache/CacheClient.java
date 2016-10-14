@@ -60,7 +60,7 @@ public class CacheClient {
 	 * @描述: 创建redis存储并设置缓存的生存时间
 	 * @param key
 	 * @param value
-	 * @param expiredTime
+	 * @param expiredTime  expiredTime=-1时 永久保存   为null或者0时默认2小时 
 	 * 单位秒
 	 * @return 成功或者失败
 	 * @返回类型 boolean
@@ -71,9 +71,9 @@ public class CacheClient {
 		boolean rs =false;
 		try {
 			String value_str = JSON.toJSONString(value);
-			if( expiredTime==null ){
+			if( expiredTime==null || expiredTime==0 ){
 				redisTemplate.opsForValue().set(key,value_str,localTTL,TimeUnit.SECONDS);
-			}else if(expiredTime ==0 ){
+			}else if(expiredTime ==-1 ){
 				redisTemplate.opsForValue().set(key,value_str);
 			}else{
 				redisTemplate.opsForValue().set(key,value_str,expiredTime,TimeUnit.SECONDS);
@@ -85,11 +85,22 @@ public class CacheClient {
 		return rs;
 	}
 	
-	
+	/**
+	 * @param key
+	 * @param value
+	 * @param expiredTime expiredTime=-1时 永久保存   为null或者0时默认2小时 
+	 * @return
+	 */
 	public boolean saveString(String key, String value, Integer expiredTime) {
 		boolean rs =false;
 		try {
-			redisTemplate.opsForValue().set(key, value, expiredTime,TimeUnit.SECONDS);
+			if( expiredTime == -1 ){
+				redisTemplate.opsForValue().set(key, value);
+			}else if(expiredTime==null || expiredTime==0){
+				redisTemplate.opsForValue().set(key, value, localTTL,TimeUnit.SECONDS);
+			}else{
+				redisTemplate.opsForValue().set(key, value, expiredTime,TimeUnit.SECONDS);
+			}
 			rs=true;
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());

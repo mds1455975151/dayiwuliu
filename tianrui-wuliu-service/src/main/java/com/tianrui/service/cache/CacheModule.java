@@ -16,12 +16,14 @@ public enum CacheModule {
 	MEMBERVO("mvo-","用户实体"),
 	ORG("org-","组织档案"),
 	
-	WEB_ROLE("r-","组织档案"),
+	WEB_PC_ROLE("r-","pc端用户对用的角色选择"),
+	WEB_APP_ROLE("r1-","移动端用户对应的角色选择"),
 	
 	
 	REGISTER("register-","PC注册"),
 	REGISTER_APP("register1-","APP注册"),
 	LOGIN_APP("login_","app端登录"),
+	LOGIN_PC("login1_","pc端登录"),
 	
 	RESETPASS("resetPass-","PC端重置密码验证码"),
 	RESETPASS_APP("resetPass1-","APP端重置密码验证码"),
