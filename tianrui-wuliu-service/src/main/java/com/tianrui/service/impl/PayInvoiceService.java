@@ -24,6 +24,7 @@ import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
 import com.tianrui.api.resp.pay.PayInvoiceResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.PayStatusEnum;
 import com.tianrui.common.vo.PaginationVO;
@@ -208,19 +209,26 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}else if(invoice.getPayStatus()!=(byte)0){
 			rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
 		}else{
-			
 			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
 			invoice.setOrgid(org.getOrganizationno());
 			invoice.setVenderCode("410482199012015570");
-			rs.setCode("1");
-			rs.setError(httpNcurl(invoice));
+			String dateStr = httpNcurl(invoice);
+			if(dateStr.equals("000000")){
+				PayInvoice upt = new PayInvoice();
+				upt.setId(invoice.getId());
+				upt.setPayStatus((byte)1);
+				payInvoiceMapper.updateByPrimaryKey(upt);
+			}else{
+				rs.setCode("1");
+				rs.setError(dateStr);
+			}
 		}
 		return rs;
 	}
 	
 	protected  String httpNcurl(PayInvoice invoice) throws IOException{
 		try {
-			URL url = new URL("http://172.20.10.32/tcp/payinvoice/savePay");
+			URL url = new URL(Constant.NC_PAY_URL+"/tcp/payinvoice/savePay");
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
@@ -248,10 +256,4 @@ public class PayInvoiceService implements IPayInvoiceService {
 			return "网络异常";
 		}
 	}
-//	public static void main(String[] args) throws UnsupportedEncodingException {
-//		String str = "eyJwYXlDb2RlIjoiMjAxNjA5MjYwMDAyIiwicGFpZFByaWNlIjowLCJvd25lcklkIjoiM2ZlNjMwNzU5NzlkNDUxZThlNDA5NWFkOGU2OTdlNGYiLCJ2ZW5kZXJJZCI6IjBiZTc1ZDRmMTQyMTQ5Yjg5YWIzNmM5NjViZTkxZTRiIiwiaW52b2ljZVR5cGUiOiI1NDAxMDAwMDAwMTgiLCJpbnZvaWNlVHlwZU5hbWUiOiLmsLTms6Xov5DovpPotLnnlKgiLCJvcmdOYW1lIjoi5aSp54yr6Ieq6JCl6LaF5biCIiwicGF5RGVhbFByaWNlIjoyNTA1MCwidmVuZGVyQ29kZSI6IjQxMDQ4MjE5OTAxMjAxNTU3MCIsImNyZWF0b3IiOiIwYmU3NWQ0ZjE0MjE0OWI4OWFiMzZjOTY1YmU5MWU0YiIsImFwcGx5RGF0ZSI6IjIwMTYtMDktMjYiLCJtb2RpZnl0aW1lIjoxNDc0ODgwNzIyNTYzLCJtb2RpZmllciI6IjkwOTJkODkzN2JhNzQ5YmY5YTc5MWM3MjA4NmI2NDIwIiwiaWQiOiI5MDkyZDg5MzdiYTc0OWJmOWE3OTFjNzIwODZiNjQyMCIsImNyZWF0ZXRpbWUiOjE0NzQ4ODA3MTc0MjEsImFkdmljZVN0YXR1cyI6MSwidmVuZGVyVHlwZSI6MSwib3JnaWQiOiIyMDAxIiwicGF5U3RhdHVzIjowLCJhZHZpY2VUaW1lIjoxNDc0ODgwNzIyNTYzLCJ2ZW5kZXJOYW1lIjoi5b636YKm54mp5rWB5YWs5Y+4In0=";
-//		byte[] bypes = str.getBytes("utf-8");
-//		byte[] d = Base64.decodeBase64(bypes);
-//		System.out.println(new String(d));
-//	}
 }
