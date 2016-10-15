@@ -64,9 +64,10 @@
         and pay_code like '%' #{payCode,jdbcType=VARCHAR} '%'
       </if>
       <if test="applyDate != null and applyDate != ''">
-      	and apply_date <![CDATA[<=]]> #{applyDate,jdbcType=VARCHAR}
+      	and apply_date <![CDATA[>=]]> #{applyDate,jdbcType=VARCHAR}
       </if>
    	</where>
+       ORDER BY createtime DESC
    	<if test="start != null and start != '0'">
 		<if test="limit !=null">
 			limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
@@ -98,7 +99,7 @@
         and pay_code like '%' #{payCode,jdbcType=VARCHAR} '%'
       </if>
       <if test="applyDate != null and applyDate != ''">
-      	and apply_date <![CDATA[<=]]> #{applyDate,jdbcType=VARCHAR}
+      	and apply_date <![CDATA[>=]]> #{applyDate,jdbcType=VARCHAR}
       </if>
    	</where>
   </select>

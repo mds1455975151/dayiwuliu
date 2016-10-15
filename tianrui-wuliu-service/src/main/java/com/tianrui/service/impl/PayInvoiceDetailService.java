@@ -20,6 +20,7 @@ import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
+import com.tianrui.api.resp.pay.PayinvoiceTypeResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
 import com.tianrui.common.enums.PayStatusEnum;
@@ -186,6 +187,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			String[] idArr = req.getIds().split(";");
 			query.setIds(Arrays.asList(idArr));
 		}
+		query.setInvoiceType(req.getInvoiceType());
 		query.setVenderId(req.getCurruId());
 		query.setPayId(req.getPayId());
 		query.setBillCode(req.getBillNO());
@@ -360,6 +362,23 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			freight = (FileFreight) rs.getData();
 		}
 		return freight;
+	}
+	@Override
+	public Result getCargoTypeName() throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		List<FileCargo> list = fileCargoMapper.getCargoTypeName();
+		
+		List<PayinvoiceTypeResp> resp = new ArrayList<PayinvoiceTypeResp>();
+		for(FileCargo cargo : list ){
+			PayinvoiceTypeResp paytype = new PayinvoiceTypeResp();
+			paytype.setId(cargo.getId());
+			paytype.setCode(cargo.getDesc1());
+			paytype.setName(cargo.getDesc2());
+			resp.add(paytype);
+		}
+		rs.setData(resp);
+		return rs;
 	}
 
 }

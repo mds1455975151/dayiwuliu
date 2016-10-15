@@ -14,6 +14,7 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	private String billNO;
 	private String signTime;
 	private String cargoName;
+	private String invoiceType;
 	private String id;
 	private String ids;
 	
@@ -30,6 +31,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getInvoiceType() {
+		return invoiceType;
+	}
+	public void setInvoiceType(String invoiceType) {
+		this.invoiceType = invoiceType;
 	}
 	public String getIsInvoice() {
 		return isInvoice;

@@ -1,6 +1,6 @@
 
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -53,21 +53,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input type="text" id="billcode" placeholder="请输入运单号">
                     </div>
                     <div class="yf_sline">
-                        <label>截止时间：</label>
+                        <label>到货时间：</label>
                         <input type="text" id="signtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_fapiao" style="width:200px"/>
                     </div>
                 </div>
                 <div class="yf_fl">
                     <div class="yf_sline">
-                        <label>货物名称：</label>
+                        <label>发票类型：</label>
+                       <!-- 
                         <input type="text" id="cargoName" placeholder="请输入货物名称">
-                        <!-- 
-	                       <select class="form-control">
-	                           <option>水泥</option>
-	                           <option>大沙</option>
-	                           <option>3</option>
+                        -->
+	                       <select id="invoiceType" class="form-control">
+	                           <option value="">请选择</option>
+	                           <c:forEach items="${paytype }" var="p">
+	                           	<option value="${p.code }">${p.name }</option>
+	                           </c:forEach>
 	                       </select>
-                         -->
                     </div>
                     <div class="yf_sline">
                         <label>状态：</label>
@@ -93,6 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th > <input id="allcheck" type="checkbox">全选</th>
                          <th >运单号</th>
                          <th >货物名称</th>
+                         <th >发票类型</th>
                          <th >到货时间</th>
                          <th>到货量</th>
                          <th>含税单价</th>

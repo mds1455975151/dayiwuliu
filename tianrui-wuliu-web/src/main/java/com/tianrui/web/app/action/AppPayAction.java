@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianrui.api.intf.IPayInvoiceDetailService;
+import com.tianrui.api.intf.IPayInvoiceService;
 import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
@@ -40,9 +42,9 @@ import com.tianrui.web.smvc.ApiTokenValidation;
 public class AppPayAction {
 
 	@Autowired
-	PayInvoiceDetailService payInvoiceDetailService; 
+	IPayInvoiceDetailService payInvoiceDetailService; 
 	@Autowired
-	PayInvoiceService payInvoiceService; 
+	IPayInvoiceService payInvoiceService; 
 	
 	/** 查询运费结算单*/
 	@RequestMapping(value="/pageDetail",method=RequestMethod.POST)
@@ -111,13 +113,39 @@ public class AppPayAction {
 	@ApiParamRawType(PayInvoiceReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public Result payInvoiceSave(AppParam<PayInvoiceReq> appParam) throws Exception{
+	public AppResult payInvoiceSave(AppParam<PayInvoiceReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
 		Head head = appParam.getHead();
 		PayInvoiceReq req = appParam.getBody();
 		req.setCurruId(head.getId());
 		rs = payInvoiceService.PayNcSave(req);
-		return rs;
+		return AppResult.valueOf(rs);
+	}
+	/** 获取运费类型*/
+	@RequestMapping(value="payInvoiceDetType",method=RequestMethod.POST)
+	@ApiParamRawType(PayInvoiceReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult payInvoiceDetType(AppParam<PayInvoiceReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Head head = appParam.getHead();
+		PayInvoiceReq req = appParam.getBody();
+		req.setCurruId(head.getId());
+		rs = payInvoiceDetailService.getCargoTypeName();
+		return AppResult.valueOf(rs);
+	}
+	/** 收回发票单*/
+	@RequestMapping(value="withdrawPay",method=RequestMethod.POST)
+	@ApiParamRawType(PayInvoiceReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult withdrawPay(AppParam<PayInvoiceReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Head head = appParam.getHead();
+		PayInvoiceReq req = appParam.getBody();
+		req.setCurruId(head.getId());
+		rs = payInvoiceService.withdrawPay(req);
+		return AppResult.valueOf(rs);
 	}
 	
 }

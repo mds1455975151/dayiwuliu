@@ -32,10 +32,12 @@ public class PayInvoiceDetailAction {
 	PayInvoiceDetailService payInvoiceDetailService; 
 	
 	@RequestMapping("main")
-	public ModelAndView main(HttpServletRequest request){
+	public ModelAndView main(HttpServletRequest request) throws Exception{
 		ModelAndView model = new ModelAndView("pay/payInvoiceItem/yunfei_page");
 		MemberVo vo = SessionManager.getSessionMember(request);
+		Result rs = payInvoiceDetailService.getCargoTypeName();
 		model.addObject("currId", vo.getId());
+		model.addObject("paytype", rs.getData());
 		return model;
 	}
 	

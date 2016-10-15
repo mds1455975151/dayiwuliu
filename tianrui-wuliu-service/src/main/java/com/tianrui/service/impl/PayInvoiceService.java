@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,8 +72,22 @@ public class PayInvoiceService implements IPayInvoiceService {
 		query.setVenderId(req.getCurruId());
 		query.setPayCode(req.getPaycode());
 		query.setApplyDate(req.getApplytime());
-		query.setAdviceStatus(req.getAdviceStatus());
-		query.setPayStatus(req.getPaystatus());
+		//`advice_status` tinyint(4) DEFAULT '0' COMMENT '审核状态  0未审核  1 已审核 ',
+		//`pay_status` tinyint(4) DEFAULT '0' COMMENT '发票单 0新建  1 已推单 2支付中  3支付完成 ',
+		if("0".equals(req.getAdviceStatus())){
+			query.setAdviceStatus((byte)0);
+		}else if("1".equals(req.getAdviceStatus())){
+			query.setAdviceStatus((byte)1);
+		}
+		if("0".equals(req.getPaystatus())){
+			query.setPayStatus((byte)0);
+		}else if("1".equals(req.getPaystatus())){
+			query.setPayStatus((byte)1);
+		}else if("2".equals(req.getPaystatus())){
+			query.setPayStatus((byte)2);
+		}else if("3".equals(req.getPaystatus())){
+			query.setPayStatus((byte)3);
+		}
 		query.setCreator(req.getCurruId());
 		return query;
 	}
@@ -171,8 +186,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 		PayInvoiceResp rs =null;
 		if( payInvoice !=null ){
 			rs =new PayInvoiceResp();
-			//TODO 发票账单信息返回
-		PropertyUtils.copyProperties(rs, payInvoice);		
+			PropertyUtils.copyProperties(rs, payInvoice);		
 		}
 		return rs;
 	}
@@ -212,12 +226,13 @@ public class PayInvoiceService implements IPayInvoiceService {
 			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
 			invoice.setOrgid(org.getOrganizationno());
 			invoice.setVenderCode("410482199012015570");
-			String dateStr = httpNcurl(invoice);
+			String dataString = "payInvoice=" + JSON.toJSON(invoice).toString();
+			String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
 			if(dateStr.equals("000000")){
 				PayInvoice upt = new PayInvoice();
 				upt.setId(invoice.getId());
 				upt.setPayStatus((byte)1);
-				payInvoiceMapper.updateByPrimaryKey(upt);
+				payInvoiceMapper.updateByPrimaryKeySelective(upt);
 			}else{
 				rs.setCode("1");
 				rs.setError(dateStr);
@@ -226,9 +241,59 @@ public class PayInvoiceService implements IPayInvoiceService {
 		return rs;
 	}
 	
-	protected  String httpNcurl(PayInvoice invoice) throws IOException{
+
+	@Override
+	public Result withdrawPay(PayInvoiceReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		PayInvoice pay = payInvoiceMapper.selectByPrimaryKey(req.getId());
+		byte b = 0;
+		if(b != pay.getPayStatus()){
+			rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
+			return rs;
+		}
+		if(!pay.getCreator().equals(req.getCurruId())){
+			rs.setErrorCode(ErrorCode.PAY_DATA_NOT_USERPAY);
+			return rs;
+		}
+		PayInvoiceDetail record = new PayInvoiceDetail();
+		record.setPayId(req.getId());
+		List<PayInvoiceDetail> list = payInvoiceDetailMapper.selectByCondition(record);
+		for(PayInvoiceDetail detail : list){
+			detail.setPayId(null);
+			detail.setIsInvoice((byte)0);
+			payInvoiceDetailMapper.updateByPrimaryKeySelective(detail);
+		}
+		payInvoiceMapper.deleteByPrimaryKey(req.getId());
+		return rs;
+	}
+
+	@Override
+	public List<PayInvoiceResp> paylist(PayInvoiceQueryReq req) throws Exception {
+		PayInvoice query = copyQuery(req);
+		List<PayInvoice> list =payInvoiceMapper.selectByCondition(query);
+		return convert2PayInvoiceResps(list);
+	}
+
+	@Override
+	public void queryNCPayStatus(PayInvoiceQueryReq req) throws Exception {
+		// TODO Auto-generated method stub
+		PayInvoice query = copyQuery(req);
+		List<PayInvoice> list =payInvoiceMapper.selectByCondition(query);
+		String dataString = "payInvoice=";
+		for(PayInvoice pay : list){
+			dataString += pay.getId()+";";
+		}
+		String back = httpNcurl(dataString,"/tcp/payinvoice/queryPayStatus");
+		System.out.println("back="+back);
+//		pay.setPayDealPrice(Double.valueOf(back));
+//		payInvoiceMapper.updateByPrimaryKeySelective(pay);
+	}
+	
+
+	protected  String httpNcurl(String invoice,String ncurl) throws IOException{
 		try {
-			URL url = new URL(Constant.NC_PAY_URL+"/tcp/payinvoice/savePay");
+			URL url = new URL(Constant.NC_PAY_URL+ncurl);
+			System.out.println(Constant.NC_PAY_URL+ncurl);
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
@@ -241,9 +306,8 @@ public class PayInvoiceService implements IPayInvoiceService {
 //			byte[] b = Base64.encodeBase64(dbs);
 //			String sd = "payInvoice=\"" + new String(b,"utf-8")+"\"";
 
-			String sd = "payInvoice=" + JSON.toJSON(invoice).toString();
-			System.out.println("nc请求数据=="+sd);
-			byte[] bypes = sd.getBytes("utf-8");
+			System.out.println("nc请求数据=="+invoice);
+			byte[] bypes = invoice.getBytes("utf-8");
 			
 			connection.getOutputStream().write(bypes);// 输入参数
 			// 发送
@@ -252,7 +316,6 @@ public class PayInvoiceService implements IPayInvoiceService {
 			System.out.println(response);
 			return response;
 		} catch (Exception e) {
-			// TODO: handle exception
 			return "网络异常";
 		}
 	}

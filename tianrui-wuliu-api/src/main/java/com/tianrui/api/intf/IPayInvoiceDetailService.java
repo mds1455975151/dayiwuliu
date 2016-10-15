@@ -25,5 +25,6 @@ public interface IPayInvoiceDetailService {
 	
 	//查询详情
 	public PayInvoiceDetailResp queryPayInvoice(PayInvoiceDetailQueryReq req)throws Exception;
-	
+	/** 查询所有货物类型*/
+	public Result getCargoTypeName()throws Exception;
 }
