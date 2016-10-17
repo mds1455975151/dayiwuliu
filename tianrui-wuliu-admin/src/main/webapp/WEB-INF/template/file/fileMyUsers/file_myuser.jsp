@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue " onclick="searchMember();" type="submit">搜索</button>
-                            <button class="btn btngreen" type="submit">重置</button>
+                            <button class="btn btngreen" onclick="resetvalue();" type="submit">重置</button>
                         </div>
                     </div>
                 </div>
