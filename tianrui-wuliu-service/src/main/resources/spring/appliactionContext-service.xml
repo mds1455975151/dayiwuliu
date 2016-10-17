@@ -35,6 +35,8 @@
 		<property name="isAuthCodeUsed" value="${auth.code.used.flag}"></property>
 		<property name="authCodeValue" value="${auth.code.value}"></property>
 		<property name="NC_PAY_URL" value="${nc.pay.url}"></property>
+		<property name="IOS_PUSH_KEY" value="${ios.push.apiKey}"></property>
+		<property name="IOS_PUSH_SERECTKET" value="${ios.push.secretKey}"></property>
 	</bean>
      
      <import resource="applicationContext-db.xml"/>
