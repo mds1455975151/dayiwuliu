@@ -253,7 +253,7 @@ public class AdminFreightResp extends BaseResp{
 
 	public String getTaketimeStr() {
 		if(taketime != null){
-			taketimeStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date(taketime));
+			taketimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(taketime));
 		}
 		return taketimeStr;
 	}
@@ -292,7 +292,7 @@ public class AdminFreightResp extends BaseResp{
 
 	public String getTaketimeStrinfo() {
 		if(taketimeinfo != null){
-			taketimeStrinfo = new SimpleDateFormat("yyyy-MM-dd").format(new Date(taketimeinfo));
+			taketimeStrinfo = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(taketimeinfo));
 		}
 		return taketimeStrinfo;
 	}

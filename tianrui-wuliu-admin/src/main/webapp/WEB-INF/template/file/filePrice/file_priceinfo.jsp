@@ -83,10 +83,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>货物名称</th>
                                 <th>路线名称</th>
                                 <th>生效日期</th>
-                               <!-- 
                                 <th>调价原因</th>
                                 <th>历史价格</th>
-                                -->
                                 <th>操作</th>
                             </tr>
                             </thead>

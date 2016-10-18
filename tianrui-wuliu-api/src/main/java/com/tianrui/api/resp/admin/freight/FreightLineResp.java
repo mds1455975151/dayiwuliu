@@ -37,7 +37,7 @@ public class FreightLineResp {
 
 	public String getTaketimeStr() {
 		if(taketime != null){
-			taketimeStr =new SimpleDateFormat("MM-dd").format(new Date(taketime));
+			taketimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(taketime));
 		}
 		return taketimeStr;
 	}
@@ -92,7 +92,7 @@ public class FreightLineResp {
 
 	public String getUpdatetimeStr() {
 		if(updatetime != null){//yyyy-MM-dd HH:mm:ss
-			updatetimeStr =new SimpleDateFormat("MM-dd").format(new Date(updatetime));
+			updatetimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(updatetime));
 		}
 		return updatetimeStr;
 	}
