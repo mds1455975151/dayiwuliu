@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.app.AppGetCodeReq;
 import com.tianrui.api.req.app.AppMemberReq;
+import com.tianrui.api.req.app.AppMemberRoleReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
@@ -61,6 +62,25 @@ public class AppMemberAction {
 		appResult.setMessage(rs.getError());
 		appResult.setReturnData(rs.getData());
 		return appResult;
+	}
+	/**
+	 * 
+	 * @描述:移动APP登录选择角色
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 * @返回类型 AppResult
+	 * @创建人 tank
+	 * @创建时间 2016年5月22日下午5:20:13
+	 */
+	@RequestMapping(value="/chooseRole",method=RequestMethod.POST)
+	@ApiParamRawType(AppMemberRoleReq.class)
+	@ResponseBody
+	public AppResult chooseRole(AppParam<AppMemberRoleReq> appParam) throws Exception{
+		AppMemberRoleReq req =appParam.getBody();
+		req.setCurrId(appParam.getHead().getId());
+		Result  rs =systemMemberService.chooseRole(req);
+		return AppResult.valueOf(rs);
 	}
 	/**
 	 * 
@@ -185,8 +205,6 @@ public class AppMemberAction {
 					rs.setCode("1");
 					rs.setError("您输入的手机号未注册，请重新输入");
 				}else {
-//					member.setPassWord(appParam.getBody().getPswdMd5());
-//					memberService.update(member);
 					MemberUpdateReq up = new MemberUpdateReq();
 					up.setId(member.getId());
 					up.setPassword(appParam.getBody().getPswdMd5());

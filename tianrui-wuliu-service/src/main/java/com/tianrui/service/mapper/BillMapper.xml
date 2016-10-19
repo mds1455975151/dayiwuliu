@@ -72,7 +72,8 @@
 		ownerdelflag, driverdelflag,
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
-		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,DESC1, DESC2,
+		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,DESC1,
+		DESC2,
 		DESC3,
 		DESC4
 	</sql>
@@ -374,29 +375,40 @@
 		driverdelflag, orgid,plancode,creator, createtime,
 		modifier,
 		modifytime, overnumber,totalnumber, tallage,unloadtime, DESC1,
-		DESC2, DESC3, DESC4,isClearing,pathID
+		DESC2,
+		DESC3, DESC4,isClearing,pathID
 		)
 		values
-		(#{id,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR},
+		(#{id,jdbcType=VARCHAR},
+		#{planid,jdbcType=VARCHAR},
 		#{vehicleid,jdbcType=VARCHAR},
 		#{driverid,jdbcType=VARCHAR},
-		#{routeid,jdbcType=VARCHAR}, #{drivername,jdbcType=VARCHAR},
-		#{drivertel,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR},
+		#{routeid,jdbcType=VARCHAR},
+		#{drivername,jdbcType=VARCHAR},
+		#{drivertel,jdbcType=VARCHAR},
+		#{vehicleno,jdbcType=VARCHAR},
 		#{vehicletypename,jdbcType=VARCHAR},
 		#{cargoname,jdbcType=VARCHAR},
-		#{startcity,jdbcType=VARCHAR}, #{consignorname,jdbcType=VARCHAR},
-		#{consignortel,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR},
+		#{startcity,jdbcType=VARCHAR},
+		#{consignorname,jdbcType=VARCHAR},
+		#{consignortel,jdbcType=VARCHAR},
+		#{endtime,jdbcType=VARCHAR},
 		#{starttime,jdbcType=VARCHAR},
 		#{endcity,jdbcType=VARCHAR},
-		#{receivername,jdbcType=VARCHAR}, #{receivertel,jdbcType=VARCHAR},
-		#{priceunits,jdbcType=VARCHAR}, #{distance,jdbcType=DOUBLE},
+		#{receivername,jdbcType=VARCHAR},
+		#{receivertel,jdbcType=VARCHAR},
+		#{priceunits,jdbcType=VARCHAR},
+		#{distance,jdbcType=DOUBLE},
 		#{price,jdbcType=DOUBLE},
 		#{type,jdbcType=TINYINT},
-		#{status,jdbcType=TINYINT}, #{waybillno,jdbcType=VARCHAR},
-		#{weight,jdbcType=DOUBLE}, #{trueweight,jdbcType=DOUBLE},
+		#{status,jdbcType=TINYINT},
+		#{waybillno,jdbcType=VARCHAR},
+		#{weight,jdbcType=DOUBLE},
+		#{trueweight,jdbcType=DOUBLE},
 		#{ownerid,jdbcType=VARCHAR},
 		#{venderid,jdbcType=VARCHAR},
-		#{venderdelflag,jdbcType=TINYINT}, #{ownerdelflag,jdbcType=TINYINT},
+		#{venderdelflag,jdbcType=TINYINT},
+		#{ownerdelflag,jdbcType=TINYINT},
 		#{driverdelflag,jdbcType=TINYINT},
 		#{orgid,jdbcType=VARCHAR},#{plancode,jdbcType=VARCHAR},#{creator,jdbcType=VARCHAR},
 		#{createtime,jdbcType=BIGINT},
@@ -918,7 +930,8 @@
 		#{desc3,jdbcType=VARCHAR},
 		DESC4 = #{desc4,jdbcType=VARCHAR},
 		isClearing = #{isClearing,jdbcType=VARCHAR},
-		pathID = #{pathID,jdbcType=VARCHAR}
+		pathID =
+		#{pathID,jdbcType=VARCHAR}
 		where ID =
 		#{id,jdbcType=VARCHAR}
 	</update>
@@ -948,7 +961,8 @@
 		AND
 		venderid = #{venderid,jdbcType=VARCHAR}
 		AND status IN (0,1,2,3,4)
-		AND ownerdelflag = 0 and venderdelflag = 0 and driverdelflag = 0
+		AND
+		ownerdelflag = 0 and venderdelflag = 0 and driverdelflag = 0
 	</select>
 	<select id="selectByPlanId" resultMap="BaseResultMap"
 		parameterType="string">
@@ -958,7 +972,8 @@
 		where planid = #{planid,jdbcType=VARCHAR} and
 		ownerdelflag = 0 and
 		venderdelflag = 0 and driverdelflag = 0 and
-		status not in (-1,7)
+		status
+		not in (-1,7)
 	</select>
 	<select id="selectBillByCapaId" parameterType="map"
 		resultType="com.tianrui.service.bean.Bill">
@@ -1011,8 +1026,9 @@
 			#{item}
 		</foreach>
 	</select>
-	
-	<select id="selectByConditionForBack" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.Bill">
+
+	<select id="selectByConditionForBack" resultMap="BaseResultMap"
+		parameterType="com.tianrui.service.bean.Bill">
 		select
 		<include refid="Base_Column_List" />
 		from wuliu_bill
@@ -1020,10 +1036,10 @@
 			<if test="status != null ">
 				and status =#{status,jdbcType=TINYINT}
 			</if>
-			<if test="orgid != null and orgid != '' " >
-        		and orgid=#{orgid,jdbcType=VARCHAR}  and type != 2
-      		</if>
-      		
+			<if test="orgid != null and orgid != '' ">
+				and orgid=#{orgid,jdbcType=VARCHAR} and type != 2
+			</if>
+
 		</where>
 		order by modifytime desc
 		<if test="start != null and start != '0'">
@@ -1033,77 +1049,88 @@
 		</if>
 
 	</select>
-	<select id="countByConditionForBack" resultType="long" parameterType="com.tianrui.service.bean.Bill">
-		select 
-			count(0)
+	<select id="countByConditionForBack" resultType="long"
+		parameterType="com.tianrui.service.bean.Bill">
+		select
+		count(0)
 		from wuliu_bill
 		<where>
 			<if test="status != null ">
 				and status =#{status,jdbcType=TINYINT}
 			</if>
-			<if test="orgid != null and orgid != '' " >
-        		and orgid=#{orgid,jdbcType=VARCHAR} and type != 2
-      		</if>
+			<if test="orgid != null and orgid != '' ">
+				and orgid=#{orgid,jdbcType=VARCHAR} and type != 2
+			</if>
 		</where>
 	</select>
-	<select id="queryAppointPage" parameterType="com.tianrui.service.bean.Bill" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" /> 
-		from wuliu_bill 
-		where INSTR(pathID,'${pathID}') 
-			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like
-				concat(#{queryKey,jdbcType=VARCHAR},'%') or
-				waybillno like
-				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+	<select id="queryAppointPage" parameterType="com.tianrui.service.bean.Bill"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from wuliu_bill
+		where INSTR(pathID,'${pathID}')
+		<if test="queryKey != null and queryKey!=''">
+			and (cargoname like
+			concat(#{queryKey,jdbcType=VARCHAR},'%') or
+			waybillno like
+			concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+		</if>
+		and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
+		order by
+		modifytime desc
+		<if test="start != null and start != '0'">
+			<if test="limit !=null">
+				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
 			</if>
-			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
-			order by modifytime desc
-			<if test="start != null and start != '0'">
-				<if test="limit !=null">
-					limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
-				</if>
-			</if>
+		</if>
 	</select>
-	<select id="queryAppointCount" parameterType="com.tianrui.service.bean.Bill" resultType="int">
-		select count(0) 
-		from wuliu_bill 
-		where INSTR(pathID,'${pathID}') 
-			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like
-				concat(#{queryKey,jdbcType=VARCHAR},'%') or
-				waybillno like
-				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
-			</if>
-			and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
+	<select id="queryAppointCount" parameterType="com.tianrui.service.bean.Bill"
+		resultType="int">
+		select count(0)
+		from wuliu_bill
+		where INSTR(pathID,'${pathID}')
+		<if test="queryKey != null and queryKey!=''">
+			and (cargoname like
+			concat(#{queryKey,jdbcType=VARCHAR},'%') or
+			waybillno like
+			concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+		</if>
+		and ownerdelflag=0 and venderdelflag=0 and driverdelflag=0
 	</select>
-	<select id="queryReportBill" parameterType="com.tianrui.common.vo.ReportVo" resultMap="BaseResultMap">
+	<select id="queryReportBill" parameterType="com.tianrui.common.vo.ReportVo"
+		resultMap="BaseResultMap">
 		select A.*
 		from wuliu_bill A left join wuliu_member_owner B
-		on A.venderid=B.ownerid 
-		where A.venderdelflag=0 and A.ownerdelflag=0 and A.driverdelflag=0 and A.type=0 and A.status=6
-			<if test="starttime != null and starttime != ''">
-				and A.unloadtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
-			</if>
-			<if test="endtime != null and endtime != ''">
-				and A.unloadtime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
-			</if>
-			<if test="memberid != null and memberid != ''">
-				and A.ownerid = #{memberid,jdbcType=VARCHAR}
-			</if>
-			<if test="vendername != null and vendername != ''">
-				and B.ownername like '%${vendername}%'
-			</if>
-			<if test="cargoname != null and cargoname != ''">
-				and A.cargoname like '%${cargoname}%'
-			</if>
-			<if test="startcity != null and startcity != ''">
-				and A.startcity like '%${startcity}%'
-			</if>
-			<if test="endcity != null and endcity != ''">
-				and A.endcity like '%${endcity}%'
-			</if>
-			<if test="order != null and order != ''">
-				order by ${order}
-			</if>
+		on
+		A.venderid=B.ownerid
+		where A.venderdelflag=0 and A.ownerdelflag=0 and
+		A.driverdelflag=0 and
+		A.type=0 and A.status=6
+		<if test="starttime != null and starttime != ''">
+			and A.unloadtime <![CDATA[>=]]>
+			#{starttime,jdbcType=BIGINT}
+		</if>
+		<if test="endtime != null and endtime != ''">
+			and A.unloadtime <![CDATA[<]]>
+			#{endtime,jdbcType=BIGINT}
+		</if>
+		<if test="memberid != null and memberid != ''">
+			and A.ownerid = #{memberid,jdbcType=VARCHAR}
+		</if>
+		<if test="vendername != null and vendername != ''">
+			and B.ownername like '%${vendername}%'
+		</if>
+		<if test="cargoname != null and cargoname != ''">
+			and A.cargoname like '%${cargoname}%'
+		</if>
+		<if test="startcity != null and startcity != ''">
+			and A.startcity like '%${startcity}%'
+		</if>
+		<if test="endcity != null and endcity != ''">
+			and A.endcity like '%${endcity}%'
+		</if>
+		<if test="order != null and order != ''">
+			order by ${order}
+		</if>
 	</select>
 </mapper>

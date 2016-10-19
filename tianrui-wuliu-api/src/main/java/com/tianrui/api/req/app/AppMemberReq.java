@@ -3,6 +3,8 @@ package com.tianrui.api.req.app;
 import com.tianrui.api.req.BaseReq;
 
 public class AppMemberReq extends BaseReq{
+
+	private static final long serialVersionUID = 1L;
 	//登录手机号
 	private String account;
 	//密码加密串

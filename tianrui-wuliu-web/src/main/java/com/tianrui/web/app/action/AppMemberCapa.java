@@ -1,7 +1,5 @@
 package com.tianrui.web.app.action;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +18,6 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
-import com.tianrui.web.util.SessionManager;
 
 /**
  * 移动端运力共享

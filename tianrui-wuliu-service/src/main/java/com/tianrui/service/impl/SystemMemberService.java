@@ -15,6 +15,7 @@ import com.tianrui.api.intf.ISendMobileMessage;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.app.AppGetCodeReq;
 import com.tianrui.api.req.app.AppMemberReq;
+import com.tianrui.api.req.app.AppMemberRoleReq;
 import com.tianrui.api.req.common.SmsDetails;
 import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.member.MemberMassageReq;
@@ -505,7 +506,14 @@ public class SystemMemberService implements ISystemMemberService{
 					MemberVo userVO =moberVoService.get(loginUser.getId());
 					userVO.setTokenId(tokenId);
 					rs.setData(userVO);
-					
+					//获取当前的登录用户的角色
+					String rolekey =CacheHelper.buildKey(CacheModule.WEB_APP_ROLE, userVO.getId());
+					String chooseRole=cacheClient.getString(rolekey);
+					if(StringUtils.isNotBlank(chooseRole)){
+						userVO.setChooseRole(chooseRole);
+					}else{
+						userVO.setChooseRole("");
+					}
 					//缓存默认保存一天
 					String key =CacheHelper.buildKey(CacheModule.MEMBERLOGIN_APP, tokenId);
 					cacheClient.saveObject(key, userVO,7*24*60*60);
@@ -568,4 +576,18 @@ public class SystemMemberService implements ISystemMemberService{
 		}
 		return rs;
 	}
+	@Override
+	public Result chooseRole(AppMemberRoleReq appMemberRoleReq) throws Exception {
+		Result rs =Result.getErrorResult();
+		if( appMemberRoleReq !=null && StringUtils.isNotBlank(appMemberRoleReq.getRole()) ){
+			String key= CacheHelper.buildKey(CacheModule.WEB_APP_ROLE, appMemberRoleReq.getCurrId());
+			cacheClient.saveString(key, appMemberRoleReq.getRole(), -1);
+			rs =Result.getSuccessResult();
+		}else{
+			rs.setErrorCode(ErrorCode.PARAM_ERROR);
+		}
+		return rs;
+	}
+	
+	
 }

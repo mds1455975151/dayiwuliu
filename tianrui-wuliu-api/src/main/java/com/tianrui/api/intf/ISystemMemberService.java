@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.api.req.app.AppGetCodeReq;
 import com.tianrui.api.req.app.AppMemberReq;
+import com.tianrui.api.req.app.AppMemberRoleReq;
 import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.member.MemberMassageReq;
 import com.tianrui.api.req.front.member.MemberReq;
@@ -187,4 +188,11 @@ public interface ISystemMemberService {
 	 * @创建时间 2016年6月23日下午3:18:54
 	 */
 	MemberInfoResp authenticationInfoByid(String id)throws Exception;
+	/**
+	 * 
+	 * @param appMemberRoleReq
+	 * @return
+	 * @throws Exception
+	 */
+	Result chooseRole(AppMemberRoleReq appMemberRoleReq) throws Exception;
 }

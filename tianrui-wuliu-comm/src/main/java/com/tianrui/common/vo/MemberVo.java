@@ -42,7 +42,7 @@ public class MemberVo {
 	
 	//为APP服务的tokenId
 	private String tokenId;
-	
+	private String chooseRole;
 	
 	public String getId() {
 		return id;
@@ -160,6 +160,12 @@ public class MemberVo {
 	}
 	public void setCompCode(String compCode) {
 		this.compCode = compCode;
+	}
+	public String getChooseRole() {
+		return chooseRole;
+	}
+	public void setChooseRole(String chooseRole) {
+		this.chooseRole = chooseRole;
 	}
 	
 
