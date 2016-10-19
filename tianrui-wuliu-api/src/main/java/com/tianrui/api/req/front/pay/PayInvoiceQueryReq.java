@@ -13,9 +13,9 @@ public class PayInvoiceQueryReq  extends BaseReq{
 	/** 申请时间*/
 	private String applytime;
 	/** 账单状态*/
-	private Byte paystatus;
+	private String paystatus;
 	/** 审核状态*/
-	private Byte adviceStatus;
+	private String adviceStatus;
 
 	public String getCurruId() {
 		return curruId;
@@ -49,19 +49,19 @@ public class PayInvoiceQueryReq  extends BaseReq{
 		this.applytime = applytime;
 	}
 
-	public Byte getPaystatus() {
+	public String getPaystatus() {
 		return paystatus;
 	}
 
-	public void setPaystatus(Byte paystatus) {
+	public void setPaystatus(String paystatus) {
 		this.paystatus = paystatus;
 	}
 
-	public Byte getAdviceStatus() {
+	public String getAdviceStatus() {
 		return adviceStatus;
 	}
 
-	public void setAdviceStatus(Byte adviceStatus) {
+	public void setAdviceStatus(String adviceStatus) {
 		this.adviceStatus = adviceStatus;
 	}
 	

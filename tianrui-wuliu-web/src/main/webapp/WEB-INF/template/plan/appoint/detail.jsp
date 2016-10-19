@@ -16,6 +16,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/jquery-ui.min.css" rel="stylesheet">
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${trRoot }/tianrui/My97DatePicker/WdatePicker.js"></script>
+    <style type="text/css">
+    	.goods_line label {
+    		width: 92px!important;
+    	}
+    </style>
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -96,22 +101,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>计价单位</th>
-                                <th>车主</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            	<td style="height: 35px"><span id="hpriceunits">${plan.priceunits }</span></td>
-                            	<td><span id="hprice">${plan.ownerName }</span></td>
-                            </tr>
-                            </tbody>
-                            <thead>
-                            <tr>
                                 <th>税率</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
+                            	<td style="height: 35px"><span id="hpriceunits">${plan.priceunits }</span></td>
                             	<td style="height: 35px"><span id="tallage">
                             	<c:if test="${not empty plan.tallage}">
                             		<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
@@ -138,61 +133,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </c:if>
                 <div class="goods_line">
                     <label> 计划总量：</label>
-                    <input type="text" name="totalplanned" placeholder="保留两位小数" readOnly id ="totalplanned" style="width:180px" value="${plan.totalplanned }"  maxlength="10">
+                    <input type="text" value="${plan.totalplanned }" style="width:180px" readOnly/>
                     <span id="measure_name">${plan.measure }</span>
                 </div>
                 <div class="goods_line">
-                    <div class="good_time mr20">
-                        <label>开始时间：</label>
-                        <input type="text" id="begintime" name="starttimeStr" value="${plan.starttimeStr}:00" readOnly  class="Wdate_plan" style="width:390px" />
-                    </div>
+	                <label>开始时间：</label>
+	                <input type="text" value="${plan.starttimeStr}:00" class="Wdate_plan" readOnly/>
                 </div>
                 <div class="goods_line">
-                    <div class="good_time">
-                        <label>结束时间：</label>
-                        <input type="text" id="endtime" name="endtimeStr" value="${plan.endtimeStr}:00" readOnly  class="Wdate_plan" style="width:390px" />
-                    </div>
+                    <label>结束时间：</label>
+                    <input type="text" value="${plan.endtimeStr}:00"  class="Wdate_plan" readOnly/>
                 </div>
                 <div class="goods_line">
                     <label> 联系人：</label>
-                    <input type="text" value="${plan.linkman }" name="linkman" placeholder="" maxlength="20" class="goods_lxr" id="linkman" readOnly>
-                      
+                    <input type="text" value="${plan.linkman }" readOnly/>
                 </div>
                 <div class="goods_line">
                     <label> 联系电话：</label>
-                    <input type="text" placeholder="" name="telephone"  value="${plan.telephone }" class="goods_tel" id="telephone" maxlength="20" readOnly>
+                    <input type="text"value="${plan.telephone }" readOnly/>
                 </div>
-                <!--发布对象begin-->
-                <div class="plan_fabu">
-                    <label class="lineh40"> 发布对象：</label>
-                    <div class="plan_tab">
-                        <!--tab切换标题-->
-                        <ul class="plan_tabmenu">
-                        	<c:if test="${plan.isfamily ==0 }" >
-	                            <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
-                        	</c:if>
-                        	<c:if test="${plan.isfamily ==1 }" >
-	                            <%-- <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
-                        	</c:if>
-                        </ul>
-                        <!--tab切换标题end-->
-
-                        <!--tab切换的内容-->
-                        <div class="plan_tabbox">
-                            <div class="plan_tabcont  ">
-                                <ul class="plan_line">
-                                	<li>
-                                       <input type="radio"  checked ><label>${plan.vehicleownername }</label><label>${plan.vehicleownerphone }</label>
-                                	</li>
-                                </ul>
-                            </div>
-                            
-                        </div>
-                        <!--tab切换的内容end-->
-                    </div>
+                <div class="goods_line">
+                    <label> 二级承运商：</label>
+                   	<input type="text" value="${plan.vehicleownername }" readOnly/>
                 </div>
-                <!--发布对象end-->
-
                 <div class="goods_foot">
                     <button class="btn btnyello mr20 submitBtn"  type="button">返回</button>
                 </div>
@@ -211,9 +174,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(function(){
 	//左侧选中
-	$("#planowner").addClass("selected");
+	$("#planAppoint").addClass("selected");
 	$(".submitBtn").click(function(){
-		window.location.href = "/trwuliu/planvender/main";
+		window.location.href = "/trwuliu/planAppoint/main";
 	});
 });
 </script>

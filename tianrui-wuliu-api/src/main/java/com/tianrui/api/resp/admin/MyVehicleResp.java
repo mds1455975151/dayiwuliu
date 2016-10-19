@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 /**
  * 
@@ -152,13 +153,13 @@ public class MyVehicleResp extends BaseResp{
 		this.vehicleprefix = vehicleprefix;
 	}
 	public Double getVehiweight() {
-		return vehiweight;
+		return DateTypeUtil.doubleType(vehiweight);
 	}
 	public void setVehiweight(Double vehiweight) {
 		this.vehiweight = vehiweight;
 	}
 	public Double getVehilength() {
-		return vehilength;
+		return DateTypeUtil.doubleType(vehilength);
 	}
 	public void setVehilength(Double vehilength) {
 		this.vehilength = vehilength;

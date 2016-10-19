@@ -176,9 +176,9 @@ function interHTML(data){
 			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
 			"<td>"+data[a].routeid+"/("+routestatus+")</td>" +
 			"<td>"+taketimeStr+"</td>" +
-//			"<td>" +
-//			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
-//			"</td>" +
+			"<td>" +
+			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
+			"</td>" +
 					"<td>";
 		if(flag){
 			hml +="<span><a data-toggle='modal' onclick=\"tyPrice('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+status+"】</a></span>";
@@ -190,7 +190,7 @@ function interHTML(data){
 		}
 		if(data[a].auditstatus!="0"){
 			hml +="" +
-//					"<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"+ 
+					"<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"+ 
 			"<span><a data-toggle='modal' onclick=\"delectPrice1('"+data[a].id+"')\" data-target='#dele_price'>【删除】</a></span>";
 		}
 		hml +="</td></tr>";
@@ -345,8 +345,8 @@ function findById(id){
 				document.getElementById("uptmeasure").value = data.measure;
 				document.getElementById("upttallage").value = data.tallage;
 				
-				//document.getElementById("taketime").value = data.taketimeStr;
-				//document.getElementById("oldtaketime").value = data.taketimeStr;
+				document.getElementById("taketime").value = data.taketimeStr;
+				document.getElementById("oldtaketime").value = data.taketimeStr;
 			}
 		}
 	});

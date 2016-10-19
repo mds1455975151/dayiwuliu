@@ -179,3 +179,7 @@ function saveorgMember(){
 		}
 	});
 }
+/** 重置*/
+function resetvalue(){
+	$("#cellPhone").val("");
+}

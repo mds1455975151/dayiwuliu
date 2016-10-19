@@ -164,34 +164,34 @@ public class FreightInfoService implements IFreightInfoService{
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		FileFreight freight = freightMapper.selectByPrimaryKey(id);
+		if(date == null) {
+			date = new Date();
+		}
 //		Calendar c = Calendar.getInstance();
-//		if(date == null) {
-//			date = new Date();
-//		}
 //		c.setTime(date);
 //		c.set(Calendar.HOUR_OF_DAY, 0);
 //		c.set(Calendar.MINUTE, 0);
 //		c.set(Calendar.SECOND, 0);
 //		c.set(Calendar.MILLISECOND, 0);
-//		Long time = c.getTimeInMillis();
-//		List<FreightInfo> list = new ArrayList<FreightInfo>();
-//		if(time<freight.getTaketime()){
-//			FreightInfo info = new FreightInfo();
-//			info.setFreightid(id);
-//			info.setStatus("1");
-//			info.setDesc4("!=0");
-//			info.setTaketime(time);
-//			list = freightInfoMapper.selectByInfo(info);
-//			if(list.size() == 0){
-//				rs.setCode("1");
-//				rs.setError("运价策略未到生效日期，暂不可用");
-//				return rs;
-//			}
-//		}
-//		if(list.size() != 0 ){
-//			freight.setPrice(list.get(list.size()-1).getPrice());
-//			freight.setTallage(list.get(list.size()-1).getTallage());
-//		}
+		Long time = date.getTime();
+		List<FreightInfo> list = new ArrayList<FreightInfo>();
+		if(time<freight.getTaketime()){
+			FreightInfo info = new FreightInfo();
+			info.setFreightid(id);
+			info.setStatus("1");
+			info.setDesc4("!=0");
+			info.setTaketime(time);
+			list = freightInfoMapper.selectByInfo(info);
+			if(list.size() == 0){
+				rs.setCode("1");
+				rs.setError("运价策略未到生效日期，暂不可用");
+				return rs;
+			}
+		}
+		if(list.size() != 0 ){
+			freight.setPrice(list.get(list.size()-1).getPrice());
+			freight.setTallage(list.get(list.size()-1).getTallage());
+		}
 		rs.setData(freight);
 		return rs;
 	}

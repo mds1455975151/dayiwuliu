@@ -102,6 +102,19 @@ public class PayInvoiceAction {
 		rs = payInvoiceService.payNcCallBack(req);
 		return rs;
 	}
+	/** 收回发票账单
+	 * @throws Exception */
+	@RequestMapping(value="withdrawPay",method=RequestMethod.POST)
+	@ResponseBody
+	public Result withdrawPay(String id,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		PayInvoiceReq req = new PayInvoiceReq();
+		req.setId(id);
+		req.setCurruId(vo.getId());
+		rs = payInvoiceService.withdrawPay(req);
+		return rs;
+	}
 	
 }
 	

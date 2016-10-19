@@ -1,5 +1,6 @@
 package com.tianrui.trwl.admin.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +57,8 @@ public class FileFrieghtAction {
 		Users user = SessionManager.getSessionMember(request);
 		ModelAndView view = new ModelAndView();
 		
+		Date date = new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		RouteReq req = new RouteReq();
 		req.setOrganizationid(user.getOrgid());
 		req.setStatus("1");
@@ -67,6 +70,7 @@ public class FileFrieghtAction {
 		List<FileOrgCargoResp> f =fileOrgCargoService.queryMyCargoInfo(fr);
 		view.addObject("route", list1);
 		view.addObject("cargo", f);
+		view.addObject("datenow", sdf.format(date));
 		view.setViewName("/file/filePrice/file_price");
 		return view;
 	}

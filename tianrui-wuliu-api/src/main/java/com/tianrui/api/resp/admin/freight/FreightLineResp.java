@@ -3,6 +3,8 @@ package com.tianrui.api.resp.admin.freight;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.tianrui.api.util.DateTypeUtil;
+
 public class FreightLineResp {
 
 	private String id;
@@ -37,7 +39,7 @@ public class FreightLineResp {
 
 	public String getTaketimeStr() {
 		if(taketime != null){
-			taketimeStr =new SimpleDateFormat("MM-dd").format(new Date(taketime));
+			taketimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(taketime));
 		}
 		return taketimeStr;
 	}
@@ -59,7 +61,7 @@ public class FreightLineResp {
 	}
 
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 
 	public void setPrice(Double price) {
@@ -67,7 +69,7 @@ public class FreightLineResp {
 	}
 
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 
 	public void setTallage(Double tallage) {
@@ -92,7 +94,7 @@ public class FreightLineResp {
 
 	public String getUpdatetimeStr() {
 		if(updatetime != null){//yyyy-MM-dd HH:mm:ss
-			updatetimeStr =new SimpleDateFormat("MM-dd").format(new Date(updatetime));
+			updatetimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(updatetime));
 		}
 		return updatetimeStr;
 	}

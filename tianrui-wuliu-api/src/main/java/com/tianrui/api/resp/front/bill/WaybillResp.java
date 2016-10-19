@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 import com.tianrui.common.utils.DateUtil;
 
 public class WaybillResp extends BaseResp{
@@ -202,13 +203,13 @@ public class WaybillResp extends BaseResp{
 		this.priceunits = priceunits;
 	}
 	public Double getDistance() {
-		return distance;
+		return DateTypeUtil.doubleType(distance);
 	}
 	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 	public void setPrice(Double price) {
 		this.price = price;
@@ -232,13 +233,13 @@ public class WaybillResp extends BaseResp{
 		this.waybillno = waybillno;
 	}
 	public Double getWeight() {
-		return weight;
+		return DateTypeUtil.doubleType(weight);
 	}
 	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
 	public Double getTrueweight() {
-		return trueweight;
+		return DateTypeUtil.doubleType(trueweight);
 	}
 	public void setTrueweight(Double trueweight) {
 		this.trueweight = trueweight;
@@ -372,7 +373,7 @@ public class WaybillResp extends BaseResp{
 		this.refuseReson = refuseReson;
 	}
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
@@ -384,7 +385,7 @@ public class WaybillResp extends BaseResp{
 		this.overnumber = overnumber;
 	}
 	public Double getOverweight() {
-		return overweight;
+		return DateTypeUtil.doubleType(overweight);
 	}
 	public void setOverweight(Double overweight) {
 		this.overweight = overweight;
@@ -424,13 +425,13 @@ public class WaybillResp extends BaseResp{
 		this.unloadtime = unloadtime;
 	}
 	public Double getPlanWeight() {
-		return planWeight;
+		return DateTypeUtil.doubleType(planWeight);
 	}
 	public void setPlanWeight(Double planWeight) {
 		this.planWeight = planWeight;
 	}
 	public Double getPlanCompleteWeight() {
-		return planCompleteWeight;
+		return DateTypeUtil.doubleType(planCompleteWeight);
 	}
 	public void setPlanCompleteWeight(Double planCompleteWeight) {
 		this.planCompleteWeight = planCompleteWeight;

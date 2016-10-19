@@ -1,6 +1,7 @@
 package com.tianrui.api.resp.front.cargoplan;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 public class FreightsResp extends BaseResp{
 
@@ -81,7 +82,7 @@ public class FreightsResp extends BaseResp{
 		this.id = id;
 	}
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 	public void setPrice(Double price) {
 		this.price = price;
@@ -123,7 +124,7 @@ public class FreightsResp extends BaseResp{
 		this.sendPersion = sendPersion;
 	}
 	public Double getDistance() {
-		return distance;
+		return DateTypeUtil.doubleType(distance);
 	}
 	public void setDistance(Double distance) {
 		this.distance = distance;

@@ -89,9 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>货物名称</th>
                                 <th>路线名称</th>
                                 <th>生效时间</th>
-                               <!-- 
                                 <th>历史价格</th>
-                                -->
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -253,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="ht_div">
                         <label><i style="color: #ff2f00;">*</i>生效时间：</label>
-                        <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width:160px"/>
+                        <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'${datenow}'})" class="Wdate" style="width:160px"/>
                     	<input type="hidden" id="oldtaketime">
                     </div>
           			<div class="user_shenno">
@@ -324,55 +322,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         // 表格列宽度手动调整
         $("table").resizableColumns({});
 
-        // 点击修改头像按钮，图片裁剪框显示出来
-        $(".tx_contr").on('click', function () {
-            $(".acc_touxiang").show();
-        });
-        // 修改头像的收起按钮
-        $(".tx_shouqi").on('click', function () {
-            $(".acc_touxiang").hide();
-        });
-        // 图片裁切块的大小自定义，margin-top是height一半，margin-left是width一半
-        var thumb = $(".imgBox_file .thumbBox");
-        thumb.height(150);
-        thumb.width(150);
-        thumb.css({ "margin-top": -75, "margin-left": -75 });
-        // 给cropbox.js传参
-        var options =
-        {
-            thumbBox: '.thumbBox',
-            spinner: '.spinner',
-            imgSrc: ''
-        };
-        var cropper = $('.imgBox_file').cropbox(options);
-        // 文件上传按钮操作
-        $('#upload-file').on('change', function () {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                options.imgSrc = e.target.result;
-                cropper = $('.imgBox_file').cropbox(options);
-            };
-            reader.readAsDataURL(this.files[0]);
-            this.files = [];
-        });
-        // 裁切按钮操作
-        $('#btnCrop').on('click', function () {
-            var img = cropper.getDataURL();
-            $('.user_oldtx').html('');
-            $('.user_oldtx').append('<img src="' + img + '" align="absmiddle" style="box-shadow:0px 0px 12px #7E7E7E;">');
-
-            $(".tx_cancel").on('click', function () {
-                $(".acc_touxiang").hide();
-            });
-        });
-        // 图片放大按钮操作
-        $('#btnZoomIn').on('click', function () {
-            cropper.zoomIn();
-        });
-        // 图片缩小按钮操作
-        $('#btnZoomOut').on('click', function () {
-            cropper.zoomOut();
-        })
     });
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";

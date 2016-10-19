@@ -32,6 +32,8 @@ public class Constant {
     //nc支付url
     public static String NC_PAY_URL="";
     
+    public static String IOS_PUSH_KEY="";
+    public static String IOS_PUSH_SERECTKET="";
 
     
     //日志文件 访问日志 记录访问来源
@@ -99,6 +101,22 @@ public class Constant {
     	}
     	return authCode;
     }
+
+	public static String getIOS_PUSH_KEY() {
+		return IOS_PUSH_KEY;
+	}
+
+	public static void setIOS_PUSH_KEY(String iOS_PUSH_KEY) {
+		IOS_PUSH_KEY = iOS_PUSH_KEY;
+	}
+
+	public static String getIOS_PUSH_SERECTKET() {
+		return IOS_PUSH_SERECTKET;
+	}
+
+	public static void setIOS_PUSH_SERECTKET(String iOS_PUSH_SERECTKET) {
+		IOS_PUSH_SERECTKET = iOS_PUSH_SERECTKET;
+	}
     
     
 }

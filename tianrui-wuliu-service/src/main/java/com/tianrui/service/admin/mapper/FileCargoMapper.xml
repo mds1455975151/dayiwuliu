@@ -514,4 +514,11 @@
       </if>
    	</where>
   </select>
+  <!-- 获取所有费用类型 -->
+  <select id="getCargoTypeName" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file_cargo
+    GROUP BY DESC1
+  </select>
 </mapper>

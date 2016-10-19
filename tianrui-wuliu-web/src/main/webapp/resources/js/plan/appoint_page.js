@@ -2,7 +2,7 @@
 	var PlanUrl={
 			cancle:	"/trwuliu/planAppoint/cancle",
 			del:	"/trwuliu/planAppoint/plandel",
-			detail:"/trwuliu/planvender/detail",
+			detail:"/trwuliu/planAppoint/detail",
 			update:"/trwuliu/planAppoint/editView"
 	};
 	

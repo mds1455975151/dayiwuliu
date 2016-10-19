@@ -1,6 +1,11 @@
 package com.tianrui.api.resp.pay;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import org.apache.commons.lang.StringUtils;
+
+import com.tianrui.api.util.DateTypeUtil;
 
 public class PayInvoiceDetailResp {
 
@@ -132,10 +137,7 @@ public class PayInvoiceDetailResp {
 	}
 
 	public Double getBillWeight() {
-		if(billWeight == null){
-			billWeight = (double) 0;
-		}
-		return billWeight;
+		return DateTypeUtil.doubleType(billWeight);
 	}
 
 	public void setBillWeight(Double billWeight) {
@@ -143,10 +145,7 @@ public class PayInvoiceDetailResp {
 	}
 
 	public Double getBillPrice() {
-		if(billPrice == null){
-			billPrice = (double) 0;
-		}
-		return billPrice;
+		return DateTypeUtil.doubleType(billPrice);
 	}
 
 	public void setBillPrice(Double billPrice) {
@@ -154,10 +153,7 @@ public class PayInvoiceDetailResp {
 	}
 
 	public Double getBillTotalPrice() {
-		if(billTotalPrice == null){
-			billTotalPrice = (double) 0;;
-		}
-		return billTotalPrice;
+		return DateTypeUtil.doubleType(billTotalPrice);
 	}
 
 	public void setBillTotalPrice(Double billTotalPrice) {
@@ -267,6 +263,5 @@ public class PayInvoiceDetailResp {
 	public void setTaxRate(String taxRate) {
 		this.taxRate = taxRate;
 	}
-    
     
 }

@@ -1,6 +1,7 @@
 package com.tianrui.api.resp.front.cargoplan;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 public class FreightlistResp extends BaseResp{
 	/**
@@ -134,7 +135,7 @@ public class FreightlistResp extends BaseResp{
 	}
 
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 
 	public void setTallage(Double tallage) {
@@ -186,7 +187,7 @@ public class FreightlistResp extends BaseResp{
 	}
 
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 
 	public void setPrice(Double price) {

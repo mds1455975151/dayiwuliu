@@ -11,8 +11,7 @@ $(function(){
 			accept:	"/trwuliu/planvender/accept",
 			detail:	"/trwuliu/planvender/detail",
 			billCreate:"/trwuliu/billvender/addView",
-			billAppoint:"/trwuliu/planAppoint/initAppointPage",
-			billAppointDetail:"/trwuliu/planAppoint/detail"
+			billAppoint:"/trwuliu/planAppoint/initAppointPage"
 	};
 
 	//查询按钮点击
@@ -72,13 +71,7 @@ $(function(){
 	//查看计划绑定事件
 	$("#planlist").on("click",".detailBtn",function(){
 		var dId= $(this).attr("dataId");
-		var isAppoint = $(this).attr('isAppoint');
-		if(isAppoint == 0){
-			window.location.href=PlanUrl.detail+"?id="+dId;
-		}
-		if(isAppoint == 1){
-			window.location.href=PlanUrl.billAppointDetail+"?id="+dId;
-		}
+		window.location.href=PlanUrl.detail+"?id="+dId;
 	});
 	//生成运单
 	$("#planlist").on("click",".createPlanBtn",function(){
@@ -201,13 +194,8 @@ $(function(){
 				}
 			}
 			
-			var appointHtml = '';
-			if(item.isAppoint == '1'){
-				appointHtml = '<h5 class="plan_yunshu">委派计划</h5>';
-			}
-			
 			hml +="<tr>"+
-					"<td ><a class='detailBtn' dataId='"+item.id+"' isAppoint='"+item.isAppoint+"'  target='_blank'>"+item.plancode+isfamily+"</a>"+appointHtml+"</td>"+
+					"<td ><a class='detailBtn' dataId='"+item.id+"'  target='_blank'>"+item.plancode+isfamily+"</a></td>"+
 					"<td title='"+item.startcity+"—>"+item.endcity+"'>"+item.startcity+"—>"+item.endcity+"</td>"+
 					"<td >"+item.cargoname+" </td>"+
 					"<td >"+item.vehicleownername+"</td>"+

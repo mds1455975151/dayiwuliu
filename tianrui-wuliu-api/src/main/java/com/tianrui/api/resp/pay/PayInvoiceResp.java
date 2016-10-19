@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.tianrui.api.util.DateTypeUtil;
+
 public class PayInvoiceResp {
 
 
@@ -85,10 +87,7 @@ public class PayInvoiceResp {
 	}
 
 	public Double getPayDealPrice() {
-		if(payDealPrice == null){
-			payDealPrice = (double) 0;
-		}
-		return payDealPrice;
+		return DateTypeUtil.doubleType(payDealPrice);
 	}
 
 	public void setPayDealPrice(Double payDealPrice) {
@@ -96,10 +95,7 @@ public class PayInvoiceResp {
 	}
 
 	public Double getPaidPrice() {
-		if(paidPrice == null){
-			paidPrice = (double) 0;
-		}
-		return paidPrice;
+		return DateTypeUtil.doubleType(paidPrice);
 	}
 
 	public void setPaidPrice(Double paidPrice) {

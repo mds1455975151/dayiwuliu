@@ -71,14 +71,18 @@ function innerHTML(ret,flag){
 	var payStatus;//发票单 0新建  1 已推单 2支付中  3支付完成
 	var adviceStatus //审核状态  0未审核  1 已审核
 	var statusStr;
-	var shenhe = "";
+	var shenhe;
+	var delt;
 	for (var a = 0; a < data.length; a++) {
+		shenhe = "";
+		delt = "";
 		if(data[a].payStatus == "0"){
 			if(data[a].adviceStatus == "0"){
 				statusStr = "未审核";
 				shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 			}else if(data[a].adviceStatus == "1"){
 				statusStr = "已审核";
+				delt = "<button onclick=\"payInvoiceDelt('"+data[a].id+"')\" class='btn btnyello'>收回</button>"
 				shenhe = "<button onclick=\"payInvoiceSave('"+data[a].id+"')\" class='btn btnyello'>提交</button>"
 			}
 		}else if(data[a].payStatus == "1"){
@@ -97,7 +101,7 @@ function innerHTML(ret,flag){
 				"<td >"+data[a].paidPrice+"元</td>" +
 				"<td >"+df+"</td>" +
 				"<td>"+statusStr+"</td>" +
-				"<td>"+shenhe+"</td>" +
+				"<td>"+shenhe+delt+"</td>" +
 						"</tr>";
 	}
 	$("#paylist").append(hml);
@@ -155,6 +159,21 @@ function payAudit(id){
 function payInvoiceSave(id){
 	$.ajax({
 		url : "/trwuliu/payInvoice/payInvoiceSave",//
+		data : {"id":id},
+		type : "post",
+		success : function(rs){
+			if(rs.code=="000000"){
+				index(1,0);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+/** 运单收回*/
+function payInvoiceDelt(id){
+	$.ajax({
+		url : "/trwuliu/payInvoice/withdrawPay",//
 		data : {"id":id},
 		type : "post",
 		success : function(rs){
