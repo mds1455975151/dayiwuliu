@@ -3,6 +3,8 @@ package com.tianrui.api.resp.admin.freight;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.tianrui.api.util.DateTypeUtil;
+
 public class FreightLineResp {
 
 	private String id;
@@ -59,7 +61,7 @@ public class FreightLineResp {
 	}
 
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 
 	public void setPrice(Double price) {
@@ -67,7 +69,7 @@ public class FreightLineResp {
 	}
 
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 
 	public void setTallage(Double tallage) {

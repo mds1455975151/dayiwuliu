@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 public class AdminFreightResp extends BaseResp{
 	/**
@@ -128,7 +129,7 @@ public class AdminFreightResp extends BaseResp{
 	}
 
 	public Double getTallageInfo() {
-		return tallageInfo;
+		return DateTypeUtil.doubleType(tallageInfo);
 	}
 
 	public void setTallageInfo(Double tallageInfo) {
@@ -184,7 +185,7 @@ public class AdminFreightResp extends BaseResp{
 	}
 
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 
 	public void setTallage(Double tallage) {
@@ -236,7 +237,7 @@ public class AdminFreightResp extends BaseResp{
 	}
 
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 
 	public void setPrice(Double price) {
@@ -279,7 +280,7 @@ public class AdminFreightResp extends BaseResp{
 	}
 
 	public Double getOldprice() {
-		return oldprice;
+		return DateTypeUtil.doubleType(oldprice);
 	}
 
 	public void setOldprice(Double oldprice) {
@@ -287,7 +288,7 @@ public class AdminFreightResp extends BaseResp{
 	}
 
 	public Double getOldtallage() {
-		return oldtallage;
+		return DateTypeUtil.doubleType(oldtallage);
 	}
 
 	public String getTaketimeStrinfo() {

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 public class FreightResp extends BaseResp{
 	 /**
@@ -114,7 +115,7 @@ public class FreightResp extends BaseResp{
 		this.freightType = freightType;
 	}
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
@@ -192,7 +193,7 @@ public class FreightResp extends BaseResp{
 		this.priceunits = priceunits;
 	}
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 	public void setPrice(Double price) {
 		this.price = price;

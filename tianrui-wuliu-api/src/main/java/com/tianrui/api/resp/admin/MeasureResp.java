@@ -1,6 +1,7 @@
 package com.tianrui.api.resp.admin;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 public class MeasureResp extends BaseResp{
 
@@ -76,7 +77,7 @@ public class MeasureResp extends BaseResp{
 		this.measureMain = measureMain;
 	}
 	public Double getConversion() {
-		return conversion;
+		return DateTypeUtil.doubleType(conversion);
 	}
 	public void setConversion(Double conversion) {
 		this.conversion = conversion;

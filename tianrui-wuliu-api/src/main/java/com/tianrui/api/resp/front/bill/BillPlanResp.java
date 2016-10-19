@@ -1,6 +1,7 @@
 package com.tianrui.api.resp.front.bill;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 /**
  * 
@@ -87,7 +88,7 @@ public class BillPlanResp extends BaseResp{
 		this.cargoname = cargoname;
 	}
 	public Double getDistance() {
-		return distance;
+		return DateTypeUtil.doubleType(distance);
 	}
 	public void setDistance(Double distance) {
 		this.distance = distance;
@@ -159,13 +160,13 @@ public class BillPlanResp extends BaseResp{
 		this.price = price;
 	}
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
 	}
 	public Double getOverweight() {
-		return overweight;
+		return DateTypeUtil.doubleType(overweight);
 	}
 	public void setOverweight(Double overweight) {
 		this.overweight = overweight;

@@ -1,6 +1,7 @@
 package com.tianrui.api.resp.front.cargoplan;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 
 /**
  * 
@@ -109,7 +110,7 @@ public class RouteResp extends BaseResp  {
 	}
 
 	public Double getDistance() {
-		return distance;
+		return DateTypeUtil.doubleType(distance);
 	}
 
 	public void setDistance(Double distance) {

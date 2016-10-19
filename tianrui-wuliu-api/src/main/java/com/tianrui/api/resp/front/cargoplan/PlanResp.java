@@ -3,6 +3,7 @@ package com.tianrui.api.resp.front.cargoplan;
 import java.util.Date;
 
 import com.tianrui.api.resp.BaseResp;
+import com.tianrui.api.util.DateTypeUtil;
 import com.tianrui.common.utils.DateUtil;
 
 public class PlanResp extends BaseResp{
@@ -146,31 +147,31 @@ public class PlanResp extends BaseResp{
 		this.endcity = endcity;
 	}
 	public Double getDistance() {
-		return distance;
+		return DateTypeUtil.doubleType(distance);
 	}
 	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 	public Double getTotalplanned() {
-		return totalplanned;
+		return DateTypeUtil.doubleType(totalplanned);
 	}
 	public void setTotalplanned(Double totalplanned) {
 		this.totalplanned = totalplanned;
 	}
 	public Double getPlanprice() {
-		return planprice;
+		return DateTypeUtil.doubleType(planprice);
 	}
 	public void setPlanprice(Double planprice) {
 		this.planprice = planprice;
 	}
 	public Double getCompleted() {
-		return completed;
+		return DateTypeUtil.doubleType(completed);
 	}
 	public void setCompleted(Double completed) {
 		this.completed = completed;
 	}
 	public Double getPrice() {
-		return price;
+		return DateTypeUtil.doubleType(price);
 	}
 	public void setPrice(Double price) {
 		this.price = price;
@@ -380,13 +381,13 @@ public class PlanResp extends BaseResp{
 		this.orgname = orgname;
 	}
 	public Double getTallage() {
-		return tallage;
+		return DateTypeUtil.doubleType(tallage);
 	}
 	public void setTallage(Double tallage) {
 		this.tallage = tallage;
 	}
 	public Double getOverweight() {
-		return overweight;
+		return DateTypeUtil.doubleType(overweight);
 	}
 	public void setOverweight(Double overweight) {
 		this.overweight = overweight;

@@ -3,6 +3,8 @@ package com.tianrui.api.resp.admin;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.tianrui.api.util.DateTypeUtil;
+
 public class AdminPlanResp {
 
 	private String id;
@@ -172,19 +174,19 @@ public class AdminPlanResp {
 		this.freightname = freightname;
 	}
 	public Double getDistance() {
-		return distance;
+		return DateTypeUtil.doubleType(distance);
 	}
 	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
 	public Double getTotalplanned() {
-		return totalplanned;
+		return DateTypeUtil.doubleType(totalplanned);
 	}
 	public void setTotalplanned(Double totalplanned) {
 		this.totalplanned = totalplanned;
 	}
 	public Double getPlanprice() {
-		return planprice;
+		return DateTypeUtil.doubleType(planprice);
 	}
 	public void setPlanprice(Double planprice) {
 		this.planprice = planprice;
