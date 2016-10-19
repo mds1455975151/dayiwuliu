@@ -71,8 +71,10 @@ public class FileFreightInfoAction {
 	/** 运价策略审核查询页面*/
 	@RequestMapping("indexAudit")
 	@ResponseBody
-	public Result indexAudit(AdminFreightReq req) throws Exception{
+	public Result indexAudit(AdminFreightReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
+		Users user = SessionManager.getSessionMember(request);
+		req.setOrganizationid(user.getOrgid());
 		PageResp<AdminFreightResp> resp = freightInfoService.find(req);
 		rs.setData(resp);
 		return rs;

@@ -255,7 +255,7 @@
 			                </div>
 			            </div>
 						<p>
-							<label>磅单重量：</label><input type="text" id="weighttext">
+							<label>签收重量：</label><input type="text" id="weighttext">
 						</p>
 					</div>
 				</div>

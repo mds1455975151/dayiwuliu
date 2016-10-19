@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>我的会员</title>
+    <title>我的发货员</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="col-md-10 ">
         <div class="ht_content">
             <div id="content-header">
-                <h3>我的会员</h3>
+                <h3>我的发货员</h3>
             </div>
             <!--查询框begin-->
             <div class="row">
@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >我的会员新增</h4>
+                <h4 class="modal-title" >新增</h4>
             </div>
             <div class="modal-body">
                 <div class="juesemodal">
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id=" ">会员信息修改</h4>
+                <h4 class="modal-title" id=" ">修改</h4>
             </div>
             <div class="modal-body" style="">
                 <div class="juesemodal">

@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </div>
 		                </div>
 		            </div>
-                    <p><label>磅单重量：</label><input type="text" id="weighttext"></p>
+                    <p><label>签收重量：</label><input type="text" id="weighttext"></p>
                 </div>
             </div>
             <div class="modal-footer">
