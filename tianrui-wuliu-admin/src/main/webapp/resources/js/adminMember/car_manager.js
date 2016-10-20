@@ -74,6 +74,9 @@ function displayData(pageNo){
 						if(d[a].vehicletype=="5"){
 							type = "半挂车";
 						}
+						if(d[a].vehicletype=="6"){
+							type = "重型自卸货车";
+						}
 						var userName = d[a].userName;
 						if(d[a].userName == undefined){
 							userName = "";

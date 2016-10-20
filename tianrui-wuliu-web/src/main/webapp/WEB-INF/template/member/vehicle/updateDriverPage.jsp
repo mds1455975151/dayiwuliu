@@ -65,6 +65,9 @@
 							<option
 								<c:if test="${vehicle.vehicleType eq '4' }">selected="true"</c:if>
 								value="4">散装罐车</option>
+							<option
+								<c:if test="${vehicle.vehicleType eq '6' }">selected="true"</c:if>
+								value="6">重型自卸货车</option>
 						</select>
 						<div class="clear"></div>
 						<p id="message_vehiType"></p>

@@ -74,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                                <option value="2">车板</option>
 			                                <option value="3">冷藏</option>
 				                            <option value="4">散装罐车</option>
+				                            <option value="6">重型自卸货车</option>
 			                            </select>
 			                        </div>
 			                    </li>
