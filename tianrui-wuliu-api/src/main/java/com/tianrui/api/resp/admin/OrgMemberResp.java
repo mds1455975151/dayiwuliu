@@ -3,6 +3,8 @@ package com.tianrui.api.resp.admin;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 
 /**
@@ -27,6 +29,8 @@ public class OrgMemberResp extends BaseResp{
 	 * 会员账号
 	 */
 	private String membertel;
+	
+	private String membername;
 	/**
 	 * 备注
 	 */
@@ -53,6 +57,15 @@ public class OrgMemberResp extends BaseResp{
 	}
 	public String getId() {
 		return id;
+	}
+	public String getMembername() {
+		if(StringUtils.isBlank(membername)){
+			membername = "";
+		}
+		return membername;
+	}
+	public void setMembername(String membername) {
+		this.membername = membername;
 	}
 	public void setId(String id) {
 		this.id = id;

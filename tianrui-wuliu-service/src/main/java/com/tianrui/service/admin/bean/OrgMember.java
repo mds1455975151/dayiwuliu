@@ -21,6 +21,8 @@ public class OrgMember {
 	 * 会员账号
 	 */
 	private String membertel;
+	
+	private String membername;
 	/**
 	 * 备注
 	 */
@@ -83,6 +85,12 @@ public class OrgMember {
 	}
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+	public String getMembername() {
+		return membername;
+	}
+	public void setMembername(String membername) {
+		this.membername = membername;
 	}
 	public Long getCreatetime() {
 		return createtime;

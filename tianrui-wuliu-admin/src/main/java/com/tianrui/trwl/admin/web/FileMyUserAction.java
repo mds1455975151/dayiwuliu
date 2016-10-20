@@ -16,9 +16,11 @@ import com.tianrui.api.admin.intf.IOrgMemberService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.admin.OrgMemberReq;
 import com.tianrui.api.req.front.member.MemberMassageReq;
+import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.resp.admin.OrgMemberResp;
 import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.member.SystemMemberResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
@@ -62,6 +64,7 @@ public class FileMyUserAction {
 	public Result saveOrgMember(
 			String cellPhone,
 			String massage,
+			String memberName,
 			HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 	    Users user = SessionManager.getSessionMember(request);
@@ -73,6 +76,7 @@ public class FileMyUserAction {
 		req.setCreatetime(data.getTime());
 		req.setMembertel(cellPhone);
 		req.setMemberdesc(massage);
+		req.setMembername(memberName);
 		MemberMassageReq find = new MemberMassageReq();
 		find.setCellphone(cellPhone);
 		List<SystemMemberResp> list = systemMemberService.findMemberByMassage(find);
@@ -193,4 +197,49 @@ public class FileMyUserAction {
 		systemMemberService.updateMember(up);
 		return rs;
 	} 
+	/** 查询账号*/
+	@RequestMapping("/findPhone")
+	@ResponseBody
+	public Result findPhone(String phone) throws Exception{
+		Result rs = Result.getSuccessResult();
+		
+		MemberReq req = new MemberReq();
+		req.setTelnum(phone);
+		MemberResp resp = systemMemberService.findMemberByTelnum(req);
+		if(resp==null){
+			rs.setCode("1");
+			rs.setError("无效的用户");
+			return rs;
+		}
+		
+		OrgMemberReq om = new OrgMemberReq();
+		om.setMembertel(phone);
+		List<OrgMemberResp> list = orgMemberService.findlist(om);
+		if(list.size()==1){
+			rs.setCode("1");
+			rs.setError("用户已绑定");
+			return rs;
+		}
+		
+		short a = 1;
+		//个人认证状态
+		short userp = resp.getUserpercheck();
+		//司机认证状态
+		short driverp = resp.getDriverpercheck();
+		//企业认证状态
+		short comp = resp.getCompanypercheck();
+		
+		if("0".equals(resp.getStatus())){
+			rs.setCode("1");
+			rs.setError("用户已被禁用");
+			return rs;
+		}else if(!(userp == a || driverp == a || comp == a)){
+			rs.setCode("1");
+			rs.setError("用户暂未认证");
+			return rs;
+		}else{
+			rs.setData(resp);
+		}
+		return rs;
+	}
 }

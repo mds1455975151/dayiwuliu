@@ -52,6 +52,7 @@ function displayData(pageNo){
 						hml +=
 							"<tr><td>"+d+"</td>"+
 							"<td>"+data[a].membertel+"</td>"+
+							"<td>"+data[a].membername+"</td>"+
 							"<td>"+data[a].memberdesc+"</td>"+
 							"<td>"+data[a].createtimeStr+"</td>"+
 							"<td>"+data[a].creator+"</td>"+
@@ -113,6 +114,7 @@ function detalt(a){
 	var d = data[a].membertel;
 	var s = data[a].memberdesc;
 	document.getElementById("memberTel").innerHTML=d;
+	
 	document.getElementById("memberDesc").innerHTML=s;
 }
 /**
@@ -124,6 +126,7 @@ function update(a){
 	var membertel = data[a].membertel;
 	var memberdesc = data[a].memberdesc;
 	document.getElementById("uptmemberTel").value=membertel;
+	document.getElementById("uptmembername").value=data[a].membername;
 	document.getElementById("uptmemberDesc").value=memberdesc;
 	document.getElementById("uptid").value=id;
 }
@@ -155,15 +158,17 @@ function updateOrgMember(){
  * 新增
  */
 function saveorgMember(){
-	var cellPhone = $("#cellphone").val();
+	var cellPhone = $("#addcellphone").val();
 	var massage =$("#massage").val();
-	if(massage==""){
-		alert("请添加备注");
+	var memberName = $("#memberName").val();
+	if(cellPhone == "" || memberName == ""){
+		alert("数据不能为空");
 		return;
 	}
 	$.ajax({
 		url:CONTEXTPATH+"/file/filemyuser/saveOrgMember",
 		data:{"cellPhone":cellPhone,
+			"memberName":memberName,
 			"massage":massage
 		},
 		type:"post",
@@ -174,6 +179,7 @@ function saveorgMember(){
 			}else{
 				document.getElementById("error").innerHTML="";
 				searchMember();
+				resetvalue();
 				document.getElementById("addclick").click();
 			}
 		}
@@ -182,4 +188,30 @@ function saveorgMember(){
 /** 重置*/
 function resetvalue(){
 	$("#cellPhone").val("");
+	$("#addcellphone").val("");
+	$("#error").html("");
+	$("#memberName").val("");
+	$("#massage").val("");
+}
+function searchPhone(){
+	var phone = $("#addcellphone").val();
+	$.ajax({
+		url:CONTEXTPATH+"/file/filemyuser/findPhone",
+		data:{"phone":phone
+		},
+		type:"post",
+		success:function(ret){
+			if(ret.code!="000000"){
+				document.getElementById("error").innerHTML=ret.error;
+			}else{
+				document.getElementById("error").innerHTML="";
+				var data = ret.data;
+				var userName = data.userName;
+				var companyName = data.companyName;
+				$("#memberName").val(userName==undefined?companyName:userName);
+//				searchMember();
+//				document.getElementById("addclick").click();
+			}
+		}
+	});
 }

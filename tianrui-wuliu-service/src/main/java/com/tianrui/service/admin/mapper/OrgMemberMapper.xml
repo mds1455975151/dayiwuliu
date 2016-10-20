@@ -7,6 +7,7 @@
 	    om.organizationid organizationid,
 	    om.membertel membertel,
 	    om.memberdesc memberdesc,
+	    om.membername membername,
 	    om.creator creator,
 	    om.createtime createtime
     from file_org_member om
@@ -19,6 +20,7 @@
 	    om.organizationid organizationid,
 	    om.membertel membertel,
 	    om.memberdesc memberdesc,
+	    om.membername membername,
 	    om.creator creator,
 	    om.createtime createtime
     from file_org_member om
@@ -85,6 +87,9 @@
       <if test="memberdesc != null and memberdesc !=''" >
         memberdesc,
       </if>
+      <if test="membername != null and membername !=''" >
+        membername,
+      </if>
       <if test="creator != null and creator !=''" >
         creator,
       </if>
@@ -105,6 +110,9 @@
       <if test="memberdesc != null and memberdesc !=''" >
         #{memberdesc,jdbcType=VARCHAR},
       </if>
+      <if test="membername != null and membername !=''" >
+        #{membername,jdbcType=VARCHAR},
+      </if>
       <if test="creator != null and creator !=''" >
         #{creator,jdbcType=VARCHAR},
       </if>
@@ -124,6 +132,9 @@
       </if>
       <if test="memberdesc != null and memberdesc !=''" >
         memberdesc = #{memberdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="membername != null and membername !=''" >
+        membername = #{membername,jdbcType=VARCHAR},
       </if>
       <if test="creator != null and creator !=''" >
         creator = #{creator,jdbcType=VARCHAR},

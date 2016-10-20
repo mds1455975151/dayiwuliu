@@ -20,6 +20,8 @@ public class OrgMemberReq extends BaseReq{
 	 * 组织机构id
 	 */
 	private String organizationid;
+	
+	private String membername;
 	/**
 	 * 会员账号
 	 */
@@ -69,6 +71,12 @@ public class OrgMemberReq extends BaseReq{
 	}
 	public void setMemberdesc(String memberdesc) {
 		this.memberdesc = memberdesc;
+	}
+	public String getMembername() {
+		return membername;
+	}
+	public void setMembername(String membername) {
+		this.membername = membername;
 	}
 	public String getCreator() {
 		return creator;

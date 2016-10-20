@@ -63,6 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>序号</th>
                                 <th>手机号</th>
+                                <th>姓名</th>
                                 <th>备注</th>
                                 <th>添加时间</th>
                                 <th>添加人</th>
@@ -102,15 +103,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body">
                 <div class="juesemodal">
                     <p><label><i style="color: #ff2f00;">*</i>手机号：</label>
-                    <input id="cellphone" type="text" maxlength="11" >
+                    <input id="addcellphone" type="text" maxlength="11" >
                     <span style="color: red" id="error"></span>
+                    <button class="btn btnblue " onclick="searchPhone()" type="submit">搜索</button>
                     </p>
+                    <p><label><i style="color: #ff2f00;">*</i>姓名：</label><input id="memberName" type="text" readonly="readonly"></p>
                     <p><label>备注：</label><textarea id="massage" class="form-control" rows="2"></textarea></p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="saveorgMember();">保存</button>
-                <button type="button" id="addclick" class="btn btn-default" data-dismiss="modal" data-dismiss="modal">关闭</button>
+                <button type="button" id="addclick" class="btn btn-default" onclick="resetvalue();" data-dismiss="modal" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -131,6 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <p><label><i style="color: #ff2f00;">*</i>手机号：</label>
                     <input type="text" id="uptmemberTel" readonly="readonly"></p>
                     <input type="hidden" id="uptid"></p>
+                    <p><label><i style="color: #ff2f00;">*</i>姓名：</label><input type="text" id="uptmembername" readonly="readonly"></p>
                     <p><label>备注：</label>
                     <textarea id="uptmemberDesc" class="form-control" rows="2"></textarea></p>
                 </div>
