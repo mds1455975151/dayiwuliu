@@ -15,7 +15,8 @@
 	                        <li><a href="/trwuliu/planowner/main" id="planowner">我发布的计划</a></li>
 	                        <li><a href="/trwuliu/plantemplate/main" id="plantemplate">我的计划模板</a></li>
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
-	                        <!-- <li><a href="/trwuliu/billreport/main" id="billreport">我的报表</a></li> -->
+	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> -->
+	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -37,6 +38,7 @@
 	                        <li><a href="/trwuliu/billAppoint/main" id="billAppoint">我委派的运单</a></li>
 	 <!--                        <li><a href="/trwuliu/payInvoiceItem/main" id="yunfei">运费结算单</a></li>
 	                        <li><a href="/trwuliu/payInvoice/main" id="paymain">支付发票账单</a></li> -->
+	                        <li><a href="/trwuliu/venderreport/main" id="venderreport">我的报表</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -50,6 +52,7 @@
 	                    <ul>
 	                    	<li><a href="/trwuliu/billdriver/main"  id="billdriver">我运输的运单</a></li>
 	                        <li><a href="/trwuliu/billdriver/handView" id="handdriver">司机交班</a></li>
+	                        <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li>
 	                    </ul>
 	                </div>
 	            </div>
