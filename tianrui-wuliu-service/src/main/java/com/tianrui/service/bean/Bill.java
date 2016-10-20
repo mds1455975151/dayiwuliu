@@ -68,7 +68,7 @@ public class Bill {
     //取货单图片
     private String pickupimgurl;
     //税率
-    private double tallage;
+    private Double tallage;
     //卸货完成时间
     private Long unloadtime;
     //计划分配路径
@@ -1106,11 +1106,11 @@ public class Bill {
 		this.pickupimgurl = pickupimgurl;
 	}
 
-	public double getTallage() {
+	public Double getTallage() {
 		return tallage;
 	}
 
-	public void setTallage(double tallage) {
+	public void setTallage(Double tallage) {
 		this.tallage = tallage;
 	}
 

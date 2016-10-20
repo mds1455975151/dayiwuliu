@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.BillReportMapper" >
+	<resultMap id="BaseResultMap" type="com.tianrui.service.bean.BillReport" >
+		<id column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="driverid" property="driverid" jdbcType="BIGINT"/>
+		<result column="venderid" property="venderid" jdbcType="BIGINT"/>
+		<result column="ownerid" property="ownerid" jdbcType="BIGINT"/>
+		<result column="billcreatetime" property="billcreatetime" jdbcType="BIGINT"/>
+		<result column="plancreatetime" property="plancreatetime" jdbcType="BIGINT"/>
+		<result column="planstarttime" property="planstarttime" jdbcType="BIGINT"/>
+		<result column="planendtime" property="planendtime" jdbcType="BIGINT"/>
+		<result column="waybillno" property="waybillno" jdbcType="VARCHAR"/>
+		<result column="planCode" property="planCode" jdbcType="VARCHAR"/>
+		<result column="cargoname" property="cargoname" jdbcType="VARCHAR"/>
+		<result column="routename" property="routename" jdbcType="VARCHAR"/>
+		<result column="startcity" property="startcity" jdbcType="VARCHAR"/>
+		<result column="endcity" property="endcity" jdbcType="VARCHAR"/>
+		<result column="weight" property="weight" jdbcType="DOUBLE"/>
+		<result column="trueweight" property="trueweight" jdbcType="DOUBLE"/>
+		<result column="totalplanned" property="totalplanned" jdbcType="DOUBLE"/>
+		<result column="status" property="billStatus" jdbcType="VARCHAR"/>
+		<result column="pay_status" property="payStatus" jdbcType="VARCHAR"/>
+		<result column="isAppoint" property="isAppoint" jdbcType="VARCHAR"/>
+		<result column="vehicleno" property="vehicleno" jdbcType="VARCHAR"/>
+		<result column="isClearing" property="isClearing" jdbcType="VARCHAR"/>
+		<result column="price" property="price" jdbcType="DOUBLE"/>
+		<result column="tallage" property="tallage" jdbcType="DOUBLE"/>
+		<result column="unloadtime" property="unloadtime" jdbcType="BIGINT"/>
+		<result column="drivername" property="drivername" jdbcType="VARCHAR"/>
+		<result column="vendername" property="vendername" jdbcType="VARCHAR"/>
+		<result column="pathID" property="pathID" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, driverid, venderid, ownerid, billcreatetime, plancreatetime, planstarttime, planendtime, waybillno, planCode, cargoname, routename, 
+		startcity, endcity, weight, trueweight, totalplanned, status as billStatus, pay_status as payStatus, 
+		isAppoint, vehicleno, isClearing, price, tallage, unloadtime, drivername, vendername, pathID
+	</sql>
+	<select id="queryBillReport" parameterType="com.tianrui.api.req.front.report.ReportReq" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/>
+		from v_billreport
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="driverid != null and driverid != ''">
+				and driverid = #{driverid,jdbcType=VARCHAR}
+				<if test="starttime != null and starttime != ''">
+					and billcreatetime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and billcreatetime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+				</if>
+			</if>
+			<if test="venderid != null and venderid != ''">
+				and (venderid = #{venderid,jdbcType=VARCHAR} or instr(pathID,'${venderid}'))
+				<if test="starttime != null and starttime != ''">
+					and billcreatetime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and billcreatetime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+				</if>
+			</if>
+			<if test="ownerid != null and ownerid != ''">
+				and ownerid = #{ownerid,jdbcType=VARCHAR}
+				<if test="starttime != null and starttime != ''">
+					and plancreatetime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and plancreatetime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+				</if>
+			</if>
+			<if test="cargoname != null and cargoname != ''">
+				and cargoname like '%${cargoname}%'
+			</if>
+			<if test="vehicleno != null and vehicleno != ''">
+				and vehicleno like '%${vehicleno}%'
+			</if>
+			<if test="routename != null and routename != ''">
+				and routename like '%${routename}%'
+			</if>
+			<if test="drivername != null and drivername != ''">
+				and drivername like '%${drivername}%'
+			</if>
+			<if test="billStatus != null and billStatus != ''">
+				and status = #{billStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="payStatus != null and payStatus != ''">
+				and pay_status = #{payStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="isAppoint != null and isAppoint != ''">
+				and isAppoint = #{isAppoint,jdbcType=VARCHAR}
+			</if>
+			<if test="waybillno != null and waybillno != ''">
+				and waybillno = #{waybillno,jdbcType=VARCHAR}
+			</if>
+			<if test="planCode != null and planCode != ''">
+				and planCode = #{planCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by billcreatetime desc
+		<if test="start != null and start != '0'">
+			<if test="limit !=null">
+				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+			</if>
+		</if>
+	</select>
+	<select id="queryBillReportCount" parameterType="com.tianrui.api.req.front.report.ReportReq" resultType="long">
+		select count(0)
+		from v_billreport
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id,jdbcType=VARCHAR}
+			</if>
+			<if test="driverid != null and driverid != ''">
+				and driverid = #{driverid,jdbcType=VARCHAR}
+				<if test="starttime != null and starttime != ''">
+					and billcreatetime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and billcreatetime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+				</if>
+			</if>
+			<if test="venderid != null and venderid != ''">
+				and (venderid = #{venderid,jdbcType=VARCHAR} or instr(pathID,'${venderid}'))
+				<if test="starttime != null and starttime != ''">
+					and billcreatetime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and billcreatetime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+				</if>
+			</if>
+			<if test="ownerid != null and ownerid != ''">
+				and ownerid = #{ownerid,jdbcType=VARCHAR}
+				<if test="starttime != null and starttime != ''">
+					and plancreatetime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and plancreatetime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+				</if>
+			</if>
+			<if test="cargoname != null and cargoname != ''">
+				and cargoname like '%${cargoname}%'
+			</if>
+			<if test="vehicleno != null and vehicleno != ''">
+				and vehicleno like '%${vehicleno}%'
+			</if>
+			<if test="routename != null and routename != ''">
+				and routename like '%${routename}%'
+			</if>
+			<if test="drivername != null and drivername != ''">
+				and drivername like '%${drivername}%'
+			</if>
+			<if test="billStatus != null and billStatus != ''">
+				and status = #{billStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="payStatus != null and payStatus != ''">
+				and pay_status = #{payStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="isAppoint != null and isAppoint != ''">
+				and isAppoint = #{isAppoint,jdbcType=VARCHAR}
+			</if>
+			<if test="waybillno != null and waybillno != ''">
+				and waybillno = #{waybillno,jdbcType=VARCHAR}
+			</if>
+			<if test="planCode != null and planCode != ''">
+				and planCode = #{planCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<select id="querReportDetail" parameterType="com.tianrui.api.req.front.report.ReportReq" resultType="com.tianrui.service.bean.BillReport">
+		select <include refid="Base_Column_List"/>
+		from v_billreport
+		where id=#{id,jdbcType=VARCHAR}
+	</select>
+</mapper>

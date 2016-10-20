@@ -85,7 +85,7 @@
 	<script type="text/javascript"
 		src="/resources/ui/exportExcel/tableExport.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/report/owner/report.js"></script>
+		src="/resources/js/reportDemo/report.js"></script>
 	<script type="text/javascript">
 		var data = '${list}';
 		if(data){

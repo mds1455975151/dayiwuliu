@@ -147,10 +147,10 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/report/owner/main.js"></script>
+	<script type="text/javascript" src="/resources/js/report/vender/main.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$('#ownerreport').addClass("selected");
+			$('#venderreport').addClass("selected");
 			PAGE.mod.main.init();
 		});
 	</script>

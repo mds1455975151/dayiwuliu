@@ -124,7 +124,7 @@ PAGE.mod.main = {
 			var params = _this.getParams();
 			console.log(params);
 			$.ajax({
-				url:'/trwuliu/ownerreport/queryReport',
+				url:'/trwuliu/venderreport/queryReport',
 				data:params,
 				type:'POST',
 				dateType:'json',
@@ -213,7 +213,7 @@ PAGE.mod.main = {
 			}
 			$('#report>tbody>tr').off('click').on('click',function(){
 				var id = $(this).attr('billid');
-				window.location.href = '/trwuliu/ownerreport/detail?id='+id;
+				window.location.href = '/trwuliu/venderreport/detail?id='+id;
 			});
 		}
 }

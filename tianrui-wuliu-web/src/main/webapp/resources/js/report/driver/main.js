@@ -66,10 +66,6 @@ PAGE.mod.main = {
 				$('#routename').val('');
 				$('#cargoname').val('');
 				$('#billStatus').val('');
-				$('#drivername').val('');
-				$('#planCode').val('');
-				$('#vehicleno').val('');
-				$('#isAppoint').val('');
 			});
 			
 			//分页更多
@@ -94,14 +90,6 @@ PAGE.mod.main = {
 			cargoname = $.trim(cargoname);
 			var billStatus = $('#billStatus').val();
 			billStatus = $.trim(billStatus);
-			var drivername = $('#drivername').val();
-			drivername = $.trim(drivername);
-			var planCode = $('#planCode').val();
-			planCode = $.trim(planCode);
-			var vehicleno = $('#vehicleno').val();
-			vehicleno = $.trim(vehicleno);
-			var isAppoint = $('#isAppoint').val();
-			isAppoint = $.trim(isAppoint);
 			var pageNo = $('.pageMore').attr('pageno');
 			pageNo = $.trim(pageNo);
 			return {
@@ -111,10 +99,6 @@ PAGE.mod.main = {
 				routename: routename,
 				cargoname: cargoname,
 				billStatus: billStatus,
-				drivername: drivername,
-				planCode: planCode,
-				vehicleno: vehicleno,
-				isAppoint: isAppoint,
 				pageNo: pageNo,
 				pageSize: 10
 			}
@@ -124,7 +108,7 @@ PAGE.mod.main = {
 			var params = _this.getParams();
 			console.log(params);
 			$.ajax({
-				url:'/trwuliu/ownerreport/queryReport',
+				url:'/trwuliu/driverreport/queryReport',
 				data:params,
 				type:'POST',
 				dateType:'json',
@@ -181,39 +165,28 @@ PAGE.mod.main = {
 					trueweight = obj.trueweight.toFixed(2);
 				}
 				var billStatus = '';
-				if(obj.billStatus == 6){
-					switch (obj.payStatus) {
-					case '2':
-						billStatus = '待付款';
-						break;
-					case '3':
-						billStatus = '支付完成';
-						break;
-					default:
-						billStatus = '待运费确认';
-						break;
-					}
-				}else{
-					switch (obj.billStatus) {
-					case '1':
-						billStatus = '待提货';
-						break;
-					case '2':
-						billStatus = '运输中';
-						break;
-					case '5':
-						billStatus = '待签收';
-						break;
-					default:
-						break;
-					}
+				switch (obj.billStatus) {
+				case '1':
+					billStatus = '待提货';
+					break;
+				case '2':
+					billStatus = '运输中';
+					break;
+				case '5':
+					billStatus = '待签收';
+					break;
+				case '6':
+					billStatus = '已完成';
+					break;
+				default:
+					break;
 				}
 				var $tr = $('<tr billid="'+obj.id+'"><td>'+dateutils.dateTime2Str(obj.billcreatetime)+'</td><td>'+waybillno+'</td><td>'+cargoname+'</td><td>'+routename+'</td><td>'+weight+'</td><td>'+trueweight+'</td><td>'+billStatus+'</td></tr>');
 				$('#report>tbody').append($tr);
 			}
 			$('#report>tbody>tr').off('click').on('click',function(){
 				var id = $(this).attr('billid');
-				window.location.href = '/trwuliu/ownerreport/detail?id='+id;
+				window.location.href = '/trwuliu/driverreport/detail?id='+id;
 			});
 		}
 }

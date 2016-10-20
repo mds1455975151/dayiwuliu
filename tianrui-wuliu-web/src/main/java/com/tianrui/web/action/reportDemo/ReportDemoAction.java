@@ -1,4 +1,4 @@
-package com.tianrui.web.action.report;
+package com.tianrui.web.action.reportDemo;
 
 import java.net.URLDecoder;
 import java.util.List;
@@ -24,10 +24,10 @@ import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
 
 @Controller
-@RequestMapping("trwuliu/billreport")
-public class ReportAction {
+@RequestMapping("trwuliu/reportdemo")
+public class ReportDemoAction {
 	
-	private Logger log = LoggerFactory.getLogger(ReportAction.class);
+	private Logger log = LoggerFactory.getLogger(ReportDemoAction.class);
 	
 	@Autowired
 	private BillService billService;
@@ -35,14 +35,14 @@ public class ReportAction {
 	@RequestMapping("main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
 	public ModelAndView main(){
-		ModelAndView model = new ModelAndView("report/owner/main");
+		ModelAndView model = new ModelAndView("reportDemo/main");
 		return model;
 	}
 	
 	@RequestMapping("report")
 	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
 	public ModelAndView report(ReportVo vo, String item, String groups, String statistical, Boolean summation, Boolean subtotal, HttpServletRequest request){
-		ModelAndView model = new ModelAndView("report/owner/report");
+		ModelAndView model = new ModelAndView("reportDemo/report");
 		try {
 			MemberVo memberVo = SessionManager.getSessionMember(request);
 			vo.setMemberid(memberVo.getId());
