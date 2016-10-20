@@ -71,9 +71,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="goods_line" id="select03">
                     <label> 运价策略：</label>
+                     <select name="freightid" class="form-control freightSel">
+                    	<option value="">请选择运价策略</option>
+                    </select>
+                </div>
+                <!-- 
+                <div class="goods_line" id="select03">
+                    <label> 运价策略：</label>
                      <input type="text"  placeholder="请输入策略名称" id="freightname_v" class="form-control">
                     <input type="hidden" id="freightname_v_id" name="freightid">
                 </div>
+                 -->
                 <div class="goods_line">
                     <div class="plan_table">
                         <table class="table " >

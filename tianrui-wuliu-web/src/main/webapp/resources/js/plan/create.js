@@ -10,7 +10,7 @@ $(function(){
 		savePlan:"/trwuliu/planowner/save"
 	}
 	
-	init();
+//	init();
 	//货物changge事件
 	$(".cargoSel").change(function(){
 		freightClear();
@@ -18,8 +18,9 @@ $(function(){
 			cargoClear();
 			return;
 		}
+		innerFreight();
 		queryCargo(false);
-		init();
+//		init();
 	});
 	// 路线change事件
 	$(".routeSel").change(function(){
@@ -28,8 +29,13 @@ $(function(){
 			routeclear();
 			return;
 		}
+		innerFreight();
 		queryRoute(false);
-		init();
+//		init();
+	});
+	// 运价策略change事件
+	$(".freightSel").change(function(){
+		queryFreightinfoVo(false);
 	});
 	//总量交验
 	$("#totalplanned").blur(function(){
@@ -159,22 +165,28 @@ $(function(){
         $("#hprice").html("");
         $("#hpriceunits").html("");
         $("#totalPrice").html("");
+        $("#tallage").html("");
 	}
 	//判断该运价策略当前状态
-	//TODO
 	var queryFreightinfoVo = function(flag){
 		$.ajax({
 			url : URL.queryFreightInfo,
 			method : "POST",
 			dataType : "json",
 			data : {
-				id : $("#freightname_v_id").val(),
+				id : $(".freightSel").val(),
 			},
 			success : function(rs) {
 				if( rs.code=="000000" ){
 					var data = rs.data;
-		            $("#hprice").html( rs.data.price);
-	            	$("#tallage").html(parseInt(rs.data.tallage)+'%');
+		            $("#hprice").html( data.price);
+	            	$("#tallage").html(parseInt(data.tallage)+'%');
+	                $("#hpriceunits").html( data.priceunits);
+	                $(".cargoSel").val( data.cargoid);
+	                $(".routeSel").val( data.routeid);
+	                $("#organizationname").val(data.organizationname);
+	                queryCargo(true);
+	        		queryRoute(true);
 				}else{
 					alert(rs.error);
 				}
@@ -278,7 +290,28 @@ $(function(){
 			$(item).attr("checked",false);
 		});
 	}
-	
+	/** 运价策略下拉框填值*/
+	function innerFreight(){
+		var cargoSel = $(".cargoSel").val();
+		var routeSel = $(".routeSel").val();
+		$.ajax({
+            url: URL.queryFreight,
+            method:"POST",
+            data:{
+          	  	cargoId:$(".cargoSel").val(),
+          	  	routeId:$(".routeSel").val()
+            },
+            dataType: "json",
+            success: function( data ) {
+            	$(".freightSel").empty();
+            	$(".freightSel").append("<option value=''>请选择运价策略</option>");
+	            for (var a = 0; a < data.length; a++) {
+	            	 $(".freightSel").append("<option value='"+data[a].id+"'>"+data[a].freightName+"</option>"); 
+				}
+            }
+        });
+		
+	}
 	
 	function init(){
 		 $.ajax({
