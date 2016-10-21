@@ -154,7 +154,7 @@ function interHTML(data){
 				}
 				
 			}else if(data[a].auditstatus=="2"){
-				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\">【审批失败】</a>";
+				auditstatus = "<a onclick=\"showreason('"+data[a].auditreason+"')\"><font color='red'>审批失败</font></a>";
 				if(data[a].priceInfo != undefined){
 					price = data[a].priceInfo;
 				}
@@ -173,8 +173,12 @@ function interHTML(data){
 			"<td>"+tallage+"</td>"+ 
 			"<td>"+auditstatus+"</td>"+ 
 			"<td>"+pricestatus+"</td>"+ 
-			"<td>"+data[a].cargoid+"/("+cargostatus+")</td>"+ 
-			"<td>"+data[a].routeid+"/("+routestatus+")</td>" +
+			"<td>"+data[a].cargoid + 
+			 (cargostatus=='已启用'? "":"<br><font color='red'>"+cargostatus+"</font>"  ) +
+			"</td>"+ 
+			"<td>"+data[a].routeid
+			+  (routestatus=='已启用'? "":"<br><font color='red'>"+routestatus+"</font>"  ) +
+			"</td>" +
 			"<td>"+taketimeStr+"</td>" +
 			"<td>" +
 			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +

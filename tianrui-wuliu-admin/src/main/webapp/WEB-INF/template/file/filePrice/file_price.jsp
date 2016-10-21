@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>计价单位</th>
                                 <th>税率</th>
 								<th>审核状态</th>
-                                <th>状态</th>
+								<th>状态</th>
                                 <th>货物名称</th>
                                 <th>路线名称</th>
                                 <th>生效时间</th>
@@ -326,7 +326,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/filePrice/file_price.js" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_price.js?1" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
