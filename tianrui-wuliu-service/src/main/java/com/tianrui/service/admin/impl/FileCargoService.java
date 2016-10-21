@@ -290,6 +290,8 @@ public class FileCargoService implements IFileCargoService {
 				fileCargoResp.setMaterClass(fileCargo.getCargotype());
 				// 状态
 				fileCargoResp.setState(fileCargo.getStatus());
+				//支付类型
+				fileCargoResp.setPayType(fileCargo.getPayType());
 				// 货物规格
 				fileCargoResp.setSpec(fileCargo.getSpecifications());
 				// 货物型号
@@ -332,6 +334,8 @@ public class FileCargoService implements IFileCargoService {
 		argFileCargo.setCargotype(argFileCargoReq.getMaterClass());
 		// 状态
 		argFileCargo.setStatus(argFileCargoReq.getState());
+		// 支付类型
+		argFileCargo.setPayType(argFileCargoReq.getPayType());
 		// 货物规格
 		argFileCargo.setSpecifications(argFileCargoReq.getSpec());
 		// 货物型号

@@ -243,6 +243,18 @@ function appendContentToBody(data, flag) {
 			var td6 = $("<td></td>").append(data[i].materName);
 			var td2 = $("<td></td>").append(data[i].measUnit);
 			var td7 = $("<td></td>").append(data[i].materClass);
+			var payType = '';
+			switch (data[i].payType) {
+			case '0':
+				payType = "在线支付";
+				break;
+			case '1':
+				payType = "发票单支付";
+				break;
+			default:
+				break;
+			}
+			var td12 = $("<td></td>").append(payType);
 			var td8 = $("<td></td>").append(data[i].spec);
 			var td9 = $("<td></td>").append(data[i].model);
 			var td10 = $("<td></td>").append(data[i].materMNCode);
@@ -266,7 +278,8 @@ function appendContentToBody(data, flag) {
 										                               + data[i].spec + "','" 
 										                                + data[i].model + "','" 
 										                                 + data[i].materMNCode + "','" 
-										                                  + data[i].measUnit + "')")
+										                                  + payType + "','" 
+										                                   + data[i].measUnit + "')")
 										.html(" 【查看详情】 ");
 			// 显示启用/停用
 			if (data[i].state == "1") {
@@ -314,7 +327,7 @@ function appendContentToBody(data, flag) {
 				td1.append(input1);
 			}
 			var tr = $("<tr></tr>").attr("id","rowIndex" + rowIndex).append(td1).append(td5)
-						             .append(td6).append(td2).append(td7).append(td4).append(td8).append(td9)
+						             .append(td6).append(td2).append(td7).append(td4).append(td12).append(td8).append(td9)
 						              .append(td10).append(td11);
 			
 			if (flag == 0) {
@@ -392,6 +405,8 @@ $("#modal_add_save").click(function() {
 	var cargo_materMNCode = $.trim($("#modal_add_materMNCode").val());
 	// 主计量单位
 	var cargo_mainMeasUnit = $("#modal_add_mainMeasUnit option:selected").text();
+	// 主计量单位
+	var cargo_payType = $("#modal_add_payType").val();
 	// 图片地址
 	var cargo_imgPath = null;
 	if (cargo_imgPath != $("#add_imgCompare_back").val()) {
@@ -424,6 +439,7 @@ $("#modal_add_save").click(function() {
 		     model: cargo_model,
 		     materMNCode: cargo_materMNCode,
 		     mainMeasUnit: cargo_mainMeasUnit, 
+		     payType: cargo_payType, 
 		     imgPath: cargo_imgPath,
 		     userName: userName
 		},
@@ -452,7 +468,7 @@ $("#modal_add_save").click(function() {
  */
 function detailDisplay(id, orgName, orgType, state,
 		                materCode, materName, materClass,
-		                 spec, model, materMNCode, mainMeasUnit) {
+		                 spec, model, materMNCode, payType, mainMeasUnit) {
 	// var data = eval('(' + paramObj + ')'); 
 	/*// 组织名称
 	$("#modal_detail_orgName").html(orgName == undefined ? orgName : "");
@@ -479,6 +495,8 @@ function detailDisplay(id, orgName, orgType, state,
 	}
 	// 主计量单位
 	$("#modal_detail_mainMeasUnit").html(mainMeasUnit);
+	// 支付类型
+	$("#modal_detail_payType").html(payType);
 	// 根据id查询货物档案信息
 	$.ajax({
 		url : CONTEXTPATH + '/fileCargo/getCargoInfo',// 跳转到 action
@@ -660,6 +678,8 @@ $("#modal_edit_save").click(function() {
 	var cargo_materMNCode = $("#modal_edit_materMNCode").val();
 	// 主计量单位
 	var cargo_mainMeasUnit = $("#modal_edit_mainMeasUnit option:selected").text();
+	// 主计量单位
+	var cargo_payType = $("#modal_edit_payType").val();
 	// 图片地址
 	var cargo_imgPath = null;
 	if ($("#editCargoTarget").attr("src") == undefined) {
@@ -701,6 +721,7 @@ $("#modal_edit_save").click(function() {
 		     model: cargo_model,
 		     materMNCode: cargo_materMNCode,
 		     mainMeasUnit: cargo_mainMeasUnit, 
+		     payType: cargo_payType, 
 		     imgPath: cargo_imgPath,
 		     userName: userName
 		},

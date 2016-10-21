@@ -150,8 +150,9 @@ public class FileCargoAction {
                                     String model, 
                                      String materMNCode, 
                                       String mainMeasUnit, 
-                                       String imgPath, 
-                                        String userName) throws Exception{
+                                       String payType, 
+                                        String imgPath, 
+                                         String userName) throws Exception{
 		
 		Result rs = Result.getSuccessResult();
 		if (imgPath != null) {
@@ -181,6 +182,8 @@ public class FileCargoAction {
 			cargoReq.setMaterMNCode(materMNCode);
 			// 主计量单位
 			cargoReq.setMeasUnit(mainMeasUnit);
+			//支付类型
+			cargoReq.setPayType(payType);
 			// 货物图片地址
 			if (rs.getData() == null) {
 				cargoReq.setImgPath(null);
@@ -228,8 +231,9 @@ public class FileCargoAction {
                                         String model, 
                                          String materMNCode, 
                                           String mainMeasUnit, 
-                                           String imgPath,
-                                            String userName) throws Exception{
+                                           String payType, 
+                                            String imgPath,
+                                             String userName) throws Exception{
 		Result rs = Result.getSuccessResult();
 		if (imgPath != null) {
 			// 转换并上传图片地址
@@ -258,6 +262,8 @@ public class FileCargoAction {
 			cargoReq.setMaterMNCode(materMNCode);
 			// 主计量单位
 			cargoReq.setMeasUnit(mainMeasUnit);
+			// 支付类型
+			cargoReq.setPayType(payType);
 			// 货物图片地址
 			if (rs.getData() == null) {
 				cargoReq.setImgPath(null);

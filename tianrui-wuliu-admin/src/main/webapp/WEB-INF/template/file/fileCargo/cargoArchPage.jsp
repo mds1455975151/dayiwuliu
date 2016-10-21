@@ -128,6 +128,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <th>计量单位</th>
 		                                <th>物料类别</th>
 		                                <th>状态</th>
+		                                <th>支付类型</th>
 		                                <th>规格</th>
 		                                <th>型号</th>
 		                                <th>物料助记码</th>
@@ -204,12 +205,19 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                <div class="model_width">
 		                    <label>货物规格：</label><input type="text" maxlength="16" id="modal_add_spec">
 		                </div>
+		               <div class="model_width">
+		                    <label>物料助记码：</label><input type="text" maxlength="5" id="modal_add_materMNCode">
+		                </div>
+		               <div class="model_width">
+		                    <label>支付类型：</label>
+							<select class="form-control" id="modal_add_payType">
+								<option value="0">在线支付</option>
+								<option value="1">发票单支付</option>
+							</select>
+		                </div>
 		                <div class="model_width">
 		                    <label>货物图片：</label>
 		                    <span><button class="btn byellow tx_contr" id="modal_add_imgButton">货物图片</button></span>
-		                </div>
-		               <div class="model_width">
-		                    <label>物料助记码：</label><input type="text" maxlength="5" id="modal_add_materMNCode">
 		                </div>
 		            </div>
 	                <div class="clear"></div>
@@ -315,12 +323,19 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                <div class="model_width">
 		                    <label>货物型号：</label><input type="text" maxlength="16" id="modal_edit_model">
 		                </div>
+		                 <div class="model_width">
+		                    <label>物料助记码：</label><input type="text" maxlength="5" id="modal_edit_materMNCode">
+		                </div>
+		                <div class="model_width">
+		                    <label>支付类型：</label>
+							<select class="form-control" id="modal_edit_payType">
+								<option value="0">在线支付</option>
+								<option value="1">发票单支付</option>
+							</select>
+		                </div>
 		                <div class="model_width">
 		                    <label>货物图片：</label>
 		                    <span><button class="btn byellow tx_contr" id="modal_edit_imgButton">更换货物图片</button></span>
-		                </div>
-		                 <div class="model_width">
-		                    <label>物料助记码：</label><input type="text" maxlength="5" id="modal_edit_materMNCode">
 		                </div>
 		            </div>
 	                <div class="clear"></div>
@@ -424,8 +439,11 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                    <label>计量单位：</label><span id="modal_detail_mainMeasUnit">吨</span>
 	                </div>
 	                <br/>
-	                <div class="file_detail2">
+	                <div class="file_detail">
 	                    <label>货物图片：</label><span><img id="modal_detail_img"  ></span>
+	                </div>
+	                <div class="file_detail">
+	                    <label>支付类型：</label><span id="modal_detail_payType"></span>
 	                </div>
 	            </div>
 	            <div class="modal-footer">

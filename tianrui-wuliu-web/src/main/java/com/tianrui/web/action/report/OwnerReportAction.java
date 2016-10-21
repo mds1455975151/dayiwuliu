@@ -14,11 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.front.report.ReportReq;
 import com.tianrui.api.resp.front.report.ReportResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.enums.BillStatusEnum;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.BillReportService;
+import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
 /**
  * @author zhanggaohao
@@ -35,6 +37,7 @@ public class OwnerReportAction {
 	private BillReportService billReportService;
 	
 	@RequestMapping("main")
+	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
 	public ModelAndView main(){
 		ModelAndView view = new ModelAndView("report/owner/main");
 		return view;

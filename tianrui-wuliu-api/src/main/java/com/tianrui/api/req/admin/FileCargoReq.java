@@ -28,6 +28,8 @@ public class FileCargoReq extends BaseReq{
 	private String materClass;
 	/** 状态 */
 	private String state;
+	/** 支付类型（0：在线支付，1：发票单支付） */
+	private String payType;
 	/** 货物规格 */
 	private String spec;
 	/** 货物型号 */
@@ -181,6 +183,22 @@ public class FileCargoReq extends BaseReq{
 	 */
 	public void setState(String newState) {
 		this.state = newState;
+	}
+	
+	/**
+	 * 获取支付类型
+	 * @return payType
+	 */
+	public String getPayType() {
+		return payType;
+	}
+	
+	/**
+	 * 设置支付类型
+	 * @param payType
+	 */
+	public void setPayType(String payType) {
+		this.payType = payType;
 	}
 	
 	/**
