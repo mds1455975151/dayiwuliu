@@ -64,7 +64,7 @@ $("#corpAuthen_linkman").blur(function() {
 // 验证联系人电话
 $("#corpAuthen_tel").blur(function() {
 	// 11位手机或者座机
-	var reg = /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$|(^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$)/; 
+	var reg = /^1\d{10}$/; 
 	// 输入的联系电话
 	var corpAuthen_tel = $("#corpAuthen_tel").val();
 	

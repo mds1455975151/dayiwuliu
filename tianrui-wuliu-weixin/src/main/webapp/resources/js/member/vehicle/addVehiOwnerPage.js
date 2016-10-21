@@ -25,7 +25,7 @@ $("#owner_searchBtn").click(function() {
 	
 	// 验证手机号
 	// 手机号11位并且前三位只能为大陆手机号段
-	var reg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+	var reg = /^1[0-9]{10}$/;
 	if (!reg.test(owner_account)) {
 		$("#modal_common_content").html("请输入正确的11位手机账号！");
 		$("#commonModal").modal();

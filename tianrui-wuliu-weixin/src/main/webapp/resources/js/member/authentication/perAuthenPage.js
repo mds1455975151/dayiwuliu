@@ -71,7 +71,7 @@ $("#perAuthen_id").blur(function() {
 // 验证联系电话
 $("#perAuthen_tel").blur(function() {
 	// 11位手机或者座机
-	var reg = /^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$|(^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$)/; 
+	var reg = /^1[0-9]{10}$/; 
 	// 输入的联系电话
 	var perAuthen_tel = $("#perAuthen_tel").val();
 	
