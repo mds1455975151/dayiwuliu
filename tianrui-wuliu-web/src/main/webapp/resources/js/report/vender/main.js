@@ -9,40 +9,6 @@ PAGE = {
 		common:null
 }
 
-PAGE.common = {
-		dateUtils:{
-			dateStr2Time:function(dateStr){
-				var date;
-				if(dateStr){
-					var dateArr = dateStr.split('-');
-					date = new Date(dateArr[0], (dateArr[1]-1), dateArr[2], 0, 0, 0, 0);
-					return date.getTime();
-				}
-				return null;
-			},
-			dateTime2Str:function(time){
-				var date;
-				if(time){
-					date = new Date(time);
-					var y = date.getFullYear();
-					var mo = date.getMonth();
-					mo += 1;
-					mo = mo<10?'0'+mo:mo;
-					var d = date.getDate();
-					d = d<10?'0'+d:d;
-					var h = date.getHours();
-					h = h<10?'0'+h:h;
-					var mi = date.getMinutes();
-					mi = mi<10?'0'+mi:mi;
-					var s = date.getSeconds();
-					s = s<10?'0'+s:s;
-					return y+'-'+mo+'-'+d+' '+h+':'+mi+':'+s;
-				}
-				return '';
-			}
-		}
-}
-
 PAGE.mod.main = {
 		init:function(){
 			var _this = this;
@@ -81,11 +47,10 @@ PAGE.mod.main = {
 			});
 		},
 		getParams:function(){
-			var dateutils =  PAGE.common.dateUtils;
 			var starttime = $('#starttime').val();
-			starttime = dateutils.dateStr2Time($.trim(starttime));
+			starttime = $.trim(starttime);
 			var endtime = $('#endtime').val();
-			endtime = dateutils.dateStr2Time($.trim(endtime));
+			endtime = $.trim(endtime);
 			var waybillno = $('#waybillno').val();
 			waybillno = $.trim(waybillno);
 			var routename = $('#routename').val();
@@ -105,8 +70,8 @@ PAGE.mod.main = {
 			var pageNo = $('.pageMore').attr('pageno');
 			pageNo = $.trim(pageNo);
 			return {
-				starttime: starttime,
-				endtime: endtime,
+				starttimeStr: starttime,
+				endtimeStr: endtime,
 				waybillno: waybillno,
 				routename: routename,
 				cargoname: cargoname,
@@ -157,9 +122,16 @@ PAGE.mod.main = {
 			}else{
 				$('.pageMore').show();
 			}
-			var dateutils =  PAGE.common.dateUtils;
 			for(var i=0;i<list.length;i++){
 				var obj = list[i];
+				var id = "";
+				if(obj.id){
+					id = obj.id;
+				}
+				var billcreatetimeStr = "";
+				if(obj.billcreatetimeStr){
+					billcreatetimeStr = obj.billcreatetimeStr;
+				}
 				var waybillno = "";
 				if(obj.waybillno){
 					waybillno = obj.waybillno;
@@ -208,7 +180,7 @@ PAGE.mod.main = {
 						break;
 					}
 				}
-				var $tr = $('<tr billid="'+obj.id+'"><td>'+dateutils.dateTime2Str(obj.billcreatetime)+'</td><td>'+waybillno+'</td><td>'+cargoname+'</td><td>'+routename+'</td><td>'+weight+'</td><td>'+trueweight+'</td><td>'+billStatus+'</td></tr>');
+				var $tr = $('<tr billid="'+id+'"><td>'+billcreatetimeStr+'</td><td>'+waybillno+'</td><td>'+cargoname+'</td><td>'+routename+'</td><td>'+weight+'</td><td>'+trueweight+'</td><td>'+billStatus+'</td></tr>');
 				$('#report>tbody').append($tr);
 			}
 			$('#report>tbody>tr').off('click').on('click',function(){

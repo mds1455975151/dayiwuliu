@@ -18,6 +18,7 @@ import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.bean.BillReport;
 import com.tianrui.service.mapper.BillReportMapper;
+import com.tianrui.service.util.TimeUtils;
 
 /**
  * @author zhanggaohao
@@ -41,6 +42,12 @@ public class BillReportService implements IBillReportService{
 		PaginationVO<ReportResp> page = null;
 		if(req != null){
 			page = new PaginationVO<ReportResp>();
+			if(StringUtils.isNotBlank(req.getStarttimeStr())){
+				req.setStarttime(TimeUtils.StringZoLong(req.getStarttimeStr() + " 00:00:00"));
+			}
+			if(StringUtils.isNotBlank(req.getEndtimeStr())){
+				req.setEndtime(TimeUtils.StringZoLong(req.getEndtimeStr() + "00:00:00"));
+			}
 			long count = billReportMapper.queryBillReportCount(req);
 			if(count > 0){
 				Integer start = (req.getPageNo() - 1) * req.getPageSize();
@@ -91,6 +98,10 @@ public class BillReportService implements IBillReportService{
 		if(bean != null){
 			resp = new ReportResp();
 			PropertyUtils.copyProperties(resp, bean);
+			resp.setBillcreatetimeStr(TimeUtils.LongZoString(bean.getBillcreatetime()));
+			resp.setPlancreatetimeStr(TimeUtils.LongZoString(bean.getPlancreatetime()));
+			resp.setPlanstarttimeStr(TimeUtils.LongZoString(bean.getPlanstarttime()));
+			resp.setPlanendtimeStr(TimeUtils.LongZoString(bean.getPlanendtime()));
 		}
 		return resp;
 	}

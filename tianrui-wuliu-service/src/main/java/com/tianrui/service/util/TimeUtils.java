@@ -25,6 +25,15 @@ public class TimeUtils {
 		}
 		return signtime;
 	}
+	/** Long时间转String
+	 * @throws ParseException */
+	public static Long StringZoLong(String dateStr) throws ParseException{
+		Long time = null;
+		if(dateStr != null){
+			time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr).getTime();
+		}
+		return time;
+	}
 	/** Long转Data
 	 * @throws ParseException */
 	public static Date LongZoDate(Long time) throws ParseException{

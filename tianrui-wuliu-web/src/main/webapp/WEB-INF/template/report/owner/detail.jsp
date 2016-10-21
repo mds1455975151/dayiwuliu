@@ -49,16 +49,8 @@
 	                            </thead>
 	                            <tbody>
 	                            <tr>
-	                                <td>
-										<jsp:useBean id="starDateValue" class="java.util.Date"/>
-										<jsp:setProperty name="starDateValue" property="time" value="${v_bill.planstarttime }"/>
-		                                <fmt:formatDate value="${starDateValue }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-									</td>
-	                                <td>
-										<jsp:useBean id="endDateValue" class="java.util.Date"/>
-										<jsp:setProperty name="endDateValue" property="time" value="${v_bill.planendtime }"/>
-		                                <fmt:formatDate value="${endDateValue }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-									</td>
+	                                <td>${v_bill.planstarttimeStr }</td>
+	                                <td>${v_bill.planendtimeStr }</td>
 	                                <td>${v_bill.planCode }</td>
 	                                <td>
 	                                	<c:if test="${not empty v_bill.totalplanned }">

@@ -20,8 +20,12 @@ public class ReportReq extends BaseReq {
 	private String ownerid;
 	//开始时间
 	private Long starttime;
+	//开始时间字符串
+	private String starttimeStr;
 	//结束时间
 	private Long endtime;
+	//结束时间字符串
+	private String endtimeStr;
 	//货物名称
 	private String cargoname;
 	//车牌号
@@ -75,11 +79,23 @@ public class ReportReq extends BaseReq {
 	public void setStarttime(Long starttime) {
 		this.starttime = starttime;
 	}
+	public String getStarttimeStr() {
+		return starttimeStr;
+	}
+	public void setStarttimeStr(String starttimeStr) {
+		this.starttimeStr = starttimeStr;
+	}
 	public Long getEndtime() {
 		return endtime;
 	}
 	public void setEndtime(Long endtime) {
 		this.endtime = endtime;
+	}
+	public String getEndtimeStr() {
+		return endtimeStr;
+	}
+	public void setEndtimeStr(String endtimeStr) {
+		this.endtimeStr = endtimeStr;
 	}
 	public String getCargoname() {
 		return cargoname;

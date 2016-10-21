@@ -14,12 +14,20 @@ public class ReportResp implements Serializable {
 	private String id;
 	//运单生成时间
 	private Long billcreatetime;
+	//运单生成时间字符串
+	private String billcreatetimeStr;
 	//计划生成时间
 	private Long plancreatetime;
+	//计划生成时间字符串
+	private String plancreatetimeStr;
 	//计划开始时间
 	private Long planstarttime;
+	//计划开始时间字符串
+	private String planstarttimeStr;
 	//计划结束时间
 	private Long planendtime;
+	//计划结束时间字符串
+	private String planendtimeStr;
 	//运单单号
 	private String waybillno;
 	//计划编号
@@ -71,11 +79,23 @@ public class ReportResp implements Serializable {
 	public void setBillcreatetime(Long billcreatetime) {
 		this.billcreatetime = billcreatetime;
 	}
+	public String getBillcreatetimeStr() {
+		return billcreatetimeStr;
+	}
+	public void setBillcreatetimeStr(String billcreatetimeStr) {
+		this.billcreatetimeStr = billcreatetimeStr;
+	}
 	public Long getPlancreatetime() {
 		return plancreatetime;
 	}
 	public void setPlancreatetime(Long plancreatetime) {
 		this.plancreatetime = plancreatetime;
+	}
+	public String getPlancreatetimeStr() {
+		return plancreatetimeStr;
+	}
+	public void setPlancreatetimeStr(String plancreatetimeStr) {
+		this.plancreatetimeStr = plancreatetimeStr;
 	}
 	public Long getPlanstarttime() {
 		return planstarttime;
@@ -83,11 +103,23 @@ public class ReportResp implements Serializable {
 	public void setPlanstarttime(Long planstarttime) {
 		this.planstarttime = planstarttime;
 	}
+	public String getPlanstarttimeStr() {
+		return planstarttimeStr;
+	}
+	public void setPlanstarttimeStr(String planstarttimeStr) {
+		this.planstarttimeStr = planstarttimeStr;
+	}
 	public Long getPlanendtime() {
 		return planendtime;
 	}
 	public void setPlanendtime(Long planendtime) {
 		this.planendtime = planendtime;
+	}
+	public String getPlanendtimeStr() {
+		return planendtimeStr;
+	}
+	public void setPlanendtimeStr(String planendtimeStr) {
+		this.planendtimeStr = planendtimeStr;
 	}
 	public String getWaybillno() {
 		return waybillno;

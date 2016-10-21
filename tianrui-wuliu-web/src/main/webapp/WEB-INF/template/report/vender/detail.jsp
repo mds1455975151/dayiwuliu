@@ -49,10 +49,7 @@
 	                            </thead>
 	                            <tbody>
 	                            <tr>
-	                                <td>
-										<jsp:useBean id="dateValue" class="java.util.Date"/>
-										<jsp:setProperty name="dateValue" property="time" value="${v_bill.billcreatetime }"/>
-		                                <fmt:formatDate value="${dateValue }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+	                                <td>${v_bill.billcreatetimeStr }</td>
 									</td>
 	                                <td>${v_bill.planCode }</td>
 	                                <td>
