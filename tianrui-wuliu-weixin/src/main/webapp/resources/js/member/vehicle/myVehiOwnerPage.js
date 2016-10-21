@@ -154,7 +154,7 @@ $("#vehiOwner_search").click(function() {
 	
 	if (searchText != null && searchText != "") {
 		// 验证手机号,手机号11位并且前三位只能为大陆手机号段
-		var regTel = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+		var regTel = /^1[0-9]{10}$/;
 		// 姓名，2个汉字以上，包含少数民族
 		var regName =  /^\s*[\u4e00-\u9fa5]{1,}[\u4e00-\u9fa5.·]{0,15}[\u4e00-\u9fa5]{1,}\s*$/;
 		if (!regTel.test(searchText) && !regName.test(searchText)) {
@@ -272,7 +272,7 @@ $("#modal_detail_search").click(function() {
 	
 	if (driverTel != null && driverTel != "") {
 		// 验证手机号,手机号11位并且前三位只能为大陆手机号段
-		var regTel = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+		var regTel = /^1[0-9]{10}$/;
 		if (!regTel.test(driverTel)) {
 			$("#modal_common_content").html("请输入正确的11位手机账号！");
 			$("#commonModal").modal();
