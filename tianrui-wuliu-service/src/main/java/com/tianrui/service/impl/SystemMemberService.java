@@ -516,7 +516,7 @@ public class SystemMemberService implements ISystemMemberService{
 						userVO.setTokenId(tokenId);
 						rs.setData(userVO);
 						//获取当前的登录用户的角色
-						String rolekey =CacheHelper.buildKey(CacheModule.WEB_APP_ROLE, userVO.getId());
+						String rolekey =CacheHelper.buildKey(CacheModule.WEB_APP_ROLE, userVO.getCellphone());
 						String chooseRole=cacheClient.getString(rolekey);
 						if(StringUtils.isNotBlank(chooseRole)){
 							userVO.setChooseRole(chooseRole);

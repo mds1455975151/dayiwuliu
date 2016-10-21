@@ -13,6 +13,7 @@
 		<result column="waybillno" property="waybillno" jdbcType="VARCHAR"/>
 		<result column="planCode" property="planCode" jdbcType="VARCHAR"/>
 		<result column="cargoname" property="cargoname" jdbcType="VARCHAR"/>
+		<result column="freightid" property="freightid" jdbcType="VARCHAR"/>
 		<result column="routename" property="routename" jdbcType="VARCHAR"/>
 		<result column="startcity" property="startcity" jdbcType="VARCHAR"/>
 		<result column="endcity" property="endcity" jdbcType="VARCHAR"/>
@@ -32,9 +33,9 @@
 		<result column="pathID" property="pathID" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, driverid, venderid, ownerid, billcreatetime, plancreatetime, planstarttime, planendtime, waybillno, planCode, cargoname, routename, 
-		startcity, endcity, weight, trueweight, totalplanned, status as billStatus, pay_status as payStatus, 
-		isAppoint, vehicleno, isClearing, price, tallage, unloadtime, drivername, vendername, pathID
+		id, driverid, venderid, ownerid, billcreatetime, plancreatetime, planstarttime, planendtime, waybillno, planCode, 
+		cargoname, freightid, routename, startcity, endcity, weight, trueweight, totalplanned, status as billStatus, 
+		pay_status as payStatus, isAppoint, vehicleno, isClearing, price, tallage, unloadtime, drivername, vendername, pathID
 	</sql>
 	<select id="queryBillReport" parameterType="com.tianrui.api.req.front.report.ReportReq" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List"/>
