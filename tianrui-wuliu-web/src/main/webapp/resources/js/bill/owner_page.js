@@ -32,8 +32,8 @@ $(function(){
 			dataArr.push('<tr>');
 			dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+'</a></td>');
 			dataArr.push('<td>'+item.cargoname+'</td>');
-			dataArr.push('<td><p><i class="iconfont icon-dizhi billc1"></i>'+item.startcity+'</p>');
-			dataArr.push('<p><i class="iconfont icon-dizhi billc2"></i>'+item.endcity+'</p></td>');
+			dataArr.push('<td><p>'+item.venderName+'</p>');
+			dataArr.push('<p>'+item.vehicleno+'</p></td>');
 			
 			dataArr.push('<td>');
 			if(item.status ==0){

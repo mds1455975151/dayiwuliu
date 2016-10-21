@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tr>
                             <th  >运单号</th>
                             <th >货物名称</th>
-                            <th > 始发地-目的地</th>
+                            <th > 车牌号-车主</th>
                             <th >运单状态</th>
                             <th >更新时间</th>
                             <th > 操作</th>
