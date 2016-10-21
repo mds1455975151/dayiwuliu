@@ -175,7 +175,7 @@ $(function(){
     		"<span>"+data[a].drivername+"--"+data[a].vehicletype+"</span>"+
     		"<em>"+data[a].weight+"吨</em>"+
     		"<em>"+billstatus+"</em>"+
-    		"<input type='text' class='ts' placeholder='输入趟数' value='1' />"+
+    		"<input type='text' class='ts' maxlength='2' placeholder='输入趟数' value='1' />"+
     		"<i>趟</i></li>";
     	}
     	document.getElementById("capa").innerHTML=hml;

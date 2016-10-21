@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label> 车辆选择：</label>
                     <div class="bill_fabu_cont">
                         <div class="bill_search">
-                            <input type="text" id="search"  placeholder="车牌号/司机姓名/司机电话">
+                            <input type="text" id="search" placeholder="车牌号/司机姓名/司机电话">
                             <button id="searchVehicle" class="btn btnyello">搜索</button>
                         </div> 
                         <div class="bill_cllist">
