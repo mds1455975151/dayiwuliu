@@ -13,6 +13,8 @@ public class AppMemberReq extends BaseReq{
 	private String authCode;
 	// 0:密码登录  1:验证码登录
 	private int loginType=0;
+	//默认为空  1为强制登录
+	private String loginMast;
 	public String getAccount() {
 		return account;
 	}
@@ -37,6 +39,11 @@ public class AppMemberReq extends BaseReq{
 	public void setLoginType(int loginType) {
 		this.loginType = loginType;
 	}
-	
+	public String getLoginMast() {
+		return loginMast;
+	}
+	public void setLoginMast(String loginMast) {
+		this.loginMast = loginMast;
+	}
 	
 }

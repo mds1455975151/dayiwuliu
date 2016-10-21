@@ -16,6 +16,7 @@ public enum ErrorCode {
 	MEMBER_LOGIN_NOREG_ERROR("E200001","用户尚未注册."),
 	MEMBER_LOGIN_PSWD_ERROR("E200002","用户密码错误."),
 	MEMBER_USER_ERROR("E200003","用户尚未登录."),
+	MEMBER_USER_LOGIN_MAST("E200004","该用户已经在别的设备登录,是否强制登录?"),
 	
 	//路径档案
 	FILEROUTE_USER_IS_NULL("E201001","登录用户或者用户组织为空."),
