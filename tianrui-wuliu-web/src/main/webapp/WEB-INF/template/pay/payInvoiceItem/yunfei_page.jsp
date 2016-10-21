@@ -53,6 +53,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input type="text" id="billcode" placeholder="请输入运单号">
                     </div>
                     <div class="yf_sline">
+                        <label>货主名称：</label>
+                        <input type="text" id="ownername" placeholder="请输入货主名称">
+                    </div>
+                    <div class="yf_sline">
                         <label>到货时间：</label>
                         <input type="text" id="signtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_fapiao" style="width:200px"/>
                     </div>
@@ -73,7 +77,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="yf_sline">
                         <label>状态：</label>
                         <select id="isvoid" class="form-control">
-                            <option value="">请选择</option>
                             <option value="0">未开票</option>
                             <option value="1">已开票</option>
                         </select>
@@ -93,12 +96,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <tr>
                          <th > <input id="allcheck" type="checkbox">全选</th>
                          <th >运单号</th>
+                         <th>货主名称</th>
                          <th >货物名称</th>
                          <th >发票类型</th>
                          <th >到货时间</th>
                          <th>到货量</th>
-                         <th>含税单价</th>
-                         <th >税率</th>
                          <th >账单总价</th>
                          <th> 状态</th>
                      </tr>
