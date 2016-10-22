@@ -1082,7 +1082,7 @@ public class BillService implements IBillService{
 							startTime=tarck.getTimestamp();
 							continue;
 						}
-						if( tarck.getStatus()==4 ){
+						if( tarck.getStatus()==5 ){
 							endTime=tarck.getTimestamp();
 							continue;
 						}
