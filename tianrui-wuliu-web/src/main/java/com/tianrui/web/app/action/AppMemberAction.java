@@ -30,6 +30,7 @@ import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.smvc.ApiParamRawType;
+import com.tianrui.web.smvc.ApiTokenValidation;
 
 
 @Controller
@@ -76,10 +77,21 @@ public class AppMemberAction {
 	@RequestMapping(value="/chooseRole",method=RequestMethod.POST)
 	@ApiParamRawType(AppMemberRoleReq.class)
 	@ResponseBody
+	@ApiTokenValidation
 	public AppResult chooseRole(AppParam<AppMemberRoleReq> appParam) throws Exception{
 		AppMemberRoleReq req =appParam.getBody();
 		req.setCurrId(appParam.getHead().getAccount());
 		Result  rs =systemMemberService.chooseRole(req);
+		return AppResult.valueOf(rs);
+	}
+	
+	
+	@RequestMapping(value="/getUploadTimeLimit",method=RequestMethod.POST)
+	@ApiParamRawType(Object.class)
+	@ResponseBody
+	public AppResult getUploadTimeLimit(AppParam<Object> appParam){
+		Result  rs =Result.getSuccessResult();
+		rs.setData(3);
 		return AppResult.valueOf(rs);
 	}
 	/**
