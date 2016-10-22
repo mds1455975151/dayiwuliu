@@ -17,12 +17,15 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IMyDriverService;
 import com.tianrui.api.admin.intf.IMyVehicleService;
 import com.tianrui.api.intf.IDataDictService;
+import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IMemberOwnerService;
 import com.tianrui.api.intf.IMemberVehicleService;
@@ -78,6 +81,8 @@ public class AdminMemberAction {
 	protected ISystemMemberInfoRecordService systemMemberInfoRecordService;
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
+	@Autowired
+	protected IFileService iFileService;
 	@Autowired
 	IMessageService messageService;
 	@Autowired
@@ -533,6 +538,25 @@ public class AdminMemberAction {
 		req.setAudittime(new Date().getTime());
 		//修改车辆认证状态
 		rs = MemberVehicleService.updateByPrimaryKeySelective(req);
+		return rs;
+	}
+	/** 修改车辆照片
+	 * @throws Exception */
+	@RequestMapping(value="uptVehicPic",method=RequestMethod.POST )
+	@ResponseBody
+	public Result uptVehicPic(String id , MultipartFile file , String type) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = iFileService.uploadByteImg(file);
+		if("000000".equals(rs.getCode())){
+			MemberVehicleReq req = new MemberVehicleReq();
+			req.setId(id);
+			if("1".equals(type)){
+				req.setVehiHeadImgPath(rs.getData().toString());
+			}else{
+				req.setVehiLicenseImgPath(rs.getData().toString());
+			}
+			rs = MemberVehicleService.updateByPrimaryKeySelective(req);
+		}
 		return rs;
 	}
 }

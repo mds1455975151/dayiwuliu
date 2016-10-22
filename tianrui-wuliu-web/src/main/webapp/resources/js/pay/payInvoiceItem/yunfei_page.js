@@ -67,12 +67,11 @@ function innerHTML(ret,flag){
 		}
 		hml += "<tr><td >"+piao+"</td>" +
 				"<td >"+data[a].billCode+"</td>" +
+				"<td >货主名称</td>" +
 				"<td >"+data[a].cargoName+"</td>" +
 				"<td >"+data[a].invoiceTypeName+"</td>" +
 				"<td >"+data[a].signTime+"</td>" +
 				"<td >"+data[a].billWeight+"吨</td>" +
-				"<td >"+data[a].billPrice+"元</td>" +
-				"<td >"+data[a].taxRate+"%</td>" +
 				"<td >"+data[a].billTotalPrice+"元</td>" +
 				"<td >"+ao+"</td>" +
 				"</tr>";

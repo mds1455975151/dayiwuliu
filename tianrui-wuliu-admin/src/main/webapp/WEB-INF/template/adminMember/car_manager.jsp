@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/style.css" rel="stylesheet">
     <link href="${stylesRoot }/tr-media.css" rel="stylesheet">
     <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
-    <link href="${stylesRoot }/imgcut.css" rel="stylesheet">
+    <link href="${trRoot}/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
@@ -67,6 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="ht_divbtn">
                                     <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
                                     <button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>
+                                	<a data-toggle='modal' data-target='#againPice'>【重新上传】</a>
                                 </div>
                             </div>
                     </div>
@@ -133,6 +134,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
+<!--修改begin-->
+<div class="modal fade" id="updateDeatil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >车辆信息修改</h4>
+            </div>
+            <div class="modal-body" id="uptdetailid" style="">
+            	
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" id="closeupt" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改end-->
+
+<!--修改照片begin-->
+<div class="modal fade" id="againPice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id=" ">修改照片</h4>
+            </div>
+	            <div class="modal-body">
+	                <div class="reg_tel">
+	                    <label>行驶证：</label>
+	                    <div class="img_upload">
+							<input id="file_yyzz" name="file" class="file" type="file">
+							<input type="hidden" name="id" id="vehicid">
+							<input type="hidden" name="type" id="vehictype">
+							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+						</div>
+	                </div>
+	            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="uploadfile()" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改照片end-->
+
 <!--删除begin-->
 <div class="modal fade" id="dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -207,14 +258,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 </script>
 <script type="text/javascript">
-    $(function(){
-        $("table").resizableColumns({});
-    });
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
+<script type="text/javascript" src="${trRoot}/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
+<script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
+<script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/resources/js/adminMember/car_manager.js" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
+<script type="text/javascript">
+		$("#file_yyzz").fileinput({
+			language : 'zh',
+			showUpload : false,
+			dropZoneEnabled : false,
+			maxFileCount : 1,
+//       	minImageWidth: 50, //图片的最小宽度
+//	  	 	minImageHeight: 50,//图片的最小高度
+//   	  	maxImageWidth: 600,//图片的最大宽度
+//	 	  	maxImageHeight: 600,//图片的最大高度
+			maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
+			resizeImage : true,
+			showCaption : true,
+			showPreview : true,
+			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
+		}).on('fileuploaderror',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log(data);
+			console.log('File upload error');
+		}).on('fileerror', function(event, data) {
+			console.log(data.id);
+			console.log(data.index);
+			console.log(data.file);
+			console.log(data.reader);
+			console.log(data.files);
+		}).on('fileuploaded',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log('File uploaded triggered');
+		});
+	</script>
+
 </body>
 </html>

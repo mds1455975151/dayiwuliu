@@ -78,7 +78,7 @@ public class AppMemberAction {
 	@ResponseBody
 	public AppResult chooseRole(AppParam<AppMemberRoleReq> appParam) throws Exception{
 		AppMemberRoleReq req =appParam.getBody();
-		req.setCurrId(appParam.getHead().getId());
+		req.setCurrId(appParam.getHead().getAccount());
 		Result  rs =systemMemberService.chooseRole(req);
 		return AppResult.valueOf(rs);
 	}
