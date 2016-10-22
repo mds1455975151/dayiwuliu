@@ -166,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
 	            <div class="modal-body">
 	                <div class="reg_tel">
-	                    <label>行驶证：</label>
+	                    <label></label>
 	                    <div class="img_upload">
 							<input id="file_yyzz" name="file" class="file" type="file">
 							<input type="hidden" name="id" id="vehicid">

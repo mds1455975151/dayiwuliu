@@ -163,6 +163,7 @@ function interHTML(data){
 				}
 			}
 		}
+		var frebilltype = data[a].frebilltype=="1"?"原发":"实收";
 		var taketimeStr = "";
 		if(data[a].taketimeStr != undefined){
 			taketimeStr = data[a].taketimeStr;
@@ -171,6 +172,7 @@ function interHTML(data){
 			"<td>"+price+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
 			"<td>"+tallage+"</td>"+ 
+			"<td>"+frebilltype+"</td>"+ 
 			"<td>"+auditstatus+"</td>"+ 
 			"<td>"+pricestatus+"</td>"+ 
 			"<td>"+data[a].cargoid + 
@@ -348,6 +350,7 @@ function findById(id){
 				document.getElementById("uptpriceunits").value = data.priceunits;
 				document.getElementById("uptmeasure").value = data.measure;
 				document.getElementById("upttallage").value = data.tallage;
+				document.getElementById("uptfrebilltype").value = data.frebilltype;
 				
 				document.getElementById("taketime").value = data.taketimeStr;
 				document.getElementById("oldtaketime").value = data.taketimeStr;

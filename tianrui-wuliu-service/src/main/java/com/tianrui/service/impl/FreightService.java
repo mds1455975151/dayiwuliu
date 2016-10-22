@@ -139,6 +139,7 @@ public class FreightService implements IFreightService{
 	protected int saveFreightInfo(FreightReq req) throws ParseException {
 		FreightInfo info = new FreightInfo();
 		info.setId(UUIDUtil.getId());
+		info.setFrebilltype(req.getFrebilltype());
 		info.setFreightid(req.getId());
 		info.setPrice(req.getPrice());
 		info.setTallage(req.getTallage());

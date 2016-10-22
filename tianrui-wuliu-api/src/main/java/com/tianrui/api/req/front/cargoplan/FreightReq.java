@@ -17,6 +17,8 @@ public class FreightReq extends BaseReq{
      * 所属组织id
      */
     private String organizationid;
+    
+    private String frebilltype;
     /**
      * 审核状态
      */
@@ -129,6 +131,12 @@ public class FreightReq extends BaseReq{
 	}
 	public void setOrganizationid(String organizationid) {
 		this.organizationid = organizationid;
+	}
+	public String getFrebilltype() {
+		return frebilltype;
+	}
+	public void setFrebilltype(String frebilltype) {
+		this.frebilltype = frebilltype;
 	}
 	public String getCargoid() {
 		return cargoid;

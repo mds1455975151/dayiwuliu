@@ -8,6 +8,7 @@
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="tallage" property="tallage" jdbcType="DOUBLE" />
     <result column="freightType" property="freighttype" jdbcType="VARCHAR" />
+    <result column="frebilltype" property="frebilltype" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="recent" property="recent" jdbcType="VARCHAR" />
     <result column="creater" property="creater" jdbcType="VARCHAR" />
@@ -21,7 +22,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, freightid, taketime, price, tallage, freightType, status, recent, creater, createtime, 
-    updater, updatetime, desc1, desc2, desc3, desc4
+    updater, updatetime, desc1, desc2, desc3, desc4,frebilltype
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -39,13 +40,14 @@
       status, recent, creater, 
       createtime, updater, updatetime, 
       desc1, desc2, desc3, 
-      desc4)
+      desc4,frebilltype)
     values (#{id,jdbcType=VARCHAR}, #{freightid,jdbcType=VARCHAR}, #{taketime,jdbcType=BIGINT}, 
       #{price,jdbcType=DOUBLE}, #{tallage,jdbcType=DOUBLE}, #{freighttype,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{recent,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=BIGINT}, #{updater,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT}, 
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
-      #{desc4,jdbcType=VARCHAR})
+      #{desc4,jdbcType=VARCHAR}),
+      #{frebilltype,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
     insert into file_freight_info
@@ -98,6 +100,9 @@
       <if test="desc4 != null" >
         desc4,
       </if>
+      <if test="frebilltype != null" >
+        frebilltype,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -148,11 +153,17 @@
       <if test="desc4 != null" >
         #{desc4,jdbcType=VARCHAR},
       </if>
+      <if test="frebilltype != null" >
+        #{frebilltype,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
     update file_freight_info
     <set >
+      <if test="frebilltype != null" >
+        frebilltype = #{frebilltype,jdbcType=VARCHAR},
+      </if>
       <if test="freightid != null" >
         freightid = #{freightid,jdbcType=VARCHAR},
       </if>
@@ -204,6 +215,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.FreightInfo" >
     update file_freight_info
     set freightid = #{freightid,jdbcType=VARCHAR},
+      frebilltype = #{frebilltype,jdbcType=BIGINT},
       taketime = #{taketime,jdbcType=BIGINT},
       price = #{price,jdbcType=DOUBLE},
       tallage = #{tallage,jdbcType=DOUBLE},

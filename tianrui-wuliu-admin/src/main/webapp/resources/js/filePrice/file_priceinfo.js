@@ -176,12 +176,14 @@ function interHTML(data){
 		if(data[a].desc1 != undefined){
 			uptReason = data[a].desc1;
 		}
+		var frebilltype = data[a].frebilltype=="1"?"原发":"实收";
 		hml +="<tr>" +
 				"<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
 			"<td>"+priceInfo+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
 			"<td>"+tallage+"</td>"+ 
+			"<td>"+frebilltype+"</td>"+ 
 			"<td>"+tallageInfo+"</td>"+ 
 			"<td>"+auditstatus+"</td>"+
 			"<td>"+data[a].cargoid+
