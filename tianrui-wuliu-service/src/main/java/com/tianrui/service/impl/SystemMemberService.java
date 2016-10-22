@@ -507,12 +507,12 @@ public class SystemMemberService implements ISystemMemberService{
 					
 					//用户是否在别处登录
 					String userKey =CacheHelper.buildKey(CacheModule.LOGIN_APP, userVO.getCellphone());
-					String tokin_redis=cacheClient.getString(userKey);
-					//存在已经登录的设备 并且不是强制登录
-					if( StringUtils.isNotBlank(tokin_redis) && !StringUtils.equals(req.getLoginMast(),"1") ){
-						//提示用户是否强制登录
-						rs.setErrorCode(ErrorCode.MEMBER_USER_LOGIN_MAST);
-					}else{
+//					String tokin_redis=cacheClient.getString(userKey);
+//					//存在已经登录的设备 并且不是强制登录
+//					if( StringUtils.isNotBlank(tokin_redis) && !StringUtils.equals(req.getLoginMast(),"1") ){
+//						//提示用户是否强制登录
+//						rs.setErrorCode(ErrorCode.MEMBER_USER_LOGIN_MAST);
+//					}else{
 						userVO.setTokenId(tokenId);
 						rs.setData(userVO);
 						//获取当前的登录用户的角色
@@ -528,7 +528,7 @@ public class SystemMemberService implements ISystemMemberService{
 						cacheClient.saveObject(key, userVO,7*24*60*60);
 						//保存用户关于token相关的  用于控制用户只能登录一个
 						cacheClient.saveString(userKey, tokenId,7*24*60*60);
-					}
+//					}
 				}
 			}else{
 				rs.setErrorCode(ErrorCode.MEMBER_LOGIN_NOREG_ERROR);
