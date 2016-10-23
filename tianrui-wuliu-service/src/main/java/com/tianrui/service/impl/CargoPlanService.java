@@ -257,7 +257,7 @@ public class CargoPlanService implements ICargoPlanService{
 				Bill query =new Bill();
 				Byte[] status=new Byte[]{(byte)0,(byte)7,(byte)-1};
 				//query.setPlanid(req.getId());
-				query.setPlancode(plan.getPlancode());
+				query.setPlancode("'"+plan.getPlancode()+"'");
 				query.setStatusStrs(status);
 				List<Bill> billList= billMapper.selectByCondition(query);
 				if( CollectionUtils.isNotEmpty(billList) ){
