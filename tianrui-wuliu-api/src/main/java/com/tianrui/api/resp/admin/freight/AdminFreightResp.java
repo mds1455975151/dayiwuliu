@@ -3,6 +3,8 @@ package com.tianrui.api.resp.admin.freight;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 import com.tianrui.api.util.DateTypeUtil;
 
@@ -48,6 +50,7 @@ public class AdminFreightResp extends BaseResp{
      * 主计量单位
      */
     private String measure;
+    private String frebilltype;
 
     /**
      * 路径id
@@ -110,6 +113,17 @@ public class AdminFreightResp extends BaseResp{
 
 	public void setInfoid(String infoid) {
 		this.infoid = infoid;
+	}
+
+	public String getFrebilltype() {
+		if(StringUtils.isBlank(frebilltype)){
+			frebilltype = "";
+		}
+		return frebilltype;
+	}
+
+	public void setFrebilltype(String frebilltype) {
+		this.frebilltype = frebilltype;
 	}
 
 	public Double getPriceInfo() {

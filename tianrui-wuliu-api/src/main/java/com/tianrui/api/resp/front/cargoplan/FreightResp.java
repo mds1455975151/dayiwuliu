@@ -24,6 +24,8 @@ public class FreightResp extends BaseResp{
      * 运价状态（0-可用；1-暂不可用；2-已删除）
      */
     private String status;
+    /** */
+    private String frebilltype;
     
     /**
      * 货物状态
@@ -110,6 +112,12 @@ public class FreightResp extends BaseResp{
 	}
 	public String getFreightType() {
 		return freightType;
+	}
+	public String getFrebilltype() {
+		return frebilltype;
+	}
+	public void setFrebilltype(String frebilltype) {
+		this.frebilltype = frebilltype;
 	}
 	public void setFreightType(String freightType) {
 		this.freightType = freightType;

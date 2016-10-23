@@ -33,6 +33,8 @@ public class FreightInfo {
 
     private String desc4;
     
+    private String frebilltype;
+    
     /**
      * 第几页
      */
@@ -122,7 +124,15 @@ public class FreightInfo {
         this.recent = recent == null ? null : recent.trim();
     }
 
-    public String getCreater() {
+    public String getFrebilltype() {
+		return frebilltype;
+	}
+
+	public void setFrebilltype(String frebilltype) {
+		this.frebilltype = frebilltype;
+	}
+
+	public String getCreater() {
         return creater;
     }
 

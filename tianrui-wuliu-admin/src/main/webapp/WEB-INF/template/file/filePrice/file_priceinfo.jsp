@@ -78,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>审核价</th>
                                 <th>计价单位</th>
                                 <th>原税率</th>
+                                <th>运单类型</th>
                                 <th>审核税率</th>
                                 <th>状态</th>
                                 <th>货物名称</th>

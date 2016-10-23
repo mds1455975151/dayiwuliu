@@ -134,6 +134,8 @@ public class FileFreight implements IModel {
      *
      */
     private String desc4;
+    
+    private String frebilltype;
     /**
      * 第几页
      */
@@ -177,6 +179,14 @@ public class FileFreight implements IModel {
 
 	public void setFreightTypeInfo(String freightTypeInfo) {
 		this.freightTypeInfo = freightTypeInfo;
+	}
+
+	public String getFrebilltype() {
+		return frebilltype;
+	}
+
+	public void setFrebilltype(String frebilltype) {
+		this.frebilltype = frebilltype;
 	}
 
 	public Double getTallageInfo() {

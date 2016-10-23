@@ -9,7 +9,7 @@ $(function(){
 		queryFreightInfo:"/trwuliu/planowner/queryFreightInfo",
 		savePlan:"/trwuliu/planowner/save"
 	}
-	
+	innerFreight();
 //	init();
 	//货物changge事件
 	$(".cargoSel").change(function(){

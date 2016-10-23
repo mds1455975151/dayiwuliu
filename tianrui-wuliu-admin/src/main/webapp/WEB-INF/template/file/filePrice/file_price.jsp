@@ -84,6 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>含税单价</th>
                                 <th>计价单位</th>
                                 <th>税率</th>
+                                <th>运单类型</th>
 								<th>审核状态</th>
 								<th>状态</th>
                                 <th>货物名称</th>
@@ -154,6 +155,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                            	<option value="">请选择</option>
                             <option value="1">合同</option>
                             <option value="2">指导</option>
+                        </select>
+                    </div>
+                    <div class="model_width">
+                        <label><i style="color: #ff2f00;">*</i>运单类型：</label>
+                        <select class="form-control" id="frebilltype" name="frebilltype">
+                            <option value="1">原发</option>
+                            <option value="2">实收</option>
                         </select>
                     </div>
                     <div class="model_width">
@@ -228,6 +236,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <select disabled="disabled" class="form-control" name="freightType" id="uptdesc2">
                             <option value="1">合同</option>
                             <option value="2">指导</option>
+                        </select>
+                    </div>
+                    <div class="model_width">
+                        <label><i style="color: #ff2f00;">*</i>运单类型：</label>
+                        <select disabled="disabled" class="form-control" id="uptfrebilltype" name="frebilltype">
+                            <option value="1">原发</option>
+                            <option value="2">实收</option>
                         </select>
                     </div>
                     <div class="model_width">

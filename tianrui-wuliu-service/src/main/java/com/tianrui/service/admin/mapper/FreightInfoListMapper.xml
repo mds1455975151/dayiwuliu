@@ -17,6 +17,7 @@
 		f.auditstatus auditstatus,
 		f.auditreason auditreason,
 		f.priceUnits priceunits,
+		f.frebilltype frebilltype,
 		i.taketime taketimeinfo,
 		c.cargoname cargoid,
 		c. STATUS DESC3,
