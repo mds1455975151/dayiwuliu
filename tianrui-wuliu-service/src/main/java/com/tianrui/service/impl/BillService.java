@@ -804,7 +804,7 @@ public class BillService implements IBillService{
 								rs = iFileService.uploadByteImg(req.getFile());
 								update.setPickupimgurl(rs.getData().toString());
 							}
-							if(StringUtils.isNotBlank(req.getPsweight().toString())){
+							if(req.getPsweight() !=null && StringUtils.isNotBlank(req.getPsweight().toString())){
 								update.setPickupweight(req.getPsweight());
 							}
 							update.setStatus((byte)BillStatusEnum.DEPARTURE.getStatus());

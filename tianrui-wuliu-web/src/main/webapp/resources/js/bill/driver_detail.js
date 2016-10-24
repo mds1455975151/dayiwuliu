@@ -86,7 +86,7 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".detailDiv").on("click",".pickupBtn",function(){
 		var dId= $("#billId").val();
-		var frebilltype = $('#frebilltype').attr('frebilltype');
+		var frebilltype = $('#frebilltype').val();
 		frebilltype = $.trim(frebilltype);
 		if(frebilltype == "1"){
 			$("#urlReq").val(URL.pickupConfirmUrl);
