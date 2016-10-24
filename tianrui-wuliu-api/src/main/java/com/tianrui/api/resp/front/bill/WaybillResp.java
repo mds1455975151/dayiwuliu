@@ -88,6 +88,15 @@ public class WaybillResp extends BaseResp{
     //计划完成量
     private Double planCompleteWeight;
     
+    //原发（取货量）
+    private Double pickupweight;
+    
+    //实收（卸货量）
+    private Double signweight;
+    
+    //是否原发（2：否，1：是）
+    private String frebilltype;
+    
 	public String getId() {
 		return id;
 	}
@@ -435,6 +444,24 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setPlanCompleteWeight(Double planCompleteWeight) {
 		this.planCompleteWeight = planCompleteWeight;
+	}
+	public Double getPickupweight() {
+		return pickupweight;
+	}
+	public void setPickupweight(Double pickupweight) {
+		this.pickupweight = pickupweight;
+	}
+	public Double getSignweight() {
+		return signweight;
+	}
+	public void setSignweight(Double signweight) {
+		this.signweight = signweight;
+	}
+	public String getFrebilltype() {
+		return frebilltype;
+	}
+	public void setFrebilltype(String frebilltype) {
+		this.frebilltype = frebilltype;
 	}
 	
 }

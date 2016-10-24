@@ -74,6 +74,12 @@ public class Bill {
     //计划分配路径
     private String pathID;
     
+    //原发（取货量）
+    private Double pickupweight;
+    
+    //实收（卸货量）
+    private Double signweight;
+    
     public String getId() {
         return id;
     }
@@ -1128,6 +1134,22 @@ public class Bill {
 
 	public void setPathID(String pathID) {
 		this.pathID = pathID;
+	}
+
+	public Double getPickupweight() {
+		return pickupweight;
+	}
+
+	public void setPickupweight(Double pickupweight) {
+		this.pickupweight = pickupweight;
+	}
+
+	public Double getSignweight() {
+		return signweight;
+	}
+
+	public void setSignweight(Double signweight) {
+		this.signweight = signweight;
 	}
 
 }

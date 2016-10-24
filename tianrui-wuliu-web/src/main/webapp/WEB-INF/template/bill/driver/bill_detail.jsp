@@ -50,6 +50,7 @@
 							<div class="plan_table">
 								<input type="hidden" value="${bill.id}" id="billId" /> <input
 									type="hidden" value="${bill.type}" id="billType" />
+									<input type="hidden" value="${bill.frebilltype }" id="frebilltype"/>
 								<table class="table ">
 									<thead>
 										<tr>
@@ -139,9 +140,9 @@
 										<thead>
 				                            <tr>
 				                                <th>查看磅单</th>
-				                                <th class="underline colorblue"><a id="THBD" item="${bill.pickupimgurl }">提货磅单</a></th>
+				                                <th class="underline colorblue"><a id="THBD" item="${bill.pickupimgurl }" psweight="${bill.pickupweight }">提货磅单</a></th>
 				                                <c:if test="${bill.status==5 || bill.status==6}">
-				                                	<th class="underline colorblue"><a id="XHBD" item="${bill.signimgurl }">卸货磅单</a></th>
+				                                	<th class="underline colorblue"><a id="XHBD" item="${bill.signimgurl }" psweight="${bill.signweight }">卸货磅单</a></th>
 				                                </c:if>
 				                            </tr>
 			                            </thead>
@@ -280,9 +281,9 @@
 	            </div>
 	            <div class="modal-body" style=" ">
 	                <div class="bd_showimg">
-	                    <img id="bdImg"/>
+	                    <a target="_blank"><img id="bdImg"/></a>
 	                </div>
-	
+					<div style="text-align: center;padding-top: 20px;font-size: 20px;"><label id="psweight" style="color: white;"></label></div>
 	            </div>
 	            <div class="modal-footer">
 	                <div class="bd_altbtn">
@@ -321,6 +322,9 @@
 							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
 	                    <!--磅单图片end-->
+	                    <div style="margin-top: 10px;">
+	                    	<label id="stateWeightLabel">提货量：</label><input id="stateWeight" type="text" maxlength="6" style="margin-left: 5px;"/>
+	                    </div>
 					</div>
 					<!--磅单图片上传弹出-->
 				</div>

@@ -25,6 +25,9 @@ public class WaybillConfirmReq extends BaseReq{
 	private String type;
 	
 	private MultipartFile file;
+
+    //  原发（取货量） / 实收（卸货量）
+    private Double psweight;
 	
 	public String getId() {
 		return id;
@@ -88,6 +91,14 @@ public class WaybillConfirmReq extends BaseReq{
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+	public Double getPsweight() {
+		return psweight;
+	}
+
+	public void setPsweight(Double psweight) {
+		this.psweight = psweight;
 	}
 
 }

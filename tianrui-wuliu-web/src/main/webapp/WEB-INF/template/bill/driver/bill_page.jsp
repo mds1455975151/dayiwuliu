@@ -144,6 +144,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 					</div>
                     <!--磅单图片end-->
+                    <div style="margin-top: 10px;">
+                    	<label id="stateWeightLabel">提货量：</label><input id="stateWeight" type="text" maxlength="6" style="margin-left: 5px;"/>
+                    </div>
                 </div>
                 <!--磅单图片上传弹出-->
             </div>

@@ -730,6 +730,7 @@ public class BillService implements IBillService{
 						if(rs!=null &&StringUtils.equals(rs.getCode(), "000000") && StringUtils.isNotBlank(rs.getData().toString())){
 							Bill update =new Bill();
 							update.setId(req.getId());
+							update.setSignweight(req.getPsweight());
 							update.setSignimgurl(String.valueOf(rs.getData()));
 							update.setStatus((byte)BillStatusEnum.SIGN.getStatus());
 							update.setUnloadtime(System.currentTimeMillis());
@@ -802,6 +803,9 @@ public class BillService implements IBillService{
 							if(req.getFile() != null){//PC端图片保存
 								rs = iFileService.uploadByteImg(req.getFile());
 								update.setPickupimgurl(rs.getData().toString());
+							}
+							if(req.getPsweight() !=null && StringUtils.isNotBlank(req.getPsweight().toString())){
+								update.setPickupweight(req.getPsweight());
 							}
 							update.setStatus((byte)BillStatusEnum.DEPARTURE.getStatus());
 							
@@ -878,21 +882,6 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				resp = conver2billResp(db);
 			}
-			Plan plan = planMapper.selectByPrimaryKey(db.getPlanid());
-			Date date = null;
-			if(StringUtils.isBlank(db.getIsClearing()) || StringUtils.equals(db.getIsClearing(), "0")){
-				if(db.getUnloadtime() == null){
-					date = new Date();
-				}else{
-					date = new Date(db.getUnloadtime());
-				}
-				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(plan.getFreightid(), date).getData();
-				if(fileFreight != null){
-					resp.setTallage(fileFreight.getTallage());
-					resp.setPrice(fileFreight.getPrice());
-				}
-			}
-			resp.setOverweight(inspectTraffic(plan.getId()));
 		}
 		return resp;
 	}
@@ -1261,6 +1250,23 @@ public class BillService implements IBillService{
 				}
 			}
 			
+			Plan p = planMapper.selectByPrimaryKey(bill.getPlanid());
+			Date date = null;
+			if(StringUtils.isBlank(bill.getIsClearing()) || StringUtils.equals(bill.getIsClearing(), "0")){
+				if(bill.getUnloadtime() == null){
+					date = new Date();
+				}else{
+					date = new Date(bill.getUnloadtime());
+				}
+				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(p.getFreightid(), date).getData();
+				if(fileFreight != null){
+					resp.setTallage(fileFreight.getTallage());
+					resp.setPrice(fileFreight.getPrice());
+					resp.setFrebilltype(fileFreight.getFrebilltype());
+				}
+			}
+			resp.setOverweight(inspectTraffic(p.getId()));
+			
 			if(StringUtils.isNotBlank(resp.getPlanid())){
 				Plan plan = planMapper.selectRootPlanByPlanId(resp.getPlanid());
 				if(plan.getCompleted() == null){
@@ -1494,8 +1500,10 @@ public class BillService implements IBillService{
 					}
 					if("TH".equals(req.getType())){
 						b.setPickupimgurl(result.getData().toString());
+						b.setPickupweight(req.getPsweight());
 					}else if("XH".equals(req.getType())){
 						b.setSignimgurl(result.getData().toString());
+						b.setSignweight(req.getPsweight());
 					}
 					int i = billMapper.updateByPrimaryKeySelective(b);
 					if(i > 0){
