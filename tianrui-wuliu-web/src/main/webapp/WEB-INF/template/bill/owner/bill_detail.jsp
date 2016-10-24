@@ -52,6 +52,8 @@
 								<input type="hidden" value="${bill.weight}" id="weight" />
 								<input type="hidden" value="${bill.planWeight}" id="planWeight" />
 								<input type="hidden" value="${bill.planCompleteWeight}" id="planCompleteWeight" />
+								<input type="hidden" value="${bill.pickupweight}" id="pickupweight" />
+								<input type="hidden" value="${bill.signweight}" id="signweight" />
 								<table class="table ">
 									<thead>
 										<tr>
@@ -255,7 +257,7 @@
 			                </div>
 			            </div>
 						<p>
-							<label>签收重量：</label><input type="text" id="weighttext">
+							<label>签收重量：</label><input type="text" id="weighttext"><label id="stateWeightLabel" style="padding-left: 50px;"></label>
 						</p>
 					</div>
 				</div>

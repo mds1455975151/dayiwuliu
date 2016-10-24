@@ -7,14 +7,23 @@ $(function(){
 		mainUrl:"/trwuliu/billowner/main"
 	}
 	
+	$('.nav-tabs li').off('click').on('click',function(){
+		var index = $(this).index();
+		if(index == 0){
+			$('#stateWeightLabel').html('提货量：'+$("#pickupweight").val()+"吨");
+		}
+		if(index == 1){
+			$('#stateWeightLabel').html('卸货量：'+$("#signweight").val()+"吨");
+		}
+	});
+	
 	var id =$("#billId").val();
 	//签收按钮点击
 	$(".detaildiv").on("click",".signBtn",function(){
-		$('.nav-tabs li:first').addClass('active').siblings('li').removeClass('active');
+		$('.nav-tabs li:first').trigger('click').addClass('active').siblings('li').removeClass('active');
 		$('.tab-content div:first').addClass('in active').siblings('div.tab-pane').removeClass('in active');
 		$("#signModal").modal();
 	});
-	
 	
 	$(".signsubmitbtn").click(function(){
 		var weightInput=$("#weighttext").val();

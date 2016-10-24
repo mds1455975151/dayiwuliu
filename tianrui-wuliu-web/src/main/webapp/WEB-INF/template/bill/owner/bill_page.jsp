@@ -97,6 +97,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<input type="hidden" id="weight"/>
             	<input type="hidden" id="planWeight"/>
             	<input type="hidden" id="planCompleteWeight"/>
+            	<input type="hidden" id="pickupweight"/>
+            	<input type="hidden" id="signweight"/>
                 <div class="bdimg">
 	                <div class="modal-body">
 		                <ul class="nav nav-tabs">
@@ -120,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </div>
 		                </div>
 		            </div>
-                    <p><label>签收重量：</label><input type="text" id="weighttext"></p>
+                    <p><label>签收重量：</label><input type="text" id="weighttext"><label id="stateWeightLabel" style="padding-left: 50px;"></label></p>
                 </div>
             </div>
             <div class="modal-footer">
