@@ -135,48 +135,40 @@
 										<tr>
 											<th>税率</th>
 											<th>总趟数</th>
-											<th></th>
+											<th>
+												<c:if test="${bill.status==6}">
+													运单总价
+												</c:if>
+											</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td><c:if test="${not empty bill.tallage }">
+											<td>
+												<c:if test="${not empty bill.tallage }">
 													<fmt:formatNumber type="number" value="${bill.tallage }"
 														maxFractionDigits="0"></fmt:formatNumber>%
-                                	</c:if></td>
+                                				</c:if>
+                                			</td>
 											<td>共${bill.totalnumber }趟</td>
-											<td></td>
+											<td>
+												<c:if test="${bill.status==6}">
+													<fmt:formatNumber type="number" value="${bill.price*bill.trueweight}" pattern="0.00" maxFractionDigits="2"/>元
+												</c:if>
+											</td>
 										</tr>
 									</tbody>
 									<!-- 磅单图片 -->
-									<c:if
-										test="${bill.status==2 || bill.status==3 || bill.status==4 || bill.status==5 || bill.status==6}">
+									<c:if test="${bill.status==2 || bill.status==3 || bill.status==4 || bill.status==5 || bill.status==6}">
 										<thead>
-											<tr>
-												<c:if test="${not empty bill.pickupimgurl}">
-													<th>提货磅单</th>
-												</c:if>
-												<c:if test="${bill.status==5 || bill.status==6}">
-													<th>卸货磅单</th>
-												</c:if>
-												<c:if test="${bill.status==6}">
-													<th>运单总价</th>
-												</c:if>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<c:if test="${not empty bill.pickupimgurl}">
-													<td><a href="${bill.pickupimgurl }" target="_blank">查看磅单</a></td>
-												</c:if>
-												<c:if test="${bill.status==5 || bill.status==6}">
-													<td><a href="${bill.signimgurl }" target="_blank">查看磅单</a></td>
-												</c:if>
-												<c:if test="${bill.status==6}">
-													<td><fmt:formatNumber type="number" value="${bill.price*bill.trueweight}" pattern="0.00" maxFractionDigits="2"/>元</td>
-												</c:if>
-											</tr>
-										</tbody>
+				                            <tr>
+				                                <th>查看磅单</th>
+				                                <th class="underline colorblue"><a id="THBD" item="${bill.pickupimgurl }" psweight="${bill.pickupweight }">提货磅单</a></th>
+				                                <c:if test="${bill.status==5 || bill.status==6}">
+				                                	<th class="underline colorblue"><a id="XHBD" item="${bill.signimgurl }" psweight="${bill.signweight }">卸货磅单</a></th>
+				                                </c:if>
+				                            </tr>
+			                            </thead>
 									</c:if>
 									<!-- 磅单图片 -->
 								</table>
@@ -208,7 +200,28 @@
 		</div>
 	</div>
 	<!--内容部分end-->
-
+	
+	<div class="modal fade" id="bdView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document" style="width: 1200px;">
+	        <div class="modal-content" style="width: 1200px;">
+	            <div class="modal-header" >
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+	                        aria-hidden="true">&times;</span></button>
+	            </div>
+	            <div class="modal-body" style=" ">
+	                <div class="bd_showimg">
+	                    <a target="_blank"><img id="bdImg"/></a>
+	                </div>
+					<div style="text-align: center;padding-top: 20px;font-size: 20px;"><label id="psweight" style="color: white;"></label></div>
+	            </div>
+	            <div class="modal-footer" style="text-align: center;">
+	                <div class="bd_altbtn">
+	                    <button type="button" class="btn " data-dismiss="modal">关闭</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
@@ -218,6 +231,27 @@
 		src="/resources/js/common/member/header_busi.js"></script>
 	<script type="text/javascript"
 		src="/resources/js/bill/vender_detail.js"></script>
-
+	<script type="text/javascript">
+		var trRoot = "${trRoot}";
+		//弹出框样式更改
+	    var headcss = $("#bdView .modal-header");
+	    headcss.css({
+	        "border":"none",
+	    });
+	    headcss.find("button").css({
+	        "color":"#ffffff"
+	    });
+	    headcss.find(".close").css({
+	        "opacity":"0.8"
+	    });
+	    var dialogcss = $("#bdView .modal-content");
+	    dialogcss.css({
+	        "background":"#333333"
+	    });
+	    var footcss = $("#bdView .modal-footer");
+	    footcss.css({
+	        "border":"none",
+	    });
+	</script>
 </body>
 </html>

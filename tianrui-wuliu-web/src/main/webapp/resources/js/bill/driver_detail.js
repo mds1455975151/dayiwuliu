@@ -86,30 +86,42 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".detailDiv").on("click",".pickupBtn",function(){
 		var dId= $("#billId").val();
-		confirm("上传磅单","是否要上传提货磅单？",function(){
+		var frebilltype = $('#frebilltype').attr('frebilltype');
+		frebilltype = $.trim(frebilltype);
+		if(frebilltype == "1"){
 			$("#urlReq").val(URL.pickupConfirmUrl);
 			initFileInput();
+			$('#stateWeightLabel').html('提货量：');
 			$("#upbangdan").modal();
-		},function(){
-			$.ajax({
-				url:URL.pickupConfirmUrl,
-				data:{"id":dId},
-				type : "post",
-				dataType:"json",
-				success:function(rs){
-					if( rs && rs.code =="000000" ){
-						window.location.reload();
-					}else{
-						alert(rs.error);
+		}
+		if(frebilltype == "2"){
+			confirm("上传磅单","是否要上传提货磅单？",function(){
+				$("#urlReq").val(URL.pickupConfirmUrl);
+				initFileInput();
+				$('#stateWeightLabel').html('提货量：');
+				$("#upbangdan").modal();
+			},function(){
+				$.ajax({
+					url:URL.pickupConfirmUrl,
+					data:{"id":dId},
+					type : "post",
+					dataType:"json",
+					success:function(rs){
+						if( rs && rs.code =="000000" ){
+							window.location.reload();
+						}else{
+							alert(rs.error);
+						}
 					}
-				}
+				});
 			});
-		});
+		}
 	});
 	//dischargeBtn 卸货完成确认
 	$(".detailDiv").on("click",".dischargeBtn",function(){
 		$("#urlReq").val(URL.dischargeConfirmUrl);
 		initFileInput();
+		$('#stateWeightLabel').html('卸货量：');
 		$("#upbangdan").modal();
 	});
 	//dischargeBtn 到达确认
@@ -191,11 +203,25 @@ $(function(){
 		var file = $("#file_bd")[0].files[0];
 		var url = $("#urlReq").val();
 		var type = $("#bdType").val();
-		if(id && file && url){
+		var psweight = $('#stateWeight').val();
+		if(!file){
+			alert("请先选择图片");
+			return ;
+		}
+		if(!$.trim(psweight)){
+			alert("提货量或卸货量不能为空！");
+    		return ;
+		}
+		if(!/^\d{1,6}(\.\d{0,2})?$/.test($.trim(psweight))){
+			alert("提货量或卸货量格式整数最大6位，小数最大2位！");
+			return;
+		}
+		if(id && url){
 			var formData = new FormData();
 			formData.append("file",file);
 			formData.append("id",id);
 			formData.append("type",type);
+			formData.append("psweight",$.trim(psweight));
 			$.ajax({
 				url:PATH + url,
 				data : formData, 
@@ -212,16 +238,22 @@ $(function(){
 				}
 			})
 		}else{
-			alert("请先选择图片")
+			alert("参数异常！");
 		}
 		
 	});
 	
 	$('#THBD').off('click').on('click',function(){
 		var url = $(this).attr('item');
+		var psweight = $(this).attr('psweight');
+		if(psweight){
+			psweight = parseFloat(psweight).toFixed(2)+"吨";
+		}
 		$("#bdType").val('TH');
 		if(url){
 			$('#bdImg').attr('src',url);
+			$('#bdImg').parent('a').attr('href',url);
+			$('#psweight').html('提货量：'+psweight);
 			$('#bdView').modal();
 		}else{
 			$('#bdts').modal();
@@ -230,9 +262,15 @@ $(function(){
 	
 	$('#XHBD').off('click').on('click',function(){
 		var url = $(this).attr('item');
+		var psweight = $(this).attr('psweight');
+		if(psweight){
+			psweight = parseFloat(psweight).toFixed(2)+"吨";
+		}
 		$("#bdType").val('XH');
 		if(url){
 			$('#bdImg').attr('src',url);
+			$('#bdImg').parent('a').attr('href',url);
+			$('#psweight').html('卸货量：'+psweight);
 			$('#bdView').modal();
 		}else{
 			$('#bdts').modal();

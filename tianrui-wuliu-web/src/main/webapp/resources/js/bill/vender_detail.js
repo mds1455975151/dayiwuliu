@@ -51,4 +51,36 @@ $(function(){
 	$(".detaildiv").on("click",".editBtn",function(){
 		window.location.href=URL.updateViewUrl+"?id="+id;
 	});
+	
+	$('#THBD').off('click').on('click',function(){
+		var url = $(this).attr('item');
+		var psweight = $(this).attr('psweight');
+		if(psweight){
+			psweight = parseFloat(psweight).toFixed(2)+"吨";
+		}
+		if(url){
+			$('#bdImg').attr('src',url);
+			$('#bdImg').parent('a').attr('href',url);
+			$('#psweight').html('提货量：'+psweight);
+			$('#bdView').modal();
+		}else{
+			$('#bdts').modal();
+		}
+	});
+	
+	$('#XHBD').off('click').on('click',function(){
+		var url = $(this).attr('item');
+		var psweight = $(this).attr('psweight');
+		if(psweight){
+			psweight = parseFloat(psweight).toFixed(2)+"吨";
+		}
+		if(url){
+			$('#bdImg').attr('src',url);
+			$('#bdImg').parent('a').attr('href',url);
+			$('#psweight').html('卸货量：'+psweight);
+			$('#bdView').modal();
+		}else{
+			$('#bdts').modal();
+		}
+	});
 });

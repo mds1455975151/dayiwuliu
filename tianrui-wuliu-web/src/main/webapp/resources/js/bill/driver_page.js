@@ -90,7 +90,7 @@ $(function(){
 			}else if(item.status ==7 ||item.status ==8){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'"   dataCode="'+item.waybillno+'">删除</button></a>');
 			}else if(item.status ==1){
-				dataArr.push('<a ><button class="btn btnyello pickupBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'">提货确认</button></a>');
+				dataArr.push('<a ><button class="btn btnyello pickupBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'" frebilltype="'+item.frebilltype+'">提货确认</button></a>');
 //			}else if(item.status ==2){
 //				dataArr.push('<a ><button class="btn btnyello departureBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >装货完成</button></a>');
 //			}else if(item.status ==3){
@@ -171,10 +171,24 @@ $(function(){
 		var id = $("#hidbid").val();
 		var file = $("#file_bd")[0].files[0];
 		var url = $("#urlReq").val();
-		if(id && file && url){
+		var psweight = $('#stateWeight').val();
+		if(!file){
+			alert("请先选择图片");
+			return ;
+		}
+		if(!$.trim(psweight)){
+			alert("提货量或卸货量不能为空！");
+    		return ;
+		}
+		if(!/^\d{1,6}(\.\d{0,2})?$/.test($.trim(psweight))){
+			alert("提货量或卸货量格式整数最大6位，小数最大2位！");
+			return;
+		}
+		if(id && url){
 			var formData = new FormData();
-			formData.append("file",file);
 			formData.append("id",id);
+			formData.append("file",file);
+			formData.append("psweight",$.trim(psweight));
 			$.ajax({
 				url:PATH + url,
 				data : formData, 
@@ -193,7 +207,7 @@ $(function(){
 				}
 			});
 		}else{
-			alert("请先选择图片");
+			alert("参数异常！");
 		}
 		
 	});
@@ -207,6 +221,7 @@ $(function(){
 	//监听上传模态框关闭事件
 	$('#upbangdan').on('hidden.bs.modal', function (e) {
 		$("#hidbid").val("");
+		$('#stateWeight').val('');
 		$("#imgdata").val("")
 		$('.bangdan_img').html(_htmlsrc);
 	});
@@ -254,27 +269,39 @@ $(function(){
 	//pickupBtn 提货确认
 	$(".table").on("click",".pickupBtn",function(){
 		var dId= $(this).attr("dataId");
-		confirm("上传磅单","是否要上传提货磅单？",function(){
+		var frebilltype = $(this).attr('frebilltype');
+		frebilltype = $.trim(frebilltype);
+		if(frebilltype == "1"){
 			$("#urlReq").val(URL.pickupConfirmUrl);
 			$("#hidbid").val(dId);
 			initFileInput();
+			$('#stateWeightLabel').html('提货量：');
 			$("#upbangdan").modal();
-		},function(){
-			$.ajax({
-				url:URL.pickupConfirmUrl,
-				data:{"id":dId},
-				type : "post",
-				dataType:"json",
-				success:function(rs){
-					if( rs && rs.code =="000000" ){
-						alert(rs.data);
-						$(".searchBtn").trigger("click");
-					}else{
-						alert(rs.error);
+		}
+		if(frebilltype == "2"){
+			confirm("上传磅单","是否要上传提货磅单？",function(){
+				$("#urlReq").val(URL.pickupConfirmUrl);
+				$("#hidbid").val(dId);
+				initFileInput();
+				$('#stateWeightLabel').html('提货量：');
+				$("#upbangdan").modal();
+			},function(){
+				$.ajax({
+					url:URL.pickupConfirmUrl,
+					data:{"id":dId},
+					type : "post",
+					dataType:"json",
+					success:function(rs){
+						if( rs && rs.code =="000000" ){
+							alert(rs.data);
+							$(".searchBtn").trigger("click");
+						}else{
+							alert(rs.error);
+						}
 					}
-				}
+				});
 			});
-		});
+		}
 	});
 	//dischargeBtn 卸货完成
 	$(".table").on("click",".dischargeBtn",function(){
@@ -282,6 +309,7 @@ $(function(){
 		$("#urlReq").val(URL.dischargeConfirmUrl);
 		$("#hidbid").val(dId);
 		initFileInput();
+		$('#stateWeightLabel').html('卸货量：');
 		$("#upbangdan").modal();
 	});
 	//arrivedBtn 到达确认

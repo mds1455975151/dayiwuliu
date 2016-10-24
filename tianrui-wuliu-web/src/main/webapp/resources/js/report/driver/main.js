@@ -156,7 +156,7 @@ PAGE.mod.main = {
 				var $tr = $('<tr billid="'+id+'"><td>'+billcreatetimeStr+'</td><td>'+waybillno+'</td><td>'+cargoname+'</td><td>'+routename+'</td><td>'+weight+'</td><td>'+trueweight+'</td><td>'+billStatus+'</td></tr>');
 				$('#report>tbody').append($tr);
 			}
-			$('#report>tbody>tr').off('click').on('click',function(){
+			$('#report>tbody>tr').off('dblclick').on('dblclick',function(){
 				var id = $(this).attr('billid');
 				window.location.href = '/trwuliu/driverreport/detail?id='+id;
 			});
