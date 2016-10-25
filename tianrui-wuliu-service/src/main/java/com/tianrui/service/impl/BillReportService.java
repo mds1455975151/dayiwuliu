@@ -46,7 +46,7 @@ public class BillReportService implements IBillReportService{
 				req.setStarttime(TimeUtils.StringZoLong(req.getStarttimeStr() + " 00:00:00"));
 			}
 			if(StringUtils.isNotBlank(req.getEndtimeStr())){
-				req.setEndtime(TimeUtils.StringZoLong(req.getEndtimeStr() + "00:00:00"));
+				req.setEndtime(TimeUtils.StringZoLong(req.getEndtimeStr() + " 00:00:00"));
 			}
 			long count = billReportMapper.queryBillReportCount(req);
 			if(count > 0){
