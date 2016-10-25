@@ -13,7 +13,7 @@ import com.tianrui.common.utils.Md5Utils;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.Head;
 
-public class TestApplogin {
+public class TestAppOwnerVender {
 
 	
 	

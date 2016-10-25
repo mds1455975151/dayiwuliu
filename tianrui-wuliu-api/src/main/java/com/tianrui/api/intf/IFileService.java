@@ -1,6 +1,8 @@
 package com.tianrui.api.intf;
 
 
+import java.io.File;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tianrui.api.req.front.system.FileUploadReq;
@@ -22,5 +24,7 @@ public interface IFileService  {
 	Result uploadImg(FileUploadReq fileUploadReq)throws Exception;
 	/** byte[]上传图片*/ 
 	Result uploadByteImg(MultipartFile file) throws Exception;
+	
+	Result uploadByteFile(File file) throws Exception;
 	
 }

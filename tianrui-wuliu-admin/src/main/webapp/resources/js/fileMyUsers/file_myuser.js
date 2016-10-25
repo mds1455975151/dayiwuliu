@@ -53,7 +53,7 @@ function displayData(pageNo){
 							"<tr><td>"+d+"</td>"+
 							"<td>"+data[a].membertel+"</td>"+
 							"<td>"+data[a].membername+"</td>"+
-							"<td>"+data[a].memberdesc+"</td>"+
+							"<td>"+(data[a].memberdesc || "")+"</td>"+
 							"<td>"+data[a].createtimeStr+"</td>"+
 							"<td>"+data[a].creator+"</td>"+
 							"<td>" +

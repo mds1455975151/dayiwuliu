@@ -1,6 +1,8 @@
 package com.tianrui.service.impl;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.commons.lang.StringUtils;
@@ -39,7 +41,6 @@ public class FileUploadService implements IFileService{
 			if( fileUploadReq.getImgStr().startsWith("data:image/png;base64,")  ){
 				try {
 					String imgURI = UUIDUtil.getId()+".png";
-					fileUploadReq.getImgStr();
 					byte[] out = Base64.decodeFast(fileUploadReq.getImgStr().substring(22));
 					
 					InputStream input = new ByteArrayInputStream(out);
@@ -83,6 +84,28 @@ public class FileUploadService implements IFileService{
         		result.setError("图片格式有误");
         	}
         }  
+		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
+		return result;
+	}
+	
+	
+	public Result uploadByteFile(File file) throws Exception {
+		Result result=Result.getSuccessResult();
+		// 判断文件是否为空  
+		if (file.exists()) {  
+			String sd = file.getName();
+			String fix = sd.substring(sd.lastIndexOf(".")+1);
+			//限制文件格式
+			try {  
+				InputStream input = new FileInputStream(file);
+				String fileUrl = System.currentTimeMillis()+"/"+sd;
+				gridFsTemplate.store(input, fileUrl);
+				String imgURL = Constant.FILE_URL_PRE+fileUrl;
+				result.setData(imgURL);
+			} catch (Exception e) {  
+				e.printStackTrace();  
+			}  
+		}  
 		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
 		return result;
 	}
