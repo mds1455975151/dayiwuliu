@@ -60,7 +60,9 @@ $(function(){
 			dataArr.push('<td>');
 			/*dataArr.push('<a target="_blank" href="'+URL.detailViewUrl+'?id='+item.id+'"><button class="btn btnyello">查看</button></a>');*/
 			if(item.status ==5){
-				dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'" qhdataImg="'+item.pickupimgurl+'" weight="'+item.weight+'" planWeight="'+item.planWeight+'" planCompleteWeight="'+item.planCompleteWeight+'">签收</button></a>');
+				dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'" qhdataImg="'+item.pickupimgurl+'" '
+						+'weight="'+item.weight+'" planWeight="'+item.planWeight+'" planCompleteWeight="'+item.planCompleteWeight+'" '
+						+'pickupweight="'+item.pickupweight+'" signweight="'+item.signweight+'">签收</button></a>');
 			}else if(item.status ==7 ||item.status ==-1){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'">删除</button></a>');
 			}
@@ -107,18 +109,34 @@ $(function(){
 		var weight= $(this).attr("weight");
 		var planWeight= $(this).attr("planWeight");
 		var planCompleteWeight= $(this).attr("planCompleteWeight");
+		var pickupweight = $(this).attr('pickupweight');
+		if(pickupweight){
+			pickupweight = parseFloat(pickupweight).toFixed(2);
+		}else{
+			pickupweight = '';
+		}
+		var signweight = $(this).attr('signweight');
+		if(signweight){
+			signweight = parseFloat(signweight).toFixed(2);
+		}else{
+			signweight = '';
+		}
 		$("#hidid").val(dId);
 		$("#weight").val(weight);
 		$("#planWeight").val(planWeight);
 		$("#planCompleteWeight").val(planCompleteWeight);
+		$("#pickupweight").val(pickupweight);
+		$("#signweight").val(signweight);
 		if(!$(this).attr("qhdataImg")){
 			$("#qhbdImgUrl").hide();
 			$("#qhbdImgUrl").parent('a').removeAttr("href").hide();
 			$("#notImg").show();
+			$('#stateWeightLabel').html('卸货量：'+signweight+"吨");
 		}else{
 			$("#qhbdImgUrl").attr( "src",$(this).attr("qhdataImg")).show();
 			$("#qhbdImgUrl").parent('a').attr("href",$(this).attr("qhdataImg")).show();
 			$("#notImg").hide();
+			$('#stateWeightLabel').html('提货量：'+pickupweight+"吨");
 		}
 		if(!$(this).attr("dataImg")){
 			$("#bdimgurl").hide();
@@ -130,6 +148,15 @@ $(function(){
 		$('.nav-tabs li:first').addClass('active').siblings('li').removeClass('active');
 		$('.tab-content div:first').addClass('in active').siblings('div.tab-pane').removeClass('in active');
 		$("#signModal").modal();
+	});
+	$('.nav-tabs li').off('click').on('click',function(){
+		var index = $(this).index();
+		if(index == 0){
+			$('#stateWeightLabel').html('提货量：'+$("#pickupweight").val()+"吨");
+		}
+		if(index == 1){
+			$('#stateWeightLabel').html('卸货量：'+$("#signweight").val()+"吨");
+		}
 	});
 	//监听拒绝模态框关闭事件
 	$('#signModal').on('hidden.bs.modal', function (e) {
