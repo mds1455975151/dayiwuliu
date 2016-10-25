@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
-import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
-import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
-import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.MemberOwnerService;
@@ -38,7 +31,6 @@ import com.tianrui.service.impl.MessageService;
 import com.tianrui.service.impl.SystemMemberService;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
-import com.tianrui.web.util.SessionManager;
 
 /**
  * 
@@ -78,7 +70,6 @@ public class AppMyVenderAction {
 		Head he = appParam.getHead();
 		MemberOwnerReq req = appParam.getBody();
 		req.setMemberId(he.getId());
-//		List<MemberOwnerResp> list = memberOwnerService.queryMyVehiOwnerByCondition(req);
 		PaginationVO<MemberOwnerResp> pageVo = memberOwnerService.queryMyVehiOwnerByPage(req);
 		appResult.setCode("000000");
 		appResult.setTotal(pageVo.getTotalInt());

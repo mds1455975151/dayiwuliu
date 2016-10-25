@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.req.app.AppMemberReq;
-import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.Md5Utils;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.Head;
@@ -71,24 +69,5 @@ public class TestApplogin {
 		
 		
 	}
-	
-}
-
-class UserReq{
-	private String usercode;
-	private String password;
-	public String getUsercode() {
-		return usercode;
-	}
-	public void setUsercode(String usercode) {
-		this.usercode = usercode;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	
 }

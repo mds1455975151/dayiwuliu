@@ -50,20 +50,21 @@ function appendContentToBody(ret, flag) {
 	}
 	// 数据为空时
 	if (data == null || total == 0) {
+		$('.myplan').hide();
+		var nodate = $('.nodata').empty().show();
 		var hml = "";
 		$(".goods_more").hide();
-		hml+= '<div class="nodata">';
 		hml+= '<img src="'+trImgRoot+'/none_owner.png">';
 		if (flag == 0) {
 			hml+= '<h3>您查询的车主不存在！换个条件试试吧！</h3>';
 		}else{
 			hml+= '<h3>您还未添加车主！赶快添加车主给他发货吧！</h3>';
 		}
-		hml+= '</div>';
-		document.getElementById("vehicle_none").innerHTML = hml;
+		nodate.html(hml);
 	// 有数据信息时
 	} else {
-		
+		$('.myplan').show();
+		$('.nodata').hide();
 		for (var i = 0; i < data.length; i++) {
 			// 表体行号++
 			rowIndex++;
