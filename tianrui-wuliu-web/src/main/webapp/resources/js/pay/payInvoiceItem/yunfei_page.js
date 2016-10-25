@@ -12,6 +12,7 @@ function index(No,flag){
 	var cargoName = $("#cargoName").val();
 	var invoiceType = $("#invoiceType").val();
 	var isvoid = $("#isvoid").val();
+	var ownername = $("#ownername").val();
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem/page",//
 		data : {
@@ -20,6 +21,7 @@ function index(No,flag){
 			"cargoName":cargoName,
 			"isInvoice":isvoid,
 			"invoiceType":invoiceType,
+			"ownername":ownername,
 			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
@@ -67,7 +69,7 @@ function innerHTML(ret,flag){
 		}
 		hml += "<tr><td >"+piao+"</td>" +
 				"<td >"+data[a].billCode+"</td>" +
-				"<td >货主名称</td>" +
+				"<td >"+data[a].ownername+"</td>" +
 				"<td >"+data[a].cargoName+"</td>" +
 				"<td >"+data[a].invoiceTypeName+"</td>" +
 				"<td >"+data[a].signTime+"</td>" +

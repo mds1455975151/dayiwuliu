@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.codec.binary.Base64;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.intf.IPayInvoiceService;
 import com.tianrui.api.req.front.pay.PayInvoiceAdviceReq;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
@@ -225,13 +228,13 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}else{
 			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
 			invoice.setOrgid(org.getOrganizationno());
-			invoice.setVenderCode("410482199012015570");
+//			invoice.setVenderCode("410482199012015570");
 			String dataString = "payInvoice=" + JSON.toJSON(invoice).toString();
 			String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
 			if(dateStr.equals("000000")){
 				PayInvoice upt = new PayInvoice();
 				upt.setId(invoice.getId());
-				upt.setPayStatus((byte)1);
+				upt.setPayStatus((byte)2);
 				payInvoiceMapper.updateByPrimaryKeySelective(upt);
 			}else{
 				rs.setCode("1");
@@ -279,14 +282,31 @@ public class PayInvoiceService implements IPayInvoiceService {
 		// TODO Auto-generated method stub
 		PayInvoice query = copyQuery(req);
 		List<PayInvoice> list =payInvoiceMapper.selectByCondition(query);
-		String dataString = "payInvoice=";
+		String dataString = "payInvoiceids=";
 		for(PayInvoice pay : list){
-			dataString += pay.getId()+";";
+			dataString += pay.getId()+",";
 		}
 		String back = httpNcurl(dataString,"/tcp/payinvoice/queryPayStatus");
 		System.out.println("back="+back);
-//		pay.setPayDealPrice(Double.valueOf(back));
-//		payInvoiceMapper.updateByPrimaryKeySelective(pay);
+		JSONObject json = JSONObject.parseObject(back);
+		String code = (String) json.get("code");
+		if(code.equals("000000")){
+			JSONArray array = (JSONArray) json.get("data");
+			for (int i = 0; i < array.size(); i++) {
+				JSONObject obj = array.getJSONObject(i);
+				String id = (String) obj.get("id");
+				String value =  (String) obj.get("value");
+				PayInvoice pi = payInvoiceMapper.selectByPrimaryKey(id);
+				PayInvoice pay = new PayInvoice();
+				if(pi.getPayDealPrice().toString().equals(value)){
+					pay.setPayStatus((byte)3);
+				}
+				pay.setId(id);
+				pay.setPaidPrice(Double.valueOf(value));
+				payInvoiceMapper.updateByPrimaryKeySelective(pay);
+			}
+		}
+		
 	}
 	
 
@@ -294,17 +314,14 @@ public class PayInvoiceService implements IPayInvoiceService {
 		try {
 			URL url = new URL(Constant.NC_PAY_URL+ncurl);
 			System.out.println(Constant.NC_PAY_URL+ncurl);
+//			URL url = new URL("http://172.20.10.100"+ncurl);
+//			System.out.println("http://172.20.10.100"+ncurl);
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
 			connection.setDoOutput(true);
 			connection.setDoInput(true);
 			connection.setRequestMethod("POST");
-			
-//			String jsonStr = JSON.toJSON(invoice).toString();
-//			byte[] dbs = jsonStr.getBytes("utf-8");
-//			byte[] b = Base64.encodeBase64(dbs);
-//			String sd = "payInvoice=\"" + new String(b,"utf-8")+"\"";
 
 			System.out.println("nc请求数据=="+invoice);
 			byte[] bypes = invoice.getBytes("utf-8");

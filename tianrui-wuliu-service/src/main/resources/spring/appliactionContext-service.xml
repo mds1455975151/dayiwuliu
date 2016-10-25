@@ -37,6 +37,7 @@
 		<property name="NC_PAY_URL" value="${nc.pay.url}"></property>
 		<property name="IOS_PUSH_KEY" value="${ios.push.apiKey}"></property>
 		<property name="IOS_PUSH_SERECTKET" value="${ios.push.secretKey}"></property>
+		<property name="IOS_PUSH_TYPE" value="${ios.push.type}"></property>
 	</bean>
      
      <import resource="applicationContext-db.xml"/>

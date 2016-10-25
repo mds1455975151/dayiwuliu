@@ -109,7 +109,7 @@ function innerHTML(data){
 		"<td>"+data[a].createtimeStr+"</td>"+
 		"<td>"+sta+"</td>"+
 		"<td><span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【查看详情】</a></span>"+
-		(data[a].status == "6"&&data[a].isClearing=="0"? "<span><a  class='priceConfrim' dataid='"+data[a].id+"'>【运价确认】</a></span>":"")+
+		(data[a].status == "6"&&data[a].isClearing=="0"? "<span><a  data-toggle='modal' onclick=\"yunjia('"+data[a].id+"')\" data-target='#yunjia'>【运价确认】</a></span>":"")+
 //		"<span><a data-toggle='modal' data-target='#tingyong'>停用</a></span>" +
 		"</td>";
 	}
@@ -148,23 +148,54 @@ function details(a){
 }
 
 
-$(function(){
-	$("table").on("click",".priceConfrim",function(){
-		var bid=$(this).attr("dataid");
-		if(window.confirm('确定对运单进行运价确认吗,确定/取消?')){
-			$.ajax({
-				url:"/admin/waybill/priceConfrim",
-				data:{"billId":bid},
-				type : "post",
-				dataType:"json",
-				success:function(rs){
-					if( rs && rs.code =="000000" ){
-						window.location.reload();
-					}else{
-						alert(rs.error);
-					}
+function queren(){
+	var price = $("#trueprice").val();
+	
+	var reg=/\d+(\.\d+)?/;
+	if(!reg.test(price)) {
+		alert("请输入数字");
+		return;
+	}
+	
+	if(window.confirm('确定对运单进行运价确认吗,确定/取消?')){
+		$.ajax({
+			url:"/admin/waybill/priceConfrim",
+			data:{"billId":$("#billid").val(),
+				"trueprice":$("#trueprice").val()
+			},
+			type : "post",
+			dataType:"json",
+			success:function(rs){
+				if( rs && rs.code =="000000" ){
+					$("#billid").val("");
+					$("#trueprice").val("");
+					window.location.reload();
+				}else{
+					alert(rs.error);
 				}
-			});
+			}
+		});
+	}
+}
+
+function yunjia(id){
+	$("#billid").val("");
+	$("#trueprice").val("");
+	$.ajax({
+		url:"/admin/waybill/billPrice",
+		data:{"billId":id},
+		type : "post",
+		dataType:"json",
+		success:function(rs){
+			if( rs && rs.code =="000000" ){
+				$("#billid").val(id);
+				$("#pricenow").html(rs.data.price+rs.data.priceunits);
+				$("#pickupweight").html(rs.data.pickupweight);
+				$("#signweight").html(rs.data.signweight);
+				$("#trueweight").html(rs.data.trueweight);
+			}else{
+				alert(rs.error);
+			}
 		}
 	});
-});
+}

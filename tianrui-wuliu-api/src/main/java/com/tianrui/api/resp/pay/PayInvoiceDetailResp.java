@@ -10,6 +10,13 @@ import com.tianrui.api.util.DateTypeUtil;
 public class PayInvoiceDetailResp {
 
 	private String id;
+	
+	private String driverid;
+    private String drivername;
+    private String drivertel;
+    private String payownertype;
+    private String pricetype;
+    private String ownername;
 
     private String payId;
 
@@ -75,6 +82,14 @@ public class PayInvoiceDetailResp {
 			billId = "";
 		}
 		return billId;
+	}
+
+	public String getOwnername() {
+		return ownername;
+	}
+
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
 	}
 
 	public void setBillId(String billId) {
@@ -258,6 +273,46 @@ public class PayInvoiceDetailResp {
 			taxRate = "";
 		}
 		return taxRate;
+	}
+
+	public String getDriverid() {
+		return driverid;
+	}
+
+	public void setDriverid(String driverid) {
+		this.driverid = driverid;
+	}
+
+	public String getDrivername() {
+		return drivername;
+	}
+
+	public void setDrivername(String drivername) {
+		this.drivername = drivername;
+	}
+
+	public String getDrivertel() {
+		return drivertel;
+	}
+
+	public void setDrivertel(String drivertel) {
+		this.drivertel = drivertel;
+	}
+
+	public String getPayownertype() {
+		return payownertype;
+	}
+
+	public void setPayownertype(String payownertype) {
+		this.payownertype = payownertype;
+	}
+
+	public String getPricetype() {
+		return pricetype;
+	}
+
+	public void setPricetype(String pricetype) {
+		this.pricetype = pricetype;
 	}
 
 	public void setTaxRate(String taxRate) {

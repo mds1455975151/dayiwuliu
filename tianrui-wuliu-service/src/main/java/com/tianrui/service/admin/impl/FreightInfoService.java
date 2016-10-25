@@ -173,6 +173,11 @@ public class FreightInfoService implements IFreightInfoService{
 //		c.set(Calendar.MINUTE, 0);
 //		c.set(Calendar.SECOND, 0);
 //		c.set(Calendar.MILLISECOND, 0);
+		if(freight==null){
+			rs.setCode("1");
+			rs.setData("运价策略id有误");
+			return rs;
+		}
 		Long time = date.getTime();
 		List<FreightInfo> list = new ArrayList<FreightInfo>();
 		if(time<freight.getTaketime()){

@@ -52,8 +52,8 @@ public class IosPushUtils {
 					.addMsgExpires(new Integer(3600)) 	// 设置message的有效时间
 					.addMessageType(1)					// 1：通知,0:透传消息.默认为0 注：IOS只有通知.
 					.addMessage(notification.toJSONString())//消息内容
-					.addDeployStatus(1). 				// 1:测试环境  2生产
-					addDeviceType(4);					// 3:android, 4:ios
+					.addDeployStatus(Integer.valueOf(Constant.IOS_PUSH_TYPE)) 				// 1:测试环境  2生产
+					.addDeviceType(4);					// 3:android, 4:ios
 			// 5. http request
 			PushMsgToSingleDeviceResponse response = pushClient
 					.pushMsgToSingleDevice(request);

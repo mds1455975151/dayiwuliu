@@ -31,7 +31,7 @@ public class getNcPayTime {
         //获取已过时的货运计划
         try {
         	PayInvoiceQueryReq req = new PayInvoiceQueryReq();
-//        	req.setPaystatus((byte)2);
+        	req.setPaystatus("2");
         	payInvoiceService.queryNCPayStatus(req);
 			
 		} catch (Exception e) {

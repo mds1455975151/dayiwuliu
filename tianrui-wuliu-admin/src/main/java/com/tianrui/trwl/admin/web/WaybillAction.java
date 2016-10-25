@@ -1,6 +1,8 @@
 package com.tianrui.trwl.admin.web;
 
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
 import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
+import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.resp.admin.AdminPlanResp;
@@ -39,6 +43,8 @@ public class WaybillAction {
 	protected IBillService billService;
 	@Autowired
 	protected IPayInvoiceDetailService payInvoiceDetailService;
+	@Autowired
+	IFreightInfoService iFreightInfoService;
 	/**
 	 * 
 	 * @描述:平台运单管理
@@ -135,6 +141,18 @@ public class WaybillAction {
 		}else{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
 		}
+		return rs;
+	}
+	/** 查看当前运单价格
+	 * @throws Exception */
+	@RequestMapping("/billPrice")
+	@ResponseBody
+	public Result billPrice(String billId) throws Exception{
+		Result rs = Result.getSuccessResult();
+		WaybillQueryReq br = new WaybillQueryReq();
+		br.setId(billId);
+		WaybillResp resp = billService.queryWayBill(br);
+		rs.setData(resp);
 		return rs;
 	}
 	
