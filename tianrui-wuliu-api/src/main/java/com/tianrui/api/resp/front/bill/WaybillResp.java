@@ -446,13 +446,13 @@ public class WaybillResp extends BaseResp{
 		this.planCompleteWeight = planCompleteWeight;
 	}
 	public Double getPickupweight() {
-		return pickupweight;
+		return DateTypeUtil.doubleType(pickupweight);
 	}
 	public void setPickupweight(Double pickupweight) {
 		this.pickupweight = pickupweight;
 	}
 	public Double getSignweight() {
-		return signweight;
+		return DateTypeUtil.doubleType(signweight);
 	}
 	public void setSignweight(Double signweight) {
 		this.signweight = signweight;
