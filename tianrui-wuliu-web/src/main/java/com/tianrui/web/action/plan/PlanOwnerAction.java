@@ -197,7 +197,6 @@ public class PlanOwnerAction {
 	@ResponseBody
 	public Result queryFreightInfo(String id) throws Exception{
 		Result rs = Result.getSuccessResult();
-		//TODO
 		//获取当前时间
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
