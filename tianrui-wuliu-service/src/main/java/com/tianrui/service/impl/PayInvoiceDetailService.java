@@ -94,23 +94,37 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				MemberVo owner =memberVoService.get(bill.getOwnerid());
 				payInvoiceDetail.setOwnerId(bill.getOwnerid());
 				payInvoiceDetail.setOrgid(owner.getOrgid());
-				payInvoiceDetail.setOrgName(owner.getCompanyName());
-				/**
-				 * 运单信息
-				 */
-				payInvoiceDetail.setBillId(bill.getId());
-				payInvoiceDetail.setBillCode(bill.getWaybillno());
-				payInvoiceDetail.setBillWeight(bill.getTrueweight());
-				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
-				payInvoiceDetail.setSignTime(TimeUtils.LongZoString(bill.getUnloadtime()));
-				
+				if(StringUtils.isNotBlank(owner.getCompanypercheck()) && StringUtils.equals(owner.getCompanypercheck(), "1")){
+					//企业
+					payInvoiceDetail.setOwnername(owner.getCompanyName());
+				}else{
+					//个人
+					payInvoiceDetail.setOwnername(owner.getUserName());
+				}
 				/**
 				 * 运价策略
 				 */
 				Plan plan = planMapper.selectByPrimaryKey(bill.getPlanid());
 				FileFreight freight = getFileFreight(plan.getFreightid(),bill.getUnloadtime());
 				payInvoiceDetail.setBillPrice(freight.getPrice());
+				payInvoiceDetail.setPricetype("1");
 				payInvoiceDetail.setTaxRate(freight.getTallage().toString());
+				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
+				//单价类型：1-原价 2-修改
+				if(StringUtils.isNotBlank(req.getTrueprice())){
+					payInvoiceDetail.setBillPrice(Double.valueOf(req.getTrueprice()));
+					payInvoiceDetail.setBillTotalPrice(Double.valueOf(req.getTrueprice())*bill.getWeight());
+					payInvoiceDetail.setPricetype("2");
+				}
+				
+				/**
+				 * 运单信息
+				 */
+				payInvoiceDetail.setBillId(bill.getId());
+				payInvoiceDetail.setBillCode(bill.getWaybillno());
+				payInvoiceDetail.setBillWeight(bill.getTrueweight());
+//				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
+				payInvoiceDetail.setSignTime(TimeUtils.LongZoString(bill.getUnloadtime()));
 				
 				/**
 				 * 货物信息
@@ -124,6 +138,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				//货物发票类型
 				payInvoiceDetail.setInvoiceType(cargo.getDesc1());
 				payInvoiceDetail.setInvoiceTypeName(cargo.getDesc2());
+				
+				payInvoiceDetail.setPayownertype(cargo.getPayType());
 				
 				/**
 				 * 车主信息
@@ -142,6 +158,14 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 					payInvoiceDetail.setVenderName(vender.getUserName());
 				}
 				payInvoiceDetail.setVenderId(bill.getVenderid());
+				
+				/**
+				 * 司机信息
+				 */
+				payInvoiceDetail.setDriverid(bill.getDriverid());
+				payInvoiceDetail.setDrivername(bill.getDrivername());
+				payInvoiceDetail.setDrivertel(bill.getDrivertel());
+				
 				payInvoiceDetailMapper.insert(payInvoiceDetail);
 				
 				updateBill(bill.getId(),freight);
@@ -187,6 +211,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			String[] idArr = req.getIds().split(";");
 			query.setIds(Arrays.asList(idArr));
 		}
+		query.setOwnername(req.getOwnername());
 		query.setInvoiceType(req.getInvoiceType());
 		query.setVenderId(req.getCurruId());
 		query.setPayId(req.getPayId());

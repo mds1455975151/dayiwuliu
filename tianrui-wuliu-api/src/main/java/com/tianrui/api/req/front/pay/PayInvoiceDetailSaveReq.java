@@ -9,6 +9,8 @@ public class PayInvoiceDetailSaveReq  extends BaseReq{
 	private String curruId;
 	
 	private String billId;
+	/** 货主修改价格*/
+	private String trueprice;
 
 	public String getCurruId() {
 		return curruId;
@@ -25,6 +27,12 @@ public class PayInvoiceDetailSaveReq  extends BaseReq{
 	public void setBillId(String billId) {
 		this.billId = billId;
 	}
-	
-	
+
+	public String getTrueprice() {
+		return trueprice;
+	}
+
+	public void setTrueprice(String trueprice) {
+		this.trueprice = trueprice;
+	}
 }

@@ -34,6 +34,7 @@ public class Constant {
     
     public static String IOS_PUSH_KEY="";
     public static String IOS_PUSH_SERECTKET="";
+    public static String IOS_PUSH_TYPE="";
 
     
     //日志文件 访问日志 记录访问来源
@@ -117,6 +118,12 @@ public class Constant {
 	public static void setIOS_PUSH_SERECTKET(String iOS_PUSH_SERECTKET) {
 		IOS_PUSH_SERECTKET = iOS_PUSH_SERECTKET;
 	}
-    
-    
+
+	public static String getIOS_PUSH_TYPE() {
+		return IOS_PUSH_TYPE;
+	}
+
+	public static void setIOS_PUSH_TYPE(String iOS_PUSH_TYPE) {
+		IOS_PUSH_TYPE = iOS_PUSH_TYPE;
+	}
 }

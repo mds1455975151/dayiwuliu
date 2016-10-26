@@ -26,8 +26,8 @@
             <ref bean="getncPay" />  
         </property>  
         <property name="cronExpression">  
-         <!-- 每 30分执行一次 -->
-            <value> 0 0/2 * * * ?</value>    
+         <!-- 每 5分执行一次 -->
+            <value> 0 0/5 * * * ?</value>    
         </property>  
     </bean>     
     <!-- 引用，配置要运行的方法 -->  

@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        <h4 onclick = "addpage()">查看更多</h4>
 		                    </div>
 		                </div>
+		                <div class="nodata"></div>
 		              </div>
 		                <!--计划模板表格end-->
 		            </div>

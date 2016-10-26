@@ -28,12 +28,19 @@
     <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
     <result column="invoice_typename" property="invoiceTypeName" jdbcType="VARCHAR" />
     <result column="tax_rate" property="taxRate" jdbcType="VARCHAR" />
+    
+    <result column="ownername" property="ownername" jdbcType="VARCHAR" />
+    <result column="driverid" property="driverid" jdbcType="VARCHAR" />
+    <result column="drivername" property="drivername" jdbcType="VARCHAR" />
+    <result column="drivertel" property="drivertel" jdbcType="VARCHAR" />
+    <result column="payownertype" property="payownertype" jdbcType="VARCHAR" />
+    <result column="pricetype" property="pricetype" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, pay_id, bill_id, bill_code, cargo_id, cargo_code, invoice_type, sign_time, bill_weight, 
     bill_price, bill_total_price, is_invoice, orgid, org_name, vender_name, vender_type, 
     vender_code, creator, createtime, modifier, modifytime,vender_id,owner_id,cargo_name,
-    invoice_typename,tax_rate
+    invoice_typename,tax_rate,driverid,drivername,drivertel,payownertype,pricetype,ownername
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -46,6 +53,9 @@
     <include refid="Base_Column_List" />
     from pay_invoice_detail
 	<where>
+      <if test="ownername != null and ownername != ''" >
+        and ownername like '%' #{ownername,jdbcType=VARCHAR} '%'
+      </if>
       <if test="billCode != null and billCode != ''" >
         and bill_code like '%' #{billCode,jdbcType=VARCHAR} '%'
       </if>
@@ -148,7 +158,8 @@
       orgid, org_name, vender_name, 
       vender_type, vender_code, creator, 
       createtime, modifier, modifytime,vender_id,owner_id,
-      cargo_name,invoice_typename,tax_rate
+      cargo_name,invoice_typename,tax_rate,
+      driverid,drivername,drivertel,payownertype,pricetype,ownername
       )
     values (#{id,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, 
       #{billCode,jdbcType=VARCHAR}, #{cargoId,jdbcType=VARCHAR}, #{cargoCode,jdbcType=VARCHAR}, 
@@ -158,11 +169,37 @@
       #{venderType,jdbcType=TINYINT}, #{venderCode,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT},
       #{venderId,jdbcType=VARCHAR},#{ownerId,jdbcType=VARCHAR},#{cargoName,jdbcType=VARCHAR},
-      #{invoiceTypeName,jdbcType=VARCHAR},#{taxRate,jdbcType=VARCHAR})
+      #{invoiceTypeName,jdbcType=VARCHAR},#{taxRate,jdbcType=VARCHAR},
+      #{driverid,jdbcType=VARCHAR},
+      #{drivername,jdbcType=VARCHAR},
+      #{drivertel,jdbcType=VARCHAR},
+      #{payownertype,jdbcType=VARCHAR},
+      #{pricetype,jdbcType=VARCHAR},
+      #{ownername,jdbcType=VARCHAR}
+      )
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.PayInvoiceDetail" >
     update pay_invoice_detail
     <set >
+      <if test="ownername != null" >
+        ownername = #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="pricetype != null" >
+        pricetype = #{pricetype,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        driverid = #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="drivername != null" >
+        drivername = #{drivername,jdbcType=VARCHAR},
+      </if>
+      <if test="drivertel != null" >
+        drivertel = #{drivertel,jdbcType=VARCHAR},
+      </if>
+      <if test="payId != null" >
+        payownertype = #{payownertype,jdbcType=VARCHAR},
+      </if>
+     
       <if test="payId != null" >
         pay_id = #{payId,jdbcType=VARCHAR},
       </if>
@@ -228,7 +265,15 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.PayInvoiceDetail" >
     update pay_invoice_detail
-    set pay_id = #{payId,jdbcType=VARCHAR},
+    set
+     ownername = #{ownername,jdbcType=VARCHAR},
+     pricetype = #{pricetype,jdbcType=VARCHAR},
+     driverid = #{driverid,jdbcType=VARCHAR},
+     drivername = #{drivername,jdbcType=VARCHAR},
+     drivertel = #{drivertel,jdbcType=VARCHAR},
+     payownertype = #{payownertype,jdbcType=VARCHAR},
+    
+     pay_id = #{payId,jdbcType=VARCHAR},
       bill_id = #{billId,jdbcType=VARCHAR},
       bill_code = #{billCode,jdbcType=VARCHAR},
       cargo_id = #{cargoId,jdbcType=VARCHAR},

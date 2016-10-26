@@ -8,6 +8,7 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 
 	private String curruId;
 	
+	private String ownername;
 	private String status;
 	private String isInvoice;
 	private String payId;
@@ -37,6 +38,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	}
 	public void setInvoiceType(String invoiceType) {
 		this.invoiceType = invoiceType;
+	}
+	public String getOwnername() {
+		return ownername;
+	}
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
 	}
 	public String getIsInvoice() {
 		return isInvoice;

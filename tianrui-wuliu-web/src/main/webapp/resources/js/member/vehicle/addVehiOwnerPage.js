@@ -78,22 +78,24 @@ function appendContentToBody(result) {
 		// 企业用户
 		if (data.companypercheck == "1") {
 			$("#th_name").html("企业名称");
-			$("#th_cardName").html("营业执照号");
+			$("#th_cardName").html("营业执照号").show();
 			// 企业名
 			$("#owner_name").html(data.companyName);
 			// 营业执照号
-			$("#owner_cardNo").html(data.companycode);
+			$("#owner_cardNo").html(data.companycode).show();
 			// 电话
 			$("#owner_tel").html(data.cellPhone);
 			
 		// 个人用户
 		} else if (data.userpercheck == "1") {
 			$("#th_name").html("姓名");
-			$("#th_cardName").html("身份证号");
+			//$("#th_cardName").html("身份证号");
+			$("#th_cardName").hide();
 			// 姓名
 			$("#owner_name").html(data.userName);
 			// 身份证号
-			$("#owner_cardNo").html(data.identityCard);
+			//$("#owner_cardNo").html(data.identityCard);
+			$("#owner_cardNo").hide();
 			// 电话
 			$("#owner_tel").html(data.cellPhone);
 		} else if(data.driverpercheck == "1"){

@@ -58,55 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <option value="7">司机拒绝接单</option>
                             </select>
                         </div>
-                        
-                        
-<!--                         <div class="ht_div">
-                            <label>计划编码：</label>
-                            <input type="text" id="plancode" placeholder=" ">
-                        </div>
-                        <div class="ht_div">
-                            <label>司机姓名：</label>
-                            <input type="text" id="drivername" placeholder=" ">
-                        </div>
-                        <div class="ht_div">
-                            <label>司机电话：</label>
-                            <input type="text" id="drivertel" placeholder=" ">
-                        </div>
-                        <div class="ht_div">
-                            <label>组织名称：</label>
-                            <input type="text" id="orgName" placeholder=" ">
-                        </div> 
-
-                    </div>
-                    <div class="contuser_search">
-                        <div class="ht_div">
-                            <label>创建人：</label>
-                            <input type="text" id="creater" placeholder=" ">
-                        </div>
-
-                        <div class="ht_div">
-                            <label>状态：</label>
-                            <select class="form-control" id="status">
-                                <option value="">请选择</option>
-                                <option value="-1">车主回收</option>
-                                <option value="0">待司机接受</option>
-                                <option value="1">司机已接受</option>
-                                <option value="2">司机已装货</option>
-                                <option value="3">司机运输中</option>
-                                <option value="4">司机已到达</option>
-                                <option value="5">司机已卸货</option>
-                                <option value="6">司机已完成</option>
-                                <option value="7">司机拒绝接单</option>
-                            </select>
-                        </div>
-                        <div class="ht_div">
-                            <label>创建时间：</label>
-                            <input type="text"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
-                            <i>-</i>
-                            <input type="text"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
-                        </div>
-                    </div>
-                    -->
                     <div class="ht_divbtn">
                         <button class="btn btnblue " onclick="searchFile();" type="button">搜索</button>
                         <button class="btn btngreen" type="button">重置</button>
@@ -197,19 +148,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--停用end-->
 <!--启用begin-->
-<div class="modal fade" id="qiyong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="yunjia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">提示</h4>
+                <h4 class="modal-title">运价确认</h4>
             </div>
             <div class="modal-body">
-                <h4>确定要启用吗</h4>
+	            <input type="hidden" id="billid">
+	            <div class='file_detail'><label> 提货榜单：</label><span id="pickupweight"></span>吨</div>
+	            <div class='file_detail'><label> 签收榜单：</label><span id="signweight"></span>吨</div>
+	            <div class='file_detail'><label> 签收重量：</label><span id="trueweight"></span>吨</div>
+	            <div class='file_detail'><label> 当前运价：</label><span id="pricenow"></span></div>
+	            <div class='file_detail'><label> 修改运价：</label><span><input style="width: 120px;height: 30px" id="trueprice" type="text"></span></div>
+            <div class="clear"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" onclick="queren()" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>

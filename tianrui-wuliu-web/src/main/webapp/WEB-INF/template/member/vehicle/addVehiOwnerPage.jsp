@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <div class="car_box">
 		                    <div class="reg_tel">
 		                        <label>车主账号：</label>
-		                        <input type="text" id="owner_account">
+		                        <input type="text" id="owner_account" maxlength="11">
 		                        <!-- 隐藏项：车主账号备份、车主主键、防止重复添加Flg -->
 		                        <input type="hidden" id="owner_account_back">
 		                        <input type="hidden" id="ownerId">
