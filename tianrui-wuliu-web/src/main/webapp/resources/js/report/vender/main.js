@@ -87,7 +87,6 @@ PAGE.mod.main = {
 		queryDate:function(){
 			var _this = this;
 			var params = _this.getParams();
-			console.log(params);
 			$.ajax({
 				url:'/trwuliu/venderreport/queryReport',
 				data:params,
