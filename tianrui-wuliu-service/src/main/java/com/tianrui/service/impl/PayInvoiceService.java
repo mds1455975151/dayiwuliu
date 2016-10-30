@@ -288,23 +288,27 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}
 		String back = httpNcurl(dataString,"/tcp/payinvoice/queryPayStatus");
 		System.out.println("back="+back);
-		JSONObject json = JSONObject.parseObject(back);
-		String code = (String) json.get("code");
-		if(code.equals("000000")){
-			JSONArray array = (JSONArray) json.get("data");
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject obj = array.getJSONObject(i);
-				String id = (String) obj.get("id");
-				String value =  (String) obj.get("value");
-				PayInvoice pi = payInvoiceMapper.selectByPrimaryKey(id);
-				PayInvoice pay = new PayInvoice();
-				if(pi.getPayDealPrice().toString().equals(value)){
-					pay.setPayStatus((byte)3);
+		try {
+			JSONObject json = JSONObject.parseObject(back);
+			String code = (String) json.get("code");
+			if(code.equals("000000")){
+				JSONArray array = (JSONArray) json.get("data");
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject obj = array.getJSONObject(i);
+					String id = (String) obj.get("id");
+					String value =  (String) obj.get("value");
+					PayInvoice pi = payInvoiceMapper.selectByPrimaryKey(id);
+					PayInvoice pay = new PayInvoice();
+					if(pi.getPayDealPrice().toString().equals(value)){
+						pay.setPayStatus((byte)3);
+					}
+					pay.setId(id);
+					pay.setPaidPrice(Double.valueOf(value));
+					payInvoiceMapper.updateByPrimaryKeySelective(pay);
 				}
-				pay.setId(id);
-				pay.setPaidPrice(Double.valueOf(value));
-				payInvoiceMapper.updateByPrimaryKeySelective(pay);
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		
 	}
@@ -312,10 +316,10 @@ public class PayInvoiceService implements IPayInvoiceService {
 
 	protected  String httpNcurl(String invoice,String ncurl) throws IOException{
 		try {
-			URL url = new URL(Constant.NC_PAY_URL+ncurl);
-			System.out.println(Constant.NC_PAY_URL+ncurl);
-//			URL url = new URL("http://172.20.10.100"+ncurl);
-//			System.out.println("http://172.20.10.100"+ncurl);
+//			URL url = new URL(Constant.NC_PAY_URL+ncurl);
+//			System.out.println(Constant.NC_PAY_URL+ncurl);
+			URL url = new URL("http://172.20.10.100"+ncurl);
+			System.out.println("http://172.20.10.100"+ncurl);
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’

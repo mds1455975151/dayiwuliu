@@ -67,7 +67,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="ht_divbtn">
                                     <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
                                     <button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>
-                                	<a data-toggle='modal' data-target='#againPice'>【重新上传】</a>
                                 </div>
                             </div>
                     </div>
