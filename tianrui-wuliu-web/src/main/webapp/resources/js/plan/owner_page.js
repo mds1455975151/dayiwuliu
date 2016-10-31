@@ -82,7 +82,7 @@ $(function(){
 		
 		$.ajax({
 			url:PlanUrl.page,
-			data:{"pageNo":pageNo,"key":$("#search_v").val()},
+			data:{"pageNo":pageNo,"searchParam":$("#search_v").val()},
 			type:"post",
 			success: function(rs) {
 				if(rs.code!="000000"){

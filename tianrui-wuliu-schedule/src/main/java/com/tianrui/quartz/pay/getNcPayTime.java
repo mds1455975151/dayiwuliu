@@ -23,7 +23,6 @@ public class getNcPayTime {
     	Long st = new Date().getTime();
     	logger.info("定时器[getncPay]启动.时间是 :" + DateUtil.getDateString());  
     	int count=0; 
-        //获取已过时的货运计划
         try {
         	PayInvoiceQueryReq req = new PayInvoiceQueryReq();
         	req.setPaystatus("2");

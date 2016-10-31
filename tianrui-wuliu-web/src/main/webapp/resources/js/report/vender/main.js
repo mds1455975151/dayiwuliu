@@ -87,7 +87,6 @@ PAGE.mod.main = {
 		queryDate:function(){
 			var _this = this;
 			var params = _this.getParams();
-			console.log(params);
 			$.ajax({
 				url:'/trwuliu/venderreport/queryReport',
 				data:params,
@@ -102,9 +101,13 @@ PAGE.mod.main = {
 							$('#report').show();
 							_this.renderHtml(result.data.list);
 						}else{
-							$('.nodata').show();
-							$('#report').hide();
-							$('.pageMore').hide();
+							if($('#report>tbody tr').length>0){
+								$('.pageMore').hide();
+							}else{
+								$('.nodata').show();
+								$('#report').hide();
+								$('.pageMore').hide();
+							}
 						}
 					}else{
 						alert(result.error);

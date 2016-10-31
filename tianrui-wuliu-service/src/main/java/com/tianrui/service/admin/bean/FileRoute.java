@@ -6,7 +6,7 @@ public class FileRoute {
     private String organizationname;
     private String organizationid;
     private String routename;
-    private String status;//（0-可用；1-暂不可用；2-已删除）
+    private String status;//（0-禁用；1-启用）
     
     private String count;//被引用次数
     

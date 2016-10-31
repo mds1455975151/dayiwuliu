@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.CountSelectMapper" >
+  <!-- 查询路线总数 -->
+  <select id="selectRouteCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+    SELECT count(*) FROM file_route 
+  </select>
+  <!-- 本月新增路线 -->
+  <select id="selectRouteAdd" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+     SELECT count(*) FROM file_route 
+   	<where>
+   	  <if test="selecttime != null and selecttime != ''">
+   	  	and createtime <![CDATA[>=]]>  #{selecttime,jdbcType=BIGINT}
+   	  </if>
+   	</where>
+  </select>
+  <!-- 七日内最热路线id -->
+  <select id="selectRouteHot" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
+    SELECT
+		routeid id,
+		count(0) count
+	FROM
+		wuliu_bill
+	<where>
+   	  <if test="selecttime != null and selecttime != ''">
+   	  	and createtime <![CDATA[>=]]>  #{selecttime,jdbcType=BIGINT}
+   	  </if>
+   	</where>
+	GROUP BY
+		routeid
+	ORDER BY
+		COUNT(0) DESC
+		<if test="max != null and max != ''">
+			limit 0,#{max,jdbcType=INTEGER}	
+		</if>
+  </select>
+  <!-- 各个省份打点数量 -->
+  <select id="selectRouteMax" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
+   SELECT
+	op,
+	opc,
+	COUNT(0)
+	FROM
+		file_position
+	GROUP BY
+		opc
+	ORDER BY
+		COUNT(0) DESC
+  </select>
+  <!-- 货运计划总量，每日新增量 -->
+  <select id="selectPlanCount" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
+    SELECT
+		SUM(totalplanned) AS totalplanned,
+		SUM(completed) AS completed,
+		COUNT(0) AS count
+	FROM
+		wuliu_plan
+   	<where>
+   		<if test="status != null and status != ''">
+	   		and STATUS = #{status,jdbcType=VARCHAR}
+   		</if> 
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if>
+   	</where>
+  </select>
+  <!-- 车量总数 -->
+  <select id="selectVehicleCount" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
+    SELECT 
+    	COUNT(0) count
+   	FROM wuliu_member_vehicle
+   	<where>
+   	    <if test="status != null and status != ''">
+	   		and STATUS = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if> 
+   	</where>
+  </select>
+  
+  <!-- 活跃车辆 -->
+  <select id="selectVehicleAct" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
+    SELECT
+		vehicleid id,
+		vehicleno remark,
+		COUNT(0) count
+	FROM
+		wuliu_bill
+	<where>
+		<if test="status != null and status != ''">
+	   		and STATUS = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if> 
+	</where>	
+	GROUP BY
+		vehicleid
+	ORDER BY
+		COUNT(0) DESC
+  </select>
+  
+  <!-- 查询运单 -->
+  <select id="selectBillCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+   SELECT 
+   		COUNT(0) 
+   from 
+   		wuliu_bill 
+	<where>
+		<if test="status != null and status != ''">
+	   		and STATUS = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if>
+	</where> 
+  </select>
+  
+  <select id="selectPayCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+   SELECT 
+   		SUM(bill_total_price) 
+	FROM 
+		pay_invoice_detail 
+   	<where> 
+   	 	<if test="status != null and status != ''">
+	   		and STATUS = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if>
+   	</where>
+  </select>
+  
+  <select id="selectPayAdd" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
+    select 
+    from member m
+   	LEFT JOIN member_info f ON f.memberId = m.ID 
+   	<where> 1=1
+   	  <if test="userType == 0">
+   	  	and m.driverpercheck = '0'
+   	  </if>
+   	</where>
+  </select>
+</mapper>

@@ -2,7 +2,6 @@ package com.tianrui.web.app.action;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +17,11 @@ import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
+import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.common.enums.MessageCodeEnum;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
@@ -132,6 +133,13 @@ public class AppMyVenderAction {
 			}
 		}
 	}
+	
+	/**
+	 * 添加车主
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/saveMyVender", method = RequestMethod.POST)
 	@ApiParamRawType(MemberOwnerReq.class)
 	@ApiTokenValidation
@@ -161,7 +169,7 @@ public class AppMyVenderAction {
 		}
 		MemberOwnerReq ownerReq = new MemberOwnerReq();
 		// 主键
-		ownerReq.setId(getUUId());
+		ownerReq.setId(UUIDUtil.getId());
 		// 会员主键
 		ownerReq.setMemberId(he.getId());
 		// 车主主键
@@ -215,25 +223,64 @@ public class AppMyVenderAction {
 	@ApiParamRawType(MemberOwnerReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult deleteMyVehiOwner(AppParam<MemberOwnerReq> appParam) throws Exception{
-		Result rs = memberOwnerService.deleteByPrimaryKey(appParam.getBody().getOwnerId());
+	public AppResult deleteMyVender(AppParam<MemberOwnerReq> appParam) throws Exception{
+		Result rs = memberOwnerService.deleteByPrimaryKey(appParam.getBody().getId());
 		return AppResult.valueOf(rs);
 	}
 	
 	/**
-	 * 获取UUID作为主键
+	 * 开启/关闭我的车主
+	 * @param appParam -- id && isenabled 是否开启(1：开启，0：关闭)
 	 * @return
+	 * @throws Exception
 	 */
-	private String getUUId() {
-		// 获取UUID
-		String uuid = UUID.randomUUID().toString();
-		// 去除字符串中的"-"
-		String[] uuid_array = uuid.split("-"); 
-		StringBuffer idBuffer = new StringBuffer();
-		for (String id : uuid_array) {
-			idBuffer.append(id);
-		}
-		
-		return idBuffer.toString();
+	@RequestMapping(value = "/updateMyVender", method = RequestMethod.POST)
+	@ApiParamRawType(MemberOwnerReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult updateMyVender(AppParam<MemberOwnerReq> appParam) throws Exception {
+		MemberOwnerReq req = appParam.getBody();
+		Result result = memberOwnerService.updateByPrimaryKeySelective(req);
+		return AppResult.valueOf(result);
 	}
+	
+	/**
+	 * 查询车主车辆
+	 * @param appParam  memberid--车主id，search--搜索条件
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/venderCapa", method = RequestMethod.POST)
+	@ApiParamRawType(CapaReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult venderCapa(AppParam<CapaReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		CapaReq req = appParam.getBody();
+		//查询类型，车主运力查询时，后台筛选未绑定车辆
+		req.setType("capa");
+		PaginationVO<MemberCapaListResp> pageVo = memberCapaService.index(req);
+		appResult.setCode("000000");
+		appResult.setTotal(pageVo.getTotalInt());
+		appResult.setReturnData(pageVo.getList());
+		return appResult;
+	}
+	
+	@RequestMapping(value = "/getAllMyVender", method = RequestMethod.POST)
+	@ApiParamRawType(MemberOwnerReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult getAllMyVender(AppParam<MemberOwnerReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		//获取当前用户
+		String uId =appParam.getHead().getId();
+		MemberOwnerReq req = appParam.getBody();
+		req.setMemberId(uId);
+		req.setStatus("1");//0-待确认，1-已同意，2-已拒绝
+		List<MemberOwnerResp> list = memberOwnerService.queryMyVehiOwnerByCondition(req);
+		appResult.setCode("000000");
+		appResult.setReturnData(list);
+		return appResult;
+	}
+	
 }

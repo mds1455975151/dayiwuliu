@@ -449,7 +449,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 
 //『绑定司机』中『搜索』按钮点击事件
 $("#car_bdbox_searchBtn").click(function() {
-	
+//	alert("46");
 	// 司机姓名
 	var driverName = $("#car_bdbox_driverName").val();
 	// 司机电话

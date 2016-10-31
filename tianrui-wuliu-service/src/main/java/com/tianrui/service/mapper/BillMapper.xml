@@ -114,10 +114,7 @@
 				and plancode in (${plancode}) and ownerdelflag=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like
-				concat(#{queryKey,jdbcType=VARCHAR},'%') or
-				waybillno like
-				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+				and (cargoname like '%${queryKey}%' or waybillno like '%${queryKey}%')
 			</if>
 			<if test="statusStrs != null">
 				and status in
@@ -173,10 +170,7 @@
 					ownerdelflag=0
 				</if>
 				<if test="queryKey != null and queryKey!=''">
-					and (cargoname like
-					concat(#{queryKey,jdbcType=VARCHAR},'%') or
-					waybillno like
-					concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+					and (cargoname like '%${queryKey}%' or waybillno like '%${queryKey}%')
 				</if>
 				<if test="statusStrs != null">
 					and status in
@@ -243,10 +237,7 @@
 				ownerdelflag=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like
-				concat(#{queryKey,jdbcType=VARCHAR},'%') or
-				waybillno like
-				concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+				and (cargoname like '%${queryKey}%' or waybillno like '%${queryKey}%')
 			</if>
 			<if test="statusStrs != null">
 				and status in
@@ -302,10 +293,7 @@
 					ownerdelflag=0
 				</if>
 				<if test="queryKey != null and queryKey!=''">
-					and (cargoname like
-					concat(#{queryKey,jdbcType=VARCHAR},'%') or
-					waybillno like
-					concat(#{queryKey,jdbcType=VARCHAR} ,'%'))
+					and (cargoname like '%${queryKey}%' or waybillno like '%${queryKey}%')
 				</if>
 				<if test="statusStrs != null">
 					and status in
