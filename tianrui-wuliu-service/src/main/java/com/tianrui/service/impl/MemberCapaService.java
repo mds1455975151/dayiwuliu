@@ -137,6 +137,7 @@ public class MemberCapaService implements IMemberCapaService{
 		mreq.setRecname(recName);
 		mreq.setParams(strs);
 		mreq.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_BEG);
+		mreq.setRecType(MessageCodeEnum.DRIVER_CAPA_BEG.getType());
 		messageService.sendMessageInside(mreq);
 		return rs;
 	}

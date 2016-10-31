@@ -22,7 +22,6 @@ public class OverrideInterceptor implements HandlerInterceptor {
 			ModelAndView modelAndView) throws Exception {
 		String menuId=request.getParameter("menuId");
 		if(modelAndView!=null && menuId!=null && !"".equals(menuId)){
-			//TODO menuId 合法性 判断
 			modelAndView.addObject("menuId", menuId);
 		}
 

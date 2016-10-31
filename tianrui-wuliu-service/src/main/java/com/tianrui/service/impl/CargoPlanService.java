@@ -493,6 +493,7 @@ public class CargoPlanService implements ICargoPlanService{
 			req.setRecid(receiver.getId());
 			req.setRecname(receiver.getRealName());
 			req.setCodeEnum(codeEnum);
+			req.setRecType(codeEnum.getType());
 			//消息类别  系统 还是会员
 			req.setType("2");
 			//详情URI

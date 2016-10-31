@@ -155,6 +155,7 @@ public class AppVehicleAndDriverAction {
 			sendMsgReq.setType("2");
 			// 司机
 			sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_ADD);
+			sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_ADD.getType());
 			sendMsgReq.setKeyid(req.getId());
 			List<String> paramList = new ArrayList<String>();
 			paramList.add(userName);

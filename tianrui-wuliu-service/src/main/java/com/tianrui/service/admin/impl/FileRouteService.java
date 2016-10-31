@@ -199,10 +199,11 @@ public class FileRouteService implements IFileRouteService {
 
 	@Override
 	public boolean delete(String id) throws Exception {
-		// TODO Auto-generated method stub
-		long a = fileRouteMapper.deleteByPrimaryKey(id);
-		if(a == 1){
-			return true;
+		if( StringUtils.isNotBlank(id) ){
+			long a = fileRouteMapper.deleteByPrimaryKey(id);
+			if(a == 1){
+				return true;
+			}
 		}
 		return false;
 	}

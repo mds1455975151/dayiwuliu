@@ -47,6 +47,11 @@ public class SendMsgReq extends BaseReq{
      * 收信人姓名
      */
     private String recname;
+    
+    /**
+     * 接受人类别 1 发送给司机 2 发送给车主 3 发送给货主 0通用
+     */
+    private int recType;
 
 	public String getType() {
 		return type;
@@ -120,7 +125,13 @@ public class SendMsgReq extends BaseReq{
 		this.recname = recname;
 	}
 
-   
+	public int getRecType() {
+		return recType;
+	}
+
+	public void setRecType(int recType) {
+		this.recType = recType;
+	}
 
     
     

@@ -67,6 +67,10 @@ public class Message {
     private String isreply;
     
     private String uri;
+    /**
+     * 1 发送给司机 2 发送给车主 3 发送给货主 0通用
+     */
+    private int rectype;
 
     private String desc1;
 
@@ -237,6 +241,14 @@ public class Message {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public int getRectype() {
+		return rectype;
+	}
+
+	public void setRectype(int rectype) {
+		this.rectype = rectype;
 	}
     
     

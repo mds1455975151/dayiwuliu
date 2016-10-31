@@ -221,11 +221,12 @@ public class MemberVehicleService implements IMemberVehicleService {
 		mreq.setRecname(mass.getVehicleprefix()+mass.getVehicleno());
 		if("1".equals(mass.getStatus())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_VEHICLE_PASS);
-			messageService.sendMessageInside(mreq);
+			mreq.setRecType(MessageCodeEnum.ADMIN_VEHICLE_PASS.getType());
 		}else if("-1".equals(mass.getStatus())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_VEHICLE_NOTPASS);
-			messageService.sendMessageInside(mreq);
+			mreq.setRecType(MessageCodeEnum.ADMIN_VEHICLE_NOTPASS.getType());
 		}
+		messageService.sendMessageInside(mreq);
 		return rs;
 	}
 	

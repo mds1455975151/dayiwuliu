@@ -8,6 +8,8 @@ public class Head {
 	private String callTypeNo;
 	private String mobileType;
 	private String appVersion;
+	// 默认为空或者1 车主   2:货主版本
+	private String appIdCard;
 	//默认为不存在
 	private String id ="-1";
 	public String getTokenId() {
@@ -51,6 +53,12 @@ public class Head {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getAppIdCard() {
+		return appIdCard;
+	}
+	public void setAppIdCard(String appIdCard) {
+		this.appIdCard = appIdCard;
 	}
 	
 }

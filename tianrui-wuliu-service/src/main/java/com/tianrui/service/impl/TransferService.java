@@ -113,10 +113,12 @@ public class TransferService implements ITransferService{
 			upt.setVenderid(req.getMemberid());
 			billMapper.updateByBillTransfer(upt);
 			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_AGREE);
+			mreq.setRecType(MessageCodeEnum.DRIVER_TRANSFER_AGREE.getType());
 			messageService.sendMessageInside(mreq);
 		}else if("2".equals(record.getStatus())){
 			//拒绝换班
 			mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_REFUSE);
+			mreq.setRecType(MessageCodeEnum.DRIVER_TRANSFER_REFUSE.getType());
 			messageService.sendMessageInside(mreq);
 		}
 		
@@ -166,6 +168,7 @@ public class TransferService implements ITransferService{
 		mreq.setRecid(record.getSendid());//收信人id
 		mreq.setRecname(record.getSender());//收信人名称
 		mreq.setCodeEnum(MessageCodeEnum.DRIVER_TRANSFER_BEG);
+		mreq.setRecType(MessageCodeEnum.DRIVER_TRANSFER_BEG.getType());
 		messageService.sendMessageInside(mreq);
 		return rs;
 	}

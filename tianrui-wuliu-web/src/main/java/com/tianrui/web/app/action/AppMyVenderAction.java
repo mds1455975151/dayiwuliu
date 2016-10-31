@@ -188,6 +188,7 @@ public class AppMyVenderAction {
 			sendMsgReq.setType("2");
 			// 车主
 			sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2OWNER_ADD);
+			sendMsgReq.setRecType(MessageCodeEnum.VEHI_2OWNER_ADD.getType());
 			sendMsgReq.setKeyid(ownerReq.getId());
 			List<String> paramList = new ArrayList<String>();
 			paramList.add(userName);

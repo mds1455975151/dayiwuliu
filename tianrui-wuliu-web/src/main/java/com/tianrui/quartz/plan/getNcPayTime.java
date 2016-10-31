@@ -1,13 +1,11 @@
 package com.tianrui.quartz.plan;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tianrui.api.intf.IPayInvoiceService;
 import com.tianrui.api.req.front.pay.PayInvoiceQueryReq;
-import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.utils.DateUtil;
 
 public class getNcPayTime {

@@ -89,11 +89,12 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		mreq.setParams(strs);
 		if("1".equals(req.getUserpercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_USER_PASS);
-			messageService.sendMessageInside(mreq);
+			mreq.setRecType(MessageCodeEnum.ADMIN_USER_PASS.getType());
 		}else {//if("3".equals(req.getUserpercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_USER_NOTPASS);
-			messageService.sendMessageInside(mreq);
+			mreq.setRecType(MessageCodeEnum.ADMIN_USER_NOTPASS.getType());
 		}
+		messageService.sendMessageInside(mreq);
 		//刷新缓存
 		moberVoService.flush(member.getId());
 		return rs;
@@ -150,11 +151,12 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		mreq.setRecname(record.getUsername());
 		if("1".equals(req.getDriverpercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_DRIVER_PASS);
-			messageService.sendMessageInside(mreq);
+			mreq.setRecType(MessageCodeEnum.ADMIN_DRIVER_PASS.getType());
 		}else if("3".equals(req.getDriverpercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_DRIVER_NOTPASS);
-			messageService.sendMessageInside(mreq);
+			mreq.setRecType(MessageCodeEnum.ADMIN_DRIVER_NOTPASS.getType());
 		}
+		messageService.sendMessageInside(mreq);
 		//刷新缓存
 		moberVoService.flush(member.getId());
 		return rs;
@@ -210,9 +212,11 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		mreq.setRecname(record.getUsername());
 		if("1".equals(req.getCompanypercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_COMPANY_PASS);
+			mreq.setRecType(MessageCodeEnum.ADMIN_COMPANY_PASS.getType());
 			messageService.sendMessageInside(mreq);
 		}else if("3".equals(req.getCompanypercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_COMPANY_NOTPASS);
+			mreq.setRecType(MessageCodeEnum.ADMIN_COMPANY_NOTPASS.getType());
 			messageService.sendMessageInside(mreq);
 		}
 		//刷新缓存

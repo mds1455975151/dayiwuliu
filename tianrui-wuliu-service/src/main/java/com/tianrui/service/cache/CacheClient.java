@@ -39,7 +39,7 @@ public class CacheClient {
 			String  str=redisTemplate.opsForValue().get(key).toString();
 			rs= (T)JSON.parseObject(str,clazz);
 		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
+			logger.warn(e.getLocalizedMessage());
 		} 
 		return rs;
 	}
@@ -49,7 +49,7 @@ public class CacheClient {
 		try {
 			rs=redisTemplate.opsForValue().get(key).toString();
 		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
+			logger.warn(e.getLocalizedMessage());
 		} 
 		return rs;
 		
@@ -80,7 +80,7 @@ public class CacheClient {
 			}
 			rs=true;
 		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
+			logger.warn(e.getLocalizedMessage());
 		} 
 		return rs;
 	}
@@ -103,7 +103,7 @@ public class CacheClient {
 			}
 			rs=true;
 		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
+			logger.warn(e.getLocalizedMessage());
 		} 
 		return rs;
 	}

@@ -67,6 +67,7 @@ public class MessageService implements IMessageService {
 		message.setRecname(req.getRecname());
 		message.setUri(req.getURI());
 		message.setType(req.getType());
+		message.setRectype(req.getCodeEnum().getCode());
 		String content =MessageUtils.getMsgText(req.getParams(), req.getCodeEnum().getDesc());
 		if( StringUtils.isNotBlank(content) ){
 			message.setContent(content);
@@ -185,8 +186,10 @@ public class MessageService implements IMessageService {
 		req.setParams(Arrays.asList(new String[]{dbMessage.getRecname()}));
 		if( "1".equals(isReplay) ){
 			req.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_AGREE);
+			req.setRecType(MessageCodeEnum.DRIVER_CAPA_AGREE.getType());
 		}else{
 			req.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_REFUSE);
+			req.setRecType(MessageCodeEnum.DRIVER_CAPA_REFUSE.getType());
 		}
 		//消息类别  系统 还是会员S
 		req.setType("2");
@@ -240,8 +243,10 @@ public class MessageService implements IMessageService {
 		req.setParams(Arrays.asList(new String[]{dbMessage.getRecname()}));
 		if( "1".equals(isReplay) ){
 			req.setCodeEnum(MessageCodeEnum.MSG_2VENDER_APPLY);
+			req.setRecType(MessageCodeEnum.MSG_2VENDER_APPLY.getType());
 		}else{
 			req.setCodeEnum(MessageCodeEnum.MSG_2VENDER_REFUSE);
+			req.setRecType(MessageCodeEnum.MSG_2VENDER_REFUSE.getType());
 		}
 		//消息类别  系统 还是会员
 		req.setType("2");
@@ -265,8 +270,10 @@ public class MessageService implements IMessageService {
 		req.setParams(Arrays.asList(new String[]{dbMessage.getRecname()}));
 		if( "1".equals(isReplay) ){
 			req.setCodeEnum(MessageCodeEnum.MSG_2OWNER_APPLY);
+			req.setRecType(MessageCodeEnum.MSG_2OWNER_APPLY.getType());
 		}else{
 			req.setCodeEnum(MessageCodeEnum.MSG_2OWNWE_REFUSE);
+			req.setRecType(MessageCodeEnum.MSG_2OWNWE_REFUSE.getType());
 		}
 		//消息类别  系统 还是会员
 		req.setType("2");

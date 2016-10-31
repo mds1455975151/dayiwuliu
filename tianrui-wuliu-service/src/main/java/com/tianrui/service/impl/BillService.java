@@ -1326,6 +1326,7 @@ public class BillService implements IBillService{
 			req.setRecid(receiveUser.getId());
 			req.setRecname(receiveUser.getRealName());
 			req.setCodeEnum(codeEnum);
+			req.setRecType(codeEnum.getType());
 			//消息类别  系统 还是会员
 			req.setType("2");
 			//详情URI

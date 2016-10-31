@@ -21,6 +21,7 @@
     <result column="isreply" property="isreply" jdbcType="VARCHAR" />
     <result column="DESC1" property="desc1" jdbcType="VARCHAR" />
     <result column="uri" property="uri" jdbcType="VARCHAR" />
+    <result column="rectype" property="rectype" jdbcType="TINYINT" />
     <result column="DESC2" property="desc2" jdbcType="VARCHAR" />
     <result column="DESC3" property="desc3" jdbcType="VARCHAR" />
     <result column="DESC4" property="desc4" jdbcType="VARCHAR" />
@@ -45,13 +46,13 @@
       sendid, sendname, recid, 
       recname, sendtime, remark, 
       isreply, DESC1, DESC2, 
-      DESC3, DESC4,uri)
+      DESC3, DESC4,uri,rectype)
     values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{keyid,jdbcType=VARCHAR}, 
       #{sendid,jdbcType=VARCHAR}, #{sendname,jdbcType=VARCHAR}, #{recid,jdbcType=VARCHAR}, 
       #{recname,jdbcType=VARCHAR}, #{sendtime,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, 
       #{isreply,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
-      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},#{uri,jdbcType=VARCHAR})
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},#{uri,jdbcType=VARCHAR},#{rectype,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.Message" >
     insert into wuliu_message
