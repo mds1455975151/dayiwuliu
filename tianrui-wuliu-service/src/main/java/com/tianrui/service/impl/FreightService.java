@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.tianrui.api.intf.IFreightService;
 import com.tianrui.api.req.front.cargoplan.FreightReq;
 import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.front.cargoplan.FreightCRResp;
 import com.tianrui.api.resp.front.cargoplan.FreightResp;
 import com.tianrui.api.resp.front.cargoplan.FreightlistResp;
 import com.tianrui.api.resp.front.cargoplan.FreightsResp;
@@ -20,9 +21,13 @@ import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
+import com.tianrui.service.admin.bean.FileOrgCargo;
+import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.bean.Freight;
 import com.tianrui.service.admin.bean.FreightInfo;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
+import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
+import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.FreightInfoMapper;
 @Service
 public class FreightService implements IFreightService{
@@ -30,6 +35,10 @@ public class FreightService implements IFreightService{
 	private FileFreightMapper fileFreightMapper;
 	@Autowired
 	private FreightInfoMapper freightInfoMapper;
+	@Autowired
+	private FileOrgCargoMapper fileOrgCargoMapper;
+	@Autowired
+	private FileRouteMapper fileRouteMapper;
 	@Override
 	public List<FreightResp> findByEntity(FreightReq req) throws Exception{
 		FileFreight freight = new FileFreight();
@@ -209,5 +218,30 @@ public class FreightService implements IFreightService{
 			rs.setError("修改失败");
 		}
 		return rs;
+	}
+
+	@Override
+	public FreightCRResp findFCR(FreightReq req) throws Exception{
+		FreightCRResp resp = new FreightCRResp();
+		if(req != null){
+			FileFreight fileFreight = fileFreightMapper.selectByPrimaryKey(req.getId());
+			if(fileFreight != null){
+				PropertyUtils.copyProperties(resp, fileFreight);
+				FileOrgCargo cargo = fileOrgCargoMapper.selectByPrimaryKey(fileFreight.getCargoid());
+				if(cargo != null){
+					resp.setCargono(cargo.getCargono());
+					resp.setCargoname(cargo.getCargoname());
+				}
+				FileRoute route = fileRouteMapper.selectByPrimaryKey(fileFreight.getRouteid());
+				if(route != null){
+					resp.setOaddr(route.getOaddr());
+					resp.setDaddr(route.getDaddr());
+					resp.setDistance(route.getDistance());
+					resp.setSendpersion(route.getSendpersion());
+					resp.setReceivepersion(route.getReceivepersion());
+				}
+			}
+		}
+		return resp;
 	}
 }

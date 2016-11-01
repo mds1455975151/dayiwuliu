@@ -18,6 +18,7 @@ import com.tianrui.api.req.admin.FileOrgCargoReq;
 import com.tianrui.api.req.front.cargoplan.FreightReq;
 import com.tianrui.api.req.front.cargoplan.RouteReq;
 import com.tianrui.api.resp.admin.FileOrgCargoResp;
+import com.tianrui.api.resp.front.cargoplan.FreightCRResp;
 import com.tianrui.api.resp.front.cargoplan.FreightResp;
 import com.tianrui.api.resp.front.cargoplan.RouteResp;
 import com.tianrui.common.vo.AppParam;
@@ -49,6 +50,19 @@ public class AppFreightAction {
 	
 	@Autowired
 	protected IFreightService freightService;
+	
+	//查询运价策略货物路线信息
+	@RequestMapping(value="/findFCR",method=RequestMethod.POST)
+	@ApiParamRawType(FreightReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult findFCR(AppParam<FreightReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		FreightCRResp resp = freightService.findFCR(appParam.getBody());
+		appResult.setCode("000000");
+		appResult.setReturnData(resp);
+		return appResult;
+	}
 	
 	//查询货物信息
 	@RequestMapping(value="/cargo",method=RequestMethod.POST)

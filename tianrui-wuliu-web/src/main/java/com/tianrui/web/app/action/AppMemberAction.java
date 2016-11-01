@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.app.AppGetCodeReq;
 import com.tianrui.api.req.app.AppMemberReq;
@@ -18,6 +19,7 @@ import com.tianrui.api.req.app.AppMemberRoleReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
+import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
@@ -43,6 +45,9 @@ public class AppMemberAction {
 	CacheClient cache ;
 	@Autowired
 	private ISystemMemberService systemMemberService;
+	@Autowired
+	private IFileService iFileService;
+	
 	/**
 	 * 
 	 * @描述:移动APP登录
@@ -237,4 +242,102 @@ public class AppMemberAction {
 		appResult.setMessage(rs.getError());
 		return appResult;
 	}
+	
+	/**
+	 * 货主手机号验证码 验证
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/registerValid",method=RequestMethod.POST)
+	@ApiParamRawType(AppMemberReq.class)
+	@ResponseBody
+	public AppResult registerValid(AppParam<AppMemberReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		if(!"".equals(appParam.getBody().getAccount()) && MakePrimaryKey.isMobileNO(appParam.getBody().getAccount())){
+			MemberReq req =new MemberReq();
+			req.setTelnum(appParam.getBody().getAccount());
+			MemberResp member= systemMemberService.findMemberByTelnum(req);
+			if( member != null){
+				appResult.setCode("1");
+				appResult.setMessage("您输入的手机号已注册，请重新输入");
+			}else{
+				String key = CacheHelper.buildKey(CacheModule.REGISTER_APP, new String[]{"0",appParam.getBody().getAccount()});
+				UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
+				if(value!=null){
+					String validateCode=value.getUserCode()+"";
+					if(appParam.getBody().getAuthCode().equals(validateCode)){
+						cache.remove(key);
+						appResult.setCode("000000");
+						appResult.setMessage("验证通过");
+					}else{
+						appResult.setCode("3");
+						appResult.setMessage("您输入的验证码不正确，请重新输入");
+					}
+				}else{
+					appResult.setCode("3");
+					appResult.setMessage("您输入的验证码不正确，请重新输入");
+				}
+			}
+		}else{
+			appResult.setCode("2");
+			appResult.setMessage("您输入的手机号不正确，请重新输入");
+		}
+		logger.info(" register 返回 {}",JSON.toJSON(appResult));
+		return appResult;
+	}
+	
+	/**
+	 * 货主 注册
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/saveIdCard",method=RequestMethod.POST)
+	@ApiParamRawType(AppMemberReq.class)
+	@ResponseBody
+	public AppResult saveIdCard(AppParam<AppMemberReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		Result rs =Result.getSuccessResult();
+		if(!"".equals(appParam.getBody().getAccount()) && MakePrimaryKey.isMobileNO(appParam.getBody().getAccount())){
+			MemberReq req =new MemberReq();
+			req.setTelnum(appParam.getBody().getAccount());
+			MemberResp member= systemMemberService.findMemberByTelnum(req);
+			if( member != null){
+				rs.setCode("0");
+				rs.setError("您输入的手机号已注册，请重新输入");
+			}else{
+				MemberSaveReq memberSaveReq =new MemberSaveReq();
+				FileUploadReq upload = new FileUploadReq();
+				upload.setImgStr(appParam.getBody().getImgStr());
+				rs = iFileService.uploadImg(upload);
+				if(!StringUtils.equals(rs.getCode(), "000000")){
+					appResult.setCode(rs.getCode());
+					appResult.setMessage(rs.getError());
+					return appResult;
+				}
+				if(StringUtils.isNotBlank(String.valueOf(rs.getData()))){
+					memberSaveReq.setAvatarspath(rs.getData().toString());
+				}
+				memberSaveReq.setCellphone(appParam.getBody().getAccount());
+				memberSaveReq.setPassword(appParam.getBody().getPswdMd5());
+				memberSaveReq.setNickname(appParam.getBody().getNickname());
+				memberSaveReq.setStatus("1");
+				memberSaveReq.setPercheckstatus((short) 0);
+				memberSaveReq.setSourcetype((short) 0);
+				memberSaveReq.setRegisttime(DateUtil.getDateString());
+				systemMemberService.saveMember(memberSaveReq);
+				// TODO 会员注册缓存存储
+				member= systemMemberService.findMemberByTelnum(req);
+			}
+		}else {
+			rs.setCode("2");
+			rs.setError("您输入的手机号不正确，请重新输入");
+		}
+		logger.info(" register 返回 {}",JSON.toJSON(rs));
+		appResult.setCode(rs.getCode());
+		appResult.setMessage(rs.getError());
+		return appResult;
+	}
+	
 }

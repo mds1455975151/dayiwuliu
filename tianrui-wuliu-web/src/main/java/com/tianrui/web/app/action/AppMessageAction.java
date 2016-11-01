@@ -1,6 +1,7 @@
 package com.tianrui.web.app.action;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class AppMessageAction {
 	@Autowired
 	IMessageService messageService;
 
-	//获取承运计划列表
+	//消息列表
 	@RequestMapping(value="/page",method=RequestMethod.POST)
 	@ApiParamRawType(MessageQueryReq.class)
 	@ApiTokenValidation
@@ -49,6 +50,11 @@ public class AppMessageAction {
 		//拼装查询条件
 		MessageQueryReq query =appParam.getBody();	
 		query.setCurruId(uId);
+		if(StringUtils.equals("2", appParam.getHead().getAppIdCard())){
+			query.setRectype(2);
+		}else{
+			query.setRectype(1);
+		}
 		PaginationVO<MessageResp> page =messageService.page(query);
 		
 		appResult.setCode("000000");

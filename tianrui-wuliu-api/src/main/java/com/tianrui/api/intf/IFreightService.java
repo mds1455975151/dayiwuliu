@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.api.req.front.cargoplan.FreightReq;
 import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.front.cargoplan.FreightCRResp;
 import com.tianrui.api.resp.front.cargoplan.FreightResp;
 import com.tianrui.api.resp.front.cargoplan.FreightlistResp;
 import com.tianrui.api.resp.front.cargoplan.FreightsResp;
@@ -81,4 +82,6 @@ public interface IFreightService {
 	 * @创建时间 2016年7月20日上午9:34:46
 	 */
 	boolean batchUpdate(FreightReq req)throws Exception;
+
+	FreightCRResp findFCR(FreightReq req) throws Exception;
 }

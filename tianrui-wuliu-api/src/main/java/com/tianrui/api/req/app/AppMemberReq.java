@@ -15,6 +15,11 @@ public class AppMemberReq extends BaseReq{
 	private int loginType=0;
 	//默认为空  1为强制登录
 	private String loginMast;
+	//用户名
+	private String nickname;
+	//头像
+	private String imgStr;
+	
 	public String getAccount() {
 		return account;
 	}
@@ -44,6 +49,18 @@ public class AppMemberReq extends BaseReq{
 	}
 	public void setLoginMast(String loginMast) {
 		this.loginMast = loginMast;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getImgStr() {
+		return imgStr;
+	}
+	public void setImgStr(String imgStr) {
+		this.imgStr = imgStr;
 	}
 	
 }

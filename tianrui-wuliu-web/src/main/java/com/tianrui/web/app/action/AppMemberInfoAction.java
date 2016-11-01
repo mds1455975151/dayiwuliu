@@ -97,7 +97,6 @@ public class AppMemberInfoAction {
 				return AppResult.valueOf(result);
 			}
 		}
-		req.setIdcardsImagePath(result.getData().toString());
 		result= systemMemberInfoRecordService.personalAuthentication(req);
 		return AppResult.valueOf(result);
 	}

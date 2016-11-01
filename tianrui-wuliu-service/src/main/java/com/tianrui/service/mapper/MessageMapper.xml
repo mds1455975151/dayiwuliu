@@ -272,6 +272,12 @@
 	      <if test="isreply != null" >
 	        and isreply = #{isreply,jdbcType=VARCHAR}
 	      </if>
+          <if test="rectype == 1" >
+    		and rectype in (0,1,2)
+      	  </if>
+          <if test="rectype == 2" >
+    		and rectype in (0,3)
+      	  </if>
 	    </where> 
 	       order by status asc,sendtime desc
 	    <if test="start != null and start != '0'">
@@ -292,6 +298,12 @@
 	      <if test="status != null " >
 	        and status = #{status,jdbcType=VARCHAR} 
 	      </if>
+          <if test="rectype == 1" >
+    		and rectype in (0,1,2)
+      	  </if>
+          <if test="rectype == 2" >
+    		and rectype in (0,3)
+      	  </if>
 	    </where> 
    </select>
 </mapper>

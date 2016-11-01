@@ -36,6 +36,10 @@ public class MemberSaveReq extends BaseReq{
 	 */
 	private short sourcetype;
 	
+	private String nickname;
+	
+	private String avatarspath;
+	
 	public String getCellphone() {
 		return cellphone;
 	}
@@ -77,6 +81,18 @@ public class MemberSaveReq extends BaseReq{
 	}
 	public void setSourcetype(short sourcetype) {
 		this.sourcetype = sourcetype;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getAvatarspath() {
+		return avatarspath;
+	}
+	public void setAvatarspath(String avatarspath) {
+		this.avatarspath = avatarspath;
 	}
 	
 }

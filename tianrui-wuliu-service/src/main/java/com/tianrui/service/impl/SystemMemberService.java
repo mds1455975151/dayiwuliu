@@ -37,9 +37,7 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
-import com.tianrui.service.admin.bean.FileOrg;
 import com.tianrui.service.admin.bean.Members;
-import com.tianrui.service.admin.mapper.FileOrgMapper;
 import com.tianrui.service.bean.MemberFind;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
@@ -130,6 +128,8 @@ public class SystemMemberService implements ISystemMemberService{
 		member.setCompanypercheck(req.getPercheckstatus());
 		member.setSourcetype(req.getSourcetype());
 		member.setRegisttime(new Date().getTime());
+		member.setNickname(req.getNickname());
+		member.setAvatarspath(req.getAvatarspath());
 		return member;
 	}
 	/**

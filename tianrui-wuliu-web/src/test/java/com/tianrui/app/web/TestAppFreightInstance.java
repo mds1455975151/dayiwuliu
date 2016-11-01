@@ -8,7 +8,7 @@ import com.tianrui.api.req.front.cargoplan.RouteReq;
 public class TestAppFreightInstance {
 
 	private String id = "3fe63075979d451e8e4095ad8e697e4f";
-	private String tokenId = "8a3aec9cedfb448b975133888b9adef5";
+	private String tokenId = "ea11ff8ac8b148bcb327901964864493";
 	private String tel = "15234567891";
 	
 	public static void main(String[] args) {
@@ -20,7 +20,19 @@ public class TestAppFreightInstance {
 		//查询运价策略
 //		t.freight();
 		//查询运价策略有效性
-		t.validForFreight();
+//		t.validForFreight();
+		//查询运价策略货物路线信息
+		t.findFCR();
+	}
+	
+	private void findFCR(){
+		try {
+			FreightReq req = new FreightReq();
+			req.setId("3af78019f9b2418897ca9f9df1a65830");
+			TestAppConnection.queryParams("/app/freight/findFCR", id, tokenId, tel, req);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void validForFreight(){
