@@ -4,6 +4,7 @@ function shenheCar(type){
     var massage = $("#massage").val();
     var statue = $("#statue").val();
     var memberid = $("#memberid").val();
+    var pageNo = $("#pageNo").val();
     if(statue!="2"){
     	alert("非认证中用户不得修改");
 		return;
@@ -22,7 +23,7 @@ function shenheCar(type){
 		type:"post",
 		success: function(ret){
 			if(ret.code=="000000"){
-				window.location.href="/AdminMember/carManager?menuId=3";
+				window.location.href="/AdminMember/carManager?menuId=3&pageNo="+pageNo;
 			}else{
 				alert(ret.error);
 			}

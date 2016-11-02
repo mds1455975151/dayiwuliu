@@ -25,9 +25,9 @@
             <label>货源总量</label>
             <div class="data_roadshow">
                 <span>总量</span>
-                <img src="images/roadlan.png">
+                <img src="${trRoot}/tianrui/images/roadlan.png">
                 <span>新增</span>
-                <img src="images/roadlv.png">
+                <img src="${trRoot}/tianrui/images/roadlv.png">
             </div>
         </div>
         <div class="data_roadall">
@@ -80,60 +80,8 @@
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
+<script type="text/javascript" src="/resources/js/count/plan.js"></script>
 
-<script>
-    $(document).ready(function(){
-        $('#container').highcharts({
-            chart: {
-                type: 'areaspline'
-            },
-            title: {
-                text: ' '
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 50,
-                y: 0,
-                floating: true,
-                borderWidth: 1,
-            },
-            xAxis: {
-                categories: ["11月28","11月29","11月30","12月01","12月01","12月01","12月01"],
-            },
-            yAxis: {
-                title: {
-                    text: ' '
-                }
-            },
-            tooltip: {
-                shared: true,
-                valueSuffix: ' 吨'
-            },
-            credits: {
-                enabled: false
-            },
-            plotOptions: {
-                areaspline: {
-                    fillOpacity: 0.5
-                }
-            },
-            series: [{
-                name: '总量',
-                data: [1, 30, 4,180, 3, 5, 400],
-                color: "rgba(59,186,236,1)",
-
-
-            }, {
-                name: '新增',
-                data: [300, 40, 3, 50, 4, 500, 120],
-                color: "rgba(175,216,94,1)"
-            }]
-        });
-
-    });
-</script>
 
 </body>
 </html>

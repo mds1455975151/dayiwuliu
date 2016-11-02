@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>index</title>
+    <title>vehicle</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -26,9 +26,9 @@
             <label>车辆总数</label>
             <div class="data_roadshow">
                 <span>新增车辆</span>
-                <img src="images/roadlan.png">
+                <img src="${trRoot}/tianrui/images/roadlan.png">
                 <span>活跃车辆</span>
-                <img src="images/roadred.png">
+                <img src="${trRoot}/tianrui/images/roadred.png">
             </div>
         </div>
         <div class="data_roadall">
@@ -84,99 +84,12 @@
 <script src="${trRoot}/tianrui/js/highcharts-map.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
-<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
+<script type="text/javascript" src="/resources/js/count/vehicle.js"></script>
 <script>
     $(document).ready(function(){
         //折线图
-
-        $('#line2').highcharts({
-            chart: {
-                type: 'areaspline'
-            },
-            title: {
-                text: ' '
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 50,
-                y: 0,
-                floating: true,
-                borderWidth: 1,
-            },
-            xAxis: {
-                categories: ["11月28","11月29","11月30","12月01","12月01","12月01","12月01"],
-            },
-            yAxis: {
-                title: {
-                    text: ' '
-                }
-            },
-            tooltip: {
-                shared: true,
-                valueSuffix: ' 趟'
-            },
-            credits: {
-                enabled: false
-            },
-            plotOptions: {
-                areaspline: {
-                    fillOpacity: 0.5
-                }
-            },
-            series: [{
-                name: '新增',
-                data: [1, 30, 4,180, 3, 5, 400],
-                color: "rgba(59,186,236,1)"
-
-            }, {
-                name: '活跃',
-                data: [300, 40, 3, 50, 4, 500, 120],
-                color: "rgba(255,82,78,1)",
-            }]
-        });
-        // 饼图
-        $('#mypie').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: ' '
-            },
-            tooltip: {
-                pointFormat: ' '
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}({point.percentage:.0f}%)',
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                    name: '新增',
-                    y: 50.33,  //新增的总数量
-                    color: "rgba(59,186,236,1)"
-                }, {
-                    name: '活跃',
-                    y: 50,  //活跃的总数量
-                    color: "rgba(255,82,78,1)",
-                }]
-            }]
-        });
+        
+        
     });
 </script>
 

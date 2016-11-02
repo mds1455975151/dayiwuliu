@@ -19,7 +19,7 @@ public class CountAddResp {
     
 	public String getShowtimeStr() {
 		if(showtime!=null){
-			showtimeStr = new SimpleDateFormat("MM-dd").format(new Date(showtime));
+			showtimeStr = new SimpleDateFormat("MM月dd日").format(new Date(showtime));
 		}
 		return showtimeStr;
 	}

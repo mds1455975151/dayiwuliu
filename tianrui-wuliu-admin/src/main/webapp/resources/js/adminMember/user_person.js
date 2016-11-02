@@ -1,8 +1,19 @@
 var list;
 function searchSubmit(){
-	displayData(0);
+	displayRect(0);
 }
+
 function displayData(pageNo){
+	var page = $("#recPageNo").val();
+	if(page == ""){
+		displayRect(pageNo);
+	}else{
+		displayRect(page-1);
+		$("#recPageNo").val("")
+	}
+}
+
+function displayRect(pageNo){
 	var menuId = $("#menuId").val();
 	var userName = $("#userName").val();//用户名称
 	var cellPhone = $("#cellPhone").val();//登陆账号
@@ -12,13 +23,13 @@ function displayData(pageNo){
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findMemberList',
-		data:{"userName":userName,
-			"companyName":userName,
-			"cellPhone":cellPhone,
-			"status":status,
-			"personalType":personalType,
-			"userpercheck":perCheckStatus,
-			"companypercheck":perCheckStatus,
+		data:{"userName":$.trim(userName),
+			"companyName":$.trim(userName),
+			"cellPhone":$.trim(cellPhone),
+			"status":$.trim(status),
+			"personalType":$.trim(personalType),
+			"userpercheck":$.trim(perCheckStatus),
+			"companypercheck":$.trim(perCheckStatus),
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -114,7 +125,7 @@ function displayData(pageNo){
 								hml += "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";
 							}
 							if(data[a].companypercheck=='2'||data[a].userpercheck=='2'){
-								hml += "<span><a onclick=\"shenHe('"+data[a].id+"','2','"+menuId+"')\">【审核】</a></span>";
+								hml += "<span><a onclick=\"shenHe('"+data[a].id+"','2','"+menuId+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#qiyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
@@ -196,12 +207,12 @@ function getType(id,status){
 		});
   }
   //会员审核
-  function shenHe(id,stat,mendId){
+  function shenHe(id,stat,mendId,pageNo){
 		  if(stat!=2){
 	  		alert("该用户暂无认证信息");
 		return;
 	}
-	window.location.href=CONTEXTPATH+"/AdminMember/userShenhe?menuId="+mendId+"&id="+id;
+	window.location.href=CONTEXTPATH+"/AdminMember/userShenhe?menuId="+mendId+"&id="+id+"&pageNo="+pageNo;
   }
   
   //清空数据

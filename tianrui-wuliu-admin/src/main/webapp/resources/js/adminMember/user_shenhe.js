@@ -22,7 +22,7 @@ function adminReview(rtype){
 		type:"post",
 		success: function(retVal) {
 			if(retVal.code=="000000"){
-				window.location.href="/AdminMember/userPerson?menuId=3";
+				window.location.href="/AdminMember/userPerson?menuId=3&pageNo="+$("#pageNo").val();
 			}else{
 				alert(retVal.error);
 			}

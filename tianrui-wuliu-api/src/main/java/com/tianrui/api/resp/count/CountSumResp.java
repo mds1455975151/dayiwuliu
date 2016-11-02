@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.count;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CountSumResp {
 	private String id;
 
@@ -10,6 +13,20 @@ public class CountSumResp {
     private Double sumdate;
 
     private Long showtime;
+    
+    private String showtimeStr;
+
+    
+	public String getShowtimeStr() {
+		if(showtime != null){
+			showtimeStr = new SimpleDateFormat("MM月dd日").format(new Date(showtime));
+		}
+		return showtimeStr;
+	}
+
+	public void setShowtimeStr(String showtimeStr) {
+		this.showtimeStr = showtimeStr;
+	}
 
 	public String getId() {
 		return id;

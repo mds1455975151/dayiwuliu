@@ -83,43 +83,6 @@
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
-<script>
-    $(document).ready(function () {
-        //柱状图
-        $('#container').highcharts({
-            title: {
-                text: ' ' //置空
-            },
-            xAxis: {
-                categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
-            },
-            yAxis: {
-                title: {
-                    text: ' ' //置空
-                }
-            },
-            legend: {
-                enabled:false
-            },
-            series: [{
-                type: 'column',
-                name: '运费',
-                data: [30, 2, 18, 3, 4,20,80,30,60,12,77,66]  //柱状图的值
-            }]
-        });
-
-        // 控制消息标题的长度，多出的用省略号标示
-        $(".data_yfright ul li").each(function(){
-            //字符个数
-            var maxwidth=26;
-            var contr = $(this).find("label");
-            if($(contr).text().length>maxwidth){
-                $(contr).text($(contr).text().substring(0,maxwidth));
-                $(contr).html($(contr).html()+".....");
-            }
-        });
-    });
-</script>
-
+<script type="text/javascript" src="/resources/js/count/pay.js"></script>
 </body>
 </html>

@@ -93,7 +93,8 @@
 <script src="${trRoot}/tianrui/js/highcharts-map.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
-<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/highcharts-cn-china.js" charset="utf-8"></script>
+
 <script>
 $(function () {
     Highcharts.setOptions({
@@ -109,12 +110,6 @@ $(function () {
         this.drilldown = this.properties['drill-key'];
         this.value = i;
     });
-    function getPoint(e){
-        console.log(e.point.name);
-    }
-    function getShow(e){
-        alert(1);
-    }
     //初始化地图
     $('#container').highcharts('Map', {
 
@@ -126,55 +121,9 @@ $(function () {
 
                     if (!e.seriesOptions) {
                         var chart = this;
-                        /*   mapKey = 'countries/china/' + e.point.drilldown + '-all',
-                         fail = setTimeout(function () {
-                         if (!Highcharts.maps[mapKey]) {
-                         chart.showLoading('<i class="icon-frown"></i> 加载失败 ' + e.point.name);
-
-                         fail = setTimeout(function () {
-                         chart.hideLoading();
-                         }, 1000);
-                         }
-                         }, 10000);*/
                         var cname=e.point.properties["cn-name"];
-                        chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>');
+                        //chart.showLoading('<i class="icon-spinner icon-spin icon-3x"></i>');
                         // 加载城市数据
-                        $.ajax({
-                            type: "GET",
-                            url: "http://data.hcharts.cn/jsonp.php?filename=GeoMap/json/"+ e.point.drilldown+".geo.json",
-                            contentType: "application/json; charset=utf-8",
-                            dataType:'jsonp',
-                            crossDomain: true,
-                            success: function(json) {
-                                data = Highcharts.geojson(json);
-
-                                $.each(data, function (i) {
-
-                                    this.value = i;
-                                    this.events={};
-                                    this.events.click=getPoint;
-
-                                });
-                                chart.hideLoading();
-
-                                chart.addSeriesAsDrilldown(e.point, {
-                                    name: e.point.name,
-                                    data: data,
-                                    events:{
-                                        show:function(){
-                                            alert(1);
-                                        }
-                                    },
-                                    dataLabels: {
-                                        enabled: true,
-                                        format: '{point.name}'
-                                    }
-                                });
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                            }
-                        });
                     }
 
 
@@ -194,7 +143,6 @@ $(function () {
                 }else{
                     htm+=this.point.name;
                 }
-                htm+=":"+this.point.value;
                 return htm;
 
             }
@@ -218,14 +166,10 @@ $(function () {
         },
 
         legend: small ? {} : {
-            // enabled: false,
             layout: 'vertical',
             align: 'right',
             verticalAlign: 'middle'
         },
-        //tooltip:{
-        //pointFormat:"{point.properties.cn-name}:{point.value}"
-        //},
         colorAxis: {
             min: 0,
             minColor: '#f7f7f7',
@@ -281,77 +225,7 @@ $(function () {
     });
 });
 
-var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-var base64DecodeChars = new Array(
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
-        52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1,
-        -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
-        15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
-        -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-        41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
 
-
-function base64decode(str) {
-    var c1, c2, c3, c4;
-    var i, len, out;
-
-    len = str.length;
-    i = 0;
-    out = "";
-    while(i < len) {
-        /* c1 */
-        do {
-            c1 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
-        } while(i < len && c1 == -1);
-        if(c1 == -1)
-            break;
-
-        /* c2 */
-        do {
-            c2 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
-        } while(i < len && c2 == -1);
-        if(c2 == -1)
-            break;
-
-        out += String.fromCharCode((c1 << 2) | ((c2 & 0x30) >> 4));
-
-        /* c3 */
-        do {
-            c3 = str.charCodeAt(i++) & 0xff;
-            if(c3 == 61)
-                return out;
-            c3 = base64DecodeChars[c3];
-        } while(i < len && c3 == -1);
-        if(c3 == -1)
-            break;
-
-        out += String.fromCharCode(((c2 & 0XF) << 4) | ((c3 & 0x3C) >> 2));
-
-        /* c4 */
-        do {
-            c4 = str.charCodeAt(i++) & 0xff;
-            if(c4 == 61)
-                return out;
-            c4 = base64DecodeChars[c4];
-        } while(i < len && c4 == -1);
-        if(c4 == -1)
-            break;
-        out += String.fromCharCode(((c3 & 0x03) << 6) | c4);
-    }
-    return out;
-}
-function goHome(){
-    window.open("http://www.peng8.net/");
-}
-function getGithub()
-{
-    $.getJSON("https://api.github.com/repos/peng8/GeoMap/contents/json/bei_jing.geo.json", function(data){
-        console.log(base64decode(data.content));
-    });
-
-}
 </script>
 
 </body>

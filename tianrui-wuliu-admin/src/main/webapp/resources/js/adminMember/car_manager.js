@@ -1,8 +1,17 @@
 
 function loadSearch(){
-	displayData(0);
+	displayRec(0);
 }
-function displayData(pageNo){
+function displayData(d){
+	var recPage = $("#recPage").val();
+	if(recPage==""){
+		displayRec(d);
+	}else{
+		displayRec(recPage-1);
+		$("#recPage").val("");
+	}
+}
+function displayRec(pageNo){
 	var prefix = $("#prefix").val();
 	var vehicleno = $("#vehicleno").val();
 	var userName = $("#userName").val();
@@ -12,12 +21,12 @@ function displayData(pageNo){
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCarManager',
-		data:{"vehicleprefix":prefix,
-			"vehicleno":vehicleno,
-			"userName":userName,
-			"telphone":telphone,
-			"ownername":ownername,
-			"ownerphone":ownerphone,
+		data:{"vehicleprefix":$.trim(prefix),
+			"vehicleno":$.trim(vehicleno),
+			"userName":$.trim(userName),
+			"telphone":$.trim(telphone),
+			"ownername":$.trim(ownername),
+			"ownerphone":$.trim(ownerphone),
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -103,7 +112,7 @@ function displayData(pageNo){
 							"<td>"+d[a].createtimeStr+"</td>"+
 							"<td><span><a data-toggle='modal' onclick=\"details('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";
 							if(d[a].status=="2"){
-								hml += "<span><a  onclick=\"shenhe('"+d[a].id+"')\">【审核】</a></span>";
+								hml += "<span><a  onclick=\"shenhe('"+d[a].id+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
 							if(d[a].status=="1"){
 								hml += "<span><a data-toggle='modal' onclick=\"uptDetails('"+d[a].id+"')\" data-target='#updateDeatil'>【修改】</a></span>";
@@ -146,9 +155,9 @@ function clearSearch(){
 /**
  * 审核页面跳转
  */
-function shenhe(id){
+function shenhe(id,pageNo){
 	var menuId = $("#menuId").val();
-	window.location.href =CONTEXTPATH+"/AdminMember/carShenhe?menuId="+menuId+"&id="+id;
+	window.location.href =CONTEXTPATH+"/AdminMember/carShenhe?menuId="+menuId+"&id="+id+"&pageNo="+pageNo;
 }
 /**
  * 查询详情

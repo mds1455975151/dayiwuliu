@@ -4,9 +4,19 @@ var list;
  * 初始化查询
  */
 function driverSearch(){
-	displayData(0);
+	displayRect(0);
 }
+
 function displayData(pageNo){
+	var page = $("#recPageNo").val();
+	if(page != ""){
+		displayRect(page-1);
+		$("#recPageNo").val("");
+	}else{
+		displayRect(pageNo);
+	}
+}
+function displayRect(pageNo){
 	var userName = $("#username").val();
 	var cellPhone = $("#cellphone").val();
 	var status = $("#status").val();
@@ -31,8 +41,8 @@ function displayData(pageNo){
 	
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findDriverMember',
-		data:{"userName":userName,
-			"cellPhone":cellPhone,
+		data:{"userName":$.trim(userName),
+			"cellPhone":$.trim(cellPhone),
 			"status":status,
 			"registtimeForStr":registtimeFor,
 			"registtimeEndStr":registtimeEnd,
@@ -118,7 +128,7 @@ function displayData(pageNo){
 								hml += "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";
 							}
 							if(data[a].driverpercheck=="2"){
-								hml += "<span><a onclick=\"driverShenhe('"+data[a].id+"','"+data[a].driverpercheck+"')\">【审核】</a></span>";
+								hml += "<span><a onclick=\"driverShenhe('"+data[a].id+"','"+data[a].driverpercheck+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
@@ -276,11 +286,11 @@ function changeType(){
  * @param id
  * @param per
  */
-function driverShenhe(id,stat){
+function driverShenhe(id,stat,pageNo){
 	var mendId = $("#menuId").val();
 	if(stat!=2){
   		alert("该用户暂无认证信息");
   		return;
   	}
-	window.location.href=CONTEXTPATH+"/AdminMember/driverShenhe?menuId="+mendId+"&id="+id;
+	window.location.href=CONTEXTPATH+"/AdminMember/driverShenhe?menuId="+mendId+"&id="+id+"&pageNo="+pageNo;
 }

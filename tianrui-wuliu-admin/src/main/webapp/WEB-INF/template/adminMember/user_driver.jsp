@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 <div class="container-fluid">
+	<input type="hidden" id="recPageNo" value="${pageNo }">
     <!--公共头部begin-->
     <jsp:include page="../common/header.jsp" flush="false"></jsp:include>
      <!--后台左侧布局end-->
@@ -261,7 +262,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?11.2" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

@@ -67,7 +67,7 @@ public class MessageService implements IMessageService {
 		message.setRecname(req.getRecname());
 		message.setUri(req.getURI());
 		message.setType(req.getType());
-		message.setRectype(req.getCodeEnum().getCode());
+		message.setRectype(req.getCodeEnum().getType());
 		String content =MessageUtils.getMsgText(req.getParams(), req.getCodeEnum().getDesc());
 		if( StringUtils.isNotBlank(content) ){
 			message.setContent(content);

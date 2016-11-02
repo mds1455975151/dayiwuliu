@@ -109,7 +109,7 @@
    		wuliu_bill 
 	<where>
 		<if test="status != null and status != ''">
-	   		and STATUS = #{status,jdbcType=VARCHAR}
+	   		and STATUS in (${status})
 		</if>
 		<if test="selecttime != null and selecttime != ''">
 			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
@@ -132,14 +132,18 @@
    	</where>
   </select>
   
-  <select id="selectPayAdd" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
-    select 
-    from member m
-   	LEFT JOIN member_info f ON f.memberId = m.ID 
-   	<where> 1=1
-   	  <if test="userType == 0">
-   	  	and m.driverpercheck = '0'
-   	  </if>
+  <select id="selectPayAdd" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+    SELECT 
+   		SUM(bill_total_price) 
+	FROM 
+		pay_invoice_detail 
+   	<where> 
+   	 	<if test="status != null and status != ''">
+	   		and STATUS = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if>
    	</where>
   </select>
 </mapper>

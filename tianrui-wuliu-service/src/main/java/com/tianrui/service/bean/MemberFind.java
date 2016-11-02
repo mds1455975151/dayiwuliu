@@ -21,6 +21,9 @@ public class MemberFind implements IModel{
 	 * 公司名称
 	 */
 	private String companyName;
+	/** 运力类型*/
+	private String capaType;
+	
 	/**
 	 * 会员状态
 	 */
@@ -96,9 +99,16 @@ public class MemberFind implements IModel{
 	public void setPersonalType(String personalType) {
 		this.personalType = personalType;
 	}
+	public String getCapaType() {
+		return capaType;
+	}
+	public void setCapaType(String capaType) {
+		this.capaType = capaType;
+	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+	
 	public Short getUserpercheck() {
 		return userpercheck;
 	}

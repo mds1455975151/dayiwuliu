@@ -118,11 +118,12 @@ public class AdminMemberAction {
 	 * @创建时间 2016年6月1日下午4:30:25
 	 */
 	@RequestMapping("/driverShenhe")
-	public ModelAndView driverShenhe(String id) throws Exception{
+	public ModelAndView driverShenhe(String id,String pageNo) throws Exception{
 //		MemberInfoResp resp = infoService.findByMemberId(id);
 		MemberInfoRecordResp resp = systemMemberInfoRecordService.findByMemberId(id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberInfo", resp);
+		mav.addObject("pageNo", pageNo);
 		mav.setViewName("/adminMember/user_driversh");
 		return mav;
 
@@ -138,10 +139,11 @@ public class AdminMemberAction {
 	 * @创建时间 2016年6月4日下午4:28:28
 	 */
 	@RequestMapping("/carShenhe")
-	public ModelAndView carShenhe(String id) throws Exception{
+	public ModelAndView carShenhe(String id,String pageNo) throws Exception{
 		MyVehicleResp veh = vehicleService.findById(id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("Vehicle", veh);
+		mav.addObject("pageNo", pageNo);
 		mav.setViewName("/adminMember/car_shenhe");
 		return mav;
 	}
@@ -155,9 +157,10 @@ public class AdminMemberAction {
 	 * @创建时间 2016年6月4日上午9:10:20
 	 */
 	@RequestMapping("/carManager")
-	public ModelAndView carManager() throws Exception{
+	public ModelAndView carManager(String pageNo) throws Exception{
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/adminMember/car_manager");
+		view.addObject("pageNo", pageNo);
 		return view;
 	}
 	
@@ -171,12 +174,13 @@ public class AdminMemberAction {
 	 * @创建时间 2016年5月31日下午5:02:21
 	 */
 	@RequestMapping("/userDriver")
-	public ModelAndView userDriver() throws Exception{
+	public ModelAndView userDriver(String pageNo) throws Exception{
 		ModelAndView view = new ModelAndView();
 		DataDictReq dreq = new DataDictReq();
 		dreq.setSubCode("perchstatus");
 		List<DataDictResp> perchstatus = dataDict.findDictList(dreq);
 		view.addObject("perchstatus",perchstatus);
+		view.addObject("pageNo",pageNo);
 		view.setViewName("/adminMember/user_driver");
 		return view;
 	}
@@ -190,10 +194,11 @@ public class AdminMemberAction {
 	 * @创建时间 2016年4月28日上午10:26:05
 	 */
 	@RequestMapping("/userShenhe")
-	public ModelAndView userShenhe(String id) throws Exception{
+	public ModelAndView userShenhe(String id,String pageNo) throws Exception{
 		MemberInfoRecordResp resp = systemMemberInfoRecordService.findByMemberId(id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberInfo", resp);
+		mav.addObject("pageNo", pageNo);
 		mav.setViewName("/adminMember/user_shenhe");
 		return mav;
 	}
@@ -207,7 +212,7 @@ public class AdminMemberAction {
 	 * @创建时间 2016年4月28日上午10:23:31
 	 */
 	@RequestMapping("/userPerson")
-	public ModelAndView userPerson() throws Exception{
+	public ModelAndView userPerson(String pageNo) throws Exception{
 		
 		DataDictReq dreq = new DataDictReq();
 		dreq.setSubCode("status");
@@ -227,6 +232,7 @@ public class AdminMemberAction {
 		view.addObject("usertype",usertype);
 		view.addObject("perchstatus",perchstatus);
 		view.addObject("sourcetype",sourcetype);
+		view.addObject("pageNo",pageNo);
 		view.setViewName("/adminMember/user_person");
 		return view;
 	}

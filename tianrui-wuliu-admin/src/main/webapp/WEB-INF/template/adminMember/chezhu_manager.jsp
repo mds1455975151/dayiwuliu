@@ -42,9 +42,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="ht_div">
                                     <label>车主类别：</label>
                                     <select id="personalType" class="form-control">
-                                        <option value="">请选择</option>
-                                        <option value="1">企业用户</option>
-                                        <option value="2">个人用户</option>
+                                        <option value="0">请选择</option>
+                                        <option value="1">调用运力车主</option>
+                                        <option value="2">自有运力车主</option>
+                                        <option value="3">委派运力车主</option>
                                     </select>
                                 </div>
                                 <div class="ht_div">
@@ -330,7 +331,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/adminMember/chezhu_manager.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/chezhu_manager.js?11.2" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

@@ -41,7 +41,7 @@ public class CountService implements ICountService{
 		PropertyUtils.copyProperties(s, count);
 		
 		//查询路线总数
-		long route = countSelectMapper.selectRouteCount(null);
+		long route = countSelectMapper.selectRouteCount(s);
 		routeCountSave(route,time);
 		
 		//查询货物量
@@ -253,7 +253,37 @@ public class CountService implements ICountService{
 		CountSelect vehcile= countSelectMapper.selectVehicleCount(s);
 		vehicleAddSave(vehcile,time);
 		logger.info("车辆总数"+vehcile.toString());
+		//新增运费
+		long pay = countSelectMapper.selectPayAdd(s);
+		payAddSave(pay,time);
+		logger.info("新增运费"+pay);
 	}
+	
+	public void payAddSave(long pay,long time){
+		//1-路线，2货运总量，3-车辆总数，4-交易总量，5-运费总额
+		CountAdd add = new CountAdd();
+		add.setType("5");
+		add.setShowtime(time);
+		List<CountAdd> list =  countAddMapper.selectByCondition(add);
+		if(list.size()==0){
+			CountAdd c = new CountAdd();
+			c.setId(UUIDUtil.getId());
+			c.setType("5");
+			c.setAdddate((double)pay);
+			c.setShowtime(time);
+			c.setCreatetime(System.currentTimeMillis());
+			countAddMapper.insertSelective(c);
+		}else{
+			for(CountAdd d : list){
+				d.setType("5");
+				d.setAdddate((double)pay);
+				d.setShowtime(time);
+				d.setModifytime(System.currentTimeMillis());
+				countAddMapper.updateByPrimaryKeySelective(d);
+			}
+		}
+	}
+	
 	/**交易量：当日卸货完成运单数*/
 	public void billAddSave(long bill,long time){
 		//1-路线，2货运总量，3-车辆总数，4-交易总量，5-运费总额
@@ -374,6 +404,8 @@ public class CountService implements ICountService{
 		// TODO Auto-generated method stub
 		CountSelect s = new CountSelect();
 		PropertyUtils.copyProperties(s, count);
+		s.setStatus("5,6");
+		s.setSelecttime(getDay());
 		long c = countSelectMapper.selectBillCount(s);
 		billAddSave(c, getDay());
 		logger.info("每日运单量="+c);

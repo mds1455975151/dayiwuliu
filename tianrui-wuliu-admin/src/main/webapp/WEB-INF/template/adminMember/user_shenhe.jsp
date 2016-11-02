@@ -22,6 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div class="container-fluid">
+   	<input type="hidden" id="pageNo" value="${pageNo }">
     <!--公共头部begin-->
     		<jsp:include page="../common/header.jsp" flush="false"></jsp:include>
     <!--后台左侧布局end-->
@@ -163,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  var CONTEXTPATH="${contextPath}";
 </script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_shenhe.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_shenhe.js?11.2" ></script>
 
 </body>
 </html>

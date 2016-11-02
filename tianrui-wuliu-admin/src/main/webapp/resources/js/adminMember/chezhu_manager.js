@@ -14,6 +14,7 @@ function displayData(pageNo){
 	var submitdateEnd = $("#subtimeend").val();
 	var personalType = $("#personalType").val();//2-个人账户， 1-企业账户 
 	var pageSize=$("#pageSize").val();
+	
 	if(submitdateFor!=""&& submitdateEnd!=""){
 		if(submitdateFor>submitdateEnd){
 			alert("请选择正确时间段");
@@ -22,11 +23,11 @@ function displayData(pageNo){
 	}
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findDriverOwner',
-		data:{"userName":userName,
-			"cellPhone":cellPhone,
+		data:{"userName":$.trim(userName),
+			"cellPhone":$.trim(cellPhone),
 			"submitdateForStr":submitdateFor,
 			"submitdateEndStr":submitdateEnd,
-			"personalType":personalType,
+			"capaType":$.trim(personalType),
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},

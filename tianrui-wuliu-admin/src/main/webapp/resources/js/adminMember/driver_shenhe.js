@@ -1,6 +1,7 @@
 function adminReview(rtype){
  	var mid = document.getElementById("infoid").value;
  	var massage = document.getElementById("massages").value;
+ 	var pageNo = $("#pageNo").val();
  	if(rtype==3){
  		if(massage==""){
  			alert("请输入不通过原因");
@@ -13,7 +14,7 @@ function adminReview(rtype){
 		type:"post",
 		success: function(retVal) {
 			if(retVal.code=="000000"){
-				window.location.href="/AdminMember/userDriver?menuId=3";
+				window.location.href="/AdminMember/userDriver?menuId=3&pageNo="+pageNo;
 			}else{
 				alert(retVal.error);
 			}

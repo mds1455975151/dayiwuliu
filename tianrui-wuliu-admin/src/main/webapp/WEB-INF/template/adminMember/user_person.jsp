@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 <div class="container-fluid">
+    <input type="hidden" id="recPageNo" value="${pageNo }">
     <!--公共头部begin-->
     <jsp:include page="../common/header.jsp" flush="false"></jsp:include>
      <!--后台左侧布局end-->
@@ -64,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="">请选择</option>
                                             <option value="2">认证中</option>
                                             <option value="3">认证失败</option>
-                                            <option value="1">认证成功</option>
+                                            <option value="1">认证通过</option>
                                         </select>
                                     </div>
                                 <div class="contuser_search">
@@ -232,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?22" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?11.2" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

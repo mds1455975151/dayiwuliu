@@ -1,11 +1,11 @@
-var time = [];
-var data = [];
 $(document).ready(function(){
 	$.ajax({
 		url : "/count/billLine",//
 		data : {},
 		type : "post",
 		success : function(rs){
+			var time = [];
+			var data = [];
 			if(rs.code=="000000"){
 				var ret = rs.data;
 				time = [];

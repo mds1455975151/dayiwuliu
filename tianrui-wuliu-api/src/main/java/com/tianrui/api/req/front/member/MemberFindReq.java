@@ -18,6 +18,9 @@ public class MemberFindReq extends BaseReq{
 	 * 公司名称
 	 */
 	private String companyName;
+	/** 运力类型*/
+	private String capaType;
+	
 	/**
 	 * 会员状态
 	 */
@@ -104,6 +107,12 @@ public class MemberFindReq extends BaseReq{
 		return registtimeEnd;
 	}
 
+	public String getCapaType() {
+		return capaType;
+	}
+	public void setCapaType(String capaType) {
+		this.capaType = capaType;
+	}
 	public Long getSubmitdateFor() throws ParseException {
 		if(StringUtils.isNotBlank(submitdateForStr)){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

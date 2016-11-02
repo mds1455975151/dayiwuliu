@@ -216,7 +216,6 @@ public class PayInvoiceService implements IPayInvoiceService {
 
 	@Override
 	public Result PayNcSave(PayInvoiceReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		PayInvoice invoice = payInvoiceMapper.selectByPrimaryKey(req.getId());
 		if(!req.getCurruId().equals(invoice.getCreator())){
@@ -228,7 +227,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}else{
 			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
 			invoice.setOrgid(org.getOrganizationno());
-//			invoice.setVenderCode("410482199012015570");
+			invoice.setVenderCode("410482569829868");
 			String dataString = "payInvoice=" + JSON.toJSON(invoice).toString();
 			String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
 			if(dateStr.equals("000000")){
@@ -279,7 +278,6 @@ public class PayInvoiceService implements IPayInvoiceService {
 
 	@Override
 	public void queryNCPayStatus(PayInvoiceQueryReq req) throws Exception {
-		// TODO Auto-generated method stub
 		PayInvoice query = copyQuery(req);
 		List<PayInvoice> list =payInvoiceMapper.selectByCondition(query);
 		String dataString = "payInvoiceids=";

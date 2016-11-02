@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 <div class="container-fluid">
+   <input type="hidden" id="pageNo" value="${pageNo }">
    <!--公共头部begin-->
     <jsp:include page="../common/header.jsp" flush="false"></jsp:include>
      <!--后台左侧布局end-->
@@ -151,6 +152,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     var CONTEXTPATH="${contextPath}";
 </script>
-<script type="text/javascript" src="/resources/js/adminMember/driver_shenhe.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/driver_shenhe.js?11.22" ></script>
 </body>
 </html>
