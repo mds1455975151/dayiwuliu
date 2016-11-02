@@ -158,20 +158,6 @@
 											</td>
 										</tr>
 									</tbody>
-									<thead>
-										<tr>
-											<th>实际运输量</th>
-											<th>实际剩余量</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>${complete }吨</td>
-											<td>${remain }吨</td>
-											<td></td>
-										</tr>
-									</tbody>
 									<!-- 磅单图片 -->
 									<c:if test="${bill.status==2 || bill.status==3 || bill.status==4 || bill.status==5 || bill.status==6}">
 										<thead>

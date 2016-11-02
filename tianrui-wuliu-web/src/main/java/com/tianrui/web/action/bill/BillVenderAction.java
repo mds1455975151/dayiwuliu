@@ -119,9 +119,7 @@ public class BillVenderAction {
 		if( req !=null ){
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setCurrId(currUser.getId());
-			WaybillResp bill = billService.queryWayBill(req);
-			view.addObject("bill",bill);
-			view.addAllObjects(cargoPlanService.planComplete(bill.getPlanid(), currUser.getId(), 0));
+			view.addObject("bill",billService.queryWayBill(req));
 		}
 		return view;
 	}

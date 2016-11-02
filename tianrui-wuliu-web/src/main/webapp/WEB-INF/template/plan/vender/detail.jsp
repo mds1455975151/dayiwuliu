@@ -136,6 +136,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    </div>
 	                </div>
                 </c:if>
+                <div>
+                    <label class="mr20"> 实际运输量：${complete }吨</label>
+                    <label> 实际剩余量：${remain }吨</label>
+                </div>
                 <div class="goods_line">
                     <label> 发货单位：</label>
                     <input type="text" name="organizationname" id ="organizationname" value="${plan.orgname }" readonly>

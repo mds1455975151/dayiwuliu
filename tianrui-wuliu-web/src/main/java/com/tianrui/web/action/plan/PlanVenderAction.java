@@ -70,6 +70,7 @@ public class PlanVenderAction {
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
 		model.addObject("plan",cargoPlanService.detail(req));
+		model.addAllObjects(cargoPlanService.planComplete(req.getId(), currUser.getId(), 0));
 		return model;
 	}
 	//我承运的计划页面
