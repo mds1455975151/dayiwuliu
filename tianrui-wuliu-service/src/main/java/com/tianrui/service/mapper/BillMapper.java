@@ -84,4 +84,6 @@ public interface BillMapper {
 	int queryAppointCount(Bill record);
 	
 	List<Bill> queryReportBill(ReportVo vo);
+	
+	Double queryComplete(Map<String, String> params);
 }

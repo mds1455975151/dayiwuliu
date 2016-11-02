@@ -125,6 +125,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label>运输量：</label>
                     <input type="text" id="totalplanned" name="totalplanned" placeholder="剩余运输量${plan.overweight }" style="width:180px" maxlength="10"/>吨
                 </div>
+                <div>
+                    <label class="mr20"> 实际运输量：${complete }吨</label>
+                    <label> 实际剩余量：${remain }吨</label>
+                </div>
                 <!--发布对象begin-->
                 <div class="plan_fabu">
                     <label class="lineh40"> 发布对象：</label>

@@ -84,8 +84,10 @@ public class PlanAppointAction {
 	public ModelAndView initAppointPage(PlanQueryReq req, HttpServletRequest request) throws Exception {
 		ModelAndView model = new ModelAndView("plan/appoint/appoint");
 		model.addObject("plan", cargoPlanService.detail(req));
+		MemberVo vo =SessionManager.getSessionMember(request);
+		model.addAllObjects(cargoPlanService.planComplete(req.getId(),vo.getId(),0));
 		MemberOwnerReq ownerReq = new MemberOwnerReq();
-		ownerReq.setMemberId(SessionManager.getSessionMember(request).getId());
+		ownerReq.setMemberId(vo.getId());
 		ownerReq.setStatus("1");
 		model.addObject("venderList", memberOwnerService.queryMyVehiOwnerByCondition(ownerReq));
 		model.addObject("now", new Date());
@@ -106,8 +108,10 @@ public class PlanAppointAction {
 		ModelAndView model = new ModelAndView("plan/appoint/appoint");
 		try {
 			model.addObject("plan", cargoPlanService.detail(req));
+			MemberVo vo =SessionManager.getSessionMember(request);
+			model.addAllObjects(cargoPlanService.planComplete(req.getId(),vo.getId(),1));
 			MemberOwnerReq ownerReq = new MemberOwnerReq();
-			ownerReq.setMemberId(SessionManager.getSessionMember(request).getId());
+			ownerReq.setMemberId(vo.getId());
 			ownerReq.setStatus("1");
 			model.addObject("venderList", memberOwnerService.queryMyVehiOwnerByCondition(ownerReq));
 			model.addObject("now", new Date());

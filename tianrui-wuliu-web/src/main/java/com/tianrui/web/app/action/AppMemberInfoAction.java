@@ -87,7 +87,7 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-		if(!"".equals(req.getIdcardsImagePath())){
+		if(StringUtils.isNotBlank(req.getIdcardsImagePath())){
 			FileUploadReq freq = new FileUploadReq();
 			freq.setImgStr(req.getIdcardsImagePath());
 			result = iFileService.uploadImg(freq);

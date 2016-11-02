@@ -308,16 +308,18 @@ public class AppMemberAction {
 				rs.setError("您输入的手机号已注册，请重新输入");
 			}else{
 				MemberSaveReq memberSaveReq =new MemberSaveReq();
-				FileUploadReq upload = new FileUploadReq();
-				upload.setImgStr(appParam.getBody().getImgStr());
-				rs = iFileService.uploadImg(upload);
-				if(!StringUtils.equals(rs.getCode(), "000000")){
-					appResult.setCode(rs.getCode());
-					appResult.setMessage(rs.getError());
-					return appResult;
-				}
-				if(StringUtils.isNotBlank(String.valueOf(rs.getData()))){
-					memberSaveReq.setAvatarspath(rs.getData().toString());
+				if(StringUtils.isNotBlank(appParam.getBody().getImgStr())){
+					FileUploadReq upload = new FileUploadReq();
+					upload.setImgStr(appParam.getBody().getImgStr());
+					rs = iFileService.uploadImg(upload);
+					if(!StringUtils.equals(rs.getCode(), "000000")){
+						appResult.setCode(rs.getCode());
+						appResult.setMessage(rs.getError());
+						return appResult;
+					}
+					if(StringUtils.isNotBlank(String.valueOf(rs.getData()))){
+						memberSaveReq.setAvatarspath(rs.getData().toString());
+					}
 				}
 				memberSaveReq.setCellphone(appParam.getBody().getAccount());
 				memberSaveReq.setPassword(appParam.getBody().getPswdMd5());

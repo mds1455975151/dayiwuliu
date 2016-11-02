@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
@@ -49,6 +50,8 @@ public class BillVenderAction {
 	@Autowired
 	IVehicleDriverService vehicleDriverService;
 	@Autowired
+	ICargoPlanService cargoPlanService;
+	@Autowired
 	IMemberCapaService memberCapaService;
 	
 	@RequestMapping("/main")
@@ -67,6 +70,8 @@ public class BillVenderAction {
 		//计划信息
 		BillPlanResp plan =billService.queryWithPlanId(planId);
 		view.addObject("plan", plan);
+		MemberVo vo = SessionManager.getSessionMember(request);
+		view.addAllObjects(cargoPlanService.planComplete(planId, vo.getId(), 0));
 		return view;
 	}
 	@RequestMapping("/searchCapa")
@@ -87,6 +92,8 @@ public class BillVenderAction {
 		//计划信息
 		WaybillResp bill =billService.queryWayBill(req);
 		view.addObject("bill", bill);
+		MemberVo vo = SessionManager.getSessionMember(request);
+		view.addAllObjects(cargoPlanService.planComplete(bill.getPlanid(), vo.getId(), 0));
 		return view;
 	}
 	
@@ -112,7 +119,9 @@ public class BillVenderAction {
 		if( req !=null ){
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setCurrId(currUser.getId());
-			view.addObject("bill",billService.queryWayBill(req));
+			WaybillResp bill = billService.queryWayBill(req);
+			view.addObject("bill",bill);
+			view.addAllObjects(cargoPlanService.planComplete(bill.getPlanid(), currUser.getId(), 0));
 		}
 		return view;
 	}

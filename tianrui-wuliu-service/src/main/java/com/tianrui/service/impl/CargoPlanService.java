@@ -1,9 +1,12 @@
 package com.tianrui.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -664,6 +667,31 @@ public class CargoPlanService implements ICargoPlanService{
 			}	
 		}
 		return overweight;
+	}
+	
+	@Override
+	public Map<String, String> planComplete(String planId, String memberid, int type) {
+		Map<String, String> map = new HashMap<String, String>();
+		DecimalFormat df = new DecimalFormat("#0.00"); 
+		double complete = 0D, remain  = 0D;
+		if(StringUtils.isNotBlank(planId) && StringUtils.isNotBlank(memberid)){
+			Plan plan = planMapper.selectByPrimaryKey(planId);
+			if(plan != null){
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("plancode", plan.getPlancode());
+				params.put("venderid", memberid);
+				complete = billMapper.queryComplete(params);
+				remain  = plan.getTotalplanned();
+				if(type == 1 && StringUtils.isNotBlank(plan.getPid())){
+					Plan p = planMapper.selectByPrimaryKey(plan.getPid());
+					remain  = p.getTotalplanned();
+				}
+				remain  -= complete;
+			}
+		}
+		map.put("complete", df.format(complete));
+		map.put("remain", df.format(remain ));
+		return map;
 	}
 	
 }

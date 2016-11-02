@@ -145,7 +145,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input type="text" class="priceInput" readOnly maxlength="10" value="${bill.price }" />元
                     </div>
                 </div>
-                  <div class="bill_fabu">
+                <div>
+                    <label class="mr20"> 实际运输量：${complete }吨</label>
+                    <label> 实际剩余量：${remain }吨</label>
+                </div>
+                <div class="bill_fabu">
                     <label> 车辆选择：</label>
                     <div class="bill_fabu_cont">
 	                    <div class="bill_search">

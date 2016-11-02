@@ -128,6 +128,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input type="text" class="priceInput" readOnly value="${plan.price }" maxlength="10" />元
                     </div>
                 </div>
+                <div>
+                    <label class="mr20"> 实际运输量：${complete }吨</label>
+                    <label> 实际剩余量：${remain }吨</label>
+                </div>
                 <div class="bill_fabu">
                     <label> 车辆选择：</label>
                     <div class="bill_fabu_cont">

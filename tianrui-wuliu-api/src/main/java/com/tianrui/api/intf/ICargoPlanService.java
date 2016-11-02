@@ -1,6 +1,7 @@
 package com.tianrui.api.intf;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
@@ -75,5 +76,13 @@ public interface ICargoPlanService {
 	public PlanStatResp planstat(PlanQueryReq req)throws Exception;
 
 	public List<PlanResp> findPlanByEndTime(Long st) throws Exception;
+
+	/**
+	 * 查询实际运输量（货主签收量）
+	 * @param planId
+	 * @param memberid
+	 * @return
+	 */
+	Map<String, String> planComplete(String planId, String memberid, int type);
 
 }
