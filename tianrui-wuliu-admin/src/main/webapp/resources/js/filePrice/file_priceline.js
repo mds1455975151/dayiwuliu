@@ -12,6 +12,9 @@ $(function(){
 					tem.push(data[i].taketimeStr+"---"+data[i].price+"元");
 					dat.push(data[i].price);
 				}
+				if(data.length == 1){
+					$("#remark").html("仅一条数据无法展示折线图");
+				}
 				// 折线图
 			   	var lineChartData = {
 			        "labels" : tem,

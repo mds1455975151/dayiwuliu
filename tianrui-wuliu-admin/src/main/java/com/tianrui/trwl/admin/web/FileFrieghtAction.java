@@ -1,6 +1,7 @@
 package com.tianrui.trwl.admin.web;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,6 +60,10 @@ public class FileFrieghtAction {
 		
 		Date date = new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.set(Calendar.DATE, c.get(Calendar.DATE) + 1);
+		
 		RouteReq req = new RouteReq();
 		req.setOrganizationid(user.getOrgid());
 		req.setStatus("1");
@@ -68,9 +73,10 @@ public class FileFrieghtAction {
 		fr.setOrgId(user.getOrgid());
 		fr.setState("1");
 		List<FileOrgCargoResp> f =fileOrgCargoService.queryMyCargoInfo(fr);
+		
 		view.addObject("route", list1);
 		view.addObject("cargo", f);
-		view.addObject("datenow", sdf.format(date));
+		view.addObject("datenow", sdf.format(c.getTime()));
 		view.setViewName("/file/filePrice/file_price");
 		return view;
 	}

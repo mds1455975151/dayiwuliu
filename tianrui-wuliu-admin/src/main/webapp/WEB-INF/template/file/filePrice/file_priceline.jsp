@@ -38,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="col-md-12">
                 <input type="hidden" value="${freightid }" id="freightid">
                 <span>运价策略变化趋势图</span><br>
+                <span id="remark"></span>
                     <!--折线图-->
                         <canvas id="myChart" width="600" height="450"></canvas>
                     <!--折线图-->
@@ -61,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/chart.js"></script>
-<script type="text/javascript" src="/resources/js/filePrice/file_priceline.js" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_priceline.js?11.3" ></script>
 
 </body>
 </html>
