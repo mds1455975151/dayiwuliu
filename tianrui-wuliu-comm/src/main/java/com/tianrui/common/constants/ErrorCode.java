@@ -30,6 +30,10 @@ public enum ErrorCode {
 	BILL_STATUS_IMG_UPLOAD("E301005","磅单图片上传失败"),
 	BILL_VEHICLE_BILLSTATUS("E301006","非空闲车辆不能接单"),
 	
+	BILL_DRIVER_DEL("E301007","改运单司机已删除"),
+	BILL_VENDER_DEL("E301008","改运单车主已删除"),
+	BILL_OWNER_DEL("E301009","改运单货主已删除"),
+	
 	//运价策略审核
 	FILE_FREIGHT_NULL("E401000","请选择是否通过审核"),
 	FILE_FREIGHT_AUDIT_NULL("E401001","请输入审核不通过原因"),
@@ -37,9 +41,7 @@ public enum ErrorCode {
 	FILE_FREIGHT_INFO("E401003","未查到审核信息"),
 	FILE_FREIGHT_AUDIT0("E401004","非审核中不能审核"),
 	FILE_FREIGHT_UPDATE("E401005","审核中策略不能修改"),
-	BILL_DRIVER_DEL("E301007","改运单司机已删除"),
-	BILL_VENDER_DEL("E301008","改运单车主已删除"),
-	BILL_OWNER_DEL("E301009","改运单货主已删除"),
+	FILE_FREIGHT_UPT("E401006","运价策略有变动请再次查看"),
 	
 	//账单
 	PAY_ITEMS_THAN_MAX("E401001","请最多选择20个账单."),

@@ -23,6 +23,8 @@ public class AdminFreightUptReq extends BaseReq{
 	private String auditresson;
 	
 	private String updater;
+	
+	private Long modifytime;
 
 	public String getId() {
 		return id;
@@ -42,6 +44,14 @@ public class AdminFreightUptReq extends BaseReq{
 
 	public String getAudit() {
 		return audit;
+	}
+
+	public Long getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(Long modifytime) {
+		this.modifytime = modifytime;
 	}
 
 	public void setAudit(String audit) {

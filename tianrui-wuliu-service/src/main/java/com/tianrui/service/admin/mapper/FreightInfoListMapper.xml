@@ -8,6 +8,7 @@
 		f. STATUS STATUS,
 		i.ID infoid,
 		f.taketime taketime,
+		f.modifytime modifytime,
 		f.tallage tallage,
 		i.tallage tallageInfo,
 		f.price price,

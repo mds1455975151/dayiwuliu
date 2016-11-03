@@ -97,6 +97,22 @@ public class AppVehicleAndDriverAction {
 		result.setTotal(pageVo.getTotalInt());
 		return result;
 	}
+	/*** 我的司机不分页*/
+	@RequestMapping(value="/myDriverList",method=RequestMethod.POST)
+	@ApiParamRawType(OwnerDriverReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult myDriverList(AppParam<OwnerDriverReq> appParam) throws Exception{
+		OwnerDriverReq req = appParam.getBody();
+		req.setCreator(appParam.getBody().getMemberId());
+		List<OwnerDriverResp> list = ownerDriverService.queryMyDriverInfoByCondition(req);
+		AppResult result = new AppResult();
+		result.setCode("000000");
+		result.setReturnData(list);
+//		result.setTotal(pageVo.getTotalInt());
+		return result;
+	}
+		
 	/**
 	 * 
 	 * @描述:添加司机

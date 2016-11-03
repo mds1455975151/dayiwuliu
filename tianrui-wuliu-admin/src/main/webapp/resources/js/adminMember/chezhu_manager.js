@@ -58,11 +58,11 @@ function displayData(pageNo){
 						var per = "";
 						var username = "";
 						var telphone = "";
-						if(data[a].companypercheck=='0'){//企业未认证个人用户
+						if(data[a].userpercheck=='1'||data[a].driverpercheck=='1'){//企业未认证个人用户
 							per = "个人用户";
 							username = data[a].userName;
 							telphone = data[a].telphone;
-						}else{//"企业用户"
+						}else if(data[a].companypercheck=='1') {//"企业用户"
 							per = "企业用户";
 							username = data[a].companyName;
 							telphone = data[a].contactTel;

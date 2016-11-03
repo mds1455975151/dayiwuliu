@@ -136,6 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          	<div class="user_shenno">
 	          	    <input type="hidden" id="freightid" name="id">
 	          	    <input type="hidden" id="freightInfoid" name="infoid">
+		          	<input type="hidden" id="modifytime" name="modifytime">
 		          	<div class="shenhe_alt">
 		              <input type="radio" value="1" name="audit"><label>审核通过</label>
 		              <input type="radio" value="2" name="audit"><label>审核不通过</label>
@@ -161,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/filePrice/file_priceinfo.js?1" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_priceinfo.js?11.3" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

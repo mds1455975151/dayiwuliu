@@ -67,6 +67,14 @@ public class FreightInfoService implements IFreightInfoService{
 			rs.setErrorCode(ErrorCode.FILE_FREIGHT_INFO);
 			return rs;
 		}
+		FileFreight record = freightMapper.selectByPrimaryKey(req.getId());
+		if(record.getModifytime()!=null){
+			if(!record.getModifytime().equals(req.getModifytime())){
+//				if(record.getModifytime()!=req.getModifytime()){
+				rs.setErrorCode(ErrorCode.FILE_FREIGHT_UPT);
+				return rs;
+			}
+		}
 		if(!"0".equals(info.getStatus())){
 			rs.setErrorCode(ErrorCode.FILE_FREIGHT_AUDIT0);
 			return rs;
@@ -93,7 +101,7 @@ public class FreightInfoService implements IFreightInfoService{
 		}
 		freightInfoMapper.updateByPrimaryKeySelective(info);
 		//修改运价策略
-		FileFreight record = freightMapper.selectByPrimaryKey(req.getId());
+		
 		record.setAuditreason(req.getAuditresson());
 		record.setAuditstatus(req.getAudit());
 		record.setFreightType(info.getFreighttype());

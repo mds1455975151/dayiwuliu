@@ -189,14 +189,9 @@ function interHTML(data){
 		if(flag){
 			hml +="<span><a data-toggle='modal' onclick=\"tyPrice('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+status+"】</a></span>";
 		}
-		if(data[a].auditstatus=="2"){
-			hml +="" +
-					"<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"; 
-//			"<span><a data-toggle='modal' onclick=\"delectPrice1('"+data[a].id+"')\" data-target='#dele_price'>【删除】</a></span>";
-		}
+		hml +="<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"; 
 		if(data[a].auditstatus!="0"){
 			hml +="" +
-					"<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"+ 
 			"<span><a data-toggle='modal' onclick=\"delectPrice1('"+data[a].id+"')\" data-target='#dele_price'>【删除】</a></span>";
 		}
 		hml +="</td></tr>";

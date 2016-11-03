@@ -129,19 +129,52 @@ public class FreightService implements IFreightService{
 	}
 	@Override
 	public Result updateEntity(FreightReq req) throws Exception {
+		//TODO
 		Result rs = Result.getSuccessResult();
 		FileFreight freight = fileFreightMapper.selectByPrimaryKey(req.getId());
 		if("0".equals(freight.getAuditstatus())){
-			rs.setErrorCode(ErrorCode.FILE_FREIGHT_UPDATE);
-			return rs;
+			if(!uptAuditFreight(req)){
+				rs.setErrorCode(ErrorCode.FILE_FREIGHT_ERROR);
+				return rs;
+			}
+		}else{
+			//审核记录操作
+			updateFreightInfo(req.getId());
+			saveFreightInfo(req);
 		}
 		//修改运价策略状态为审核中
 		freight.setAuditstatus("0");
+		freight.setModifytime(System.currentTimeMillis());
 		fileFreightMapper.updateByPrimaryKeySelective(freight);
-		//审核记录操作
-		updateFreightInfo(req.getId());
-		saveFreightInfo(req);
 		return rs;
+	}
+	/** 修改审核中策略
+	 * @throws ParseException */
+	public boolean uptAuditFreight(FreightReq req) throws ParseException{
+		//TODO
+		FreightInfo fo = new FreightInfo();
+		fo.setFreightid(req.getId());
+		fo.setRecent("1");
+		List<FreightInfo> list = freightInfoMapper.selectByInfo(fo);
+		if(list.size()==1){
+			FreightInfo info = new FreightInfo();
+			info.setId(list.get(0).getId());
+			info.setFrebilltype(req.getFrebilltype());
+			info.setFreightid(req.getId());
+			info.setPrice(req.getPrice());
+			info.setTallage(req.getTallage());
+			info.setFreighttype(req.getFreightType());
+			info.setCreater(req.getModifier());
+			info.setCreatetime(new Date().getTime());
+			info.setTaketime(req.getTaketime());
+			info.setDesc1(req.getDesc1());
+			info.setRecent("1");
+			info.setStatus("0");
+			freightInfoMapper.updateByPrimaryKeySelective(info);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	/** 插入审核记录
 	 * @throws ParseException */

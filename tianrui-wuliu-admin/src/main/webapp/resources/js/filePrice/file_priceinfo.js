@@ -11,9 +11,10 @@ function SearchPrice(){
 	displayData(0);
 }
 
-function copyid(id,infoid){
+function copyid(id,infoid,modifytime){
 	$("#freightid").val(id);
 	$("#freightInfoid").val(infoid);
+	$("#modifytime").val(modifytime);
 }
 
 /**
@@ -177,6 +178,7 @@ function interHTML(data){
 			uptReason = data[a].desc1;
 		}
 		var frebilltype = data[a].frebilltype=="1"?"原发":"实收";
+		var modifytime = data[a].modifytime == undefined ? "":data[a].modifytime;
 		hml +="<tr>" +
 				"<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
@@ -198,7 +200,7 @@ function interHTML(data){
 			"</td>" +
 			"<td>" ;
 		if(data[a].auditstatus=="0"){
-			hml += "<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"')\" data-target='#tingyong'>审核</a></span>";
+			hml += "<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"','"+modifytime+"')\" data-target='#tingyong'>审核</a></span>";
 		}
 		hml += "</td>" +
 			"</tr>";

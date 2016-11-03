@@ -16,6 +16,8 @@ public class AdminFreightResp extends BaseResp{
     
     private String infoid;
 
+    private Long modifytime;
+    
     private String taketimeStr;
     private String taketimeStrinfo;
     
@@ -176,6 +178,14 @@ public class AdminFreightResp extends BaseResp{
 
 	public String getAuditreason() {
 		return auditreason;
+	}
+
+	public Long getModifytime() {
+		return modifytime;
+	}
+
+	public void setModifytime(Long modifytime) {
+		this.modifytime = modifytime;
 	}
 
 	public void setAuditreason(String auditreason) {

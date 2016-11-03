@@ -125,6 +125,9 @@ function update(a){
 	var id = data[a].id;
 	var membertel = data[a].membertel;
 	var memberdesc = data[a].memberdesc;
+	if(memberdesc == undefined){
+		memberdesc = "";
+	}
 	document.getElementById("uptmemberTel").value=membertel;
 	document.getElementById("uptmembername").value=data[a].membername;
 	document.getElementById("uptmemberDesc").value=memberdesc;
@@ -133,10 +136,6 @@ function update(a){
 function updateOrgMember(){
 	var id = $("#uptid").val();
 	var memberdesc = $("#uptmemberDesc").val();
-	if(memberdesc==""){
-		alert("备注不能为空");
-		return;
-	}
 	$.ajax({
 		url:CONTEXTPATH+"/file/filemyuser/updateOrgMember",
 		data:{"id":id,
