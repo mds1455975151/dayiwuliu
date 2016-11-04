@@ -240,8 +240,9 @@ public class MyVehicleAction {
 		// 司机电话
 		driverReq.setDrivertel(driverTel);
 		// 查询操作
-		List<OwnerDriverResp> driverRespList = ownerDriverService.queryMyDriverOutsideByCondition(driverReq);
-		rs.setData(driverRespList);
+//		List<OwnerDriverResp> driverRespList = ownerDriverService.queryMyDriverOutsideByCondition(driverReq);
+		List<OwnerDriverResp> list = ownerDriverService.queryMyDriverInfoByCondition(driverReq);
+		rs.setData(list);
 		return rs;
 	}
 	

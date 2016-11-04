@@ -27,7 +27,7 @@ $(function() {
 
 function getMyDriver(){
 	$.ajax({
-		url : PATH + '/trwuliu/Member/myDriver/getMyDriver',// 跳转到 action
+		url : PATH + '/trwuliu/Member/myDriver/getMyDriverByPage',// 跳转到 action
 		data : {
 			memberId: memberId
 		},
@@ -41,6 +41,7 @@ function getMyDriver(){
 	});
 }
 function searchDriver(pagenum, pagesize, flag){
+	//TODO
 	var drivername = $("#drivername").val();
 	var drivertell = $("#drivertell").val();
 	$.ajax({
@@ -55,17 +56,8 @@ function searchDriver(pagenum, pagesize, flag){
 		type : "post",
 		success : function(result) {
 			if(result && result.code=="000000") {
-				var data = result.data.list;
-				if(data && data.length > 0){
-					if(data.length == 4){
-						$('.pageMore').show();
-					}else{
-						$('.pageMore').hide();
-					}
-					appendContentToBody(data, flag);
-				}else{
-					$('.pageMore').hide();
-				}
+				var data = result.data;
+				appendContentToBody(data, flag);
 			}
 		}
 	});
@@ -87,16 +79,16 @@ function moreDriver(){
  * @author guyuke
  * @time 2016.06.05
  */
-function appendContentToBody(data, flag) {
-	
+function appendContentToBody(ret, flag) {
+	var data = ret.list;
 	// 搜索查询时清空表体，防止表体重复附加数据
 	if (flag == 0) {
 		$("#driver_div").empty();
 		divNo = 0;
 	}
-	
+	$("#driverCount").html(ret.total);
 	// 数据为空时
-	if (data == null || data.length <= 0) {
+	if (data == null || data.length <= 0 && pageNo == 1) {
 		var hml = "";
 		$(".goods_more").hide();
 		hml+= '<div class="nodata">';
@@ -106,6 +98,11 @@ function appendContentToBody(data, flag) {
 		document.getElementById("driver_div").innerHTML = hml;
 	// 有数据信息时
 	} else {
+		if(data.length == 4){
+			$('.pageMore').show();
+		}else{
+			$('.pageMore').hide();
+		}
 		for (var i = 0; i < data.length; i++) {
 			// 表体行号++
 			divNo++;
@@ -201,20 +198,7 @@ $("#modal_edit_save").click(function() {
 			}
 			$("#commonModal").modal();
 			
-			// TODO：重新查询，方法待定
-			$.ajax({
-				url : PATH + '/trwuliu/Member/myDriver/getMyDriver',// 跳转到 action
-				data : {
-					memberId: memberId
-				},
-				type : "post",
-				success : function(result) {
-					if(result && result.code=="000000") {
-						var data = result.data;
-						appendContentToBody(data, 0);
-					}
-				}
-			});
+			getMyDriver();
 		}
 	});
 });

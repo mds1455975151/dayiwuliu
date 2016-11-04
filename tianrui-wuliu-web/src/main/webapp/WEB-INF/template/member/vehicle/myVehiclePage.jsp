@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <input type="hidden" id="car_bdbox_vehiId">
 	            <input type="hidden" id="car_bdbox_vehiTypeName">
 	            <input type="hidden" id="car_bdbox_vehiNo">
-	            <button class="btn btnyello" type="submit" id="car_bdbox_searchBtn">搜索</button>
+	            <button class="btn btnyello" type="submit" onclick="getTheDriverOutOfRange();" >搜索</button>
 	        </div>
 	        <div class="car_scroll">
 	            <ul id="driverUl">
@@ -161,6 +161,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--车辆删除end-->
 		
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?11.42" ></script>
 	</body>
 </html>

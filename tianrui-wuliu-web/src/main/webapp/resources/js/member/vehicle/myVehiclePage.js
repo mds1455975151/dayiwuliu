@@ -160,7 +160,8 @@ function appendContentToBody(result, flag) {
 							td4.append(button1);
 						}else{
 							td4.addClass("car_mycarline");
-							var p4_2 = $("<p></p>")
+							
+							var p4_2 = $("<button class='btn btn_blueborder'></button>")
 							.append("绑定司机")
 							.attr("onclick", 
 									"vehiBind('rowIndex" 
@@ -362,19 +363,23 @@ function appendContentToUl(data, varI, vehiDriverId, vehiId, vehiNo, vehiTypeNam
 		var label1 = $("<label></label>").append(data.drivername);
 		/** <label> */	
 		var label2 = $("<label></label>").append(data.drivertel);
+		if(data.count!=0){
+			var span1 = $("<span class='coloryello'></span>").append("已绑定")
+		}else{
+			var span1 = $("<button class='btn btnblue'></button>").attr("id", "driverUl_li_span" + varI)
+			.append("绑定")
+			.attr("onclick", 
+					"driverBind('" + vehiDriverId + "','"
+					+ vehiId + "','"
+					+ data.driverid + "','"
+					+ vehiNo + "','"
+					+ vehiTypeName + "','"
+					+ data.drivername + "','"
+					+ data.drivertel + "','"
+					+ data.remarkname + "',"
+					+ varI + ")");
+		}
 		/** <span> */	
-		var span1 = $("<span></span>").attr("id", "driverUl_li_span" + varI)
-					   .append("绑定")
-		                .attr("onclick", 
-		            		   "driverBind('" + vehiDriverId + "','"
-		                					   + vehiId + "','"
-		            		   				    + data.driverid + "','"
-			            		   				 + vehiNo + "','"
-			            		   				  + vehiTypeName + "','"
-			            		   				   + data.drivername + "','"
-			            		   				    + data.drivertel + "','"
-			            		   				     + data.remarkname + "',"
-			            		   				      + varI + ")");
 		li1/*.append(input1)*/.append(label1).append(label2).append(span1);
 	$("#driverUl").append(li1);
 }
@@ -447,82 +452,6 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 	return false;
 }
 
-//『绑定司机』中『搜索』按钮点击事件
-$("#car_bdbox_searchBtn").click(function() {
-//	alert("46");
-	// 司机姓名
-	var driverName = $("#car_bdbox_driverName").val();
-	// 司机电话
-	var driverTel = $("#car_bdbox_driverTel").val();
-	
-	if (driverName != null && driverName != "") {
-		// 验证姓名，2个汉字以上，包含少数民族
-		var regName =  /^\s*[\u4e00-\u9fa5]{1,}[\u4e00-\u9fa5.·]{0,15}[\u4e00-\u9fa5]{1,}\s*$/;
-		if (!regName.test(driverName)) {
-			$("#modal_common_content").html("请输入正确的汉字姓名！");
-			$("#commonModal").modal();
-			return ;
-		}
-	}
-	
-	if (driverTel != null && driverTel != "") {
-		// 验证手机号,手机号11位并且前三位只能为大陆手机号段
-		var regTel = /^1[0-9]{10}$/;
-		if (!regTel.test(driverTel)) {
-			$("#modal_common_content").html("请输入正确的11位手机账号！");
-			$("#commonModal").modal();
-			return ;
-		}
-	}
-	
-	// 查询操作
-	var hasDataFlg = false;
-	$("#driverUl").empty();
-	if (driverName == "" && driverTel == "") {
-		for (var i=0; i<driverList.length; i++) {
-			appendContentToUl(driverList[i], i);
-			hasDataFlg = true;
-		}
-	} else if (driverName != "" && driverTel == "") {
-		for (var i=0; i<driverList.length; i++) {
-			var j = 0;
-			if (driverList[i].drivername == driverName) {
-				appendContentToUl(driverList[i], j);
-				hasDataFlg = true;
-				j++;
-			}
-		}
-	} else if (driverName == "" && driverTel != "") {
-		for (var i=0; i<driverList.length; i++) {
-			var j = 0;
-			if (driverList[i].drivertel == driverTel) {
-				appendContentToUl(driverList[i], j);
-				hasDataFlg = true;
-				j++;
-			}
-		}
-	} else if (driverName != "" && driverTel != "") {
-		for (var i=0; i<driverList.length; i++) {
-			var j = 0;
-			if (driverList[i].drivername == driverName && 
-					driverList[i].drivertel == driverTel) {
-				appendContentToUl(driverList[i], j);
-				hasDataFlg = true;
-				j++;
-			}
-		}
-	}
-	
-	if (!hasDataFlg) {
-		/** <li> */	
-		var li1 = $("<li></li>");
-			/** <label> */	
-			var label1 = $("<label></label>").append("没有可用的司机信息！");
-			li1.append(label1);
-		$("#driverUl").append(li1);
-	}
-	
-});
 
 /**
  * 获取绑定外司机的数据
@@ -532,14 +461,26 @@ $("#car_bdbox_searchBtn").click(function() {
  * @time 2016.06.15
  */
 function getTheDriverOutOfRange() {
+	driverList = null;
+	$("#driverUl").empty();
+	// 司机姓名
+	var driverName = $("#car_bdbox_driverName").val();
+	// 司机电话
+	var driverTel = $("#car_bdbox_driverTel").val();
+	//TODO
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/getMyDriverOutOfRange',// 跳转到 action
 		data : {
-			memberId: member_id
+			memberId: member_id,
+			driverName:$.trim(driverName),
+			driverTel:$.trim(driverTel)
 		},
 		type : "post",
 		success : function(result) {
 			driverList = result.data;
+			for (var a = 0; a < driverList.length; a++) {
+				appendContentToUl(driverList[a], a);
+			}
 		}
 	});
 }

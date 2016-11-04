@@ -52,6 +52,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                        <button type="submit" class="btn btnyello" id="searchDriver">搜索司机</button>
 			                    </li>
 			                </ul>
+			                <div class="driver_data">
+		                        <label class="colorblue">司机总数：<span id="driverCount"></span>人</label>
+		                    </div>
 			            </div>
 		                <div class="driver_all" id="driver_div">
 		                
