@@ -503,7 +503,7 @@ public class SystemMemberService implements ISystemMemberService{
 				}
 				if( successFlag ){
 					String tokenId =UUIDUtil.getId();
-					MemberVo userVO =moberVoService.get(loginUser.getId());
+					MemberVo userVO =moberVoService.get(loginUser.getId(),true);
 					
 					//用户是否在别处登录
 					String userKey =CacheHelper.buildKey(CacheModule.LOGIN_APP, userVO.getCellphone());

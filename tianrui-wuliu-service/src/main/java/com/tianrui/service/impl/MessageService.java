@@ -257,6 +257,7 @@ public class MessageService implements IMessageService {
 		MemberOwnerReq ownerReq = new MemberOwnerReq();
 		ownerReq.setId(dbMessage.getKeyid());
 		ownerReq.setStatus(isReplay);
+		ownerReq.setIsEnabled("0");
 		memberOwnerService.updateByPrimaryKeySelective(ownerReq);
 		//发送消息3a08357b477e4ef296adf20e348f7ab9
 		SendMsgReq req =new SendMsgReq();

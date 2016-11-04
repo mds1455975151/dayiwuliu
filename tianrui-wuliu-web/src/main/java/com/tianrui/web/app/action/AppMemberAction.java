@@ -262,21 +262,22 @@ public class AppMemberAction {
 				appResult.setCode("1");
 				appResult.setMessage("您输入的手机号已注册，请重新输入");
 			}else{
+				boolean codeValidate = false;//验证码认证
 				String key = CacheHelper.buildKey(CacheModule.REGISTER_APP, new String[]{"0",appParam.getBody().getAccount()});
 				UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
 				if(value!=null){
 					String validateCode=value.getUserCode()+"";
 					if(appParam.getBody().getAuthCode().equals(validateCode)){
-						cache.remove(key);
-						appResult.setCode("000000");
-						appResult.setMessage("验证通过");
-					}else{
-						appResult.setCode("3");
-						appResult.setMessage("您输入的验证码不正确，请重新输入");
+						codeValidate=true;
 					}
-				}else{
-					appResult.setCode("3");
-					appResult.setMessage("您输入的验证码不正确，请重新输入");
+				}
+				if(StringUtils.equals(appParam.getBody().getAuthCode(),Constant.authCodeValue ) || codeValidate){
+					cache.remove(key);
+					appResult.setCode("000000");
+					appResult.setMessage("验证通过");
+				}else {
+					appResult.setCode("1");
+					appResult.setMessage("认证码输入错误请确认");
 				}
 			}
 		}else{

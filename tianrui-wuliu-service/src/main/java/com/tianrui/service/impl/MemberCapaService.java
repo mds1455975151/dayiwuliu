@@ -53,7 +53,6 @@ public class MemberCapaService implements IMemberCapaService{
 	
 	@Override
 	public PaginationVO<MemberCapaListResp> index(CapaReq req) throws Exception {
-		Result rs = Result.getSuccessResult();
 		MemberCapa capa = new MemberCapa();
 		capa.setMemberid(req.getMemberid());
 		capa.setVehicleno(req.getVehicleno());
@@ -70,7 +69,6 @@ public class MemberCapaService implements IMemberCapaService{
 		page.setList(copyMembercapa(list));
 		page.setPageNo(req.getPageNo());
 		page.setTotal(total+mc);
-		rs.setData(page);
 		return page;
 	}
 	
