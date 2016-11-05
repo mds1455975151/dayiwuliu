@@ -210,6 +210,8 @@ function details(id){
 			if(d.vehicletype=="6"){
 				type = "重型自卸货车";
 			}
+			var registcode = d.registcode==""?"<span>未上传</span>":("<span>证书编号："+d.registcode+"--<a href='"+d.registimage+"' target='_blank'>查看图片</a></span>");
+			var opercode = d.opercode==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='"+d.operimage+"' target='_blank'>查看图片</a></span>");
 			var hml = 
 				"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
 				"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+
@@ -220,8 +222,10 @@ function details(id){
 				"<div class='file_detail'><label>长度：</label><span>"+d.vehilength+"米</span></div>"+
 				"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 				"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
-				"<div class='file_detail2'><label>车辆照片：</label><span><a href='"+d.vehiheadimgpath+"' target='_blank'><img height='180' src='"+d.vehiheadimgpath+"'></a></span></div>"+
-				"<div class='file_detail2'><label>行驶证照片：</label><span><a href='"+d.vehilicenseimgpath+"' target='_blank'><img height='180' src='"+d.vehilicenseimgpath+"'></a></span></div>";
+				"<div class='file_detail2'><label>机动车登记证：</label>"+registcode+"</div>"+
+				"<div class='file_detail2'><label>运营许可证：</label>"+opercode+"</div>"+
+				"<div class='file_detail2'><label>车辆照片：</label><span><a href='"+d.vehiheadimgpath+"' target='_blank'>查看图片</a></span></div>"+
+				"<div class='file_detail2'><label>行驶证照片：</label><span><a href='"+d.vehilicenseimgpath+"' target='_blank'>查看图片</a></span></div>";
 			document.getElementById("detailid").innerHTML = hml;
 		}
 	});
@@ -278,6 +282,8 @@ function details(id){
 					type = "重型自卸货车";
 				}
 				//<a data-toggle='modal' data-target='#againPice'>【重新上传】</a>
+				var registcode = d.registcode==""?"<span>未上传</span>":("<span>证书编号："+d.registcode+"--<a href='"+d.registimage+"' target='_blank'>查看照片</a></span>");
+				var opercode = d.opercode==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='"+d.operimage+"' target='_blank'>查看照片</a></span>");
 				var hml = 
 					"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
 					"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+
@@ -288,35 +294,39 @@ function details(id){
 					"<div class='file_detail'><label>长度：</label><span>"+d.vehilength+"米</span></div>"+
 					"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 					"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
-					"<div class='file_detail2'><label>车辆照片：</label><span><a href='"+d.vehiheadimgpath+"' target='_blank'><img height='180' src='"+d.vehiheadimgpath+"'></a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"1\")' data-target='#againPice'>【重新上传】</a></span></div>" +
-					"<div class='file_detail2'><label>行驶证照片：</label><span><a href='"+d.vehilicenseimgpath+"' target='_blank'><img height='180' src='"+d.vehilicenseimgpath+"'></a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";
+					"<div class='file_detail2'><label>机动车登记证：</label>"+registcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"3\")' data-target='#againPice'>【重新上传】</a></div>" +
+					"<div class='file_detail2'><label>运营许可证：</label>"+opercode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></div>"+
+					"<div class='file_detail2'><label>车辆照片：</label><span><a href='"+d.vehiheadimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"1\")' data-target='#againPice'>【重新上传】</a></span></div>" +
+					"<div class='file_detail2'><label>行驶证照片：</label><span><a href='"+d.vehilicenseimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";
 				document.getElementById("uptdetailid").innerHTML = hml;
 			}
 		});
 }
 	
 	function hideWindow(id,type){
+		if(type==1||type==2){
+			$("#showcode").hide();
+		}else{
+			$("#showcode").show();
+		}
 		$('#updateDeatil').modal('hide');
 		$("#vehicid").val(id);
 		$("#vehictype").val(type);
-//		 $(".hidemodel").on("click",function(){
-//	            $('#updateDeatil').modal('hide');
-//	            $('#againPice').on('hidden.bs.modal', function (e) {
-//	                $('#closeupt').modal('show');
-//	            })
-//	        });
-//		$("#closeupt").click();
-//		$("#updateDeatil").hide();
+		$("#code").val("");
 	}
 	
 	function uploadfile(){
 		// 营业执照图片路径
 		var file = $("#file_yyzz")[0].files[0];
-		
+		if($.trim($("#code").val())==""&&($("#vehictype").val()=="3"||$("#vehictype").val()=="4")){
+			alert("证书编码不能为空");
+			return;
+		}
 		var formData = new FormData();
 		formData.append("id",$("#vehicid").val());
 		formData.append("file",file);
 		formData.append("type",$("#vehictype").val());
+		formData.append("code",$("#code").val());
 		$.ajax({
 			type:"post",
 			url:"/AdminMember/uptVehicPic",

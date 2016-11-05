@@ -3,6 +3,8 @@ package com.tianrui.api.resp.admin;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 import com.tianrui.api.util.DateTypeUtil;
 
@@ -28,6 +30,12 @@ public class MyVehicleResp extends BaseResp{
 	private String ownerphone;
 	private String companyname;
 	private String companytel;
+	
+	
+	private String registcode;
+	private String registimage;
+	private String opercode;
+	private String operimage;
 	/**
 	 * 车牌号前缀
 	 */
@@ -79,6 +87,34 @@ public class MyVehicleResp extends BaseResp{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getRegistcode() {
+		registcode = StringUtils.isBlank(registcode)?"":registcode;
+		return registcode;
+	}
+	public void setRegistcode(String registcode) {
+		this.registcode = registcode;
+	}
+	public String getRegistimage() {
+		registimage = StringUtils.isBlank(registimage)?"":registimage;
+		return registimage;
+	}
+	public void setRegistimage(String registimage) {
+		this.registimage = registimage;
+	}
+	public String getOpercode() {
+		opercode = StringUtils.isBlank(opercode)?"":opercode;
+		return opercode;
+	}
+	public void setOpercode(String opercode) {
+		this.opercode = opercode;
+	}
+	public String getOperimage() {
+		operimage = StringUtils.isBlank(operimage)?"":operimage;
+		return operimage;
+	}
+	public void setOperimage(String operimage) {
+		this.operimage = operimage;
 	}
 	public String getCreatetimeStr() {
 		if(createtime!=null){

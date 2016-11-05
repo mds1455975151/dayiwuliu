@@ -95,7 +95,16 @@
 		mv.status status,
 		mv.vehilicenseimgpath vehilicenseimgpath,
 		mv.vehiheadimgpath vehiheadimgpath,
-		mv.createtime createtime
+		mv.createtime createtime,
+		mv.registcode registcode,
+		mv.registimage registimage,
+		mv.opercode opercode,
+		mv.operimage operimage,
+		mv.identitycode identitycode,
+		mv.identieyimage identieyimage,
+		mv.agreeimage agreeimage,
+		mv.roadtransportcode roadtransportcode,
+		mv.roadtransportimage roadtransportimage
 	FROM
 		wuliu_member_vehicle mv
     <where> 

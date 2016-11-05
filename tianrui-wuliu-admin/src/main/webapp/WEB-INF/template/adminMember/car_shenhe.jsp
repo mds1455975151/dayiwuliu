@@ -88,6 +88,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="person_img">
                                 <label>车辆照片：</label><span><a href="${Vehicle.vehiheadimgpath }" target="_blank"><img height="200" src="${Vehicle.vehiheadimgpath }"></a></span>
                             </div>
+                            <div class="person_img">
+                                <label>机动车登记证：</label><span>${Vehicle.registcode }<br><a href="${Vehicle.registimage }" target="_blank"><img height="200" src="${Vehicle.registimage }"></a></span>
+                            </div>
+                            <div class="person_img">
+                                <label>运营许可证：</label><span>${Vehicle.opercode }<br><a href="${Vehicle.operimage }" target="_blank"><img height="200" src="${Vehicle.operimage }"></a></span>
+                            </div>
                         </div>
                     </div>
                     <div class="row ">

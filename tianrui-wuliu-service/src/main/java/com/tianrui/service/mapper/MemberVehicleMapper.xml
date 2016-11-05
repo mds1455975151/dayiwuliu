@@ -36,6 +36,16 @@
     <result column="modifier" property="modifier" jdbcType="VARCHAR" />
     <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
     <result column="audittime" property="audittime" jdbcType="BIGINT" />
+    <result column="registcode" property="registcode" jdbcType="VARCHAR" />
+    <result column="registimage" property="registimage" jdbcType="VARCHAR" />
+    <result column="opercode" property="opercode" jdbcType="VARCHAR" />
+    <result column="operimage" property="operimage" jdbcType="VARCHAR" />
+    
+    <result column="identitycode " property="identitycode" jdbcType="VARCHAR" />
+    <result column="identieyimage " property="identieyimage" jdbcType="VARCHAR" />
+    <result column="agreeimage" property="agreeimage" jdbcType="VARCHAR" />
+    <result column="roadtransportcode" property="roadtransportcode" jdbcType="VARCHAR" />
+    <result column="roadtransportimage" property="roadtransportimage" jdbcType="VARCHAR" />
   </resultMap>
   
   <!-- 人工代码 ，包含车辆与司机表内容 -->
@@ -74,7 +84,9 @@
     id, memberid,vehiOwnerTel,vehiOwnerName, vehicleid, vehicleprefix, vehicleno, vehicletype, vehicletypename, 
     vehilength, vehiwidth, vehiheight, vehiweight, vehilicenseimgpath, vehiheadimgpath, 
     vehileftimgpath, vehirightimgpath, vehiandownerimgpath, status,billstatus, memo, desc1, desc2, 
-    desc3, desc4, creator, createtime, modifier, modifytime, audittime
+    desc3, desc4, creator, createtime, modifier, modifytime, audittime,
+    registcode, registimage, opercode, operimage,
+    identitycode, identieyimage, agreeimage, roadtransportcode, roadtransportimage
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -107,7 +119,9 @@
       vehiandownerimgpath, status, memo, 
       desc1, desc2, desc3, 
       desc4, creator, createtime, 
-      modifier, modifytime,vehiOwnerTel,vehiOwnerName,audittime,billstatus)
+      modifier, modifytime,vehiOwnerTel,vehiOwnerName,audittime,billstatus,
+      registcode, registimage, opercode, operimage,
+      identitycode, identieyimage, agreeimage, roadtransportcode, roadtransportimage)
     values (#{id,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, 
       #{vehicleprefix,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, #{vehicletype,jdbcType=VARCHAR}, 
       #{vehicletypename,jdbcType=VARCHAR}, #{vehilength,jdbcType=DOUBLE}, #{vehiwidth,jdbcType=DOUBLE}, 
@@ -117,7 +131,18 @@
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
       #{desc4,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, 
       #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT},#{vehiOwnerTel,jdbcType=VARCHAR},
-      #{vehiOwnerName,jdbcType=VARCHAR},#{audittime,jdbcType=VARCHAR},#{billstatus,jdbcType=VARCHAR})
+      #{vehiOwnerName,jdbcType=VARCHAR},#{audittime,jdbcType=VARCHAR},#{billstatus,jdbcType=VARCHAR},
+      #{registcode,jdbcType=VARCHAR},
+      #{registimage,jdbcType=VARCHAR},
+      #{opercode,jdbcType=VARCHAR},
+      #{operimage,jdbcType=VARCHAR},
+
+      #{identitycode,jdbcType=VARCHAR},
+      #{identieyimage,jdbcType=VARCHAR},
+      #{agreeimage,jdbcType=VARCHAR},
+      #{roadtransportcode,jdbcType=VARCHAR},
+      #{roadtransportimage,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.MemberVehicle" >
     <!--
@@ -216,6 +241,33 @@
       <if test="modifytime != null" >
         modifytime,
       </if>
+      <if test="registcode != null" >
+        registcode,
+      </if>
+      <if test="registimage != null" >
+        registimage,
+      </if>
+      <if test="opercode != null" >
+        opercode,
+      </if>
+      <if test="operimage != null" >
+        operimage,
+      </if>
+      <if test="identitycode != null" >
+        identitycode,
+      </if>
+      <if test="identieyimage != null" >
+        identieyimage,
+      </if>
+      <if test="agreeimage != null" >
+        agreeimage,
+      </if>
+      <if test="roadtransportcode != null" >
+        roadtransportcode,
+      </if>
+      <if test="roadtransportimage != null" >
+        roadtransportimage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -308,6 +360,33 @@
       <if test="modifytime != null" >
         #{modifytime,jdbcType=BIGINT},
       </if>
+      <if test="registcode != null" >
+        #{registcode,jdbcType=VARCHAR},
+      </if>
+      <if test="registimage != null" >
+        #{registimage,jdbcType=VARCHAR},
+      </if>
+      <if test="opercode != null" >
+        #{opercode,jdbcType=VARCHAR},
+      </if>
+      <if test="operimage != null" >
+        #{operimage,jdbcType=VARCHAR},
+      </if>
+      <if test="identitycode != null" >
+        #{identitycode,jdbcType=VARCHAR},
+      </if>
+      <if test="identieyimage != null" >
+        #{identieyimage,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeimage != null" >
+        #{agreeimage,jdbcType=VARCHAR},
+      </if>
+      <if test="roadtransportcode != null" >
+        #{roadtransportcode,jdbcType=VARCHAR},
+      </if>
+      <if test="roadtransportimage != null" >
+        #{roadtransportimage,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MemberVehicle" >
@@ -317,6 +396,35 @@
     -->
     update wuliu_member_vehicle
     <set >
+      <if test="identitycode != null and identitycode != ''" >
+        identitycode = #{identitycode,jdbcType=VARCHAR},
+      </if>
+      <if test="identieyimage != null and identieyimage != ''" >
+        identieyimage = #{identieyimage,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeimage != null and agreeimage != ''" >
+        agreeimage = #{agreeimage,jdbcType=VARCHAR},
+      </if>
+      <if test="roadtransportcode != null and roadtransportcode != ''" >
+        roadtransportcode = #{roadtransportcode,jdbcType=VARCHAR},
+      </if>
+      <if test="roadtransportimage != null and roadtransportimage != ''" >
+        roadtransportimage = #{roadtransportimage,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="registcode != null and registcode != ''" >
+        registcode = #{registcode,jdbcType=VARCHAR},
+      </if>
+      <if test="registimage != null and registimage != ''" >
+        registimage = #{registimage,jdbcType=VARCHAR},
+      </if>
+      <if test="opercode != null and opercode != ''" >
+        opercode = #{opercode,jdbcType=VARCHAR},
+      </if>
+      <if test="operimage != null and operimage != ''" >
+        operimage = #{operimage,jdbcType=VARCHAR},
+      </if>
+      
       <if test="memberid != null and memberid != ''" >
         memberid = #{memberid,jdbcType=VARCHAR},
       </if>
@@ -413,7 +521,18 @@
       This element is automatically generated by MyBatis Generator, do not modify.
     -->
     update wuliu_member_vehicle
-    set memberid = #{memberid,jdbcType=VARCHAR},
+    set 
+   	  identitycode = #{identitycode,jdbcType=VARCHAR},
+   	  identieyimage = #{identieyimage,jdbcType=VARCHAR},
+   	  agreeimage = #{agreeimage,jdbcType=VARCHAR},
+   	  roadtransportcode = #{roadtransportcode,jdbcType=VARCHAR},
+   	  roadtransportimage = #{roadtransportimage,jdbcType=VARCHAR},
+   	
+   	  registcode = #{registcode,jdbcType=VARCHAR},
+   	  registimage = #{registimage,jdbcType=VARCHAR},
+   	  opercode = #{opercode,jdbcType=VARCHAR},
+   	  operimage = #{operimage,jdbcType=VARCHAR},
+   	  memberid = #{memberid,jdbcType=VARCHAR},
       billstatus = #{billstatus,jdbcType=VARCHAR},
       vehiOwnerTel = #{vehiOwnerTel,jdbcType=VARCHAR},
       vehiOwnerName = #{vehiOwnerName,jdbcType=VARCHAR},
@@ -686,7 +805,7 @@
    	<!-- 
    		group by a.memberid, a.vehicleprefix, a.vehicleno, b.driverid
    	 -->
-   		order by a.vehicleprefix, a.vehicleno
+   		order by b.creatTime
    		<if test="start != null and start != 0 and limit != null">
 	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
       </if>

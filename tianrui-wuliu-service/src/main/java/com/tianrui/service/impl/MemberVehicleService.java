@@ -428,6 +428,18 @@ public class MemberVehicleService implements IMemberVehicleService {
 	 */
 	public MemberVehicle copyProperties( MemberVehicleReq argMemberVehicleReq) {
 		MemberVehicle argMemberVehicle = new MemberVehicle();
+		
+		argMemberVehicle.setRegistcode(argMemberVehicleReq.getRegistcode());
+		argMemberVehicle.setRegistimage(argMemberVehicleReq.getRegistimage());
+		argMemberVehicle.setOpercode(argMemberVehicleReq.getOpercode());
+		argMemberVehicle.setOperimage(argMemberVehicleReq.getOperimage());
+
+		argMemberVehicle.setIdentitycode(argMemberVehicleReq.getIdentitycode());
+		argMemberVehicle.setIdentieyimage(argMemberVehicleReq.getIdentieyimage());
+		argMemberVehicle.setAgreeimage(argMemberVehicleReq.getAgreeimage());
+		argMemberVehicle.setRoadtransportcode(argMemberVehicleReq.getRoadtransportcode());
+		argMemberVehicle.setRoadtransportimage(argMemberVehicleReq.getRoadtransportimage());
+		
 		// 主键
 		argMemberVehicle.setId(argMemberVehicleReq.getId());
 		//车辆运单状态

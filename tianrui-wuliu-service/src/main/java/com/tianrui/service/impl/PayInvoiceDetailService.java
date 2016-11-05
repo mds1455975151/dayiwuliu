@@ -112,8 +112,9 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setBillTotalPrice(bill.getPrice()*bill.getWeight());
 				//单价类型：1-原价 2-修改
 				if(StringUtils.isNotBlank(req.getTrueprice())){
+					freight.setPrice(Double.valueOf(req.getTrueprice()));
 					payInvoiceDetail.setBillPrice(Double.valueOf(req.getTrueprice()));
-					payInvoiceDetail.setBillTotalPrice(Double.valueOf(req.getTrueprice())*bill.getWeight());
+					payInvoiceDetail.setBillTotalPrice(Double.valueOf(req.getTrueprice())*bill.getTrueweight());
 					payInvoiceDetail.setPricetype("2");
 				}
 				

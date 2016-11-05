@@ -64,5 +64,4 @@ public class MyVehicleService implements IMyVehicleService{
 		PropertyUtils.copyProperties(resp, m);
 		return resp;
 	}
-
 }

@@ -139,7 +139,8 @@ function details(a){
 				"<div class='file_detail'><label>收货人：</label><span>"+list[a].receivername+list[a].receivertel+"</span></div>"+
 				"<div class='file_detail'><label>开始时间：</label><span>"+list[a].starttime+"</span></div>"+
 				"<div class='file_detail'><label>结束时间：</label><span>"+list[a].endtime+"</span></div>"+
-				"<div class='file_detail'><label>运输量：</label><span>"+list[a].weight+"吨</span></div>"+
+				"<div class='file_detail'><label>原发运输量：</label><span>"+list[a].weight+"吨</span></div>"+
+				"<div class='file_detail'><label>签收运输量：</label><span>"+list[a].trueweight+"吨</span></div>"+
 				"<div class='file_detail'><label>运单价格：</label><span>"+list[a].price+"元</span></div>"+
 				"<div class='file_detail2'><label>车辆信息：</label><span>"+list[a].vehicleno+"</span>" +
 						"<span>"+list[a].drivername+"</span><span>"+list[a].drivertel+"</span></div>"+

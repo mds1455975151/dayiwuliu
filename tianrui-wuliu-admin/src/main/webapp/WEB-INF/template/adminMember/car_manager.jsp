@@ -165,6 +165,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4 class="modal-title" id=" ">修改照片</h4>
             </div>
 	            <div class="modal-body">
+	                <span id="showcode">
+			     		证书编号：<input id="code" type="text">
+			        </span>
 	                <div class="reg_tel">
 	                    <label></label>
 	                    <div class="img_upload">
@@ -265,7 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?11.2" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?11.5" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

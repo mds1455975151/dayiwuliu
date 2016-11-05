@@ -550,7 +550,7 @@ public class AdminMemberAction {
 	 * @throws Exception */
 	@RequestMapping(value="uptVehicPic",method=RequestMethod.POST )
 	@ResponseBody
-	public Result uptVehicPic(String id , MultipartFile file , String type) throws Exception{
+	public Result uptVehicPic(String id , MultipartFile file , String type, String code) throws Exception{
 		Result rs = Result.getSuccessResult();
 		rs = iFileService.uploadByteImg(file);
 		if("000000".equals(rs.getCode())){
@@ -558,8 +558,14 @@ public class AdminMemberAction {
 			req.setId(id);
 			if("1".equals(type)){
 				req.setVehiHeadImgPath(rs.getData().toString());
-			}else{
+			}else if("2".equals(type)){
 				req.setVehiLicenseImgPath(rs.getData().toString());
+			}else if("3".equals(type)){
+				req.setRegistcode(code);
+				req.setRegistimage(rs.getData().toString());
+			}else if("4".equals(type)){
+				req.setOpercode(code);
+				req.setOperimage(rs.getData().toString());
 			}
 			rs = MemberVehicleService.updateByPrimaryKeySelective(req);
 		}

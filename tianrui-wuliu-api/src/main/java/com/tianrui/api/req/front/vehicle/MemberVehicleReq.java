@@ -16,6 +16,17 @@ public class MemberVehicleReq extends BaseReq{
 	private String id;
 	/** 用户主键 */
 	private String memberId;
+	private String registcode;
+	private String registimage;
+	private String opercode;
+	private String operimage;
+	
+	private String identitycode;
+	private String identieyimage;
+	private String agreeimage;
+	private String roadtransportcode;
+	private String roadtransportimage;
+	
 	/** 车辆主键*/
 	private String vehicleId;
 	/** 车牌号前缀 */
@@ -89,6 +100,78 @@ public class MemberVehicleReq extends BaseReq{
 	 */
 	public String getMemberId() {
 		return memberId;
+	}
+
+	public String getRegistcode() {
+		return registcode;
+	}
+
+	public void setRegistcode(String registcode) {
+		this.registcode = registcode;
+	}
+
+	public String getRegistimage() {
+		return registimage;
+	}
+
+	public void setRegistimage(String registimage) {
+		this.registimage = registimage;
+	}
+
+	public String getOpercode() {
+		return opercode;
+	}
+
+	public void setOpercode(String opercode) {
+		this.opercode = opercode;
+	}
+
+	public String getOperimage() {
+		return operimage;
+	}
+
+	public void setOperimage(String operimage) {
+		this.operimage = operimage;
+	}
+
+	public String getIdentitycode() {
+		return identitycode;
+	}
+
+	public void setIdentitycode(String identitycode) {
+		this.identitycode = identitycode;
+	}
+
+	public String getIdentieyimage() {
+		return identieyimage;
+	}
+
+	public void setIdentieyimage(String identieyimage) {
+		this.identieyimage = identieyimage;
+	}
+
+	public String getAgreeimage() {
+		return agreeimage;
+	}
+
+	public void setAgreeimage(String agreeimage) {
+		this.agreeimage = agreeimage;
+	}
+
+	public String getRoadtransportcode() {
+		return roadtransportcode;
+	}
+
+	public void setRoadtransportcode(String roadtransportcode) {
+		this.roadtransportcode = roadtransportcode;
+	}
+
+	public String getRoadtransportimage() {
+		return roadtransportimage;
+	}
+
+	public void setRoadtransportimage(String roadtransportimage) {
+		this.roadtransportimage = roadtransportimage;
 	}
 
 	/**

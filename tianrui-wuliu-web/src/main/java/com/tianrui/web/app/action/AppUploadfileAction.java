@@ -7,23 +7,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.intf.IAppVersionService;
-import com.tianrui.api.req.front.version.AppVersionReq;
-import com.tianrui.api.resp.front.version.AppVersionResp;
+import com.tianrui.api.intf.IFileService;
+import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
+import com.tianrui.web.smvc.ApiTokenValidation;
 
 @Controller
-@RequestMapping("/app/version")
-public class AppVersionAction {
+@RequestMapping("/app/upload")
+public class AppUploadfileAction {
 
 	@Autowired
-	IAppVersionService appVersionService;
+	private IFileService iFileService;
 	/**
 	 * 
-	 * @描述:获取最新版本信息
+	 * @描述:app单独上传文件 Base64
 	 * @param appParam
 	 * @return
 	 * @throws Exception
@@ -31,14 +32,16 @@ public class AppVersionAction {
 	 * @创建人 lsj
 	 * @创建时间 2016年8月22日上午11:12:44
 	 */
-	@RequestMapping(value="/getVersion",method=RequestMethod.POST)
-	@ApiParamRawType(AppVersionReq.class)
+	@RequestMapping(value="/save",method=RequestMethod.POST)
+	@ApiParamRawType(FileUploadReq.class)
+	@ApiTokenValidation
 	@ResponseBody
-	public AppResult save(AppParam<AppVersionReq> appParam) throws Exception{
+	public AppResult save(AppParam<FileUploadReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
-		AppVersionReq req = appParam.getBody();
-		AppVersionResp resp = appVersionService.selectByid(req.getAppType());
-		rs.setData(resp);
+		Head head = appParam.getHead();
+		FileUploadReq freq = appParam.getBody();
+		freq.setuId(head.getId());
+		rs = iFileService.uploadImg(freq);
 		return AppResult.valueOf(rs);
 	}
 }
