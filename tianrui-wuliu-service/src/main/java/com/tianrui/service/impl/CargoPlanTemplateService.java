@@ -52,9 +52,15 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 			try {
 				resp=copyPropertie(planTemplateDao.findOne(req.getId()));
 				FileFreight fileFreight = (FileFreight) freightInfoService.findFreightInfo(resp.getFreightid(), new Date()).getData();
+				resp.setFreightname(fileFreight.getFreightName());
 				resp.setTallage(fileFreight.getTallage());
 				resp.setPrice(fileFreight.getPrice());
 				resp.setOrgname(fileFreight.getOrganizationname());
+				if(StringUtils.equals(fileFreight.getStatus(), "0")){
+					resp.setFstatus("0");
+				}else{
+					resp.setFstatus("1");
+				}
 			} catch (Exception e) {
 				loger.error(e.getMessage(),e);
 			}

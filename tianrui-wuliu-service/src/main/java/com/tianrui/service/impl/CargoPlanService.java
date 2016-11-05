@@ -127,6 +127,7 @@ public class CargoPlanService implements ICargoPlanService{
 				page.setList(copyProperties(planMapper.selectByCondition(plan)));
 			}
 			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
 			page.setTotal(total);
 		}
 		return page;

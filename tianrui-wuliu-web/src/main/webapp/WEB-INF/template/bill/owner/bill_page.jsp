@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
+	<link href="${trRoot}/tianrui/css/pagination/pagination.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -37,7 +38,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <!-- 引用公共left部分 -->
 			<jsp:include page="../../common/member/left_busi.jsp"></jsp:include>
         <!--个人中心左侧end-->
-   <!--个人中心右侧begin-->
+        	<input type="hidden" id="pageNo" value="1">
+   		<!--个人中心右侧begin-->
             <div class="rz_right">
                 <div class="car_title bgblue">
                     <h2>运单</h2>
@@ -65,12 +67,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tbody>
                         </tbody>
                     </table>
-                    <div class="goods_more pageNone" style="display:hide">
-	                     <h4>暂无数据</h4>
-	                 </div>
-                    <div class="goods_more pageMore" style="display:hide">
-	                     <h4>查看更多</h4>
-	                 </div>         
+                    <!-- 分页部分  开始-->
+		            <div class="row pr20 fr">
+						<%@include file="../../common/pagination.jsp" %>
+		            </div>
+					<!-- 分页部分 结束 -->
                 </div>
                 <!--tab切换的内容end-->
             </div>
@@ -139,6 +140,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--底部end-->
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/pagination.js"></script>
 <script type="text/javascript" src="/resources/js/bill/owner_page.js" ></script>
 
 </body>

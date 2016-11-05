@@ -91,6 +91,8 @@ public class PlanResp extends BaseResp{
     private Double overweight;
     //是否是委派计划（0：否，1：是）
     private String isAppoint;
+    //运价策略是否可用
+    private String fstatus;
     
 	public String getId() {
 		return id;
@@ -398,5 +400,10 @@ public class PlanResp extends BaseResp{
 	public void setIsAppoint(String isAppoint) {
 		this.isAppoint = isAppoint;
 	}
-	
+	public String getFstatus() {
+		return fstatus;
+	}
+	public void setFstatus(String fstatus) {
+		this.fstatus = fstatus;
+	}
 }

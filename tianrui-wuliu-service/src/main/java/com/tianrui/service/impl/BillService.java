@@ -984,6 +984,7 @@ public class BillService implements IBillService{
 				page.setList(conver2billResp(list));
 			}
 			page.setTotal(total);
+			page.setPageSize(req.getPageSize());
 			page.setPageNo(req.getPageNo());
 		}
 		return page;

@@ -22,8 +22,8 @@ public class PaginationVO<T> {
 	private List<T> list;
 	// 当前页码
 	private int pageNo;
-
-
+	//每页条数
+	private int pageSize;
 
 	public List<T> getList() {
 		return list;
@@ -62,6 +62,12 @@ public class PaginationVO<T> {
 		super();
 	}
 
-	
-	
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
 }
