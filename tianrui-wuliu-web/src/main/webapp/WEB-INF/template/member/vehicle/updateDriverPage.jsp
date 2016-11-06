@@ -156,7 +156,7 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label>运营许可证：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
+						<label>营运许可证：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
 						<p id="message_opercode"></p>
 						<div class="rz_persontab">
 							<div class="samples">

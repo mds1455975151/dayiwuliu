@@ -166,7 +166,7 @@ $("#vehicle_addBtn").click(function() {
 		return;
 	}
 	if (!$.trim(opercode)) {
-		$("#message_opercode").html("请输入运营许可证号！");
+		$("#message_opercode").html("请输入营运许可证号！");
 		return;
 	}
 	var formData = new FormData();

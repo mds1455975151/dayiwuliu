@@ -127,7 +127,7 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label>运营许可证：</label> <input type="text" id="vehicle_add_opercode">
+						<label>营运许可证：</label> <input type="text" id="vehicle_add_opercode">
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
@@ -197,7 +197,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?111"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?11.6"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

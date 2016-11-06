@@ -314,10 +314,10 @@ public class PayInvoiceService implements IPayInvoiceService {
 
 	protected  String httpNcurl(String invoice,String ncurl) throws IOException{
 		try {
-//			URL url = new URL(Constant.NC_PAY_URL+ncurl);
-//			System.out.println(Constant.NC_PAY_URL+ncurl);
-			URL url = new URL("http://172.20.10.100"+ncurl);
-			System.out.println("http://172.20.10.100"+ncurl);
+			URL url = new URL(Constant.NC_PAY_URL+ncurl);
+			System.out.println(Constant.NC_PAY_URL+ncurl);
+//			URL url = new URL("http://172.20.10.100"+ncurl);
+//			System.out.println("http://172.20.10.100"+ncurl);
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
