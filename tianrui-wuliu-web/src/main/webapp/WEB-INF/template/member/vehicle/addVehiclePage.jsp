@@ -79,10 +79,9 @@
 					<div class="reg_tel">
 						<label>所有人身份证：</label> <input type="text"
 							id="vehicle_add_identitycode">
-						<p id="message_identitycode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="sfz" src="${trRoot}/tianrui/images/democar.jpg">
+								<img class="sfz" style="max-height: 240px;" src="${trRoot}/tianrui/images/sfz.png">
 							</div>
 							<div class="img_upload">
 								<input id="file_sfz" class="file" type="file"> <span
@@ -94,7 +93,7 @@
 						<label>车辆照片：</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="cel" src="${trRoot}/tianrui/images/democar.jpg">
+								<img class="cel" style="max-height: 240px;" src="${trRoot}/tianrui/images/democar.jpg">
 							</div>
 							<div class="img_upload">
 								<input id="file_cel" class="file" type="file"> <span
@@ -106,7 +105,7 @@
 						<label>行驶证：</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="xsz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+								<img class="xsz" style="max-height: 240px;" src="${trRoot}/tianrui/images/demoxsz.jpg">
 							</div>
 							<div class="img_upload">
 								<input id="file_xsz" class="file" type="file"> <span
@@ -117,10 +116,9 @@
 					<div class="reg_tel">
 						<label>道路运输证：</label> <input type="text"
 							id="vehicle_add_roadtransportcode">
-						<p id="message_roadtransportcode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="ysz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+								<img class="ysz" style="max-height: 240px;" src="${trRoot}/tianrui/images/admin.jpg">
 							</div>
 							<div class="img_upload">
 								<input id="file_ysz" class="file" type="file"> <span
@@ -130,10 +128,9 @@
 					</div>
 					<div class="reg_tel">
 						<label>运营许可证：</label> <input type="text" id="vehicle_add_opercode">
-						<p id="message_opercode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="xkz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
 							</div>
 							<div class="img_upload">
 								<input id="file_xkz" class="file" type="file"> <span
@@ -144,10 +141,9 @@
 					<div class="reg_tel">
 						<label>机动车登记证：</label> <input type="text"
 							id="vehicle_add_registcode">
-						<p id="message_registcode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="djz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+								<img class="djz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
 							</div>
 							<div class="img_upload">
 								<input id="file_djz" class="file" type="file"> <span
@@ -201,7 +197,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?11.6"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?111"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

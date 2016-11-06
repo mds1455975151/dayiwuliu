@@ -171,7 +171,8 @@ $("#vehicle_addBtn").click(function() {
 		return;
 	}
 	if (!$.trim(roadtransportcode)) {
-		$("#message_roadtransportcode").html("请输入道路运输证号！");
+		$("#modal_common_content").html("请输入道路运输证号！");
+		$("#commonModal").modal();
 		return;
 	}
 	if (!file_ysz) {
@@ -180,7 +181,8 @@ $("#vehicle_addBtn").click(function() {
 		return;
 	}
 	if (!$.trim(opercode)) {
-		$("#message_opercode").html("请输入运营许可证号！");
+		$("#modal_common_content").html("请输入运营许可证号！");
+		$("#commonModal").modal();
 		return;
 	}
 	if (!file_xkz) {
