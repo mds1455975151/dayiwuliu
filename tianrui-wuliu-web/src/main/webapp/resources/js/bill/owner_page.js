@@ -6,11 +6,24 @@ var URL={
 	deleteUrl:"/trwuliu/billowner/delete",
 }
 
+var loading = {
+		$loadHtml:$('<tr class="loadtr"><td colspan="6" class="bill_load" style="text-align: center;"><img src="'+trRoot+'/tianrui/images/reloader.gif"><h5>数据载入中，请稍后......</h5></td></tr>'),
+		append:function(){
+			$('#billlist').empty().append(this.$loadHtml);
+		},
+		remove:function(){
+			this.$loadHtml.remove();
+		}
+};
+
 function pageCallback(pageNo) {
 	displayData(pageNo);  
 } 
 
 function displayData(pageNo){
+	$('.hasdata').show();
+	$('.nodata').hide();
+	loading.append();
 	if(pageNo && pageNo >= 0){
 		pageData(pageNo+1);
 	}else{
@@ -20,13 +33,13 @@ function displayData(pageNo){
 
 //分页数据查询
 var pageData=function(pageNo){
-	if(pageNo ==1){$(".bill_table").find("tbody").empty();}
 	$.ajax({
 		url:URL.pageUrl,
 		data:{"key":$(".searchKey").val(),"pageNo":pageNo},
 		type : "post",
 		dataType:"json",
 		success:function(rs){
+			loading.remove();
 			if( rs && rs.code =="000000" ){
 				var data = rs.data.list || [];
 				var total = rs.data.total;
@@ -101,19 +114,15 @@ var renderDate=function(bills,pageNo){
 	});	
 	//是否显示无数据
 	if( bills.length==0 && pageNo ==1){
-		var hml = "";
-		hml+= '<div class="nodata">';
-		hml+= '<img src="'+trImgRoot+'/none_bill.png">';
-		hml+= '<h3>未发现您的货物运单！</h3>';
-		hml+= '</div>';
-		document.getElementById("dateContent").innerHTML = hml;
+		$('.hasdata').hide();
+		$('.nodata').show();
 	}
-	$(".bill_table").find("tbody").empty().append(dataArr.join(" "));
+	$("#billlist").empty().append(dataArr.join(" "));
 }
 
 //查询按钮点击
 $(".searchBtn").click(function(){
-	pageData(1);
+	displayData(0);
 });
 
 //签收按钮点击

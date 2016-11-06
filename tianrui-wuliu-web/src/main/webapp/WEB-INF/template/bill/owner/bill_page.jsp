@@ -20,6 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/pagination/pagination.css" rel="stylesheet"/>
+	<style type="text/css">
+		tr.loadtr:hover {
+		    background-color: inherit!important;
+		}
+	</style>
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -52,26 +57,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--个人中心右侧搜索框end-->
                 <div class="plan_fege"></div>
                 <!--计划模板表格begin-->
-                <div class="bill_table" id="dateContent" >
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th  >运单号</th>
-                            <th >货物名称</th>
-                            <th > 车牌号-车主</th>
-                            <th >运单状态</th>
-                            <th >更新时间</th>
-                            <th > 操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <!-- 分页部分  开始-->
-		            <div class="row pr20 fr">
-						<%@include file="../../common/pagination.jsp" %>
-		            </div>
-					<!-- 分页部分 结束 -->
+                <div class="bill_table" id="dateContent">
+                	<div class="hasdata">
+	                    <table class="table table-hover">
+	                        <thead>
+	                        <tr>
+	                            <th  >运单号</th>
+	                            <th >货物名称</th>
+	                            <th > 车牌号-车主</th>
+	                            <th >运单状态</th>
+	                            <th >更新时间</th>
+	                            <th > 操作</th>
+	                        </tr>
+	                        </thead>
+	                        <tbody id="billlist">
+	                        </tbody>
+	                    </table>
+	                    <!-- 分页部分  开始-->
+			            <div class="row pr20 fr">
+							<%@include file="../../common/pagination.jsp" %>
+			            </div>
+						<!-- 分页部分 结束 -->
+					</div>
+					<div class="nodata hide">
+						<img src="${trRoot}/tianrui/images/none_pro.png">
+						<h3>未发现发布的货运计划！</h3>
+					</div>
                 </div>
                 <!--tab切换的内容end-->
             </div>
@@ -138,6 +149,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <!--底部end-->
+<script type="text/javascript">
+	trRoot = '${trRoot}';
+</script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery.pagination.js"></script>

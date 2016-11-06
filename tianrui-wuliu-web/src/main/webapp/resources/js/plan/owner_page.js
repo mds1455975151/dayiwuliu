@@ -12,12 +12,24 @@ var PlanUrl={
 		billCreate:"/trwuliu/billvender/addView",
 		progress:"/trwuliu/planowner/progress"
 };
+var loading = {
+		$loadHtml:$('<tr class="loadtr"><td colspan="7" class="bill_load" style="text-align: center;"><img src="'+trRoot+'/tianrui/images/reloader.gif"><h5>数据载入中，请稍后......</h5></td></tr>'),
+		append:function(){
+			$('#planlist').empty().append(this.$loadHtml);
+		},
+		remove:function(){
+			this.$loadHtml.remove();
+		}
+};
 
 function pageCallback(pageNo) {
 	displayData(pageNo);  
 } 
 
 function displayData(pageNo){
+	$('.hasdata').show();
+	$('.nodata').hide();
+	loading.append();
 	if(pageNo && pageNo >= 0){
 		searchPlan(pageNo+1);
 	}else{
@@ -27,7 +39,7 @@ function displayData(pageNo){
 
 //查询按钮点击
 $(".searchBtn").click(function(){
-	searchPlan(1);
+	displayData(0);
 });
 //生成运单绑定事件
 $("#planlist").on("click",".createBtn",function(){
@@ -72,7 +84,7 @@ function ajaxMethod(id,postUrl){
 		success : function(rs){
 			if(rs.code=="000000"){
 				alert("操作成功")
-				searchPlan($('pageNo').val());
+				displayData($('pageNo').val()-1);
 			}else{
 				alert(rs.error);
 			}
@@ -87,6 +99,7 @@ function searchPlan(pageNo){
 		data:{"pageNo":pageNo,"searchParam":$("#search_v").val()},
 		type:"post",
 		success: function(rs) {
+			loading.remove();
 			if(rs.code!="000000"){
 				alert("初始化失败");
 			}else{
@@ -97,12 +110,8 @@ function searchPlan(pageNo){
 				renderHtml(data);
 				//是否显示无数据
 				if( data.length==0 && pageNo ==1){
-					var hml = "";
-					hml+= '<div class="nodata">';
-					hml+= '<img src="'+trImgRoot+'/none_pro.png">';
-					hml+= '<h3>未发现发布的货运计划！</h3>';
-					hml+= '</div>';
-					document.getElementById("dateContent").innerHTML = hml;
+					$('.hasdata').hide();
+					$('.nodata').show();
 				}
 				
 				$("#totalPages").html(parseInt((total+pageSize-1)/pageSize));  
