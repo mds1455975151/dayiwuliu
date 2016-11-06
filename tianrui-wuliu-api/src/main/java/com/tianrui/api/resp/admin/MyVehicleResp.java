@@ -36,6 +36,12 @@ public class MyVehicleResp extends BaseResp{
 	private String registimage;
 	private String opercode;
 	private String operimage;
+	
+	private String identitycode;
+	private String identieyimage;
+	private String agreeimage;
+	private String roadtransportcode;
+	private String roadtransportimage;
 	/**
 	 * 车牌号前缀
 	 */
@@ -87,6 +93,42 @@ public class MyVehicleResp extends BaseResp{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getIdentitycode() {
+		identitycode = StringUtils.isBlank(identitycode)?"":identitycode;
+		return identitycode;
+	}
+	public void setIdentitycode(String identitycode) {
+		this.identitycode = identitycode;
+	}
+	public String getIdentieyimage() {
+		identieyimage = StringUtils.isBlank(identieyimage)?"":identieyimage;
+		return identieyimage;
+	}
+	public void setIdentieyimage(String identieyimage) {
+		this.identieyimage = identieyimage;
+	}
+	public String getAgreeimage() {
+		agreeimage = StringUtils.isBlank(agreeimage)?"":agreeimage;
+		return agreeimage;
+	}
+	public void setAgreeimage(String agreeimage) {
+		this.agreeimage = agreeimage;
+	}
+	public String getRoadtransportcode() {
+		roadtransportcode = StringUtils.isBlank(roadtransportcode)?"":roadtransportcode;
+		return roadtransportcode;
+	}
+	public void setRoadtransportcode(String roadtransportcode) {
+		this.roadtransportcode = roadtransportcode;
+	}
+	public String getRoadtransportimage() {
+		roadtransportimage = StringUtils.isBlank(roadtransportimage)?"":roadtransportimage;
+		return roadtransportimage;
+	}
+	public void setRoadtransportimage(String roadtransportimage) {
+		this.roadtransportimage = roadtransportimage;
 	}
 	public String getRegistcode() {
 		registcode = StringUtils.isBlank(registcode)?"":registcode;

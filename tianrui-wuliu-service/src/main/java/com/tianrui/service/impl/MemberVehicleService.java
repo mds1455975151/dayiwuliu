@@ -514,6 +514,15 @@ public class MemberVehicleService implements IMemberVehicleService {
 			for (VehicleAndDriver memberVehicle : argVehicleAndDriverList) {
 				VehicleAndDriverResp memberVehicleResp =  new VehicleAndDriverResp();
 				memberVehicleResp.setId(memberVehicle.getId());
+				memberVehicleResp.setRegistcode(memberVehicle.getRegistcode());
+				memberVehicleResp.setRegistimage(memberVehicle.getRegistimage());
+				memberVehicleResp.setOpercode(memberVehicle.getOpercode());
+				memberVehicleResp.setOperimage(memberVehicle.getOperimage());
+				memberVehicleResp.setIdentieyimage(memberVehicle.getIdentieyimage());
+				memberVehicleResp.setIdentitycode(memberVehicle.getIdentitycode());
+				memberVehicleResp.setAgreeimage(memberVehicle.getAgreeimage());
+				memberVehicleResp.setRoadtransportcode(memberVehicle.getRoadtransportcode());
+				memberVehicleResp.setRoadtransportimage(memberVehicle.getRoadtransportimage());
 				// 用户主键
 				memberVehicleResp.setMemberId(memberVehicle.getMemberid());
 				//车主电话

@@ -566,6 +566,12 @@ public class AdminMemberAction {
 			}else if("4".equals(type)){
 				req.setOpercode(code);
 				req.setOperimage(rs.getData().toString());
+			}else if("5".equals(type)){
+				req.setRoadtransportcode(code);
+				req.setRoadtransportimage(rs.getData().toString());
+			}else if("6".equals(type)){
+				req.setIdentitycode(code);
+				req.setIdentieyimage(rs.getData().toString());
 			}
 			rs = MemberVehicleService.updateByPrimaryKeySelective(req);
 		}

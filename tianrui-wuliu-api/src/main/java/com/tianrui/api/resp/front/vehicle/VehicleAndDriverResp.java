@@ -3,6 +3,8 @@ package com.tianrui.api.resp.front.vehicle;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 
 /**
@@ -24,6 +26,18 @@ public class VehicleAndDriverResp extends BaseResp{
 	private String vehiOwnerName;
 	
 	private String vehilicenseimgpath;
+	
+	private String registcode;
+	private String registimage;
+	private String opercode;
+	private String operimage;
+	
+	private String identitycode;
+	private String identieyimage;
+	private String agreeimage;
+	private String roadtransportcode;
+	private String roadtransportimage;
+	
 	/** 车辆运单状态*/
 	private String billstatus;
 	/** 车辆主键*/
@@ -72,6 +86,95 @@ public class VehicleAndDriverResp extends BaseResp{
 	 */
 	public String getMemberId() {
 		return memberId;
+	}
+	
+	public String getRegistcode() {
+		registcode = StringUtils.isBlank(registcode)?"":registcode;
+		return registcode;
+	}
+
+	public void setRegistcode(String registcode) {
+		this.registcode = registcode;
+	}
+
+	public String getRegistimage() {
+		registimage = StringUtils.isBlank(registimage)?"":registimage;
+		return registimage;
+	}
+
+	public void setRegistimage(String registimage) {
+		this.registimage = registimage;
+	}
+
+	public String getOpercode() {
+		opercode = StringUtils.isBlank(opercode)?"":opercode;
+		return opercode;
+	}
+
+	public void setOpercode(String opercode) {
+		this.opercode = opercode;
+	}
+
+	public String getOperimage() {
+		operimage = StringUtils.isBlank(operimage)?"":operimage;
+		return operimage;
+	}
+
+	public void setOperimage(String operimage) {
+		this.operimage = operimage;
+	}
+
+	public String getIdentitycode() {
+		identitycode = StringUtils.isBlank(identitycode)?"":identitycode;
+		return identitycode;
+	}
+
+	public void setIdentitycode(String identitycode) {
+		this.identitycode = identitycode;
+	}
+
+	public String getIdentieyimage() {
+		identieyimage = StringUtils.isBlank(identieyimage)?"":identieyimage;
+		return identieyimage;
+	}
+
+	public void setIdentieyimage(String identieyimage) {
+		this.identieyimage = identieyimage;
+	}
+
+	public String getAgreeimage() {
+		agreeimage = StringUtils.isBlank(agreeimage)?"":agreeimage;
+		return agreeimage;
+	}
+
+	public void setAgreeimage(String agreeimage) {
+		this.agreeimage = agreeimage;
+	}
+
+	public String getRoadtransportcode() {
+		roadtransportcode = StringUtils.isBlank(roadtransportcode)?"":roadtransportcode;
+		return roadtransportcode;
+	}
+
+	public void setRoadtransportcode(String roadtransportcode) {
+		this.roadtransportcode = roadtransportcode;
+	}
+
+	public String getRoadtransportimage() {
+		roadtransportimage = StringUtils.isBlank(roadtransportimage)?"":roadtransportimage;
+		return roadtransportimage;
+	}
+
+	public void setRoadtransportimage(String roadtransportimage) {
+		this.roadtransportimage = roadtransportimage;
+	}
+
+	public void setCreatetimeStr(String createtimeStr) {
+		this.createtimeStr = createtimeStr;
+	}
+
+	public void setAudittimeStr(String audittimeStr) {
+		this.audittimeStr = audittimeStr;
 	}
 
 	public String getCreatetimeStr() {

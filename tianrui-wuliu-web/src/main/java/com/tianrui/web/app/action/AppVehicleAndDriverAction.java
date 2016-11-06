@@ -301,25 +301,6 @@ public class AppVehicleAndDriverAction {
 			rs.setError("该车辆已存在");
 			return AppResult.valueOf(rs);
 		}
-		
-		String headImg = vehiReq.getVehiHeadImgPath();
-		String licenseImg = vehiReq.getVehiLicenseImgPath();
-		if(StringUtils.isNotBlank(headImg)){
-			FileUploadReq req = new FileUploadReq();
-			req.setImgStr(headImg);
-			rs = iFileService.uploadImg(req);
-			if(rs.getCode().equals("000000")){
-				vehiReq.setVehiHeadImgPath(rs.getData().toString());
-			}
-		}
-		if(StringUtils.isNotBlank(licenseImg)){
-			FileUploadReq req = new FileUploadReq();
-			req.setImgStr(licenseImg);
-			rs = iFileService.uploadImg(req);
-			if(rs.getCode().equals("000000")){
-				vehiReq.setVehiLicenseImgPath(rs.getData().toString());
-			}
-		}
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
 		vehiReq.setCreateTime(new Date().getTime());
 		vehiReq.setStatus("2");

@@ -74,6 +74,17 @@
     <result column="driverid" property="driverid" jdbcType="VARCHAR" />
     <result column="drivername" property="drivername" jdbcType="VARCHAR" />
     <result column="drivertel" property="drivertel" jdbcType="VARCHAR" />
+    
+    <result column="registcode" property="registcode" jdbcType="VARCHAR" />
+    <result column="registimage" property="registimage" jdbcType="VARCHAR" />
+    <result column="opercode" property="opercode" jdbcType="VARCHAR" />
+    <result column="operimage" property="operimage" jdbcType="VARCHAR" />
+    
+    <result column="identitycode " property="identitycode" jdbcType="VARCHAR" />
+    <result column="identieyimage " property="identieyimage" jdbcType="VARCHAR" />
+    <result column="agreeimage" property="agreeimage" jdbcType="VARCHAR" />
+    <result column="roadtransportcode" property="roadtransportcode" jdbcType="VARCHAR" />
+    <result column="roadtransportimage" property="roadtransportimage" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -765,7 +776,9 @@
            a.vehiheadimgpath, a.status, a.memo,a.createtime,a.audittime,
            b.id AS vehidriverid, b.driverid, b.drivername, b.drivertel,
            a.billstatus,a.vehiOwnerTel as vehiOwnerTel,
-           a.vehiOwnerName as vehiOwnerName,a.vehilicenseimgpath as vehilicenseimgpath
+           a.vehiOwnerName as vehiOwnerName,a.vehilicenseimgpath as vehilicenseimgpath,
+      	   a.registcode as registcode, a.registimage as registimage, a.opercode as opercode, a.operimage as operimage,
+    	   a.identitycode as identitycode, a.identieyimage as identieyimage, a.agreeimage as agreeimage, a.roadtransportcode as roadtransportcode, a.roadtransportimage as roadtransportimage
       from wuliu_member_vehicle a 
            left join  wuliu_vehicle_driver b 
            		on a.memberid = b.creator
