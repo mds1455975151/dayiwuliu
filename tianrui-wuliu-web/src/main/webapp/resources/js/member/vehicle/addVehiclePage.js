@@ -96,7 +96,6 @@ $("#vehicle_add_vehiTel").on("blur", function() {
 
 //【添加】按钮点击事件
 $("#vehicle_addBtn").click(function() {
-	
 	// 车牌号
 	var vehiNo = $("#vehicle_add_vehiNo").val();
 	// 车型
@@ -111,60 +110,84 @@ $("#vehicle_addBtn").click(function() {
 	var vehiOwnerName = $("#vehicle_add_vehiOwnerName").val();
 	// 联系电话
 	var vehiTel = $("#vehicle_add_vehiTel").val();
+	//身份证号
+	var identitycode = $('#vehicle_add_identitycode').val();
+	//身份证图片
+	var file_sfz = $('#file_sfz')[0].files[0];
 	// 车辆图片路径
 	var file_cel = $("#file_cel")[0].files[0];
-	
 	// 行驶证图片路径
 	var file_xsz = $("#file_xsz")[0].files[0];
-	
-	var flag = false;
-	if (vehiNo == "") {
+	//道路运输证号
+	var roadtransportcode = $('#vehicle_add_roadtransportcode').val();
+	//道路运输证图片
+	var file_ysz = $('#file_ysz')[0].files[0];
+	//运营许可证号
+	var opercode = $('#vehicle_add_opercode').val();
+	//运营许可证图片
+	var file_xkz = $('#file_xkz')[0].files[0];
+	//机动车登记证号
+	var registcode = $('#vehicle_add_registcode').val();
+	//机动车登记证图片
+	var file_djz = $('#file_djz')[0].files[0];
+	if (!$.trim(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
-		flag = true;
+		return;
 	}
-	if (vehiType == "0") {
+	if (!$.trim(vehiType) || $.trim(vehiType) == "0") {
 		$("#message_vehiType").html("请选择合适的车型！");
-		flag = true;
+		return;
 	}
-	if (vehiLength == "") {
+	if (!$.trim(vehiLength)) {
 		$("#message_vehiLength").html("请输入车长！");
-		flag = true;
+		return;
 	}
-	if (vehiWeight == "") {
+	if (!$.trim(vehiWeight)) {
 		$("#message_vehiWeight").html("请输入车重！");
-		flag = true;
+		return;
 	}
-	
 	// 姓名，2个汉字以上，包含少数民族
 	var nameReg =  /^\s*[\u4e00-\u9fa5]{1,}[\u4e00-\u9fa5.·]{0,15}[\u4e00-\u9fa5]{1,}\s*$/;
 	if (vehiOwnerName == "") {
 		$("#message_vehiOwnerName").html("请输入所有者姓名！");
-		flag = true;
+		return;
 	} else if (!nameReg.test(vehiOwnerName)) {
 		$("#message_vehiOwnerName").html("请输入合法的汉字姓名！");
-		flag = true;
+		return;
 	}
-	
 	if (vehiTel == "") {
 		$("#message_vehiTel").html("请输入联系电话！");
-		flag = true;
+		return;
 	}
 	if (!file_cel) {
 		$("#modal_common_content").html("请上传车辆图片！");
 		$("#commonModal").modal();
-		flag = true;
+		return;
 	}
 	if (!file_xsz) {
 		$("#modal_common_content").html("请上传行驶证图片！");
 		$("#commonModal").modal();
-		flag = true;
-	}
-	
-	if (flag) {
 		return;
 	}
-	
+	if (!$.trim(roadtransportcode)) {
+		$("#message_roadtransportcode").html("请输入道路运输证号！");
+		return;
+	}
+	if (!file_ysz) {
+		$("#modal_common_content").html("请上传道路运输证图片！");
+		$("#commonModal").modal();
+		return;
+	}
+	if (!$.trim(opercode)) {
+		$("#message_opercode").html("请输入运营许可证号！");
+		return;
+	}
+	if (!file_xkz) {
+		$("#modal_common_content").html("请上传运营许可证图片！");
+		$("#commonModal").modal();
+		return;
+	}
 	var formData = new FormData();
 	formData.append("memberId",member_id);
 	formData.append("vehiWholeNo",vehiNo);
@@ -176,18 +199,14 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("vehiOwnerName",vehiOwnerName);
 	formData.append("vehiOwnerTel",vehiTel);
 	formData.append("fileLicense",file_xsz);
-//	data : {
-//		memberId: member_id,
-//		vehiWholeNo: vehiNo,
-//		vehicleType: vehiType,
-//		vehicleTypeName: vehiTypeName,
-//		vehiLength: vehiLength,
-//		vehiWeight: vehiWeight,
-//		filehead: file_cel,
-//		vehiOwnerName:vehiOwnerName,
-//		vehiOwnerTel:vehiTel,
-//		fileLicense: file_xsz
-//	},
+	formData.append("fileIdCard",file_sfz);
+	formData.append("identitycode",identitycode);
+	formData.append("fileRoad",file_ysz);
+	formData.append("roadtransportcode",roadtransportcode);
+	formData.append("fileOperCode",file_xkz);
+	formData.append("opercode",opercode);
+	formData.append("fileRegistCode",file_djz);
+	formData.append("registcode",registcode);
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveMyVehicle',// 跳转到 action
 		data : formData,

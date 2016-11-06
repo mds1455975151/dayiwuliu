@@ -249,7 +249,6 @@ public class MemberVehicleService implements IMemberVehicleService {
 		return rs;
 	}
 	
-	@SuppressWarnings("unused")
 	private MemberVehicleResp convert2MemberVehicle(MemberVehicle memberVehicle){
 		MemberVehicleResp memberVehicleResp =  new MemberVehicleResp();
 		// 主键
@@ -326,6 +325,15 @@ public class MemberVehicleService implements IMemberVehicleService {
 		memberVehicleResp.setModifier(memberVehicle.getModifier());
 		// 修改时间
 		memberVehicleResp.setModifyTime(convertLongTODate(memberVehicle.getModifytime()));
+		memberVehicleResp.setRegistcode(memberVehicle.getRegistcode());
+		memberVehicleResp.setRegistimage(memberVehicle.getRegistimage());
+		memberVehicleResp.setOpercode(memberVehicle.getOpercode());
+		memberVehicleResp.setOperimage(memberVehicle.getOperimage());
+		memberVehicleResp.setIdentitycode(memberVehicle.getIdentitycode());
+		memberVehicleResp.setIdentieyimage(memberVehicle.getIdentieyimage());
+		memberVehicleResp.setAgreeimage(memberVehicle.getAgreeimage());
+		memberVehicleResp.setRoadtransportcode(memberVehicle.getRoadtransportcode());
+		memberVehicleResp.setRoadtransportimage(memberVehicle.getRoadtransportimage());
 		return memberVehicleResp;
 	}
 	/**

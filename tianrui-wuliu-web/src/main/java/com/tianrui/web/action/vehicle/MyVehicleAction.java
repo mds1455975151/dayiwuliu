@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -22,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IOwnerDriverService;
-import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
@@ -321,29 +318,66 @@ public class MyVehicleAction {
 			String vehiWholeNo,
 			MultipartFile filehead,
 			MultipartFile fileLicense,
-			HttpServletRequest request
+			MultipartFile fileIdCard,
+			MultipartFile fileRoad,
+			MultipartFile fileOperCode,
+			MultipartFile fileRegistCode
 			) throws Exception{
-		
 		Result rs = Result.getSuccessResult();
-		if(filehead == null || fileLicense ==null){
-			rs.setCode("1");
-			rs.setError("车辆照片不能为空");
-			return rs;
-		}
-		String vehiHeadImgPath = null;
-		String vehiLicenseImgPath = null;
-		rs = iFileService.uploadByteImg(filehead);
-		if (rs.getData() != null) {
-			vehiHeadImgPath = rs.getData().toString();
-		}
-		rs = iFileService.uploadByteImg(fileLicense);
-		if (rs.getData() != null) {
-			vehiLicenseImgPath = rs.getData().toString();
-		}
-		
 		MemberVehicleReq vehicleReq = new MemberVehicleReq();
-
 		PropertyUtils.copyProperties(vehicleReq, vehiReq);
+		if(filehead == null){
+			rs.setCode("1");
+			rs.setError("车辆图片不能为空");
+			return rs;
+		}else{
+			rs = iFileService.uploadByteImg(filehead);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setVehiHeadImgPath(rs.getData().toString());
+			}
+		}
+		if(fileLicense ==null){
+			rs.setCode("1");
+			rs.setError("行驶证图片不能为空");
+			return rs;
+		}else{
+			rs = iFileService.uploadByteImg(fileLicense);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setVehiLicenseImgPath(rs.getData().toString());
+			}
+		}
+		if(fileIdCard != null){
+			rs = iFileService.uploadByteImg(fileIdCard);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setIdentieyimage(rs.getData().toString());
+			}
+		}
+		if(fileRoad ==null){
+			rs.setCode("1");
+			rs.setError("道路运输证图片不能为空");
+			return rs;
+		}else{
+			rs = iFileService.uploadByteImg(fileRoad);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setRoadtransportimage(rs.getData().toString());
+			}
+		}
+		if(fileOperCode ==null){
+			rs.setCode("1");
+			rs.setError("运营许可证图片不能为空");
+			return rs;
+		}else{
+			rs = iFileService.uploadByteImg(fileOperCode);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setOperimage(rs.getData().toString());
+			}
+		}
+		if(fileRegistCode != null){
+			rs = iFileService.uploadByteImg(fileRegistCode);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setRegistimage(rs.getData().toString());
+			}
+		}
 		String id = getUUId();
 		vehicleReq.setId(id);
 		vehicleReq.setVehicleId(id);
@@ -358,13 +392,9 @@ public class MyVehicleAction {
 			// 车牌号
 			vehicleReq.setVehicleNo(null);
 		}
-		vehicleReq.setVehiHeadImgPath(vehiHeadImgPath);
-		vehicleReq.setVehiLicenseImgPath(vehiLicenseImgPath);
 		vehicleReq.setCreator(vehiReq.getMemberId());
-		
 		// 插入操作
 		rs = memberVehicleService.insert(vehicleReq);
-		
 		return rs;
 	}
 	
@@ -380,8 +410,13 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/updateMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq,MultipartFile filehead,
-			MultipartFile fileLicense) throws Exception{
+	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq,
+			MultipartFile filehead,
+			MultipartFile fileLicense,
+			MultipartFile fileIdCard,
+			MultipartFile fileRoad,
+			MultipartFile fileOperCode,
+			MultipartFile fileRegistCode) throws Exception{
 		Result rs = Result.getSuccessResult();
 		
 		MemberVehicleReq rreq = new MemberVehicleReq();
@@ -404,6 +439,30 @@ public class MyVehicleAction {
 			rs = iFileService.uploadByteImg(fileLicense);
 			if(rs.getCode().equals("000000")){
 				vehiReq.setVehiLicenseImgPath(rs.getData().toString());
+			}
+		}
+		if(fileIdCard != null){
+			rs = iFileService.uploadByteImg(fileIdCard);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehiReq.setIdentieyimage(rs.getData().toString());
+			}
+		}
+		if(fileRoad != null){
+			rs = iFileService.uploadByteImg(fileRoad);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehiReq.setRoadtransportimage(rs.getData().toString());
+			}
+		}
+		if(fileOperCode != null){
+			rs = iFileService.uploadByteImg(fileOperCode);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehiReq.setOperimage(rs.getData().toString());
+			}
+		}
+		if(fileRegistCode != null){
+			rs = iFileService.uploadByteImg(fileRegistCode);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehiReq.setRegistimage(rs.getData().toString());
 			}
 		}
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime

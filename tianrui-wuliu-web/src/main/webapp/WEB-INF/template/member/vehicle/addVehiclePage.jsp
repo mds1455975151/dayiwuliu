@@ -74,7 +74,21 @@
 					<div class="reg_tel">
 						<label>联系电话：</label> <input type="text" maxlength="11"
 							id="vehicle_add_vehiTel">
-						<p id="message_vehiTel"></p>
+						<p id="message_ID"></p>
+					</div>
+					<div class="reg_tel">
+						<label>所有人身份证：</label> <input type="text"
+							id="vehicle_add_identitycode">
+						<p id="message_identitycode"></p>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="sfz" src="${trRoot}/tianrui/images/democar.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_sfz" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+						</div>
 					</div>
 					<div class="reg_tel">
 						<label>车辆照片：</label>
@@ -96,6 +110,47 @@
 							</div>
 							<div class="img_upload">
 								<input id="file_xsz" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+						</div>
+					</div>
+					<div class="reg_tel">
+						<label>道路运输证：</label> <input type="text"
+							id="vehicle_add_roadtransportcode">
+						<p id="message_roadtransportcode"></p>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="ysz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_ysz" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+						</div>
+					</div>
+					<div class="reg_tel">
+						<label>运营许可证：</label> <input type="text" id="vehicle_add_opercode">
+						<p id="message_opercode"></p>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="xkz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_xkz" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+						</div>
+					</div>
+					<div class="reg_tel">
+						<label>机动车登记证：</label> <input type="text"
+							id="vehicle_add_registcode">
+						<p id="message_registcode"></p>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="djz" src="${trRoot}/tianrui/images/demoxsz.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_djz" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
 						</div>
@@ -153,44 +208,7 @@
 	src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 
 <script type="text/javascript">
-	$("#file_cel")
-			.fileinput({
-				language : 'zh',
-				showUpload : false,
-				dropZoneEnabled : false,
-				maxFileCount : 1,
-				//      minImageWidth: 50, //图片的最小宽度
-				//	    minImageHeight: 50,//图片的最小高度
-				//      maxImageWidth: 600,//图片的最大宽度
-				//	    maxImageHeight: 600,//图片的最大高度
-				maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
-				resizeImage : true,
-				showCaption : true,
-				showPreview : true,
-				allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]
-			// 支持的图片类型
-			})
-			.on(
-					'fileuploaderror',
-					function(event, data, previewId, index) {
-						var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-						console.log(data);
-						console.log('File upload error');
-					})
-			.on('fileerror', function(event, data) {
-				console.log(data.id);
-				console.log(data.index);
-				console.log(data.file);
-				console.log(data.reader);
-				console.log(data.files);
-			})
-			.on(
-					'fileuploaded',
-					function(event, data, previewId, index) {
-						var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-						console.log('File uploaded triggered');
-					});
-	$("#file_xsz")
+	$("#file_sfz,#file_cel,#file_xsz,#file_ysz,#file_xkz,#file_djz")
 			.fileinput({
 				language : 'zh',
 				showUpload : false,
