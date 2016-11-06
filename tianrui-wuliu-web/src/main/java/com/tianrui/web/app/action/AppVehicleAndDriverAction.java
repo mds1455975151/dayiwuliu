@@ -267,30 +267,6 @@ public class AppVehicleAndDriverAction {
 		req.setVehicleId(id);
 		req.setCreator(appParam.getHead().getId());
 		req.setMemberId(appParam.getHead().getId());
-		//上传车头照片
-		if(!"".equals(req.getVehiHeadImgPath())){
-			FileUploadReq freq = new FileUploadReq();
-			freq.setImgStr(req.getVehiHeadImgPath());
-			result = iFileService.uploadImg(freq);
-			String img = (String) result.getData();
-			if("000000".equals(result.getCode())){
-				req.setVehiHeadImgPath(img);
-			}
-		}else{
-			req.setVehiHeadImgPath(null);
-		}
-		//上传驾驶证照片
-		if(!"".equals(req.getVehiLicenseImgPath())){
-			FileUploadReq freq = new FileUploadReq();
-			freq.setImgStr(req.getVehiLicenseImgPath());
-			result = iFileService.uploadImg(freq);
-			String img = (String) result.getData();
-			if("000000".equals(result.getCode())){
-				req.setVehiLicenseImgPath(img);
-			}
-		}else{
-			req.setVehiLicenseImgPath(null);
-		}
 		result = memberVehicleService.insert(req);
 		
 		return AppResult.valueOf(result);
