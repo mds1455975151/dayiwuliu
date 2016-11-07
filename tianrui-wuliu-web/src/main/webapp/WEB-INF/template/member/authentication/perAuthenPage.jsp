@@ -72,6 +72,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                   </div>
                    </div>
                </div>
+				<div class="reg_tel">
+					<label>道路运输经营许可证：</label> <input type="text" id="rtblno">
+					<div class="rz_persontab">
+						<div class="samples">
+							<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
+						</div>
+						<div class="img_upload">
+							<input id="rtblimg" class="file" type="file"> <span
+								class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+						</div>
+					</div>
+				</div>   
+               
            <div class="rz_combtn ml84">
                <input type="checkbox" checked="checked" id="perAuthen_checkbox"><label>我已经阅读并同意<a target="_blank" id="perAuthen_protocol">《天瑞物流平台服务协议》</a></label>
                <button type="submit" class="btn btn-block" id="perAuthen_button">申请认证</button>
@@ -87,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/member/authentication/perAuthenPage.js" ></script>
+<script type="text/javascript" src="/resources/js/member/authentication/perAuthenPage.js?1" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
@@ -125,18 +138,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}).on('fileuploaderror', function(event, data, previewId, index) {
         var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
-        console.log(data);
-        console.log('File upload error');
     }).on('fileerror', function(event, data) {
-        console.log(data.id);
-        console.log(data.index);
-        console.log(data.file);
-        console.log(data.reader);
-        console.log(data.files);
     }).on('fileuploaded', function(event, data, previewId, index) {
         var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
-        console.log('File uploaded triggered');
     });
 </script>
 </body>

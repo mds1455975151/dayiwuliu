@@ -91,6 +91,10 @@ $("#corpAuthen_button").click(function() {
 	var file_yyzz = $("#file_yyzz")[0].files[0];
 	
 	var companycode = $("#corpAuthen_code").val();
+	
+	//道路许可证
+	var file_rtbl=$("#rtblimg")[0].files[0];
+	var rtblno=$("#rtblno").val();
 	if($('.file-input').hasClass('has-error')){
 		alert('图片格式不正确，请重新选择图片！');
 		return;
@@ -119,6 +123,18 @@ $("#corpAuthen_button").click(function() {
 		$("#message_corpAuthencode").html("营业执照号码不能为空！");
 		return;
 	}
+	if( rtblno || file_rtbl  ){
+		if(!rtblno ){
+			alert("道路运输经营许可证号不能为空");
+			return ;
+		}
+		if(!file_rtbl){
+			alert("道路运输经营许可证图片不能为空");
+			return ;
+		}
+	}
+	
+	
 	var formData = new FormData();
 	formData.append("id",member_id);
 	formData.append("companyName",corpAuthen_name);
@@ -127,6 +143,8 @@ $("#corpAuthen_button").click(function() {
 	formData.append("contactTel",corpAuthen_tel);
 	formData.append("companycode",companycode);
 	formData.append("file",file_yyzz);
+	formData.append("rtblimg",file_rtbl);
+	formData.append("rtblno",rtblno);
 	// 后台处理
 	$.ajax({
 		url : PATH + '/trwuliu/Member/enterpriseAuthentication',// 跳转到 action

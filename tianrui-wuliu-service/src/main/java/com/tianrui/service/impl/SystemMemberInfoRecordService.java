@@ -14,7 +14,6 @@ import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.bean.MemberInfoRecord;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
 import com.tianrui.service.mapper.SystemMemberInfoRecordMapper;
@@ -100,6 +99,9 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		info.setCompanycode(req.getCompanycode());
 		//营业执照图片
 		info.setLicenseImagePath(req.getLicenseImagePath());
+		//道路许可证
+		info.setRtblimgurl(req.getRtblimgurl());
+		info.setRtblno(req.getRtblno());
 		
 		return info;
 	}
@@ -176,10 +178,10 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 
 	@Override
 	public MemberInfoRecordResp findByMemberId(String id) throws Exception {
-		MemberInfoRecord record = new MemberInfoRecord();
+		SystemMemberInfoRecord record = new SystemMemberInfoRecord();
 		record.setMemberid(id);
 		record.setStatus("0");//0-未审核，1-已审核
-		List<MemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(record);
+		List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(record);
 		MemberInfoRecordResp resp = new MemberInfoRecordResp();
 		if(list.size()==1){
 			PropertyUtils.copyProperties(resp, list.get(0));
@@ -189,18 +191,18 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 
 	@Override
 	public List<MemberInfoRecordResp> findListByEntity(String memberid) throws Exception {
-		MemberInfoRecord record = new MemberInfoRecord();
+		SystemMemberInfoRecord record = new SystemMemberInfoRecord();
 		record.setMemberid(memberid);
-		List<MemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(record);
+		List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(record);
 		return copyPropertiesInfoRecordList(list);
 	}
 	/**
 	 * 集合类型转换
 	 * @创建时间 2016年6月23日下午3:52:33
 	 */
-	public List<MemberInfoRecordResp> copyPropertiesInfoRecordList(List<MemberInfoRecord> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+	public List<MemberInfoRecordResp> copyPropertiesInfoRecordList(List<SystemMemberInfoRecord> list) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<MemberInfoRecordResp> resp = new ArrayList<MemberInfoRecordResp>();
-		for(MemberInfoRecord record : list){
+		for(SystemMemberInfoRecord record : list){
 			MemberInfoRecordResp m = new MemberInfoRecordResp();
 			PropertyUtils.copyProperties(m, record);
 			resp.add(m);

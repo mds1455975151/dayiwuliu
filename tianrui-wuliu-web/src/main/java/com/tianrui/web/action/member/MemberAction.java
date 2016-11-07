@@ -228,7 +228,9 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String identityCard,
 			@RequestParam(defaultValue = "")String telphone,
 			@RequestParam(defaultValue = "")String type,//2-驾驶证；1-身份证
-			MultipartFile file,
+			String rtblno, //道路运输许可证号 
+			MultipartFile file,//2-驾驶证；1-身份证 图片留
+			MultipartFile rtblimg,//道路运输许可证号  图片
 			HttpServletRequest request
 			) throws Exception{
 		
@@ -244,11 +246,19 @@ public class MemberAction{
 			return rs;
 		}
 		try {
+			MemberInfoReq req = new MemberInfoReq();
+			//保存道路许可证图片
+			if( rtblimg !=null ){
+				rs = iFileService.uploadByteImg(rtblimg);
+				if("000000".equals(rs.getCode())){
+					req.setRtblimgurl(rs.getData().toString());
+					req.setRtblno(rtblno);
+				}
+			}
 			//保存图片
 			rs = iFileService.uploadByteImg(file);
 			//图片保存成功，进行下一步操作
 			if("000000".equals(rs.getCode())){
-				MemberInfoReq req = new MemberInfoReq();
 				req.setUserName(userName);
 				req.setMemberId(id);
 				req.setIdentityCard(identityCard);
@@ -292,7 +302,9 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String companyContact,
 			@RequestParam(defaultValue = "")String contactTel,
 			@RequestParam(defaultValue = "")String companycode,
+			String rtblno, //道路运输许可证号 
 			MultipartFile file,//身份证照片
+			MultipartFile rtblimg,//道路运输许可证号  图片
 			HttpServletRequest request
 			) throws Exception{
 		Result rs =Result.getSuccessResult();
@@ -308,10 +320,18 @@ public class MemberAction{
 			return rs;
 		}
 		try {
-			//保存图片
+			MemberInfoReq req = new MemberInfoReq();
+			//保存道路许可证图片
+			if( rtblimg !=null ){
+				rs = iFileService.uploadByteImg(rtblimg);
+				if("000000".equals(rs.getCode())){
+					req.setRtblimgurl(rs.getData().toString());
+					req.setRtblno(rtblno);
+				}
+			}
+			
 			rs = iFileService.uploadByteImg(file);
 			if("000000".equals(rs.getCode())){
-				MemberInfoReq req = new MemberInfoReq();
 				req.setMemberId(id);
 				req.setCompanyName(companyName);
 				req.setCompanyAddress(companyAddress);

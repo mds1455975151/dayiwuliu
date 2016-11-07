@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tianrui.service.mapper.SystemMemberInfoRecordMapper" >
 
-  <select id="selectByRecordEntity" resultType="com.tianrui.service.bean.MemberInfoRecord" parameterType="com.tianrui.service.bean.MemberInfoRecord" >
+  <select id="selectByRecordEntity" resultType="com.tianrui.service.bean.SystemMemberInfoRecord" parameterType="com.tianrui.service.bean.SystemMemberInfoRecord" >
 	  	SELECT
 			f.id id,
 			f.memberid memberid,
@@ -19,6 +19,8 @@
 			f.companycode companycode,
 			f.licenseImagePath licenseImagePath,
 			f.status status,
+			f.rtblimgurl rtblimgurl,
+			f.rtblno rtblno,
 			m.cellphone cellphone,
 			m.companypercheck companypercheck,
 			m.driverpercheck driverpercheck,

@@ -29,6 +29,8 @@ public class MemberInfoRecordResp extends BaseResp{
 	private Long registtime;
 	private String registtimeStr;
 	private String driverimage;
+    private String rtblno;
+    private String rtblimgurl;
 	
 	public String getDriverimage() {
 		return driverimage;
@@ -162,4 +164,17 @@ public class MemberInfoRecordResp extends BaseResp{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getRtblno() {
+		return rtblno;
+	}
+	public void setRtblno(String rtblno) {
+		this.rtblno = rtblno;
+	}
+	public String getRtblimgurl() {
+		return rtblimgurl;
+	}
+	public void setRtblimgurl(String rtblimgurl) {
+		this.rtblimgurl = rtblimgurl;
+	}
+	
 }

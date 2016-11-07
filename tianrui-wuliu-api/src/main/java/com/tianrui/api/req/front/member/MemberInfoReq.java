@@ -82,6 +82,9 @@ public class MemberInfoReq extends BaseReq{
     private String auditname;
 
     private Long audittime;
+    
+    private String rtblimgurl;
+    private String rtblno;
 	
 	
 	public String getId() {
@@ -222,4 +225,17 @@ public class MemberInfoReq extends BaseReq{
 	public void setRejectReason(String rejectReason) {
 		this.rejectReason = rejectReason;
 	}
+	public String getRtblimgurl() {
+		return rtblimgurl;
+	}
+	public void setRtblimgurl(String rtblimgurl) {
+		this.rtblimgurl = rtblimgurl;
+	}
+	public String getRtblno() {
+		return rtblno;
+	}
+	public void setRtblno(String rtblno) {
+		this.rtblno = rtblno;
+	}
+	
 }

@@ -2,7 +2,7 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
-import com.tianrui.service.bean.MemberInfoRecord;
+import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
 
 public interface SystemMemberInfoRecordMapper {
@@ -63,5 +63,5 @@ public interface SystemMemberInfoRecordMapper {
      * @创建人 lsj
      * @创建时间 2016年6月22日上午10:04:56
      */
-    List<MemberInfoRecord> selectByRecordEntity(MemberInfoRecord record);
+    List<SystemMemberInfoRecord> selectByRecordEntity(SystemMemberInfoRecord record);
 }

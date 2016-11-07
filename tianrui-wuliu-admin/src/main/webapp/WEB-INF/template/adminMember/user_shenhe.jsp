@@ -35,25 +35,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="row">
                         <div class="person_cont" id="memberDiv" ><!-- 1：企业，2：个人 -->
                             <c:if test="${memberInfo.userpercheck eq '2' }">
-                            <label>会员类别：</label><span>个人用户</span>
-                            <label>会员账号：</label><span>${memberInfo.cellphone }</span>
-                            <label>会员姓名：</label><span>${memberInfo.username }</span>
-                            <label>联系方式：</label><span>${memberInfo.telphone }</span>
-                            <label>身份证号：</label><span>${memberInfo.idcard }</span>
+                            <label>会员类别：</label><span>个人用户</span><br>
+                            <label>会员账号：</label><span>${memberInfo.cellphone }</span><br>
+                            <label>会员姓名：</label><span>${memberInfo.username }</span><br>
+                            <label>联系方式：</label><span>${memberInfo.telphone }</span><br>
+                            <label>身份证号：</label><span>${memberInfo.idcard }</span><br>
                             </c:if>
                             <c:if test="${memberInfo.companypercheck eq '2' }">
-                            <label>会员类别：</label><span>企业用户</span>
-                            <label>会员账号：</label><span>${memberInfo.cellphone }</span>
-                            <label>联系人：</label><span>${memberInfo.companycontact }</span>
-                            <label>联系人电话：</label><span>${memberInfo.companytel }</span>
-                            <label>公司名称：</label><span>${memberInfo.companyname }</span>
+                            <label>会员类别：</label><span>企业用户</span><br>
+                            <label>会员账号：</label><span>${memberInfo.cellphone }</span><br>
+                            <label>联系人：</label><span>${memberInfo.companycontact }</span><br>
+                            <label>联系人电话：</label><span>${memberInfo.companytel }</span><br>
+                            <label>公司名称：</label><span>${memberInfo.companyname }</span><br>
                             </c:if>
-                            <label>注册时间：</label><span>${memberInfo.registtimeStr }</span>
-                            <label>认证时间：</label><span>${memberInfo.submittimeStr }</span>
+                            <label>注册时间：</label><span>${memberInfo.registtimeStr }</span><br>
+                            <label>认证时间：</label><span>${memberInfo.submittimeStr }</span><br>
+                            <label>道路运输经营许可证号：</label><span>${memberInfo.rtblno }</span><br>
                         </div>
                         <c:if test="${memberInfo.companypercheck eq '2' }">
                         <div class="person_cont" id="memberaddressDiv">
-                            <label>公司所在地：</label><span>${memberInfo.companyAddress }</span>
+                            <label>公司所在地：</label><span>${memberInfo.companyAddress }</span><br>
                         </div>
                         </c:if>
                     </div>
@@ -72,6 +73,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <a href="${memberInfo.idcardimage }" target="_blank">
                             <img height="200" src="${memberInfo.idcardimage }">
                             </a>
+                            </c:if>
+                            </span>
+                        </div>
+                        <div class="person_cont">
+                            <label>道路运输经营许可证：</label>
+                            <span id="imgid">
+                            <c:if test="${not empty memberInfo.rtblimgurl }">
+	                            <a href="${memberInfo.rtblimgurl }" target="_blank">
+	                            	<img height="200" src="${memberInfo.rtblimgurl }">
+	                            </a>
                             </c:if>
                             </span>
                         </div>
