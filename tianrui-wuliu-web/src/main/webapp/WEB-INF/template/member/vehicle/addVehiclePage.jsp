@@ -143,10 +143,8 @@
 					</div>
 					 -->
 					
-					<!-- 
 					<div class="reg_tel">
-						<label>机动车登记证：</label> <input type="text"
-							id="vehicle_add_registcode">
+						<label>车辆登记证：</label> 
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="djz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
@@ -157,7 +155,6 @@
 							</div>
 						</div>
 					</div>
-					 -->
 					<div class="car_photo">
 						<div class="car_addbtn">
 							<button type="submit" class="btn btnyello" id="vehicle_addBtn">添加</button>
@@ -204,7 +201,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?11.7"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?11.8"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

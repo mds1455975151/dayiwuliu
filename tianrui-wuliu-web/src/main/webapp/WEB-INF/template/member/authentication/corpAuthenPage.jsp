@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="samples">
 							<img src="${trRoot}/tianrui/images/zhizhao.png">
 						</div>
-						<div class="img_upload">
+						<div class="img_upload mt10">
 							<input id="file_yyzz" class="file" type="file">
 							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="samples">
 							<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
 						</div>
-						<div class="img_upload">
+						<div class="img_upload mt10">
 							<input id="rtblimg" class="file" type="file"> <span
 								class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>

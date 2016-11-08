@@ -210,7 +210,7 @@ function details(id){
 			if(d.vehicletype=="6"){
 				type = "重型自卸货车";
 			}
-			var registcode = d.registimage==""?"<span>未上传</span>":("<span>证书编号："+d.registcode+"--<a href='"+d.registimage+"' target='_blank'>查看图片</a></span>");
+			var registcode = d.registimage==""?"<span>未上传</span>":("<span><a href='"+d.registimage+"' target='_blank'>查看图片</a></span>");
 			var opercode = d.operimage==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='"+d.operimage+"' target='_blank'>查看图片</a></span>");
 			var roadtransportcode = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='"+d.roadtransportimage+"' target='_blank'>查看图片</a></span>");
 			var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='"+d.identieyimage+"' target='_blank'>查看图片</a></span>");
@@ -286,10 +286,10 @@ function details(id){
 					type = "重型自卸货车";
 				}
 				//<a data-toggle='modal' data-target='#againPice'>【重新上传】</a>
-				var registcode = d.registcode==""?"<span>未上传</span>":("<span>证书编号："+d.registcode+"--<a href='"+d.registimage+"' target='_blank'>查看照片</a></span>");
-				var opercode = d.opercode==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='"+d.operimage+"' target='_blank'>查看照片</a></span>");
-				var identitycode = d.identitycode==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='"+d.identieyimage+"' target='_blank'>查看照片</a></span>");
-				var roadtransportcode = d.roadtransportcode==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='"+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
+				var registcode = d.registimage==""?"<span>未上传</span>":("<span>证书编号：<a href='"+d.registimage+"' target='_blank'>查看照片</a></span>");
+				var opercode = d.operimage==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='"+d.operimage+"' target='_blank'>查看照片</a></span>");
+				var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='"+d.identieyimage+"' target='_blank'>查看照片</a></span>");
+				var roadtransportcode = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='"+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
 				var hml = 
 					"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
 					"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+

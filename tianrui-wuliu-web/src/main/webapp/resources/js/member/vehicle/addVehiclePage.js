@@ -129,7 +129,7 @@ $("#vehicle_addBtn").click(function() {
 	//机动车登记证号
 	var registcode = $('#vehicle_add_registcode').val();
 	//机动车登记证图片
-//	var file_djz = $('#file_djz')[0].files[0];
+	var file_djz = $('#file_djz')[0].files[0];
 	if (!$.trim(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
@@ -207,7 +207,7 @@ $("#vehicle_addBtn").click(function() {
 //	formData.append("roadtransportcode",roadtransportcode);
 	formData.append("fileOperCode",file_xkz);
 	formData.append("opercode",opercode);
-//	formData.append("fileRegistCode",file_djz);
+	formData.append("fileRegistCode",file_djz);
 //	formData.append("registcode",registcode);
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveMyVehicle',// 跳转到 action
