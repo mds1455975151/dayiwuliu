@@ -87,16 +87,16 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-		if(StringUtils.isNotBlank(req.getIdcardsImagePath())){
-			FileUploadReq freq = new FileUploadReq();
-			freq.setImgStr(req.getIdcardsImagePath());
-			result = iFileService.uploadImg(freq);
-			if("000000".equals(result.getCode())){
-				req.setIdcardsImagePath(result.getData().toString());
-			}else{
-				return AppResult.valueOf(result);
-			}
-		}
+//		if(StringUtils.isNotBlank(req.getIdcardsImagePath())){
+//			FileUploadReq freq = new FileUploadReq();
+//			freq.setImgStr(req.getIdcardsImagePath());
+//			result = iFileService.uploadImg(freq);
+//			if("000000".equals(result.getCode())){
+//				req.setIdcardsImagePath(result.getData().toString());
+//			}else{
+//				return AppResult.valueOf(result);
+//			}
+//		}
 		result= systemMemberInfoRecordService.personalAuthentication(req);
 		return AppResult.valueOf(result);
 	}
@@ -119,20 +119,20 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-		if(StringUtils.isNotBlank(req.getLicenseImagePath())){
-			FileUploadReq freq = new FileUploadReq();
-			freq.setImgStr(req.getLicenseImagePath());
-			result = iFileService.uploadImg(freq);
-			if("000000".equals(result.getCode())){
-				req.setLicenseImagePath(result.getData().toString());
-			}else{
-				return AppResult.valueOf(result);
-			}
-		}else{
-			result.setCode("1");
-			result.setError("照片不能为空");
-			return AppResult.valueOf(result);
-		}
+//		if(StringUtils.isNotBlank(req.getLicenseImagePath())){
+//			FileUploadReq freq = new FileUploadReq();
+//			freq.setImgStr(req.getLicenseImagePath());
+//			result = iFileService.uploadImg(freq);
+//			if("000000".equals(result.getCode())){
+//				req.setLicenseImagePath(result.getData().toString());
+//			}else{
+//				return AppResult.valueOf(result);
+//			}
+//		}else{
+//			result.setCode("1");
+//			result.setError("照片不能为空");
+//			return AppResult.valueOf(result);
+//		}
 		result= systemMemberInfoRecordService.enterpriseAuthentication(req);
 		return AppResult.valueOf(result);
 	}
@@ -155,17 +155,17 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-		if(!"".equals(req.getDriveImagePath())){
-			FileUploadReq freq = new FileUploadReq();
-			freq.setImgStr(req.getDriveImagePath());
-			result = iFileService.uploadImg(freq);
-			if("000000".equals(result.getCode())){
-				req.setDriveImagePath(result.getData().toString());
-			}else{
-				return AppResult.valueOf(result);
-			}
-		}
-		req.setDriveImagePath(result.getData().toString());
+//		if(!"".equals(req.getDriveImagePath())){
+//			FileUploadReq freq = new FileUploadReq();
+//			freq.setImgStr(req.getDriveImagePath());
+//			result = iFileService.uploadImg(freq);
+//			if("000000".equals(result.getCode())){
+//				req.setDriveImagePath(result.getData().toString());
+//			}else{
+//				return AppResult.valueOf(result);
+//			}
+//		}
+//		req.setDriveImagePath(result.getData().toString());
 		result= systemMemberInfoRecordService.driverAuthentication(req);
 		return AppResult.valueOf(result);
 	}
