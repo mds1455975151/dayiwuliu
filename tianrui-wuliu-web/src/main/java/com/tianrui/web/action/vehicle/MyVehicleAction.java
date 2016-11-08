@@ -346,25 +346,25 @@ public class MyVehicleAction {
 				vehicleReq.setVehiLicenseImgPath(rs.getData().toString());
 			}
 		}
-		if(fileIdCard != null){
-			rs = iFileService.uploadByteImg(fileIdCard);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setIdentieyimage(rs.getData().toString());
-			}
-		}
-		if(fileRoad ==null){
-			rs.setCode("1");
-			rs.setError("道路运输证图片不能为空");
-			return rs;
-		}else{
-			rs = iFileService.uploadByteImg(fileRoad);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setRoadtransportimage(rs.getData().toString());
-			}
-		}
+//		if(fileIdCard != null){
+//			rs = iFileService.uploadByteImg(fileIdCard);
+//			if (StringUtils.equals(rs.getCode(),"000000")) {
+//				vehicleReq.setIdentieyimage(rs.getData().toString());
+//			}
+//		}
+//		if(fileRoad ==null){
+//			rs.setCode("1");
+//			rs.setError("道路运输证图片不能为空");
+//			return rs;
+//		}else{
+//			rs = iFileService.uploadByteImg(fileRoad);
+//			if (StringUtils.equals(rs.getCode(),"000000")) {
+//				vehicleReq.setRoadtransportimage(rs.getData().toString());
+//			}
+//		}
 		if(fileOperCode ==null){
 			rs.setCode("1");
-			rs.setError("运营许可证图片不能为空");
+			rs.setError("营运证图片不能为空");
 			return rs;
 		}else{
 			rs = iFileService.uploadByteImg(fileOperCode);
@@ -372,12 +372,12 @@ public class MyVehicleAction {
 				vehicleReq.setOperimage(rs.getData().toString());
 			}
 		}
-		if(fileRegistCode != null){
-			rs = iFileService.uploadByteImg(fileRegistCode);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setRegistimage(rs.getData().toString());
-			}
-		}
+//		if(fileRegistCode != null){
+//			rs = iFileService.uploadByteImg(fileRegistCode);
+//			if (StringUtils.equals(rs.getCode(),"000000")) {
+//				vehicleReq.setRegistimage(rs.getData().toString());
+//			}
+//		}
 		String id = getUUId();
 		vehicleReq.setId(id);
 		vehicleReq.setVehicleId(id);

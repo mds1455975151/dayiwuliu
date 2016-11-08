@@ -43,6 +43,18 @@
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
+						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode">
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_xkz" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+						</div>
+					</div>
+					<div class="reg_tel">
 						<label>车辆类型：</label> <select class="form-control w350"
 							id="vehicle_add_vehiType">
 							<option value="0">请选择</option>
@@ -76,6 +88,7 @@
 							id="vehicle_add_vehiTel">
 						<p id="message_ID"></p>
 					</div>
+					<!-- 
 					<div class="reg_tel">
 						<label>所有人身份证：</label> <input type="text"
 							id="vehicle_add_identitycode">
@@ -89,6 +102,7 @@
 							</div>
 						</div>
 					</div>
+					 -->
 					<div class="reg_tel">
 						<label>车辆照片：</label>
 						<div class="rz_persontab">
@@ -113,6 +127,7 @@
 							</div>
 						</div>
 					</div>
+					<!-- 
 					<div class="reg_tel">
 						<label>道路运输证：</label> <input type="text"
 							id="vehicle_add_roadtransportcode">
@@ -126,18 +141,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="reg_tel">
-						<label>营运许可证：</label> <input type="text" id="vehicle_add_opercode">
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
-							</div>
-							<div class="img_upload">
-								<input id="file_xkz" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-						</div>
-					</div>
+					 -->
+					
+					<!-- 
 					<div class="reg_tel">
 						<label>机动车登记证：</label> <input type="text"
 							id="vehicle_add_registcode">
@@ -151,6 +157,7 @@
 							</div>
 						</div>
 					</div>
+					 -->
 					<div class="car_photo">
 						<div class="car_addbtn">
 							<button type="submit" class="btn btnyello" id="vehicle_addBtn">添加</button>
@@ -197,7 +204,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?11.6"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?11.7"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

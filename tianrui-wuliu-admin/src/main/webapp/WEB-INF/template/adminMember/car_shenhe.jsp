@@ -89,16 +89,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label>车辆照片：</label><span><a href="${Vehicle.vehiheadimgpath }" target="_blank"><img height="200" src="${Vehicle.vehiheadimgpath }"></a></span>
                             </div>
                             <div class="person_img">
-                                <label>机动车登记证：</label><span>${Vehicle.registcode }<br><a href="${Vehicle.registimage }" target="_blank"><img height="200" src="${Vehicle.registimage }"></a></span>
+                                <label>营运证号：</label><span>${Vehicle.opercode }<br><span><a href="${Vehicle.operimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.operimage }"></a></span>
                             </div>
                             <div class="person_img">
-                                <label>营运许可证：</label><span>${Vehicle.opercode }<br><a href="${Vehicle.operimage }" target="_blank"><img height="200" src="${Vehicle.operimage }"></a></span>
-                            </div>
-                            <div class="person_img">
-                                <label>道路运输证：</label><span>${Vehicle.roadtransportcode }<br><a href="${Vehicle.roadtransportimage }" target="_blank"><img height="200" src="${Vehicle.roadtransportimage }"></a></span>
-                            </div>
-                            <div class="person_img">
-                                <label>所有人身份证：</label><span>${Vehicle.identitycode }<br><a href="${Vehicle.identieyimage }" target="_blank"><img height="200" src="${Vehicle.identieyimage }"></a></span>
+                                <label>车辆登记证：</label><span>${Vehicle.registcode }<br><span><a href="${Vehicle.registimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.registimage }"></a></span>
                             </div>
                         </div>
                     </div>
