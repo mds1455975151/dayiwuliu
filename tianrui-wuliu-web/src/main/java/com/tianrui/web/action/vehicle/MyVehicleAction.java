@@ -372,12 +372,12 @@ public class MyVehicleAction {
 				vehicleReq.setOperimage(rs.getData().toString());
 			}
 		}
-//		if(fileRegistCode != null){
-//			rs = iFileService.uploadByteImg(fileRegistCode);
-//			if (StringUtils.equals(rs.getCode(),"000000")) {
-//				vehicleReq.setRegistimage(rs.getData().toString());
-//			}
-//		}
+		if(fileRegistCode != null){
+			rs = iFileService.uploadByteImg(fileRegistCode);
+			if (StringUtils.equals(rs.getCode(),"000000")) {
+				vehicleReq.setRegistimage(rs.getData().toString());
+			}
+		}
 		String id = getUUId();
 		vehicleReq.setId(id);
 		vehicleReq.setVehicleId(id);

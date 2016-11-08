@@ -577,4 +577,36 @@ public class AdminMemberAction {
 		}
 		return rs;
 	}
+	/** 修改用户照片
+	 * @throws Exception */
+	@RequestMapping(value="uptMemberPic",method=RequestMethod.POST )
+	@ResponseBody
+	public Result uptMemberPic(String id , MultipartFile file , String type,String code) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = iFileService.uploadByteImg(file);
+		if("000000".equals(rs.getCode())){
+			MemberInfoReq req = new MemberInfoReq();
+			req.setId(id);
+			//身份证
+			if("1".equals(type)){
+				req.setIdcardsImagePath(rs.getData().toString());
+			//驾驶证
+			}else if("2".equals(type)){
+				req.setDriveImagePath(rs.getData().toString());
+			//企业
+			}else if("3".equals(type)){
+				req.setLicenseImagePath(rs.getData().toString());
+			//道路运输经营许可证
+			}else if("4".equals(type)){
+				req.setRtblimgurl(rs.getData().toString());
+				req.setRtblno(code);
+			}else{
+				rs.setCode("1");
+				rs.setError("数据不全");
+				return rs;
+			}
+			rs = systemMemberInfoService.uptMemberPic(req);
+		}
+		return rs;
+	}
 }

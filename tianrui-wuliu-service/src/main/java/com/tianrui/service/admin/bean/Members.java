@@ -19,6 +19,10 @@ public class Members{
 	private String mocount;
 	/** 仅在后台会员管理使用*/
 	private String remarkname;
+	
+	private String rtblimgurl;
+	
+	private String rtblno;
 	/**
 	 * 认证信息id
 	 */
@@ -149,6 +153,22 @@ public class Members{
 
 	public void setCompanycode(String companycode) {
 		this.companycode = companycode;
+	}
+
+	public String getRtblimgurl() {
+		return rtblimgurl;
+	}
+
+	public void setRtblimgurl(String rtblimgurl) {
+		this.rtblimgurl = rtblimgurl;
+	}
+
+	public String getRtblno() {
+		return rtblno;
+	}
+
+	public void setRtblno(String rtblno) {
+		this.rtblno = rtblno;
 	}
 
 	public Long getAuditTime() {

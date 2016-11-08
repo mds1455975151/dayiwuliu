@@ -250,4 +250,26 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		return cop;
 	}
 
+	@Override
+	public Result uptMemberPic(MemberInfoReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		SystemMemberInfo info = new SystemMemberInfo();
+		
+		info.setDriverimage(req.getDriveImagePath());
+		info.setIdcardimage(req.getIdcardsImagePath());
+		info.setLicenseImagePath(req.getLicenseImagePath());
+		info.setRtblimgurl(req.getRtblimgurl());
+		info.setRtblno(req.getRtblno());
+		info.setId(req.getId());
+		
+		int a = systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+		if(a != 1){
+			rs.setCode("1");
+			rs.setError("修改失败");
+			return rs;
+		}
+		return rs;
+	}
+
 }

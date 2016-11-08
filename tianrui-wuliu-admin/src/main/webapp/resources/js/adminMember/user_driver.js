@@ -222,6 +222,9 @@ function details(id){
 		if(a.identityCard == undefined){
 			identityCard = "";
 		}
+		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='"+a.rtblimgurl+"' target='_blank'>查看图片</a>");
+		var driveImagePath = a.driveImagePath == ""?"未上传":("<span><a href='"+a.driveImagePath+"' target='_blank'>查看图片</a>");
+		
 		var hml = "<div class='file_detail'><label>司机账号：</label><span>"+a.cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>司机姓名：</label><span>"+userName+"</span></div>"+
 			"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
@@ -229,9 +232,51 @@ function details(id){
 			"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+
-			"<div class='file_detail2'><label>驾驶证照片：</label><span><a href=\'"+a.driveImagePath+"\' target='_blank'><img height='180' src='"+a.driveImagePath+"'></a></span></div>";
+			"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></span></div>"+
+			"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";
 		document.getElementById("detailid").innerHTML = hml;	
 }
+
+function hideWindow(id,type){
+	if(type == "4"){
+		$("#showcode").show();
+	}else{
+		$("#showcode").hide();
+	}
+	$("#uptmemberid").val(id);
+	$("#uptmembertype").val(type);
+	$("#detail").hide();
+} 
+
+
+function uploadfile(){
+	if($("#uptmembertype").val()=="4"&&$.trim($("#uptmembercode").val())==""){
+		alert("编号不能为空");
+		return;
+	}
+	var file = $("#file_yyzz")[0].files[0];
+	var formData = new FormData();
+	formData.append("id",$("#uptmemberid").val());
+	formData.append("file",file);
+	formData.append("type",$("#uptmembertype").val());
+	formData.append("code",$("#uptmembercode").val());
+	$.ajax({
+		type:"post",
+		url:"/AdminMember/uptMemberPic",
+		data:formData,// 你的formid
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		success: function(rs) {
+			if(rs.code=="000000"){
+				window.location=location;
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+  
+
 /**
  * 验证账号正确性
  */

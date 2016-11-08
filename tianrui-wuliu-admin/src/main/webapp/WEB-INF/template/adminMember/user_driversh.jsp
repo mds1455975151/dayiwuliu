@@ -54,6 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </c:if>
                                 <label>注册时间：</label><span>${memberInfo.registtimeStr }</span>
                                 <label>认证时间：</label><span>${memberInfo.submittimeStr }</span>
+                            	<label>道路运输经营许可证号：</label><span>${memberInfo.rtblno }</span><br>
                             </div>
                         </div>
                     </div>
@@ -71,6 +72,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<input type="hidden" id="infoid" value="${memberInfo.id }">
                         </div>
                     </div>
+                    <div class="person_cont">
+                            <label>道路运输经营许可证：</label>
+                            <span id="imgid">
+                            <c:if test="${not empty memberInfo.rtblimgurl }">
+	                            <a href="${memberInfo.rtblimgurl }" target="_blank">
+	                            	<img height="200" src="${memberInfo.rtblimgurl }">
+	                            </a>
+                            </c:if>
+                            </span>
+                        </div>
                     <div class="row ">
                         <div class="person_cont">
                             <div class="person_button">

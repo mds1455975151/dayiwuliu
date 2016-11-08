@@ -281,6 +281,7 @@ function getType(id,status){
 		}
 		var idcardsImagePath = a.idcardsImagePath;
 		var userType = "";
+		var pictype = "";
 		//企业用户展示企业相应信息
 		if(a.companypercheck=='1'){
 			userType = "企业用户";
@@ -288,11 +289,16 @@ function getType(id,status){
 			telphone = contactTel;
 			identityCard = a.companycode;
 			idcardsImagePath = a.licenseImagePath;
+			pictype = "3"
 		}else if(a.userpercheck=='1'){
 			userType = "个人用户";
+			pictype = "1"
 		}else{
 			userType = "暂无";
 		}
+		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='"+a.rtblimgurl+"' target='_blank'>查看图片</a>");
+		var idcardsImagePath = idcardsImagePath == ""?"未上传":("<span><a href='"+idcardsImagePath+"' target='_blank'>查看图片</a>");
+		
 		var hml = "<div class='file_detail'><label>会员类别：</label><span>"+userType+"</span></div>"+
 			"<div class='file_detail'><label>会员账号：</label><span>"+cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>会员名称：</label><span>"+userName+"</span></div>"+
@@ -300,7 +306,47 @@ function getType(id,status){
 			"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+registtime+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+submitDate+"</span></div><br>"+
-			"<div class='file_detail3'><label>营业执照号/身份证号：</label><span>"+identityCard+"</span></div>"+
-			"<div class='file_detail3'><label>营业执照/身份证照片：</label><span><a href='"+idcardsImagePath+"' target='_blank'><img height='180' src='"+idcardsImagePath+"'></a></span></div>";
+			"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></span></div>"+
+			"<div class='file_detail3'><label>营业执照/身份证号：</label><span>"+identityCard+"</span></div>"+
+			"<div class='file_detail3'><label>营业执照/身份证照片：</label><span>"+idcardsImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\""+pictype+"\")' data-target='#againPice'>【重新上传】</a></span></div>";
 		document.getElementById("detailid").innerHTML = hml;	
   }
+
+function hideWindow(id,type){
+	if(type == "4"){
+		$("#showcode").show();
+	}else{
+		$("#showcode").hide();
+	}
+	$("#uptmemberid").val(id);
+	$("#uptmembertype").val(type);
+	$("#detail").hide();
+} 
+
+function uploadfile(){
+	if($("#uptmembertype").val()=="4"&&$.trim($("#uptmembercode").val())==""){
+		alert("编号不能为空");
+		return;
+	}
+	var file = $("#file_yyzz")[0].files[0];
+	var formData = new FormData();
+	formData.append("id",$("#uptmemberid").val());
+	formData.append("file",file);
+	formData.append("type",$("#uptmembertype").val());
+	formData.append("code",$("#uptmembercode").val());
+	$.ajax({
+		type:"post",
+		url:"/AdminMember/uptMemberPic",
+		data:formData,// 你的formid
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		success: function(rs) {
+			if(rs.code=="000000"){
+				window.location=location;
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+  

@@ -65,4 +65,7 @@ public interface ISystemMemberInfoService {
 	 * @创建时间 2016年8月12日上午10:20:14
 	 */
 	public Result handView(String dirverId) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	/** 修改图片*/
+	Result uptMemberPic(MemberInfoReq req)throws Exception;
+
 }
