@@ -444,7 +444,7 @@ public class CargoPlanService implements ICargoPlanService{
 		plan.setPriceunits(fileFreight.getPriceunits());
 		plan.setPrice(fileFreight.getPrice());
 		plan.setTallage(fileFreight.getTallage());
-		plan.setFreightname(fileFreight.getDesc1());
+		plan.setFreightname(fileFreight.getFreightName());
 		plan.setOrgid(fileFreight.getOrganizationid());
 		//路径信息
 		plan.setRouteid(fileRoute.getId());
