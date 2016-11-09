@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="car_title bgblue">
                 <h2>我发布的计划</h2>
             </div>
-    		<input type="hidden" id="pageNo" value="1">
+    		<input type="hidden" id="pageNo" value="${pageNo }">
             <!--个人中心右侧搜索框begin-->
             <div class="plan_search">
                 <input type="text" placeholder="计划编码,货物名称,车主名称,车主手机号" id="search_v">
@@ -101,7 +101,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery.pagination.js"></script>
-<script type="text/javascript" src="${trRoot}/tianrui/js/pagination.js"></script>
 <script type="text/javascript" src="/resources/js/plan/owner_page.js" ></script>
+<script type="text/javascript">
+		displayData($('#pageNo').val()-1);
+</script>
 </body>
 </html>
