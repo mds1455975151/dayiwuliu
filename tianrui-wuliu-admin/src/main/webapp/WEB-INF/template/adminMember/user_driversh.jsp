@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label>司机姓名：</label><span>${memberInfo.username }</span>
                                 <label>联系方式：</label><span>${memberInfo.telphone }</span>
                                 <label>驾驶证号：</label><span>${memberInfo.idcard }</span>
+                                <label>准驾车型：</label><span>${memberInfo.licenseType }</span>
                                 <c:if test="${memberInfo.driverpercheck eq '0'}">
                                 <label>认证状态：</label><span>未认证</span>
                                 </c:if>

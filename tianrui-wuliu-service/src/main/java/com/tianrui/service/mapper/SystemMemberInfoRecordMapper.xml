@@ -28,10 +28,9 @@
     <result column="audittime" property="audittime" jdbcType="BIGINT" />
     <result column="auditresson" property="auditresson" jdbcType="VARCHAR" />
     <result column="licenseImagePath" property="licenseImagePath" jdbcType="VARCHAR" />
-    <result column="licenseImagePath" property="licenseImagePath" jdbcType="VARCHAR" />
-    <result column="licenseImagePath" property="licenseImagePath" jdbcType="VARCHAR" />
     <result column="rtblno" property="rtblno" jdbcType="VARCHAR" />
     <result column="rtblimgurl" property="rtblimgurl" jdbcType="VARCHAR" />
+    <result column="licenseType" property="licenseType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -40,7 +39,7 @@
     -->
     id, memberid,licenseImagePath, userpercheck, driverpercheck, companypercheck, submittime, status, 
     username, telphone, idcard, idcardimage, driverimage, companyname, companycontact, 
-    companycode, companytel, companyAddress, auditid, auditname, audittime, auditresson,rtblno,rtblimgurl
+    companycode, companytel, companyAddress, auditid, auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -71,7 +70,7 @@
       idcard, idcardimage, driverimage, 
       companyname, companycontact, companycode, 
       companytel, companyAddress, auditid, 
-      auditname, audittime, auditresson,rtblno,rtblimgurl
+      auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType
       )
     values (#{id,jdbcType=VARCHAR},#{licenseImagePath,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{userpercheck,jdbcType=VARCHAR}, 
       #{driverpercheck,jdbcType=VARCHAR}, #{companypercheck,jdbcType=VARCHAR}, #{submittime,jdbcType=BIGINT}, 
@@ -80,7 +79,7 @@
       #{companyname,jdbcType=VARCHAR}, #{companycontact,jdbcType=VARCHAR}, #{companycode,jdbcType=VARCHAR}, 
       #{companytel,jdbcType=VARCHAR}, #{companyaddress,jdbcType=VARCHAR}, #{auditid,jdbcType=VARCHAR}, 
       #{auditname,jdbcType=VARCHAR}, #{audittime,jdbcType=BIGINT}, #{auditresson,jdbcType=VARCHAR},
-      #{rtblno,jdbcType=VARCHAR},#{rtblimgurl,jdbcType=VARCHAR}
+      #{rtblno,jdbcType=VARCHAR},#{rtblimgurl,jdbcType=VARCHAR},#{licenseType,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.SystemMemberInfoRecord" >
@@ -162,6 +161,9 @@
       <if test="rtblimgurl != null" >
         rtblimgurl,
       </if>
+      <if test="licenseType != null" >
+        licenseType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -235,6 +237,9 @@
       </if>
       <if test="rtblimgurl != null" >
         #{rtblimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseType != null" >
+        #{licenseType,jdbcType=VARCHAR},
       </if>
       
     </trim>
@@ -314,6 +319,9 @@
       </if>
       <if test="rtblimgurl != null" >
         rtblimgurl = #{rtblimgurl,jdbcType=BIGINT},
+      </if>
+      <if test="licenseType != null" >
+        licenseType = #{licenseType,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}

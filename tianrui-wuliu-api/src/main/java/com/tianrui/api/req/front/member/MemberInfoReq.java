@@ -85,7 +85,8 @@ public class MemberInfoReq extends BaseReq{
     
     private String rtblimgurl;
     private String rtblno;
-	
+    //准驾车型
+	private String licenseType;
 	
 	public String getId() {
 		return id;
@@ -236,6 +237,12 @@ public class MemberInfoReq extends BaseReq{
 	}
 	public void setRtblno(String rtblno) {
 		this.rtblno = rtblno;
+	}
+	public String getLicenseType() {
+		return licenseType;
+	}
+	public void setLicenseType(String licenseType) {
+		this.licenseType = licenseType;
 	}
 	
 }
