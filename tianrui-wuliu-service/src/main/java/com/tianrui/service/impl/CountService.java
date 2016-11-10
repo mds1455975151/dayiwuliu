@@ -40,26 +40,32 @@ public class CountService implements ICountService{
 		CountSelect s = new CountSelect();
 		PropertyUtils.copyProperties(s, count);
 		
-		//查询路线总数
+		//查询路线总数 -ok
+		s.setStatus("1");
 		long route = countSelectMapper.selectRouteCount(s);
 		routeCountSave(route,time);
 		
-		//查询货物量
+		//查询货物量 -ok
+		s.setStatus("3");
 		CountSelect plan = countSelectMapper.selectPlanCount(s);
 		planCountSave(plan,time);
 		
-		//查询车辆总数
+		//查询车辆总数 -ok
+		s.setStatus("1");
 		CountSelect vehcile= countSelectMapper.selectVehicleCount(s);
 		VehicleCountSave(vehcile,time);
 		
-		//查询活跃车辆
+		//查询活跃车辆 -ok
+		s.setStatus(null);
 		List<CountSelect> vehicAct = countSelectMapper.selectVehicleAct(s);
 		vehicleActSave(vehicAct,time);
 		
-		//查询运单量
+		//查询运单量 -ok
+		s.setStatus(null);
 		long bill = countSelectMapper.selectBillCount(s);
 		billCoubtSave(bill,time);
-		//运费总和
+		//运费总和 -ok
+		s.setStatus(null);
 		long pay = countSelectMapper.selectPayCount(s);
 		payCountSave(pay,time);
 		logger.info("查询路线总数="+route+"查询货物总量="+plan+"车辆总数="+vehcile+"活跃车辆="+vehicAct+"运单总量="+bill+"运费总和="+pay);
@@ -241,25 +247,31 @@ public class CountService implements ICountService{
 		CountSelect s = new CountSelect();
 		PropertyUtils.copyProperties(s, count);
 		long time = getDay();
-		//新增路线数
+		//新增路线数 -ok
 		long routeAdd = countSelectMapper.selectRouteAdd(s);
 		routeAddSave(routeAdd,time);
 		logger.info("新增路线数="+routeAdd);
-		//新增货物量
+		//新增货物量 -ok
 		CountSelect plan = countSelectMapper.selectPlanCount(s);
 		planAddSave(plan,time);
 		logger.info("新增货物量="+plan);
-		//新增车辆
+		//新增车辆 -ok
+		s.setStatus("1");
 		CountSelect vehcile= countSelectMapper.selectVehicleCount(s);
 		vehicleAddSave(vehcile,time);
 		logger.info("车辆总数"+vehcile.toString());
-		//新增运费
-		long pay = countSelectMapper.selectPayAdd(s);
-		payAddSave(pay,time);
+		//新增运费 -ok
+		s.setStatus(null);
+		CountSelect pay = countSelectMapper.selectPayAdd(s);
+		if(pay!=null){
+			payAddSave(pay.getSum(),time);
+		}else{
+			payAddSave((double)0,time);
+		}
 		logger.info("新增运费"+pay);
 	}
 	
-	public void payAddSave(long pay,long time){
+	public void payAddSave(Double pay,long time){
 		//1-路线，2货运总量，3-车辆总数，4-交易总量，5-运费总额
 		CountAdd add = new CountAdd();
 		add.setType("5");
@@ -391,19 +403,26 @@ public class CountService implements ICountService{
 	
 	@Override
 	public void routeHot(CountSelectReq count) throws Exception {
-		// TODO Auto-generated method stub
+		//-ok
 		CountSelect s = new CountSelect();
-		PropertyUtils.copyProperties(s, count);
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.set(Calendar.DATE,-7);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MILLISECOND, 0);
 		//查询最热路线
+		s.setSelecttime(c.getTimeInMillis());
 		List<CountSelect> list = countSelectMapper.selectRouteHot(s);
 		routeHotSave(list.size(),getDay());
 		logger.info("最热路线="+list);
 	}
+	//--ok
 	@Override
 	public void billEveryDay(CountSelectReq count) throws Exception {
-		// TODO Auto-generated method stub
 		CountSelect s = new CountSelect();
-		PropertyUtils.copyProperties(s, count);
 		s.setStatus("5,6");
 		s.setSelecttime(getDay());
 		long c = countSelectMapper.selectBillCount(s);

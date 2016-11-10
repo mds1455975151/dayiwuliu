@@ -70,6 +70,10 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <option>火山灰质硅酸盐水泥</option>
 		                                <option>特种水泥</option>
 		                                <option>复合硅酸盐水泥</option>
+										<option>金属矿产及冶炼制成品</option>
+										<option>黑色金属冶炼产品</option>
+										<option>非金属矿产类</option>
+										<option>石膏、石膏粉</option>
 		                            </select>
 		                        </div>
 		                        <div class="ht_divbtn">
@@ -188,6 +192,10 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <option>火山灰质硅酸盐水泥</option>
 		                                <option>特种水泥</option>
 		                                <option>复合硅酸盐水泥</option>
+										<option>金属矿产及冶炼制成品</option>
+										<option>黑色金属冶炼产品</option>
+										<option>非金属矿产类</option>
+										<option>石膏、石膏粉</option>
 		                    </select>
 		                </div>
 		                 <div class="model_width">
@@ -306,6 +314,10 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <option>火山灰质硅酸盐水泥</option>
 		                                <option>特种水泥</option>
 		                                <option>复合硅酸盐水泥</option>
+										<option>金属矿产及冶炼制成品</option>
+										<option>黑色金属冶炼产品</option>
+										<option>非金属矿产类</option>
+										<option>石膏、石膏粉</option>
 		                    </select>
 		                </div>
 		                <div class="model_width">

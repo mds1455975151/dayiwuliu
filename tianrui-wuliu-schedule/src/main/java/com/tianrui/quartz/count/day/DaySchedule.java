@@ -27,8 +27,10 @@ public class DaySchedule {
 	@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次  
     public void everyDay() throws Exception{  
 	   System.out.println("每天更新"); 
-//	   CountSelectReq req = new CountSelectReq();
-//	   countService.everyDay(req);
-//	   countService.routeHot(req);
+	   CountSelectReq req = new CountSelectReq();
+	   //-ok
+	   countService.everyDay(req);
+	   //-ok
+	   countService.routeHot(req);
     }  
 }

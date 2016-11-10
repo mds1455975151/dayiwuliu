@@ -44,5 +44,5 @@ public interface CountSelectMapper {
 	long selectPayCount(CountSelect countData);
 	//TODO
 	/** 运费新增量*/
-	long selectPayAdd(CountSelect countData);
+	CountSelect selectPayAdd(CountSelect countData);
 }
