@@ -482,10 +482,10 @@
         and cargotype = #{cargotype,jdbcType=VARCHAR}
       </if>
       <if test="cargoname != null and cargoname != ''" >
-        and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
+        and cargoname = #{cargoname,jdbcType=VARCHAR}
       </if>
       <if test="cargono != null and cargono != ''" >
-        and cargono like "%" #{cargono,jdbcType=VARCHAR} "%"
+        and cargono = #{cargono,jdbcType=VARCHAR}
       </if>
       <if test="zjm != null and zjm != ''" >
         and zjm = #{zjm,jdbcType=VARCHAR}
