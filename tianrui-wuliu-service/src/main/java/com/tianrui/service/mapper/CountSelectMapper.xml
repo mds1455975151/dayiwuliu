@@ -132,9 +132,9 @@
    	</where>
   </select>
   
-  <select id="selectPayAdd" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+  <select id="selectPayAdd" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
     SELECT 
-   		SUM(bill_total_price) 
+   		SUM(bill_total_price) as sum
 	FROM 
 		pay_invoice_detail 
    	<where> 

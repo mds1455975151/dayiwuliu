@@ -1,5 +1,8 @@
 package com.tianrui.quartz.count.hour;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -28,7 +31,20 @@ public class HourSchedule {
     public void everyDay() throws Exception{  
 	   System.out.println("每小时更新"); 
 	   CountSelectReq req = new CountSelectReq();
+	   req.setSelecttime(getDay());
+	   //-ok
 	   countService.everyHour(req);
+	   //-ok
 	   countService.billEveryDay(req);
     }  
+	public long getDay() {
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MILLISECOND, 0);
+		return c.getTimeInMillis();
+	}
 }

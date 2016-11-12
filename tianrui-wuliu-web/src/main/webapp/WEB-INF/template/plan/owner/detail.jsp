@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--发布对象end-->
 
                 <div class="goods_foot">
-                    <button class="btn btnyello mr20 submitBtn"  type="button">返回</button>
+                    <button class="btn btnyello mr20 submitBtn" pageNo="${pageNo }" type="button">返回</button>
                 </div>
             </div>
             <!-- 货源计划内容end -->
@@ -217,7 +217,8 @@ $(function(){
 	//左侧选中
 	$("#planowner").addClass("selected");
 	$(".submitBtn").click(function(){
-		window.location.href = "/trwuliu/planowner/main";
+		var pageNo = $(this).attr('pageNo');
+		window.location.href = "/trwuliu/planowner/main?pageNo="+pageNo;
 	});
 });
 </script>

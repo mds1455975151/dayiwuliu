@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <!-- 引用公共left部分 -->
 			<jsp:include page="../../common/member/left_busi.jsp"></jsp:include>
         <!--个人中心左侧end-->
-        	<input type="hidden" id="pageNo" value="1">
+        	<input type="hidden" id="pageNo" value="${empty pageNo?1:pageNo }">
    		<!--个人中心右侧begin-->
             <div class="rz_right">
                 <div class="car_title bgblue">

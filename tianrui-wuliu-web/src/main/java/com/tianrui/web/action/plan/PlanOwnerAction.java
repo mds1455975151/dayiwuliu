@@ -258,10 +258,11 @@ public class PlanOwnerAction {
 	//我发布的计划页面
 	@RequestMapping("main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_OWNER)
-	public ModelAndView main(HttpServletRequest request) throws Exception {
+	public ModelAndView main(String pageNo, HttpServletRequest request) throws Exception {
 		ModelAndView model=new ModelAndView("plan/owner/main");
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
+		model.addObject("pageNo",pageNo);
 		return model;
 	}
 	//发布计划页面
@@ -270,6 +271,7 @@ public class PlanOwnerAction {
 		ModelAndView model=new ModelAndView("plan/owner/detail");
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
+		model.addObject("pageNo", req.getPageNo());
 		model.addObject("plan",cargoPlanService.detail(req));
 		return model;
 	}

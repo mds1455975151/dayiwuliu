@@ -19,6 +19,8 @@
 		m.sex sex,
 		m.remarkname remarkname,
 		f.idcardimage idcardsImagePath,
+		f.rtblimgurl rtblimgurl,
+		f.rtblno rtblno,
 		f.memberid infoid,
 		f.driverimage driveImagePath,
 		f.idcard identityCard,

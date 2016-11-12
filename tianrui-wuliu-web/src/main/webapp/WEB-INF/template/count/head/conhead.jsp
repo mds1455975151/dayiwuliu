@@ -39,8 +39,9 @@
     <div class="wrap">
         <div class="data_total">
             <h4 class="fbold">数据总览</h4>
-            <ul>
+            <ul class="data_tta">
                 <li class="bgred">
+            	<a href="/count/plan">
                     <div class="dtail_tit">
                         <label>货运总量</label>
                         <span class="fr">同比上月增长30%</span>
@@ -53,8 +54,10 @@
                         <label>本月</label><i class="icononline">&#xe617;</i>
                         <span>152155</span>
                     </div>
+            	</a>
                 </li>
                 <li class="bgyello">
+            	<a href="/count/vehicle">
                     <div class="dtail_tit">
                         <label>车辆总数</label>
                         <span class="fr">同比上月减少30%</span>
@@ -67,8 +70,10 @@
                         <label>本月</label><i class="icononline">&#xe619;</i>
                         <span>152155</span>
                     </div>
+            	</a>
                 </li>
                 <li class="bggreen">
+            	<a href="/count/bill">
                     <div class="dtail_tit">
                         <label>交易总量</label>
                         <span class="fr">同比上月增长30%</span>
@@ -81,8 +86,10 @@
                         <label>本月</label><i class="icononline">&#xe619;</i>
                         <span>152155</span>
                     </div>
+            	</a>
                 </li>
                 <li class="bgblue">
+            	<a href="/count/pay">
                     <div class="dtail_tit">
                         <label>运费总额</label>
                         <span class="fr">同比上月增长30%</span>
@@ -95,6 +102,7 @@
                         <label>本月</label><i class="icononline">&#xe619;</i>
                         <span>152155</span>
                     </div>
+            	</a>
                 </li>
             </ul>
         </div>

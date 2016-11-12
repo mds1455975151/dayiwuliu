@@ -46,7 +46,7 @@
 						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode">
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
+								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyzsl.jpg">
 							</div>
 							<div class="img_upload">
 								<input id="file_xkz" class="file" type="file"> <span

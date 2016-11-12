@@ -161,6 +161,7 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		info.setDriverpercheck("2");
 		info.setStatus("0");//0-未审核，1-已审核
 		info.setSubmittime(t);
+		info.setLicenseType(req.getLicenseType());
 		int a = systemMemberInfoRecordMapper.insertSelective(info);
 		if(a==1){
 			member.setDriverpercheck((short)2);//认证中

@@ -22,6 +22,15 @@ var loading = {
 		}
 };
 
+$("#_toPageSize").click(function(){
+	if($("#goPage").val() >= 1 && $("#goPage").val() <= parseInt($("#totalPages").text())){
+	displayData($('#goPage').val()-1);return false;
+}else {
+	alert("请输入正确的页码 范围为：1-  "+$("#totalPages").text());
+	return false;
+}
+});
+
 function pageCallback(pageNo) {
 	displayData(pageNo);  
 } 
@@ -31,7 +40,7 @@ function displayData(pageNo){
 	$('.nodata').hide();
 	loading.append();
 	if(pageNo && pageNo >= 0){
-		searchPlan(pageNo+1);
+		searchPlan(+pageNo+1);
 	}else{
 		searchPlan(1);
 	}
@@ -61,7 +70,8 @@ $("#planlist").on("click",".editBtn",function(){
 //查看计划绑定事件
 $("#planlist").on("click",".detailBtn",function(){
 	var dId= $(this).attr("dataId");
-	window.location.href=PlanUrl.detail+"?id="+dId;
+	var pageNo = $('#pageNo').val();
+	window.location.href=PlanUrl.detail+"?id="+dId+"&pageNo="+pageNo;
 });
 //删除计划绑定事件
 $("#planlist").on("click",".deleteBtn",function(){

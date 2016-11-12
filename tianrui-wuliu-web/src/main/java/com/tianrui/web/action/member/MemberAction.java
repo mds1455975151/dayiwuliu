@@ -227,6 +227,7 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String id,
 			@RequestParam(defaultValue = "")String identityCard,
 			@RequestParam(defaultValue = "")String telphone,
+			@RequestParam(defaultValue = "")String licenseType,
 			@RequestParam(defaultValue = "")String type,//2-驾驶证；1-身份证
 			String rtblno, //道路运输许可证号 
 			MultipartFile file,//2-驾驶证；1-身份证 图片留
@@ -267,6 +268,7 @@ public class MemberAction{
 					req.setIdcardsImagePath(rs.getData().toString());
 					rs= systemMemberInfoRecordService.personalAuthentication(req);
 				}else if("2".equals(type)){
+					req.setLicenseType(licenseType);
 					req.setDriveImagePath(rs.getData().toString());
 					rs= systemMemberInfoRecordService.driverAuthentication(req);
 				}

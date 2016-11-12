@@ -3,6 +3,8 @@ package com.tianrui.api.resp.front.member;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 
 public class MemberResp extends BaseResp{
@@ -26,6 +28,10 @@ public class MemberResp extends BaseResp{
 	private String mocount;
 	/** 尽后台会员管理使用*/
 	private String remarkname;
+	
+	private String rtblimgurl;
+	
+	private String rtblno;
 	/**
 	 * 组织id
 	 */
@@ -275,16 +281,36 @@ public class MemberResp extends BaseResp{
 	public String getContactTel() {
 		return contactTel;
 	}
+	public String getRtblimgurl() {
+		rtblimgurl = StringUtils.isBlank(rtblimgurl)?"":rtblimgurl;
+		return rtblimgurl;
+	}
+
+	public void setRtblimgurl(String rtblimgurl) {
+		this.rtblimgurl = rtblimgurl;
+	}
+
+	public String getRtblno() {
+		rtblno = StringUtils.isBlank(rtblno)?"":rtblno;
+		return rtblno;
+	}
+
+	public void setRtblno(String rtblno) {
+		this.rtblno = rtblno;
+	}
+
 	public void setContactTel(String contactTel) {
 		this.contactTel = contactTel;
 	}
 	public String getDriveImagePath() {
+		driveImagePath = StringUtils.isBlank(driveImagePath)?"":driveImagePath;
 		return driveImagePath;
 	}
 	public void setDriveImagePath(String driveImagePath) {
 		this.driveImagePath = driveImagePath;
 	}
 	public String getIdentityCard() {
+		identityCard = StringUtils.isBlank(identityCard)?"":identityCard;
 		return identityCard;
 	}
 	public void setIdentityCard(String identityCard) {

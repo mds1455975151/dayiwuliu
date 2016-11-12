@@ -72,7 +72,7 @@ var renderDate=function(bills,pageNo){
 	var dataArr=[]; 
 	$(bills).each(function(i,item){
 		dataArr.push('<tr>');
-		dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+'</a></td>');
+		dataArr.push('<td><a class="waybillno" billId="'+item.id+'">'+item.waybillno+'</a></td>');
 		dataArr.push('<td>'+item.cargoname+'</td>');
 		dataArr.push('<td><p>'+item.venderName+'</p>');
 		dataArr.push('<p>'+item.vehicleno+'</p></td>');
@@ -118,6 +118,11 @@ var renderDate=function(bills,pageNo){
 		$('.nodata').show();
 	}
 	$("#billlist").empty().append(dataArr.join(" "));
+	$('.waybillno').off('click').on('click',function(){
+		var id = $(this).attr('billId');
+		var pageNo = $('#pageNo').val();
+		window.location.href=URL.detailViewUrl+'?id='+id+'&pageNo='+pageNo;
+	});
 }
 
 //查询按钮点击

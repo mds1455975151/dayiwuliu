@@ -82,6 +82,8 @@ $("#perAuthen_button").click(function() {
 	var perAuthen_id = $("#perAuthen_id").val();
 	// 联系电话
 	var perAuthen_tel = $("#perAuthen_tel").val();
+	//准驾车型
+	var licenseType = $('#drivinglicensetype').text();
 	
 	var file_jsz = $("#file_jsz")[0].files[0];
 	
@@ -115,6 +117,10 @@ $("#perAuthen_button").click(function() {
 	} else if (perAuthen_tel == "") {
 		$("#message_perAuthenTel").html("联系电话不能为空！");
 		return;
+	} else if (!licenseType) {
+		$("#modal_common_content").html("请选择准驾车型！");
+		$("#commonModal").modal();
+		return;
 	}  else if (!$("#perAuthen_checkbox").is(":checked")) {
 		$("#modal_common_content").html("请阅读并同意《天瑞物流平台》的协议！");
 		$("#commonModal").modal();
@@ -137,6 +143,7 @@ $("#perAuthen_button").click(function() {
 	formData.append("id",member_id);
 	formData.append("identityCard",perAuthen_id);
 	formData.append("telphone",perAuthen_tel);
+	formData.append("licenseType",licenseType);
 	formData.append("type",type);
 	formData.append("rtblimg",file_rtbl);
 	formData.append("rtblno",rtblno);

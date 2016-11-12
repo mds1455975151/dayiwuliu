@@ -40,6 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label>司机姓名：</label><span>${memberInfo.username }</span>
                                 <label>联系方式：</label><span>${memberInfo.telphone }</span>
                                 <label>驾驶证号：</label><span>${memberInfo.idcard }</span>
+                                <label>准驾车型：</label><span>${memberInfo.licenseType }</span>
                                 <c:if test="${memberInfo.driverpercheck eq '0'}">
                                 <label>认证状态：</label><span>未认证</span>
                                 </c:if>
@@ -54,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </c:if>
                                 <label>注册时间：</label><span>${memberInfo.registtimeStr }</span>
                                 <label>认证时间：</label><span>${memberInfo.submittimeStr }</span>
+                            	<label>道路运输经营许可证号：</label><span>${memberInfo.rtblno }</span><br>
                             </div>
                         </div>
                     </div>
@@ -71,6 +73,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<input type="hidden" id="infoid" value="${memberInfo.id }">
                         </div>
                     </div>
+                    <div class="person_cont">
+                            <label>道路运输经营许可证：</label>
+                            <span id="imgid">
+                            <c:if test="${not empty memberInfo.rtblimgurl }">
+	                            <a href="${memberInfo.rtblimgurl }" target="_blank">
+	                            	<img height="200" src="${memberInfo.rtblimgurl }">
+	                            </a>
+                            </c:if>
+                            </span>
+                        </div>
                     <div class="row ">
                         <div class="person_cont">
                             <div class="person_button">

@@ -67,6 +67,7 @@ public class BillOwnerAction {
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setCurrId(currUser.getId());
 			view.addObject("bill",billService.queryWayBill(req));
+			view.addObject("pageNo",req.getPageNo());
 		}
 		return view;
 	}

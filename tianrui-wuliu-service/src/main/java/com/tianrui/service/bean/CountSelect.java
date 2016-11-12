@@ -16,6 +16,8 @@ public class CountSelect {
 	
 	private Double completed;
 	
+	private Double sum;
+	
 	private String remark;
 
 	public String getId() {
@@ -24,6 +26,15 @@ public class CountSelect {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Double getSum() {
+		sum = sum == null ? 0 : sum;
+		return sum;
+	}
+
+	public void setSum(Double sum) {
+		this.sum = sum;
 	}
 
 	public String getStatus() {
@@ -63,6 +74,7 @@ public class CountSelect {
 	}
 
 	public Double getTotalplanned() {
+		totalplanned = totalplanned == null?0:totalplanned;
 		return totalplanned;
 	}
 
@@ -71,6 +83,7 @@ public class CountSelect {
 	}
 
 	public Double getCompleted() {
+		completed = completed == null?0:completed;
 		return completed;
 	}
 

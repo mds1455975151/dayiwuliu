@@ -42,12 +42,11 @@ public class AppMemberAction {
 	public Logger logger = LoggerFactory.getLogger(AppMemberAction.class);
 	
 	@Autowired
-	CacheClient cache ;
+	private CacheClient cache ;
 	@Autowired
 	private ISystemMemberService systemMemberService;
 	@Autowired
 	private IFileService iFileService;
-	
 	/**
 	 * 
 	 * @描述:移动APP登录
@@ -340,6 +339,27 @@ public class AppMemberAction {
 		logger.info(" register 返回 {}",JSON.toJSON(rs));
 		appResult.setCode(rs.getCode());
 		appResult.setMessage(rs.getError());
+		return appResult;
+	}
+	
+	@RequestMapping(value="/updateAdmin",method=RequestMethod.POST)
+	@ApiParamRawType(AppMemberReq.class)
+	@ResponseBody
+	public AppResult updateAdmin(AppParam<AppMemberReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		AppMemberReq req = appParam.getBody();
+		MemberUpdateReq mur = new MemberUpdateReq();
+		mur.setId(appParam.getHead().getId());
+		mur.setLoginname(req.getNickname());
+		mur.setAvatarspath(req.getImgStr());
+		boolean flag = systemMemberService.updateMember(mur);
+		if(flag){
+			appResult.setCode("000000");
+			appResult.setMessage("修改成功！");
+		}else{
+			appResult.setCode("000001");
+			appResult.setMessage("修改失败！");
+		}
 		return appResult;
 	}
 	

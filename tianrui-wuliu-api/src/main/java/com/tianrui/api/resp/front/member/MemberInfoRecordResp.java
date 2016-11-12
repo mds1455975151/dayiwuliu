@@ -31,6 +31,7 @@ public class MemberInfoRecordResp extends BaseResp{
 	private String driverimage;
     private String rtblno;
     private String rtblimgurl;
+    private String licenseType;
 	
 	public String getDriverimage() {
 		return driverimage;
@@ -175,6 +176,12 @@ public class MemberInfoRecordResp extends BaseResp{
 	}
 	public void setRtblimgurl(String rtblimgurl) {
 		this.rtblimgurl = rtblimgurl;
+	}
+	public String getLicenseType() {
+		return licenseType;
+	}
+	public void setLicenseType(String licenseType) {
+		this.licenseType = licenseType;
 	}
 	
 }
