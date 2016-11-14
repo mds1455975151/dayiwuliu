@@ -23,4 +23,6 @@ public interface ICountService {
 	void routeHot(CountSelectReq count)throws Exception;
 	/** 每日运单量*/
 	void billEveryDay(CountSelectReq count)throws Exception;
+	/** 查询打点情况*/
+	void selectpostition()throws Exception; 
 }

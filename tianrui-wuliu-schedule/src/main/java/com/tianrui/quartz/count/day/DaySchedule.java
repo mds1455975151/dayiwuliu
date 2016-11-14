@@ -24,7 +24,7 @@ public class DaySchedule {
 	@Autowired
 	ICountService countService;
 	
-	//@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次  
+	@Scheduled(cron="0/5 * *  * * ? ")   //每5秒执行一次  
     public void everyDay() throws Exception{  
 	   System.out.println("每天更新"); 
 	   CountSelectReq req = new CountSelectReq();
@@ -32,5 +32,7 @@ public class DaySchedule {
 	   countService.everyDay(req);
 	   //-ok
 	   countService.routeHot(req);
+	   //查询各省打点情况
+	   countService.selectpostition();
     }  
 }

@@ -6,6 +6,8 @@ public class CountSum {
     private String type;
 
     private String remark;
+    
+    private String stype;
 
     private Double sumdate;
 
@@ -39,7 +41,15 @@ public class CountSum {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getRemark() {
+    public String getStype() {
+		return stype;
+	}
+
+	public void setStype(String stype) {
+		this.stype = stype;
+	}
+
+	public String getRemark() {
         return remark;
     }
 

@@ -6,6 +6,10 @@ public class CountSelect {
 	
 	private String status;
 	
+	private String op;
+	
+	private String opc;
+	
 	private long selecttime;
 	
 	private long count;
@@ -43,6 +47,22 @@ public class CountSelect {
 
 	public String getRemark() {
 		return remark;
+	}
+
+	public String getOp() {
+		return op;
+	}
+
+	public void setOp(String op) {
+		this.op = op;
+	}
+
+	public String getOpc() {
+		return opc;
+	}
+
+	public void setOpc(String opc) {
+		this.opc = opc;
 	}
 
 	public void setRemark(String remark) {

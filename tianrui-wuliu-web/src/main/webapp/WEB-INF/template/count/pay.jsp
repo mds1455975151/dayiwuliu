@@ -64,18 +64,8 @@
     </div>
 </div>
 </div>
-<div class="bghui">
-    <div class="wrap foot">
-        <div class="footcont">
-            <p>中原大易科技 Copyright © 2016 豫ICP备12615289号-86</p>
-        </div>
-        <div class="footimg">
-            <p>安卓客户端</p>
-            <img src="images/erw.png">
-        </div>
-    </div>
+<jsp:include page="head/foot.jsp"></jsp:include>
 
-</div>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts.js"></script>

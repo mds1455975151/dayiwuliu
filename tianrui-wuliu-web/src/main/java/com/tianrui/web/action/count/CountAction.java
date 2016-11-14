@@ -114,9 +114,29 @@ public class CountAction {
 	@RequestMapping("route")
 	public ModelAndView route() throws Exception{
 		ModelAndView view = index();
+		
+		CountSumReq sum = new CountSumReq();
+		sum.setShowtime(getDay());
+		sum.setType("8");
+		sum.setStype("route");
+		List<CountSumResp> list = countSumService.selectByCondition(sum);
+		view.addObject("routemax", list);
 		view.setViewName("count/route");
 		return view;
 		
+	}
+	@RequestMapping("routeLine")
+	@ResponseBody
+	public Result routeLine(String routename) throws Exception{
+		Result rs = Result.getSuccessResult();
+		CountSumReq sum = new CountSumReq();
+		sum.setShowtime(getDay());
+		sum.setType("8");
+		sum.setStype("route");
+		sum.setDesc1(routename);
+		List<CountSumResp> list = countSumService.selectByCondition(sum);
+		rs.setData(list);
+		return rs;
 	}
 	
 	/** 车辆

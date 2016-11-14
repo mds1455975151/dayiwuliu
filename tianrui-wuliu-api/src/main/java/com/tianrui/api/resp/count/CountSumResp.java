@@ -15,6 +15,8 @@ public class CountSumResp {
     private Long showtime;
     
     private String showtimeStr;
+    
+    private String desc1;
 
     
 	public String getShowtimeStr() {
@@ -22,6 +24,13 @@ public class CountSumResp {
 			showtimeStr = new SimpleDateFormat("MM月dd日").format(new Date(showtime));
 		}
 		return showtimeStr;
+	}
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 
 	public void setShowtimeStr(String showtimeStr) {

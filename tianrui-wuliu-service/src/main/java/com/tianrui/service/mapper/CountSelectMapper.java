@@ -26,8 +26,9 @@ public interface CountSelectMapper {
 	/** 查询最热路线*/
 	List<CountSelect> selectRouteHot(CountSelect countData);
 	
-	/** 查询地图最多省份*/
-	void selectRouteMax(CountSelect countData);
+	/** 查询地图最多省份
+	 * @return */
+	List<CountSelect> selectRouteMax(CountSelect countData);
 	
 	/** 货运计划总量*/
 	CountSelect selectPlanCount(CountSelect countData);

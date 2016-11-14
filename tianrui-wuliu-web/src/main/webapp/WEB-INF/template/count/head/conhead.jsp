@@ -7,8 +7,8 @@
         <div class="header">
             <div class="header_left">
                 <label class="mr10">欢迎来到大易物流平台！</label>
-                <a href=""><label> 请[登录]</label></a>
-                <a href="" class="colorreg"><label> [免费注册]</label></a>
+                <a href="/count/route"><label> 请[登录]</label></a>
+                <a href="/publicMember/registerPage" class="colorreg"><label> [免费注册]</label></a>
             </div>
         </div>
         <!--登录头部行end-->
@@ -20,17 +20,20 @@
         <div class="lg_cont">
             <div class="login_tel">
                 <i class="icononline"> &#xe616;</i><span>|</span>
-                <input type="text" placeholder="请输入手机号">
+                <input type="text" maxlength="11" id="login_tel" placeholder="请输入手机号">
             </div>
             <div class="login_tel">
                 <i class="icononline">&#xe618;</i><span>|</span>
-                <input type="text" placeholder="请输入手机号">
+                <input type="password" id="login_psw" placeholder="请输入密码">
+            </div>
+            <div class="note">
+                <h4><span id="message_loginError" style="color: white;"></span></h4>
             </div>
             <div class="lg_reg">
                 <label class="colorblue">没有账号？</label>
-                <a class="colorreg">立即注册</a>
+                <a href="/publicMember/registerPage" class="colorreg">立即注册</a>
             </div>
-            <div class="lg_btn">
+            <div class="lg_btn" onclick="loginIn()">
                 <h4>立即登录</h4>
             </div>
         </div>
@@ -182,3 +185,23 @@
         </div>
     </div>
 </div>
+<!--公共弹出模态框begin-->
+<div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width:400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_del_title">确认信息</h4>
+            </div>
+            <div class="modal-body">
+                <h4 id="modal_common_content"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--公共弹出模态框end--> 
+<script type="text/javascript" src="/resources/js/utils/md5.js" ></script>
+<script type="text/javascript" src="/resources/js/count/head/login.js"></script>

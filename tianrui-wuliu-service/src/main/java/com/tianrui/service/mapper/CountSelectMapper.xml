@@ -3,11 +3,11 @@
 <mapper namespace="com.tianrui.service.mapper.CountSelectMapper" >
   <!-- 查询路线总数 -->
   <select id="selectRouteCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
-    SELECT count(*) FROM file_route 
+    SELECT count(*) FROM file_position 
   </select>
   <!-- 本月新增路线 -->
   <select id="selectRouteAdd" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
-     SELECT count(*) FROM file_route 
+     SELECT count(*) FROM file_position 
    	<where>
    	  <if test="selecttime != null and selecttime != ''">
    	  	and createtime <![CDATA[>=]]>  #{selecttime,jdbcType=BIGINT}
@@ -37,9 +37,9 @@
   <!-- 各个省份打点数量 -->
   <select id="selectRouteMax" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
    SELECT
-	op,
-	opc,
-	COUNT(0)
+	op op,
+	opc opc,
+	COUNT(0) count
 	FROM
 		file_position
 	GROUP BY

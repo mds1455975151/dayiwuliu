@@ -72,19 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-
-<div class="bghui">
-    <div class="wrap foot">
-        <div class="footcont">
-            <p>中原大易科技 Copyright © 2016 豫ICP备12615289号-86</p>
-        </div>
-        <div class="footimg">
-            <p>安卓客户端</p>
-            <img src="${trRoot}/tianrui/images/erw.png">
-        </div>
-    </div>
-
-</div>
+<jsp:include page="head/foot.jsp"></jsp:include>
 
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
@@ -93,13 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="/resources/js/count/vehicle.js"></script>
-<script>
-    $(document).ready(function(){
-        //折线图
-        
-        
-    });
-</script>
 
 </body>
 </html>

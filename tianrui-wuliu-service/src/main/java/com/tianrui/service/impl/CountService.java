@@ -34,7 +34,6 @@ public class CountService implements ICountService{
 	
 	@Override
 	public void everyDay(CountSelectReq count)throws Exception {
-		// TODO Auto-generated method stub
 		long time = getDay();
 		
 		CountSelect s = new CountSelect();
@@ -65,7 +64,6 @@ public class CountService implements ICountService{
 		payCountSave(pay,time);
 		
 		//查询活跃车辆 30天内 -ok
-		//TODO
 		Date date = new Date();
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
@@ -450,5 +448,38 @@ public class CountService implements ICountService{
 		c.set(Calendar.SECOND, 0);
 		c.set(Calendar.MILLISECOND, 0);
 		return c.getTimeInMillis();
+	}
+	@Override
+	public void selectpostition() throws Exception {
+		// TODO Auto-generated method stub
+		List<CountSelect> list = countSelectMapper.selectRouteMax(null);
+		for (int i = 0; i < list.size(); i++) {
+			CountSum quer = new CountSum();
+			quer.setShowtime(getDay());
+			quer.setRemark(list.get(i).getOpc());
+			List<CountSum> qulist = countSumMapper.selectByCondition(quer);
+			if(qulist.size()==0){
+				CountSum sum = new CountSum();
+				sum.setId(UUIDUtil.getId());
+				sum.setDesc1(list.get(i).getOp());
+				sum.setShowtime(getDay());
+				sum.setRemark(list.get(i).getOpc());
+				sum.setType("8");
+				sum.setCreatetime(System.currentTimeMillis());
+				sum.setSumdate((double)list.get(i).getCount());
+				countSumMapper.insertSelective(sum);
+			}else{
+				CountSum sum = qulist.get(0);
+				sum.setDesc1(list.get(i).getOp());
+				sum.setShowtime(getDay());
+				sum.setRemark(list.get(i).getOpc());
+				sum.setType("8");
+				sum.setModifytime(System.currentTimeMillis());
+				sum.setSumdate((double)list.get(i).getCount());
+				countSumMapper.updateByPrimaryKeySelective(sum);
+			}
+		}
+		
+		
 	}
 }
