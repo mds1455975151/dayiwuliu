@@ -40,7 +40,7 @@ public class AndroidPushUtils {
 			JSONObject jsonAPS = new JSONObject();
 			jsonAPS.put("alert", msg);
 			JSONObject notification = new JSONObject();
-			notification.put("title", "天瑞物流");
+			notification.put("title", "大易物流");
 			notification.put("code", code);
 			notification.put("description",msg);
 			notification.put("aps", jsonAPS);

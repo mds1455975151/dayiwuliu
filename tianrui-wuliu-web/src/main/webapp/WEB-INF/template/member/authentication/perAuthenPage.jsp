@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>天瑞物流平台-个人认证</title>
+<title>大易物流平台-个人认证</title>
 <meta name="keywords" content=" 天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
@@ -97,7 +97,7 @@
 
 					<div class="rz_combtn ml84">
 						<input type="checkbox" checked="checked" id="perAuthen_checkbox"><label>我已经阅读并同意<a
-							target="_blank" id="perAuthen_protocol">《天瑞物流平台服务协议》</a></label>
+							target="_blank" id="perAuthen_protocol">《大易物流平台服务协议》</a></label>
 						<button type="submit" class="btn btn-block" id="perAuthen_button">申请认证</button>
 					</div>
 

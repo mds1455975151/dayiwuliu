@@ -29,7 +29,7 @@
                 <a><i class=" iconfont icon-shouji"></i><label>手机版</label></a>
             </div>
             <div class="header_right" style="width:230px">
-				<label id="header_welcome">欢迎来到天瑞物流 </label>
+				<label id="header_welcome">欢迎来到大易物流 </label>
                 <label id="header_loginHref"> <a href="/publicMember/loginPage">请登录</a></label>
                 <label id="header_registerHref"> <a href="/publicMember/registerPage">免费注册</a></label>
 <!--                 <label> <a href="">我的车队</a></label>

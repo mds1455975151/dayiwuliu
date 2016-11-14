@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>天瑞物流平台-注册</title>
+    <title>大易物流平台-注册</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -56,13 +56,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="reg_yz">
                         <label></label>
-                        <input type="checkbox" checked="checked"><span><a target="_blank" id="register_protocol"> 阅读并同意《天瑞物流平台服务协议》</a></span>
+                        <input type="checkbox" checked="checked"><span><a target="_blank" id="register_protocol"> 阅读并同意《大易物流平台服务协议》</a></span>
                     </div>
                         <button class="btn btnmid" type="submit" id="register_button">立即注册</button>
 
                 </div>
             <div class="reg_right">
-                <p>已有天瑞账号？</p>
+                <p>已有大易账号？</p>
                 <p><a href="/publicMember/loginPage">立即登录</a></p>
                 <img src="${trRoot}/tianrui/images/g1.png">
             </div>

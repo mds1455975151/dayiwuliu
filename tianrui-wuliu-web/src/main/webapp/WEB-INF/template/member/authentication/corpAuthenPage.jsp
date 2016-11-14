@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>天瑞物流平台-企业认证</title>
+    <title>大易物流平台-企业认证</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>  
                <!--企业认证模块-->
                <div class="rz_combtn ml84" style="margin-top: 10px;">
-	               <input type="checkbox" checked="checked" id="corpAuthen_checkbox"><label>我已经阅读并同意<a target="_blank" id="corpAuthen_protocol">《天瑞物流平台服务协议》</a></label>
+	               <input type="checkbox" checked="checked" id="corpAuthen_checkbox"><label>我已经阅读并同意<a target="_blank" id="corpAuthen_protocol">《大易物流平台服务协议》</a></label>
 	               <button type="submit" class="btn btn-block" id="corpAuthen_button">申请认证</button>
            	   </div>
                <!--企业认证模块end-->

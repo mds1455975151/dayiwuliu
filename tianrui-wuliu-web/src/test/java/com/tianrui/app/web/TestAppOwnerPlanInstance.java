@@ -54,7 +54,7 @@ public class TestAppOwnerPlanInstance {
 			req.setCargoid("4125f18f5aad40b4bed67639b1b67ed4");
 			req.setRouteid("5d9977449ceb45aca44d5ee15e5dc435");
 			req.setFreightid("17b271c79c0b40588226274db52a789d");
-			req.setOrganizationname("天瑞集团水泥有限公司");
+			req.setOrganizationname("大易集团水泥有限公司");
 			req.setTotalplanned("500");
 			req.setStarttimeStr("2016-10-27 09:00:00");
 			req.setEndtimeStr("2016-10-31 09:00:00");
