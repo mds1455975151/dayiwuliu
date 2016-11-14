@@ -10,10 +10,15 @@ $(document).ready(function(){
 				var ret = rs.data;
 				time = [];
 				data = [];
+				var sumbill;
 				for (var a = 0; a < ret.length; a++) {
 					time.push(ret[a].showtimeStr);
-					data.push(ret[a].adddate)
+					data.push(ret[a].adddate);
+					sumbill = ret[a].adddate;
+					
 				}
+				$("#todaybill").html(sumbill+"单");
+				$("#ytodaybill").html(ret[(ret.length-1)].adddate+"单");
 				
 				//折线图
 			    $('#line3').highcharts({

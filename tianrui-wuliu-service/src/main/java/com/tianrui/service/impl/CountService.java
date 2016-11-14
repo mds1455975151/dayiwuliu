@@ -46,7 +46,7 @@ public class CountService implements ICountService{
 		routeCountSave(route,time);
 		
 		//查询货物量 -ok
-		s.setStatus("3");
+		s.setStatus("2");
 		CountSelect plan = countSelectMapper.selectPlanCount(s);
 		planCountSave(plan,time);
 		
@@ -54,11 +54,6 @@ public class CountService implements ICountService{
 		s.setStatus("1");
 		CountSelect vehcile= countSelectMapper.selectVehicleCount(s);
 		VehicleCountSave(vehcile,time);
-		
-		//查询活跃车辆 -ok
-		s.setStatus(null);
-		List<CountSelect> vehicAct = countSelectMapper.selectVehicleAct(s);
-		vehicleActSave(vehicAct,time);
 		
 		//查询运单量 -ok
 		s.setStatus(null);
@@ -68,6 +63,21 @@ public class CountService implements ICountService{
 		s.setStatus(null);
 		long pay = countSelectMapper.selectPayCount(s);
 		payCountSave(pay,time);
+		
+		//查询活跃车辆 30天内 -ok
+		//TODO
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.set(Calendar.DATE,-30);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MILLISECOND, 0);
+		s.setStatus(null);
+		s.setSelecttime(c.getTimeInMillis());
+		List<CountSelect> vehicAct = countSelectMapper.selectVehicleAct(s);
+		vehicleActSave(vehicAct,time);
 		logger.info("查询路线总数="+route+"查询货物总量="+plan+"车辆总数="+vehcile+"活跃车辆="+vehicAct+"运单总量="+bill+"运费总和="+pay);
 	}
 	/** 插入运费总和*/
@@ -252,6 +262,7 @@ public class CountService implements ICountService{
 		routeAddSave(routeAdd,time);
 		logger.info("新增路线数="+routeAdd);
 		//新增货物量 -ok
+		s.setStatus("2");
 		CountSelect plan = countSelectMapper.selectPlanCount(s);
 		planAddSave(plan,time);
 		logger.info("新增货物量="+plan);
@@ -322,7 +333,7 @@ public class CountService implements ICountService{
 		}
 	};
 	
-	/** 本月新增车辆*/
+	/** 本日新增车辆*/
 	public void vehicleAddSave(CountSelect vehicle,long time){
 		//1-路线，2货运总量，3-车辆总数，4-交易总量，5-运费总额
 		CountAdd add = new CountAdd();

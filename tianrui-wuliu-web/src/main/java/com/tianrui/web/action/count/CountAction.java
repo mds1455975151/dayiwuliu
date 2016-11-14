@@ -1,5 +1,6 @@
 package com.tianrui.web.action.count;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -151,7 +152,35 @@ public class CountAction {
 		CountSumReq req = new CountSumReq();
 		req.setShowtime(getDay());
 		List<CountSumResp> list = countSumService.selectByCondition(req);
+		
+		CountSumReq old = new CountSumReq();
+		old.setShowtime(getOld30Day());
+		List<CountSumResp> listold = countSumService.selectByCondition(old);
 		//1-路线，2货运总量，3-车辆总数，4-交易总量，5-运费总额,6-活跃车辆
+		//获取上月数据
+		for (int i = 0; i < listold.size(); i++) {
+			switch(listold.get(i).getType()){
+			case "1":
+				view.addObject("monthroute", listold.get(i));
+				break;
+			case "2":
+				view.addObject("monthplan", listold.get(i));
+				break;
+			case "3":
+				view.addObject("monthvehicle", listold.get(i));
+				break;
+			case "4":
+				view.addObject("monthbill", listold.get(i));
+				break;
+			case "5":
+				view.addObject("monthpay", listold.get(i));
+				break;
+			case "6":
+				view.addObject("monthactvehicle", listold.get(i));
+				break;
+			}
+		}
+		//获取当日数据
 		for (int i = 0; i < list.size(); i++) {
 			switch(list.get(i).getType()){
 			case "1":
@@ -187,4 +216,30 @@ public class CountAction {
 		c.set(Calendar.MILLISECOND, 0);
 		return c.getTimeInMillis();
 	}
+	
+	/** 上月最后一天*/
+	public long getOld30Day(){
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.set(Calendar.DATE, -1);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MILLISECOND, 0);
+		return c.getTimeInMillis();
+	}
+	
+	public static void main(String[] args) {
+		//1478793600000
+		//1477756800000
+		long a;
+		a = Long.parseLong("1475251200000");
+		
+		Date date = new Date(a);
+		String format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+		System.out.println(format);
+	}
+	
 }

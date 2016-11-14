@@ -1,5 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!Doctype html>
 <html>
 <head>
@@ -33,7 +38,7 @@
         </div>
         <div class="data_roadall">
             <div class="goods_chart">
-                <h5>趟</h5>
+                <h5>辆</h5>
                 <!--折线图-->
                 <div id="line2" style="width: 988px; height:250px;">
                 </div>
@@ -46,7 +51,10 @@
                 <div class="data_roadcar">
                     <h4>活跃车辆</h4>
                     <div>
-                        <label class="colorblue">1000</label>
+                    	
+                        <label class="colorblue"><fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" /></label>
+                        <input type="hidden" id ="paivechiclesum" value="<fmt:formatNumber value="${vehicle.sumdate }" type="number" pattern="0" />">
+                        <input type="hidden" id ="paivechicleact" value="<fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" />">
                         <span>辆</span>
                     </div>
                     <div class="car_pie">
@@ -72,7 +80,7 @@
         </div>
         <div class="footimg">
             <p>安卓客户端</p>
-            <img src="images/erw.png">
+            <img src="${trRoot}/tianrui/images/erw.png">
         </div>
     </div>
 

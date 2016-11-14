@@ -37,15 +37,15 @@
             <div class="data_roadr">
                 <div class="data_jiaoyi border_goods">
                     <h5>昨天成交运单</h5>
-                    <label class="coloryello">86,456,452单</label>
+                    <label class="coloryello" id="ytodaybill">单</label>
                 </div>
                 <div class="data_jiaoyi border_goods">
                     <h5>今天成交运单</h5>
-                    <label class="colorred">86,456,452单</label>
+                    <label class="colorred" id="todaybill">单</label>
                 </div>
                 <div class="data_jiaoyi">
                     <h5>运单总量</h5>
-                    <label class="colorjy">86,456,452单</label>
+                    <label class="colorjy">${bill.sumdate }单</label>
                 </div>
             </div>
         </div>

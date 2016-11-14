@@ -11,17 +11,15 @@ $(document).ready(function(){
 				var adata = [];
 				var stime = [];
 				var sdata = [];
-				var paia ;
-				var pais ;
+				var pais  = parseFloat($("#paivechiclesum").val())-parseFloat($("#paivechicleact").val());
+				var paia  = parseFloat($("#paivechicleact").val());
 				for (var a = 0; a < add.length; a++) {
 					atime.push(add[a].showtimeStr);
 					adata.push(add[a].adddate)
-					paia = add[a].adddate;
 				}
 				for (var a = 0; a < sum.length; a++) {
 					stime.push(sum[a].showtimeStr);
 					sdata.push(sum[a].sumdate)
-					pais = sum[a].sumdate;
 				}
 				
 				//折线图
@@ -51,7 +49,7 @@ $(document).ready(function(){
 		            },
 		            tooltip: {
 		                shared: true,
-		                valueSuffix: ' 趟'
+		                valueSuffix: ' 辆'
 		            },
 		            credits: {
 		                enabled: false
@@ -104,12 +102,12 @@ $(document).ready(function(){
 		                name: 'Brands',
 		                colorByPoint: true,
 		                data: [{
-		                    name: '新增',
-		                    y: paia/paia+pais,  //新增的总数量
+		                    name: '非活跃',
+		                    y: pais,  //新增的总数量
 		                    color: "rgba(59,186,236,1)"
 		                }, {
 		                    name: '活跃',
-		                    y: pais/paia+pais,  //活跃的总数量
+		                    y: paia,  //活跃的总数量
 		                    color: "rgba(255,82,78,1)",
 		                }]
 		            }]

@@ -33,7 +33,7 @@
                 <div class="data_yfcont">
                     <div class="data_yunfei">
                         <h5>运费总和</h5>
-                        <label class="colorjy">￥86,456,452</label>
+                        <label class="colorjy">￥${pay.sumdate }</label>
                     </div>
                     <div class="clear"></div>
                     <div class="yunf_chart">

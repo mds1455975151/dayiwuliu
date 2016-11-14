@@ -11,15 +11,20 @@ $(document).ready(function(){
 				var adata = [];
 				var stime = [];
 				var sdata = [];
+				var sumCountPlan;
+				var addCountPlan;
 				for (var a = 0; a < add.length; a++) {
 					atime.push(add[a].showtimeStr);
-					adata.push(add[a].adddate)
+					adata.push(add[a].adddate);
+					addCountPlan = add[a].adddate;
 				}
 				for (var a = 0; a < sum.length; a++) {
 					stime.push(sum[a].showtimeStr);
-					sdata.push(sum[a].sumdate)
+					sdata.push(sum[a].sumdate);
+					sumCountPlan = sum[a].sumdate;
 				}
-				
+				$("#addCountPlan").html(addCountPlan);
+				$("#sumCountPlan").html(sumCountPlan);
 				//折线图
 				$('#container').highcharts({
 		            chart: {

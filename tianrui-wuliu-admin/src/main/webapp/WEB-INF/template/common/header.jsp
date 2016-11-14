@@ -1,12 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-    <!--公共头部begin-->
-    <input type="hidden" id="menuId" value="${menuId}">
-    <div class="row">
-        <div class="col-md-2 bghead">
-            <div class="header_logo">
-                <img src="${imagesRoot }/logo2.png">
-            </div>
-        </div>
          <!--增加最大高度，数据多出滚动条-->
 	    <style>
 	     .ui-autocomplete {
@@ -17,23 +9,33 @@
 		    padding-bottom: 10px;
 		  }
     	</style>
+    <!--公共头部begin-->
+    <input type="hidden" id="menuId" value="${menuId}">
+    <div class="row">
+    	<div class="admin_head">
+	        <div class="col-md-2 bghead">
+	            <div class="header_logo">
+	                <img src="${imagesRoot }/logo2.png">
+	            </div>
+	        </div>
+	        <div class="col-md-10 bghead">
+	            <!--start-top-serch
+	            <div id="search">
+	                <input type="text" placeholder="请输入搜索内容"/>
+	                <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+	            </div>
+	            -->
+	            <!--close-top-serch-->
+	            <!--start-top-Header-menu-->
+	            <div id="user-nav" class="">
+	                <ul class="headnav">
+	                    
+	                </ul>
+	            </div>
+	            <!--close-top-Header-menu-->
+	        </div>
+    	</div>
         
-        <div class="col-md-10 bghead">
-            <!--start-top-serch
-            <div id="search">
-                <input type="text" placeholder="请输入搜索内容"/>
-                <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-            </div>
-            -->
-            <!--close-top-serch-->
-            <!--start-top-Header-menu-->
-            <div id="user-nav" class="">
-                <ul class="headnav">
-                    
-                </ul>
-            </div>
-            <!--close-top-Header-menu-->
-        </div>
     </div>
 
     <!--公共头部end-->
