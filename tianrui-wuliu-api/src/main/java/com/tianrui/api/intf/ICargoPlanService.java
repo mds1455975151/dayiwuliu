@@ -88,7 +88,9 @@ public interface ICargoPlanService {
 	Map<String, String> planComplete(String planId, String memberid, int type);
 
 	PaginationVO<StatReportOfPlanResp> queryAdminStatReport(StatReportReq req);
-
+	//后台管理导出计划数据
 	List<StatReportOfPlanResp> queryAdminAllStatReport(StatReportReq req);
+	//后台管理导出计划数据条数
+	int queryAdminStatReportCount(StatReportReq req);
 	
 }

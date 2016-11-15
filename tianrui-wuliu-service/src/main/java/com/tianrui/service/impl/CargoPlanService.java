@@ -727,4 +727,13 @@ public class CargoPlanService implements ICargoPlanService{
 		return list;
 	}
 	
+	@Override
+	public int queryAdminStatReportCount(StatReportReq req) {
+		int count = 0;
+		if(req != null){
+			count = planMapper.queryAdminStatReportCount(req);
+		}
+		return count;
+	}
+	
 }

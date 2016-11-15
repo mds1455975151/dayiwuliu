@@ -79,6 +79,28 @@ public class StatReportAction {
 		return result;
 	}
 	
+	@RequestMapping("getPlanStatReportCount")
+	@ResponseBody
+	public Result getPlanStatReportCount(StatReportReq req, HttpServletRequest request){
+		Result result = Result.getSuccessResult();
+		try {
+			String orgid = SessionManager.getSessionMember(request).getOrgid();
+			if(StringUtils.isNotBlank(orgid)){
+				String orgCode = orgService.findOne(orgid).getOrganizationno();
+				if(!StringUtils.equals(orgCode, "0000")){
+					req.setOrgid(orgid);
+				}
+			}
+			result.setData(planService.queryAdminStatReportCount(req));
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setCode("-1");
+			result.setData(e.getMessage());
+			return result;
+		}
+		return result;
+	}
+	
 	@RequestMapping("/planStatExport")
 	public void planStatExport(StatReportReq req, HttpServletRequest request, HttpServletResponse response){
 		List<StatReportOfPlanResp> list = null;
@@ -93,6 +115,9 @@ public class StatReportAction {
 				}
 			}
 			list = planService.queryAdminAllStatReport(req);
+			if(list == null || list.size() == 0){
+				return;
+			}
 			String[] heads = {"序号","计划单号","货主名称","车主名称","运输货物","计划开始时间","计划结束时间","运输路线","计划总量","实际执行量","含税单价","含税金额","计划执行情况"};
 			workbook = new HSSFWorkbook();
 			HSSFSheet sheet = workbook.createSheet("计划报表");
@@ -237,6 +262,29 @@ public class StatReportAction {
 		return result;
 	}
 	
+
+	@RequestMapping("getBillStatReportCount")
+	@ResponseBody
+	public Result getBillStatReportCount(StatReportReq req, HttpServletRequest request){
+		Result result = Result.getSuccessResult();
+		try {
+			String orgid = SessionManager.getSessionMember(request).getOrgid();
+			if(StringUtils.isNotBlank(orgid)){
+				String orgCode = orgService.findOne(orgid).getOrganizationno();
+				if(!StringUtils.equals(orgCode, "0000")){
+					req.setOrgid(orgid);
+				}
+			}
+			result.setData(billService.queryAdminStatReportCount(req));
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			result.setCode("-1");
+			result.setData(e.getMessage());
+			return result;
+		}
+		return result;
+	}
+	
 	@RequestMapping("/billStatExport")
 	public void billStatExport(StatReportReq req, HttpServletRequest request, HttpServletResponse response){
 		List<StatReportOfBillResp> list = null;
@@ -251,6 +299,9 @@ public class StatReportAction {
 				}
 			}
 			list = billService.queryAdminAllStatReport(req);
+			if(list == null || list.size() == 0){
+				return;
+			}
 			String[] heads = {"序号","计划单号","运单号","货主名称","车主名称","车牌号","司机姓名","运输货物","运单开始时间","运单结束时间","运输路线","预提数量","实际执行量","含税单价","含税金额","运单执行情况"};
 			workbook = new HSSFWorkbook();
 			HSSFSheet sheet = workbook.createSheet("运单报表");

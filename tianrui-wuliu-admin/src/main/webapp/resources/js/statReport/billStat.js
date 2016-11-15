@@ -61,8 +61,26 @@
 			$('#jumpPageNo').val(1);
 		});
 		$('.exportReport').off('click').on('click',function(){
-			var path = CONTEXTPATH + '/statReport/billStatExport?'+$.param(getParams(1));
-			$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
+			$.ajax({
+				url : CONTEXTPATH + '/statReport/getBillStatReportCount',
+				data : getParams(),
+				type : 'post',
+				success : function(result) {
+					if(result.code == '000000'){
+						if(result.data == 0){
+							alert("没有要导出的数据！");
+						}else if(result.data > 2000){
+							alert("数据超过2000条，请联系管理员导出！");
+						}else{
+							var path = CONTEXTPATH + '/statReport/billStatExport?'+$.param(getParams(1));
+							$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
+						}
+					}else{
+						alert('系统异常，请联系管理员！');
+						console.log(result.data);
+					}
+				}
+			});
 		});
 		$('.printReport').off('click').on('click',function(){
 			$('#planReport').jqprint();
