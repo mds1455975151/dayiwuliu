@@ -2,10 +2,12 @@ package com.tianrui.api.intf;
 
 import java.util.List;
 
+import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.bill.WaybillSaveReq;
+import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
@@ -87,4 +89,7 @@ public interface IBillService {
 
 	//修改运单磅单
 	public Result updateBillImage(WaybillConfirmReq req) throws Exception;
+	
+	//查询后台运单报表
+	PaginationVO<StatReportOfBillResp> queryAdminStatReport(StatReportReq req);
 }

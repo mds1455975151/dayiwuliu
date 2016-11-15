@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tianrui.api.req.front.adminReport.StatReportReq;
+import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.common.vo.ReportVo;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillUpdate;
@@ -86,4 +88,8 @@ public interface BillMapper {
 	List<Bill> queryReportBill(ReportVo vo);
 	
 	Double queryComplete(Map<String, String> params);
+	
+	List<StatReportOfBillResp> queryAdminStatReport(StatReportReq req);
+	
+	int queryAdminStatReportCount(StatReportReq req);
 }

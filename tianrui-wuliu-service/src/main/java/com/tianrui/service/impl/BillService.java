@@ -21,6 +21,7 @@ import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
@@ -31,6 +32,7 @@ import com.tianrui.api.req.front.position.PositionQueryReq;
 import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
 import com.tianrui.api.resp.front.bill.BillTrackResp;
@@ -1534,4 +1536,33 @@ public class BillService implements IBillService{
 		return null;
 	}
 	
+	@Override
+	public PaginationVO<StatReportOfBillResp> queryAdminStatReport(StatReportReq req) {
+		PaginationVO<StatReportOfBillResp> page = null;
+		if(req != null){
+			page = new PaginationVO<StatReportOfBillResp>();
+			int start = (req.getPageNo() - 1) * req.getPageSize();
+			int limit = req.getPageSize();
+			req.setStart(start);
+			req.setLimit(limit);
+			int total = billMapper.queryAdminStatReportCount(req);
+			if(total > 0){
+				List<StatReportOfBillResp> list = billMapper.queryAdminStatReport(req);
+				if(list != null && list.size()>0){
+					for(StatReportOfBillResp resp : list){
+						if(StringUtils.equals(resp.getIsAppoint(), "1")){
+							Plan plan = planMapper.selectRootPlanByPlanId(resp.getPlanid());
+							resp.setVenderName(plan.getVehicleownername());
+						}
+						
+					}
+				}
+				page.setList(list);
+				page.setPageNo(req.getPageNo());
+				page.setPageSize(req.getPageSize());
+				page.setTotal(total);
+			}
+		}
+		return page;
+	}
 }

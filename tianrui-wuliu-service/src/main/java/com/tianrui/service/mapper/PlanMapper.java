@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tianrui.api.req.front.adminReport.StatReportReq;
+import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.service.bean.Plan;
 
 public interface PlanMapper {
@@ -68,4 +70,8 @@ public interface PlanMapper {
 	List<Plan> selectChildPlan(@Param("planCode")String planCode, @Param("pid")String pid);
 	
 	int updateComplete(Plan plan);
+	
+	List<StatReportOfPlanResp> queryAdminStatReport(StatReportReq req);
+	
+	int queryAdminStatReportCount(StatReportReq req);
 }

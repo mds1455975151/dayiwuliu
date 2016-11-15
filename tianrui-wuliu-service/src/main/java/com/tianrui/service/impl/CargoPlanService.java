@@ -19,12 +19,14 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanStatResp;
 import com.tianrui.common.constants.ErrorCode;
@@ -693,6 +695,27 @@ public class CargoPlanService implements ICargoPlanService{
 		map.put("complete", df.format(complete));
 		map.put("remain", df.format(remain ));
 		return map;
+	}
+
+	@Override
+	public PaginationVO<StatReportOfPlanResp> queryAdminStatReport(StatReportReq req) {
+		PaginationVO<StatReportOfPlanResp> page = null;
+		if(req != null){
+			page = new PaginationVO<StatReportOfPlanResp>();
+			int start = (req.getPageNo() - 1) * req.getPageSize();
+			int limit = req.getPageSize();
+			req.setStart(start);
+			req.setLimit(limit);
+			int total = planMapper.queryAdminStatReportCount(req);
+			if(total > 0){
+				List<StatReportOfPlanResp> list = planMapper.queryAdminStatReport(req);
+				page.setList(list);
+				page.setPageNo(req.getPageNo());
+				page.setPageSize(req.getPageSize());
+				page.setTotal(total);
+			}
+		}
+		return page;
 	}
 	
 }

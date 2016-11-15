@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
+import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanStatResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -85,4 +87,6 @@ public interface ICargoPlanService {
 	 */
 	Map<String, String> planComplete(String planId, String memberid, int type);
 
+	PaginationVO<StatReportOfPlanResp> queryAdminStatReport(StatReportReq req);
+	
 }
