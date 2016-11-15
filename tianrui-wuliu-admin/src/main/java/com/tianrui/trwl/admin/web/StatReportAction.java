@@ -30,7 +30,6 @@ import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.trwl.admin.util.ExcelUtils;
 import com.tianrui.trwl.admin.util.SessionManager;
 
 @Controller
@@ -96,8 +95,12 @@ public class StatReportAction {
 			list = planService.queryAdminAllStatReport(req);
 			String[] heads = {"序号","计划单号","货主名称","车主名称","运输货物","计划开始时间","计划结束时间","运输路线","计划总量","实际执行量","含税单价","含税金额","计划执行情况"};
 			workbook = new HSSFWorkbook();
-			HSSFSheet sheet = ExcelUtils.craeteSheet(workbook, "计划报表");
-			ExcelUtils.setHeadValue(heads, sheet);
+			HSSFSheet sheet = workbook.createSheet("计划报表");
+			HSSFRow headRow = sheet.createRow(0);
+			for(int i=0;i<heads.length;i++){
+				HSSFCell cell = headRow.createCell(i);
+				cell.setCellValue(heads[i]);
+			}
 			double totalSum = 0.0;
 			double completedSum = 0.0;
 			double completePriceSum = 0.0;
@@ -250,8 +253,12 @@ public class StatReportAction {
 			list = billService.queryAdminAllStatReport(req);
 			String[] heads = {"序号","计划单号","运单号","货主名称","车主名称","车牌号","司机姓名","运输货物","运单开始时间","运单结束时间","运输路线","预提数量","实际执行量","含税单价","含税金额","运单执行情况"};
 			workbook = new HSSFWorkbook();
-			HSSFSheet sheet = ExcelUtils.craeteSheet(workbook, "计划报表");
-			ExcelUtils.setHeadValue(heads, sheet);
+			HSSFSheet sheet = workbook.createSheet("运单报表");
+			HSSFRow headRow = sheet.createRow(0);
+			for(int i=0;i<heads.length;i++){
+				HSSFCell cell = headRow.createCell(i);
+				cell.setCellValue(heads[i]);
+			}
 			double YTSum = 0.0;
 			double SJSum = 0.0;
 			double ZJESum = 0.0;
