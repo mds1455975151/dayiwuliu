@@ -17,6 +17,16 @@ $(function() {
     // 左侧导航选中效果
 	$('#myVehiclePage').addClass('selected');
 	
+	//清空file值
+	$("#file_xkz").val("");
+	$("#file_xkz_img").val("");
+	$("#file_cel").val("");
+	$("#file_cel_img").val("");
+	$("#file_xsz").val("");
+	$("#file_xsz_img").val("");
+	$("#file_djz").val("");
+	$("#file_djz_img").val("");
+	
 });
 
 // 车牌号失去焦点事件
@@ -115,9 +125,9 @@ $("#vehicle_addBtn").click(function() {
 	//身份证图片
 //	var file_sfz = $('#file_sfz')[0].files[0];
 	// 车辆图片路径
-	var file_cel = $("#file_cel")[0].files[0];
+	var file_cel = $("#file_cel_img").val();
 	// 行驶证图片路径
-	var file_xsz = $("#file_xsz")[0].files[0];
+	var file_xsz = $("#file_xsz_img").val();
 	//道路运输证号
 	var roadtransportcode = $('#vehicle_add_roadtransportcode').val();
 	//道路运输证图片
@@ -125,11 +135,11 @@ $("#vehicle_addBtn").click(function() {
 	//运营许可证号
 	var opercode = $('#vehicle_add_opercode').val();
 	//运营许可证图片
-	var file_xkz = $('#file_xkz')[0].files[0];
+	var file_xkz = $('#file_xkz_img').val();
 	//机动车登记证号
 	var registcode = $('#vehicle_add_registcode').val();
 	//机动车登记证图片
-	var file_djz = $('#file_djz')[0].files[0];
+	var file_djz = $('#file_djz_img').val();
 	if (!$.trim(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
@@ -160,12 +170,12 @@ $("#vehicle_addBtn").click(function() {
 		$("#message_vehiTel").html("请输入联系电话！");
 		return;
 	}
-	if (!file_cel) {
+	if (file_cel == "") {
 		$("#modal_common_content").html("请上传车辆图片！");
 		$("#commonModal").modal();
 		return;
 	}
-	if (!file_xsz) {
+	if (file_xsz == "") {
 		$("#modal_common_content").html("请上传行驶证图片！");
 		$("#commonModal").modal();
 		return;
@@ -185,7 +195,7 @@ $("#vehicle_addBtn").click(function() {
 		$("#commonModal").modal();
 		return;
 	}
-	if (!file_xkz) {
+	if (file_xkz == "") {
 		$("#modal_common_content").html("请上传营运证图片！");
 		$("#commonModal").modal();
 		return;
@@ -197,17 +207,17 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("vehicleTypeName",vehiTypeName);
 	formData.append("vehiLength",vehiLength);
 	formData.append("vehiWeight",vehiWeight);
-	formData.append("filehead",file_cel);
+	formData.append("vehiHeadImgPath",file_cel);
 	formData.append("vehiOwnerName",vehiOwnerName);
 	formData.append("vehiOwnerTel",vehiTel);
-	formData.append("fileLicense",file_xsz);
+	formData.append("vehiLicenseImgPath",file_xsz);
 //	formData.append("fileIdCard",file_sfz);
 //	formData.append("identitycode",identitycode);
 //	formData.append("fileRoad",file_ysz);
 //	formData.append("roadtransportcode",roadtransportcode);
-	formData.append("fileOperCode",file_xkz);
+	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
-	formData.append("fileRegistCode",file_djz);
+	formData.append("registimage",file_djz);
 //	formData.append("registcode",registcode);
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveMyVehicle',// 跳转到 action
@@ -238,4 +248,141 @@ $("#vehicle_cancelBtn").click(function() {
 	// 跳转我的车辆画面
 	window.location.href = PATH + "/trwuliu/Member/myVehicle/myVehiclePage";
 });
-
+//运营许可证图片
+function xkzfile(){
+	//运营许可证图片
+	var file_xkz = $('#file_xkz')[0].files[0];
+	if (!file_xkz) {
+		$("#modal_common_content").html("请上传营运证图片！");
+		$("#commonModal").modal();
+		return;
+	}
+	var formData = new FormData();
+	formData.append("file",file_xkz);
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData,
+		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
+		success : function(result) {
+			if (result.code == "000000") {
+				$("#file_xkz_img").val(result.data);
+				alert("上传成功");
+				$('#detail').modal("hide");
+			}else{
+				alert(result.error);
+			}
+		}
+	});
+}
+//车辆图片路径
+function celfile(){
+	// 车辆图片路径
+	var file_cel = $("#file_cel")[0].files[0];
+	
+	if (!file_cel) {
+		$("#modal_common_content").html("请上传车辆照片！");
+		$("#commonModal").modal();
+		return;
+	}
+	var formData = new FormData();
+	formData.append("file",file_cel);
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData,
+		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
+		success : function(result) {
+			$("#file_cel_img").val("");
+			if (result.code == "000000") {
+				$("#file_cel_img").val(result.data);
+				alert("上传成功");
+				$('#detail').modal("hide");
+			}else{
+				alert(result.error);
+			}
+		}
+	});
+}
+//行驶证图片路径
+function xszfile(){
+	// 行驶证图片路径
+	var file_xsz = $("#file_xsz")[0].files[0];
+	
+	if (!file_xsz) {
+		$("#modal_common_content").html("请上传行驶证图片！");
+		$("#commonModal").modal();
+		return;
+	}
+	var formData = new FormData();
+	formData.append("file",file_xsz);
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData,
+		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
+		success : function(result) {
+			$("#file_xsz_img").val("");
+			if (result.code == "000000") {
+				$("#file_xsz_img").val(result.data);
+				alert("上传成功");
+				$('#detail').modal("hide");
+			}else{
+				alert(result.error);
+			}
+		}
+	});
+}
+//登记证图片
+function djzfile(){
+	//机动车登记证图片
+	var file_djz = $('#file_djz')[0].files[0];
+	
+	if (!file_djz) {
+		$("#modal_common_content").html("请上传车辆登记证图片！");
+		$("#commonModal").modal();
+		return;
+	}
+	var formData = new FormData();
+	formData.append("file",file_djz);
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData,
+		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
+		success : function(result) {
+			$("#file_djz_img").val("");
+			if (result.code == "000000") {
+				$("#file_djz_img").val(result.data);
+				alert("上传成功");
+				$('#detail').modal("hide");
+			}else{
+				alert(result.error);
+			} 
+		}
+	});
+}

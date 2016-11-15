@@ -315,69 +315,12 @@ public class MyVehicleAction {
 	@ResponseBody
 	public Result saveMyVehicleInfo(
 			MemberVehicleReq vehiReq,
-			String vehiWholeNo,
-			MultipartFile filehead,
-			MultipartFile fileLicense,
-			MultipartFile fileIdCard,
-			MultipartFile fileRoad,
-			MultipartFile fileOperCode,
-			MultipartFile fileRegistCode
+			String vehiWholeNo
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
 		MemberVehicleReq vehicleReq = new MemberVehicleReq();
 		PropertyUtils.copyProperties(vehicleReq, vehiReq);
-		if(filehead == null){
-			rs.setCode("1");
-			rs.setError("车辆图片不能为空");
-			return rs;
-		}else{
-			rs = iFileService.uploadByteImg(filehead);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setVehiHeadImgPath(rs.getData().toString());
-			}
-		}
-		if(fileLicense ==null){
-			rs.setCode("1");
-			rs.setError("行驶证图片不能为空");
-			return rs;
-		}else{
-			rs = iFileService.uploadByteImg(fileLicense);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setVehiLicenseImgPath(rs.getData().toString());
-			}
-		}
-//		if(fileIdCard != null){
-//			rs = iFileService.uploadByteImg(fileIdCard);
-//			if (StringUtils.equals(rs.getCode(),"000000")) {
-//				vehicleReq.setIdentieyimage(rs.getData().toString());
-//			}
-//		}
-//		if(fileRoad ==null){
-//			rs.setCode("1");
-//			rs.setError("道路运输证图片不能为空");
-//			return rs;
-//		}else{
-//			rs = iFileService.uploadByteImg(fileRoad);
-//			if (StringUtils.equals(rs.getCode(),"000000")) {
-//				vehicleReq.setRoadtransportimage(rs.getData().toString());
-//			}
-//		}
-		if(fileOperCode ==null){
-			rs.setCode("1");
-			rs.setError("营运证图片不能为空");
-			return rs;
-		}else{
-			rs = iFileService.uploadByteImg(fileOperCode);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setOperimage(rs.getData().toString());
-			}
-		}
-		if(fileRegistCode != null){
-			rs = iFileService.uploadByteImg(fileRegistCode);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehicleReq.setRegistimage(rs.getData().toString());
-			}
-		}
+		
 		String id = getUUId();
 		vehicleReq.setId(id);
 		vehicleReq.setVehicleId(id);
@@ -410,13 +353,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/updateMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq,
-			MultipartFile filehead,
-			MultipartFile fileLicense,
-			MultipartFile fileIdCard,
-			MultipartFile fileRoad,
-			MultipartFile fileOperCode,
-			MultipartFile fileRegistCode) throws Exception{
+	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq) throws Exception{
 		Result rs = Result.getSuccessResult();
 		
 		MemberVehicleReq rreq = new MemberVehicleReq();
@@ -429,42 +366,7 @@ public class MyVehicleAction {
 			rs.setError("该车牌号已被认证");
 			return rs;
 		}
-		if(filehead != null){
-			rs = iFileService.uploadByteImg(filehead);
-			if(rs.getCode().equals("000000")){
-				vehiReq.setVehiHeadImgPath(rs.getData().toString());
-			}
-		}
-		if(fileLicense != null){
-			rs = iFileService.uploadByteImg(fileLicense);
-			if(rs.getCode().equals("000000")){
-				vehiReq.setVehiLicenseImgPath(rs.getData().toString());
-			}
-		}
-		if(fileIdCard != null){
-			rs = iFileService.uploadByteImg(fileIdCard);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehiReq.setIdentieyimage(rs.getData().toString());
-			}
-		}
-		if(fileRoad != null){
-			rs = iFileService.uploadByteImg(fileRoad);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehiReq.setRoadtransportimage(rs.getData().toString());
-			}
-		}
-		if(fileOperCode != null){
-			rs = iFileService.uploadByteImg(fileOperCode);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehiReq.setOperimage(rs.getData().toString());
-			}
-		}
-		if(fileRegistCode != null){
-			rs = iFileService.uploadByteImg(fileRegistCode);
-			if (StringUtils.equals(rs.getCode(),"000000")) {
-				vehiReq.setRegistimage(rs.getData().toString());
-			}
-		}
+		
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
 		vehiReq.setCreateTime(new Date().getTime());
 		vehiReq.setStatus("2");

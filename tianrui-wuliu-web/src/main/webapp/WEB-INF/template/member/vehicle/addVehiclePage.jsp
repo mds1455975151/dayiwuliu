@@ -52,6 +52,8 @@
 								<input id="file_xkz" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
+							<input class="btn btnblue" onclick="xkzfile()" type="button" value="上传">
+							<input type="hidden" id="file_xkz_img">
 						</div>
 					</div>
 					<div class="reg_tel">
@@ -113,6 +115,8 @@
 								<input id="file_cel" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
+							<input class="btn btnblue" onclick="celfile();" type="button" value="上传">
+							<input type="hidden" id="file_cel_img">
 						</div>
 					</div>
 					<div class="reg_tel">
@@ -125,6 +129,8 @@
 								<input id="file_xsz" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
+							<input class="btn btnblue" onclick="xszfile();" type="button" value="上传">
+							<input type="hidden" id="file_xsz_img">
 						</div>
 					</div>
 					<!-- 
@@ -153,6 +159,8 @@
 								<input id="file_djz" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
+							<input class="btn btnblue" onclick="djzfile();" type="button" value="上传">
+							<input type="hidden" id="file_djz_img">
 						</div>
 					</div>
 					<div class="car_photo">
@@ -201,7 +209,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?11.8"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?11.15"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"
