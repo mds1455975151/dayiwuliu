@@ -46,7 +46,7 @@
             </div>
             <div class="data_roadr mt60">
                 <div class="data_roadrt border_goods">
-                    <h5>运输路线总数</h5>
+                    <h5>运输地点总数</h5>
                     <p>
                         <label class="colorgreen">${route.sumdate }</label>
                         <span>个</span>

@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!Doctype html>
 <html>
 <head>
@@ -12,11 +12,6 @@
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 <body>
@@ -50,15 +45,9 @@
                 <label>最新消息动态</label>
             </div>
             <ul>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
-                <li><label>司机张师傅2016年9月18号15:32完成56批订单</label><span>2016-09-18</span></li>
+            <c:forEach items="${paybill }" var="pb">
+                <li><label>${pb.showtimeStr }完成${pb.adddate }批订单</label><span>${pb.showtimeStr }</span></li>
+            </c:forEach>
             </ul>
         </div>
     </div>

@@ -46,7 +46,7 @@
     order by sumdate desc
     limit 3
     </if>
-    <if test="stype == ''">
+    <if test="stype == null">
     order by showtime
     </if>
   </select>

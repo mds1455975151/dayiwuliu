@@ -67,6 +67,10 @@ public class CountAction {
 	@RequestMapping("pay")
 	public ModelAndView pay() throws Exception{
 		ModelAndView view = index();
+		CountAddReq req = new CountAddReq();
+		req.setType("6");
+		List<CountAddResp> list = countAddService.selectByCondition(req);
+		view.addObject("paybill", list);
 		view.setViewName("count/pay");
 		return view;
 	}

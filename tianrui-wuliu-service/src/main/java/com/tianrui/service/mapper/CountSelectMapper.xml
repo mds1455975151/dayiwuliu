@@ -124,7 +124,20 @@
 		pay_invoice_detail 
    	<where> 
    	 	<if test="status != null and status != ''">
-	   		and STATUS = #{status,jdbcType=VARCHAR}
+		</if>
+		<if test="selecttime != null and selecttime != ''">
+			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
+		</if>
+   	</where>
+  </select>
+  <select id="selectPayBillCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+   SELECT 
+   		count(0) count
+	FROM 
+		pay_invoice 
+   	<where> 
+   	 	<if test="status != null and status != ''">
+	   		and pay_status = #{status,jdbcType=VARCHAR}
 		</if>
 		<if test="selecttime != null and selecttime != ''">
 			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}

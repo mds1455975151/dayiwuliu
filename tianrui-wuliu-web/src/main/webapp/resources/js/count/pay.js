@@ -14,7 +14,6 @@ $(document).ready(function(){
 					time.push(ret[a].showtimeStr);
 					data.push(ret[a].adddate)
 				}
-				
 				//柱状图
 		        $('#container').highcharts({
 		            title: {
@@ -55,5 +54,14 @@ $(document).ready(function(){
 		}
 	});    
 	
+	$.ajax({
+		url : "/count/biLine",//
+		data : {},
+		type : "post",
+		success : function(rs){
+	
+		}
+		
+	});
 
 });

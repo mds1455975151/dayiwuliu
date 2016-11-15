@@ -451,7 +451,6 @@ public class CountService implements ICountService{
 	}
 	@Override
 	public void selectpostition() throws Exception {
-		// TODO Auto-generated method stub
 		List<CountSelect> list = countSelectMapper.selectRouteMax(null);
 		for (int i = 0; i < list.size(); i++) {
 			CountSum quer = new CountSum();
@@ -481,5 +480,33 @@ public class CountService implements ICountService{
 		}
 		
 		
+	}
+	@Override
+	public void payDetil() throws Exception {
+		CountSelect s = new CountSelect();
+		s.setStatus("3");
+		s.setSelecttime(getDay());
+		//每日完成的支付单数
+		long a = countSelectMapper.selectPayBillCount(s);
+		CountAdd add = new CountAdd();
+		add.setShowtime(getDay());
+		add.setType("6");
+		List<CountAdd> qulist = countAddMapper.selectByCondition(add);
+		if(qulist.size()==0){
+			CountAdd save = new CountAdd();
+			save.setId(UUIDUtil.getId());
+			save.setType("6");
+			save.setAdddate((double)a);
+			save.setShowtime(getDay());
+			save.setCreatetime(System.currentTimeMillis());
+			countAddMapper.insertSelective(save);
+		}else{
+			CountAdd save = qulist.get(0);
+			save.setType("6");
+			save.setAdddate((double)a);
+			save.setShowtime(getDay());
+			save.setModifytime(System.currentTimeMillis());
+			countAddMapper.updateByPrimaryKeySelective(save);
+		}
 	}
 }

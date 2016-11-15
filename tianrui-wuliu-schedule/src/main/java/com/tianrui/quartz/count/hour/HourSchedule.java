@@ -36,6 +36,8 @@ public class HourSchedule {
 	   countService.everyHour(req);
 	   //-ok
 	   countService.billEveryDay(req);
+	   //-ok
+	   countService.payDetil();
     }  
 	public long getDay() {
 		Date date = new Date();
