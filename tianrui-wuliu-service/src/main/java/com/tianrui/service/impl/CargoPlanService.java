@@ -718,4 +718,13 @@ public class CargoPlanService implements ICargoPlanService{
 		return page;
 	}
 	
+	@Override
+	public List<StatReportOfPlanResp> queryAdminAllStatReport(StatReportReq req) {
+		List<StatReportOfPlanResp> list = null;
+		if(req != null){
+			list = planMapper.queryAdminAllStatReport(req);
+		}
+		return list;
+	}
+	
 }

@@ -92,4 +92,6 @@ public interface BillMapper {
 	List<StatReportOfBillResp> queryAdminStatReport(StatReportReq req);
 	
 	int queryAdminStatReportCount(StatReportReq req);
+
+	List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req);
 }

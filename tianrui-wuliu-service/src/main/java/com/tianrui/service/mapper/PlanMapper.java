@@ -74,4 +74,6 @@ public interface PlanMapper {
 	List<StatReportOfPlanResp> queryAdminStatReport(StatReportReq req);
 	
 	int queryAdminStatReportCount(StatReportReq req);
+	
+	List<StatReportOfPlanResp> queryAdminAllStatReport(StatReportReq req);
 }

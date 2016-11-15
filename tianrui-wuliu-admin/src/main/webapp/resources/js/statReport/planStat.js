@@ -61,7 +61,8 @@
 			$('#jumpPageNo').val(1);
 		});
 		$('.exportReport').off('click').on('click',function(){
-			
+			var path = CONTEXTPATH + '/statReport/planStatExport?'+$.param(getParams(1));
+			$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
 		});
 		$('.printReport').off('click').on('click',function(){
 			$('#planReport').jqprint();

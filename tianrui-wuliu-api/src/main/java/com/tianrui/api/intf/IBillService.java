@@ -92,4 +92,6 @@ public interface IBillService {
 	
 	//查询后台运单报表
 	PaginationVO<StatReportOfBillResp> queryAdminStatReport(StatReportReq req);
+	
+	public List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req);
 }

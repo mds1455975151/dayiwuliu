@@ -1565,4 +1565,13 @@ public class BillService implements IBillService{
 		}
 		return page;
 	}
+
+	@Override
+	public List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req) {
+		List<StatReportOfBillResp> list = null;
+		if(req != null){
+			list = billMapper.queryAdminAllStatReport(req);
+		}
+		return list;
+	}
 }
