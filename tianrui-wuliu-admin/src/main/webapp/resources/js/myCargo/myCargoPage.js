@@ -259,6 +259,11 @@ $('#addModal').on('shown.bs.modal', function (e) {
 		            $( "#modal_add_materId" ).val( ui.item.value );
 		            return false;
 		        }
+		    }).off('click').on('click',function(){
+		    	$(this).autocomplete('search');
+		    }).change(function(){
+		    	$("#modal_add_materName").val('');
+		    	$("#modal_add_materId").val('');
 		    });
 		}
 	});

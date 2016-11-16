@@ -39,6 +39,11 @@ $(function() {
 		            $( "#user_orgId" ).val( ui.item.value );
 		            return false;
 		        }
+		    }).off('click').on('click',function(){
+		    	$(this).autocomplete('search');
+		    }).change(function(){
+		    	$("#user_orgName").val('');
+		    	$("#user_orgName").val('');
 		    });
 		}
 	});
@@ -244,6 +249,11 @@ $('#addModal').on('shown.bs.modal', function (e) {
             $( "#modal_add_orgId" ).val( ui.item.value );
             return false;
         }
+    }).off('click').on('click',function(){
+    	$(this).autocomplete('search');
+    }).change(function(){
+    	$("#modal_add_orgName").val('');
+    	$("#modal_add_orgId").val('');
     });
 	
 	// 清空原有用户状态，并默认选择用户状态为有效
