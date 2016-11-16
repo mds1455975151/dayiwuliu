@@ -114,6 +114,12 @@ function getNodeList(menu) {
 		} else if (nodesList[i].nodename == "调价管控"){
 			_i.removeAttr("class");
 			_i.addClass("iconfont icon-cost");
+		} else if (nodesList[i].nodename == "计划报表统计"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe63f;');
+		} else if (nodesList[i].nodename == "运单报表统计"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe63e;');
 		}
 		href.append(_i).append(span);
 		li.append(href);

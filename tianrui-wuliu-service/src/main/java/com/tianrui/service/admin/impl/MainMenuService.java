@@ -134,6 +134,7 @@ public class MainMenuService implements IMainMenuService{
 					rs=new Result("error","菜单名称已存在");
 				}else{
 					PropertyUtils.copyProperties(query, req);
+					query.setNodename(req.getAfternodename());
 					mainmenuMapper.insert(query);
 				}
 			}
@@ -168,6 +169,7 @@ public class MainMenuService implements IMainMenuService{
 				if( !flag ){
 					Mainmenu mainmenu =new Mainmenu();
 					PropertyUtils.copyProperties(mainmenu, req);
+					mainmenu.setNodename(req.getAfternodename());
 					mainmenuMapper.updateByPrimaryKeySelective(mainmenu);
 				}
 			}

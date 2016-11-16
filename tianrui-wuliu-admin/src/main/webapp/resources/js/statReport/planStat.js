@@ -28,6 +28,11 @@
 			            $('#orgid').attr('orgid',ui.item.value);
 			            return false;
 			        }
+			    }).off('click').on('click',function(){
+			    	$(this).autocomplete('search');
+			    }).change(function(){
+			    	$(this).val('');
+			    	$(this).removeAttr('orgid');
 			    });
 			}
 		});
