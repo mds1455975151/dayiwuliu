@@ -212,6 +212,7 @@ public class AppMemberInfoAction {
 	public AppResult removeLogin(AppParam<MemberInfoReq> appParam) throws Exception{
 		String mobile = appParam.getHead().getAccount();
 		String mid = appParam.getHead().getId();
+		String appIdCard =appParam.getHead().getAppIdCard();
 		AppResult result = new AppResult();
 		
 		//TODO 1 删除缓存 

@@ -15,9 +15,14 @@ public interface IMemberPushService {
 	
 	//保存push消息
 	Result savePush(MemberPushSaveReq req)throws Exception;
+	//保存push消息 货主版本
+	Result savePushOwner(MemberPushSaveReq req)throws Exception;
 	
 	//发送推送消息
 	Result sendPsuhMesage(String memberId, String msg,String code) throws Exception;
+	//发送推送消息
+	Result sendPsuhOwnerMesage(String memberId, String msg,String code) throws Exception;
 	
 	Result deletePushWithMId(String memberId);
+	
 }

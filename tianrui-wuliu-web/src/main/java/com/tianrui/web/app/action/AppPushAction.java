@@ -1,6 +1,7 @@
 package com.tianrui.web.app.action;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,14 @@ public class AppPushAction {
 		}else{
 			saveBean.setAppType(1);
 		}
-		Result rs =pushService.savePush(saveBean);
+		
+		
+		Result rs =null;
+		if( StringUtils.isNotBlank(appParam.getHead().getAppIdCard()) && StringUtils.equals(appParam.getHead().getAppIdCard(), "2") ){
+			rs=pushService.savePushOwner(saveBean);
+		}else{
+			rs=pushService.savePush(saveBean);
+		}
 		
 		return AppResult.valueOf(rs);
 	}

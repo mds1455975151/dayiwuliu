@@ -74,7 +74,11 @@ public class MessageService implements IMessageService {
 			//发送站内信
 			messagemapper.insert(message);
 			//发送推送消息
-			pushService.sendPsuhMesage(req.getRecid(), content, message.getCode());
+			if(req.getCodeEnum().getType()==3 ){
+				pushService.sendPsuhOwnerMesage(req.getRecid(), content, message.getCode());
+			}else{
+				pushService.sendPsuhMesage(req.getRecid(), content, message.getCode());
+			}
 		}else{
 			rs.setCode("1");
 			rs.setError("参数列表不匹配");
