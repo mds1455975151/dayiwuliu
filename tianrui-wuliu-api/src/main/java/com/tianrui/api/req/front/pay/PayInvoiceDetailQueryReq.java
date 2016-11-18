@@ -18,6 +18,10 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	private String invoiceType;
 	private String id;
 	private String ids;
+	//司机
+	private String driverId;
+	//  0：在线支付(司机)，1：发票单支付(车主)'
+	private String payownertype;
 	
 	
 	
@@ -87,4 +91,18 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	public void setIds(String ids) {
 		this.ids = ids;
 	}
+	public String getDriverId() {
+		return driverId;
+	}
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
+	}
+	public String getPayownertype() {
+		return payownertype;
+	}
+	public void setPayownertype(String payownertype) {
+		this.payownertype = payownertype;
+	}
+	
+	
 }
