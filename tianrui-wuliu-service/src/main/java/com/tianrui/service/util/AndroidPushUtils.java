@@ -19,8 +19,8 @@ import com.baidu.yun.push.model.PushMsgToSingleDeviceResponse;
 public class AndroidPushUtils {
 	static String apiKey = "B0pttqMTh7f1zOR5YpfR2aXl";
 	static String secretKey = "xuhQKjLZg8wuBxzStYGFeGc08yeTG6VE";
-	static String apiKey_owner = "B0pttqMTh7f1zOR5YpfR2aXl";
-	static String secretKey_owner = "xuhQKjLZg8wuBxzStYGFeGc08yeTG6VE";
+	static String apiKey_owner = "WOYrCYh8F9Mhs1ynFQMYtYHN";
+	static String secretKey_owner = "GSubAfBXto3XlAuIdhWgHyveqOfguxyF";
 	
 	static Logger logger=LoggerFactory.getLogger(AndroidPushUtils.class);
 	

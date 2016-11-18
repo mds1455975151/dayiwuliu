@@ -1,6 +1,11 @@
 package com.tianrui.service.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
@@ -21,6 +27,7 @@ import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
 import com.tianrui.api.resp.pay.PayinvoiceTypeResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.BillStatusEnum;
 import com.tianrui.common.enums.PayStatusEnum;
@@ -168,6 +175,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setDrivertel(bill.getDrivertel());
 				
 				payInvoiceDetailMapper.insert(payInvoiceDetail);
+				
+				//httpNcurl(payInvoiceDetail);
 				
 				updateBill(bill.getId(),freight);
 			}
@@ -407,4 +416,31 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 		return rs;
 	}
 
+	
+	protected  String httpNcurl(PayInvoiceDetail payInvoiceDetail) throws IOException{
+		try {
+			URL url = new URL("http://172.20.10.20/tcp/paySupplier/querySupplier");
+			// 打开url连接
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			// 设置url请求方式 ‘get’ 或者 ‘post’
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestMethod("POST");
+
+			//test数据
+			payInvoiceDetail.setVenderCode("410482198702256756");
+			
+			String dataString = "payInvoiceDetail=" + JSON.toJSON(payInvoiceDetail).toString();
+			byte[] bypes = dataString.getBytes("utf-8");
+			
+			connection.getOutputStream().write(bypes);// 输入参数
+			// 发送
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String response = in.readLine();
+			System.out.println(response);
+			return response;
+		} catch (Exception e) {
+			return "网络异常";
+		}
+	}
 }
