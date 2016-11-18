@@ -35,12 +35,14 @@
     <result column="drivertel" property="drivertel" jdbcType="VARCHAR" />
     <result column="payownertype" property="payownertype" jdbcType="VARCHAR" />
     <result column="pricetype" property="pricetype" jdbcType="VARCHAR" />
+    <result column="driver_code" property="drivercode" jdbcType="VARCHAR" />
+    <result column="pay_status" property="paystatus" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, pay_id, bill_id, bill_code, cargo_id, cargo_code, invoice_type, sign_time, bill_weight, 
     bill_price, bill_total_price, is_invoice, orgid, org_name, vender_name, vender_type, 
     vender_code, creator, createtime, modifier, modifytime,vender_id,owner_id,cargo_name,
-    invoice_typename,tax_rate,driverid,drivername,drivertel,payownertype,pricetype,ownername
+    invoice_typename,tax_rate,driverid,drivername,drivertel,payownertype,pricetype,ownername,driver_code,pay_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -159,7 +161,7 @@
       vender_type, vender_code, creator, 
       createtime, modifier, modifytime,vender_id,owner_id,
       cargo_name,invoice_typename,tax_rate,
-      driverid,drivername,drivertel,payownertype,pricetype,ownername
+      driverid,drivername,drivertel,payownertype,pricetype,ownername,driver_code,pay_status
       )
     values (#{id,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, 
       #{billCode,jdbcType=VARCHAR}, #{cargoId,jdbcType=VARCHAR}, #{cargoCode,jdbcType=VARCHAR}, 
@@ -175,12 +177,20 @@
       #{drivertel,jdbcType=VARCHAR},
       #{payownertype,jdbcType=VARCHAR},
       #{pricetype,jdbcType=VARCHAR},
-      #{ownername,jdbcType=VARCHAR}
+      #{ownername,jdbcType=VARCHAR},
+      #{drivercode,jdbcType=VARCHAR},
+      #{paystatus,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.PayInvoiceDetail" >
     update pay_invoice_detail
     <set >
+      <if test="paystatus != null" >
+        pay_status = #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercode != null" >
+        driver_code = #{drivercode,jdbcType=VARCHAR},
+      </if>
       <if test="ownername != null" >
         ownername = #{ownername,jdbcType=VARCHAR},
       </if>
@@ -266,6 +276,8 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.PayInvoiceDetail" >
     update pay_invoice_detail
     set
+     pay_status = #{paystatus,jdbcType=VARCHAR},
+     driver_code = #{drivercode,jdbcType=VARCHAR},
      ownername = #{ownername,jdbcType=VARCHAR},
      pricetype = #{pricetype,jdbcType=VARCHAR},
      driverid = #{driverid,jdbcType=VARCHAR},

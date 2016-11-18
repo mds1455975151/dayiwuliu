@@ -38,9 +38,11 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
 import com.tianrui.service.admin.bean.FileFreight;
+import com.tianrui.service.admin.bean.FileOrg;
 import com.tianrui.service.admin.bean.FileOrgCargo;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
 import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
+import com.tianrui.service.admin.mapper.FileOrgMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.PayInvoice;
@@ -75,6 +77,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	BillTrackDao billTrackDao;
 	@Autowired
 	IFreightInfoService freightInfoService;
+	@Autowired
+	FileOrgMapper fileOrgMapper;
 	@Override
 	public Result saveByBillPriceConfirm(PayInvoiceDetailSaveReq req,String orgid) throws Exception {
 		Result  rs =Result.getSuccessResult();
@@ -100,7 +104,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				 */
 				MemberVo owner =memberVoService.get(bill.getOwnerid());
 				payInvoiceDetail.setOwnerId(bill.getOwnerid());
-				payInvoiceDetail.setOrgid(owner.getOrgid());
+//				payInvoiceDetail.setOrgid(owner.getOrgid());
 				if(StringUtils.isNotBlank(owner.getCompanypercheck()) && StringUtils.equals(owner.getCompanypercheck(), "1")){
 					//企业
 					payInvoiceDetail.setOwnername(owner.getCompanyName());
@@ -146,7 +150,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				//货物发票类型
 				payInvoiceDetail.setInvoiceType(cargo.getDesc1());
 				payInvoiceDetail.setInvoiceTypeName(cargo.getDesc2());
-				
+				//0：在线支付(司机)，1：发票单支付(车主)
 				payInvoiceDetail.setPayownertype(cargo.getPayType());
 				
 				/**
@@ -170,15 +174,23 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				/**
 				 * 司机信息
 				 */
+				MemberVo driver =memberVoService.get(bill.getDriverid());
+				if(StringUtils.isNotBlank(driver.getCompanypercheck()) && StringUtils.equals(driver.getCompanypercheck(), "1")){
+					//企业
+					payInvoiceDetail.setDrivercode(driver.getCompCode());
+				}else{
+					//个人
+					payInvoiceDetail.setDrivercode(driver.getIdcard());
+				}
 				payInvoiceDetail.setDriverid(bill.getDriverid());
 				payInvoiceDetail.setDrivername(bill.getDrivername());
 				payInvoiceDetail.setDrivertel(bill.getDrivertel());
-				
-				payInvoiceDetailMapper.insert(payInvoiceDetail);
-				
-				//httpNcurl(payInvoiceDetail);
-				
-				updateBill(bill.getId(),freight);
+				//0：在线支付(司机)，1：发票单支付(车主)
+				if("0".equals(cargo.getPayType())){
+					httpNcurl(payInvoiceDetail);
+				}
+//				payInvoiceDetailMapper.insert(payInvoiceDetail);
+//				updateBill(bill.getId(),freight);
 			}
 		}
 		
@@ -275,7 +287,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setPayCode(codeGenDao.codeGen(4));
 						
 						payInvoice.setOwnerId(item.getOwnerId());
-						payInvoice.setOrgid(item.getOrgid());
+						FileOrg org = fileOrgMapper.selectByPrimaryKey(payInvoice.getOrgid());
+						payInvoice.setOrgid(org.getOrganizationno());
 						payInvoice.setOrgName(item.getOrgName());
 						
 						payInvoice.setVenderId(item.getVenderId());
@@ -429,6 +442,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 
 			//test数据
 			payInvoiceDetail.setVenderCode("410482198702256756");
+			payInvoiceDetail.setDrivercode("410482198702256756");
 			
 			String dataString = "payInvoiceDetail=" + JSON.toJSON(payInvoiceDetail).toString();
 			byte[] bypes = dataString.getBytes("utf-8");
@@ -437,7 +451,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			// 发送
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String response = in.readLine();
-			System.out.println(response);
+			System.out.println("请求返回数据："+response);
 			return response;
 		} catch (Exception e) {
 			return "网络异常";
