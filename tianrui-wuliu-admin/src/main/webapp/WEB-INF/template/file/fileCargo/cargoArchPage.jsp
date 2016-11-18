@@ -225,6 +225,14 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 								<option value="1">发票单支付</option>
 							</select>
 		                </div>
+		               <div class="model_width">
+		                    <label>发票类型：</label>
+							<select class="form-control" id="modal_add_desc1">
+								<option value="540100000003">熟料运输费用</option>
+								<option value="540100000016">原煤运输费用</option>
+								<option value="540100000018">水泥运输费用</option>
+							</select>
+		                </div>
 		                <div class="model_width">
 		                    <label>货物图片：</label>
 		                    <span><button class="btn byellow tx_contr" id="modal_add_imgButton">货物图片</button></span>
@@ -346,6 +354,14 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 							<select class="form-control" id="modal_edit_payType">
 								<option value="0">在线支付</option>
 								<option value="1">发票单支付</option>
+							</select>
+		                </div>
+		                 <div class="model_width">
+		                    <label>发票类型：</label>
+							<select class="form-control" id="modal_edit_desc1">
+								<option value="540100000003">熟料运输费用</option>
+								<option value="540100000016">原煤运输费用</option>
+								<option value="540100000018">水泥运输费用</option>
 							</select>
 		                </div>
 		                <div class="model_width">
@@ -546,7 +562,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var orgName = "<%= user.getDesc2() %>";
 	    var imagesRoot="${imagesRoot }";
 	</script>
-	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js"></script>
+	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?11.18"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

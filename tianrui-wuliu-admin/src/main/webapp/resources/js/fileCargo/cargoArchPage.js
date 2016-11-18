@@ -407,6 +407,8 @@ $("#modal_add_save").click(function() {
 	var cargo_mainMeasUnit = $("#modal_add_mainMeasUnit option:selected").text();
 	// 主计量单位
 	var cargo_payType = $("#modal_add_payType").val();
+	var desc1 = $("#modal_add_desc1 option:selected").val();
+	var desc2 = $("#modal_add_desc1 option:selected").text();
 	// 图片地址
 	var cargo_imgPath = null;
 	if (cargo_imgPath != $("#add_imgCompare_back").val()) {
@@ -441,7 +443,9 @@ $("#modal_add_save").click(function() {
 		     mainMeasUnit: cargo_mainMeasUnit, 
 		     payType: cargo_payType, 
 		     imgPath: cargo_imgPath,
-		     userName: userName
+		     userName: userName,
+		     desc1:desc1,
+		     desc2:desc2
 		},
 		type : "post",
 		success : function(result) {
@@ -655,6 +659,8 @@ $('#edit_mate').on('shown.bs.modal', function (e) {
 				$("#edit_cargoImgBack_1").empty().val(data[0].imgPath);
 				$("#edit_cargoImgBack_2").empty().val(data[0].imgPath);
 				$("#edit_cargoImgBack_3").empty().val(data[0].imgPath);
+				
+				$("#modal_edit_desc1").val(desc1);
 			}
 		}
 	});
@@ -680,6 +686,9 @@ $("#modal_edit_save").click(function() {
 	var cargo_mainMeasUnit = $("#modal_edit_mainMeasUnit option:selected").text();
 	// 主计量单位
 	var cargo_payType = $("#modal_edit_payType").val();
+	
+	var desc1 = $("#modal_edit_desc1 option:selected").val();
+	var desc2 = $("#modal_edit_desc1 option:selected").text();
 	// 图片地址
 	var cargo_imgPath = null;
 	if ($("#editCargoTarget").attr("src") == undefined) {
@@ -723,7 +732,9 @@ $("#modal_edit_save").click(function() {
 		     mainMeasUnit: cargo_mainMeasUnit, 
 		     payType: cargo_payType, 
 		     imgPath: cargo_imgPath,
-		     userName: userName
+		     userName: userName,
+		     desc1:desc1,
+		     desc2:desc2
 		},
 		type : "post",
 		success : function(result) {

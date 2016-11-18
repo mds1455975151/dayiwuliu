@@ -302,6 +302,8 @@ public class FileCargoService implements IFileCargoService {
 				fileCargoResp.setMeasUnit(fileCargo.getMeasure());
 				// 图片路径
 				fileCargoResp.setImgPath(fileCargo.getImagepath());
+				fileCargoResp.setDesc1(fileCargo.getDesc1());
+				fileCargoResp.setDesc2(fileCargo.getDesc2());
 				fileCargoRespList.add(fileCargoResp);
 			}
 		}
@@ -324,8 +326,8 @@ public class FileCargoService implements IFileCargoService {
 		argFileCargo.setOrganizationid(argFileCargoReq.getOrgCode());;
 		// 组织名称
 		argFileCargo.setOrganizationname(argFileCargoReq.getOrgName());;
-		// 组织类型
-		argFileCargo.setDesc1(argFileCargoReq.getOrgType());
+//		// 组织类型
+//		argFileCargo.setDesc1(argFileCargoReq.getOrgType());
 		// 物料编码
 		argFileCargo.setCargono(argFileCargoReq.getMaterCode());
 		// 物料名称

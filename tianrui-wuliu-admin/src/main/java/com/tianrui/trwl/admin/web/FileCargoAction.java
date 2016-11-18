@@ -152,7 +152,9 @@ public class FileCargoAction {
                                       String mainMeasUnit, 
                                        String payType, 
                                         String imgPath, 
-                                         String userName) throws Exception{
+                                         String userName,
+                                          String desc1,
+                                           String desc2) throws Exception{
 		
 		Result rs = Result.getSuccessResult();
 		if (imgPath != null) {
@@ -184,6 +186,8 @@ public class FileCargoAction {
 			cargoReq.setMeasUnit(mainMeasUnit);
 			//支付类型
 			cargoReq.setPayType(payType);
+			cargoReq.setDesc1(desc1);
+			cargoReq.setDesc2(desc2);
 			// 货物图片地址
 			if (rs.getData() == null) {
 				cargoReq.setImgPath(null);
