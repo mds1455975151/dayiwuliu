@@ -268,7 +268,7 @@
       <if test="createtime != null and createtime != ''" >
         and od.createtime = #{createtime,jdbcType=BIGINT}
       </if>
-      ORDER BY count
+      ORDER BY od.createtime
    	</where>
    	  <if test="start != null and start != 0 and limit != null">
 	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
