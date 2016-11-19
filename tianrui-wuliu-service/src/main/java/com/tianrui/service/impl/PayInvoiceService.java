@@ -227,7 +227,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}else{
 			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
 			invoice.setOrgid(org.getOrganizationno());
-			invoice.setVenderCode("410482569829868");
+//			invoice.setVenderCode("410482569829868");
 			String dataString = "payInvoice=" + JSON.toJSON(invoice).toString();
 			String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
 			if(dateStr.equals("000000")){

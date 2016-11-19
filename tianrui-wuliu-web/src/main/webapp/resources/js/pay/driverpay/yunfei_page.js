@@ -11,7 +11,7 @@ function index(No,flag){
 	var signtime = $("#signtime").val();
 	var cargoName = $("#cargoName").val();
 	var invoiceType = $("#invoiceType").val();
-	var isvoid = $("#isvoid").val();
+	var pay_status = $("#pay_status").val();
 	var ownername = $("#ownername").val();
 	$.ajax({
 		url : "/trwuliu/payInvoiceDriver/page",//
@@ -19,7 +19,7 @@ function index(No,flag){
 			"billNO":billcode,
 			"signTime":signtime,
 			"cargoName":cargoName,
-			"isInvoice":isvoid,
+			"paystatus":pay_status,
 			"ownername":ownername,
 			"pageNo":No,
 			"pageSize":pageSize},
@@ -55,6 +55,12 @@ function innerHTML(ret,flag){
 		return;
 	}
 	for (var a = 0; a < data.length; a++) {
+		var ao = "";
+		if(data[a].paystatus == "2"){
+			ao = "支付中";
+		}else if(data[a].paystatus == "3"){
+			ao = "支付完成";
+		}
 		hml += "<tr><td >"+data[a].billCode+"</td>" +
 				"<td >"+data[a].ownername+"</td>" +
 				"<td >"+data[a].cargoName+"</td>" +

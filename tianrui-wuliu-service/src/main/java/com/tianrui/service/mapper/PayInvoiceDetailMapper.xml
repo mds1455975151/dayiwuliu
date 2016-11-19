@@ -55,6 +55,17 @@
     <include refid="Base_Column_List" />
     from pay_invoice_detail
 	<where>
+      <if test="driverid != null and driverid != ''">
+      	and driverid = #{driverid,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="paystatus != null and paystatus != ''">
+      	and pay_status = #{paystatus,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="payownertype != null and payownertype != ''">
+      	and payownertype = #{payownertype,jdbcType=VARCHAR}
+      </if>
       <if test="ownername != null and ownername != ''" >
         and ownername like '%' #{ownername,jdbcType=VARCHAR} '%'
       </if>
@@ -109,6 +120,18 @@
     	count(1)
     from pay_invoice_detail
 	<where>
+     	<if test="driverid != null and driverid != ''">
+      	and driverid = #{driverid,jdbcType=VARCHAR}
+      </if>
+      <if test="paystatus != null and paystatus != ''">
+      	and pay_status = #{paystatus,jdbcType=VARCHAR}
+      </if>
+      <if test="payownertype != null and payownertype != ''">
+      	and payownertype = #{payownertype,jdbcType=VARCHAR}
+      </if>
+      <if test="ownername != null and ownername != ''" >
+        and ownername like '%' #{ownername,jdbcType=VARCHAR} '%'
+      </if>
       <if test="billCode != null and billCode != ''" >
         and bill_code like '%' #{billCode,jdbcType=VARCHAR} '%'
       </if>
@@ -130,7 +153,7 @@
       <if test="signTime != null and signTime != ''" >
         and sign_time <![CDATA[>=]]> #{signTime,jdbcType=VARCHAR}
       </if>
-      <if test="isInvoice != null">
+      <if test="isInvoice != null" >
         and is_invoice = #{isInvoice,jdbcType=TINYINT}
       </if>
       <if test="creator != null and creator != ''" >

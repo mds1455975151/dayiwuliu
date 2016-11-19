@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceGenalReq;
 import com.tianrui.api.resp.pay.PayInvoiceDetailResp;
@@ -18,8 +19,6 @@ import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.PayInvoiceDetailService;
-import com.tianrui.service.mongo.CodeGenDao;
-import com.tianrui.service.mongo.impl.CodeGenDaoImpl;
 import com.tianrui.web.util.SessionManager;
 
 @Controller
@@ -40,6 +39,37 @@ public class PayInvoiceDetailAction {
 		model.addObject("paytype", rs.getData());
 		return model;
 	}
+	/** nc支付回调查询验证
+	 * @throws Exception */
+	@RequestMapping("driverNcConfirm")
+	@ResponseBody
+	public Result driverNcConfirm(String valId) throws Exception{
+		Result rs = Result.getSuccessResult();
+		if(StringUtils.isBlank(valId)){
+			rs.setCode("1");
+			rs.setError("数据不能为空");
+			return rs;
+		}
+		//[{"id":"4ee7b6ce98754183a49be80a3555ec49","price":"11.00000000"}]
+		JSONObject obj = JSONObject.parseObject(valId);
+		String id = obj.getString("id");
+		String price = obj.getString("price");
+		PayInvoiceDetailQueryReq req = new PayInvoiceDetailQueryReq();
+		req.setId(id);
+		PayInvoiceDetailResp resp = payInvoiceDetailService.queryPayInvoice(req);
+		if(resp == null){
+			rs.setCode("2");
+			rs.setError("无此数据，id有误");
+			return rs;
+		}
+		if(!Double.valueOf(price).equals(resp.getBillTotalPrice())){
+			rs.setCode("3");
+			rs.setError("价格不符");
+			return rs;
+		}
+		rs.setData(resp.getBillTotalPrice());
+		return rs;
+	}
 	
 	
 	@RequestMapping("/page")
@@ -49,6 +79,7 @@ public class PayInvoiceDetailAction {
 		try {
 			MemberVo vo = SessionManager.getSessionMember(request);
 			req.setCurruId(vo.getId());
+			req.setVenderId(vo.getId());
 			PaginationVO<PayInvoiceDetailResp> page =payInvoiceDetailService.page(req);
 			rs.setData(page);
 		} catch (Exception e) {

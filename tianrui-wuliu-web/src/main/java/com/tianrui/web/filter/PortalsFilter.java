@@ -42,12 +42,16 @@ public class PortalsFilter implements Filter {
 			if(req.getRequestURI().equals("/")){
 				res.sendRedirect(contextPath+"/publicMember/index");
 			}else if(req.getRequestURI().contains("/trwuliu/")){
-				//MemberVo sessionMember = (MemberVo) session.getAttribute("session_member");
-				MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);
-				if (sessionMember == null) {
-					res.sendRedirect(contextPath+"/publicMember/loginPage");	
-				}else {
+				//nc支付回调验证 不做session处理
+				if(req.getRequestURI().contains("/driverNcConfirm")){
 					chain.doFilter(request, response);
+				}else{
+					MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);
+					if (sessionMember == null) {
+						res.sendRedirect(contextPath+"/publicMember/loginPage");	
+					}else {
+						chain.doFilter(request, response);
+					}
 				}
 			}else {
 				chain.doFilter(request, response);

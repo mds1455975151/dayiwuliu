@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
@@ -104,7 +106,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				 */
 				MemberVo owner =memberVoService.get(bill.getOwnerid());
 				payInvoiceDetail.setOwnerId(bill.getOwnerid());
-//				payInvoiceDetail.setOrgid(owner.getOrgid());
+				
+				payInvoiceDetail.setOrgid(owner.getOrgid());
 				if(StringUtils.isNotBlank(owner.getCompanypercheck()) && StringUtils.equals(owner.getCompanypercheck(), "1")){
 					//企业
 					payInvoiceDetail.setOwnername(owner.getCompanyName());
@@ -185,12 +188,28 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setDriverid(bill.getDriverid());
 				payInvoiceDetail.setDrivername(bill.getDrivername());
 				payInvoiceDetail.setDrivertel(bill.getDrivertel());
+				
+				FileOrg org = fileOrgMapper.selectByPrimaryKey(owner.getOrgid());
+				payInvoiceDetail.setOrgid(org.getOrganizationno());
 				//0：在线支付(司机)，1：发票单支付(车主)
 				if("0".equals(cargo.getPayType())){
-					httpNcurl(payInvoiceDetail);
+					JSONObject obj = JSONObject.parseObject(httpNcurl(payInvoiceDetail));
+					String code = obj.get("code").toString();
+					if(code.equals("000000")){
+						payInvoiceDetail.setOrgid(owner.getOrgid());
+						payInvoiceDetail.setPaystatus("2");
+						payInvoiceDetailMapper.insert(payInvoiceDetail);
+						updateBill(bill.getId(),freight);
+						System.out.println("---------------------成功");
+					}else{
+						rs.setCode(code);
+						rs.setError(obj.get("error").toString());
+						return rs;
+					}
+				}else{
+					payInvoiceDetailMapper.insert(payInvoiceDetail);
+					updateBill(bill.getId(),freight);
 				}
-//				payInvoiceDetailMapper.insert(payInvoiceDetail);
-//				updateBill(bill.getId(),freight);
 			}
 		}
 		
@@ -233,9 +252,12 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			String[] idArr = req.getIds().split(";");
 			query.setIds(Arrays.asList(idArr));
 		}
+		query.setPayownertype(req.getPayownertype());
+		query.setDriverid(req.getDriverId());
+		query.setPaystatus(req.getPaystatus());
 		query.setOwnername(req.getOwnername());
 		query.setInvoiceType(req.getInvoiceType());
-		query.setVenderId(req.getCurruId());
+		query.setVenderId(req.getVenderId());
 		query.setPayId(req.getPayId());
 		query.setBillCode(req.getBillNO());
 		query.setSignTime(req.getSignTime());
@@ -394,7 +416,6 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	/** 获取运价策略
 	 * @throws Exception */
 	private FileFreight getFileFreight(String id,Long time) throws Exception{
-		//TODO
 		FileFreight freight = null;
 		Date date = null;
 		if(time != null){
@@ -413,7 +434,6 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	}
 	@Override
 	public Result getCargoTypeName() throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		List<FileCargo> list = fileCargoMapper.getCargoTypeName();
 		
@@ -430,7 +450,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	}
 
 	
-	protected  String httpNcurl(PayInvoiceDetail payInvoiceDetail) throws IOException{
+	protected String httpNcurl(PayInvoiceDetail payInvoiceDetail) throws IOException{
 		try {
 			URL url = new URL("http://172.20.10.20/tcp/paySupplier/querySupplier");
 			// 打开url连接
@@ -454,7 +474,39 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			System.out.println("请求返回数据："+response);
 			return response;
 		} catch (Exception e) {
-			return "网络异常";
+			JSONObject obj = new JSONObject();
+			obj.put("code", "1");
+			obj.put("error", "网络异常");
+			return obj.toString();
 		}
+	}
+	@Override
+	public void ncDriverPay() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	public static void main(String[] args) throws IOException {
+		URL url = new URL("http://172.20.10.247:8080/trwuliu/payInvoiceItem/driverNcConfirm");
+		// 打开url连接
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		// 设置url请求方式 ‘get’ 或者 ‘post’
+		connection.setDoOutput(true);
+		connection.setDoInput(true);
+		connection.setRequestMethod("POST");
+
+		//test数据
+		
+//		String dataString = "payInvoiceDetail=" + JSON.toJSON(payInvoiceDetail).toString();
+		JSONObject obj = new JSONObject();
+		obj.put("id", "4ee7b6ce98754183a49be80a3555ec49");
+		obj.put("price", "11.00000000");
+		String dataString = "valId="+obj.toJSONString();
+		byte[] bypes = dataString.getBytes("utf-8");
+		
+		connection.getOutputStream().write(bypes);// 输入参数
+		// 发送
+		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		String response = in.readLine();
+		System.out.println("请求返回数据："+response);
 	}
 }

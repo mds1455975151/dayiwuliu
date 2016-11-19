@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="yf_fl">
                     <div class="yf_sline">
                         <label>状态：</label>
-                        <select id="isvoid" class="form-control">
+                        <select id="pay_status" class="form-control">
                             <option value="2">支付中</option>
                             <option value="3">已完成</option>
                         </select>

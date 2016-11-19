@@ -17,6 +17,8 @@ public class PayInvoiceDetailResp {
     private String payownertype;
     private String pricetype;
     private String ownername;
+    
+    private String paystatus;
 
     private String payId;
 
@@ -90,6 +92,14 @@ public class PayInvoiceDetailResp {
 
 	public void setOwnername(String ownername) {
 		this.ownername = ownername;
+	}
+
+	public String getPaystatus() {
+		return paystatus;
+	}
+
+	public void setPaystatus(String paystatus) {
+		this.paystatus = paystatus;
 	}
 
 	public void setBillId(String billId) {

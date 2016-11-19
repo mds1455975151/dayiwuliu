@@ -11,6 +11,8 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	private String ownername;
 	private String status;
 	private String isInvoice;
+	private String venderId;
+	private String paystatus;
 	private String payId;
 	private String billNO;
 	private String signTime;
@@ -55,6 +57,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	public void setIsInvoice(String isInvoice) {
 		this.isInvoice = isInvoice;
 	}
+	public String getVenderId() {
+		return venderId;
+	}
+	public void setVenderId(String venderId) {
+		this.venderId = venderId;
+	}
 	public String getPayId() {
 		return payId;
 	}
@@ -75,6 +83,12 @@ public class PayInvoiceDetailQueryReq  extends BaseReq{
 	}
 	public String getCargoName() {
 		return cargoName;
+	}
+	public String getPaystatus() {
+		return paystatus;
+	}
+	public void setPaystatus(String paystatus) {
+		this.paystatus = paystatus;
 	}
 	public void setCargoName(String cargoName) {
 		this.cargoName = cargoName;
