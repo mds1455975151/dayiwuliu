@@ -12,6 +12,7 @@
     <result column="sign_time" property="signTime" jdbcType="VARCHAR" />
     <result column="bill_weight" property="billWeight" jdbcType="DOUBLE" />
     <result column="bill_price" property="billPrice" jdbcType="DOUBLE" />
+    <result column="truepay" property="truepay" jdbcType="DOUBLE" />
     <result column="bill_total_price" property="billTotalPrice" jdbcType="DOUBLE" />
     <result column="is_invoice" property="isInvoice" jdbcType="TINYINT" />
     <result column="orgid" property="orgid" jdbcType="VARCHAR" />
@@ -42,7 +43,8 @@
     id, pay_id, bill_id, bill_code, cargo_id, cargo_code, invoice_type, sign_time, bill_weight, 
     bill_price, bill_total_price, is_invoice, orgid, org_name, vender_name, vender_type, 
     vender_code, creator, createtime, modifier, modifytime,vender_id,owner_id,cargo_name,
-    invoice_typename,tax_rate,driverid,drivername,drivertel,payownertype,pricetype,ownername,driver_code,pay_status
+    invoice_typename,tax_rate,driverid,drivername,drivertel,payownertype,pricetype,
+    ownername,driver_code,pay_status,truepay
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -184,7 +186,8 @@
       vender_type, vender_code, creator, 
       createtime, modifier, modifytime,vender_id,owner_id,
       cargo_name,invoice_typename,tax_rate,
-      driverid,drivername,drivertel,payownertype,pricetype,ownername,driver_code,pay_status
+      driverid,drivername,drivertel,payownertype,pricetype,
+      ownername,driver_code,pay_status,truepay
       )
     values (#{id,jdbcType=VARCHAR}, #{payId,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, 
       #{billCode,jdbcType=VARCHAR}, #{cargoId,jdbcType=VARCHAR}, #{cargoCode,jdbcType=VARCHAR}, 
@@ -202,12 +205,16 @@
       #{pricetype,jdbcType=VARCHAR},
       #{ownername,jdbcType=VARCHAR},
       #{drivercode,jdbcType=VARCHAR},
-      #{paystatus,jdbcType=VARCHAR}
+      #{paystatus,jdbcType=VARCHAR},
+      #{truepay,jdbcType=DOUBLE}
       )
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.PayInvoiceDetail" >
     update pay_invoice_detail
     <set >
+      <if test="truepay != null" >
+        truepay = #{truepay,jdbcType=DOUBLE},
+      </if>
       <if test="paystatus != null" >
         pay_status = #{paystatus,jdbcType=VARCHAR},
       </if>
@@ -315,6 +322,7 @@
       cargo_code = #{cargoCode,jdbcType=VARCHAR},
       invoice_type = #{invoiceType,jdbcType=VARCHAR},
       sign_time = #{signTime,jdbcType=VARCHAR},
+      truepay = #{truepay,jdbcType=DOUBLE},
       bill_weight = #{billWeight,jdbcType=DOUBLE},
       bill_price = #{billPrice,jdbcType=DOUBLE},
       bill_total_price = #{billTotalPrice,jdbcType=DOUBLE},

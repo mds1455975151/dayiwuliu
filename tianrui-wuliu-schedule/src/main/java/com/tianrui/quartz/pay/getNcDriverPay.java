@@ -19,19 +19,16 @@ public class getNcDriverPay {
 	@Autowired
 	protected IPayInvoiceDetailService payInvoiceDetailService;
 
-	@Scheduled(cron="0 0/30 *  * * ? ")
+//	@Scheduled(cron="0 0/30 *  * * ? ")
+	@Scheduled(cron="0/5 * *  * * ? ")
     public void getncPay() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[getncPay]启动.时间是 :" + DateUtil.getDateString());  
-    	int count=0; 
         try {
-        	PayInvoiceQueryReq req = new PayInvoiceQueryReq();
-        	req.setPaystatus("2");
-//        	payInvoiceService.queryNCPayStatus(req);
-        	count++;
+        	payInvoiceDetailService.ncDriverPay();
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}
-		logger.info("定时任务[getncPay]完成.处理数据{}条,耗时：{}",new Object[]{count,(new Date().getTime()-st)});
+		logger.info("定时任务[getNcDriverPay]完成.耗时：{}",new Object[]{(new Date().getTime()-st)});
     }
 }

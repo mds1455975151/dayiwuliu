@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
@@ -452,7 +453,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	
 	protected String httpNcurl(PayInvoiceDetail payInvoiceDetail) throws IOException{
 		try {
-			URL url = new URL("http://172.20.10.20/tcp/paySupplier/querySupplier");
+//			URL url = new URL("http://172.20.10.20/tcp/paySupplier/querySupplier");
+			URL url = new URL(Constant.NC_PAY_URL+"/tcp/paySupplier/querySupplier");
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
@@ -461,8 +463,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			connection.setRequestMethod("POST");
 
 			//test数据
-			payInvoiceDetail.setVenderCode("410482198702256756");
-			payInvoiceDetail.setDrivercode("410482198702256756");
+//			payInvoiceDetail.setVenderCode("410482198702256756");
+//			payInvoiceDetail.setDrivercode("410482198702256756");
 			
 			String dataString = "payInvoiceDetail=" + JSON.toJSON(payInvoiceDetail).toString();
 			byte[] bypes = dataString.getBytes("utf-8");
@@ -483,30 +485,59 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	@Override
 	public void ncDriverPay() throws Exception {
 		// TODO Auto-generated method stub
-		
+		PayInvoiceDetail detil = new PayInvoiceDetail();
+		detil.setPaystatus("2");
+		detil.setPayownertype("0");
+		List<PayInvoiceDetail> list = payInvoiceDetailMapper.selectByCondition(detil);
+		StringBuffer buf = new StringBuffer();
+		if(list.size()!=0){
+			for(PayInvoiceDetail p : list){
+				buf.append(p.getId()+",");
+			}
+			JSONObject data = JSONObject.parseObject(httpNcDriverUrl(buf.toString()));
+			String code = data.getString("code");
+			if("000000".equals(code)){
+				
+				JSONArray array = data.getJSONArray("data");
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject obj = array.getJSONObject(i);
+					String id = obj.getString("id");
+					String price = obj.getString("value");
+					PayInvoiceDetail pd = payInvoiceDetailMapper.selectByPrimaryKey(id);
+					pd.setTruepay(Double.parseDouble(price));
+					if(pd.getBillTotalPrice().equals(Double.parseDouble(price))){
+						pd.setPaystatus("3");
+					}
+					payInvoiceDetailMapper.updateByPrimaryKeySelective(pd);
+				}
+			}
+		}
 	}
-	public static void main(String[] args) throws IOException {
-		URL url = new URL("http://172.20.10.247:8080/trwuliu/payInvoiceItem/driverNcConfirm");
-		// 打开url连接
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		// 设置url请求方式 ‘get’ 或者 ‘post’
-		connection.setDoOutput(true);
-		connection.setDoInput(true);
-		connection.setRequestMethod("POST");
+	protected String httpNcDriverUrl(String  ids) throws IOException{
+		try {
+			URL url = new URL(Constant.NC_PAY_URL+"/tcp/paySupplier/queryPayStatus");
+			// 打开url连接
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			// 设置url请求方式 ‘get’ 或者 ‘post’
+			connection.setDoOutput(true);
+			connection.setDoInput(true);
+			connection.setRequestMethod("POST");
 
-		//test数据
-		
-//		String dataString = "payInvoiceDetail=" + JSON.toJSON(payInvoiceDetail).toString();
-		JSONObject obj = new JSONObject();
-		obj.put("id", "4ee7b6ce98754183a49be80a3555ec49");
-		obj.put("price", "11.00000000");
-		String dataString = "valId="+obj.toJSONString();
-		byte[] bypes = dataString.getBytes("utf-8");
-		
-		connection.getOutputStream().write(bypes);// 输入参数
-		// 发送
-		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-		String response = in.readLine();
-		System.out.println("请求返回数据："+response);
+			
+			String dataString = "payappids=" + ids;
+			byte[] bypes = dataString.getBytes("utf-8");
+			
+			connection.getOutputStream().write(bypes);// 输入参数
+			// 发送
+			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String response = in.readLine();
+			System.out.println("请求返回数据："+response);
+			return response;
+		} catch (Exception e) {
+			JSONObject obj = new JSONObject();
+			obj.put("code", "1");
+			obj.put("error", "网络异常");
+			return obj.toString();
+		}
 	}
 }
