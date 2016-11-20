@@ -19,8 +19,8 @@ public class getNcDriverPay {
 	@Autowired
 	protected IPayInvoiceDetailService payInvoiceDetailService;
 
-//	@Scheduled(cron="0 0/30 *  * * ? ")
-	@Scheduled(cron="0/5 * *  * * ? ")
+	@Scheduled(cron="0 0/30 *  * * ? ")
+//	@Scheduled(cron="0/5 * *  * * ? ")
     public void getncPay() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[getncPay]启动.时间是 :" + DateUtil.getDateString());  

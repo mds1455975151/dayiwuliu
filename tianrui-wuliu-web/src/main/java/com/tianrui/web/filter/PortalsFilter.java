@@ -39,8 +39,8 @@ public class PortalsFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			String contextPath=req.getContextPath();
-			if(req.getRequestURI().equals("/")){
-				res.sendRedirect(contextPath+"/publicMember/index");
+			if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")){
+				res.sendRedirect(contextPath+"/count/route");
 			}else if(req.getRequestURI().contains("/trwuliu/")){
 				//nc支付回调验证 不做session处理
 				if(req.getRequestURI().contains("/driverNcConfirm")){

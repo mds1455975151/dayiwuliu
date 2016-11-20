@@ -26,10 +26,8 @@ public class HourSchedule {
 	
 	@Autowired
 	ICountService countService;
-	
-	@Scheduled(cron="0 0 */1  * * ? ")   //每5秒执行一次  
+	@Scheduled(cron="0 0/30 *  * * ? ")
     public void everyDay() throws Exception{  
-	   System.out.println("每小时更新"); 
 	   CountSelectReq req = new CountSelectReq();
 	   req.setSelecttime(getDay());
 	   //-ok

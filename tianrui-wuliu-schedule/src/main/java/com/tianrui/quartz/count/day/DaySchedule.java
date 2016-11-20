@@ -24,10 +24,10 @@ public class DaySchedule {
 	@Autowired
 	ICountService countService;
 	
-	@Scheduled(cron="0 0 */1  * * ? ")
+	@Scheduled(cron="0 0/30 *  * * ? ")
     public void everyDay() throws Exception{  
-	   System.out.println("每天更新"); 
-	   CountSelectReq req = new CountSelectReq();
+	   
+		CountSelectReq req = new CountSelectReq();
 	   //-ok
 	   countService.everyDay(req);
 	   //-ok
