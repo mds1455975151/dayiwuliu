@@ -1093,6 +1093,67 @@ public class BillService implements IBillService{
 		return list;
 	}
 	
+	
+	@Override
+	public List<PositionResp> getBIllTrackAll(WaybillQueryReq req) throws Exception{
+		List<PositionResp> list =null;
+		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
+			Bill db =billMapper.selectByPrimaryKey(req.getId());
+			//获取始发点
+			FileRoute route=routeMapper.selectByPrimaryKey(db.getRouteid());
+			list=new ArrayList<PositionResp>(); 
+			FilePositoin start = positionMapper.selectByPrimaryKey(route.getOpositionid());			
+			list.add(conver2PositionResp(start));
+			
+			if( db!=null && db.getStatus()==(byte)6 ){
+				List<BillTrack> trackList =billTrackDao.findWithBid(db.getId());
+				if( CollectionUtils.isNotEmpty(trackList) ){
+					long startTime= 0l;
+					long endTime=0l;
+					for(BillTrack tarck:trackList){
+						if( tarck.getStatus()==2 ){
+							startTime=tarck.getTimestamp();
+							continue;
+						}
+						if( tarck.getStatus()==5 ){
+							endTime=tarck.getTimestamp();
+							continue;
+						}
+					}
+					if(endTime==0l){endTime=System.currentTimeMillis();}
+					if( startTime !=0l  ){
+						PositionQueryReq req3 = new PositionQueryReq();
+						req3.setStartTime(startTime);
+						req3.setEndTime(endTime);
+						req3.setCurrId(db.getDriverid());
+						List<PositionResp> dblist=memberPositionService.queryPosition(req3);
+						if( CollectionUtils.isNotEmpty(dblist)){
+							//少于等于三个点直接获取
+							if(dblist.size()<=3){
+								list.addAll(dblist);
+							}else{
+								//多于三个点则获取第一个 中间一个  最后一个	
+								list.add(dblist.get(0));
+								if(dblist.size()%2==0){
+									list.add(dblist.get(dblist.size()/2));
+								}else{
+									list.add(dblist.get((dblist.size()+1)/2));
+								}
+								list.add(dblist.get(dblist.size()-1));
+							}
+							
+						}
+						
+					}
+					
+				}
+			}
+			FilePositoin end = positionMapper.selectByPrimaryKey(route.getDpositionid());	
+			list.add(conver2PositionResp(end));
+		}
+		return list;
+	}
+	
 	//拼装参数  获取司机车辆信息
 	private List<VehicleDriverVO> getVehicleDriver(String ids){
 		List<VehicleDriverVO> list =null;
@@ -1582,5 +1643,16 @@ public class BillService implements IBillService{
 			count = billMapper.queryAdminStatReportCount(req);
 		}
 		return count;
+	}
+	
+	private PositionResp conver2PositionResp(FilePositoin positoin){
+		PositionResp resp  =null;
+		if(positoin !=null){
+			resp=new PositionResp();
+			resp.setLat(positoin.getLat());
+			resp.setLon(positoin.getLng());
+			resp.setProxyGps(positoin.getName());
+		}
+		return resp;
 	}
 }

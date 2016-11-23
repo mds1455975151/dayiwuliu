@@ -82,7 +82,10 @@ public interface IBillService {
 	//查询
 	public List<BillVehicleResp> queryVehicle(String pid)throws Exception;
 	
+	//不包含始发点  目的点
 	public List<PositionResp> getBIllTrack(WaybillQueryReq req) throws Exception;
+	//包含运单始发点目的点  且运单途经点只获取三个
+	public List<PositionResp> getBIllTrackAll(WaybillQueryReq req) throws Exception;
 	
 	//查询委派运单
 	public PaginationVO<WaybillResp> queryAppointBillPage(WaybillQueryReq req) throws Exception;

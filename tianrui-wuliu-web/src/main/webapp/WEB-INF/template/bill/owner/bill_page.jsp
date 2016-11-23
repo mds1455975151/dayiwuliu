@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery.pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bill/owner_page.js" ></script>
+<script type="text/javascript" src="/resources/js/bill/owner_page.js?1" ></script>
 
 </body>
 </html>

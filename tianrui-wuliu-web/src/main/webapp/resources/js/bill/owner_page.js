@@ -108,7 +108,10 @@ var renderDate=function(bills,pageNo){
 		}else if(item.status ==7 ||item.status ==-1){
 			dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'">删除</button></a>');
 		}
-		
+		//到货确认  签收 已完成 3个状态
+		if( item.status ==6 || item.status ==5 || item.status ==2){
+			dataArr.push('<a href="/trwuliu/billAppoint/track?id='+item.id+'" target="_blank"><button class="btn btnyello " >运单跟踪</button></a>');
+		}
 		dataArr.push('</td>');
 		dataArr.push('</tr>');
 	});	

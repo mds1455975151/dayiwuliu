@@ -1,7 +1,11 @@
 package com.tianrui.web.action.bill;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.front.bill.WaybillResp;
+import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
@@ -46,6 +51,33 @@ public class BillAppointAction {
 			req.setCurrId(vo.getId());
 			PaginationVO<WaybillResp> page = billService.queryAppointBillPage(req);
 			rs.setData(page);
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage(), e);
+		}
+		return rs;
+	}
+	
+	
+	@RequestMapping("track")
+	public ModelAndView track(HttpServletRequest request,String id){
+		ModelAndView model = new ModelAndView("bill/maps/tarck");
+		model.addObject("bid", id);
+		if( StringUtils.isBlank(id) ){
+			model.setViewName("/error/msg");
+		}
+		return model;
+	}
+	
+	
+	@RequestMapping("trackdata")
+	@ResponseBody
+	public Result trackdata(WaybillQueryReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			List<PositionResp> list=billService.getBIllTrackAll(req);
+			rs.setData(list);
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
