@@ -56,6 +56,8 @@ public class AppPayAction {
 		Head head = appParam.getHead();
 		PayInvoiceDetailQueryReq req = appParam.getBody();
 		req.setCurruId(head.getId());
+		req.setVenderId(head.getId());
+		req.setPayownertype("1");
 		PaginationVO<PayInvoiceDetailResp> page =payInvoiceDetailService.page(req);
 		appResult.setCode("000000");
 		appResult.setTotal(page.getTotalInt());
@@ -146,6 +148,25 @@ public class AppPayAction {
 		req.setCurruId(head.getId());
 		rs = payInvoiceService.withdrawPay(req);
 		return AppResult.valueOf(rs);
+	}
+	/** 司机账单查询
+	 * @throws Exception */
+	@RequestMapping(value="driverPay",method=RequestMethod.POST)
+	@ApiParamRawType(PayInvoiceDetailQueryReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult driverPay(AppParam<PayInvoiceDetailQueryReq> appParam) throws Exception{
+		AppResult rs = new AppResult();
+		Head head = appParam.getHead();
+		PayInvoiceDetailQueryReq req = appParam.getBody();
+		req.setCurruId(head.getId());
+		req.setDriverId(head.getId());
+		req.setPayownertype("0");
+		PaginationVO<PayInvoiceDetailResp> page =payInvoiceDetailService.page(req);
+		rs.setCode("000000");
+		rs.setReturnData(page.getList());
+		rs.setTotal(page.getTotalInt());
+		return rs;
 	}
 	
 }

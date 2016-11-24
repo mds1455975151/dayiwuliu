@@ -39,7 +39,7 @@ public class PortalsFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			String contextPath=req.getContextPath();
-			if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")){
+			if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")||req.getRequestURI().equals("/publicMember/loginPage")){
 				res.sendRedirect(contextPath+"/count/route");
 			}else if(req.getRequestURI().contains("/trwuliu/")){
 				//nc支付回调验证 不做session处理
@@ -48,7 +48,7 @@ public class PortalsFilter implements Filter {
 				}else{
 					MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);
 					if (sessionMember == null) {
-						res.sendRedirect(contextPath+"/publicMember/loginPage");	
+						res.sendRedirect(contextPath+"/count/route");	
 					}else {
 						chain.doFilter(request, response);
 					}

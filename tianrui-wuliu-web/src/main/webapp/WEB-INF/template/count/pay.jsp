@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <!Doctype html>
 <html>
 <head>
@@ -28,7 +29,9 @@
                 <div class="data_yfcont">
                     <div class="data_yunfei">
                         <h5>运费总和</h5>
-                        <label class="colorjy">￥${pay.sumdate }</label>
+                        <label class="colorjy">￥
+						<fmt:formatNumber value="${pay.sumdate/10000 }" pattern="#.##" minFractionDigits="2" />
+						</label>万元
                     </div>
                     <div class="clear"></div>
                     <div class="yunf_chart">

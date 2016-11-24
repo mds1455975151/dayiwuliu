@@ -164,18 +164,26 @@
                     </div>
                     <div class="divder_tm"></div>
                     <div class="dtail_body">
-                        <label>${pay.sumdate }</label><span>元</span>
+                        <label>
+                        <input type="hidden" value="${pay.id }">
+                       	<fmt:formatNumber value="${pay.sumdate/10000 }" pattern="#.##" minFractionDigits="2" />
+                        </label>
+                        <span>万元</span>
                     </div>
 					
                     <div class="dtail_foot">
                         <label>本月</label><i class="icononline">
 						<c:if test="${pay.sumdate - monthpay.sumdate >= 0}">&#xe617;
 						</i>
-                        <span>${pay.sumdate - monthpay.sumdate }</span>
+                        <span>
+                        <fmt:formatNumber value="${(pay.sumdate - monthpay.sumdate)/10000 }" pattern="#.##" minFractionDigits="2" />万元
+                        </span>
 						</c:if>
 						<c:if test="${pay.sumdate - monthpay.sumdate < 0}">&#xe619;
 						</i>
-                        <span>${monthpay.sumdate - pay.sumdate }</span>
+                        <span>
+                        <fmt:formatNumber value="${(monthpay.sumdate - pay.sumdate)/10000 }" pattern="#.##" minFractionDigits="2" />万元
+                        </span>
 						</c:if>
 						
                     </div>

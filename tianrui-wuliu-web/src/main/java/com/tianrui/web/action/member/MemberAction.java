@@ -534,7 +534,7 @@ public class MemberAction{
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpServletRequest request) throws IOException{
 		SessionManager.removeSessionMember(request);
-		return new ModelAndView("/member/loginPage");
+		return new ModelAndView("redirect:/count/route");
 	}
 	
 	@RequestMapping("/chooseRole")

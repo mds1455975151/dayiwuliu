@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.CountRouteTableMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.CountRouteTable" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="place1" property="place1" jdbcType="VARCHAR" />
+    <result column="place2" property="place2" jdbcType="VARCHAR" />
+    <result column="data1" property="data1" jdbcType="VARCHAR" />
+    <result column="data2" property="data2" jdbcType="VARCHAR" />
+    <result column="data3" property="data3" jdbcType="VARCHAR" />
+    <result column="data4" property="data4" jdbcType="VARCHAR" />
+    <result column="data5" property="data5" jdbcType="VARCHAR" />
+    <result column="data6" property="data6" jdbcType="VARCHAR" />
+    <result column="data7" property="data7" jdbcType="VARCHAR" />
+    <result column="data8" property="data8" jdbcType="VARCHAR" />
+    <result column="data9" property="data9" jdbcType="VARCHAR" />
+    <result column="data10" property="data10" jdbcType="VARCHAR" />
+    <result column="data11" property="data11" jdbcType="VARCHAR" />
+    <result column="data12" property="data12" jdbcType="VARCHAR" />
+    <result column="data13" property="data13" jdbcType="VARCHAR" />
+    <result column="data14" property="data14" jdbcType="VARCHAR" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, place1, place2, data1, data2, data3, data4, data5, data6, data7, data8, 
+    data9, data10, data11, data12, data13, data14, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from count_route_table
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.CountRouteTable" >
+    select 
+    <include refid="Base_Column_List" />
+    from count_route_table
+   	<where>
+   		<if test="type != null and type != ''">
+		and type = #{type,jdbcType=VARCHAR}  	
+   		</if>
+   		<if test="limit != null and limit != ''">
+   		limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   		</if>
+   		
+   	</where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from count_route_table
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.CountRouteTable" >
+    insert into count_route_table (id, type, place1, 
+      place2, data1, data2, 
+      data3, data4, data5, 
+      data6, data7, data8, 
+      data9, data10, data11, 
+      data12, data13, data14, 
+      desc1, desc2, desc3, 
+      desc4)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{place1,jdbcType=VARCHAR}, 
+      #{place2,jdbcType=VARCHAR}, #{data1,jdbcType=VARCHAR}, #{data2,jdbcType=VARCHAR}, 
+      #{data3,jdbcType=VARCHAR}, #{data4,jdbcType=VARCHAR}, #{data5,jdbcType=VARCHAR}, 
+      #{data6,jdbcType=VARCHAR}, #{data7,jdbcType=VARCHAR}, #{data8,jdbcType=VARCHAR}, 
+      #{data9,jdbcType=VARCHAR}, #{data10,jdbcType=VARCHAR}, #{data11,jdbcType=VARCHAR}, 
+      #{data12,jdbcType=VARCHAR}, #{data13,jdbcType=VARCHAR}, #{data14,jdbcType=VARCHAR}, 
+      #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
+      #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.CountRouteTable" >
+    insert into count_route_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="place1 != null" >
+        place1,
+      </if>
+      <if test="place2 != null" >
+        place2,
+      </if>
+      <if test="data1 != null" >
+        data1,
+      </if>
+      <if test="data2 != null" >
+        data2,
+      </if>
+      <if test="data3 != null" >
+        data3,
+      </if>
+      <if test="data4 != null" >
+        data4,
+      </if>
+      <if test="data5 != null" >
+        data5,
+      </if>
+      <if test="data6 != null" >
+        data6,
+      </if>
+      <if test="data7 != null" >
+        data7,
+      </if>
+      <if test="data8 != null" >
+        data8,
+      </if>
+      <if test="data9 != null" >
+        data9,
+      </if>
+      <if test="data10 != null" >
+        data10,
+      </if>
+      <if test="data11 != null" >
+        data11,
+      </if>
+      <if test="data12 != null" >
+        data12,
+      </if>
+      <if test="data13 != null" >
+        data13,
+      </if>
+      <if test="data14 != null" >
+        data14,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="place1 != null" >
+        #{place1,jdbcType=VARCHAR},
+      </if>
+      <if test="place2 != null" >
+        #{place2,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null" >
+        #{data1,jdbcType=VARCHAR},
+      </if>
+      <if test="data2 != null" >
+        #{data2,jdbcType=VARCHAR},
+      </if>
+      <if test="data3 != null" >
+        #{data3,jdbcType=VARCHAR},
+      </if>
+      <if test="data4 != null" >
+        #{data4,jdbcType=VARCHAR},
+      </if>
+      <if test="data5 != null" >
+        #{data5,jdbcType=VARCHAR},
+      </if>
+      <if test="data6 != null" >
+        #{data6,jdbcType=VARCHAR},
+      </if>
+      <if test="data7 != null" >
+        #{data7,jdbcType=VARCHAR},
+      </if>
+      <if test="data8 != null" >
+        #{data8,jdbcType=VARCHAR},
+      </if>
+      <if test="data9 != null" >
+        #{data9,jdbcType=VARCHAR},
+      </if>
+      <if test="data10 != null" >
+        #{data10,jdbcType=VARCHAR},
+      </if>
+      <if test="data11 != null" >
+        #{data11,jdbcType=VARCHAR},
+      </if>
+      <if test="data12 != null" >
+        #{data12,jdbcType=VARCHAR},
+      </if>
+      <if test="data13 != null" >
+        #{data13,jdbcType=VARCHAR},
+      </if>
+      <if test="data14 != null" >
+        #{data14,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.CountRouteTable" >
+    update count_route_table
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="place1 != null" >
+        place1 = #{place1,jdbcType=VARCHAR},
+      </if>
+      <if test="place2 != null" >
+        place2 = #{place2,jdbcType=VARCHAR},
+      </if>
+      <if test="data1 != null" >
+        data1 = #{data1,jdbcType=VARCHAR},
+      </if>
+      <if test="data2 != null" >
+        data2 = #{data2,jdbcType=VARCHAR},
+      </if>
+      <if test="data3 != null" >
+        data3 = #{data3,jdbcType=VARCHAR},
+      </if>
+      <if test="data4 != null" >
+        data4 = #{data4,jdbcType=VARCHAR},
+      </if>
+      <if test="data5 != null" >
+        data5 = #{data5,jdbcType=VARCHAR},
+      </if>
+      <if test="data6 != null" >
+        data6 = #{data6,jdbcType=VARCHAR},
+      </if>
+      <if test="data7 != null" >
+        data7 = #{data7,jdbcType=VARCHAR},
+      </if>
+      <if test="data8 != null" >
+        data8 = #{data8,jdbcType=VARCHAR},
+      </if>
+      <if test="data9 != null" >
+        data9 = #{data9,jdbcType=VARCHAR},
+      </if>
+      <if test="data10 != null" >
+        data10 = #{data10,jdbcType=VARCHAR},
+      </if>
+      <if test="data11 != null" >
+        data11 = #{data11,jdbcType=VARCHAR},
+      </if>
+      <if test="data12 != null" >
+        data12 = #{data12,jdbcType=VARCHAR},
+      </if>
+      <if test="data13 != null" >
+        data13 = #{data13,jdbcType=VARCHAR},
+      </if>
+      <if test="data14 != null" >
+        data14 = #{data14,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.CountRouteTable" >
+    update count_route_table
+    set type = #{type,jdbcType=VARCHAR},
+      place1 = #{place1,jdbcType=VARCHAR},
+      place2 = #{place2,jdbcType=VARCHAR},
+      data1 = #{data1,jdbcType=VARCHAR},
+      data2 = #{data2,jdbcType=VARCHAR},
+      data3 = #{data3,jdbcType=VARCHAR},
+      data4 = #{data4,jdbcType=VARCHAR},
+      data5 = #{data5,jdbcType=VARCHAR},
+      data6 = #{data6,jdbcType=VARCHAR},
+      data7 = #{data7,jdbcType=VARCHAR},
+      data8 = #{data8,jdbcType=VARCHAR},
+      data9 = #{data9,jdbcType=VARCHAR},
+      data10 = #{data10,jdbcType=VARCHAR},
+      data11 = #{data11,jdbcType=VARCHAR},
+      data12 = #{data12,jdbcType=VARCHAR},
+      data13 = #{data13,jdbcType=VARCHAR},
+      data14 = #{data14,jdbcType=VARCHAR},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

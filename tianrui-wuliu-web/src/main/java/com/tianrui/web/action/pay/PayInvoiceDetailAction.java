@@ -80,6 +80,7 @@ public class PayInvoiceDetailAction {
 			MemberVo vo = SessionManager.getSessionMember(request);
 			req.setCurruId(vo.getId());
 			req.setVenderId(vo.getId());
+			req.setPayownertype("1");
 			PaginationVO<PayInvoiceDetailResp> page =payInvoiceDetailService.page(req);
 			rs.setData(page);
 		} catch (Exception e) {
