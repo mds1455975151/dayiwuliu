@@ -11,18 +11,18 @@ $(function(){
 		var fadeout = a%6;
 		$("#table_"+fadeout).fadeOut(3000);
 		a++;
-		if(a==0){
-			findDetail("原煤运输业务",0,a);
-		}else if(a==1){
-			findDetail("原煤运输业务",1,a);
-		}else if(a==2){
-			findDetail("熟料运输业务",0,a);
-		}else if(a==3){
-			findDetail("熟料运输业务",1,a);
-		}else if(a==4){
-			findDetail("水泥运输业务",0,a);
-		}else if(a==5){
-			findDetail("水泥运输业务",1,a);
+		if(a%6==0){
+			findDetail("原煤运输业务",0,a%6);
+		}else if(a%6==1){
+			findDetail("原煤运输业务",2,a%6);
+		}else if(a%6==2){
+			findDetail("熟料运输业务",0,a%6);
+		}else if(a%6==3){
+			findDetail("熟料运输业务",2,a%6);
+		}else if(a%6==4){
+			findDetail("水泥运输业务",0,a%6);
+		}else if(a%6==5){
+			findDetail("水泥运输业务",2,a%6);
 		}
 		$("#showvalue").val(a);
 		//新图淡入
