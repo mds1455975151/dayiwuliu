@@ -252,6 +252,20 @@ public class AppBIllVenderAction {
 		return AppResult.valueOf(rs);
 		
 	}
+	//查询已完成运单轨迹
+	@RequestMapping(value="/queryBillAllTrack2",method=RequestMethod.POST)
+	@ApiParamRawType(WaybillQueryReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult queryBillAllTrack2(AppParam<WaybillQueryReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		//获取当前用户
+		WaybillQueryReq req =appParam.getBody();
+		List<PositionResp> list =billService.getBIllTrackAll(req);
+		rs.setData(list);
+		return AppResult.valueOf(rs);
+		
+	}
 	
 	
 	
