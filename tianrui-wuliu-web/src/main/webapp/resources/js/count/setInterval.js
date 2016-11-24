@@ -29,7 +29,7 @@ $(function(){
 		var fadein = a%6;
 		$("#table_"+fadein).fadeIn(3000);
 	}
-	setInterval(index,5000);
+	setInterval(index,20000);
 });
 
 function findDetail(data,pageNo,id){
