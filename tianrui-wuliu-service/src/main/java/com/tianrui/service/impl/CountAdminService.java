@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tianrui.api.intf.ICountAdminService;
 import com.tianrui.api.req.count.CountAdminReq;
 import com.tianrui.api.resp.count.CountAdminResp;
+import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.CountAdmin;
 import com.tianrui.service.mapper.CountAdminMapper;
 @Service
@@ -21,6 +22,13 @@ public class CountAdminService implements ICountAdminService{
 	public List<CountAdminResp> find(CountAdminReq req) throws Exception{
 		CountAdmin record = new CountAdmin();
 		PropertyUtils.copyProperties(record, req);
+		List<CountAdmin> list = countAdminMapper.selectByCondition(record);
+		return copyProperties(list);
+	}
+	@Override
+	public List<CountAdminResp> findWithType(String type) throws Exception{
+		CountAdmin record = new CountAdmin();
+		record.setType(type);
 		List<CountAdmin> list = countAdminMapper.selectByCondition(record);
 		return copyProperties(list);
 	}
@@ -64,6 +72,20 @@ public class CountAdminService implements ICountAdminService{
 			return true;
 		}
 		return false;
+	}
+	@Override
+	public Result updateWithId(String id,String val) throws Exception{
+		Result rs =Result.getErrorResult();
+		CountAdmin countAdmin=countAdminMapper.selectByPrimaryKey(id);
+		if( countAdmin !=null ){
+			CountAdmin update = new CountAdmin();
+			update.setId(id);
+			update.setData(val);
+			countAdminMapper.updateByPrimaryKeySelective(update);
+			rs=Result.getSuccessResult();
+		}
+		
+		return rs;
 	}
 
 	@Override

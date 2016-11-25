@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript" src="${trRoot}/js/jquery-1.11.1.js"></script>
 
-<script type="text/javascript" src="/resources/js/count1/route.js" ></script>
+<script type="text/javascript" src="/resources/js/count/route.js" ></script>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.api.req.count.CountAdminReq;
 import com.tianrui.api.resp.count.CountAdminResp;
+import com.tianrui.common.vo.Result;
 
 /***
  * 
@@ -19,12 +20,14 @@ import com.tianrui.api.resp.count.CountAdminResp;
 public interface ICountAdminService {
 
 	List<CountAdminResp> find(CountAdminReq req)throws Exception;
+	List<CountAdminResp> findWithType(String type)throws Exception;
 	
 	CountAdminResp findId(String id)throws Exception;
 	
 	boolean save(CountAdminReq req)throws Exception;
 	
 	boolean update(CountAdminReq req)throws Exception;
+	public Result updateWithId(String id,String val)throws Exception;
 	
 	boolean delete(String id)throws Exception;
 }
