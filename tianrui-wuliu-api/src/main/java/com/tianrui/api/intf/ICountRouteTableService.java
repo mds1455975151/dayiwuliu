@@ -7,5 +7,7 @@ import com.tianrui.api.resp.count.RouteTableResp;
 
 public interface ICountRouteTableService {
 
-	List<RouteTableResp> find(RouteTableReq req)throws Exception;;
+	List<RouteTableResp> find(RouteTableReq req)throws Exception;
+	
+	boolean update(RouteTableReq req)throws Exception;
 }

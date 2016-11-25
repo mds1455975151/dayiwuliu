@@ -23,7 +23,6 @@ public class CountRouteTableService implements ICountRouteTableService{
 		CountRouteTable record = new CountRouteTable();
 		PropertyUtils.copyProperties(record, req);
 		record.setLimit(req.getPageNo());
-		record.setPageSize(2);
 		List<CountRouteTable> list = countRouteTableMapper.selectByCondition(record);
 		return copyProperties(list);
 	}
@@ -37,6 +36,17 @@ public class CountRouteTableService implements ICountRouteTableService{
 			resp.add(a);
 		}
 		return resp;
+	}
+
+	@Override
+	public boolean update(RouteTableReq req) throws Exception {
+		CountRouteTable record = new CountRouteTable();
+		PropertyUtils.copyProperties(record, req);
+		int a = countRouteTableMapper.updateByPrimaryKeySelective(record);
+		if(a==1){
+			return true;
+		}
+		return false;
 	}
 
 }

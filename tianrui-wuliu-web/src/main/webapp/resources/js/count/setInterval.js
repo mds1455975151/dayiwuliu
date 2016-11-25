@@ -37,7 +37,8 @@ function findDetail(data,pageNo,id){
 	$.ajax({
 		url : "/adcount/detailRoutetable",//
 		data : {"type":data,
-				"pageNo":pageNo
+				"pageNo":pageNo,
+				"pageSize":2
 		},
 		type : "post",
 		success : function(rs){
