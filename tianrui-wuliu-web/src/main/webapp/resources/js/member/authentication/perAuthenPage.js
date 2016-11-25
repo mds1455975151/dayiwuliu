@@ -117,7 +117,7 @@ $("#perAuthen_button").click(function() {
 	} else if (perAuthen_tel == "") {
 		$("#message_perAuthenTel").html("联系电话不能为空！");
 		return;
-	} else if (!licenseType) {
+	} else if (type == "2" && !licenseType) {
 		$("#modal_common_content").html("请选择准驾车型！");
 		$("#commonModal").modal();
 		return;

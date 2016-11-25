@@ -120,6 +120,15 @@ function getNodeList(menu) {
 		} else if (nodesList[i].nodename == "运单报表统计"){
 			_i.removeAttr("class");
 			_i.addClass("iconfont").html('&#xe63e;');
+		} else if (nodesList[i].nodename == "车主信用管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe63e;');
+		} else if (nodesList[i].nodename == "车主信用月报表"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe63f;');
+		} else if (nodesList[i].nodename == "车主信用评级表"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe63f;');
 		}
 		href.append(_i).append(span);
 		li.append(href);

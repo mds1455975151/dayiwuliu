@@ -55,6 +55,7 @@
 		<result column="pathID" property="pathID" jdbcType="VARCHAR" />
 		<result column="pickupweight" property="pickupweight" jdbcType="DOUBLE" />
 		<result column="signweight" property="signweight" jdbcType="DOUBLE" />
+		<result column="isAssess" property="isAssess" jdbcType="VARCHAR" />
 		<result column="DESC1" property="desc1" jdbcType="VARCHAR" />
 		<result column="DESC2" property="desc2" jdbcType="VARCHAR" />
 		<result column="DESC3" property="desc3" jdbcType="VARCHAR" />
@@ -75,7 +76,7 @@
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
-		pickupweight, signweight, DESC1, DESC2, DESC3, DESC4
+		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -364,7 +365,7 @@
 		modifier,
 		modifytime, overnumber,totalnumber, tallage,unloadtime, DESC1,
 		DESC2,
-		DESC3, DESC4,isClearing,pathID,pickupweight, signweight
+		DESC3, DESC4,isClearing,pathID,pickupweight, signweight,isAssess
 		)
 		values
 		(#{id,jdbcType=VARCHAR},
@@ -407,7 +408,8 @@
 		#{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR},
 		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
 		#{isClearing,jdbcType=VARCHAR}, #{pathID,jdbcType=VARCHAR}, 
-		#{pickupweight,jdbcType=DOUBLE}, #{signweight,jdbcType=DOUBLE}
+		#{pickupweight,jdbcType=DOUBLE}, #{signweight,jdbcType=DOUBLE},
+		#{isAssess,jdbcType=VARCHAR},
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -562,6 +564,9 @@
 			<if test="signweight != null">
 				signweight,
 			</if>
+			<if test="isAssess != null">
+				isAssess,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -710,6 +715,9 @@
 			</if>
 			<if test="signweight != null">
 				#{signweight,jdbcType=DOUBLE},
+			</if>
+			<if test="isAssess != null">
+				#{isAssess,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -868,6 +876,9 @@
 			<if test="signweight != null">
 				signweight = #{signweight,jdbcType=DOUBLE},
 			</if>
+			<if test="isAssess != null">
+				isAssess = #{isAssess,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
@@ -940,6 +951,7 @@
 		pathID = #{pathID,jdbcType=VARCHAR},
 		pickupweight = #{pickupweight,jdbcType=DOUBLE},
 		signweight = #{signweight,jdbcType=DOUBLE}
+		isAssess = #{isAssess,jdbcType=VARCHAR}
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByBillTransfer" parameterType="com.tianrui.service.bean.BillUpdate">
@@ -1253,5 +1265,12 @@
 				AND b.createtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
 			</if>
 		ORDER BY b.createtime 
+	</select>
+	<select id="queryCountByVenderId" parameterType="java.util.Map" resultType="int">
+		select count(0)
+		from wuliu_bill 
+		where venderid = #{venderid,jdbcType=VARCHAR} and venderdelflag = 0
+			and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT} 
+  			and createtime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
 	</select>
 </mapper>

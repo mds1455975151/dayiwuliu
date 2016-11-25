@@ -110,6 +110,7 @@ function innerHTML(data){
 		"<td>"+sta+"</td>"+
 		"<td><span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【查看详情】</a></span>"+
 		(data[a].status == "6"&&data[a].isClearing=="0"? "<span><a  data-toggle='modal' onclick=\"yunjia('"+data[a].id+"')\" data-target='#yunjia'>【运价确认】</a></span>":"")+
+		(data[a].isAssess == '1' ? '<span><a data-toggle="modal" onclick="showAssess(\''+data[a].id+'\')" data-target="#showAssess">【查看评价】</a></span>' : '<span><a data-toggle="modal" onclick="billAssess(\''+data[a].id+'\')" data-target="#assess">【信用评价】</a></span>')+
 //		"<span><a data-toggle='modal' data-target='#tingyong'>停用</a></span>" +
 		"</td>";
 	}
@@ -194,6 +195,87 @@ function yunjia(id){
 				$("#pickupweight").html(rs.data.pickupweight);
 				$("#signweight").html(rs.data.signweight);
 				$("#trueweight").html(rs.data.trueweight);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+
+function billAssess(id){
+	$('#bid').val(id);
+	$('.assessBody input[name="timelystart"][value="1"]').trigger('click');
+	$('.assessBody input[name="timelydelivery"][value="1"]').trigger('click');
+	$('.assessBody input[name="timelyreturn"][value="1"]').trigger('click');
+	$('.assessBody input[name="cardamage"][value="0"]').trigger('click');
+	$('.assessBody input[name="transportaccident"][value="0"]').trigger('click');
+}
+
+$('.assessComfirm').off('click').on('click',function(){
+	$(this).addClass('disabled');
+	var billid = $('#bid').val();
+	if(!billid){
+		alert('运单ID不能为空！');return;
+	}
+	var timelystart = $('.assessBody input[name="timelystart"]:checked').val();
+	if(!timelystart){
+		alert('请评价是否及时发车！');return;
+	}
+	var timelydelivery = $('.assessBody input[name="timelydelivery"]:checked').val();
+	if(!timelydelivery){
+		alert('请评价是否及时送达！');return;
+	}
+	var timelyreturn = $('.assessBody input[name="timelyreturn"]:checked').val();
+	if(!timelyreturn){
+		alert('请评价是否及时回单！');return;
+	}
+	var cardamage = $('.assessBody input[name="cardamage"]:checked').val();
+	if(!cardamage){
+		alert('请评价是否车质损耗！');return;
+	}
+	var transportaccident = $('.assessBody input[name="transportaccident"]:checked').val();
+	if(!transportaccident){
+		alert('请评价是否有运输事故！');return;
+	}
+	$.ajax({
+		url:"/admin/waybill/billAssess",
+		data:{
+			billid:billid,
+			timelystart:timelystart,
+			timelydelivery:timelydelivery,
+			timelyreturn:timelyreturn,
+			cardamage:cardamage,
+			transportaccident:transportaccident
+		},
+		type : "post",
+		dataType:"json",
+		success:function(rs){
+			if(rs && rs.code =="000000"){
+				alert(rs.data);
+				window.location.reload();
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+});
+
+function showAssess(id){
+	$.ajax({
+		url:"/admin/waybill/queryAssess",
+		data:{
+			billid:id
+		},
+		type : "post",
+		dataType:"json",
+		success:function(rs){
+			if(rs && rs.code =="000000"){
+				var data = rs.data;
+				$('#timelystart').html(data.timelystart == '0' ? '否' : '是');
+				$('#timelydelivery').html(data.timelydelivery == '0' ? '否' : '是');
+				$('#timelyreturn').html(data.timelyreturn == '0' ? '否' : '是');
+				$('#cardamage').html(data.cardamage == '0' ? '否' : '是');
+				$('#transportaccident').html(data.transportaccident == '0' ? '无' : data.transportaccident == '1' ? '无责事故' : '责任事故');
 			}else{
 				alert(rs.error);
 			}

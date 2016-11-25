@@ -94,4 +94,6 @@ public interface BillMapper {
 	int queryAdminStatReportCount(StatReportReq req);
 
 	List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req);
+
+	int queryCountByVenderId(Map<String, Object> params);
 }

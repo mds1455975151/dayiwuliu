@@ -22,6 +22,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
+	<style type="text/css">
+		.assessBody {
+		    height: 35px;
+		    line-height: 35px;
+		}
+		
+		.assessBody label {
+		    margin-left: 40px;
+		}
+		
+		.assessBody label input {
+		    vertical-align: text-top;
+		    margin-top: 2px;*
+		    margin-bottom:-4px;
+		    margin-right: 10px;
+		}
+	</style>
 </head>
 <body>
 
@@ -173,6 +190,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--启用end-->
+<div class="modal fade" id="assess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">信用评价</h4>
+            </div>
+            <div class="modal-body">
+            	<input type="hidden" id="bid"/>
+	            <div class="assessBody">
+	            	<label>及时发车：</label>
+		            <label><input name="timelystart" type="radio" value="1"/>是</label>
+		            <label><input name="timelystart" type="radio" value="0"/>否</label>
+	            </div>
+	            <div class="assessBody">
+	            	<label>及时送达：</label>
+		            <label><input name="timelydelivery" type="radio" value="1"/>是</label>
+		            <label><input name="timelydelivery" type="radio" value="0"/>否</label>
+	            </div>
+	            <div class="assessBody">
+        			<label>及时回单：</label>
+		            <label><input name="timelyreturn" type="radio" value="1"/>是</label>
+		            <label><input name="timelyreturn" type="radio" value="0"/>否</label>
+	            </div>
+	            <div class="assessBody">
+	            	<label>车质损耗：</label>
+		            <label><input name="cardamage" type="radio" value="1"/>是</label>
+		            <label><input name="cardamage" type="radio" value="0"/>否</label>
+	            </div>
+	            <div class="assessBody">
+	            	<label>运输事故：</label>
+		            <label><input name="transportaccident" type="radio" value="0"/>无</label>
+		            <label><input name="transportaccident" type="radio" value="1"/>无责事故</label>
+		            <label><input name="transportaccident" type="radio" value="2"/>责任事故</label>
+	            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary assessComfirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="showAssess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 250px;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">信用评价</h4>
+            </div>
+            <div class="modal-body">
+	            <div class="assessBody">
+	            	<label>及时发车：</label><label id="timelystart">是</label>
+	            </div>
+	            <div class="assessBody">
+	            	<label>及时送达：</label><label id="timelydelivery"></label>
+	            </div>
+	            <div class="assessBody">
+        			<label>及时回单：</label><label id="timelyreturn"></label>
+	            </div>
+	            <div class="assessBody">
+	            	<label>车质损耗：</label><label id="cardamage"></label>
+	            </div>
+	            <div class="assessBody">
+	            	<label>运输事故：</label><label id="transportaccident"></label>
+	            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 <%@include file="../../common/footer.jsp" %>
 <script type="text/javascript">
     $(document).ready(function () {

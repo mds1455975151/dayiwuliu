@@ -1,32 +1,28 @@
 package com.tianrui.trwl.admin.web;
 
-
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IFreightInfoService;
+import com.tianrui.api.intf.IAssessService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.bill.BillAssessReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
-import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
-import com.tianrui.api.req.front.cargoplan.PlanReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
-import com.tianrui.api.resp.admin.AdminPlanResp;
-import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.front.bill.BillAssessResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
@@ -45,6 +41,8 @@ public class WaybillAction {
 	protected IPayInvoiceDetailService payInvoiceDetailService;
 	@Autowired
 	IFreightInfoService iFreightInfoService;
+	@Autowired
+	private IAssessService iAssessService;
 	/**
 	 * 
 	 * @描述:平台运单管理
@@ -153,6 +151,48 @@ public class WaybillAction {
 		br.setId(billId);
 		WaybillResp resp = billService.queryWayBill(br);
 		rs.setData(resp);
+		return rs;
+	}
+	
+	@RequestMapping("/billAssess")
+	@ResponseBody
+	public Result billAssess(BillAssessReq req, HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			Users  currUser =SessionManager.getSessionMember(request);
+			req.setId(UUIDUtil.getId());
+			req.setCreator(currUser.getId()+"");
+			req.setCreatetime(System.currentTimeMillis());
+			int count = iAssessService.saveAssess(req);
+			if(count == 1){
+				rs.setCode("000000");
+				rs.setData("保存成功");
+			}else{
+				rs.setCode("-1");
+				rs.setError("保存失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	@RequestMapping("/queryAssess")
+	@ResponseBody
+	public Result queryAssess(BillAssessReq req, HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			BillAssessResp resp = iAssessService.queryAssess(req);
+			if(resp != null){
+				rs.setCode("000000");
+				rs.setData(resp);
+			}else{
+				rs.setCode("-1");
+				rs.setError("查询失败！");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return rs;
 	}
 	

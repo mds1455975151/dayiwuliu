@@ -96,6 +96,8 @@ public class WaybillResp extends BaseResp{
     
     //是否原发（2：否，1：是）
     private String frebilltype;
+	//是否已评价（0：否，1：是）
+    private String isAssess;
     
 	public String getId() {
 		return id;
@@ -462,6 +464,12 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setFrebilltype(String frebilltype) {
 		this.frebilltype = frebilltype;
+	}
+	public String getIsAssess() {
+		return isAssess;
+	}
+	public void setIsAssess(String isAssess) {
+		this.isAssess = isAssess;
 	}
 	
 }

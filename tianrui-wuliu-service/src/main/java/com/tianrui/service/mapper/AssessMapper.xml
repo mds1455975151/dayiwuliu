@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AssessMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.Assess" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="billid" property="billid" jdbcType="VARCHAR" />
+    <result column="timelystart" property="timelystart" jdbcType="VARCHAR" />
+    <result column="timelydelivery" property="timelydelivery" jdbcType="VARCHAR" />
+    <result column="timelyreturn" property="timelyreturn" jdbcType="VARCHAR" />
+    <result column="cardamage" property="cardamage" jdbcType="VARCHAR" />
+    <result column="transportaccident" property="transportaccident" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, billid, timelystart, timelydelivery, timelyreturn, cardamage, transportaccident, 
+    creator, createtime, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_bill_assess
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuliu_bill_assess
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.Assess" >
+    insert into wuliu_bill_assess (id, billid, timelystart, 
+      timelydelivery, timelyreturn, cardamage, 
+      transportaccident, creator, createtime, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{billid,jdbcType=VARCHAR}, #{timelystart,jdbcType=VARCHAR}, 
+      #{timelydelivery,jdbcType=VARCHAR}, #{timelyreturn,jdbcType=VARCHAR}, #{cardamage,jdbcType=VARCHAR}, 
+      #{transportaccident,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.Assess" >
+    insert into wuliu_bill_assess
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billid != null" >
+        billid,
+      </if>
+      <if test="timelystart != null" >
+        timelystart,
+      </if>
+      <if test="timelydelivery != null" >
+        timelydelivery,
+      </if>
+      <if test="timelyreturn != null" >
+        timelyreturn,
+      </if>
+      <if test="cardamage != null" >
+        cardamage,
+      </if>
+      <if test="transportaccident != null" >
+        transportaccident,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="billid != null" >
+        #{billid,jdbcType=VARCHAR},
+      </if>
+      <if test="timelystart != null" >
+        #{timelystart,jdbcType=VARCHAR},
+      </if>
+      <if test="timelydelivery != null" >
+        #{timelydelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="timelyreturn != null" >
+        #{timelyreturn,jdbcType=VARCHAR},
+      </if>
+      <if test="cardamage != null" >
+        #{cardamage,jdbcType=VARCHAR},
+      </if>
+      <if test="transportaccident != null" >
+        #{transportaccident,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Assess" >
+    update wuliu_bill_assess
+    <set >
+      <if test="billid != null" >
+        billid = #{billid,jdbcType=VARCHAR},
+      </if>
+      <if test="timelystart != null" >
+        timelystart = #{timelystart,jdbcType=VARCHAR},
+      </if>
+      <if test="timelydelivery != null" >
+        timelydelivery = #{timelydelivery,jdbcType=VARCHAR},
+      </if>
+      <if test="timelyreturn != null" >
+        timelyreturn = #{timelyreturn,jdbcType=VARCHAR},
+      </if>
+      <if test="cardamage != null" >
+        cardamage = #{cardamage,jdbcType=VARCHAR},
+      </if>
+      <if test="transportaccident != null" >
+        transportaccident = #{transportaccident,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.Assess" >
+    update wuliu_bill_assess
+    set billid = #{billid,jdbcType=VARCHAR},
+      timelystart = #{timelystart,jdbcType=VARCHAR},
+      timelydelivery = #{timelydelivery,jdbcType=VARCHAR},
+      timelyreturn = #{timelyreturn,jdbcType=VARCHAR},
+      cardamage = #{cardamage,jdbcType=VARCHAR},
+      transportaccident = #{transportaccident,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="queryAssessByBillId" resultType="com.tianrui.service.bean.Assess" parameterType="java.lang.String">
+  	select <include refid="Base_Column_List"/>
+  	from wuliu_bill_assess
+  	where billid = #{billid,jdbcType=VARCHAR}
+  </select>
+  <select id="queryAssessByVenderId" resultType="com.tianrui.service.bean.Assess" parameterType="java.util.Map">
+  	select a.*
+  	from wuliu_bill_assess a LEFT JOIN wuliu_bill b
+  	ON a.billid = b.id
+  	where b.venderid = #{venderid,jdbcType=VARCHAR} and b.venderdelflag = 0
+  		and b.createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT} 
+  		and b.createtime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
+  </select>
+</mapper>

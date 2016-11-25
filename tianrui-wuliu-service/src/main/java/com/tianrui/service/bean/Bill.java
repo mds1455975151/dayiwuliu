@@ -79,6 +79,8 @@ public class Bill {
     
     //实收（卸货量）
     private Double signweight;
+    //是否已评价（0：否，1：是）
+    private String isAssess;
     
     public String getId() {
         return id;
@@ -1150,6 +1152,14 @@ public class Bill {
 
 	public void setSignweight(Double signweight) {
 		this.signweight = signweight;
+	}
+
+	public String getIsAssess() {
+		return isAssess;
+	}
+
+	public void setIsAssess(String isAssess) {
+		this.isAssess = isAssess;
 	}
 
 }

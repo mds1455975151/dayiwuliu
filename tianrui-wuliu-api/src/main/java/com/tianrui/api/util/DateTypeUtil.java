@@ -22,4 +22,20 @@ public class DateTypeUtil {
 		}
 		return value;
 	}
+	
+	public static String StringNumTo2decimal(String num){
+		if(num != null){
+			return new BigDecimal(num).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+		}else{
+			return null;
+		}
+	}
+	
+	public static String DoubleNumTo2decimal(Double num){
+		if(num != null){
+			return new BigDecimal(num).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+		}else{
+			return null;
+		}
+	}
 }
