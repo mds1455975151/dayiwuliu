@@ -95,8 +95,8 @@ function dyindex(){
 				},
 				plotOptions: {
 					pie: {
-						innerSize: 150,
-						depth: 14
+						innerSize: 140,
+						depth: 45
 					}
 				},
 				series: [{
@@ -204,8 +204,8 @@ function indexMap(){
         },
         colorAxis: {
             min: 0,
-            minColor: '#030d24',
-            maxColor: '#665366',
+            minColor: '#2853bb',
+            maxColor: '#030d24',
             labels:{
                 style:{
                     "color":"red","fontWeight":"bold"

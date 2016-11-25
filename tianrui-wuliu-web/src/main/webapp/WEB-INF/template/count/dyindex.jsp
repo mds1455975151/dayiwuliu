@@ -29,10 +29,8 @@
             </div>
             <div class="car">
                 <h4>车型分布</h4>
-                <div id="car" style="width: 580px; height: 250px; ">
+                <div id="car" style="width: 580px; height: 260px; ">
                 </div>
-                
-
             </div>
         </div>
         <div class="tj_right">
@@ -48,7 +46,7 @@
     </div>
     <div class="tj_table">
         <h4>物流平台运输线路统计<input type="hidden" id="showvalue"></h4>
-        <table class="table table-bordered" style="margin-top: -10px" id="table_0">
+        <table class="table table-bordered" id="table_0">
             <thead>
             <tr>
                 <th rowspan="2">运输业务	</th>
@@ -84,7 +82,7 @@
             </tbody>
         </table>
         
-        <table class="table table-bordered" style="margin-top: -10px" id="table_1">
+        <table class="table table-bordered"  id="table_1">
             <thead>
             <tr>
                 <th rowspan="2">运输业务	</th>
@@ -119,7 +117,7 @@
             </tbody>
         </table>
        
-        <table class="table table-bordered" style="margin-top: -10px" id="table_2">
+        <table class="table table-bordered"  id="table_2">
             <thead>
             <tr>
                 <th rowspan="2">运输业务	</th>
@@ -153,7 +151,7 @@
             <tbody id="html_table_2">
             </tbody>
         </table>
-        <table class="table table-bordered" style="margin-top: -10px" id="table_3">
+        <table class="table table-bordered"  id="table_3">
             <thead>
             <tr>
                 <th rowspan="2">运输业务	</th>
@@ -187,7 +185,7 @@
             <tbody id="html_table_3">
             </tbody>
         </table>
-        <table class="table table-bordered" style="margin-top: -10px" id="table_4">
+        <table class="table table-bordered" id="table_4">
             <thead>
             <tr>
                 <th rowspan="2">运输业务	</th>
@@ -221,7 +219,7 @@
             <tbody id="html_table_4">
             </tbody>
         </table>
-        <table class="table table-bordered" style="margin-top: -10px" id="table_5">
+        <table class="table table-bordered"  id="table_5">
             <thead>
             <tr>
                 <th rowspan="2">运输业务	</th>
