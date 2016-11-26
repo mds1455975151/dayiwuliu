@@ -129,6 +129,12 @@ function getNodeList(menu) {
 		} else if (nodesList[i].nodename == "车主信用评级表"){
 			_i.removeAttr("class");
 			_i.addClass("iconfont").html('&#xe63f;');
+		} else if(nodesList[i].nodename == "统计图形管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe640;');
+		}else if(nodesList[i].nodename == "统计路线管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfont").html('&#xe641;');
 		}
 		href.append(_i).append(span);
 		li.append(href);
