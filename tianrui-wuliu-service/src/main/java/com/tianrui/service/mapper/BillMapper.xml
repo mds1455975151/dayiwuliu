@@ -409,7 +409,7 @@
 		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
 		#{isClearing,jdbcType=VARCHAR}, #{pathID,jdbcType=VARCHAR}, 
 		#{pickupweight,jdbcType=DOUBLE}, #{signweight,jdbcType=DOUBLE},
-		#{isAssess,jdbcType=VARCHAR},
+		#{isAssess,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -950,7 +950,7 @@
 		isClearing = #{isClearing,jdbcType=VARCHAR},
 		pathID = #{pathID,jdbcType=VARCHAR},
 		pickupweight = #{pickupweight,jdbcType=DOUBLE},
-		signweight = #{signweight,jdbcType=DOUBLE}
+		signweight = #{signweight,jdbcType=DOUBLE},
 		isAssess = #{isAssess,jdbcType=VARCHAR}
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
