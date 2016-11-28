@@ -55,6 +55,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     	<option value="3">货物分布</option>
                                     	<option value="4">车辆总数</option>
                                     	<option value="5">线路总数 </option>
+                                    	<option value="7">运单统计 </option>
+                                    	<option value="8">运费统计 </option>
                                     </select>
                                 </div>
                             </div>
