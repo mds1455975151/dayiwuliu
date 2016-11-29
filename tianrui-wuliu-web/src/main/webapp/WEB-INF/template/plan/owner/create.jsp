@@ -170,13 +170,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <div class="good_time ">
                         <label>开始时间：</label>
-                        <input type="text" id="begintime" name="starttimeStr" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'endtime\')}'})" class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="begintime" name="starttimeStr" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'endtime\')}',minDate: '${nowTime}'})" class="Wdate_plan" style="width:390px" />
                     </div>
                 </div>
                 <div class="goods_line">
                     <div class="good_time">
                         <label>结束时间：</label>
-                        <input type="text" id="endtime" name="endtimeStr" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'begintime\')}'})" class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="endtime" name="endtimeStr" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'begintime\') || \'${nowTime}\'}'})" class="Wdate_plan" style="width:390px" />
                     </div>
                 </div>
                 <div class="goods_line">

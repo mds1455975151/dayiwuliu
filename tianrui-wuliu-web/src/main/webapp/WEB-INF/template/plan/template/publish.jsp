@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input type="hidden" name="freightid" value="${plan.freightid }" />
                 <input type="hidden" name="routeid" value="${plan.routeid }" />
                 <input type="hidden" name="cargoid" value="${plan.cargoid }" />
+                <input type="hidden" name="nowTime" value="${nowTime }">
                 <div class="goods_line">
                     <div class="plan_table">
                         <table class="table " >
@@ -136,13 +137,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <div class="good_time mr20">
                         <label>开始时间：</label>
-                        <input type="text" id="begintime" name="starttimeStr" value="${plan.starttimeStr}:00" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'endtime\')}'})" class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="begintime" name="starttimeStr" value="${plan.starttimeStr}:00" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'endtime\')}',minDate: '${nowTime}'})" class="Wdate_plan" style="width:390px" />
                     </div>
                 </div>
                 <div class="goods_line">
                     <div class="good_time">
                         <label>结束时间：</label>
-                        <input type="text" id="endtime" name="endtimeStr" value="${plan.endtimeStr}:00" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'begintime\')}'})" class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="endtime" name="endtimeStr" value="${plan.endtimeStr}:00" readOnly onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'begintime\') || \'${nowTime}\'}'})" class="Wdate_plan" style="width:390px" />
                     </div>
                 </div>
                 <div class="goods_line">

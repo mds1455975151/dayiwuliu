@@ -95,6 +95,14 @@ $(function(){
 			alert("请选择车主.");
 			return false;
 		}
+		if(new Date($('#begintime').val()).getTime() < new Date($('#nowTime').val())){
+			alert("开始时间不能小于当前时间");
+			return false;
+		}
+		if(new Date($('#begintime').val()).getTime() >= new Date($('#endtime').val()).getTime()){
+			alert("开始时间不能小于当前时间");
+			return false;
+		}
 		return true;
 	}
 	

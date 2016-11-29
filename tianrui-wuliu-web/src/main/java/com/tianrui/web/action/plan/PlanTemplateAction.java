@@ -16,6 +16,7 @@ import com.tianrui.api.req.front.cargoplan.PlanTemplateReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.common.constants.Constant;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.AuthValidation;
@@ -59,6 +60,7 @@ public class PlanTemplateAction {
 		req2.setMemberId(currUser.getId());
 		List<MemberOwnerResp> ownerResp = memberOwnerService.queryMyVehiOwnerByCondition(req2);
 		model.addObject("ownerResp",ownerResp);
+		model.addObject("nowTime", DateUtil.getDateString());
 		return model;
 	}
 	//详情

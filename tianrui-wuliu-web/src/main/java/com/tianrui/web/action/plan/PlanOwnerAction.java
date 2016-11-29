@@ -35,6 +35,7 @@ import com.tianrui.api.resp.front.cargoplan.RouteResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.AuthValidation;
@@ -148,7 +149,7 @@ public class PlanOwnerAction {
 		ModelAndView model=new ModelAndView("plan/owner/create");
 		MemberVo currUser =SessionManager.getSessionMember(request);
 		model.addObject("currUser",currUser);
-		
+		model.addObject("nowTime", DateUtil.getDateString());
 		MemberOwnerReq req = new MemberOwnerReq();
 		req.setMemberId(currUser.getId());
 		req.setStatus("1");//0-待确认，1-已同意，2-已拒绝
