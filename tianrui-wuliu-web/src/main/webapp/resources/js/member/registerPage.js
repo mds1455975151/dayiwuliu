@@ -107,7 +107,7 @@ $("#idcode_button").click(function() {
 //【立即注册】按钮绑定点击事件
 $("#register_button").click(function() {
 	if(!$("input[type='checkbox']").is(':checked')){
-		$("#modal_common_content").html("请同意天瑞物流平台服务协议");
+		$("#modal_common_content").html("请同意大易物流平台服务协议");
 		$("#commonModal").modal();
 		return;
 	}

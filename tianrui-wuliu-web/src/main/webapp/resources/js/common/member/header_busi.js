@@ -33,7 +33,7 @@ $(function() {
 	} else {
 		name = cellPhone;
 	}
-	$("#header_welcome").html(name + "，欢迎来到天瑞物流！");
+	$("#header_welcome").html(name + "，欢迎来到大易物流！");
 	$("#header_loginHref").hide();
 	$("#header_registerHref").hide();
 	

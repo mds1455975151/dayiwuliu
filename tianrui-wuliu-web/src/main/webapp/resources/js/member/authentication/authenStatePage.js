@@ -100,7 +100,7 @@ $("#perAuthen_button").click(function() {
 		return;
 	}
 	if (!$("#perAuthen_checkbox").is(":checked")) {
-		alert("请阅读并同意《天瑞物流平台》的协议！");
+		alert("请阅读并同意《大易物流平台》的协议！");
 		return;
 	}
 	var formData = new FormData();

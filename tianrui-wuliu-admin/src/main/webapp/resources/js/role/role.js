@@ -435,7 +435,7 @@ $('#setyemian').on('shown.bs.modal', function (e) {
 								.attr("name", "level1")
 									.attr("value", "")
 										.attr("checked", "true");
-			var span1 = $("<span></span>").append(i1).append(input1).append("天瑞物流平台");
+			var span1 = $("<span></span>").append(i1).append(input1).append("大易物流平台");
 			var li1 = $("<li></li>").append(span1);
 			var ul1 = $("<ul></ul>");
 			for (var i = 0; i < menuList.length; i++) {
@@ -602,7 +602,7 @@ $('#detail').on('shown.bs.modal', function (e) {
 			var ul = $("<ul></ul>");
 			// level1
 			var i1 = $("<i></i>").addClass("iconf-folder-open");
-			var span1 = $("<span></span>").append(i1).append("天瑞物流平台");
+			var span1 = $("<span></span>").append(i1).append("大易物流平台");
 			var li1 = $("<li></li>").append(span1);
 			var ul1 = $("<ul></ul>");
 			for (var i = 0; i < menuList.length; i++) {

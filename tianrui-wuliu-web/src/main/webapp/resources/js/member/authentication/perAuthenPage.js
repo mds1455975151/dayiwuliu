@@ -122,7 +122,7 @@ $("#perAuthen_button").click(function() {
 		$("#commonModal").modal();
 		return;
 	}  else if (!$("#perAuthen_checkbox").is(":checked")) {
-		$("#modal_common_content").html("请阅读并同意《天瑞物流平台》的协议！");
+		$("#modal_common_content").html("请阅读并同意《大易物流平台》的协议！");
 		$("#commonModal").modal();
 		return;
 	}

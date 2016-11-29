@@ -112,7 +112,7 @@ $("#corpAuthen_button").click(function() {
 		$("#message_corpAuthenTel").html("联系人电话不能为空！");
 		return;
 	} else if (!$("#corpAuthen_checkbox").is(":checked")) {
-		$("#modal_common_content").html("请阅读并同意《天瑞物流平台》的协议！");
+		$("#modal_common_content").html("请阅读并同意《大易物流平台》的协议！");
 		$("#commonModal").modal();
 		return;
 	} else if(!file_yyzz){

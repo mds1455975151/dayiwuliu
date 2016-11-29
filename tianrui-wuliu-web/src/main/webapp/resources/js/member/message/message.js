@@ -69,7 +69,7 @@ $(function(){
 					}else{
 						hm+= '<div class="nodata">';
 						hm+= '<img src="'+trImgRoot+'/none_m.png">';
-						hm+= '<h3>欢迎您登陆天瑞物流系统，暂无消息</h3>';
+						hm+= '<h3>欢迎您登陆大易物流系统，暂无消息</h3>';
 						hm+= '</div>';
 						$("#messagelist").html(hm);
 					}
