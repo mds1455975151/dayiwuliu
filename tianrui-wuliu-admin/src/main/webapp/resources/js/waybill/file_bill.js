@@ -110,7 +110,7 @@ function innerHTML(data){
 		"<td>"+sta+"</td>"+
 		"<td><span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【查看详情】</a></span>"+
 		(data[a].status == "6"&&data[a].isClearing=="0"? "<span><a  data-toggle='modal' onclick=\"yunjia('"+data[a].id+"')\" data-target='#yunjia'>【运价确认】</a></span>":"")+
-		(data[a].isAssess == '1' ? '<span><a data-toggle="modal" onclick="showAssess(\''+data[a].id+'\')" data-target="#showAssess">【查看评价】</a></span>' : '<span><a data-toggle="modal" onclick="billAssess(\''+data[a].id+'\')" data-target="#assess">【信用评价】</a></span>')+
+		(data[a].status == "6" ? (data[a].isAssess == '1' ? '<span><a data-toggle="modal" onclick="showAssess(\''+data[a].id+'\')" data-target="#showAssess">【查看评价】</a></span>' : '<span><a data-toggle="modal" onclick="billAssess(\''+data[a].id+'\')" data-target="#assess">【信用评价】</a></span>') : "")+
 //		"<span><a data-toggle='modal' data-target='#tingyong'>停用</a></span>" +
 		"</td>";
 	}
