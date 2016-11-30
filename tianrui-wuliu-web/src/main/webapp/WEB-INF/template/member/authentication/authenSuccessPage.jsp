@@ -69,6 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var PATH = "${path}";
 	var loginName = "<%= member.getLoginName() %>";
 	var cellPhone = "<%= member.getCellPhone() %>";
+	
 </script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="/resources/js/member/authentication/corpAuthenPage.js" ></script>
