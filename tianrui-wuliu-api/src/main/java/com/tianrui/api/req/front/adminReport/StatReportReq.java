@@ -1,8 +1,5 @@
 package com.tianrui.api.req.front.adminReport;
 
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.apache.commons.lang.time.DateUtils;
-
 import com.tianrui.api.req.BaseReq;
 import com.tianrui.common.utils.DateUtil;
 
@@ -19,6 +16,8 @@ public class StatReportReq extends BaseReq {
 	private String endtimeStr;
 	//货物名称
 	private String cargoname;
+	//运输路线
+	private String routename;
 	//计划编号
 	private String plancode;
 	//组织id
@@ -59,6 +58,12 @@ public class StatReportReq extends BaseReq {
 	}
 	public void setCargoname(String cargoname) {
 		this.cargoname = cargoname;
+	}
+	public String getRoutename() {
+		return routename;
+	}
+	public void setRoutename(String routename) {
+		this.routename = routename;
 	}
 	public String getPlancode() {
 		return plancode;

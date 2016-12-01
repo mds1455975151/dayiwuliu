@@ -46,6 +46,7 @@
 		});
 		$('.reset').off('click').on('click',function(){
 			$('#cargoname').val('');
+			$('#routename').val('');
 			$('#orgid').val('');
 			$('#orgid').removeAttr('orgid');
 			$('#plancode').val('');
@@ -94,6 +95,7 @@
 	//获取查询参数
 	function getParams(pageNo){
 		var cargoname = $('#cargoname').val() || '';cargoname = $.trim(cargoname);
+		var routename = $('#routename').val() || '';routename = $.trim(routename);
 		var orgName = $('#orgid').val() || '';orgName = $.trim(orgName);
 		var orgid = '';
 		if(orgName){
@@ -105,6 +107,7 @@
 		var pageSize = $('#pageSize').val() || 10;pageSize = $.trim(pageSize);
 		return {
 			cargoname:cargoname,
+			routename:routename,
 			orgid:orgid,
 			plancode:plancode,
 			starttimeStr:starttime,
@@ -162,8 +165,8 @@
 				var vehicleno = obj.vehicleno || '';
 				var driverName = obj.driverName || '';
 				var cargoName = obj.cargoName || '';
-				var starttimeStr = obj.starttimeStr || '';
-				var endtimeStr = obj.endtimeStr || '';
+				var starttime = obj.starttime || '';
+				var endtime = obj.endtime || '';
 				var routeName = obj.routeName || '';
 				var weight = obj.weight || '';
 				if(weight){
@@ -209,8 +212,8 @@
 							   .append('<td>'+vehicleno+'</td>')
 							   .append('<td>'+driverName+'</td>')
 							   .append('<td>'+cargoName+'</td>')
-							   .append('<td>'+starttimeStr+'</td>')
-							   .append('<td>'+endtimeStr+'</td>')
+							   .append('<td>'+starttime+'</td>')
+							   .append('<td>'+endtime+'</td>')
 							   .append('<td>'+routeName+'</td>')
 							   .append('<td>'+weight+'</td>')
 							   .append('<td>'+trueweight+'</td>')

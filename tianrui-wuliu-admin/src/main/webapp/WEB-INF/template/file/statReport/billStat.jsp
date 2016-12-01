@@ -48,9 +48,6 @@
 								</div>
 							</c:if>
 							<div class="ht_div">
-								<label>计划单号：</label> <input id="plancode" type="text" placeholder="请输入计划单号">
-							</div>
-							<div class="ht_div">
 								<label>日期：</label> <input id="starttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
@@ -61,6 +58,14 @@
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" type="submit">搜索</button>
 								<button class="btn btngreen reset" type="submit">重置</button>
+							</div>
+						</div>
+						<div class="contuser_search">
+							<div class="ht_div">
+								<label>运输路线：</label> <input id="routename" type="text" placeholder="请输入运单路线">
+							</div>
+							<div class="ht_div">
+								<label>计划单号：</label> <input id="plancode" type="text" placeholder="请输入计划单号">
 							</div>
 						</div>
 					</div>
@@ -95,7 +100,7 @@
 										<th>序号</th>
 	                                    <th>计划单号</th>
 	                                    <th>运单号</th>
-	                                    <th>货主名称</th>
+	                                    <th>发货员名称</th>
 	                                    <th>车主名称</th>
 	                                    <th>车牌号</th>
 	                                    <th>司机姓名</th>

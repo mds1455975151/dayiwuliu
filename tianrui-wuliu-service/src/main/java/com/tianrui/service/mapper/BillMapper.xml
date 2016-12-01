@@ -1182,6 +1182,9 @@
 			<if test="cargoname != null and cargoname != ''">
 				AND b.cargoname like '%${cargoname}%'
 			</if>
+			<if test="routename != null and routename != ''">
+				AND r.routename like '%${routename}%'
+			</if>
 			<if test="orgid != null and orgid != ''">
 				AND m.orgid = #{orgid,jdbcType=VARCHAR}
 			</if>
@@ -1218,6 +1221,9 @@
 			<if test="cargoname != null and cargoname != ''">
 				AND b.cargoname like '%${cargoname}%'
 			</if>
+			<if test="routename != null and routename != ''">
+				AND r.routename like '%${routename}%'
+			</if>
 			<if test="orgid != null and orgid != ''">
 				AND m.orgid = #{orgid,jdbcType=VARCHAR}
 			</if>
@@ -1251,6 +1257,9 @@
 			b.ownerDelFlag=0 AND b.venderDelFlag=0 AND b.driverdelflag=0 AND b.type != 2
 			<if test="cargoname != null and cargoname != ''">
 				AND b.cargoname like '%${cargoname}%'
+			</if>
+			<if test="routename != null and routename != ''">
+				AND r.routename like '%${routename}%'
 			</if>
 			<if test="orgid != null and orgid != ''">
 				AND m.orgid = #{orgid,jdbcType=VARCHAR}

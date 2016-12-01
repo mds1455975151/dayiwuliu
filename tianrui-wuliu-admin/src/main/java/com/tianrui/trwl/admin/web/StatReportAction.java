@@ -381,8 +381,8 @@ public class StatReportAction {
 		row.createCell(5).setCellValue(obj.getVehicleno());
 		row.createCell(6).setCellValue(obj.getDriverName());
 		row.createCell(7).setCellValue(obj.getCargoName());
-		row.createCell(8).setCellValue(obj.getStarttimeStr());
-		row.createCell(9).setCellValue(obj.getEndtimeStr());
+		row.createCell(8).setCellValue(obj.getStarttime());
+		row.createCell(9).setCellValue(obj.getEndtime());
 		row.createCell(10).setCellValue(obj.getRouteName());
 		if(StringUtils.isNotBlank(obj.getWeight())){
 			row.createCell(11).setCellValue(new BigDecimal(obj.getWeight()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());

@@ -27,10 +27,8 @@ public class StatReportOfBillResp {
 	private String consignortel;
 	private String receivername;
 	private String receivertel;
-	private Long starttime;
-	private String starttimeStr;
-	private Long endtime;
-	private String endtimeStr;
+	private String starttime;
+	private String endtime;
 	private String weight;
 	private String trueweight;
 	private String pickupimgurl;
@@ -180,31 +178,17 @@ public class StatReportOfBillResp {
 	public void setReceivertel(String receivertel) {
 		this.receivertel = receivertel;
 	}
-	public Long getStarttime() {
+	public String getStarttime() {
 		return starttime;
 	}
-	public void setStarttime(Long starttime) {
+	public void setStarttime(String starttime) {
 		this.starttime = starttime;
-		this.setStarttimeStr(DateFormatUtils.format(starttime, "yyyy-MM-dd HH:mm:ss"));
 	}
-	public String getStarttimeStr() {
-		return starttimeStr;
-	}
-	public void setStarttimeStr(String starttimeStr) {
-		this.starttimeStr = starttimeStr;
-	}
-	public Long getEndtime() {
+	public String getEndtime() {
 		return endtime;
 	}
-	public void setEndtime(Long endtime) {
+	public void setEndtime(String endtime) {
 		this.endtime = endtime;
-		this.setEndtimeStr(DateFormatUtils.format(endtime, "yyyy-MM-dd HH:mm:ss"));
-	}
-	public String getEndtimeStr() {
-		return endtimeStr;
-	}
-	public void setEndtimeStr(String endtimeStr) {
-		this.endtimeStr = endtimeStr;
 	}
 	public String getWeight() {
 		return weight;
