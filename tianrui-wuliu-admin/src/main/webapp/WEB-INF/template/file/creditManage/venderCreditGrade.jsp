@@ -31,7 +31,7 @@
             <div class="ht_content">
                 <div id="content-header">
                     <div class="tj_honorma">
-                    <h3>车主信用月报表</h3>
+                    <h3>车主信用评级表</h3>
                         <select id="credityear"></select><label>年</label>
                         <select id="creditmonth"></select><label>月</label>
                         <button class="btn btnblue searchCredit">搜索</button>

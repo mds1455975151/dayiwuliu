@@ -34,7 +34,7 @@ public class CreditManageService implements ICreditManageService {
 				int year = c.get(Calendar.YEAR);
 				int month = c.get(Calendar.MONTH) + 1;
 				String credityear = String.valueOf(year);
-				String creditmonth = String.valueOf(month > 10 ? month : "0"+month);
+				String creditmonth = String.valueOf(month >= 10 ? month : "0"+month);
 				cm.setCredityear(credityear);
 				cm.setCreditmonth(creditmonth);
 			}else{

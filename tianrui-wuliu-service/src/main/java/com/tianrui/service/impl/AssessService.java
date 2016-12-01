@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.intf.IAssessService;
 import com.tianrui.api.req.front.bill.BillAssessReq;
@@ -44,6 +45,7 @@ public class AssessService implements IAssessService {
 	@Autowired
 	private CreditScoreMapper creditScoreMapper;
 
+	@Transactional
 	@Override
 	public int saveAssess(BillAssessReq req) throws Exception {
 		if(req != null){
@@ -62,7 +64,7 @@ public class AssessService implements IAssessService {
 			int year = c.get(Calendar.YEAR);
 			int month = c.get(Calendar.MONTH) + 1;
 			String credityear = String.valueOf(year);
-			String creditmonth = String.valueOf(month > 10 ? month : "0"+month);
+			String creditmonth = String.valueOf(month >= 10 ? month : "0"+month);
 			CreditManage cm = new CreditManage();
 			cm.setVenderid(bill.getVenderid());
 			cm.setCredityear(credityear);
