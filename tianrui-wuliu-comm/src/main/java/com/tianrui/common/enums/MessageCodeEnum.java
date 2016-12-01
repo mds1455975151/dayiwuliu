@@ -12,7 +12,6 @@ public enum MessageCodeEnum {
 	PLAN_2VENDER_APPOINT(32,"货运计划[<_>]已被用户(<_>)委派给您，请查看详情",2),
 	//发送给货主
 	PLAN_2OWNER_CREATE(50,"货运计划[<_>]已被您创建成功，请查看详情",3),
-	PLAN_2OWNER_UPDATE(51,"货运计划[<_>]已被您修改成功，请查看详情",3),
 	PLAN_2OWNER_ACCEPT(52,"货运计划[<_>]已被车主(<_>)接受,请查看详情",3),
 	PLAN_2OWNER_REFUSE(53,"货运计划[<_>]已被车主(<_>)拒绝,请查看详情",3),
 	
