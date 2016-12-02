@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!Doctype html>
 <html>
 <head>
@@ -40,7 +41,7 @@
                 <div class="data_big">
                     <h5>运输最热地点</h5>
                     <c:forEach items="${routemax }" var="aa">
-                    <p> ${aa.desc1 } ------ ${aa.sumdate } 个</p>
+                    <p> ${aa.desc1 } ------ <fmt:formatNumber type="number" value="${aa.sumdate }" maxFractionDigits="0"/> 个</p>
                    	</c:forEach>
                 </div>
             </div>
@@ -48,14 +49,14 @@
                 <div class="data_roadrt border_goods">
                     <h5>运输地点总数</h5>
                     <p>
-                        <label class="colorgreen">${route.sumdate }</label>
+                        <label class="colorgreen"><fmt:formatNumber type="number" value="${route.sumdate }" maxFractionDigits="0"/></label>
                         <span>个</span>
                     </p>
                 </div>
                 <div class="data_roadrb">
                     <h5>本月新增</h5>
                     <p>
-                        <label class="colorred">${route.sumdate - monthroute.sumdate}</label>
+                        <label class="colorred"><fmt:formatNumber type="number" value="${route.sumdate - monthroute.sumdate}" maxFractionDigits="0"/></label>
                         <span>个</span>
                     </p>
                 </div>

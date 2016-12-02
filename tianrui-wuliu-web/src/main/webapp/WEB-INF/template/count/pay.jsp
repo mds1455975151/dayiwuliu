@@ -31,11 +31,11 @@
                         <h5>运费总和</h5>
                         <label class="colorjy">￥
 						<fmt:formatNumber value="${pay.sumdate/10000 }" pattern="#.##" minFractionDigits="2" />
-						</label>万元
+						</label>万
                     </div>
                     <div class="clear"></div>
                     <div class="yunf_chart">
-                        <h5>元</h5>
+                   	 	<h5>万</h5>
                         <!--折线图-->
                         <div id="container" style="width: 790px; height: 280px; "></div>
                         <!--折线图-->
@@ -49,7 +49,7 @@
             </div>
             <ul>
             <c:forEach items="${paybill }" var="pb">
-                <li><label>${pb.showtimeStr }完成${pb.adddate }批订单</label><span>${pb.showtimeStr }</span></li>
+            	<li><label>${pb.showtimeStr }完成<fmt:formatNumber type="number" value="${pb.adddate }" maxFractionDigits="0"/>批订单</label><span>${pb.showtimeStr }</span></li>
             </c:forEach>
             </ul>
         </div>

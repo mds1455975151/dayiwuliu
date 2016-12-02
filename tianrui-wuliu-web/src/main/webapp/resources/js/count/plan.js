@@ -48,6 +48,11 @@ $(document).ready(function(){
 		            yAxis: {
 		                title: {
 		                    text: ' '
+		                },
+		                labels: {
+		                	formatter:function(){
+		                		return this.value;
+		                	}
 		                }
 		            },
 		            tooltip: {
@@ -80,6 +85,5 @@ $(document).ready(function(){
 			}
 		}
 	});    
-	
-
+	window.scrollTo(0,560);
 });

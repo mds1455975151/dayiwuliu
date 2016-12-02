@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!Doctype html>
 <html>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="data_jiaoyi">
                     <h5>运单总量</h5>
-                    <label class="colorjy">${bill.sumdate }单</label>
+                    <label class="colorjy"><fmt:formatNumber type="number" value="${bill.sumdate }" maxFractionDigits="0"/>单</label>
                 </div>
             </div>
         </div>

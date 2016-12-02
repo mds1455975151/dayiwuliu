@@ -25,6 +25,11 @@ $(document).ready(function(){
 		            yAxis: {
 		                title: {
 		                    text: ' ' //置空
+		                },
+		                labels: {
+		                	formatter:function (){   
+		                		return this.value/10000;   
+		                	}
 		                }
 		            },
 		            legend: {
@@ -52,16 +57,6 @@ $(document).ready(function(){
 				alert(rs.error);
 			}
 		}
-	});    
-	
-	$.ajax({
-		url : "/count/biLine",//
-		data : {},
-		type : "post",
-		success : function(rs){
-	
-		}
-		
-	});
-
+	}); 
+	window.scrollTo(0,560);
 });
