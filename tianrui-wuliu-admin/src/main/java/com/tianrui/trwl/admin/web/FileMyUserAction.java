@@ -26,6 +26,7 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
 import com.tianrui.trwl.admin.util.SessionManager;
+import com.tianrui.trwl.admin.util.WebManager;
 
 @Controller
 @RequestMapping("/file/filemyuser")
@@ -118,6 +119,8 @@ public class FileMyUserAction {
 			rs.setError("添加失败");
 			return rs;
 		};
+		//清除前台用户登录信息
+		WebManager.removeWebSession(list.get(0).getId(),list.get(0).getCellphone());
 		return rs;
 	}
 	/**
@@ -195,6 +198,8 @@ public class FileMyUserAction {
 		up.setId(list.get(0).getId());
 		up.setOrgid("");
 		systemMemberService.updateMember(up);
+		//清除前台用户登录信息
+		WebManager.removeWebSession(list.get(0).getId(),list.get(0).getCellphone());
 		return rs;
 	} 
 	/** 查询账号*/
