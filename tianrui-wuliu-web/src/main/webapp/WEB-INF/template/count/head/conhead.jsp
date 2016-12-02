@@ -32,6 +32,7 @@
             <div class="lg_reg">
                 <label class="colorblue">没有账号？</label>
                 <a href="/publicMember/registerPage" class="colorreg">立即注册</a>
+                <a href="/publicMember/lostPass" class="colorreg">忘记密码</a>
             </div>
             <div class="lg_btn" onclick="loginIn()">
                 <h4>立即登录</h4>

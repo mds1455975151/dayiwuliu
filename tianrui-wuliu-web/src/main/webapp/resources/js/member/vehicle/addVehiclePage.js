@@ -28,7 +28,7 @@ $(function() {
 	$("#file_djz_img").val("");
 	
 });
-
+var flag = true;
 // 车牌号失去焦点事件
 $("#vehicle_add_vehiNo").on("blur", function() {
 	
@@ -38,9 +38,10 @@ $("#vehicle_add_vehiNo").on("blur", function() {
 	var vehiNo = $("#vehicle_add_vehiNo").val();
 	if (vehiNo == "") {
 		$("#message_vehiNo").html("车牌号不能为空！");
+		flag = false;
 	} else if (!vehiReg.test(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
-		/*$("#vehicle_add_vehiNo").focus();*/
+		flag = false;
 	} else {
 		$.ajax({
 			url : PATH + '/trwuliu/Member/myVehicle/getMyVehicle',// 跳转到 action
@@ -53,9 +54,10 @@ $("#vehicle_add_vehiNo").on("blur", function() {
 			success : function(result){
 				if (result.data != null && result.data.length > 0) {
 					$("#message_vehiNo").html("车牌号已存在，请勿重复添加！");
-					/*$("#vehicle_add_vehiNo").focus();*/
+					flag = false;
 				} else {
 					$("#message_vehiNo").html("");
+					flag = true;
 				}
 			}
 		});
@@ -143,6 +145,11 @@ $("#vehicle_addBtn").click(function() {
 	if (!$.trim(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
+		return;
+	}
+	if(!flag){
+		$("#modal_common_content").html("车牌号有误请重新输入");
+		$("#commonModal").modal();
 		return;
 	}
 	if (!$.trim(vehiType) || $.trim(vehiType) == "0") {

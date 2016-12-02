@@ -225,9 +225,8 @@ public class PayInvoiceService implements IPayInvoiceService {
 		}else if(invoice.getPayStatus()!=(byte)0){
 			rs.setErrorCode(ErrorCode.PAY_DATA_PAY_ADVICE);
 		}else{
-			FileOrg org = fileOrgMapper.selectByPrimaryKey(invoice.getOrgid());
-			invoice.setOrgid(org.getOrganizationno());
-//			invoice.setVenderCode("410482569829868");
+			invoice.setOrgid(invoice.getOrgid());
+			invoice.setVenderCode("410482569829868");
 			String dataString = "payInvoice=" + JSON.toJSON(invoice).toString();
 			String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
 			if(dateStr.equals("000000")){
@@ -237,7 +236,7 @@ public class PayInvoiceService implements IPayInvoiceService {
 				payInvoiceMapper.updateByPrimaryKeySelective(upt);
 			}else{
 				rs.setCode("1");
-				rs.setError(dateStr);
+				rs.setError(ncErrorCode(dateStr));
 			}
 		}
 		return rs;
@@ -337,5 +336,54 @@ public class PayInvoiceService implements IPayInvoiceService {
 		} catch (Exception e) {
 			return "网络异常";
 		}
+	}
+	
+	public String ncErrorCode(String code){
+		String massage = "";
+		switch (code) {
+		case "NULL_40001":
+			massage = "发票类型不能为空";
+			break;
+		case "NULL_40002":
+			massage = "组织ID不能为空";
+			break;
+		case "NULL_40003":
+			massage = "车主身份证或组织机构编码不能为空";
+			break;
+		case "NULL_40004":
+			massage = "未查询到对应的客商信息";
+			break;
+		case "NULL_40005":
+			massage = "未查询到对应的银行账号";
+			break;
+		case "NULL_40006":
+			massage = "未查询到对应的组织信息";
+			break;
+		case "NULL_40007":
+			massage = "未查询到对应的组织信息";
+			break;
+		case "NULL_40008":
+			massage = "申请时间不能为空";
+			break;
+		case "NULL_40009":
+			massage = "发票类型不能为空";
+			break;
+		case "NULL_40010":
+			massage = "应付金额不能为空";
+			break;
+		case "NULL_40011":
+			massage = "发票号不能为空";
+			break;
+		case "NULL_40012":
+			massage = "根据单据号查不到对应的物流发票单";
+			break;
+		case "NULL_40013":
+			massage = "查不到单据对应支付信息";
+			break;
+		default:
+			massage = "网络异常";
+			break;
+		}
+		return massage;
 	}
 }

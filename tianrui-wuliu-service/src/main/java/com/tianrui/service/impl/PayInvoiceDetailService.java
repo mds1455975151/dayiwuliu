@@ -310,8 +310,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setPayCode(codeGenDao.codeGen(4));
 						
 						payInvoice.setOwnerId(item.getOwnerId());
-						FileOrg org = fileOrgMapper.selectByPrimaryKey(payInvoice.getOrgid());
-						payInvoice.setOrgid(org.getOrganizationno());
+						payInvoice.setOrgid(payInvoice.getOrgid());
 						payInvoice.setOrgName(item.getOrgName());
 						
 						payInvoice.setVenderId(item.getVenderId());

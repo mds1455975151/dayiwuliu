@@ -42,7 +42,7 @@ $(function() {
 	$("#vehiLiceImgBack_2").val(/*$("#vehiLiceImg").attr("src")*/"http://www.trwl.com/img/f1b936b661c247d89c10f3db6927c592.png");
 	$("#vehiLiceImgBack_3").val(/*$("#vehiLiceImg").attr("src")*/"http://www.trwl.com/img/f1b936b661c247d89c10f3db6927c592.png");
 });
-
+var flag = true;
 // 车牌号失去焦点事件
 $("#vehicle_add_vehiNo").on("blur", function() {
 	
@@ -52,10 +52,15 @@ $("#vehicle_add_vehiNo").on("blur", function() {
 	var vehiNo = $("#vehicle_add_vehiNo").val();
 	if (vehiNo == "") {
 		$("#message_vehiNo").html("车牌号不能为空！");
+		flag = false;
 	} else if (!vehiReg.test(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
 		/*$("#vehicle_add_vehiNo").focus();*/
-	} 
+		flag = false;
+	} else{
+		$("#message_vehiNo").html("");
+		flag = true;
+	}
 });
 
 // 车型失去焦点事件
@@ -140,6 +145,11 @@ $("#vehicle_addBtn").click(function() {
 	var registcode = $('#vehicle_add_registcode').val();
 	//机动车登记证图片
 	var file_djz = $('#file_djz_img').val();
+	if(!flag){
+		$("#modal_common_content").html("请输入正确的车牌号");
+		$("#commonModal").modal();
+		return;
+	}
 	if (!$.trim(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
@@ -176,6 +186,8 @@ $("#vehicle_addBtn").click(function() {
 //	}
 	if (!$.trim(opercode)) {
 		$("#message_opercode").html("请输入营运证号！");
+		$("#modal_common_content").html("请输入营运证号！");
+		$("#commonModal").modal();
 		return;
 	}
 	var formData = new FormData();

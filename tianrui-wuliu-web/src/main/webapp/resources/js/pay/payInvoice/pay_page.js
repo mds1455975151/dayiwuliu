@@ -165,7 +165,8 @@ function payInvoiceSave(id){
 			if(rs.code=="000000"){
 				index(1,0);
 			}else{
-				alert("操作失败，请稍后再试...");
+//				alert("操作失败，请稍后再试...");
+				alert(rs.error);
 			}
 		}
 	});
