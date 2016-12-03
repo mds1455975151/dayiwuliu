@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	$.ajax({
 		url : "/count/planLine",//
-		data : {},
+		data : {
+			"pageNo":0,
+			"pageSize":10
+		},
 		type : "post",
 		success : function(rs){
 			if(rs.code=="000000"){
@@ -13,12 +16,12 @@ $(document).ready(function(){
 				var sdata = [];
 				var sumCountPlan;
 				var addCountPlan;
-				for (var a = 0; a < add.length; a++) {
+				for (var a = 9; a >= 0; a--) {
 					atime.push(add[a].showtimeStr);
 					adata.push(add[a].adddate);
 					addCountPlan = add[a].adddate;
 				}
-				for (var a = 0; a < sum.length; a++) {
+				for (var a = 9; a >= 0; a--) {
 					stime.push(sum[a].showtimeStr);
 					sdata.push(sum[a].sumdate);
 					sumCountPlan = sum[a].sumdate;

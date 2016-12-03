@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	$.ajax({
 		url : "/count/payLine",//
-		data : {},
+		data : {
+			"pageNo":0,
+			"pageSize":10
+		},
 		type : "post",
 		success : function(rs){
 			var time = [];
@@ -10,7 +13,7 @@ $(document).ready(function(){
 				var ret = rs.data;
 				time = [];
 				data = [];
-				for (var a = 0; a < ret.length; a++) {
+				for (var a = 9; a >= 0; a--) {
 					time.push(ret[a].showtimeStr);
 					data.push(ret[a].adddate)
 				}

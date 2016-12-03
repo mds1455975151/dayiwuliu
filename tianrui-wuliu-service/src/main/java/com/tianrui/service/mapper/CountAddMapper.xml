@@ -36,7 +36,10 @@
      and showtime = #{showtime,jdbcType=BIGINT}
     </if>
     </where>
-    order by showtime
+    order by showtime desc
+    <if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_count_add

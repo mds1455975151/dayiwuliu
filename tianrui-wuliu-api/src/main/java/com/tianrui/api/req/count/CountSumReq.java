@@ -14,6 +14,10 @@ public class CountSumReq {
     private String stype;
     
     private String desc1;
+    
+    private Integer pageNo;
+    
+    private Integer pageSize;
 
 	public String getId() {
 		return id;
@@ -37,6 +41,22 @@ public class CountSumReq {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public String getRemark() {

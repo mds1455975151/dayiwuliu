@@ -47,7 +47,10 @@
     limit 3
     </if>
     <if test="stype == null">
-    order by showtime
+    order by showtime desc
+    </if>
+    <if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

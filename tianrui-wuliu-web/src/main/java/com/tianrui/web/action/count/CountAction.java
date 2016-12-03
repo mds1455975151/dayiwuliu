@@ -52,10 +52,9 @@ public class CountAction {
 	}
 	@RequestMapping("billLine")
 	@ResponseBody
-	public Result billLine() throws Exception{
+	public Result billLine(CountAddReq req) throws Exception{
 		//1-路线，2货运，3-车辆，4-交易，5-运费
 		Result rs = Result.getSuccessResult();
-		CountAddReq req = new CountAddReq();
 		req.setType("1");
 		List<CountAddResp> list = countAddService.selectByCondition(req);
 		rs.setData(list);
@@ -65,9 +64,8 @@ public class CountAction {
 	/** 运费
 	 * @throws Exception */
 	@RequestMapping("pay")
-	public ModelAndView pay() throws Exception{
+	public ModelAndView pay(CountAddReq req) throws Exception{
 		ModelAndView view = index();
-		CountAddReq req = new CountAddReq();
 		req.setType("6");
 		List<CountAddResp> list = countAddService.selectByCondition(req);
 		view.addObject("paybill", list);
@@ -78,9 +76,8 @@ public class CountAction {
 	 * @throws Exception */
 	@RequestMapping("payLine")
 	@ResponseBody
-	public Result payLine() throws Exception{
+	public Result payLine(CountAddReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		CountAddReq req = new CountAddReq();
 		req.setType("5");
 		List<CountAddResp> list = countAddService.selectByCondition(req);
 		rs.setData(list);
@@ -97,13 +94,17 @@ public class CountAction {
 	}
 	@RequestMapping("planLine")
 	@ResponseBody
-	public Result planLine() throws Exception{
+	public Result planLine(Integer pageNo,Integer pageSize) throws Exception{
 		Result rs = Result.getSuccessResult();
 		//1-路线，2货运，3-车辆，4-交易，5-运费
 		CountAddReq req = new CountAddReq();
+		req.setPageNo(pageNo);
+		req.setPageSize(pageSize);
 		req.setType("2");
 		List<CountAddResp> alist = countAddService.selectByCondition(req);
 		CountSumReq sum = new CountSumReq();
+		sum.setPageNo(pageNo);
+		sum.setPageSize(pageSize);
 		sum.setType("2");
 		List<CountSumResp> slist = countSumService.selectByCondition(sum);
 		Map<String,List> map = new HashMap<String,List>();
@@ -131,9 +132,8 @@ public class CountAction {
 	}
 	@RequestMapping("routeLine")
 	@ResponseBody
-	public Result routeLine(String routename) throws Exception{
+	public Result routeLine(CountSumReq sum ,String routename) throws Exception{
 		Result rs = Result.getSuccessResult();
-		CountSumReq sum = new CountSumReq();
 		sum.setShowtime(getDay());
 		sum.setType("8");
 		sum.setStype("route");
@@ -153,15 +153,19 @@ public class CountAction {
 	}
 	@RequestMapping("vehicleLine")
 	@ResponseBody
-	public Result vehicleLine() throws Exception{
+	public Result vehicleLine(Integer pageNo,Integer pageSize) throws Exception{
 		Result rs = Result.getSuccessResult();
 		//TODO
 		//1-路线，2货运，3-车辆，4-交易，5-运费
 		CountAddReq req = new CountAddReq();
+		req.setPageNo(pageNo);
+		req.setPageSize(pageSize);
 		req.setType("3");
 		List<CountAddResp> alist = countAddService.selectByCondition(req);
 		CountSumReq sum = new CountSumReq();
 		sum.setType("6");
+		sum.setPageNo(pageNo);
+		sum.setPageSize(pageSize);
 		List<CountSumResp> actlist = countSumService.selectByCondition(sum);
 		Map<String,List> map = new HashMap<String,List>();
 		map.put("add", alist);
@@ -254,16 +258,4 @@ public class CountAction {
 		c.set(Calendar.MILLISECOND, 0);
 		return c.getTimeInMillis();
 	}
-	
-	public static void main(String[] args) {
-		//1478793600000
-		//1477756800000
-		long a;
-		a = Long.parseLong("1475251200000");
-		
-		Date date = new Date(a);
-		String format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
-		System.out.println(format);
-	}
-	
 }

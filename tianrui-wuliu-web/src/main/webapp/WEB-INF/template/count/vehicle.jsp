@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${trRoot}/tianrui/js/highcharts-map.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
-<script type="text/javascript" src="/resources/js/count/vehicle.js"></script>
+<script type="text/javascript" src="/resources/js/count/vehicle.js?12.3"></script>
 
 </body>
 </html>

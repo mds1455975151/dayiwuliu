@@ -70,7 +70,7 @@
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
-<script type="text/javascript" src="/resources/js/count/plan.js"></script>
+<script type="text/javascript" src="/resources/js/count/plan.js?12.3"></script>
 
 
 </body>

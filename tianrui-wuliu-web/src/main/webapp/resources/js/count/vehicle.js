@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	$.ajax({
 		url : "/count/vehicleLine",//
-		data : {},
+		data : {
+			"pageNo":0,
+			"pageSize":10
+		},
 		type : "post",
 		success : function(rs){
 			if(rs.code=="000000"){
@@ -13,11 +16,11 @@ $(document).ready(function(){
 				var sdata = [];
 				var pais  = parseFloat($("#paivechiclesum").val())-parseFloat($("#paivechicleact").val());
 				var paia  = parseFloat($("#paivechicleact").val());
-				for (var a = 0; a < add.length; a++) {
+				for (var a = 9; a >= 0; a--) {
 					atime.push(add[a].showtimeStr);
 					adata.push(add[a].adddate)
 				}
-				for (var a = 0; a < sum.length; a++) {
+				for (var a = 9; a >= 0; a--) {
 					stime.push(sum[a].showtimeStr);
 					sdata.push(sum[a].sumdate)
 				}

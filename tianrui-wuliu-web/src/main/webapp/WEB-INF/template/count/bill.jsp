@@ -27,7 +27,7 @@
         </div>
         <div class="data_roadall">
             <div class="goods_chart">
-                <h5>元</h5>
+                <h5>趟</h5>
                 <!--折线图-->
                 <div id="line3" style="width: 988px; height:250px;"></div>
                 <!--折线图-->
@@ -62,7 +62,7 @@
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/highcharts-cn-china.js" charset="utf-8"></script>
-<script type="text/javascript" src="/resources/js/count/bill.js"></script>
+<script type="text/javascript" src="/resources/js/count/bill.js?12.3"></script>
 
 </body>
 </html>

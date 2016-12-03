@@ -65,6 +65,6 @@
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/228/zroo4bdf/cn-china-by-peng8.js"></script>
-<script type="text/javascript" src="/resources/js/count/pay.js"></script>
+<script type="text/javascript" src="/resources/js/count/pay.js?12.3"></script>
 </body>
 </html>

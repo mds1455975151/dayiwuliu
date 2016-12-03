@@ -1,7 +1,10 @@
 $(document).ready(function(){
 	$.ajax({
 		url : "/count/billLine",//
-		data : {},
+		data : {
+			"pageNo":0,
+			"pageSize":10
+		},
 		type : "post",
 		success : function(rs){
 			var time = [];
@@ -11,14 +14,14 @@ $(document).ready(function(){
 				time = [];
 				data = [];
 				var sumbill;
-				for (var a = 0; a < ret.length; a++) {
+				for (var a = 9; a >= 0; a--) {
 					time.push(ret[a].showtimeStr);
 					data.push(ret[a].adddate);
 					sumbill = ret[a].adddate;
 					
 				}
-				$("#todaybill").html(sumbill+"单");
-				$("#ytodaybill").html(ret[(ret.length-1)].adddate+"单");
+				$("#todaybill").html(ret[0].adddate+"单");
+				$("#ytodaybill").html(ret[1].adddate+"单");
 				
 				//折线图
 			    $('#line3').highcharts({
