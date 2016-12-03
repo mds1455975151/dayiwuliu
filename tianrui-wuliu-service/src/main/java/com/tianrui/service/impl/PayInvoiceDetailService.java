@@ -191,9 +191,9 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 				payInvoiceDetail.setDrivertel(bill.getDrivertel());
 				
 				FileOrg org = fileOrgMapper.selectByPrimaryKey(owner.getOrgid());
-				payInvoiceDetail.setOrgid(org.getOrganizationno());
 				//0：在线支付(司机)，1：发票单支付(车主)
 				if("0".equals(cargo.getPayType())){
+					payInvoiceDetail.setOrgid(org.getOrganizationno());
 					JSONObject obj = JSONObject.parseObject(httpNcurl(payInvoiceDetail));
 					String code = obj.get("code").toString();
 					if(code.equals("000000")){
@@ -208,6 +208,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						return rs;
 					}
 				}else{
+					payInvoiceDetail.setOrgid(owner.getOrgid());
 					payInvoiceDetailMapper.insert(payInvoiceDetail);
 					updateBill(bill.getId(),freight);
 				}
@@ -310,7 +311,7 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 						payInvoice.setPayCode(codeGenDao.codeGen(4));
 						
 						payInvoice.setOwnerId(item.getOwnerId());
-						payInvoice.setOrgid(payInvoice.getOrgid());
+						payInvoice.setOrgid(items.get(0).getOrgid());
 						payInvoice.setOrgName(item.getOrgName());
 						
 						payInvoice.setVenderId(item.getVenderId());
@@ -462,8 +463,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 			connection.setRequestMethod("POST");
 
 			//test数据
-//			payInvoiceDetail.setVenderCode("410482198702256756");
-//			payInvoiceDetail.setDrivercode("410482198702256756");
+//			payInvoiceDetail.setVenderCode("410482199012015570");
+//			payInvoiceDetail.setDrivercode("410482199012015570");
 			
 			String dataString = "payInvoiceDetail=" + JSON.toJSON(payInvoiceDetail).toString();
 			byte[] bypes = dataString.getBytes("utf-8");
