@@ -66,13 +66,14 @@
                         <label>${plan.sumdate }</label><span>吨</span>
                     </div>
                     <div class="dtail_foot">
-                        <label>本月</label>
-                        <i class="icononline">
+                        <label>本月</label><i class="icononline">
 						<c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
-							&#xe617;</i><span>${plan.sumdate - monthplan.sumdate }</span>
+						&#xe617;</i>
+						<span>${plan.sumdate - monthplan.sumdate }</span>
 						</c:if>
 						<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
-							&#xe619;</i><span>${monthplan.sumdate - plan.sumdate }</span>
+						&#xe619;</i>
+						<span>${monthplan.sumdate - plan.sumdate }</span>
 						</c:if>
 						
                         
@@ -97,23 +98,42 @@
                     </div>
                     <div class="divder_tm"></div>
                     <div class="dtail_body">
-                        <label>${vehicle.sumdate }</label><span>辆</span>
+                        <label><fmt:formatNumber type="number" value="${vehicle.sumdate }" maxFractionDigits="0"/></label><span>辆</span>
                     </div>
                     <div class="dtail_foot">
-                        <label>本月</label>
-                        <i class="icononline">
-						<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">
-							&#xe617;</i><span><fmt:formatNumber type="number" value="${vehicle.sumdate - monthvehicle.sumdate }" maxFractionDigits="0"/></span>
+                        <label>本月</label><i class="icononline">
+						<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">&#xe617;
+						</i>
+                        <span><fmt:formatNumber type="number" value="${vehicle.sumdate - monthvehicle.sumdate }" maxFractionDigits="0"/></span>
 						</c:if>
-						<c:if test="${vehicle.sumdate - monthvehicle.sumdate < 0}">
-							&#xe619;</i><span><fmt:formatNumber type="number" value="${monthvehicle.sumdate - vehicle.sumdate }" maxFractionDigits="0"/></span>
+						<c:if test="${vehicle.sumdate - monthvehicle.sumdate < 0}">&#xe619;
+						</i>
+                        <span><fmt:formatNumber type="number" value="${monthvehicle.sumdate - vehicle.sumdate }" maxFractionDigits="0"/></span>
 						</c:if>
+						
                     </div>
             	</a>
                 </li>
                 <li class="bggreen">
             	<a href="/count/bill">
                     <div class="dtail_tit">
+                        <label>交易总量</label>
+                        <span class="fr">
+                        	<c:if test="${bill.sumdate - monthbill.sumdate >= 0}">
+                        	同比上月增长
+                        	<fmt:formatNumber value="${(bill.sumdate - monthbill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
+                        	</c:if>
+                        	<c:if test="${bill.sumdate - monthbill.sumdate < 0}">
+                        	同比上月减少
+                        	<fmt:formatNumber value="${(monthbill.sumdate - bill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
+                        	</c:if>
+                       	</span>
+                    </div>
+                    <div class="divder_tm"></div>
+                    <div class="dtail_body">
+                        <label><fmt:formatNumber type="number" value="${bill.sumdate }" maxFractionDigits="0"/></label><span>单</span>
+                    </div>
+                    <div class="dtail_foot">
                         <label>本月</label><i class="icononline">
 						<c:if test="${bill.sumdate - monthbill.sumdate >= 0}">&#xe617;
 						</i>
@@ -122,21 +142,6 @@
 						<c:if test="${bill.sumdate - monthbill.sumdate < 0}">&#xe619;
 						</i>
                         <span><fmt:formatNumber type="number" value="${monthbill.sumdate - bill.sumdate }" maxFractionDigits="0"/></span>
-						</c:if>
-                    </div>
-                    <div class="divder_tm"></div>
-                    <div class="dtail_body">
-                        <label>${bill.sumdate }</label><span>单</span>
-                    </div>
-                    <div class="dtail_foot">
-                        <label>本月</label><i class="icononline">
-						<c:if test="${bill.sumdate - monthbill.sumdate >= 0}">&#xe617;
-						</i>
-                        <span>${bill.sumdate - monthbill.sumdate }</span>
-						</c:if>
-						<c:if test="${bill.sumdate - monthbill.sumdate < 0}">&#xe619;
-						</i>
-                        <span>${monthbill.sumdate - bill.sumdate }</span>
 						</c:if>
 						
                     </div>
