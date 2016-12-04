@@ -172,6 +172,10 @@ public class CountAction {
 		map.put("act", actlist);
 		rs.setData(map);
 		return rs;
+		
+		
+		
+		
 	}
 	/** 初始页面查询
 	 * @throws Exception */

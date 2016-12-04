@@ -117,11 +117,18 @@ public class MemberInfoRecordResp extends BaseResp{
 	public void setCompanytel(String companytel) {
 		this.companytel = companytel;
 	}
+	
 	public String getCompanyAddress() {
 		return companyAddress;
 	}
 	public void setCompanyAddress(String companyAddress) {
 		this.companyAddress = companyAddress;
+	}
+	public void setSubmittimeStr(String submittimeStr) {
+		this.submittimeStr = submittimeStr;
+	}
+	public void setRegisttimeStr(String registtimeStr) {
+		this.registtimeStr = registtimeStr;
 	}
 	public String getCompanycode() {
 		return companycode;

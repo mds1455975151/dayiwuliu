@@ -95,7 +95,7 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		//公司联系人电话
 		info.setCompanytel(req.getContactTel());
 		//公司地址
-		info.setCompanyaddress(req.getCompanyAddress());
+		info.setCompanyAddress(req.getCompanyAddress());
 		info.setCompanycode(req.getCompanycode());
 		//营业执照图片
 		info.setLicenseImagePath(req.getLicenseImagePath());
