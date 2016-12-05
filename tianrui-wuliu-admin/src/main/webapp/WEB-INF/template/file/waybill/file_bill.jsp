@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="clear"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="queren()" class="btn btn-primary">确定</button>
+                <button type="button" id="ncdisable" onclick="queren();" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -274,7 +274,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_bill.js" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_bill.js?12.05" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

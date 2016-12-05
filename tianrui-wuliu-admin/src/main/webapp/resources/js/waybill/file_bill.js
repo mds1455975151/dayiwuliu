@@ -160,6 +160,7 @@ function queren(){
 	}
 	
 	if(window.confirm('确定对运单进行运价确认吗,确定/取消?')){
+		$("#ncdisable").attr("disabled",true); 
 		$.ajax({
 			url:"/admin/waybill/priceConfrim",
 			data:{"billId":$("#billid").val(),
@@ -171,9 +172,11 @@ function queren(){
 				if( rs && rs.code =="000000" ){
 					$("#billid").val("");
 					$("#trueprice").val("");
+					$("#ncdisable").attr("disabled",false); 
 					window.location.reload();
 				}else{
 					alert(rs.error);
+					$("#ncdisable").attr("disabled",false); 
 				}
 			}
 		});
