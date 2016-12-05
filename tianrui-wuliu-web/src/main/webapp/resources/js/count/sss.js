@@ -101,6 +101,7 @@ var geoCoordMap = {
     '邢台': [114.8071,37.2821],
     '邯郸': [114.4775,36.535],
     '郑州': [113.4668,34.6234],
+    '汝州': [112.8281,34.1676],
     '鄂尔多斯': [108.9734,39.2487],
     '重庆': [107.7539,30.1904],
     '金华': [120.0037,29.1028],
@@ -141,7 +142,7 @@ $.ajax({
 			for (var a = 0; a < data.length; a++) {
 				ZZData.push(
 						[{
-							name:"郑州"
+							name:"汝州"
 						},{
 							name:data[a].remark,
 							value:parseFloat(data[a].data)
@@ -178,6 +179,35 @@ var color = ['#a6c84c', '#ffa022', '#46bee9'];
 var series = [];
 [['郑州', ZZData]].forEach(function (item, i) {
 	series.push({
+			name: item[0],
+	        type: 'effectScatter',
+	        coordinateSystem: 'geo',
+	        zlevel: 2,
+	        rippleEffect: {
+	            brushType: 'stroke'
+	        },
+	        label: {
+	            normal: {
+	                show: true,
+	                position: 'right',
+	                formatter: '{b}'
+	            }
+	        },
+	        symbolSize: function (val) {
+	            return val[2] / 8;
+	        },
+	        itemStyle: {
+	            normal: {
+	                color: '#cc0033'
+	            }
+	        },
+	        data: item[1].map(function (dataItem) {
+	            return {
+	                name: dataItem[0].name,
+	                value: geoCoordMap[dataItem[0].name]
+	            };
+	        })
+	    },{
             name: '车辆数1',
             type: 'lines',
             zlevel: 1,
@@ -187,7 +217,7 @@ var series = [];
                 trailLength: 0.7,
                 color: '#fff',
                 symbolSize: 2
-    },
+            },
             lineStyle: {
                 normal: {
                     color: color[i],
