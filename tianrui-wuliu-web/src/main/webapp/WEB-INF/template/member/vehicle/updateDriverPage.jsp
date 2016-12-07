@@ -242,7 +242,7 @@
 </script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/updateVehiclePage.js?12.1"></script>
+	src="/resources/js/member/vehicle/updateVehiclePage.js?12.7"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

@@ -28,7 +28,7 @@ $(function() {
 	$("#file_djz_img").val("");
 	
 });
-var flag = true;
+var flagvehNo = true;
 // 车牌号失去焦点事件
 $("#vehicle_add_vehiNo").on("blur", function() {
 	
@@ -38,10 +38,10 @@ $("#vehicle_add_vehiNo").on("blur", function() {
 	var vehiNo = $("#vehicle_add_vehiNo").val();
 	if (vehiNo == "") {
 		$("#message_vehiNo").html("车牌号不能为空！");
-		flag = false;
+		flagvehNo = false;
 	} else if (!vehiReg.test(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
-		flag = false;
+		flagvehNo = false;
 	} else {
 		$.ajax({
 			url : PATH + '/trwuliu/Member/myVehicle/getMyVehicle',// 跳转到 action
@@ -54,10 +54,10 @@ $("#vehicle_add_vehiNo").on("blur", function() {
 			success : function(result){
 				if (result.data != null && result.data.length > 0) {
 					$("#message_vehiNo").html("车牌号已存在，请勿重复添加！");
-					flag = false;
+					flagvehNo = false;
 				} else {
 					$("#message_vehiNo").html("");
-					flag = true;
+					flagvehNo = true;
 				}
 			}
 		});
@@ -79,16 +79,36 @@ $("#vehicle_add_vehiTypeName").on("blur", function() {
 });
 
 // 车长失去焦点事件
+var flagLeng = true;
 $("#vehicle_add_vehiLength").on("blur", function() {
 	if ($("#vehicle_add_vehiLength").val() != "") {
-		$("#message_vehiLength").html("");
+		if(!isNaN($("#vehicle_add_vehiLength").val())){
+			$("#message_vehiLength").html("");
+			flagLeng = true;
+		}else{
+			$("#message_vehiLength").html("请输入数字");
+			flagLeng = false;
+		}
+	}else{
+		$("#message_vehiLength").html("车长不能为空");
+		flagLeng = false;
 	}
 });
 
+var flagWeight = true;
 // 车重失去焦点事件
 $("#vehicle_add_vehiWeight").on("blur", function() {
 	if ($("#vehicle_add_vehiWeight").val() != "") {
-		$("#message_vehiWeight").html("");
+		if( !isNaN($("#vehicle_add_vehiWeight").val())){
+			$("#message_vehiWeight").html("");
+			flagWeight = true;
+		}else{
+			$("#message_vehiWeight").html("请输入数字");
+			flagWeight = false;
+		}
+	}else{
+		$("#message_vehiWeight").html("车重不能为空");
+		flagWeight = false;
 	}
 });
 
@@ -147,8 +167,8 @@ $("#vehicle_addBtn").click(function() {
 		$("#vehicle_add_vehiNo").focus();
 		return;
 	}
-	if(!flag){
-		$("#modal_common_content").html("车牌号有误请重新输入");
+	if(!flagvehNo||!flagWeight||!flagLeng){
+		$("#modal_common_content").html("数据有误请仔细查看重新输入");
 		$("#commonModal").modal();
 		return;
 	}

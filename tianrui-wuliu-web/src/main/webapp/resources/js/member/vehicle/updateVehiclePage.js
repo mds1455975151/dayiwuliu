@@ -77,17 +77,37 @@ $("#vehicle_add_vehiTypeName").on("blur", function() {
 	}
 });
 
+var flagLeng = true;
 // 车长失去焦点事件
 $("#vehicle_add_vehiLength").on("blur", function() {
 	if ($("#vehicle_add_vehiLength").val() != "") {
-		$("#message_vehiLength").html("");
+		if( !isNaN($("#vehicle_add_vehiLength").val())){
+			$("#message_vehiLength").html("");
+			flagLeng = true;
+		}else{
+			$("#message_vehiLength").html("请输入数字");
+			flagLeng = false;
+		}
+	}else{
+		$("#message_vehiLength").html("车长不能为空");
+		flagLeng = false;
 	}
 });
 
+var flagWeight = true;
 // 车重失去焦点事件
 $("#vehicle_add_vehiWeight").on("blur", function() {
 	if ($("#vehicle_add_vehiWeight").val() != "") {
-		$("#message_vehiWeight").html("");
+		if( !isNaN($("#vehicle_add_vehiWeight").val())){
+			$("#message_vehiWeight").html("");
+			flagWeight = true;
+		}else{
+			$("#message_vehiWeight").html("请输入数字");
+			flagWeight = false;
+		}
+	}else{
+		$("#message_vehiWeight").html("车重不能为空");
+		flagWeight = false;
 	}
 });
 
@@ -145,8 +165,8 @@ $("#vehicle_addBtn").click(function() {
 	var registcode = $('#vehicle_add_registcode').val();
 	//机动车登记证图片
 	var file_djz = $('#file_djz_img').val();
-	if(!flag){
-		$("#modal_common_content").html("请输入正确的车牌号");
+	if(!flag||!flagLeng||!flagWeight){
+		$("#modal_common_content").html("数据有误请仔细查看重新输入");
 		$("#commonModal").modal();
 		return;
 	}
