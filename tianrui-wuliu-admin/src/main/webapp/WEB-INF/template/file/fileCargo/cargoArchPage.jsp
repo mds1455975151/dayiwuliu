@@ -134,6 +134,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <th>物料类别</th>
 		                                <th>状态</th>
 		                                <th>支付类型</th>
+		                                <th>发票类型</th>
 		                                <th>规格</th>
 		                                <th>型号</th>
 		                                <th>物料助记码</th>
@@ -307,14 +308,19 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	            <div class="modal-body" style="height: 460px;">
 	                <div class="usermodal userlabel3">
 		                <div class="model_width">
-		                    <label><i style="color: #ff2f00;">*</i>物料编码：</label><input type="text" maxlength="16" id="modal_edit_materCode">
+		                    <label>
+		                    <i style="color: #ff2f00;">*</i>物料编码：
+		                    </label>
+		                    <input type="text" readonly="readonly" maxlength="16" id="modal_edit_materCode">
 		                </div>
 		                <div class="model_width">
-		                    <label><i style="color: #ff2f00;">*</i>物料名称：</label><input type="text" maxlength="16" id="modal_edit_materName">
+		                    <label><i style="color: #ff2f00;">*</i>物料名称：
+		                    </label>
+		                    <input type="text" readonly="readonly" maxlength="16" id="modal_edit_materName">
 		                </div>
 		                <div class="model_width">
 		                    <label><i style="color: #ff2f00;">*</i>物料类别：</label>
-		                    <select class="form-control" id="modal_edit_materClass">
+		                    <select class="form-control" disabled id="modal_edit_materClass">
 		                       <option>请选择</option>
 		                                <option>水泥熟料</option>
 		                                <option>煤炭及产品</option>
@@ -333,7 +339,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                </div>
 		                <div class="model_width">
 		                    <label><i style="color: #ff2f00;">*</i>计量单位：</label>
-		                    <select class="form-control" id="modal_edit_mainMeasUnit">
+		                    <select class="form-control" disabled id="modal_edit_mainMeasUnit">
 		                        <option>请选择</option>
 		                        <c:forEach items="${measureBase }" var="aa">
 				                      <option value="${aa.measureName }">${aa.measureName }</option>
@@ -341,13 +347,13 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                    </select>
 		                </div>
 		                <div class="model_width">
-		                    <label>货物规格：</label><input type="text" maxlength="16" id="modal_edit_spec">
+		                    <label>货物规格：</label><input type="text" readonly="readonly" maxlength="16" id="modal_edit_spec">
 		                </div>
 		                <div class="model_width">
-		                    <label>货物型号：</label><input type="text" maxlength="16" id="modal_edit_model">
+		                    <label>货物型号：</label><input type="text" readonly="readonly" maxlength="16" id="modal_edit_model">
 		                </div>
 		                 <div class="model_width">
-		                    <label>物料助记码：</label><input type="text" maxlength="5" id="modal_edit_materMNCode">
+		                    <label>物料助记码：</label><input type="text" readonly="readonly" maxlength="5" id="modal_edit_materMNCode">
 		                </div>
 		                <div class="model_width">
 		                    <label>支付类型：</label>
@@ -476,6 +482,9 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <div class="file_detail">
 	                    <label>支付类型：</label><span id="modal_detail_payType"></span>
 	                </div>
+	                <div class="file_detail">
+	                    <label>发票类型：</label><span id="modal_detail_desc2"></span>
+	                </div>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -562,7 +571,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var orgName = "<%= user.getDesc2() %>";
 	    var imagesRoot="${imagesRoot }";
 	</script>
-	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?11.18"></script>
+	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?12.08"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

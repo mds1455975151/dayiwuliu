@@ -31,29 +31,29 @@ $(function() {
 	$("#cargo_search").trigger("click");
 	
 	// 获取组织信息，用作模糊查询用
-	$.ajax({
-		url : CONTEXTPATH + '/Organization/query',// 跳转到 action
-		data : {},
-		type : "post",
-		success : function(result) {
-			var data = result.data;
-			for (var i=0; i<data.length; i++) {
-				var orgObj =  new Object();
-				orgObj.value = data[i].id;
-				orgObj.label = data[i].organizationname;
-				orgArray[i] = orgObj;
-			}
-			$("#cargo_orgName").autocomplete({
-				minLength: 0,
-		        source: orgArray,
-		        select: function( event, ui ) {
-		            $( "#cargo_orgName" ).val( ui.item.label );
-		            $( "#cargo_orgId" ).val( ui.item.value );
-		            return false;
-		        }
-		    });
-		}
-	});
+//	$.ajax({
+//		url : CONTEXTPATH + '/Organization/query',// 跳转到 action
+//		data : {},
+//		type : "post",
+//		success : function(result) {
+//			var data = result.data;
+//			for (var i=0; i<data.length; i++) {
+//				var orgObj =  new Object();
+//				orgObj.value = data[i].id;
+//				orgObj.label = data[i].organizationname;
+//				orgArray[i] = orgObj;
+//			}
+//			$("#cargo_orgName").autocomplete({
+//				minLength: 0,
+//		        source: orgArray,
+//		        select: function( event, ui ) {
+//		            $( "#cargo_orgName" ).val( ui.item.label );
+//		            $( "#cargo_orgId" ).val( ui.item.value );
+//		            return false;
+//		        }
+//		    });
+//		}
+//	});
 });
 
 // 条件中『搜索』按钮功能点击事件
@@ -254,7 +254,10 @@ function appendContentToBody(data, flag) {
 			default:
 				break;
 			}
+			//发票类型
+			var desc2 = data[i].desc2==undefined?"":data[i].desc2;
 			var td12 = $("<td></td>").append(payType);
+			var td13 = $("<td></td>").append(desc2);
 			var td8 = $("<td></td>").append(data[i].spec);
 			var td9 = $("<td></td>").append(data[i].model);
 			var td10 = $("<td></td>").append(data[i].materMNCode);
@@ -279,7 +282,8 @@ function appendContentToBody(data, flag) {
 										                                + data[i].model + "','" 
 										                                 + data[i].materMNCode + "','" 
 										                                  + payType + "','" 
-										                                   + data[i].measUnit + "')")
+										                                   + desc2 + "','"
+									                                  		+ data[i].measUnit + "')")
 										.html(" 【查看详情】 ");
 			// 显示启用/停用
 			if (data[i].state == "1") {
@@ -318,16 +322,18 @@ function appendContentToBody(data, flag) {
 			if (flag != 0) {
 				td1.css("color", "red");
 			}
+			//data[i].count 被引用的数量
 			if(data[i].count > 0){
-				td11.append(span1).append(span2);
+				td11.append(span1).append(span2).append(span3);
 			}else {
 				td11.append(span1).append(span2).append(span3).append(span4);
 			}
+			
 			if(data[i].state == "1"){
 				td1.append(input1);
 			}
 			var tr = $("<tr></tr>").attr("id","rowIndex" + rowIndex).append(td1).append(td5)
-						             .append(td6).append(td2).append(td7).append(td4).append(td12).append(td8).append(td9)
+						             .append(td6).append(td2).append(td7).append(td4).append(td12).append(td13).append(td8).append(td9)
 						              .append(td10).append(td11);
 			
 			if (flag == 0) {
@@ -472,7 +478,7 @@ $("#modal_add_save").click(function() {
  */
 function detailDisplay(id, orgName, orgType, state,
 		                materCode, materName, materClass,
-		                 spec, model, materMNCode, payType, mainMeasUnit) {
+		                 spec, model, materMNCode, payType,desc2, mainMeasUnit) {
 	// var data = eval('(' + paramObj + ')'); 
 	/*// 组织名称
 	$("#modal_detail_orgName").html(orgName == undefined ? orgName : "");
@@ -501,6 +507,7 @@ function detailDisplay(id, orgName, orgType, state,
 	$("#modal_detail_mainMeasUnit").html(mainMeasUnit);
 	// 支付类型
 	$("#modal_detail_payType").html(payType);
+	$("#modal_detail_desc2").html(desc2);
 	// 根据id查询货物档案信息
 	$.ajax({
 		url : CONTEXTPATH + '/fileCargo/getCargoInfo',// 跳转到 action
@@ -660,7 +667,8 @@ $('#edit_mate').on('shown.bs.modal', function (e) {
 				$("#edit_cargoImgBack_2").empty().val(data[0].imgPath);
 				$("#edit_cargoImgBack_3").empty().val(data[0].imgPath);
 				
-				$("#modal_edit_desc1").val(desc1);
+				$("#modal_edit_desc1").val(data[0].desc1);
+				$("#modal_edit_payType").val(data[0].payType)
 			}
 		}
 	});
