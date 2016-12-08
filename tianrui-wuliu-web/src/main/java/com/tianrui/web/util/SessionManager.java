@@ -26,7 +26,7 @@ public class SessionManager {
 		MemberVo memberVo =memberVoService.get(sessionMember.getId(),true);
 		
 		CacheClient cacheClient =wac.getBean(CacheClient.class);
-		//保存cookie对应的用户数据到共享缓存2小时
+		//保存cookie对应的用户数据到共享缓存2小时 
 		String key_cookie_2_user=setCookie(response);
 		cacheClient.saveObject(key_cookie_2_user, memberVo,8*60*60);
 		//保证 单账户单一地点登录   需要保存用户-cookie信息

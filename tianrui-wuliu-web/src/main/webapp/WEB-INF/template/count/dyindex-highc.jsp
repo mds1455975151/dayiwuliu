@@ -278,7 +278,7 @@
 <script type="text/javascript" src="${trRoot}/tianrui/tj/js/echarts.js"></script>
 <script type="text/javascript" src="/resources/js/count/sss.js?12.05.1"></script>
 <script type="text/javascript" src="/resources/js/count/setInterval.js"></script>
-<script type="text/javascript" src="/resources/js/count/27/dyindex-highc.js?12.05.1"></script>
+<script type="text/javascript" src="/resources/js/count/27/dyindex-highc.js?12.08"></script>
 <script>
 
 //地图

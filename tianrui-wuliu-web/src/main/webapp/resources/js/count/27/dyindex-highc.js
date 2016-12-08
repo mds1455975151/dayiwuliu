@@ -69,7 +69,7 @@ function paiindex(){
 				            cursor: 'pointer',
 				            dataLabels: {
 				                enabled: true,
-//				                format: '{point.name}({point.percentage:.0f}%)',
+				                format: '{point.name}({point.percentage:.0f}%)',
 				                style: {
 				                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor),
 
@@ -192,14 +192,14 @@ function vehcileindex(){
 		            pie: {
 		            	 size:150,
 		                 innerSize: 130,
-		                 colors:[
-		                     '#12bced',
-		                     '#ff524e',
-		                     '#27cf8e',
-		                     '#e4d65c',
-		                     '#f15c80',
-		                     '#2b908f',
-		                 ],
+		                 dataLabels: {
+				                enabled: true,
+				                format: '{point.name}({point.percentage:.0f}%)',
+				                style: {
+				                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor),
+
+				                }
+				            }
 		            }
 		        },
 		        series: [{
