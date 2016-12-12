@@ -22,7 +22,7 @@
     <result column="companycontact" property="companycontact" jdbcType="VARCHAR" />
     <result column="companycode" property="companycode" jdbcType="VARCHAR" />
     <result column="companytel" property="companytel" jdbcType="VARCHAR" />
-    <result column="companyAddress" property="companyaddress" jdbcType="VARCHAR" />
+    <result column="companyAddress" property="companyAddress" jdbcType="VARCHAR" />
     <result column="auditid" property="auditid" jdbcType="VARCHAR" />
     <result column="auditname" property="auditname" jdbcType="VARCHAR" />
     <result column="audittime" property="audittime" jdbcType="BIGINT" />
@@ -77,7 +77,7 @@
       #{status,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, 
       #{idcard,jdbcType=VARCHAR}, #{idcardimage,jdbcType=VARCHAR}, #{driverimage,jdbcType=VARCHAR}, 
       #{companyname,jdbcType=VARCHAR}, #{companycontact,jdbcType=VARCHAR}, #{companycode,jdbcType=VARCHAR}, 
-      #{companytel,jdbcType=VARCHAR}, #{companyaddress,jdbcType=VARCHAR}, #{auditid,jdbcType=VARCHAR}, 
+      #{companytel,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, #{auditid,jdbcType=VARCHAR}, 
       #{auditname,jdbcType=VARCHAR}, #{audittime,jdbcType=BIGINT}, #{auditresson,jdbcType=VARCHAR},
       #{rtblno,jdbcType=VARCHAR},#{rtblimgurl,jdbcType=VARCHAR},#{licenseType,jdbcType=VARCHAR}
       )
@@ -140,7 +140,7 @@
       <if test="companytel != null" >
         companytel,
       </if>
-      <if test="companyaddress != null" >
+      <if test="companyAddress != null" >
         companyAddress,
       </if>
       <if test="auditid != null" >
@@ -217,8 +217,8 @@
       <if test="companytel != null" >
         #{companytel,jdbcType=VARCHAR},
       </if>
-      <if test="companyaddress != null" >
-        #{companyaddress,jdbcType=VARCHAR},
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
       </if>
       <if test="auditid != null" >
         #{auditid,jdbcType=VARCHAR},
@@ -299,8 +299,8 @@
       <if test="companytel != null" >
         companytel = #{companytel,jdbcType=VARCHAR},
       </if>
-      <if test="companyaddress != null" >
-        companyAddress = #{companyaddress,jdbcType=VARCHAR},
+      <if test="companyAddress != null" >
+        companyAddress = #{companyAddress,jdbcType=VARCHAR},
       </if>
       <if test="auditid != null" >
         auditid = #{auditid,jdbcType=VARCHAR},
@@ -348,7 +348,7 @@
       companycontact = #{companycontact,jdbcType=VARCHAR},
       companycode = #{companycode,jdbcType=VARCHAR},
       companytel = #{companytel,jdbcType=VARCHAR},
-      companyAddress = #{companyaddress,jdbcType=VARCHAR},
+      companyAddress = #{companyAddress,jdbcType=VARCHAR},
       auditid = #{auditid,jdbcType=VARCHAR},
       auditname = #{auditname,jdbcType=VARCHAR},
       audittime = #{audittime,jdbcType=BIGINT},

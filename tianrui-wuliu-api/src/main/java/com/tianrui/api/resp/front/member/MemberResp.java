@@ -20,6 +20,8 @@ public class MemberResp extends BaseResp{
 	private String cellPhone;
 	/** 微信唯一标识*/
 	private String openid;
+	/** 准驾车型*/
+	private String licenseType;
 	
 	private String capacount;
 	/** 车辆司机绑定关系数量*/
@@ -223,6 +225,14 @@ public class MemberResp extends BaseResp{
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public String getLicenseType() {
+		return licenseType;
+	}
+
+	public void setLicenseType(String licenseType) {
+		this.licenseType = licenseType;
 	}
 
 	public String getOpenid() {

@@ -132,6 +132,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setIdcard(record.getIdcard());
 			info.setSubmittime(record.getSubmittime());
 			info.setDriverimage(record.getDriverimage());
+			info.setLicenseType(record.getLicenseType());
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 			member.setDriverpercheck((short)1);
 			//司机审核通过 默认个人审核通过

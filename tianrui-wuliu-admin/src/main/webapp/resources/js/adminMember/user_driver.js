@@ -224,11 +224,12 @@ function details(id){
 		}
 		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='"+a.rtblimgurl+"' target='_blank'>查看图片</a>");
 		var driveImagePath = a.driveImagePath == ""?"未上传":("<span><a href='"+a.driveImagePath+"' target='_blank'>查看图片</a>");
-		
+		var licenseType = a.licenseType == undefined ? "":a.licenseType;
 		var hml = "<div class='file_detail'><label>司机账号：</label><span>"+a.cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>司机姓名：</label><span>"+userName+"</span></div>"+
 			"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
 			"<div class='file_detail'><label>驾驶证号：</label><span>"+identityCard+"</span></div>"+
+			"<div class='file_detail'><label>准驾车型：</label><span>"+licenseType+"</span></div>"+
 			"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+

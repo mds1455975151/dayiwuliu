@@ -18,6 +18,7 @@ function displayRec(pageNo){
 	var telphone = $("#telphone").val();
 	var ownername = $("#ownername").val();
 	var ownerphone = $("#ownerphone").val();
+	var vehiclestatus = $("#vehiclestatus").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCarManager',
@@ -27,6 +28,7 @@ function displayRec(pageNo){
 			"telphone":$.trim(telphone),
 			"ownername":$.trim(ownername),
 			"ownerphone":$.trim(ownerphone),
+			"status":$.trim(vehiclestatus),
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},

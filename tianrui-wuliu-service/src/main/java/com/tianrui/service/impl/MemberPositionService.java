@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +33,14 @@ public class MemberPositionService implements IMemberPositionService{
 	
 	@Override
 	public Result savePosition(PositionSaveReq req) throws Exception {
-		Result rs = new Result();
+		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getCurrId()) ){
+			if(req.getLat()<0||req.getLon()<0){
+				rs.setErrorCode(ErrorCode.PARAM_FU_ERROR);
+				LoggerFactory.getLogger("position").info("位置信息异常：lat [{}],lon[{}]", req.getLat(),req.getLon());
+				return rs;
+			}
+			LoggerFactory.getLogger("position").info("位置信息：lat [{}],lon[{}]", req.getLat(),req.getLon());
 			//查找是否有次记录
 			MemberPosition  posiotionDB =memberPositionMapper.findWithMid(req.getCurrId());
 			//存在就修改

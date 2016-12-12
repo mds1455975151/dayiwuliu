@@ -86,8 +86,24 @@ $("#perAuthen_button").click(function() {
 	var perAuthen_id = $("#perAuthen_id").val();
 	// 联系电话
 	var perAuthen_tel = $("#perAuthen_tel").val();
+	//准驾车型
+	var drivinglicensetype = $("#drivinglicensetype").text();
 	// 驾驶证图片路径
 	var file_jsz = $("#file_jsz")[0].files[0];
+	//道路许可证
+	var file_rtbl=$("#rtblimg")[0].files[0];
+	var rtblno=$("#rtblno").val();
+	
+	if( rtblno || file_rtbl  ){
+		if(!rtblno ){
+			alert("道路运输经营许可证号不能为空");
+			return ;
+		}
+		if(!file_rtbl){
+			alert("道路运输经营许可证图片不能为空");
+			return ;
+		}
+	}
 	var type = "";
 	if (file_jsz) {
 		type = "2";
@@ -110,6 +126,9 @@ $("#perAuthen_button").click(function() {
 	formData.append("identityCard",perAuthen_id);
 	formData.append("telphone",perAuthen_tel);
 	formData.append("type",type);
+	formData.append("licenseType",drivinglicensetype);
+	formData.append("rtblimg",file_rtbl);
+	formData.append("rtblno",rtblno);
 	// 后台处理
 	$.ajax({
 		url : PATH + '/trwuliu/Member/personalAuthentication',// 跳转到 action

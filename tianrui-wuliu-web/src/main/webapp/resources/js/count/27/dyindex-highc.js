@@ -105,13 +105,15 @@ function lineindex(){
 					xpu.push(data[a].remark);
 					ypu.push(parseFloat(data[a].data));
 				}
+				
+				//TODO
 				//折线图
 			    $('#bill').highcharts({
 			        chart: {
 			            type: 'areaspline'
 			        },
 			        title: {
-			            text: ' '
+			            text: ''
 			        },
 			        legend: {
 			            layout: 'vertical',
@@ -127,12 +129,12 @@ function lineindex(){
 			        },
 			        yAxis: {
 			            title: {
-			                text: ' '
+			                text: ''
 			            }
 			        },
 			        tooltip: {
 			            shared: true,
-			            valueSuffix: '单'
+			            valueSuffix: '趟'
 			        },
 			        credits: {
 			            enabled: false

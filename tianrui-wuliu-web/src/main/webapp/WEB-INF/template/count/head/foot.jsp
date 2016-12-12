@@ -9,8 +9,12 @@
             <img height="125px" width="125px" src="${trRoot}/tianrui/images/erios.png">
         </div>
         <div class="footimg">
-            <p>安卓客户端</p>
+            <p>车主安卓客户端</p>
             <img height="125px" width="125px" src="${trRoot}/tianrui/images/erandroid.png">
+        </div>
+        <div class="footimg">
+            <p>货主安卓客户端</p>
+            <img height="125px" width="125px" src="${trRoot}/tianrui/images/huozhu.png">
         </div>
     </div>
 

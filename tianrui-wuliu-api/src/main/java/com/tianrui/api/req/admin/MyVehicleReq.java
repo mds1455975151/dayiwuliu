@@ -46,6 +46,10 @@ public class MyVehicleReq extends BaseReq{
 	 */
 	private Double weight;
 	/**
+	 * -1:认证失败 0:未认证 1:认证成功2:认证中  
+	 */
+	private Byte status;
+	/**
 	 * 可用载重（吨）
 	 */
 	private Double length;
@@ -93,6 +97,12 @@ public class MyVehicleReq extends BaseReq{
 	}
 	public String getTelphone() {
 		return telphone;
+	}
+	public Byte getStatus() {
+		return status;
+	}
+	public void setStatus(Byte status) {
+		this.status = status;
 	}
 	public void setTelphone(String telphone) {
 		this.telphone = telphone;

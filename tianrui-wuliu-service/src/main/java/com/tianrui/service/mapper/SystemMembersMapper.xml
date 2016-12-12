@@ -32,6 +32,7 @@
 		f.companyAddress companyAddress,
 		f.licenseImagePath licenseImagePath,
 		f.companytel contactTel,
+		f.licenseType licenseType,
 		(SELECT count(*) FROM wuliu_member_capa mc WHERE mc.memberid = m.id AND mc.`status` = 1) capacount,
 		(SELECT count(*) FROM wuliu_vehicle_driver vd WHERE vd.creator = m.id) vdcount,
 		(SELECT count(*) FROM wuliu_member_owner mo WHERE mo.memberid = m.id AND mo.`status` = 1) mocount

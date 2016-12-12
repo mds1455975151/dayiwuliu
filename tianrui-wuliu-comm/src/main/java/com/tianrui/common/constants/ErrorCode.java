@@ -10,6 +10,7 @@ public enum ErrorCode {
 	PARAM_NULL_ERROR("E100002","参数异常,参数不能为空."),
 	PARAM_TOKEN_ERROR("E100003","参数异常."),
 	PARAM_PARAM_ERROR("E100004","校验码异常."),
+	PARAM_FU_ERROR("E100005","参数不能为负."),
 	
 	
 	//用户异常

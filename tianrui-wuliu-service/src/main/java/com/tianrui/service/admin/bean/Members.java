@@ -129,6 +129,8 @@ public class Members{
 	 * 营业照照片
 	 */
 	private String licenseImagePath;
+	/**准驾车型*/
+	private String licenseType;
 	
 
 	public String getRemarkname() {
@@ -169,6 +171,14 @@ public class Members{
 
 	public void setRtblno(String rtblno) {
 		this.rtblno = rtblno;
+	}
+
+	public String getLicenseType() {
+		return licenseType;
+	}
+
+	public void setLicenseType(String licenseType) {
+		this.licenseType = licenseType;
 	}
 
 	public Long getAuditTime() {
