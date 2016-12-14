@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="person_cont">
                             <label>驾驶证照片：</label>
                             <span> 
-                            <a href="${memberInfo.driverimage }" target="_blank">
+                            <a href="/imageView/index?imageUrl=${memberInfo.driverimage }" target="_blank">
                             <img height="200" src="${memberInfo.driverimage }">
                             </a>
                             </span>
@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>道路运输经营许可证：</label>
                             <span id="imgid">
                             <c:if test="${not empty memberInfo.rtblimgurl }">
-	                            <a href="${memberInfo.rtblimgurl }" target="_blank">
+	                            <a href="/imageView/index?imageUrl=${memberInfo.rtblimgurl }" target="_blank">
 	                            	<img height="200" src="${memberInfo.rtblimgurl }">
 	                            </a>
                             </c:if>

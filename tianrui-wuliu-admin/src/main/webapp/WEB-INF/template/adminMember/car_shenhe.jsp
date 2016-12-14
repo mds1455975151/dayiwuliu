@@ -83,16 +83,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="row ">
                         <div class="person_cont">
                             <div class="person_img">
-                                <label>行驶证照片：</label><span><a href="${Vehicle.vehilicenseimgpath }" target="_blank"><img height="200" src="${Vehicle.vehilicenseimgpath }"></a></span>
+                                <label>行驶证照片：</label><span><a href="/imageView/index?imageUrl=${Vehicle.vehilicenseimgpath }" target="_blank"><img height="200" src="${Vehicle.vehilicenseimgpath }"></a></span>
                             </div>
                             <div class="person_img">
-                                <label>车辆照片：</label><span><a href="${Vehicle.vehiheadimgpath }" target="_blank"><img height="200" src="${Vehicle.vehiheadimgpath }"></a></span>
+                                <label>车辆照片：</label><span><a href="/imageView/index?imageUrl=${Vehicle.vehiheadimgpath }" target="_blank"><img height="200" src="${Vehicle.vehiheadimgpath }"></a></span>
                             </div>
                             <div class="person_img">
-                                <label>营运证号：</label><span>${Vehicle.opercode }<br><span><a href="${Vehicle.operimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.operimage }"></a></span>
+                                <label>营运证号：</label><span>${Vehicle.opercode }<br><span><a href="/imageView/index?imageUrl=${Vehicle.operimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.operimage }"></a></span>
                             </div>
                             <div class="person_img">
-                                <label>车辆登记证：</label><a href="${Vehicle.registimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.registimage }"></a></span>
+                                <label>车辆登记证：</label><a href="/imageView/index?imageUrl=${Vehicle.registimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.registimage }"></a></span>
                             </div>
                         </div>
                     </div>

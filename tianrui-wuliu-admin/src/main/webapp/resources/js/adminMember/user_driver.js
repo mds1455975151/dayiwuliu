@@ -222,8 +222,8 @@ function details(id){
 		if(a.identityCard == undefined){
 			identityCard = "";
 		}
-		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='"+a.rtblimgurl+"' target='_blank'>查看图片</a>");
-		var driveImagePath = a.driveImagePath == ""?"未上传":("<span><a href='"+a.driveImagePath+"' target='_blank'>查看图片</a>");
+		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='/imageView/index?imageUrl="+a.rtblimgurl+"' target='_blank'>查看图片</a>");
+		var driveImagePath = a.driveImagePath == ""?"未上传":("<span><a href='/imageView/index?imageUrl="+a.driveImagePath+"' target='_blank'>查看图片</a>");
 		var licenseType = a.licenseType == undefined ? "":a.licenseType;
 		var hml = "<div class='file_detail'><label>司机账号：</label><span>"+a.cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>司机姓名：</label><span>"+userName+"</span></div>"+

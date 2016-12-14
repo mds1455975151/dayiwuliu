@@ -296,8 +296,8 @@ function getType(id,status){
 		}else{
 			userType = "暂无";
 		}
-		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='"+a.rtblimgurl+"' target='_blank'>查看图片</a>");
-		var idcardsImagePath = idcardsImagePath == ""?"未上传":("<span><a href='"+idcardsImagePath+"' target='_blank'>查看图片</a>");
+		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='/imageView/index?imageUrl="+a.rtblimgurl+"' target='_blank'>查看图片</a>");
+		var idcardsImagePath = idcardsImagePath == ""?"未上传":("<span><a href='/imageView/index?imageUrl="+idcardsImagePath+"' target='_blank'>查看图片</a>");
 		
 		var hml = "<div class='file_detail'><label>会员类别：</label><span>"+userType+"</span></div>"+
 			"<div class='file_detail'><label>会员账号：</label><span>"+cellPhone+"</span></div>"+

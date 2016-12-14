@@ -65,12 +65,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="person_cont">
                             <label>证件照：</label><span id="imgid">
                             <c:if test="${memberInfo.companypercheck eq '2' }">
-                            <a href="${memberInfo.licenseImagePath }" target="_blank">
+                            <a href="/imageView/index?imageUrl=${memberInfo.licenseImagePath }" target="_blank">
                             <img height="200" src="${memberInfo.licenseImagePath }">
                             </a>
                             </c:if>
                             <c:if test="${memberInfo.userpercheck eq '2' }">
-                            <a href="${memberInfo.idcardimage }" target="_blank">
+                            <a href="/imageView/index?imageUrl=${memberInfo.idcardimage }" target="_blank">
                             <img height="200" src="${memberInfo.idcardimage }">
                             </a>
                             </c:if>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>道路运输经营许可证：</label>
                             <span id="imgid">
                             <c:if test="${not empty memberInfo.rtblimgurl }">
-	                            <a href="${memberInfo.rtblimgurl }" target="_blank">
+	                            <a href="/imageView/index?imageUrl=${memberInfo.rtblimgurl }" target="_blank">
 	                            	<img height="200" src="${memberInfo.rtblimgurl }">
 	                            </a>
                             </c:if>
@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  var CONTEXTPATH="${contextPath}";
 </script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_shenhe.js?11.2" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_shenhe.js?12.14" ></script>
 
 </body>
 </html>
