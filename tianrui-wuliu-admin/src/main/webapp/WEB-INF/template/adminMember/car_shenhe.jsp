@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 		箱式
                                 </c:if>
                                 <c:if test="${Vehicle.vehicletype eq '2' }">
-                                		车板
+                                		板车
                                 </c:if>
                                 <c:if test="${Vehicle.vehicletype eq '3' }">
                                  		冷藏

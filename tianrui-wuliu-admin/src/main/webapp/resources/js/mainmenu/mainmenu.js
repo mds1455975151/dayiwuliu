@@ -135,8 +135,14 @@ function getNodeList(menu) {
 		}else if(nodesList[i].nodename == "统计路线管理"){
 			_i.removeAttr("class");
 			_i.addClass("iconfont").html('&#xe641;');
+		}else if(nodesList[i].nodename == "客商档案"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe645;');
 		}
 		href.append(_i).append(span);
+		
+		
+		
 		li.append(href);
 		var subUrl = "";
 		if (nodesList[i].afterurl != null && nodesList[i].afterurl.indexOf("?") > 0) {

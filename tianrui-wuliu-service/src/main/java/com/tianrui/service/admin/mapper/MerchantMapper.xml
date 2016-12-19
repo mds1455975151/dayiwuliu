@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.admin.mapper.MerchantMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.admin.bean.Merchant" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="onlycode" property="onlycode" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="nature" property="nature" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="linknumber" property="linknumber" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, orgid, code, name, onlycode, type, nature, linkman, linknumber, address, remark, 
+    creater, createtime, modify, modifytime, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_merchant
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_merchant
+    <where>
+    	<if test="code != null and code != ''">
+    		and code like "%" #{code,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="type != null and type != ''">
+    		and type like "%" #{type,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="name != null and name != ''">
+    		and name like "%" #{name,jdbcType=VARCHAR} "%"
+    	</if>
+    	and desc1 is null
+    </where>
+    	order by createtime desc
+    	<if test="pageNo != null">
+    		limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    	</if>
+  </select>
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    select 
+    count(0)
+    from file_merchant
+    <where>
+    	<if test="code != null and code != ''">
+    		and code like "%" #{code,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="type != null and type != ''">
+    		and type like "%" #{type,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="name != null and name != ''">
+    		and name like "%" #{name,jdbcType=VARCHAR} "%"
+    	</if>
+    	and desc1 is null
+    </where>
+  </select>
+  
+  <select id="selectByOnly" resultType="long" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    select 
+    count(0)
+    from file_merchant
+    <where>
+    	<if test="code != null and code != ''">
+    		and code = #{code,jdbcType=VARCHAR}
+    	</if>
+    	<if test="type != null and type != ''">
+    		and type = #{type,jdbcType=VARCHAR}
+    	</if>
+    	<if test="name != null and name != ''">
+    		and name = #{name,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from file_merchant
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    insert into file_merchant (id, orgid, code, 
+      name, onlycode, type, 
+      nature, linkman, linknumber, 
+      address, remark, creater, 
+      createtime, modify, modifytime, 
+      desc1, desc2, desc3, 
+      desc4)
+    values (#{id,jdbcType=VARCHAR}, #{orgid,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{onlycode,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{nature,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, #{linknumber,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=BIGINT}, #{modify,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, 
+      #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
+      #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    insert into file_merchant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgid != null" >
+        orgid,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="onlycode != null" >
+        onlycode,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="nature != null" >
+        nature,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="linknumber != null" >
+        linknumber,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="onlycode != null" >
+        #{onlycode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linknumber != null" >
+        #{linknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    update file_merchant
+    <set >
+      <if test="orgid != null" >
+        orgid = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="onlycode != null" >
+        onlycode = #{onlycode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        nature = #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linknumber != null" >
+        linknumber = #{linknumber,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.Merchant" >
+    update file_merchant
+    set orgid = #{orgid,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      onlycode = #{onlycode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      nature = #{nature,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      linknumber = #{linknumber,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=BIGINT},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

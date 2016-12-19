@@ -7,7 +7,7 @@ Users sesionuser = (Users) request.getSession().getAttribute("session_user");
 <script type="text/javascript" src="${scriptsRoot }/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.resizableColumns.js"></script>
-<script type="text/javascript" src="/resources/js/mainmenu/mainmenu.js" ></script>
+<script type="text/javascript" src="/resources/js/mainmenu/mainmenu.js?12.16" ></script>
 <script type="text/javascript" src="${scriptsRoot }/wfljs.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/cropbox.js"></script>
     

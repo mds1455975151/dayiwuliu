@@ -7,6 +7,7 @@
                         <img src="${trRoot}/tianrui/images/logobig.png">
                 </div>
                 <div class="foot_line mt20">
+                	<img title="货主android" width="130" height="130" src="${trRoot}/tianrui/images/huozhu.png">
                 </div>
                 <div class="foot_line mt20">
                    	 <img title="android" width="130" height="130" src="${trRoot}/tianrui/images/erandroid.png">
