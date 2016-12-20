@@ -22,4 +22,6 @@ public interface IMerchantService {
 	Result update(MerchantReq req)throws Exception;
 	/**删除 假删 desc1 = 0 为删除*/
 	Result delete(MerchantReq req)throws Exception;
+	
+	MerchantResp findByid(String id)throws Exception;
 }

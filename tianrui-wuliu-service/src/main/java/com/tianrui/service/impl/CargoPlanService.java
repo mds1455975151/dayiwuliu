@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
@@ -47,6 +48,7 @@ import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.Plan;
+import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -78,6 +80,10 @@ public class CargoPlanService implements ICargoPlanService{
 	OrganizationService orgService;
 	@Autowired
 	private FreightInfoService freightInfoService;
+	@Autowired
+	private IMerchantService merchantService;
+	@Autowired
+	CacheClient cacheClient;
 	
 
 	@Override
@@ -153,6 +159,12 @@ public class CargoPlanService implements ICargoPlanService{
 				resp.setOrgname(fileFreight.getOrganizationname());
 			}
 			resp.setOverweight(inspectTraffic(plan.getId()));
+			if(StringUtils.isNotBlank(plan.getConsigneeMerchant())){
+				resp.setConsignee(merchantService.findByid(plan.getConsigneeMerchant()).getName());
+			}
+			if(StringUtils.isNotBlank(plan.getShipperMerchant())){
+				resp.setShipper(merchantService.findByid(plan.getShipperMerchant()).getName());
+			}
 		}
 		return resp;
 	}
@@ -370,7 +382,8 @@ public class CargoPlanService implements ICargoPlanService{
 			FileOrgCargo cargo =orgCargoMapper.selectByPrimaryKey(req.getCargoid());
 			if( fileFreight !=null &&  fileRoute !=null && cargo!=null){
 				Plan plan =new Plan();
-				plan.setId(UUIDUtil.getId());
+				String id = UUIDUtil.getId();
+				plan.setId(id);
 				plan.setPlancode(codeGenDao.codeGen(1));
 				//通过策略以及路径形成的信息
 				setPlanData(fileFreight, fileRoute, cargo, plan);
@@ -411,6 +424,16 @@ public class CargoPlanService implements ICargoPlanService{
 				}
 				plan.setIsAppoint("0");
 				plan.setPathID(req.getCurruId());
+				//发货方收货方
+				plan.setConsigneeMerchant(req.getConsigneeMerchant());
+				plan.setShipperMerchant(req.getShipperMerchant());
+				//发货人
+				plan.setSendperson(req.getShipperName());
+				plan.setSendpersonphone(req.getShipperTell());
+				//收货人
+				plan.setReceiveperson(req.getConsigneeName());
+				plan.setReceivepersonphone(req.getConsigneeTell());
+				
 				planMapper.insert(plan);
 				
 				//发送消息

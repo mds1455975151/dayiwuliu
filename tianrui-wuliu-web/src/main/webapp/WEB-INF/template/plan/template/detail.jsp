@@ -127,6 +127,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="text" name="organizationname" id ="organizationname" value="${plan.orgname }" readonly>
                 </div>
                 <div class="goods_line">
+                    <label> 发货方：</label>
+                    <input type="text" value="${plan.shipper }" readonly>
+                </div>
+                <div class="goods_line">
+                    <label> 收货方：</label>
+                    <input type="text" value="${plan.consignee }" readonly>
+                </div>
+                <div class="goods_line">
                     <label> 计划总量：</label>
                     <input type="text" name="totalplanned" placeholder="保留两位小数" readOnly id ="totalplanned" style="width:180px" value="${plan.totalplanned }"  maxlength="10">
                     <span id="measure_name">${plan.measure }</span><span id="totalPrice">.总价:<fmt:formatNumber type="number" value="${plan.totalplanned * plan.price }" pattern="0.00" maxFractionDigits="2"/>元</span>

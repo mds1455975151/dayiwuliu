@@ -230,8 +230,10 @@ $(function(){
 			success : function(rs) {
 				if( rs.code=="000000" ){
 					var data = rs.data;
-					$("#sendpersion").html(data.sendpersion+"<br>"+data.sendpersionphone);
-					$("#receivepersion").html(data.receivepersion+"<br>"+data.receivepersionphone);
+					$("#sendname").val(data.sendpersion);
+					$("#sendtel").val(data.sendpersionphone);
+					$("#recname").val(data.receivepersion);
+					$("#rectell").val(data.receivepersionphone);
 					$("#hdistance").html(data.distance);
 					$("#hstartcity").html(data.oaddr);
 					$("#hendcity").html(data.daddr);
@@ -271,6 +273,14 @@ $(function(){
 		}
 		if( !$("#endtime").val() ){
 			alert("结束时间不能为空.");
+			return false;
+		}
+		if( !$("#shipperMerchant").val() ){
+			alert("请选择发货方.");
+			return false;
+		}
+		if( !$("#consigneeMerchant").val() ){
+			alert("请选择收货方.");
 			return false;
 		}
 		if($("input[name=venderId]:checked").length==0){

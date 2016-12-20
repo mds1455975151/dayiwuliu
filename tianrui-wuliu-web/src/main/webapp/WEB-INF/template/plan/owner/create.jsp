@@ -122,16 +122,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </tr>
                             </tbody>
                             <thead>
-                            <tr>
-                                <th>发货人</th>
-                                <th>收货人</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                            	<td style="height: 35px"><span id="sendpersion"></span></td>
-                            	<td><span id="receivepersion"></span> </td>
-                            </tr>
                             </tbody>
                             <thead>
                             <tr>
@@ -161,6 +151,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <label> 发货单位：</label>
                     <input type="text" name="organizationname" id ="organizationname" readonly >
+                </div>
+                <div class="goods_line">
+                    <label> 发货方：</label>
+                    <select class="form-control" id="shipperMerchant" name="shipperMerchant">
+                    	<option value="">请选择</option>
+                    	<c:forEach items="${merchant }" var="mer">
+                    		<option value="${mer.id }">${mer.name }</option>
+                    	</c:forEach>
+                    </select>
+                </div>
+                <div class="goods_line">
+                    <label> 收货方：</label>
+                    <select class="form-control" id="consigneeMerchant" name="consigneeMerchant">
+                    	<option value="">请选择</option>
+                    	<c:forEach items="${merchant }" var="mer">
+                    		<option value="${mer.id }">${mer.name }</option>
+                    	</c:forEach>
+                    </select>
+                </div>
+                <div class="goods_line">
+                    <label> 发货人：</label>
+                    <input type="text" id="sendname" name="shipperName" style="width:160px">
+                    <input type="text" id="sendtel" name="shipperTell" style="width:220px"  >
+                </div>
+                <div class="goods_line">
+                    <label> 收货人：</label>
+                    <input type="text" id="recname" name="consigneeName" style="width:160px">
+                    <input type="text" id="rectell" name="consigneeTell" style="width:220px">
                 </div>
                 <div class="goods_line">
                     <label> 计划总量：</label>
@@ -269,7 +287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/plan/create.js" ></script>
+<script type="text/javascript" src="/resources/js/plan/create.js?12.20" ></script>
 
 </body>
 

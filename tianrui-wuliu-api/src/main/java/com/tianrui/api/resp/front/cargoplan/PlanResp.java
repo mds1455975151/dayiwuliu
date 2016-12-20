@@ -16,6 +16,14 @@ public class PlanResp extends BaseResp{
     private String routeid;
     private String cargoid;
 
+    /** 发货方id*/
+    private String shipperMerchant;
+    private String shipper;
+    
+    /** 收货方id*/
+    private String consigneeMerchant;
+    private String consignee;
+    
     private String cargoname;
     private String measure;
     private String priceunits;
@@ -133,6 +141,18 @@ public class PlanResp extends BaseResp{
 	public String getPriceunits() {
 		return priceunits;
 	}
+	public String getShipper() {
+		return shipper;
+	}
+	public void setShipper(String shipper) {
+		this.shipper = shipper;
+	}
+	public String getConsignee() {
+		return consignee;
+	}
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
+	}
 	public void setPriceunits(String priceunits) {
 		this.priceunits = priceunits;
 	}
@@ -141,6 +161,18 @@ public class PlanResp extends BaseResp{
 	}
 	public void setStartcity(String startcity) {
 		this.startcity = startcity;
+	}
+	public String getShipperMerchant() {
+		return shipperMerchant;
+	}
+	public void setShipperMerchant(String shipperMerchant) {
+		this.shipperMerchant = shipperMerchant;
+	}
+	public String getConsigneeMerchant() {
+		return consigneeMerchant;
+	}
+	public void setConsigneeMerchant(String consigneeMerchant) {
+		this.consigneeMerchant = consigneeMerchant;
 	}
 	public String getEndcity() {
 		return endcity;

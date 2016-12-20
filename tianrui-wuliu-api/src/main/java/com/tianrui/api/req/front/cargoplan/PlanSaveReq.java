@@ -24,6 +24,20 @@ public class PlanSaveReq extends BaseReq{
     //是否为熟车   1为熟车  0普通
     private String isFamily;
     
+    /** 发货方id*/
+    private String shipperMerchant;
+    /** 发货人姓名*/
+    private String shipperName;
+    /** 发货人电话*/
+    private String shipperTell;
+    
+    /** 收货方id*/
+    private String consigneeMerchant;
+    /** 收货人姓名*/
+    private String consigneeName;
+    /** 收货人电话*/
+    private String consigneeTell;
+    
     //计划总量
     private String totalplanned;
     //开始时间
@@ -91,6 +105,38 @@ public class PlanSaveReq extends BaseReq{
 		this.totalplanned = totalplanned;
 	}
 
+	public String getShipperName() {
+		return shipperName;
+	}
+
+	public void setShipperName(String shipperName) {
+		this.shipperName = shipperName;
+	}
+
+	public String getShipperTell() {
+		return shipperTell;
+	}
+
+	public void setShipperTell(String shipperTell) {
+		this.shipperTell = shipperTell;
+	}
+
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
+	}
+
+	public String getConsigneeTell() {
+		return consigneeTell;
+	}
+
+	public void setConsigneeTell(String consigneeTell) {
+		this.consigneeTell = consigneeTell;
+	}
+
 	public String getStarttimeStr() {
 		return starttimeStr;
 	}
@@ -125,6 +171,22 @@ public class PlanSaveReq extends BaseReq{
 
 	public String getTelephone() {
 		return telephone;
+	}
+
+	public String getShipperMerchant() {
+		return shipperMerchant;
+	}
+
+	public void setShipperMerchant(String shipperMerchant) {
+		this.shipperMerchant = shipperMerchant;
+	}
+
+	public String getConsigneeMerchant() {
+		return consigneeMerchant;
+	}
+
+	public void setConsigneeMerchant(String consigneeMerchant) {
+		this.consigneeMerchant = consigneeMerchant;
 	}
 
 	public void setTelephone(String telephone) {

@@ -136,6 +136,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <input type="text" value="${plan.totalplanned }" style="width:180px" readOnly/>
                     <span id="measure_name">${plan.measure }</span>
                 </div>
+                 <div class="goods_line">
+                    <label> 发货方：</label>
+                    <input type="text" value="${plan.shipper }" readonly>
+                </div>
+                <div class="goods_line">
+                    <label> 收货方：</label>
+                    <input type="text" value="${plan.consignee }" readonly>
+                </div>
                 <div class="goods_line">
 	                <label>开始时间：</label>
 	                <input type="text" value="${plan.starttimeStr}:00" class="Wdate_plan" readOnly/>

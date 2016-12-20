@@ -14,7 +14,10 @@ public class Plan implements IModel{
      * 策略id
      */
     private String freightid;
-
+    /** 发货方id*/
+    private String shipperMerchant;
+    /** 收货方id*/
+    private String consigneeMerchant;
     /**
      * 路径id
      */
@@ -253,7 +256,23 @@ public class Plan implements IModel{
         return freightid;
     }
 
-    public String getCargoid() {
+    public String getShipperMerchant() {
+		return shipperMerchant;
+	}
+
+	public void setShipperMerchant(String shipperMerchant) {
+		this.shipperMerchant = shipperMerchant;
+	}
+
+	public String getConsigneeMerchant() {
+		return consigneeMerchant;
+	}
+
+	public void setConsigneeMerchant(String consigneeMerchant) {
+		this.consigneeMerchant = consigneeMerchant;
+	}
+
+	public String getCargoid() {
 		return cargoid;
 	}
 

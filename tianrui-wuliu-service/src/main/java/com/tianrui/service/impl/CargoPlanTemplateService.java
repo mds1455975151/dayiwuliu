@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanTemplateService;
 import com.tianrui.api.req.front.cargoplan.PlanTemplateReq;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
@@ -31,6 +32,8 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 	MemberVoService memberVoService;
 	@Autowired
 	private FreightInfoService freightInfoService;
+	@Autowired
+	private IMerchantService merchantService;
 
 	@Override
 	public List<PlanResp> findPlanTemplat(PlanTemplateReq req) {
@@ -60,6 +63,12 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 					resp.setFstatus("0");
 				}else{
 					resp.setFstatus("1");
+				}
+				if(StringUtils.isNotBlank(resp.getConsigneeMerchant())){
+					resp.setConsignee(merchantService.findByid(resp.getConsigneeMerchant()).getName());
+				}
+				if(StringUtils.isNotBlank(resp.getShipperMerchant())){
+					resp.setShipper(merchantService.findByid(resp.getShipperMerchant()).getName());
 				}
 			} catch (Exception e) {
 				loger.error(e.getMessage(),e);

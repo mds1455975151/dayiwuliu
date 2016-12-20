@@ -16,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IFileOrgCargoService;
 import com.tianrui.api.admin.intf.IFreightInfoService;
+import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IFreightService;
 import com.tianrui.api.intf.IMemberOwnerService;
 import com.tianrui.api.intf.IRouteService;
 import com.tianrui.api.req.admin.FileOrgCargoReq;
+import com.tianrui.api.req.admin.merchant.MerchantReq;
 import com.tianrui.api.req.front.cargoplan.FreightReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
@@ -29,6 +31,7 @@ import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
 import com.tianrui.api.req.front.cargoplan.RouteReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.resp.admin.FileOrgCargoResp;
+import com.tianrui.api.resp.admin.merchant.MerchantResp;
 import com.tianrui.api.resp.front.cargoplan.FreightResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.cargoplan.RouteResp;
@@ -37,6 +40,7 @@ import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.MemberVo;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
@@ -66,6 +70,8 @@ public class PlanOwnerAction {
 	protected IRouteService routeService;
 	@Autowired
 	private IFreightInfoService freightInfoService;
+	@Autowired
+	private IMerchantService merchantService;
 
 	//计划修改页面
 	@RequestMapping("editView")
@@ -167,6 +173,12 @@ public class PlanOwnerAction {
 		rreq.setOrganizationid(currUser.getOrgid());
 		List<RouteResp> routeList = routeService.findRouteByEntity(rreq);
 		model.addObject("routeList",routeList);
+		//客商信息 不分组织
+		MerchantReq merreq = new MerchantReq();
+		PaginationVO<MerchantResp> merchant = merchantService.find(merreq);
+		if(merchant.getTotalInt()!=0){
+			model.addObject("merchant",merchant.getList());
+		}
 		return model;
 	}
 	

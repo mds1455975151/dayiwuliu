@@ -119,5 +119,12 @@ public class MerchantService implements IMerchantService {
 		return rs;
 	}
 
-	
+	@Override
+	public MerchantResp findByid(String id) throws Exception {
+		Merchant mer = merchantMapper.selectByPrimaryKey(id);
+		MerchantResp resp = new MerchantResp();
+		PropertyUtils.copyProperties(resp, mer);
+		return resp;
+	}
+
 }

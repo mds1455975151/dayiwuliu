@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.req.admin.merchant.MerchantReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
+import com.tianrui.api.resp.admin.merchant.MerchantResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
@@ -35,6 +38,9 @@ public class AppPlanOwnerAction {
 	
 	@Autowired
 	protected ICargoPlanService planService;
+	
+	@Autowired
+	private IMerchantService merchantService;
 	
 	//获取我发布的计划列表
 	@RequestMapping(value="/page",method=RequestMethod.POST)
@@ -73,19 +79,6 @@ public class AppPlanOwnerAction {
 		return appResult;
 	}
 	
-	
-/*	//计划完成数量 
-	@RequestMapping(value="/planStat",method=RequestMethod.POST)
-	@ApiParamRawType(PlanQueryReq.class)
-	@ApiTokenValidation
-	@ResponseBody
-	public AppResult planStat(AppParam<PlanQueryReq> appParam) throws Exception{
-		AppResult appResult = new AppResult();
-		
-		appResult.setCode("000000");
-		appResult.setReturnData(planService.planstat(appParam.getBody()));
-		return appResult;
-	}*/
 	
 	//删除计划
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
@@ -160,6 +153,25 @@ public class AppPlanOwnerAction {
 		req.setCurruId(uId);
 		Result rs= planService.completePlan(req);
 		return AppResult.valueOf(rs);
+	}
+	
+	/** 获取客商信息*/
+	@RequestMapping(value="/merchant",method=RequestMethod.POST)
+	@ApiParamRawType(PlanConfirmReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult merchant(AppParam<PlanConfirmReq> appParam) throws Exception{
+		AppResult rs = new AppResult();
+		//获取当前用户
+		String uId =appParam.getHead().getId();
+		//拼装查询条件
+		MerchantReq merreq = new MerchantReq();
+		PaginationVO<MerchantResp> merchant = merchantService.find(merreq);
+		rs.setCode("000000");
+		if(merchant.getTotalInt()!=0){
+			rs.setReturnData(merchant.getList());
+		}
+		return rs;
 	}
 	
 }
