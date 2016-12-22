@@ -103,6 +103,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             	</td>
                             </tr>
                             </tbody>
+                            <thead>
+								<tr>
+									<th>发货方</th>
+									<th>收货方</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${plan.shipper }</td>
+									<td>${plan.consignee }</td>
+								</tr>
+							</tbody>
                         </table>
                     </div>
                 </div>

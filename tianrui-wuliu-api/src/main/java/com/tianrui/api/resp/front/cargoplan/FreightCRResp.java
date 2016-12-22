@@ -123,10 +123,12 @@ public class FreightCRResp extends BaseResp{
      * 发货人
      */
     private String sendpersion;
+    private String sendpersionphone;
     /**
      * 收货人
      */
     private String receivepersion;
+    private String receivepersionphone;
     
 	public String getOrganizationid() {
 		return organizationid;
@@ -235,6 +237,18 @@ public class FreightCRResp extends BaseResp{
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public String getSendpersionphone() {
+		return sendpersionphone;
+	}
+	public void setSendpersionphone(String sendpersionphone) {
+		this.sendpersionphone = sendpersionphone;
+	}
+	public String getReceivepersionphone() {
+		return receivepersionphone;
+	}
+	public void setReceivepersionphone(String receivepersionphone) {
+		this.receivepersionphone = receivepersionphone;
 	}
 	public String getId() {
 		return id;

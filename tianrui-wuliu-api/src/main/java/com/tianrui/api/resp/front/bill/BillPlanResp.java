@@ -17,7 +17,13 @@ public class BillPlanResp extends BaseResp{
 	   
 	private static final long serialVersionUID = 1L;
 
-	
+	/** 发货方id*/
+    private String shipperMerchant;
+    private String shipper;
+    /** 收货方id*/
+    private String consigneeMerchant;
+    private String consignee;
+    
 	private String planId;
 	/**
      * 起始地
@@ -128,6 +134,30 @@ public class BillPlanResp extends BaseResp{
 	}
 	public void setReceivepersionphone(String receivepersionphone) {
 		this.receivepersionphone = receivepersionphone;
+	}
+	public String getShipperMerchant() {
+		return shipperMerchant;
+	}
+	public void setShipperMerchant(String shipperMerchant) {
+		this.shipperMerchant = shipperMerchant;
+	}
+	public String getShipper() {
+		return shipper;
+	}
+	public void setShipper(String shipper) {
+		this.shipper = shipper;
+	}
+	public String getConsigneeMerchant() {
+		return consigneeMerchant;
+	}
+	public void setConsigneeMerchant(String consigneeMerchant) {
+		this.consigneeMerchant = consigneeMerchant;
+	}
+	public String getConsignee() {
+		return consignee;
+	}
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
 	}
 	public String getStartTime() {
 		return startTime;

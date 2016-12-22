@@ -55,11 +55,13 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.bean.Merchant;
 import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.MemberCapa;
@@ -78,6 +80,7 @@ import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
 import com.tianrui.service.vo.BIllTrackMsg;
 import com.tianrui.service.vo.VehicleDriverVO;
+
 
 @Service
 public class BillService implements IBillService{
@@ -131,6 +134,8 @@ public class BillService implements IBillService{
 	private FreightInfoService freightInfoService;
 	@Autowired
 	private IFileService iFileService;
+	@Autowired
+	private MerchantMapper merchantMapper;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -1053,6 +1058,17 @@ public class BillService implements IBillService{
 					resp.setPrice(fileFreight.getPrice()+"");
 				}
 				resp.setOverweight(inspectTraffic(pid));
+				//TODO
+				if(StringUtils.isNotBlank(plan.getConsigneeMerchant())){
+					Merchant m = merchantMapper.selectByPrimaryKey(plan.getConsigneeMerchant());
+					resp.setConsigneeMerchant(plan.getConsigneeMerchant());
+					resp.setConsignee(m.getName());
+				}
+				if(StringUtils.isNotBlank(plan.getShipperMerchant())){
+					Merchant m = merchantMapper.selectByPrimaryKey(plan.getShipperMerchant());
+					resp.setShipperMerchant(plan.getShipperMerchant());
+					resp.setShipper(m.getName());
+				}
 			}
 			
 		}
@@ -1315,6 +1331,17 @@ public class BillService implements IBillService{
 			}
 			
 			Plan p = planMapper.selectByPrimaryKey(bill.getPlanid());
+			//发货方 收货方
+			if(StringUtils.isNotBlank(p.getShipperMerchant())){
+				Merchant m = merchantMapper.selectByPrimaryKey(p.getShipperMerchant());
+				resp.setShipperMerchant(p.getShipperMerchant());
+				resp.setShipper(m.getName());
+			}
+			if(StringUtils.isNotBlank(p.getConsigneeMerchant())){
+				Merchant m = merchantMapper.selectByPrimaryKey(p.getConsigneeMerchant());
+				resp.setConsigneeMerchant(p.getConsigneeMerchant());
+				resp.setConsignee(m.getName());
+			}
 			Date date = null;
 			if(StringUtils.isBlank(bill.getIsClearing()) || StringUtils.equals(bill.getIsClearing(), "0")){
 				if(bill.getUnloadtime() == null){

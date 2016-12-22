@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -78,6 +78,23 @@
 											<td>${bill.cargoname}</td>
 											<td>${bill.startcity }</td>
 											<td>${bill.endcity }</td>
+										</tr>
+									</tbody>
+									<thead>
+										<tr>
+											<th>发货方</th>
+											<th>收货方</th>
+											<th>税率</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>${bill.shipper }</td>
+											<td>${bill.consignee }</td>
+											<td><c:if test="${not empty bill.tallage }">
+													<fmt:formatNumber type="number" value="${bill.tallage }"
+														maxFractionDigits="0"></fmt:formatNumber>%
+                                	</c:if></td>
 										</tr>
 									</tbody>
 									<thead>

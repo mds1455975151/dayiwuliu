@@ -271,7 +271,9 @@ public class FreightService implements IFreightService{
 					resp.setDaddr(route.getDaddr());
 					resp.setDistance(route.getDistance());
 					resp.setSendpersion(route.getSendpersion());
+					resp.setSendpersionphone(route.getSendpersionphone());
 					resp.setReceivepersion(route.getReceivepersion());
+					resp.setReceivepersionphone(route.getReceivepersionphone());
 				}
 			}
 		}

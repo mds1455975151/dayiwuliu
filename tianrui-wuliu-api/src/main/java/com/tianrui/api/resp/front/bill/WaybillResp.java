@@ -53,6 +53,14 @@ public class WaybillResp extends BaseResp{
     private String desc4;
     private Double tallage;
     private String pickupimgurl;
+    
+    /** 发货方id*/
+    private String shipperMerchant;
+    private String shipper;
+    /** 收货方id*/
+    private String consigneeMerchant;
+    private String consignee;
+    
     /**
      * 剩余运输量
      */
@@ -131,6 +139,30 @@ public class WaybillResp extends BaseResp{
 	}
 	public String getDrivername() {
 		return drivername;
+	}
+	public String getShipperMerchant() {
+		return shipperMerchant;
+	}
+	public void setShipperMerchant(String shipperMerchant) {
+		this.shipperMerchant = shipperMerchant;
+	}
+	public String getShipper() {
+		return shipper;
+	}
+	public void setShipper(String shipper) {
+		this.shipper = shipper;
+	}
+	public String getConsigneeMerchant() {
+		return consigneeMerchant;
+	}
+	public void setConsigneeMerchant(String consigneeMerchant) {
+		this.consigneeMerchant = consigneeMerchant;
+	}
+	public String getConsignee() {
+		return consignee;
+	}
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
 	}
 	public void setDrivername(String drivername) {
 		this.drivername = drivername;

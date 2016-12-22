@@ -85,6 +85,23 @@
 									</tbody>
 									<thead>
 										<tr>
+											<th>发货方</th>
+											<th>收货方</th>
+											<th>税率</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>${bill.shipper }</td>
+											<td>${bill.consignee }</td>
+											<td><c:if test="${not empty bill.tallage }">
+													<fmt:formatNumber type="number" value="${bill.tallage }"
+														maxFractionDigits="0"></fmt:formatNumber>%
+                                	</c:if></td>
+										</tr>
+									</tbody>
+									<thead>
+										<tr>
 											<th>发货人</th>
 											<th>收货人</th>
 											<th>运输量</th>
@@ -138,17 +155,12 @@
 									</tbody>
 									<thead>
 										<tr>
-											<th>税率</th>
 											<th>车主</th>
 											<th>车主电话</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td><c:if test="${not empty bill.tallage }">
-													<fmt:formatNumber type="number" value="${bill.tallage }"
-														maxFractionDigits="0"></fmt:formatNumber>%
-                                	</c:if></td>
 											<td>${bill.venderName }</td>
 											<td>${bill.venderTel }</td>
 										</tr>
