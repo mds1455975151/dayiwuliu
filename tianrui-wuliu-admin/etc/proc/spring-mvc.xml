@@ -37,7 +37,8 @@
 	
    <bean id="resourcePathExposer" class="com.tianrui.trwl.admin.util.ResourcePathExposer"
 		init-method="init" >
-		<property name="trRoot" value="http://www.da156.com/trwlAdminStatic" />
+		<property name="trRoot" value="http://www.da156.cn:81/trwlAdminStatic" />
+		<property name="localRoot" value="http://admin.da156.cn:81/trwlAdminStatic" />
 		
 	</bean>
 	

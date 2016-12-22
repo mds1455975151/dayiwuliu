@@ -1121,7 +1121,7 @@ public class BillService implements IBillService{
 			FilePositoin start = positionMapper.selectByPrimaryKey(route.getOpositionid());			
 			list.add(conver2PositionResp(start));
 			
-			if( db!=null && db.getStatus()==(byte)6 ){
+			if( db!=null ){
 				List<BillTrack> trackList =billTrackDao.findWithBid(db.getId());
 				if( CollectionUtils.isNotEmpty(trackList) ){
 					long startTime= 0l;
