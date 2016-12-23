@@ -122,9 +122,11 @@ public class BillDriverAction {
 	@RequestMapping(value = "/pickupConfirm", method = RequestMethod.POST)
 	@ResponseBody
 	public Result pickupConfirm(WaybillConfirmReq req, HttpServletRequest request) throws Exception{
+		//TODO
 		Result rs =Result.getSuccessResult();
 		if( req !=null ){
 			MemberVo currUser =SessionManager.getSessionMember(request);
+			req.setStatus("2");
 			req.setCurruId(currUser.getId());
 			rs=billService.pickupConfirm(req);
 		}
@@ -151,8 +153,10 @@ public class BillDriverAction {
 	@ResponseBody
 	public Result dischargeConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception{
 		Result rs =Result.getSuccessResult();
+		//TODO
 		if( req !=null ){
 			MemberVo currUser =SessionManager.getSessionMember(request);
+			req.setStatus("3");
 			req.setCurruId(currUser.getId());
 			rs=billService.dischargeConfirm(req);
 		}

@@ -11,6 +11,15 @@ public class WaybillConfirmReq extends BaseReq{
 	private String id;
 	private String imgdata;
 	
+	/** 纬线*/
+	private Integer lat;
+	/** 经线*/
+    private Integer lon;
+    /**1-起运地 2-提货地  3-卸货地  4-目的地*/
+    private String status;
+    /** 备注信息*/
+    private String remark;
+	
 	//拒绝原因类型
 	private String refuseType;
 	//拒绝原因
@@ -99,6 +108,38 @@ public class WaybillConfirmReq extends BaseReq{
 
 	public void setPsweight(Double psweight) {
 		this.psweight = psweight;
+	}
+
+	public Integer getLat() {
+		return lat;
+	}
+
+	public void setLat(Integer lat) {
+		this.lat = lat;
+	}
+
+	public Integer getLon() {
+		return lon;
+	}
+
+	public void setLon(Integer lon) {
+		this.lon = lon;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 }

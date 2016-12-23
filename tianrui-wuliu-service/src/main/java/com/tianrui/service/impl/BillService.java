@@ -35,6 +35,7 @@ import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
+import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.BillTrackResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
@@ -63,9 +64,11 @@ import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.BillPosition;
 import com.tianrui.service.bean.BillTrack;
 import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
+import com.tianrui.service.bean.MemberPositionRecord;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.VehicleDriver;
@@ -76,8 +79,10 @@ import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
+import com.tianrui.service.mongo.BillPositionDao;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
+import com.tianrui.service.mongo.MemberPositionRecordDao;
 import com.tianrui.service.vo.BIllTrackMsg;
 import com.tianrui.service.vo.VehicleDriverVO;
 
@@ -136,6 +141,10 @@ public class BillService implements IBillService{
 	private IFileService iFileService;
 	@Autowired
 	private MerchantMapper merchantMapper;
+	@Autowired
+	private BillPositionDao billPositionDao;
+	@Autowired
+	private MemberPositionRecordDao memberPositionRecordDao;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -720,6 +729,9 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
+				//保存卸货地位置信息
+				saveBillPosition(req);
+				
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"transit") ){
 						//移动端图片保存
@@ -780,6 +792,19 @@ public class BillService implements IBillService{
 		return rs;
 	}
 
+	public void saveBillPosition(WaybillConfirmReq req){
+		if(req.getLat()!=null&&req.getLon()!=null){
+			BillPosition t = new BillPosition();
+			t.setId(UUIDUtil.getId());
+			t.setBillid(req.getId());
+			t.setLon(req.getLon());
+			t.setLat(req.getLat());
+			t.setStatus(req.getStatus());
+			t.setRemark(req.getRemark());
+			t.setCreatetime(System.currentTimeMillis());
+			billPositionDao.save(t);
+		}
+	}
 	
 	@Override
 	public Result pickupConfirm(WaybillConfirmReq req) throws Exception {
@@ -787,6 +812,8 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
+				//保存发货地位置信息
+				saveBillPosition(req);
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"pickup") ){
 						// 如果有已经确认装货的话 就不能操作 就不能
@@ -1058,7 +1085,6 @@ public class BillService implements IBillService{
 					resp.setPrice(fileFreight.getPrice()+"");
 				}
 				resp.setOverweight(inspectTraffic(pid));
-				//TODO
 				if(StringUtils.isNotBlank(plan.getConsigneeMerchant())){
 					Merchant m = merchantMapper.selectByPrimaryKey(plan.getConsigneeMerchant());
 					resp.setConsigneeMerchant(plan.getConsigneeMerchant());
@@ -1112,6 +1138,7 @@ public class BillService implements IBillService{
 	
 	@Override
 	public List<PositionResp> getBIllTrackAll(WaybillQueryReq req) throws Exception{
+		//TODO
 		List<PositionResp> list =null;
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
@@ -1680,6 +1707,88 @@ public class BillService implements IBillService{
 			resp.setLon(positoin.getLng());
 			resp.setProxyGps(positoin.getName());
 		}
+		return resp;
+	}
+
+	@Override
+	public List<BillPositionResp> getBillPosition(String bid) throws Exception {
+		// TODO Auto-generated method stub
+		List<BillPositionResp> list= null;
+		
+		Bill db =billMapper.selectByPrimaryKey(bid);
+		if(db!=null){
+			list = new ArrayList<BillPositionResp>();
+			//获取路线信息
+			FileRoute route=routeMapper.selectByPrimaryKey(db.getRouteid());
+			//获取始发地
+			FilePositoin start = positionMapper.selectByPrimaryKey(route.getOpositionid());			
+			list.add(copyBillPosition(start,"1", bid));
+			//获取提货地 到货地
+			List<BillPosition> p = billPositionDao.findwithBillId(bid);
+			//获取用户位置查询的开始时间和结束时间
+			Long beginTime = null;
+			Long endTime = null;
+			for (int i = 0; i < p.size(); i++) {
+				if(p.get(i).getStatus().equals("2")){
+					BillPositionResp r = new BillPositionResp();
+					PropertyUtils.copyProperties(r, p.get(i));
+					list.add(r);
+					beginTime = p.get(i).getCreatetime();
+				}else if(p.get(i).getStatus().equals("3")){
+					endTime = p.get(i).getCreatetime();
+				}
+			}
+			if(beginTime!=null&&endTime!=null){
+				List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
+				Long t = null;
+				for (int i = 0; i < m.size(); i++) {
+					if(t==null){
+						t=m.get(i).getCreatetime();
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(m.get(i).getLat());
+						r.setLon(m.get(i).getLon());
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getCreatetime());
+						list.add(r);
+					}else if((m.get(i).getCreatetime()-t)>=(3000*60)){
+						//时间价格大于三分钟
+						t=m.get(i).getCreatetime();
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(m.get(i).getLat());
+						r.setLon(m.get(i).getLon());
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getCreatetime());
+						list.add(r);
+					}
+				}
+			}
+			for (int i = 0; i < p.size(); i++) {
+				if(p.get(i).getStatus().equals("3")){
+					endTime = p.get(i).getCreatetime();
+					BillPositionResp r = new BillPositionResp();
+					PropertyUtils.copyProperties(r, p.get(i));
+					list.add(r);
+				}
+			}
+			
+			//获取目的地
+			FilePositoin end = positionMapper.selectByPrimaryKey(route.getDpositionid());	
+			list.add(copyBillPosition(end,"4",bid));
+		}
+		return list;
+	}
+	
+	public BillPositionResp copyBillPosition(FilePositoin p,String status ,String bid){
+		BillPositionResp resp = new BillPositionResp();
+		resp.setBillid(bid);
+		resp.setLat(p.getLat());
+		resp.setLon(p.getLng());
+		resp.setStatus(status);
+		resp.setRemark(p.getName());
 		return resp;
 	}
 }

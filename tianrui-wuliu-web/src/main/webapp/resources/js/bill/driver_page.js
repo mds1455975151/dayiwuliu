@@ -187,6 +187,9 @@ $(function(){
 			formData.append("id",id);
 			formData.append("file",file);
 			formData.append("psweight",$.trim(psweight));
+//			formData.append("lat",123);
+//			formData.append("lon",698);
+//			formData.append("remark","测试数据");
 			$.ajax({
 				url:PATH + url,
 				data : formData, 

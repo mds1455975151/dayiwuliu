@@ -17,6 +17,7 @@ import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.mongo.BillPositionDao;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
 
@@ -37,7 +38,7 @@ public class AppBIllDriverAction {
 	
 	@Autowired
 	protected IBillService billService;
-
+	
 	
 	//获取承运计划列表
 	@RequestMapping(value="/page",method=RequestMethod.POST)
@@ -142,9 +143,9 @@ public class AppBIllDriverAction {
 	public AppResult pickupConfirm(AppParam<WaybillConfirmReq> appParam) throws Exception{
 		//获取当前用户
 		String uId =appParam.getHead().getId();
-		
 		//拼装查询条件
 		WaybillConfirmReq req =appParam.getBody();
+		req.setStatus("2");
 		req.setCurruId(uId);
 		Result rs=billService.pickupConfirm(req);
 		return AppResult.valueOf(rs);
@@ -192,6 +193,7 @@ public class AppBIllDriverAction {
 		//拼装查询条件
 		WaybillConfirmReq req =appParam.getBody();
 		req.setCurruId(uId);
+		req.setStatus("3");
 		Result rs=billService.dischargeConfirm(req);
 		return AppResult.valueOf(rs);
 	}
