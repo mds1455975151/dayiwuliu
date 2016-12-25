@@ -30,7 +30,8 @@ public class MemberPositionRecordDaoImpl extends BaseDaoImpl<MemberPositionRecor
 		if( StringUtils.isNotBlank(uId) ){
 			//拼装条件
 			Query query =new Query();
-			Criteria criteria =Criteria.where("memberid").is(uId).and("createtime").gt(beginTime).and("createtime").lte(endTime);
+			Criteria cri = Criteria.where("$gt").is(beginTime).and("$lt").is(endTime);  
+			Criteria criteria =Criteria.where("memberid").is(uId).where("createtime").elemMatch(cri);
 			query.addCriteria(criteria);
 			//排序条件
 			query.with(new Sort(Direction.ASC,"createtime"));
