@@ -90,9 +90,11 @@ $(function(){
 			}else if(item.status ==7 ||item.status ==8){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'"   dataCode="'+item.waybillno+'">删除</button></a>');
 			}else if(item.status ==1){
-				dataArr.push('<a ><button class="btn btnyello pickupBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'" frebilltype="'+item.frebilltype+'">提货确认</button></a>');
+//				dataArr.push('<a onclick="errMessage()" ><button class="btn btnyello">提货确认</button></a>');
+				//dataArr.push('<a ><button class="btn btnyello pickupBtn" dataId="'+item.id+'"   dataCode="'+item.waybillno+'" frebilltype="'+item.frebilltype+'">提货确认</button></a>');
 			}else if(item.status ==2){
-				dataArr.push('<a ><button class="btn btnyello dischargeBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >卸货完成</button></a>');
+//				dataArr.push('<a onclick="errMessage()" ><button class="btn btnyello">卸货完成</button></a>');
+				//dataArr.push('<a ><button class="btn btnyello dischargeBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >卸货完成</button></a>');
 			}
 			//到货确认  签收 已完成 3个状态
 			if( item.status ==6 || item.status ==5 ){
@@ -127,6 +129,7 @@ $(function(){
 	$(".pageMore").click(function(){
 		pageData($(this).attr("pageNo"));
 	});
+	
 	//查询按钮点击
 	$(".searchBtn").click(function(){
 		pageData(1);
@@ -386,4 +389,9 @@ $(function(){
 			console.log('File uploaded triggered');
 		});
 	}
+	
 });
+
+function errMessage(){
+	alert("PC端不支持此操作,请在APP上完成")
+}

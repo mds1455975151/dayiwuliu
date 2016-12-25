@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
+import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.common.constants.Constant;
@@ -76,6 +77,21 @@ public class BillAppointAction {
 		Result rs = Result.getSuccessResult();
 		try {
 			List<PositionResp> list=billService.getBIllTrackAll(req);
+			rs.setData(list);
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage(), e);
+		}
+		return rs;
+	}
+	
+	@RequestMapping("billPositiondata")
+	@ResponseBody
+	public Result billPositiondata(WaybillQueryReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			List<BillPositionResp> list=billService.getBillPosition(req.getId());
 			rs.setData(list);
 		} catch (Exception e) {
 			rs.setCode("000001");

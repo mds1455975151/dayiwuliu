@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.QueryOperators;
 import com.tianrui.service.bean.MemberPositionRecord;
 import com.tianrui.service.mongo.MemberPositionRecordDao;
 
@@ -28,7 +30,7 @@ public class MemberPositionRecordDaoImpl extends BaseDaoImpl<MemberPositionRecor
 		if( StringUtils.isNotBlank(uId) ){
 			//拼装条件
 			Query query =new Query();
-			Criteria criteria =Criteria.where("memberid").is(uId);
+			Criteria criteria =Criteria.where("memberid").is(uId).and("createtime").gt(beginTime).and("createtime").lte(endTime);
 			query.addCriteria(criteria);
 			//排序条件
 			query.with(new Sort(Direction.ASC,"createtime"));

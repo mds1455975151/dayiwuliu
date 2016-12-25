@@ -45,71 +45,107 @@
 			</div>
 		</div>
 	</div>
-	<!--内容部分end-->
-	
+<!--内容部分end-->
 
+
+
+<!-- 引用公共footer部分 -->
+<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
+<!--底部end-->
+<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
+<script type="text/javascript" src="/resources/js/bill/driver_detail.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.5&ak=7wG9zl9ryQt25NHfHxMECnbScLmSSkKj&services=&t=20150522094656"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7wG9zl9ryQt25NHfHxMECnbScLmSSkKj"></script>
+<script type="text/javascript">
+	// 百度地图API功能
+   	var map;
+	$(function () {
+	  // 百度地图API功能
+	  map = new BMap.Map("_bmap");
+	  map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+	  map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+	  map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+	  map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+	  map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	  
+	  showToolAutoDef(map);
+	});
 	
-	<!-- 引用公共footer部分 -->
-	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
-	<!--底部end-->
-	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
-	<script type="text/javascript" src="/resources/js/bill/driver_detail.js"></script>
-	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7wG9zl9ryQt25NHfHxMECnbScLmSSkKj"></script>
-	<script type="text/javascript">
-		// 百度地图API功能
-		var map = new BMap.Map("_bmap");
-		map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
-		map.enableScrollWheelZoom(true);
-		
+	
+	function showToolAutoDef(map) { 
 		$.ajax({
-    		url:"/trwuliu/billAppoint/trackdata",
+    		url:"/trwuliu/billAppoint/billPositiondata",
 			data:{id:$("#bid").val()},
 			type : "post",
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					renderMap(rs.data);
+					var list = rs.data;
+					var points = new Array();
+					var lon;
+					var lat;
+					
+					for (var a = 0; a < list.length; a++) {
+						console.log(list[a].lon/1000000+";;"+list[a].lat/1000000);
+						lon = list[a].lon/1000000;
+						lat = list[a].lat/1000000;
+						
+						addMarker(lon,lat,list[a].status);
+							var thePoint1 = new BMap.Point(lon,lat);
+							points.push(thePoint1);
+						if(list[a].status==""){
+						}
+					}
+					map.centerAndZoom(new BMap.Point(lon, lat),15);
+					drawPolyline(map, points);
 				}else{
 					alert(rs.error);
 				}
 			}
     	})
-		
-    	function renderMap(pArr){
-			var l_pois =pArr.length;
-			//发货地
-			var p1 = new BMap.Point(parseP(pArr[0].lon),parseP(pArr[0].lat));
-			//到货地
-			var p2 = new BMap.Point(parseP(pArr[l_pois-1].lon),parseP(pArr[l_pois-1].lat));
-			//途径地点
-			var waypointsItem =[];
-			$.each(pArr,function(idx,data){
-				if(idx==0 || idx==(l_pois-1)){
-					
-				}else{
-					var pItem = new BMap.Point(parseP(data.lon),parseP(data.lat));
-					waypointsItem.push(pItem);
-				}
-			})
-			
-			var drivingOptions={renderOptions:{map: map, autoViewport: true,highlightMode:BMAP_HIGHLIGHT_ROUTE}};
-			drivingOptions.onMarkersSet=function(pois){
-				pois[0].title=pArr[0].proxyGps;
-				pois[pois.length-1].title=pArr[l_pois-1].proxyGps;
-			}
-			
-			var driving = new BMap.DrivingRoute(map, drivingOptions);
-			driving.search(p1, p2,{waypoints:waypointsItem});//waypoints表示途经点
+				
+	}
+	
+	//创建marker
+	function addMarker(lng, lat, status){
+		    var point = new BMap.Point(lng,lat);
+		    var iconImg = createIcon(status);
+		    var marker = new BMap.Marker(point,{icon:iconImg});
+		    
+		    var _marker = marker;
+					_marker.addEventListener("click",function(){
+					    alert(lng+" |  "+lat);
+				    });
+		    
+		    map.addOverlay(marker);
+	}
+	
+	/**
+	 * 画线
+	 * @param bMap
+	 * @param points
+	 */
+	function drawPolyline(bMap, points) {
+		if (points==null || points.length<=1) {
+			return;
 		}
-		function parseP(aa){
-			if(aa){
-				return ((+aa)/1000000).toFixed(6); 
-			}
-			return 0;
-		}
-    	
-	</script>
+		bMap.addOverlay(new BMap.Polyline(points, {
+			strokeColor : "blue",
+			strokeWeight : 3,
+			strokeOpacity : 0.6
+		})); // 画线
+	}
+	
+	//创建一个Icon
+	function createIcon(status){
+		var m = "bposition"+status+".png";
+		var icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
+	        	new BMap.Size(80, 80), {anchor: new BMap.Size(40, 40)});
+		return icon;
+	}
+   	
+</script>
 </body>
 </html>

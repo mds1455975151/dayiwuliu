@@ -1738,7 +1738,8 @@ public class BillService implements IBillService{
 					endTime = p.get(i).getCreatetime();
 				}
 			}
-			if(beginTime!=null&&endTime!=null){
+			endTime = endTime==null?System.currentTimeMillis():endTime;
+			if(beginTime!=null){
 				List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
 				Long t = null;
 				for (int i = 0; i < m.size(); i++) {
