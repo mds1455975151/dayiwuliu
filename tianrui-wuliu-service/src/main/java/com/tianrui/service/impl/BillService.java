@@ -1718,11 +1718,12 @@ public class BillService implements IBillService{
 		Bill db =billMapper.selectByPrimaryKey(bid);
 		if(db!=null){
 			list = new ArrayList<BillPositionResp>();
+			String billStatus = db.getStatus().toString();
 			//获取路线信息
 			FileRoute route=routeMapper.selectByPrimaryKey(db.getRouteid());
 			//获取始发地
 			FilePositoin start = positionMapper.selectByPrimaryKey(route.getOpositionid());			
-			list.add(copyBillPosition(start,"1", bid));
+			list.add(copyBillPosition(start,"1", bid,billStatus));
 			//获取提货地 到货地
 			List<BillPosition> p = billPositionDao.findwithBillId(bid);
 			//获取用户位置查询的开始时间和结束时间
@@ -1778,14 +1779,15 @@ public class BillService implements IBillService{
 			
 			//获取目的地
 			FilePositoin end = positionMapper.selectByPrimaryKey(route.getDpositionid());	
-			list.add(copyBillPosition(end,"4",bid));
+			list.add(copyBillPosition(end,"4",bid,billStatus));
 		}
 		return list;
 	}
 	
-	public BillPositionResp copyBillPosition(FilePositoin p,String status ,String bid){
+	public BillPositionResp copyBillPosition(FilePositoin p,String status ,String bid,String billStatus){
 		BillPositionResp resp = new BillPositionResp();
 		resp.setBillid(bid);
+		resp.setBillStatus(billStatus);
 		resp.setLat(p.getLat());
 		resp.setLon(p.getLng());
 		resp.setStatus(status);

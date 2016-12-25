@@ -39,25 +39,24 @@
 				<!-- 个人车辆begin -->
 				<div class="car_box">
 					<div class="reg_tel">
-						<label>车牌号码：</label> <input type="text" id="vehicle_add_vehiNo">
+						<label> <span style="color: red">*</span>车牌号码：</label> <input type="text" id="vehicle_add_vehiNo">
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
-						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode">
+						<label><span style="color: red">*</span>营运证号：</label> <input type="text" id="vehicle_add_opercode">
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyzsl.jpg">
 							</div>
 							<div class="img_upload">
-								<input id="file_xkz" class="file" type="file"> <span
+								<input id="file_xkz" onchange="xkzfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="xkzfile()" type="button" value="上传">
 							<input type="hidden" id="file_xkz_img">
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label>车辆类型：</label> <select class="form-control w350"
+						<label><span style="color: red">*</span>车辆类型：</label> <select class="form-control w350"
 							id="vehicle_add_vehiType">
 							<option value="0">请选择</option>
 							<option value="5">半挂车</option>
@@ -71,95 +70,62 @@
 						<p id="message_vehiType"></p>
 					</div>
 					<div class="reg_tel">
-						<label>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</label> <input
+						<label><span style="color: red">*</span>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</label> <input
 							type="text" placeholder="" id="vehicle_add_vehiLength"> 米
 						<p id="message_vehiLength"></p>
 					</div>
 					<div class="reg_tel">
-						<label>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
+						<label><span style="color: red">*</span>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
 							type="text" placeholder="" id="vehicle_add_vehiWeight"> 吨
 						<p id="message_vehiWeight"></p>
 					</div>
 					<div class="reg_tel">
-						<label>所有人姓名：</label> <input type="text"
+						<label><span style="color: red">*</span>所有人姓名：</label> <input maxlength="8" type="text"
 							id="vehicle_add_vehiOwnerName">
 						<p id="message_vehiOwnerName"></p>
 					</div>
 					<div class="reg_tel">
-						<label>联系电话：</label> <input type="text" maxlength="11"
+						<label><span style="color: red">*</span>联系电话：</label> <input type="text" maxlength="11"
 							id="vehicle_add_vehiTel">
 						<p id="message_ID"></p>
 					</div>
-					<!-- 
 					<div class="reg_tel">
-						<label>所有人身份证：</label> <input type="text"
-							id="vehicle_add_identitycode">
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="sfz" style="max-height: 240px;" src="${trRoot}/tianrui/images/sfz.png">
-							</div>
-							<div class="img_upload">
-								<input id="file_sfz" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-						</div>
-					</div>
-					 -->
-					<div class="reg_tel">
-						<label>车辆照片：</label>
+						<label><span style="color: red">*</span>车辆照片：</label>
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="cel" style="max-height: 240px;" src="${trRoot}/tianrui/images/democar.jpg">
 							</div>
 							<div class="img_upload">
-								<input id="file_cel" class="file" type="file"> <span
+								<input id="file_cel" onchange="celfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="celfile();" type="button" value="上传">
 							<input type="hidden" id="file_cel_img">
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label>行驶证：</label>
+						<label><span style="color: red">*</span>行驶证：</label>
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="xsz" style="max-height: 240px;" src="${trRoot}/tianrui/images/demoxsz.jpg">
 							</div>
 							<div class="img_upload">
-								<input id="file_xsz" class="file" type="file"> <span
+								<input id="file_xsz" onchange="xszfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="xszfile();" type="button" value="上传">
 							<input type="hidden" id="file_xsz_img">
 						</div>
 					</div>
-					<!-- 
-					<div class="reg_tel">
-						<label>道路运输证：</label> <input type="text"
-							id="vehicle_add_roadtransportcode">
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="ysz" style="max-height: 240px;" src="${trRoot}/tianrui/images/admin.jpg">
-							</div>
-							<div class="img_upload">
-								<input id="file_ysz" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-						</div>
-					</div>
-					 -->
 					
 					<div class="reg_tel">
-						<label>车辆登记证：</label> 
+						<label><span style="color: red">*</span>车辆登记证：</label> 
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="djz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
 							</div>
 							<div class="img_upload">
-								<input id="file_djz" class="file" type="file"> <span
+								<input id="file_djz" onchange="djzfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="djzfile();" type="button" value="上传">
 							<input type="hidden" id="file_djz_img">
 						</div>
 					</div>
@@ -175,8 +141,6 @@
 		<!-- 个人车辆end -->
 	</div>
 	<!--个人中心右侧end-->
-</div>
-</div>
 </div>
 <!--上传进度条-->
 <a id="showload" data-toggle="modal" data-target="#detail"></a>

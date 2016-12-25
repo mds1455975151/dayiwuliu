@@ -275,14 +275,14 @@ $(function(){
 			alert("结束时间不能为空.");
 			return false;
 		}
-		if( !$("#shipperMerchant").val() ){
-			alert("请选择发货方.");
-			return false;
-		}
-		if( !$("#consigneeMerchant").val() ){
-			alert("请选择收货方.");
-			return false;
-		}
+//		if( !$("#shipperMerchant").val() ){
+//			alert("请选择发货方.");
+//			return false;
+//		}
+//		if( !$("#consigneeMerchant").val() ){
+//			alert("请选择收货方.");
+//			return false;
+//		}
 		if($("input[name=venderId]:checked").length==0){
 			alert("请选择车主.");
 			return false;

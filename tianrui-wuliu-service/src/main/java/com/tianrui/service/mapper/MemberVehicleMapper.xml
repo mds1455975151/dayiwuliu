@@ -818,7 +818,7 @@
    	<!-- 
    		group by a.memberid, a.vehicleprefix, a.vehicleno, b.driverid
    	 -->
-   		order by b.creatTime
+   		order by a.createtime desc
    		<if test="start != null and start != 0 and limit != null">
 	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
       </if>

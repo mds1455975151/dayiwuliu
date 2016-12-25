@@ -5,6 +5,8 @@ public class BillPositionResp {
 	private String id;
 	/** 运单id*/
 	private String billid;
+	/** 运单状态*/
+	private String billStatus;
 	/** 纬线*/
 	private Integer lat;
 	/** 经线*/
@@ -53,6 +55,12 @@ public class BillPositionResp {
 	}
 	public Long getCreatetime() {
 		return createtime;
+	}
+	public String getBillStatus() {
+		return billStatus;
+	}
+	public void setBillStatus(String billStatus) {
+		this.billStatus = billStatus;
 	}
 	public void setCreatetime(Long createtime) {
 		this.createtime = createtime;

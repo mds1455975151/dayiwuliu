@@ -86,7 +86,10 @@
 					var points = new Array();
 					var lon;
 					var lat;
-					
+					//位置长度
+					var length = list.length;
+					//运单状态
+					var billStatus = list[0].billStatus;
 					for (var a = 0; a < list.length; a++) {
 						console.log(list[a].lon/1000000+";;"+list[a].lat/1000000);
 						lon = list[a].lon/1000000;
@@ -99,7 +102,11 @@
 						}
 					}
 					map.centerAndZoom(new BMap.Point(lon, lat),15);
-					drawPolyline(map, points);
+					if(billStatus>=5){
+						drawPolyline(map, points);
+					}else if(a<(length-1)){
+						drawPolyline(map, points);
+					}
 				}else{
 					alert(rs.error);
 				}
@@ -141,8 +148,18 @@
 	//创建一个Icon
 	function createIcon(status){
 		var m = "bposition"+status+".png";
-		var icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
-	        	new BMap.Size(80, 80), {anchor: new BMap.Size(40, 40)});
+		var icon ;
+		if(status!=""){
+			icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
+		        	new BMap.Size(100, 80), 
+		        	{anchor: new BMap.Size(40, 40),
+	        		 imageOffset: new BMap.Size(20, -3)});
+		}else{
+			icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
+		        	new BMap.Size(100, 80), 
+		        	{anchor: new BMap.Size(40, 40),
+	        		 imageOffset: new BMap.Size(20, 20)});
+		}
 		return icon;
 	}
    	
