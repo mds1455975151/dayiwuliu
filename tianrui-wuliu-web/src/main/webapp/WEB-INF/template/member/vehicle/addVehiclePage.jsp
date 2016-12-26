@@ -87,7 +87,7 @@
 					<div class="reg_tel">
 						<label><span style="color: red">*</span>联系电话：</label> <input type="text" maxlength="11"
 							id="vehicle_add_vehiTel">
-						<p id="message_ID"></p>
+						<p id="message_vehiTel"></p>
 					</div>
 					<div class="reg_tel">
 						<label><span style="color: red">*</span>车辆照片：</label>

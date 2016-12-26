@@ -170,60 +170,61 @@ $("#vehicle_addBtn").click(function() {
 	if(!flagvehNo||!flagWeight||!flagLeng){
 		$("#modal_common_content").html("数据有误请仔细查看重新输入");
 		$("#commonModal").modal();
+		$("#vehicle_add_vehiWeight").focus();
 		return;
 	}
 	if (!$.trim(vehiType) || $.trim(vehiType) == "0") {
 		$("#message_vehiType").html("请选择合适的车型！");
+		$("#vehicle_add_vehiType").focus();
 		return;
 	}
 	if (!$.trim(vehiLength)) {
 		$("#message_vehiLength").html("请输入车长！");
+		$("#vehicle_add_vehiLength").focus();
 		return;
 	}
 	if (!$.trim(vehiWeight)) {
 		$("#message_vehiWeight").html("请输入车重！");
+		$("#vehicle_add_vehiWeight").focus();
 		return;
 	}
 	// 姓名，2个汉字以上，包含少数民族
 	var nameReg =  /^\s*[\u4e00-\u9fa5]{1,}[\u4e00-\u9fa5.·]{0,15}[\u4e00-\u9fa5]{1,}\s*$/;
 	if (vehiOwnerName == "") {
 		$("#message_vehiOwnerName").html("请输入所有者姓名！");
+		$("#vehicle_add_vehiOwnerName").focus();
 		return;
 	} else if (!nameReg.test(vehiOwnerName)) {
 		$("#message_vehiOwnerName").html("请输入合法的汉字姓名！");
+		$("#vehicle_add_vehiOwnerName").focus();
 		return;
 	}
 	if (vehiTel == "") {
 		$("#message_vehiTel").html("请输入联系电话！");
+		$("#vehicle_add_vehiTel").focus();
 		return;
 	}
 	if (file_cel == "") {
 		$("#modal_common_content").html("请上传车辆图片！");
+		$("#file_cel_img").focus();
 		$("#commonModal").modal();
 		return;
 	}
 	if (file_xsz == "") {
 		$("#modal_common_content").html("请上传行驶证图片！");
+		$("#file_xsz_img").focus();
 		$("#commonModal").modal();
 		return;
 	}
-//	if (!$.trim(roadtransportcode)) {
-//		$("#modal_common_content").html("请输入道路运输证号！");
-//		$("#commonModal").modal();
-//		return;
-//	}
-//	if (!file_ysz) {
-//		$("#modal_common_content").html("请上传道路运输证图片！");
-//		$("#commonModal").modal();
-//		return;
-//	}
 	if (!$.trim(opercode)) {
 		$("#modal_common_content").html("请输入营运证号！");
+		$("#vehicle_add_opercode").focus();
 		$("#commonModal").modal();
 		return;
 	}
 	if (file_xkz == "") {
 		$("#modal_common_content").html("请上传营运证图片！");
+		$("#file_xkz_img").focus();
 		$("#commonModal").modal();
 		return;
 	}
@@ -238,14 +239,9 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("vehiOwnerName",vehiOwnerName);
 	formData.append("vehiOwnerTel",vehiTel);
 	formData.append("vehiLicenseImgPath",file_xsz);
-//	formData.append("fileIdCard",file_sfz);
-//	formData.append("identitycode",identitycode);
-//	formData.append("fileRoad",file_ysz);
-//	formData.append("roadtransportcode",roadtransportcode);
 	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);
-//	formData.append("registcode",registcode);
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveMyVehicle',// 跳转到 action
 		data : formData,

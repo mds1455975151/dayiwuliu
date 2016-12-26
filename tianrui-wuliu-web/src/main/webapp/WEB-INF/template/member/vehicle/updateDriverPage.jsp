@@ -51,14 +51,13 @@
 						<div class="rz_persontab">
 							<div class="samples">
 								<a href="${vehicle.operimage }" target="_blank"> <img
-									class="xsz" width="240" src="${vehicle.operimage }">
+									class="xkz" width="240" src="${vehicle.operimage }">
 								</a>
 							</div>
 							<div class="img_upload">
-								<input id="file_xkz" class="file" type="file"> <span
+								<input id="file_xkz" onchange="xkzfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="xkzfile()" type="button" value="上传">
 							<input type="hidden" id="file_xkz_img">
 						</div>
 					</div>
@@ -112,24 +111,6 @@
 							id="vehicle_add_vehiTel">
 						<p id="message_vehiTel"></p>
 					</div>
-					<!-- 
-					<div class="reg_tel">
-						<label>所有人身份证：</label>
-						<input type="text" id="vehicle_add_identitycode" value="${vehicle.identitycode }">
-						<p id="message_identitycode"></p>
-						<div class="rz_persontab">
-							<div class="samples">
-								<a href="${vehicle.identieyimage }" target="_blank"> <img
-									class="cel" width="240" src="${vehicle.identieyimage }">
-								</a>
-							</div>
-							<div class="img_upload">
-								<input id="file_sfz" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-						</div>
-					</div>
-					 -->
 					<div class="reg_tel">
 						<label>车辆照片：</label>
 						<div class="rz_persontab">
@@ -139,10 +120,9 @@
 								</a>
 							</div>
 							<div class="img_upload">
-								<input id="file_cel" class="file" type="file"> <span
+								<input id="file_cel" onchange="celfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="celfile()" type="button" value="上传">
 							<input type="hidden" id="file_cel_img">
 						</div>
 					</div>
@@ -155,31 +135,12 @@
 								</a>
 							</div>
 							<div class="img_upload">
-								<input id="file_xsz" class="file" type="file"> <span
+								<input id="file_xsz" onchange="xszfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="xszfile()" type="button" value="上传">
 							<input type="hidden" id="file_xsz_img">
 						</div>
 					</div>
-					<!-- 
-					<div class="reg_tel">
-						<label>道路运输证：</label> <input type="text"
-							id="vehicle_add_roadtransportcode" value="${vehicle.roadtransportcode }">
-						<p id="message_roadtransportcode"></p>
-						<div class="rz_persontab">
-							<div class="samples">
-								<a href="${vehicle.roadtransportimage }" target="_blank"> <img
-									class="xsz" width="240" src="${vehicle.roadtransportimage }">
-								</a>
-							</div>
-							<div class="img_upload">
-								<input id="file_ysz" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-						</div>
-					</div>
-					 -->
 					
 					<div class="reg_tel">
 						<label>车辆登记证：</label> 
@@ -187,14 +148,13 @@
 						<div class="rz_persontab">
 							<div class="samples">
 								<a href="${vehicle.registimage }" target="_blank"> <img
-									class="xsz" width="240" src="${vehicle.registimage }">
+									class="djz" width="240" src="${vehicle.registimage }">
 								</a>
 							</div>
 							<div class="img_upload">
-								<input id="file_djz" class="file" type="file"> <span
+								<input id="file_djz" onchange="djzfile()" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
-							<input class="btn btnblue" onclick="djzfile()" type="button" value="上传">
 							<input type="hidden" id="file_djz_img">
 						</div>
 					</div>

@@ -287,6 +287,7 @@ function xkzfile(){
 			if (result.code == "000000") {
 				$("#file_xkz_img").val(result.data);
 				alert("上传成功");
+				$(".xkz").remove();
 				$('#detail').modal("hide");
 			}else{
 				alert(result.error);
@@ -322,6 +323,7 @@ function celfile(){
 			if (result.code == "000000") {
 				$("#file_cel_img").val(result.data);
 				alert("上传成功");
+				$(".cel").remove();
 				$('#detail').modal("hide");
 			}else{
 				alert(result.error);
@@ -357,6 +359,7 @@ function xszfile(){
 			if (result.code == "000000") {
 				$("#file_xsz_img").val(result.data);
 				alert("上传成功");
+				$(".xsz").remove();
 				$('#detail').modal("hide");
 			}else{
 				alert(result.error);
@@ -392,6 +395,7 @@ function djzfile(){
 			if (result.code == "000000") {
 				$("#file_djz_img").val(result.data);
 				alert("上传成功");
+				$(".djz").remove();
 				$('#detail').modal("hide");
 			}else{
 				alert(result.error);
