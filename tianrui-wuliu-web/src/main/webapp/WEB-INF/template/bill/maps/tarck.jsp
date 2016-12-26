@@ -86,27 +86,32 @@
 					var points = new Array();
 					var lon;
 					var lat;
+					var nlon;
+					var nlat
 					//位置长度
 					var length = list.length;
 					//运单状态
 					var billStatus = list[0].billStatus;
+					console.log("billStatus="+billStatus);
 					for (var a = 0; a < list.length; a++) {
-						console.log(list[a].lon/1000000+";;"+list[a].lat/1000000);
 						lon = list[a].lon/1000000;
 						lat = list[a].lat/1000000;
-						
 						addMarker(lon,lat,list[a].status);
 							var thePoint1 = new BMap.Point(lon,lat);
-							points.push(thePoint1);
-						if(list[a].status==""){
-						}
+							if(2<=billStatus<5){
+								if(a<(length-1)){
+									nlon = lon;
+									nlat = lat
+									points.push(thePoint1);
+								}
+							}if(billStatus>=5){
+								nlon = lon;
+								nlat = lat
+								points.push(thePoint1);
+							}
 					}
-					map.centerAndZoom(new BMap.Point(lon, lat),15);
-					if(billStatus>=5){
-						drawPolyline(map, points);
-					}else if(a<(length-1)){
-						drawPolyline(map, points);
-					}
+					map.centerAndZoom(new BMap.Point(nlon, nlat),8);
+					drawPolyline(map, points);
 				}else{
 					alert(rs.error);
 				}
