@@ -60,14 +60,17 @@ public class MemberCapaService implements IMemberCapaService{
 		capa.setDrivertel(req.getDrivertel());
 		capa.setType(req.getType());
 		capa.setSearch(req.getSearch());
-		capa.setStart((req.getPageNo()-1)*req.getPageSize());
-		capa.setLimit(req.getPageSize());
+		PaginationVO<MemberCapaListResp> page = new PaginationVO<MemberCapaListResp>();
+		if(req.getPageNo()!=null){
+			capa.setStart((req.getPageNo()-1)*req.getPageSize());
+			capa.setLimit(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+		}
+		
 		List<MemberCapaList> list = memberCapaMapper.selectByCondition(capa);
 		long total = memberCapaMapper.selectByVDCount(capa);
 		long mc = memberCapaMapper.selectByMCCount(capa);
-		PaginationVO<MemberCapaListResp> page = new PaginationVO<MemberCapaListResp>();
 		page.setList(copyMembercapa(list));
-		page.setPageNo(req.getPageNo());
 		page.setTotal(total+mc);
 		return page;
 	}

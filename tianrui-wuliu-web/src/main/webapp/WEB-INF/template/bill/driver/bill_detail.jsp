@@ -185,9 +185,9 @@
 										<button class="btn btnblue refuseBtn" type="button">拒绝运单</button>
 									</c:if>
 								</c:if>
-								<c:if test="${bill.status ==1}">
+								<%--<c:if test="${bill.status ==1}">
 									<button class="btn btnblue pickupBtn" type="button">提货确认</button>
-								</c:if>
+								</c:if>--%>
 								<%-- <c:if test="${bill.status ==2}">
 			                    	<button class="btn btnblue departureBtn" type="button">装货完成确认</button>
 			                	</c:if>
@@ -195,9 +195,9 @@
 			                    	<button class="btn btnblue arrivedBtn" type="button">到达目的地确认</button>
 			                	</c:if>
 			                	<c:if test="${bill.status ==4}"> --%>
-								<c:if test="${bill.status ==2}">
+								<%--<c:if test="${bill.status ==2}">
 									<button class="btn btnblue dischargeBtn" type="button">卸货确认</button>
-								</c:if>
+								</c:if>--%>
 								<c:if test="${bill.status ==7 || bill.status==8}">
 									<button class="btn btnblue delBtn" type="button">删除</button>
 								</c:if>

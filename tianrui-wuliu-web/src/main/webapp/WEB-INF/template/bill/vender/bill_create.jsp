@@ -80,10 +80,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </tr>
                             </tbody>
                             <thead>
+								<tr>
+									<th>发货方</th>
+									<th>收货方</th>
+									<th>税率</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${plan.shipper }</td>
+									<td>${plan.consignee }</td>
+									<td>
+                                	<c:if test="${not empty plan.tallage}">
+                            			<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
+                            		</c:if>
+                            		</td>
+								</tr>
+							</tbody>
+                            <thead>
                             <tr>
                                 <th>发货人</th>
                                 <th>收货人</th>
-                                <th>税率</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -96,25 +113,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <h4>${plan.receivepersion }</h4>
                                     <h4>${plan.receivepersionphone }</h4>
                                 </td>
-                                <td>
-                                	<c:if test="${not empty plan.tallage}">
-                            			<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
-                            		</c:if>
-                            	</td>
+                                
                             </tr>
                             </tbody>
-                            <thead>
-								<tr>
-									<th>发货方</th>
-									<th>收货方</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>${plan.shipper }</td>
-									<td>${plan.consignee }</td>
-								</tr>
-							</tbody>
+                            
                         </table>
                     </div>
                 </div>

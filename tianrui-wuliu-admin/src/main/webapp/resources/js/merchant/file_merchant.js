@@ -42,11 +42,24 @@ function innerHtml(ret){
 		datalist = ret.list;
 		for (var a = 0; a < datalist.length; a++) {
 			var remark = datalist[a].remark == undefined ? "" : datalist[a].remark;
+			var type = "";
+			if(datalist[a].type=="1"){
+				type = "合同";
+			}else if(datalist[a].type=="2"){
+				type = "指导";
+			}
+			
+			var nature = "";
+			if(datalist[a].nature == "1"){
+				nature = "国营";
+			}else if(datalist[a].nature == "2"){
+				nature = "私营";
+			}
 			hml += "<tr><td>"+datalist[a].code+"</td>" +
 			"<td>"+datalist[a].name+"</td>" +
 			"<td>"+datalist[a].onlycode+"</td>" +
-			"<td>"+datalist[a].type+"</td>" +
-			"<td>"+datalist[a].nature+"</td>" +
+			"<td>"+type+"</td>" +
+			"<td>"+nature+"</td>" +
 			"<td>"+datalist[a].linkman+"</td>" +
 			"<td>"+datalist[a].linknumber+"</td>" +
 			"<td>"+datalist[a].address+"</td>" +
@@ -118,7 +131,7 @@ function saveMerchant(){
 		return;
 	}
 	if(!$.trim(savenature)){
-		alert("客商分类不能为空");
+		alert("企业性质不能为空");
 		return;
 	}
 	if(!$.trim(savelinkman)){

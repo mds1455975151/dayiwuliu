@@ -1,8 +1,7 @@
 package com.tianrui.api.req.front.capa;
 
-import com.tianrui.api.req.BaseReq;
 
-public class CapaReq extends BaseReq{
+public class CapaReq {
 
 	private String id;
 	
@@ -24,6 +23,11 @@ public class CapaReq extends BaseReq{
 	private String search;
 	
 	private String status;
+	
+	//分页参数
+	private Integer pageNo;
+	
+	private Integer pageSize;
 
 	public String getId() {
 		return id;
@@ -105,6 +109,22 @@ public class CapaReq extends BaseReq{
 	}
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 }

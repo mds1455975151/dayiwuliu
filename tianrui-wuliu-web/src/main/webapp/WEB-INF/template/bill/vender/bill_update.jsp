@@ -97,10 +97,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </tr>
                             </tbody>
                             <thead>
+								<tr>
+									<th>发货方</th>
+									<th>收货方</th>
+									<th>税率</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${bill.shipper }</td>
+									<td>${bill.consignee }</td>
+									<td>
+                                	<c:if test="${not empty bill.tallage}">
+                            			<fmt:formatNumber type="number" value="${bill.tallage}" maxFractionDigits="0"/>%
+                            		</c:if>
+                            		</td>
+								</tr>
+							</tbody>
+                            <thead>
                             <tr>
                                 <th>发货人</th>
                                 <th>收货人</th>
-                                <th>税率</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -113,11 +130,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <h4>${bill.receivername }</h4>
                                     <h4>${bill.receivertel }</h4>
                                 </td>
-                                <td>
-                                	<c:if test="${not empty bill.tallage}">
-                            			<fmt:formatNumber type="number" value="${bill.tallage}" maxFractionDigits="0"/>%
-                            		</c:if>
-                            	</td>
                             </tr>
                             </tbody>
                         </table>
