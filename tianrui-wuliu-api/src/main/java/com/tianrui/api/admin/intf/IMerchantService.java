@@ -20,7 +20,7 @@ public interface IMerchantService {
 	Result insert(MerchantReq req) throws Exception;
 	/**修改*/
 	Result update(MerchantReq req)throws Exception;
-	/**删除 假删 desc1 = 0 为删除*/
+	/** 停用 desc1 = 0 为停用 1 启用*/
 	Result delete(MerchantReq req)throws Exception;
 	
 	MerchantResp findByid(String id)throws Exception;

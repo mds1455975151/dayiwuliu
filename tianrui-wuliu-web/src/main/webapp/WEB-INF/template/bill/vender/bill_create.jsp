@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="bill_yunshu mr20">
                         <label> 运输量：</label>
                         <input id="overweight" value="${plan.overweight }" type="hidden" />
-                        <input type="text" class="weightInput" placeholder="剩余运输量${plan.overweight }" maxlength="10" />${plan.measure}
+                        <input type="text" onchange="sum_weights()" class="weightInput" placeholder="剩余运输量${plan.overweight }" maxlength="10" />${plan.measure}
                     </div>
                     <div class="bill_yunshu">
                         <label> 含税单价：</label>
@@ -144,7 +144,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div>
                     <label class="mr20"> 实际运输量：${complete }吨</label>
-                    <label> 实际剩余量：${remain }吨</label>
+                    <label> 实际剩余量：${remain }吨</label><br>
+                   <label> 本次发货总量：<span id="sum_weight"></span>${plan.measure}</label>
                 </div>
                 <div class="bill_fabu">
                     <label> 车辆选择：</label>
@@ -178,7 +179,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--底部end-->
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/bill/bill_create.js" ></script>
+<script type="text/javascript" src="/resources/js/bill/bill_create.js?12.29" ></script>
 
 </body>
 </html>

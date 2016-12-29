@@ -1741,31 +1741,43 @@ public class BillService implements IBillService{
 			}
 			endTime = endTime==null?System.currentTimeMillis():endTime;
 			if(beginTime!=null){
+				System.out.println("db.getDriverid()="+db.getDriverid());
+				System.out.println("beginTime="+beginTime);
+				System.out.println("endTime="+endTime);
 				List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
+				System.out.println("m.size()="+m.size());
 				Long t = null;
 				for (int i = 0; i < m.size(); i++) {
-					if(t==null){
-						t=m.get(i).getCreatetime();
-						BillPositionResp r = new BillPositionResp();
-						r.setBillid(bid);
-						r.setLat(m.get(i).getLat());
-						r.setLon(m.get(i).getLon());
-						r.setStatus("");
-						r.setRemark("");
-						r.setCreatetime(m.get(i).getCreatetime());
-						list.add(r);
-					}else if((m.get(i).getCreatetime()-t)>=(3000*60)){
-						//时间价格大于三分钟
-						t=m.get(i).getCreatetime();
-						BillPositionResp r = new BillPositionResp();
-						r.setBillid(bid);
-						r.setLat(m.get(i).getLat());
-						r.setLon(m.get(i).getLon());
-						r.setStatus("");
-						r.setRemark("");
-						r.setCreatetime(m.get(i).getCreatetime());
-						list.add(r);
-					}
+					BillPositionResp r = new BillPositionResp();
+					r.setBillid(bid);
+					r.setLat(m.get(i).getLat());
+					r.setLon(m.get(i).getLon());
+					r.setStatus("");
+					r.setRemark("");
+					r.setCreatetime(m.get(i).getCreatetime());
+					list.add(r);
+//					if(t==null){
+//						t=m.get(i).getCreatetime();
+//						BillPositionResp r = new BillPositionResp();
+//						r.setBillid(bid);
+//						r.setLat(m.get(i).getLat());
+//						r.setLon(m.get(i).getLon());
+//						r.setStatus("");
+//						r.setRemark("");
+//						r.setCreatetime(m.get(i).getCreatetime());
+//						list.add(r);
+//					}else if((m.get(i).getCreatetime()-t)>=(3000*60)){
+//						//时间价格大于三分钟
+//						t=m.get(i).getCreatetime();
+//						BillPositionResp r = new BillPositionResp();
+//						r.setBillid(bid);
+//						r.setLat(m.get(i).getLat());
+//						r.setLon(m.get(i).getLon());
+//						r.setStatus("");
+//						r.setRemark("");
+//						r.setCreatetime(m.get(i).getCreatetime());
+//						list.add(r);
+//					}
 				}
 			}
 			for (int i = 0; i < p.size(); i++) {

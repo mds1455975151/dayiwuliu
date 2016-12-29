@@ -175,6 +175,7 @@ public class PlanOwnerAction {
 		model.addObject("routeList",routeList);
 		//客商信息 不分组织
 		MerchantReq merreq = new MerchantReq();
+		merreq.setDesc1("1");
 		PaginationVO<MerchantResp> merchant = merchantService.find(merreq);
 		if(merchant.getTotalInt()!=0){
 			model.addObject("merchant",merchant.getList());

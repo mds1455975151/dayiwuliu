@@ -40,13 +40,18 @@
     	<if test="code != null and code != ''">
     		and code like "%" #{code,jdbcType=VARCHAR} "%"
     	</if>
+    	<if test="onlycode != null and onlycode != ''">
+    		and onlycode like "%" #{onlycode,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="type != null and type != ''">
     		and type like "%" #{type,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="name != null and name != ''">
     		and name like "%" #{name,jdbcType=VARCHAR} "%"
     	</if>
-    	and desc1 is null
+    	<if test="desc1 != null and desc1 != ''">
+	    	and desc1 = #{desc1,jdbcType=VARCHAR}
+    	</if>
     </where>
     	order by createtime desc
     	<if test="pageNo != null">
@@ -61,13 +66,18 @@
     	<if test="code != null and code != ''">
     		and code like "%" #{code,jdbcType=VARCHAR} "%"
     	</if>
+    	<if test="onlycode != null and onlycode != ''">
+    		and onlycode like "%" #{onlycode,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="type != null and type != ''">
     		and type like "%" #{type,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="name != null and name != ''">
     		and name like "%" #{name,jdbcType=VARCHAR} "%"
     	</if>
-    	and desc1 is null
+    	<if test="desc1 != null and desc1 != ''">
+	    	and desc1 = #{desc1,jdbcType=VARCHAR}
+    	</if>
     </where>
   </select>
   
@@ -78,6 +88,9 @@
     <where>
     	<if test="code != null and code != ''">
     		and code = #{code,jdbcType=VARCHAR}
+    	</if>
+    	<if test="onlycode != null and onlycode != ''">
+    		and onlycode = #{onlycode,jdbcType=VARCHAR}
     	</if>
     	<if test="type != null and type != ''">
     		and type = #{type,jdbcType=VARCHAR}

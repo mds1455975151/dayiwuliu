@@ -30,6 +30,8 @@ public class MerchantResp {
 	    private String modify;
 
 	    private Long modifytime;
+	    
+	    private String desc1;
 
 		public String getId() {
 			return id;
@@ -57,6 +59,14 @@ public class MerchantResp {
 
 		public String getName() {
 			return name;
+		}
+
+		public String getDesc1() {
+			return desc1;
+		}
+
+		public void setDesc1(String desc1) {
+			this.desc1 = desc1;
 		}
 
 		public void setName(String name) {

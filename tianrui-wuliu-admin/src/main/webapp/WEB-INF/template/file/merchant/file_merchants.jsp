@@ -43,8 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <input type="text" id="scode" maxlength="16" placeholder=" ">
                         </div>
                         <div class="ht_div">
-                            <label>客商分类：</label>
-                            <input type="text" id="stype" maxlength="16" placeholder=" ">
+                            <label>唯一识别码：</label>
+                            <input type="text" id="sonlycode" maxlength="16" placeholder=" ">
                         </div>
                         <div class="ht_div">
                             <label>客商名称：</label>
@@ -77,6 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<th>联系人</th>
 								<th>联系电话</th>
                                 <th>详细地址</th>
+                                <th>状态</th>
                                 <th>备注</th>
                                 <th>操作</th>
                             </tr>

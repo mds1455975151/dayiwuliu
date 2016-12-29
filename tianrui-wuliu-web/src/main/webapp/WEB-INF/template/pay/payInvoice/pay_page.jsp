@@ -156,6 +156,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page.js" ></script>
+<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page.js?12.29" ></script>
 </body>
 </html>

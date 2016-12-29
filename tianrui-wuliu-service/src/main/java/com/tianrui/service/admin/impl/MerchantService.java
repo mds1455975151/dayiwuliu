@@ -63,6 +63,7 @@ public class MerchantService implements IMerchantService {
 		}
 		Merchant record = new Merchant();
 		PropertyUtils.copyProperties(record, req);
+		record.setDesc1("1");
 		int a = merchantMapper.insertSelective(record);
 		if(a!=1){
 			rs.setCode("1");
@@ -73,7 +74,7 @@ public class MerchantService implements IMerchantService {
 	/** 验证唯一识别码*/
 	public boolean onlycode(String onlycode){
 		Merchant mer = new Merchant();
-		mer.setCode(onlycode);
+		mer.setOnlycode(onlycode);
 		Long a = merchantMapper.selectByOnly(mer);
 		if(a == (long) 0){
 			return true;
@@ -110,7 +111,7 @@ public class MerchantService implements IMerchantService {
 		Result rs = Result.getSuccessResult();
 		Merchant record = new Merchant();
 		record.setId(req.getId());
-		record.setDesc1("0");
+		record.setDesc1(req.getDesc1());
 		int a = merchantMapper.updateByPrimaryKeySelective(record);
 		if(a!=1){
 			rs.setCode("1");

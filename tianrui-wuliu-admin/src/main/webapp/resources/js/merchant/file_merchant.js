@@ -6,7 +6,7 @@ function displayData(pageNo){
 		url:"/merchant/page",
 		data:{
 			"code":$.trim($("#scode").val()),
-			"type":$.trim($("#stype").val()),
+			"onlycode":$.trim($("#sonlycode").val()),
 			"name":$.trim($("#sname").val()),
 			"pageNo":pageNo*pageSize,
 			"pageSize":pageSize},// 你的formid
@@ -55,6 +55,17 @@ function innerHtml(ret){
 			}else if(datalist[a].nature == "2"){
 				nature = "私营";
 			}
+			
+			var desc1 = "";
+			var desStr = "";
+			if(datalist[a].desc1 == 1){
+				desStr = "已启用";
+				desc1 = "停用"
+			}else if(datalist[a].desc1 == 0){
+				desStr = "已停用";
+				desc1 = "启用"
+			}
+			
 			hml += "<tr><td>"+datalist[a].code+"</td>" +
 			"<td>"+datalist[a].name+"</td>" +
 			"<td>"+datalist[a].onlycode+"</td>" +
@@ -63,20 +74,28 @@ function innerHtml(ret){
 			"<td>"+datalist[a].linkman+"</td>" +
 			"<td>"+datalist[a].linknumber+"</td>" +
 			"<td>"+datalist[a].address+"</td>" +
+			"<td>"+desStr+"</td>" +
 			"<td>"+remark+"</td>" +
 			"<td>" +
 			"<span><a data-toggle='modal' onclick=\"findByIndex('"+a+"')\" data-target='#edit_merchant'>【修改】</a></span>" +
-			"<span><a onclick=\"deleteId('"+datalist[a].id+"')\">【删除】<a></span></td></tr>";
+			"<span><a onclick=\"deleteId('"+datalist[a].id+"','"+datalist[a].desc1+"')\">【"+desc1+"】<a></span></td></tr>";
 		}
 	}
 	$("#innerHtml").html(hml);
 }
 
-function deleteId(id){
-	if(window.confirm('确定删除本条数据吗？')){
+function deleteId(id,status){
+	if(window.confirm('确定执行本次操作吗？')){
+		var desc1 ;
+		if(status == 0){
+			desc1 = 1
+		}else if(status == 1){
+			desc1 = 0
+		}
 		$.ajax({
 			url:"/merchant/delete",
-			data:{"id":id},
+			data:{"id":id,
+				"desc1":desc1},
 			type:"post",
 			success:function(ret){
 				var code = ret.code;
@@ -236,6 +255,6 @@ function cleanValue(){
 }
 function clearSearch(){
 	$("#scode").val("");
-	$("#stype").val("");
+	$("#sonlycode").val("");
 	$("#sname").val("");
 }

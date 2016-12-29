@@ -7,6 +7,10 @@ $(function(){
 		successUrl:"/trwuliu/billvender/main",
 		searchUrl:"/trwuliu/billvender/searchCapa"
 	}
+	//总趟数
+	var tang = 0;
+	
+	
 	//样式控制
     var chren = $('.bill_fabu ul li');
     chren.click(function(){
@@ -175,16 +179,18 @@ $(function(){
     		"<span>"+data[a].drivername+"--"+data[a].vehicletype+"</span>"+
     		"<em>"+data[a].weight+"吨</em>"+
     		"<em>"+billstatus+"</em>"+
-    		"<input type='text' class='ts' maxlength='2' placeholder='输入趟数' value='1' />"+
+    		"<input type='text' onchange='sum_weights()' class='ts' maxlength='2' placeholder='输入趟数' value='1' />"+
     		"<i>趟</i></li>";
     	}
     	document.getElementById("capa").innerHTML=hml;
     	$('.bill_cllist ul li .checkInput').off('click').on('click',function(e){
     		if(this.checked){
     			$(this).closest('li').addClass('active');
+    		    var a =	$(this).closest('li').find('.ts').val();
     		}else{
     			$(this).closest('li').removeClass('active');
     		}
+    		sum_weights();
     		e.stopPropagation();
     	});
     	$('.bill_cllist ul li').off('click').on('click',function(){
@@ -193,3 +199,14 @@ $(function(){
     }
 });
 
+function sum_weights(){
+	var ts = parseInt(0);
+	$(".bill_cllist .checkInput:checked").each(function(i,item){
+		ts += parseInt($(this).siblings('input.ts').val());
+	})
+	var weightInput = $(".weightInput").val();
+	if(weightInput == ''){
+		weightInput = 0;
+	}
+	$("#sum_weight").html((weightInput*ts).toFixed(2));
+}

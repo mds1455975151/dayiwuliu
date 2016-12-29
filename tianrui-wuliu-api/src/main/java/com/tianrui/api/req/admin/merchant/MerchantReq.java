@@ -31,6 +31,8 @@ public class MerchantReq {
 
     private Long modifytime;
     
+    private String desc1;
+    
     private Integer pageNo;
     
     private Integer pageSize;
@@ -57,6 +59,14 @@ public class MerchantReq {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 
 	public String getName() {
