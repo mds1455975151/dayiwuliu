@@ -3,12 +3,8 @@ package com.tianrui.app.web;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-
-import org.slf4j.Logger;
 
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.req.front.api.APIPositionReq;
@@ -16,7 +12,7 @@ import com.tianrui.common.utils.Md5Utils;
 
 public class ApiTest {
 
-	private static String url="http://127.0.0.1/other/anlianApi/uploadPosition";
+	private static String url="http://www.appb2b.com/other/anlianApi/uploadPosition";
 	//防篡改
 	private static String API_KEY="!tR2016@#%";
 	//用户标识验证
@@ -33,15 +29,16 @@ public class ApiTest {
 	
 	
 	static void setkey(APIPositionReq req){
-		req.setKey(Md5Utils.MD5(req.getTime()+API_KEY));
+		req.setKey(Md5Utils.MD5(req.getTime()+API_SECRET_KEY));
 	}
 	
 	static void setMd5(APIPositionReq req){
-		req.setMd5(API_SECRET_KEY);
+		req.setMd5(API_KEY);
 		req.setMd5(Md5Utils.MD5(JSON.toJSONString(req)));
 	}
 	static String  httpPost(String url,String param){
-	    String lines="";
+		StringBuffer sb = new StringBuffer("");
+	   
 	    try {
 			URL realUrl = new URL(url);
 	        // 打开和URL之间的连接
@@ -64,20 +61,18 @@ public class ApiTest {
             out.close();
 	        // 定义BufferedReader输入流来读取URL的响应
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            
-            StringBuffer sb = new StringBuffer("");
+            String lines="";
             while ((lines = reader.readLine()) != null) {
                 lines = new String(lines.getBytes(), "utf-8");
                 sb.append(lines);
             }
-            System.out.println(sb);
             reader.close();
             // 断开连接
             conn.disconnect();
 	    }catch(Exception e){
 	    	System.out.println(e.getMessage());
 	    }
-	    return lines;
+	    return sb.toString();
 	}
 	public static void main(String[] args) {
 		APIPositionReq req =getParam();
