@@ -142,13 +142,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <div class="good_time mr20">
                         <label>开始时间：</label>
-                        <input type="text" id="begintime" name="starttimeStr" value="${plan.starttimeStr}:00" readOnly  class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="begintime" name="starttimeStr" value="${plan.starttimeStr}" readOnly  class="Wdate_plan" style="width:390px" />
                     </div>
                 </div>
                 <div class="goods_line">
                     <div class="good_time">
                         <label>结束时间：</label>
-                        <input type="text" id="endtime" name="endtimeStr" value="${plan.endtimeStr}:00" readOnly  class="Wdate_plan" style="width:390px" />
+                        <input type="text" id="endtime" name="endtimeStr" value="${plan.endtimeStr}" readOnly  class="Wdate_plan" style="width:390px" />
                     </div>
                 </div>
                 <div class="goods_line">

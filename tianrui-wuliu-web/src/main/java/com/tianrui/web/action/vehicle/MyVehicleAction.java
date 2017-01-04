@@ -236,6 +236,7 @@ public class MyVehicleAction {
 		driverReq.setDrivername(driverName);
 		// 司机电话
 		driverReq.setDrivertel(driverTel);
+		driverReq.setStatus("1");
 		// 查询操作
 //		List<OwnerDriverResp> driverRespList = ownerDriverService.queryMyDriverOutsideByCondition(driverReq);
 		List<OwnerDriverResp> list = ownerDriverService.queryMyDriverInfoByCondition(driverReq);

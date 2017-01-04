@@ -227,7 +227,7 @@ public class PlanResp extends BaseResp{
 	}
 	public String getStarttimeStr() {
 		if(starttime !=null  ){
-			return DateUtil.getDateString(new Date(starttime), "yyyy-MM-dd HH:mm");
+			return DateUtil.getDateString(new Date(starttime), "yyyy-MM-dd HH:mm:ss");
 		}
 		return "";
 	}
@@ -239,7 +239,7 @@ public class PlanResp extends BaseResp{
 	}
 	public String getEndtimeStr() {
 		if(endtime !=null  ){
-			return DateUtil.getDateString(new Date(endtime), "yyyy-MM-dd HH:mm");
+			return DateUtil.getDateString(new Date(endtime), "yyyy-MM-dd HH:mm:ss");
 		}
 		return "";
 	}
@@ -299,7 +299,7 @@ public class PlanResp extends BaseResp{
 	}
 	public String getCreatetimeStr() {
 		if(createtime !=null  ){
-			return DateUtil.getDateString(new Date(createtime), "yyyy-MM-dd HH:mm");
+			return DateUtil.getDateString(new Date(createtime), "yyyy-MM-dd HH:mm:ss");
 		}
 		return "";
 	}
@@ -317,7 +317,7 @@ public class PlanResp extends BaseResp{
 	}
 	public String getModifytimeStr() {
 		if(modifytime !=null  ){
-			return DateUtil.getDateString(new Date(modifytime), "yyyy-MM-dd HH:mm");
+			return DateUtil.getDateString(new Date(modifytime), "yyyy-MM-dd HH:mm:ss");
 		}
 		return "";
 	}

@@ -361,7 +361,7 @@ public class WaybillResp extends BaseResp{
 	}
 	public String getModifytimeStr() {
 		if( this.modifytime !=null ){
-			return DateUtil.getDateString(new Date(this.modifytime), "yyyy-MM-dd HH:mm");
+			return DateUtil.getDateString(new Date(this.modifytime), "yyyy-MM-dd HH:mm:ss");
 		}
 		return "";
 	}
@@ -369,7 +369,7 @@ public class WaybillResp extends BaseResp{
 	
 	public String getCreatetimeStr() {
 		if( this.createtime !=null ){
-			return DateUtil.getDateString(new Date(this.createtime), "yyyy-MM-dd HH:mm");
+			return DateUtil.getDateString(new Date(this.createtime), "yyyy-MM-dd HH:mm:ss");
 		}
 		return "";
 	}

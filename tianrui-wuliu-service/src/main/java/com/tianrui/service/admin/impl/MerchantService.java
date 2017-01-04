@@ -61,6 +61,11 @@ public class MerchantService implements IMerchantService {
 			rs.setError("唯一识别码已存在");
 			return rs;
 		}
+		if(!name(req.getName())){
+			rs.setCode("4");
+			rs.setError("客商名称已存在");
+			return rs;
+		}
 		Merchant record = new Merchant();
 		PropertyUtils.copyProperties(record, req);
 		record.setDesc1("1");
@@ -89,6 +94,17 @@ public class MerchantService implements IMerchantService {
 		if(a == (long) 0){
 			return true;
 		}
+		return false;
+	}
+	/**验证客商名称 */
+	public boolean name(String name){
+		Merchant mer = new Merchant();
+		mer.setName(name);
+		Long a = merchantMapper.selectByOnly(mer);
+		if(a == (long) 0){
+			return true;
+		}
+
 		return false;
 	}
 	

@@ -86,6 +86,9 @@
     count(0)
     from file_merchant
     <where>
+    	<if test="name != null and name !=''">
+    		and name = #{name,jdbcType=VARCHAR}
+    	</if>
     	<if test="code != null and code != ''">
     		and code = #{code,jdbcType=VARCHAR}
     	</if>
