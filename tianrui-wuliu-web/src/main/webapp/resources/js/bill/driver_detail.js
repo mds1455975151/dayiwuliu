@@ -252,7 +252,7 @@ $(function(){
 		$("#bdType").val('TH');
 		if(url){
 			$('#bdImg').attr('src',url);
-			$('#bdImg').parent('a').attr('href',url);
+			$('#bdImg').parent('a').attr('href',"/imageView/index?imageUrl="+url);
 			$('#psweight').html('提货量：'+psweight);
 			$('#bdView').modal();
 		}else{
@@ -269,7 +269,7 @@ $(function(){
 		$("#bdType").val('XH');
 		if(url){
 			$('#bdImg').attr('src',url);
-			$('#bdImg').parent('a').attr('href',url);
+			$('#bdImg').parent('a').attr('href',"/imageView/index?imageUrl="+url);
 			$('#psweight').html('卸货量：'+psweight);
 			$('#bdView').modal();
 		}else{

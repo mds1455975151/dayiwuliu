@@ -88,12 +88,12 @@ $("#corpAuthen_button").click(function() {
 	// 联系人电话
 	var corpAuthen_tel = $("#corpAuthen_tel").val();
 	// 营业执照图片路径
-	var file_yyzz = $("#file_yyzz")[0].files[0];
+	var file_yyzz = $("#file_yyzz_str").val();
 	
 	var companycode = $("#corpAuthen_code").val();
 	
 	//道路许可证
-	var file_rtbl=$("#rtblimg")[0].files[0];
+	var file_rtbl=$("#rtblimg_str").val();
 	var rtblno=$("#rtblno").val();
 	if($('.file-input').hasClass('has-error')){
 		alert('图片格式不正确，请重新选择图片！');
@@ -116,7 +116,7 @@ $("#corpAuthen_button").click(function() {
 		$("#commonModal").modal();
 		return;
 	} else if(!file_yyzz){
-		$("#modal_common_content").html("请上传营业执照图片");
+		$("#modal_common_content").html("请重新上传营业执照图片");
 		$("#commonModal").modal();
 		return;
 	} else if(companycode == ""){
@@ -145,6 +145,7 @@ $("#corpAuthen_button").click(function() {
 	formData.append("file",file_yyzz);
 	formData.append("rtblimg",file_rtbl);
 	formData.append("rtblno",rtblno);
+	$(this).addClass('disabled');
 	// 后台处理
 	$.ajax({
 		url : PATH + '/trwuliu/Member/enterpriseAuthentication',// 跳转到 action
@@ -166,3 +167,28 @@ $("#corpAuthen_button").click(function() {
 		}
 	});
 });
+
+//图片上传
+function fileupload(id,remove){
+	var file = $("#"+id)[0].files[0];
+	var formData = new FormData();
+	formData.append("file",file);
+	// 后台处理
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData, 
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		type : "post",
+		success : function(result) {
+			var ret = result.code;
+			var msg = result.error;
+			// 错误信息
+			if (ret == 000000) {
+				$("#"+id+"_str").val(result.data);
+				$("."+remove).remove();
+			}
+		}
+	});
+}
+

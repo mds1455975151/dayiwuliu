@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/member/authentication/authenPage.js" ></script>
+<script type="text/javascript" src="/resources/js/member/authentication/authenPage.js?0104" ></script>
 
 </body>
 </html>

@@ -230,8 +230,8 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String licenseType,
 			@RequestParam(defaultValue = "")String type,//2-驾驶证；1-身份证
 			String rtblno, //道路运输许可证号 
-			MultipartFile file,//2-驾驶证；1-身份证 图片留
-			MultipartFile rtblimg,//道路运输许可证号  图片
+			String file,//2-驾驶证；1-身份证 图片留
+			String rtblimg,//道路运输许可证号  图片
 			HttpServletRequest request
 			) throws Exception{
 		
@@ -246,38 +246,25 @@ public class MemberAction{
 			rs.setError("数据不能为空");
 			return rs;
 		}
+		MemberInfoReq req = new MemberInfoReq();
+		//保存道路许可证图片
+		req.setRtblimgurl(rtblimg);
+		req.setRtblno(rtblno);
+		req.setUserName(userName);
+		req.setMemberId(id);
+		req.setIdentityCard(identityCard);
+		req.setTelphone(telphone);
+		if("1".equals(type)){//2-驾驶证；1-身份证
+			req.setIdcardsImagePath(file);
+			rs= systemMemberInfoRecordService.personalAuthentication(req);
+		}else if("2".equals(type)){
+			req.setLicenseType(licenseType);
+			req.setDriveImagePath(file);
+			rs= systemMemberInfoRecordService.driverAuthentication(req);
+		}
+		//更新session
+		SessionManager.flushMember(request);
 		try {
-			MemberInfoReq req = new MemberInfoReq();
-			//保存道路许可证图片
-			if( rtblimg !=null ){
-				rs = iFileService.uploadByteImg(rtblimg);
-				if("000000".equals(rs.getCode())){
-					req.setRtblimgurl(rs.getData().toString());
-					req.setRtblno(rtblno);
-				}
-			}
-			//保存图片
-			rs = iFileService.uploadByteImg(file);
-			//图片保存成功，进行下一步操作
-			if("000000".equals(rs.getCode())){
-				req.setUserName(userName);
-				req.setMemberId(id);
-				req.setIdentityCard(identityCard);
-				req.setTelphone(telphone);
-				if("1".equals(type)){//2-驾驶证；1-身份证
-					req.setIdcardsImagePath(rs.getData().toString());
-					rs= systemMemberInfoRecordService.personalAuthentication(req);
-				}else if("2".equals(type)){
-					req.setLicenseType(licenseType);
-					req.setDriveImagePath(rs.getData().toString());
-					rs= systemMemberInfoRecordService.driverAuthentication(req);
-				}
-				//更新session
-				SessionManager.flushMember(request);
-			}else{
-				rs.setCode("1");
-				rs.setError("图片保存失败");
-			}
 		
 		} catch (Exception e) {
 			logger.info("personalAuthentication错误信息：{}",e.getMessage());
@@ -305,8 +292,8 @@ public class MemberAction{
 			@RequestParam(defaultValue = "")String contactTel,
 			@RequestParam(defaultValue = "")String companycode,
 			String rtblno, //道路运输许可证号 
-			MultipartFile file,//身份证照片
-			MultipartFile rtblimg,//道路运输许可证号  图片
+			String file,//身份证照片
+			String rtblimg,//道路运输许可证号  图片
 			HttpServletRequest request
 			) throws Exception{
 		Result rs =Result.getSuccessResult();
@@ -325,26 +312,19 @@ public class MemberAction{
 			MemberInfoReq req = new MemberInfoReq();
 			//保存道路许可证图片
 			if( rtblimg !=null ){
-				rs = iFileService.uploadByteImg(rtblimg);
-				if("000000".equals(rs.getCode())){
-					req.setRtblimgurl(rs.getData().toString());
+					req.setRtblimgurl(rtblimg);
 					req.setRtblno(rtblno);
-				}
 			}
-			
-			rs = iFileService.uploadByteImg(file);
-			if("000000".equals(rs.getCode())){
-				req.setMemberId(id);
-				req.setCompanyName(companyName);
-				req.setCompanyAddress(companyAddress);
-				req.setCompanyContact(companyContact);
-				req.setContactTel(contactTel);
-				req.setCompanycode(companycode);
-				req.setLicenseImagePath(rs.getData().toString());
-				rs = systemMemberInfoRecordService.enterpriseAuthentication(req);
-				//更新session
-				SessionManager.flushMember(request);
-			}
+			req.setMemberId(id);
+			req.setCompanyName(companyName);
+			req.setCompanyAddress(companyAddress);
+			req.setCompanyContact(companyContact);
+			req.setContactTel(contactTel);
+			req.setCompanycode(companycode);
+			req.setLicenseImagePath(file);
+			rs = systemMemberInfoRecordService.enterpriseAuthentication(req);
+			//更新session
+			SessionManager.flushMember(request);
 		} catch (Exception e) {
 			logger.info("enterpriseAuthentication错误信息：{}",e.getMessage());
 			rs.setCode("1");

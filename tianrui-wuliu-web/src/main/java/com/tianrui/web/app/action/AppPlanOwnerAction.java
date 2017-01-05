@@ -157,17 +157,18 @@ public class AppPlanOwnerAction {
 	
 	/** 获取客商信息*/
 	@RequestMapping(value="/merchant",method=RequestMethod.POST)
-	@ApiParamRawType(PlanConfirmReq.class)
+	@ApiParamRawType(MerchantReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult merchant(AppParam<PlanConfirmReq> appParam) throws Exception{
+	public AppResult merchant(AppParam<MerchantReq> appParam) throws Exception{
 		AppResult rs = new AppResult();
 		//获取当前用户
 		String uId =appParam.getHead().getId();
 		//拼装查询条件
-		MerchantReq merreq = new MerchantReq();
+		MerchantReq merreq = appParam.getBody();
 		PaginationVO<MerchantResp> merchant = merchantService.find(merreq);
 		rs.setCode("000000");
+		rs.setTotal(merchant.getTotalInt());
 		if(merchant.getTotalInt()!=0){
 			rs.setReturnData(merchant.getList());
 		}

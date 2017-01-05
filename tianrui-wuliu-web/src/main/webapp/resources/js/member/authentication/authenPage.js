@@ -62,6 +62,12 @@ function setPageByStatus() {
 		$("#corpAuthen_status").addClass("btn btn-rznone  btn-sm ml30");
 		$("#toCorpAuthen_button").html("申请认证");
 	}
+	if(0 == driverpercheck){
+		$("#drivAuthen_status").html("未认证");
+		$("#drivAuthen_status").removeClass();
+		$("#drivAuthen_status").addClass("btn btn-rznone  btn-sm ml30");
+		$("#todrivAuthen_button").html("申请认证");
+	}
 	
 	
 	// 企业认证
@@ -87,13 +93,6 @@ function setPageByStatus() {
 		$("#toCorpAuthen_button").html("查看原因");
 	}
 	// 个人认证
-//		$("#corpAuthen_div").remove();
-	if(0 != userpercheck){
-		$("#corpAuthen_div").remove();
-	}
-	if(1 != userpercheck && driverpercheck==0){
-		$("#drivAuthen_div").remove();
-	}
 	if (2 == userpercheck) {
 		$("#corpAuthen_div").remove();
 		$("#perAuthen_status").html("认证中");

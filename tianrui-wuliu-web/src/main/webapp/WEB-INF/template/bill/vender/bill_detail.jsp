@@ -240,7 +240,7 @@
 	<script type="text/javascript"
 		src="/resources/js/common/member/header_busi.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/bill/vender_detail.js"></script>
+		src="/resources/js/bill/vender_detail.js?0105"></script>
 	<script type="text/javascript">
 		var trRoot = "${trRoot}";
 		//弹出框样式更改

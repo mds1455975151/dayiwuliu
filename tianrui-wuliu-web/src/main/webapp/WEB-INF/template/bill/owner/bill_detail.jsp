@@ -184,10 +184,10 @@
 										<tbody>
 											<tr>
 												<c:if test="${not empty bill.pickupimgurl}">
-													<td><a href="${bill.pickupimgurl }" target="_blank">查看磅单</a></td>
+													<td><a href="/imageView/index?imageUrl=${bill.pickupimgurl }" target="_blank">查看磅单</a></td>
 												</c:if>
 												<c:if test="${bill.status==5 || bill.status==6}">
-													<td><a href="${bill.signimgurl }" target="_blank">查看磅单</a></td>
+													<td><a href="/imageView/index?imageUrl=${bill.signimgurl }" target="_blank">查看磅单</a></td>
 												</c:if>
 												<c:if test="${bill.status==6}">
 													<td><fmt:formatNumber type="number" value="${bill.price*bill.trueweight}" pattern="0.00" maxFractionDigits="2"/>元</td>
@@ -256,14 +256,14 @@
 								                </div>
 			                        		</c:when>
 			                        		<c:otherwise>
-												<a href="${bill.pickupimgurl}" target="_blank"><img src="${bill.pickupimgurl}" id="qhbdImgUrl"/></a>
+												<a href="/imageView/index?imageUrl=${bill.pickupimgurl}" target="_blank"><img src="${bill.pickupimgurl}" id="qhbdImgUrl"/></a>
 			                        		</c:otherwise>
 			                        	</c:choose>
 			                        </div>
 			                    </div>
 			                    <div class="tab-pane fade" id="multiple">
 			                        <div class="bdimg">
-										<a href="${bill.pickupimgurl}" target="_blank"><img src="${bill.signimgurl }" id="bdimgurl"/></a>
+										<a href="/imageView/index?imageUrl=${bill.pickupimgurl}" target="_blank"><img src="${bill.signimgurl }" id="bdimgurl"/></a>
 			                        </div>
 			                    </div>
 			                </div>

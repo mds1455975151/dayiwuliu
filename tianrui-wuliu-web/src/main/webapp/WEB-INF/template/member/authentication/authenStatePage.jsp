@@ -62,11 +62,12 @@
 						<label><i class="coryel">*</i>驾驶证:</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img src="${trRoot}/tianrui/images/jz.png">
+								<img class="jsz" src="${trRoot}/tianrui/images/jz.png">
 							</div>
 							<div class="img_upload">
-								<input id="file_jsz" class="file" type="file"> <span
+								<input id="file_jsz" onchange="fileupload('file_jsz','jsz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+								<input type="hidden" id="file_jsz_str" value="" >
 							</div>
 						</div>
 					</div>
@@ -78,8 +79,9 @@
 									src="${trRoot}/tianrui/images/yyz.jpg">
 							</div>
 							<div class="img_upload">
-								<input id="rtblimg" class="file" type="file"> <span
+								<input id="rtblimg" onchange="fileupload('rtblimg','xkz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							   <input type="hidden" id="rtblimg_str" value="" >
 							</div>
 						</div>
 					</div>
@@ -168,7 +170,7 @@
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?12.12"></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?01.04"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>

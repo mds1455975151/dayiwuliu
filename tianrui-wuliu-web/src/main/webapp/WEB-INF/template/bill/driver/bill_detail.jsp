@@ -360,7 +360,7 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-	<script type="text/javascript" src="/resources/js/bill/driver_detail.js"></script>
+	<script type="text/javascript" src="/resources/js/bill/driver_detail.js?0105"></script>
 	<script type="text/javascript">
 		var trRoot = "${trRoot}";
 		//弹出框样式更改

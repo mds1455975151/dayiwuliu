@@ -85,10 +85,10 @@ $("#perAuthen_button").click(function() {
 	//准驾车型
 	var licenseType = $('#drivinglicensetype').text();
 	
-	var file_jsz = $("#file_jsz")[0].files[0];
+	var file_jsz = $("#file_jsz_str").val();
 	
 	//道路许可证
-	var file_rtbl=$("#rtblimg")[0].files[0];
+	var file_rtbl=$("#rtblimg_str").val();
 	var rtblno=$("#rtblno").val();
 	
 	var type = "";
@@ -96,12 +96,6 @@ $("#perAuthen_button").click(function() {
 	var b = $(".rz_p2").is(".select");//驾驶证
 	if($(".rz_p1").is(".select")){
 		type = "1"
-	}else if($(".rz_p2").is(".select")){
-		type = "2"
-	}else{
-		$("#modal_common_content").html("请选择认证类型");
-		$("#commonModal").modal();
-		return;
 	}
 	if(!file_jsz){
 		$("#modal_common_content").html("请选择图片");
@@ -117,11 +111,7 @@ $("#perAuthen_button").click(function() {
 	} else if (perAuthen_tel == "") {
 		$("#message_perAuthenTel").html("联系电话不能为空！");
 		return;
-	} else if (type == "2" && !licenseType) {
-		$("#modal_common_content").html("请选择准驾车型！");
-		$("#commonModal").modal();
-		return;
-	}  else if (!$("#perAuthen_checkbox").is(":checked")) {
+	} else if (!$("#perAuthen_checkbox").is(":checked")) {
 		$("#modal_common_content").html("请阅读并同意《大易物流平台》的协议！");
 		$("#commonModal").modal();
 		return;
@@ -147,6 +137,7 @@ $("#perAuthen_button").click(function() {
 	formData.append("type",type);
 	formData.append("rtblimg",file_rtbl);
 	formData.append("rtblno",rtblno);
+	$(this).addClass('disabled');
 	// 后台处理
 	$.ajax({
 		url : PATH + '/trwuliu/Member/personalAuthentication',// 跳转到 action
@@ -176,5 +167,27 @@ function invokeCropBoxMethod() {
         $(this).addClass('select').siblings().removeClass('select');
     });
 }
-
+//图片上传
+function fileupload(id,remove){
+	var file = $("#"+id)[0].files[0];
+	var formData = new FormData();
+	formData.append("file",file);
+	// 后台处理
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData, 
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		type : "post",
+		success : function(result) {
+			var ret = result.code;
+			var msg = result.error;
+			// 错误信息
+			if (ret == 000000) {
+				$("#"+id+"_str").val(result.data);
+				$("."+remove).remove();
+			}
+		}
+	});
+}
 

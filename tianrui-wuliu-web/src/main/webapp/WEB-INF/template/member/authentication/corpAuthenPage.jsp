@@ -66,12 +66,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    <label><i>*</i>营业执照:</label>
                    <div class="rz_persontab">
 						<div class="samples">
-							<img src="${trRoot}/tianrui/images/zhizhao.png">
+							<img class="yyzz" src="${trRoot}/tianrui/images/zhizhao.png">
 						</div>
 						<div class="img_upload mt10">
-							<input id="file_yyzz" class="file" type="file">
+							<input id="file_yyzz" onchange="fileupload('file_yyzz','yyzz')" class="file" type="file">
 							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
+						<input type="hidden" id="file_yyzz_str">
 					</div>
                </div>
                
@@ -82,9 +83,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
 						</div>
 						<div class="img_upload mt10">
-							<input id="rtblimg" class="file" type="file"> <span
+							<input id="rtblimg" onchange="fileupload('rtblimg','xkz')" class="file" type="file"> <span
 								class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
+							<input type="hidden" id="rtblimg_str">
 					</div>
 				</div>  
                <!--企业认证模块-->
@@ -102,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-	<script type="text/javascript" src="/resources/js/member/authentication/corpAuthenPage.js?2" ></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/corpAuthenPage.js?01.04" ></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>

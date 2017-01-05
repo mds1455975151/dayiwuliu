@@ -59,24 +59,17 @@
 							<!--tab切换标题-->
 							<ul class="rz_personmenu">
 								<li class="select rz_p1">选择上传身份证</li>
-								<li class="rz_p2">选择上传驾驶证</li>
 							</ul>
-							<!--tab切换标题end-->
-							<div class="car_zhunjia" style="margin: 8px 0; width: 100%; overflow: hidden;display: none;">
-								<span style="width: 80px; text-align: left; font-size: 14px;">准驾车型：</span>
-								<button class="btn btn-default" data-toggle="modal"
-									data-target="#car_zhunjia">请选择</button>
-									<span id="drivinglicensetype"></span>
-							</div>
 							<div class="samples">
 								<img class="sfz" src="${trRoot}/tianrui/images/sfz.png"> <img
 									class="jsz hide" src="${trRoot}/tianrui/images/jz.png">
 							</div>
 							<div class="rz_persontab">
 								<div class="img_upload">
-									<input id="file_jsz" class="file" type="file">
+									<input id="file_jsz" onchange="fileupload('file_jsz','sfz')" class="file" type="file">
 									<p style="color: red; padding-top: 5px;">*
 										图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</p>
+										<input type="hidden" id="file_jsz_str">
 								</div>
 							</div>
 						</div>
@@ -89,8 +82,9 @@
 									src="${trRoot}/tianrui/images/yyz.jpg">
 							</div>
 							<div class="img_upload">
-								<input id="rtblimg" class="file" type="file"> <span
+								<input id="rtblimg" onchange="fileupload('rtblimg','xkz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+									<input type="hidden" id="rtblimg_str" value="">
 							</div>
 						</div>
 					</div>
@@ -107,75 +101,6 @@
 		</div>
 	</div>
 	<!--内容部分end-->
-	<!--查看详情begin-->
-	<div class="modal fade" id="car_zhunjia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document" style="width: 400px;">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-	                        aria-hidden="true">&times;</span></button>
-	                <h4 class="modal-title">选择车型</h4>
-	            </div>
-	            <div class="modal-body">
-	                <div class="car_altzhunjia">
-	                    <form>
-	                        <table width="100%" border="0" id="licenseType">
-	                            <tr>
-	                                <td >
-	                                    <input type="checkbox"><label>A1</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>A2</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>A3</label>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td >
-	                                    <input type="checkbox"><label>B1</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>B2</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>B3</label>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td >
-	                                    <input type="checkbox"><label>C1</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>C2</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>C3</label>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td >
-	                                    <input type="checkbox"><label>C4</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>C5</label>
-	                                </td>
-	                                <td>
-	                                    <input type="checkbox"><label>D</label>
-	                                </td>
-	                            </tr>
-	                        </table>
-	                    </form>
-	                </div>
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-primary insertType">确定</button>
-	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!--查看详情end-->
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 
@@ -189,24 +114,6 @@
 		src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 
 	<script type="text/javascript">
-		//身份证驾照上传的按钮tab切换
-		var $tab_li = $('.rz_persontab ul li');
-		$tab_li.click(function() {
-			$(this).addClass('select').siblings().removeClass('select');
-			var index = $tab_li.index(this);
-			$('.rz_personbox > .rz_personcont').eq(index).show().siblings()
-					.hide();
-			if ($(this).hasClass('rz_p1')) {
-				$('.sfz').show();
-				$('.jsz').hide();
-				$('.car_zhunjia').hide();
-			}
-			if ($(this).hasClass('rz_p2')) {
-				$('.sfz').hide();
-				$('.jsz').show();
-				$('.car_zhunjia').show();
-			}
-		});
 		$('.insertType').off('click').on('click',function(){
 			var text = '';
 			$('#licenseType').find('input:checked').next('label').each(function(){
