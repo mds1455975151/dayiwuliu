@@ -93,6 +93,9 @@ function setPageByStatus() {
 		$("#toCorpAuthen_button").html("查看原因");
 	}
 	// 个人认证
+	if(0 != userpercheck){
+		$("#corpAuthen_div").remove();
+	}
 	if (2 == userpercheck) {
 		$("#corpAuthen_div").remove();
 		$("#perAuthen_status").html("认证中");

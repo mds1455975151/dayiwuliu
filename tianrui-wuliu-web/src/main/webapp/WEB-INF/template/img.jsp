@@ -22,6 +22,12 @@
     <img src="${imageUrl }" width="800px" class="img_contr">
     <div class="opera">
         <ul class="opera_inn">
+        
+        
+        
+        
+        
+        
             <li class=" zoom_large">
                 <i class="icononline"> &#xe66a;</i>
             </li>
