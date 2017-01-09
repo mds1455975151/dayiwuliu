@@ -38,23 +38,34 @@
 				</div>
 				<div class="rz_box">
 					<div class="reg_tel">
-						<label><i>*</i>姓名:</label> <input type="text" placeholder="请输入姓名"
+						<label><i style="color: red">*</i>姓名:</label> <input type="text" placeholder="请输入姓名"
 							id="perAuthen_name">
 						<p id="message_perAuthenName"></p>
 					</div>
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>性别:</label> 
+						<input type="radio" name="sex" checked value="xy">男
+						<input type="radio" name="sex" value="xx">女
+						<p id="message_sex"></p>
+					</div>
 					<!--手机输入end-->
 					<div class="reg_tel">
-						<label><i>*</i>证件号码:</label> <input type="text"
-							placeholder="请输入身份证号或驾驶证号" id="perAuthen_id">
+						<label><i style="color: red">*</i>证件号码:</label> <input type="text"
+							placeholder="请输入身份证号" id="perAuthen_id">
 						<p id="message_perAuthenId"></p>
 					</div>
 					<div class="reg_tel">
-						<label><i>*</i>联系电话:</label> <input type="text"
+						<label><i style="color: red">*</i>联系电话:</label> <input type="text"
 							disabled="disabled" placeholder="请输入联系电话" id="perAuthen_tel">
 						<p id="message_perAuthenTel"></p>
 					</div>
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>出生日期:</label> <input type="text"
+						 placeholder="日期格式：yyyy-MM-dd" id="perAuthen_birthday">
+						<p id="message_birthday"></p>
+					</div>
 					<div class="rz_personline">
-						<label><i class="coryel">*</i>身份证/驾照:</label>
+						<label><i style="color: red">*</i>身份证/驾照:</label>
 						<div class="rz_persontab">
 							<!--tab切换标题-->
 							<ul class="rz_personmenu">
@@ -101,13 +112,34 @@
 		</div>
 	</div>
 	<!--内容部分end-->
+	<!--上传进度条-->
+	<a id="showload" data-toggle="modal" data-target="#detail"></a>
+	<div class="modal fade" id="detail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document" style="width: 400px;">
+		<div class="upmodal">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="upload">
+						<img src="${trRoot}/tianrui/images/upload.gif">
+						<div class="upload_font">
+							<img src="${trRoot}/tianrui/images/sc.png">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+<!--上传进度条end-->
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 
 	<script type="text/javascript"
 		src="/resources/js/common/member/header_busi.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/member/authentication/perAuthenPage.js?12.12"></script>
+		src="/resources/js/member/authentication/perAuthenPage.js?01.09"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript"

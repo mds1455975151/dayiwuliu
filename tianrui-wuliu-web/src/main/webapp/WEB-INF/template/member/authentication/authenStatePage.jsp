@@ -37,29 +37,71 @@
 				</div>
 				<div class="rz_box">
 					<div class="reg_tel">
-						<label><i>*</i>姓名:</label> <input type="text" placeholder="请输入姓名"
+						<label><i style="color: red">*</i>姓名:</label> <input type="text" placeholder="请输入姓名"
 							id="perAuthen_name">
 						<p id="message_perAuthenName"></p>
 					</div>
-					<!--手机输入end-->
 					<div class="reg_tel">
-						<label><i>*</i>证件号码:</label> <input type="text"
-							placeholder="请输入证件号码" id="perAuthen_id">
-						<p id="message_perAuthenId"></p>
+						<label><i style="color: red">*</i>性别:</label>
+						<input type="radio" checked name="sex" value="xy">男
+						<input type="radio" name="sex" value="xx">女
+						<p id=""></p>
 					</div>
 					<div class="reg_tel">
-						<label><i>*</i>联系电话:</label> <input type="text"
+						<label><i style="color: red">*</i>出生日期:</label> <input class="timeStr" type="text"
+							placeholder="日期格式：yyyy-MM-dd" id="per_birthday">
+						<p id="massage_birthday"></p>
+					</div>
+					<!--手机输入end-->
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>联系电话:</label> <input type="text"
 							disabled="disabled" placeholder="系统自动获取" id="perAuthen_tel">
 						<p id="message_perAuthenTel"></p>
 					</div>
 					<div class="reg_tel">
-						<label><i>*</i>准驾车型：</label> 
+						<label><i style="color: red">*</i>身份证号/驾驶证号:</label> <input type="text"
+							placeholder="请输入证件号码" id="">
+						<p id=""></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>身份证地址:</label> <input type="text"
+							placeholder="请输入身份证地址" id="per_idcardaddress">
+						<p id="massage_idcardaddress"></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>初次领证日期:</label> <input class="timeStr" type="text"
+							placeholder="请输入日期" id="per_firstlicens">
+						<p id="massage_firstlicens"></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>发证机关:</label> <input type="text"
+							placeholder="请输入驾驶证发证机关" id="per_licenceorg">
+						<p id="massage_licenceorg"></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>驾驶证注册日期:</label> <input class="timeStr" type="text"
+							placeholder="请输入驾驶证注册日期" id="per_starttime">
+						<p id="massage_starttime"></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>有效年限:</label> <input type="text"
+							placeholder="请输入有效年限" id="per_usefullife">
+						<p id="massage_usefullife"></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label><i style="color: red">*</i>准驾车型：</label> 
 						<button class="btn btn-default" data-toggle="modal"
 									data-target="#car_zhunjia">请选择</button>
 									<span id="drivinglicensetype"></span>
 					</div>
 					<div class="rz_personline">
-						<label><i class="coryel">*</i>驾驶证:</label>
+						<label><i style="color: red">*</i>驾驶证:</label>
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="jsz" src="${trRoot}/tianrui/images/jz.png">
@@ -68,20 +110,6 @@
 								<input id="file_jsz" onchange="fileupload('file_jsz','jsz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 								<input type="hidden" id="file_jsz_str" value="" >
-							</div>
-						</div>
-					</div>
-					<div class="reg_tel">
-						<label>道路运输经营许可证：</label> <input type="text" id="rtblno">
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="xkz" style="max-height: 240px;"
-									src="${trRoot}/tianrui/images/yyz.jpg">
-							</div>
-							<div class="img_upload">
-								<input id="rtblimg" onchange="fileupload('rtblimg','xkz')" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							   <input type="hidden" id="rtblimg_str" value="" >
 							</div>
 						</div>
 					</div>
@@ -164,13 +192,32 @@
 	    </div>
 	</div>
 	<!-- 准驾车型 -->
+	<!--上传进度条-->
+	<a id="showload" data-toggle="modal" data-target="#detail"></a>
+	<div class="modal fade" id="detail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document" style="width: 400px;">
+		<div class="upmodal">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="upload">
+						<img src="${trRoot}/tianrui/images/upload.gif">
+						<div class="upload_font">
+							<img src="${trRoot}/tianrui/images/sc.png">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 	
-	
+		</div>
+	</div>
+<!--上传进度条end-->
 	<!--内容部分end-->
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?01.04"></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?01.09"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>

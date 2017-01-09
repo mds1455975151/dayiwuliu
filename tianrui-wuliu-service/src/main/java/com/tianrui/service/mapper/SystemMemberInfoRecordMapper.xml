@@ -31,6 +31,15 @@
     <result column="rtblno" property="rtblno" jdbcType="VARCHAR" />
     <result column="rtblimgurl" property="rtblimgurl" jdbcType="VARCHAR" />
     <result column="licenseType" property="licenseType" jdbcType="VARCHAR" />
+    
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="firstlicens" property="firstlicens" jdbcType="VARCHAR" />
+    <result column="licenceorg" property="licenceorg" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="VARCHAR" />
+    <result column="usefullife" property="usefullife" jdbcType="VARCHAR" />
+    <result column="idcardaddress" property="idcardaddress" jdbcType="VARCHAR" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -39,7 +48,9 @@
     -->
     id, memberid,licenseImagePath, userpercheck, driverpercheck, companypercheck, submittime, status, 
     username, telphone, idcard, idcardimage, driverimage, companyname, companycontact, 
-    companycode, companytel, companyAddress, auditid, auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType
+    companycode, companytel, companyAddress, auditid, auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType,
+    sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress
+    
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -70,7 +81,8 @@
       idcard, idcardimage, driverimage, 
       companyname, companycontact, companycode, 
       companytel, companyAddress, auditid, 
-      auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType
+      auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType,
+      sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress
       )
     values (#{id,jdbcType=VARCHAR},#{licenseImagePath,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{userpercheck,jdbcType=VARCHAR}, 
       #{driverpercheck,jdbcType=VARCHAR}, #{companypercheck,jdbcType=VARCHAR}, #{submittime,jdbcType=BIGINT}, 
@@ -79,7 +91,14 @@
       #{companyname,jdbcType=VARCHAR}, #{companycontact,jdbcType=VARCHAR}, #{companycode,jdbcType=VARCHAR}, 
       #{companytel,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, #{auditid,jdbcType=VARCHAR}, 
       #{auditname,jdbcType=VARCHAR}, #{audittime,jdbcType=BIGINT}, #{auditresson,jdbcType=VARCHAR},
-      #{rtblno,jdbcType=VARCHAR},#{rtblimgurl,jdbcType=VARCHAR},#{licenseType,jdbcType=VARCHAR}
+      #{rtblno,jdbcType=VARCHAR},#{rtblimgurl,jdbcType=VARCHAR},#{licenseType,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR},
+      #{birthday,jdbcType=VARCHAR},
+      #{firstlicens,jdbcType=VARCHAR},
+      #{licenceorg,jdbcType=VARCHAR},
+      #{starttime,jdbcType=VARCHAR},
+      #{usefullife,jdbcType=VARCHAR},
+      #{idcardaddress,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.SystemMemberInfoRecord" >
@@ -164,6 +183,29 @@
       <if test="licenseType != null" >
         licenseType,
       </if>
+      
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="firstlicens != null" >
+        firstlicens,
+      </if>
+      <if test="licenceorg != null" >
+        licenceorg,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="usefullife != null" >
+        usefullife,
+      </if>
+      <if test="idcardaddress != null" >
+        idcardaddress,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -242,6 +284,27 @@
         #{licenseType,jdbcType=VARCHAR},
       </if>
       
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="firstlicens != null" >
+        #{firstlicens,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceorg != null" >
+        #{licenceorg,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="usefullife != null" >
+        #{usefullife,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardaddress != null" >
+        #{idcardaddress,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.SystemMemberInfoRecord" >
@@ -251,6 +314,28 @@
     -->
     update member_info_record
     <set >
+    	<if test="sex != null">
+    	sex = #{sex,jdbcType=VARCHAR},
+    	</if>
+    	<if test="birthday != null">
+    	birthday = #{birthday,jdbcType=VARCHAR},
+    	</if>
+    	<if test="firstlicens != null">
+    	firstlicens = #{firstlicens,jdbcType=VARCHAR},
+    	</if>
+    	<if test="licenceorg != null">
+    	licenceorg = #{licenceorg,jdbcType=VARCHAR},
+    	</if>
+    	<if test="starttime != null">
+    	starttime = #{starttime,jdbcType=VARCHAR},
+    	</if>
+    	<if test="usefullife != null">
+    	usefullife = #{usefullife,jdbcType=VARCHAR},
+    	</if>
+    	<if test="idcardaddress != null">
+    	idcardaddress = #{idcardaddress,jdbcType=VARCHAR},
+    	</if>
+    
     	<if test="licenseImagePath != null">
     	licenseImagePath = #{licenseImagePath,jdbcType=VARCHAR},
     	</if>
@@ -332,7 +417,16 @@
       This element is automatically generated by MyBatis Generator, do not modify.
     -->
     update member_info_record
-    set memberid = #{memberid,jdbcType=VARCHAR},
+    set 
+    	sex = #{sex,jdbcType=VARCHAR},
+    	birthday = #{birthday,jdbcType=VARCHAR},
+    	firstlicens = #{firstlicens,jdbcType=VARCHAR},
+    	licenceorg = #{licenceorg,jdbcType=VARCHAR},
+    	starttime = #{starttime,jdbcType=VARCHAR},
+    	usefullife = #{usefullife,jdbcType=VARCHAR},
+    	idcardaddress = #{idcardaddress,jdbcType=VARCHAR},
+    
+      memberid = #{memberid,jdbcType=VARCHAR},
     	licenseImagePath = #{licenseImagePath,jdbcType=VARCHAR},
       userpercheck = #{userpercheck,jdbcType=VARCHAR},
       driverpercheck = #{driverpercheck,jdbcType=VARCHAR},

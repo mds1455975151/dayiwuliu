@@ -86,7 +86,10 @@ $("#perAuthen_button").click(function() {
 	var licenseType = $('#drivinglicensetype').text();
 	
 	var file_jsz = $("#file_jsz_str").val();
-	
+	//性别
+	var sex = $("input[type='radio']:checked").val();
+	//出生年月
+	var birthday = $("#perAuthen_birthday").val();
 	//道路许可证
 	var file_rtbl=$("#rtblimg_str").val();
 	var rtblno=$("#rtblno").val();
@@ -97,6 +100,16 @@ $("#perAuthen_button").click(function() {
 	if($(".rz_p1").is(".select")){
 		type = "1"
 	}
+	
+	$("#modal_common_content").html("");
+	$("#message_perAuthenName").html("");
+	$("#message_perAuthenId").html("");
+	$("#message_birthday").html("");
+	$("#message_perAuthenTel").html("");
+	$("#modal_common_content").html("");
+	
+	
+	
 	if(!file_jsz){
 		$("#modal_common_content").html("请选择图片");
 		$("#commonModal").modal();
@@ -104,12 +117,22 @@ $("#perAuthen_button").click(function() {
 	}
 	if (perAuthen_name == "") {
 		$("#message_perAuthenName").html("姓名不能为空！");
+		$('#perAuthen_name').focus();
 		return;
 	} else if (perAuthen_id == "") {
 		$("#message_perAuthenId").html("身份证号不能为空！");
+		$('#perAuthen_id').focus();
+		return;
+	}else if(sex == ""){
+		$("#message_sex").html("性别不能为空！");
+		return;
+	}else if(birthday == ""){
+		$("#message_birthday").html("出生年月不能为空！");
+		$('#perAuthen_name').focus();
 		return;
 	} else if (perAuthen_tel == "") {
 		$("#message_perAuthenTel").html("联系电话不能为空！");
+		$('#perAuthen_name').focus();
 		return;
 	} else if (!$("#perAuthen_checkbox").is(":checked")) {
 		$("#modal_common_content").html("请阅读并同意《大易物流平台》的协议！");
@@ -119,6 +142,7 @@ $("#perAuthen_button").click(function() {
 	if( rtblno || file_rtbl  ){
 		if(!rtblno ){
 			alert("道路运输经营许可证号不能为空");
+			$('#rtblno').focus();
 			return ;
 		}
 		if(!file_rtbl){
@@ -126,7 +150,13 @@ $("#perAuthen_button").click(function() {
 			return ;
 		}
 	}
-	
+	//1900-2017
+	var regexp = /^([1][9][0-9][0-9]|[2][0][0-1][0-7])(\-)([0][1-9]|[1][0-2])(\-)([0-2][1-9]|[3][0-1])$/;
+	if(!regexp.test(birthday)){
+		$("#message_birthday").html("请输入正确的时间格式");
+		$('#perAuthen_birthday').focus();
+		return;
+	}
 	var formData = new FormData();
 	formData.append("file",file_jsz);
 	formData.append("userName",perAuthen_name);
@@ -137,6 +167,9 @@ $("#perAuthen_button").click(function() {
 	formData.append("type",type);
 	formData.append("rtblimg",file_rtbl);
 	formData.append("rtblno",rtblno);
+	
+	formData.append("sex",sex);
+	formData.append("birthday",birthday);
 	$(this).addClass('disabled');
 	// 后台处理
 	$.ajax({
@@ -179,6 +212,11 @@ function fileupload(id,remove){
 		processData : false,//告诉jQuery不要去处理发送的数据
 		contentType : false,//告诉jQuery不要去设置Content-Type请求头
 		type : "post",
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
 		success : function(result) {
 			var ret = result.code;
 			var msg = result.error;
@@ -186,6 +224,7 @@ function fileupload(id,remove){
 			if (ret == 000000) {
 				$("#"+id+"_str").val(result.data);
 				$("."+remove).remove();
+				$('#detail').modal("hide");
 			}
 		}
 	});

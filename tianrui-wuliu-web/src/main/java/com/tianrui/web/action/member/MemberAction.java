@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.ISystemMemberInfoRecordService;
 import com.tianrui.api.intf.ISystemMemberService;
+import com.tianrui.api.req.front.member.MemberAuthenReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
@@ -223,44 +224,35 @@ public class MemberAction{
 	 */
 	@RequestMapping(value = "/personalAuthentication", method = RequestMethod.POST)
 	@ResponseBody
-	public Result personalAuthentication(@RequestParam(defaultValue = "")String userName,
-			@RequestParam(defaultValue = "")String id,
-			@RequestParam(defaultValue = "")String identityCard,
-			@RequestParam(defaultValue = "")String telphone,
-			@RequestParam(defaultValue = "")String licenseType,
-			@RequestParam(defaultValue = "")String type,//2-驾驶证；1-身份证
-			String rtblno, //道路运输许可证号 
-			String file,//2-驾驶证；1-身份证 图片留
-			String rtblimg,//道路运输许可证号  图片
+	public Result personalAuthentication(MemberAuthenReq req,
 			HttpServletRequest request
 			) throws Exception{
-		
 		Result rs =Result.getSuccessResult();
-		if(userName==null||"".equals(userName)||
-				id==null||"".equals(id)||
-				identityCard==null||"".equals(identityCard)||
-				telphone==null||"".equals(telphone)||
-				file==null
-				){
-			rs.setCode("1");
-			rs.setError("数据不能为空");
-			return rs;
-		}
-		MemberInfoReq req = new MemberInfoReq();
+		
+		MemberInfoReq inforeq = new MemberInfoReq();
 		//保存道路许可证图片
-		req.setRtblimgurl(rtblimg);
-		req.setRtblno(rtblno);
-		req.setUserName(userName);
-		req.setMemberId(id);
-		req.setIdentityCard(identityCard);
-		req.setTelphone(telphone);
-		if("1".equals(type)){//2-驾驶证；1-身份证
-			req.setIdcardsImagePath(file);
-			rs= systemMemberInfoRecordService.personalAuthentication(req);
-		}else if("2".equals(type)){
-			req.setLicenseType(licenseType);
-			req.setDriveImagePath(file);
-			rs= systemMemberInfoRecordService.driverAuthentication(req);
+		inforeq.setRtblimgurl(req.getRtblimg());
+		inforeq.setRtblno(req.getRtblno());
+		inforeq.setUserName(req.getUserName());
+		inforeq.setMemberId(req.getId());
+		inforeq.setIdentityCard(req.getIdentityCard());
+		inforeq.setTelphone(req.getTelphone());
+		
+		inforeq.setSex(req.getSex());
+		inforeq.setBirthday(req.getBirthday());
+		inforeq.setFirstlicens(req.getFirstlicens());
+		inforeq.setLicenceorg(req.getLicenceorg());
+		inforeq.setStarttime(req.getStarttime());
+		inforeq.setUsefullife(req.getUsefullife());
+		inforeq.setIdcardaddress(req.getIdcardaddress());
+		
+		if("1".equals(req.getType())){//2-驾驶证；1-身份证
+			inforeq.setIdcardsImagePath(req.getFile());
+			rs= systemMemberInfoRecordService.personalAuthentication(inforeq);
+		}else if("2".equals(req.getType())){
+			inforeq.setLicenseType(req.getLicenseType());
+			inforeq.setDriveImagePath(req.getFile());
+			rs= systemMemberInfoRecordService.driverAuthentication(inforeq);
 		}
 		//更新session
 		SessionManager.flushMember(request);

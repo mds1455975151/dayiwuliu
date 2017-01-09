@@ -119,20 +119,6 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-//		if(StringUtils.isNotBlank(req.getLicenseImagePath())){
-//			FileUploadReq freq = new FileUploadReq();
-//			freq.setImgStr(req.getLicenseImagePath());
-//			result = iFileService.uploadImg(freq);
-//			if("000000".equals(result.getCode())){
-//				req.setLicenseImagePath(result.getData().toString());
-//			}else{
-//				return AppResult.valueOf(result);
-//			}
-//		}else{
-//			result.setCode("1");
-//			result.setError("照片不能为空");
-//			return AppResult.valueOf(result);
-//		}
 		result= systemMemberInfoRecordService.enterpriseAuthentication(req);
 		return AppResult.valueOf(result);
 	}

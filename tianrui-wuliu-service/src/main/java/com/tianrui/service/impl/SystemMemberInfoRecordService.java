@@ -61,6 +61,8 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		info.setUserpercheck("2");
 		info.setStatus("0");//0-未审核，1-已审核
 		info.setSubmittime(t);
+		info.setSex(req.getSex());
+		info.setBirthday(req.getBirthday());
 		int a = systemMemberInfoRecordMapper.insertSelective(info);
 		if(a==1){
 			member.setUserpercheck((short)2);//认证中
@@ -162,6 +164,15 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		info.setStatus("0");//0-未审核，1-已审核
 		info.setSubmittime(t);
 		info.setLicenseType(req.getLicenseType());
+		
+		info.setSex(req.getSex());
+		info.setBirthday(req.getBirthday());
+		info.setFirstlicens(req.getFirstlicens());
+		info.setLicenceorg(req.getLicenceorg());
+		info.setStarttime(req.getStarttime());
+		info.setUsefullife(req.getUsefullife());
+		info.setIdcardaddress(req.getIdcardaddress());
+		
 		int a = systemMemberInfoRecordMapper.insertSelective(info);
 		if(a==1){
 			member.setDriverpercheck((short)2);//认证中
