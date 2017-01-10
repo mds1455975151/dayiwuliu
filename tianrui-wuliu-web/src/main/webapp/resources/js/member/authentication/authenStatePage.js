@@ -67,8 +67,14 @@ $("#perAuthen_button").click(function() {
 	var usefullife = $.trim($("#per_usefullife").val());
 	var idcardaddress = $.trim($("#per_idcardaddress").val());
 	
+	if(perAuthen_name==""){
+		$("#message_perAuthenName").html("司机姓名不能为空");
+		$('#perAuthen_name').focus();
+		return;
+	}
+	
 	if(birthday==""){
-		$("#message_birthday").html("出生日期不能为空");
+		$("#massage_birthday").html("出生日期不能为空");
 		$('#per_birthday').focus();
 		return;
 	}
@@ -118,7 +124,7 @@ $("#perAuthen_button").click(function() {
 		return;
 	}
 	//1900-2017
-	var regexp = /^([1][9][0-9][0-9]|[2][0][0-1][0-7])(\-)([0][1-9]|[1][0-2])(\-)([0-2][1-9]|[3][0-1])$/;
+	var regexp = /^([1][9][0-9][0-9]|[2][0][0-1][0-7])(\-)([0][1-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1])$/;
 	if(!regexp.test(birthday)){
 		$("#massage_birthday").html("出生日期格式有误");
 		$('#per_birthday').focus();
@@ -176,12 +182,13 @@ $("#perAuthen_button").click(function() {
 
 //清空文字提示
 function massageClear(){
-	$("#masage_birthday").html("");
+	$("#massage_birthday").html("");
 	$("#massage_firstlicens").html("");
 	$("#massage_licenceorg").html("");
 	$("#massage_starttime").html("");
 	$("#massage_usefullife").html("");
 	$("#massage_idcardaddress").html("");
+	$("#message_perAuthenName").html("");
 }
 
 //图片上传
@@ -215,8 +222,8 @@ function fileupload(id,remove){
 }
 
 $(".timeStr").blur(function(){
-	var regexp = /^([1][9][0-9][0-9]|[2][0][0-1][0-7])(\-)([0][1-9]|[1][0-2])(\-)([0-2][1-9]|[3][0-1])$/;
-	var str = $.trim($(this).val());
+	var regexp = /^([1][9][0-9][0-9]|[2][0][0-1][0-7])(\-)([0][1-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1])$/;
+	var str = $(this).val();
 	if(!regexp.test(str)){
 		alert("时间格式有误");
 	}

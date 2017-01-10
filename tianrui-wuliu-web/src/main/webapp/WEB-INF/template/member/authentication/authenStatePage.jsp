@@ -72,7 +72,7 @@
 					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>初次领证日期:</label> <input class="timeStr" type="text"
-							placeholder="请输入日期" id="per_firstlicens">
+							placeholder="日期格式：yyyy-MM-dd" id="per_firstlicens">
 						<p id="massage_firstlicens"></p>
 					</div>
 					
@@ -84,7 +84,7 @@
 					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>驾驶证注册日期:</label> <input class="timeStr" type="text"
-							placeholder="请输入驾驶证注册日期" id="per_starttime">
+							placeholder="日期格式：yyyy-MM-dd" id="per_starttime">
 						<p id="massage_starttime"></p>
 					</div>
 					

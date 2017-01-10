@@ -87,16 +87,7 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-//		if(StringUtils.isNotBlank(req.getIdcardsImagePath())){
-//			FileUploadReq freq = new FileUploadReq();
-//			freq.setImgStr(req.getIdcardsImagePath());
-//			result = iFileService.uploadImg(freq);
-//			if("000000".equals(result.getCode())){
-//				req.setIdcardsImagePath(result.getData().toString());
-//			}else{
-//				return AppResult.valueOf(result);
-//			}
-//		}
+		
 		result= systemMemberInfoRecordService.personalAuthentication(req);
 		return AppResult.valueOf(result);
 	}
