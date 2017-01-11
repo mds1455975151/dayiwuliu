@@ -298,7 +298,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?12.14" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?01.10" ></script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',

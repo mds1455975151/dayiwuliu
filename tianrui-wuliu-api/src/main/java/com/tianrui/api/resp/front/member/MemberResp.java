@@ -34,6 +34,15 @@ public class MemberResp extends BaseResp{
 	private String rtblimgurl;
 	
 	private String rtblno;
+	
+	private String sex;
+    private String birthday;
+    private String firstlicens;
+    private String licenceorg;
+    private String starttime;
+    private String usefullife;
+    private String idcardaddress;
+	
 	/**
 	 * 组织id
 	 */
@@ -116,10 +125,6 @@ public class MemberResp extends BaseResp{
 	 */
 	private String avatarspath;
 	/**
-	 * 性别
-	 */
-	private String sex;
-	/**
 	 * 身份证号
 	 */
 	private String identityCard;
@@ -201,6 +206,58 @@ public class MemberResp extends BaseResp{
 
 	public String getCapacount() {
 		return capacount;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getFirstlicens() {
+		return firstlicens;
+	}
+
+	public void setFirstlicens(String firstlicens) {
+		this.firstlicens = firstlicens;
+	}
+
+	public String getLicenceorg() {
+		return licenceorg;
+	}
+
+	public void setLicenceorg(String licenceorg) {
+		this.licenceorg = licenceorg;
+	}
+
+	public String getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getUsefullife() {
+		return usefullife;
+	}
+
+	public void setUsefullife(String usefullife) {
+		this.usefullife = usefullife;
+	}
+
+	public String getIdcardaddress() {
+		return idcardaddress;
+	}
+
+	public void setIdcardaddress(String idcardaddress) {
+		this.idcardaddress = idcardaddress;
+	}
+
+	public void setLastTimeStr(String lastTimeStr) {
+		this.lastTimeStr = lastTimeStr;
 	}
 
 	public void setCapacount(String capacount) {

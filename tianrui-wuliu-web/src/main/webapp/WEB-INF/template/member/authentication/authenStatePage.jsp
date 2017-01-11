@@ -60,8 +60,8 @@
 					</div>
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>身份证号/驾驶证号:</label> <input type="text"
-							placeholder="请输入证件号码" id="">
-						<p id=""></p>
+							placeholder="请输入证件号码" id="perAuthen_id">
+						<p id="massage_perAuthen_id"></p>
 					</div>
 					
 					<div class="reg_tel">

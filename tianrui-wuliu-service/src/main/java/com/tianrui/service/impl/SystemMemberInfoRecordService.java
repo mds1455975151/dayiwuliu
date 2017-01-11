@@ -157,6 +157,8 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		Long t = new Date().getTime();
 		SystemMemberInfoRecord info = new SystemMemberInfoRecord();
 		//数值转换
+		
+		//TODO
 		info = copyProperties(req);
 		info.setId(UUIDUtil.getId());
 		info.setMemberid(req.getMemberId());

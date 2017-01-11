@@ -59,7 +59,10 @@ public enum ErrorCode {
 	PAY_DATA_PAY_ADVICE("E401012","不合法的支付单状态"),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
-	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机")
+	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机"),
+	
+	VEHICLE_TICKET_IDNULL("E502001","无效的车辆id"),
+	VEHICLE_TICKET_NOTONLY("E502002","车辆开票认证已存在")
 	;
 	
 	private String code;

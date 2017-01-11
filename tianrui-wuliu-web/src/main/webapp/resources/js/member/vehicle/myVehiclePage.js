@@ -181,7 +181,13 @@ function appendContentToBody(result, flag) {
 										 .append("认证中");
 						td4.append(button1);
 					} 
-				tr1.append(td1).append(td2).append(td3).append(td4);
+				var td5 = $("<td></td>");
+				    td5.addClass("f12 bill_lineh2");
+				var button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"')\"></button>")
+								.addClass("btn btnyello")
+								 .append("开票认证");
+				td5.append(button5);
+				tr1.append(td1).append(td2).append(td3).append(td4).append(td5);
 			
 			if (flag == 0) {
 				// 搜索查询时表体正常附加数据
@@ -194,6 +200,11 @@ function appendContentToBody(result, flag) {
 		}
 	}
 }
+//开票认证 页面跳转
+function kaipiaoView(id){
+	window.location.href = "/trwuliu/Member/myVehicle/kaipiaoPage?id="+id;
+}
+
 //取消绑定
 function revokeDriver(id,billstatus){
 	if(billstatus == 2 || billstatus == 3 || billstatus == 4 ){

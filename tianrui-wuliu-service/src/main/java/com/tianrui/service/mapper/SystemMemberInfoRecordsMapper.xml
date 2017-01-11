@@ -22,6 +22,15 @@
 			f.rtblimgurl rtblimgurl,
 			f.rtblno rtblno,
 			f.licenseType licenseType,
+			
+			f.sex sex,
+		    f.birthday birthday,
+		    f.firstlicens firstlicens,
+		    f.licenceorg licenceorg,
+		    f.starttime starttime,
+		    f.usefullife usefullife,
+		    f.idcardaddress idcardaddress,
+			
 			m.cellphone cellphone,
 			m.companypercheck companypercheck,
 			m.driverpercheck driverpercheck,

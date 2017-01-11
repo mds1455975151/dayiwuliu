@@ -119,7 +119,6 @@ public class AdminMemberAction {
 	 */
 	@RequestMapping("/driverShenhe")
 	public ModelAndView driverShenhe(String id,String pageNo) throws Exception{
-//		MemberInfoResp resp = infoService.findByMemberId(id);
 		MemberInfoRecordResp resp = systemMemberInfoRecordService.findByMemberId(id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("memberInfo", resp);

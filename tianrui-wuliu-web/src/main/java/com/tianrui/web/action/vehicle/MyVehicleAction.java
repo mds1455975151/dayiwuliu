@@ -80,6 +80,15 @@ public class MyVehicleAction {
 		view.setViewName("/member/vehicle/updateDriverPage");
 		return view;
 	}
+	/** 开票认证页面跳转*/
+	@RequestMapping("/kaipiaoPage")
+	public ModelAndView kaipiaoPage(String id){
+		ModelAndView view = new ModelAndView();
+		view.addObject("vehicleid", id);
+		view.setViewName("/member/vehicle/kaipiao");
+		return view;
+	}
+	
 	/**
 	 * 
 	 * @描述:车辆审核失败页面

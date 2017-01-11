@@ -222,18 +222,37 @@ function details(id){
 		if(a.identityCard == undefined){
 			identityCard = "";
 		}
-		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='/imageView/index?imageUrl="+a.rtblimgurl+"' target='_blank'>查看图片</a>");
+		var sex = a.sex == undefined ? "":a.sex;
+		var birthday = a.birthday == undefined ? "":a.birthday;
+		var firstlicens = a.firstlicens == undefined ? "":a.firstlicens;
+		var licenceorg = a.licenceorg == undefined ? "":a.licenceorg;
+		var starttime = a.starttime == undefined ? "":a.starttime;
+		var usefullife = a.usefullife == undefined ? "":a.usefullife;
+		var idcardaddress = a.idcardaddress == undefined ? "":a.idcardaddress;
+		if(sex == "xx"){
+			sex = "女";
+		}else if(sex == "xy"){
+			sex = "男";
+		}
 		var driveImagePath = a.driveImagePath == ""?"未上传":("<span><a href='/imageView/index?imageUrl="+a.driveImagePath+"' target='_blank'>查看图片</a>");
 		var licenseType = a.licenseType == undefined ? "":a.licenseType;
 		var hml = "<div class='file_detail'><label>司机账号：</label><span>"+a.cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>司机姓名：</label><span>"+userName+"</span></div>"+
+			
+			"<div class='file_detail'><label>司机性别：</label><span>"+sex+"</span></div>"+
+			"<div class='file_detail'><label>出生日期：</label><span>"+birthday+"</span></div>"+
+			"<div class='file_detail'><label>身份证地址：</label><span>"+idcardaddress+"</span></div>"+
+			"<div class='file_detail'><label>初次领证日期：</label><span>"+firstlicens+"</span></div>"+
+			"<div class='file_detail'><label>发证机关：</label><span>"+licenceorg+"</span></div>"+
+			"<div class='file_detail'><label>有效年限：</label><span>"+usefullife+"</span></div>"+
+			"<div class='file_detail3'><label>驾驶证注册日期：</label><span>"+starttime+"</span></div>"+
+			
 			"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
 			"<div class='file_detail'><label>驾驶证号：</label><span>"+identityCard+"</span></div>"+
 			"<div class='file_detail'><label>准驾车型：</label><span>"+licenseType+"</span></div>"+
 			"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+
-			"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></span></div>"+
 			"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";
 		document.getElementById("detailid").innerHTML = hml;	
 }

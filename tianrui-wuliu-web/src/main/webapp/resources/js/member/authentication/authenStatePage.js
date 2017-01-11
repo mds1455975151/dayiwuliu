@@ -73,6 +73,12 @@ $("#perAuthen_button").click(function() {
 		return;
 	}
 	
+	if(perAuthen_id==""){
+		$("#massage_perAuthen_id").html("身份证号不能为空");
+		$('#perAuthen_id').focus();
+		return;
+	}
+	
 	if(birthday==""){
 		$("#massage_birthday").html("出生日期不能为空");
 		$('#per_birthday').focus();
@@ -189,6 +195,7 @@ function massageClear(){
 	$("#massage_usefullife").html("");
 	$("#massage_idcardaddress").html("");
 	$("#message_perAuthenName").html("");
+	$("#massage_perAuthen_id").html("");
 }
 
 //图片上传

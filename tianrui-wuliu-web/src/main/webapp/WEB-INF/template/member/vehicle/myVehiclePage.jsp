@@ -1,3 +1,4 @@
+
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
 <%
@@ -96,6 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                        <th >认证状态</th>
 				                        <th >车辆状态</th>
 				                        <th> 操作</th>
+				                        <th> 开票认证</th>
 				                    </tr>
 				                    </thead>
 				                    <tbody id="vehicle_tbody">

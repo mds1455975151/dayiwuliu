@@ -38,6 +38,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>会员类别：</label><span>个人用户</span><br>
                             <label>会员账号：</label><span>${memberInfo.cellphone }</span><br>
                             <label>会员姓名：</label><span>${memberInfo.username }</span><br>
+                            <c:if test="${memberInfo.sex eq 'xx'}">
+                            <label>性别：</label><span>女</span><br>
+                            </c:if>
+                            <c:if test="${memberInfo.sex eq 'xy'}">
+                            <label>性别：</label><span>男</span><br>
+                            </c:if>
+                               
+                            <label>出生日期：</label><span>${memberInfo.birthday }</span><br>
                             <label>联系方式：</label><span>${memberInfo.telphone }</span><br>
                             <label>身份证号：</label><span>${memberInfo.idcard }</span><br>
                             </c:if>

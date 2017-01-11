@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.VehicleTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.VehicleTicket" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="vehicleid" property="vehicleid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="anlian" property="anlian" jdbcType="VARCHAR" />
+    <result column="nature" property="nature" jdbcType="VARCHAR" />
+    <result column="quality" property="quality" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="certificateno" property="certificateno" jdbcType="VARCHAR" />
+    <result column="expirydata" property="expirydata" jdbcType="VARCHAR" />
+    <result column="identification" property="identification" jdbcType="VARCHAR" />
+    <result column="motor" property="motor" jdbcType="VARCHAR" />
+    <result column="motorno" property="motorno" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="creatertime" property="creatertime" jdbcType="BIGINT" />
+    <result column="modifyer" property="modifyer" jdbcType="VARCHAR" />
+    <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vehicleid, status, anlian, nature, quality, owner, idcard, certificateno, expirydata, 
+    identification, motor, motorno, creater, creatertime, modifyer, modifytime, desc1, 
+    desc2, desc3, desc4
+  </sql>
+ 
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.VehicleTicket" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_vehicle_ticket
+   <where>
+   <if test="vehicleid != null">
+   		and vehicleid = #{vehicleid,jdbcType=VARCHAR}
+   </if>
+   </where>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_vehicle_ticket
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuliu_vehicle_ticket
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.VehicleTicket" >
+    insert into wuliu_vehicle_ticket (id, vehicleid, status, 
+      anlian, nature, quality, 
+      owner, idcard, certificateno, 
+      expirydata, identification, motor, 
+      motorno, creater, creatertime, 
+      modifyer, modifytime, desc1, 
+      desc2, desc3, desc4
+      )
+    values (#{id,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{anlian,jdbcType=VARCHAR}, #{nature,jdbcType=VARCHAR}, #{quality,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{certificateno,jdbcType=VARCHAR}, 
+      #{expirydata,jdbcType=VARCHAR}, #{identification,jdbcType=VARCHAR}, #{motor,jdbcType=VARCHAR}, 
+      #{motorno,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{creatertime,jdbcType=BIGINT}, 
+      #{modifyer,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, 
+      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.VehicleTicket" >
+    insert into wuliu_vehicle_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vehicleid != null" >
+        vehicleid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="anlian != null" >
+        anlian,
+      </if>
+      <if test="nature != null" >
+        nature,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="certificateno != null" >
+        certificateno,
+      </if>
+      <if test="expirydata != null" >
+        expirydata,
+      </if>
+      <if test="identification != null" >
+        identification,
+      </if>
+      <if test="motor != null" >
+        motor,
+      </if>
+      <if test="motorno != null" >
+        motorno,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="creatertime != null" >
+        creatertime,
+      </if>
+      <if test="modifyer != null" >
+        modifyer,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleid != null" >
+        #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="anlian != null" >
+        #{anlian,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateno != null" >
+        #{certificateno,jdbcType=VARCHAR},
+      </if>
+      <if test="expirydata != null" >
+        #{expirydata,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null" >
+        #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="motor != null" >
+        #{motor,jdbcType=VARCHAR},
+      </if>
+      <if test="motorno != null" >
+        #{motorno,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="creatertime != null" >
+        #{creatertime,jdbcType=BIGINT},
+      </if>
+      <if test="modifyer != null" >
+        #{modifyer,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.VehicleTicket" >
+    update wuliu_vehicle_ticket
+    <set >
+      <if test="vehicleid != null" >
+        vehicleid = #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="anlian != null" >
+        anlian = #{anlian,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        nature = #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateno != null" >
+        certificateno = #{certificateno,jdbcType=VARCHAR},
+      </if>
+      <if test="expirydata != null" >
+        expirydata = #{expirydata,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null" >
+        identification = #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="motor != null" >
+        motor = #{motor,jdbcType=VARCHAR},
+      </if>
+      <if test="motorno != null" >
+        motorno = #{motorno,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="creatertime != null" >
+        creatertime = #{creatertime,jdbcType=BIGINT},
+      </if>
+      <if test="modifyer != null" >
+        modifyer = #{modifyer,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.VehicleTicket" >
+    update wuliu_vehicle_ticket
+    set vehicleid = #{vehicleid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      anlian = #{anlian,jdbcType=VARCHAR},
+      nature = #{nature,jdbcType=VARCHAR},
+      quality = #{quality,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      certificateno = #{certificateno,jdbcType=VARCHAR},
+      expirydata = #{expirydata,jdbcType=VARCHAR},
+      identification = #{identification,jdbcType=VARCHAR},
+      motor = #{motor,jdbcType=VARCHAR},
+      motorno = #{motorno,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      creatertime = #{creatertime,jdbcType=BIGINT},
+      modifyer = #{modifyer,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=BIGINT},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

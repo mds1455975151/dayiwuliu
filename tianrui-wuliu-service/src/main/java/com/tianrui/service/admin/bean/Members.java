@@ -23,6 +23,15 @@ public class Members{
 	private String rtblimgurl;
 	
 	private String rtblno;
+	
+	private String sex;
+    private String birthday;
+    private String firstlicens;
+    private String licenceorg;
+    private String starttime;
+    private String usefullife;
+    private String idcardaddress;
+	
 	/**
 	 * 认证信息id
 	 */
@@ -89,10 +98,6 @@ public class Members{
 	 * 认证时间
 	 */
 	private Long submitDate;
-	/**
-	 * 性别
-	 */
-	private String sex;
 	/**
 	 * 身份证号
 	 */
@@ -386,6 +391,54 @@ public class Members{
 
 	public void setSubmitDate(Long submitDate) {
 		this.submitDate = submitDate;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getFirstlicens() {
+		return firstlicens;
+	}
+
+	public void setFirstlicens(String firstlicens) {
+		this.firstlicens = firstlicens;
+	}
+
+	public String getLicenceorg() {
+		return licenceorg;
+	}
+
+	public void setLicenceorg(String licenceorg) {
+		this.licenceorg = licenceorg;
+	}
+
+	public String getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getUsefullife() {
+		return usefullife;
+	}
+
+	public void setUsefullife(String usefullife) {
+		this.usefullife = usefullife;
+	}
+
+	public String getIdcardaddress() {
+		return idcardaddress;
+	}
+
+	public void setIdcardaddress(String idcardaddress) {
+		this.idcardaddress = idcardaddress;
 	}
 	
 }

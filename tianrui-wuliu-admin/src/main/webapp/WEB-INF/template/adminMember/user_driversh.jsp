@@ -36,26 +36,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="row">
                         <div class="col-md-12">
                             <div class="person_cont">
-                                <label>司机账号：</label><span>${memberInfo.cellphone }</span>
-                                <label>司机姓名：</label><span>${memberInfo.username }</span>
-                                <label>联系方式：</label><span>${memberInfo.telphone }</span>
-                                <label>驾驶证号：</label><span>${memberInfo.idcard }</span>
-                                <label>准驾车型：</label><span>${memberInfo.licenseType }</span>
+                                <label>司机账号：</label><span>${memberInfo.cellphone }</span><br>
+                                <label>司机姓名：</label><span>${memberInfo.username }</span><br>
+                                <label>联系方式：</label><span>${memberInfo.telphone }</span><br>
+                                <label>驾驶证号：</label><span>${memberInfo.idcard }</span><br>
+                                <label>准驾车型：</label><span>${memberInfo.licenseType }</span><br>
+                               
+                               <c:if test="${memberInfo.sex eq 'xx'}">
+                               <label>性别：</label><span>女</span><br>
+                               </c:if>
+                               <c:if test="${memberInfo.sex eq 'xy'}">
+                               <label>性别：</label><span>男</span><br>
+                               </c:if>
+                               
+                               <label>出生日期：</label><span>${memberInfo.birthday }</span><br>
+                               <label>初次领证日期：</label><span>${memberInfo.firstlicens }</span><br>
+                               <label>发证机关：</label><span>${memberInfo.licenceorg }</span><br>
+                               <label>驾驶证注册日期：</label><span>${memberInfo.starttime }</span><br>
+                               <label>有效年限：</label><span>${memberInfo.usefullife }</span><br>
+                               <label>身份证地址：</label><span>${memberInfo.idcardaddress }</span><br>
+                               
+                               
+                               
+                               
                                 <c:if test="${memberInfo.driverpercheck eq '0'}">
-                                <label>认证状态：</label><span>未认证</span>
+                                <label>认证状态：</label><span>未认证</span><br>
                                 </c:if>
                                 <c:if test="${memberInfo.driverpercheck eq '1'}">
-                                <label>认证状态：</label><span>认证通过</span>
+                                <label>认证状态：</label><span>认证通过</span><br>
                                 </c:if>
                                 <c:if test="${memberInfo.driverpercheck eq '2'}">
-                                <label>认证状态：</label><span>认证中</span>
+                                <label>认证状态：</label><span>认证中</span><br>
                                 </c:if>
                                 <c:if test="${memberInfo.driverpercheck eq '3'}">
-                                <label>认证状态：</label><span>认证失败</span>
+                                <label>认证状态：</label><span>认证失败</span><br>
                                 </c:if>
-                                <label>注册时间：</label><span>${memberInfo.registtimeStr }</span>
-                                <label>认证时间：</label><span>${memberInfo.submittimeStr }</span>
-                            	<label>道路运输经营许可证号：</label><span>${memberInfo.rtblno }</span><br>
+                                <label>注册时间：</label><span>${memberInfo.registtimeStr }</span><br>
+                                <label>认证时间：</label><span>${memberInfo.submittimeStr }</span><br>
                             </div>
                         </div>
                     </div>
@@ -73,16 +90,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<input type="hidden" id="infoid" value="${memberInfo.id }">
                         </div>
                     </div>
-                    <div class="person_cont">
-                            <label>道路运输经营许可证：</label>
-                            <span id="imgid">
-                            <c:if test="${not empty memberInfo.rtblimgurl }">
-	                            <a href="/imageView/index?imageUrl=${memberInfo.rtblimgurl }" target="_blank">
-	                            	<img height="200" src="${memberInfo.rtblimgurl }">
-	                            </a>
-                            </c:if>
-                            </span>
-                        </div>
                     <div class="row ">
                         <div class="person_cont">
                             <div class="person_button">

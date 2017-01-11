@@ -72,6 +72,10 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setIdcard(record.getIdcard());
 			info.setSubmittime(record.getSubmittime());
 			info.setIdcardimage(record.getIdcardimage());
+			
+			info.setSex(record.getSex());
+			info.setBirthday(record.getBirthday());
+			
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 			member.setUserpercheck((short)1);
 		}
@@ -133,6 +137,16 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setSubmittime(record.getSubmittime());
 			info.setDriverimage(record.getDriverimage());
 			info.setLicenseType(record.getLicenseType());
+			
+			info.setSex(record.getSex());
+			info.setBirthday(record.getBirthday());
+			info.setFirstlicens(record.getFirstlicens());
+			info.setLicenceorg(record.getLicenceorg());
+			info.setStarttime(record.getStarttime());
+			info.setUsefullife(record.getUsefullife());
+			info.setIdcardaddress(record.getIdcardaddress());
+			
+			
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 			member.setDriverpercheck((short)1);
 			//司机审核通过 默认个人审核通过

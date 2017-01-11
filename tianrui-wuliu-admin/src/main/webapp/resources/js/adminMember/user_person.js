@@ -296,12 +296,22 @@ function getType(id,status){
 		}else{
 			userType = "暂无";
 		}
+		
+		var sex = a.sex == undefined ? "":a.sex;
+		var birthday = a.birthday == undefined ? "":a.birthday;
+		if(sex == "xx"){
+			sex = "女";
+		}else if(sex == "xy"){
+			sex = "男";
+		}
 		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='/imageView/index?imageUrl="+a.rtblimgurl+"' target='_blank'>查看图片</a>");
 		var idcardsImagePath = idcardsImagePath == ""?"未上传":("<span><a href='/imageView/index?imageUrl="+idcardsImagePath+"' target='_blank'>查看图片</a>");
 		
 		var hml = "<div class='file_detail'><label>会员类别：</label><span>"+userType+"</span></div>"+
 			"<div class='file_detail'><label>会员账号：</label><span>"+cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>会员名称：</label><span>"+userName+"</span></div>"+
+			"<div class='file_detail'><label>性别：</label><span>"+sex+"</span></div>"+
+			"<div class='file_detail'><label>出生日期：</label><span>"+birthday+"</span></div>"+
 			"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
 			"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+registtime+"</span></div>"+
