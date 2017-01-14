@@ -178,6 +178,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 		if (memberVehicle.getStatus() == null) {
 			memberVehicle.setStatus("2");
 			memberVehicle.setBillstatus("5");
+			//开票认证 未认证
+			memberVehicle.setDesc1("0");
 		}
 		// 数据插入操作
 		long count = memberVehicleMapper.insert(memberVehicle);
@@ -572,6 +574,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 				memberVehicleResp.setCreatetime(memberVehicle.getCreatetime());
 				//审核时间
 				memberVehicleResp.setAudittime(memberVehicle.getAudittime());
+				
+				memberVehicleResp.setDesc1(memberVehicle.getDesc1());
 				
 				memberVehicleResp.setMemo(memberVehicle.getMemo());
 				

@@ -50,6 +50,8 @@ public class VehicleAndDriver implements IModel {
 	private String vehiheadimgpath;
 	/** 车辆状态(-1:认证失败,0:未认证,1:认证成功,2:认证中) */
 	private String status;
+	/** 开票认证 -1:认证失败,0:未认证,1:认证成功,2:认证中 */
+	private String desc1;
 	/** 认证失败原因 */
 	private String memo;
 	/** 创建认证时间*/
@@ -135,6 +137,14 @@ public class VehicleAndDriver implements IModel {
 
 	public String getRegistimage() {
 		return registimage;
+	}
+
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 
 	public void setRegistimage(String registimage) {

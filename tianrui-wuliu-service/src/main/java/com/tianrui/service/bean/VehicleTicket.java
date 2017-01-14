@@ -42,6 +42,10 @@ public class VehicleTicket {
     private String desc3;
 
     private String desc4;
+    
+    private Integer pageNo;
+    
+    private Integer pageSize;
 
     public String getId() {
         return id;
@@ -83,7 +87,23 @@ public class VehicleTicket {
         this.nature = nature == null ? null : nature.trim();
     }
 
-    public String getQuality() {
+    public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getQuality() {
         return quality;
     }
 

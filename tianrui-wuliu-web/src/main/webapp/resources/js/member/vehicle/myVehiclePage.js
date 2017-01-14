@@ -180,12 +180,28 @@ function appendContentToBody(result, flag) {
 										.addClass("btn btnyello")
 										 .append("认证中");
 						td4.append(button1);
-					} 
+					}
+					
+				var button5 = "";
+				if(data[i].desc1 == "0"||data[i].desc1 == undefined){
+					button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"')\"></button>")
+					.addClass("btn btnyello")
+					.append("开票认证");
+				}else if(data[i].desc1 == "1"){
+					button5 = $("<button ></button>")
+					.addClass("btn btnyello")
+					.append("开票认证成功");
+				}else if(data[i].desc1 == "2"){
+					button5 = $("<button ></button>")
+					.addClass("btn btnyello")
+					.append("开票认证中");
+				}else if(data[i].desc1 == "-1"){
+					button5 = $("<button  onclick=\"kaipiaoUpt('"+data[i].id+"')\"></button>")
+					.addClass("btn btnyello")
+					.append("开票认证失败");
+				}	
 				var td5 = $("<td></td>");
 				    td5.addClass("f12 bill_lineh2");
-				var button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"')\"></button>")
-								.addClass("btn btnyello")
-								 .append("开票认证");
 				td5.append(button5);
 				tr1.append(td1).append(td2).append(td3).append(td4).append(td5);
 			
@@ -202,7 +218,10 @@ function appendContentToBody(result, flag) {
 }
 //开票认证 页面跳转
 function kaipiaoView(id){
-	window.location.href = "/trwuliu/Member/myVehicle/kaipiaoPage?id="+id;
+	window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoPage?id="+id;
+}
+function kaipiaoUpt(id){
+	window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoUpdate?vehicleid="+id;
 }
 
 //取消绑定

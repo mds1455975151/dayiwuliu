@@ -61,8 +61,9 @@ public enum ErrorCode {
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机"),
 	
-	VEHICLE_TICKET_IDNULL("E502001","无效的车辆id"),
-	VEHICLE_TICKET_NOTONLY("E502002","车辆开票认证已存在")
+	VEHICLE_TICKET_IDNULL("E502001","无效的认证id"),
+	VEHICLE_VEHICLE_IDNULL("E502002","无效的车辆id"),
+	VEHICLE_TICKET_NOTONLY("E502003","车辆开票认证已存在")
 	;
 	
 	private String code;

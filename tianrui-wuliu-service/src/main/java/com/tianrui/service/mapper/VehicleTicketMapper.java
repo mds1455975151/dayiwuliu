@@ -18,4 +18,6 @@ public interface VehicleTicketMapper {
     int updateByPrimaryKey(VehicleTicket record);
     
     List<VehicleTicket> selectByCondition(VehicleTicket record);
+    
+    long selectByCount(VehicleTicket record);
 }
