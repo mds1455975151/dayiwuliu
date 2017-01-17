@@ -8,12 +8,20 @@ package com.tianrui.api.req.admin.anlian;
 public class AnlianDriverReq{
 	/**司机id*/
 	private String driverid;
+	/** 认证记录id*/
+	private String recorid;
 
 	public String getDriverid() {
 		return driverid;
 	}
 	public void setDriverid(String driverid) {
 		this.driverid = driverid;
+	}
+	public String getRecorid() {
+		return recorid;
+	}
+	public void setRecorid(String recorid) {
+		this.recorid = recorid;
 	}
 
 }

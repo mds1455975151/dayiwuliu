@@ -16,12 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
+import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
@@ -71,6 +73,7 @@ import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberPositionRecord;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
+import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
@@ -78,6 +81,7 @@ import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mongo.BillPositionDao;
 import com.tianrui.service.mongo.BillTrackDao;
@@ -145,6 +149,10 @@ public class BillService implements IBillService{
 	private BillPositionDao billPositionDao;
 	@Autowired
 	private MemberPositionRecordDao memberPositionRecordDao;
+	@Autowired
+	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	IAnlianBillService anlianBillService;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -172,74 +180,75 @@ public class BillService implements IBillService{
 						planRoot = planMapper.selectRootPlanByPlanId(plan.getId());
 					}
 					for(  VehicleDriverVO item:vehicleDrivers){
-						Bill bill =new Bill();
-						//基本信息
-						bill.setId(UUIDUtil.getId());
-						bill.setPlanid(req.getPlanId());
-						bill.setPlancode(plan.getPlancode());
-						bill.setOrgid(plan.getOrgid());
-						bill.setRouteid(plan.getRouteid());
-						//创建人 修改人
-						bill.setCreatetime(System.currentTimeMillis());
-						bill.setCreator(req.getCurruId());
-						bill.setModifier(req.getCurruId());
-						bill.setModifytime(System.currentTimeMillis());
-						//状态标记信息
-						bill.setVenderdelflag(Byte.valueOf("0"));
-						bill.setOwnerdelflag(Byte.valueOf("0"));
-						bill.setDriverdelflag(Byte.valueOf("0"));
-						bill.setStatus(Byte.valueOf("0"));
-						if(Integer.parseInt(item.getOvernumber()) > 1){//批量运单
-							//计划编码
-							bill.setWaybillno("批量运单");
-							bill.setType(Byte.valueOf("2"));
-						}else{
-							//计划编码
-							bill.setWaybillno(codeGenDao.codeGen(2));
-							bill.setType(Byte.valueOf("0"));
-						}
-						//车主 货主信息
-						if(StringUtils.equals(plan.getIsAppoint(), "1")){
-							bill.setOwnerid(planRoot.getCreator());
-						}else{
-							bill.setOwnerid(plan.getCreator());
-						}
-						bill.setVenderid(plan.getVehicleownerid());
-						//车辆司机信息
-						bill.setVehicleid(item.getVehicleId());
-						bill.setDriverid(item.getDriverId());
-						bill.setVehicleno(item.getVehicleno());
-						bill.setVehicletypename(item.getVehicleTypeName());
-						bill.setDrivername(item.getDriverName());
-						bill.setDrivertel(item.getDriverTel());
-						bill.setOvernumber(item.getOvernumber());
-						bill.setTotalnumber(item.getOvernumber());
-						//货物信息
-						bill.setCargoname(plan.getCargoname());
-						bill.setPriceunits(plan.getPriceunits());
-						bill.setWeight(Double.valueOf(req.getWeight()));
-						bill.setPrice(Double.valueOf(req.getPrice()));
-						bill.setDesc1(plan.getMeasure());
-						//公里数
-						bill.setDistance(plan.getDistance());
-						//起止时间
-						bill.setStarttime(req.getBillStartTime());
-						bill.setEndtime(req.getBillEndTime());
-						//收发货人信息
-						//发货地 收获地
-						bill.setStartcity(plan.getStartcity());
-						bill.setEndcity(plan.getEndcity());
-						//发货人
-						bill.setConsignorname(plan.getSendperson());
-						bill.setConsignortel(plan.getSendpersonphone());
-						//收货人
-						bill.setReceivername(plan.getReceiveperson());
-						bill.setReceivertel(plan.getReceivepersonphone());
-						//是否由委派计划生成的运单
-						bill.setDesc4(plan.getIsAppoint());
-						bill.setPathID(plan.getPathID());
-						bill.setIsClearing("0");
-						bills.add(bill);
+						
+							Bill bill =new Bill();
+							//基本信息
+							bill.setId(UUIDUtil.getId());
+							bill.setPlanid(req.getPlanId());
+							bill.setPlancode(plan.getPlancode());
+							bill.setOrgid(plan.getOrgid());
+							bill.setRouteid(plan.getRouteid());
+							//创建人 修改人
+							bill.setCreatetime(System.currentTimeMillis());
+							bill.setCreator(req.getCurruId());
+							bill.setModifier(req.getCurruId());
+							bill.setModifytime(System.currentTimeMillis());
+							//状态标记信息
+							bill.setVenderdelflag(Byte.valueOf("0"));
+							bill.setOwnerdelflag(Byte.valueOf("0"));
+							bill.setDriverdelflag(Byte.valueOf("0"));
+							bill.setStatus(Byte.valueOf("0"));
+							if(Integer.parseInt(item.getOvernumber()) > 1){//批量运单
+								//计划编码
+								bill.setWaybillno("批量运单");
+								bill.setType(Byte.valueOf("2"));
+							}else{
+								//计划编码
+								bill.setWaybillno(codeGenDao.codeGen(2));
+								bill.setType(Byte.valueOf("0"));
+							}
+							//车主 货主信息
+							if(StringUtils.equals(plan.getIsAppoint(), "1")){
+								bill.setOwnerid(planRoot.getCreator());
+							}else{
+								bill.setOwnerid(plan.getCreator());
+							}
+							bill.setVenderid(plan.getVehicleownerid());
+							//车辆司机信息
+							bill.setVehicleid(item.getVehicleId());
+							bill.setDriverid(item.getDriverId());
+							bill.setVehicleno(item.getVehicleno());
+							bill.setVehicletypename(item.getVehicleTypeName());
+							bill.setDrivername(item.getDriverName());
+							bill.setDrivertel(item.getDriverTel());
+							bill.setOvernumber(item.getOvernumber());
+							bill.setTotalnumber(item.getOvernumber());
+							//货物信息
+							bill.setCargoname(plan.getCargoname());
+							bill.setPriceunits(plan.getPriceunits());
+							bill.setWeight(Double.valueOf(req.getWeight()));
+							bill.setPrice(Double.valueOf(req.getPrice()));
+							bill.setDesc1(plan.getMeasure());
+							//公里数
+							bill.setDistance(plan.getDistance());
+							//起止时间
+							bill.setStarttime(req.getBillStartTime());
+							bill.setEndtime(req.getBillEndTime());
+							//收发货人信息
+							//发货地 收获地
+							bill.setStartcity(plan.getStartcity());
+							bill.setEndcity(plan.getEndcity());
+							//发货人
+							bill.setConsignorname(plan.getSendperson());
+							bill.setConsignortel(plan.getSendpersonphone());
+							//收货人
+							bill.setReceivername(plan.getReceiveperson());
+							bill.setReceivertel(plan.getReceivepersonphone());
+							//是否由委派计划生成的运单
+							bill.setDesc4(plan.getIsAppoint());
+							bill.setPathID(plan.getPathID());
+							bill.setIsClearing("0");
+							bills.add(bill);
 					}
 				}
 			}
@@ -250,11 +259,39 @@ public class BillService implements IBillService{
 		if( CollectionUtils.isNotEmpty(bills) ){
 			MemberVo currUser =getMember(req.getCurruId());
 			for( Bill item:bills ){
-				billMapper.insert(item);
-				saveBillTrack(item.getId(),1,BIllTrackMsg.INIT,req.getCurruId(),item.getStatus());
-				//为司机发送站内信
-				MemberVo receive =getMember(item.getDriverid());
-				sendMsgInside(Arrays.asList(new String[]{item.getWaybillno(),(currUser.getRealName())}), item.getId(), currUser, receive, MessageCodeEnum.BILL_2DRIVER_CREATE, "driver");
+				//TODO
+				//车辆信息
+				MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(item.getVehicleid());
+				//司机信息
+				SystemMember member = systemMemberMapper.selectByPrimaryKey(item.getDriverid());
+				//车辆 司机均开票认证成功
+				if(StringUtils.isNotBlank(member.getAldriverid())&&"1".equals(vehicle.getDesc1())){
+					//TODO
+					AnlianBillSaveReq alreq = new AnlianBillSaveReq();
+					alreq.setPlanid(item.getPlanid());
+					alreq.setBillEndTime(item.getEndtime());
+					alreq.setBillStartTime(item.getStarttime());
+					alreq.setDriverid(item.getDriverid());
+					alreq.setPrice(req.getPrice());
+					alreq.setSize(req.getWeight());
+					alreq.setWeight(req.getWeight());
+					alreq.setVolume("10");
+					//车辆信息
+					alreq.setVehicleid(item.getVehicleid());
+					//司机信息
+					alreq.setDriverid(item.getDriverid());
+					//车主信息
+					alreq.setVenderid(item.getVenderid());
+					// 货主信息
+					alreq.setOwnerid(item.getOwnerid());
+					rs = anlianBillService.alBillSave(alreq);
+				}else{
+					billMapper.insert(item);
+					saveBillTrack(item.getId(),1,BIllTrackMsg.INIT,req.getCurruId(),item.getStatus());
+					//为司机发送站内信
+					MemberVo receive =getMember(item.getDriverid());
+					sendMsgInside(Arrays.asList(new String[]{item.getWaybillno(),(currUser.getRealName())}), item.getId(), currUser, receive, MessageCodeEnum.BILL_2DRIVER_CREATE, "driver");
+				}
 			}
 		}
 		return rs;

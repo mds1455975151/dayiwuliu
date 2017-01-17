@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AnlianBillMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.anlian.AnlianBill" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="billno" property="billno" jdbcType="VARCHAR" />
+    <result column="ownerid" property="ownerid" jdbcType="VARCHAR" />
+    <result column="driverid" property="driverid" jdbcType="VARCHAR" />
+    <result column="venderid" property="venderid" jdbcType="VARCHAR" />
+    <result column="ddh" property="ddh" jdbcType="VARCHAR" />
+    <result column="dwzl" property="dwzl" jdbcType="VARCHAR" />
+    <result column="sj" property="sj" jdbcType="VARCHAR" />
+    <result column="cph" property="cph" jdbcType="VARCHAR" />
+    <result column="zzl" property="zzl" jdbcType="VARCHAR" />
+    <result column="ztj" property="ztj" jdbcType="VARCHAR" />
+    <result column="zsl" property="zsl" jdbcType="VARCHAR" />
+    <result column="yf" property="yf" jdbcType="VARCHAR" />
+    <result column="jffs" property="jffs" jdbcType="VARCHAR" />
+    <result column="qycs" property="qycs" jdbcType="VARCHAR" />
+    <result column="mdcs" property="mdcs" jdbcType="VARCHAR" />
+    <result column="lc" property="lc" jdbcType="VARCHAR" />
+    <result column="yqthrq" property="yqthrq" jdbcType="VARCHAR" />
+    <result column="yqdhrq" property="yqdhrq" jdbcType="VARCHAR" />
+    <result column="khdm" property="khdm" jdbcType="VARCHAR" />
+    <result column="thdz" property="thdz" jdbcType="VARCHAR" />
+    <result column="shdz" property="shdz" jdbcType="VARCHAR" />
+    <result column="shr" property="shr" jdbcType="VARCHAR" />
+    <result column="lxsj" property="lxsj" jdbcType="VARCHAR" />
+    <result column="jj" property="jj" jdbcType="VARCHAR" />
+    <result column="hpmc" property="hpmc" jdbcType="VARCHAR" />
+    <result column="sl" property="sl" jdbcType="VARCHAR" />
+    <result column="dw" property="dw" jdbcType="VARCHAR" />
+    <result column="hpsx" property="hpsx" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, billno, ownerid, driverid, venderid, ddh, dwzl, sj, cph, zzl, ztj, zsl, yf, jffs, 
+    qycs, mdcs, lc, yqthrq, yqdhrq, khdm, thdz, shdz, shr, lxsj, jj, hpmc, sl, dw, hpsx, 
+    creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from anlian_bill
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    select 
+    count(0)
+    from anlian_bill
+    <where>
+    	<if test="searchKey != null and searchKey != ''">
+    	   (billno like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or cph like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or qycs like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or mdcs like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or shr like '%' #{searchKey,jdbcType=VARCHAR} '%')
+    	</if>
+    	<if test="billno != null and billno != ''">
+    		and billno = #{billno,jdbcType=VARCHAR}
+    	</if>
+    	<if test="ownerid != null and ownerid != ''">
+    		and ownerid = #{ownerid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="driverid != null and driverid != ''">
+    		and driverid = #{driverid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="venderid != null and venderid != ''">
+    		and venderid = #{venderid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    select 
+    <include refid="Base_Column_List" />
+    from anlian_bill
+    <where>
+    	<if test="searchKey != null and searchKey != ''">
+    	    (billno like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or cph like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or qycs like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or mdcs like '%' #{searchKey,jdbcType=VARCHAR} '%'
+    	     or shr like '%' #{searchKey,jdbcType=VARCHAR} '%')
+    	</if>
+    	<if test="billno != null and billno != ''">
+    		and billno = #{billno,jdbcType=VARCHAR}
+    	</if>
+    	<if test="ownerid != null and ownerid != ''">
+    		and ownerid = #{ownerid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="driverid != null and driverid != ''">
+    		and driverid = #{driverid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="venderid != null and venderid != ''">
+    		and venderid = #{venderid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by createtime desc
+    <if test="start != null">
+    	limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from anlian_bill
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    insert into anlian_bill (id, billno, ownerid, 
+      driverid, venderid, ddh, 
+      dwzl, sj, cph, zzl, 
+      ztj, zsl, yf, jffs, 
+      qycs, mdcs, lc, yqthrq, 
+      yqdhrq, khdm, thdz, 
+      shdz, shr, lxsj, jj, 
+      hpmc, sl, dw, hpsx, 
+      creater, createtime, modifier, 
+      modifytime, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
+      #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
+      #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
+      #{ztj,jdbcType=VARCHAR}, #{zsl,jdbcType=VARCHAR}, #{yf,jdbcType=VARCHAR}, #{jffs,jdbcType=VARCHAR}, 
+      #{qycs,jdbcType=VARCHAR}, #{mdcs,jdbcType=VARCHAR}, #{lc,jdbcType=VARCHAR}, #{yqthrq,jdbcType=VARCHAR}, 
+      #{yqdhrq,jdbcType=VARCHAR}, #{khdm,jdbcType=VARCHAR}, #{thdz,jdbcType=VARCHAR}, 
+      #{shdz,jdbcType=VARCHAR}, #{shr,jdbcType=VARCHAR}, #{lxsj,jdbcType=VARCHAR}, #{jj,jdbcType=VARCHAR}, 
+      #{hpmc,jdbcType=VARCHAR}, #{sl,jdbcType=VARCHAR}, #{dw,jdbcType=VARCHAR}, #{hpsx,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifytime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    insert into anlian_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billno != null" >
+        billno,
+      </if>
+      <if test="ownerid != null" >
+        ownerid,
+      </if>
+      <if test="driverid != null" >
+        driverid,
+      </if>
+      <if test="venderid != null" >
+        venderid,
+      </if>
+      <if test="ddh != null" >
+        ddh,
+      </if>
+      <if test="dwzl != null" >
+        dwzl,
+      </if>
+      <if test="sj != null" >
+        sj,
+      </if>
+      <if test="cph != null" >
+        cph,
+      </if>
+      <if test="zzl != null" >
+        zzl,
+      </if>
+      <if test="ztj != null" >
+        ztj,
+      </if>
+      <if test="zsl != null" >
+        zsl,
+      </if>
+      <if test="yf != null" >
+        yf,
+      </if>
+      <if test="jffs != null" >
+        jffs,
+      </if>
+      <if test="qycs != null" >
+        qycs,
+      </if>
+      <if test="mdcs != null" >
+        mdcs,
+      </if>
+      <if test="lc != null" >
+        lc,
+      </if>
+      <if test="yqthrq != null" >
+        yqthrq,
+      </if>
+      <if test="yqdhrq != null" >
+        yqdhrq,
+      </if>
+      <if test="khdm != null" >
+        khdm,
+      </if>
+      <if test="thdz != null" >
+        thdz,
+      </if>
+      <if test="shdz != null" >
+        shdz,
+      </if>
+      <if test="shr != null" >
+        shr,
+      </if>
+      <if test="lxsj != null" >
+        lxsj,
+      </if>
+      <if test="jj != null" >
+        jj,
+      </if>
+      <if test="hpmc != null" >
+        hpmc,
+      </if>
+      <if test="sl != null" >
+        sl,
+      </if>
+      <if test="dw != null" >
+        dw,
+      </if>
+      <if test="hpsx != null" >
+        hpsx,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="billno != null" >
+        #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null" >
+        #{ownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="venderid != null" >
+        #{venderid,jdbcType=VARCHAR},
+      </if>
+      <if test="ddh != null" >
+        #{ddh,jdbcType=VARCHAR},
+      </if>
+      <if test="dwzl != null" >
+        #{dwzl,jdbcType=VARCHAR},
+      </if>
+      <if test="sj != null" >
+        #{sj,jdbcType=VARCHAR},
+      </if>
+      <if test="cph != null" >
+        #{cph,jdbcType=VARCHAR},
+      </if>
+      <if test="zzl != null" >
+        #{zzl,jdbcType=VARCHAR},
+      </if>
+      <if test="ztj != null" >
+        #{ztj,jdbcType=VARCHAR},
+      </if>
+      <if test="zsl != null" >
+        #{zsl,jdbcType=VARCHAR},
+      </if>
+      <if test="yf != null" >
+        #{yf,jdbcType=VARCHAR},
+      </if>
+      <if test="jffs != null" >
+        #{jffs,jdbcType=VARCHAR},
+      </if>
+      <if test="qycs != null" >
+        #{qycs,jdbcType=VARCHAR},
+      </if>
+      <if test="mdcs != null" >
+        #{mdcs,jdbcType=VARCHAR},
+      </if>
+      <if test="lc != null" >
+        #{lc,jdbcType=VARCHAR},
+      </if>
+      <if test="yqthrq != null" >
+        #{yqthrq,jdbcType=VARCHAR},
+      </if>
+      <if test="yqdhrq != null" >
+        #{yqdhrq,jdbcType=VARCHAR},
+      </if>
+      <if test="khdm != null" >
+        #{khdm,jdbcType=VARCHAR},
+      </if>
+      <if test="thdz != null" >
+        #{thdz,jdbcType=VARCHAR},
+      </if>
+      <if test="shdz != null" >
+        #{shdz,jdbcType=VARCHAR},
+      </if>
+      <if test="shr != null" >
+        #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="lxsj != null" >
+        #{lxsj,jdbcType=VARCHAR},
+      </if>
+      <if test="jj != null" >
+        #{jj,jdbcType=VARCHAR},
+      </if>
+      <if test="hpmc != null" >
+        #{hpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="dw != null" >
+        #{dw,jdbcType=VARCHAR},
+      </if>
+      <if test="hpsx != null" >
+        #{hpsx,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    update anlian_bill
+    <set >
+      <if test="billno != null" >
+        billno = #{billno,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerid != null" >
+        ownerid = #{ownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        driverid = #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="venderid != null" >
+        venderid = #{venderid,jdbcType=VARCHAR},
+      </if>
+      <if test="ddh != null" >
+        ddh = #{ddh,jdbcType=VARCHAR},
+      </if>
+      <if test="dwzl != null" >
+        dwzl = #{dwzl,jdbcType=VARCHAR},
+      </if>
+      <if test="sj != null" >
+        sj = #{sj,jdbcType=VARCHAR},
+      </if>
+      <if test="cph != null" >
+        cph = #{cph,jdbcType=VARCHAR},
+      </if>
+      <if test="zzl != null" >
+        zzl = #{zzl,jdbcType=VARCHAR},
+      </if>
+      <if test="ztj != null" >
+        ztj = #{ztj,jdbcType=VARCHAR},
+      </if>
+      <if test="zsl != null" >
+        zsl = #{zsl,jdbcType=VARCHAR},
+      </if>
+      <if test="yf != null" >
+        yf = #{yf,jdbcType=VARCHAR},
+      </if>
+      <if test="jffs != null" >
+        jffs = #{jffs,jdbcType=VARCHAR},
+      </if>
+      <if test="qycs != null" >
+        qycs = #{qycs,jdbcType=VARCHAR},
+      </if>
+      <if test="mdcs != null" >
+        mdcs = #{mdcs,jdbcType=VARCHAR},
+      </if>
+      <if test="lc != null" >
+        lc = #{lc,jdbcType=VARCHAR},
+      </if>
+      <if test="yqthrq != null" >
+        yqthrq = #{yqthrq,jdbcType=VARCHAR},
+      </if>
+      <if test="yqdhrq != null" >
+        yqdhrq = #{yqdhrq,jdbcType=VARCHAR},
+      </if>
+      <if test="khdm != null" >
+        khdm = #{khdm,jdbcType=VARCHAR},
+      </if>
+      <if test="thdz != null" >
+        thdz = #{thdz,jdbcType=VARCHAR},
+      </if>
+      <if test="shdz != null" >
+        shdz = #{shdz,jdbcType=VARCHAR},
+      </if>
+      <if test="shr != null" >
+        shr = #{shr,jdbcType=VARCHAR},
+      </if>
+      <if test="lxsj != null" >
+        lxsj = #{lxsj,jdbcType=VARCHAR},
+      </if>
+      <if test="jj != null" >
+        jj = #{jj,jdbcType=VARCHAR},
+      </if>
+      <if test="hpmc != null" >
+        hpmc = #{hpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sl != null" >
+        sl = #{sl,jdbcType=VARCHAR},
+      </if>
+      <if test="dw != null" >
+        dw = #{dw,jdbcType=VARCHAR},
+      </if>
+      <if test="hpsx != null" >
+        hpsx = #{hpsx,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    update anlian_bill
+    set billno = #{billno,jdbcType=VARCHAR},
+      ownerid = #{ownerid,jdbcType=VARCHAR},
+      driverid = #{driverid,jdbcType=VARCHAR},
+      venderid = #{venderid,jdbcType=VARCHAR},
+      ddh = #{ddh,jdbcType=VARCHAR},
+      dwzl = #{dwzl,jdbcType=VARCHAR},
+      sj = #{sj,jdbcType=VARCHAR},
+      cph = #{cph,jdbcType=VARCHAR},
+      zzl = #{zzl,jdbcType=VARCHAR},
+      ztj = #{ztj,jdbcType=VARCHAR},
+      zsl = #{zsl,jdbcType=VARCHAR},
+      yf = #{yf,jdbcType=VARCHAR},
+      jffs = #{jffs,jdbcType=VARCHAR},
+      qycs = #{qycs,jdbcType=VARCHAR},
+      mdcs = #{mdcs,jdbcType=VARCHAR},
+      lc = #{lc,jdbcType=VARCHAR},
+      yqthrq = #{yqthrq,jdbcType=VARCHAR},
+      yqdhrq = #{yqdhrq,jdbcType=VARCHAR},
+      khdm = #{khdm,jdbcType=VARCHAR},
+      thdz = #{thdz,jdbcType=VARCHAR},
+      shdz = #{shdz,jdbcType=VARCHAR},
+      shr = #{shr,jdbcType=VARCHAR},
+      lxsj = #{lxsj,jdbcType=VARCHAR},
+      jj = #{jj,jdbcType=VARCHAR},
+      hpmc = #{hpmc,jdbcType=VARCHAR},
+      sl = #{sl,jdbcType=VARCHAR},
+      dw = #{dw,jdbcType=VARCHAR},
+      hpsx = #{hpsx,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=BIGINT},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

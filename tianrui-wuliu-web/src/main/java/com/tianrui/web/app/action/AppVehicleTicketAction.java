@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IVehicleTicketService;
+import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
+import com.tianrui.api.req.front.vehicle.TicketFindReq;
 import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
+import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
@@ -26,15 +29,15 @@ public class AppVehicleTicketAction {
 	IVehicleTicketService vehicleTicketService;
 	
 
-	/** 请求开票认证
+	/** 请求开票认证 AppParam<OwnerDriverReq>
 	 * @throws Exception */
 	@RequestMapping(value="add",method = RequestMethod.POST)
 	@ApiParamRawType(VehicleTicketReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult add(VehicleTicketReq req) throws Exception{
+	public AppResult add(AppParam<VehicleTicketReq> req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = vehicleTicketService.insert(req);
+		rs = vehicleTicketService.insert(req.getBody());
 		return AppResult.valueOf(rs);
 	}
 	
@@ -44,9 +47,21 @@ public class AppVehicleTicketAction {
 	@ApiParamRawType(VehicleTicketReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult upt(VehicleTicketReq req) throws Exception{
+	public AppResult upt(AppParam<VehicleTicketReq> req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = vehicleTicketService.upt(req);
+		rs = vehicleTicketService.upt(req.getBody());
 		return AppResult.valueOf(rs);
 	}
+	
+	/**
+	 * 查询开票车辆信息*/
+	@RequestMapping(value="uptdata",method = RequestMethod.POST)
+	@ApiParamRawType(TicketFindReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult uptdata(AppParam<TicketFindReq> req) throws Exception{
+		Result rs = vehicleTicketService.findByVehicleId(req.getBody());
+		return AppResult.valueOf(rs);
+	}
+	
 }

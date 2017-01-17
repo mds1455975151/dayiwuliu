@@ -240,6 +240,8 @@ function revokeDriver(id,billstatus){
 			if(result.code=="000000"){
 				vehiAndDriver();
 				getTheDriverOutOfRange();
+			}else{
+				alert(result.error);
 			}
 		}
 	});

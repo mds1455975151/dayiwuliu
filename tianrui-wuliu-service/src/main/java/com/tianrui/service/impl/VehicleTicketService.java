@@ -9,7 +9,9 @@ import org.apache.commons.lang.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IVehicleTicketService;
+import com.tianrui.api.req.admin.anlian.AnlianTruckReq;
 import com.tianrui.api.req.front.vehicle.TicketFindReq;
 import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
 import com.tianrui.api.resp.front.vehicle.VehicleTicketResp;
@@ -33,6 +35,8 @@ public class VehicleTicketService implements IVehicleTicketService{
 	VehicleTicketMapper vehicleTicketMapper;
 	@Autowired
 	MemberVehicleMapper memberVehicleMapper;
+	@Autowired
+	IAnlianService anlianService;
 	
 	@Override
 	public Result insert(VehicleTicketReq req) throws Exception {
@@ -105,6 +109,15 @@ public class VehicleTicketService implements IVehicleTicketService{
 		if(ticket == null){
 			rs.setErrorCode(ErrorCode.VEHICLE_TICKET_IDNULL);
 		}else{
+			//认证成功  推送安联
+			if(req.getStatus().equals("1")){
+				AnlianTruckReq alreq = new AnlianTruckReq();
+				alreq.setVehicleid(ticket.getVehicleid());
+				rs = anlianService.truck(alreq);
+				if(!rs.getCode().equals("000000")){
+					return rs;
+				}
+			}
 			VehicleTicket vt = new VehicleTicket();
 			vt.setId(req.getId());
 			vt.setStatus(req.getStatus());
@@ -114,6 +127,7 @@ public class VehicleTicketService implements IVehicleTicketService{
 			mv.setId(ticket.getVehicleid());
 			mv.setDesc1(req.getStatus());
 			memberVehicleMapper.updateByPrimaryKeySelective(mv);
+			
 		}
 		return rs;
 	}

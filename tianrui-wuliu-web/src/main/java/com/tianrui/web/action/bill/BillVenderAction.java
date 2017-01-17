@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
@@ -53,6 +55,7 @@ public class BillVenderAction {
 	ICargoPlanService cargoPlanService;
 	@Autowired
 	IMemberCapaService memberCapaService;
+	
 	
 	@RequestMapping("/main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_VEHICLE_OWNER)

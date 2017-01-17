@@ -8,6 +8,8 @@ public class TicketFindReq {
 
 	private String id;
 	
+	private String vehicleid;
+	
 	private String vehicleNo;
 	
 	private String status;
@@ -54,6 +56,14 @@ public class TicketFindReq {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getVehicleid() {
+		return vehicleid;
+	}
+
+	public void setVehicleid(String vehicleid) {
+		this.vehicleid = vehicleid;
 	}
 	
 	

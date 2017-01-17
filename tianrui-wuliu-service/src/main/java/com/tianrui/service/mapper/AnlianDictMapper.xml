@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AnlianDictMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.AnlianDict" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="alcode" property="alcode" jdbcType="VARCHAR" />
+    <result column="alname" property="alname" jdbcType="VARCHAR" />
+    <result column="wlcode" property="wlcode" jdbcType="VARCHAR" />
+    <result column="wlname" property="wlname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, alcode, alname, wlcode, wlname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_anlian_datadict
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.AnlianDict" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_anlian_datadict
+    <where>
+    	<if test="type != null">
+    	 and type = #{type,jdbcType=VARCHAR}
+    	</if>
+    	<if test="wlname != null">
+    	 and wlname = #{wlname,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuliu_anlian_datadict
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.AnlianDict" >
+    insert into wuliu_anlian_datadict (id, type, alcode, 
+      alname, wlcode, wlname
+      )
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{alcode,jdbcType=VARCHAR}, 
+      #{alname,jdbcType=VARCHAR}, #{wlcode,jdbcType=VARCHAR}, #{wlname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.AnlianDict" >
+    insert into wuliu_anlian_datadict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="alcode != null" >
+        alcode,
+      </if>
+      <if test="alname != null" >
+        alname,
+      </if>
+      <if test="wlcode != null" >
+        wlcode,
+      </if>
+      <if test="wlname != null" >
+        wlname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="alcode != null" >
+        #{alcode,jdbcType=VARCHAR},
+      </if>
+      <if test="alname != null" >
+        #{alname,jdbcType=VARCHAR},
+      </if>
+      <if test="wlcode != null" >
+        #{wlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="wlname != null" >
+        #{wlname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.AnlianDict" >
+    update wuliu_anlian_datadict
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="alcode != null" >
+        alcode = #{alcode,jdbcType=VARCHAR},
+      </if>
+      <if test="alname != null" >
+        alname = #{alname,jdbcType=VARCHAR},
+      </if>
+      <if test="wlcode != null" >
+        wlcode = #{wlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="wlname != null" >
+        wlname = #{wlname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.AnlianDict" >
+    update wuliu_anlian_datadict
+    set type = #{type,jdbcType=VARCHAR},
+      alcode = #{alcode,jdbcType=VARCHAR},
+      alname = #{alname,jdbcType=VARCHAR},
+      wlcode = #{wlcode,jdbcType=VARCHAR},
+      wlname = #{wlname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

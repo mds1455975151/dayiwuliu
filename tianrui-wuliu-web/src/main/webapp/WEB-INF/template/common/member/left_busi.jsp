@@ -17,6 +17,7 @@
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
 	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> -->
 	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>
+	                        <li><a href="/trwuliu/billAnlian/owner" id="ownerAnlian">开票运单</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -41,6 +42,7 @@
 	 					    <!-- 
 	 					     -->
 	                        <li><a href="/trwuliu/venderreport/main" id="venderreport">我的报表</a></li>
+	                        <li><a href="/trwuliu/billAnlian/vender" id="venderAnlian">开票运单</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -56,6 +58,7 @@
 	                        <li><a href="/trwuliu/billdriver/handView" id="handdriver">司机交班</a></li>
 	                        <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li>
 	                        <li><a href="/trwuliu/payInvoiceDriver/main" id="driverpay">运费结算单</a></li>
+	                        <li><a href="/trwuliu/billAnlian/driver" id="driverAnlian">开票运单</a></li>
 	                    </ul>
 	                </div>
 	            </div>

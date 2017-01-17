@@ -8,8 +8,10 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
+import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.front.member.MemberTransferResp;
@@ -38,6 +40,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	IMessageService messageService;
 	@Autowired
 	BillMapper billMapper;
+	@Autowired
+	IAnlianService anlianService;
 	
 	@Override
 	public Result userReview(MemberInfoReq req) throws Exception {
@@ -115,20 +119,19 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			rs.setError("非认证会员中不得审核");
 			return rs;
 		}
-		//认证记录修改
-		record.setAuditid(req.getAuditid());
-		record.setAuditname(req.getAuditname());
-		record.setAudittime(req.getAudittime());
-		record.setDriverpercheck(req.getDriverpercheck());
-		record.setAuditresson(req.getRejectReason());
-		record.setStatus("1");// 0-未审核，1-已审核',
-		int a = systemMemberInfoRecorMapper.updateByPrimaryKeySelective(record);
-		if(a != 1){
-			rs.setCode("2");
-			rs.setError("认证失败，请稍后再试");
-			return rs;
-		}
+		
 		if("1".equals(req.getDriverpercheck())){//认证通过
+			
+			//TODO
+			AnlianDriverReq alreq = new AnlianDriverReq();
+			alreq.setRecorid(req.getId());
+			rs = anlianService.driver(alreq);
+			if(rs.getCode().equals("000000")){
+				member.setAldriverid(rs.getData().toString());
+			}else{
+				return rs;
+			}
+			
 			SystemMemberInfo info = new SystemMemberInfo();
 			info.setId(record.getMemberid());
 			info.setUsername(record.getUsername());
@@ -146,8 +149,9 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setUsefullife(record.getUsefullife());
 			info.setIdcardaddress(record.getIdcardaddress());
 			
-			
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+			
+			
 			member.setDriverpercheck((short)1);
 			//司机审核通过 默认个人审核通过
 			member.setUserpercheck((short)1);
@@ -156,6 +160,16 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			member.setDriverpercheck((short)3);
 		}
 		systemMemberMapper.updateByPrimaryKeySelective(member);
+		
+		//认证记录修改
+		record.setAuditid(req.getAuditid());
+		record.setAuditname(req.getAuditname());
+		record.setAudittime(req.getAudittime());
+		record.setDriverpercheck(req.getDriverpercheck());
+		record.setAuditresson(req.getRejectReason());
+		record.setStatus("1");// 0-未审核，1-已审核',
+		systemMemberInfoRecorMapper.updateByPrimaryKeySelective(record);
+		
 		//消息推送
 		SendMsgReq mreq = new SendMsgReq();
 		List<String> strs = new ArrayList<String>();
@@ -267,7 +281,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 
 	@Override
 	public Result uptMemberPic(MemberInfoReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		SystemMemberInfo info = new SystemMemberInfo();
 		

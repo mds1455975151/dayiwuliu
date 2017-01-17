@@ -8,7 +8,7 @@ public class SystemMember {
      * @mbggenerated
      */
     private String id;
-    
+    /** 安联认证后的司机id*/
     private String aldriverid;
     /**
      * 微信唯一标识

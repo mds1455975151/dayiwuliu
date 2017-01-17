@@ -1,5 +1,7 @@
 package com.tianrui.service.bean.anlian;
 
+import java.util.List;
+
 /***
  * 运单
  * @author jh
@@ -7,8 +9,10 @@ package com.tianrui.service.bean.anlian;
  */
 public class AnlianShipment extends AnlianBase{
 
+	/** 配载单号*/
+	private String pzdh;
 	/** 司机会员号*/
-	private String sjhyh;
+	private String sj;
 	/** 车牌号*/
 	private String cph;
 	/** 总质量*/
@@ -31,31 +35,15 @@ public class AnlianShipment extends AnlianBase{
 	private String yqthrq;
 	/** 要求到货日期*/
 	private String yqdhrq;
-	/** 客户代码*/
-	private String khdm;
-	/** 提货地址*/
-	private String thdz;
-	/** 送货地址*/
-	private String shdz;
-	/** 收货人*/
-	private String shr;
-	/** 联系手机*/
-	private String lxsj;
-	/** 加急*/
-	private String jj;
-	/** 货品名称*/
-	private String hpmc;
-	/** 数量*/
-	private String sl;
-	/** 单位*/
-	private String dw;
-	/** 货品属性*/
-	private String hpsx;
-	public String getSjhyh() {
-		return sjhyh;
+	
+	private List<Orders> orders;
+ 	
+	
+	public String getSj() {
+		return sj;
 	}
-	public void setSjhyh(String sjhyh) {
-		this.sjhyh = sjhyh;
+	public void setSj(String sj) {
+		this.sj = sj;
 	}
 	public String getCph() {
 		return cph;
@@ -123,64 +111,16 @@ public class AnlianShipment extends AnlianBase{
 	public void setYqdhrq(String yqdhrq) {
 		this.yqdhrq = yqdhrq;
 	}
-	public String getKhdm() {
-		return khdm;
+	public String getPzdh() {
+		return pzdh;
 	}
-	public void setKhdm(String khdm) {
-		this.khdm = khdm;
+	public void setPzdh(String pzdh) {
+		this.pzdh = pzdh;
 	}
-	public String getThdz() {
-		return thdz;
+	public List<Orders> getOrders() {
+		return orders;
 	}
-	public void setThdz(String thdz) {
-		this.thdz = thdz;
-	}
-	public String getShdz() {
-		return shdz;
-	}
-	public void setShdz(String shdz) {
-		this.shdz = shdz;
-	}
-	public String getShr() {
-		return shr;
-	}
-	public void setShr(String shr) {
-		this.shr = shr;
-	}
-	public String getLxsj() {
-		return lxsj;
-	}
-	public void setLxsj(String lxsj) {
-		this.lxsj = lxsj;
-	}
-	public String getJj() {
-		return jj;
-	}
-	public void setJj(String jj) {
-		this.jj = jj;
-	}
-	public String getHpmc() {
-		return hpmc;
-	}
-	public void setHpmc(String hpmc) {
-		this.hpmc = hpmc;
-	}
-	public String getSl() {
-		return sl;
-	}
-	public void setSl(String sl) {
-		this.sl = sl;
-	}
-	public String getDw() {
-		return dw;
-	}
-	public void setDw(String dw) {
-		this.dw = dw;
-	}
-	public String getHpsx() {
-		return hpsx;
-	}
-	public void setHpsx(String hpsx) {
-		this.hpsx = hpsx;
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
 	}
 }

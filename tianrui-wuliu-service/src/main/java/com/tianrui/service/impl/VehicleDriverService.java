@@ -14,7 +14,11 @@ import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 
 /**
@@ -28,6 +32,10 @@ public class VehicleDriverService implements IVehicleDriverService {
 	
 	@Autowired
 	VehicleDriverMapper vehicleDriverMapper;
+	@Autowired
+	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	MemberVehicleMapper memberVehicleMapper;
 	
 	/**
 	 * 父类方法重写，根据条件进行车辆司机关联信息查询
@@ -146,6 +154,18 @@ public class VehicleDriverService implements IVehicleDriverService {
 	public Result deleteByPrimaryKey(String id) throws Exception {
 		
 		Result rs = Result.getSuccessResult();
+		
+		VehicleDriver vd = vehicleDriverMapper.selectByPrimaryKey(id);
+		if(vd!=null){
+			SystemMember member = systemMemberMapper.selectByPrimaryKey(vd.getDriverid());
+			MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(vd.getVehicleid());
+			//安联 司机 车辆 认证通过 不能解除绑定关系
+			if(StringUtils.isNotBlank(member.getAldriverid())&&"1".equals(vehicle.getDesc1())){
+				rs.setCode("1");
+				rs.setError("安联认证通过的司机-车辆，不能解除绑定关系");
+				return rs;
+			}
+		}
 		
 		// 数据删除操作
 		long count = vehicleDriverMapper.deleteByPrimaryKey(id);

@@ -20,6 +20,4 @@ public class AnlianBase {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	
-	
 }
