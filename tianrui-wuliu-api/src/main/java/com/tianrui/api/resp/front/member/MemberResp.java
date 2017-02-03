@@ -31,6 +31,8 @@ public class MemberResp extends BaseResp{
 	/** 尽后台会员管理使用*/
 	private String remarkname;
 	
+	private String aldriverid;
+	
 	private String rtblimgurl;
 	
 	private String rtblno;
@@ -190,6 +192,14 @@ public class MemberResp extends BaseResp{
 
 	public Long getVehicleOwnerState() {
 		return vehicleOwnerState;
+	}
+
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
 	}
 
 	public String getOrgStatus() {

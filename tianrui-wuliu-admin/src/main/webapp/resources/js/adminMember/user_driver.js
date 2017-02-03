@@ -116,8 +116,14 @@ function displayRect(pageNo){
 						if(data[a].submitDate == undefined){
 							submitDate = "";
 						}
+						var anlian = "";
+						if(data[a].driverpercheck=='1'){
+							anlian = "<span><a data-toggle='modal' onclick=\"anlianrenzheng('"+a+"')\" data-target='#anlian'>【安联认证】</a></span>";
+						}
+						var aldriverid = data[a].aldriverid == undefined ? anlian:data[a].aldriverid;
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].cellPhone+"</td>"+
+							"<td >"+aldriverid+"</td>"+
 							"<td >"+userName+" </td>"+
 							"<td >"+telphone+"</td>"+
 							"<td >"+identityCard+"</td>"+
@@ -257,6 +263,26 @@ function details(id){
 		document.getElementById("detailid").innerHTML = hml;	
 }
 
+function anlianrenzheng(id){
+	var a=list[id];
+	var per = "";
+	if(a.driverpercheck=='0'){
+		per = "未认证";
+	}
+	if(a.driverpercheck=='1'){
+		per = "认证通过";
+	}
+	if(a.driverpercheck=='2'){
+		per = "认证中";
+	}
+	if(a.driverpercheck=='3'){
+		per = "认证失败";
+	}
+	$("#anlian_id").val(a.id);
+	$("#anlian_phone").val(a.cellPhone);
+	
+}
+
 function hideWindow(id,type){
 	if(type == "4"){
 		$("#showcode").show();
@@ -358,4 +384,69 @@ function driverShenhe(id,stat,pageNo){
   		return;
   	}
 	window.location.href=CONTEXTPATH+"/AdminMember/driverShenhe?menuId="+mendId+"&id="+id+"&pageNo="+pageNo;
+}
+
+/***
+ * 后台司机安联认证
+ */
+$(".anlian_renzheng").on("click",function(){
+	var anlian_birthday = $("#anlian_birthday").val();
+	if(anlian_birthday==""){
+		alert("出生日期不能为空");
+		return;
+	}
+	var anlian_address = $("#anlian_address").val();
+	if(anlian_address==""){
+		alert("身份证地址不能为空");
+		return;
+	}
+	var anlian_firstlicens = $("#anlian_firstlicens").val();
+	if(anlian_firstlicens==""){
+		alert("初次领证日期不能为空");
+		return;
+	}
+	var anlian_licenceorg = $("#anlian_licenceorg").val();
+	if(anlian_licenceorg==""){
+		alert("发证机关不能为空");
+		return;
+	}
+	var anlian_usefullife = $("#anlian_usefullife").val();
+	if(anlian_usefullife==""){
+		alert("有效年限不能为空");
+		return;
+	}
+	var anlian_starttime = $("#anlian_starttime").val();
+	if(anlian_starttime==""){
+		alert("驾驶证注册日期不能为空");
+		return;
+	}
+	var anlian_licenseType = $("#anlian_licenseType").val();
+	if(anlian_licenseType==""){
+		alert("准驾车型不能为空");
+		return;
+	}
+	$.ajax({
+			url:CONTEXTPATH+"/admin/driverTicket/upt",
+			data:$('#anlian_form').serialize(),
+			type:"post",
+			success: function(retVal) {
+				if(retVal.code!="000000"){
+					alert(retVal.error);
+				}else{
+					driverSearch();
+					anlianclean();
+					$("#alhide").click();
+				}
+			}
+	});
+});
+
+function anlianclean(){
+	$("#anlian_birthday").val("");
+	$("#anlian_address").val("");
+	$("#anlian_firstlicens").val("");
+	$("#anlian_licenceorg").val("");
+	$("#anlian_usefullife").val("");
+	$("#anlian_starttime").val("");
+	$("#anlian_licenseType").val("");
 }

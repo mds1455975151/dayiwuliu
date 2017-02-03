@@ -38,6 +38,15 @@ public class VehicleTicketAction {
 		rs.setData(page);
 		return rs;
 	}
+	/*** 后台完善车辆开票信息
+	 * @throws Exception */
+	@RequestMapping(value="save",method=RequestMethod.POST)
+	@ResponseBody
+	public Result save(VehicleTicketReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = vehicleTicketService.save(req);
+		return rs;
+	}
 	
 	/***开票车辆审核
 	 * @throws Exception 

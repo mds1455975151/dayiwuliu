@@ -105,6 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      <tr>
                                          <th>序号</th>
                                          <th >司机账号 </th>
+                                         <th >安联账号 </th>
                                          <th >司机姓名 </th>
                                          <th >联系方式</th>
                                          <th >驾驶证号 </th>
@@ -205,27 +206,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
-<!--删除begin-->
-<div class="modal fade" id="dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<!--安联认证begin-->
+<div class="modal fade" id="anlian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">会员删除</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >安联认证</h4>
             </div>
-            <div class="modal-body">
-            	<input type="hidden" id="memberid" value="">
-                <h4>确定要删除此条信息吗?</h4>
+            <form id="anlian_form">
+            <div class="modal-body" style=" ">
+            	<div class="usermodal userlabel3">
+	            	<div class="model_width">
+						<label>司机账号：</label>
+						<input type="text" id="anlian_phone" readonly="readonly">
+						<input type="hidden" id="anlian_id" name="id">
+					</div>
+					<div class="model_width">
+						<label>司机性别：</label>
+						<input type="radio" name="sex" checked="checked" value="xx"> 女
+						<input type="radio" name="sex" value="xy"> 男
+					</div>
+					<div class="model_width">
+						<label>出生日期：</label>
+						<span>
+						<input type="text" name="birthday" id="anlian_birthday">
+						</span>
+					</div>
+					<div class="model_width">
+						<label>身份证地址：</label>
+						<input type="text" name="idcardaddress" id="anlian_address">
+					</div>
+					<div class="model_width">
+						<label>初次领证日期：</label>
+						<input type="text" name="firstlicens" id="anlian_firstlicens">
+					</div>
+					<div class="model_width" >
+						<label>发证机关：</label>
+						<input type="text" name="licenceorg" id="anlian_licenceorg">
+					</div>
+					<div class="model_width">
+						<label>有效年限：</label>
+						<input type="text" name="usefullife" id="anlian_usefullife">
+					</div>
+					<div class="model_width">
+						<label>驾驶证注册日期：</label>
+						<input type="text" name="starttime" id="anlian_starttime">
+					</div>
+					<div class="model_width">
+						<label>准驾车型：</label>
+						<input type="text" name="licenseType" id="anlian_licenseType">
+					</div>
+				</div>
             </div>
+            </form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="deleteMember()">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary anlian_renzheng">确定</button>
+                <button type="button" id="alhide" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
 </div>
-<!--删除end-->
+<!--安联认证end-->
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript">
     $(function(){

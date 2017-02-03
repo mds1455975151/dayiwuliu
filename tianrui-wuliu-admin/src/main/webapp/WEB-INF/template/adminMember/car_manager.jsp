@@ -98,6 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <th>车主联系方式</th>
                                         <th>车型</th>
                                         <th>载重（吨）</th>
+                                        <th>安联认证</th>
                                         <th>认证状态</th>
                                         <th>认证时间</th>
                                         <th>操作</th>
@@ -195,6 +196,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--修改照片end-->
+
+<!--安联认证begin-->
+<div class="modal fade" id="anlian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >安联认证</h4>
+            </div>
+            <form id="anlian_form">
+            <div class="modal-body" style=" ">
+            	<div class="usermodal userlabel3">
+	            	<div class="model_width">
+						<label>车牌号：</label>
+						<input type="text" id="anlian_vehicleNo" readonly="readonly">
+						<input type="hidden" id="anlian_vehicleid" name="vehicleid">
+					</div>
+					<div class="model_width">
+						<label>使用性质：</label>
+						<input type="radio" name="nature" checked="checked" value="1"> 营运
+						<input type="radio" name="nature" value="2"> 非营运
+					</div>
+					<div class="model_width">
+						<label>总质量：</label>
+						<span>
+						<input type="text" name="quality" id="anlian_quality">
+						</span>
+					</div>
+					<div class="model_width">
+						<label>所有人：</label>
+						<input type="text" name="owner" id="anlian_owner">
+					</div>
+					<div class="model_width">
+						<label>身份证号：</label>
+						<input type="text" name="idcard" id="anlian_idcard">
+					</div>
+					<div class="model_width" >
+						<label>登记证书编号：</label>
+						<input type="text" name="certificateno" id="anlian_certificateno">
+					</div>
+					<div class="model_width">
+						<label>检验有效期止：</label>
+						<input type="text" name="expirydata" id="anlian_expirydata">
+					</div>
+					<div class="model_width">
+						<label>车辆识别码：</label>
+						<input type="text" name="identification" id="anlian_identification">
+					</div>
+					<div class="model_width">
+						<label>发动机号：</label>
+						<input type="text" name="motor" id="anlian_motor">
+					</div>
+					<div class="model_width">
+						<label>发动机型号：</label>
+						<input type="text" name="motorno" id="anlian_motorno">
+					</div>
+				</div>
+            </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary anlian_renzheng" >确定</button>
+                <button type="button" id="alhide" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--安联认证end-->
 
 <!--删除begin-->
 <div class="modal fade" id="dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -3,6 +3,7 @@ package com.tianrui.api.intf;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.common.vo.Result;
 
@@ -67,5 +68,7 @@ public interface ISystemMemberInfoService {
 	public Result handView(String dirverId) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	/** 修改图片*/
 	Result uptMemberPic(MemberInfoReq req)throws Exception;
+	/** 后台司机安联认证*/
+	Result uptDrvierAnlian(AdminMenberInfoReq req)throws Exception;
 
 }

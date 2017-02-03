@@ -71,7 +71,7 @@ public class VehicleTicketService implements IVehicleTicketService{
 		}
 		return rs;
 	}
-
+	
 	@Override
 	public PaginationVO<VehicleTicketResp> page(TicketFindReq req) throws Exception {
 		PaginationVO<VehicleTicketResp> pg = new PaginationVO<VehicleTicketResp>();
@@ -101,6 +101,45 @@ public class VehicleTicketService implements IVehicleTicketService{
 		}
 		return resp;
 	}
+	
+	@Override
+	public Result save(VehicleTicketReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(req.getVehicleid());
+		//验证车辆id
+		if(vehicle == null){
+			rs.setErrorCode(ErrorCode.VEHICLE_VEHICLE_IDNULL);
+		}else{
+			VehicleTicket query = new VehicleTicket();
+			query.setVehicleid(req.getVehicleid());
+			List<VehicleTicket> list = vehicleTicketMapper.selectByCondition(query);
+			if(list.size()!=0){
+				rs.setErrorCode(ErrorCode.VEHICLE_TICKET_NOTONLY);
+			}else{
+				//TODO
+				rs = anlianService.adminTruck(req);
+				if(rs.getCode().equals("000000")){
+					//开票认证初始状态 安联认证成功 开票认证成功
+					VehicleTicket record = new VehicleTicket();
+					PropertyUtils.copyProperties(record, req);
+					record.setId(UUIDUtil.getId());
+					record.setAnlian("0");
+					record.setStatus("1");
+					record.setDesc1(vehicle.getVehicleprefix()+vehicle.getVehicleno());
+					record.setCreatertime(System.currentTimeMillis());
+					vehicleTicketMapper.insertSelective(record);
+					
+					//设置车辆开票认证状态为 认证中
+					MemberVehicle mv = new MemberVehicle();
+					mv.setId(vehicle.getId());
+					mv.setDesc1("1");
+					memberVehicleMapper.updateByPrimaryKeySelective(mv);
+				}
+			}
+		}
+		return rs;
+	}
+
 
 	@Override
 	public Result shenhe(VehicleTicketReq req) throws Exception {

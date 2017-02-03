@@ -19,6 +19,8 @@ public class Members{
 	private String mocount;
 	/** 仅在后台会员管理使用*/
 	private String remarkname;
+	/** 安联账号*/
+	private String aldriverid;
 	
 	private String rtblimgurl;
 	
@@ -281,6 +283,14 @@ public class Members{
 	public String getId() {
 		return id;
 	}
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+
 	public void setId(String id) {
 		this.id = id;
 	}

@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.admin.anlian.AnlianShipmentReq;
 import com.tianrui.api.req.admin.anlian.AnlianTruckReq;
+import com.tianrui.api.req.front.member.AdminMenberInfoReq;
+import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
 import com.tianrui.common.vo.Result;
 /**
  * 安联相关接口
@@ -23,6 +25,10 @@ public interface IAnlianService {
 	public Result shipment(AnlianShipmentReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	/** 查询运单状态*/
 	public Result detail(String shipmentno);
+	/**后台司机认证*/
+	public Result adminDriver(AdminMenberInfoReq req);
+	/** 后台认证车辆*/
+	public Result adminTruck(VehicleTicketReq req);
 	
 	
 }

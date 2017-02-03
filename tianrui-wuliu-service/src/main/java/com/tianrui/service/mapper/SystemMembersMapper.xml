@@ -17,6 +17,8 @@
 		m.lastTime lastTime,
 		m.sourceType sourceType,
 		m.remarkname remarkname,
+		m.aldriverid aldriverid,
+		
 		f.idcardimage idcardsImagePath,
 		f.rtblimgurl rtblimgurl,
 		f.rtblno rtblno,

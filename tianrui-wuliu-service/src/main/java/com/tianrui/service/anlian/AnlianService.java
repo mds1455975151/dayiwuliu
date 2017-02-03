@@ -21,6 +21,8 @@ import com.tianrui.api.req.admin.anlian.AnlianShipmentReq;
 import com.tianrui.api.req.admin.anlian.AnlianTruckReq;
 import com.tianrui.api.req.admin.anlian.LinesReq;
 import com.tianrui.api.req.admin.anlian.OrdersReq;
+import com.tianrui.api.req.front.member.AdminMenberInfoReq;
+import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.AnlianDict;
@@ -73,7 +75,6 @@ public class AnlianService implements IAnlianService{
 		SystemMemberInfoRecord info = systemMemberInfoRecorMapper.selectByPrimaryKey(req.getRecorid());
 		
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(info.getMemberid());
-//		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getDriverid());
 		String data = anlianUrl(DRIVER,drivrtString(member,info));
 		JSONObject obj = JSONObject.parseObject(data);
 		if(obj.get("status").equals("00")){
@@ -85,6 +86,23 @@ public class AnlianService implements IAnlianService{
 		return rs;
 	}
 
+	@Override
+	public Result adminDriver(AdminMenberInfoReq req) {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getId());
+		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getId());
+		
+		String data = anlianUrl(DRIVER,adminDrivrtString(member,info,req));
+		JSONObject obj = JSONObject.parseObject(data);
+		if(obj.get("status").equals("00")){
+			rs.setData(obj.get("driverid").toString());
+		}else {
+			rs.setCode(obj.get("status").toString());
+			rs.setError(obj.get("error").toString());
+		}
+		return rs;
+	}
 	@Override
 	public Result truck(AnlianTruckReq req) {
 		Result rs = Result.getSuccessResult();
@@ -103,6 +121,25 @@ public class AnlianService implements IAnlianService{
 		
 		return rs;
 	}
+	
+	@Override
+	public Result adminTruck(VehicleTicketReq req) {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(req.getVehicleid());
+		
+		String data = anlianUrl(TRUCK,adminTruckString(vehicle,req));
+		JSONObject obj = JSONObject.parseObject(data);
+		if(obj.get("status").equals("00")){
+//			rs.setData(obj.get("driverid").toString());
+		}else {
+			rs.setCode(obj.get("status").toString());
+			rs.setError(obj.get("error").toString());
+		}
+		
+		return rs;
+	}
+
 
 	@Override
 	public Result shipment(AnlianShipmentReq alreq) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -197,6 +234,43 @@ public class AnlianService implements IAnlianService{
 		return JSON.toJSONString(req);
 	}
 	
+	/** 后台车辆数据转换*/
+	public String adminTruckString(MemberVehicle vehicle,VehicleTicketReq ticket){
+		AnlianTruck truck = new AnlianTruck();
+		//车牌号码
+		truck.setCphm(vehicle.getVehicleprefix()+vehicle.getVehicleno());
+		//检验有效日期
+		truck.setJyyxqz(ticket.getExpirydata());
+		//核定在质量
+		String hdzz = vehicle.getVehiweight().toString();
+		truck.setHdzzl(hdzz.substring(0,hdzz.indexOf(".")));
+		//总质量
+		truck.setZzl(ticket.getQuality());
+		//登记证书编号
+		truck.setDjzsbh(ticket.getCertificateno());
+		//所有人
+		truck.setSyr(ticket.getOwner());
+		//身份证明
+		truck.setSfzm(ticket.getIdcard());
+		
+		AnlianDict dict = new AnlianDict();
+		dict.setType("vehicle");
+		dict.setWlname(vehicle.getVehicletypename());
+		List<AnlianDict> list = anlianDictMapper.selectByCondition(dict);
+		//标准车辆类型
+		truck.setBzcllx(list.get(0).getAlcode());
+		//使用性质
+		truck.setSyxz(ticket.getNature());
+		//车辆识别代码
+		truck.setClsbdm(ticket.getIdentification());
+		//发动机号
+		truck.setFdjh(ticket.getMotor());
+		//发动机型号
+		truck.setFdjxh(ticket.getMotorno());
+		System.out.println(JSON.toJSONString(truck));
+		return JSON.toJSONString(truck);
+		
+	}
 	/** 车辆数据转换*/
 	public String truckString(MemberVehicle vehicle,VehicleTicket ticket){
 		AnlianTruck truck = new AnlianTruck();
@@ -272,5 +346,43 @@ public class AnlianService implements IAnlianService{
 		System.out.println(JSON.toJSONString(driver));
 		return JSON.toJSONString(driver);
 	}
-
+	/** 司机数据转换*/
+	public String adminDrivrtString(SystemMember member,SystemMemberInfo info,AdminMenberInfoReq req){
+		AnlianDriver driver = new AnlianDriver();
+		/**司机姓名*/
+		driver.setSjxm(info.getUsername());
+		/**性别*/
+		if(req.getSex().equals("xx")){
+			driver.setXb("N");//女
+		}else if(req.getSex().equals("xy")){
+			driver.setXb("Y");//男
+		}
+		/** 身份证号码*/
+		driver.setSfzhm(info.getIdcard());
+		/** 出生日期*/
+		driver.setCsrq(req.getBirthday());
+		/**身份证地址*/
+		driver.setSfzdz(req.getIdcardaddress());
+		/**驾驶证*/
+		driver.setJsz(info.getIdcard());
+		/** 初次领证日期*/
+		driver.setCclzrq(req.getFirstlicens());
+		/** 发证机关*/
+		driver.setFzjg(req.getLicenceorg());
+		/** 准驾车型*/
+		driver.setZjcx(req.getLicenseType());
+		/** 起始日期*/
+		driver.setQsrq(req.getStarttime());
+		/** 有效年限*/
+		driver.setYxqx(req.getUsefullife());
+		/** 手机号码*/
+		driver.setSjhm(info.getTelphone());
+		/***/
+		driver.setEmail("");
+		/***/
+		driver.setQq("");
+		System.out.println(JSON.toJSONString(driver));
+		return JSON.toJSONString(driver);
+	}
+	
 }

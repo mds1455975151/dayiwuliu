@@ -42,6 +42,8 @@ public class MyVehicleResp extends BaseResp{
 	private String agreeimage;
 	private String roadtransportcode;
 	private String roadtransportimage;
+	
+	private String desc1;
 	/**
 	 * 车牌号前缀
 	 */
@@ -115,6 +117,12 @@ public class MyVehicleResp extends BaseResp{
 	}
 	public void setAgreeimage(String agreeimage) {
 		this.agreeimage = agreeimage;
+	}
+	public String getDesc1() {
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 	public String getRoadtransportcode() {
 		roadtransportcode = StringUtils.isBlank(roadtransportcode)?"":roadtransportcode;

@@ -35,6 +35,8 @@ public class MyVehicle{
 	private String ownerphone;
 	private String companyname;
 	private String companytel;
+	
+	private String desc1;
 	/**
 	 * 车牌号前缀
 	 */
@@ -106,6 +108,14 @@ public class MyVehicle{
 
 	public String getRegistcode() {
 		return registcode;
+	}
+
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 
 	public void setRegistcode(String registcode) {

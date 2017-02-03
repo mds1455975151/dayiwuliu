@@ -16,6 +16,7 @@
 		mv.createtime createtime,
 		mv.vehiOwnerName userName,
 		mv.vehiOwnerTel telphone,
+		mv.desc1 desc1,
 		i.username ownername,
 		i.telphone ownerphone,
 		i.companyname companyname,

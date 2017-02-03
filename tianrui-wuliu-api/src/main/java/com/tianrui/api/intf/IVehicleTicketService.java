@@ -13,8 +13,11 @@ import com.tianrui.common.vo.Result;
  */
 public interface IVehicleTicketService {
 
-	/** 申请开票认证*/
+	/** 前台申请开票认证*/
 	public Result insert(VehicleTicketReq req)throws Exception;
+	
+	/** 后台申请开票认证*/
+	public Result save(VehicleTicketReq req)throws Exception;
 	/** 申请开票认证修改*/
 	public Result upt(VehicleTicketReq req)throws Exception;
 	/** 查询开票认证车辆

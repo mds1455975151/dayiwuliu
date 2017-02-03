@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
+import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.front.member.MemberTransferResp;
@@ -122,7 +124,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		
 		if("1".equals(req.getDriverpercheck())){//认证通过
 			
-			//TODO
 			AnlianDriverReq alreq = new AnlianDriverReq();
 			alreq.setRecorid(req.getId());
 			rs = anlianService.driver(alreq);
@@ -297,6 +298,32 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			rs.setError("修改失败");
 			return rs;
 		}
+		return rs;
+	}
+
+	@Override
+	public Result uptDrvierAnlian(AdminMenberInfoReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getId());
+		if(StringUtils.isNotBlank(member.getAldriverid())){
+			rs.setCode("1");
+			rs.setError("司机已通过安联认证");
+			return rs;
+		}
+		rs = anlianService.adminDriver(req);
+		if(!"000000".equals(rs.getCode())){
+			return rs;
+		}
+		
+		SystemMemberInfo info = new SystemMemberInfo();
+		PropertyUtils.copyProperties(info, req);
+		systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+		
+		SystemMember men = new SystemMember();
+		men.setId(req.getId());
+		men.setAldriverid(rs.getData().toString());
+		systemMemberMapper.updateByPrimaryKeySelective(men);
 		return rs;
 	}
 
