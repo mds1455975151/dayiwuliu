@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IDataService;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IOwnerDriverService;
+import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
@@ -46,21 +48,25 @@ public class MyVehicleAction {
 	@Autowired
 	private IOwnerDriverService ownerDriverService;
 	@Autowired
-	private IFileService iFileService;
+	IDataService dataService;
 	
 	/**
 	 * 我的车辆跳转页面
 	 * <p>
 	 * @return 我的车辆页面
-	 * @throws IOException
-	 * <p>
 	 * @author guyuke
+	 * @throws Exception 
 	 * @time 2016年6月1日 上午11:54:00
 	 */
 	@RequestMapping("/myVehiclePage")
 	@AuthValidation(autyType=Constant.AUTHCHECK_USER)
-	public ModelAndView indexPage() throws IOException{
-		return new ModelAndView("/member/vehicle/myVehiclePage");
+	public ModelAndView indexPage() throws Exception{
+		ModelAndView view = new ModelAndView();
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
+		view.setViewName("/member/vehicle/myVehiclePage");
+		return view;
 	}
 	/**
 	 * 
@@ -105,14 +111,19 @@ public class MyVehicleAction {
 	 * 添加车辆跳转页面
 	 * <p>
 	 * @return 添加车辆页面
-	 * @throws IOException
-	 * <p>
 	 * @author guyuke
+	 * @throws Exception 
 	 * @time 2016年6月13日 上午14:54:00
 	 */
 	@RequestMapping("/addVehiclePage")
-	public ModelAndView addDriverPage() throws IOException {
-		return new ModelAndView("/member/vehicle/addVehiclePage");
+	public ModelAndView addDriverPage() throws Exception {
+		ModelAndView view = new ModelAndView();
+		//TODO
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
+		view.setViewName("/member/vehicle/addVehiclePage");
+		return view;
 	}
 	
 	/**

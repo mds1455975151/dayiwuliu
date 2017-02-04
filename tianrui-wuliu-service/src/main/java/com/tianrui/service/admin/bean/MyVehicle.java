@@ -57,6 +57,8 @@ public class MyVehicle{
 	 * 车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 */
 	private String vehicletype;
+	
+	private String vehicletypename;
 	/**
 	 * 可用长度
 	 */
@@ -104,6 +106,14 @@ public class MyVehicle{
 
 	public String getMemberid() {
 		return memberid;
+	}
+
+	public String getVehicletypename() {
+		return vehicletypename;
+	}
+
+	public void setVehicletypename(String vehicletypename) {
+		this.vehicletypename = vehicletypename;
 	}
 
 	public String getRegistcode() {

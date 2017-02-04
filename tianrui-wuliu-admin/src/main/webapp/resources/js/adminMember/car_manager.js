@@ -70,24 +70,10 @@ function displayRec(pageNo){
 							sta = "认证中";
 						}
 						var type = "";
-						if(d[a].vehicletype=="1"){
-							type = "箱式";
+						if(d[a].vehicletypename != undefined){
+							type = d[a].vehicletypename;
 						}
-						if(d[a].vehicletype=="2"){
-							type = "板车";
-						}
-						if(d[a].vehicletype=="3"){
-							type = "冷藏";
-						}
-						if(d[a].vehicletype=="4"){
-							type = "散装罐车";
-						}
-						if(d[a].vehicletype=="5"){
-							type = "半挂车";
-						}
-						if(d[a].vehicletype=="6"){
-							type = "重型自卸货车";
-						}
+						
 						var userName = d[a].userName;
 						if(d[a].userName == undefined){
 							userName = "";
@@ -214,23 +200,8 @@ function details(id){
 				sta = "认证中";
 			}
 			var type = "";
-			if(d.vehicletype=="1"){
-				type = "箱式";
-			}
-			if(d.vehicletype=="2"){
-				type = "板车";
-			}
-			if(d.vehicletype=="3"){
-				type = "冷藏";
-			}
-			if(d.vehicletype=="4"){
-				type = "散装罐车";
-			}
-			if(d.vehicletype=="5"){
-				type = "半挂车";
-			}
-			if(d.vehicletype=="6"){
-				type = "重型自卸货车";
+			if(d.vehicletypename!=undefined){
+				type = d.vehicletypename;
 			}
 			var registcode = d.registimage==""?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+d.registimage+"' target='_blank'>查看图片</a></span>");
 			var opercode = d.operimage==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='/imageView/index?imageUrl="+d.operimage+"' target='_blank'>查看图片</a></span>");

@@ -42,26 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label>车牌号：</label><span>${Vehicle.vehicleno }</span>
                                 <label>所有人姓名：</label><span>${Vehicle.userName }</span>
                                 <label>联系方式：</label><span>${Vehicle.telphone }</span>
-                                <label>车型：</label><span>
-                                <c:if test="${Vehicle.vehicletype eq '1' }">
-                                		箱式
-                                </c:if>
-                                <c:if test="${Vehicle.vehicletype eq '2' }">
-                                		板车
-                                </c:if>
-                                <c:if test="${Vehicle.vehicletype eq '3' }">
-                                 		冷藏
-                                </c:if>
-                                <c:if test="${Vehicle.vehicletype eq '4' }">
-                                 		散装罐车
-                                </c:if>
-                                <c:if test="${Vehicle.vehicletype eq '5' }">
-                                 		半挂车
-                                </c:if>
-                                <c:if test="${Vehicle.vehicletype eq '6' }">
-                                 		重型自卸货车
-                                </c:if>
-                                </span>
+                                <label>车型：</label><span>${Vehicle.vehicletypename}</span>
                                 <label>载重(吨)：</label><span>${Vehicle.vehiweight }</span>
                                 <label>长度(米)：</label><span>${Vehicle.vehilength }</span><br>
                                 <label>认证状态：</label><span>
