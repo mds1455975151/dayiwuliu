@@ -358,6 +358,7 @@ public class OwnerDriverService implements IOwnerDriverService {
 			rs.setCreator(driver.getCreator());
 			rs.setCreatetime(driver.getCreatetime());
 			rs.setCount(driver.getCount());
+			rs.setAldriverid(driver.getAldriverid());
 		}
 		return rs;
 	}

@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.capa;
 
+import org.apache.commons.lang.StringUtils;
+
 public class MemberCapaListResp {
 
 	private String id;
@@ -17,6 +19,10 @@ public class MemberCapaListResp {
 	private String telphone;
 	private String companyname;
 	private String companytel;
+	
+	private String desc1;
+	private String aldriverid;
+	
 	public String getId() {
 		return id;
 	}
@@ -49,6 +55,24 @@ public class MemberCapaListResp {
 	}
 	public String getUsername() {
 		return username;
+	}
+	public String getDesc1() {
+		if(StringUtils.isBlank(desc1)){
+			desc1="";
+		}
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
+	public String getAldriverid() {
+		if(StringUtils.isBlank(aldriverid)){
+			aldriverid = "";
+		}
+		return aldriverid;
+	}
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
 	}
 	public void setUsername(String username) {
 		this.username = username;

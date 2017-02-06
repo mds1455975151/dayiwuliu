@@ -20,6 +20,10 @@ public class MemberCapaList {
 	private String telphone;
 	private String companyname;
 	private String companytel;
+	
+	private String desc1;
+	private String aldriverid;
+	
 	public String getId() {
 		return id;
 	}
@@ -54,6 +58,18 @@ public class MemberCapaList {
 	}
 	public void setVehfix(String vehfix) {
 		this.vehfix = vehfix;
+	}
+	public String getDesc1() {
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
+	public String getAldriverid() {
+		return aldriverid;
+	}
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
 	}
 	public String getVehno() {
 		return vehno;

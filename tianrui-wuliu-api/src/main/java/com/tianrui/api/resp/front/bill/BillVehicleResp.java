@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.bill;
 
+import org.apache.commons.lang.StringUtils;
+
 //运单车辆信息
 public class BillVehicleResp {
 
@@ -20,6 +22,11 @@ public class BillVehicleResp {
 	private String overnumber;
 	
 	private String vehicleNo;
+	/** 开票认证状态*/
+	private String desc1;
+	/** 司机认证*/
+	private String aldriverid;
+	
 	//1 该车辆已被实用 0该车辆未被实用
 	private int isUsed =0;
 	public String getId() {
@@ -81,6 +88,20 @@ public class BillVehicleResp {
 	}
 	public void setTotalnumber(String totalnumber) {
 		this.totalnumber = totalnumber;
+	}
+	public String getDesc1() {
+		desc1 = StringUtils.isBlank(desc1)?"":desc1;
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
+	public String getAldriverid() {
+		aldriverid = StringUtils.isBlank(aldriverid)?"":aldriverid;
+		return aldriverid;
+	}
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
 	}
 	
 }

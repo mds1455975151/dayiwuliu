@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.vehicle;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 
 public class OwnerDriverResp extends BaseResp{
@@ -20,6 +22,8 @@ public class OwnerDriverResp extends BaseResp{
      * 司机ID
      */
     private String driverid;
+    
+    private String aldriverid;
 
     /**
      * 司机姓名
@@ -81,6 +85,17 @@ public class OwnerDriverResp extends BaseResp{
 
 	public void setVehicleownerid(String vehicleownerid) {
 		this.vehicleownerid = vehicleownerid;
+	}
+
+	public String getAldriverid() {
+		if(StringUtils.isBlank(aldriverid)){
+			aldriverid = "";
+		}
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
 	}
 
 	public String getDriverid() {

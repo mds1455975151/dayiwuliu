@@ -23,6 +23,8 @@ public class OwnerDriver implements IModel{
      * 司机ID
      */
     private String driverid;
+    
+    private String aldriverid;
 
     /**
      * 司机姓名
@@ -115,7 +117,15 @@ public class OwnerDriver implements IModel{
         return remarkname;
     }
 
-    public void setRemarkname(String remarkname) {
+    public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+
+	public void setRemarkname(String remarkname) {
         this.remarkname = remarkname == null ? null : remarkname.trim();
     }
 

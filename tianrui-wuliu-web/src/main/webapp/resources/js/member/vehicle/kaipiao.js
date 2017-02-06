@@ -43,20 +43,21 @@ $("#vehicle_ticket_add").on("click",function(){
 		alert("发动机型号不能为空");
 		return;	
 	}
-	
-	
-	$("#vehicle_ticket_add").attr("disabled",true);
-	$.ajax({
-		url : '/trwuliu/Member/vehicleticket/add',// 跳转到 action
-		data : $('#vehickeTicket').serialize(),
-		type : "post",
-		success : function(result) {
-			if(result.code=="000000"){
-				alert("操作成功");
-			}else{
-				alert(result.error);
+	confirm("操作提示","开票认证通过的车辆绑定开票认证通过的司机后无法解绑,是否确认操作?",function(){
+		$("#vehicle_ticket_add").attr("disabled",true);
+		$.ajax({
+			url : '/trwuliu/Member/vehicleticket/add',// 跳转到 action
+			data : $('#vehickeTicket').serialize(),
+			type : "post",
+			success : function(result) {
+				if(result.code=="000000"){
+					alert("操作成功");
+					window.location.href="/trwuliu/Member/myVehicle/myVehiclePage";
+				}else{
+					alert(result.error);
+				}
+				$("#vehicle_ticket_add").attr("disabled",false);
 			}
-			$("#vehicle_ticket_add").attr("disabled",false);
-		}
+		});
 	});
 });

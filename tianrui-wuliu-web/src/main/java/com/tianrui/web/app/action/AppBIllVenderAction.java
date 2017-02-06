@@ -231,6 +231,8 @@ public class AppBIllVenderAction {
 			bv.setDriverTel(mc.getDrivertel());
 			bv.setVehicleTypeName(mc.getVehicletype());
 			bv.setVehiweight(mc.getWeight());
+			bv.setDesc1(mc.getDesc1());
+			bv.setAldriverid(mc.getAldriverid());
 			resp.add(bv);
 		}
 		rs.setData(resp);

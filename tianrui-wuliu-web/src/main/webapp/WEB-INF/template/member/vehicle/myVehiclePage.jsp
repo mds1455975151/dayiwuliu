@@ -118,6 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <input type="hidden" id="car_bdbox_vehiId">
 	            <input type="hidden" id="car_bdbox_vehiTypeName">
 	            <input type="hidden" id="car_bdbox_vehiNo">
+	             <input type="hidden" id="car_bdbox_alstatus">
 	            <button class="btn btnyello" type="submit" onclick="getTheDriverOutOfRange();" >搜索</button>
 	        </div>
 	        <div class="car_scroll">

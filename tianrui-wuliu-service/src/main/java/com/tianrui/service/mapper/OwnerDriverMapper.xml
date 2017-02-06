@@ -16,6 +16,7 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="aldriverid" property="aldriverid" jdbcType="VARCHAR" />
   </resultMap>
   
   <!-- 人工代码 ，包含车辆与司机表内容 -->
@@ -231,12 +232,14 @@
     	od.id id, od.vehicleownerid vehicleownerid, od.driverid driverid,
      	od.drivername drivername, od.drivertel drivertel,
     	 od.remarkname remarkname, od.status status, od.creator creator, od.createtime createtime,
+    	 m.aldriverid aldriverid,
 	    (SELECT
 				count(*)
 			FROM
 				wuliu_vehicle_driver vd  WHERE vd.driverid = od.driverid AND vd.creator = od.creator
 		) AS count
       from wuliu_owner_driver od
+      LEFT JOIN member m ON m.id = od.driverid
    	<where>
    	  <if test="id != null and id != ''" >
         and od.id = #{id,jdbcType=VARCHAR}
