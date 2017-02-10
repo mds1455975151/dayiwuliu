@@ -51,8 +51,10 @@ function innerHTML(data){
 			"<td><p><i class='iconfont icon-dizhi billc1'></i>"+data[a].qycs+"</td>" +
 			"<td><p><i class='iconfont icon-dizhi billc2'></i>"+data[a].mdcs+"</td>" +
 			"<td>"+data[a].shr+"</td>" +
-			//<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'"   dataCode="'+item.waybillno+'">删除</button></a>
-			"<td><a ><button class='btn btnyello delBtn' onclick=\"billdetail('"+data[a].id+"')\"'>查看详情</button></a></td>" +
+			"<td>"+data[a].createtimeStr+"</td>" +
+			"<td><a ><button class='btn btnyello delBtn' onclick=\"billdetail('"+data[a].id+"')\"'>查看详情</button></a>" +
+					"<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"')\"'>运单跟踪</button></a>" +
+					"</td>" +
 			"</tr>";
 	}
 	document.getElementById("innhtml").innerHTML = hml;
@@ -64,4 +66,7 @@ $(".pageMore").on("click",function(){
 
 function billdetail(id){
 	window.location.href="/trwuliu/billAnlian/detail?id="+id;
+}
+function billPosition(id){
+	window.location.href="/trwuliu/billAppoint/tarckAnlian?id="+id;
 }

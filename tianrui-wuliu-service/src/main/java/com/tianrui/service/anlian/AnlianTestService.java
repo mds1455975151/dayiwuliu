@@ -22,9 +22,11 @@ public class AnlianTestService {
 	
 	public static String SHIPMENT = "http://223.255.14.186:149/api/Shipment";
 	
+	public static String DETAIL = "http://223.255.14.186:149/api/ShipmentTrace";
+	
 	public static void main(String[] args) {
 		try {
-			URL url = new URL(TRUCK);
+			URL url = new URL(DETAIL);
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
@@ -34,7 +36,7 @@ public class AnlianTestService {
 			connection.setRequestProperty("Content-Type", " application/json");//设定 请求格式 json，也可以设定xml格式
 			connection.setRequestProperty("Accept-Charset", "utf-8");  //设置编码语言
 			
-			String dataString = truckString();
+			String dataString = position();
 			byte[] bypes = dataString.getBytes("utf-8");
 			
 			connection.getOutputStream().write(bypes);// 输入参数
@@ -48,6 +50,15 @@ public class AnlianTestService {
 			obj.put("error", "网络异常");
 		}
 	}
+	
+	public static String position(){
+		JSONObject json = new JSONObject();
+		json.put("shipmentno", "SP170204003");
+		json.put("username", "E0000249");
+		json.put("pwd", "");
+		return json.toString();
+	}
+	
 	/** 司机数据转换*/
 	public static String drivrtString(){
 		AnlianDriver driver = new AnlianDriver();

@@ -1,9 +1,7 @@
 $(function(){
 	//左侧选中
 	$("#plancreate").addClass("selected");
-	$(".select2").select2({
-		 language: "zh-CN"
-	}); 
+	$(".select2").select2(); 
 	var URL={
 		queryFreight:"/trwuliu/planowner/queryFreights",
 		queryCargo:"/trwuliu/planowner/queryCargo",

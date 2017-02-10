@@ -75,7 +75,7 @@
 	
 	function showToolAutoDef(map) { 
 		$.ajax({
-    		url:"/trwuliu/billAppoint/billPositiondata",
+    		url:"/trwuliu/billAppoint/billPositiondataAnlian",
 			data:{id:$("#bid").val()},
 			type : "post",
 			dataType:"json",
@@ -89,25 +89,14 @@
 					var nlat
 					//位置长度
 					var length = list.length;
-					//运单状态
-					var billStatus = list[0].billStatus;
-					console.log("billStatus="+billStatus);
 					for (var a = 0; a < list.length; a++) {
-						lon = list[a].lon/1000000;
-						lat = list[a].lat/1000000;
-						addMarker(lon,lat,list[a].status);
+						lon = list[a].lng;
+						lat = list[a].lat;
+						addMarker(lon,lat);
 							var thePoint1 = new BMap.Point(lon,lat);
-							if(2<=billStatus<5){
-								if(a<(length-1)){
-									nlon = lon;
-									nlat = lat
-									points.push(thePoint1);
-								}
-							}if(billStatus>=5){
-								nlon = lon;
-								nlat = lat
-								points.push(thePoint1);
-							}
+							nlon = lon;
+							nlat = lat
+							points.push(thePoint1);
 					}
 					map.centerAndZoom(new BMap.Point(nlon, nlat),8);
 					drawPolyline(map, points);
@@ -120,9 +109,9 @@
 	}
 	
 	//创建marker
-	function addMarker(lng, lat, status){
+	function addMarker(lng, lat){
 		    var point = new BMap.Point(lng,lat);
-		    var iconImg = createIcon(status);
+		    var iconImg = createIcon();
 		    var marker = new BMap.Marker(point,{icon:iconImg});
 		    
 		    var _marker = marker;
@@ -150,20 +139,13 @@
 	}
 	
 	//创建一个Icon
-	function createIcon(status){
-		var m = "bposition"+status+".png";
+	function createIcon(){
+		var m = "bposition.png";
 		var icon ;
-		if(status!=""){
-			icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
-		        	new BMap.Size(100, 80), 
-		        	{anchor: new BMap.Size(40, 40),
-	        		 imageOffset: new BMap.Size(20, -3)});
-		}else{
 			icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
 		        	new BMap.Size(100, 80), 
 		        	{anchor: new BMap.Size(40, 40),
 	        		 imageOffset: new BMap.Size(20, 20)});
-		}
 		return icon;
 	}
    	

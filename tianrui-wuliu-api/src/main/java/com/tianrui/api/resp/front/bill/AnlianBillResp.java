@@ -1,5 +1,9 @@
 package com.tianrui.api.resp.front.bill;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AnlianBillResp {
     private String id;
     
@@ -66,6 +70,8 @@ public class AnlianBillResp {
     private String creater;
 
     private Long createtime;
+    
+    private String createtimeStr;
 
     private Integer start;
     
@@ -350,4 +356,16 @@ public class AnlianBillResp {
     public void setCreatetime(Long createtime) {
         this.createtime = createtime;
     }
+
+	public String getCreatetimeStr() {
+		if(createtime != null){
+			createtimeStr = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(createtime));
+		}
+		return createtimeStr;
+	}
+
+	public void setCreatetimeStr(String createtimeStr) {
+		this.createtimeStr = createtimeStr;
+	}
+    
 }

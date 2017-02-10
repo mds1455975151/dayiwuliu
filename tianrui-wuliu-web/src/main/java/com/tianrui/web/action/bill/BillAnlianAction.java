@@ -96,4 +96,13 @@ public class BillAnlianAction {
 		rs.setData(page);
 		return rs;
 	}
+	/** 查询运单轨迹
+	 * @throws Exception */
+	@RequestMapping("position")
+	@ResponseBody
+	public Result position(AnlianBillFindReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = anlianBillService.findPosition(req);
+		return rs;
+	}
 }

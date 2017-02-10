@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IAnlianBillService;
+import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
@@ -32,6 +34,8 @@ public class BillAppointAction {
 	
 	@Autowired
 	private BillService billService;
+	@Autowired
+	private IAnlianBillService anlianBillService;
 	
 	@RequestMapping("main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_VEHICLE_OWNER)
@@ -59,7 +63,6 @@ public class BillAppointAction {
 		return rs;
 	}
 	
-	
 	@RequestMapping("track")
 	public ModelAndView track(HttpServletRequest request,String id){
 		ModelAndView model = new ModelAndView("bill/maps/tarck");
@@ -70,6 +73,15 @@ public class BillAppointAction {
 		return model;
 	}
 	
+	@RequestMapping("tarckAnlian")
+	public ModelAndView mainAnlian(HttpServletRequest request,String id){
+		ModelAndView model = new ModelAndView("bill/maps/tarckAnlian");
+		model.addObject("bid", id);
+		if( StringUtils.isBlank(id) ){
+			model.setViewName("/error/msg");
+		}
+		return model;
+	}
 	
 	@RequestMapping("trackdata")
 	@ResponseBody
@@ -93,6 +105,20 @@ public class BillAppointAction {
 		try {
 			List<BillPositionResp> list=billService.getBillPosition(req.getId());
 			rs.setData(list);
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage(), e);
+		}
+		return rs;
+	}
+	
+	@RequestMapping("billPositiondataAnlian")
+	@ResponseBody
+	public Result billPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			rs = anlianBillService.findPosition(req);
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");

@@ -77,4 +77,17 @@ public class AppBillAnlianAction {
 		rs.setTotal(page.getTotalInt());
 		return rs;
 	}
+	
+	/** 查询运单轨迹
+	 * @throws Exception */
+	@RequestMapping("position")
+	@ApiParamRawType(AnlianBillFindReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult position(AppParam<AnlianBillFindReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = anlianBillService.findPosition(appParam.getBody());
+		return AppResult.valueOf(rs);
+	}
+	
 }

@@ -190,7 +190,7 @@ public class AnlianService implements IAnlianService{
 	   
 	    JSONObject json = JSONObject.parseObject(data);
 	    if(json.get("status").equals("00")){
-			rs.setData(json.get("shipmentno").toString());
+			rs.setData(json);
 		}else {
 			rs.setCode(json.get("status").toString());
 			rs.setError(json.get("error").toString());

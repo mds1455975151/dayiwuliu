@@ -59,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <th >始发地</th>
                             <th >目的地</th>
                             <th >收货人</th>
+                            <th >创建时间</th>
                             <th > 操作</th>
                         </tr>
                         </thead>
@@ -87,6 +88,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/bill/anlian_page.js?1" ></script>
+<script type="text/javascript" src="/resources/js/bill/anlian_page.js?02.10" ></script>
 </body>
 </html>

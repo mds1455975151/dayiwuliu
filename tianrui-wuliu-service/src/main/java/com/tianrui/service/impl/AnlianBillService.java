@@ -28,6 +28,7 @@ import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.AnlianDict;
+import com.tianrui.service.bean.BillAnlianPosition;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
@@ -41,6 +42,7 @@ import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.VehicleTicketMapper;
+import com.tianrui.service.mongo.BillAnlianPositionDao;
 @Service
 public class AnlianBillService implements IAnlianBillService{
 
@@ -70,6 +72,8 @@ public class AnlianBillService implements IAnlianBillService{
 	VehicleDriverMapper vehicleDriverMapper;
 	@Autowired
 	AnlianBillMapper anlianBillMapper;
+	@Autowired
+	BillAnlianPositionDao billAnlianPositionDao;
 	
 	@Override
 	public Result alBillSave(AnlianBillSaveReq req) throws Exception {
@@ -188,7 +192,6 @@ public class AnlianBillService implements IAnlianBillService{
 	}
 	@Override
 	public PaginationVO<AnlianBillResp> find(AnlianBillFindReq req) throws Exception {
-		// TODO Auto-generated method stub
 		PaginationVO<AnlianBillResp> pv = new PaginationVO<AnlianBillResp>();
 		AnlianBill bill = new AnlianBill();
 		PropertyUtils.copyProperties(bill, req);
@@ -204,6 +207,15 @@ public class AnlianBillService implements IAnlianBillService{
 		pv.setTotal(a);
 		return pv;
 	}
+	@Override
+	public List<AnlianBillResp> findAll(AnlianBillFindReq req) throws Exception {
+		// TODO Auto-generated method stub
+		AnlianBill bill = new AnlianBill();
+		PropertyUtils.copyProperties(bill, req);
+		List<AnlianBill> list = anlianBillMapper.selectByCondition(bill);
+		return copy(list);
+	}
+
 	@Override
 	public Result findByid(AnlianBillFindReq req) throws Exception {
 		// TODO Auto-generated method stub
@@ -226,5 +238,17 @@ public class AnlianBillService implements IAnlianBillService{
 		}
 		return r;
 	}
-
+	@Override
+	public Result findPosition(AnlianBillFindReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+		if(bill != null){
+			List<BillAnlianPosition> list = billAnlianPositionDao.findPosition(bill.getBillno());
+			rs.setData(list);
+		}else{
+			rs.setCode("1");
+			rs.setError("请输入正确id");
+		}
+		return rs;
+	}
 }
