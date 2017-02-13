@@ -138,46 +138,46 @@
 	                        <table width="100%" border="0" id="licenseType">
 	                            <tr>
 	                                <td >
-	                                    <input type="checkbox"><label>A1</label>
+	                                    <input type="radio" name="zjcx"><label>A1</label>
 	                                </td>
 	                                <td >
-	                                    <input type="checkbox"><label>A2</label>
+	                                    <input type="radio" name="zjcx"><label>A2</label>
 	                                </td>
 	                                <td >
-	                                    <input type="checkbox"><label>A3</label>
-	                                </td>
-	                            </tr>
-	                            <tr>
-	                                <td >
-	                                    <input type="checkbox"><label>B1</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>B2</label>
-	                                </td>
-	                                <td >
-	                                    <input type="checkbox"><label>B3</label>
+	                                    <input type="radio" name="zjcx"><label>A3</label>
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td >
-	                                    <input type="checkbox"><label>C1</label>
+	                                    <input type="radio" name="zjcx"><label>B1</label>
 	                                </td>
 	                                <td >
-	                                    <input type="checkbox"><label>C2</label>
+	                                    <input type="radio" name="zjcx"><label>B2</label>
 	                                </td>
 	                                <td >
-	                                    <input type="checkbox"><label>C3</label>
+	                                    <input type="radio" name="zjcx"><label>B3</label>
 	                                </td>
 	                            </tr>
 	                            <tr>
 	                                <td >
-	                                    <input type="checkbox"><label>C4</label>
+	                                    <input type="radio" name="zjcx"><label>C1</label>
 	                                </td>
 	                                <td >
-	                                    <input type="checkbox"><label>C5</label>
+	                                    <input type="radio" name="zjcx"><label>C2</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C3</label>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C4</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C5</label>
 	                                </td>
 	                                <td>
-	                                    <input type="checkbox"><label>D</label>
+	                                    <input type="radio" name="zjcx"><label>D</label>
 	                                </td>
 	                            </tr>
 	                        </table>

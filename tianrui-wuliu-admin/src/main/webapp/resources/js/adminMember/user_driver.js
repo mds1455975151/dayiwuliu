@@ -121,6 +121,9 @@ function displayRect(pageNo){
 							anlian = "<span><a data-toggle='modal' onclick=\"anlianrenzheng('"+a+"')\" data-target='#anlian'>【安联认证】</a></span>";
 						}
 						var aldriverid = data[a].aldriverid == undefined ? anlian:data[a].aldriverid;
+						if(aldriverid == "1"){
+							aldriverid = "<span><a onclick=\"alert('请前台用户绑定车辆')\">【认证成功】</a></span>";
+						}
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].cellPhone+"</td>"+
 							"<td >"+aldriverid+"</td>"+
@@ -280,6 +283,7 @@ function anlianrenzheng(id){
 	}
 	$("#anlian_id").val(a.id);
 	$("#anlian_phone").val(a.cellPhone);
+	$("#anlian_licenseType").val(a.licenseType);
 	
 }
 
@@ -390,9 +394,12 @@ function driverShenhe(id,stat,pageNo){
  * 后台司机安联认证
  */
 $(".anlian_renzheng").on("click",function(){
+	//1900-2099
+	var regexp = /^([1][9][0-9][0-9]|[2][0][0-9][0-9])(\-)([0][1-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1])$/;
+	
 	var anlian_birthday = $("#anlian_birthday").val();
-	if(anlian_birthday==""){
-		alert("出生日期不能为空");
+	if(!regexp.test(anlian_birthday)){
+		alert("出生日期格式不正确");
 		return;
 	}
 	var anlian_address = $("#anlian_address").val();
@@ -401,8 +408,8 @@ $(".anlian_renzheng").on("click",function(){
 		return;
 	}
 	var anlian_firstlicens = $("#anlian_firstlicens").val();
-	if(anlian_firstlicens==""){
-		alert("初次领证日期不能为空");
+	if(!regexp.test(anlian_firstlicens)){
+		alert("初次领证日期格式不正确");
 		return;
 	}
 	var anlian_licenceorg = $("#anlian_licenceorg").val();
@@ -416,8 +423,8 @@ $(".anlian_renzheng").on("click",function(){
 		return;
 	}
 	var anlian_starttime = $("#anlian_starttime").val();
-	if(anlian_starttime==""){
-		alert("驾驶证注册日期不能为空");
+	if(!regexp.test(anlian_starttime)){
+		alert("驾驶证注册日期格式不正确");
 		return;
 	}
 	var anlian_licenseType = $("#anlian_licenseType").val();
@@ -425,6 +432,7 @@ $(".anlian_renzheng").on("click",function(){
 		alert("准驾车型不能为空");
 		return;
 	}
+	$(this).attr("disabled",true);
 	$.ajax({
 			url:CONTEXTPATH+"/admin/driverTicket/upt",
 			data:$('#anlian_form').serialize(),
@@ -432,9 +440,11 @@ $(".anlian_renzheng").on("click",function(){
 			success: function(retVal) {
 				if(retVal.code!="000000"){
 					alert(retVal.error);
+					$(this).attr("disabled",false);
 				}else{
 					driverSearch();
 					anlianclean();
+					$(this).attr("disabled",false);
 					$("#alhide").click();
 				}
 			}

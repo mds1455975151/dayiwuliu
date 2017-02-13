@@ -230,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="model_width">
 						<label>出生日期：</label>
 						<span>
-						<input type="text" name="birthday" id="anlian_birthday">
+						<input type="text" placeholder="yyyy-MM-dd" name="birthday" id="anlian_birthday">
 						</span>
 					</div>
 					<div class="model_width">
@@ -239,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="model_width">
 						<label>初次领证日期：</label>
-						<input type="text" name="firstlicens" id="anlian_firstlicens">
+						<input type="text" placeholder="yyyy-MM-dd" name="firstlicens" id="anlian_firstlicens">
 					</div>
 					<div class="model_width" >
 						<label>发证机关：</label>
@@ -251,7 +251,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="model_width">
 						<label>驾驶证注册日期：</label>
-						<input type="text" name="starttime" id="anlian_starttime">
+						<input type="text" placeholder="yyyy-MM-dd" name="starttime" id="anlian_starttime">
 					</div>
 					<div class="model_width">
 						<label>准驾车型：</label>
@@ -340,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?01.10" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?02.12" ></script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',

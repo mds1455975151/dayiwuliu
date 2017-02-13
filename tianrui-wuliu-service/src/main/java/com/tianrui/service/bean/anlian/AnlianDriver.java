@@ -1,5 +1,7 @@
 package com.tianrui.service.bean.anlian;
 
+import java.util.List;
+
 /**
  * 安联 司机实体
  * @author jh
@@ -36,6 +38,8 @@ public class AnlianDriver extends AnlianBase{
 	private String email;
 	/***/
 	private String qq;
+	/** 绑定车牌号*/
+	private List<DriverLines> lines;
 	public String getId() {
 		return id;
 	}
@@ -126,7 +130,10 @@ public class AnlianDriver extends AnlianBase{
 	public void setQq(String qq) {
 		this.qq = qq;
 	}
-	
-	
-	
+	public List<DriverLines> getLines() {
+		return lines;
+	}
+	public void setLines(List<DriverLines> lines) {
+		this.lines = lines;
+	}
 }

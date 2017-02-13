@@ -23,9 +23,13 @@ $("#vehicle_ticket_upt").on("click",function(){
 		alert("登记证书编号不能为空");
 		return;	
 	}
+	
+	//1900-2099
+	var regexp = /^([1][9][0-9][0-9]|[2][0][0-9][0-9])(\-)([0][1-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1])$/;
+	
 	var veh_expirydata = $("#veh_expirydata").val();
-	if($.trim(veh_expirydata)==""){
-		alert("检验有效期止不能为空");
+	if(!regexp.test(veh_expirydata)){
+		alert("检验有效期止时间格式有误");
 		return;	
 	}
 	var veh_identification = $("#veh_identification").val();

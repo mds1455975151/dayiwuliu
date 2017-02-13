@@ -35,6 +35,7 @@ import com.tianrui.service.bean.anlian.AnlianBase;
 import com.tianrui.service.bean.anlian.AnlianDriver;
 import com.tianrui.service.bean.anlian.AnlianShipment;
 import com.tianrui.service.bean.anlian.AnlianTruck;
+import com.tianrui.service.bean.anlian.DriverLines;
 import com.tianrui.service.bean.anlian.Lines;
 import com.tianrui.service.bean.anlian.Orders;
 import com.tianrui.service.mapper.AnlianDictMapper;
@@ -72,10 +73,10 @@ public class AnlianService implements IAnlianService{
 	@Override
 	public Result driver(AnlianDriverReq req) {
 		Result rs = Result.getSuccessResult();
-		SystemMemberInfoRecord info = systemMemberInfoRecorMapper.selectByPrimaryKey(req.getRecorid());
+		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getDriverid());
 		
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(info.getMemberid());
-		String data = anlianUrl(DRIVER,drivrtString(member,info));
+		String data = anlianUrl(DRIVER,drivrtString(member,info,req.getVehicleNo()));
 		JSONObject obj = JSONObject.parseObject(data);
 		if(obj.get("status").equals("00")){
 			rs.setData(obj.get("driverid").toString());
@@ -88,7 +89,6 @@ public class AnlianService implements IAnlianService{
 
 	@Override
 	public Result adminDriver(AdminMenberInfoReq req) {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getId());
 		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getId());
@@ -309,7 +309,7 @@ public class AnlianService implements IAnlianService{
 		
 	}
 	/** 司机数据转换*/
-	public String drivrtString(SystemMember member,SystemMemberInfoRecord info){
+	public String drivrtString(SystemMember member,SystemMemberInfo info,String vheicleNo){
 		AnlianDriver driver = new AnlianDriver();
 		/**司机姓名*/
 		driver.setSjxm(info.getUsername());
@@ -343,6 +343,12 @@ public class AnlianService implements IAnlianService{
 		driver.setEmail("");
 		/***/
 		driver.setQq("");
+		
+		List<DriverLines> list = new ArrayList<DriverLines>();
+		DriverLines lines = new DriverLines();
+		lines.setCphm(vheicleNo);
+		list.add(lines);
+		driver.setLines(list);
 		System.out.println(JSON.toJSONString(driver));
 		return JSON.toJSONString(driver);
 	}

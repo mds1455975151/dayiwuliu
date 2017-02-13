@@ -238,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="model_width">
 						<label>检验有效期止：</label>
-						<input type="text" name="expirydata" id="anlian_expirydata">
+						<input type="text" name="expirydata" placeholder="yyyy-MM-dd" id="anlian_expirydata">
 					</div>
 					<div class="model_width">
 						<label>车辆识别码：</label>
@@ -258,6 +258,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary anlian_renzheng" >确定</button>
                 <button type="button" id="alhide" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--安联认证end-->
+<!--安联认证详情begin-->
+<div class="modal fade" id="anlian_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >详情</h4>
+            </div>
+            <form id="anlian_form">
+            <div class="modal-body" style=" ">
+            	<div class="usermodal userlabel3">
+	            	<div class="model_width">
+						<label>车牌号：</label>
+						<input type="text" id="anlian_vehicleNo_detail" readonly="readonly">
+					</div>
+					<div class="model_width">
+						<label>使用性质：</label>
+						<input type="text" id="anlian_nature_detail" readonly="readonly">
+					</div>
+					<div class="model_width">
+						<label>总质量：</label>
+						<span>
+						<input type="text" id="anlian_quality_detail" readonly="readonly">
+						</span>
+					</div>
+					<div class="model_width">
+						<label>所有人：</label>
+						<input type="text" id="anlian_owner_detail" readonly="readonly">
+					</div>
+					<div class="model_width">
+						<label>身份证号：</label>
+						<input type="text" id="anlian_idcard_detail" readonly="readonly">
+					</div>
+					<div class="model_width" >
+						<label>登记证书编号：</label>
+						<input type="text" id="anlian_certificateno_detail" readonly="readonly">
+					</div>
+					<div class="model_width">
+						<label>检验有效期止：</label>
+						<input type="text" readonly="readonly" placeholder="yyyy-MM-dd" id="anlian_expirydata_detail">
+					</div>
+					<div class="model_width">
+						<label>车辆识别码：</label>
+						<input type="text" readonly="readonly" id="anlian_identification_detail">
+					</div>
+					<div class="model_width">
+						<label>发动机号：</label>
+						<input type="text" readonly="readonly" id="anlian_motor_detail">
+					</div>
+					<div class="model_width">
+						<label>发动机型号：</label>
+						<input type="text" readonly="readonly" id="anlian_motorno_detail">
+					</div>
+				</div>
+            </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
@@ -345,7 +409,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?12.14" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?02.121" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

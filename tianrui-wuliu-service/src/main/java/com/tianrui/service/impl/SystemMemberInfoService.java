@@ -124,15 +124,15 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		
 		if("1".equals(req.getDriverpercheck())){//认证通过
 			
-			AnlianDriverReq alreq = new AnlianDriverReq();
-			alreq.setRecorid(req.getId());
-			rs = anlianService.driver(alreq);
-			if(rs.getCode().equals("000000")){
-				member.setAldriverid(rs.getData().toString());
-			}else{
-				return rs;
-			}
-			
+//			AnlianDriverReq alreq = new AnlianDriverReq();
+//			alreq.setRecorid(req.getId());
+//			rs = anlianService.driver(alreq);
+//			if(rs.getCode().equals("000000")){
+//				member.setAldriverid(rs.getData().toString());
+//			}else{
+//				return rs;
+//			}
+			member.setAldriverid("1");
 			SystemMemberInfo info = new SystemMemberInfo();
 			info.setId(record.getMemberid());
 			info.setUsername(record.getUsername());
@@ -311,10 +311,10 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			rs.setError("司机已通过安联认证");
 			return rs;
 		}
-		rs = anlianService.adminDriver(req);
-		if(!"000000".equals(rs.getCode())){
-			return rs;
-		}
+//		rs = anlianService.adminDriver(req);
+//		if(!"000000".equals(rs.getCode())){
+//			return rs;
+//		}
 		
 		SystemMemberInfo info = new SystemMemberInfo();
 		PropertyUtils.copyProperties(info, req);
@@ -322,7 +322,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		
 		SystemMember men = new SystemMember();
 		men.setId(req.getId());
-		men.setAldriverid(rs.getData().toString());
+		men.setAldriverid("1");
 		systemMemberMapper.updateByPrimaryKeySelective(men);
 		return rs;
 	}

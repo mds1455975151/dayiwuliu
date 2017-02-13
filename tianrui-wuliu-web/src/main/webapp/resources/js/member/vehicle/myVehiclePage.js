@@ -446,7 +446,6 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 					        drivername, drivertel, remarkname, aldriverid, vListNo) {
 	
 	var status = $("#car_bdbox_alstatus").val();
-	alert(status + aldriverid);
 	//车辆，司机 均安联认证成功
 	if(status == 1 && aldriverid != ""){
 		confirm("操作提示","车辆，司机均安联认证通过，绑定后无法解绑,是否确认操作?",function(){

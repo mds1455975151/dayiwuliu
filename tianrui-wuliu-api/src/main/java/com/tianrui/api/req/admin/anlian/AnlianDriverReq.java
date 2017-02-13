@@ -10,6 +10,8 @@ public class AnlianDriverReq{
 	private String driverid;
 	/** 认证记录id*/
 	private String recorid;
+	/** 车牌号*/
+	private String vehicleNo;
 
 	public String getDriverid() {
 		return driverid;
@@ -22,6 +24,12 @@ public class AnlianDriverReq{
 	}
 	public void setRecorid(String recorid) {
 		this.recorid = recorid;
+	}
+	public String getVehicleNo() {
+		return vehicleNo;
+	}
+	public void setVehicleNo(String vehicleNo) {
+		this.vehicleNo = vehicleNo;
 	}
 
 }

@@ -9,7 +9,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -36,6 +38,8 @@ public class VehicleDriverService implements IVehicleDriverService {
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	MemberVehicleMapper memberVehicleMapper;
+	@Autowired
+	IAnlianService anlianService;
 	
 	/**
 	 * 父类方法重写，根据条件进行车辆司机关联信息查询
@@ -113,15 +117,27 @@ public class VehicleDriverService implements IVehicleDriverService {
 		if (vehicleDriver.getCreatetime() == null) {
 			vehicleDriver.setCreatetime(new Date().getTime());
 		}
-		
-		// 数据插入操作
-		long count = vehicleDriverMapper.insert(vehicleDriver);
-		long a = 1;
-		if(count!=a){
-			rs.setCode("1");
-			rs.setError("操作失败");
-			return rs;
+		MemberVehicle mv = memberVehicleMapper.selectByPrimaryKey(req.getVehicleId());
+		SystemMember sm = systemMemberMapper.selectByPrimaryKey(req.getDriverId());
+		//车辆通过安联认证，司机通过本地安联认证
+		if("1".equals(mv.getDesc1())&&(StringUtils.isNotBlank(sm.getAldriverid()))){
+			// 数据插入操作
+			//TODO
+			AnlianDriverReq r = new AnlianDriverReq();
+			r.setDriverid(req.getDriverId());
+			r.setVehicleNo(mv.getVehicleprefix()+mv.getVehicleno());
+			rs = anlianService.driver(r);
+			//安联认证成功
+			if("000000".equals(rs.getCode())){
+				SystemMember m = new SystemMember();
+				m.setId(req.getDriverId());
+				m.setAldriverid(rs.getData().toString());
+				systemMemberMapper.updateByPrimaryKeySelective(m);
+			}else{
+				return rs;
+			}
 		}
+		vehicleDriverMapper.insert(vehicleDriver);
 		return rs;
 	}
 	

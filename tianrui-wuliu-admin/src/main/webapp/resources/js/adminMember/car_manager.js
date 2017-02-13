@@ -88,18 +88,23 @@ function displayRec(pageNo){
 							ownerphone = d[a].companytel;
 							ownername = d[a].companyname;
 						}
-						var anlian = "<span><a data-toggle='modal' onclick=\"anLianDetails('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian'>【完善信息】</a></span>";
-						if(d[a].desc1=="-1"){
-							anlian = "认证失败";
-						}
-						if(d[a].desc1=="0"){
+						var anlian = "";
+						if(d[a].status=="1"){
+							//"认证成功";
 							anlian = "<span><a data-toggle='modal' onclick=\"anLianDetails('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian'>【完善信息】</a></span>";
-						}
-						if(d[a].desc1=="1"){
-							anlian = "认证成功";
-						}
-						if(d[a].desc1=="2"){
-							anlian = "认证中";
+							
+							if(d[a].desc1=="-1"){
+								anlian = "认证失败";
+							}
+							if(d[a].desc1=="0"){
+								anlian = "<span><a data-toggle='modal' onclick=\"anLianDetails('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian'>【完善信息】</a></span>";
+							}
+							if(d[a].desc1=="1"){
+								anlian = "<span><a data-toggle='modal' onclick=\"anLian_renzheng_detail('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian_detail'>【查看详情】</a></span>";
+							}
+							if(d[a].desc1=="2"){
+								anlian = "认证中";
+							}
 						}
 						
 						hml += "<tr><td>"+c+"</td>"+
@@ -158,6 +163,34 @@ function clearSearch(){
 function anLianDetails(id,vehicleNo){
 	$("#anlian_vehicleid").val(id);
 	$("#anlian_vehicleNo").val(vehicleNo);
+}
+/**查看认证详情*/
+function anLian_renzheng_detail(id,vehicleNo){
+	//TODO
+	$("#anlian_vehicleNo_detail").val(vehicleNo);
+	$.ajax({
+		url: CONTEXTPATH+'/admin/ticket/findVehicleId',
+		data:{"id":id},
+		type:"post",
+		success: function(ret){
+			if(ret.code=="000000"){
+				var data = ret.data;
+				if(data.nature == "1"){
+					$("#anlian_nature_detail").val("营运");
+				}else if(data.nature == "2"){
+					$("#anlian_nature_detail").val("非营运");
+				}
+				$("#anlian_quality_detail").val(data.quality);
+				$("#anlian_owner_detail").val(data.owner);
+				$("#anlian_idcard_detail").val(data.idcard);
+				$("#anlian_certificateno_detail").val(data.certificateno);
+				$("#anlian_expirydata_detail").val(data.expirydata);
+				$("#anlian_identification_detail").val(data.identification);
+				$("#anlian_motor_detail").val(data.motor);
+				$("#anlian_motorno_detail").val(data.motorno);
+			}
+		}
+	});
 }
 
 /**
@@ -368,9 +401,13 @@ function details(id){
 			alert("登记证书编号不能为空");
 			return;
 		}
+		
+		//1900-2099
+		var regexp = /^([1][9][0-9][0-9]|[2][0][0-9][0-9])(\-)([0][1-9]|[1][0-2])(\-)([0-2][0-9]|[3][0-1])$/;
+		
 		var anlian_expirydata = $("#anlian_expirydata").val();
-		if(anlian_expirydata==""){
-			alert("检验有效期止不能为空");
+		if(!regexp.test(anlian_expirydata)){
+			alert("检验有效期止时间格式有误");
 			return;
 		}
 		var anlian_identification = $("#anlian_identification").val();
@@ -388,15 +425,18 @@ function details(id){
 			alert("发动机型号不能为空");
 			return;
 		}
+		$(this).attr("disabled",true);
 		$.ajax({
 				url:CONTEXTPATH+"/admin/ticket/save",
 				data:$('#anlian_form').serialize(),
 				type:"post",
 				success: function(retVal) {
 					if(retVal.code!="000000"){
+						$(this).attr("disabled",false);
 						alert(retVal.error);
 					}else{
 						 $("#alhide").click();
+						 $(this).attr("disabled",false);
 						loadSearch();
 						anlianclean();
 					}

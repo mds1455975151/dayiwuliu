@@ -47,6 +47,14 @@ public class VehicleTicketAction {
 		rs = vehicleTicketService.save(req);
 		return rs;
 	}
+	/** 查询开票车辆信息*/
+	@RequestMapping(value="findVehicleId",method=RequestMethod.POST)
+	@ResponseBody
+	public Result findVehicleId(TicketFindReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = vehicleTicketService.findByVehicleId(req);
+		return rs;
+	}
 	
 	/***开票车辆审核
 	 * @throws Exception 
