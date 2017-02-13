@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="clear"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="saveMerchant();" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary save_Merchant">保存</button>
                 <button type="button" id="addclick" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>

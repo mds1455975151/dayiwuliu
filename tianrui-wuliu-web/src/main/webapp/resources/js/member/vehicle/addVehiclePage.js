@@ -199,11 +199,14 @@ $("#vehicle_addBtn").click(function() {
 		$("#vehicle_add_vehiOwnerName").focus();
 		return;
 	}
-	if (vehiTel == "") {
+	
+	var f = /^1[34578]\d{9}$/;
+	if (!f.test(vehiTel)) {
 		$("#message_vehiTel").html("请输入联系电话！");
 		$("#vehicle_add_vehiTel").focus();
 		return;
 	}
+	
 	if (file_cel == "") {
 		$("#modal_common_content").html("请上传车辆图片！");
 		$("#file_cel_img").focus();

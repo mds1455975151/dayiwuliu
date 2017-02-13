@@ -123,8 +123,7 @@ function findByIndex(a){
 	$("#uptremark").val(data.remark);
 }
 
-/** 新增*/
-function saveMerchant(){
+$(".save_Merchant").on("click",function(){
 	var savecode = $("#savecode").val();
 	var savename = $("#savename").val();
 	var saveonlycode = $("#saveonlycode").val();
@@ -133,6 +132,7 @@ function saveMerchant(){
 	var savelinkman = $("#savelinkman").val();
 	var savelinknumber = $("#savelinknumber").val();
 	var saveaddress = $("#saveaddress").val();
+	
 	if(!$.trim(savecode)){
 		alert("客商编码不能为空");
 		return;
@@ -157,14 +157,16 @@ function saveMerchant(){
 		alert("联系人不能为空");
 		return;
 	}
-	if(!$.trim(savelinknumber)){
-		alert("联系电话不能为空");
+	var f = /^1[34578]\d{9}$/;
+	if(!f.test(savelinknumber)){
+		alert("请输入正确联系方式");
 		return;
 	}
 	if(!$.trim(saveaddress)){
 		alert("详细地址不能为空");
 		return;
 	}
+	$(this).attr("disabled",true);
 	$.ajax({
 		url:"/merchant/insert",
 		data:$('#saveMerchant').serialize(),// 你的formid
@@ -172,16 +174,20 @@ function saveMerchant(){
 		success:function(ret){
 			var code = ret.code;
 			if(code == "000000"){
+				$(this).attr("disabled",false);
 				alert("添加成功");
 				cleanValue();
 				$("#addclick").click();
 				displayData(0);
 			}else{
+				$(this).attr("disabled",false);
 				alert(ret.error);
 			}
+			
 		}
 	});
-}
+});
+
 
 function updateMerchart(){
 	var savecode = $("#uptcode").val();
@@ -216,8 +222,9 @@ function updateMerchart(){
 		alert("联系人不能为空");
 		return;
 	}
-	if(!$.trim(savelinknumber)){
-		alert("联系电话不能为空");
+	var f = /^1[34578]\d{9}$/;
+	if(!f.test(savelinknumber)){
+		alert("请输入正确联系方式");
 		return;
 	}
 	if(!$.trim(saveaddress)){

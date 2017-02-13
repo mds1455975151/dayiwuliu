@@ -69,10 +69,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </c:if>
                      -->
                      <c:if test="${member.avatarspath eq null }">
-                        <img id="currentImg" src="${trRoot}/tianrui/images/tx.jpg" class="img-rounded">
+                        <img id="currentImg" height="130px" src="${trRoot}/tianrui/images/tx.jpg" class="img-rounded">
                      </c:if>
                      <c:if test="${member.avatarspath ne null }">
-                     	<img id="currentImg" src="${member.avatarspath}" class="img-rounded">
+                     	<img id="currentImg" height="130px" src="${member.avatarspath}" class="img-rounded">
                      </c:if>
                     </div>
                     <input type="hidden" id="currentImgBack">
