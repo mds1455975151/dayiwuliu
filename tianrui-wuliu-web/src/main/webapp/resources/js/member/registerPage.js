@@ -10,6 +10,25 @@
 $(function() { 
 	// 阅读协议绑定跳转链接
 	$("#register_protocol").attr("href", PATH + "/publicMember/protocol");
+	getVcode();
+	/**获取图形验证码*/
+	$("#vcode").on("click",function(){
+		getVcode();
+	});
+	
+	function getVcode(){
+		$.ajax({
+			url : PATH + '/imageView/code',// 跳转到 action
+			data : {},
+			type : "post",
+			success : function(result) {
+				if( result.code =="000000" ){
+					var data = result.data;
+					$("#vcode").attr("src","data:image/png;base64,"+data);
+				}
+			}
+		});
+	}
 });
 
 // 验证手机号
@@ -89,9 +108,12 @@ $("#idcode_button").click(function() {
 		$("#message_tel").html("请输入手机号");
 		return;
 	}
+	var code = $("#register_code").val();
 	$.ajax({
 		url : PATH + '/publicMember/registerCode',// 跳转到 action
-		data : {telnum:tel,type:"0"},
+		data : {telnum:tel,
+			type:"0",
+			vCode: code},
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){
@@ -135,9 +157,15 @@ $("#register_button").click(function() {
 		return;
 	}
 	var md5Psw = hex_md5($.trim(psw));
+	var code = $("#register_code").val();
 	$.ajax({
 		url : PATH + '/publicMember/register',// 跳转到 action
-		data : {telnum:tel, passWord:md5Psw, registerCode:idCode, referrerTel:inviteCode},
+		data : {telnum:tel,
+			passWord:md5Psw,
+			registerCode:idCode,
+			referrerTel:inviteCode,
+			vCode:code
+		},
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){
@@ -158,9 +186,12 @@ $("#getLostCode").click(function() {
 		$("#message_tel").html("请输入手机号");
 		return;
 	}
+	var code = $("#register_code").val();
 	$.ajax({
 		url : PATH + '/publicMember/registerCode',// 跳转到 action
-		data : {telnum:tel,type:"1"},
+		data : {telnum:tel,
+			type:"1",
+				vCode:code	},
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){
@@ -188,9 +219,13 @@ $("#resetPass").click(function() {
 		$("#commonModal").modal();
 		return;
 	}
+	var code = $("#register_code").val();
 	$.ajax({
 		url : PATH + '/publicMember/resetPass',// 跳转到 action
-		data : {telnum:tel,registerCode:idCode},
+		data : {telnum:tel,
+			registerCode:idCode,
+			vCode:code
+		},
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){

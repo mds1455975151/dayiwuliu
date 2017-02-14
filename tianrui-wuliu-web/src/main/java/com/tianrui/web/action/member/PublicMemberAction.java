@@ -36,6 +36,7 @@ import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.util.ExcilUtil;
 import com.tianrui.web.util.SessionManager;
+import com.tianrui.web.util.VdCode;
 
 
 /**
@@ -193,8 +194,26 @@ public class PublicMemberAction {
 	@RequestMapping(value = "/registerCode",method=RequestMethod.POST)
 	@ResponseBody
 	public Result getValCode(@RequestParam(defaultValue = "") String telnum,
-					@RequestParam(defaultValue = "0") String type) throws Exception{
-		Result rs =systemMemberService.getValCode(telnum,type,"pc");
+					@RequestParam(defaultValue = "0") String type,
+					String vCode,
+					HttpServletRequest request
+			) throws Exception{
+		Result rs = Result.getSuccessResult();
+				
+		
+		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
+		System.out.println("------------------------"+vc.getCode());
+		if(StringUtils.isNotBlank(vCode)){
+			if(vCode.toLowerCase().equals(vc.getCode().toLowerCase())){
+				systemMemberService.getValCode(telnum,type,"pc");
+			}else{
+				rs.setCode("1");
+				rs.setError("验证码有误");
+			}
+		}else{
+			rs.setCode("1");
+			rs.setError("验证码不能为空");
+		}
 		return rs;
 	}
 	
@@ -217,9 +236,17 @@ public class PublicMemberAction {
 			@RequestParam(defaultValue = "") String passWord,
 			@RequestParam(defaultValue = "") String registerCode,
 			@RequestParam(defaultValue = "") String referrerTel,
+			@RequestParam(defaultValue = "") String vCode,
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
+		
 		Result rs =Result.getSuccessResult();
+		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
+		if(!vc.getCode().toLowerCase().equals(vCode.toLowerCase())){
+			rs.setCode("1");
+			rs.setError("您输入的图片验证码不正确，请重新输入");
+			return rs;
+		}
 		if(!"".equals(telnum) && MakePrimaryKey.isMobileNO(telnum)){
 			MemberReq req =new MemberReq();
 			req.setTelnum(telnum);
@@ -253,7 +280,7 @@ public class PublicMemberAction {
 					SessionManager.setSessionMember(request, member,response);
 				}else {
 					rs.setCode("1");
-					rs.setError("您输入的验证码不正确，请重新输入");
+					rs.setError("您输入的短信验证码不正确，请重新输入");
 				}
 			}
 		}else {
@@ -278,8 +305,19 @@ public class PublicMemberAction {
 	@ResponseBody
 	public Result resetPass(
 			@RequestParam(defaultValue = "") String telnum,
-			@RequestParam(defaultValue = "") String registerCode) throws Exception{
+			@RequestParam(defaultValue = "") String registerCode,
+			@RequestParam(defaultValue = "") String vCode,
+			HttpServletRequest request
+			) throws Exception{
 		Result rs =Result.getSuccessResult();
+		
+		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
+		if(!vc.getCode().toLowerCase().equals(vCode.toLowerCase())){
+			rs.setCode("1");
+			rs.setError("您输入的图片验证码不正确，请重新输入");
+			return rs;
+		}
+		
 		MemberReq req =new MemberReq();
 		req.setTelnum(telnum);
 		if(!"".equals(telnum) && MakePrimaryKey.isMobileNO(telnum)){

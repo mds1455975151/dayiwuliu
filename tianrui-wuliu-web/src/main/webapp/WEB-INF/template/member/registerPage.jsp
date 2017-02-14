@@ -42,6 +42,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        <p id="message_confirmpsw"></p>
 	                    </div>
 	                    <div class="reg_yz">
+	                        <label><i>*</i>验证码:</label>
+	                       	<input type="text" placeholder="请输入验证码" id="register_code">
+	                       	<img id="vcode" src="">
+	                    </div>
+	                    <div class="reg_yz">
 	                        <label><i>*</i>短信验证码:</label>
 	                        <input type="text" placeholder="请输入短信验证码" id="register_idcode">
 	                        <button class="btn " id="idcode_button">获取验证码</button>
@@ -76,6 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript">var PATH = "${path}";</script>
 <script type="text/javascript" src="/resources/js/utils/md5.js" ></script>
-<script type="text/javascript" src="/resources/js/member/registerPage.js" ></script>
+<script type="text/javascript" src="/resources/js/member/registerPage.js?0214" ></script>
 </body>
 </html>

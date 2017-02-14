@@ -31,6 +31,11 @@
                 <span>手机验证</span>
             </div>
             <div class="reg_yz">
+                <label><i>*</i>验证码:</label>
+               	<input type="text" placeholder="请输入验证码" id="register_code">
+               	<img id="vcode" src="">
+            </div>
+            <div class="reg_yz">
                 <label><i>*</i>输入手机号:</label>
                 <input type="text" placeholder="请输入手机号" maxlength="11" id="accountTel" >
                 <button class="btn btn_yz" id="getLostCode" >获取验证码</button>

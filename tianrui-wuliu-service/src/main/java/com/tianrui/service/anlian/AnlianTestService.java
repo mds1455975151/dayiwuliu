@@ -53,7 +53,7 @@ public class AnlianTestService {
 	
 	public static String position(){
 		JSONObject json = new JSONObject();
-		json.put("shipmentno", "SP170204003");
+		json.put("shipmentno", "SP170214001");
 		json.put("username", "E0000249");
 		json.put("pwd", "");
 		return json.toString();

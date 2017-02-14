@@ -69,6 +69,8 @@ public class BillAnlianAction {
 		bill.setDrivertel(resp.getCellPhone());
 		if(!rs.getCode().equals("000000")){
 			bill.setStatus(rs.getError());
+		}else{
+			bill.setStatus("运输中");
 		}
 		view.addObject("bill", bill);
 		view.setViewName("bill/anlian/bill_detail");
