@@ -440,11 +440,11 @@ $(".anlian_renzheng").on("click",function(){
 			success: function(retVal) {
 				if(retVal.code!="000000"){
 					alert(retVal.error);
-					$(this).attr("disabled",false);
+					$(".anlian_renzheng").attr("disabled",false);
 				}else{
 					driverSearch();
 					anlianclean();
-					$(this).attr("disabled",false);
+					$(".anlian_renzheng").attr("disabled",false);
 					$("#alhide").click();
 				}
 			}

@@ -20,8 +20,10 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.bean.VehicleTicket;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.VehicleTicketMapper;
 /**
  * 开票认证
@@ -37,6 +39,8 @@ public class VehicleTicketService implements IVehicleTicketService{
 	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
 	IAnlianService anlianService;
+	@Autowired
+	VehicleDriverMapper vehicleDriverMapper;
 	
 	@Override
 	public Result insert(VehicleTicketReq req) throws Exception {
@@ -106,6 +110,13 @@ public class VehicleTicketService implements IVehicleTicketService{
 	public Result save(VehicleTicketReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(req.getVehicleid());
+		VehicleDriver vd = new VehicleDriver();
+		vd.setVehicleid(req.getVehicleid());
+		List<VehicleDriver> li = vehicleDriverMapper.selectMyVehiDriverByCondition(vd);
+		if(li.size()!=0){
+			rs.setErrorCode(ErrorCode.VEHICLE_DRIVER_NOTONLY);
+			return rs;
+		}
 		//验证车辆id
 		if(vehicle == null){
 			rs.setErrorCode(ErrorCode.VEHICLE_VEHICLE_IDNULL);

@@ -133,7 +133,7 @@ function appendContentToBody(result, flag) {
 					bs = "运输中";
 				}else if(data[i].billstatus == 4){
 					bs = "卸货中";
-				}else{
+				}else if(data[i].billstatus == 5){
 					bs = "空闲";
 				}
 				var td3 = $("<td></td>").append(bs);
@@ -184,9 +184,10 @@ function appendContentToBody(result, flag) {
 					}
 					
 				var button5 = "";
-				if(data[i].status == "1"){
+				//非空闲车辆 非认证成功 不能进行开票认证
+				if(data[i].status == "1"&&data[i].billstatus == 5){
 					if(data[i].desc1 == "0"||data[i].desc1 == undefined){
-						button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"')\"></button>")
+						button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"','"+data[i].driverTel+"')\"></button>")
 						.addClass("btn btnyello")
 						.append("开票认证");
 					}else if(data[i].desc1 == "1"){
@@ -198,7 +199,7 @@ function appendContentToBody(result, flag) {
 						.addClass("btn btnyello")
 						.append("开票认证中");
 					}else if(data[i].desc1 == "-1"){
-						button5 = $("<button  onclick=\"kaipiaoUpt('"+data[i].id+"')\"></button>")
+						button5 = $("<button  onclick=\"kaipiaoUpt('"+data[i].id+"','"+data[i].driverTel+"')\"></button>")
 						.addClass("btn btnyello")
 						.append("开票认证失败");
 					}	
@@ -220,11 +221,19 @@ function appendContentToBody(result, flag) {
 	}
 }
 //开票认证 页面跳转
-function kaipiaoView(id){
-	window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoPage?id="+id;
+function kaipiaoView(id,driverTel){
+	if(driverTel == 'undefined'){
+		window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoPage?id="+id;
+	}else{
+		alert("绑定司机车辆，不能进行开票认证");
+	}
 }
-function kaipiaoUpt(id){
-	window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoUpdate?vehicleid="+id;
+function kaipiaoUpt(id,driverTel){
+	if(driverTel == 'undefined'){
+		window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoUpdate?vehicleid="+id;
+	}else{
+		alert("绑定司机车辆，不能进行开票认证");
+	}
 }
 
 //取消绑定
@@ -336,6 +345,11 @@ function vehiBind(vrowIndex_td, vehiDriverId, vehiId, vehiNo,alstatus, vehiTypeN
 	$("#car_bdbox_vehiTypeName").val(vehiTypeName);
 	/** 隐藏车辆安联认证状态*/
 	$("#car_bdbox_alstatus").val(alstatus);
+	//  -1 认证失败 0 未认证 1 认证成功 2 认证中
+	if(alstatus==2){
+		alert("车辆开票认证中,不能绑定司机");
+		return;
+	}
 	
 	// 暂时解除绑定关系
 	bindDiv.detach();

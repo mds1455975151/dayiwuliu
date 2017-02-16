@@ -152,6 +152,7 @@ $(".ticket_shenhe").on("click",function(){
 		alert("请选择通过或不通过");
 		return;
 	}
+	$(this).attr("disabled",true);
 	$.ajax({
 		url:CONTEXTPATH+'/admin/ticket/shenhe',
 		data:{"id":$("#ticket_id").val(),
@@ -160,8 +161,10 @@ $(".ticket_shenhe").on("click",function(){
 		type:"post",
 		success: function(ret) {
 			if(ret.code!="000000"){
+				$(".ticket_shenhe").attr("disabled",false);
 				alert(ret.error);
 			}else{
+				$(".ticket_shenhe").attr("disabled",false);
 				$(".ticket_hide").click();
 				ticketSearch();
 			}

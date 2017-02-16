@@ -152,6 +152,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--车辆删除end-->
 		
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?11.42" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?02.15" ></script>
 	</body>
 </html>

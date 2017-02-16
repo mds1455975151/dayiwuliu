@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <select class="form-control" id="find_status">
                                             <option value="">请选择</option>
                                             <option value="2">认证中</option>
-                                            <option value="3">认证失败</option>
+                                            <option value="-1">认证失败</option>
                                             <option value="1">认证成功</option>
                                         </select>
                                     </div>
@@ -156,6 +156,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?01.10" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?02.15" ></script>
 </body>
 </html>

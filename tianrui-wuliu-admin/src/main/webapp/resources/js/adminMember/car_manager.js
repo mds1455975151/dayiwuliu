@@ -425,18 +425,18 @@ function details(id){
 			alert("发动机型号不能为空");
 			return;
 		}
-		$(this).attr("disabled",true);
+		$(".anlian_renzheng").attr("disabled",true);
 		$.ajax({
 				url:CONTEXTPATH+"/admin/ticket/save",
 				data:$('#anlian_form').serialize(),
 				type:"post",
 				success: function(retVal) {
 					if(retVal.code!="000000"){
-						$(this).attr("disabled",false);
+						$(".anlian_renzheng").attr("disabled",false);
 						alert(retVal.error);
 					}else{
 						 $("#alhide").click();
-						 $(this).attr("disabled",false);
+						 $(".anlian_renzheng").attr("disabled",false);
 						loadSearch();
 						anlianclean();
 					}

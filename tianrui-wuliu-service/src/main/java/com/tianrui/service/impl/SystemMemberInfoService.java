@@ -17,16 +17,19 @@ import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.front.member.MemberTransferResp;
+import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
+import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberInfoRecordMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
+import com.tianrui.service.mapper.VehicleDriverMapper;
 @Service
 public class SystemMemberInfoService implements ISystemMemberInfoService {
 
@@ -44,6 +47,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	BillMapper billMapper;
 	@Autowired
 	IAnlianService anlianService;
+	@Autowired
+	VehicleDriverMapper vehicleDriverMapper;
 	
 	@Override
 	public Result userReview(MemberInfoReq req) throws Exception {
@@ -306,6 +311,15 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getId());
+		
+		VehicleDriver vd = new VehicleDriver();
+		vd.setDriverid(req.getId());
+		List<VehicleDriver> li = vehicleDriverMapper.selectMyVehiDriverByCondition(vd);
+		if(li.size()!=0){
+			rs.setErrorCode(ErrorCode.VEHICLE_DRIVER1_NOTONLY);
+			return rs;
+		}
+		
 		if(StringUtils.isNotBlank(member.getAldriverid())){
 			rs.setCode("1");
 			rs.setError("司机已通过安联认证");

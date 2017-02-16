@@ -205,7 +205,7 @@ $(function(){
     		}else {
     			yltype = "普通运力";
     		}
-    		hml += "<li><input type='checkbox' dataId="+data[a].vehicledriverid+" alVehicleId="+data[a].desc1+" alDriverId="+data[a].aldriverid+" class='checkInput'>"+
+    		hml += "<li><input class='checkInput' type='checkbox' dataId="+data[a].vehicledriverid+" alVehicleId="+data[a].desc1+" alDriverId="+data[a].aldriverid+">"+
     		"<label>"+data[a].vehicleno+"</label>"+
     		"<span style ='white-space:nowrap' >"+data[a].drivername+"--"+data[a].vehicletype+"</span>"+
     		"<em style='width: 60px;'>"+data[a].weight+"吨</em>"+
