@@ -199,10 +199,7 @@ public class PublicMemberAction {
 					HttpServletRequest request
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
-				
-		
 		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
-		System.out.println("------------------------"+vc.getCode());
 		if(StringUtils.isNotBlank(vCode)){
 			if(vCode.toLowerCase().equals(vc.getCode().toLowerCase())){
 				systemMemberService.getValCode(telnum,type,"pc");
