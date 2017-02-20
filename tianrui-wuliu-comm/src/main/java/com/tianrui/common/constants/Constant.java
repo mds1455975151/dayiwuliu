@@ -31,6 +31,15 @@ public class Constant {
     public static String authCodeValue="";
     //nc支付url
     public static String NC_PAY_URL="";
+    //安联开票URL
+    public static String ANLIAN_PIAO_URL;
+   
+    //请求短信接口的频率 5分钟
+    public static Integer GET_VCODE_FREE;
+    //规定时间内最多请求次数 20次
+    public static Integer GET_VCODE_MAX;
+    //禁止访问时间 2小时
+    public static Integer GET_FORBIDDEN_TIME;
     
     public static String IOS_PUSH_KEY="";
     public static String IOS_PUSH_SERECTKET="";
@@ -73,7 +82,7 @@ public class Constant {
 	public static String getFILE_URL_PRE() {
 		return FILE_URL_PRE;
 	}
-	
+
 	public void setFILE_URL_PRE(String fILE_URL_PRE) {
 		FILE_URL_PRE = fILE_URL_PRE;
 	}
@@ -126,4 +135,37 @@ public class Constant {
 	public static void setIOS_PUSH_TYPE(String iOS_PUSH_TYPE) {
 		IOS_PUSH_TYPE = iOS_PUSH_TYPE;
 	}
+
+	public static Integer getGET_VCODE_FREE() {
+		return GET_VCODE_FREE;
+	}
+
+	public static void setGET_VCODE_FREE(Integer gET_VCODE_FREE) {
+		GET_VCODE_FREE = gET_VCODE_FREE;
+	}
+
+	public static Integer getGET_VCODE_MAX() {
+		return GET_VCODE_MAX;
+	}
+
+	public static void setGET_VCODE_MAX(Integer gET_VCODE_MAX) {
+		GET_VCODE_MAX = gET_VCODE_MAX;
+	}
+
+	public static Integer getGET_FORBIDDEN_TIME() {
+		return GET_FORBIDDEN_TIME;
+	}
+
+	public static void setGET_FORBIDDEN_TIME(Integer gET_FORBIDDEN_TIME) {
+		GET_FORBIDDEN_TIME = gET_FORBIDDEN_TIME;
+	}
+
+	public static String getANLIAN_PIAO_URL() {
+		return ANLIAN_PIAO_URL;
+	}
+
+	public static void setANLIAN_PIAO_URL(String aNLIAN_PIAO_URL) {
+		ANLIAN_PIAO_URL = aNLIAN_PIAO_URL;
+	}
+
 }

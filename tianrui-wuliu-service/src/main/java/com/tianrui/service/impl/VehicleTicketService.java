@@ -113,9 +113,14 @@ public class VehicleTicketService implements IVehicleTicketService{
 		VehicleDriver vd = new VehicleDriver();
 		vd.setVehicleid(req.getVehicleid());
 		List<VehicleDriver> li = vehicleDriverMapper.selectMyVehiDriverByCondition(vd);
-		if(li.size()!=0){
+		//5 空闲车辆
+		if(!"5".equals(vehicle.getBillstatus())){
 			rs.setErrorCode(ErrorCode.VEHICLE_DRIVER_NOTONLY);
 			return rs;
+		}else{
+			for(VehicleDriver cd: li){
+				vehicleDriverMapper.deleteByPrimaryKey(cd.getId());
+			}
 		}
 		//验证车辆id
 		if(vehicle == null){
@@ -140,7 +145,6 @@ public class VehicleTicketService implements IVehicleTicketService{
 					record.setCreatertime(System.currentTimeMillis());
 					vehicleTicketMapper.insertSelective(record);
 					
-					//设置车辆开票认证状态为 认证中
 					MemberVehicle mv = new MemberVehicle();
 					mv.setId(vehicle.getId());
 					mv.setDesc1("1");

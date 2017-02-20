@@ -15,8 +15,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.tianrui.common.vo.MemberVo;
+import com.tianrui.common.vo.Visits;
+import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.action.member.MemberAction;
 import com.tianrui.web.util.SessionManager;
 
@@ -47,15 +53,29 @@ public class PortalsFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpServletResponse res = (HttpServletResponse) response;
 			String contextPath=req.getContextPath();
+			boolean flag = true;
+			String ip = null;
 			try {
-				String ip = getIpAddr(req);
-				logger.info("本次访问IP地址={}",ip);
+				ip = getIpAddr(req);
+				logger.debug("本次访问IP地址={}",ip);
+				
+				WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+				CacheClient cacheClient =wac.getBean(CacheClient.class);
+				String passkey=CacheHelper.buildKey(CacheModule.LOGIN_PASS, ip);
+				Visits vt = cacheClient.getObj(passkey, Visits.class);
+				//IP已被禁止 ，禁止访问其他接口
+				if(vt != null){
+					flag = false;
+				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")||req.getRequestURI().equals("/publicMember/loginPage")){
+			if(!flag){
+				logger.debug("IP访问带过频繁={}",ip);
+				res.getWriter().write("Request frequently, please try again later");
+//				res.sendRedirect(contextPath+"/count/route");
+			}else if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")||req.getRequestURI().equals("/publicMember/loginPage")){
 				res.sendRedirect(contextPath+"/count/route");
 			}else if(req.getRequestURI().contains("/trwuliu/")){
 				//nc支付回调验证 不做session处理
@@ -65,7 +85,7 @@ public class PortalsFilter implements Filter {
 					MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);
 					if (sessionMember == null) {
 						res.sendRedirect(contextPath+"/count/route");	
-					}else {
+					}else{
 						chain.doFilter(request, response);
 					}
 				}

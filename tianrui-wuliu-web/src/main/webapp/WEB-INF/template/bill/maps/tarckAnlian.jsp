@@ -68,7 +68,7 @@
 	  map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
 	  map.enableScrollWheelZoom();                            //启用滚轮放大缩小
 	  map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
-	  
+	  map.centerAndZoom(new BMap.Point(114.309531, 30.59619),50);
 	  showToolAutoDef(map);
 	});
 	
@@ -98,7 +98,11 @@
 							nlat = lat
 							points.push(thePoint1);
 					}
-					map.centerAndZoom(new BMap.Point(nlon, nlat),8);
+					if(list.length==0){
+						map.centerAndZoom(new BMap.Point(113.663221, 34.7568711),8);
+					}else{
+						map.centerAndZoom(new BMap.Point(nlon, nlat),8);
+					}
 					drawPolyline(map, points);
 				}else{
 					alert(rs.error);

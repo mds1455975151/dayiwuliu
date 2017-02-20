@@ -45,6 +45,8 @@ public class ImageViewAction {
 		VdCode vc = validateCode.getRandcode();
 		session.removeAttribute("VdCode");
 		session.setAttribute("VdCode", vc);
+		session.removeAttribute("LoginCode");
+		session.setAttribute("LoginCode", vc);
 		Result rs = Result.getSuccessResult();
 		rs.setData(vc.getImageString());
 		return rs;

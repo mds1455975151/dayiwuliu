@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
@@ -31,6 +34,7 @@ import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.MakePrimaryKey;
 import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
+import com.tianrui.common.vo.Visits;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
@@ -199,9 +203,15 @@ public class PublicMemberAction {
 					HttpServletRequest request
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
+		visitsNumber(request);
+		
 		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
-		if(StringUtils.isNotBlank(vCode)){
+		if(vc == null){
+			rs.setCode("1");
+			rs.setError("请重新获取验证码");
+		}else if(StringUtils.isNotBlank(vCode)){
 			if(vCode.toLowerCase().equals(vc.getCode().toLowerCase())){
+				request.getSession().removeAttribute("VdCode");
 				systemMemberService.getValCode(telnum,type,"pc");
 			}else{
 				rs.setCode("1");
@@ -238,7 +248,7 @@ public class PublicMemberAction {
 		
 		
 		Result rs =Result.getSuccessResult();
-		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
+		VdCode vc = (VdCode) request.getSession().getAttribute("LoginCode");
 		if(!vc.getCode().toLowerCase().equals(vCode.toLowerCase())){
 			rs.setCode("1");
 			rs.setError("您输入的图片验证码不正确，请重新输入");
@@ -274,6 +284,7 @@ public class PublicMemberAction {
 					systemMemberService.saveMember(memberSaveReq);
 					//会员注册缓存存储
 					member= systemMemberService.findMemberByTelnum(req);
+					request.getSession().removeAttribute("LoginCode");
 					SessionManager.setSessionMember(request, member,response);
 				}else {
 					rs.setCode("1");
@@ -443,5 +454,65 @@ public class PublicMemberAction {
 		}
 		return rs;
 	}
+	
+	/** 记录访问者访问次数
+	 * @throws Exception */
+	public void visitsNumber(HttpServletRequest request) throws Exception{
+		String ip = getIpAddr(request);
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		CacheClient cacheClient =wac.getBean(CacheClient.class);
+		String key=CacheHelper.buildKey(CacheModule.VCODE_NUMBER, ip);
+		String passkey=CacheHelper.buildKey(CacheModule.LOGIN_PASS, ip);
+		Visits vt = cacheClient.getObj(key, Visits.class);
+		//访问次数最大值20
+		Integer max = Constant.GET_VCODE_MAX;
+		//有效时间5分钟
+		Integer free = Constant.GET_VCODE_FREE;
+		//禁止访问时间2小时
+		Integer pass = Constant.GET_FORBIDDEN_TIME;
+		
+		if(vt != null){
+			vt.setIp(ip);
+			vt.setNumber(vt.getNumber()+1);
+			vt.setTime(System.currentTimeMillis());
+			if(vt.getNumber()>max){
+				Visits vb = new Visits();
+				//禁用ip
+				vb.setIp(ip);
+				//禁用时间
+				vb.setNumber(pass);
+				//禁用开始时间
+				vb.setTime(System.currentTimeMillis());
+				cacheClient.saveObject(passkey, vb, pass*60);
+			}
+		}else{
+			vt = new Visits();
+			vt.setIp(ip);
+			vt.setNumber(+1);
+			vt.setTime(System.currentTimeMillis());
+		}
+		cacheClient.saveObject(key, vt,free*60);
+	}
+	
+	/** 获取访问者IP*/
+	public String getIpAddr(HttpServletRequest request) throws Exception{  
+        String ip = request.getHeader("X-Real-IP");  
+        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {  
+            return ip;  
+        }  
+        ip = request.getHeader("X-Forwarded-For");  
+        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {  
+            // 多次反向代理后会有多个IP值，第一个为真实IP。  
+            int index = ip.indexOf(',');  
+            if (index != -1) {  
+                return ip.substring(0, index);  
+            } else {  
+                return ip;  
+            }  
+        } else {  
+            return request.getRemoteAddr();  
+        }  
+    }  
+		
 	
 }

@@ -38,6 +38,10 @@
 		<property name="IOS_PUSH_KEY" value="${ios.push.apiKey}"></property>
 		<property name="IOS_PUSH_SERECTKET" value="${ios.push.secretKey}"></property>
 		<property name="IOS_PUSH_TYPE" value="${ios.push.type}"></property>
+		<property name="GET_VCODE_FREE" value="${get.vcode.free}"></property>
+		<property name="GET_VCODE_MAX" value="${get.vcode.max}"></property>
+		<property name="GET_FORBIDDEN_TIME" value="${get.forbidden.time}"></property>
+		<property name="ANLIAN_PIAO_URL" value="${anlian.piao.url}"></property>
 	</bean>
      
      <import resource="applicationContext-db.xml"/>

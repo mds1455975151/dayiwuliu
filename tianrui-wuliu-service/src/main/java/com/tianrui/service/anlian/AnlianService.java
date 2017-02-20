@@ -23,6 +23,7 @@ import com.tianrui.api.req.admin.anlian.LinesReq;
 import com.tianrui.api.req.admin.anlian.OrdersReq;
 import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.AnlianDict;
@@ -60,16 +61,17 @@ public class AnlianService implements IAnlianService{
 	@Autowired
 	AnlianDictMapper anlianDictMapper;
 	
-	//注册车辆
-	public static String TRUCK = "http://223.255.14.186:149/api/Truck";
-	//注册司机
-	public static String DRIVER = "http://223.255.14.186:149/api/Driver";
-	//注册挂车
-//	public static String TRAILER  = "http://223.255.14.186:149/api/Trailer";
-	//推单
-	public static String SHIPMENT = "http://223.255.14.186:149/api/Shipment";
 	
-	public static String DETAIL = "http://223.255.14.186:149/api/ShipmentTrace";
+	//注册车辆 
+	public static String TRUCK =  "/api/Truck";
+	//注册司机
+	public static String DRIVER = "/api/Driver";
+	//注册挂车
+//	public static String TRAILER  = "/api/Trailer";
+	//推单
+	public static String SHIPMENT = "/api/Shipment";
+	
+	public static String DETAIL = "/api/ShipmentTrace";
 	@Override
 	public Result driver(AnlianDriverReq req) {
 		Result rs = Result.getSuccessResult();
@@ -203,7 +205,7 @@ public class AnlianService implements IAnlianService{
 	public String anlianUrl(String urlStr ,String dataString){
 		String response = "";
 		try {
-			URL url = new URL(urlStr);
+			URL url = new URL(Constant.ANLIAN_PIAO_URL + urlStr);
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’
