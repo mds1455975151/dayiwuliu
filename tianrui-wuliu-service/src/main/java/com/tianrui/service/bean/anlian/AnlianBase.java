@@ -1,9 +1,11 @@
 package com.tianrui.service.bean.anlian;
 
+import com.tianrui.common.constants.Constant;
+
 public class AnlianBase {
-	private String username="E0000249";
+	private String username=Constant.ANLIAN_USERNAME;
 	
-	private String pwd="";
+	private String pwd=Constant.ANLIAN_PASSWORD;
 
 	public String getUsername() {
 		return username;

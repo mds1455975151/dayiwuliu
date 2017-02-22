@@ -276,6 +276,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/merchant/file_merchant.js"></script>
+<script type="text/javascript" src="/resources/js/merchant/file_merchant.js?02.21"></script>
 </body>
 </html>

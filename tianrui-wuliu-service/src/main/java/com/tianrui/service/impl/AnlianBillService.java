@@ -23,10 +23,12 @@ import com.tianrui.service.admin.bean.FileCargo;
 import com.tianrui.service.admin.bean.FileOrgCargo;
 import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.bean.Merchant;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
 import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.bean.AnlianDict;
 import com.tianrui.service.bean.BillAnlianPosition;
 import com.tianrui.service.bean.MemberVehicle;
@@ -74,6 +76,8 @@ public class AnlianBillService implements IAnlianBillService{
 	AnlianBillMapper anlianBillMapper;
 	@Autowired
 	BillAnlianPositionDao billAnlianPositionDao;
+	@Autowired
+	MerchantMapper merchantMapper;
 	
 	@Override
 	public Result alBillSave(AnlianBillSaveReq req) throws Exception {
@@ -121,9 +125,13 @@ public class AnlianBillService implements IAnlianBillService{
 		String uu = UUIDUtil.getId();
 		shipment.setPzdh(uu.substring(0, 6));
 		
+		Merchant mchant = merchantMapper.selectByPrimaryKey(plan.getShipperMerchant());
+		
 		OrdersReq order = new OrdersReq();
 		//TODO 客户代码
-		order.setKhdm("KH00001");
+		if(mchant!=null){
+			order.setKhdm(mchant.getCode());
+		}
 		//提货地址
 		order.setThdz(plan.getStartcity());
 		//收货地址
@@ -209,7 +217,6 @@ public class AnlianBillService implements IAnlianBillService{
 	}
 	@Override
 	public List<AnlianBillResp> findAll(AnlianBillFindReq req) throws Exception {
-		// TODO Auto-generated method stub
 		AnlianBill bill = new AnlianBill();
 		PropertyUtils.copyProperties(bill, req);
 		List<AnlianBill> list = anlianBillMapper.selectByCondition(bill);
@@ -218,7 +225,6 @@ public class AnlianBillService implements IAnlianBillService{
 
 	@Override
 	public Result findByid(AnlianBillFindReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
 		

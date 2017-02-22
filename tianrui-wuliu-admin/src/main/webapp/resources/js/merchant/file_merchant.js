@@ -166,7 +166,7 @@ $(".save_Merchant").on("click",function(){
 		alert("详细地址不能为空");
 		return;
 	}
-	$(this).attr("disabled",true);
+	$(".save_Merchant").attr("disabled",true);
 	$.ajax({
 		url:"/merchant/insert",
 		data:$('#saveMerchant').serialize(),// 你的formid
@@ -174,13 +174,13 @@ $(".save_Merchant").on("click",function(){
 		success:function(ret){
 			var code = ret.code;
 			if(code == "000000"){
-				$(this).attr("disabled",false);
+				$(".save_Merchant").attr("disabled",false);
 				alert("添加成功");
 				cleanValue();
 				$("#addclick").click();
 				displayData(0);
 			}else{
-				$(this).attr("disabled",false);
+				$(".save_Merchant").attr("disabled",false);
 				alert(ret.error);
 			}
 			

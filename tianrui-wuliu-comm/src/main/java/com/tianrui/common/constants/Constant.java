@@ -33,6 +33,10 @@ public class Constant {
     public static String NC_PAY_URL="";
     //安联开票URL
     public static String ANLIAN_PIAO_URL;
+    //安联用户名
+    public static String ANLIAN_USERNAME;
+    //安联密码
+    public static String ANLIAN_PASSWORD;
    
     //请求短信接口的频率 5分钟
     public static Integer GET_VCODE_FREE;
@@ -166,6 +170,22 @@ public class Constant {
 
 	public static void setANLIAN_PIAO_URL(String aNLIAN_PIAO_URL) {
 		ANLIAN_PIAO_URL = aNLIAN_PIAO_URL;
+	}
+
+	public static String getANLIAN_USERNAME() {
+		return ANLIAN_USERNAME;
+	}
+
+	public static void setANLIAN_USERNAME(String aNLIAN_USERNAME) {
+		ANLIAN_USERNAME = aNLIAN_USERNAME;
+	}
+
+	public static String getANLIAN_PASSWORD() {
+		return ANLIAN_PASSWORD;
+	}
+
+	public static void setANLIAN_PASSWORD(String aNLIAN_PASSWORD) {
+		ANLIAN_PASSWORD = aNLIAN_PASSWORD;
 	}
 
 }

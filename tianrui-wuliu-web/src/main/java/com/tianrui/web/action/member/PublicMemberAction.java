@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -204,18 +205,16 @@ public class PublicMemberAction {
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
 		visitsNumber(request);
-		
-		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
+		String vc = getRedisVCode(request);
 		if(vc == null){
 			rs.setCode("1");
 			rs.setError("请重新获取验证码");
 		}else if(StringUtils.isNotBlank(vCode)){
-			if(vCode.toLowerCase().equals(vc.getCode().toLowerCase())){
-				request.getSession().removeAttribute("VdCode");
+			if(vCode.toLowerCase().equals(vc.toLowerCase())){
 				systemMemberService.getValCode(telnum,type,"pc");
 			}else{
 				rs.setCode("1");
-				rs.setError("验证码有误");
+				rs.setError("验证码有误,请重新获取验证码");
 			}
 		}else{
 			rs.setCode("1");
@@ -243,17 +242,11 @@ public class PublicMemberAction {
 			@RequestParam(defaultValue = "") String passWord,
 			@RequestParam(defaultValue = "") String registerCode,
 			@RequestParam(defaultValue = "") String referrerTel,
-			@RequestParam(defaultValue = "") String vCode,
+			@RequestParam(defaultValue = "") String vCodes,
 			HttpServletRequest request,HttpServletResponse response) throws Exception{
 		
 		
 		Result rs =Result.getSuccessResult();
-		VdCode vc = (VdCode) request.getSession().getAttribute("LoginCode");
-		if(!vc.getCode().toLowerCase().equals(vCode.toLowerCase())){
-			rs.setCode("1");
-			rs.setError("您输入的图片验证码不正确，请重新输入");
-			return rs;
-		}
 		if(!"".equals(telnum) && MakePrimaryKey.isMobileNO(telnum)){
 			MemberReq req =new MemberReq();
 			req.setTelnum(telnum);
@@ -284,7 +277,6 @@ public class PublicMemberAction {
 					systemMemberService.saveMember(memberSaveReq);
 					//会员注册缓存存储
 					member= systemMemberService.findMemberByTelnum(req);
-					request.getSession().removeAttribute("LoginCode");
 					SessionManager.setSessionMember(request, member,response);
 				}else {
 					rs.setCode("1");
@@ -318,13 +310,6 @@ public class PublicMemberAction {
 			HttpServletRequest request
 			) throws Exception{
 		Result rs =Result.getSuccessResult();
-		
-		VdCode vc = (VdCode) request.getSession().getAttribute("VdCode");
-		if(!vc.getCode().toLowerCase().equals(vCode.toLowerCase())){
-			rs.setCode("1");
-			rs.setError("您输入的图片验证码不正确，请重新输入");
-			return rs;
-		}
 		
 		MemberReq req =new MemberReq();
 		req.setTelnum(telnum);
@@ -453,6 +438,25 @@ public class PublicMemberAction {
 			rs.setError("您输入的手机号不正确，请重新输入");
 		}
 		return rs;
+	}
+	/**redis 获取验证码*/
+	public String getRedisVCode(HttpServletRequest request){
+		//取COOKIE
+		Cookie[] cookies = request.getCookies();
+		Cookie t = null;
+		for(Cookie item : cookies){
+		    if(item.getName().equalsIgnoreCase("VCODEID")){
+		    	t=item;
+		    	break;
+		    };
+		}
+		String vid = t.getValue();
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		CacheClient cacheClient =wac.getBean(CacheClient.class);
+		String key=CacheHelper.buildKey(CacheModule.VCODE_ID, vid);
+		String vc = cacheClient.getString(key);
+		cacheClient.remove(key);
+		return vc;
 	}
 	
 	/** 记录访问者访问次数
