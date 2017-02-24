@@ -1,5 +1,9 @@
 package com.tianrui.common.vo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /***
  * 接口访问次数
  * @author jh
@@ -12,6 +16,8 @@ public class Visits {
 	private Integer number;
 	
 	private Long time;
+	
+	private String timeStr;
 
 	public String getIp() {
 		return ip;
@@ -35,5 +41,16 @@ public class Visits {
 
 	public void setTime(Long time) {
 		this.time = time;
+	}
+
+	public String getTimeStr() {
+		if(time != null){
+			timeStr = new SimpleDateFormat("yyyy-mm-dd hh:MM:ss").format(new Date(time));
+		}
+		return timeStr;
+	}
+
+	public void setTimeStr(String timeStr) {
+		this.timeStr = timeStr;
 	}
 }

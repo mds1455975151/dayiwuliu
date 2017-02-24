@@ -1,5 +1,7 @@
 package com.tianrui.service.cache;
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -41,6 +43,12 @@ public class CacheClient {
 		} catch (Exception e) {
 			logger.warn(e.getLocalizedMessage());
 		} 
+		return rs;
+	}
+	
+	public Set<String>  getList(String keys){
+		Set<String> rs = null;
+		rs = redisTemplate.keys(keys);
 		return rs;
 	}
 	
