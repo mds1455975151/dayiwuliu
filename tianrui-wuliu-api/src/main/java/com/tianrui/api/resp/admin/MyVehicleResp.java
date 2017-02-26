@@ -44,6 +44,7 @@ public class MyVehicleResp extends BaseResp{
 	private String roadtransportimage;
 	
 	private String desc1;
+	private String desc2;
 	/**
 	 * 车牌号前缀
 	 */
@@ -278,5 +279,12 @@ public class MyVehicleResp extends BaseResp{
 	}
 	public void setCreatetime(Long createtime) {
 		this.createtime = createtime;
+	}
+	public String getDesc2() {
+		desc2 = StringUtils.isBlank(desc2)?"2":desc2;
+		return desc2;
+	}
+	public void setDesc2(String desc2) {
+		this.desc2 = desc2;
 	}
 }

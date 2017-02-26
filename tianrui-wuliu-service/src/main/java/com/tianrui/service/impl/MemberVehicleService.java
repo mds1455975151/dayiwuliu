@@ -174,21 +174,17 @@ public class MemberVehicleService implements IMemberVehicleService {
 			memberVehicle.setCreatetime(new Date().getTime());
 		}
 		
-		// 设置新增时状态(认证中)
-		if (memberVehicle.getStatus() == null) {
+		// 1-临时车辆 2-认证车辆
+		if ("1".equals(memberVehicle.getDesc2())) {
+			memberVehicle.setStatus("1");
+		}else if("2".equals(memberVehicle.getDesc2())){
 			memberVehicle.setStatus("2");
-			memberVehicle.setBillstatus("5");
-			//开票认证 未认证
-			memberVehicle.setDesc1("0");
 		}
+		memberVehicle.setBillstatus("5");
+		//开票认证 未认证
+		memberVehicle.setDesc1("0");
 		// 数据插入操作
-		long count = memberVehicleMapper.insert(memberVehicle);
-		long a = 1;
-		if(count!=a){
-			rs.setCode("1");
-			rs.setError("操作失败");
-			return rs;
-		}
+		memberVehicleMapper.insert(memberVehicle);
 		return rs;
 	}
 	
@@ -203,16 +199,10 @@ public class MemberVehicleService implements IMemberVehicleService {
 		Result rs = Result.getSuccessResult();
 		// 复制操作
 		MemberVehicle memberVehicle = copyProperties( req);
-		
 		// 数据更新操作
-		long count = memberVehicleMapper.updateByPrimaryKeySelective(memberVehicle);
-		long a = 1;
-		if(count!=a){
-			rs.setCode("1");
-			rs.setError("操作失败");
-			return rs;
-		}
+		memberVehicleMapper.updateByPrimaryKeySelective(memberVehicle);
 		
+		//消息推送
 		MemberVehicle mass = memberVehicleMapper.selectByPrimaryKey(req.getId());
 		SendMsgReq mreq = new SendMsgReq();
 		List<String> strs = new ArrayList<String>();
@@ -450,7 +440,7 @@ public class MemberVehicleService implements IMemberVehicleService {
 		argMemberVehicle.setAgreeimage(argMemberVehicleReq.getAgreeimage());
 		argMemberVehicle.setRoadtransportcode(argMemberVehicleReq.getRoadtransportcode());
 		argMemberVehicle.setRoadtransportimage(argMemberVehicleReq.getRoadtransportimage());
-		
+		argMemberVehicle.setDesc2(argMemberVehicleReq.getDesc2());
 		// 主键
 		argMemberVehicle.setId(argMemberVehicleReq.getId());
 		//车辆运单状态
@@ -576,7 +566,7 @@ public class MemberVehicleService implements IMemberVehicleService {
 				memberVehicleResp.setAudittime(memberVehicle.getAudittime());
 				
 				memberVehicleResp.setDesc1(memberVehicle.getDesc1());
-				
+				memberVehicleResp.setDesc2(memberVehicle.getDesc2());
 				memberVehicleResp.setMemo(memberVehicle.getMemo());
 				
 				memberVehicleRespList.add(memberVehicleResp);

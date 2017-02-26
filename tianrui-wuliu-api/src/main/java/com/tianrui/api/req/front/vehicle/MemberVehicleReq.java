@@ -69,6 +69,8 @@ public class MemberVehicleReq extends BaseReq{
 	private Long modifyTime;
 	/** 审核时间*/
 	private Long audittime;
+	/** 临时车辆-1； 认证车辆-2*/
+	private String desc2;
 	
 	/**
 	 * 获取主键
@@ -112,6 +114,14 @@ public class MemberVehicleReq extends BaseReq{
 
 	public String getRegistimage() {
 		return registimage;
+	}
+
+	public String getDesc2() {
+		return desc2;
+	}
+
+	public void setDesc2(String desc2) {
+		this.desc2 = desc2;
 	}
 
 	public void setRegistimage(String registimage) {

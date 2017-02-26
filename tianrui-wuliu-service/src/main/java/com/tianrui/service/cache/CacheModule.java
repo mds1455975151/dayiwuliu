@@ -27,6 +27,7 @@ public enum CacheModule {
 	LOGIN_PASS("login_pass","禁止访问的IP"),
 	VCODE_NUMBER("code_number","获取验证码次数"),
 	VCODE_ID("vcode_id","获取验证码次数"),
+	VEHICLE_NO("vehicle_no","临时车牌号"),
 	
 	RESETPASS("resetPass-","PC端重置密码验证码"),
 	RESETPASS_APP("resetPass1-","APP端重置密码验证码"),

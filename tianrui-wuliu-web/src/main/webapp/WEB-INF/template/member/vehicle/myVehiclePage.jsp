@@ -31,7 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <!--个人中心右侧begin-->
 			        <div class="car_right">
 			            <div class="car_title bgblue">
-			                <h2>我的车辆</h2><a href="${path}/trwuliu/Member/myVehicle/addVehiclePage"><span>添加车辆</span></a>
+			                <h2>我的车辆</h2>
+			                <a href="${path}/trwuliu/Member/myVehicle/addLinVehiclePage"><span>临时认证</span></a>
+			                <a href="${path}/trwuliu/Member/myVehicle/addVehiclePage"><span>完全认证</span></a>
 			            </div>
 			            <div class="car_search">
 			                <ul>
@@ -84,8 +86,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                        <th >车辆信息	</th>
 				                        <th >认证状态</th>
 				                        <th >车辆状态</th>
+				                        <th >认证方式</th>
 				                        <th> 操作</th>
 				                        <th> 开票认证</th>
+				                        <th> 认证信息</th>
 				                    </tr>
 				                    </thead>
 				                    <tbody id="vehicle_tbody">

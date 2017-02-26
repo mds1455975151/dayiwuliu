@@ -30,8 +30,6 @@ import com.tianrui.web.util.VdCode;
 public class ImageViewAction {
 
 	
-	ValidateCode validateCode;
-	
 	/**图片旋转*/
 	@RequestMapping("index")
 	public ModelAndView index(String imageUrl){

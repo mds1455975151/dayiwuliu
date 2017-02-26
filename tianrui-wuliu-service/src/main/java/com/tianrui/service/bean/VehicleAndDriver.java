@@ -52,6 +52,8 @@ public class VehicleAndDriver implements IModel {
 	private String status;
 	/** 开票认证 -1:认证失败,0:未认证,1:认证成功,2:认证中 */
 	private String desc1;
+	/** 1-临时车辆 2-认证车辆*/
+	private String desc2;
 	/** 认证失败原因 */
 	private String memo;
 	/** 创建认证时间*/
@@ -113,6 +115,14 @@ public class VehicleAndDriver implements IModel {
 
 	public String getVehiOwnerName() {
 		return vehiOwnerName;
+	}
+
+	public String getDesc2() {
+		return desc2;
+	}
+
+	public void setDesc2(String desc2) {
+		this.desc2 = desc2;
 	}
 
 	public void setVehiOwnerName(String vehiOwnerName) {

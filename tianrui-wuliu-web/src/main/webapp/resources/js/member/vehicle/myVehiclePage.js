@@ -137,6 +137,13 @@ function appendContentToBody(result, flag) {
 					bs = "空闲";
 				}
 				var td3 = $("<td></td>").append(bs);
+				var dc2 ="";
+				if(data[i].desc2==1){
+					dc2 = "临时认证";
+				}else if(data[i].desc2==2){
+					dc2 = "完全认证";
+				}
+				var td3_1 = $("<td></td>").append(dc2);
 				/** <td> */
 				var td4 = $("<td></td>").attr("id","rowIndex" + rowIndex + "_td4");
 					if (data[i].status == "-1") {
@@ -184,8 +191,8 @@ function appendContentToBody(result, flag) {
 					}
 					
 				var button5 = "";
-				//非空闲车辆 非认证成功 不能进行开票认证
-				if(data[i].status == "1"&&data[i].billstatus == 5){
+				//非空闲车辆 非认证成功 不能进行开票认证 临时车辆
+				if(data[i].status == "1"&&data[i].billstatus == 5&&data[i].desc2 == 2){
 					if(data[i].desc1 == "0"||data[i].desc1 == undefined){
 						button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"','"+data[i].driverTel+"')\"></button>")
 						.addClass("btn btnyello")
@@ -206,8 +213,23 @@ function appendContentToBody(result, flag) {
 				}
 				var td5 = $("<td></td>");
 				    td5.addClass("f12 bill_lineh2");
-				td5.append(button5);
-				tr1.append(td1).append(td2).append(td3).append(td4).append(td5);
+				    td5.append(button5);
+				
+				var button6 = "";
+				//1临时车辆 2认证车辆
+				if(data[i].desc2 == 2){
+					button6 = "信息齐全";
+				}else if(data[i].desc2 == 1){
+					button6 = $("<button  onclick=\"buquanxinxi('"+data[i].id+"')\"></button>")
+					.addClass("btn btnyello")
+					.append("补全信息");
+				}
+				var td6 = $("<td></td>");
+				    td6.addClass("f12 bill_lineh2");
+				    td6.append(button6);
+				
+				
+				tr1.append(td1).append(td2).append(td3).append(td3_1).append(td4).append(td5).append(td6);
 			
 			if (flag == 0) {
 				// 搜索查询时表体正常附加数据
@@ -440,6 +462,12 @@ function appendContentToUl(data, varI, vehiDriverId, vehiId, vehiNo, vehiTypeNam
  */
 function faildetails(id){
 	window.location.href = PATH + "/trwuliu/Member/myVehicle/vehicleFilePage?id="+id;
+}
+/**
+ * 查看审核失败详情
+ */
+function buquanxinxi(id){
+	window.location.href = PATH + "/trwuliu/Member/myVehicle/updateLinPage?id="+id;
 }
 /**
  * 『绑定司机』中『绑定』事件

@@ -106,6 +106,14 @@ function displayRec(pageNo){
 								anlian = "认证中";
 							}
 						}
+						var linType = "";
+						if(d[a].desc2==1){
+							linType = "<a onclick=\"buquanPage('"+d[a].id+"','"+(pageNo+1)+"')\"><span>【临时】</span></a>";
+							anlian = "临时";
+							sta = "临时";
+						}else if(d[a].desc2==2){
+							linType = "完全";
+						}
 						
 						hml += "<tr><td>"+c+"</td>"+
 							"<td>"+d[a].vehicleprefix+d[a].vehicleno+"</td>"+
@@ -115,6 +123,7 @@ function displayRec(pageNo){
 							"<td>"+ownerphone+"</td>"+
 							"<td>"+type+"</td>"+
 							"<td>"+d[a].vehiweight+"</td>"+
+							"<td>"+linType+"</td>"+
 							"<td>"+anlian+"</td>"+
 							"<td>"+sta+"</td>"+
 							"<td>"+d[a].createtimeStr+"</td>"+
@@ -200,6 +209,12 @@ function shenhe(id,pageNo){
 	var menuId = $("#menuId").val();
 	window.location.href =CONTEXTPATH+"/AdminMember/carShenhe?menuId="+menuId+"&id="+id+"&pageNo="+pageNo;
 }
+function buquanPage(id,pageNo){
+	var menuId = $("#menuId").val();
+	window.location.href =CONTEXTPATH+"/AdminMember/carBuquanPage?menuId="+menuId+"&id="+id+"&pageNo="+pageNo;
+}
+
+
 /**
  * 查询详情
  * @param id
@@ -293,23 +308,8 @@ function details(id){
 					sta = "认证中";
 				}
 				var type = "";
-				if(d.vehicletype=="1"){
-					type = "箱式";
-				}
-				if(d.vehicletype=="2"){
-					type = "板车";
-				}
-				if(d.vehicletype=="3"){
-					type = "冷藏";
-				}
-				if(d.vehicletype=="4"){
-					type = "散装罐车";
-				}
-				if(d.vehicletype=="5"){
-					type = "半挂车";
-				}
-				if(d.vehicletype=="6"){
-					type = "重型自卸货车";
+				if(d.vehicletypename != undefined){
+					type = d.vehicletypename;
 				}
 				//<a data-toggle='modal' data-target='#againPice'>【重新上传】</a>
 				var registcode = d.registimage==""?"<span>未上传</span>":("<span>证书编号：<a href='/imageView/index?imageUrl="+d.registimage+"' target='_blank'>查看照片</a></span>");

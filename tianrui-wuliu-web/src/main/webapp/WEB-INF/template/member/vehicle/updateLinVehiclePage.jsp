@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>大易物流平台-完全认证</title>
+<title>大易物流平台-修改车辆</title>
 <meta name="keywords" content=" 天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
@@ -34,19 +34,25 @@
 			<!--个人中心右侧begin-->
 			<div class="rz_right">
 				<div class=" bgblue">
-					<h2>完全认证</h2>
+					<h2>修改车辆</h2>
 				</div>
 				<!-- 个人车辆begin -->
 				<div class="car_box">
 					<div class="reg_tel">
-						<label> <span style="color: red">*</span>车牌号码：</label> <input type="text" id="vehicle_add_vehiNo">
+						<input type="hidden" id="vehicleid" value="${vehicle.id }">
+						<label>车牌号码：</label> <input type="text"
+							value="${vehicle.vehiclePrefix }${vehicle.vehicleNo}"
+							id="vehicle_add_vehiNo">
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>营运证号：</label> <input type="text" id="vehicle_add_opercode">
+						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
+						<p id="message_opercode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyzsl.jpg">
+								<a href="${vehicle.operimage }" target="_blank"> <img
+									class="xkz" width="240" src="${vehicle.operimage }">
+								</a>
 							</div>
 							<div class="img_upload">
 								<input id="file_xkz" onchange="xkzfile()" class="file" type="file"> <span
@@ -56,49 +62,48 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>车辆类型：</label> <select class="form-control w350"
+						<label>车辆类型：</label> <select class="form-control w350"
 							id="vehicle_add_vehiType">
 							<option value="0">请选择</option>
 							<c:forEach items="${vt }" var="type">
-							<option value="${type.wlcode }">${type.wlname }</option>
+							<option value="${type.wlcode }" 
+							<c:if test="${vehicle.vehicleType eq type.wlcode }">selected="true"</c:if>
+							>${type.wlname }</option>
 							</c:forEach>
-							<!-- 
-							<option value="5">半挂车</option>
-							<option value="1">厢式</option>
-							<option value="2">板车</option>
-							<option value="3">冷藏</option>
-							<option value="4">散装罐车</option>
-							<option value="6">重型自卸货车</option>
-							 -->
 						</select>
 						<div class="clear"></div>
 						<p id="message_vehiType"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</label> <input
-							type="text" placeholder="" id="vehicle_add_vehiLength"> 米
+						<label>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</label> <input
+							type="text" placeholder="" value="${vehicle.vehiLength }"
+							id="vehicle_add_vehiLength"> 米
 						<p id="message_vehiLength"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
-							type="text" placeholder="" id="vehicle_add_vehiWeight"> 吨
+						<label>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
+							type="text" placeholder="" value="${vehicle.vehiWeight }"
+							id="vehicle_add_vehiWeight"> 吨
 						<p id="message_vehiWeight"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>所有人姓名：</label> <input maxlength="8" type="text"
-							id="vehicle_add_vehiOwnerName">
+						<label>所有人姓名：</label> <input type="text"
+							value="${vehicle.vehiOwnerName }" id="vehicle_add_vehiOwnerName">
 						<p id="message_vehiOwnerName"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>联系电话：</label> <input type="text" maxlength="11"
+						<label>联系电话：</label> <input type="text"
+							value="${vehicle.vehiOwnerTel }" maxlength="11"
 							id="vehicle_add_vehiTel">
 						<p id="message_vehiTel"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>车辆照片：</label>
+						<label>车辆照片：</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="cel" style="max-height: 240px;" src="${trRoot}/tianrui/images/democar.jpg">
+								<a href="${vehicle.vehiHeadImgPath }" target="_blank"> <img
+									class="cel" width="240" src="${vehicle.vehiHeadImgPath }">
+								</a>
 							</div>
 							<div class="img_upload">
 								<input id="file_cel" onchange="celfile()" class="file" type="file"> <span
@@ -108,10 +113,12 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>行驶证：</label>
+						<label>行驶证：</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="xsz" style="max-height: 240px;" src="${trRoot}/tianrui/images/demoxsz.jpg">
+								<a href="${vehicle.vehiLicenseImgPath }" target="_blank"> <img
+									class="xsz" width="240" src="${vehicle.vehiLicenseImgPath }">
+								</a>
 							</div>
 							<div class="img_upload">
 								<input id="file_xsz" onchange="xszfile()" class="file" type="file"> <span
@@ -122,10 +129,13 @@
 					</div>
 					
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>车辆登记证：</label> 
+						<label>车辆登记证：</label> 
+						<p id="message_registcode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="djz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
+								<a href="${vehicle.registimage }" target="_blank"> <img
+									class="djz" width="240" src="${vehicle.registimage }">
+								</a>
 							</div>
 							<div class="img_upload">
 								<input id="file_djz" onchange="djzfile()" class="file" type="file"> <span
@@ -136,16 +146,17 @@
 					</div>
 					<div class="car_photo">
 						<div class="car_addbtn">
-							<button type="submit" class="btn btnyello" id="vehicle_addBtn">添加</button>
+							<button type="submit" class="btn btnyello" id="vehicle_addBtn">修改</button>
 							<button type="submit" class="btn btnblue" id="vehicle_cancelBtn">取消</button>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- 个人车辆end -->
 		</div>
-		<!-- 个人车辆end -->
+		<!--个人中心右侧end-->
 	</div>
-	<!--个人中心右侧end-->
+</div>
 </div>
 <!--上传进度条-->
 <a id="showload" data-toggle="modal" data-target="#detail"></a>
@@ -164,21 +175,20 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </div>
 <!--上传进度条end-->
 <!--内容部分end-->
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
+<script type="text/javascript"
+	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript">
 	var trRoot = "${trRoot}/tianrui/images/";
 </script>
-<script type="text/javascript"
-	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?02.13"></script>
+	src="/resources/js/member/vehicle/updateLinVehiclePage.js?02.24"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

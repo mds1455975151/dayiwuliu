@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberOwnerService;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IMessageService;
@@ -19,16 +18,15 @@ import com.tianrui.api.intf.IOwnerDriverService;
 import com.tianrui.api.intf.ISystemMemberInfoRecordService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.intf.IVehicleNOService;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
-import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.member.MemberResp;
-import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
 import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
@@ -64,7 +62,7 @@ public class AppVehicleAndDriverAction {
 	@Autowired
 	private IMemberOwnerService memberOwnerService;
 	@Autowired
-	private IFileService iFileService;
+	IVehicleNOService vehicleNOService;
 	@Autowired
 	private IMessageService messageService;
 	@Autowired
@@ -243,6 +241,17 @@ public class AppVehicleAndDriverAction {
 		result.setTotal(pageVo.getTotalInt());
 		return result;
 	}
+	/** 获取临时车牌号*/
+	@RequestMapping("/getVehicleNo")
+	@ApiParamRawType(VehicleAndDriverReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult getVehicleNo(AppParam<VehicleAndDriverReq> appParam) throws Exception {
+		Result rs = Result.getSuccessResult();
+		rs.setData(vehicleNOService.getVehicleNo());
+		return AppResult.valueOf(rs);
+	}
+	
 	/**
 	 * 
 	 * @描述:新增车辆
@@ -267,8 +276,27 @@ public class AppVehicleAndDriverAction {
 		req.setVehicleId(id);
 		req.setCreator(appParam.getHead().getId());
 		req.setMemberId(appParam.getHead().getId());
+		req.setDesc2("2");
 		result = memberVehicleService.insert(req);
+		return AppResult.valueOf(result);
+	}
+	/** 添加临时车辆*/
+	@RequestMapping(value="/addLinVehicle",method=RequestMethod.POST)
+	@ApiParamRawType(MemberVehicleReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult addLinVehicle(AppParam<MemberVehicleReq> appParam) throws Exception{
 		
+		Result result = Result.getSuccessResult();
+		
+		MemberVehicleReq req = appParam.getBody();
+		String id = UUIDUtil.getId();
+		req.setId(id);
+		req.setVehicleId(id);
+		req.setCreator(appParam.getHead().getId());
+		req.setMemberId(appParam.getHead().getId());
+		req.setDesc2("1");
+		result = memberVehicleService.insert(req);
 		return AppResult.valueOf(result);
 	}
 	
@@ -292,14 +320,15 @@ public class AppVehicleAndDriverAction {
 		MemberVehicleReq vehiReq = appParam.getBody();
 		
 		MemberVehicleReq rreq = new MemberVehicleReq();
-		rreq.setVehicleNo(appParam.getBody().getVehicleNo());
-		rreq.setVehiclePrefix(appParam.getBody().getVehiclePrefix());
-		rreq.setStatus("1");
+		rreq.setVehicleNo(vehiReq.getVehicleNo());
+		rreq.setVehiclePrefix(vehiReq.getVehiclePrefix());
 		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
 		if(list.size()!=0){
-			rs.setCode("1");
-			rs.setError("该车辆已存在");
-			return AppResult.valueOf(rs);
+			if(!vehiReq.getId().equals(list.get(0).getId())){
+				rs.setCode("1");
+				rs.setError("该车辆已存在");
+				return AppResult.valueOf(rs);
+			}
 		}
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
 		vehiReq.setCreateTime(new Date().getTime());
@@ -309,91 +338,34 @@ public class AppVehicleAndDriverAction {
 		return AppResult.valueOf(rs);
 	}
 	
-//	/**
-//	 * 
-//	 * @描述:我的车主
-//	 * @param appParam
-//	 * @return
-//	 * @throws Exception
-//	 * @返回类型 AppResult
-//	 * @创建人 lsj
-//	 * @创建时间 2016年6月30日上午8:51:04
-//	 */
-//	@RequestMapping(value="/myOwnerDriver",method=RequestMethod.POST)
-//	@ApiParamRawType(MemberOwnerReq.class)
-//	@ApiTokenValidation
-//	@ResponseBody
-//	public AppResult myOwnerDriver(AppParam<MemberOwnerReq> appParam) throws Exception{
-//		AppResult result = new AppResult();
-//		result.setCode("000000");
-//		MemberOwnerReq req = new MemberOwnerReq();
-//		req.setMemberId(appParam.getBody().getMemberId());
-//		PaginationVO<MemberOwnerResp> pageVo = memberOwnerService.queryMyVehiOwnerByPage(req);
-//		result.setReturnData(pageVo.getList());
-//		result.setTotal(pageVo.getTotalInt());
-//		return result;
-//	}
-//	/**
-//	 * 
-//	 * @描述:新增我的车主
-//	 * @param appParam
-//	 * @return
-//	 * @throws Exception
-//	 * @返回类型 AppResult
-//	 * @创建人 lsj
-//	 * @创建时间 2016年6月30日上午9:50:49
-//	 */
-//	@RequestMapping(value="/addOwnerDriver",method=RequestMethod.POST)
-//	@ApiParamRawType(MemberOwnerReq.class)
-//	@ApiTokenValidation
-//	@ResponseBody
-//	public AppResult addOwnerDriver(AppParam<MemberOwnerReq> appParam) throws Exception{
-//		Result rs = Result.getSuccessResult();
-//		
-//		MemberReq member = new MemberReq();
-//		member.setTelnum(appParam.getHead().getAccount());
-//		MemberResp resp = systemMemberService.findMemberByTelnum(member);
-//		String userName = "";
-//		if(!"".equals(resp.getUserName())){
-//			userName = resp.getUserName();
-//		}else if(!"".equals(resp.getNickname())){
-//			userName = resp.getNickname();
-//		}else{
-//			userName = resp.getCellPhone();
-//		}
-//		
-//		MemberOwnerReq ownerReq = appParam.getBody();
-//		// 主键
-//		ownerReq.setId(UUIDUtil.getId());
-//		ownerReq.setMemberId(appParam.getHead().getId());
-//		ownerReq.setOwnerId(appParam.getBody().getOwnerId());
-//		ownerReq.setOwnerName(appParam.getBody().getOwnerName());
-//		ownerReq.setOwnerTel(appParam.getBody().getOwnerTel());
-//		ownerReq.setStatus("0");
-//		ownerReq.setIsEnabled("1");
-//		rs = memberOwnerService.insert(ownerReq);
-//		
-//		if ("000000".equals(rs.getCode())) {
-//			// 发送消息
-//			SendMsgReq sendMsgReq = new SendMsgReq();
-//			// 会员
-//			sendMsgReq.setType("2");
-//			// 车主
-//			sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2OWNER_ADD);
-//			sendMsgReq.setKeyid(ownerReq.getId());
-//			List<String> paramList = new ArrayList<String>();
-//			paramList.add(userName);
-//			sendMsgReq.setParams(paramList);
-//			sendMsgReq.setSendid(appParam.getHead().getId());
-//			sendMsgReq.setSendname(userName);
-//			sendMsgReq.setRecid(ownerReq.getOwnerId());
-//			sendMsgReq.setRecname(ownerReq.getOwnerName());
-//			rs = messageService.sendMessageInside(sendMsgReq);
-//		} else {
-//			rs.setCode("1");
-//		}
-//		return AppResult.valueOf(rs);
-//	}
+	@RequestMapping(value="/uptLinVehicle",method=RequestMethod.POST)
+	@ApiParamRawType(MemberVehicleReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult uptLinVehicle(AppParam<MemberVehicleReq> appParam) throws Exception{
+		
+		Result rs = Result.getSuccessResult();
+		MemberVehicleReq vehiReq = appParam.getBody();
+		
+		MemberVehicleReq rreq = new MemberVehicleReq();
+		rreq.setVehicleNo(vehiReq.getVehicleNo());
+		rreq.setVehiclePrefix(vehiReq.getVehiclePrefix());
+		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
+		if(list.size()!=0){
+			if(!vehiReq.getId().equals(list.get(0).getId())){
+				rs.setCode("1");
+				rs.setError("该车辆已存在");
+				return AppResult.valueOf(rs);
+			}
+		}
+		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
+		vehiReq.setCreateTime(new Date().getTime());
+		vehiReq.setStatus("2");
+		// 更新操作
+		rs = memberVehicleService.updateByPrimaryKeySelective(vehiReq);
+		return AppResult.valueOf(rs);
+	}
+	
 	/**
 	 * 
 	 * @描述:车辆司机绑定

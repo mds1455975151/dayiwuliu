@@ -86,6 +86,7 @@
     <result column="roadtransportcode" property="roadtransportcode" jdbcType="VARCHAR" />
     <result column="roadtransportimage" property="roadtransportimage" jdbcType="VARCHAR" />
     <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
     
   </resultMap>
   
@@ -781,7 +782,8 @@
            a.vehiOwnerName as vehiOwnerName,a.vehilicenseimgpath as vehilicenseimgpath,
       	   a.registcode as registcode, a.registimage as registimage, a.opercode as opercode, a.operimage as operimage,
     	   a.identitycode as identitycode, a.identieyimage as identieyimage, a.agreeimage as agreeimage, 
-    	   a.roadtransportcode as roadtransportcode, a.roadtransportimage as roadtransportimage, a.desc1 as desc1
+    	   a.roadtransportcode as roadtransportcode, 
+    	   a.roadtransportimage as roadtransportimage, a.desc1 as desc1, a.desc2 as desc2
       from wuliu_member_vehicle a 
            left join  wuliu_vehicle_driver b 
            		on a.memberid = b.creator

@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.admin.intf.IMyDriverService;
 import com.tianrui.api.admin.intf.IMyVehicleService;
 import com.tianrui.api.intf.IDataDictService;
+import com.tianrui.api.intf.IDataService;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberCapaService;
 import com.tianrui.api.intf.IMemberOwnerService;
@@ -35,6 +36,7 @@ import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.admin.MyDriverReq;
 import com.tianrui.api.req.admin.MyVehicleReq;
+import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
@@ -50,6 +52,7 @@ import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
+import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
@@ -74,7 +77,7 @@ public class AdminMemberAction {
 	@Autowired
 	private IMyVehicleService vehicleService;
 	@Autowired
-	private IMemberVehicleService MemberVehicleService;
+	private IMemberVehicleService memberVehicleService;
 	@Autowired
 	private ISystemMemberService systemMemberService;
 	@Autowired
@@ -89,6 +92,8 @@ public class AdminMemberAction {
 	IMemberCapaService memberCapaService;
 	@Autowired
 	IMemberOwnerService memberOwnerService;
+	@Autowired
+	IDataService dataService;
 	/**
 	 * @描述:车主查询
 	 * @return
@@ -498,6 +503,46 @@ public class AdminMemberAction {
 		rs.setData(resp);
 		return rs;
 	}
+	/** 车辆信息补全 页面跳转*/
+	@RequestMapping("/carBuquanPage")
+	public ModelAndView carBuquanPage(String id,String pageNo) throws Exception{
+		MyVehicleResp veh = vehicleService.findById(id);
+		ModelAndView view = new ModelAndView();
+		view.addObject("Vehicle", veh);
+		view.addObject("pageNo", pageNo);
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
+		view.setViewName("/adminMember/car_buquan");
+		return view;
+	}
+	
+	/** 车辆信息补全
+	 * @throws Exception */
+	@RequestMapping("carBUquan")
+	@ResponseBody
+	public Result carBUquan(MemberVehicleReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		
+		MemberVehicleReq rreq = new MemberVehicleReq();
+		rreq.setVehicleNo(req.getVehicleNo());
+		rreq.setVehiclePrefix(req.getVehiclePrefix());
+		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
+		if(list.size()!=0){
+			MemberVehicleResp resp = list.get(0);
+			if(!resp.getId().equals(req.getId())){
+				rs.setCode("1");
+				rs.setError("该车牌号已被认证");
+				return rs;
+			}
+		}
+		
+		req.setDesc2("2");
+		req.setStatus("1");
+		rs = memberVehicleService.updateByPrimaryKeySelective(req);
+		return rs;
+	}
+	
 	/**
 	 * 
 	 * @描述:车辆审核
@@ -542,7 +587,7 @@ public class AdminMemberAction {
 		req.setMemo(massage);
 		req.setAudittime(new Date().getTime());
 		//修改车辆认证状态
-		rs = MemberVehicleService.updateByPrimaryKeySelective(req);
+		rs = memberVehicleService.updateByPrimaryKeySelective(req);
 		return rs;
 	}
 	/** 修改车辆照片
@@ -572,7 +617,7 @@ public class AdminMemberAction {
 				req.setIdentitycode(code);
 				req.setIdentieyimage(rs.getData().toString());
 			}
-			rs = MemberVehicleService.updateByPrimaryKeySelective(req);
+			rs = memberVehicleService.updateByPrimaryKeySelective(req);
 		}
 		return rs;
 	}

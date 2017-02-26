@@ -1,6 +1,5 @@
 package com.tianrui.web.action.vehicle;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -14,13 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IDataService;
-import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IOwnerDriverService;
+import com.tianrui.api.intf.IVehicleNOService;
 import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
@@ -49,6 +47,8 @@ public class MyVehicleAction {
 	private IOwnerDriverService ownerDriverService;
 	@Autowired
 	IDataService dataService;
+	@Autowired
+	IVehicleNOService vehicleNOService;
 	
 	/**
 	 * 我的车辆跳转页面
@@ -60,7 +60,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping("/myVehiclePage")
 	@AuthValidation(autyType=Constant.AUTHCHECK_USER)
-	public ModelAndView indexPage() throws Exception{
+	public ModelAndView myVehiclePage() throws Exception{
 		ModelAndView view = new ModelAndView();
 		WebDictReq req = new WebDictReq();
 		req.setType("vehicle");
@@ -82,8 +82,24 @@ public class MyVehicleAction {
 	public ModelAndView updatePage(String id)throws Exception{
 		MemberVehicleResp resp = memberVehicleService.queryMyVehicleInfoById(id);
 		ModelAndView view = new ModelAndView();
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
 		view.addObject("vehicle", resp);
-		view.setViewName("/member/vehicle/updateDriverPage");
+		view.setViewName("/member/vehicle/updateVehiclePage");
+		return view;
+	}
+	/** 临时车辆补全信息*/
+	@RequestMapping("/updateLinPage")
+	public ModelAndView updateLinPage(String id)throws Exception{
+		MemberVehicleResp resp = memberVehicleService.queryMyVehicleInfoById(id);
+		ModelAndView view = new ModelAndView();
+		//TODO
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
+		view.addObject("vehicle", resp);
+		view.setViewName("/member/vehicle/updateLinVehiclePage");
 		return view;
 	}
 	
@@ -116,14 +132,35 @@ public class MyVehicleAction {
 	 * @time 2016年6月13日 上午14:54:00
 	 */
 	@RequestMapping("/addVehiclePage")
-	public ModelAndView addDriverPage() throws Exception {
+	public ModelAndView addVehiclePage() throws Exception {
 		ModelAndView view = new ModelAndView();
-		//TODO
 		WebDictReq req = new WebDictReq();
 		req.setType("vehicle");
 		view.addObject("vt", dataService.find(req));
 		view.setViewName("/member/vehicle/addVehiclePage");
 		return view;
+	}
+	/***
+	 * 临时车辆认证页面
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/addLinVehiclePage")
+	public ModelAndView addLinVehiclePage() throws Exception {
+		ModelAndView view = new ModelAndView();
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
+		view.setViewName("/member/vehicle/addLinVehiclePage");
+		return view;
+	}
+	
+	@RequestMapping("/getVehicleNo")
+	@ResponseBody
+	public Result getVehicleNo() throws Exception {
+		Result rs = Result.getSuccessResult();
+		rs.setData(vehicleNOService.getVehicleNo());
+		return rs;
 	}
 	
 	/**
@@ -141,7 +178,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/getMyVehicleByPage", method = RequestMethod.POST)
 	@ResponseBody
-	public Result queryMyVehicleByPage(String id, 
+	public Result getMyVehicleByPage(String id, 
 							            String vehiId, 
 							             String vehiWholeNo,
 							              String pageNo) throws Exception{
@@ -189,7 +226,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/getMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result queryMyVehicleByCondition(String id, 
+	public Result getMyVehicle(String id, 
 			                                 String memberId,
 								              String vehiId, 
 								              String status,
@@ -237,7 +274,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/getMyDriverOutOfRange", method = RequestMethod.POST)
 	@ResponseBody
-	public Result queryMyDriverOutsideByCondition(String memberId,
+	public Result getMyDriverOutOfRange(String memberId,
 												   String driverName,
 												    String driverTel) throws Exception{
 		
@@ -274,7 +311,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/getVehiAndDriver", method = RequestMethod.POST)
 	@ResponseBody
-	public Result queryVehiAndDriverByCondition(String memberId, 
+	public Result getVehiAndDriver(String memberId, 
 									             String vehiId, 
 									              String vehiNo, 
 									              String vehiFix, 
@@ -327,7 +364,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/saveMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result saveMyVehicleInfo(
+	public Result saveMyVehicle(
 			MemberVehicleReq vehiReq,
 			String vehiWholeNo
 			) throws Exception{
@@ -350,6 +387,42 @@ public class MyVehicleAction {
 			vehicleReq.setVehicleNo(null);
 		}
 		vehicleReq.setCreator(vehiReq.getMemberId());
+		//1 认证车辆
+		vehicleReq.setDesc2("2");
+		// 插入操作
+		rs = memberVehicleService.insert(vehicleReq);
+		return rs;
+	}
+	/**
+	 * 新增临时车辆信息
+	 */
+	@RequestMapping(value = "/saveLinVehicle", method = RequestMethod.POST)
+	@ResponseBody
+	public Result saveLinVehicle(
+			MemberVehicleReq vehiReq,
+			String vehiWholeNo
+			) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVehicleReq vehicleReq = new MemberVehicleReq();
+		PropertyUtils.copyProperties(vehicleReq, vehiReq);
+		
+		String id = getUUId();
+		vehicleReq.setId(id);
+		vehicleReq.setVehicleId(id);
+		if (vehiWholeNo != null && !"".equals(vehiWholeNo)) {
+			// 车牌号前缀
+			vehicleReq.setVehiclePrefix(vehiWholeNo.substring(0,2));
+			// 车牌号
+			vehicleReq.setVehicleNo(vehiWholeNo.substring(2));
+		} else {
+			// 车牌号前缀
+			vehicleReq.setVehiclePrefix(null);
+			// 车牌号
+			vehicleReq.setVehicleNo(null);
+		}
+		vehicleReq.setCreator(vehiReq.getMemberId());
+		//1 临时车辆
+		vehicleReq.setDesc2("1");
 		// 插入操作
 		rs = memberVehicleService.insert(vehicleReq);
 		return rs;
@@ -367,28 +440,56 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/updateMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result updateMyVehicleInfo(MemberVehicleReq vehiReq) throws Exception{
+	public Result updateMyVehicle(MemberVehicleReq vehiReq) throws Exception{
 		Result rs = Result.getSuccessResult();
 		
 		MemberVehicleReq rreq = new MemberVehicleReq();
 		rreq.setVehicleNo(vehiReq.getVehicleNo());
 		rreq.setVehiclePrefix(vehiReq.getVehiclePrefix());
-		rreq.setStatus("1");
 		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
 		if(list.size()!=0){
-			rs.setCode("1");
-			rs.setError("该车牌号已被认证");
-			return rs;
+			if(!vehiReq.getId().equals(list.get(0).getId())){
+				rs.setCode("1");
+				rs.setError("该车牌号已被认证");
+				return rs;
+			}
 		}
-		
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
 		vehiReq.setCreateTime(new Date().getTime());
 		vehiReq.setStatus("2");
 		// 更新操作
 		rs = memberVehicleService.updateByPrimaryKeySelective(vehiReq);
-		
 		return rs;
 	}
+	/** 临时车辆完善信息*/
+	@RequestMapping(value = "/updateLinMyVehicle", method = RequestMethod.POST)
+	@ResponseBody
+	public Result updateLinMyVehicle(MemberVehicleReq vehiReq) throws Exception{
+		Result rs = Result.getSuccessResult();
+		
+		MemberVehicleReq rreq = new MemberVehicleReq();
+		rreq.setVehicleNo(vehiReq.getVehicleNo());
+		rreq.setVehiclePrefix(vehiReq.getVehiclePrefix());
+		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
+		
+		if(list.size()!=0){
+			MemberVehicleResp resp = list.get(0);
+			if(!resp.getId().equals(vehiReq.getId())){
+				rs.setCode("1");
+				rs.setError("该车牌号已被认证");
+				return rs;
+			}
+		}
+		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
+		vehiReq.setCreateTime(new Date().getTime());
+		vehiReq.setStatus("2");
+		//2-认证车辆
+		vehiReq.setDesc2("2");
+		// 更新操作
+		rs = memberVehicleService.updateByPrimaryKeySelective(vehiReq);
+		return rs;
+	}
+	
 	
 	/**
 	 * 删除我的车辆信息
@@ -402,7 +503,7 @@ public class MyVehicleAction {
 	 */
 	@RequestMapping(value = "/deleteMyVehicle", method = RequestMethod.POST)
 	@ResponseBody
-	public Result deleteMyVehicleInfo(String id) throws Exception{
+	public Result deleteMyVehicle(String id) throws Exception{
 
 		Result rs = memberVehicleService.deleteByPrimaryKey(id);
 		return rs;

@@ -37,6 +37,7 @@ public class MyVehicle{
 	private String companytel;
 	
 	private String desc1;
+	private String desc2;
 	/**
 	 * 车牌号前缀
 	 */
@@ -138,6 +139,14 @@ public class MyVehicle{
 
 	public void setRegistimage(String registimage) {
 		this.registimage = registimage;
+	}
+
+	public String getDesc2() {
+		return desc2;
+	}
+
+	public void setDesc2(String desc2) {
+		this.desc2 = desc2;
 	}
 
 	public String getOpercode() {

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>大易物流平台-完全认证</title>
+<title>大易物流平台-临时认证</title>
 <meta name="keywords" content=" 天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
@@ -34,16 +34,26 @@
 			<!--个人中心右侧begin-->
 			<div class="rz_right">
 				<div class=" bgblue">
-					<h2>完全认证</h2>
+					<h2>临时认证</h2>
 				</div>
 				<!-- 个人车辆begin -->
 				<div class="car_box">
 					<div class="reg_tel">
-						<label> <span style="color: red">*</span>车牌号码：</label> <input type="text" id="vehicle_add_vehiNo">
+						<label> 
+						<span style="color: red">*</span>
+						车牌号码：</label> 
+						<span id="lin_vehicle">
+						<input value="" type="text" id="vehicle_add_vehiNo" readonly="readonly">
+						<input style="margin-left: 20px" type="button" class="btn btnblue" onclick="VehilceNo_yuan()" value="已有车牌">
+						</span>
+						<span id="you_vehicle">
+						<input value="" type="text" id="vehicle_add_vehiNo_2">
+						<input style="margin-left: 20px" type="button" class="btn btnblue" onclick="getVehilceNo()" value="获取车牌">
+						</span>
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>营运证号：</label> <input type="text" id="vehicle_add_opercode">
+						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode">
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyzsl.jpg">
@@ -62,14 +72,6 @@
 							<c:forEach items="${vt }" var="type">
 							<option value="${type.wlcode }">${type.wlname }</option>
 							</c:forEach>
-							<!-- 
-							<option value="5">半挂车</option>
-							<option value="1">厢式</option>
-							<option value="2">板车</option>
-							<option value="3">冷藏</option>
-							<option value="4">散装罐车</option>
-							<option value="6">重型自卸货车</option>
-							 -->
 						</select>
 						<div class="clear"></div>
 						<p id="message_vehiType"></p>
@@ -108,7 +110,7 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>行驶证：</label>
+						<label>行驶证：</label>
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="xsz" style="max-height: 240px;" src="${trRoot}/tianrui/images/demoxsz.jpg">
@@ -122,7 +124,7 @@
 					</div>
 					
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>车辆登记证：</label> 
+						<label>车辆登记证：</label> 
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="djz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
@@ -178,7 +180,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?02.13"></script>
+	src="/resources/js/member/vehicle/addLinVehiclePage.js?02.24"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"
