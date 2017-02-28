@@ -36,23 +36,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <h3>车辆信息补全</h3>
                     </div>
                     <!--车辆信息begin-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="person_cont">
+                    <div class="rz_box">
+                            <div class="reg_tel">
                                 <input type="hidden" name="id" id="veh_id" value="${Vehicle.id }">
-                                <label>车牌号前缀：</label>
+                                <label><i class="colorred">*</i>车牌号前缀：</label>
                                 <input type="text" name="vehiclePrefix" id="veh_vehiclePrefix" value="${Vehicle.vehicleprefix }">
                                 <span></span>
-                                <br><label>车牌号：</label>
+							</div>                           
+                            <div class="reg_tel">
+                                <label><i class="colorred">*</i>车牌号：</label>
                                	<input type="text" name="vehicleNo" id="veh_vehicleNo" value="${Vehicle.vehicleno }">
                                 <span></span>
-                                <br><label>所有人姓名：</label>
+                            </div>                           
+                            <div class="reg_tel">
+                                <label><i class="colorred">*</i>所有人姓名：</label>
                                 <input type="text" name="vehiOwnerName" id="veh_vehiOwnerName" value="${Vehicle.userName }">
                                 <span></span>
-                                <br><label>联系方式：</label>
+                            </div>                           
+                            <div class="reg_tel">
+                                <label><i class="colorred">*</i>联系方式：</label>
                                 <input type="text" name="vehiOwnerTel" id="veh_vehiOwnerTel" value="${Vehicle.telphone }">
                                 <span></span>
-                                <br><label>车辆类型：</label> 
+                            </div>                           
+                            <div class="reg_tel">
+                                <label><i class="colorred">*</i>车辆类型：</label> 
                                 <select class="form-control w350" name="vehicleType" id="veh_vehicleType">
 									<option value="0">请选择</option>
 									<c:forEach items="${vt }" var="type">
@@ -61,23 +68,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									>${type.wlname }</option>
 									</c:forEach>
 								</select>
-                                <br><label>载重(吨)：</label>
+							</div>                           
+                            <div class="reg_tel">
+                                <label><i class="colorred">*</i>载重(吨)：</label>
                                 <input type="text" name="vehiWeight" id="veh_vehiWeight" value="${Vehicle.vehiweight }">
                                 <span></span>
-                                <br><label>长度(米)：</label>
+                           	</div>                           
+                            <div class="reg_tel">
+                                <label><i class="colorred">*</i>长度(米)：</label>
                                 <input type="text" name="vehiLength" id="veh_vehiLength" value="${Vehicle.vehilength }">
                                 <span></span><br>
                             </div>
-                        </div>
                     </div>
                     <!--车辆信息end-->
                     <div class="user_shtitle mt20">
                         <h3>认证文件</h3>
                     </div>
                     <div class="row ">
-                        <div class="person_cont">
-                            <div class="" >
-                                <label>行驶证照片：</label>
+                        <div class="rz_info">
+                            <div class="rz_imgshow" >
+                                <label><i class="colorred">*</i>行驶证照片：</label>
                                 <input type="hidden" name="vehiLicenseImgPath" id="veh_vehiLicenseImgPath" value="${Vehicle.vehilicenseimgpath }">
                                 <c:if test="${Vehicle.vehilicenseimgpath ne '' }">
                                 <span><a href="/imageView/index?imageUrl=${Vehicle.vehilicenseimgpath }" target="_blank">
@@ -92,8 +102,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 				                </div>
                             </div>
-                            <div class="" >
-                                <label>车辆照片：</label>
+                         </div>   
+                         <div class="rz_info">
+                            <div class="rz_imgshow" >
+                                <label><i class="colorred">*</i>车辆照片：</label>
                                 <input type="hidden" name="vehiHeadImgPath" id="veh_vehiHeadImgPath" value="${Vehicle.vehiheadimgpath }">
                                 <c:if test="${Vehicle.vehiheadimgpath ne ''}">
                                 <span><a href="/imageView/index?imageUrl=${Vehicle.vehiheadimgpath }" target="_blank">
@@ -108,8 +120,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 				                </div>
                             </div>
-                            <div class="" >
-                                <label>营运证号：</label>
+                         </div>
+                      </div>
+                    <div class="user_shtitle mt20">
+                    </div>
+                      <div class="row ">
+                         <div class="rz_info">
+                            <div class="rz_imgshow" >
+                                <label><i class="colorred">*</i>营运证号：</label>
                                 <input id="veh_opercode" name="opercode" type="text" value="${Vehicle.opercode }"><br>
                                	<input type="hidden" name="operimage" id="veh_operimage" value="${Vehicle.operimage }">
                                	<c:if test="${Vehicle.operimage ne ''}">
@@ -128,8 +146,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                </div>
 				               </div>
                             </div>
-                            <div class="" >
-                                <label>车辆登记证：</label>
+                          </div>
+                          <div class="rz_info">
+                            <div class="rz_imgshow" >
+                                <label><i class="colorred">*</i>车辆登记证：</label>
                                 <input type="hidden" name="registimage" id="veh_registimage" value="${Vehicle.registimage }">
                                 <c:if test="${Vehicle.registimage ne ''}">
                                 <a href="/imageView/index?imageUrl=${Vehicle.registimage }" target="_blank">
@@ -145,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                </div>
 					            </div>
                             </div>
-                        </div>
+                         </div>
                     </div>
                     <div class="row ">
                             <div class="person_button">

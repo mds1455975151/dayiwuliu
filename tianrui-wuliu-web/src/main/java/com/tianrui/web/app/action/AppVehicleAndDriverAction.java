@@ -361,6 +361,8 @@ public class AppVehicleAndDriverAction {
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
 		vehiReq.setCreateTime(new Date().getTime());
 		vehiReq.setStatus("2");
+		//2-认证车辆
+		vehiReq.setDesc2("2");
 		// 更新操作
 		rs = memberVehicleService.updateByPrimaryKeySelective(vehiReq);
 		return AppResult.valueOf(rs);
