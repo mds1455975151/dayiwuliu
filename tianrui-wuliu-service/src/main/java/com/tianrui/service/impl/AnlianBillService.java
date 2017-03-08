@@ -108,8 +108,12 @@ public class AnlianBillService implements IAnlianBillService{
 		shipment.setZtj(req.getVolume());
 		//总数量
 		shipment.setZsl(req.getSize());
+		
+		Double siz = Double.valueOf(req.getSize());
+		Double pric = Double.valueOf(req.getPrice());
+		Double yf = siz*pric;
 		//运费
-		shipment.setYf(req.getPrice());
+		shipment.setYf(String.valueOf(yf));
 		//计费方式 10-重量 20-体积 默认按重量计算
 		shipment.setJffs("10");
 		//始发地
