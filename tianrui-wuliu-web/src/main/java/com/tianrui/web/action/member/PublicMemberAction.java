@@ -205,8 +205,13 @@ public class PublicMemberAction {
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
 		visitsNumber(request);
-		String vc = getRedisVCode(request);
-		if(vc == null){
+		String vc = null;
+		try {
+			vc = getRedisVCode(request);
+		} catch (Exception e) {
+			vc = null;
+		}
+		if(StringUtils.isBlank(vc)){
 			rs.setCode("1");
 			rs.setError("请重新获取验证码");
 		}else if(StringUtils.isNotBlank(vCode)){
@@ -444,18 +449,21 @@ public class PublicMemberAction {
 		//取COOKIE
 		Cookie[] cookies = request.getCookies();
 		Cookie t = null;
-		for(Cookie item : cookies){
-		    if(item.getName().equalsIgnoreCase("VCODEID")){
-		    	t=item;
-		    	break;
-		    };
+		String vc = "";
+		if(cookies.length!=0){
+			for(Cookie item : cookies){
+				if(item.getName().equalsIgnoreCase("VCODEID")){
+					t=item;
+					break;
+				};
+			}
+			String vid = t.getValue();
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			CacheClient cacheClient =wac.getBean(CacheClient.class);
+			String key=CacheHelper.buildKey(CacheModule.VCODE_ID, vid);
+			vc = cacheClient.getString(key);
+			cacheClient.remove(key);
 		}
-		String vid = t.getValue();
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		CacheClient cacheClient =wac.getBean(CacheClient.class);
-		String key=CacheHelper.buildKey(CacheModule.VCODE_ID, vid);
-		String vc = cacheClient.getString(key);
-		cacheClient.remove(key);
 		return vc;
 	}
 	

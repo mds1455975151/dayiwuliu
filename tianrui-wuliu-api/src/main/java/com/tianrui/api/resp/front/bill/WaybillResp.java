@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.tianrui.api.resp.BaseResp;
 import com.tianrui.api.util.DateTypeUtil;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
 
 public class WaybillResp extends BaseResp{
@@ -14,6 +15,7 @@ public class WaybillResp extends BaseResp{
 	private static final long serialVersionUID = 3588964458488414595L;
 
 	private String id;
+	private String systemShipper = Constant.SYSTEM_SHIPPER;
     private String planid;
     private String vehicleid;
     private String driverid;
@@ -503,5 +505,10 @@ public class WaybillResp extends BaseResp{
 	public void setIsAssess(String isAssess) {
 		this.isAssess = isAssess;
 	}
-	
+	public String getSystemShipper() {
+		return systemShipper;
+	}
+	public void setSystemShipper(String systemShipper) {
+		this.systemShipper = systemShipper;
+	}
 }

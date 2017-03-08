@@ -42,9 +42,11 @@
 		<property name="GET_VCODE_MAX" value="${get.vcode.max}"></property>
 		<property name="GET_FORBIDDEN_TIME" value="${get.forbidden.time}"></property>
 		<property name="ANLIAN_PIAO_URL" value="${anlian.piao.url}"></property>
-		
 		<property name="ANLIAN_USERNAME" value="${anlian.username}"></property>
 		<property name="ANLIAN_PASSWORD" value="${anlian.password}"></property>
+		
+		<property name="SYSTEM_PUSH_STATUS" value="${system.push.status}"></property>
+		<property name="SYSTEM_SHIPPER" value="${system.shipper}"></property>
 	</bean>
      
      <import resource="applicationContext-db.xml"/>

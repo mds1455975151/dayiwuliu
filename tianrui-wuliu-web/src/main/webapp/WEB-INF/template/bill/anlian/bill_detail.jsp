@@ -120,11 +120,13 @@
 									</tbody>
 									<thead>
 										<tr>
+											<th>承运方</th>
 											<th>运单状态</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
+											<td>${bill.systemShipper}</td>
 											<td>${bill.status }</td>
 										</tr>
 									</tbody>

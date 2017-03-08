@@ -48,7 +48,11 @@ public class Constant {
     public static String IOS_PUSH_KEY="";
     public static String IOS_PUSH_SERECTKET="";
     public static String IOS_PUSH_TYPE="";
-
+    
+    //添加关系是否需要同意
+    public static String SYSTEM_PUSH_STATUS;
+    //系统承运方
+    public static String SYSTEM_SHIPPER;
     
     //日志文件 访问日志 记录访问来源
     public final static String ACCESS ="access";
@@ -188,4 +192,19 @@ public class Constant {
 		ANLIAN_PASSWORD = aNLIAN_PASSWORD;
 	}
 
+	public static String getSYSTEM_PUSH_STATUS() {
+		return SYSTEM_PUSH_STATUS;
+	}
+
+	public static void setSYSTEM_PUSH_STATUS(String sYSTEM_PUSH_STATUS) {
+		SYSTEM_PUSH_STATUS = sYSTEM_PUSH_STATUS;
+	}
+
+	public static String getSYSTEM_SHIPPER() {
+		return SYSTEM_SHIPPER;
+	}
+
+	public static void setSYSTEM_SHIPPER(String sYSTEM_SHIPPER) {
+		SYSTEM_SHIPPER = sYSTEM_SHIPPER;
+	}
 }

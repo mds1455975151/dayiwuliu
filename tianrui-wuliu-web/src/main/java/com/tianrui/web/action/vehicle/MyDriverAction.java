@@ -329,6 +329,7 @@ public class MyDriverAction {
 		driverReq.setDrivertel(driverTel);
 		// 司机备注名称
 		driverReq.setRemarkname(remarkName);
+		String sd =  Constant.SYSTEM_PUSH_STATUS;
 		// 默认待回复
 		driverReq.setStatus("0");
 		// 创建人

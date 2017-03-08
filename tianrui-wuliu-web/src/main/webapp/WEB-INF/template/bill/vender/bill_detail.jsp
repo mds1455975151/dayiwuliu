@@ -82,17 +82,14 @@
 										<tr>
 											<th>发货方</th>
 											<th>收货方</th>
-											<th>税率</th>
+											<th>承运方</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>${bill.shipper }</td>
 											<td>${bill.consignee }</td>
-											<td><c:if test="${not empty bill.tallage }">
-													<fmt:formatNumber type="number" value="${bill.tallage }"
-														maxFractionDigits="0"></fmt:formatNumber>%
-                                	</c:if></td>
+											<td>${bill.systemShipper}</td>
 										</tr>
 									</tbody>
 									<thead>
@@ -151,6 +148,7 @@
 									<thead>
 										<tr>
 											<th>总趟数</th>
+											<th>税率</th>
 											<th>
 												<c:if test="${bill.status==6}">
 													运单总价
@@ -161,6 +159,10 @@
 									<tbody>
 										<tr>
 											<td>共${bill.totalnumber }趟</td>
+											<td><c:if test="${not empty bill.tallage }">
+													<fmt:formatNumber type="number" value="${bill.tallage }"
+														maxFractionDigits="0"></fmt:formatNumber>%
+                                			</c:if></td>
 											<td>
 												<c:if test="${bill.status==6}">
 													<fmt:formatNumber type="number" value="${bill.price*bill.trueweight}" pattern="0.00" maxFractionDigits="2"/>元

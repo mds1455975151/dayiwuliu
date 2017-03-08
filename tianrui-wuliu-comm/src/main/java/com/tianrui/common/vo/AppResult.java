@@ -1,5 +1,7 @@
 package com.tianrui.common.vo;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.common.constants.ErrorCode;
 
 public class AppResult {

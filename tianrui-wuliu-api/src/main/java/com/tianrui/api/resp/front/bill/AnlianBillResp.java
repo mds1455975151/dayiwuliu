@@ -4,8 +4,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.tianrui.common.constants.Constant;
+
 public class AnlianBillResp {
     private String id;
+    
+    private String systemShipper = Constant.SYSTEM_SHIPPER;
     
     private String status;
     
@@ -366,6 +370,14 @@ public class AnlianBillResp {
 
 	public void setCreatetimeStr(String createtimeStr) {
 		this.createtimeStr = createtimeStr;
+	}
+
+	public String getSystemShipper() {
+		return systemShipper;
+	}
+
+	public void setSystemShipper(String systemShipper) {
+		this.systemShipper = systemShipper;
 	}
     
 }
