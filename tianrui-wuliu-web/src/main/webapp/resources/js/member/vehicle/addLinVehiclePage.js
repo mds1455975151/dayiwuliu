@@ -117,6 +117,7 @@ $("#vehicle_addBtn").click(function() {
 	}else if(flag == "lin"){
 		vehiNo = $("#vehicle_add_vehiNo").val();
 	}
+	
 	// 车型
 	var vehiType = $("#vehicle_add_vehiType option:selected").val();
 	// 车型名
@@ -149,12 +150,21 @@ $("#vehicle_addBtn").click(function() {
 	var registcode = $('#vehicle_add_registcode').val();
 	//机动车登记证图片
 	var file_djz = $('#file_djz_img').val();
+	
+	// 车牌号正则表达式
+	var vehiReg = /^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
+	
 	if (!$.trim(vehiNo)) {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
 		$("#vehicle_add_vehiNo_2").focus();
 		return;
-	}
+	}else if (!vehiReg.test(vehiNo)) {
+		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
+		$("#vehicle_add_vehiNo").focus();
+		$("#vehicle_add_vehiNo_2").focus();
+		return;
+	} 
 	if(!flagvehNo||!flagWeight||!flagLeng){
 		$("#modal_common_content").html("数据有误请仔细查看重新输入");
 		$("#commonModal").modal();

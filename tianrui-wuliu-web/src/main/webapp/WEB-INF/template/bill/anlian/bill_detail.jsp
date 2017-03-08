@@ -94,7 +94,7 @@
 										<tr>
 											<th>要求提货日期</th>
 											<th>要求到货日期</th>
-											<th>运费</th>
+											<th>总运费</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -147,8 +147,6 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 	<script type="text/javascript"
 		src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript"
-		src="/resources/js/bill/vender_detail.js?0105"></script>
 	<script type="text/javascript">
 		var trRoot = "${trRoot}";
 		//弹出框样式更改
