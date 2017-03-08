@@ -108,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>税率</th>
+                                <th>承运方</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -117,6 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             		<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
                             	</c:if>
                             	</span></td>
+                            	<td>${plan.systemShipper }</td>
                             </tr>
                             </tbody>
                         </table>

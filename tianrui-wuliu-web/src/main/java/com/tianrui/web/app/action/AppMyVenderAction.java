@@ -20,6 +20,7 @@ import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
@@ -178,34 +179,49 @@ public class AppMyVenderAction {
 		ownerReq.setOwnerName(req.getOwnerName());
 		// 车主电话
 		ownerReq.setOwnerTel(req.getOwnerTel());
+		String sd =  Constant.SYSTEM_PUSH_STATUS;
 		// 状态
-		if (req.getStatus() == null || "".equals(req.getStatus())) {
-			// 默认待回复
-			ownerReq.setStatus("0");
-		} else {
-			ownerReq.setStatus(req.getStatus());
-		}
+		ownerReq.setStatus(sd);
 		
 		// 插入操作
 		Result rs = memberOwnerService.insert(ownerReq);
 		
 		if ("000000".equals(rs.getCode())) {
-			// 发送消息
-			SendMsgReq sendMsgReq = new SendMsgReq();
-			// 会员
-			sendMsgReq.setType("2");
-			// 车主
-			sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2OWNER_ADD);
-			sendMsgReq.setRecType(MessageCodeEnum.VEHI_2OWNER_ADD.getType());
-			sendMsgReq.setKeyid(ownerReq.getId());
-			List<String> paramList = new ArrayList<String>();
-			paramList.add(userName);
-			sendMsgReq.setParams(paramList);
-			sendMsgReq.setSendid(he.getId());
-			sendMsgReq.setSendname(userName);
-			sendMsgReq.setRecid(req.getOwnerId());
-			sendMsgReq.setRecname(req.getOwnerName());
-			rs = messageService.sendMessageInside(sendMsgReq);
+			if(sd.equals("0")){
+				// 发送消息
+				SendMsgReq sendMsgReq = new SendMsgReq();
+				// 会员
+				sendMsgReq.setType("2");
+				// 车主
+				sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2OWNER_ADD);
+				sendMsgReq.setRecType(MessageCodeEnum.VEHI_2OWNER_ADD.getType());
+				sendMsgReq.setKeyid(ownerReq.getId());
+				List<String> paramList = new ArrayList<String>();
+				paramList.add(userName);
+				sendMsgReq.setParams(paramList);
+				sendMsgReq.setSendid(he.getId());
+				sendMsgReq.setSendname(userName);
+				sendMsgReq.setRecid(req.getOwnerId());
+				sendMsgReq.setRecname(req.getOwnerName());
+				rs = messageService.sendMessageInside(sendMsgReq);
+			}else if(sd.equals("1")){
+				// 发送消息
+				SendMsgReq sendMsgReq = new SendMsgReq();
+				// 会员
+				sendMsgReq.setType("2");
+				// 车主
+				sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2OWNER_USERADD);
+				sendMsgReq.setRecType(MessageCodeEnum.VEHI_2OWNER_USERADD.getType());
+				sendMsgReq.setKeyid(ownerReq.getId());
+				List<String> paramList = new ArrayList<String>();
+				paramList.add(userName);
+				sendMsgReq.setParams(paramList);
+				sendMsgReq.setSendid(he.getId());
+				sendMsgReq.setSendname(userName);
+				sendMsgReq.setRecid(req.getOwnerId());
+				sendMsgReq.setRecname(req.getOwnerName());
+				rs = messageService.sendMessageInside(sendMsgReq);
+			}
 		} else {
 			rs.setCode("1");
 		}

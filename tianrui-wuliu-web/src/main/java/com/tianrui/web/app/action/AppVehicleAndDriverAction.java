@@ -31,6 +31,7 @@ import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
 import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
@@ -159,26 +160,46 @@ public class AppVehicleAndDriverAction {
 		req.setId(UUIDUtil.getId());
 		req.setVehicleownerid(id);
 		req.setCreator(id);
-		req.setStatus("0");// 默认待回复
+		String sd =  Constant.SYSTEM_PUSH_STATUS;
+		req.setStatus(sd);// 默认待回复
 		rs = ownerDriverService.insert(req);
 		
 		if ("000000".equals(rs.getCode())) {
-			// 发送消息
-			SendMsgReq sendMsgReq = new SendMsgReq();
-			// 会员
-			sendMsgReq.setType("2");
-			// 司机
-			sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_ADD);
-			sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_ADD.getType());
-			sendMsgReq.setKeyid(req.getId());
-			List<String> paramList = new ArrayList<String>();
-			paramList.add(userName);
-			sendMsgReq.setParams(paramList);
-			sendMsgReq.setSendid(resp.getId());
-			sendMsgReq.setSendname(userName);
-			sendMsgReq.setRecid(req.getDriverid());
-			sendMsgReq.setRecname(req.getDrivername());
-			rs = messageService.sendMessageInside(sendMsgReq);
+			if(sd.equals("0")){
+				// 发送消息
+				SendMsgReq sendMsgReq = new SendMsgReq();
+				// 会员
+				sendMsgReq.setType("2");
+				// 司机
+				sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_ADD);
+				sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_ADD.getType());
+				sendMsgReq.setKeyid(req.getId());
+				List<String> paramList = new ArrayList<String>();
+				paramList.add(userName);
+				sendMsgReq.setParams(paramList);
+				sendMsgReq.setSendid(resp.getId());
+				sendMsgReq.setSendname(userName);
+				sendMsgReq.setRecid(req.getDriverid());
+				sendMsgReq.setRecname(req.getDrivername());
+				rs = messageService.sendMessageInside(sendMsgReq);
+			}else if(sd.equals("1")){
+				// 发送消息
+				SendMsgReq sendMsgReq = new SendMsgReq();
+				// 会员
+				sendMsgReq.setType("2");
+				// 司机
+				sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_USERADD);
+				sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_USERADD.getType());
+				sendMsgReq.setKeyid(req.getId());
+				List<String> paramList = new ArrayList<String>();
+				paramList.add(userName);
+				sendMsgReq.setParams(paramList);
+				sendMsgReq.setSendid(resp.getId());
+				sendMsgReq.setSendname(userName);
+				sendMsgReq.setRecid(req.getDriverid());
+				sendMsgReq.setRecname(req.getDrivername());
+				rs = messageService.sendMessageInside(sendMsgReq);
+			}
 		} else {
 			rs.setCode("1");
 		}

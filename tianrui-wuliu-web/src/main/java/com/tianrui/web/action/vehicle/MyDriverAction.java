@@ -330,8 +330,8 @@ public class MyDriverAction {
 		// 司机备注名称
 		driverReq.setRemarkname(remarkName);
 		String sd =  Constant.SYSTEM_PUSH_STATUS;
-		// 默认待回复
-		driverReq.setStatus("0");
+		// 默认待回复 0-待回复，1-已同意
+		driverReq.setStatus(sd);
 		// 创建人
 		driverReq.setCreator(memberId);
 		
@@ -339,22 +339,41 @@ public class MyDriverAction {
 		rs = ownerDriverService.insert(driverReq);
 		
 		if ("000000".equals(rs.getCode())) {
-			// 发送消息
-			SendMsgReq sendMsgReq = new SendMsgReq();
-			// 会员
-			sendMsgReq.setType("2");
-			// 司机
-			sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_ADD);
-			sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_ADD.getType());
-			sendMsgReq.setKeyid(driverReq.getId());
-			List<String> paramList = new ArrayList<String>();
-			paramList.add(userName);
-			sendMsgReq.setParams(paramList);
-			sendMsgReq.setSendid(memberId);
-			sendMsgReq.setSendname(userName);
-			sendMsgReq.setRecid(driverId);
-			sendMsgReq.setRecname(driverName);
-			rs = messageService.sendMessageInside(sendMsgReq);
+			if(sd.equals("0")){
+				// 发送消息
+				SendMsgReq sendMsgReq = new SendMsgReq();
+				// 会员
+				sendMsgReq.setType("2");
+				// 司机
+				sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_ADD);
+				sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_ADD.getType());
+				sendMsgReq.setKeyid(driverReq.getId());
+				List<String> paramList = new ArrayList<String>();
+				paramList.add(userName);
+				sendMsgReq.setParams(paramList);
+				sendMsgReq.setSendid(memberId);
+				sendMsgReq.setSendname(userName);
+				sendMsgReq.setRecid(driverId);
+				sendMsgReq.setRecname(driverName);
+				rs = messageService.sendMessageInside(sendMsgReq);
+			}else if(sd.equals("1")){
+				// 发送消息
+				SendMsgReq sendMsgReq = new SendMsgReq();
+				// 会员
+				sendMsgReq.setType("2");
+				// 司机
+				sendMsgReq.setCodeEnum(MessageCodeEnum.VEHI_2DRIVER_USERADD);
+				sendMsgReq.setRecType(MessageCodeEnum.VEHI_2DRIVER_USERADD.getType());
+				sendMsgReq.setKeyid(driverReq.getId());
+				List<String> paramList = new ArrayList<String>();
+				paramList.add(userName);
+				sendMsgReq.setParams(paramList);
+				sendMsgReq.setSendid(memberId);
+				sendMsgReq.setSendname(userName);
+				sendMsgReq.setRecid(driverId);
+				sendMsgReq.setRecname(driverName);
+				rs = messageService.sendMessageInside(sendMsgReq);
+			}
 		} else {
 			rs.setCode("1");
 		}

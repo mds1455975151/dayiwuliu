@@ -15,6 +15,7 @@ import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.front.capa.MemberCapaListResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
@@ -125,21 +126,40 @@ public class MemberCapaService implements IMemberCapaService{
 		}else if(StringUtils.isNotBlank(info.getCompanyname())){
 			recName = info.getCompanyname();
 		}
-		//发送消息
-		SendMsgReq mreq = new SendMsgReq();
-		List<String> strs = new ArrayList<String>();
-		strs.add(req.getCellphone());
-		strs.add(req.getVehicleno());
-		mreq.setType("2");
-		mreq.setKeyid(id);
-		mreq.setSendid(req.getMemberid());
-		mreq.setSendname(req.getCellphone());
-		mreq.setRecid(req.getOwnerid());
-		mreq.setRecname(recName);
-		mreq.setParams(strs);
-		mreq.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_BEG);
-		mreq.setRecType(MessageCodeEnum.DRIVER_CAPA_BEG.getType());
-		messageService.sendMessageInside(mreq);
+		String sd =  Constant.SYSTEM_PUSH_STATUS;
+		if(sd.equals("0")){
+			//发送消息
+			SendMsgReq mreq = new SendMsgReq();
+			List<String> strs = new ArrayList<String>();
+			strs.add(req.getCellphone());
+			strs.add(req.getVehicleno());
+			mreq.setType("2");
+			mreq.setKeyid(id);
+			mreq.setSendid(req.getMemberid());
+			mreq.setSendname(req.getCellphone());
+			mreq.setRecid(req.getOwnerid());
+			mreq.setRecname(recName);
+			mreq.setParams(strs);
+			mreq.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_BEG);
+			mreq.setRecType(MessageCodeEnum.DRIVER_CAPA_BEG.getType());
+			messageService.sendMessageInside(mreq);
+		}else if(sd.equals("1")){
+			//发送消息
+			SendMsgReq mreq = new SendMsgReq();
+			List<String> strs = new ArrayList<String>();
+			strs.add(req.getCellphone());
+			strs.add(req.getVehicleno());
+			mreq.setType("2");
+			mreq.setKeyid(id);
+			mreq.setSendid(req.getMemberid());
+			mreq.setSendname(req.getCellphone());
+			mreq.setRecid(req.getOwnerid());
+			mreq.setRecname(recName);
+			mreq.setParams(strs);
+			mreq.setCodeEnum(MessageCodeEnum.DRIVER_CAPA_USERBEG);
+			mreq.setRecType(MessageCodeEnum.DRIVER_CAPA_USERBEG.getType());
+			messageService.sendMessageInside(mreq);
+		}
 		return rs;
 	}
 
@@ -150,7 +170,7 @@ public class MemberCapaService implements IMemberCapaService{
 		capa.setMemberid(req.getMemberid());
 		capa.setVehicleid(req.getVehicleid());
 		capa.setOwnerid(req.getOwnerid());
-		capa.setStatus("0");
+		capa.setStatus(Constant.SYSTEM_PUSH_STATUS);
 		capa.setCreater(req.getMemberid());
 		capa.setCreatetime(new Date().getTime());
 		return memberCapaMapper.insertSelective(capa);

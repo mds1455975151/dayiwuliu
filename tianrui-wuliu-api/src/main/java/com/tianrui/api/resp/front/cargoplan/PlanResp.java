@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.tianrui.api.resp.BaseResp;
 import com.tianrui.api.util.DateTypeUtil;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
 
 public class PlanResp extends BaseResp{
@@ -15,6 +16,8 @@ public class PlanResp extends BaseResp{
     private String freightid;
     private String routeid;
     private String cargoid;
+    
+    private String systemShipper=Constant.SYSTEM_SHIPPER;
 
     /** 发货方id*/
     private String shipperMerchant;
@@ -437,5 +440,11 @@ public class PlanResp extends BaseResp{
 	}
 	public void setFstatus(String fstatus) {
 		this.fstatus = fstatus;
+	}
+	public String getSystemShipper() {
+		return systemShipper;
+	}
+	public void setSystemShipper(String systemShipper) {
+		this.systemShipper = systemShipper;
 	}
 }

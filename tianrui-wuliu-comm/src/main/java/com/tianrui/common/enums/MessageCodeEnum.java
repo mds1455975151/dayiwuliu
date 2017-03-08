@@ -43,6 +43,8 @@ public enum MessageCodeEnum {
 	VEHI_2OWNER_ADD(162,"[<_>]请求添加您为车主，请确认。",2),
 	// 发送给车主
 	//VEHI_2VEHICLE_ADD(163,"车牌号为[<_>]的车辆已提交审核，请尽快确认。",2),
+	VEHI_2DRIVER_USERADD(164,"[<_>]已经添加您为司机",1),
+	VEHI_2OWNER_USERADD(165,"[<_>]已经添加您为车主",2),
 	
 	/** ========================= 消息相关(181 - 200) ======================= */
 	MSG_2OWNWE_REFUSE(181,"车主[<_>]拒绝您添加车主的请求。",3),
@@ -69,7 +71,8 @@ public enum MessageCodeEnum {
 	/** ========================= 运力共享相关(221 - 240) ======================= */
 	DRIVER_CAPA_BEG(241,"用户[<_>],请求使用您的车辆[<_>]",2),
 	DRIVER_CAPA_AGREE(242,"车主[<_>],同意了您的使用请求",2),
-	DRIVER_CAPA_REFUSE(243,"车主[<_>],拒绝了您的使用请求",2);
+	DRIVER_CAPA_REFUSE(243,"车主[<_>],拒绝了您的使用请求",2),
+	DRIVER_CAPA_USERBEG(244,"用户[<_>],添加了您的车辆[<_>]",2);
 	
 	//消息code
 	private int code;
