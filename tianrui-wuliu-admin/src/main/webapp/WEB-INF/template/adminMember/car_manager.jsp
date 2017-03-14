@@ -72,6 +72,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">认证成功</option>
                                         </select>
                                 </div>
+                                <div class="ht_div">
+                                        <label>认证方式:</label>
+                                        <select class="form-control" id="vehiclestatusType">
+                                            <option value="">请选择</option>
+                                            <option value="1">临时认证</option>
+                                            <option value="2">完全认证</option>
+                                        </select>
+                                </div>
                             </div>
                             <div class="contuser_search">
                                 <div class="ht_divbtn">
@@ -410,7 +418,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?02.15" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?03.14" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

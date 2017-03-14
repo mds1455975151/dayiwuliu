@@ -527,7 +527,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 						});
 						
 					} else {
-						$("#modal_common_content").html("绑定失败，系统出错！");
+						$("#modal_common_content").html(result.error);
 						$("#commonModal").modal();
 					}
 				}
@@ -571,7 +571,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 					});
 					
 				} else {
-					$("#modal_common_content").html("绑定失败，系统出错！");
+					$("#modal_common_content").html(result.error);
 					$("#commonModal").modal();
 				}
 			}

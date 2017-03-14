@@ -9,18 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.admin.intf.IFreightInfoService;
+import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.IAssessService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IPayInvoiceDetailService;
+import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.BillAssessReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
+import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillAssessResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
+import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
@@ -43,6 +49,12 @@ public class WaybillAction {
 	IFreightInfoService iFreightInfoService;
 	@Autowired
 	private IAssessService iAssessService;
+	@Autowired
+	private IAnlianBillService anlianBillService;
+	@Autowired
+	private IAnlianService anlianService;
+	@Autowired
+	private ISystemMemberService systemMemberService;
 	/**
 	 * 
 	 * @描述:平台运单管理
@@ -55,6 +67,16 @@ public class WaybillAction {
 	public ModelAndView flieWaybill(){
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/file/waybill/file_bill");
+		return view;
+	}
+	/**
+	 * 查看安联运单
+	 * @return
+	 */
+	@RequestMapping("/flieanlianbill")
+	public ModelAndView flieanlianbill(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/file/waybill/file_anlian_bill");
 		return view;
 	}
 	/**
@@ -117,6 +139,36 @@ public class WaybillAction {
 		rs.setData(page);
 		return rs;
 	}
+	
+	/** 后台查看开票
+	 * @throws Exception */
+	@RequestMapping("/findAnlianBill")
+	@ResponseBody
+	public Result findAnlianBill(AnlianBillFindReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<AnlianBillResp> resp = anlianBillService.find(req);
+		rs.setData(resp);
+		return rs;
+	}
+	@RequestMapping("/findAnlianBillId")
+	@ResponseBody
+	public Result findAnlianBillId(AnlianBillFindReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = anlianBillService.findByid(req);
+		AnlianBillResp bill = (AnlianBillResp) rs.getData();
+		rs = anlianService.detail(bill.getBillno());
+		MemberResp resp = systemMemberService.findById(bill.getDriverid());
+		bill.setDrivertel(resp.getCellPhone());
+		if(!rs.getCode().equals("000000")){
+			bill.setStatus(rs.getError());
+		}else{
+			bill.setStatus("运输中");
+		}
+		Result rs2 = Result.getSuccessResult();
+		rs2.setData(bill);
+		return rs2;
+	}
+	
 	/**
 	 * 
 	 * @描述:后台运单确认运价

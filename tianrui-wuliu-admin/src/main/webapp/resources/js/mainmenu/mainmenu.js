@@ -141,6 +141,9 @@ function getNodeList(menu) {
 		}else if(nodesList[i].nodename == "开票车辆档案"){
 			_i.removeAttr("class");
 			_i.addClass("iconfontt").html('&#xe645;');
+		}else if(nodesList[i].nodename == "安联运单管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe645;');
 		}
 		href.append(_i).append(span);
 		

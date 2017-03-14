@@ -25,6 +25,8 @@ public class MyVehicleReq extends BaseReq{
 	private String ownerphone;
 	private String companyname;
 	private String companytel;
+	
+	private String desc2;
 	/**
 	 * 车牌号
 	 */
@@ -160,5 +162,11 @@ public class MyVehicleReq extends BaseReq{
 	}
 	public void setCreatetime(Long createtime) {
 		this.createtime = createtime;
+	}
+	public String getDesc2() {
+		return desc2;
+	}
+	public void setDesc2(String desc2) {
+		this.desc2 = desc2;
 	}
 }
