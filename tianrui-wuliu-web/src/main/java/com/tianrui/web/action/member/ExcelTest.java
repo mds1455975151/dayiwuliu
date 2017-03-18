@@ -21,6 +21,7 @@ public class ExcelTest {
 	@RequestMapping("main")
 	@ResponseBody
 	public Result index() throws IOException{
-		return positionService.update(ReadExcel.readXls());
+//		positionService.update(ReadExcel.readXls());
+		return null;
 	}
 }

@@ -16,6 +16,9 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 
 /**
  * @author Hongten
@@ -25,18 +28,17 @@ public class ReadExcel {
 
 	public static void main(String[] args) {
 		try {
-			List<Map<String,String>> list = readXls();
-			System.out.println(list.toString());
+			System.out.println(readXls().toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public static List<Map<String,String>> readXls() throws IOException {
+	public static JSONArray readXls() throws IOException {
 		InputStream is = new FileInputStream("H:/wuche.xls");
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
-		List<Map<String,String>> lis = new ArrayList<Map<String,String>>();
+		JSONArray array = new JSONArray();
 		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
 			HSSFSheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
 			if (hssfSheet == null) {
@@ -47,14 +49,15 @@ public class ReadExcel {
 				if (hssfRow != null) {
 					HSSFCell no = hssfRow.getCell((short) 0);
 					HSSFCell name = hssfRow.getCell((short) 1);
-					Map<String,String> map = new HashMap<String,String>();
-					map.put("code", getValue(no).substring(0, 6));
-					map.put("name", getValue(name));
-					lis.add(map);
+					
+					JSONObject json = new JSONObject();
+					json.put("code", getValue(no).substring(0, 6));
+					json.put("name", getValue(name));
+					array.add(json);
 				}
 			}
 		}
-		return lis;
+		return array;
 	}
 	
 	private static String getValue(HSSFCell hssfCell) {

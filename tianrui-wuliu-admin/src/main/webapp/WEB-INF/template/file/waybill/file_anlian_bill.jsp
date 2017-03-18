@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="col-md-12">
                     <div class="contuser_search">
                         <div class="ht_div">
-                            <label>运单编码：</label>
+                            <label>运单编码/车牌号：</label>
                             <input type="text" id="searchKey" placeholder=" ">
                         </div>
                     <div class="ht_divbtn">
