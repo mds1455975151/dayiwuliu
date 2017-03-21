@@ -12,6 +12,10 @@ public class AnlianDict {
     private String wlcode;
 
     private String wlname;
+    
+    private String jtbName;
+    
+    private String jtbCode;
 
     public String getId() {
         return id;
@@ -60,4 +64,20 @@ public class AnlianDict {
     public void setWlname(String wlname) {
         this.wlname = wlname == null ? null : wlname.trim();
     }
+
+	public String getJtbName() {
+		return jtbName;
+	}
+
+	public void setJtbName(String jtbName) {
+		this.jtbName = jtbName == null ? null : jtbName.trim();
+	}
+
+	public String getJtbCode() {
+		return jtbCode;
+	}
+
+	public void setJtbCode(String jtbCode) {
+		this.jtbCode = jtbCode == null ? null : jtbCode.trim();
+	}
 }

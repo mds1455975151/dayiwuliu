@@ -53,6 +53,8 @@ public class Constant {
     public static String SYSTEM_PUSH_STATUS;
     //系统承运方
     public static String SYSTEM_SHIPPER;
+    //运单推送交通部URL
+    public static String JTB_PUT_URL;
     
     //日志文件 访问日志 记录访问来源
     public final static String ACCESS ="access";
