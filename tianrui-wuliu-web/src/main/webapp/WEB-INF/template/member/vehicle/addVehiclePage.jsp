@@ -85,7 +85,7 @@
 						<p id="message_vehiWeight"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>所有人姓名：</label> <input maxlength="8" type="text"
+						<label><span style="color: red">*</span>所有人姓名：</label> <input maxlength="30" type="text"
 							id="vehicle_add_vehiOwnerName">
 						<p id="message_vehiOwnerName"></p>
 					</div>
