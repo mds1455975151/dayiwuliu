@@ -1,5 +1,9 @@
 package com.tianrui.service.impl;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +69,7 @@ import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
+import com.tianrui.service.bean.AnlianDict;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillPosition;
 import com.tianrui.service.bean.BillTrack;
@@ -75,11 +80,16 @@ import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.anlian.PositionCounty;
+import com.tianrui.service.jtb.BillMassageReq;
+import com.tianrui.service.jtb.JtbHttpRequset;
+import com.tianrui.service.mapper.AnlianDictMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
+import com.tianrui.service.mapper.PositionCountyMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
@@ -153,7 +163,10 @@ public class BillService implements IBillService{
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	IAnlianBillService anlianBillService;
-	
+	@Autowired
+	PositionCountyMapper positionCountyMapper;
+	@Autowired
+	AnlianDictMapper anlianDictMapper;
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -259,14 +272,12 @@ public class BillService implements IBillService{
 		if( CollectionUtils.isNotEmpty(bills) ){
 			MemberVo currUser =getMember(req.getCurruId());
 			for( Bill item:bills ){
-				//TODO
 				//车辆信息
 				MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(item.getVehicleid());
 				//司机信息
 				SystemMember member = systemMemberMapper.selectByPrimaryKey(item.getDriverid());
 				//车辆 司机均开票认证成功
 				if(StringUtils.isNotBlank(member.getAldriverid())&&"1".equals(vehicle.getDesc1())){
-					//TODO
 					AnlianBillSaveReq alreq = new AnlianBillSaveReq();
 					alreq.setPlanid(item.getPlanid());
 					alreq.setBillEndTime(item.getEndtime());
@@ -446,10 +457,12 @@ public class BillService implements IBillService{
 
 	@Override
 	public Result signConfirm(WaybillConfirmReq req) throws Exception {
+		//TODO
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
+				
 				Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
 				Plan rootPlan = planMapper.selectRootPlanByPlanId(plan.getId());
 				if( checkBillauthForCuser(db,req.getCurruId(),"owner") || (StringUtils.equals(plan.getIsAppoint(), "1") && StringUtils.equals(rootPlan.getCreator(), req.getCurruId()))){
@@ -462,6 +475,13 @@ public class BillService implements IBillService{
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
+						
+						//运单推送交通部
+						db.setTrueweight(Double.valueOf(req.getWeight()));
+						JtbHttpRequset jtb = new JtbHttpRequset();
+						BillMassageReq jtbReq = billExchange(db);
+						jtb.putJtb(jtbReq);
+						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
 						Plan planUpdate =new Plan();
 						if(StringUtils.equals(plan.getIsAppoint(), "1")){
@@ -516,6 +536,77 @@ public class BillService implements IBillService{
 		return rs;
 	}
 
+	public BillMassageReq billExchange(Bill db) throws Exception{
+		BillMassageReq billMassage = new BillMassageReq();
+		billMassage.setOriginalDocumentNumber(db.getWaybillno());
+		billMassage.setCarrier("中原大易科技有限公司");
+		billMassage.setUnifiedSocialCreditIdentifier("91410482MA3XD9CA67");
+		billMassage.setPermitNumber("410482006680");
+		billMassage.setConsignmentDateTime(dateExchange(db.getCreatetime()));
+		//干线运输
+		billMassage.setBusinessTypeCode("1002996");
+		billMassage.setDespatchActualDateTime(dateStrExchange(db.getStarttime()));
+		billMassage.setGoodsReceiptDateTime(dateExchange(System.currentTimeMillis()));
+		billMassage.setConsignor(db.getConsignorname());
+		
+		FileRoute route = routeMapper.selectByPrimaryKey(db.getRouteid());
+		billMassage.setCountrySubdivisionCode(positionExchange(route.getOpositionid()));//装货地
+		billMassage.setConsignee(db.getReceivername());
+		billMassage.setReceiptCountrySubdivisionCode(positionExchange(route.getDpositionid()));//收货地址
+		Double price = db.getTrueweight()*db.getPrice();
+		billMassage.setTotalMonetaryAmount(String.format("%.3f ",price));//总金额 三位小数 整数
+		//车辆牌照类型 其它-99
+		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(db.getVehicleid());
+		billMassage.setLicensePlateTypeCode("99");
+		billMassage.setVehicleNumber(db.getVehicleno());
+		billMassage.setVehicleClassificationCode(vheicleExchange(vehicle.getVehicletype()));//车辆分类
+		billMassage.setVehicleTonnage(String.format("%.2f ",vehicle.getVehiweight()));//车辆载重量 2位小数
+//		billMassage.setRoadTransportCertificateNumber(vehicle.getRoadtransportcode());//车辆道路运输经营许可证
+		billMassage.setRoadTransportCertificateNumber("410482006680");//车辆道路运输经营许可证
+		billMassage.setNameOfPerson(db.getDrivername());
+		billMassage.setTelephoneNumber(db.getDrivertel());
+		billMassage.setDescriptionOfGoods(db.getCargoname());
+		billMassage.setCargoTypeClassificationCode("94");//货物分类代码 4.2.5
+		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",db.getTrueweight()));//三位小数
+		return billMassage;
+	}
+	/** 获取车辆类型代码*/
+	public String vheicleExchange(String  vehicleType){
+		AnlianDict record = new AnlianDict();
+		record.setType("vehicle");
+		record.setWlcode(vehicleType);
+		List<AnlianDict> list = anlianDictMapper.selectByCondition(record);
+		String code = null;
+		if(list.size()==1){
+			code = list.get(0).getJtbCode();
+		}
+		return code;
+	}
+	/** 获取城市代码*/
+	public String positionExchange(String positionid){
+		FilePositoin position = positionMapper.selectByPrimaryKey(positionid);
+		PositionCounty 	record = new PositionCounty();
+		record.setName(position.getOa());
+		List<PositionCounty> list = positionCountyMapper.findCount(record);
+		String resp = null;
+		if(list.size()==1){
+			resp = list.get(0).getId();
+		}
+		return resp;
+	}
+	
+	public String dateExchange(Long time){
+		String str = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(time));
+		return str;
+	}
+	public String dateStrExchange(String time) throws Exception{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = sdf.parse(time);
+		String str = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
+		return str;
+	}
+	
+	
 	@Override
 	public Result ownerdelete(WaybillConfirmReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -1175,7 +1266,6 @@ public class BillService implements IBillService{
 	
 	@Override
 	public List<PositionResp> getBIllTrackAll(WaybillQueryReq req) throws Exception{
-		//TODO
 		List<PositionResp> list =null;
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
@@ -1266,7 +1356,7 @@ public class BillService implements IBillService{
 		return list;
 	}
 	
-	//保存运单轨迹信息
+	/**保存运单轨迹信息*/
 	private void  saveBillTrack(String bId,int isShow,String msg,String currId,int status){
 		if( StringUtils.isNotBlank(bId) ){
 			BillTrack billTrack =new BillTrack();
@@ -1749,7 +1839,6 @@ public class BillService implements IBillService{
 
 	@Override
 	public List<BillPositionResp> getBillPosition(String bid) throws Exception {
-		// TODO Auto-generated method stub
 		List<BillPositionResp> list= null;
 		
 		Bill db =billMapper.selectByPrimaryKey(bid);
