@@ -477,10 +477,10 @@ public class BillService implements IBillService{
 						billMapper.updateByPrimaryKeySelective(update);
 						
 						//运单推送交通部
-						db.setTrueweight(Double.valueOf(req.getWeight()));
-						JtbHttpRequset jtb = new JtbHttpRequset();
-						BillMassageReq jtbReq = billExchange(db);
-						jtb.putJtb(jtbReq);
+//						db.setTrueweight(Double.valueOf(req.getWeight()));
+//						JtbHttpRequset jtb = new JtbHttpRequset();
+//						BillMassageReq jtbReq = billExchange(db);
+//						jtb.putJtb(jtbReq);
 						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
 						Plan planUpdate =new Plan();

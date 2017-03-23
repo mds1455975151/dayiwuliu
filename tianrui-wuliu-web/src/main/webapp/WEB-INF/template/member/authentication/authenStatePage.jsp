@@ -48,6 +48,11 @@
 						<p id=""></p>
 					</div>
 					<div class="reg_tel">
+						<label><i style="color: red">*</i>身份证号/驾驶证号:</label> <input type="text"
+							placeholder="请输入证件号码" id="perAuthen_id">
+						<p id="massage_perAuthen_id"></p>
+					</div>
+					<div class="reg_tel">
 						<label><i style="color: red">*</i>出生日期:</label> <input class="timeStr" type="text"
 							placeholder="日期格式：yyyy-MM-dd" id="per_birthday">
 						<p id="massage_birthday"></p>
@@ -58,12 +63,6 @@
 							disabled="disabled" placeholder="系统自动获取" id="perAuthen_tel">
 						<p id="message_perAuthenTel"></p>
 					</div>
-					<div class="reg_tel">
-						<label><i style="color: red">*</i>身份证号/驾驶证号:</label> <input type="text"
-							placeholder="请输入证件号码" id="perAuthen_id">
-						<p id="massage_perAuthen_id"></p>
-					</div>
-					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>身份证地址:</label> <input type="text"
 							placeholder="请输入身份证地址" id="per_idcardaddress">
@@ -217,7 +216,7 @@
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?01.09"></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?03.22"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>

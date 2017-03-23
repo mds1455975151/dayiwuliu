@@ -269,7 +269,7 @@ function details(id){
 				"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
 				"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"</div>"+
 				"<div class='file_detail2'><label>营运证号：</label>"+opercode+"</div>"+
-//				"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"</div>"+
+				"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"</div>"+
 //				"<div class='file_detail2'><label>所有人身份证：</label>"+identitycode+"</div>"+
 				"<div class='file_detail2'><label>车辆照片：</label><span><a href='/imageView/index?imageUrl="+d.vehiheadimgpath+"' target='_blank'>查看图片</a></span></div>"+
 				"<div class='file_detail2'><label>行驶证照片：</label><span><a href='/imageView/index?imageUrl="+d.vehilicenseimgpath+"' target='_blank'>查看图片</a></span></div>";
@@ -330,7 +330,7 @@ function details(id){
 					"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
 					"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"3\")' data-target='#againPice'>【重新上传】</a></div>" +
 					"<div class='file_detail2'><label>营运证号：</label>"+opercode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></div>"+
-//					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></div>"+
+					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></div>"+
 //					"<div class='file_detail2'><label>所有人身份证：</label>"+identitycode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></div>"+
 					"<div class='file_detail2'><label>车辆照片：</label><span><a href='/imageView/index?imageUrl="+d.vehiheadimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"1\")' data-target='#againPice'>【重新上传】</a></span></div>" +
 					"<div class='file_detail2'><label>行驶证照片：</label><span><a href='/imageView/index?imageUrl="+d.vehilicenseimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";

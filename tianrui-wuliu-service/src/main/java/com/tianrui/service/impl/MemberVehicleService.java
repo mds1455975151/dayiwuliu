@@ -13,6 +13,7 @@ import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
+import com.tianrui.api.req.front.vehicle.VehicleOnlyReq;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
 import com.tianrui.common.enums.MessageCodeEnum;
@@ -683,5 +684,19 @@ public class MemberVehicleService implements IMemberVehicleService {
 			return memberVehicleRespList;
 		}
 		return null;
+	}
+
+	@Override
+	public Result vehicleNOByOnly(VehicleOnlyReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		MemberVehicle vehicle = new MemberVehicle();
+		vehicle.setVehicleno(req.getVehicleNo());
+		vehicle.setVehicleprefix(req.getVheicleFix());
+		List<MemberVehicle> list = memberVehicleMapper.selectMyVehicleByCondition(vehicle);
+		if(list.size()!=0){
+			rs.setCode("1");
+			rs.setError("车牌号已存在");
+		}
+		return rs;
 	}
 }

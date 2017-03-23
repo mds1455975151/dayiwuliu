@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.vehicle;
 
+import org.apache.commons.lang.StringUtils;
+
 public class VehicleTicketResp {
 
 	 private String id;
@@ -87,6 +89,7 @@ public class VehicleTicketResp {
 		}
 
 		public String getIdcard() {
+			idcard = StringUtils.isBlank(idcard)?"":idcard.toUpperCase();
 			return idcard;
 		}
 
@@ -95,6 +98,7 @@ public class VehicleTicketResp {
 		}
 
 		public String getCertificateno() {
+			certificateno = StringUtils.isBlank(certificateno)?"":certificateno.toUpperCase();
 			return certificateno;
 		}
 
@@ -111,6 +115,7 @@ public class VehicleTicketResp {
 		}
 
 		public String getIdentification() {
+			identification = StringUtils.isBlank(identification)?"":identification.toUpperCase();
 			return identification;
 		}
 
@@ -119,6 +124,7 @@ public class VehicleTicketResp {
 		}
 
 		public String getMotor() {
+			motor = StringUtils.isBlank(motor)?"":motor.toUpperCase();
 			return motor;
 		}
 
@@ -127,6 +133,7 @@ public class VehicleTicketResp {
 		}
 
 		public String getMotorno() {
+			motorno = StringUtils.isBlank(motorno)?"":motorno.toUpperCase();
 			return motorno;
 		}
 

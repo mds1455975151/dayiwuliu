@@ -42,12 +42,7 @@ $("#vehicle_ticket_upt").on("click",function(){
 		alert("发动机号不能为空");
 		return;	
 	}
-	var veh_motorno = $("#veh_motorno").val();
-	if($.trim(veh_motorno)==""){
-		alert("发动机型号不能为空");
-		return;	
-	}
-	
+	$("#veh_motorno").val(veh_motor);
 	
 	$(this).attr("disabled",true);
 	$.ajax({

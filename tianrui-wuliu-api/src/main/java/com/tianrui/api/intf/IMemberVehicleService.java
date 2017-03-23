@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
+import com.tianrui.api.req.front.vehicle.VehicleOnlyReq;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -132,4 +133,6 @@ public interface IMemberVehicleService {
      * @time 2016年7月28日 上午11:33:00
      */
 	public List<MemberVehicleResp> selectVehicleByIds(List<String> vehicleIds) throws Exception;
+	/** 验证车牌号唯一*/
+	public Result vehicleNOByOnly(VehicleOnlyReq req)throws Exception;
 }

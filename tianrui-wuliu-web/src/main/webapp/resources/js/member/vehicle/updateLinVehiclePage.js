@@ -57,9 +57,6 @@ $("#vehicle_add_vehiNo").on("blur", function() {
 		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
 		/*$("#vehicle_add_vehiNo").focus();*/
 		flag = false;
-	} else{
-		$("#message_vehiNo").html("");
-		flag = true;
 	}
 });
 
@@ -156,7 +153,7 @@ $("#vehicle_addBtn").click(function() {
 	//道路运输证号
 	var roadtransportcode = $('#vehicle_add_roadtransportcode').val();
 	//道路运输证图片
-//	var file_ysz = $('#file_ysz')[0].files[0];
+	var file_ysz = $('#file_ysz_img').val()
 	//运营许可证号
 	var opercode = $('#vehicle_add_opercode').val();
 	//运营许可证图片
@@ -200,13 +197,40 @@ $("#vehicle_addBtn").click(function() {
 		$("#message_vehiTel").html("请输入联系电话！");
 		return;
 	}
-//	if (!$.trim(roadtransportcode)) {
-//		$("#message_roadtransportcode").html("请输入道路运输证号！");
-//		return;
-//	}
+
+	if (file_cel == "") {
+		$("#modal_common_content").html("请上传车辆图片！");
+		$("#file_cel_img").focus();
+		$("#commonModal").modal();
+		return;
+	}
+	if (file_xsz == "") {
+		$("#modal_common_content").html("请上传行驶证图片！");
+		$("#file_xsz_img").focus();
+		$("#commonModal").modal();
+		return;
+	}
+	if(file_ysz == ""){
+		$("#modal_common_content").html("请上传道路运输证图片！");
+		$("#file_ysz_img").focus();
+		$("#commonModal").modal();
+		return;
+	}
 	if (!$.trim(opercode)) {
-		$("#message_opercode").html("请输入营运证号！");
 		$("#modal_common_content").html("请输入营运证号！");
+		$("#vehicle_add_opercode").focus();
+		$("#commonModal").modal();
+		return;
+	}
+	if(!$.trim(roadtransportcode)){
+		$("#modal_common_content").html("请输入道路运输证号！");
+		$("#vehicle_add_roadtransportcode").focus();
+		$("#commonModal").modal();
+		return;
+	}
+	if (file_xkz == "") {
+		$("#modal_common_content").html("请上传营运证图片！");
+		$("#file_xkz_img").focus();
 		$("#commonModal").modal();
 		return;
 	}
@@ -225,8 +249,8 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("vehiLicenseImgPath",file_xsz);
 //	formData.append("fileIdCard",file_sfz);
 //	formData.append("identitycode",identitycode);
-//	formData.append("fileRoad",file_ysz);
-//	formData.append("roadtransportcode",roadtransportcode);
+	formData.append("roadtransportimage",file_ysz);
+	formData.append("roadtransportcode",roadtransportcode);
 	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);
@@ -396,6 +420,42 @@ function djzfile(){
 				$("#file_djz_img").val(result.data);
 				alert("上传成功");
 				$(".djz").remove();
+				$('#detail').modal("hide");
+			}else{
+				alert(result.error);
+			} 
+		}
+	});
+}
+//道路运输证图片
+function yszfile(){
+	//机动车登记证图片
+	var file_ysz = $('#file_ysz')[0].files[0];
+	
+	if (!file_ysz) {
+		$("#modal_common_content").html("请上传道路运输证图片！");
+		$("#commonModal").modal();
+		return;
+	}
+	var formData = new FormData();
+	formData.append("file",file_ysz);
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData,
+		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
+		success : function(result) {
+			$("#file_ysz_img").val("");
+			if (result.code == "000000") {
+				$("#file_ysz_img").val(result.data);
+				alert("上传成功");
+				$('.ysz').remove();
 				$('#detail').modal("hide");
 			}else{
 				alert(result.error);

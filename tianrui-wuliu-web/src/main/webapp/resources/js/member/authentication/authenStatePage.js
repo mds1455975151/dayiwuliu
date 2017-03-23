@@ -43,6 +43,19 @@ $(function() {
 });
 
 /** ==========================原页面方法==========================  */
+//身份证失去焦点事件
+$("#perAuthen_id").on("blur",function(){
+	var idcard = $("#perAuthen_id").val();
+	if(idcard.length==18){
+		var year = idcard.substring(6,10);
+		var month = idcard.substring(10,12);
+		var date = idcard.substring(12,14);
+		$("#per_birthday").val(year+"-"+month+"-"+date);
+	}else{
+		$('#perAuthen_id').focus();
+	}
+});
+
 
 //【申请认证】按钮绑定点击事件
 $("#perAuthen_button").click(function() {

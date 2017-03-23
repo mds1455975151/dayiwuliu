@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.vehicle;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 
 /**
@@ -152,6 +154,7 @@ public class MemberVehicleResp extends BaseResp{
 	 * @return vehicleprefix
 	 */
 	public String getVehiclePrefix() {
+		vehiclePrefix = StringUtils.isBlank(vehiclePrefix)?"":vehiclePrefix.toUpperCase();
 		return vehiclePrefix;
 	}
 
@@ -168,6 +171,7 @@ public class MemberVehicleResp extends BaseResp{
 	 * @return vehicleNo
 	 */
 	public String getVehicleNo() {
+		vehicleNo = StringUtils.isBlank(vehicleNo)?"":vehicleNo.toUpperCase();
 		return vehicleNo;
 	}
 
@@ -534,6 +538,7 @@ public class MemberVehicleResp extends BaseResp{
 	}
 
 	public String getRegistcode() {
+		registcode = StringUtils.isBlank(registcode)?"":registcode.toUpperCase();
 		return registcode;
 	}
 
@@ -550,6 +555,7 @@ public class MemberVehicleResp extends BaseResp{
 	}
 
 	public String getOpercode() {
+		opercode = StringUtils.isBlank(opercode)?"":opercode.toUpperCase();
 		return opercode;
 	}
 
@@ -566,6 +572,7 @@ public class MemberVehicleResp extends BaseResp{
 	}
 
 	public String getIdentitycode() {
+		identitycode = StringUtils.isBlank(identitycode)?"":identitycode;
 		return identitycode;
 	}
 
@@ -590,6 +597,7 @@ public class MemberVehicleResp extends BaseResp{
 	}
 
 	public String getRoadtransportcode() {
+		roadtransportcode = StringUtils.isBlank(roadtransportcode)?"":roadtransportcode.toUpperCase();
 		return roadtransportcode;
 	}
 

@@ -23,6 +23,7 @@ import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
+import com.tianrui.api.req.front.vehicle.VehicleOnlyReq;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
 import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
@@ -487,6 +488,15 @@ public class MyVehicleAction {
 		vehiReq.setDesc2("2");
 		// 更新操作
 		rs = memberVehicleService.updateByPrimaryKeySelective(vehiReq);
+		return rs;
+	}
+	/**验证车牌号唯一
+	 * @throws Exception */
+	@RequestMapping("vehicleVerify")
+	@ResponseBody
+	public Result vehicleVerify(VehicleOnlyReq req) throws Exception{
+		Result rs = null;
+		rs = memberVehicleService.vehicleNOByOnly(req);
 		return rs;
 	}
 	

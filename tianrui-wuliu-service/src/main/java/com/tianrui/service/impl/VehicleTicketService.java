@@ -193,7 +193,9 @@ public class VehicleTicketService implements IVehicleTicketService{
 		vt.setVehicleid(req.getId());
 		List<VehicleTicket> list = vehicleTicketMapper.selectByCondition(vt);
 		if(list.size()==1){
-			rs.setData(list.get(0));
+			VehicleTicketResp resp = new VehicleTicketResp();
+			PropertyUtils.copyProperties(resp, list.get(0));
+			rs.setData(resp);
 		}
 		return rs;
 	}

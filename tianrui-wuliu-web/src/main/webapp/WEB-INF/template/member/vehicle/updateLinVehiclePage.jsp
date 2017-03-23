@@ -34,19 +34,19 @@
 			<!--个人中心右侧begin-->
 			<div class="rz_right">
 				<div class=" bgblue">
-					<h2>修改车辆</h2>
+					<h2>补全车辆</h2>
 				</div>
 				<!-- 个人车辆begin -->
 				<div class="car_box">
 					<div class="reg_tel">
 						<input type="hidden" id="vehicleid" value="${vehicle.id }">
-						<label>车牌号码：</label> <input type="text"
+						<label><span style="color: red">*</span>车牌号码：</label> <input type="text"
 							value="${vehicle.vehiclePrefix }${vehicle.vehicleNo}"
 							id="vehicle_add_vehiNo">
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
-						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
+						<label><span style="color: red">*</span>营运证号：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
 						<p id="message_opercode"></p>
 						<div class="rz_persontab">
 							<div class="samples">
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label>车辆类型：</label> <select class="form-control w350"
+						<label><span style="color: red">*</span>车辆类型：</label> <select class="form-control w350"
 							id="vehicle_add_vehiType">
 							<option value="0">请选择</option>
 							<c:forEach items="${vt }" var="type">
@@ -75,30 +75,30 @@
 						<p id="message_vehiType"></p>
 					</div>
 					<div class="reg_tel">
-						<label>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</label> <input
+						<label><span style="color: red">*</span>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：</label> <input
 							type="text" placeholder="" value="${vehicle.vehiLength }"
 							id="vehicle_add_vehiLength"> 米
 						<p id="message_vehiLength"></p>
 					</div>
 					<div class="reg_tel">
-						<label>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
+						<label><span style="color: red">*</span>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
 							type="text" placeholder="" value="${vehicle.vehiWeight }"
 							id="vehicle_add_vehiWeight"> 吨
 						<p id="message_vehiWeight"></p>
 					</div>
 					<div class="reg_tel">
-						<label>所有人姓名：</label> <input type="text"
-							value="${vehicle.vehiOwnerName }" id="vehicle_add_vehiOwnerName">
+						<label><span style="color: red">*</span>所有人姓名：</label> <input type="text"
+							value="${vehicle.vehiOwnerName }" id="vehicle_add_vehiOwnerName" maxlength="30">
 						<p id="message_vehiOwnerName"></p>
 					</div>
 					<div class="reg_tel">
-						<label>联系电话：</label> <input type="text"
+						<label><span style="color: red">*</span>联系电话：</label> <input type="text"
 							value="${vehicle.vehiOwnerTel }" maxlength="11"
 							id="vehicle_add_vehiTel">
 						<p id="message_vehiTel"></p>
 					</div>
 					<div class="reg_tel">
-						<label>车辆照片：</label>
+						<label><span style="color: red">*</span>车辆照片：</label>
 						<div class="rz_persontab">
 							<div class="samples">
 								<a href="${vehicle.vehiHeadImgPath }" target="_blank"> <img
@@ -113,7 +113,7 @@
 						</div>
 					</div>
 					<div class="reg_tel">
-						<label>行驶证：</label>
+						<label><span style="color: red">*</span>行驶证：</label>
 						<div class="rz_persontab">
 							<div class="samples">
 								<a href="${vehicle.vehiLicenseImgPath }" target="_blank"> <img
@@ -125,6 +125,22 @@
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
 							<input type="hidden" id="file_xsz_img">
+						</div>
+					</div>
+					
+					<div class="reg_tel">
+						<label><span style="color: red">*</span>道路运输证：</label>
+						<input type="text" id="vehicle_add_roadtransportcode" value="${vehicle.roadtransportcode }"> 
+						<p id="message_roadtransportcode"></p>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="ysz" style="max-height: 240px;" src="${vehicle.roadtransportimage }">
+							</div>
+							<div class="img_upload">
+								<input id="file_ysz" onchange="yszfile()" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+							<input type="hidden" id="file_ysz_img">
 						</div>
 					</div>
 					
@@ -144,6 +160,7 @@
 							<input type="hidden" id="file_djz_img">
 						</div>
 					</div>
+					
 					<div class="car_photo">
 						<div class="car_addbtn">
 							<button type="submit" class="btn btnyello" id="vehicle_addBtn">修改</button>
@@ -188,7 +205,7 @@
 </script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/updateLinVehiclePage.js?02.24"></script>
+	src="/resources/js/member/vehicle/updateLinVehiclePage.js?03.22"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

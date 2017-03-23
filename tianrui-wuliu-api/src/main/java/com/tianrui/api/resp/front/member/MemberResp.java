@@ -387,7 +387,7 @@ public class MemberResp extends BaseResp{
 		this.driveImagePath = driveImagePath;
 	}
 	public String getIdentityCard() {
-		identityCard = StringUtils.isBlank(identityCard)?"":identityCard;
+		identityCard = StringUtils.isBlank(identityCard)?"":identityCard.toUpperCase();
 		return identityCard;
 	}
 	public void setIdentityCard(String identityCard) {

@@ -131,5 +131,4 @@ public class VehicleTicketReq {
 	public void setMotorno(String motorno) {
 		this.motorno = motorno;
 	}
-
 }

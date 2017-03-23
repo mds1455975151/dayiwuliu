@@ -25,6 +25,7 @@ $(function() {
 });
 var flag ;
 function getVehilceNo(){
+	$("#message_vehiNo").html("");
 	$("#lin_vehicle").show();
 	$("#you_vehicle").hide();
 	flag = "lin";
@@ -129,6 +130,24 @@ $("#vehicle_add_vehiNo_2").on("blur", function() {
 		$("#vehicle_add_vehiNo").focus();
 		$("#vehicle_add_vehiNo_2").focus();
 		return;
+	}else {
+		$.ajax({
+			url : PATH + '/trwuliu/Member/myVehicle/vehicleVerify',// 跳转到 action 
+			data : {
+				vheicleFix: vehiNo.substr(0,2),
+				vehicleNo:vehiNo.substr(2,7)
+			},
+			type : "post",
+			success : function(result){
+				if (result.code != "000000") {
+					$("#message_vehiNo").html("车牌号已存在，请勿重复添加！");
+					flagvehNo = false;
+				} else {
+					$("#message_vehiNo").html("");
+					flagvehNo = true;
+				}
+			}
+		});
 	} 
 });
 
@@ -165,7 +184,7 @@ $("#vehicle_addBtn").click(function() {
 	//道路运输证号
 	var roadtransportcode = $('#vehicle_add_roadtransportcode').val();
 	//道路运输证图片
-//	var file_ysz = $('#file_ysz')[0].files[0];
+	var file_ysz = $('#file_ysz_img').val();
 	//运营许可证号
 	var opercode = $('#vehicle_add_opercode').val();
 	//运营许可证图片
@@ -249,6 +268,8 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);
+	formData.append("roadtransportimage",file_ysz);
+	formData.append("roadtransportcode",roadtransportcode);
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveLinVehicle',// 跳转到 action
 		data : formData,
@@ -413,6 +434,42 @@ function djzfile(){
 				$("#file_djz_img").val(result.data);
 				alert("上传成功");
 				$('.djz').remove();
+				$('#detail').modal("hide");
+			}else{
+				alert(result.error);
+			} 
+		}
+	});
+}
+//道路运输证图片
+function yszfile(){
+	//机动车登记证图片
+	var file_ysz = $('#file_ysz')[0].files[0];
+	
+	if (!file_ysz) {
+		$("#modal_common_content").html("请上传道路运输证图片！");
+		$("#commonModal").modal();
+		return;
+	}
+	var formData = new FormData();
+	formData.append("file",file_ysz);
+	$.ajax({
+		url : PATH + '/upload/add',// 跳转到 action
+		data : formData,
+		type : "post",
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
+		success : function(result) {
+			$("#file_ysz_img").val("");
+			if (result.code == "000000") {
+				$("#file_ysz_img").val(result.data);
+				alert("上传成功");
+				$('.ysz').remove();
 				$('#detail').modal("hide");
 			}else{
 				alert(result.error);

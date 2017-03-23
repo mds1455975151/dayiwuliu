@@ -209,4 +209,12 @@ public class Constant {
 	public static void setSYSTEM_SHIPPER(String sYSTEM_SHIPPER) {
 		SYSTEM_SHIPPER = sYSTEM_SHIPPER;
 	}
+
+	public static String getJTB_PUT_URL() {
+		return JTB_PUT_URL;
+	}
+
+	public static void setJTB_PUT_URL(String jTB_PUT_URL) {
+		JTB_PUT_URL = jTB_PUT_URL;
+	}
 }

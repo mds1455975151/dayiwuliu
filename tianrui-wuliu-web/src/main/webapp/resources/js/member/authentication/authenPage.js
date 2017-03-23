@@ -69,12 +69,35 @@ function setPageByStatus() {
 		$("#todrivAuthen_button").html("申请认证");
 	}
 	
-	
-	// 企业认证
-	if(0 != companypercheck){
+	if(0 != userpercheck || 0 != driverpercheck){
+		$("#corpAuthen_div").remove();
+	}else if(0 != companypercheck){
 		$("#perAuthen_div").remove();
 		$("#drivAuthen_div").remove();
 	}
+	
+	if(1 == companypercheck){
+		$("#perAuthen_div").remove();
+		$("#drivAuthen_div").remove();
+	}else if(1 == driverpercheck){
+		$("#perAuthen_div").remove();
+		$("#corpAuthen_div").remove();
+	}else if(1 == userpercheck){
+		$("#corpAuthen_div").remove();
+	}
+	
+	if(2 == companypercheck){
+		$("#perAuthen_div").remove();
+		$("#drivAuthen_div").remove();
+	}else if(2 == userpercheck){
+		$("#drivAuthen_div").remove();
+		$("#corpAuthen_div").remove();
+	}else if(2 == driverpercheck){
+		$("#perAuthen_div").remove();
+		$("#corpAuthen_div").remove();
+	}
+	
+	// 企业认证
 	if (2 == companypercheck) {
 		$("#perAuthen_div").remove();
 		$("#corpAuthen_status").html("认证中");
@@ -93,9 +116,6 @@ function setPageByStatus() {
 		$("#toCorpAuthen_button").html("查看原因");
 	}
 	// 个人认证
-	if(0 != userpercheck){
-		$("#corpAuthen_div").remove();
-	}
 	if (2 == userpercheck) {
 		$("#corpAuthen_div").remove();
 		$("#perAuthen_status").html("认证中");
@@ -117,10 +137,6 @@ function setPageByStatus() {
 		$("#toPerAuthen_button").html("查看原因");
 	}
 	//司机认证
-	if(0 != driverpercheck){
-		$("#perAuthen_div").remove();
-		$("#corpAuthen_div").remove();
-	}
 	if (2 == driverpercheck) {
 		$("#drivAuthen_status").html("认证中");
 		$("#drivAuthen_status").removeClass();

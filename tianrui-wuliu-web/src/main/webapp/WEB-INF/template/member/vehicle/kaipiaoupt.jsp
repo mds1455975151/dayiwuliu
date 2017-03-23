@@ -83,11 +83,7 @@
 						<input type="text" value="${ticket.motor }" id="veh_motor" name="motor">
 						<p id=""></p>
 					</div>
-					<div class="reg_tel">
-						<label> <span style="color: red">*</span>发动机型号：</label> 
-						<input type="text" value="${ticket.motorno }" id="veh_motorno" name="motorno">
-						<p id=""></p>
-					</div>
+					<input type="hidden" value="${ticket.motorno }" id="veh_motorno" name="motorno">
 					<div class="car_photo">
 						<div class="car_addbtn">
 							<button type="button" class="btn btnyello" id="vehicle_ticket_upt">修改</button>

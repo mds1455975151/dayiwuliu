@@ -101,7 +101,7 @@ public class MyVehicleResp extends BaseResp{
 	}
 	
 	public String getIdentitycode() {
-		identitycode = StringUtils.isBlank(identitycode)?"":identitycode;
+		identitycode = StringUtils.isBlank(identitycode)?"":identitycode.toUpperCase();
 		return identitycode;
 	}
 	public void setIdentitycode(String identitycode) {
@@ -128,7 +128,7 @@ public class MyVehicleResp extends BaseResp{
 		this.desc1 = desc1;
 	}
 	public String getRoadtransportcode() {
-		roadtransportcode = StringUtils.isBlank(roadtransportcode)?"":roadtransportcode;
+		roadtransportcode = StringUtils.isBlank(roadtransportcode)?"":roadtransportcode.toUpperCase();
 		return roadtransportcode;
 	}
 	public void setRoadtransportcode(String roadtransportcode) {
@@ -142,7 +142,7 @@ public class MyVehicleResp extends BaseResp{
 		this.roadtransportimage = roadtransportimage;
 	}
 	public String getRegistcode() {
-		registcode = StringUtils.isBlank(registcode)?"":registcode;
+		registcode = StringUtils.isBlank(registcode)?"":registcode.toUpperCase();
 		return registcode;
 	}
 	public void setRegistcode(String registcode) {
@@ -156,7 +156,7 @@ public class MyVehicleResp extends BaseResp{
 		this.registimage = registimage;
 	}
 	public String getOpercode() {
-		opercode = StringUtils.isBlank(opercode)?"":opercode;
+		opercode = StringUtils.isBlank(opercode)?"":opercode.toUpperCase();
 		return opercode;
 	}
 	public void setOpercode(String opercode) {
@@ -215,6 +215,7 @@ public class MyVehicleResp extends BaseResp{
 		this.memberid = memberid;
 	}
 	public String getVehicleno() {
+		vehicleno = StringUtils.isBlank(vehicleno)?"":vehicleno.toUpperCase();
 		return vehicleno;
 	}
 	public void setVehicleno(String vehicleno) {
@@ -242,6 +243,7 @@ public class MyVehicleResp extends BaseResp{
 		return createtime;
 	}
 	public String getVehicleprefix() {
+		vehicleprefix = StringUtils.isBlank(vehicleprefix)?"":vehicleprefix.toUpperCase();
 		return vehicleprefix;
 	}
 	public void setVehicleprefix(String vehicleprefix) {

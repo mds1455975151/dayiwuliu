@@ -23,6 +23,19 @@ $(function() {
 	$("#perAuthen_tel").val(cellPhone);
 });
 
+//身份证失去焦点事件
+$("#perAuthen_id").on("blur",function(){
+	var idcard = $("#perAuthen_id").val();
+	if(idcard.length==18){
+		var year = idcard.substring(6,10);
+		var month = idcard.substring(10,12);
+		var date = idcard.substring(12,14);
+		$("#perAuthen_birthday").val(year+"-"+month+"-"+date);
+	}else{
+		$('#perAuthen_id').focus();
+	}
+});
+
 // 验证名字
 $("#perAuthen_name").blur(function() {
 	// 姓名，2个汉字以上，包含少数民族

@@ -26,6 +26,7 @@ import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.req.front.vehicle.VehicleOnlyReq;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
 import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
@@ -270,6 +271,19 @@ public class AppVehicleAndDriverAction {
 	public AppResult getVehicleNo(AppParam<VehicleAndDriverReq> appParam) throws Exception {
 		Result rs = Result.getSuccessResult();
 		rs.setData(vehicleNOService.getVehicleNo());
+		return AppResult.valueOf(rs);
+	}
+	
+	/**验证车牌号唯一
+	 * @throws Exception */
+	@RequestMapping("vehicleVerify")
+	@ApiParamRawType(VehicleOnlyReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult vehicleVerify(AppParam<VehicleOnlyReq> parme) throws Exception{
+		Result rs = null;
+		VehicleOnlyReq req = parme.getBody();
+		rs = memberVehicleService.vehicleNOByOnly(req);
 		return AppResult.valueOf(rs);
 	}
 	
