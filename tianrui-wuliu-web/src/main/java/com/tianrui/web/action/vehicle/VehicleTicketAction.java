@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IVehicleTicketService;
 import com.tianrui.api.req.front.vehicle.TicketFindReq;
 import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.mapper.MemberVehicleMapper;
 
 /**
  * 请求开票认证
@@ -23,12 +26,16 @@ public class VehicleTicketAction {
 
 	@Autowired
 	IVehicleTicketService vehicleTicketService;
+	@Autowired
+	MemberVehicleMapper memberVehicleMapper;
 	
 	/** 开票认证页面跳转*/
 	@RequestMapping("/kaipiaoPage")
-	public ModelAndView kaipiaoPage(String id){
+	public ModelAndView kaipiaoPage(String id,String vehiOwnerName){
 		ModelAndView view = new ModelAndView();
+		MemberVehicle vehciel =  memberVehicleMapper.selectByPrimaryKey(id);
 		view.addObject("vehicleid", id);
+		view.addObject("vehiOwnerName", vehciel.getVehiOwnerName());
 		view.setViewName("/member/vehicle/kaipiao");
 		return view;
 	}

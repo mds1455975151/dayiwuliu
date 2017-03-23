@@ -18,7 +18,7 @@ public class JtbHttpRequset {
         BufferedReader in = null;
         try {
         	String result = "";
-            URL realUrl = new URL("http://172.20.10.36:8081/pome/index");
+            URL realUrl = new URL("http://172.20.10.32:8081/pome/index");
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
             // 设置通用的请求属性

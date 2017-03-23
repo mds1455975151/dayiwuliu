@@ -191,7 +191,7 @@ function appendContentToBody(result, flag) {
 					}
 					
 				var button5 = "";
-				//非空闲车辆 非认证成功 不能进行开票认证 临时车辆
+				//非空闲车辆 非认证成功 不能进行开票认证 临时车辆 
 				if(data[i].status == "1"&&data[i].billstatus == 5&&data[i].desc2 == 2){
 					if(data[i].desc1 == "0"||data[i].desc1 == undefined){
 						button5 = $("<button  onclick=\"kaipiaoView('"+data[i].id+"','"+data[i].driverTel+"')\"></button>")

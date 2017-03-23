@@ -477,10 +477,10 @@ public class BillService implements IBillService{
 						billMapper.updateByPrimaryKeySelective(update);
 						
 						//运单推送交通部
-//						db.setTrueweight(Double.valueOf(req.getWeight()));
-//						JtbHttpRequset jtb = new JtbHttpRequset();
-//						BillMassageReq jtbReq = billExchange(db);
-//						jtb.putJtb(jtbReq);
+						db.setTrueweight(Double.valueOf(req.getWeight()));
+						JtbHttpRequset jtb = new JtbHttpRequset();
+						BillMassageReq jtbReq = billExchange(db);
+						jtb.putJtb(jtbReq);
 						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
 						Plan planUpdate =new Plan();
@@ -1162,8 +1162,14 @@ public class BillService implements IBillService{
 			if( StringUtils.isNotBlank(req.getStatus()) ){
 				query.setStatus(Byte.valueOf(req.getStatus()));
 			}
-			if( StringUtils.isNotBlank(req.getKey()) ){
-				query.setQueryKey(req.getKey().trim());
+			if( StringUtils.isNotBlank(req.getBillNo()) ){
+				query.setWaybillno(req.getBillNo().trim());
+			}
+			if(StringUtils.isNotBlank(req.getPayType())){
+				query.setPayType(req.getPayType().trim());
+			}
+			if(StringUtils.isNotBlank(req.getPayDesc1())){
+				query.setPayDESC1(req.getPayDesc1().trim());
 			}
 			long total =billMapper.countByConditionForBack(query);
 			if( total>0 ){
