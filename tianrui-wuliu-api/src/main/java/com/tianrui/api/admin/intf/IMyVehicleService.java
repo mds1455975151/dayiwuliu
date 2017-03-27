@@ -5,6 +5,7 @@ import java.util.List;
 import com.tianrui.api.req.admin.MyVehicleReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.common.vo.Result;
 /**
  * 
  * @类描述：平台车辆管理
@@ -21,4 +22,6 @@ public interface IMyVehicleService {
 	PageResp findByEntity(MyVehicleReq req)throws Exception;
 	
 	MyVehicleResp findById(String id)throws Exception;
+	
+	Result updateVehicle(MyVehicleReq req)throws Exception;
 }

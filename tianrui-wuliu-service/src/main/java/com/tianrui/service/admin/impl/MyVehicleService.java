@@ -12,8 +12,11 @@ import com.tianrui.api.admin.intf.IMyVehicleService;
 import com.tianrui.api.req.admin.MyVehicleReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.MyVehicle;
 import com.tianrui.service.admin.mapper.MyVehicleMapper;
+import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.mapper.MemberVehicleMapper;
 /**
  * 
  * @类描述：后台管理司机查询
@@ -30,6 +33,8 @@ public class MyVehicleService implements IMyVehicleService{
 
 	@Autowired
 	private MyVehicleMapper vehicleMapper;
+	@Autowired
+	MemberVehicleMapper memberVehicleMapper;
 
 	@Override
 	public PageResp findByEntity(MyVehicleReq req) throws Exception {
@@ -63,5 +68,18 @@ public class MyVehicleService implements IMyVehicleService{
 		MyVehicleResp resp = new MyVehicleResp();
 		PropertyUtils.copyProperties(resp, m);
 		return resp;
+	}
+
+	@Override
+	public Result updateVehicle(MyVehicleReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		MemberVehicle record = new MemberVehicle();
+		record.setId(req.getId());
+		record.setRoadtransportcode(req.getRoadtransportcode());
+		memberVehicleMapper.updateByPrimaryKeySelective(record);
+		return rs;
+		
+		
 	}
 }

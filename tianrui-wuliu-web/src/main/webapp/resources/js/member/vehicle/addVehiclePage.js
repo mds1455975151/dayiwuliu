@@ -157,7 +157,7 @@ $("#vehicle_addBtn").click(function() {
 	//道路运输证号 
 	var roadtransportcode = $('#vehicle_add_roadtransportcode').val();
 	//道路运输证图片
-	var file_ysz = $('#file_ysz_img').val();
+//	var file_ysz = $('#file_ysz_img').val();
 	//道路运输证
 	var vehicle_add_roadtransportcode = $("#vehicle_add_roadtransportcode").val();
 	//运营许可证号
@@ -225,12 +225,12 @@ $("#vehicle_addBtn").click(function() {
 		$("#commonModal").modal();
 		return;
 	}
-	if(file_ysz == ""){
-		$("#modal_common_content").html("请上传道路运输证图片！");
-		$("#file_ysz_img").focus();
-		$("#commonModal").modal();
-		return;
-	}
+//	if(file_ysz == ""){
+//		$("#modal_common_content").html("请上传道路运输证图片！");
+//		$("#file_ysz_img").focus();
+//		$("#commonModal").modal();
+//		return;
+//	}
 	if (!$.trim(opercode)) {
 		$("#modal_common_content").html("请输入营运证号！");
 		$("#vehicle_add_opercode").focus();
@@ -251,7 +251,7 @@ $("#vehicle_addBtn").click(function() {
 	}
 	var formData = new FormData();//roadtransportcode file_ysz  
 	formData.append("roadtransportcode",roadtransportcode);
-	formData.append("roadtransportimage",file_ysz);
+//	formData.append("roadtransportimage",file_ysz);
 	formData.append("memberId",member_id);
 	formData.append("vehiWholeNo",vehiNo);
 	formData.append("vehicleType",vehiType);

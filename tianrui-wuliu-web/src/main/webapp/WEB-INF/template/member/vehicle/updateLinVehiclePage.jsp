@@ -46,6 +46,23 @@
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
+						<label><span style="color: red">*</span>道路运输证：</label>
+						<input type="text" id="vehicle_add_roadtransportcode" value="${vehicle.roadtransportcode }"> 
+						<p id="message_roadtransportcode"></p>
+						<!-- 
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="ysz" style="max-height: 240px;" src="${vehicle.roadtransportimage }">
+							</div>
+							<div class="img_upload">
+								<input id="file_ysz" onchange="yszfile()" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+							<input type="hidden" id="file_ysz_img">
+						</div>
+						 -->
+					</div>
+					<div class="reg_tel">
 						<label><span style="color: red">*</span>营运证号：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
 						<p id="message_opercode"></p>
 						<div class="rz_persontab">
@@ -125,22 +142,6 @@
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 							</div>
 							<input type="hidden" id="file_xsz_img">
-						</div>
-					</div>
-					
-					<div class="reg_tel">
-						<label><span style="color: red">*</span>道路运输证：</label>
-						<input type="text" id="vehicle_add_roadtransportcode" value="${vehicle.roadtransportcode }"> 
-						<p id="message_roadtransportcode"></p>
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="ysz" style="max-height: 240px;" src="${vehicle.roadtransportimage }">
-							</div>
-							<div class="img_upload">
-								<input id="file_ysz" onchange="yszfile()" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-							<input type="hidden" id="file_ysz_img">
 						</div>
 					</div>
 					

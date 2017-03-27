@@ -25,6 +25,8 @@ public class MyVehicleReq extends BaseReq{
 	private String ownerphone;
 	private String companyname;
 	private String companytel;
+	/** 道路运输证*/
+	private String roadtransportcode;
 	
 	private String desc2;
 	/**
@@ -123,6 +125,12 @@ public class MyVehicleReq extends BaseReq{
 	}
 	public Double getLength() {
 		return length;
+	}
+	public String getRoadtransportcode() {
+		return roadtransportcode;
+	}
+	public void setRoadtransportcode(String roadtransportcode) {
+		this.roadtransportcode = roadtransportcode;
 	}
 	public void setLength(Double length) {
 		this.length = length;

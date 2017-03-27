@@ -255,7 +255,8 @@ function details(id){
 			}
 			var registcode = d.registimage==""?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+d.registimage+"' target='_blank'>查看图片</a></span>");
 			var opercode = d.operimage==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='/imageView/index?imageUrl="+d.operimage+"' target='_blank'>查看图片</a></span>");
-			var roadtransportcode = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看图片</a></span>");
+			var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看图片</a></span>");
+			var roadtransportcode = d.roadtransportcode==""?"未上传":d.roadtransportcode;
 			var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看图片</a></span>");
 			var hml = 
 				"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
@@ -317,7 +318,8 @@ function details(id){
 				var registcode = d.registimage==""?"<span>未上传</span>":("<span>证书编号：<a href='/imageView/index?imageUrl="+d.registimage+"' target='_blank'>查看照片</a></span>");
 				var opercode = d.operimage==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='/imageView/index?imageUrl="+d.operimage+"' target='_blank'>查看照片</a></span>");
 				var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看照片</a></span>");
-				var roadtransportcode = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
+				var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
+				var roadtransportcode = "<input type='text' id='vehicleSportid' value='"+d.roadtransportcode+"'><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>"
 				var hml = 
 					"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
 					"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+
@@ -330,7 +332,8 @@ function details(id){
 					"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
 					"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"3\")' data-target='#againPice'>【重新上传】</a></div>" +
 					"<div class='file_detail2'><label>营运证号：</label>"+opercode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></div>"+
-					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></div>"+
+					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"</div>"+
+//					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></div>"+
 //					"<div class='file_detail2'><label>所有人身份证：</label>"+identitycode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></div>"+
 					"<div class='file_detail2'><label>车辆照片：</label><span><a href='/imageView/index?imageUrl="+d.vehiheadimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"1\")' data-target='#againPice'>【重新上传】</a></span></div>" +
 					"<div class='file_detail2'><label>行驶证照片：</label><span><a href='/imageView/index?imageUrl="+d.vehilicenseimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";
@@ -338,6 +341,27 @@ function details(id){
 			}
 		});
 }
+	
+	function updateVehicleSoprtcode(id){
+		var vehicleSportid = $("#vehicleSportid").val();
+		if(vehicleSportid==""){
+			alert("道路运输证不能为空");
+			return;
+		}
+		$.ajax({
+			url:CONTEXTPATH+"/AdminMember/updateCarMamage",
+			data:{"id":id,"roadtransportcode":vehicleSportid},
+			type:"post",
+			success: function(retVal) {
+				if(retVal.code=="000000"){
+					alert("修改成功");
+				}else{
+					alert(retVal.error);
+				}
+			}
+	});
+	}
+	
 	
 	function hideWindow(id,type){
 		if(type==1||type==2){
