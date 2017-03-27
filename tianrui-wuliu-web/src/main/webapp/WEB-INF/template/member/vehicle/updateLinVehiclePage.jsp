@@ -206,7 +206,7 @@
 </script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/updateLinVehiclePage.js?03.22"></script>
+	src="/resources/js/member/vehicle/updateLinVehiclePage.js?03.27"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

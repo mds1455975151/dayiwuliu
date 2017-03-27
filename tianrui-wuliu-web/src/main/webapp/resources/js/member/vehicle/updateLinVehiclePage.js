@@ -173,11 +173,27 @@ $("#vehicle_addBtn").click(function() {
 		$("#commonModal").modal();
 		return;
 	}
-	if (!$.trim(vehiNo)) {
+	
+	//各个省份简称
+	var CityNo="京津沪申渝冀晋辽吉黑苏浙皖闽赣鲁豫鄂湘粤琼川黔贵滇云陕秦甘陇青藏桂蒙宁新港澳台";
+	// 车牌号正则表达式
+	var vehiReg = /^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
+	if(CityNo.indexOf(vehiNo.substr(0,1))==-1){
+		$("#message_vehiNo").html("车牌号省份不合法，请重新输入！");
+		$("#vehicle_add_vehiNo").focus();
+		return;
+	}else if (vehiNo == "") {
 		$("#message_vehiNo").html("车牌号不能为空！");
 		$("#vehicle_add_vehiNo").focus();
 		return;
+	} else if (!vehiReg.test(vehiNo)) {
+		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
+		$("#vehicle_add_vehiNo").focus();
+		return;
+	}else{
+		$("#message_vehiNo").html("");
 	}
+	
 	if (!$.trim(vehiType) || $.trim(vehiType) == "0") {
 		$("#message_vehiType").html("请选择合适的车型！");
 		return;
