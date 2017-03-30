@@ -41,6 +41,9 @@
    		  DESC2, DESC3, DESC4
     from trwuliu_users
     <where> 
+ 	  <if test="desc4 != null and desc4 != ''">
+ 	  	and DESC4 = #{desc4,jdbcType=VARCHAR}
+ 	  </if>
  	  <if test="account != null  and account !='' " >
        and ACCOUNT = #{account,jdbcType=VARCHAR}
       </if>

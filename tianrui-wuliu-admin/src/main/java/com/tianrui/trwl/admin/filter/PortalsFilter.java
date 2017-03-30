@@ -22,6 +22,10 @@ public class PortalsFilter implements Filter {
 	final String logininUrl="/user/loginin"; //登陆
 	final String resourcesUrl="/resources"; //不拦截静态资源
 	final String getValCode  = "/user/getValCode";
+	final String wxloginUrl  = "/weixin/login/loginPage";
+	final String wxlogininUrl="/weixin/login/loginin"; //登陆
+	final String wxloginin="/weixin/login/wxLogin"; //登陆
+	
 	@Override
 	public void destroy() {
 
@@ -37,7 +41,10 @@ public class PortalsFilter implements Filter {
 		if (req.getRequestURI().contains("/error/")
 				|| req.getRequestURI().contains(resourcesUrl)
 				|| req.getRequestURI().contains(getValCode)
+				|| req.getRequestURI().equals(contextPath+wxloginUrl)
+				|| req.getRequestURI().equals(contextPath+wxlogininUrl)
 				|| req.getRequestURI().equals(contextPath+loginUrl)
+				|| req.getRequestURI().equals(contextPath+wxloginin)
 				|| req.getRequestURI().equals(contextPath+logininUrl)){
 			chain.doFilter(request, response);
 		}else if(req.getRequestURI().equals("/")){
