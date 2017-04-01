@@ -20,7 +20,8 @@ public class MemberFindReq extends BaseReq{
 	private String companyName;
 	/** 运力类型*/
 	private String capaType;
-	
+	/** 审核状态 0-未审 1-已审*/
+	private String percheck;
 	/**
 	 * 会员状态
 	 */
@@ -170,6 +171,12 @@ public class MemberFindReq extends BaseReq{
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	public String getPercheck() {
+		return percheck;
+	}
+	public void setPercheck(String percheck) {
+		this.percheck = percheck;
 	}
 	public String getUserName() {
 		return userName;

@@ -75,9 +75,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <option value="7">司机拒绝接单</option>
                             </select>
                         </div>
+                        <div class="ht_div">
+		                    <label>支付类型：</label>
+							<select class="form-control" id="payType">
+								<option value="">请选择</option>
+								<option value="0">在线支付</option>
+								<option value="1">发票单支付</option>
+							</select>
+		                </div>
+		               <div class="ht_div">
+		                    <label>发票类型：</label>
+							<select class="form-control" id="payDesc1">
+								<option value="">请选择</option>
+								<option value="540100000003">熟料运输费用</option>
+								<option value="540100000016">原煤运输费用</option>
+								<option value="540100000018">水泥运输费用</option>
+							</select>
+		                </div>
                     <div class="ht_divbtn">
                         <button class="btn btnblue " onclick="searchFile();" type="button">搜索</button>
-                        <button class="btn btngreen" type="button">重置</button>
                     </div>
                 </div>
             </div>
@@ -94,6 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>序号</th>
                                 <th>运单编码</th>
+                                <th>支付类型</th>
+                                <th>发票类型</th>
                                 <th>司机姓名</th>
                                 <th>司机电话</th>
                                 <th>组织名称</th>
@@ -274,7 +292,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_bill.js?12.05" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_bill.js?03.23" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

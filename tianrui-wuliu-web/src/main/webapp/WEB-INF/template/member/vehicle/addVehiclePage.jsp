@@ -44,6 +44,22 @@
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
+						<label><span style="color: red">*</span>道路运输证：</label>
+						<input type="text" id="vehicle_add_roadtransportcode"> 
+						<!-- 
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="ysz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_ysz" onchange="yszfile()" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+							<input type="hidden" id="file_ysz_img">
+						</div>
+						 -->
+					</div>
+					<div class="reg_tel">
 						<label><span style="color: red">*</span>营运证号：</label> 
 						<input type="text" id="vehicle_add_opercode">
 						<div class="rz_persontab">
@@ -124,21 +140,6 @@
 					</div>
 					
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>道路运输证：</label>
-						<input type="text" id="vehicle_add_roadtransportcode"> 
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="ysz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
-							</div>
-							<div class="img_upload">
-								<input id="file_ysz" onchange="yszfile()" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-							<input type="hidden" id="file_ysz_img">
-						</div>
-					</div>
-					
-					<div class="reg_tel">
 						<label>车辆登记证：</label> 
 						<div class="rz_persontab">
 							<div class="samples">
@@ -195,7 +196,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?03.22"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?03.23"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

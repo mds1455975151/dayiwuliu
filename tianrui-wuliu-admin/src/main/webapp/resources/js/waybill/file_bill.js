@@ -4,18 +4,18 @@ function searchFile(){
 }
 function displayData(pageNo){
 	var waybillno = $("#waybillno").val();
-	var drivername = $("#drivername").val();
-	var drivertel = $("#drivertel").val();
-	var orgName = $("#orgName").val();
-	var creater = $("#creater").val();
 	var status = $("#status").val();
 	var pageSize=$("#pageSize").val();
+	var payType = $("#payType").val();
+	var payDesc1 = $("#payDesc1").val();
 	$.ajax({
 		url:CONTEXTPATH+"/admin/waybill/findWaybill",
 		data:{
 			"status":status,
-			"key":waybillno,
+			"billNo":waybillno,
 			"pageNo":(pageNo+1),
+			"payType":payType,
+			"payDesc1":payDesc1,
 			"pageSize":pageSize
 		},
 		type:"post",
@@ -100,8 +100,28 @@ function innerHTML(data){
 		if(venderName == undefined){
 			venderName = "";
 		}
+		var payType = data[a].payType;
+		if(payType == "0"){
+			payType = "在线支付";
+		}else if(payType == "1"){
+			payType = "发票单支付";
+		}else{
+			payType = "";
+		}
+		var payDESC1 = data[a].payDESC1;
+		if(payDESC1 == "540100000003"){
+			payDESC1 = "熟料运输费用";
+		}else if(payDESC1 == "540100000016"){
+			payDESC1 = "原煤运输费用";
+		}else if(payDESC1 == "540100000018"){
+			payDESC1 = "水泥运输费用";
+		}else{
+			payDESC1 = "";
+		}
 		hml +="<tr><td>"+d+"</td>"+
 		"<td>"+data[a].waybillno+"</td>"+
+		"<td>"+payType+"</td>"+
+		"<td>"+payDESC1+"</td>"+
 		"<td>"+data[a].drivername+"</td>"+
 		"<td>"+data[a].drivertel+"</td>"+
 		"<td>"+orgName+"</td>"+

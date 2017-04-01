@@ -13,6 +13,10 @@ public class WaybillQueryReq extends BaseReq{
 	private int queryType;
 	//关键字查询
 	private String key;
+	//支付类型
+	private String payType;
+	//发票类型
+	private String payDesc1;
 	
 	//运单编码
 	private String billNo;
@@ -134,8 +138,21 @@ public class WaybillQueryReq extends BaseReq{
 	public void setCurrOrgId(String currOrgId) {
 		this.currOrgId = currOrgId;
 	}
-	
-	
-	
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
+
+	public String getPayDesc1() {
+		return payDesc1;
+	}
+
+	public void setPayDesc1(String payDesc1) {
+		this.payDesc1 = payDesc1;
+	}
 
 }

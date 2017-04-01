@@ -14,6 +14,9 @@ public class WaybillResp extends BaseResp{
 
 	private static final long serialVersionUID = 3588964458488414595L;
 
+	private String payType;
+	private String payDESC1;
+	
 	private String id;
 	private String systemShipper = Constant.SYSTEM_SHIPPER;
     private String planid;
@@ -510,5 +513,17 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setSystemShipper(String systemShipper) {
 		this.systemShipper = systemShipper;
+	}
+	public String getPayType() {
+		return payType;
+	}
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
+	public String getPayDESC1() {
+		return payDESC1;
+	}
+	public void setPayDESC1(String payDESC1) {
+		this.payDESC1 = payDESC1;
 	}
 }

@@ -184,7 +184,7 @@ $("#vehicle_addBtn").click(function() {
 	//道路运输证号
 	var roadtransportcode = $('#vehicle_add_roadtransportcode').val();
 	//道路运输证图片
-	var file_ysz = $('#file_ysz_img').val();
+//	var file_ysz = $('#file_ysz_img').val();
 	//运营许可证号
 	var opercode = $('#vehicle_add_opercode').val();
 	//运营许可证图片
@@ -268,7 +268,7 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);
-	formData.append("roadtransportimage",file_ysz);
+//	formData.append("roadtransportimage",file_ysz);
 	formData.append("roadtransportcode",roadtransportcode);
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveLinVehicle',// 跳转到 action

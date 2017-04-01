@@ -477,10 +477,8 @@ public class BillService implements IBillService{
 						billMapper.updateByPrimaryKeySelective(update);
 						
 						//运单推送交通部
-//						db.setTrueweight(Double.valueOf(req.getWeight()));
-//						JtbHttpRequset jtb = new JtbHttpRequset();
-//						BillMassageReq jtbReq = billExchange(db);
-//						jtb.putJtb(jtbReq);
+						db.setTrueweight(Double.valueOf(req.getWeight()));
+						billExchange(db);
 						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
 						Plan planUpdate =new Plan();
@@ -536,7 +534,10 @@ public class BillService implements IBillService{
 		return rs;
 	}
 
-	public BillMassageReq billExchange(Bill db) throws Exception{
+	public void billExchange(Bill db) throws Exception{
+		
+		boolean flag = true;
+		
 		BillMassageReq billMassage = new BillMassageReq();
 		billMassage.setOriginalDocumentNumber(db.getWaybillno());
 		billMassage.setCarrier("中原大易科技有限公司");
@@ -550,25 +551,48 @@ public class BillService implements IBillService{
 		billMassage.setConsignor(db.getConsignorname());
 		
 		FileRoute route = routeMapper.selectByPrimaryKey(db.getRouteid());
-		billMassage.setCountrySubdivisionCode(positionExchange(route.getOpositionid()));//装货地
+		String countrySubdivisionCode = positionExchange(route.getOpositionid());
+		if(StringUtils.isBlank(countrySubdivisionCode)){
+			flag = false;
+		}
+		billMassage.setCountrySubdivisionCode(countrySubdivisionCode);//装货地
 		billMassage.setConsignee(db.getReceivername());
-		billMassage.setReceiptCountrySubdivisionCode(positionExchange(route.getDpositionid()));//收货地址
+		String receiptCountrySubdivisionCode = positionExchange(route.getDpositionid());
+		if(StringUtils.isBlank(receiptCountrySubdivisionCode)){
+			flag = false;
+		}
+		billMassage.setReceiptCountrySubdivisionCode(receiptCountrySubdivisionCode);//收货地址
 		Double price = db.getTrueweight()*db.getPrice();
 		billMassage.setTotalMonetaryAmount(String.format("%.3f ",price));//总金额 三位小数 整数
 		//车辆牌照类型 其它-99
 		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(db.getVehicleid());
+		//临时车辆不推送交通部
+		if("1".equals(vehicle.getDesc2())){
+			flag = false;
+		}
 		billMassage.setLicensePlateTypeCode("99");
 		billMassage.setVehicleNumber(db.getVehicleno());
-		billMassage.setVehicleClassificationCode(vheicleExchange(vehicle.getVehicletype()));//车辆分类
+		String vehicleClassificationCode = vheicleExchange(vehicle.getVehicletype());
+		if(StringUtils.isBlank(vehicleClassificationCode)){
+			flag = false;
+		}
+		billMassage.setVehicleClassificationCode(vehicleClassificationCode);//车辆分类
 		billMassage.setVehicleTonnage(String.format("%.2f ",vehicle.getVehiweight()));//车辆载重量 2位小数
-//		billMassage.setRoadTransportCertificateNumber(vehicle.getRoadtransportcode());//车辆道路运输经营许可证
-		billMassage.setRoadTransportCertificateNumber("410482006680");//车辆道路运输经营许可证
+		String roadTransportCertificateNumber = vehicle.getRoadtransportcode();
+		if(StringUtils.isBlank(roadTransportCertificateNumber)){
+			flag = false;
+		}
+		billMassage.setRoadTransportCertificateNumber(roadTransportCertificateNumber);//车辆道路运输经营许可证
 		billMassage.setNameOfPerson(db.getDrivername());
 		billMassage.setTelephoneNumber(db.getDrivertel());
 		billMassage.setDescriptionOfGoods(db.getCargoname());
 		billMassage.setCargoTypeClassificationCode("94");//货物分类代码 4.2.5
 		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",db.getTrueweight()));//三位小数
-		return billMassage;
+		
+		if(flag){
+			JtbHttpRequset jtb = new JtbHttpRequset();
+			jtb.putJtb(billMassage);
+		}
 	}
 	/** 获取车辆类型代码*/
 	public String vheicleExchange(String  vehicleType){
@@ -1162,8 +1186,14 @@ public class BillService implements IBillService{
 			if( StringUtils.isNotBlank(req.getStatus()) ){
 				query.setStatus(Byte.valueOf(req.getStatus()));
 			}
-			if( StringUtils.isNotBlank(req.getKey()) ){
-				query.setQueryKey(req.getKey().trim());
+			if( StringUtils.isNotBlank(req.getBillNo()) ){
+				query.setWaybillno(req.getBillNo().trim());
+			}
+			if(StringUtils.isNotBlank(req.getPayType())){
+				query.setPayType(req.getPayType().trim());
+			}
+			if(StringUtils.isNotBlank(req.getPayDesc1())){
+				query.setPayDESC1(req.getPayDesc1().trim());
 			}
 			long total =billMapper.countByConditionForBack(query);
 			if( total>0 ){

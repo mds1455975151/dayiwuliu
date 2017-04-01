@@ -503,6 +503,16 @@ public class AdminMemberAction {
 		rs.setData(resp);
 		return rs;
 	}
+	/** 修改道路运输证
+	 * @throws Exception */
+	@RequestMapping("updateCarMamage")
+	@ResponseBody
+	public Result updateCarMamage(MyVehicleReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = vehicleService.updateVehicle(req);
+		return rs;
+	}
+	
 	/** 车辆信息补全 页面跳转*/
 	@RequestMapping("/carBuquanPage")
 	public ModelAndView carBuquanPage(String id,String pageNo) throws Exception{

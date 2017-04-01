@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import com.alibaba.fastjson.JSON;
+import com.tianrui.common.constants.Constant;
 
 
 public class JtbHttpRequset {
@@ -18,7 +19,7 @@ public class JtbHttpRequset {
         BufferedReader in = null;
         try {
         	String result = "";
-            URL realUrl = new URL("http://172.20.10.36:8081/pome/index");
+            URL realUrl = new URL(Constant.JTB_PUT_URL);
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
             // 设置通用的请求属性

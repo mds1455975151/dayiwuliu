@@ -48,7 +48,7 @@
 					</div>
 <!-- 					<div class="reg_tel">
 						<label> <span style="color: red">*</span>所有人：</label> 
-						<input type="text" id="veh_owner" name="owner">
+						<input type="text" id="veh_owner" name="owner" value="${vehiOwnerName }">
 						<p id=""></p>
 					</div> -->
 					<div class="reg_tel">

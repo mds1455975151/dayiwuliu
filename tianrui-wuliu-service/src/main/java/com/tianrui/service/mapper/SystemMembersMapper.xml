@@ -56,6 +56,17 @@
    	  <if test="userType == 1">
    	  	and m.driverpercheck != '0'
    	  </if>
+   	  <!-- 0-未审 ，1-已审 -->
+   	  <if test="percheck == 0">
+   	  	AND (m.userpercheck =2 
+   	  	or m.companypercheck = 2 
+   	  	OR m.driverpercheck = 2)
+   	  </if>
+   	  <if test="percheck == 1">
+		AND (m.userpercheck = 1 or m.userpercheck = 3 
+		OR m.companypercheck = 1 OR m.companypercheck = 3 
+		OR m.driverpercheck = 1 OR m.driverpercheck = 3 )
+   	  </if>
    	  <if test="capaType == 0">
    	  	and (m.ID in(select creator from wuliu_vehicle_driver)
    	  	OR m.id IN (SELECT memberid	FROM wuliu_member_capa WHERE status = '1')
@@ -131,6 +142,17 @@
    	  </if>
    	  <if test="userType == 1">
    	  	and m.driverpercheck != '0'
+   	  </if>
+   	  <!-- 0-未审 ，1-已审 -->
+   	  <if test="percheck == 0">
+   	  	AND (m.userpercheck =2 
+   	  	or m.companypercheck = 2 
+   	  	OR m.driverpercheck = 2)
+   	  </if>
+   	  <if test="percheck == 1">
+		AND (m.userpercheck = 1 or m.userpercheck = 3 
+		OR m.companypercheck = 1 OR m.companypercheck = 3 
+		OR m.driverpercheck = 1 OR m.driverpercheck = 3 )
    	  </if>
    	  <if test="capaType == 0">
    	  	and (m.ID in(select creator from wuliu_vehicle_driver)
