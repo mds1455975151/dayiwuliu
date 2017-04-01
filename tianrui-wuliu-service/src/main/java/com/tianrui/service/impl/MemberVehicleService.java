@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.req.front.message.SendMsgReq;
@@ -698,5 +700,26 @@ public class MemberVehicleService implements IMemberVehicleService {
 			rs.setError("车牌号已存在");
 		}
 		return rs;
+	}
+
+	@Override
+	public Result delectVehicle(JSONArray req) throws Exception {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < req.size(); i++) {
+			JSONObject obj = req.getJSONObject(i);
+			String vheicleNo = (String) obj.get("code");
+			String vehicleFix = vheicleNo.substring(0, 2);
+			String no = vheicleNo.substring(2, vheicleNo.length());
+			MemberVehicle vehicle = new MemberVehicle();
+			vehicle.setVehicleno(no);
+			vehicle.setVehicleprefix(vehicleFix);
+			List<MemberVehicle> list =  memberVehicleMapper.selectMyVehicleByCondition(vehicle);
+			if(list.size()==0){
+				System.out.println("找不到车辆"+vheicleNo);
+			}else{
+				System.out.println("vehicleid="+list.get(0).getId()+list.get(0).getVehicleprefix()+"vheicleno="+list.get(0).getVehicleno());
+			}
+		}
+		return null;
 	}
 }

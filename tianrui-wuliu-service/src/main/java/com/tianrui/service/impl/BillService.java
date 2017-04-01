@@ -1,8 +1,5 @@
 package com.tianrui.service.impl;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +41,7 @@ import com.tianrui.api.resp.front.bill.BillPlanResp;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.BillTrackResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
+import com.tianrui.api.resp.front.bill.JTBBillResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
@@ -476,10 +474,6 @@ public class BillService implements IBillService{
 						update.setModifytime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
 						
-						//运单推送交通部
-						db.setTrueweight(Double.valueOf(req.getWeight()));
-						billExchange(db);
-						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
 						Plan planUpdate =new Plan();
 						if(StringUtils.equals(plan.getIsAppoint(), "1")){
@@ -534,8 +528,8 @@ public class BillService implements IBillService{
 		return rs;
 	}
 
-	public void billExchange(Bill db) throws Exception{
-		
+	public Result billExchange(Bill db) throws Exception{
+		Result rs = Result.getSuccessResult();
 		boolean flag = true;
 		
 		BillMassageReq billMassage = new BillMassageReq();
@@ -553,34 +547,55 @@ public class BillService implements IBillService{
 		FileRoute route = routeMapper.selectByPrimaryKey(db.getRouteid());
 		String countrySubdivisionCode = positionExchange(route.getOpositionid());
 		if(StringUtils.isBlank(countrySubdivisionCode)){
+			rs.setCode("1");
+			rs.setError("未找到位置信息");
 			flag = false;
+			return rs;
 		}
 		billMassage.setCountrySubdivisionCode(countrySubdivisionCode);//装货地
 		billMassage.setConsignee(db.getReceivername());
 		String receiptCountrySubdivisionCode = positionExchange(route.getDpositionid());
 		if(StringUtils.isBlank(receiptCountrySubdivisionCode)){
+			rs.setCode("1");
+			rs.setError("未找到位置信息");
 			flag = false;
+			return rs;
 		}
 		billMassage.setReceiptCountrySubdivisionCode(receiptCountrySubdivisionCode);//收货地址
+		if(db.getTrueweight()==null||db.getPrice()==null){
+			rs.setCode("1");
+			rs.setError("签收量或运费为空");
+			flag = false;
+			return rs;
+		}
 		Double price = db.getTrueweight()*db.getPrice();
 		billMassage.setTotalMonetaryAmount(String.format("%.3f ",price));//总金额 三位小数 整数
 		//车辆牌照类型 其它-99
 		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(db.getVehicleid());
 		//临时车辆不推送交通部
 		if("1".equals(vehicle.getDesc2())){
+			rs.setCode("1");
+			rs.setError("临时车辆不推送交通部");
 			flag = false;
+			return rs;
 		}
 		billMassage.setLicensePlateTypeCode("99");
 		billMassage.setVehicleNumber(db.getVehicleno());
 		String vehicleClassificationCode = vheicleExchange(vehicle.getVehicletype());
 		if(StringUtils.isBlank(vehicleClassificationCode)){
+			rs.setCode("1");
+			rs.setError("车辆类型有误");
 			flag = false;
+			return rs;
 		}
 		billMassage.setVehicleClassificationCode(vehicleClassificationCode);//车辆分类
 		billMassage.setVehicleTonnage(String.format("%.2f ",vehicle.getVehiweight()));//车辆载重量 2位小数
-		String roadTransportCertificateNumber = vehicle.getRoadtransportcode();
+		String roadTransportCertificateNumber = vehicle.getOpercode();
 		if(StringUtils.isBlank(roadTransportCertificateNumber)){
+			rs.setCode("1");
+			rs.setError("营运证号不能为空");
 			flag = false;
+			return rs;
 		}
 		billMassage.setRoadTransportCertificateNumber(roadTransportCertificateNumber);//车辆道路运输经营许可证
 		billMassage.setNameOfPerson(db.getDrivername());
@@ -591,8 +606,13 @@ public class BillService implements IBillService{
 		
 		if(flag){
 			JtbHttpRequset jtb = new JtbHttpRequset();
-			jtb.putJtb(billMassage);
+			String result = jtb.putJtb(billMassage);
+			if(!StringUtils.equals(result, "success")){
+				rs.setCode("1");
+				rs.setError("操作失败，请稍候再试");
+			}
 		}
+		return rs;
 	}
 	/** 获取车辆类型代码*/
 	public String vheicleExchange(String  vehicleType){
@@ -1961,5 +1981,50 @@ public class BillService implements IBillService{
 		resp.setStatus(status);
 		resp.setRemark(p.getName());
 		return resp;
+	}
+
+	@Override
+	public PaginationVO<JTBBillResp> findJtbBill(WaybillQueryReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Bill bill = new Bill();
+		if(null!=req.getNo()){
+			bill.setStart(req.getNo()*req.getSize());
+			bill.setLimit(req.getSize());
+		}
+		bill.setWaybillno(req.getBillNo());
+		Long a = billMapper.countSelectJtbBill(bill);
+		List<Bill> list = billMapper.selectJtbBill(bill);
+		
+		PaginationVO<JTBBillResp> resp = new PaginationVO<JTBBillResp>();
+		List<JTBBillResp> ll = new ArrayList<JTBBillResp>();
+		for(Bill b : list){
+			JTBBillResp r = new JTBBillResp();
+			PropertyUtils.copyProperties(r, b);
+			ll.add(r);
+		}
+		resp.setList(ll);
+		resp.setTotal(a);
+		return resp;
+	}
+
+	@Override
+	public Result putJtbBill(String id) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		Bill db = billMapper.selectByPrimaryKey(id);
+		if(StringUtils.equals("1", db.getJtb())){
+			rs.setCode("1");
+			rs.setError("运单已推送交通部，不能重复提交");
+			return rs;
+		}
+		//运单推送交通部
+		rs = billExchange(db);
+		if(StringUtils.equals(rs.getCode(), "000000")){
+			Bill upt = new Bill();
+			upt.setId(id);
+			upt.setJtb("1");
+			billMapper.updateByPrimaryKeySelective(upt);
+		}
+		return rs;
 	}
 }

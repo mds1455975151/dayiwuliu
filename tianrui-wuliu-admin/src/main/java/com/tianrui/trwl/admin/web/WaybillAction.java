@@ -24,6 +24,7 @@ import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillAssessResp;
+import com.tianrui.api.resp.front.bill.JTBBillResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.member.MemberResp;
@@ -79,6 +80,35 @@ public class WaybillAction {
 		view.setViewName("/file/waybill/file_anlian_bill");
 		return view;
 	}
+	
+	/**
+	 * 查看交通部运单
+	 * @return
+	 */
+	@RequestMapping("/flieJTBbill")
+	public ModelAndView flieJTBbill(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/file/waybill/file_JTB_bill");
+		return view;
+	}
+	@RequestMapping("/findJTBBill")
+	@ResponseBody
+	public Result findJTBBill(WaybillQueryReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<JTBBillResp> resp = billService.findJtbBill(req);
+		rs.setData(resp);
+		return rs;
+	}
+	/** 运单推送交通部
+	 * @throws Exception */
+	@RequestMapping("/putJtbBill")
+	@ResponseBody
+	public Result putJtbBill(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = billService.putJtbBill(id);
+		return rs;
+	}
+	
 	/**
 	 * 
 	 * @描述:平台计划管理

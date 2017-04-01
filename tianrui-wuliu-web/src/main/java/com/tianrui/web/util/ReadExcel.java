@@ -36,7 +36,7 @@ public class ReadExcel {
 	}
 	
 	public static JSONArray readXls() throws IOException {
-		InputStream is = new FileInputStream("H:/wuche.xls");
+		InputStream is = new FileInputStream("H:/upt.xls");
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
 		JSONArray array = new JSONArray();
 		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -44,19 +44,20 @@ public class ReadExcel {
 			if (hssfSheet == null) {
 				continue;
 			}
-			for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
+			for (int rowNum = 0; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
 				HSSFRow hssfRow = hssfSheet.getRow(rowNum);
 				if (hssfRow != null) {
 					HSSFCell no = hssfRow.getCell((short) 0);
-					HSSFCell name = hssfRow.getCell((short) 1);
+					
 					
 					JSONObject json = new JSONObject();
-					json.put("code", getValue(no).substring(0, 6));
-					json.put("name", getValue(name));
+					json.put("code", getValue(no));
+					
 					array.add(json);
 				}
 			}
 		}
+		System.out.println(array.size());
 		return array;
 	}
 	

@@ -14,12 +14,13 @@ import com.tianrui.common.constants.Constant;
 public class JtbHttpRequset {
 
 	/** 运单信息推送交通部*/
-	public void putJtb(BillMassageReq req) throws Exception{
+	public String putJtb(BillMassageReq req) throws Exception{
 		PrintWriter out = null;
         BufferedReader in = null;
+        String result = "";
         try {
-        	String result = "";
             URL realUrl = new URL(Constant.JTB_PUT_URL);
+//            URL realUrl = new URL("http://172.20.10.208:8080/pome/index");
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
             // 设置通用的请求属性
@@ -62,5 +63,6 @@ public class JtbHttpRequset {
                 ex.printStackTrace();
             }
         }
+        return result;
 	}
 }

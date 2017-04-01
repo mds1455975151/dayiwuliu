@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <c:if test="${Vehicle.status eq 2 }">认证中</c:if>
                                 </span>
                                 <label>认证时间：</label><span>${Vehicle.createtimeStr }</span>
-                                <label>道路运输证：</label><span>${Vehicle.roadtransportcode }</span>
+                                <label>道路运输证号：</label><span>${Vehicle.roadtransportcode }</span>
                             </div>
                             <input type="hidden" id="statue" value="${Vehicle.status }">
                         	<input type="hidden" id="memberid" value="${Vehicle.memberid }">
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label>车辆照片：</label><span><a href="/imageView/index?imageUrl=${Vehicle.vehiheadimgpath }" target="_blank"><img height="200" src="${Vehicle.vehiheadimgpath }"></a></span>
                             </div>
                             <div class="person_img">
-                                <label>营运证号：</label>${Vehicle.opercode }<br><span><a href="/imageView/index?imageUrl=${Vehicle.operimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.operimage }"></a></span>
+                                <label>经营许可证号：</label>${Vehicle.opercode }<br><span><a href="/imageView/index?imageUrl=${Vehicle.operimage }" target="_blank"><img height="200" style="margin-left:70px" src="${Vehicle.operimage }"></a></span>
                             </div>
                             <!-- 
                             <div class="person_img">

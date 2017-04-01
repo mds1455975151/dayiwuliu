@@ -59,7 +59,10 @@ public interface BillMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Bill record);
+    /** 交通部运单查询*/
+    List<Bill> selectJtbBill(Bill record);
     
+    long countSelectJtbBill(Bill record);
     
     List<Bill> selectByCondition(Bill record);
     List<Bill> selectByConditionForBack(Bill record);

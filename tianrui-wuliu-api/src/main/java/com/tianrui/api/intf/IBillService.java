@@ -12,6 +12,7 @@ import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.BillVehicleResp;
+import com.tianrui.api.resp.front.bill.JTBBillResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -75,7 +76,8 @@ public interface IBillService {
 	public PaginationVO<WaybillResp> pageForBack(WaybillQueryReq req)throws Exception;
 	/**获取经纬度*/
 	public BillGpsResp gps(WaybillQueryReq req)throws Exception;
-	
+	/**查询可推送交通部运单*/
+	public PaginationVO<JTBBillResp> findJtbBill(WaybillQueryReq req)throws Exception;
 	
 	/**查询*/
 	public BillPlanResp queryWithPlanId(String pid)throws Exception;
@@ -106,4 +108,7 @@ public interface IBillService {
 	public List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req);
 	/**后台管理导出运单数据条数*/
 	public int queryAdminStatReportCount(StatReportReq req);
+	/** 运单推送交通部*/
+	public Result putJtbBill(String id)throws Exception;
+	
 }

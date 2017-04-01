@@ -4,6 +4,8 @@ public class Bill {
 	
 	private String payType;
 	private String payDESC1;
+	
+	private String jtb;
 
 	private String id;
     private String planid;
@@ -119,6 +121,14 @@ public class Bill {
 
 	public void setIsClearing(String isClearing) {
 		this.isClearing = isClearing;
+	}
+
+	public String getJtb() {
+		return jtb;
+	}
+
+	public void setJtb(String jtb) {
+		this.jtb = jtb;
 	}
 
 	/**

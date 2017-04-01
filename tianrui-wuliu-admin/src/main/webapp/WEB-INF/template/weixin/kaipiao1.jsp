@@ -38,11 +38,15 @@
 <script src="${trRoot }/weixin/js/jquery-1.11.1.js"></script>
 <script src="${trRoot }/weixin/js/layer.js"></script>
 <script src="${trRoot }/weixin/js/swiper.jquery.js"></script>
-<script type="text/javascript" src="/resources/js/weixin/kaipiao.js?11"></script>
-<script type="text/javascript" src="/resources/js/weixin/scroll/scroll.js?11"></script>
+<script type="text/javascript" src="/resources/js/weixin/kaipiao.js?12"></script>
+<script type="text/javascript" src="/resources/js/weixin/scroll/scroll.js?12"></script>
 <script type="text/javascript">
 function indexPageOf(){
 	index1();
+}
+
+function pageView(url){
+	window.location.href=url;
 }
 </script>
 </body>

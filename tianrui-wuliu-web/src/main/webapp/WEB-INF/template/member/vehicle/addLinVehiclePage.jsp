@@ -53,7 +53,7 @@
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
-						<label>道路运输证：</label>
+						<label>道路运输证号：</label>
 						<input type="text" id="vehicle_add_roadtransportcode"> 
 						<!-- 
 						<div class="rz_persontab">
@@ -69,7 +69,7 @@
 						 -->
 					</div>
 					<div class="reg_tel">
-						<label>营运证号：</label> <input type="text" id="vehicle_add_opercode">
+						<label>经营许可证号：</label> <input type="text" id="vehicle_add_opercode">
 						<div class="rz_persontab">
 							<div class="samples">
 								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyzsl.jpg">

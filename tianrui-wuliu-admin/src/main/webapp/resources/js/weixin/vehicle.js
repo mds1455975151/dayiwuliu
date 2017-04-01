@@ -55,7 +55,7 @@ function innerHTML(data,type){
 			stats = "认证中";
 		}
 		
-		hml += "<div class='menmber_line'>" +
+		hml += "<div class='menmber_line' onclick=\"pageView('/weixin/page/vehicledetail?id="+data[a].id+"')\">" +
 				"<p>车牌号："+data[a].vehicleprefix+data[a].vehicleno+"</p>" +
 				"<div class='menmber_line1'>" +
 				"<div class='menmber_line2'>" +

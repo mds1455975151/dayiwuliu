@@ -34,6 +34,10 @@ public class WaybillQueryReq extends BaseReq{
 	private String planId;
 	private String currOrgId;
 	
+	private Integer no;
+	
+	private Integer size;
+	
 	
 	public String getId() {
 		return id;
@@ -85,6 +89,22 @@ public class WaybillQueryReq extends BaseReq{
 
 	public String getDriverName() {
 		return driverName;
+	}
+
+	public Integer getNo() {
+		return no;
+	}
+
+	public void setNo(Integer no) {
+		this.no = no;
+	}
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
 	}
 
 	public void setDriverName(String driverName) {

@@ -62,6 +62,7 @@
 		<result column="DESC4" property="desc4" jdbcType="VARCHAR" />
 		<result column="payType" property="payType" jdbcType="VARCHAR" />
 		<result column="payDESC1" property="payDESC1" jdbcType="VARCHAR" />
+		<result column="jtb" property="jtb" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
@@ -78,7 +79,7 @@
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
-		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4
+		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,jtb
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -86,6 +87,48 @@
 		<include refid="Base_Column_List" />
 		from wuliu_bill
 		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectJtbBill"  resultMap="BaseResultMap"
+		parameterType="com.tianrui.service.bean.Bill">
+		SELECT
+			wb.ID,
+			wb.waybillno waybillno,
+			wb.vehicleno vehicleno,
+			wb.createtime createtime,
+			wb.jtb jtb
+		FROM
+			wuliu_bill wb
+		LEFT JOIN wuliu_member_vehicle mv ON mv.id = wb.vehicleid
+		WHERE
+			mv.desc2 = 2
+		AND mv.opercode IS NOT NULL
+		AND wb.type = 0
+		AND wb.status in(5,6)
+		AND wb.trueweight IS NOT NULL
+		<if test="waybillno != null and waybillno != ''">
+			AND wb.waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
+		</if>
+		order by wb.createtime desc
+		<if test="start !=null">
+				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="countSelectJtbBill"  resultType="long"
+		parameterType="com.tianrui.service.bean.Bill">
+		SELECT
+			count(0)
+		FROM
+			wuliu_bill wb
+		LEFT JOIN wuliu_member_vehicle mv ON mv.id = wb.vehicleid
+		WHERE
+			mv.desc2 = 2
+		AND mv.opercode IS NOT NULL
+		AND wb.type = 0
+		AND wb.status in(5,6)
+		AND wb.trueweight IS NOT NULL
+		<if test="waybillno != null and waybillno != ''">
+			AND wb.waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
+		</if>
 	</select>
 	<select id="selectByCondition" resultMap="BaseResultMap"
 		parameterType="com.tianrui.service.bean.Bill">
@@ -728,6 +771,9 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		<set>
+		    <if test="jtb != null">
+				jtb = #{jtb,jdbcType=VARCHAR},
+			</if>
 			<if test="planid != null">
 				planid = #{planid,jdbcType=VARCHAR},
 			</if>

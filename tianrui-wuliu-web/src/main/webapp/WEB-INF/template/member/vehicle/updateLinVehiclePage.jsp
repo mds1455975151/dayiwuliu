@@ -46,7 +46,7 @@
 						<p id="message_vehiNo"></p>
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>道路运输证：</label>
+						<label><span style="color: red">*</span>道路运输证号：</label>
 						<input type="text" id="vehicle_add_roadtransportcode" value="${vehicle.roadtransportcode }"> 
 						<p id="message_roadtransportcode"></p>
 						<!-- 
@@ -63,7 +63,7 @@
 						 -->
 					</div>
 					<div class="reg_tel">
-						<label><span style="color: red">*</span>营运证号：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
+						<label><span style="color: red">*</span>经营许可证号：</label> <input type="text" id="vehicle_add_opercode" value="${vehicle.opercode }">
 						<p id="message_opercode"></p>
 						<div class="rz_persontab">
 							<div class="samples">

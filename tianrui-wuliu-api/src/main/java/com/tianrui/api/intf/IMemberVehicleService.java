@@ -2,6 +2,7 @@ package com.tianrui.api.intf;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleOnlyReq;
@@ -135,4 +136,6 @@ public interface IMemberVehicleService {
 	public List<MemberVehicleResp> selectVehicleByIds(List<String> vehicleIds) throws Exception;
 	/** 验证车牌号唯一*/
 	public Result vehicleNOByOnly(VehicleOnlyReq req)throws Exception;
+	/** 清除车辆及车辆相关信息*/
+	public Result delectVehicle(JSONArray req)throws Exception;
 }

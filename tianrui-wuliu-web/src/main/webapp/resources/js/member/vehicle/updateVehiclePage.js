@@ -165,6 +165,27 @@ $("#vehicle_addBtn").click(function() {
 	var registcode = $('#vehicle_add_registcode').val();
 	//机动车登记证图片
 	var file_djz = $('#file_djz_img').val();
+	
+	//各个省份简称
+	var CityNo="京津沪申渝冀晋辽吉黑苏浙皖闽赣鲁豫鄂湘粤琼川黔贵滇云陕秦甘陇青藏桂蒙宁新港澳台";
+	// 车牌号正则表达式
+	var vehiReg = /^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
+	if(CityNo.indexOf(vehiNo.substr(0,1))==-1){
+		$("#message_vehiNo").html("车牌号省份不合法，请重新输入！");
+		$("#vehicle_add_vehiNo").focus();
+		return;
+	}else if (vehiNo == "") {
+		$("#message_vehiNo").html("车牌号不能为空！");
+		$("#vehicle_add_vehiNo").focus();
+		return;
+	} else if (!vehiReg.test(vehiNo)) {
+		$("#message_vehiNo").html("车牌号不合法，请重新输入！");
+		$("#vehicle_add_vehiNo").focus();
+		return;
+	}else{
+		$("#message_vehiNo").html("");
+	}
+	
 	if(!flag||!flagLeng||!flagWeight){
 		$("#modal_common_content").html("数据有误请仔细查看重新输入");
 		$("#commonModal").modal();
@@ -200,13 +221,13 @@ $("#vehicle_addBtn").click(function() {
 		$("#message_vehiTel").html("请输入联系电话！");
 		return;
 	}
-//	if (!$.trim(roadtransportcode)) {
-//		$("#message_roadtransportcode").html("请输入道路运输证号！");
-//		return;
-//	}
+	if (!$.trim(roadtransportcode)) {
+		$("#message_roadtransportcode").html("请输入道路运输证号！");
+		return;
+	}
 	if (!$.trim(opercode)) {
-		$("#message_opercode").html("请输入营运证号！");
-		$("#modal_common_content").html("请输入营运证号！");
+		$("#message_opercode").html("请输入经营许可证号！");
+		$("#modal_common_content").html("请输入经营许可证号！");
 		$("#commonModal").modal();
 		return;
 	}
@@ -226,7 +247,7 @@ $("#vehicle_addBtn").click(function() {
 //	formData.append("fileIdCard",file_sfz);
 //	formData.append("identitycode",identitycode);
 //	formData.append("fileRoad",file_ysz);
-//	formData.append("roadtransportcode",roadtransportcode);
+	formData.append("roadtransportcode",roadtransportcode);
 	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);

@@ -232,7 +232,7 @@ $("#vehicle_addBtn").click(function() {
 //		return;
 //	}
 	if (!$.trim(opercode)) {
-		$("#modal_common_content").html("请输入营运证号！");
+		$("#modal_common_content").html("请输入经营许可证号！");
 		$("#vehicle_add_opercode").focus();
 		$("#commonModal").modal();
 		return;
@@ -244,7 +244,7 @@ $("#vehicle_addBtn").click(function() {
 		return;
 	}
 	if (file_xkz == "") {
-		$("#modal_common_content").html("请上传营运证图片！");
+		$("#modal_common_content").html("请上传经营许可证图片！");
 		$("#file_xkz_img").focus();
 		$("#commonModal").modal();
 		return;

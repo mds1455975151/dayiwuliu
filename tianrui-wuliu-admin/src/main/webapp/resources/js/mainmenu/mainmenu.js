@@ -144,6 +144,9 @@ function getNodeList(menu) {
 		}else if(nodesList[i].nodename == "安联运单管理"){
 			_i.removeAttr("class");
 			_i.addClass("iconfontt").html('&#xe645;');
+		}else if(nodesList[i].nodename == "交通部运单管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe63e;');
 		}
 		href.append(_i).append(span);
 		
