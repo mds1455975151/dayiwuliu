@@ -4,6 +4,8 @@ public enum ErrorCode {
 
 	//系统异常
 	SYSTEM_ERROR("E000001","服务器繁忙."),
+	SYSTEM_SERVER_ERROR("E000002","后台服务器繁忙."),
+	SYSTEM_SUCCESS("000000","操作成功"),
 	
 	//参数异常
 	PARAM_ERROR("E100001","参数异常."),

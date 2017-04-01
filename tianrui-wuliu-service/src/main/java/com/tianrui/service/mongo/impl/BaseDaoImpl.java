@@ -107,6 +107,8 @@ public class BaseDaoImpl<T extends Serializable, ID extends Serializable> implem
 	
 	
 	public int updateMulti(Query query, Update update){
+		
+		
 		WriteResult rs = mongoTemplate.updateMulti(query, update, type);
 		return rs.getN();
 	}

@@ -46,11 +46,11 @@
 						<input type="text" id="veh_quality" name="quality">
 						<p id=""></p>
 					</div>
-					<div class="reg_tel">
+<!-- 					<div class="reg_tel">
 						<label> <span style="color: red">*</span>所有人：</label> 
 						<input type="text" id="veh_owner" name="owner">
 						<p id=""></p>
-					</div>
+					</div> -->
 					<div class="reg_tel">
 						<label> <span style="color: red">*</span>身份证号：</label> 
 						<input type="text" id="veh_idcard" name="idcard">
@@ -115,7 +115,7 @@
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-<script type="text/javascript" src="/resources/js/member/vehicle/kaipiao.js?02.12"></script>
+<script type="text/javascript" src="/resources/js/member/vehicle/kaipiao.js?03.14"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 </html>

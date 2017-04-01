@@ -8,11 +8,11 @@ $("#vehicle_ticket_add").on("click",function(){
 		alert("总质量不能为空");
 		return;
 	}
-	var veh_owner = $("#veh_owner").val();
+/*	var veh_owner = $("#veh_owner").val();
 	if($.trim(veh_owner)==""){
 		alert("所有人不能为空");
 		return;
-	}
+	}*/
 	var veh_idcard = $("#veh_idcard").val();
 	if($.trim(veh_idcard)==""){
 		alert("身份证号不能为空");

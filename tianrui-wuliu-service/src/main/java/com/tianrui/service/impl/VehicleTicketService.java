@@ -64,6 +64,7 @@ public class VehicleTicketService implements IVehicleTicketService{
 				record.setStatus("2");
 				record.setDesc1(vehicle.getVehicleprefix()+vehicle.getVehicleno());
 				record.setCreatertime(System.currentTimeMillis());
+				record.setOwner(vehicle.getVehiOwnerName());
 				vehicleTicketMapper.insertSelective(record);
 				
 				//设置车辆开票认证状态为 认证中
