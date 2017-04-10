@@ -5,7 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tianrui.api.admin.intf.IVehicleRegService;
+import com.tianrui.api.intf.IVehicleRegService;
 import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep2Req;
