@@ -20,5 +20,9 @@ public interface AnlianBillMapper {
     List<AnlianBill> selectByCondition(AnlianBill record);
    
     long selectByCount(AnlianBill record);
+    
+    List<AnlianBill> selectByJTB(AnlianBill record);
+    
+    long selectByJTBCount(AnlianBill record);
 
 }

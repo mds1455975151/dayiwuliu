@@ -3,7 +3,9 @@ package com.tianrui.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +23,18 @@ import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.MemberCapa;
+import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.VehicleAndDriver;
+import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.VehicleDriverMapper;
+
+import net.coobird.thumbnailator.geometry.Size;
 
 /**
  * 我的车辆接口实现类
@@ -38,6 +49,12 @@ public class MemberVehicleService implements IMemberVehicleService {
 	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
 	IMessageService messageService;
+	@Autowired
+	VehicleDriverMapper vehicleDriverMapper;
+	@Autowired
+	MemberCapaMapper memberCapaMapper;
+	@Autowired
+	BillMapper billMapper;
 	
 	/**
 	 * 父类方法重写，根据主键进行我的车辆信息查询
@@ -704,22 +721,97 @@ public class MemberVehicleService implements IMemberVehicleService {
 
 	@Override
 	public Result delectVehicle(JSONArray req) throws Exception {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < req.size(); i++) {
-			JSONObject obj = req.getJSONObject(i);
-			String vheicleNo = (String) obj.get("code");
-			String vehicleFix = vheicleNo.substring(0, 2);
-			String no = vheicleNo.substring(2, vheicleNo.length());
-			MemberVehicle vehicle = new MemberVehicle();
-			vehicle.setVehicleno(no);
-			vehicle.setVehicleprefix(vehicleFix);
-			List<MemberVehicle> list =  memberVehicleMapper.selectMyVehicleByCondition(vehicle);
-			if(list.size()==0){
-				System.out.println("找不到车辆"+vheicleNo);
-			}else{
+		Result rs = Result.getSuccessResult();
+//		List<Map<String,String>> resp = new ArrayList<Map<String,String>>();
+//		for (int i = 0; i < req.size(); i++) {
+//			Map<String,String> map = new HashMap<String,String>();
+//			JSONObject obj = req.getJSONObject(i);
+//			String vheicleNo = (String) obj.get("code");
+//			String vehicleFix = vheicleNo.substring(0, 2);
+//			String no = vheicleNo.substring(2, vheicleNo.length());
+//			map.put("vehicleNo", vheicleNo);
+//			MemberVehicle vehicle = new MemberVehicle();
+//			vehicle.setVehicleno(no);
+//			vehicle.setVehicleprefix(vehicleFix);
+//			List<MemberVehicle> list =  memberVehicleMapper.selectMyVehicleByCondition(vehicle);
+//			if(list.size()==0){
+//				map.put("id", "空");
+//				map.put("vd", "空");
+//				map.put("cp", "空");
+//				System.out.println("找不到车辆"+vheicleNo);
+//			}else{
+//				MemberVehicle mv = list.get(0);
+//				//查询车辆司机绑定关系
+//				VehicleDriver vd = new VehicleDriver();
+//				vd.setVehicleid(mv.getId());
+//				List<VehicleDriver> listDriver = vehicleDriverMapper.selectMyVehiDriverByCondition(vd);
+//				//查询运力引用关系
+//				MemberCapa capa = new MemberCapa();
+//				capa.setVehicleid(mv.getId());
+//				List<MemberCapaList> listCapa = memberCapaMapper.selectByCondition(capa);
+//				//查询车辆跑单情况
+//				Bill bill = new Bill();
+//				bill.setVehicleid(mv.getId());
+//			    List<Bill> blist = billMapper.selectByCondition(bill);
+//			    for(VehicleDriver v : listDriver){
+//			    	vehicleDriverMapper.deleteByPrimaryKey(v.getId());
+//			    }
+//			    for(MemberCapaList cl : listCapa){
+//			    	memberCapaMapper.deleteByPrimaryKey(cl.getId());
+//			    }
+//			    memberVehicleMapper.deleteByPrimaryKey(mv.getId());
+////			    if(blist.size()==0){
+////			    }
+//			    map.put("id", mv.getId());
+//				map.put("vd", listDriver.size()+"条");
+//				map.put("cp", listCapa.size()+"条");
+//				map.put("bd", blist.size()+"条");
+//				System.out.println("vehicleid="+list.get(0).getId()+list.get(0).getVehicleprefix()+"vheicleno="+list.get(0).getVehicleno());
+//			}
+//			resp.add(map);
+//		}
+//		rs.setData(resp);
+		return delectVec();
+	}
+	
+	public Result delectVec(){
+		Result rs = Result.getSuccessResult();
+		List<Map<String,String>> resp = new ArrayList<Map<String,String>>();
+		MemberVehicle vehicle = new MemberVehicle();
+		vehicle.setVehicleprefix("废A");
+		List<MemberVehicle> list =  memberVehicleMapper.selectMyVehicleByCondition(vehicle);
+		for (MemberVehicle mv : list) {
+			Map<String,String> map = new HashMap<String,String>();
+				//查询车辆司机绑定关系
+				VehicleDriver vd = new VehicleDriver();
+				vd.setVehicleid(mv.getId());
+				List<VehicleDriver> listDriver = vehicleDriverMapper.selectMyVehiDriverByCondition(vd);
+				//查询运力引用关系
+				MemberCapa capa = new MemberCapa();
+				capa.setVehicleid(mv.getId());
+				List<MemberCapaList> listCapa = memberCapaMapper.selectByCondition(capa);
+				//查询车辆跑单情况
+				Bill bill = new Bill();
+				bill.setVehicleid(mv.getId());
+			    List<Bill> blist = billMapper.selectByCondition(bill);
+			    if(blist.size()==0){
+				    for(VehicleDriver v : listDriver){
+				    	vehicleDriverMapper.deleteByPrimaryKey(v.getId());
+				    }
+				    for(MemberCapaList cl : listCapa){
+				    	memberCapaMapper.deleteByPrimaryKey(cl.getId());
+				    }
+				    memberVehicleMapper.deleteByPrimaryKey(mv.getId());
+			    }
+			    map.put("id", mv.getId());
+			    map.put("vehicleNo", mv.getVehicleprefix()+mv.getVehicleno()+"");
+				map.put("vd", listDriver.size()+"条");
+				map.put("cp", listCapa.size()+"条");
+				map.put("bd", blist.size()+"条");
 				System.out.println("vehicleid="+list.get(0).getId()+list.get(0).getVehicleprefix()+"vheicleno="+list.get(0).getVehicleno());
+				resp.add(map);
 			}
-		}
-		return null;
+		rs.setData(resp);
+		return rs;
 	}
 }

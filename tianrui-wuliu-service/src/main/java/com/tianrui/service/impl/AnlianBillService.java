@@ -190,6 +190,7 @@ public class AnlianBillService implements IAnlianBillService{
 		bill.setDriverid(req.getDriverid());
 		bill.setOwnerid(req.getOwnerid());
 		bill.setVenderid(req.getVenderid());
+		bill.setDesc1(req.getPlanid());
 		PropertyUtils.copyProperties(bill, shipment);
 		List<OrdersReq> lo = shipment.getOrders();
 		for(OrdersReq r : lo){

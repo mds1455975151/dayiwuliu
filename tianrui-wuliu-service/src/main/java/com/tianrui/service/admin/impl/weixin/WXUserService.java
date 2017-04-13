@@ -75,4 +75,14 @@ public class WXUserService implements IWXUserService{
 		return rs;
 	}
 
+	@Override
+	public Result exciWXtLogin(WeixinUserReq req) {
+		Result rs = Result.getSuccessResult();
+		Users user = new Users();
+		user.setId(req.getId());
+		user.setDesc4("");
+		usersMapper.updateByPrimaryKeySelective(user);
+		return rs;
+	}
+
 }

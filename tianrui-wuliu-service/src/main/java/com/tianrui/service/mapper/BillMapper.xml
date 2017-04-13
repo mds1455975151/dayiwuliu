@@ -1115,7 +1115,7 @@
 			b.pickupweight, b.signweight, b.isAssess, b.DESC1, b.DESC2, b.DESC3, b.DESC4
 		from wuliu_bill b
 		LEFT JOIN wuliu_plan p ON p.ID = b.planid 
-		LEFT JOIN file_cargo c ON c.ID = p.cargoid = c.ID
+		LEFT JOIN file_cargo c ON c.ID = p.cargoid
 		<where>
 			<if test="status != null ">
 				and b.status =#{status,jdbcType=TINYINT}
@@ -1148,7 +1148,7 @@
 		count(0)
 		from wuliu_bill b
 		LEFT JOIN wuliu_plan p ON p.ID = b.planid 
-		LEFT JOIN file_cargo c ON c.ID = p.cargoid = c.ID
+		LEFT JOIN file_cargo c ON c.ID = p.cargoid
 		<where>
 			<if test="status != null ">
 				and b.status =#{status,jdbcType=TINYINT}

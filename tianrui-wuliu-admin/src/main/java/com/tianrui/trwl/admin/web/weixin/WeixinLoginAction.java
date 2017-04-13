@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IWXUserService;
 import com.tianrui.api.req.admin.weixin.WeixinUserReq;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
 import com.tianrui.trwl.admin.util.CommonUtil;
@@ -67,6 +68,9 @@ public class WeixinLoginAction {
 		case "driver":
 			view.setViewName("/weixin/driver");
 			break;
+		case "mation":
+			view.setViewName("/weixin/mation");
+			break;
 		default:
 			view.addObject("state", state);
 			view.addObject("openid", openid);
@@ -76,7 +80,7 @@ public class WeixinLoginAction {
 		return view;
 	}
 	@RequestMapping("yiShenPage")
-	public ModelAndView yiShenPage(String state){
+	public ModelAndView yiShenPage(String state,String searchKey){
 		ModelAndView view = new ModelAndView();
 		switch (state) {
 		case "member":
@@ -107,6 +111,7 @@ public class WeixinLoginAction {
 			view.setViewName("redirect:/weixin/login/loginPage");
 			break;
 		}
+		view.addObject("searchKey", searchKey);
 		return view;
 	}
 	
@@ -138,6 +143,9 @@ public class WeixinLoginAction {
 			case "driver":
 				view.setViewName("/weixin/driver");
 				break;
+			case "mation":
+				view.setViewName("/weixin/mation");
+				break;
 			default:
 				view.setViewName("redirect:/weixin/login/loginPage");
 				break;
@@ -151,7 +159,7 @@ public class WeixinLoginAction {
 	/** 网页授权 获取openid*/
 	public String getopenId(String code){
 		String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-		JSONObject js = CommonUtil.httpsRequest(url.replace("APPID", "wxd1884771599e90b8").replace("SECRET", "9423f5897fefeed3b965e2b81d40746b").replace("CODE", code), "POST", null);
+		JSONObject js = CommonUtil.httpsRequest(url.replace("APPID", Constant.WEIXIN_APPID).replace("SECRET", Constant.WEIXIN_SECRET).replace("CODE", code), "POST", null);
 		String openid=null;
 		try {
 			openid = js.getString("openid");

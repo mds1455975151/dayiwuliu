@@ -64,6 +64,8 @@ public interface ISystemMemberInfoRecordService {
 	 * @创建时间 2016年6月22日上午9:18:58
 	 */
 	MemberInfoRecordResp findByMemberId(String id)throws Exception;
+	
+	MemberInfoRecordResp findByMemberRecordId(String id)throws Exception;
 	/**
 	 * 
 	 * @描述:查询认证记录

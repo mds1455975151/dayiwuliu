@@ -37,6 +37,10 @@ public class Constant {
     public static String ANLIAN_USERNAME;
     //安联密码
     public static String ANLIAN_PASSWORD;
+    //微信appid
+    public static String WEIXIN_APPID;
+    //微信secret
+    public static String WEIXIN_SECRET;
    
     //请求短信接口的频率 5分钟
     public static Integer GET_VCODE_FREE;
@@ -216,5 +220,21 @@ public class Constant {
 
 	public static void setJTB_PUT_URL(String jTB_PUT_URL) {
 		JTB_PUT_URL = jTB_PUT_URL;
+	}
+
+	public static String getWEIXIN_APPID() {
+		return WEIXIN_APPID;
+	}
+
+	public static void setWEIXIN_APPID(String wEIXIN_APPID) {
+		WEIXIN_APPID = wEIXIN_APPID;
+	}
+
+	public static String getWEIXIN_SECRET() {
+		return WEIXIN_SECRET;
+	}
+
+	public static void setWEIXIN_SECRET(String wEIXIN_SECRET) {
+		WEIXIN_SECRET = wEIXIN_SECRET;
 	}
 }

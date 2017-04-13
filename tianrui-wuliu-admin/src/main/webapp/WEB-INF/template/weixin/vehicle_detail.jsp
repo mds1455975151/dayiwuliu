@@ -10,83 +10,82 @@
     <link href="${trRoot }/weixin/css/layer.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/swiper.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
 </head>
 <body>
 <div class="car_dangan">
     <div class="carda_line">
         <label>车牌号前缀：</label>
-        <span>企业用户</span>
+        <span>${Vehicle.vehicleprefix }</span>
     </div>
     <div class="carda_line">
         <label>车牌号：</label>
-        <span>15988888888</span>
+        <span>${Vehicle.vehicleno }</span>
     </div>
     <div class="carda_line">
         <label>所有人姓名：</label>
-        <span>王大拿</span>
+        <span>${Vehicle.userName }</span>
     </div>
     <div class="carda_line">
         <label>联系方式：</label>
-        <span>1545212111</span>
-    </div>
-    <div class="carda_line">
-        <label>车主姓名：</label>
-        <span>王大拿</span>
-    </div>
-    <div class="carda_line">
-        <label>车主联系方式：</label>
-        <span>1545212111</span>
+        <span>${Vehicle.telphone }</span>
     </div>
     <div class="carda_line">
         <label>车型：</label>
-        <span>王大拿</span>
+        <span>${Vehicle.vehicletypename}</span>
     </div>
     <div class="carda_line">
-        <label>载重：</label>
-        <span>121</span>
+        <label>载重(吨)：</label>
+        <span>${Vehicle.vehiweight }</span>
     </div>
     <div class="carda_line">
-        <label>长度：</label>
-        <span>王大拿</span>
-    </div>
-    <div class="carda_line">
-        <label>认证方式：</label>
-        <span>完全认证</span>
-    </div>
-    <div class="carda_line">
-        <label>安联认证：</label>
-        <span>完全认证</span>
+        <label>长度(米)：</label>
+        <span>${Vehicle.vehilength }</span>
     </div>
     <div class="carda_line">
         <label>认证状态：</label>
-        <span>认证中</span>
+        <span> <c:if test="${Vehicle.status eq -1 }">认证失败</c:if>
+               <c:if test="${Vehicle.status eq 0 }">未认证</c:if>
+               <c:if test="${Vehicle.status eq 1 }">认证成功</c:if>
+               <c:if test="${Vehicle.status eq 2 }">认证中</c:if></span>
     </div>
     <div class="carda_line">
         <label>认证时间：</label>
-        <span>2017-01-07 17:13:37</span>
+        <span>${Vehicle.createtimeStr }</span>
     </div>
     <div class="carda_line">
-        <label>车辆登记证：</label>
-        <span class="colorblue zhengjian">查看图片</span>
+        <label>道路运输证号：</label>
+        <span>${Vehicle.roadtransportcode }</span>
     </div>
     <div class="carda_line">
-        <label>营运证号：</label>
-        <span>12221</span>
-    </div>
-    <div class="carda_line">
-        <label>营运证件：</label>
-        <span class="colorblue zhengjian">查看图片</span>
+        <label>经营许可证号：</label>
+        <span>${Vehicle.opercode }</span>
     </div>
     <div class="carda_line">
         <label>行驶证照片：</label>
-        <span class="colorblue zhengjian">查看图片</span>
+        <span class="colorblue zhengjian" onclick="picView('${Vehicle.vehilicenseimgpath }')">查看图片</span>
+    </div>
+    <div class="carda_line">
+        <label>车辆照片：</label>
+        <span class="colorblue zhengjian" onclick="picView('${Vehicle.vehiheadimgpath }')">查看图片</span>
+    </div>
+    <div class="carda_line">
+        <label>经营许可证号：</label>
+        <span class="colorblue zhengjian" onclick="picView('${Vehicle.operimage }')">查看图片</span>
+    </div>
+    <div class="carda_line">
+        <label>车辆登记证：</label>
+        <span class="colorblue zhengjian" onclick="picView('${Vehicle.registimage }')">查看图片</span>
     </div>
 </div>
-
-<div class="fixed_btn">
-    <a><button class="pass colorblue">通过</button></a>
-    <a><button class="fail colorred">不通过</button></a>
-</div>
+<c:if test="${Vehicle.status eq 2 }">
+	<div class="fixed_btn">
+	    <a><button class="pass colorblue">通过</button></a>
+	    <a><button class="fail colorred">不通过</button></a>
+	</div>
+</c:if>
+<input type="hidden" id="vehicleId" value="${Vehicle.id }">
+<input type="hidden" id="memberId" value="${Vehicle.memberid }">
 <script src="${trRoot }/weixin/js/jquery-1.11.1.js"></script>
 <script src="${trRoot }/weixin/js/layer.js"></script>
 <script src="${trRoot }/weixin/js/swiper.jquery.js"></script>
@@ -97,7 +96,21 @@
             content: '您确定要通过审核吗？'
             ,btn: ['取消', '确认']
             ,no: function(index){
-                window.location.href="car_shenhe.html";//点击确认按钮后的操作
+            	 $.ajax({
+            			url: '/AdminMember/carReviw',
+            			data:{"id":$("#vehicleId").val(),
+            					"type":"1",
+            					"memberid":$("#memberId").val()
+            			},
+            			type:"post",
+            			success: function(ret){
+            				if(ret.code=="000000"){
+				               window.location.reload();
+            				}else{
+            					alert(ret.error);
+            				}
+            			}
+            		});
                 layer.close(index);
             }
         });
@@ -108,20 +121,40 @@
             title: [
                 '请输入审核不通过原因'
             ],
-            content: '<div class="shenhe_alt"><textarea  rows="10"></textarea></div>'
+            content: '<div class="shenhe_alt"><textarea id="massage"  rows="10"></textarea></div>'
             ,btn: ['取消', '确认']
             ,no: function(index){
-                window.location.href="car_rz_fail.html";//点击确认按钮后的操作
+            	var massage = $("#massage").val();
+            	if(!$.trim(massage)){
+            		alert("请输入审核不通过原因");
+            		return;
+            	}
+            	$.ajax({
+        			url: '/AdminMember/carReviw',
+        			data:{"id":$("#vehicleId").val(),
+        					"type":"-1",
+        					"massage":$("#massage").val(),
+        					"memberid":$("#memberId").val()
+        			},
+        			type:"post",
+        			success: function(ret){
+        				if(ret.code=="000000"){
+			               window.location.reload();
+        				}else{
+        					alert(ret.error);
+        				}
+        			}
+        		});
                 layer.close(index);
             }
         });
     });
     //证件图片
-    $(".zhengjian").on("click", function () {
-        layer.open({
-            content: '<div class="imgview"><img src="images/11.jpg"></div>'
+    function picView(url){
+    	layer.open({
+            content: "<div class='imgview'><img src='"+url+"'></div>"
         });
-    });
+    }
 </script>
 
 </body>

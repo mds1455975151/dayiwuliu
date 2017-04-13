@@ -229,4 +229,13 @@ public class VehicleTicketService implements IVehicleTicketService{
 		return rs;
 	}
 
+	@Override
+	public VehicleTicketResp findById(String id) throws Exception {
+		// TODO Auto-generated method stub
+		VehicleTicketResp resp = new VehicleTicketResp();
+		VehicleTicket tick = vehicleTicketMapper.selectByPrimaryKey(id);
+		PropertyUtils.copyProperties(resp, tick);
+		return resp;
+	}
+
 }

@@ -18,7 +18,7 @@
         </div>
         <div class="lg_tabline">
             <i class="iconfont icon-mima colorlg">&#xe610;</i>
-            <input type="text" id="wx_password" placeholder="请输入密码">
+            <input type="password" id="wx_password" placeholder="请输入密码">
             <input type="hidden" id="wx_openid" value="${openid }">
             <input type="hidden" id="wx_state" value="${state }">
         </div>

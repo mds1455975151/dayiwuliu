@@ -47,6 +47,9 @@
 		<if test="status != null and status != ''">
 			and f.status = #{status,jdbcType=VARCHAR}
 		</if>
+		<if test="id != null and id != ''">
+			and f.id = #{id,jdbcType=VARCHAR}
+		</if>
 		
   </select>
 </mapper>

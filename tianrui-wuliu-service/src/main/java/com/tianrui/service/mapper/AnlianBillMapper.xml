@@ -110,6 +110,34 @@
     </if>
   </select>
   
+  <select id="selectByJTB" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    select 
+    <include refid="Base_Column_List" />
+    from anlian_bill
+    <where>
+    	<if test="billno != null and billno != ''">
+    		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
+    	</if>
+    		and desc1 is not null
+    </where>
+    order by createtime desc
+    <if test="start != null">
+    	limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByJTBCount" resultType="long" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
+    select 
+    count(0)
+    from anlian_bill
+    <where>
+    	<if test="billno != null and billno != ''">
+    		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
+    	</if>
+    	and desc1 is not null
+    </where>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from anlian_bill
     where id = #{id,jdbcType=VARCHAR}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
+import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.common.vo.Result;
 
 /**
@@ -70,5 +71,7 @@ public interface ISystemMemberInfoService {
 	Result uptMemberPic(MemberInfoReq req)throws Exception;
 	/** 后台司机安联认证*/
 	Result uptDrvierAnlian(AdminMenberInfoReq req)throws Exception;
+	/** 查看用户信息*/
+	MemberInfoRecordResp selectMemberInfo(String id)throws Exception;
 
 }

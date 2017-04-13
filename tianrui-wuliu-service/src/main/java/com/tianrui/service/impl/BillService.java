@@ -77,10 +77,13 @@ import com.tianrui.service.bean.MemberPositionRecord;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.bean.anlian.PositionCounty;
 import com.tianrui.service.jtb.BillMassageReq;
 import com.tianrui.service.jtb.JtbHttpRequset;
+import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.AnlianDictMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
@@ -165,6 +168,8 @@ public class BillService implements IBillService{
 	PositionCountyMapper positionCountyMapper;
 	@Autowired
 	AnlianDictMapper anlianDictMapper;
+	@Autowired
+	AnlianBillMapper anlianBillMapper;
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -455,7 +460,6 @@ public class BillService implements IBillService{
 
 	@Override
 	public Result signConfirm(WaybillConfirmReq req) throws Exception {
-		//TODO
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
@@ -1985,7 +1989,6 @@ public class BillService implements IBillService{
 
 	@Override
 	public PaginationVO<JTBBillResp> findJtbBill(WaybillQueryReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Bill bill = new Bill();
 		if(null!=req.getNo()){
 			bill.setStart(req.getNo()*req.getSize());
@@ -2009,7 +2012,6 @@ public class BillService implements IBillService{
 
 	@Override
 	public Result putJtbBill(String id) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		Bill db = billMapper.selectByPrimaryKey(id);
 		if(StringUtils.equals("1", db.getJtb())){
@@ -2026,5 +2028,144 @@ public class BillService implements IBillService{
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 		return rs;
+	}
+	/** 安联运单推送交通部 数据处理
+	 * @throws Exception */
+	public Result anlianBillExchange(AnlianBill ab) throws Exception{
+		Result rs = Result.getSuccessResult();
+		BillMassageReq billMassage = new BillMassageReq();
+		billMassage.setOriginalDocumentNumber(ab.getBillno());
+		billMassage.setCarrier("中原大易科技有限公司");
+		billMassage.setUnifiedSocialCreditIdentifier("91410482MA3XD9CA67");
+		billMassage.setPermitNumber("410482006680");
+		billMassage.setConsignmentDateTime(dateExchange(ab.getCreatetime()));
+		//干线运输
+		billMassage.setBusinessTypeCode("1002996");
+		billMassage.setDespatchActualDateTime(dateStrExchange(ab.getYqthrq()));
+		billMassage.setGoodsReceiptDateTime(dateExchange(System.currentTimeMillis()));
+		billMassage.setConsignor(Constant.SYSTEM_SHIPPER);
+		if(StringUtils.isBlank(ab.getDesc1())){
+			rs.setCode("1");
+			rs.setError("计划不能为空");
+			return rs;
+		}
+		Plan plan = planMapper.selectByPrimaryKey(ab.getDesc1());
+		FileRoute route = routeMapper.selectByPrimaryKey(plan.getRouteid());
+		String countrySubdivisionCode = positionExchange(route.getOpositionid());
+		if(StringUtils.isBlank(countrySubdivisionCode)){
+			rs.setCode("1");
+			rs.setError("未找到位置信息");
+			return rs;
+		}
+		billMassage.setCountrySubdivisionCode(countrySubdivisionCode);//装货地
+		billMassage.setConsignee(ab.getShr());
+		String receiptCountrySubdivisionCode = positionExchange(route.getDpositionid());
+		if(StringUtils.isBlank(receiptCountrySubdivisionCode)){
+			rs.setCode("1");
+			rs.setError("未找到位置信息");
+			return rs;
+		}
+		billMassage.setReceiptCountrySubdivisionCode(receiptCountrySubdivisionCode);//收货地址
+		billMassage.setTotalMonetaryAmount(String.format("%.3f",Double.valueOf(ab.getYf())));//总金额 三位小数 整数
+		//车辆牌照类型 其它-99
+		MemberVehicle veh = new MemberVehicle();
+		veh.setVehicleprefix(ab.getCph().substring(0, 2));
+		veh.setVehicleno(ab.getCph().substring(2, ab.getCph().length()));
+		List<MemberVehicle> ml = memberVehicleMapper.selectMyVehicleByCondition(veh);
+		MemberVehicle vehicle = null;
+		if(ml.size()==1){
+			vehicle = ml.get(0);
+		}else{
+			rs.setCode("1");
+			rs.setError("车辆信息有误");
+			return rs;
+		}
+		//临时车辆不推送交通部
+		if("1".equals(vehicle.getDesc2())){
+			rs.setCode("1");
+			rs.setError("临时车辆不推送交通部");
+			return rs;
+		}
+		billMassage.setLicensePlateTypeCode("99");
+		billMassage.setVehicleNumber(ab.getCph());
+		String vehicleClassificationCode = vheicleExchange(vehicle.getVehicletype());
+		if(StringUtils.isBlank(vehicleClassificationCode)){
+			rs.setCode("1");
+			rs.setError("车辆类型有误");
+			return rs;
+		}
+		billMassage.setVehicleClassificationCode(vehicleClassificationCode);//车辆分类
+		billMassage.setVehicleTonnage(String.format("%.2f ",vehicle.getVehiweight()));//车辆载重量 2位小数
+		String roadTransportCertificateNumber = vehicle.getOpercode();
+		if(StringUtils.isBlank(roadTransportCertificateNumber)){
+			rs.setCode("1");
+			rs.setError("营运证号不能为空");
+			return rs;
+		}
+		billMassage.setRoadTransportCertificateNumber(roadTransportCertificateNumber);//车辆道路运输经营许可证
+		
+		SystemMember membre = new SystemMember();
+		membre.setAldriverid(ab.getSj());
+		List<SystemMember> sl = systemMemberMapper.selectByCondition(membre);
+		if(sl.size()==0){
+			rs.setCode("1");
+			rs.setError("司机信息有误");
+			return rs;
+		}
+		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(sl.get(0).getId());
+		billMassage.setNameOfPerson(info.getUsername());
+		billMassage.setTelephoneNumber(sl.get(0).getCellphone());
+		billMassage.setDescriptionOfGoods(ab.getHpmc());
+		billMassage.setCargoTypeClassificationCode("94");//货物分类代码 4.2.5
+		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",Double.valueOf(ab.getHpsx())));//三位小数
+		
+		JtbHttpRequset jtb = new JtbHttpRequset();
+		String result = jtb.putJtb(billMassage);
+		if(!StringUtils.equals(result, "success")){
+			rs.setCode("1");
+			rs.setError("操作失败，请稍候再试");
+		}
+		return rs;
+	}
+
+	@Override
+	public Result putAnlianJtbBill(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		AnlianBill ab = anlianBillMapper.selectByPrimaryKey(id);
+		if(StringUtils.equals("1", ab.getDesc2())){
+			rs.setCode("1");
+			rs.setError("运单已经推送交通部，不能重复推送");
+			return rs;
+		}
+		rs = anlianBillExchange(ab);
+		if(StringUtils.equals("000000", rs.getCode())){
+			ab.setDesc2("1"); 
+			anlianBillMapper.updateByPrimaryKey(ab);
+		}
+		return rs;
+	}
+
+	@Override
+	public PaginationVO<JTBBillResp> findALJtbBill(WaybillQueryReq req) throws Exception {
+		AnlianBill ab = new AnlianBill();
+		ab.setBillno(req.getBillNo());
+		ab.setStart(req.getNo());
+		ab.setLimit(req.getSize());
+		List<AnlianBill> list = anlianBillMapper.selectByJTB(ab);
+		Long a = anlianBillMapper.selectByJTBCount(ab);
+		PaginationVO<JTBBillResp> page = new PaginationVO<JTBBillResp>();
+		List<JTBBillResp> ds = new ArrayList<JTBBillResp>();
+		for(AnlianBill s : list){
+			JTBBillResp res = new JTBBillResp();
+			res.setId(s.getId());
+			res.setJtb(s.getDesc2());
+			res.setVehicleno(s.getCph());
+			res.setWaybillno(s.getBillno());
+			res.setCreatetime(s.getCreatetime());
+			ds.add(res);
+		}
+		page.setList(ds);
+		page.setTotal(a);
+		return page;
 	}
 }

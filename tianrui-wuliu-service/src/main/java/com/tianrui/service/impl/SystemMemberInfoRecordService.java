@@ -224,4 +224,16 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		return resp;
 	}
 
+	@Override
+	public MemberInfoRecordResp findByMemberRecordId(String id) throws Exception {
+		SystemMemberInfoRecord record = new SystemMemberInfoRecord();
+		record.setId(id);
+		List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(record);
+		MemberInfoRecordResp resp = new MemberInfoRecordResp();
+		if(list.size()==1){
+			PropertyUtils.copyProperties(resp, list.get(0));
+		}
+		return null;
+	}
+
 }

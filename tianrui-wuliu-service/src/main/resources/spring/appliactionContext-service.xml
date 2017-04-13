@@ -44,10 +44,12 @@
 		<property name="ANLIAN_PIAO_URL" value="${anlian.piao.url}"></property>
 		<property name="ANLIAN_USERNAME" value="${anlian.username}"></property>
 		<property name="ANLIAN_PASSWORD" value="${anlian.password}"></property>
-		
 		<property name="SYSTEM_PUSH_STATUS" value="${system.push.status}"></property>
 		<property name="SYSTEM_SHIPPER" value="${system.shipper}"></property>
 		<property name="JTB_PUT_URL" value="${jtb.put.url}"></property>
+		
+		<property name="WEIXIN_APPID" value="${weixin.appid}"></property>
+		<property name="WEIXIN_SECRET" value="${weixin.secret}"></property>
 		
 	</bean>
      

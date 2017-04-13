@@ -100,9 +100,9 @@ public class CommonUtil {
 	 * @param appsecret 密钥
 	 * @return
 	 */
-	public static Tokens getToken() {
+	public static Tokens getToken(String appid,String appsecret) {
 		Tokens token = null;
-		String requestUrl = token_url.replace("APPID", Count.APPID).replace("APPSECRET", Count.APPSECRET);
+		String requestUrl = token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
 		// 发起GET请求获取凭证
 		JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 

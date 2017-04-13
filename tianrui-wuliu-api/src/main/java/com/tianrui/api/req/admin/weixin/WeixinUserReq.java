@@ -1,6 +1,8 @@
 package com.tianrui.api.req.admin.weixin;
 
 public class WeixinUserReq {
+	
+	private Integer id;
 
 	private String username;
 	
@@ -9,6 +11,14 @@ public class WeixinUserReq {
 	private String openid;
 	
 	private String state;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;

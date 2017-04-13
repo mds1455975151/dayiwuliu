@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>交通部运单管理/大易</title>
+    <title>交通部运单管理/安联</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="col-md-10 ">
         <div class="ht_content">
             <div id="content-header">
-                <h3>运单管理/大易</h3>
+                <h3>运单管理/安联</h3>
             </div>
             <!--查询框begin-->
             <div class="row">
@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_JTB_bill.js?03.14" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_ALJTB_bill.js?04.13" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

@@ -14,5 +14,6 @@ $(function(){
 });
 
 function yiShenpage(state){
-	window.location.href="/weixin/login/yiShenPage?state="+state;
+	var searchKey = $("#searchKey").val();
+	window.location.href="/weixin/login/yiShenPage?state="+state+"&searchKey="+searchKey;
 }

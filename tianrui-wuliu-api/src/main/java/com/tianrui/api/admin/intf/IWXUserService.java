@@ -9,4 +9,6 @@ public interface IWXUserService {
 	public Result login(WeixinUserReq req);
 	/** 微信登录*/
 	public Result wxLogin(WeixinUserReq req);
+	/** 微信退出登录*/
+	public Result exciWXtLogin(WeixinUserReq req);
 }

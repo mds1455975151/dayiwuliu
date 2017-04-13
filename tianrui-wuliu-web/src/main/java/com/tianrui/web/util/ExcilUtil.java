@@ -2,6 +2,7 @@ package com.tianrui.web.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,7 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 public class ExcilUtil extends AbstractExcelView {
 
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
-	private static String[] titles = new String[] { "货源编号", "运单号","货物类型"};
+	private static String[] titles = new String[] { "车辆id", "车牌号","车辆司机绑定关系","运力绑定关系","运单数量"};
 	
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request,
@@ -29,11 +28,11 @@ public class ExcilUtil extends AbstractExcelView {
 		HSSFCell cell;
 		// 声明时间 并格式化作为 文件名及 响应后的文档类型
 		Date date = new Date();
-		String filename = "qwead";
+		String filename = "vehicle";
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename="+ filename + ".xls");
 		// 命名页名
-		sheet = workbook.createSheet("我的运单");
+		sheet = workbook.createSheet("待删车辆");
 
 		// Excel 样式
 		HSSFCellStyle headerStyle = workbook.createCellStyle(); // 标题样式
@@ -56,25 +55,35 @@ public class ExcilUtil extends AbstractExcelView {
 
 		HSSFCellStyle contentStyle = workbook.createCellStyle(); // 内容样式
 		contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-//		List<WaybillList> list = (List<WaybillList>) model.get("list");
-//		int userCount = list.size();
-		for (int i = 0; i < 6; i++) {
+		List<Map<String,String>> list = (List<Map<String,String>>) model.get("list");
+		int userCount = list.size();
+		for (int i = 0; i < userCount; i++) {
 			int cellNum = i + 1;
 
-			String cargoNo = "小明";
+			String id = list.get(i).get("id");
 			cell = getCell(sheet, cellNum, 0);
 			cell.setCellStyle(contentStyle);
-			setText(cell, cargoNo);
+			setText(cell, id);
 
-			String billId = "幻化";
+			String vehicleNo = list.get(i).get("vehicleNo");
 			cell = getCell(sheet, cellNum, 1);
 			cell.setCellStyle(contentStyle);
-			setText(cell, billId);
+			setText(cell, vehicleNo);
 
-			String cargoKindStr = "金刚";
+			String vd = list.get(i).get("vd");
 			cell = getCell(sheet, cellNum, 2);
 			cell.setCellStyle(contentStyle);
-			setText(cell, cargoKindStr);
+			setText(cell, vd);
+			
+			String cp = list.get(i).get("cp");
+			cell = getCell(sheet, cellNum, 3);
+			cell.setCellStyle(contentStyle);
+			setText(cell, cp);
+			
+			String bd = list.get(i).get("bd");
+			cell = getCell(sheet, cellNum, 4);
+			cell.setCellStyle(contentStyle);
+			setText(cell, bd);
 		}
 	}
 

@@ -108,6 +108,33 @@ public class WaybillAction {
 		rs = billService.putJtbBill(id);
 		return rs;
 	}
+	/**
+	 * 查看安联交通部运单
+	 * @return
+	 */
+	@RequestMapping("/flieALJTBbill")
+	public ModelAndView flieALJTBbill(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/file/waybill/file_ALJTB_bill");
+		return view;
+	}
+	@RequestMapping("/findALJTBBill")
+	@ResponseBody
+	public Result findALJTBBill(WaybillQueryReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<JTBBillResp> resp = billService.findALJtbBill(req);
+		rs.setData(resp);
+		return rs;
+	}
+	/** 运单推送交通部
+	 * @throws Exception */
+	@RequestMapping("/putALJtbBill")
+	@ResponseBody
+	public Result putALJtbBill(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = billService.putAnlianJtbBill(id);
+		return rs;
+	}
 	
 	/**
 	 * 

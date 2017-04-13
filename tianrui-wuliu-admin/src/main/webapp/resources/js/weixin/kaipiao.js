@@ -1,43 +1,48 @@
 /**未审核 */
-function index0(){
+function index0(s){
 	var pageNo = $("#pageNo").val();
+	var vehicleNo = $("#searchKey").val();
 	$.ajax({
 		url:'/admin/ticket/page',
 		data:{
 			"status":"2",
-			"percheck":"0",
+			"vehicleNo":$.trim(vehicleNo),
 			"pageNo":(parseInt(pageNo)),
 			"pageSize":10
 		},
 		type:"post",
 		success: function(ret) {
 			if(ret.code=="000000"){
-				innerHTML(ret.data.list,0);
+				innerHTML(ret.data.list,0,s);
 			}
 		}
 	});
 }
 
 /**已审核 */
-function index1(){
+function index1(s){
 	var pageNo = $("#pageNo").val();
+	var vehicleNo = $("#searchKey").val();
 	$.ajax({
 		url:'/admin/ticket/page',
 		data:{
-			"percheck":"1",
+			"vehicleNo":$.trim(vehicleNo),
 			"pageNo":(parseInt(pageNo)),
 			"pageSize":10
 		},
 		type:"post",
 		success: function(ret) {
 			if(ret.code=="000000"){
-				innerHTML(ret.data.list,1);
+				innerHTML(ret.data.list,1,s);
 			}
 		}
 	});
 }
 
-function innerHTML(data,type){
+function innerHTML(data,type,s){
+	if(s==0){
+		$("#rzHTML"+type).empty();
+	}
 	for (var a = 0; a < data.length; a++) {
 		var hml = "";
 		var userName = "";

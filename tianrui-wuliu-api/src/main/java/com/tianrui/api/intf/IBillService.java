@@ -76,8 +76,11 @@ public interface IBillService {
 	public PaginationVO<WaybillResp> pageForBack(WaybillQueryReq req)throws Exception;
 	/**获取经纬度*/
 	public BillGpsResp gps(WaybillQueryReq req)throws Exception;
-	/**查询可推送交通部运单*/
+	/**查询大易可推送交通部运单*/
 	public PaginationVO<JTBBillResp> findJtbBill(WaybillQueryReq req)throws Exception;
+	
+	/**查询安联可推送交通部运单*/
+	public PaginationVO<JTBBillResp> findALJtbBill(WaybillQueryReq req)throws Exception;
 	
 	/**查询*/
 	public BillPlanResp queryWithPlanId(String pid)throws Exception;
@@ -108,7 +111,10 @@ public interface IBillService {
 	public List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req);
 	/**后台管理导出运单数据条数*/
 	public int queryAdminStatReportCount(StatReportReq req);
-	/** 运单推送交通部*/
+	/** 大易运单推送交通部*/
 	public Result putJtbBill(String id)throws Exception;
+	
+	/** 安联运单推送交通部*/
+	public Result putAnlianJtbBill(String id)throws Exception;
 	
 }

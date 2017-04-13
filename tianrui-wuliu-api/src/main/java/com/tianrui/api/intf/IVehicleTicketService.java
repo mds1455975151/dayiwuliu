@@ -29,4 +29,6 @@ public interface IVehicleTicketService {
 	public Result shenhe(VehicleTicketReq req)throws Exception;
 	/**车辆id查询开票记录*/
 	public Result findByVehicleId(TicketFindReq req) throws Exception;
+	/** 根据id查询开票车辆*/
+	public VehicleTicketResp findById(String id)throws Exception;
 }

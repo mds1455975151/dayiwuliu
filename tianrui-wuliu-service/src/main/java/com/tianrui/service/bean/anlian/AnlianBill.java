@@ -68,7 +68,7 @@ public class AnlianBill {
     private String modifier;
 
     private Long modifytime;
-
+    /**计划id*/
     private String desc1;
 
     private String desc2;

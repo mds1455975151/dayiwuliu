@@ -8,14 +8,15 @@
     <link href="${trRoot }/weixin/css/base.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/style.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/iconfont.css" rel='stylesheet' type='text/css'/>
-    <link href="${trRoot }/weixin/css/layer.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/swiper.css" rel='stylesheet' type='text/css'/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 </head>
 <body>
 <div class="searchbox">
     <i class="iconfont icon-sousuo"></i>
-    <input placeholder="请输入车牌号/司机/联系方式/000" type="text">
+    <input placeholder="会员账号" id="searchKey" value="${searchKey }" type="text">
 </div>
 <!--列表切换选项卡-->
 <div class="maple-tab">
@@ -40,7 +41,7 @@
 <script src="${trRoot }/weixin/js/layer.js"></script>
 <script src="${trRoot }/weixin/js/swiper.jquery.js"></script>
 <script type="text/javascript" src="/resources/js/weixin/scroll/scroll.js?12"></script>
-<script type="text/javascript" src="/resources/js/weixin/member.js?12"></script>
+<script type="text/javascript" src="/resources/js/weixin/member.js?21"></script>
 <script type="text/javascript">
 function indexPageOf(){
 	index0();

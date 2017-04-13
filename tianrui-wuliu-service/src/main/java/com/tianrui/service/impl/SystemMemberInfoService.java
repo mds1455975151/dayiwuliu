@@ -16,6 +16,7 @@ import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberTransferResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
@@ -339,6 +340,22 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		men.setAldriverid("1");
 		systemMemberMapper.updateByPrimaryKeySelective(men);
 		return rs;
+	}
+
+	@Override
+	public MemberInfoRecordResp selectMemberInfo(String id) throws Exception {
+		// TODO Auto-generated method stub
+		SystemMember member = systemMemberMapper.selectByPrimaryKey(id);
+		SystemMemberInfo info =systemMemberInfoMapper.selectByPrimaryKey(id);
+		MemberInfoRecordResp resp = new MemberInfoRecordResp();
+		resp.setUserpercheck(member.getUserpercheck().toString());
+		resp.setDriverpercheck(member.getDriverpercheck().toString());
+		resp.setCompanypercheck(member.getCompanypercheck().toString());
+		resp.setCellphone(member.getCellphone());
+		resp.setRegisttime(member.getRegisttime());
+//		PropertyUtils.copyProperties(resp, member);
+		PropertyUtils.copyProperties(resp, info);
+		return resp;
 	}
 
 }
