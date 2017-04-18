@@ -56,6 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tr>
                             <th  >运单号</th>
                             <th >车辆信息</th>
+                            <th >安联账号</th>
                             <th >始发地</th>
                             <th >目的地</th>
                             <th >收货人</th>
@@ -91,6 +92,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "vender";
 </script>
-<script type="text/javascript" src="/resources/js/bill/anlian_page.js?02.10" ></script>
+<script type="text/javascript" src="/resources/js/bill/anlian_page.js?04.17" ></script>
 </body>
 </html>

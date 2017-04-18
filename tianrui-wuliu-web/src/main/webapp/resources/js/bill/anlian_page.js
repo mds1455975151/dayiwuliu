@@ -48,6 +48,7 @@ function innerHTML(data){
 		hml +="<tr>" +
 			"<td>"+data[a].billno+"</td>" +
 			"<td>"+data[a].cph+"</td>" +
+			"<td>"+data[a].sj+"</td>" +
 			"<td><p><i class='iconfont icon-dizhi billc1'></i>"+data[a].qycs+"</td>" +
 			"<td><p><i class='iconfont icon-dizhi billc2'></i>"+data[a].mdcs+"</td>" +
 			"<td>"+data[a].shr+"</td>" +

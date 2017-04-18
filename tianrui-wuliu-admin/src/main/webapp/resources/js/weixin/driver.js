@@ -63,17 +63,28 @@ function innerHTML(data,type,s){
 			stats = "认证成功";
 			t = "1";
 		}
+		var aldriverid = "";
+		if(data[a].aldriverid == '1'||data[a].aldriverid == undefined){
+		
+		}else{
+			aldriverid = data[a].aldriverid;
+		}
 		if(data[a].driverpercheck=='3'){
 			hml += "<div class='menmber_line'>";
 		}else{
 			hml += "<div class='menmber_line' onclick=\"pageView('/weixin/page/driverdetail?id="+data[a].id+"&type="+t+"')\">";
 		}
-		hml += "<p>会员名："+userName+"</p>" +
-				"<div class='menmber_line1'>" +
-				"<div class='menmber_line2'>" +
-				"<label>会员账号：<em>"+data[a].cellPhone+"</em></label>" +
-				"</div>" +
-				"<span>"+stats+"</span></div></div>";
+		hml += "<div class='menmber_ltop'>" +
+					"<label>会员名："+userName+"</label>" +
+					"<span>"+aldriverid+"</span>" +
+				"</div>"+
+					"<div class='menmber_line1'>" +
+						"<div class='menmber_line2'>" +
+							"<label>会员账号：<em>"+data[a].cellPhone+"</em></label>" +
+						"</div>" +
+						"<span>"+stats+"</span>" +
+					"</div>" +
+				"</div>";
 		$("#rzHTML"+type).append(hml);
 	}
 }

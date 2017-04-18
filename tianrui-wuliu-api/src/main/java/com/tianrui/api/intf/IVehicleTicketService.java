@@ -31,4 +31,6 @@ public interface IVehicleTicketService {
 	public Result findByVehicleId(TicketFindReq req) throws Exception;
 	/** 根据id查询开票车辆*/
 	public VehicleTicketResp findById(String id)throws Exception;
+	/** 开票认证强制通过*/
+	public Result ticketSuccess(String id)throws Exception;
 }

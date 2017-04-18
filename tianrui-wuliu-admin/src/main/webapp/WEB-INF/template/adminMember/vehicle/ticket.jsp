@@ -133,13 +133,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" >审核</h4>
             </div>
-            <div class="modal-body" style="">
+            <div class="modal-body">
             <button type="button" class="btn tongguo">通过</button>
             <button type="button" class="btn butongguo">不通过</button>
             <input type="hidden" id="ticket_status">
             <input type="hidden" id="ticket_id">
             </div>
+            <div class="modal-body">
+			<span style="color: red" id="error_massage"></span>
+			</div>           
             <div class="modal-footer">
+            	<button type="button" class="btn btn-primary ticket_success" >强制通过</button>
                 <button type="button" class="btn btn-primary ticket_shenhe" >确定</button>
                 <button type="button" class="btn btn-default ticket_hide" data-dismiss="modal">取消</button>
             </div>
@@ -156,6 +160,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?02.15" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?04.17" ></script>
 </body>
 </html>

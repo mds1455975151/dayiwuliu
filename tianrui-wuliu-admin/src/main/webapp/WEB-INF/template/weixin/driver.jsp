@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <title>司机档案管理</title>
     <link href="${trRoot }/weixin/css/base.css" rel='stylesheet' type='text/css'/>
-    <link href="${trRoot }/weixin/css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="${trRoot }/weixin/css/style.css?11" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/iconfont.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/swiper.css" rel='stylesheet' type='text/css'/>
     <meta name="format-detection" content="telephone=no">
@@ -38,7 +38,7 @@
 <script src="${trRoot }/weixin/js/jquery-1.11.1.js"></script>
 <script src="${trRoot }/weixin/js/layer.js"></script>
 <script src="${trRoot }/weixin/js/swiper.jquery.js"></script>
-<script type="text/javascript" src="/resources/js/weixin/driver.js?20"></script>
+<script type="text/javascript" src="/resources/js/weixin/driver.js?22"></script>
 <script type="text/javascript" src="/resources/js/weixin/scroll/scroll.js?20"></script>
 <script type="text/javascript">
 function indexPageOf(){

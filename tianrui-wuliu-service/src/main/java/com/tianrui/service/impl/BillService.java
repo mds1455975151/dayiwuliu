@@ -555,6 +555,7 @@ public class BillService implements IBillService{
 			rs.setError("未找到位置信息");
 			flag = false;
 			return rs;
+			
 		}
 		billMassage.setCountrySubdivisionCode(countrySubdivisionCode);//装货地
 		billMassage.setConsignee(db.getReceivername());

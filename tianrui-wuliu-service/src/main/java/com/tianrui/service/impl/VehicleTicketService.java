@@ -238,4 +238,24 @@ public class VehicleTicketService implements IVehicleTicketService{
 		return resp;
 	}
 
+	@Override
+	public Result ticketSuccess(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		VehicleTicket ticket = vehicleTicketMapper.selectByPrimaryKey(id);
+		if(ticket == null){
+			rs.setErrorCode(ErrorCode.VEHICLE_TICKET_IDNULL);
+		}else{
+			VehicleTicket vt = new VehicleTicket();
+			vt.setId(ticket.getId());
+			vt.setStatus("1");
+			vehicleTicketMapper.updateByPrimaryKeySelective(vt);
+			
+			MemberVehicle mv = new MemberVehicle();
+			mv.setId(ticket.getVehicleid());
+			mv.setDesc1("1");
+			memberVehicleMapper.updateByPrimaryKeySelective(mv);
+		}
+		return rs;
+	}
+
 }

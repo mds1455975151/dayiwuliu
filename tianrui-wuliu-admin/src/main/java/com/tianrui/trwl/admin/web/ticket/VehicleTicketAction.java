@@ -66,4 +66,17 @@ public class VehicleTicketAction {
 		rs = vehicleTicketService.shenhe(req);
 		return rs;
 	}
+	/**
+	 * 车辆开票认证强制通过
+	 * @param id
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="ticketSuccess",method=RequestMethod.POST)
+	@ResponseBody
+	public Result ticketSuccess(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = vehicleTicketService.ticketSuccess(id);
+		return rs;
+	}
 }

@@ -135,6 +135,9 @@ function Ticketshenhe(id){
 	$("#ticket_status").val("");
 	$(".butongguo").css('background','');
 	$(".tongguo").css('background','');
+	
+	$(".ticket_success").hide();
+	$("#error_massage").html("");
 }
 $(".tongguo").on("click",function(){
 	$(this).css('background','#B9D3EE');
@@ -161,8 +164,9 @@ $(".ticket_shenhe").on("click",function(){
 		type:"post",
 		success: function(ret) {
 			if(ret.code!="000000"){
+				$(".ticket_success").show();
 				$(".ticket_shenhe").attr("disabled",false);
-				alert(ret.error);
+				$("#error_massage").html("错误信息："+ret.error);
 			}else{
 				$(".ticket_shenhe").attr("disabled",false);
 				$(".ticket_hide").click();
@@ -170,6 +174,28 @@ $(".ticket_shenhe").on("click",function(){
 			}
 		}
 	});
+});
+
+$(".ticket_success").on("click",function(){
+	if(window.confirm('确定本车辆在安联系统已存在吗？')){
+		$(".ticket_success").attr("disabled",true);
+		$.ajax({
+			url:"/admin/ticket/ticketSuccess",
+			type:"post",
+			data:{"id":$("#ticket_id").val()},
+			success:function(ret){
+				if(ret.code!="000000"){
+					$(".ticket_success").show();
+					$(".ticket_success").attr("disabled",false);
+					$("#error_massage").html("错误信息："+ret.error);
+				}else{
+					$(".ticket_success").attr("disabled",false);
+					$(".ticket_hide").click();
+					ticketSearch();
+				}
+			}
+		});
+	}
 });
 
 
