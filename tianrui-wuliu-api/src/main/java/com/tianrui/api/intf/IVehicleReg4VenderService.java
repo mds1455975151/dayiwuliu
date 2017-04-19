@@ -11,7 +11,11 @@ import com.tianrui.common.vo.Result;
  */
 public interface IVehicleReg4VenderService {
 
-	//搜索运力
+	/**
+	 * 搜索运力
+	 * @param req
+	 * @return
+	 */
 	public Result searchVehicle(VechicleRegVenderQueryReq req);
 	//添加
 	public Result saveVehicle(VechicleRegVenderSaveReq req);

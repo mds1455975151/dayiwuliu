@@ -2,6 +2,9 @@ package com.tianrui.service.admin.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
 import com.tianrui.service.admin.bean.FileRoute;
 
 public interface FileRouteMapper {
@@ -54,5 +57,8 @@ public interface FileRouteMapper {
     int updateByPrimaryKey(FileRoute record);
     
     List<FileRoute> selectByCondition(FileRoute record);
+    
     long countByCondition(FileRoute record);
+    
+    List<PlanRouteResp> selectByPlanIds(@Param("ids")List<String> ids);
 }

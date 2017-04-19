@@ -10,6 +10,7 @@ import com.tianrui.api.intf.IVehicleReg4VehicleService;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleAuthReq;
+import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
@@ -84,10 +85,10 @@ public class AppVehicleReg4VehicleAction {
 	}
 	//车辆卡票认证
 	@RequestMapping(value="/vehicleAuthTicket",method=RequestMethod.POST)
-	@ApiParamRawType(VechicleRegVehicleAuthReq.class)
+	@ApiParamRawType(VechicleRegVehicleTicketAuthReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult vehicleAuthTicket(AppParam<VechicleRegVehicleAuthReq> appParam){
+	public AppResult vehicleAuthTicket(AppParam<VechicleRegVehicleTicketAuthReq> appParam){
 		Result rs = vehicleReg4VehicleService.vehicleAuthTicket(appParam.getBody());
 		return AppResult.valueOf(rs);
 	}

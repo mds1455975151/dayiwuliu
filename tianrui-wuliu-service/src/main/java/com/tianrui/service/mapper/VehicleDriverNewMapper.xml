@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.VehicleDriverNewMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="vehicleId" property="vehicleid" jdbcType="VARCHAR" />
+    <result column="driverName" property="drivername" jdbcType="VARCHAR" />
+    <result column="driverSex" property="driversex" jdbcType="VARCHAR" />
+    <result column="driverIdCard" property="driveridcard" jdbcType="VARCHAR" />
+    <result column="driverBirthDate" property="driverbirthdate" jdbcType="VARCHAR" />
+    <result column="driverLinkTel" property="driverlinktel" jdbcType="VARCHAR" />
+    <result column="driverIdCardAddr" property="driveridcardaddr" jdbcType="VARCHAR" />
+    <result column="driverCardFirstlicens" property="drivercardfirstlicens" jdbcType="VARCHAR" />
+    <result column="driverCardLicenceorg" property="drivercardlicenceorg" jdbcType="VARCHAR" />
+    <result column="driverCardRegDate" property="drivercardregdate" jdbcType="VARCHAR" />
+    <result column="driverCardUsefullife" property="drivercardusefullife" jdbcType="VARCHAR" />
+    <result column="driverCardType" property="drivercardtype" jdbcType="VARCHAR" />
+    <result column="driverCardImg" property="drivercardimg" jdbcType="VARCHAR" />
+    <result column="checkStatus" property="checkstatus" jdbcType="TINYINT" />
+    <result column="authStats" property="authstats" jdbcType="TINYINT" />
+    <result column="authRemark" property="authremark" jdbcType="VARCHAR" />
+    <result column="authUser" property="authuser" jdbcType="VARCHAR" />
+    <result column="authTime" property="authtime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vehicleId, driverName, driverSex, driverIdCard, driverBirthDate, driverLinkTel, 
+    driverIdCardAddr, driverCardFirstlicens, driverCardLicenceorg, driverCardRegDate, 
+    driverCardUsefullife, driverCardType, driverCardImg, checkStatus, authStats, authRemark, 
+    authUser, authTime, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_vehicle_driver_new
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tr_vehicle_driver_new
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    insert into tr_vehicle_driver_new (id, vehicleId, driverName, 
+      driverSex, driverIdCard, driverBirthDate, 
+      driverLinkTel, driverIdCardAddr, driverCardFirstlicens, 
+      driverCardLicenceorg, driverCardRegDate, 
+      driverCardUsefullife, driverCardType, driverCardImg, 
+      checkStatus, authStats, authRemark, 
+      authUser, authTime, createTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, #{drivername,jdbcType=VARCHAR}, 
+      #{driversex,jdbcType=VARCHAR}, #{driveridcard,jdbcType=VARCHAR}, #{driverbirthdate,jdbcType=VARCHAR}, 
+      #{driverlinktel,jdbcType=VARCHAR}, #{driveridcardaddr,jdbcType=VARCHAR}, #{drivercardfirstlicens,jdbcType=VARCHAR}, 
+      #{drivercardlicenceorg,jdbcType=VARCHAR}, #{drivercardregdate,jdbcType=VARCHAR}, 
+      #{drivercardusefullife,jdbcType=VARCHAR}, #{drivercardtype,jdbcType=VARCHAR}, #{drivercardimg,jdbcType=VARCHAR}, 
+      #{checkstatus,jdbcType=TINYINT}, #{authstats,jdbcType=TINYINT}, #{authremark,jdbcType=VARCHAR}, 
+      #{authuser,jdbcType=VARCHAR}, #{authtime,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    insert into tr_vehicle_driver_new
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vehicleid != null" >
+        vehicleId,
+      </if>
+      <if test="drivername != null" >
+        driverName,
+      </if>
+      <if test="driversex != null" >
+        driverSex,
+      </if>
+      <if test="driveridcard != null" >
+        driverIdCard,
+      </if>
+      <if test="driverbirthdate != null" >
+        driverBirthDate,
+      </if>
+      <if test="driverlinktel != null" >
+        driverLinkTel,
+      </if>
+      <if test="driveridcardaddr != null" >
+        driverIdCardAddr,
+      </if>
+      <if test="drivercardfirstlicens != null" >
+        driverCardFirstlicens,
+      </if>
+      <if test="drivercardlicenceorg != null" >
+        driverCardLicenceorg,
+      </if>
+      <if test="drivercardregdate != null" >
+        driverCardRegDate,
+      </if>
+      <if test="drivercardusefullife != null" >
+        driverCardUsefullife,
+      </if>
+      <if test="drivercardtype != null" >
+        driverCardType,
+      </if>
+      <if test="drivercardimg != null" >
+        driverCardImg,
+      </if>
+      <if test="checkstatus != null" >
+        checkStatus,
+      </if>
+      <if test="authstats != null" >
+        authStats,
+      </if>
+      <if test="authremark != null" >
+        authRemark,
+      </if>
+      <if test="authuser != null" >
+        authUser,
+      </if>
+      <if test="authtime != null" >
+        authTime,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleid != null" >
+        #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="drivername != null" >
+        #{drivername,jdbcType=VARCHAR},
+      </if>
+      <if test="driversex != null" >
+        #{driversex,jdbcType=VARCHAR},
+      </if>
+      <if test="driveridcard != null" >
+        #{driveridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="driverbirthdate != null" >
+        #{driverbirthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="driverlinktel != null" >
+        #{driverlinktel,jdbcType=VARCHAR},
+      </if>
+      <if test="driveridcardaddr != null" >
+        #{driveridcardaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardfirstlicens != null" >
+        #{drivercardfirstlicens,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardlicenceorg != null" >
+        #{drivercardlicenceorg,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardregdate != null" >
+        #{drivercardregdate,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardusefullife != null" >
+        #{drivercardusefullife,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardtype != null" >
+        #{drivercardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardimg != null" >
+        #{drivercardimg,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstatus != null" >
+        #{checkstatus,jdbcType=TINYINT},
+      </if>
+      <if test="authstats != null" >
+        #{authstats,jdbcType=TINYINT},
+      </if>
+      <if test="authremark != null" >
+        #{authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="authuser != null" >
+        #{authuser,jdbcType=VARCHAR},
+      </if>
+      <if test="authtime != null" >
+        #{authtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    update tr_vehicle_driver_new
+    <set >
+      <if test="vehicleid != null" >
+        vehicleId = #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="drivername != null" >
+        driverName = #{drivername,jdbcType=VARCHAR},
+      </if>
+      <if test="driversex != null" >
+        driverSex = #{driversex,jdbcType=VARCHAR},
+      </if>
+      <if test="driveridcard != null" >
+        driverIdCard = #{driveridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="driverbirthdate != null" >
+        driverBirthDate = #{driverbirthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="driverlinktel != null" >
+        driverLinkTel = #{driverlinktel,jdbcType=VARCHAR},
+      </if>
+      <if test="driveridcardaddr != null" >
+        driverIdCardAddr = #{driveridcardaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardfirstlicens != null" >
+        driverCardFirstlicens = #{drivercardfirstlicens,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardlicenceorg != null" >
+        driverCardLicenceorg = #{drivercardlicenceorg,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardregdate != null" >
+        driverCardRegDate = #{drivercardregdate,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardusefullife != null" >
+        driverCardUsefullife = #{drivercardusefullife,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardtype != null" >
+        driverCardType = #{drivercardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="drivercardimg != null" >
+        driverCardImg = #{drivercardimg,jdbcType=VARCHAR},
+      </if>
+      <if test="checkstatus != null" >
+        checkStatus = #{checkstatus,jdbcType=TINYINT},
+      </if>
+      <if test="authstats != null" >
+        authStats = #{authstats,jdbcType=TINYINT},
+      </if>
+      <if test="authremark != null" >
+        authRemark = #{authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="authuser != null" >
+        authUser = #{authuser,jdbcType=VARCHAR},
+      </if>
+      <if test="authtime != null" >
+        authTime = #{authtime,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    update tr_vehicle_driver_new
+    set vehicleId = #{vehicleid,jdbcType=VARCHAR},
+      driverName = #{drivername,jdbcType=VARCHAR},
+      driverSex = #{driversex,jdbcType=VARCHAR},
+      driverIdCard = #{driveridcard,jdbcType=VARCHAR},
+      driverBirthDate = #{driverbirthdate,jdbcType=VARCHAR},
+      driverLinkTel = #{driverlinktel,jdbcType=VARCHAR},
+      driverIdCardAddr = #{driveridcardaddr,jdbcType=VARCHAR},
+      driverCardFirstlicens = #{drivercardfirstlicens,jdbcType=VARCHAR},
+      driverCardLicenceorg = #{drivercardlicenceorg,jdbcType=VARCHAR},
+      driverCardRegDate = #{drivercardregdate,jdbcType=VARCHAR},
+      driverCardUsefullife = #{drivercardusefullife,jdbcType=VARCHAR},
+      driverCardType = #{drivercardtype,jdbcType=VARCHAR},
+      driverCardImg = #{drivercardimg,jdbcType=VARCHAR},
+      checkStatus = #{checkstatus,jdbcType=TINYINT},
+      authStats = #{authstats,jdbcType=TINYINT},
+      authRemark = #{authremark,jdbcType=VARCHAR},
+      authUser = #{authuser,jdbcType=VARCHAR},
+      authTime = #{authtime,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

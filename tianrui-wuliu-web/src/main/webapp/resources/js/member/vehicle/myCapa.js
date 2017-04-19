@@ -80,15 +80,19 @@ function innerHTML(result,flag){
 			username = data[a].companyname;
 			telphone = data[a].companytel;
 		}
+		var aldriveridStr="";
+		if(data[a].aldriverid){
+			aldriveridStr="("+data[a].aldriverid+")";
+		}
 		
 		hml += "<tr><td >" +
 		"<div class='car_cont1'>"+
-			"<p><i>车牌号："+data[a].vehicleno+"</i><em></em></p>"+
-			"<p><i>司机："+drivername+"</i><em>"+drivertel+"</em></p>" +
+			"<p><i>"+data[a].vehicleno+"</i><em></em></p>"+
+			"<p><i>"+drivername+"</i><em>"+drivertel+aldriveridStr+"</em></p>" +
 			"<p>"+data[a].vehicletype+"<span>|</span>"+data[a].length+"<span>|</span>"+data[a].weight+"吨</p>" +
 		"</div>" +
 		"</td>" +
-		"<td >车主："+username+"-"+telphone+"</td>" +
+		"<td ><div class='car_cont1'><p><i>"+username+"</i></p><p><i>"+telphone+"</i></p></div></td>" +
 		"<td >"+status+" </td>" +
 		"<td>"+billstatus+"</td>" +
 		"<td class='f12 bill_lineh2'>";

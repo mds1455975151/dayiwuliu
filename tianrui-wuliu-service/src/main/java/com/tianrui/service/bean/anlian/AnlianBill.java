@@ -80,6 +80,7 @@ public class AnlianBill {
     private Integer start;
     
     private Integer limit;
+    
 
     public String getId() {
         return id;
@@ -400,4 +401,5 @@ public class AnlianBill {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
 }

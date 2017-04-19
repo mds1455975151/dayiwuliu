@@ -96,33 +96,38 @@ function appendContentToBody(result, flag) {
 			/** <tr> */
 			var tr1 = $("<tr></tr>").attr("id","rowIndex" + rowIndex);
 				/** <td> */
-				var td1 = $("<td></td>");
-					/** <img> */
-					var img1 = $("<img></img>").attr("src", data[i].vehiHeadImgPath);
-					/** <div> */
-					var div1 = $("<div></div>").addClass("car_cont1");
-						/** <p> */
-						var p1_1 = $("<p></p>");
-							/** <i> */
-							var i1 = $("<i></i>").append(data[i].vehiPrefix + data[i].vehiNo);
-							p1_1.append(i1);
-						/** <p> */
-						var p1_2 = $("<p></p>");
-							/** <i> */
-							var i2 = $("<i></i>").append(data[i].driverName);
-							/** <em> */
-							var em2 = $("<em></em>").append(data[i].driverTel);
-							p1_2.append(i2).append(em2);
-						/** <p> */
-						var p1_3 = $("<p></p>").append(data[i].vehiTypeName);
-							/** <span> */
-							var span1 = $("<span></span>").append("|");
-							p1_3.append(span1).append(data[i].vehiLength + "米");
-							/** <span> */
-							var span2 = $("<span></span>").append("|");
-							p1_3.append(span2).append(data[i].vehiWeight + "吨");
-						div1.append(p1_1).append(p1_2).append(p1_3);
-					td1.append(img1).append(div1);
+				var td1_1 = $("<td></td>");
+				/** <img> */
+				var img1 = $("<img></img>").attr("src", data[i].vehiHeadImgPath);
+				td1_1.append(img1);
+				/** <div> */
+				var div1 = $("<div></div>").addClass("car_cont1");
+				/** <p> */
+				var p1_1 = $("<p></p>");
+					/** <i> */
+					var i1 = $("<i></i>").append(data[i].vehiPrefix + data[i].vehiNo);
+					p1_1.append(i1);
+				/** <p> */
+				var p1_2 = $("<p></p>");
+					/** <i> */
+					var i2 = $("<i></i>").append(data[i].driverName);
+					/** <em> */
+					var em2 = $("<em></em>").append(data[i].driverTel);
+					p1_2.append(i2).append(em2);
+					//安联开票
+					if(data[i].aldriverid){
+						p1_2.append($("<p></p>").append(data[i].aldriverid));
+					}
+				/** <p> */
+				var p1_3 = $("<p></p>").append(data[i].vehiTypeName);
+					/** <span> */
+					var span1 = $("<span></span>").append("|");
+					p1_3.append(span1).append(data[i].vehiLength + "米");
+					/** <span> */
+					var span2 = $("<span></span>").append("|");
+					p1_3.append(span2).append(data[i].vehiWeight + "吨");
+				div1.append(p1_1).append(p1_2).append(p1_3);
+				var td1_2 = $("<td></td>").append(div1);
 				/** <td> */
 				var td2 = $("<td></td>").append(getStatusByCode(data[i].status));
 				/** <td> */
@@ -229,7 +234,7 @@ function appendContentToBody(result, flag) {
 				    td6.append(button6);
 				
 				
-				tr1.append(td1).append(td2).append(td3).append(td3_1).append(td4).append(td5).append(td6);
+				tr1.append(td1_1).append(td1_2).append(td3).append(td2).append(td3_1).append(td4).append(td5).append(td6);
 			
 			if (flag == 0) {
 				// 搜索查询时表体正常附加数据

@@ -1,6 +1,5 @@
 package com.tianrui.web.app.action;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,6 @@ import com.tianrui.api.intf.ISystemMemberInfoRecordService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.member.MemberReq;
-import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.vo.AppParam;

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +29,13 @@ import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleAndDriver;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 
 import net.coobird.thumbnailator.geometry.Size;
@@ -55,6 +59,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 	MemberCapaMapper memberCapaMapper;
 	@Autowired
 	BillMapper billMapper;
+	@Autowired
+	SystemMemberMapper  memberMapper;
 	
 	/**
 	 * 父类方法重写，根据主键进行我的车辆信息查询
@@ -158,7 +164,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 		long total = memberVehicleMapper.selectVehicleAndDriverBycount(reqCondition);
 		// 数据转换
 		List<VehicleAndDriverResp> vehiAndDriverRespList = convert2VehiAndDriverList(vehiAndDriverList);
-		
+		//TODO 数据
+		setAlDriverId(vehiAndDriverRespList);
 		PaginationVO<VehicleAndDriverResp> resp = new PaginationVO<VehicleAndDriverResp>();
 		resp.setList(vehiAndDriverRespList);
 		resp.setTotal(total);
@@ -664,7 +671,6 @@ public class MemberVehicleService implements IMemberVehicleService {
 
 	@Override
 	public MemberVehicleResp findMemoMassageById(String id) throws Exception {
-		// TODO Auto-generated method stub
 		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(id);
 		MemberVehicleResp resp = new MemberVehicleResp();
 		resp.setId(vehicle.getId());
@@ -813,5 +819,42 @@ public class MemberVehicleService implements IMemberVehicleService {
 			}
 		rs.setData(resp);
 		return rs;
+	}
+	
+	/**
+	 * 我的车辆 (开票认证车辆 并且绑定过司机号的)增加 安联会员号   
+	 * 2017年4月19日 08:43:25
+	 * @param list
+	 */
+	private void setAlDriverId(List<VehicleAndDriverResp> list){
+		if( CollectionUtils.isNotEmpty(list)  ){
+			List<String> driverIds =new ArrayList<String>();
+			Map<String,VehicleAndDriverResp> map = new HashMap<String,VehicleAndDriverResp> ();
+			//拼装驾驶员id集合
+			for( VehicleAndDriverResp item:list ){
+				//开票认证
+				if(StringUtils.isNotBlank(item.getDesc1())  && StringUtils.equals(item.getDesc1(),"1")){
+					//驾驶员不能为空
+					if( StringUtils.isNotBlank(item.getDriverId()) ){
+						driverIds.add(item.getDriverId());
+						map.put(item.getDriverId(), item);
+					}
+				}
+			}
+			//查询用户表 获取驾驶员安联账户
+			if( CollectionUtils.isNotEmpty(driverIds) ){
+				SystemMember query = new SystemMember();
+				query.setIds(driverIds);
+				List<SystemMember> db  =memberMapper.selectByCondition(query);
+				if( CollectionUtils.isNotEmpty(db) ){
+					//安联账户放值
+					for( SystemMember item: db){
+						VehicleAndDriverResp resp=map.get(item.getId());
+						resp.setAldriverid(item.getAldriverid());
+					}
+					
+				}
+			}
+		}
 	}
 }

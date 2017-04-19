@@ -38,6 +38,8 @@ public class MemberCapa {
     private Integer start;
     
     private Integer limit;
+    
+    private String aldriverid;
 
     public String getId() {
         return id;
@@ -198,4 +200,14 @@ public class MemberCapa {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+    
+    
 }

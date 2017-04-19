@@ -72,6 +72,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 		<script type="text/javascript"> var trRoot = "${trRoot}";</script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myCapa.js" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myCapa.js?0419" ></script>
 	</body>
 </html>

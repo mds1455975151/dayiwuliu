@@ -3,7 +3,6 @@ package com.tianrui.web.action.bill;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
-import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
@@ -19,9 +17,6 @@ import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.bean.SystemMember;
-import com.tianrui.service.bean.anlian.AnlianBill;
-import com.tianrui.service.impl.SystemMemberService;
 import com.tianrui.web.util.SessionManager;
 
 /***

@@ -83,9 +83,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                <table class="table table-hover" >
 				                    <thead>
 				                    <tr>
-				                        <th >车辆信息	</th>
-				                        <th >认证状态</th>
+				                        <th colspan="2">车辆信息	</th>
 				                        <th >车辆状态</th>
+				                        <th >认证信息</th>
 				                        <th >认证方式</th>
 				                        <th> 操作</th>
 				                        <th> 开票认证</th>
@@ -156,6 +156,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!--车辆删除end-->
 		
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?03.13" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?04.19" ></script>
 	</body>
 </html>

@@ -85,6 +85,8 @@ public class MemberVehicleResp extends BaseResp{
 	private String agreeimage;
 	private String roadtransportcode;
 	private String roadtransportimage;
+	
+	private String  aldriverid;
 	/**
 	 * 获取主键
 	 * @return id
@@ -612,5 +614,17 @@ public class MemberVehicleResp extends BaseResp{
 	public void setRoadtransportimage(String roadtransportimage) {
 		this.roadtransportimage = roadtransportimage;
 	}
+
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+
+
+	
+	
 
 }

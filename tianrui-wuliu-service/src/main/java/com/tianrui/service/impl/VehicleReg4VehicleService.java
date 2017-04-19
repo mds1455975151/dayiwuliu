@@ -3,18 +3,30 @@ package com.tianrui.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IVehicleReg4VehicleService;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleAuthReq;
+import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegDriverListResp;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehicleDetailResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.mapper.FileVehicleNewMapper;
+import com.tianrui.service.mapper.FileVehicleRecordNewMapper;
+import com.tianrui.service.mapper.VehicleDriverNewMapper;
 @Service
 public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
+	@Autowired
+	VehicleDriverNewMapper vehicleDriverNewMapper;
+	@Autowired
+	FileVehicleRecordNewMapper fileVehicleRecordNewMapper;
+	@Autowired
+	FileVehicleNewMapper  fileVehicleNewMapper;
+	
 
 	@Override
 	public Result driverPage(VechicleRegDriverQueryReq req) {
@@ -42,18 +54,24 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 	@Override
 	public Result driverSave(VechicleRegDriverSaveReq req) {
 		Result rs =Result.getSuccessResult();
+		
+		//vehicleDriverNewMapper.insert();
 		return rs;
 	}
 
 	@Override
 	public Result driverDel(VechicleRegDriverQueryReq req) {
 		Result rs =Result.getSuccessResult();
+		
+		//vehicleDriverNewMapper.deleteByPrimaryKey(id);
 		return rs;
 	}
 
 	@Override
 	public Result driverCheck(VechicleRegDriverQueryReq req) {
 		Result rs =Result.getSuccessResult();
+		
+		//vehicleDriverNewMapper.
 		return rs;
 	}
 
@@ -92,11 +110,12 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 	@Override
 	public Result vehicleAuth(VechicleRegVehicleAuthReq req) {
 		Result rs =Result.getSuccessResult();
+		//fileVehicleRecordNewMapper.get
 		return rs;
 	}
 
 	@Override
-	public Result vehicleAuthTicket(VechicleRegVehicleAuthReq req) {
+	public Result vehicleAuthTicket(VechicleRegVehicleTicketAuthReq req) {
 		Result rs =Result.getSuccessResult();
 		return rs;
 	}

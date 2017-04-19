@@ -22,7 +22,7 @@ public class VehicleRegVehiceListResp {
 	private String vehiclePhone;
 	// 所有人
 	private String vehicleOwner;
-	// 车辆状态
+	// 车辆状态  0空闲  1使用
 	private String vehickeStatus;
 	// 运力来源
 	private String vehicleSource;

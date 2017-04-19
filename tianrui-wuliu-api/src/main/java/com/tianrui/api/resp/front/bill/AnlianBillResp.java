@@ -76,10 +76,15 @@ public class AnlianBillResp {
     private Long createtime;
     
     private String createtimeStr;
+    
+    private String aldriverid;
 
     private Integer start;
     
+    private String routeName;
+    
     private Integer limit;
+    private String desc1;
 
     public String getId() {
         return id;
@@ -379,5 +384,30 @@ public class AnlianBillResp {
 	public void setSystemShipper(String systemShipper) {
 		this.systemShipper = systemShipper;
 	}
-    
+
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
+
+	public String getRouteName() {
+		return routeName;
+	}
+
+	public void setRouteName(String routeName) {
+		this.routeName = routeName;
+	}
+	
+	
 }

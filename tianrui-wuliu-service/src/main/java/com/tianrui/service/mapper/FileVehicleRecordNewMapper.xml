@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.FileVehicleRecordNewMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="vehicleId" property="vehicleid" jdbcType="VARCHAR" />
+    <result column="driverId" property="driverid" jdbcType="VARCHAR" />
+    <result column="vehicleNo" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="vehicleMobile" property="vehiclemobile" jdbcType="VARCHAR" />
+    <result column="vehicleType" property="vehicletype" jdbcType="VARCHAR" />
+    <result column="vehicleLen" property="vehiclelen" jdbcType="VARCHAR" />
+    <result column="vehicleLoad" property="vehicleload" jdbcType="VARCHAR" />
+    <result column="vehicleOwner" property="vehicleowner" jdbcType="VARCHAR" />
+    <result column="vehicleOwnerIdCard" property="vehicleowneridcard" jdbcType="VARCHAR" />
+    <result column="taxiLicenseNo" property="taxilicenseno" jdbcType="VARCHAR" />
+    <result column="roadTransportNo" property="roadtransportno" jdbcType="VARCHAR" />
+    <result column="taxiLicenseImg" property="taxilicenseimg" jdbcType="VARCHAR" />
+    <result column="vehicleImg" property="vehicleimg" jdbcType="VARCHAR" />
+    <result column="drivingLicenseNo" property="drivinglicenseno" jdbcType="VARCHAR" />
+    <result column="drivingLicenseImg" property="drivinglicenseimg" jdbcType="VARCHAR" />
+    <result column="vehicleGradeNo" property="vehiclegradeno" jdbcType="VARCHAR" />
+    <result column="vehicleGradeImg" property="vehiclegradeimg" jdbcType="VARCHAR" />
+    <result column="nature" property="nature" jdbcType="VARCHAR" />
+    <result column="quality" property="quality" jdbcType="VARCHAR" />
+    <result column="idcardno" property="idcardno" jdbcType="VARCHAR" />
+    <result column="certificateno" property="certificateno" jdbcType="VARCHAR" />
+    <result column="expirydata" property="expirydata" jdbcType="VARCHAR" />
+    <result column="identification" property="identification" jdbcType="VARCHAR" />
+    <result column="motor" property="motor" jdbcType="VARCHAR" />
+    <result column="motorno" property="motorno" jdbcType="VARCHAR" />
+    <result column="authType" property="authtype" jdbcType="TINYINT" />
+    <result column="authStatus" property="authstatus" jdbcType="TINYINT" />
+    <result column="authRemark" property="authremark" jdbcType="VARCHAR" />
+    <result column="authTime" property="authtime" jdbcType="VARCHAR" />
+    <result column="authUser" property="authuser" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vehicleId, driverId, vehicleNo, vehicleMobile, vehicleType, vehicleLen, vehicleLoad, 
+    vehicleOwner, vehicleOwnerIdCard, taxiLicenseNo, roadTransportNo, taxiLicenseImg, 
+    vehicleImg, drivingLicenseNo, drivingLicenseImg, vehicleGradeNo, vehicleGradeImg, 
+    nature, quality, idcardno, certificateno, expirydata, identification, motor, motorno, 
+    authType, authStatus, authRemark, authTime, authUser, createTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_file_vehicle_record_new
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tr_file_vehicle_record_new
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew" >
+    insert into tr_file_vehicle_record_new (id, vehicleId, driverId, 
+      vehicleNo, vehicleMobile, vehicleType, 
+      vehicleLen, vehicleLoad, vehicleOwner, 
+      vehicleOwnerIdCard, taxiLicenseNo, roadTransportNo, 
+      taxiLicenseImg, vehicleImg, drivingLicenseNo, 
+      drivingLicenseImg, vehicleGradeNo, vehicleGradeImg, 
+      nature, quality, idcardno, 
+      certificateno, expirydata, identification, 
+      motor, motorno, authType, 
+      authStatus, authRemark, authTime, 
+      authUser, createTime)
+    values (#{id,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, #{driverid,jdbcType=VARCHAR}, 
+      #{vehicleno,jdbcType=VARCHAR}, #{vehiclemobile,jdbcType=VARCHAR}, #{vehicletype,jdbcType=VARCHAR}, 
+      #{vehiclelen,jdbcType=VARCHAR}, #{vehicleload,jdbcType=VARCHAR}, #{vehicleowner,jdbcType=VARCHAR}, 
+      #{vehicleowneridcard,jdbcType=VARCHAR}, #{taxilicenseno,jdbcType=VARCHAR}, #{roadtransportno,jdbcType=VARCHAR}, 
+      #{taxilicenseimg,jdbcType=VARCHAR}, #{vehicleimg,jdbcType=VARCHAR}, #{drivinglicenseno,jdbcType=VARCHAR}, 
+      #{drivinglicenseimg,jdbcType=VARCHAR}, #{vehiclegradeno,jdbcType=VARCHAR}, #{vehiclegradeimg,jdbcType=VARCHAR}, 
+      #{nature,jdbcType=VARCHAR}, #{quality,jdbcType=VARCHAR}, #{idcardno,jdbcType=VARCHAR}, 
+      #{certificateno,jdbcType=VARCHAR}, #{expirydata,jdbcType=VARCHAR}, #{identification,jdbcType=VARCHAR}, 
+      #{motor,jdbcType=VARCHAR}, #{motorno,jdbcType=VARCHAR}, #{authtype,jdbcType=TINYINT}, 
+      #{authstatus,jdbcType=TINYINT}, #{authremark,jdbcType=VARCHAR}, #{authtime,jdbcType=VARCHAR}, 
+      #{authuser,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew" >
+    insert into tr_file_vehicle_record_new
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vehicleid != null" >
+        vehicleId,
+      </if>
+      <if test="driverid != null" >
+        driverId,
+      </if>
+      <if test="vehicleno != null" >
+        vehicleNo,
+      </if>
+      <if test="vehiclemobile != null" >
+        vehicleMobile,
+      </if>
+      <if test="vehicletype != null" >
+        vehicleType,
+      </if>
+      <if test="vehiclelen != null" >
+        vehicleLen,
+      </if>
+      <if test="vehicleload != null" >
+        vehicleLoad,
+      </if>
+      <if test="vehicleowner != null" >
+        vehicleOwner,
+      </if>
+      <if test="vehicleowneridcard != null" >
+        vehicleOwnerIdCard,
+      </if>
+      <if test="taxilicenseno != null" >
+        taxiLicenseNo,
+      </if>
+      <if test="roadtransportno != null" >
+        roadTransportNo,
+      </if>
+      <if test="taxilicenseimg != null" >
+        taxiLicenseImg,
+      </if>
+      <if test="vehicleimg != null" >
+        vehicleImg,
+      </if>
+      <if test="drivinglicenseno != null" >
+        drivingLicenseNo,
+      </if>
+      <if test="drivinglicenseimg != null" >
+        drivingLicenseImg,
+      </if>
+      <if test="vehiclegradeno != null" >
+        vehicleGradeNo,
+      </if>
+      <if test="vehiclegradeimg != null" >
+        vehicleGradeImg,
+      </if>
+      <if test="nature != null" >
+        nature,
+      </if>
+      <if test="quality != null" >
+        quality,
+      </if>
+      <if test="idcardno != null" >
+        idcardno,
+      </if>
+      <if test="certificateno != null" >
+        certificateno,
+      </if>
+      <if test="expirydata != null" >
+        expirydata,
+      </if>
+      <if test="identification != null" >
+        identification,
+      </if>
+      <if test="motor != null" >
+        motor,
+      </if>
+      <if test="motorno != null" >
+        motorno,
+      </if>
+      <if test="authtype != null" >
+        authType,
+      </if>
+      <if test="authstatus != null" >
+        authStatus,
+      </if>
+      <if test="authremark != null" >
+        authRemark,
+      </if>
+      <if test="authtime != null" >
+        authTime,
+      </if>
+      <if test="authuser != null" >
+        authUser,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleid != null" >
+        #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclemobile != null" >
+        #{vehiclemobile,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicletype != null" >
+        #{vehicletype,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclelen != null" >
+        #{vehiclelen,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleload != null" >
+        #{vehicleload,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleowner != null" >
+        #{vehicleowner,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleowneridcard != null" >
+        #{vehicleowneridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="taxilicenseno != null" >
+        #{taxilicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="roadtransportno != null" >
+        #{roadtransportno,jdbcType=VARCHAR},
+      </if>
+      <if test="taxilicenseimg != null" >
+        #{taxilicenseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleimg != null" >
+        #{vehicleimg,jdbcType=VARCHAR},
+      </if>
+      <if test="drivinglicenseno != null" >
+        #{drivinglicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="drivinglicenseimg != null" >
+        #{drivinglicenseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclegradeno != null" >
+        #{vehiclegradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclegradeimg != null" >
+        #{vehiclegradeimg,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateno != null" >
+        #{certificateno,jdbcType=VARCHAR},
+      </if>
+      <if test="expirydata != null" >
+        #{expirydata,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null" >
+        #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="motor != null" >
+        #{motor,jdbcType=VARCHAR},
+      </if>
+      <if test="motorno != null" >
+        #{motorno,jdbcType=VARCHAR},
+      </if>
+      <if test="authtype != null" >
+        #{authtype,jdbcType=TINYINT},
+      </if>
+      <if test="authstatus != null" >
+        #{authstatus,jdbcType=TINYINT},
+      </if>
+      <if test="authremark != null" >
+        #{authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="authtime != null" >
+        #{authtime,jdbcType=VARCHAR},
+      </if>
+      <if test="authuser != null" >
+        #{authuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew" >
+    update tr_file_vehicle_record_new
+    <set >
+      <if test="vehicleid != null" >
+        vehicleId = #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        driverId = #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        vehicleNo = #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclemobile != null" >
+        vehicleMobile = #{vehiclemobile,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicletype != null" >
+        vehicleType = #{vehicletype,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclelen != null" >
+        vehicleLen = #{vehiclelen,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleload != null" >
+        vehicleLoad = #{vehicleload,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleowner != null" >
+        vehicleOwner = #{vehicleowner,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleowneridcard != null" >
+        vehicleOwnerIdCard = #{vehicleowneridcard,jdbcType=VARCHAR},
+      </if>
+      <if test="taxilicenseno != null" >
+        taxiLicenseNo = #{taxilicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="roadtransportno != null" >
+        roadTransportNo = #{roadtransportno,jdbcType=VARCHAR},
+      </if>
+      <if test="taxilicenseimg != null" >
+        taxiLicenseImg = #{taxilicenseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleimg != null" >
+        vehicleImg = #{vehicleimg,jdbcType=VARCHAR},
+      </if>
+      <if test="drivinglicenseno != null" >
+        drivingLicenseNo = #{drivinglicenseno,jdbcType=VARCHAR},
+      </if>
+      <if test="drivinglicenseimg != null" >
+        drivingLicenseImg = #{drivinglicenseimg,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclegradeno != null" >
+        vehicleGradeNo = #{vehiclegradeno,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclegradeimg != null" >
+        vehicleGradeImg = #{vehiclegradeimg,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null" >
+        nature = #{nature,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardno != null" >
+        idcardno = #{idcardno,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateno != null" >
+        certificateno = #{certificateno,jdbcType=VARCHAR},
+      </if>
+      <if test="expirydata != null" >
+        expirydata = #{expirydata,jdbcType=VARCHAR},
+      </if>
+      <if test="identification != null" >
+        identification = #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="motor != null" >
+        motor = #{motor,jdbcType=VARCHAR},
+      </if>
+      <if test="motorno != null" >
+        motorno = #{motorno,jdbcType=VARCHAR},
+      </if>
+      <if test="authtype != null" >
+        authType = #{authtype,jdbcType=TINYINT},
+      </if>
+      <if test="authstatus != null" >
+        authStatus = #{authstatus,jdbcType=TINYINT},
+      </if>
+      <if test="authremark != null" >
+        authRemark = #{authremark,jdbcType=VARCHAR},
+      </if>
+      <if test="authtime != null" >
+        authTime = #{authtime,jdbcType=VARCHAR},
+      </if>
+      <if test="authuser != null" >
+        authUser = #{authuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew" >
+    update tr_file_vehicle_record_new
+    set vehicleId = #{vehicleid,jdbcType=VARCHAR},
+      driverId = #{driverid,jdbcType=VARCHAR},
+      vehicleNo = #{vehicleno,jdbcType=VARCHAR},
+      vehicleMobile = #{vehiclemobile,jdbcType=VARCHAR},
+      vehicleType = #{vehicletype,jdbcType=VARCHAR},
+      vehicleLen = #{vehiclelen,jdbcType=VARCHAR},
+      vehicleLoad = #{vehicleload,jdbcType=VARCHAR},
+      vehicleOwner = #{vehicleowner,jdbcType=VARCHAR},
+      vehicleOwnerIdCard = #{vehicleowneridcard,jdbcType=VARCHAR},
+      taxiLicenseNo = #{taxilicenseno,jdbcType=VARCHAR},
+      roadTransportNo = #{roadtransportno,jdbcType=VARCHAR},
+      taxiLicenseImg = #{taxilicenseimg,jdbcType=VARCHAR},
+      vehicleImg = #{vehicleimg,jdbcType=VARCHAR},
+      drivingLicenseNo = #{drivinglicenseno,jdbcType=VARCHAR},
+      drivingLicenseImg = #{drivinglicenseimg,jdbcType=VARCHAR},
+      vehicleGradeNo = #{vehiclegradeno,jdbcType=VARCHAR},
+      vehicleGradeImg = #{vehiclegradeimg,jdbcType=VARCHAR},
+      nature = #{nature,jdbcType=VARCHAR},
+      quality = #{quality,jdbcType=VARCHAR},
+      idcardno = #{idcardno,jdbcType=VARCHAR},
+      certificateno = #{certificateno,jdbcType=VARCHAR},
+      expirydata = #{expirydata,jdbcType=VARCHAR},
+      identification = #{identification,jdbcType=VARCHAR},
+      motor = #{motor,jdbcType=VARCHAR},
+      motorno = #{motorno,jdbcType=VARCHAR},
+      authType = #{authtype,jdbcType=TINYINT},
+      authStatus = #{authstatus,jdbcType=TINYINT},
+      authRemark = #{authremark,jdbcType=VARCHAR},
+      authTime = #{authtime,jdbcType=VARCHAR},
+      authUser = #{authuser,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

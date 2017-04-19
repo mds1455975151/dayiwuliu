@@ -83,6 +83,8 @@ public class VehicleAndDriverResp extends BaseResp{
 	private String driverTel;
 	/** 驾驶证/身份证号 */
 	private String identityCard;
+	//安联账户
+	private String aldriverid;
 	
 	/**
 	 * 获取用户主键
@@ -515,4 +517,14 @@ public class VehicleAndDriverResp extends BaseResp{
 	public void setDesc2(String desc2) {
 		this.desc2 = desc2;
 	}
+
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+	
+	
 }

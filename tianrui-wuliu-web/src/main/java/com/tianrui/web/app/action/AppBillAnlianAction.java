@@ -37,13 +37,16 @@ public class AppBillAnlianAction {
 	public AppResult detail(AppParam<AnlianBillFindReq> appParam) throws Exception{
 		AppResult as = new AppResult();
 		as.setCode("000000");
-		//
 		AnlianBillFindReq req = appParam.getBody();
 		Result rs = anlianBillService.findByid(req);
 		AnlianBillResp bill = (AnlianBillResp) rs.getData();
+		//TODO 需要优化lsj 
 		rs = anlianService.detail(bill.getBillno());
 		MemberResp resp = systemMemberService.findById(bill.getDriverid());
 		bill.setDrivertel(resp.getCellPhone());
+		//安联账户
+		bill.setAldriverid(resp.getAldriverid());
+		//路线信息
 		if(!rs.getCode().equals("000000")){
 			bill.setStatus(rs.getError());
 		}else{

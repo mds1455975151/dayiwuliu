@@ -3,6 +3,7 @@ package com.tianrui.api.intf;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleAuthReq;
+import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.common.vo.Result;
 
 /**
@@ -26,7 +27,7 @@ public interface IVehicleReg4VehicleService {
 	//车辆完全认证
 	public Result vehicleAuth(VechicleRegVehicleAuthReq req); 
 	//车辆开票认证
-	public Result vehicleAuthTicket(VechicleRegVehicleAuthReq req); 
+	public Result vehicleAuthTicket(VechicleRegVehicleTicketAuthReq req); 
 
 
 }

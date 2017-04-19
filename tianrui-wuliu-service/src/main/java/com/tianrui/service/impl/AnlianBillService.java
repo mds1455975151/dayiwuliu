@@ -2,9 +2,13 @@ package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +20,7 @@ import com.tianrui.api.req.admin.anlian.OrdersReq;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
+import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -132,7 +137,7 @@ public class AnlianBillService implements IAnlianBillService{
 		Merchant mchant = merchantMapper.selectByPrimaryKey(plan.getShipperMerchant());
 		
 		OrdersReq order = new OrdersReq();
-		//TODO 客户代码
+		// 客户代码
 		if(mchant!=null){
 			order.setKhdm(mchant.getCode());
 		}
@@ -216,7 +221,10 @@ public class AnlianBillService implements IAnlianBillService{
 		}
 		List<AnlianBill> list = anlianBillMapper.selectByCondition(bill);
 		long a = anlianBillMapper.selectByCount(bill);
-		pv.setList(copy(list));
+		List<AnlianBillResp> rs =copy(list);
+		//道路名称
+		setRouteNames(rs);
+		pv.setList(rs);
 		pv.setTotal(a);
 		return pv;
 	}
@@ -261,5 +269,32 @@ public class AnlianBillService implements IAnlianBillService{
 			rs.setError("请输入正确id");
 		}
 		return rs;
+	}
+	
+	//开票运单增加路线名称
+	private void setRouteNames(List<AnlianBillResp> list){
+		if( CollectionUtils.isNotEmpty(list) ){
+			List<String> planIds = new ArrayList<String>();
+			Map<String,AnlianBillResp> map = new HashMap<String,AnlianBillResp>();
+			//拼装计划id
+			for(AnlianBillResp item :list ){
+				if( StringUtils.isNotBlank(item.getDesc1()) ){
+					planIds.add(item.getDesc1());
+					map.put(item.getDesc1(), item);
+				}
+			}
+			//根据计划id查询路线信息
+			if( CollectionUtils.isNotEmpty(planIds) ){
+				List<PlanRouteResp> db =routeMapper.selectByPlanIds(planIds);
+				if(CollectionUtils.isNotEmpty(db)  ){
+					for(PlanRouteResp item  :db){
+						AnlianBillResp rs =map.get(item.getPlanId());
+						if(rs !=null){
+							rs.setRouteName(item.getRouteName());
+						}
+					}
+				}
+			}
+		}
 	}
 }
