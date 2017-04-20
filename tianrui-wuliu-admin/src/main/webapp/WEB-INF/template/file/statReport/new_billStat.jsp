@@ -104,6 +104,7 @@
 								<thead>
 									<tr>
 										<th>序号</th>
+										<th>运单类型</th>
 										<th>业务日期</th>
 	                                    <th>计划单号</th>
 	                                    <th>运单号</th>
@@ -154,9 +155,10 @@
 	<script type="text/javascript" src="${scriptsRoot}/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.pagination.js"></script>
+	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0419"></script>
+	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0420"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.search').trigger('click');

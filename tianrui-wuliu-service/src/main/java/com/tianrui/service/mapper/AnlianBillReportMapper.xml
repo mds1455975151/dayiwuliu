@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AnlianBillReportMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.anlian.AnlianBillReport" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="waybillno" property="waybillno" jdbcType="VARCHAR" />
+    <result column="drivername" property="drivername" jdbcType="VARCHAR" />
+    <result column="drivertel" property="drivertel" jdbcType="VARCHAR" />
+    <result column="vehicleno" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="cargoname" property="cargoname" jdbcType="VARCHAR" />
+    <result column="routeid" property="routeid" jdbcType="VARCHAR" />
+    <result column="unloadtime" property="unloadtime" jdbcType="BIGINT" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
+    <result column="pickupweight" property="pickupweight" jdbcType="DOUBLE" />
+    <result column="signweight" property="signweight" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="plancode" property="plancode" jdbcType="VARCHAR" />
+    <result column="shipperMerchant" property="shippermerchant" jdbcType="VARCHAR" />
+    <result column="consigneeMerchant" property="consigneemerchant" jdbcType="VARCHAR" />
+    <result column="shipperMerchantname" property="shippermerchantname" jdbcType="VARCHAR" />
+    <result column="consigneeMerchantname" property="consigneemerchantname" jdbcType="VARCHAR" />
+    <result column="remarkname" property="remarkname" jdbcType="VARCHAR" />
+    <result column="routename" property="routename" jdbcType="VARCHAR" />
+    <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="palnid" property="palnid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+  		id, type, createtime, 
+      waybillno, drivername, drivertel, 
+      vehicleno, cargoname, routeid, 
+      unloadtime, weight, trueweight, 
+      pickupweight, signweight, status, 
+      plancode, shipperMerchant, consigneeMerchant, 
+      shipperMerchantname, consigneeMerchantname, 
+      remarkname, routename, orgid, 
+      palnid
+  </sql>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    <include refid="Base_Column_List" />
+    from v_anlian_billreport
+    <where>
+    	<if test="status != null">
+    		and status = #{status,jdbcType=TINYINT}
+    	</if>
+    	<if test="remarkname != null and remarkname != ''">
+    		and remarkname like '%' #{remarkname,jdbcType=VARCHAR} '%'
+    	</if>
+    	<if test="vehicleno != null and vehicleno != ''">
+    		and vehicleno like '%' #{vehicleno,jdbcType=VARCHAR} '%'
+    	</if>
+    	<if test="cargoname != null and cargoname != ''">
+    		and cargoname like '%' #{cargoname,jdbcType=VARCHAR} '%'
+    	</if>
+    	<if test="orgid != null and orgid != ''">
+    		and orgid = #{orgid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by createtime desc
+    <if test="pageNo != null">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectBycount" resultType="long" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    count(0)
+    from v_anlian_billreport
+    <where>
+    	<if test="status != null">
+    		and status = #{status,jdbcType=TINYINT}
+    	</if>
+    	<if test="remarkname != null and remarkname != ''">
+    		and remarkname like '%' #{remarkname,jdbcType=VARCHAR} '%'
+    	</if>
+    	<if test="vehicleno != null and vehicleno != ''">
+    		and vehicleno like '%' #{vehicleno,jdbcType=VARCHAR} '%'
+    	</if>
+    	<if test="cargoname != null and cargoname != ''">
+    		and cargoname like '%' #{cargoname,jdbcType=VARCHAR} '%'
+    	</if>
+    	<if test="orgid != null and orgid != ''">
+    		and orgid = #{orgid,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+</mapper>
