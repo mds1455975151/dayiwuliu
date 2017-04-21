@@ -25,7 +25,7 @@
     <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
   </resultMap>
   
-  <resultMap id="PlanRouteMap" type="com.tianrui.api.resp.BaseResp.PlanRouteResp" >
+  <resultMap id="PlanRouteMap" type="com.tianrui.api.resp.front.cargoplan.PlanRouteResp" >
   </resultMap>
   <sql id="Base_Column_List" >
     ID, organizationname, organizationid, routename, status, oPositionId, oAddr, dPositionId, 

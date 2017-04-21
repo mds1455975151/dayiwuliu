@@ -275,12 +275,10 @@ public class AnlianBillService implements IAnlianBillService{
 	private void setRouteNames(List<AnlianBillResp> list){
 		if( CollectionUtils.isNotEmpty(list) ){
 			List<String> planIds = new ArrayList<String>();
-			Map<String,AnlianBillResp> map = new HashMap<String,AnlianBillResp>();
 			//拼装计划id
 			for(AnlianBillResp item :list ){
 				if( StringUtils.isNotBlank(item.getDesc1()) ){
 					planIds.add(item.getDesc1());
-					map.put(item.getDesc1(), item);
 				}
 			}
 			//根据计划id查询路线信息
@@ -288,9 +286,10 @@ public class AnlianBillService implements IAnlianBillService{
 				List<PlanRouteResp> db =routeMapper.selectByPlanIds(planIds);
 				if(CollectionUtils.isNotEmpty(db)  ){
 					for(PlanRouteResp item  :db){
-						AnlianBillResp rs =map.get(item.getPlanId());
-						if(rs !=null){
-							rs.setRouteName(item.getRouteName());
+						for(AnlianBillResp item2:list ){
+							if( StringUtils.isNotBlank(item2.getDesc1()) && StringUtils.equals(item2.getDesc1(), item.getPlanId()) ){
+								item2.setRouteName(item.getRouteName());
+							}
 						}
 					}
 				}
