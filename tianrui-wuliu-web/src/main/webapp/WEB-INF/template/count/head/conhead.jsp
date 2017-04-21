@@ -150,7 +150,32 @@
             	</a>
                 </li>
                 <li class="bgblue">
-            	<a href="/count/pay">
+            	<a href="">
+            		<div class="dtail_tit">
+                        <label>运费总额</label>
+                        <span class="fr">
+                        	同比上月增长16.28%
+                        </span>
+                    </div>
+                    <div class="divder_tm"></div>
+                    
+                    <div class="dtail_body">
+                        <label>
+                        <input type="hidden" value="${pay.id }">
+                        447.35
+                        </label>
+                        <span>万元</span>
+                    </div>
+					
+                    <div class="dtail_foot">
+                        <label>本月</label><i class="icononline">
+						&#xe617;
+						</i>
+                        <span>
+                        39.10万元
+                        </span>
+                    </div>
+            		<!-- 
                     <div class="dtail_tit">
                         <label>运费总额</label>
                         <span class="fr">
@@ -166,6 +191,7 @@
                         </span>
                     </div>
                     <div class="divder_tm"></div>
+                    
                     <div class="dtail_body">
                         <label>
                         <input type="hidden" value="${pay.id }">
@@ -190,6 +216,7 @@
 						</c:if>
 						
                     </div>
+                     -->
             	</a>
                 </li>
             </ul>

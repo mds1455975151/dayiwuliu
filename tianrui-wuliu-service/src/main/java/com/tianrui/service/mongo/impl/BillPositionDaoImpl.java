@@ -36,4 +36,22 @@ public class BillPositionDaoImpl extends BaseDaoImpl<BillPosition, String> imple
 	public void save(BillPosition t){
 		mongoTemplate.save(t);
 	}
+
+	@Override
+	public BillPosition findBillIdAndStatus(String billid, String status) {
+		// TODO Auto-generated method stub
+		BillPosition rs = null;
+		if(StringUtils.isNotBlank(billid)){
+			//拼装条件
+			Query query =new Query();
+			Criteria criteria =Criteria.where("billid").is(billid).and("status").is(status);
+			query.addCriteria(criteria);
+			query.with(new Sort(Direction.ASC,"createtime"));
+			List<BillPosition> list = mongoTemplate.find(query, BillPosition.class);
+			if(list.size()==1){
+				rs = list.get(0);
+			}
+		}
+		return rs;
+	}
 }
