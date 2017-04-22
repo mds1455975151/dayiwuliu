@@ -21,6 +21,7 @@ import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.BillAssessReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
+import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillAssessResp;
@@ -172,6 +173,15 @@ public class WaybillAction {
 		rs.setData(resp);
 		return rs;
 	}
+	/** 查询计划详情*/
+	@RequestMapping("/findPlanByid")
+	@ResponseBody
+	public Result findPlanByid(PlanQueryReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PlanResp resp = cargoPlanService.detail(req);
+		rs.setData(resp);
+		return rs;
+	}
 	/**
 	 * 
 	 * @描述:后台运单管理查询
@@ -194,6 +204,15 @@ public class WaybillAction {
 			page = billService.pageForBack(req);
 		}
 		rs.setData(page);
+		return rs;
+	}
+	
+	@RequestMapping("/findWaybillByid")
+	@ResponseBody
+	public Result findWaybillByid(WaybillQueryReq req,HttpServletRequest requset) throws Exception{
+		Result rs = Result.getSuccessResult();
+		WaybillResp resp = billService.queryWayBillWithTrack(req);
+		rs.setData(resp);
 		return rs;
 	}
 	

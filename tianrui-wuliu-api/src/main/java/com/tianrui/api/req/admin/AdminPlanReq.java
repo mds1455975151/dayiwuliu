@@ -17,6 +17,8 @@ public class AdminPlanReq extends BaseReq{
 	
 	private static final long serialVersionUID = -4843347847943484730L;
 
+	private String id;
+	
 	private String plancode;
 	
 	private String cargoname;
@@ -87,6 +89,14 @@ public class AdminPlanReq extends BaseReq{
 
 	public void setVenderName(String venderName) {
 		this.venderName = venderName;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

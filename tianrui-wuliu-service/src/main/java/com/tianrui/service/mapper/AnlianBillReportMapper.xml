@@ -56,7 +56,13 @@
     		and cargoname like '%' #{cargoname,jdbcType=VARCHAR} '%'
     	</if>
     	<if test="orgid != null and orgid != ''">
-    		and orgid = #{orgid,jdbcType=VARCHAR}
+    		and orgid in (${orgid})
+    	</if>
+    	<if test="starttime != null">
+    		and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+    	</if>
+    	<if test="endtime != null">
+    		and createtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
     	</if>
     </where>
     order by createtime desc
@@ -83,7 +89,13 @@
     		and cargoname like '%' #{cargoname,jdbcType=VARCHAR} '%'
     	</if>
     	<if test="orgid != null and orgid != ''">
-    		and orgid = #{orgid,jdbcType=VARCHAR}
+    		and orgid in (${orgid})
+    	</if>
+    	<if test="starttime != null">
+    		and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+    	</if>
+    	<if test="endtime != null">
+    		and createtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
     	</if>
     </where>
   </select>

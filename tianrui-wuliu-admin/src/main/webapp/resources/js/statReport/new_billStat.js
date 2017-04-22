@@ -1,11 +1,15 @@
 var pageSize = 10
+$(function(){
+	$(".select2").select2(); 
+});
+$(".search").on("click",function(){
+	displayData(0);
+});
 function displayData(pageNo){
 	$.ajax({
 		url:"/report/find",
 		type:"post",
-		data:{"pageNo":pageNo,
-				"pageSize":pageSize
-		},
+		data:getParams(pageNo),
 		success:function(ret){
 			if(ret.code=="000000"){
 				if(ret.code=="000000"){
@@ -17,11 +21,11 @@ function displayData(pageNo){
 				    	$("#totalPages").html(parseInt((ret.data.total-1)/pageSize+1));  
 				    }   
 					list = ret.data.list;
-					if(ret.data.list ){
+					if(ret.data.total != 0 ){
 						innerHTML(ret.data.list);
 					}else{
 						var hml="";
-						hml +='<td colspan="12">';
+						hml +='<td colspan="19">';
 				    	hml +='<div class="ht_none">';
 				    	hml +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
 				    	hml +='<div>';
@@ -32,7 +36,7 @@ function displayData(pageNo){
 				    	hml +='</td>';
 				    	document.getElementById("innerHml").innerHTML=hml;
 					}
-					$("#pagination").pagination(100, {   
+					$("#pagination").pagination(ret.data.total, {   
 					    callback: pageCallback,   
 					    prev_text: '上一页',   
 					    next_text: '下一页',   
@@ -97,16 +101,18 @@ function innerHTML(data){
 			status = "安联运单";
 			break;
 		}
+		var s = a+1;
+		
 		hml +="<tr>" +
-				"<td>"+a+"</td>" +
-				"<td>"+data[a].type+"</td>" +
+				"<td>"+s+"</td>" +
+				"<td><a onclick=\"bill_map('"+data[a].type+"','"+data[a].id+"')\"><span>"+data[a].type+"</span></a></td>" +
 				"<td>"+data[a].createtimeStr+"</td>" +
-				"<td>"+data[a].plancode+"</td>" +
-				"<td>"+data[a].waybillno+"</td>" +
+				"<td><span><a data-toggle='modal' onclick=\"plan_datails('"+data[a].palnid+"')\" data-target='#Plandetail'>"+data[a].plancode+"</a></span></td>" +
+				"<td><span><a data-toggle='modal' onclick=\"bill_details('"+data[a].id+"','"+data[a].type+"')\" data-target='#Billdetail'>"+data[a].waybillno+"</a></span></td>" +
 				"<td>"+data[a].shippermerchantname+"</td>" +
 				"<td>"+data[a].consigneemerchantname+"</td>" +
 				"<td>"+data[a].remarkname+"</td>" +
-				"<td>"+data[a].vehicleno+"</td>" +
+				"<td><span><a data-toggle='modal' onclick=\"vehicle_details('"+data[a].vehicleno+"')\" data-target='#vehicledetail'>"+data[a].vehicleno+"</a></span></td>" +
 				"<td>"+data[a].drivername+"</td>" +
 				"<td>"+data[a].cargoname+"</td>" +
 				"<td>"+data[a].begintimeStr+"</td>" +
@@ -122,15 +128,234 @@ function innerHTML(data){
 	$("#innerHml").html(hml);
 }
 
-$(".exportReport").on("click",function(){
+function regist(){
+	$("#status").val("");
+	$("#remarkname").val("");
+	$("#vehicleno").val("");
+	$("#cargoname").val("");
+	$("#orgid").val("");
+	$("#starttimeStr").val("");
+	$("#endtimeStr").val("");
+}
+
+function getParams(pageNo){
+	var orgids = $("#orgid").val();
+	var orgid = "";
+	if(orgids != null){
+		for (var a = 0; a < orgids.length; a++) {
+			if(a+1 == orgids.length){
+				orgid += "'"+orgids[0]+"'";
+			}else{
+				orgid += "'"+orgids[0]+"',";
+			}
+		}
+	}
+	return {"pageNo":pageNo,
+		"pageSize":pageSize,
+		"status":$("#status").val(),
+		"remarkname":$("#remarkname").val(),
+		"vehicleno":$("#vehicleno").val(),
+		"cargoname":$("#cargoname").val(),
+		"orgid":orgid,
+		"starttimeStr":$("#starttimeStr").val(),
+		"endtimeStr":$("#endtimeStr").val()}
+}
+
+function bill_map(type,id){
+	if(type=="普通运单"){
+		type = "w";	
+	}else{
+		type = "a";
+	}
+	window.location.href="/report/map?type="+type+"&id="+id+"&menuId=7";
+}
+
+function vehicle_details(vehicleno){
 	$.ajax({
-		type:"get",
-		data:{},
-		url:"",
+		type:"post",
+		data:{"vehicleno":vehicleno.slice(2,7),
+			"vehicleprefix":vehicleno.slice(0,2)},
+		url:"/AdminMember/findCarManager",
 		success:function(ret){
-			
+			var d = ret.data.list[0];
+			var userName = d.userName;
+			if(d.userName == undefined){
+				userName = "";
+			}
+			var telphone = d.telphone;
+			if(d.telphone == undefined){
+				telphone = "";
+			}
+			var sta = "";
+			if(d.status=="-1"){
+				sta = "认证失败";
+			}
+			if(d.status=="0"){
+				sta = "未认证";
+			}
+			if(d.status=="1"){
+				sta = "认证成功";
+			}
+			if(d.status=="2"){
+				sta = "认证中";
+			}
+			var type = "";
+			if(d.vehicletypename!=undefined){
+				type = d.vehicletypename;
+			}
+			var registcode = d.registimage==""?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+d.registimage+"' target='_blank'>查看图片</a></span>");
+			var opercode = d.operimage==""?"<span>未上传</span>":("<span>证书编号："+d.opercode+"--<a href='/imageView/index?imageUrl="+d.operimage+"' target='_blank'>查看图片</a></span>");
+			var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看图片</a></span>");
+			var roadtransportcode = d.roadtransportcode==""?"未上传":d.roadtransportcode;
+			var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看图片</a></span>");
+			var hml = 
+				"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
+				"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+
+				"<div class='file_detail'><label>所有人姓名：</label><span>"+userName+"</span></div>"+
+				"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
+				"<div class='file_detail'><label>车型：</label><span>"+type+"</span></div>"+
+				"<div class='file_detail'><label>载重：</label><span>"+d.vehiweight+"吨</span></div>"+
+				"<div class='file_detail'><label>长度：</label><span>"+d.vehilength+"米</span></div>"+
+				"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
+				"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
+				"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"</div>"+
+				"<div class='file_detail2'><label>经营许可证号：</label>"+opercode+"</div>"+
+				"<div class='file_detail2'><label>道路运输证号：</label>"+roadtransportcode+"</div>"+
+				"<div class='file_detail2'><label>车辆照片：</label><span><a href='/imageView/index?imageUrl="+d.vehiheadimgpath+"' target='_blank'>查看图片</a></span></div>"+
+				"<div class='file_detail2'><label>行驶证照片：</label><span><a href='/imageView/index?imageUrl="+d.vehilicenseimgpath+"' target='_blank'>查看图片</a></span></div>";
+			$("#vehicledetailhml").html(hml);
 		}
 	});
+}
+
+function bill_details(id,type){
+	var t = "";
+	var urls = "";
+	if(type=="开票运单"){
+		t = "a";
+		urls = "/admin/waybill/findAnlianBillId";
+	}else{
+		t = "w";
+		urls = "/admin/waybill/findWaybillByid";
+	}
+	$.ajax({
+		type:"post",
+		data:{"id":id,
+			"type":t
+		},
+		url:urls,
+		success:function(ret){
+			var data = ret.data;
+			if(t=="w"){
+				bill_innerHml(data);
+			}else{
+				anlian_bill_innerHml(data);
+			}
+		}
+	});
+}
+
+function anlian_bill_innerHml(data){
+	var hml = "<div class='file_detail'><label>运单号：</label><span>"+data.billno+"</span></div>"+
+	"<div class='file_detail'><label>货物名称：</label><span>"+data.hpmc+"</span></div>"+
+	"<div class='file_detail'><label>承运方：</label><span>"+data.systemShipper+"</span></div>"+
+	"<div class='file_detail'><label>创建时间：</label><span>"+data.createtimeStr+"</span></div>"+
+	"<div class='file_detail'><label>计价单位：</label><span>"+data.dw+"</span></div>"+
+	"<div class='file_detail'><label>起运地：</label><span>"+data.qycs+"</span></div>"+
+	"<div class='file_detail'><label>目的地：</label><span>"+data.mdcs+"</span></div>"+
+	"<div class='file_detail'><label>结算里程数：</label><span>"+data.lc+" </span></div>"+
+	"<div class='file_detail'><label>收货人：</label><span>"+data.shr+" </span></div>"+
+	"<div class='file_detail'><label>联系手机：</label><span>"+data.lxsj+"</span></div>"+
+	"<div class='file_detail'><label>运输量：</label><span>"+data.sl+"吨</span></div>"+
+	"<div class='file_detail'><label>要求提货日期：</label><span>"+data.yqthrq+"</span></div>"+
+	"<div class='file_detail'><label>要求到货日期：</label><span>"+data.yqdhrq+"</span></div>"+
+	"<div class='file_detail'><label>总运费：</label><span>"+data.yf+"元</span></div>"+
+	"<div class='file_detail'><label>车辆：</label><span>"+data.cph+"</span></div>"+
+	"<div class='file_detail'><label>司机(安联)：</label><span>"+data.sj+"</span></div>"+
+	"<div class='file_detail'><label>联系方式：</label><span>"+data.drivertel+"</span></div>"+
+	"<div class='file_detail2'><label>运单状态：</label><span>"+data.status+"</span>" +
+	"<div class='clear'></div>";
+	$("#Billdetailhml").html(hml);
+}
+
+function bill_innerHml(data){
+	var orgName = data.orgName;
+	if(orgName == undefined){
+		orgName = "";
+	}
+	var venderName = data.venderName;
+	if(venderName == undefined){
+		venderName = "";
+	}
+	var hml = "<div class='file_detail'><label>运单编码：</label><span>"+data.waybillno+"</span></div>"+
+				"<div class='file_detail'><label>组织名称：</label><span>"+orgName+"</span></div>"+
+				"<div class='file_detail'><label>承运商：</label><span>"+venderName+"</span></div>"+
+				"<div class='file_detail'><label>创建时间：</label><span>"+data.createtimeStr+"</span></div>"+
+				"<div class='file_detail'><label>货物名称：</label><span>"+data.cargoname+"</span></div>"+
+				"<div class='file_detail'><label>计量单位：</label><span>"+data.desc1+"</span></div>"+
+				"<div class='file_detail'><label>计价单位：</label><span>"+data.priceunits+"</span></div>"+
+				"<div class='file_detail'><label>起运地：</label><span>"+data.startcity+" </span></div>"+
+				"<div class='file_detail'><label>目的地：</label><span>"+data.endcity+" </span></div>"+
+				"<div class='file_detail'><label>结算里程数：</label><span>"+data.distance+"</span></div>"+
+				"<div class='file_detail'><label>发货人：</label><span>"+data.consignorname+data.consignortel+"</span></div>"+
+				"<div class='file_detail'><label>收货人：</label><span>"+data.receivername+data.receivertel+"</span></div>"+
+				"<div class='file_detail'><label>开始时间：</label><span>"+data.starttime+"</span></div>"+
+				"<div class='file_detail'><label>结束时间：</label><span>"+data.endtime+"</span></div>"+
+				"<div class='file_detail'><label>原发运输量：</label><span>"+data.weight+"吨</span></div>"+
+				"<div class='file_detail'><label>签收运输量：</label><span>"+data.trueweight+"吨</span></div>"+
+				"<div class='file_detail'><label>运单价格：</label><span>"+data.price+"元</span></div>"+
+				"<div class='file_detail2'><label>车辆信息：</label><span>"+data.vehicleno+"</span>" +
+				"<span>"+data.drivername+"</span><span>"+data.drivertel+"</span></div>"+
+				"<div class='clear'></div>";
+				$("#Billdetailhml").html(hml);
+}
+
+function plan_datails(id){
+	$.ajax({
+		type:"post",
+		data:{"id":id},
+		url:"/admin/waybill/findPlanByid",
+		success:function(ret){
+			if(ret.code=="000000"){
+				var d = ret.data;
+				var hml = "<div class='file_detail'><label>计划编码：</label><span>"+trimVal(d.plancode)+"</span></div>"+
+					"<div class='file_detail'><label>组织名称：</label><span>"+trimVal(d.orgname)+"</span></div>"+
+					"<div class='file_detail'><label>创建人：</label><span>"+trimVal(d.ownerName)+"</span></div>"+
+					"<div class='file_detail'><label>货物名称：</label><span>"+trimVal(d.cargoname)+"</span></div>"+
+					"<div class='file_detail'><label>车主：</label><span>"+trimVal(d.vehicleownername)+"</span></div>"+
+					"<div class='file_detail'><label>运价策略：</label><span>"+trimVal(d.freightname)+"</span></div>"+
+					"<div class='file_detail'><label>计量单位：</label><span></span>"+trimVal(d.measure)+"</div>"+
+					"<div class='file_detail'><label>计价单位：</label><span>"+trimVal(d.priceUnits)+"</span></div>"+
+					"<div class='file_detail'><label>单价：</label><span></span>"+trimVal(d.price)+"</div>"+
+					"<div class='file_detail'><label>起运地：</label><span>"+trimVal(d.startcity)+"</span></div>"+
+					"<div class='file_detail'><label>目的地：</label><span>"+trimVal(d.endcity)+" </span></div>"+
+					"<div class='file_detail'><label>结算里程数：</label><span>"+trimVal(d.distance)+"</span></div>"+
+					"<div class='file_detail'><label>计划总量：</label><span>"+trimVal(d.totalplanned)+"</span></div>"+
+					"<div class='file_detail'><label>计划费用：</label><span>"+trimVal(d.planprice)+"元</span></div>"+
+					"<div class='file_detail'><label>联系人：</label><span>"+trimVal(d.linkman)+"</span></div>"+
+					"<div class='file_detail'><label>联系电话：</label><span>"+trimVal(d.telephone)+"</span></div>"+
+					"<div class='file_detail'><label>开始时间：</label><span>"+trimVal(d.starttimeStr)+"</span></div>"+
+					"<div class='file_detail'><label>结束时间：</label><span>"+trimVal(d.endtimeStr)+"</span></div>"+
+					"<div class='file_detail'><label>创建时间：</label><span>"+trimVal(d.createtimeStr)+"</span></div>"+
+					"<div class='clear'></div>";	
+				$("#Plandetailhml").html(hml);
+			}
+		}
+	});
+}
+function  trimVal(a){
+	if(a ){
+		return a;
+	}else{
+		return "";
+	}
+}
+//导出
+$(".billReport_").on("click",function(){
+	var path = '/report/reload?'+$.param(getParams());
+	$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
 });
-
-
+//打印
+$('.printReport').off('click').on('click',function(){
+	$('#anlianBillReport').jqprint();
+});

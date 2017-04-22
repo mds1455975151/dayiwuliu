@@ -30,7 +30,7 @@ public class AnlianBillReportService implements IAnlianBillReportService{
 		
 		PaginationVO<AnlianBillReportResp> page = new PaginationVO<AnlianBillReportResp>();
 		AnlianBillReport record = new AnlianBillReport();
-//		PropertyUtils.copyProperties(record, req);
+		PropertyUtils.copyProperties(record, req);
 		if(null != req.getPageNo()){
 			record.setPageNo(req.getPageNo()*req.getPageSize());
 			record.setPageSize(req.getPageSize());

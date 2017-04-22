@@ -6,6 +6,10 @@ public class AnlianBillReport {
 	
 	private Integer pageSize;
 	
+    private Long starttime;
+	
+	private Long endtime;
+	
     private String id;
 
     private String type;
@@ -260,6 +264,22 @@ public class AnlianBillReport {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Long getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(Long starttime) {
+		this.starttime = starttime;
+	}
+
+	public Long getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(Long endtime) {
+		this.endtime = endtime;
 	}
 
 }
