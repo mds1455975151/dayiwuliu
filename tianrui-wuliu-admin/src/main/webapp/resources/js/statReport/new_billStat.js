@@ -352,8 +352,21 @@ function  trimVal(a){
 }
 //导出
 $(".billReport_").on("click",function(){
-	var path = '/report/reload?'+$.param(getParams());
-	$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
+	$.ajax({
+		type:"post",
+		data:getParams(0),
+		url:"/report/find",
+		success:function(ret){
+			if(ret.data.total>2000){
+				alert("数据超过2000条，请联系管理员导出！");
+			}else if(ret.data.total=0){
+				alert("没有要导出的数据！");
+			}else{
+				var path = '/report/reload?'+$.param(getParams());
+				$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
+			}
+		}
+	});
 });
 //打印
 $('.printReport').off('click').on('click',function(){

@@ -93,6 +93,7 @@
 							<div class="pro_opra">
 								<button class="btn btnblue billReport_">导出</button>
 								<button class="btn btnorange printReport">打印</button>
+								<!-- 
 								<div class="pro_opra_r">
 									<label>总计：</label>
 									<div class="pro_opra_rstl pro_opra_rstl1">
@@ -108,6 +109,7 @@
 										<p id="completePriceSum"></p>
 									</div>
 								</div>
+								 -->
 							</div>
 							<!--用户表格begin-->
 							<table id="anlianBillReport" class="table table-bordered">
@@ -225,7 +227,7 @@
 	<script type="text/javascript" src="${scriptsRoot}/select2.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0421v"></script>
+	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0424"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.search').trigger('click');
