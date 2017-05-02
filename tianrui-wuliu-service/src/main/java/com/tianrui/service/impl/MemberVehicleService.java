@@ -468,6 +468,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 		argMemberVehicle.setRoadtransportcode(argMemberVehicleReq.getRoadtransportcode());
 		argMemberVehicle.setRoadtransportimage(argMemberVehicleReq.getRoadtransportimage());
 		argMemberVehicle.setDesc2(argMemberVehicleReq.getDesc2());
+		
+		argMemberVehicle.setDesc3(argMemberVehicleReq.getDesc3());
 		// 主键
 		argMemberVehicle.setId(argMemberVehicleReq.getId());
 		//车辆运单状态
@@ -497,29 +499,21 @@ public class MemberVehicleService implements IMemberVehicleService {
 		// 审核时间
 		argMemberVehicle.setAudittime(argMemberVehicleReq.getAudittime());
 		// 车辆长度
-		if (argMemberVehicleReq.getVehiLength() == null) {
-			argMemberVehicle.setVehilength(null);
-		} else {
+		if (StringUtils.isNotBlank(argMemberVehicleReq.getVehiLength())) {
 			argMemberVehicle.setVehilength(Double.parseDouble(argMemberVehicleReq.getVehiLength()));
-		}
+		} 
 		// 车辆宽度
-		if (argMemberVehicleReq.getVehiWidth() == null) {
-			argMemberVehicle.setVehiwidth(null);
-		} else {
+		if (StringUtils.isNotBlank(argMemberVehicleReq.getVehiWidth())) {
 			argMemberVehicle.setVehiwidth(Double.parseDouble(argMemberVehicleReq.getVehiWidth()));
-		}
+		} 
 		// 车辆高度
-		if (argMemberVehicleReq.getVehiHeight() == null) {
-			argMemberVehicle.setVehiheight(null);
-		} else {
+		if (StringUtils.isNotBlank(argMemberVehicleReq.getVehiHeight())) {
 			argMemberVehicle.setVehiheight(Double.parseDouble(argMemberVehicleReq.getVehiHeight()));
-		}
+		} 
 		// 车辆重量
-		if (argMemberVehicleReq.getVehiWeight() == null) {
-			argMemberVehicle.setVehiweight(null);
-		} else {
+		if (StringUtils.isNotBlank(argMemberVehicleReq.getVehiWeight())) {
 			argMemberVehicle.setVehiweight(Double.parseDouble(argMemberVehicleReq.getVehiWeight()));
-		}
+		} 
 		// 车辆状态
 		argMemberVehicle.setStatus(argMemberVehicleReq.getStatus());
 		

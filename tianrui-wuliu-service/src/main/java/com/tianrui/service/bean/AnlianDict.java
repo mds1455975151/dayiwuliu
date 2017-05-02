@@ -8,6 +8,11 @@ public class AnlianDict {
     private String alcode;
 
     private String alname;
+    
+    private String alvcode;
+
+    private String alvname;
+
 
     private String wlcode;
 
@@ -79,5 +84,21 @@ public class AnlianDict {
 
 	public void setJtbCode(String jtbCode) {
 		this.jtbCode = jtbCode == null ? null : jtbCode.trim();
+	}
+
+	public String getAlvcode() {
+		return alvcode;
+	}
+
+	public void setAlvcode(String alvcode) {
+		this.alvcode = alvcode;
+	}
+
+	public String getAlvname() {
+		return alvname;
+	}
+
+	public void setAlvname(String alvname) {
+		this.alvname = alvname;
 	}
 }

@@ -71,6 +71,8 @@ public class MemberVehicleReq extends BaseReq{
 	private Long audittime;
 	/** 临时车辆-1； 认证车辆-2*/
 	private String desc2;
+	/** 经营许可证有效期*/
+	private String desc3;
 	
 	/**
 	 * 获取主键
@@ -472,6 +474,14 @@ public class MemberVehicleReq extends BaseReq{
 	 */
 	public void setModifier(String newModifier) {
 		this.modifier = newModifier;
+	}
+
+	public String getDesc3() {
+		return desc3;
+	}
+
+	public void setDesc3(String desc3) {
+		this.desc3 = desc3;
 	}
 
 }

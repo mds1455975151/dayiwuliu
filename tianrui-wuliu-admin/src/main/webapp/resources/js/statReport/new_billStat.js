@@ -136,6 +136,7 @@ function regist(){
 	$("#orgid").val("");
 	$("#starttimeStr").val("");
 	$("#endtimeStr").val("");
+	$("#bill_type").val("");
 }
 
 function getParams(pageNo){
@@ -157,6 +158,7 @@ function getParams(pageNo){
 		"vehicleno":$("#vehicleno").val(),
 		"cargoname":$("#cargoname").val(),
 		"orgid":orgid,
+		"type":$("#bill_type").val(),
 		"starttimeStr":$("#starttimeStr").val(),
 		"endtimeStr":$("#endtimeStr").val()}
 }

@@ -10,6 +10,8 @@ public class AnlianBillReportReq {
 
 	private String starttimeStr;
 	
+	private String type;
+	
 	private Long starttime;
 	
 	private String endtimeStr;
@@ -86,6 +88,14 @@ public class AnlianBillReportReq {
 		this.status = status;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getStarttimeStr() {
 		return starttimeStr;
 	}
@@ -116,6 +126,7 @@ public class AnlianBillReportReq {
 	public Long getEndtime() {
 		if(StringUtils.isNotBlank(endtimeStr)){
 			endtime = dateExchange(endtimeStr).getTime();
+			endtime = endtime+24*60*60*1000;
 		}
 		return endtime;
 	}

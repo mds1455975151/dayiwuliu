@@ -249,6 +249,10 @@ $("#vehicle_addBtn").click(function() {
 		$("#commonModal").modal();
 		return;
 	}
+	if($("#vehicle_add_desc3").val()==""){
+		alert("请选择有效期");	
+		return;
+	}
 	var formData = new FormData();//roadtransportcode file_ysz  
 	formData.append("roadtransportcode",roadtransportcode);
 //	formData.append("roadtransportimage",file_ysz);
@@ -265,6 +269,10 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("operimage",file_xkz);
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);
+	
+	formData.append("vehiWidth",$("#vehicle_add_vehiWidth").val());
+	formData.append("vehiHeight",$("#vehicle_add_vehiHeight").val());
+	formData.append("desc3",$("#vehicle_add_desc3").val());
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/saveMyVehicle',// 跳转到 action
 		data : formData,

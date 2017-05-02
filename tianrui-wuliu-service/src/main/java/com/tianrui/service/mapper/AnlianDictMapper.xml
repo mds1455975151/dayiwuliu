@@ -10,9 +10,11 @@
     <result column="wlname" property="wlname" jdbcType="VARCHAR" />
     <result column="jtbCode" property="jtbCode" jdbcType="VARCHAR" />
     <result column="jtbName" property="jtbName" jdbcType="VARCHAR" />
+    <result column="alvcode" property="alvcode" jdbcType="VARCHAR" />
+    <result column="alvname" property="alvname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, alcode, alname, wlcode, wlname, jtbCode, jtbName
+    id, type, alcode, alname, wlcode, wlname, jtbCode, jtbName, alvcode, alvname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

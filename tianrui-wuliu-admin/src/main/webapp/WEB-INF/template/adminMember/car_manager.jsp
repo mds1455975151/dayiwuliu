@@ -238,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" name="owner" id="anlian_owner">
 					</div>
 					<div class="model_width">
-						<label>身份证号：</label>
+						<label>证件号码：</label>
 						<input type="text" name="idcard" id="anlian_idcard">
 					</div>
 					<div class="model_width" >
@@ -302,7 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" id="anlian_owner_detail" readonly="readonly">
 					</div>
 					<div class="model_width">
-						<label>身份证号：</label>
+						<label>证件号码：</label>
 						<input type="text" id="anlian_idcard_detail" readonly="readonly">
 					</div>
 					<div class="model_width" >
@@ -418,7 +418,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?03.27" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?04.26" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

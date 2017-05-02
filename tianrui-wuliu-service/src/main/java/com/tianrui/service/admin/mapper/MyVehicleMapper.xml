@@ -120,7 +120,13 @@
 		mv.identieyimage identieyimage,
 		mv.agreeimage agreeimage,
 		mv.roadtransportcode roadtransportcode,
-		mv.roadtransportimage roadtransportimage
+		mv.roadtransportimage roadtransportimage,
+		mv.desc1 desc1,
+		mv.desc2 desc2,
+		mv.desc3 desc3,
+		mv.desc4 desc4,
+		mv.vehiwidth vehiwidth,
+		mv.vehiheight vehiheight
 	FROM
 		wuliu_member_vehicle mv
     <where> 

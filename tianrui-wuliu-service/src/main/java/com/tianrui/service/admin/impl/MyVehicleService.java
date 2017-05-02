@@ -65,6 +65,7 @@ public class MyVehicleService implements IMyVehicleService{
 	public MyVehicleResp findById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		MyVehicle m = vehicleMapper.findByid(id);
+//		MemberVehicle m = memberVehicleMapper.selectByPrimaryKey(id);
 		MyVehicleResp resp = new MyVehicleResp();
 		PropertyUtils.copyProperties(resp, m);
 		return resp;

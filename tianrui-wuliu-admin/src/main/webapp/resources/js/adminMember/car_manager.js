@@ -258,6 +258,18 @@ function details(id){
 			var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看图片</a></span>");
 			var roadtransportcode = d.roadtransportcode==""?"未上传":d.roadtransportcode;
 			var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看图片</a></span>");
+			var desc3 = "";
+			if(d.desc3 != undefined){
+				desc3 = d.desc3;
+			}
+			var vehiwidth = "";
+			if(d.vehiwidth != undefined){
+				vehiwidth = d.vehiwidth;
+			}
+			var vehiheight = "";
+			if(d.vehiheight != undefined){
+				vehiheight = d.vehiheight;
+			}
 			var hml = 
 				"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
 				"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+
@@ -266,12 +278,14 @@ function details(id){
 				"<div class='file_detail'><label>车型：</label><span>"+type+"</span></div>"+
 				"<div class='file_detail'><label>载重：</label><span>"+d.vehiweight+"吨</span></div>"+
 				"<div class='file_detail'><label>长度：</label><span>"+d.vehilength+"米</span></div>"+
+				"<div class='file_detail'><label>宽度：</label><span>"+vehiwidth+"米</span></div>"+
+				"<div class='file_detail'><label>高度：</label><span>"+vehiheight+"米</span></div>"+
 				"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 				"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
 				"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"</div>"+
 				"<div class='file_detail2'><label>经营许可证号：</label>"+opercode+"</div>"+
+				"<div class='file_detail2'><label>经营许可证有效期：</label>"+desc3+"</div>"+
 				"<div class='file_detail2'><label>道路运输证号：</label>"+roadtransportcode+"</div>"+
-//				"<div class='file_detail2'><label>所有人身份证：</label>"+identitycode+"</div>"+
 				"<div class='file_detail2'><label>车辆照片：</label><span><a href='/imageView/index?imageUrl="+d.vehiheadimgpath+"' target='_blank'>查看图片</a></span></div>"+
 				"<div class='file_detail2'><label>行驶证照片：</label><span><a href='/imageView/index?imageUrl="+d.vehilicenseimgpath+"' target='_blank'>查看图片</a></span></div>";
 			document.getElementById("detailid").innerHTML = hml;
@@ -320,6 +334,18 @@ function details(id){
 				var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看照片</a></span>");
 				var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
 				var roadtransportcode = "<input type='text' id='vehicleSportid' value='"+d.roadtransportcode+"'><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>"
+				var desc3 = "";
+				if(d.desc3 != undefined){
+					desc3 = d.desc3;
+				}
+				var vehiwidth = "";
+				if(d.vehiwidth != undefined){
+					vehiwidth = d.vehiwidth;
+				}
+				var vehiheight = "";
+				if(d.vehiheight != undefined){
+					vehiheight = d.vehiheight;
+				}
 				var hml = 
 					"<div class='file_detail'><label>车牌号前缀：</label><span>"+d.vehicleprefix+"</span></div>"+
 					"<div class='file_detail'><label>车牌号：</label><span>"+d.vehicleno+"</span></div>"+
@@ -328,10 +354,13 @@ function details(id){
 					"<div class='file_detail'><label>车型：</label><span>"+type+"</span></div>"+
 					"<div class='file_detail'><label>载重：</label><span>"+d.vehiweight+"吨</span></div>"+
 					"<div class='file_detail'><label>长度：</label><span>"+d.vehilength+"米</span></div>"+
+					"<div class='file_detail'><label>宽度：</label><span>"+vehiwidth+"米</span></div>"+
+					"<div class='file_detail'><label>高度：</label><span>"+vehiheight+"米</span></div>"+
 					"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 					"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
 					"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"3\")' data-target='#againPice'>【重新上传】</a></div>" +
 					"<div class='file_detail2'><label>经营许可证号：</label>"+opercode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></div>"+
+					"<div class='file_detail2'><label>经营许可证有效期：</label>"+desc3+"</div>"+
 					"<div class='file_detail2'><label>道路运输证号：</label>"+roadtransportcode+"</div>"+
 //					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></div>"+
 //					"<div class='file_detail2'><label>所有人身份证：</label>"+identitycode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></div>"+

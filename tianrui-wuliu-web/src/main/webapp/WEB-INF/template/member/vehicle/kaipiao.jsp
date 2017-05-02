@@ -9,8 +9,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link href="${trRoot}/tianrui//css/imgcut.css" rel="stylesheet">
-<link href="${trRoot}/tianrui/css/fileinput.css" media="all"
-	rel="stylesheet" type="text/css" />
+<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${trRoot}/tianrui/js/My97DatePicker/WdatePicker.js"></script>
+
 <!-- 引用公共header部分 -->
 <jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 <!--内容部分begin-->
@@ -43,16 +44,11 @@
 					</div>
 					<div class="reg_tel">
 						<label> <span style="color: red">*</span>总质量：</label> 
-						<input type="text" id="veh_quality" name="quality">
+						<input type="text" id="veh_quality" name="quality">千克
 						<p id=""></p>
 					</div>
-<!-- 					<div class="reg_tel">
-						<label> <span style="color: red">*</span>所有人：</label> 
-						<input type="text" id="veh_owner" name="owner" value="${vehiOwnerName }">
-						<p id=""></p>
-					</div> -->
 					<div class="reg_tel">
-						<label> <span style="color: red">*</span>身份证号：</label> 
+						<label> <span style="color: red">*</span>证件号码：</label> 
 						<input type="text" id="veh_idcard" name="idcard">
 						<p id=""></p>
 					</div>
@@ -63,7 +59,9 @@
 					</div>
 					<div class="reg_tel">
 						<label> <span style="color: red">*</span>检验有效期止：</label> 
-						<input type="text" id="veh_expirydata" placeholder="日期格式：yyyy-MM-dd" name="expirydata">
+						<input id="veh_expirydata" type="text" name="expirydata"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id=""></p>
 					</div>
 					<div class="reg_tel">
