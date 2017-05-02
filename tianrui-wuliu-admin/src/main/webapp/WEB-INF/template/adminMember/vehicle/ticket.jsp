@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                          <th >车牌号 </th>
                                          <th >使用性质</th>
                                          <th >所有人</th>
-                                         <th >身份证号 </th>
+                                         <th >证件号码 </th>
                                          <th >总质量</th>
                                          <th >登记证书编号</th>
                                          <th >检验有效期</th>
@@ -160,6 +160,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?04.17" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?04.25" ></script>
 </body>
 </html>

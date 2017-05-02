@@ -120,8 +120,8 @@ function Ticketdetails(id){
 	var hml = "<div class='file_detail'><label>车牌号：</label><span>"+a.desc1+"</span></div>"+
 	"<div class='file_detail'><label>使用性质：</label><span>"+nature+"</span></div>"+
 	"<div class='file_detail'><label>所有人：</label><span>"+a.owner+"</span></div>"+
-	"<div class='file_detail'><label>身份证号：</label><span>"+a.idcard+"</span></div>"+
-	"<div class='file_detail'><label>总质量：</label><span>"+a.quality+"</span></div>"+
+	"<div class='file_detail'><label>证件号码：</label><span>"+a.idcard+"</span></div>"+
+	"<div class='file_detail'><label>总质量：</label><span>"+a.quality+"千克</span></div>"+
 	"<div class='file_detail'><label>登记证书编号：</label><span>"+a.certificateno+"</span></div>"+
 	"<div class='file_detail'><label>检验有效期：</label><span>"+a.expirydata+"</span></div>"+
 	"<div class='file_detail'><label>车辆识别码：</label><span>"+a.identification+"</span></div>"+

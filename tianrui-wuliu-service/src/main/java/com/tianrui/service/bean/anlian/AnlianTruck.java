@@ -28,10 +28,12 @@ public class AnlianTruck extends AnlianBase{
 	private String fdjxh;
 	/** 发动机号*/
 	private String fdjh;
-	
+	/** 道路运输经营许可证编号*/
 	private String dlysjyxkzbh;
-	
+	/** 道路运输经营许可证有效期*/
 	private String dlysjyxkzyxqz;
+	/** 车辆类型*/
+	private String cllx;
 	
 	private String sf;
 	
@@ -40,11 +42,11 @@ public class AnlianTruck extends AnlianBase{
 	private String clccrq;
 	
 	private String ccdjrq;
-	
+	/** 长*/
 	private String cwkc;
-	
+	/** 宽*/
 	private String cwkk;
-	
+	/** 高*/
 	private String cwkg;
 	
 	private String csys;
@@ -204,5 +206,11 @@ public class AnlianTruck extends AnlianBase{
 	}
 	public void setBxzzrq(String bxzzrq) {
 		this.bxzzrq = bxzzrq;
+	}
+	public String getCllx() {
+		return cllx;
+	}
+	public void setCllx(String cllx) {
+		this.cllx = cllx;
 	}
 }

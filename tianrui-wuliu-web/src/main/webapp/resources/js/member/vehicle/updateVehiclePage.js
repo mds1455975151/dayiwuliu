@@ -231,6 +231,10 @@ $("#vehicle_addBtn").click(function() {
 		$("#commonModal").modal();
 		return;
 	}
+	if($("#vehicle_add_desc3").val()==""){
+		alert("请选择有效期");	
+		return;
+	}
 	var formData = new FormData();
 	formData.append("id",id);
 	formData.append("memberId",member_id);
@@ -252,6 +256,10 @@ $("#vehicle_addBtn").click(function() {
 	formData.append("opercode",opercode);
 	formData.append("registimage",file_djz);
 //	formData.append("registcode",registcode);
+	
+	formData.append("vehiWidth",$("#vehicle_add_vehiWidth").val());
+	formData.append("vehiHeight",$("#vehicle_add_vehiHeight").val());
+	formData.append("desc3",$("#vehicle_add_desc3").val());
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/updateMyVehicle',// 跳转到 action
 		data : formData,

@@ -33,23 +33,23 @@
 					<div class="col-md-12">
 						<div class="contuser_search">
 							<div class="ht_div">
-								<label>车主姓名：</label> <input id="remarkname" name="remarkname" type="text" placeholder="请输入车主姓名">
+								<label>车主姓名：</label> <input id="remarkname" type="text" placeholder="请输入车主姓名">
 							</div>
 							<div class="ht_div">
-								<label>车牌号：</label> <input id="vehicleno" name="vehicleno" type="text" placeholder="请输入车牌号">
+								<label>车牌号：</label> <input id="vehicleno" type="text" placeholder="请输入车牌号">
 							</div>
 							<div class="ht_div">
 								<label>货物名称：</label>
-								<input id="cargoname" name="cargoname" type="text" placeholder="请输入货物名称">
+								<input id="cargoname" type="text" placeholder="请输入货物名称">
 							</div>
 							
 							<div class="ht_div">
 								<label>业务日期：</label>
-								<input id="starttimeStr" name="starttimeStr" type="text"
+								<input id="starttimeStr" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtimeStr\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> 
 									<input
-									id="endtimeStr" type="text" name="endtimeStr"
+									id="endtimeStr" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttimeStr\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
@@ -57,9 +57,8 @@
 						<div class="contuser_search">
 							<div class="ht_div">
 								<label>运单状态：</label> 
-								<select id="status" name="status" class="select2">
+								<select id="status">
 									<option value="">请选择</option>
-									<option value="10">安联运单</option>									 
 	                                <option value="-1">车主回收</option>
 	                                <option value="0">司机未确认</option>
 	                                <option value="1">司机已接受</option>
@@ -69,6 +68,14 @@
 	                                <option value="5">司机已卸货</option>
 	                                <option value="6">已签收</option>
 	                                <option value="7">司机拒绝接单</option>
+								</select>	
+							</div>
+							<div class="ht_div">
+								<label>运单类型：</label> 
+								<select id="bill_type">
+									<option value="">请选择</option>
+									<option value="anlian">开票运单</option>									 
+	                                <option value="wuliu">普通运单</option>
 								</select>	
 							</div>
 							<div class="ht_div">
@@ -227,7 +234,7 @@
 	<script type="text/javascript" src="${scriptsRoot}/select2.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0424"></script>
+	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0425"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.search').trigger('click');

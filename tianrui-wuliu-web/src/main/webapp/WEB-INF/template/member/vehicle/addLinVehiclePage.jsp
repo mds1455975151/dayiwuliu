@@ -14,8 +14,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link href="${trRoot}/tianrui//css/imgcut.css" rel="stylesheet">
-<link href="${trRoot}/tianrui/css/fileinput.css" media="all"
-	rel="stylesheet" type="text/css" />
+<link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${trRoot}/tianrui/js/My97DatePicker/WdatePicker.js"></script>
+
 <!-- 引用公共header部分 -->
 <jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 <!--内容部分begin-->
@@ -55,18 +56,6 @@
 					<div class="reg_tel">
 						<label>道路运输证号：</label>
 						<input type="text" id="vehicle_add_roadtransportcode"> 
-						<!-- 
-						<div class="rz_persontab">
-							<div class="samples">
-								<img class="ysz" style="max-height: 240px;" src="${trRoot}/tianrui/images/carinfo.jpg">
-							</div>
-							<div class="img_upload">
-								<input id="file_ysz" onchange="yszfile()" class="file" type="file"> <span
-									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-							</div>
-							<input type="hidden" id="file_ysz_img">
-						</div>
-						 -->
 					</div>
 					<div class="reg_tel">
 						<label>经营许可证号：</label> <input type="text" id="vehicle_add_opercode">
@@ -81,6 +70,14 @@
 							<input type="hidden" id="file_xkz_img">
 						</div>
 					</div>
+					<input type="hidden" id="starttimeStr" value="">
+					<div class="reg_tel">
+						<label>经营许可证有效期：</label> 
+						<input id="vehicle_add_desc3" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttimeStr\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
+					</div>
+					
 					<div class="reg_tel">
 						<label><span style="color: red">*</span>车辆类型：</label> <select class="form-control w350"
 							id="vehicle_add_vehiType">
@@ -97,6 +94,19 @@
 							type="text" placeholder="" id="vehicle_add_vehiLength"> 米
 						<p id="message_vehiLength"></p>
 					</div>
+					
+					<div class="reg_tel">
+						<label>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽：</label> <input
+							type="text" placeholder="" id="vehicle_add_vehiWidth"> 米
+						<p id=""></p>
+					</div>
+					
+					<div class="reg_tel">
+						<label>车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高：</label> <input
+							type="text" placeholder="" id="vehicle_add_vehiHeight"> 米
+						<p id=""></p>
+					</div>
+					
 					<div class="reg_tel">
 						<label><span style="color: red">*</span>载&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：</label> <input
 							type="text" placeholder="" id="vehicle_add_vehiWeight"> 吨
@@ -197,13 +207,16 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addLinVehiclePage.js?03.22"></script>
+	src="/resources/js/member/vehicle/addLinVehiclePage.js?04.26"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"
 	src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
 
 <script type="text/javascript">
+	var myDate = new Date(); 
+	myDate.setDate(myDate.getDate()+1);
+	$("#starttimeStr").val(myDate.toLocaleDateString());
 	$("#file_sfz,#file_cel,#file_xsz,#file_ysz,#file_xkz,#file_djz")
 			.fileinput({
 				language : 'zh',

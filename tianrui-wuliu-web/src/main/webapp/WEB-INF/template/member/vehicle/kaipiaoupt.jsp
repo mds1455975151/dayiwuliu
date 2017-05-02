@@ -50,7 +50,7 @@
 					</div>
 					<div class="reg_tel">
 						<label> <span style="color: red">*</span>总质量：</label> 
-						<input type="text" id="veh_quality" value="${ticket.quality }" name="quality">
+						<input type="text" id="veh_quality" value="${ticket.quality }" name="quality">千克
 						<p id=""></p>
 					</div>
 					<div class="reg_tel">
@@ -59,7 +59,7 @@
 						<p id=""></p>
 					</div>
 					<div class="reg_tel">
-						<label> <span style="color: red">*</span>身份证号：</label> 
+						<label> <span style="color: red">*</span>证件号码：</label> 
 						<input type="text" value="${ticket.idcard }" id="veh_idcard" name="idcard">
 						<p id=""></p>
 					</div>

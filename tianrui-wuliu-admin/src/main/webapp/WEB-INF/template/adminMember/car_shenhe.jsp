@@ -45,6 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label>车型：</label><span>${Vehicle.vehicletypename}</span>
                                 <label>载重(吨)：</label><span>${Vehicle.vehiweight }</span>
                                 <label>长度(米)：</label><span>${Vehicle.vehilength }</span><br>
+                                <label>宽度(米)：</label><span>${Vehicle.vehiwidth }</span><br>
+                                <label>高度(米)：</label><span>${Vehicle.vehiheight }</span><br>
                                 <label>认证状态：</label><span>
                                 <c:if test="${Vehicle.status eq -1 }">认证失败</c:if>
                                 <c:if test="${Vehicle.status eq 0 }">未认证</c:if>
@@ -53,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </span>
                                 <label>认证时间：</label><span>${Vehicle.createtimeStr }</span>
                                 <label>道路运输证号：</label><span>${Vehicle.roadtransportcode }</span>
+                                 <label>经营许可证有效期：</label><span>${Vehicle.desc3 }</span>
                             </div>
                             <input type="hidden" id="statue" value="${Vehicle.status }">
                         	<input type="hidden" id="memberid" value="${Vehicle.memberid }">

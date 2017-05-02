@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.Property;
 import org.springframework.stereotype.Service;
@@ -281,7 +282,8 @@ public class AnlianService implements IAnlianService{
 		//检验有效日期
 		truck.setJyyxqz(ticket.getExpirydata());
 		//核定在质量
-		String hdzz = vehicle.getVehiweight().toString();
+		Double we = vehicle.getVehiweight()*1000;
+		String hdzz = we.toString();
 		truck.setHdzzl(hdzz.substring(0,hdzz.indexOf(".")));
 		//总质量
 		truck.setZzl(ticket.getQuality());
@@ -294,10 +296,37 @@ public class AnlianService implements IAnlianService{
 		
 		AnlianDict dict = new AnlianDict();
 		dict.setType("vehicle");
-		dict.setWlname(vehicle.getVehicletypename());
+		dict.setWlcode(vehicle.getVehicletype());
 		List<AnlianDict> list = anlianDictMapper.selectByCondition(dict);
 		//标准车辆类型
 		truck.setBzcllx(list.get(0).getAlcode());
+		//车辆类型
+		truck.setCllx(list.get(0).getAlvcode());
+		//长
+		if(vehicle.getVehilength()!=null){
+			Double l = vehicle.getVehilength()*1000;
+			String str = l.toString();
+			truck.setCwkc(str.substring(0, str.indexOf(".")));
+		}
+		//宽
+		if(vehicle.getVehiwidth()!=null){
+			Double w = vehicle.getVehiwidth()*1000;
+			String str = w.toString();
+			truck.setCwkk(str.substring(0, str.indexOf(".")));
+		}
+		//高
+		if(vehicle.getVehiheight() != null){
+			Double h = vehicle.getVehiheight()*1000;
+			String str = h.toString();
+			truck.setCwkg(str.substring(0, str.indexOf(".")));
+		}
+		//道路运输证号
+		if(StringUtils.isNotBlank(vehicle.getRoadtransportcode())){
+			truck.setDlysjyxkzbh(vehicle.getRoadtransportcode());
+		}
+		if(StringUtils.isNotBlank(vehicle.getDesc3())){
+			truck.setDlysjyxkzyxqz(vehicle.getDesc3());
+		}
 		//使用性质
 		truck.setSyxz(ticket.getNature());
 		//车辆识别代码

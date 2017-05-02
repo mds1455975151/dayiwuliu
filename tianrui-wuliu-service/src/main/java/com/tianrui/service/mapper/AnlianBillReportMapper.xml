@@ -58,6 +58,9 @@
     	<if test="orgid != null and orgid != ''">
     		and orgid in (${orgid})
     	</if>
+    	<if test="type != null and type != ''">
+    		and type = #{type,jdbcType=VARCHAR}
+    	</if>
     	<if test="starttime != null">
     		and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
     	</if>
@@ -90,6 +93,9 @@
     	</if>
     	<if test="orgid != null and orgid != ''">
     		and orgid in (${orgid})
+    	</if>
+    	<if test="type != null and type != ''">
+    		and type = #{type,jdbcType=VARCHAR}
     	</if>
     	<if test="starttime != null">
     		and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
