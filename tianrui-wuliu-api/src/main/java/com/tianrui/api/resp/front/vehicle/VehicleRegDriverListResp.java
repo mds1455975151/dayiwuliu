@@ -18,6 +18,8 @@ public class VehicleRegDriverListResp {
 	private String checkStatus;
 	// 认证状态 1 认证通过 2认证中 3认证失败
 	private String authSatus;
+	// 认证备注
+	private String authRemark;
 
 	public String getName() {
 		return name;
@@ -67,4 +69,12 @@ public class VehicleRegDriverListResp {
 		this.id = id;
 	}
 
+	public String getAuthRemark() {
+		return authRemark;
+	}
+
+	public void setAuthRemark(String authRemark) {
+		this.authRemark = authRemark;
+	}
+	
 }

@@ -96,7 +96,11 @@ public class FileVehicleNew {
 
     //  修改人
     private Long lastupdateuser;
-
+    //  审核时间
+    private String authTime;
+    //  车主联系方式
+    private String vehicleownerTel;
+    
     public String getId() {
         return id;
     }
@@ -352,4 +356,22 @@ public class FileVehicleNew {
     public void setLastupdateuser(Long lastupdateuser) {
         this.lastupdateuser = lastupdateuser;
     }
+
+	public String getAuthTime() {
+		return authTime;
+	}
+
+	public void setAuthTime(String authTime) {
+		this.authTime = authTime;
+	}
+
+	public String getVehicleownerTel() {
+		return vehicleownerTel;
+	}
+
+	public void setVehicleownerTel(String vehicleownerTel) {
+		this.vehicleownerTel = vehicleownerTel;
+	}
+    
+    
 }

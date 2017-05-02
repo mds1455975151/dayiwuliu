@@ -1,8 +1,10 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +17,19 @@ import com.tianrui.api.req.front.vehicle.VechicleRegVehicleAuthReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegDriverListResp;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehicleDetailResp;
-import com.tianrui.api.resp.pay.PayInvoiceResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.bean.PayInvoice;
+import com.tianrui.service.bean.vehiclereg.FileVehicleNew;
+import com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew;
 import com.tianrui.service.bean.vehiclereg.VehicleDriverNew;
 import com.tianrui.service.mapper.FileVehicleNewMapper;
 import com.tianrui.service.mapper.FileVehicleRecordNewMapper;
 import com.tianrui.service.mapper.VehicleDriverNewMapper;
 @Service
 public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
+	
 	@Autowired
 	VehicleDriverNewMapper vehicleDriverNewMapper;
 	@Autowired
@@ -38,102 +42,167 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 	public Result driverPage(VechicleRegDriverQueryReq req) {
 		Result rs =Result.getErrorResult();
 		PaginationVO<VehicleRegDriverListResp> page =null;
-		if( req !=null && StringUtils.isNotBlank(req.getCurrUId())  ){
+		if( req !=null && StringUtils.isNotBlank(req.getCurrVId())  ){
 			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 			page = new PaginationVO<VehicleRegDriverListResp> ();
-			//TODO query
+			//查询条件
 			VehicleDriverNew query = new VehicleDriverNew();
+			query.setVehicleid(req.getCurrVId());
+			//查询总数
 			long total =vehicleDriverNewMapper.countByCondition(query);
 			if(total >0 ){
 				query.setStart((req.getPageNo()-1)*req.getPageSize());
 				query.setLimit(req.getPageSize());
 				List<VehicleDriverNew> list =vehicleDriverNewMapper.selectByCondition(query);
-				//page.setList(convert2DriverRespList(list));
+				page.setList(convert2DriverRespList(list));
 			}
 			page.setTotal(total);
 			page.setPageNo(req.getPageNo());
 			rs.setData(page);
 		}
 		return rs;
-		
-//		VehicleRegDriverListResp resp =new VehicleRegDriverListResp();
-//		resp.setName("王紫");
-//		resp.setIdcard("410483199912091245");
-//		resp.setCheckStatus("1");
-//		resp.setAuthSatus("1");
-//		resp.setTelphone("1380000000");
-//		resp.setId("111");
 	}
 
 	@Override
 	public Result driverSave(VechicleRegDriverSaveReq req) {
-		Result rs =Result.getSuccessResult();
-		
-		//VehicleDriverNew bean = 
-				
-				
-		//vehicleDriverNewMapper.insert(req);
+		Result rs =Result.getErrorResult();
+		if( checkSaveBeanReq(req)){
+			//拼装数据
+			VehicleDriverNew saveBean = new VehicleDriverNew();		
+			saveBean.setId(UUIDUtil.getId());
+			saveBean.setCreatetime(System.currentTimeMillis());
+			saveBean.setVehicleid(req.getCurrVId());
+			saveBean.setCheckstatus((byte)0);
+			saveBean.setAuthstats((byte)0);
+			
+			saveBean.setDrivername(req.getDriverName());
+			saveBean.setDriversex(req.getDriverSex());
+			saveBean.setDriveridcard(req.getDriverIdCard());
+			saveBean.setDriveridcardaddr(req.getDriverIdCardAddr());
+			saveBean.setDrivercardfirstlicens(req.getDriverCardFirstlicens());
+			saveBean.setDrivercardlicenceorg(req.getDriverCardLicenceorg());
+			saveBean.setDrivercardimg(req.getDriverCardImg());
+			saveBean.setDrivercardregdate(req.getDriverCardRegDate());
+			saveBean.setDrivercardusefullife(req.getDriverCardUsefullife());
+			saveBean.setDrivercardtype(req.getDriverCardType());
+			saveBean.setDriverbirthdate(req.getDriverBirthDate());
+			vehicleDriverNewMapper.insert(saveBean);
+			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+		}
 		return rs; 
 	}
 
 	@Override
 	public Result driverDel(VechicleRegDriverQueryReq req) {
-		Result rs =Result.getSuccessResult();
-		
-		//vehicleDriverNewMapper.deleteByPrimaryKey(id);
+		Result rs =Result.getErrorResult();
+		if(rs !=null && StringUtils.isNotBlank(req.getId()) && StringUtils.isNotBlank(req.getCurrVId())){
+			VehicleDriverNew dbBean=vehicleDriverNewMapper.selectByPrimaryKey(req.getId());
+			//验证是否为当前用户
+			if( dbBean !=null && StringUtils.equals(dbBean.getVehicleid(), req.getCurrVId())){
+				vehicleDriverNewMapper.deleteByPrimaryKey(req.getId());
+				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+			}
+		}
 		return rs;
 	}
 
 	@Override
 	public Result driverCheck(VechicleRegDriverQueryReq req) {
-		Result rs =Result.getSuccessResult();
-		
-		//vehicleDriverNewMapper.
+		Result rs =Result.getErrorResult();
+		if(rs !=null && StringUtils.isNotBlank(req.getId()) && StringUtils.isNotBlank(req.getCurrVId())){
+			VehicleDriverNew dbBean=vehicleDriverNewMapper.selectByPrimaryKey(req.getId());
+			//验证是否为当前用户
+			if( dbBean !=null && StringUtils.equals(dbBean.getVehicleid(), req.getCurrVId())){
+				//vehicleDriverNewMapper.updateCheckStatusByVehicleId(dbBean.getVehicleid());
+				
+				VehicleDriverNew update = new VehicleDriverNew();
+				update.setCheckstatus((byte)1);
+				update.setId(req.getId());
+				vehicleDriverNewMapper.updateByPrimaryKeySelective(update);
+				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+			}
+		}
 		return rs;
 	}
 
 	@Override
 	public Result vehicleDetil(VechicleRegDriverQueryReq req) {
-		Result rs =Result.getSuccessResult();
-		VehicleRegVehicleDetailResp resp=new VehicleRegVehicleDetailResp();
-		resp.setVehicleNo("晋M54254");
-		resp.setVehicleMobile("1380000001");
-		resp.setAuthTime("2017-4-10 16:54:59");
-		resp.setVehicleType("半挂车");
-		resp.setVehicleLen("12");
-		resp.setVehicleLoad("30");
-		resp.setVehicleOwner("思敏高");
-		resp.setVehicleOwnerTel("13800000000");
-		resp.setAuthstatus("完全认证");
-		
-		resp.setTaxiLicenseImg("1234561");
-		resp.setRoadTransportNo("1234562");
-		resp.setTaxiLicenseImg("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-		
-		resp.setVehicleImg("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-		
-		resp.setDrivingLicenseNo("1234563");
-		resp.setDrivingLicenseImg("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-		
-		resp.setVehicleGradeNo("1234564");
-		resp.setVehicleGradeImg("http://pic6.huitu.com/res/20130116/84481_20130116142820494200_1.jpg");
-		
-		
-		
-		rs.setData(resp);
+		Result rs =Result.getErrorResult();
+		//TODO 我的车辆信息  认证成功的就获取认证成功的.  认证中的就获取
+		if( req!=null && StringUtils.isNotBlank(req.getCurrVId()) ){
+			FileVehicleNew dbBean=fileVehicleNewMapper.selectByPrimaryKey(req.getCurrVId());
+			if( dbBean !=null ){
+				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+				VehicleRegVehicleDetailResp resp=new VehicleRegVehicleDetailResp();
+				resp.setId(dbBean.getId());
+				resp.setVehicleNo(dbBean.getVehicleno());
+				resp.setVehicleMobile(dbBean.getVehiclemobile());
+				resp.setAuthTime(dbBean.getAuthTime());
+				resp.setVehicleType(dbBean.getVehicletype());
+				resp.setVehicleLen(dbBean.getVehiclelen());
+				resp.setVehicleLoad(dbBean.getVehicleload());
+				resp.setVehicleOwner(dbBean.getVehicleowner());
+				resp.setVehicleOwnerTel(dbBean.getVehicleownerTel());
+				resp.setAuthstatus(String.valueOf(dbBean.getAuthtype()));
+				
+				resp.setTaxiLicenseNo(dbBean.getTaxilicenseno());
+				resp.setRoadTransportNo(dbBean.getRoadtransportno());
+				resp.setTaxiLicenseImg(dbBean.getTaxilicenseimg());
+				
+				resp.setVehicleImg(dbBean.getVehicleimg());
+				
+				resp.setDrivingLicenseNo(dbBean.getDrivinglicenseno());
+				resp.setDrivingLicenseImg(dbBean.getDrivinglicenseimg());
+				
+				resp.setVehicleGradeNo(dbBean.getVehiclegradeno());
+				resp.setVehicleGradeImg(dbBean.getVehiclegradeimg());
+				
+				rs.setData(resp);
+			}
+		}
 		return rs;
 	}
 
 	@Override
 	public Result vehicleAuth(VechicleRegVehicleAuthReq req) {
-		Result rs =Result.getSuccessResult();
-		//fileVehicleRecordNewMapper.get
+		Result rs =Result.getErrorResult();
+		//保存认证信息  以供后台审核
 		return rs;
 	}
 
 	@Override
 	public Result vehicleAuthTicket(VechicleRegVehicleTicketAuthReq req) {
-		Result rs =Result.getSuccessResult();
+		Result rs =Result.getErrorResult();
+		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
+			//获取车辆信息
+			FileVehicleNew dbBean=fileVehicleNewMapper.selectByPrimaryKey(req.getCurrVId());
+			if( dbBean !=null ){
+				//修改其他的记录信息为作废记录 
+				//fileVehicleRecordNewMapper.update
+				FileVehicleRecordNew  saveBean =new FileVehicleRecordNew();
+				try {
+					//原有信息记录
+					BeanUtils.copyProperties(saveBean, dbBean);
+					saveBean.setId(UUIDUtil.getId());
+					saveBean.setCreatetime(System.currentTimeMillis());
+					
+					//新信息保存
+					saveBean.setAuthtype(Byte.valueOf("3"));
+					saveBean.setNature(req.getNature());
+					saveBean.setQuality(req.getQuality());
+					saveBean.setIdcardno(req.getIdcardno());
+					saveBean.setCertificateno(req.getCertificateno());
+					saveBean.setExpirydata(req.getExpirydata());
+					saveBean.setIdentification(req.getIdentification());
+					saveBean.setMotor(req.getMotor());
+					saveBean.setMotorno(req.getMotor());
+					fileVehicleRecordNewMapper.insert(saveBean);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		return rs;
 	}
 	//输出参数类型转换
@@ -141,6 +210,14 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 		VehicleRegDriverListResp resp =null;
 		if( bean!=null ){
 			
+			resp =new VehicleRegDriverListResp();
+			resp.setName(bean.getDrivername());
+			resp.setIdcard(bean.getDriveridcard());
+			resp.setCheckStatus(String.valueOf(bean.getCheckstatus()));
+			resp.setAuthSatus(String.valueOf(bean.getAuthstats()));
+			resp.setTelphone(bean.getDriverlinktel());
+			resp.setId(bean.getId());
+			resp.setAuthRemark(bean.getAuthremark());
 		}
 		return resp;
 	}
@@ -152,6 +229,20 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 			for(VehicleDriverNew item:list){
 				if(convert2DriverResp(item) !=null){
 					rs.add(convert2DriverResp(item));
+				}
+			}
+		}
+		return rs;
+	}
+	//验证参数
+	private boolean checkSaveBeanReq(VechicleRegDriverSaveReq req){
+		boolean rs =false;
+		if( req !=null ){
+			if(StringUtils.isNotBlank(req.getDriverName())  ){
+				if(StringUtils.isNotBlank(req.getDriverLinkTel()) ){
+					if(StringUtils.isNotBlank(req.getDriverIdCard()) ){
+						rs =true;
+					}
 				}
 			}
 		}

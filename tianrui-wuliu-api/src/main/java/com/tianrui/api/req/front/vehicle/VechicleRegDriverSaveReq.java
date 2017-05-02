@@ -33,6 +33,8 @@ public class VechicleRegDriverSaveReq extends BaseReq {
 	private String driverCardType;
 	//驾驶证图片
 	private String driverCardImg;
+	//当前车辆ID
+	private String currVId;
 	
 	public String getDriverName() {
 		return driverName;
@@ -105,6 +107,12 @@ public class VechicleRegDriverSaveReq extends BaseReq {
 	}
 	public void setDriverCardImg(String driverCardImg) {
 		this.driverCardImg = driverCardImg;
+	}
+	public String getCurrVId() {
+		return currVId;
+	}
+	public void setCurrVId(String currVId) {
+		this.currVId = currVId;
 	}
 	
 	    
