@@ -7,6 +7,7 @@ public class VechicleRegDriverQueryReq extends BaseReq {
 	private static final long serialVersionUID = -7190183760043617974L;
 	
 	private String id;
+	private String currUId;
 
 	public String getId() {
 		return id;
@@ -15,6 +16,16 @@ public class VechicleRegDriverQueryReq extends BaseReq {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public String getCurrUId() {
+		return currUId;
+	}
+
+	public void setCurrUId(String currUId) {
+		this.currUId = currUId;
+	}
+
+
 	
 	
 	
