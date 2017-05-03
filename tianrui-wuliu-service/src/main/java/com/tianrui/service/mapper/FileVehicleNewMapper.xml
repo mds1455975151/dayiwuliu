@@ -48,6 +48,49 @@
     from tr_file_vehicle_new
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByContent" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleNew" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_file_vehicle_new
+    <where>
+    	<if test="vehicleno != null and vehicleno != ''">
+    		and vehicleNo like '%' #{vehicleno,jdbcType=VARCHAR} '%'
+     	</if>
+     	<if test="vehicleowner != null and vehicleowner != ''">
+     		and vehicleOwner like '%' #{vehicleowner,jdbcType=VARCHAR} '%'
+     	</if>
+     	<if test="vehiclemobile != null and vehiclemobile != ''">
+     		and vehicleMobile like '%' #{vehiclemobile,jdbcType=VARCHAR} '%'
+     	</if>
+     	<if test="authtype != null">
+     		and authType = #{authtype,jdbcType=TINYINT}
+     	</if>
+    </where>
+    order by createTime desc
+    <if test="start != null">
+    	limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleNew" >
+    select 
+    count(0)
+    from tr_file_vehicle_new
+    <where>
+   		<if test="vehicleno != null and vehicleno != ''">
+    		and vehicleNo like '%' #{vehicleno,jdbcType=VARCHAR} '%'
+     	</if>
+     	<if test="vehicleowner != null and vehicleowner != ''">
+     		and vehicleOwner like '%' #{vehicleowner,jdbcType=VARCHAR} '%'
+     	</if>
+     	<if test="vehiclemobile != null and vehiclemobile != ''">
+     		and vehicleMobile like '%' #{vehiclemobile,jdbcType=VARCHAR} '%'
+     	</if>
+     	<if test="authtype != null">
+     		and authType = #{authtype,jdbcType=TINYINT}
+     	</if>
+    </where>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tr_file_vehicle_new
     where id = #{id,jdbcType=VARCHAR}

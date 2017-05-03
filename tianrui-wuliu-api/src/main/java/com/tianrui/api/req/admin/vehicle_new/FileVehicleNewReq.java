@@ -1,6 +1,11 @@
-package com.tianrui.service.bean.vehiclereg;
+package com.tianrui.api.req.admin.vehicle_new;
 
-public class FileVehicleNew {
+public class FileVehicleNewReq {
+	
+	private Integer pageNo;
+	
+	private Integer PageSize;
+	
     //  主键uuid
     private String id;
 
@@ -96,11 +101,6 @@ public class FileVehicleNew {
 
     //  修改人
     private Long lastupdateuser;
-    
-    private Integer limit;
-    
-    private Integer start;
-    
 
     public String getId() {
         return id;
@@ -358,19 +358,19 @@ public class FileVehicleNew {
         this.lastupdateuser = lastupdateuser;
     }
 
-	public Integer getLimit() {
-		return limit;
+	public Integer getPageNo() {
+		return pageNo;
 	}
 
-	public void setLimit(Integer limit) {
-		this.limit = limit;
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
 	}
 
-	public Integer getStart() {
-		return start;
+	public Integer getPageSize() {
+		return PageSize;
 	}
 
-	public void setStart(Integer start) {
-		this.start = start;
+	public void setPageSize(Integer pageSize) {
+		PageSize = pageSize;
 	}
 }

@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.vehiclereg.FileVehicleNew;
 
 public interface FileVehicleNewMapper {
@@ -14,4 +16,8 @@ public interface FileVehicleNewMapper {
     int updateByPrimaryKeySelective(FileVehicleNew record);
 
     int updateByPrimaryKey(FileVehicleNew record);
+    
+    List<FileVehicleNew> selectByContent(FileVehicleNew record);
+    
+    long selectByCount(FileVehicleNew record);
 }
