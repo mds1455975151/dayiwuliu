@@ -96,21 +96,18 @@ public class FileVehicleNew {
 
     //  修改人
     private Long lastupdateuser;
-<<<<<<< .mine
     
     private Integer limit;
     
     private Integer start;
     
 
-=======
     //  审核时间
     private String authTime;
     //  车主联系方式
     private String vehicleownerTel;
     
 
->>>>>>> .theirs
     public String getId() {
         return id;
     }
