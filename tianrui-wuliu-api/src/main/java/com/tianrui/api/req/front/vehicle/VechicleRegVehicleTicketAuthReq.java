@@ -24,6 +24,8 @@ public class VechicleRegVehicleTicketAuthReq extends BaseReq {
 	private String motor;
 	//发动机型号
 	private String motorno;
+	
+	private String currVId;
 
 	public String getId() {
 		return id;
@@ -84,6 +86,12 @@ public class VechicleRegVehicleTicketAuthReq extends BaseReq {
 	}
 	public void setMotorno(String motorno) {
 		this.motorno = motorno;
+	}
+	public String getCurrVId() {
+		return currVId;
+	}
+	public void setCurrVId(String currVId) {
+		this.currVId = currVId;
 	}
 	
 	

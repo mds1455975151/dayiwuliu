@@ -7,6 +7,8 @@ package com.tianrui.api.resp.front.vehicle;
  *
  */
 public class VehicleRegVehicleDetailResp {
+	
+	private String id;
 
 	// 车牌号码
 	private String vehicleNo;
@@ -146,6 +148,12 @@ public class VehicleRegVehicleDetailResp {
 	}
 	public void setVehicleGradeImg(String vehicleGradeImg) {
 		this.vehicleGradeImg = vehicleGradeImg;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
