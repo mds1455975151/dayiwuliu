@@ -16,6 +16,8 @@ public class AnlianBillFindReq {
 
     private String venderid;
     
+    private String desc4;
+    
     private Integer pageNo;
     
     private Integer pageSize;
@@ -89,5 +91,13 @@ public class AnlianBillFindReq {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getDesc4() {
+		return desc4;
+	}
+
+	public void setDesc4(String desc4) {
+		this.desc4 = desc4;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
+import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -19,4 +20,6 @@ public interface IAnlianBillService {
 	public List<AnlianBillResp> findAll(AnlianBillFindReq req)throws Exception;
 	/** 查询安联运单轨迹*/
 	public Result findPosition(AnlianBillFindReq req)throws Exception;
+	
+	public Result update(AnlianBillUpdateReq req)throws Exception;
 }

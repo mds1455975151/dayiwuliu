@@ -19,6 +19,7 @@ import com.tianrui.api.req.admin.anlian.LinesReq;
 import com.tianrui.api.req.admin.anlian.OrdersReq;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
+import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
 import com.tianrui.common.utils.UUIDUtil;
@@ -243,7 +244,7 @@ public class AnlianBillService implements IAnlianBillService{
 		
 		AnlianBillResp resp = new AnlianBillResp();
 		PropertyUtils.copyProperties(resp, bill);
-		
+		resp.setStatus(bill.getDesc4());
 		rs.setData(resp);
 		return rs;
 	}
@@ -295,5 +296,16 @@ public class AnlianBillService implements IAnlianBillService{
 				}
 			}
 		}
+	}
+	@Override
+	public Result update(AnlianBillUpdateReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		AnlianBill record = new AnlianBill();
+		record.setId(req.getId());
+		record.setDesc3(req.getDesc3());
+		record.setDesc4(req.getDesc4());
+		anlianBillMapper.updateByPrimaryKeySelective(record);
+		return rs;
 	}
 }

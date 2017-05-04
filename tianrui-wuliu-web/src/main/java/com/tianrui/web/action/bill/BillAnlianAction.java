@@ -58,15 +58,8 @@ public class BillAnlianAction {
 		ModelAndView view = new ModelAndView();
 		Result rs = anlianBillService.findByid(req);
 		AnlianBillResp bill = (AnlianBillResp) rs.getData();
-		rs = anlianService.detail(bill.getBillno());
-		
 		MemberResp resp = systemMemberService.findById(bill.getDriverid());
 		bill.setDrivertel(resp.getCellPhone());
-		if(!rs.getCode().equals("000000")){
-			bill.setStatus(rs.getError());
-		}else{
-			bill.setStatus("运输中");
-		}
 		view.addObject("bill", bill);
 		view.setViewName("bill/anlian/bill_detail");
 		return view;

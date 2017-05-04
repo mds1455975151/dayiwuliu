@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
+import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.Result;
@@ -38,12 +39,15 @@ public class AnlianBillPosition {
     	logger.info("定时器[AnlianBillPosition]启动.时间是 :" + DateUtil.getDateString());  
         try {
         	AnlianBillFindReq req = new AnlianBillFindReq();
+        	req.setDesc4("已到货");
         	List<AnlianBillResp> list = anlianBillService.findAll(req);
         	for(AnlianBillResp resp : list){
         		Result rs = Result.getSuccessResult();
         		rs = anlianService.detail(resp.getBillno());
+        		JSONObject json = (JSONObject) rs.getData();
+        		AnlianBillUpdateReq upt = new AnlianBillUpdateReq();
+        		upt.setId(resp.getId());
         		if("000000".equals(rs.getCode())){
-        			JSONObject json = (JSONObject) rs.getData();
         			BillAnlianPosition t = new BillAnlianPosition();
         			PropertyUtils.copyProperties(t, json);
         			t.setShipmentno(resp.getBillno());
@@ -51,7 +55,11 @@ public class AnlianBillPosition {
 	        		if(t!= null){
 	        			billAnlianPositionDao.save(t);
 	        		}
+	        		upt.setDesc4("运输中");
+        		}else{
+        			upt.setDesc4(rs.getError());
         		}
+        		anlianBillService.update(upt);
         	}
         } catch (Exception e) {
 			logger.error(e.getMessage(),e);

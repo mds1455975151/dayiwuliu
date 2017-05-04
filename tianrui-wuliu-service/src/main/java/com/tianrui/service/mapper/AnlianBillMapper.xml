@@ -91,6 +91,9 @@
     	     or mdcs like '%' #{searchKey,jdbcType=VARCHAR} '%'
     	     or shr like '%' #{searchKey,jdbcType=VARCHAR} '%')
     	</if>
+    	<if test="desc4 != null">
+    		and desc4 not like '%' #{desc4,jdbcType=VARCHAR} '%'
+    	</if>
     	<if test="billno != null and billno != ''">
     		and billno = #{billno,jdbcType=VARCHAR}
     	</if>
@@ -460,9 +463,6 @@
       </if>
       <if test="shdz != null" >
         shdz = #{shdz,jdbcType=VARCHAR},
-      </if>
-      <if test="shr != null" >
-        shr = #{shr,jdbcType=VARCHAR},
       </if>
       <if test="lxsj != null" >
         lxsj = #{lxsj,jdbcType=VARCHAR},
