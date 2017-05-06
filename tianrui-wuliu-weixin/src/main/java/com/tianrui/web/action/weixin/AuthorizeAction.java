@@ -95,7 +95,7 @@ public class AuthorizeAction {
 		Tokens token = TimeFilter.TOKEN;
 		String access_token = "";
 		if(token == null){
-			token = CommonUtil.getToken();
+			token = CommonUtil.getToken(access_token, access_token);
 		}
 		JSONObject js = CommonUtil.httpsRequest(url.replace("ACCESS_TOKEN", token.getAccessToken()).replace("OPENID", openid), "POST", null);
 		System.out.println(js.toString());
