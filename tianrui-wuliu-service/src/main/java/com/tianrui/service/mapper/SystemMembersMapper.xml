@@ -42,6 +42,8 @@
 	    f.starttime starttime,
 	    f.usefullife usefullife,
 	    f.idcardaddress idcardaddress,
+	    f.positive positive,
+	    f.opposite opposite,
 		
 		(SELECT count(*) FROM wuliu_member_capa mc WHERE mc.memberid = m.id AND mc.`status` = 1) capacount,
 		(SELECT count(*) FROM wuliu_vehicle_driver vd WHERE vd.creator = m.id) vdcount,

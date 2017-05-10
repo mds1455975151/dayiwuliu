@@ -30,6 +30,11 @@ public class AnlianBillReportResp {
     private Integer dslon;
     /** 到货地点偏差距离*/
     private Double dlength;
+    
+    
+    private Double q_deviation;
+    
+    private Double d_deviation;
 
     private String type;
 
@@ -448,9 +453,6 @@ public class AnlianBillReportResp {
 
 	
 	public Double getTlength() {
-		if(tslon!=null&&tjlon!=null&&tslat!=null&&tjlat!=null){
-			tlength = getDistance(tslon*Math.pow(10,-6),tslat*Math.pow(10,-6),tjlon*Math.pow(10,-6),tjlat*Math.pow(10,-6));
-		}
 		return tlength;
 	}
 
@@ -459,9 +461,6 @@ public class AnlianBillReportResp {
 	}
 
 	public Double getDlength() {
-		if(dslon!=null&&djlon!=null&&dslat!=null&&djlat!=null){
-			dlength = getDistance(dslon*Math.pow(10,-6),dslat*Math.pow(10,-6),djlon*Math.pow(10,-6),djlat*Math.pow(10,-6));
-		}
 		return dlength;
 	}
 
@@ -469,23 +468,20 @@ public class AnlianBillReportResp {
 		this.dlength = dlength;
 	}
 
-	public static double getDistance(double lng1, double lat1, double lng2, double lat2){  
-       double radLat1 = rad(lat1);  
-       double radLat2 = rad(lat2);  
-       double a = radLat1 - radLat2;  
-       double b = rad(lng1) - rad(lng2);  
-       double s = 2 * Math.asin(  
-            Math.sqrt(  
-                Math.pow(Math.sin(a/2),2)   
-                + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)  
-            )  
-        );  
-       s = s * 6378137;  
-       s = Math.round(s * 10000) / 10000;  
-       return s;  
-	 } 
-
-	private static double rad(double d){  
-	       return d * Math.PI / 180.0;  
+	public Double getQ_deviation() {
+		return q_deviation;
 	}
+
+	public void setQ_deviation(Double q_deviation) {
+		this.q_deviation = q_deviation;
+	}
+
+	public Double getD_deviation() {
+		return d_deviation;
+	}
+
+	public void setD_deviation(Double d_deviation) {
+		this.d_deviation = d_deviation;
+	}
+	
 }

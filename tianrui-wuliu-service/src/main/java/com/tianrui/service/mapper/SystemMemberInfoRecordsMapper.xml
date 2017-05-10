@@ -35,7 +35,10 @@
 			m.companypercheck companypercheck,
 			m.driverpercheck driverpercheck,
 			m.userpercheck userpercheck,
-			m.registtime registtime
+			m.registtime registtime,
+			
+			f.positive positive,
+			f.opposite opposite
 	FROM
 		member_info_record f
 	LEFT JOIN member m ON m.ID = f.memberid

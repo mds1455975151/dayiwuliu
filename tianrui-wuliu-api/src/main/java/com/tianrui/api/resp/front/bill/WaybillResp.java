@@ -17,6 +17,9 @@ public class WaybillResp extends BaseResp{
 	private String payType;
 	private String payDESC1;
 	
+	private Double q_deviation;
+	private Double d_deviation;
+	
 	private String id;
 	private String systemShipper = Constant.SYSTEM_SHIPPER;
     private String planid;
@@ -525,5 +528,17 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setPayDESC1(String payDESC1) {
 		this.payDESC1 = payDESC1;
+	}
+	public Double getQ_deviation() {
+		return q_deviation;
+	}
+	public void setQ_deviation(Double q_deviation) {
+		this.q_deviation = q_deviation;
+	}
+	public Double getD_deviation() {
+		return d_deviation;
+	}
+	public void setD_deviation(Double d_deviation) {
+		this.d_deviation = d_deviation;
 	}
 }

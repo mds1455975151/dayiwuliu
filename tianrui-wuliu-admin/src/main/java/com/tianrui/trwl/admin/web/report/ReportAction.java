@@ -22,7 +22,6 @@ import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.admin.AnlianBillReportResp;
 import com.tianrui.api.resp.admin.OrganizationResp;
-import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -59,6 +58,13 @@ public class ReportAction {
 		Result rs = Result.getSuccessResult();
 		PaginationVO<AnlianBillReportResp> page = anlianBillReportService.select(req);
 		rs.setData(page);
+		return rs;
+	}
+	@RequestMapping("upt")
+	@ResponseBody
+	public Result upt() throws Exception{
+		Result rs = Result.getSuccessResult();
+		anlianBillReportService.uptDistance();	
 		return rs;
 	}
 	@RequestMapping("reload")

@@ -118,6 +118,8 @@ function innerHTML(data){
 		}else{
 			payDESC1 = "";
 		}
+		var qyd = data[a].q_deviation == undefined?"":(data[a].q_deviation+"米");
+		var dhd = data[a].d_deviation == undefined ? "":(data[a].d_deviation+"米");
 		hml +="<tr><td>"+d+"</td>"+
 		"<td>"+data[a].waybillno+"</td>"+
 		"<td>"+payType+"</td>"+
@@ -125,6 +127,8 @@ function innerHTML(data){
 		"<td>"+data[a].drivername+"</td>"+
 		"<td>"+data[a].drivertel+"</td>"+
 		"<td>"+orgName+"</td>"+
+		"<td>"+qyd+"</td>"+
+		"<td>"+dhd+"</td>"+
 		"<td>"+venderName+"</td>"+
 		"<td>"+data[a].createtimeStr+"</td>"+
 		"<td>"+sta+"</td>"+
@@ -146,6 +150,15 @@ function details(a){
 	if(venderName == undefined){
 		venderName = "";
 	}
+	//提货榜单
+	var pickupimgurl = list[a].pickupimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+list[a].pickupimgurl+"' target='_blank'>查看图片</a></span>");
+	//卸货
+	var signimgurl = list[a].signimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+list[a].signimgurl+"' target='_blank'>查看图片</a></span>");
+	//提货位置偏差
+	var q_deviation = list[a].q_deviation == undefined?"":list[a].q_deviation;
+	//到货位置偏差
+	var d_deviation = list[a].d_deviation == undefined?"":list[a].d_deviation;
+	
 	var hml = "<div class='file_detail'><label>运单编码：</label><span>"+list[a].waybillno+"</span></div>"+
 				"<div class='file_detail'><label>组织名称：</label><span>"+orgName+"</span></div>"+
 				"<div class='file_detail'><label>承运商：</label><span>"+venderName+"</span></div>"+
@@ -164,7 +177,11 @@ function details(a){
 				"<div class='file_detail'><label>签收运输量：</label><span>"+list[a].trueweight+"吨</span></div>"+
 				"<div class='file_detail'><label>运单价格：</label><span>"+list[a].price+"元</span></div>"+
 				"<div class='file_detail2'><label>车辆信息：</label><span>"+list[a].vehicleno+"</span>" +
-						"<span>"+list[a].drivername+"</span><span>"+list[a].drivertel+"</span></div>"+
+				"<span>"+list[a].drivername+"</span><span>"+list[a].drivertel+"</span></div>"+
+				"<div class='file_detail'><label>提货榜单：</label><span>"+pickupimgurl+"</span></div>"+
+				"<div class='file_detail'><label>卸货榜单：</label><span>"+signimgurl+"</span></div>"+
+				"<div class='file_detail'><label>提货位置偏差：</label><span>"+q_deviation+"米</span></div>"+
+				"<div class='file_detail'><label>卸货位置偏差：</label><span>"+d_deviation+"米</span></div>"+
 				"<div class='clear'></div>";
 	document.getElementById("dateilshml").innerHTML=hml;
 }

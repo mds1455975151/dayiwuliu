@@ -159,6 +159,14 @@ $("#perAuthen_button").click(function() {
 		$('#per_starttime').focus();
 		return;
 	}
+	if($("#file_shenfenzheng_A_str").val()==""){
+		alert("请上传身份证正面照片");
+		return;
+	}
+	if($("#file_shenfenzheng_B_str").val()==""){
+		alert("请上传身份证反面面照片");
+		return;
+	}
 	var formData = new FormData();
 	formData.append("file",file_jsz);
 	formData.append("userName",perAuthen_name);
@@ -175,6 +183,10 @@ $("#perAuthen_button").click(function() {
 	formData.append("starttime",starttime);
 	formData.append("usefullife",usefullife);
 	formData.append("idcardaddress",idcardaddress);
+	//身份证正面
+	formData.append("positive",$("#file_shenfenzheng_A_str").val());
+	//身份证反面
+	formData.append("opposite",$("#file_shenfenzheng_B_str").val());
 	
 	$(this).addClass('disabled');
 	// 后台处理

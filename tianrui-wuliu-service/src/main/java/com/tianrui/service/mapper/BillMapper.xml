@@ -63,6 +63,9 @@
 		<result column="payType" property="payType" jdbcType="VARCHAR" />
 		<result column="payDESC1" property="payDESC1" jdbcType="VARCHAR" />
 		<result column="jtb" property="jtb" jdbcType="VARCHAR" />
+		
+		<result column="q_deviation" property="q_deviation" jdbcType="DOUBLE" />
+		<result column="d_deviation" property="d_deviation" jdbcType="DOUBLE" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
@@ -79,7 +82,7 @@
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
-		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,jtb
+		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,jtb,q_deviation,d_deviation
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -410,7 +413,7 @@
 		modifier,
 		modifytime, overnumber,totalnumber, tallage,unloadtime, DESC1,
 		DESC2,
-		DESC3, DESC4,isClearing,pathID,pickupweight, signweight,isAssess
+		DESC3, DESC4,isClearing,pathID,pickupweight, signweight,isAssess,q_deviation,d_deviation
 		)
 		values
 		(#{id,jdbcType=VARCHAR},
@@ -454,7 +457,7 @@
 		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
 		#{isClearing,jdbcType=VARCHAR}, #{pathID,jdbcType=VARCHAR}, 
 		#{pickupweight,jdbcType=DOUBLE}, #{signweight,jdbcType=DOUBLE},
-		#{isAssess,jdbcType=VARCHAR}
+		#{isAssess,jdbcType=VARCHAR},#{q_deviation,jdbcType=DOUBLE},#{d_deviation,jdbcType=DOUBLE}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -612,6 +615,12 @@
 			<if test="isAssess != null">
 				isAssess,
 			</if>
+			<if test="q_deviation != null">
+				q_deviation,
+			</if>
+			<if test="d_deviation != null">
+				d_deviation,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -764,6 +773,12 @@
 			<if test="isAssess != null">
 				#{isAssess,jdbcType=VARCHAR},
 			</if>
+			<if test="q_deviation != null">
+				#{q_deviation,jdbcType=DOUBLE},
+			</if>
+			<if test="d_deviation != null">
+				#{d_deviation,jdbcType=DOUBLE},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Bill">
@@ -771,6 +786,12 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		<set>
+			<if test="q_deviation != null">
+				q_deviation = #{q_deviation,jdbcType=DOUBLE},
+			</if>
+			<if test="d_deviation != null">
+				d_deviation = #{d_deviation,jdbcType=DOUBLE},
+			</if>
 		    <if test="jtb != null">
 				jtb = #{jtb,jdbcType=VARCHAR},
 			</if>
@@ -937,6 +958,8 @@
 		set planid = #{planid,jdbcType=VARCHAR},
 		vehicleid =
 		#{vehicleid,jdbcType=VARCHAR},
+		q_deviation = #{q_deviation,jdbcType=DOUBLE},
+		d_deviation = #{d_deviation,jdbcType=DOUBLE},
 		driverid = #{driverid,jdbcType=VARCHAR},
 		routeid = #{routeid,jdbcType=VARCHAR},
 		drivername =
@@ -1112,7 +1135,8 @@
 			b.modifier, b.modifytime, b.pickupimgurl,
 			b.signimgurl,b.overnumber,b.totalnumber,b.tallage,b.unloadtime,b.pathID,
 			c.payType,c.DESC1 payDESC1,
-			b.pickupweight, b.signweight, b.isAssess, b.DESC1, b.DESC2, b.DESC3, b.DESC4
+			b.pickupweight, b.signweight, b.isAssess, b.DESC1, b.DESC2, b.DESC3, b.DESC4,
+			b.q_deviation q_deviation,b.d_deviation d_deviation
 		from wuliu_bill b
 		LEFT JOIN wuliu_plan p ON p.ID = b.planid 
 		LEFT JOIN file_cargo c ON c.ID = p.cargoid

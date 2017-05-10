@@ -11,6 +11,10 @@ public class AnlianBillReport {
 	private Long endtime;
 	
     private String id;
+    
+    private Double q_deviation;
+    
+    private Double d_deviation;
 
     private String type;
 
@@ -280,6 +284,22 @@ public class AnlianBillReport {
 
 	public void setEndtime(Long endtime) {
 		this.endtime = endtime;
+	}
+
+	public Double getQ_deviation() {
+		return q_deviation;
+	}
+
+	public void setQ_deviation(Double q_deviation) {
+		this.q_deviation = q_deviation;
+	}
+
+	public Double getD_deviation() {
+		return d_deviation;
+	}
+
+	public void setD_deviation(Double d_deviation) {
+		this.d_deviation = d_deviation;
 	}
 
 }

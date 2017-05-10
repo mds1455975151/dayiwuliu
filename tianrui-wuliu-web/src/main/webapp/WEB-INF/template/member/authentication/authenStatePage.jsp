@@ -15,6 +15,8 @@
 <meta name="author" content="">
 <link href="${trRoot}/tianrui/css/imgcut.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${trRoot}/tianrui/js/My97DatePicker/WdatePicker.js"></script>
+
 <!-- 引用公共header部分 -->
 <jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 <!--内容部分begin-->
@@ -53,8 +55,10 @@
 						<p id="massage_perAuthen_id"></p>
 					</div>
 					<div class="reg_tel">
-						<label><i style="color: red">*</i>出生日期:</label> <input class="timeStr" type="text"
-							placeholder="日期格式：yyyy-MM-dd" id="per_birthday">
+						<label><i style="color: red">*</i>出生日期:</label>
+						<input id="per_birthday" type="text"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id="massage_birthday"></p>
 					</div>
 					<!--手机输入end-->
@@ -70,8 +74,10 @@
 					</div>
 					
 					<div class="reg_tel">
-						<label><i style="color: red">*</i>初次领证日期:</label> <input class="timeStr" type="text"
-							placeholder="日期格式：yyyy-MM-dd" id="per_firstlicens">
+						<label><i style="color: red">*</i>初次领证日期:</label>
+						<input id="per_firstlicens" type="text"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id="massage_firstlicens"></p>
 					</div>
 					
@@ -82,8 +88,10 @@
 					</div>
 					
 					<div class="reg_tel">
-						<label><i style="color: red">*</i>驾驶证注册日期:</label> <input class="timeStr" type="text"
-							placeholder="日期格式：yyyy-MM-dd" id="per_starttime">
+						<label><i style="color: red">*</i>驾驶证注册日期:</label> 
+						<input id="per_starttime" type="text"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id="massage_starttime"></p>
 					</div>
 					
@@ -109,6 +117,32 @@
 								<input id="file_jsz" onchange="fileupload('file_jsz','jsz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 								<input type="hidden" id="file_jsz_str" value="" >
+							</div>
+						</div>
+					</div>
+					<div class="rz_personline">
+						<label><i style="color: red">*</i>身份证正面:</label>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="sfz_A" src="${trRoot}/tianrui/images/sfz.png">
+							</div>
+							<div class="img_upload">
+								<input id="file_shenfenzheng_A" onchange="fileupload('file_shenfenzheng_A','sfz_A')" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+								<input type="hidden" id="file_shenfenzheng_A_str" value="" >
+							</div>
+						</div>
+					</div>
+					<div class="rz_personline">
+						<label><i style="color: red">*</i>身份证反面:</label>
+						<div class="rz_persontab">
+							<div class="samples">
+								<img class="sfz_B" style="width: 226px;height: 132px" src="${trRoot}/tianrui/images/sfz_b.jpg">
+							</div>
+							<div class="img_upload">
+								<input id="file_shenfenzheng_B" onchange="fileupload('file_shenfenzheng_B','sfz_B')" class="file" type="file"> <span
+									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+								<input type="hidden" id="file_shenfenzheng_B_str" value="" >
 							</div>
 						</div>
 					</div>
@@ -216,7 +250,7 @@
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?03.22"></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?05.8"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>

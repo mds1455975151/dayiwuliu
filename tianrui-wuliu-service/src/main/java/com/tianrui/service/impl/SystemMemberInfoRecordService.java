@@ -175,6 +175,8 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		info.setUsefullife(req.getUsefullife());
 		info.setIdcardaddress(req.getIdcardaddress());
 		
+		info.setOpposite(req.getOpposite());
+		info.setPositive(req.getPositive());
 		int a = systemMemberInfoRecordMapper.insertSelective(info);
 		if(a==1){
 			member.setDriverpercheck((short)2);//认证中

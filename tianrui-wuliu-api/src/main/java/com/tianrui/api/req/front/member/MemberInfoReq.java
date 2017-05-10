@@ -17,7 +17,10 @@ public class MemberInfoReq extends BaseReq{
     private String starttime;
     private String usefullife;
     private String idcardaddress;
-	
+    /**身份证正面*/
+    private String positive;
+    /** 身份证反面*/
+    private String opposite;
 	/**
 	 * 认证编号
 	 */
@@ -294,6 +297,18 @@ public class MemberInfoReq extends BaseReq{
 	}
 	public void setIdcardaddress(String idcardaddress) {
 		this.idcardaddress = idcardaddress;
+	}
+	public String getPositive() {
+		return positive;
+	}
+	public void setPositive(String positive) {
+		this.positive = positive;
+	}
+	public String getOpposite() {
+		return opposite;
+	}
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
 	
 }

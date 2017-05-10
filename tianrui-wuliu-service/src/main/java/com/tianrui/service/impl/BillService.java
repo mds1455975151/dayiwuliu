@@ -98,6 +98,7 @@ import com.tianrui.service.mongo.BillPositionDao;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
 import com.tianrui.service.mongo.MemberPositionRecordDao;
+import com.tianrui.service.util.MapDistanceUtil;
 import com.tianrui.service.vo.BIllTrackMsg;
 import com.tianrui.service.vo.VehicleDriverVO;
 
@@ -584,7 +585,7 @@ public class BillService implements IBillService{
 			flag = false;
 			return rs;
 		}
-		billMassage.setLicensePlateTypeCode("99");
+		billMassage.setLicensePlateTypeCode("01");
 		billMassage.setVehicleNumber(db.getVehicleno());
 		String vehicleClassificationCode = vheicleExchange(vehicle.getVehicletype());
 		if(StringUtils.isBlank(vehicleClassificationCode)){
@@ -932,6 +933,11 @@ public class BillService implements IBillService{
 							update.setUnloadtime(System.currentTimeMillis());
 							update.setModifier(req.getCurruId());
 							update.setModifytime(System.currentTimeMillis());
+							//计算到货地距离偏差
+							FileRoute route = routeMapper.selectByPrimaryKey(db.getRouteid());
+							update.setD_deviation(distanceChange(route.getDpositionid(),req.getLon(),req.getLat()));
+							
+							
 							billMapper.updateByPrimaryKeySelective(update);
 							saveBillTrack(db.getId(),1,BIllTrackMsg.STEP11,req.getCurruId(),BillStatusEnum.SIGN.getStatus());
 							//修改运力车辆 状态信息
@@ -1022,6 +1028,10 @@ public class BillService implements IBillService{
 							
 							update.setModifier(req.getCurruId());
 							update.setModifytime(System.currentTimeMillis());
+							//计算始发地距离偏差
+							FileRoute route = routeMapper.selectByPrimaryKey(db.getRouteid());
+							update.setQ_deviation(distanceChange(route.getOpositionid(),req.getLon(),req.getLat()));
+							
 							billMapper.updateByPrimaryKeySelective(update);
 							saveBillTrack(db.getId(),1,BIllTrackMsg.STEP8,req.getCurruId(),BillStatusEnum.DEPARTURE.getStatus());
 							//修改运力车辆 状态信息
@@ -1051,6 +1061,13 @@ public class BillService implements IBillService{
 			rs.setErrorCode(ErrorCode.PARAM_ERROR);
 		}
 		return rs;
+	}
+	//计算两点间距离
+	public Double distanceChange(String positionId,Integer lon,Integer lat){
+		
+		FilePositoin position = posotionMapper.selectByPrimaryKey(positionId);
+		Double resp = MapDistanceUtil.getDistance(lon*Math.pow(10,-6),lat*Math.pow(10,-6),position.getLng()*Math.pow(10,-6),position.getLat()*Math.pow(10,-6));
+		return resp;
 	}
 	
 	@Override

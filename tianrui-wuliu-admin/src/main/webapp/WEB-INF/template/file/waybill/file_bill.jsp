@@ -115,6 +115,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>司机姓名</th>
                                 <th>司机电话</th>
                                 <th>组织名称</th>
+                               	<th>提货地偏差</th>
+                               	<th>卸货地偏差</th>
                                 <th>承运商</th>
                                 <th>创建时间</th>
                                 <th>状态</th>
@@ -292,7 +294,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_bill.js?03.23" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_bill.js?05.9" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

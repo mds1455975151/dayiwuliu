@@ -8,6 +8,10 @@ public class SystemMemberInfoRecord {
      * @mbggenerated
      */
     private String id;
+    /**身份证正面*/
+    private String positive;
+    /** 身份证反面*/
+    private String opposite;
     
     private String cellphone;
     
@@ -793,6 +797,22 @@ public class SystemMemberInfoRecord {
 
 	public void setLicenseType(String licenseType) {
 		this.licenseType = licenseType;
+	}
+
+	public String getPositive() {
+		return positive;
+	}
+
+	public void setPositive(String positive) {
+		this.positive = positive;
+	}
+
+	public String getOpposite() {
+		return opposite;
+	}
+
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
     
     

@@ -654,6 +654,10 @@ public class AdminMemberAction {
 			}else if("4".equals(type)){
 				req.setRtblimgurl(rs.getData().toString());
 				req.setRtblno(code);
+			}else if("5".equals(type)){//身份证正面
+				req.setPositive(rs.getData().toString());
+			}else if("6".equals(type)){//身份证反面
+				req.setOpposite(rs.getData().toString());
 			}else{
 				rs.setCode("1");
 				rs.setError("数据不全");
