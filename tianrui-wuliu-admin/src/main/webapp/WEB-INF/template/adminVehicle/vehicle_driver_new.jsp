@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>平台车辆管理</title>
+    <title>平台司机管理</title>
     <meta name="keywords" content=" 天瑞" />
     <meta name="description" content="">
     <meta name="author" content="">
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <div class="col-md-10 ">
                 <div class="ht_content">
                     <div id="content-header">
-                        <h3>new_车辆管理</h3>
+                        <h3>new_司机管理</h3>
                     </div>
                     <!--查询框begin-->
                     <div class="row">
@@ -120,122 +120,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </div>
             <!--后台整体布局end-->
     <!--侧边栏end-->
-<!--查看详情begin-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" style="width: 780px;">
-        <div class="modal-content">
-            <div class="modal-header" >
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div class="car_yhtab">
-                    <ul>
-                        <li class="select"> <h4 class="modal-title" >车辆信息详情</h4></li>
-                        <li> <h4 class="modal-title" >认证信息详情</h4></li>
-                        <li> <h4 class="modal-title" >驾驶员信息详情</h4></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="intel_tabbox">
-                    <!--车辆信息详情begin-->
-                    <div class="intel_tabcont">
-                        <div class="car_yhline">
-                            <label>车牌号：</label><span id="vehicleNo_mg">tr15451212</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>所有人姓名：</label><span id="vehicleOwner_mg">shhnkdjl</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>联系方式：</label><span id="vehicleOwnerTel_mg">315641212</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>车型：</label><span id="vehicleType_mg">认证成功</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>载重：</label><span id="vehicleLoad_mg">2016-02-13</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>长度：</label><span id="vehicleLen_mg">2016-02-13</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>认证状态：</label><span id="checkStatus_mg">2016-02-13</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>认证时间：</label><span id="createTime_mg">2016-02-13</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>随车电话：</label><span id="vehicleMobile_mg">2016-02-13</span>
-                        </div>
-                    </div>
-                    <!--车辆信息详情end-->
-
-                    <!--认证信息详情begin-->
-                    <div class="intel_tabcont hide">
-                        <div class="car_yhline">
-                            <label>营运证号：</label><span id="taxiLicenseNo_mg">证书编号-45451214555-</span>
-                            <span class="colorblue" id="taxiLicenseImg_mg" >查看图片</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>行驶证：</label><span class="colorblue" id="drivingLicenseImg_mg">查看图片</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>车辆照片：</label><span class="colorblue" id="vehicleImg_mg">查看图片</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>车辆登记证：</label><span class="colorblue" id="vehicleGradeImg_mg">查看图片</span>
-                        </div>
-                    </div>
-                    <!--认证信息详情end-->
-
-                    <!--驾驶员信息详情begin-->
-                    <div class="intel_tabcont hide">
-                        <div class="car_yhline">
-                            <label>姓名：</label><span id="driverName_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>初次领证日期：</label><span id="driverCardFirstlicens_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>性别：</label><span id="driverSex_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>发证机关：</label><span id="driverCardLicenceorg_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>出生日期：</label><span id="driverBirthDate_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>驾驶证注册日期：</label><span id="driverCardRegDate_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>联系电话：</label><span id="driverLinkTel_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>有效年限：</label><span id="driverCardUsefullife_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>身份证号/驾驶证号：</label><span id="driverIdCard_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>准驾车型：</label><span id="driverCardType_mg"> 证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>身份证地址：</label><span id="driverIdCardAddr_mg">证00</span>
-                        </div>
-                        <div class="car_yhline">
-                            <label>驾驶证：</label><span class="colorblue" id="driverCardImg_mg">查看图片</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--查看详情end-->
 
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>

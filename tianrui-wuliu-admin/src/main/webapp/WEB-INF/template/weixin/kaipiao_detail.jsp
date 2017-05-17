@@ -88,7 +88,11 @@
             		type:"post",
             		success: function(ret) {
             			if(ret.code!="000000"){
-            				alert(ret.error);
+            				if(ret.error=='TruckHadBeenRegistered'){
+            					ticket_success();
+            				}else{
+	            				alert("错误信息：审核失败，请联系后台管理员");
+            				}
             			}else{
             				window.location.reload();
             			}
@@ -112,7 +116,11 @@
             		type:"post",
             		success: function(ret) {
             			if(ret.code!="000000"){
-            				alert(ret.error);
+            				if(ret.error=='TruckHadBeenRegistered'){
+            					ticket_success();
+            				}else{
+	            				alert("错误信息：审核失败，请联系后台管理员");
+            				}
             			}else{
             				window.location.reload();
             			}
@@ -122,12 +130,28 @@
             }
         });
     });
-    //证件图片
-    $(".zhengjian").on("click", function () {
-        layer.open({
-            content: '<div class="imgview"><img src="images/11.jpg"></div>'
-        });
-    });
+    
+    function ticket_success(){
+    	 layer.open({
+             content: '该车辆已在安联系统存在，确认强制通过吗？'
+             ,btn: ['取消', '确认']
+             ,no: function(index){
+            	 $.ajax({
+         			url:"/admin/ticket/ticketSuccess",
+         			type:"post",
+         			data:{"id":$("#ticket_id").val()},
+         			success:function(ret){
+         				if(ret.code!="000000"){
+            				alert(ret.error);
+            			}else{
+            				window.location.reload();
+            			}
+         			}
+         		});
+            	 layer.close(index);
+             }
+         });
+    }
 </script>
 
 </body>

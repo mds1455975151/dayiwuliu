@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>平台车辆管理</title>
+    <title>待审车辆管理</title>
     <meta name="keywords" content=" 天瑞" />
     <meta name="description" content="">
     <meta name="author" content="">
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <div class="col-md-10 ">
                 <div class="ht_content">
                     <div id="content-header">
-                        <h3>new_车辆管理</h3>
+                        <h3>待审车辆管理</h3>
                     </div>
                     <!--查询框begin-->
                     <div class="row">
@@ -119,7 +119,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--后台右侧布局end-->
            </div>
             <!--后台整体布局end-->
+         </div>
     <!--侧边栏end-->
+    </div>
 <!--查看详情begin-->
 <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width: 780px;">
@@ -236,7 +238,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
-
+<!--审核begin-->
+<div class="modal fade" id="shenhe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >审核</h4>
+            </div>
+            <div class="modal-body">
+            <button type="button" class="btn tongguo">通过</button>
+            <button type="button" class="btn butongguo">不通过</button>
+            <input type="hidden" id="vehicle_status">
+            <input type="hidden" id="vehicle_id">
+            </div>
+            <div class="modal-body">
+			<span style="color: red" id="error_massage"></span>
+			</div>           
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary vehicle_shenhe" >确定</button>
+                <button type="button" class="btn btn-default ticket_hide" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--审核详情end-->
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
@@ -260,7 +286,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new.js?04.26" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new_mg.js?05.15" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

@@ -155,7 +155,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!--车辆删除end-->
 		
+		<!-- 弹框begin -->
+		<div class="modal fade" style="z-index:1055;" id="vehicleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		    <div class="modal-dialog" role="document" style="width:400px;">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" id="modal_del_title" id="modal_common_title">提示信息</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<h6>该司机已在安联系统存在，请核对并补充以下信息：</h6>
+		            	<input type="hidden" id="driver_id">
+		            	<input type="hidden" id="vehicle_id">
+		            	<h4>司机姓名：<span id="driver_name"></span></h4>
+		            	<h4>司机账号：<span id="driver_cellphone"></span></h4>
+		            	<h4>司机身份证号：<span id="driver_idcard"></span></h4>
+		            	<h4>车牌号：<span id="vehicle_no"></span></h4>
+		            	<h4>司机安联账号：<input type="text" id="al_driver_id"></h4>
+		            	<h4 style="color: red"><span id="error_massage"></span></h4>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary" onclick="saveAldriverVehicle()">确定</button>
+		                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- 弹框end -->
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?04.19" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?05.112" ></script>
 	</body>
 </html>

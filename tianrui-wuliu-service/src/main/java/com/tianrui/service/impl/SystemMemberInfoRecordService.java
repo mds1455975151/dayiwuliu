@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -172,7 +173,14 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		info.setFirstlicens(req.getFirstlicens());
 		info.setLicenceorg(req.getLicenceorg());
 		info.setStarttime(req.getStarttime());
-		info.setUsefullife(req.getUsefullife());
+		if(StringUtils.isNotBlank(req.getUsefullife())){
+			if(req.getUsefullife().endsWith("年")){
+				info.setUsefullife(req.getUsefullife().substring(0, req.getUsefullife().length()-1));
+			}else{
+				info.setUsefullife(req.getUsefullife());
+			}
+		}
+		
 		info.setIdcardaddress(req.getIdcardaddress());
 		
 		info.setOpposite(req.getOpposite());

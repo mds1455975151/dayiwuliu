@@ -97,9 +97,11 @@ function appendContentToBody(result, flag) {
 			var tr1 = $("<tr></tr>").attr("id","rowIndex" + rowIndex);
 				/** <td> */
 				var td1_1 = $("<td></td>");
+				var div_001 = $("<div></div>").addClass("car_myimg");
 				/** <img> */
 				var img1 = $("<img></img>").attr("src", data[i].vehiHeadImgPath);
-				td1_1.append(img1);
+				div_001.append(img1);
+				td1_1.append(div_001);
 				/** <div> */
 				var div1 = $("<div></div>").addClass("car_cont1");
 				/** <p> */
@@ -495,6 +497,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 	var status = $("#car_bdbox_alstatus").val();
 	//车辆，司机 均安联认证成功
 	if(status == 1 && aldriverid != ""){
+		$(".car_mycar .car_bdbox").hide();
 		confirm("操作提示","车辆，司机均安联认证通过，绑定后无法解绑,是否确认操作?",function(){
 			// 删除原有信息(如果有)，并绑定新信息
 			$.ajax({
@@ -513,6 +516,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 				},
 				type : "post",
 				success : function(result) {
+					
 					if (result.code == "000000") {
 						// 此行代码留作后用
 						/*driverList.splice(vListNo, 1);
@@ -521,7 +525,6 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 						// 刷新绑定外司机的数据
 						getTheDriverOutOfRange();
 						
-						$(".car_mycar .car_bdbox").hide();
 						$("#modal_common_content").html("绑定成功！");
 						$("#commonModal").modal();
 						
@@ -532,8 +535,13 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 						});
 						
 					} else {
-						$("#modal_common_content").html(result.error);
-						$("#commonModal").modal();
+						//TODO
+						if(result.error=='IDHadBeenRegistered'){
+							al_driver_bding(driverid,vehiId,drivername,drivertel,vehiNo,result.data);
+						}else{
+							$("#modal_common_content").html("绑定失败，请联系后台管理员...");
+							$("#commonModal").modal();
+						}
 					}
 				}
 			});
@@ -600,7 +608,6 @@ function getTheDriverOutOfRange() {
 	var driverName = $("#car_bdbox_driverName").val();
 	// 司机电话
 	var driverTel = $("#car_bdbox_driverTel").val();
-	//TODO
 	$.ajax({
 		url : PATH + '/trwuliu/Member/myVehicle/getMyDriverOutOfRange',// 跳转到 action
 		data : {
@@ -613,6 +620,60 @@ function getTheDriverOutOfRange() {
 			driverList = result.data;
 			for (var a = 0; a < driverList.length; a++) {
 				appendContentToUl(driverList[a], a);
+			}
+		}
+	});
+}
+//安联车辆司机绑定
+function al_driver_bding(driverid,vehiId,drivername,drivertel,vehiNo,idcard){
+	$("#driver_id").val(driverid);
+	$("#vehicle_id").val(vehiId);
+	$("#driver_name").html(drivername);
+	$("#driver_cellphone").html(drivertel);
+	$("#driver_idcard").html(idcard);
+	$("#vehicle_no").html(vehiNo);
+	$("#error_massage").html("");
+	$("#al_driver_id").val("");
+	$("#vehicleModal").modal();
+}
+
+function saveAldriverVehicle(){
+	var driverid = $("#driver_id").val();
+	var vheicleid = $("#vehicle_id").val();
+	var drivername = $("#driver_name").html();
+	var alid = $("#al_driver_id").val();
+	if(alid.length!=8){
+		$("#error_massage").html("错误提示：安联账号长度为8位");
+		return;
+	}
+	if(alid.substring(0,1)!="d"&&alid.substring(0,1)!="D"){
+		$("#error_massage").html("错误提示：安联账号首字母以D开头");
+		return;
+	}
+	$.ajax({
+		url :'/trwuliu/Member/vehiDriver/alSaveDriverVehicle',// 跳转到 action
+		data : {
+			"driverId": driverid,
+			"vehicleId":$.trim(vheicleid),
+			"driverName":$.trim(drivername),
+			"alDriverid":alid
+		},
+		type : "post",
+		success : function(result) {
+			if(result.code=="000000"){
+				// 刷新绑定外司机的数据
+				getTheDriverOutOfRange();
+				$("#vehicleModal").modal("hide");
+				$("#modal_common_content").html("绑定成功！");
+				$("#commonModal").modal();
+				
+				// 延时关闭
+				setTimeout(function(){$("#commonModal").modal("hide");},1000);
+				$("#commonModal").on("hidden.bs.modal", function() {
+					$("#vehicle_searchBtn").trigger("click");
+				});
+			}else{
+				$("#error_massage").html("操作异常，请稍候再试...");
 			}
 		}
 	});

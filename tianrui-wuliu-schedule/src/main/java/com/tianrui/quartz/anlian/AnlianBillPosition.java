@@ -39,7 +39,7 @@ public class AnlianBillPosition {
     	logger.info("定时器[AnlianBillPosition]启动.时间是 :" + DateUtil.getDateString());  
         try {
         	AnlianBillFindReq req = new AnlianBillFindReq();
-        	req.setDesc4("已到货");
+//        	req.setDesc4("已到货");
         	List<AnlianBillResp> list = anlianBillService.findAll(req);
         	for(AnlianBillResp resp : list){
         		Result rs = Result.getSuccessResult();

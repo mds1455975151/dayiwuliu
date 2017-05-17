@@ -4,7 +4,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8">
-    <title>注册用户</title>
+    <title>司机详情</title>
     <link href="${trRoot }/weixin/css/base.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/style.css" rel='stylesheet' type='text/css'/>
     <link href="${trRoot }/weixin/css/layer.css" rel='stylesheet' type='text/css'/>
@@ -97,6 +97,14 @@
 	    <div class="carda_line">
 	        <label>驾驶证照片：</label>
 	        <span class="colorblue zhengjian" onclick="picView('${memberInfo.driverimage }')">查看图片</span>
+	    </div>
+	    <div class="carda_line">
+	        <label>身份证正面：</label>
+	        <span class="colorblue zhengjian" onclick="picView('${memberInfo.positive }')">查看图片</span>
+	    </div>
+	    <div class="carda_line">
+	        <label>身份证反面：</label>
+	        <span class="colorblue zhengjian" onclick="picView('${memberInfo.opposite }')">查看图片</span>
 	    </div>
 	</div>
 	<c:if test="${memberInfo.driverpercheck eq '2' }">

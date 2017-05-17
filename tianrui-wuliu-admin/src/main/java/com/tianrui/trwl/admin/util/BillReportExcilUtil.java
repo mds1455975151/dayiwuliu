@@ -141,7 +141,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			//卸货地偏差
 			cell = getCell(sheet, cellNum, 14);
 			cell.setCellStyle(contentStyle);
-			if(list.get(i).getQ_deviation()!=null){
+			if(list.get(i).getD_deviation()!=null){
 				Double dp = list.get(i).getD_deviation();
 				setText(cell, dp.toString()+"米");
 			}else{

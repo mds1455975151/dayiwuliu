@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,10 +39,13 @@ import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
+import com.tianrui.web.util.SessionManager;
 
 /**
  * 
@@ -435,6 +440,18 @@ public class AppVehicleAndDriverAction {
 		req.setCreator(appParam.getHead().getId());
 		result = vehicleDriverService.insert(req);
 		return AppResult.valueOf(result);
+	}
+	
+	/**已知安联账号，车辆司机绑定
+	 * @throws Exception  */
+	@RequestMapping("alSaveDriverVehicle")
+	@ApiParamRawType(VehicleDriverReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult alSaveDriverVehicle(AppParam<VehicleDriverReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = vehicleDriverService.anlianInsert(appParam.getBody());
+		return AppResult.valueOf(rs);
 	}
 	
 	/**

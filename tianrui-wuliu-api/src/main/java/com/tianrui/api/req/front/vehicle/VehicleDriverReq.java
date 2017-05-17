@@ -34,6 +34,8 @@ public class VehicleDriverReq extends BaseReq{
 	private String creator;
 	/** 创建时间 */
 	private String createTime;
+	/**司机安联账号*/
+	private String alDriverid;
 	
 	private String queryKey;
 	
@@ -219,6 +221,14 @@ public class VehicleDriverReq extends BaseReq{
 
 	public void setQueryKey(String queryKey) {
 		this.queryKey = queryKey;
+	}
+
+	public String getAlDriverid() {
+		return alDriverid;
+	}
+
+	public void setAlDriverid(String alDriverid) {
+		this.alDriverid = alDriverid;
 	}
 	
 }
