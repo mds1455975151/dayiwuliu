@@ -2,7 +2,7 @@
 <div class="bghui">
     <div class="wrap foot">
         <div class="footcont">
-            <p>中原大易科技 Copyright © 2016 豫ICP备12615289号-86</p>
+            <p>中原大易科技 Copyright © 2016 豫ICP备16036132号</p>
         </div>
         <div class="footimg">
             <p>IOS客户端</p>

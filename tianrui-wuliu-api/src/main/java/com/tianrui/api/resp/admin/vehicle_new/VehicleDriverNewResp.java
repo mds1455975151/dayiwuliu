@@ -1,11 +1,13 @@
-package com.tianrui.service.bean.vehiclereg;
+package com.tianrui.api.resp.admin.vehicle_new;
 
-public class VehicleDriverNew {
+public class VehicleDriverNewResp {
     //  主键uuid
     private String id;
 
     //  车牌id
     private String vehicleid;
+    //车牌号
+    private String vehicleno;
 
     //  姓名
     private String drivername;
@@ -238,6 +240,14 @@ public class VehicleDriverNew {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public String getVehicleno() {
+		return vehicleno;
+	}
+
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
 	}
     
     

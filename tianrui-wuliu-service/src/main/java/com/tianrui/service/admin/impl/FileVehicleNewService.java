@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,18 +63,20 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 	public Result saveVehicleAndDriver(String id) throws Exception {
 		Result rs = Result.getSuccessResult();
 		VehicleReg req = vehicleRegDao.findVehicleById(id);
+		String driverid = UUIDUtil.getId();
+		String vehicleid = UUIDUtil.getId();
 		//创建司机账号
-		String driverId = saveDrvier(req);
+		saveDrvier(req,vehicleid,driverid);
 		//创建车辆
-		saveVehicle(req,driverId);
+		saveVehicle(req,vehicleid,driverid);
 		return rs;
 	}
 	/** 创建司机账户*/
-	protected String saveDrvier(VehicleReg req){
-		String driverid = UUIDUtil.getId();
+	protected String saveDrvier(VehicleReg req,String vehicleid,String driverid){
+		
 		VehicleDriverNew vd = new VehicleDriverNew();
 		vd.setId(driverid);
-		vd.setVehicleid(req.getId());
+		vd.setVehicleid(vehicleid);
 		vd.setDrivername(req.getDriverName());
 		vd.setDriversex(req.getDriverSex());
 		vd.setDriveridcard(req.getDriverIdCard());
@@ -86,20 +89,22 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 		vd.setDrivercardusefullife(req.getDriverCardUsefullife());
 		vd.setDrivercardtype(req.getDriverCardType());
 		vd.setDrivercardimg(req.getDriverCardImg());
-//		vd.setCheckstatus((Byte)req.getCheckStatus());
-//		vd.setAuthstats(req.getauthStats);
+		//默认车辆已选中改司机
+		vd.setCheckstatus((byte)1);
+		//审核状态 审核成功
+		vd.setAuthstats((byte)1);
 //		vd.setAuthremark(req.getauthRemark);
 //		vd.setAuthuser(authuser);
-//		vd.setAuthtime(authtime);
-//		vd.setCreatetime(createtime);
+		vd.setAuthtime(System.currentTimeMillis());
+		vd.setCreatetime(req.getCreateTime());
 		vehicleDriverNewMapper.insertSelective(vd);
 		return driverid;
 	}
 	/** 新增车辆信息*/
-	protected void saveVehicle(VehicleReg req,String driverId){
+	protected void saveVehicle(VehicleReg req,String vehicle,String driverId){
 		
 		FileVehicleNew ve = new FileVehicleNew();
-		ve.setId(req.getId());
+		ve.setId(vehicle);
 		ve.setVehicleno(req.getVehicleNo());
 		ve.setDriverid(driverId);
 		ve.setVehiclemobile(req.getVehicleMobile());
@@ -125,8 +130,11 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 //		ve.setIdentification(req.getidentification);
 //		ve.setMotor(req.getmotor);
 //		ve.setMotorno(req.getmotorno);
-//		ve.setAuthtype(req.getAuthType());
-//		ve.setVehiclesource(req.getvehicleSource);
+		//完全认证
+		ve.setAuthtype((byte)2);
+		//用户添加
+		ve.setVehiclesource((byte)2);
+		//空闲状态
 		ve.setBillstatus((byte) 0);
 		ve.setCreatetime(System.currentTimeMillis());
 		fileVehicleNewMapper.insertSelective(ve);

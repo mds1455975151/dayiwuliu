@@ -60,12 +60,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="reg_zhaohui">
 					<ul>
-						<li><img src="${trRoot}/tianrui/images/zhmm11.jpg">
-							<h4 class="colorblue">车辆信息</h4></li>
-						<li><img src="${trRoot}/tianrui/images/zhmm22.jpg">
-							<h4>认证信息</h4></li>
-						<li><img src="${trRoot}/tianrui/images/zhmm32.jpg">
-							<h4>驾驶员信息</h4></li>
+						<li><a href="/common/vehicleReg/main"><img src="${trRoot}/tianrui/images/zhmm12.jpg">
+							<h4 class="colorblue">车辆信息</h4></a></li>
+						<li><a href="/common/vehicleReg/submitStep1"><img src="${trRoot}/tianrui/images/zhmm22.jpg">
+							<h4>认证信息</h4></a></li>
+						<li><a href="/common/vehicleReg/submitStep2"><img src="${trRoot}/tianrui/images/zhmm31.jpg">
+							<h4>驾驶员信息</h4></a></li>
 					</ul>
 				</div>
 				<div class="car_box">

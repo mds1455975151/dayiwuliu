@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>天瑞物流</title>
+<title>天瑞物流_车辆信息</title>
 <link href="${trRoot}/tianrui/css/bootstrap.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
@@ -61,12 +61,12 @@
 				</div>
 				<div class="reg_zhaohui">
 					<ul>
-						<li><img src="${trRoot}/tianrui/images/zhmm11.jpg">
-							<h4 class="colorblue">车辆信息</h4></li>
-						<li><img src="${trRoot}/tianrui/images/zhmm21.jpg">
-							<h4>认证信息</h4></li>
-						<li><img src="${trRoot}/tianrui/images/zhmm32.jpg">
-							<h4>驾驶员信息</h4></li>
+						<li><a href="/common/vehicleReg/main"><img src="${trRoot}/tianrui/images/zhmm11.jpg">
+							<h4 >车辆信息</h4></a></li>
+						<li><a href="/common/vehicleReg/submitStep1"><img src="${trRoot}/tianrui/images/zhmm22.jpg">
+							<h4>认证信息</h4></a></li>
+						<li><a href="/common/vehicleReg/submitStep2"><img src="${trRoot}/tianrui/images/zhmm32.jpg">
+							<h4>驾驶员信息</h4></a></li>
 					</ul>
 				</div>
 				<div class="car_rzbox">
@@ -145,6 +145,9 @@
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
 								</div>
+							</div>
+							<div class="car_btnnext">
+								<button type="submit" class="btn btnblue">下一步</button>
 							</div>
 						</div>
 						<!--tab切换的内容end-->

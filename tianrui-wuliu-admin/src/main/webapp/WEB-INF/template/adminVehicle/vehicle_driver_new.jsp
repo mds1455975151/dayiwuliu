@@ -87,15 +87,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <thead>
                                     <tr>
                                         <th>序号</th>
-                                        <th>车牌号</th>
-                                        <th>随车电话</th>
-                                        <th>车辆类型</th>
-                                        <th>所有人</th>
-                                        <th>证件号</th>
-                                        <th>行驶证</th>
-                                        <th>载重（吨）</th>
-                                        <th>认证方式</th>
+                                        <th>关联车辆</th>
+                                        <th>司机姓名</th>
+                                        <th>联系电话</th>
+                                        <th>身份证号</th>
+                                        <th>初次领证日期</th>
+                                        <th>有效年限</th>
+                                        <th>驾驶员状态</th>
                                         <th>认证状态</th>
+                                        <th>审核时间</th>
                                         <th>认证时间</th>
                                         <th>操作</th>
                                     </tr>
@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new.js?04.26" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_driver_new.js?05.172" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">
