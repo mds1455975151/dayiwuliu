@@ -1,13 +1,7 @@
-package com.tianrui.service.bean;
+package com.tianrui.api.req.new_;
 
-import java.io.Serializable;
+public class VehiclReqStepReq {
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "vehicle_reg_info")
-public class VehicleReg implements Serializable{
-
-	private static final long serialVersionUID = 8379994076474746067L;
 	private String id;
 	//创建者id
 	private String createrId;
@@ -36,18 +30,19 @@ public class VehicleReg implements Serializable{
 	//联系电话
 	private String vehicleOwnerTel;
 	
-	
 	/**
 	 * 认证信息
 	 */
 	//认证类型   0:默认 1:完全  2:临时  3:开票
 	private short authType;
-	//营运证号
+	//经营许可证号
 	private String taxiLicenseNo;
 	//道路运输证号
 	private String roadTransportNo;
-	//营运证图片
+	//经营许可证证图片
 	private String taxiLicenseImg;
+	//经营许可证有效期
+	private String taxiLicenseTerm;
 	//车辆图片
 	private String vehicleImg;
 	//行驶证
@@ -64,7 +59,7 @@ public class VehicleReg implements Serializable{
 	 */
 	//姓名
 	private String driverName;
-	//性别   1:男性 2女性
+	//性别   xy:男性 xx女性
 	private String driverSex;
 	//身份证号
 	private String driverIdCard;
@@ -86,30 +81,21 @@ public class VehicleReg implements Serializable{
 	private String driverCardType;
 	//驾驶证图片
 	private String driverCardImg;
-	
-	
-	/**
-	 * 状态信息
-	 * 
-	 */
-	//随车账户是否注册 0:默认  1:已注册   2:未注册
-	private short vehicleOwnerTelRegStatus;
-	//注册步骤 0:默认 1:第一步   2:第二部   3:第三部
-	private short regStepStatus;
-	//审核状态  0:未审核,1:通过审核,2:审核失败  
-	private short checkStatus;
-	//创建时间
-	private long createTime;
-	//最后更新时间
-	private long lastUpdateTime;
-	
-	
-	
+	//司机省份证正面
+	private String driverIdCard_A;
+	//司机身份证反面
+	private String driverIdCard_B;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getCreaterId() {
+		return createrId;
+	}
+	public void setCreaterId(String createrId) {
+		this.createrId = createrId;
 	}
 	public String getVehicleNo() {
 		return vehicleNo;
@@ -134,6 +120,18 @@ public class VehicleReg implements Serializable{
 	}
 	public void setVehicleLen(String vehicleLen) {
 		this.vehicleLen = vehicleLen;
+	}
+	public String getVehicleWide() {
+		return vehicleWide;
+	}
+	public void setVehicleWide(String vehicleWide) {
+		this.vehicleWide = vehicleWide;
+	}
+	public String getVehicleHigh() {
+		return vehicleHigh;
+	}
+	public void setVehicleHigh(String vehicleHigh) {
+		this.vehicleHigh = vehicleHigh;
 	}
 	public String getVehicleLoad() {
 		return vehicleLoad;
@@ -285,39 +283,23 @@ public class VehicleReg implements Serializable{
 	public void setDriverCardImg(String driverCardImg) {
 		this.driverCardImg = driverCardImg;
 	}
-	public short getVehicleOwnerTelRegStatus() {
-		return vehicleOwnerTelRegStatus;
+	public String getTaxiLicenseTerm() {
+		return taxiLicenseTerm;
 	}
-	public void setVehicleOwnerTelRegStatus(short vehicleOwnerTelRegStatus) {
-		this.vehicleOwnerTelRegStatus = vehicleOwnerTelRegStatus;
+	public void setTaxiLicenseTerm(String taxiLicenseTerm) {
+		this.taxiLicenseTerm = taxiLicenseTerm;
 	}
-	public long getCreateTime() {
-		return createTime;
+	public String getDriverIdCard_A() {
+		return driverIdCard_A;
 	}
-	public void setCreateTime(long createTime) {
-		this.createTime = createTime;
+	public void setDriverIdCard_A(String driverIdCard_A) {
+		this.driverIdCard_A = driverIdCard_A;
 	}
-	public long getLastUpdateTime() {
-		return lastUpdateTime;
+	public String getDriverIdCard_B() {
+		return driverIdCard_B;
 	}
-	public void setLastUpdateTime(long lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+	public void setDriverIdCard_B(String driverIdCard_B) {
+		this.driverIdCard_B = driverIdCard_B;
 	}
-	public short getRegStepStatus() {
-		return regStepStatus;
-	}
-	public void setRegStepStatus(short regStepStatus) {
-		this.regStepStatus = regStepStatus;
-	}
-	public short getCheckStatus() {
-		return checkStatus;
-	}
-	public void setCheckStatus(short checkStatus) {
-		this.checkStatus = checkStatus;
-	}
-	
-
-	
-	
 	
 }

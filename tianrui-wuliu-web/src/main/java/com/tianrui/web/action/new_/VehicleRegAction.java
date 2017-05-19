@@ -31,30 +31,30 @@ public class VehicleRegAction {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/main")
+	@RequestMapping("/regStep1")
 	public ModelAndView main(){
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/vehicleReg/regStep1");
+		view.setViewName("/new/vehicleReg/regStep1");
 		return view;
 	}
 	
-	@RequestMapping("/submitStep1")
+	@RequestMapping("/regStep2")
 	public ModelAndView submitStep1(VechicleRegStep1Req  req){
 		ModelAndView view = new ModelAndView();
 		
-		//vehicleRegService.vehicleRegStep1(req);
+		vehicleRegService.vehicleRegStep1(req);
 		
-		view.setViewName("/vehicleReg/regStep2");
+		view.setViewName("/new/vehicleReg/regStep2");
 		return view;
 	}
 	
-	@RequestMapping("/submitStep2")
+	@RequestMapping("/regStep3")
 	public ModelAndView submitStep2(VechicleRegStep2Req  req){
 		ModelAndView view = new ModelAndView();
 		
 		//vehicleRegService.vehicleRegStep2(req);
 		
-		view.setViewName("/vehicleReg/regStep3");
+		view.setViewName("/new/vehicleReg/regStep3");
 		return view;
 	}
 	

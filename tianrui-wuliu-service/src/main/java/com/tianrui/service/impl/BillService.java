@@ -2104,7 +2104,7 @@ public class BillService implements IBillService{
 			rs.setError("临时车辆不推送交通部");
 			return rs;
 		}
-		billMassage.setLicensePlateTypeCode("99");
+		billMassage.setLicensePlateTypeCode("01");
 		billMassage.setVehicleNumber(ab.getCph());
 		String vehicleClassificationCode = vheicleExchange(vehicle.getVehicletype());
 		if(StringUtils.isBlank(vehicleClassificationCode)){
