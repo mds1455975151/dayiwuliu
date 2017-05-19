@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.intf.IVehicleRegService;
+import com.tianrui.api.intf.new_.IVehicleRegService;
 import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep2Req;

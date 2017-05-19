@@ -9,6 +9,8 @@ public class VehicleReg implements Serializable{
 
 	private static final long serialVersionUID = 8379994076474746067L;
 	private String id;
+	//创建者id
+	private String createrId;
 	
 	/**
 	 * 车辆信息

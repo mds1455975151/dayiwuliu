@@ -1,4 +1,4 @@
-package com.tianrui.web.action.vehicle;
+package com.tianrui.web.action.new_;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tianrui.api.intf.IVehicleRegService;
+import com.tianrui.api.intf.new_.IVehicleRegService;
 import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep2Req;

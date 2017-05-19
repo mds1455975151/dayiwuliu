@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.intf.IVehicleReg4VehicleService;
+import com.tianrui.api.intf.new_.IVehicleReg4VehicleService;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleAuthReq;

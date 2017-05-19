@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tianrui.api.intf.IVehicleReg4VenderService;
+import com.tianrui.api.intf.new_.IVehicleReg4VenderService;
 import com.tianrui.api.req.front.vehicle.VechicleRegVenderQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVenderSaveReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehiceListResp;
