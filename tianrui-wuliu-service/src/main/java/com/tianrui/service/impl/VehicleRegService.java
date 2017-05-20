@@ -1,6 +1,9 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,7 @@ import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep2Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep3Req;
+import com.tianrui.api.req.new_.VehiclReqStepReq;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
@@ -131,6 +135,16 @@ public class VehicleRegService implements IVehicleRegService{
 	 */
 	private boolean isExistVehicleNo(String vehicleNo){
 		return false;
+	}
+
+	@Override
+	public Result saveVehicleRegStep(VehiclReqStepReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		VehicleReg bean = new VehicleReg();
+		PropertyUtils.copyProperties(bean, req);
+		vehicleRegDao.save(bean);
+		return rs;
 	}
 	
 }

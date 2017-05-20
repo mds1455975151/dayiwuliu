@@ -14,6 +14,8 @@
 <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/tr-media.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="${trRoot}/tianrui/js/My97DatePicker/WdatePicker.js"></script>
+
 <style type="text/css">
 .car_btnnext {
 	margin-left: 90px;
@@ -78,6 +80,7 @@
 						</ul>
 						<div class="car_rzborder"></div>
 					</div>
+					<form id="vehicleRegStep">
 					<div class="car_rztabbox">
 						<!--tab切换的内容  车辆信息-->
 						<div class="cg_tabcont vehicle_class">
@@ -137,6 +140,12 @@
 										<input type="text" name="vehicleOwnerTel" id="vehicleOwnerTel_req">
 									</div>
 								</div>
+								<div class="rz_carsolo">
+									<label>随车电话:</label>
+									<div class="rz_carsolocont">
+										<input type="text" name="vehicleMobile" id="vehicleMobile_req">
+									</div>
+								</div>
 							</div>
 							<div class="">
 								<button type="button" class="btn btnblue info_info">下一步</button>
@@ -159,13 +168,11 @@
 										<input type="text" name="taxiLicenseNo" id="taxiLicenseNo_req">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/images/sfz.png">
+											<img class="jyxkz" src="${trRoot}/images/sfz.png">
 										</div>
 										<div class="img_upload mt10">
-											<form enctype="multipart/form-data">
-												<input id=" " class="file" type="file">
-												<input type="hidden" name="taxiLicenseImg" id="taxiLicenseImg_req">
-											</form>
+												<input id="taxiLicenseImg_req" onchange="fileupload('taxiLicenseImg_req','jyxkz')" class="file" type="file">
+												<input type="hidden" name="taxiLicenseImg" id="taxiLicenseImg_req_str">
 										</div>
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
@@ -179,15 +186,13 @@
 								<div class="rz_carsolo">
 									<label>车辆照片:</label>
 									<div class="rz_carsolocont">
-										<input type="hidden" name="vehicleImg" id="vehicleImg_req">
+										<input type="hidden" name="vehicleImg" id="vehicleImg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/images/sfz.png">
+											<img class="clzp" src="${trRoot}/images/sfz.png">
 										</div>
 										<div class="img_upload mt10">
-											<form enctype="multipart/form-data">
-												<input id=" " class="file" type="file">
-											</form>
+												<input id="vehicleImg_req" onchange="fileupload('vehicleImg_req','clzp')" class="file" type="file">
 										</div>
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
@@ -196,15 +201,13 @@
 								<div class="rz_carsolo">
 									<label>行驶证:</label>
 									<div class="rz_carsolocont">
-										<input type="hidden" name="drivingLicenseImg" id="drivingLicenseImg_req">
+										<input type="hidden" name="drivingLicenseImg" id="drivingLicenseImg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/images/yyzsl.jpg">
+											<img class="xszzp" src="${trRoot}/images/yyzsl.jpg">
 										</div>
 										<div class="img_upload mt10">
-											<form enctype="multipart/form-data">
-												<input id="file_sfz" class="file" type="file">
-											</form>
+												<input id="drivingLicenseImg_req" onchange="fileupload('drivingLicenseImg_req','xszzp')" class="file" type="file">
 										</div>
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
@@ -212,15 +215,13 @@
 								<div class="rz_carsolo">
 									<label>车辆登记证:</label>
 									<div class="rz_carsolocont">
-										<input type="hidden" name="vehicleGradeImg" id="vehicleGradeImg_req">
+										<input type="hidden" name="vehicleGradeImg" id="vehicleGradeImg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/images/sfz.png">
+											<img class="cldjz" src="${trRoot}/images/sfz.png">
 										</div>
 										<div class="img_upload mt10">
-											<form enctype="multipart/form-data">
-												<input id=" " class="file" type="file">
-											</form>
+												<input id="vehicleGradeImg_req" onchange="fileupload('vehicleGradeImg_req','cldjz')" class="file" type="file">
 										</div>
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
@@ -283,7 +284,7 @@
 						<label><i style="color: red">*</i>驾驶证注册日期:</label> 
 						<input id="driverCardRegDate_req" type="text" name="driverCardRegDate"
 									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
-									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
+									class="Wdate" style="width: 160px" placeholder="请选择日期" />
 						<p id="massage_starttime"></p>
 					</div>
 					
@@ -298,6 +299,7 @@
 						<button class="btn btn-default" data-toggle="modal"
 									data-target="#car_zhunjia">请选择</button>
 									<span id="drivinglicensetype"></span>
+									<input type="hidden" name="driverCardType" id="driverCardType_req">
 					</div>
 					<div class="rz_personline">
 						<label><i style="color: red">*</i>驾驶证:</label>
@@ -341,12 +343,13 @@
 					
 					<div class="">
 					<button type="button" class="btn btnblue info_info">上一步</button>
-					<button type="submit" class="btn btnblue">确定</button>
+					<button type="button" class="btn btnblue saveVehicleReg">确定</button>
 					</div>
 				</div>
 				</div>
 				<!-- end -->
 					</div>
+				</form>
 				</div>
 			</div>
 		</div>
@@ -395,7 +398,73 @@
 		</div>
 	</div>
 	<!--上传进度条end-->
-	
+	<!-- 准驾车型 -->
+	<div class="modal fade" id="car_zhunjia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document" style="width: 400px;">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+	                        aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title">选择车型</h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class="car_altzhunjia">
+	                        <table width="100%" border="0" id="licenseType">
+	                            <tr>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>A1</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>A2</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>A3</label>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>B1</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>B2</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>B3</label>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C1</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C2</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C3</label>
+	                                </td>
+	                            </tr>
+	                            <tr>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C4</label>
+	                                </td>
+	                                <td >
+	                                    <input type="radio" name="zjcx"><label>C5</label>
+	                                </td>
+	                                <td>
+	                                    <input type="radio" name="zjcx"><label>D</label>
+	                                </td>
+	                            </tr>
+	                        </table>
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary insertType">确定</button>
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- 准驾车型 -->
 	<!--底部end-->
 	<script type="text/javascript"
 		src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
@@ -442,6 +511,7 @@
 				text += ','+$(this).text();
 			});
 			$('#drivinglicensetype').html(text.substring(1,text.length));
+			$("#driverCardType_req").val(text.substring(1,text.length));
 			$('#car_zhunjia').modal('hide');
 		});
 	</script>

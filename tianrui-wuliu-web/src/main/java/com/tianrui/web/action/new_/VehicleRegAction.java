@@ -12,6 +12,7 @@ import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep2Req;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep3Req;
+import com.tianrui.api.req.new_.VehiclReqStepReq;
 import com.tianrui.common.vo.Result;
 
 /**
@@ -70,6 +71,13 @@ public class VehicleRegAction {
 		return view;
 	}
 
+	@RequestMapping("saveVehicleRegStep")
+	@ResponseBody
+	public Result saveVehicleRegStep(VehiclReqStepReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = vehicleRegService.saveVehicleRegStep(req);
+		return rs;
+	}
 	
 	@RequestMapping(value="/checkVehicleNo",method=RequestMethod.POST)
 	@ResponseBody

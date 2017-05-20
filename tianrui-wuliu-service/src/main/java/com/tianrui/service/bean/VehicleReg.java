@@ -315,6 +315,24 @@ public class VehicleReg implements Serializable{
 	public void setCheckStatus(short checkStatus) {
 		this.checkStatus = checkStatus;
 	}
+	public String getCreaterId() {
+		return createrId;
+	}
+	public void setCreaterId(String createrId) {
+		this.createrId = createrId;
+	}
+	public String getVehicleWide() {
+		return vehicleWide;
+	}
+	public void setVehicleWide(String vehicleWide) {
+		this.vehicleWide = vehicleWide;
+	}
+	public String getVehicleHigh() {
+		return vehicleHigh;
+	}
+	public void setVehicleHigh(String vehicleHigh) {
+		this.vehicleHigh = vehicleHigh;
+	}
 	
 
 	

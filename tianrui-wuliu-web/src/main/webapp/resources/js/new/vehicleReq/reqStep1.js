@@ -36,18 +36,18 @@ $(".info_info").on("click",function(){
 });
 //驾驶员信息点击事件
 $(".driver_info").on("click",function(){
-	$("#vehicel_img").attr('src',trRoot+"/tianrui/images/zhmm12.jpg"); 
-	$("#info_img").attr('src',trRoot+"/tianrui/images/zhmm22.jpg"); 
-	$("#driver_img").attr('src',trRoot+"/tianrui/images/zhmm31.jpg"); 
-	
-	$("#vehicel_class").removeClass("colorblue");
-	$("#info_class").removeClass("colorblue");
-	$("#driver_class").addClass("colorblue");
-	
-	$(".vehicle_class").hide();
-	$(".info_class").hide();
-	$(".driver_class").show();
 	if(vehicle_test()&&info_test()){
+		$("#vehicel_img").attr('src',trRoot+"/tianrui/images/zhmm12.jpg"); 
+		$("#info_img").attr('src',trRoot+"/tianrui/images/zhmm22.jpg"); 
+		$("#driver_img").attr('src',trRoot+"/tianrui/images/zhmm31.jpg"); 
+		
+		$("#vehicel_class").removeClass("colorblue");
+		$("#info_class").removeClass("colorblue");
+		$("#driver_class").addClass("colorblue");
+		
+		$(".vehicle_class").hide();
+		$(".info_class").hide();
+		$(".driver_class").show();
 	}
 });
 /** 验证车辆信息是否完整*/
@@ -76,6 +76,10 @@ function vehicle_test(){
 		alert("所有人联系方式不能为空");
 		return false;
 	}
+	if($("#vehicleMobile_req").val()==""){
+		alert("随车电话不能为空");
+		return false;
+	}
 	return true;
 }
 /** 验证信息是否完整*/
@@ -89,7 +93,7 @@ function info_test(){
 		alert("经营许可证号不能为空");
 		return false;
 	}
-	if($("#taxiLicenseImg_req").val()==""){
+	if($("#taxiLicenseImg_req_str").val()==""){
 		alert("请上传经营许可证照片");
 		return false;
 	}
@@ -97,11 +101,11 @@ function info_test(){
 		alert("经营许可证有效期不能为空");
 		return false;
 	}
-	if($("#vehicleImg_req").val()==""){
+	if($("#vehicleImg_req_str").val()==""){
 		alert("请上传车辆照片");
 		return false;
 	}
-	if($("#drivingLicenseImg_req").val()==""){
+	if($("#drivingLicenseImg_req_str").val()==""){
 		alert("请上传行驶证照片");
 		return false;
 	}
@@ -193,6 +197,21 @@ function fileupload(id,remove){
 		}
 	});
 }
+
+$(".saveVehicleReg").on("click",function(){
+	$.ajax({
+		url:"/common/vehicleReg/saveVehicleRegStep",
+		data:$('#vehicleRegStep').serialize(),
+		type:"post",
+		success:function(ret){
+			if(ret.code=="000000"){
+				alert("添加成功");
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+});
 
 
 
