@@ -45,7 +45,9 @@ public class VehicleDriverNewService implements IVehicleDriverNewService{
 			VehicleDriverNewResp r = new VehicleDriverNewResp();
 			PropertyUtils.copyProperties(r, w);
 			FileVehicleNew veh = fileVehicleNewMapper.selectByPrimaryKey(w.getVehicleid());
-			r.setVehicleno(veh.getVehicleno());
+			if(veh!=null){
+				r.setVehicleno(veh.getVehicleno());
+			}
 			resp.add(r);
 		}
 		return resp;

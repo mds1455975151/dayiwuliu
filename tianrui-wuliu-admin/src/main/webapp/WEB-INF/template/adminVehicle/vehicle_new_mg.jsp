@@ -91,8 +91,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <th>随车电话</th>
                                         <th>车辆类型</th>
                                         <th>所有人</th>
-                                        <th>证件号</th>
-                                        <th>行驶证</th>
                                         <th>载重（吨）</th>
                                         <th>认证方式</th>
                                         <th>认证状态</th>
@@ -286,7 +284,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new_mg.js?05.15" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new_mg.js?05.20" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

@@ -1,6 +1,7 @@
 package com.tianrui.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
+
+import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -8,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.intf.new_.IMemberVehicleNewService;
 import com.tianrui.api.intf.new_.IVehicleRegService;
 import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
@@ -18,12 +20,16 @@ import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.VehicleReg;
+import com.tianrui.service.bean.vehiclereg.FileVehicleNew;
+import com.tianrui.service.mapper.FileVehicleNewMapper;
 import com.tianrui.service.mongo.VehicleRegDao;
 @Service
 public class VehicleRegService implements IVehicleRegService{
 	
 	@Autowired
 	VehicleRegDao vehicleRegDao;
+	@Autowired
+	FileVehicleNewMapper fileVehicleNewMapper;
 
 	@Override
 	public Result vehicleRegStep1(VechicleRegStep1Req req) {
@@ -98,12 +104,14 @@ public class VehicleRegService implements IVehicleRegService{
 	}
 
 	@Override
-	public Result checkVehicleExist(VechicleRegQueryReq req) {
-		Result rs =Result.getErrorResult();
-		//判断参数
-		if( req!=null &&StringUtils.isNotBlank(req.getVehicleNo()) ){
-			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-			rs.setData("1");
+	public Result checkVehicleExist(VechicleRegQueryReq req) throws Exception {
+		Result rs =Result.getSuccessResult();
+		FileVehicleNew fv = new FileVehicleNew();
+		fv.setVehicleno(req.getVehicleNo());
+		List<FileVehicleNew> list = fileVehicleNewMapper.selectByContent(fv);
+		if(list.size()!=0){
+			rs.setCode("1");
+			rs.setError("车牌号已存在");
 		}
 		return rs;
 	}
@@ -143,6 +151,7 @@ public class VehicleRegService implements IVehicleRegService{
 		Result rs = Result.getSuccessResult();
 		VehicleReg bean = new VehicleReg();
 		PropertyUtils.copyProperties(bean, req);
+		bean.setCreateTime(System.currentTimeMillis());
 		vehicleRegDao.save(bean);
 		return rs;
 	}

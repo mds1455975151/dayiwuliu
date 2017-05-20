@@ -212,8 +212,38 @@ $(".saveVehicleReg").on("click",function(){
 		}
 	});
 });
-
-
+/** 验证车牌号*/
+$("#vehicleNo_req").on("blur",function(){
+	//各个省份简称
+	var CityNo="京津沪申渝冀晋辽吉黑苏浙皖闽赣鲁豫鄂湘粤琼川黔贵滇云陕秦甘陇青藏桂蒙宁新港澳台";
+	// 车牌号正则表达式
+	var vehiReg = /^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/;
+	// 车牌号输入值
+	var vehiNo = $("#vehicleNo_req").val();
+	
+	if(CityNo.indexOf(vehiNo.substr(0,1))==-1){
+		$("#vehicleNo_massage").html("车牌号省份不合法，请重新输入！");
+	}else if (vehiNo == "") {
+		$("#vehicleNo_massage").html("车牌号不能为空！");
+	} else if (!vehiReg.test(vehiNo)) {
+		$("#vehicleNo_massage").html("车牌号不合法，请重新输入！");
+	} else {
+		$.ajax({
+			url : '/common/vehicleReg/checkVehicleNo',// 跳转到 action 
+			data : {
+				vehicleNo: vehiNo
+			},
+			type : "post",
+			success : function(result){
+				if (result.code != "000000") {
+					$("#vehicleNo_massage").html("车牌号已存在，请勿重复添加！");
+				} else {
+					$("#vehicleNo_massage").html("");
+				}
+			}
+		});
+	}
+});
 
 
 

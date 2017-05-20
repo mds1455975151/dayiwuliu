@@ -24,9 +24,9 @@ public interface IVehicleRegService {
 	/** 添加认证信息
 	 * @throws Exception */
 	public Result saveVehicleRegStep(VehiclReqStepReq req) throws Exception;
-	
-	//交验车辆是否存在
-	public Result checkVehicleExist(VechicleRegQueryReq req);
+	/** 验证车牌号是否存在
+	 * @throws Exception */
+	public Result checkVehicleExist(VechicleRegQueryReq req) throws Exception;
 	//交验车辆账户是否存在
 	public Result checkVehicleAccountExist(VechicleRegQueryReq req);
 	//获取临时车牌

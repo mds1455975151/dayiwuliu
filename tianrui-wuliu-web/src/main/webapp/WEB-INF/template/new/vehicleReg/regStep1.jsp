@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -89,13 +90,18 @@
 									<label>车牌号:</label>
 									<div class="rz_carsolocont">
 										<input name="vehicleNo" id="vehicleNo_req" type="text">
+										<br>
+										<span style="color: red" id="vehicleNo_massage"></span>
 									</div>
 								</div>
 								<div class="rz_carsolo">
 									<label>车辆类型:</label>
 									<div class="rz_carsolocont">
 										<select class="form-control w350" name="vehicleType" id="vehicleType_req">
-											<option>板车</option>
+											<option value="">请选择</option>
+											<c:forEach items="${vt }" var="type">
+											<option value="${type.wlcode }">${type.wlname }</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
@@ -168,7 +174,7 @@
 										<input type="text" name="taxiLicenseNo" id="taxiLicenseNo_req">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img class="jyxkz" src="${trRoot}/images/sfz.png">
+											<img class="jyxkz" src="${trRoot}/tianrui/images/yyzsl.jpg">
 										</div>
 										<div class="img_upload mt10">
 												<input id="taxiLicenseImg_req" onchange="fileupload('taxiLicenseImg_req','jyxkz')" class="file" type="file">
@@ -189,7 +195,7 @@
 										<input type="hidden" name="vehicleImg" id="vehicleImg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img class="clzp" src="${trRoot}/images/sfz.png">
+											<img class="clzp" src="${trRoot}/tianrui/images/democar.jpg">
 										</div>
 										<div class="img_upload mt10">
 												<input id="vehicleImg_req" onchange="fileupload('vehicleImg_req','clzp')" class="file" type="file">
@@ -204,7 +210,7 @@
 										<input type="hidden" name="drivingLicenseImg" id="drivingLicenseImg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img class="xszzp" src="${trRoot}/images/yyzsl.jpg">
+											<img class="xszzp" src="${trRoot}/tianrui/images/demoxsz.jpg">
 										</div>
 										<div class="img_upload mt10">
 												<input id="drivingLicenseImg_req" onchange="fileupload('drivingLicenseImg_req','xszzp')" class="file" type="file">
@@ -218,7 +224,7 @@
 										<input type="hidden" name="vehicleGradeImg" id="vehicleGradeImg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img class="cldjz" src="${trRoot}/images/sfz.png">
+											<img class="cldjz" src="${trRoot}/tianrui/images/carinfo.jpg">
 										</div>
 										<div class="img_upload mt10">
 												<input id="vehicleGradeImg_req" onchange="fileupload('vehicleGradeImg_req','cldjz')" class="file" type="file">
@@ -310,7 +316,7 @@
 							<div class="img_upload">
 								<input id="driverCardImg_req" onchange="fileupload('driverCardImg_req','jsz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-								<input type="hidden" id="driverCardImg_req_str" value="driverCardImg" >
+								<input type="hidden" id="driverCardImg_req_str" name="driverCardImg" value="" >
 							</div>
 						</div>
 					</div>

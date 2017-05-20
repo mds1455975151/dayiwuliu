@@ -73,8 +73,6 @@ function innerHtml(d){
 			"<td>"+d[a].vehicleMobile+"</td>"+
 			"<td>"+d[a].vehicleType+"</td>"+
 			"<td>"+d[a].vehicleOwner+"</td>"+
-			"<td>"+d[a].vehicleOwnerIdCard+"</td>"+
-			"<td>"+d[a].drivingLicenseNo+"</td>"+
 			"<td>"+d[a].vehicleLoad+"</td>"+
 			"<td>新增</td>"+
 			"<td>"+d[a].checkStatus+"</td>"+
