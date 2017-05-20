@@ -1,5 +1,6 @@
 package com.tianrui.service.impl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegDriverListResp;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehicleDetailResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -40,24 +42,13 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 	@Override
 	public Result driverPage(VechicleRegDriverQueryReq req) {
 		Result rs =Result.getErrorResult();
-		PaginationVO<VehicleRegDriverListResp> page =null;
 		if( req !=null && StringUtils.isNotBlank(req.getCurrVId())  ){
 			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-			page = new PaginationVO<VehicleRegDriverListResp> ();
 			//查询条件
 			VehicleDriverNew query = new VehicleDriverNew();
 			query.setVehicleid(req.getCurrVId());
-			//查询总数
-			long total =vehicleDriverNewMapper.countByCondition(query);
-			if(total >0 ){
-				query.setStart((req.getPageNo()-1)*req.getPageSize());
-				query.setLimit(req.getPageSize());
-				List<VehicleDriverNew> list =vehicleDriverNewMapper.selectByCondition(query);
-				page.setList(convert2DriverRespList(list));
-			}
-			page.setTotal(total);
-			page.setPageNo(req.getPageNo());
-			rs.setData(page);
+			List<VehicleDriverNew> list =vehicleDriverNewMapper.selectByCondition(query);
+			rs.setData(convert2DriverRespList(list));
 		}
 		return rs;
 	}
@@ -136,10 +127,10 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 				resp.setId(dbBean.getId());
 				resp.setVehicleNo(dbBean.getVehicleno());
 				resp.setVehicleMobile(dbBean.getVehiclemobile());
-				resp.setAuthTime(dbBean.getAuthTime());
+				resp.setAuthTime(DateUtil.getDateString(dbBean.getCreatetime(),"yyyy-MM-dd HH:mm:ss"));
 				resp.setVehicleType(dbBean.getVehicletype());
-				resp.setVehicleLen(dbBean.getVehiclelen());
-				resp.setVehicleLoad(dbBean.getVehicleload());
+				resp.setVehicleLen(dbBean.getVehiclelen()+"米");
+				resp.setVehicleLoad(dbBean.getVehicleload()+"吨");
 				resp.setVehicleOwner(dbBean.getVehicleowner());
 				resp.setVehicleOwnerTel(dbBean.getVehicleownerTel());
 				resp.setAuthstatus(String.valueOf(dbBean.getAuthtype()));

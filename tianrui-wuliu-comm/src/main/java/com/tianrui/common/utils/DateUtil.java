@@ -60,6 +60,18 @@ public class DateUtil {
 	 * @创建人 tank
 	 * @创建时间 2016年2月21日下午4:26:28
 	 */
+	public static String getDateString(long d,String format){
+		return new SimpleDateFormat(format).format( new Date(d));
+	}
+	/**
+	 * 
+	 * @描述:获取日期格式字符串yyyy-MM-dd HH:mm:ss
+	 * @param d
+	 * @return
+	 * @返回类型 String
+	 * @创建人 tank
+	 * @创建时间 2016年2月21日下午4:26:28
+	 */
 	public static Long parse(String str,String format){
 		Long time=null;
 		try {

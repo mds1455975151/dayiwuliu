@@ -1,5 +1,7 @@
 package com.tianrui.service.bean.vehiclereg;
 
+import com.tianrui.common.utils.DateUtil;
+
 public class FileVehicleNew {
     //  主键uuid
     private String id;
@@ -397,4 +399,5 @@ public class FileVehicleNew {
 	public void setStart(Integer start) {
 		this.start = start;
 	}
+	
 }

@@ -42,7 +42,10 @@
 	    from tr_vehicle_driver_new
 	    <where>
 	    	<if test="drivername != null">
-	    		driverName = = #{drivername,jdbcType=VARCHAR}
+	    		driverName = #{drivername,jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="vehicleid != null">
+	    		vehicleId =#{vehicleid,jdbcType=VARCHAR}
 	    	</if>
 	    </where>
   </select>
