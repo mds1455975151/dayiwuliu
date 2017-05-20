@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.Property;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -25,13 +24,11 @@ import com.tianrui.api.req.admin.anlian.OrdersReq;
 import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.vehicle.VehicleTicketReq;
 import com.tianrui.common.constants.Constant;
-import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.AnlianDict;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
-import com.tianrui.service.bean.SystemMemberInfoRecord;
 import com.tianrui.service.bean.VehicleTicket;
 import com.tianrui.service.bean.anlian.AnlianBase;
 import com.tianrui.service.bean.anlian.AnlianDriver;
@@ -270,7 +267,6 @@ public class AnlianService implements IAnlianService{
 		truck.setFdjh(ticket.getMotor());
 		//发动机型号
 		truck.setFdjxh(ticket.getMotorno());
-		System.out.println(JSON.toJSONString(truck));
 		return JSON.toJSONString(truck);
 		
 	}
