@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>天瑞物流</title>
+<title>天瑞物流_认证信息</title>
 <link href="${trRoot}/tianrui/css/bootstrap.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
 <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
@@ -61,12 +61,12 @@
 				</div>
 				<div class="reg_zhaohui">
 					<ul>
-						<li><img src="${trRoot}/tianrui/images/zhmm11.jpg">
-							<h4 class="colorblue">车辆信息</h4></li>
-						<li><img src="${trRoot}/tianrui/images/zhmm21.jpg">
-							<h4>认证信息</h4></li>
-						<li><img src="${trRoot}/tianrui/images/zhmm32.jpg">
-							<h4>驾驶员信息</h4></li>
+						<li><a href="/common/vehicleReg/regStep1"><img src="${trRoot}/tianrui/images/zhmm12.jpg">
+							<h4>车辆信息</h4></a></li>
+						<li><a href="/common/vehicleReg/regStep2"><img src="${trRoot}/tianrui/images/zhmm21.jpg">
+							<h4 class="colorblue">认证信息</h4></a></li>
+						<li><a href="/common/vehicleReg/regStep3"><img src="${trRoot}/tianrui/images/zhmm32.jpg">
+							<h4>驾驶员信息</h4></a></li>
 					</ul>
 				</div>
 				<div class="car_rzbox">
@@ -78,16 +78,23 @@
 						<div class="car_rzborder"></div>
 					</div>
 					<div class="car_rztabbox">
-						<!--tab切换的内容-->
-						<div class="cg_tabcont">
+						<!--tab切换的内容 认证信息-->
+						<div class="cg_tabcont info_class">
 							<div class="rz_carbox">
 								<div class="rz_carsolo">
-									<label>营运证号:</label>
+									<label>道路运输证号:</label>
+									<div class="rz_carsolocont">
+										<input type="text">
+										<!--身份证默认图片-->
+									</div>
+								</div>
+								<div class="rz_carsolo">
+									<label>经营许可证号:</label>
 									<div class="rz_carsolocont">
 										<input type="text">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/tianrui/images/yyzsl.jpg">
+											<img src="${trRoot}/images/sfz.png">
 										</div>
 										<div class="img_upload mt10">
 											<form enctype="multipart/form-data">
@@ -95,6 +102,12 @@
 											</form>
 										</div>
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
+									</div>
+								</div>
+								<div class="rz_carsolo">
+									<label>经营许可证有效期:</label>
+									<div class="rz_carsolocont">
+										<input type="text">
 									</div>
 								</div>
 								<div class="rz_carsolo">
@@ -103,7 +116,7 @@
 										<input type="text">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/tianrui/images/sfz.png">
+											<img src="${trRoot}/images/sfz.png">
 										</div>
 										<div class="img_upload mt10">
 											<form enctype="multipart/form-data">
@@ -113,17 +126,18 @@
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
 								</div>
+								
 								<div class="rz_carsolo">
 									<label>行驶证:</label>
 									<div class="rz_carsolocont">
 										<input type="text">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/tianrui/images/sfz.png">
+											<img src="${trRoot}/images/yyzsl.jpg">
 										</div>
 										<div class="img_upload mt10">
 											<form enctype="multipart/form-data">
-												<input id=" " class="file" type="file">
+												<input id="file_sfz" class="file" type="file">
 											</form>
 										</div>
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
@@ -135,7 +149,7 @@
 										<input type="text">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img src="${trRoot}/tianrui/images/sfz.png">
+											<img src="${trRoot}/images/sfz.png">
 										</div>
 										<div class="img_upload mt10">
 											<form enctype="multipart/form-data">
@@ -145,6 +159,9 @@
 										<h4 class="colorred">图片大小不超过3M，限上传1张，只支持JPG、JPEG、PNG格式</h4>
 									</div>
 								</div>
+								<div class="car_btnnext">
+								<button type="submit" class="btn btnblue">下一步</button>
+							</div>
 							</div>
 						</div>
 						<!--tab切换的内容end-->

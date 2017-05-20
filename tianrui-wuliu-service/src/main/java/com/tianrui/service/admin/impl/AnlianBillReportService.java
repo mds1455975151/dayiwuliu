@@ -16,10 +16,13 @@ import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillPosition;
 import com.tianrui.service.bean.anlian.AnlianBillReport;
 import com.tianrui.service.mapper.AnlianBillReportMapper;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mongo.BillPositionDao;
+import com.tianrui.service.util.MapDistanceUtil;
 @Service
 public class AnlianBillReportService implements IAnlianBillReportService{
 
@@ -31,10 +34,11 @@ public class AnlianBillReportService implements IAnlianBillReportService{
 	FileRouteMapper fileRouteMapper;
 	@Autowired
 	FilePositoinMapper filePositoinMapper;
+	@Autowired
+	BillMapper billMapper;
 
 	@Override
 	public PaginationVO<AnlianBillReportResp> select(AnlianBillReportReq req) throws Exception{
-		// TODO Auto-generated method stub
 		
 		PaginationVO<AnlianBillReportResp> page = new PaginationVO<AnlianBillReportResp>();
 		AnlianBillReport record = new AnlianBillReport();
@@ -58,32 +62,57 @@ public class AnlianBillReportService implements IAnlianBillReportService{
 			AnlianBillReportResp ab = new AnlianBillReportResp();
 			PropertyUtils.copyProperties(ab, report);
 			if(StringUtils.equals("wuliu", report.getType())){
-				FileRoute route = fileRouteMapper.selectByPrimaryKey(report.getRouteid());
 				//提货位置
 				BillPosition bp = billPositionDao.findBillIdAndStatus(report.getId(), "2");
 				if(bp!=null){
 					ab.setBegintime(bp.getCreatetime());
-					ab.setTslat(bp.getLat());
-					ab.setTslon(bp.getLon());
-					//始发地
-					FilePositoin op = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
-					ab.setTjlat(op.getLat());
-					ab.setTjlon(op.getLng());
-				}
-				//卸货位置
-				BillPosition xp = billPositionDao.findBillIdAndStatus(report.getId(), "3");
-				if(xp!=null){
-					ab.setBegintime(bp.getCreatetime());
-					ab.setDslat(xp.getLat());
-					ab.setDslon(xp.getLon());
-					//目的地
-					FilePositoin dp = filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
-					ab.setDjlat(dp.getLat());
-					ab.setDjlon(dp.getLng());
 				}
 			}
 			resp.add(ab);
 		}
+		return resp;
+	}
+
+	@Override
+	public void uptDistance() throws Exception {
+		AnlianBillReport record = new AnlianBillReport();
+		record.setType("wuliu");
+		//查询报表所有运单
+		List<AnlianBillReport> list = anlianBillReportMapper.selectByCondition(record);
+		for(AnlianBillReport report:list){
+			//只处理物流运单
+			if(StringUtils.equals("wuliu", report.getType())){
+				//获取路线信息
+				FileRoute route = fileRouteMapper.selectByPrimaryKey(report.getRouteid());
+				//提货位置
+				BillPosition bp = billPositionDao.findBillIdAndStatus(report.getId(), "2");
+				if(bp!=null){
+					Double th = distanceChange(route.getOpositionid(),bp.getLon(),bp.getLat());
+					Bill b = new Bill();
+					b.setId(report.getId());
+					b.setQ_deviation(th);
+					billMapper.updateByPrimaryKeySelective(b);
+				}
+				
+				//卸货位置
+				BillPosition dp = billPositionDao.findBillIdAndStatus(report.getId(), "3");
+				if(dp != null){
+					//计算到货地距离偏差
+					Double dh = distanceChange(route.getDpositionid(),dp.getLon(),dp.getLat());
+					Bill b = new Bill();
+					b.setId(report.getId());
+					b.setD_deviation(dh);
+					billMapper.updateByPrimaryKeySelective(b);
+				}
+			}
+		}
+	}
+	
+	//计算两点间距离
+	public Double distanceChange(String positionId,Integer lon,Integer lat){
+		
+		FilePositoin position = filePositoinMapper.selectByPrimaryKey(positionId);
+		Double resp = MapDistanceUtil.getDistance(lon*Math.pow(10,-6),lat*Math.pow(10,-6),position.getLng()*Math.pow(10,-6),position.getLat()*Math.pow(10,-6));
 		return resp;
 	}
 

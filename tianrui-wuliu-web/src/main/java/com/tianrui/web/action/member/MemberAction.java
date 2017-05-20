@@ -251,6 +251,8 @@ public class MemberAction{
 		}else if("2".equals(req.getType())){
 			inforeq.setLicenseType(req.getLicenseType());
 			inforeq.setDriveImagePath(req.getFile());
+			inforeq.setPositive(req.getPositive());
+			inforeq.setOpposite(req.getOpposite());
 			rs= systemMemberInfoRecordService.driverAuthentication(inforeq);
 		}
 		//更新session

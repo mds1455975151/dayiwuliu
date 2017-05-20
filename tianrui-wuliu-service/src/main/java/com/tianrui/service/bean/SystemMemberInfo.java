@@ -10,7 +10,9 @@ public class SystemMemberInfo {
     private String id;
 
     private String licenseType;
+    private String positive;
     
+    private String opposite;
     private String sex;
     private String birthday;
     private String firstlicens;
@@ -561,6 +563,22 @@ public class SystemMemberInfo {
 
 	public void setRtblimgurl(String rtblimgurl) {
 		this.rtblimgurl = rtblimgurl;
+	}
+
+	public String getPositive() {
+		return positive;
+	}
+
+	public void setPositive(String positive) {
+		this.positive = positive;
+	}
+
+	public String getOpposite() {
+		return opposite;
+	}
+
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
     
 }

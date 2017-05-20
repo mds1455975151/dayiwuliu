@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.intf.IVehicleReg4VenderService;
+import com.tianrui.api.intf.new_.IVehicleReg4VenderService;
 import com.tianrui.api.req.front.vehicle.VechicleRegVenderQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVenderSaveReq;
 import com.tianrui.common.vo.AppParam;

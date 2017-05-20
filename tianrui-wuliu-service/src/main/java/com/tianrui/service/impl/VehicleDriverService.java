@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberVehicle;
@@ -117,12 +119,12 @@ public class VehicleDriverService implements IVehicleDriverService {
 		if (vehicleDriver.getCreatetime() == null) {
 			vehicleDriver.setCreatetime(new Date().getTime());
 		}
+		//TODO
 		MemberVehicle mv = memberVehicleMapper.selectByPrimaryKey(req.getVehicleId());
 		SystemMember sm = systemMemberMapper.selectByPrimaryKey(req.getDriverId());
 		//车辆通过安联认证，司机通过本地安联认证
 		if("1".equals(mv.getDesc1())&&(StringUtils.isNotBlank(sm.getAldriverid()))){
 			// 数据插入操作
-			//TODO
 			AnlianDriverReq r = new AnlianDriverReq();
 			r.setDriverid(req.getDriverId());
 			r.setVehicleNo(mv.getVehicleprefix()+mv.getVehicleno());
@@ -305,6 +307,38 @@ public class VehicleDriverService implements IVehicleDriverService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Result anlianInsert(VehicleDriverReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		//安联账号不能为空
+		if(StringUtils.isNotBlank(req.getAlDriverid())){
+			MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(req.getVehicleId());
+			String a = req.getAlDriverid().substring(0, 1);
+			String b = req.getAlDriverid().substring(1, req.getAlDriverid().length());
+			String al = a.toUpperCase() + b;	
+			SystemMember m = new SystemMember();
+			m.setId(req.getDriverId());
+			m.setAldriverid(al);
+			systemMemberMapper.updateByPrimaryKeySelective(m);
+			SystemMember um = systemMemberMapper.selectByPrimaryKey(req.getDriverId());
+			VehicleDriver record = new VehicleDriver();
+			record.setId(UUIDUtil.getId());
+			record.setCreatetime(System.currentTimeMillis());
+			record.setVehicleid(req.getVehicleId());
+			record.setDriverid(req.getDriverId());
+			record.setVehicleno(vehicle.getVehicleprefix()+vehicle.getVehicleno());
+			record.setVehicletypename(vehicle.getVehicletypename());
+			record.setDrivername(req.getDriverName());
+			record.setDrivertel(um.getCellphone());
+			record.setCreator(vehicle.getMemberid());
+			vehicleDriverMapper.insertSelective(record);
+		}else{
+			rs.setCode("1");
+			rs.setError("安联账号不能为空");
+		}
+		return rs;
 	}
 	
 }

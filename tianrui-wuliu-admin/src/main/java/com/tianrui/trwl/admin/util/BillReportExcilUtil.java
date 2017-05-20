@@ -20,7 +20,7 @@ import com.tianrui.common.utils.UUIDUtil;
 public class BillReportExcilUtil extends AbstractExcelView {
 
 	private static String[] titles = new String[] { "序号", "运单类型","业务日期","计划单号","运单号",
-			"发货方","收货方","车主姓名","车牌号","司机姓名","货物名称","开始时间","结束时间",
+			"发货方","收货方","车主姓名","车牌号","司机姓名","货物名称","开始时间","结束时间","提货地偏差","卸货地偏差",
 			"提货数量","运输路线","计划总量","卸货量","执行总量","运单状态"};
 	
 	@Override
@@ -127,9 +127,31 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			cell = getCell(sheet, cellNum, 12);
 			cell.setCellStyle(contentStyle);
 			setText(cell, un);
+			
+			//提货地偏差
+			cell = getCell(sheet, cellNum, 13);
+			cell.setCellStyle(contentStyle);
+			if(list.get(i).getQ_deviation()!=null){
+				Double op = list.get(i).getQ_deviation();
+				setText(cell, op.toString()+"米");
+			}else{
+				setText(cell, null);
+			}
+			
+			//卸货地偏差
+			cell = getCell(sheet, cellNum, 14);
+			cell.setCellStyle(contentStyle);
+			if(list.get(i).getD_deviation()!=null){
+				Double dp = list.get(i).getD_deviation();
+				setText(cell, dp.toString()+"米");
+			}else{
+				setText(cell, null);
+			}
+			
+			
 			//提货数量
 			Double pickup = null;
-			cell = getCell(sheet, cellNum, 13);
+			cell = getCell(sheet, cellNum, 15);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getPickupweight() != null){
 				pickup = list.get(i).getPickupweight();
@@ -139,17 +161,17 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			}
 			//运输路线
 			String routetime = list.get(i).getRoutename();
-			cell = getCell(sheet, cellNum, 14);
+			cell = getCell(sheet, cellNum, 16);
 			cell.setCellStyle(contentStyle);
 			setText(cell, routetime);
 			//计划总量
 			String weight = list.get(i).getWeight();
-			cell = getCell(sheet, cellNum, 15);
+			cell = getCell(sheet, cellNum, 17);
 			cell.setCellStyle(contentStyle);
 			setText(cell, weight);
 			//卸货量
 			Double sign = null;
-			cell = getCell(sheet, cellNum, 16);
+			cell = getCell(sheet, cellNum, 18);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getSignweight() != null){
 				sign = list.get(i).getSignweight();
@@ -159,7 +181,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			}
 			//执行总量
 			Double trueweight = null;
-			cell = getCell(sheet, cellNum, 17);
+			cell = getCell(sheet, cellNum, 19);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getTrueweight()!= null){
 				trueweight = list.get(i).getTrueweight();
@@ -205,7 +227,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 				status = "安联运单";
 				break;
 			}
-			cell = getCell(sheet, cellNum, 18);
+			cell = getCell(sheet, cellNum, 20);
 			cell.setCellStyle(contentStyle);
 			setText(cell, status);
 		}

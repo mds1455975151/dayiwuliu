@@ -1,4 +1,4 @@
-package com.tianrui.api.intf;
+package com.tianrui.api.intf.new_;
 
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;

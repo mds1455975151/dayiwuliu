@@ -56,7 +56,7 @@ public class VehicleDriverNew {
     private String authuser;
 
     //  审核时间
-    private String authtime;
+    private Long authtime;
 
     //  创建时间
     private Long createtime;
@@ -208,15 +208,15 @@ public class VehicleDriverNew {
         this.authuser = authuser == null ? null : authuser.trim();
     }
 
-    public String getAuthtime() {
-        return authtime;
-    }
+    public Long getAuthtime() {
+		return authtime;
+	}
 
-    public void setAuthtime(String authtime) {
-        this.authtime = authtime == null ? null : authtime.trim();
-    }
+	public void setAuthtime(Long authtime) {
+		this.authtime = authtime;
+	}
 
-    public Long getCreatetime() {
+	public Long getCreatetime() {
         return createtime;
     }
 

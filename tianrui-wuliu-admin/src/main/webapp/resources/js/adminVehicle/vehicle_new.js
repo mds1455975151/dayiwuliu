@@ -71,56 +71,6 @@ function innerHtml(d){
 	var hml = "";
 	for (var a = 0; a < d.length; a++) {
 		var c = a+1;
-		var sta = "";
-		if(d[a].status=="-1"){
-			sta = "认证失败";
-		}
-		if(d[a].status=="0"){
-			sta = "未认证";
-		}
-		if(d[a].status=="1"){
-			sta = "认证成功";
-		}
-		if(d[a].status=="2"){
-			sta = "认证中";
-		}
-		var type = "";
-		if(d[a].vehicletypename != undefined){
-			type = d[a].vehicletypename;
-		}
-		
-		var userName = d[a].userName;
-		if(d[a].userName == undefined){
-			userName = "";
-		}
-		var telphone = d[a].telphone;
-		if(d[a].telphone == undefined){
-			telphone = "";
-		}
-		var ownerphone = d[a].ownerphone;
-		var ownername = d[a].ownername;
-		if(d[a].ownerphone == undefined){
-			ownerphone = d[a].companytel;
-			ownername = d[a].companyname;
-		}
-		var anlian = "";
-		if(d[a].status=="1"){
-			//"认证成功";
-			anlian = "<span><a data-toggle='modal' onclick=\"anLianDetails('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian'>【完善信息】</a></span>";
-			
-			if(d[a].desc1=="-1"){
-				anlian = "认证失败";
-			}
-			if(d[a].desc1=="0"){
-				anlian = "<span><a data-toggle='modal' onclick=\"anLianDetails('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian'>【完善信息】</a></span>";
-			}
-			if(d[a].desc1=="1"){
-				anlian = "<span><a data-toggle='modal' onclick=\"anLian_renzheng_detail('"+d[a].id+"','"+d[a].vehicleprefix+d[a].vehicleno+"')\" data-target='#anlian_detail'>【查看详情】</a></span>";
-			}
-			if(d[a].desc1=="2"){
-				anlian = "认证中";
-			}
-		}
 		
 		hml += "<tr><td>"+c+"</td>"+
 			"<td>"+d[a].vehicleno+"</td>"+
@@ -131,8 +81,8 @@ function innerHtml(d){
 			"<td>"+d[a].drivinglicenseno+"</td>"+
 			"<td>"+d[a].vehicleload+"</td>"+
 			"<td>"+d[a].authtype+"</td>"+
-			"<td>"+d[a].authtype+"</td>"+
-			"<td>"+d[a].createtime+"</td>"+
+			"<td>"+d[a].vehiclesource+"</td>"+
+			"<td>"+new Date(d[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 			"<td><span><a data-toggle='modal' data-target='#detail'>【详情】</a></span>";
 			if(d[a].status=="2"){
 				hml += "<span><a>【审核】</a></span>";

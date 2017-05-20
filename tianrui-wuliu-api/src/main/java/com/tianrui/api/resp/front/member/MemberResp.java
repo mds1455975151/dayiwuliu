@@ -30,6 +30,10 @@ public class MemberResp extends BaseResp{
 	private String mocount;
 	/** 尽后台会员管理使用*/
 	private String remarkname;
+	/**身份证正面*/
+    private String positive;
+    /** 身份证反面*/
+    private String opposite;
 	
 	private String aldriverid;
 	
@@ -488,6 +492,22 @@ public class MemberResp extends BaseResp{
 	}
 	public void setCompanypercheck(Short companypercheck) {
 		this.companypercheck = companypercheck;
+	}
+
+	public String getPositive() {
+		return positive;
+	}
+
+	public void setPositive(String positive) {
+		this.positive = positive;
+	}
+
+	public String getOpposite() {
+		return opposite;
+	}
+
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
 	
 	

@@ -50,6 +50,8 @@ public interface IVehicleDriverService {
 	 * @time 2016年6月1日 下午2:15:37
 	 */
 	public Result insert(VehicleDriverReq req) throws Exception;
+	/** 已知安联账号，车辆司机绑定*/
+	public Result anlianInsert(VehicleDriverReq req)throws Exception;
 	
 	/**
 	 * 车辆司机关系信息修改后保存操作

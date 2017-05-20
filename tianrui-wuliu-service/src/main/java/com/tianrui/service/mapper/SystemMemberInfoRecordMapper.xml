@@ -39,7 +39,8 @@
     <result column="starttime" property="starttime" jdbcType="VARCHAR" />
     <result column="usefullife" property="usefullife" jdbcType="VARCHAR" />
     <result column="idcardaddress" property="idcardaddress" jdbcType="VARCHAR" />
-    
+    <result column="positive" property="positive" jdbcType="VARCHAR" />
+    <result column="opposite" property="opposite" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -49,7 +50,7 @@
     id, memberid,licenseImagePath, userpercheck, driverpercheck, companypercheck, submittime, status, 
     username, telphone, idcard, idcardimage, driverimage, companyname, companycontact, 
     companycode, companytel, companyAddress, auditid, auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType,
-    sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress
+    sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress,positive,opposite
     
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -82,7 +83,7 @@
       companyname, companycontact, companycode, 
       companytel, companyAddress, auditid, 
       auditname, audittime, auditresson,rtblno,rtblimgurl,licenseType,
-      sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress
+      sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress,positive,opposite
       )
     values (#{id,jdbcType=VARCHAR},#{licenseImagePath,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{userpercheck,jdbcType=VARCHAR}, 
       #{driverpercheck,jdbcType=VARCHAR}, #{companypercheck,jdbcType=VARCHAR}, #{submittime,jdbcType=BIGINT}, 
@@ -98,7 +99,9 @@
       #{licenceorg,jdbcType=VARCHAR},
       #{starttime,jdbcType=VARCHAR},
       #{usefullife,jdbcType=VARCHAR},
-      #{idcardaddress,jdbcType=VARCHAR}
+      #{idcardaddress,jdbcType=VARCHAR},
+      #{positive,jdbcType=VARCHAR},
+      #{opposite,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.SystemMemberInfoRecord" >
@@ -206,6 +209,13 @@
         idcardaddress,
       </if>
       
+      <if test="positive != null" >
+        positive,
+      </if>
+      <if test="opposite != null" >
+        opposite,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -305,6 +315,13 @@
       <if test="idcardaddress != null" >
         #{idcardaddress,jdbcType=VARCHAR},
       </if>
+      
+      <if test="positive != null" >
+        #{positive,jdbcType=VARCHAR},
+      </if>
+      <if test="opposite != null" >
+        #{opposite,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.SystemMemberInfoRecord" >
@@ -314,6 +331,12 @@
     -->
     update member_info_record
     <set >
+    	<if test="positive != null">
+    	positive = #{positive,jdbcType=VARCHAR},
+    	</if>
+    	<if test="opposite != null">
+    	opposite = #{opposite,jdbcType=VARCHAR},
+    	</if>
     	<if test="sex != null">
     	sex = #{sex,jdbcType=VARCHAR},
     	</if>
@@ -418,6 +441,8 @@
     -->
     update member_info_record
     set 
+    	positive = #{positive,jdbcType=VARCHAR},
+    	opposite = #{opposite,jdbcType=VARCHAR},
     	sex = #{sex,jdbcType=VARCHAR},
     	birthday = #{birthday,jdbcType=VARCHAR},
     	firstlicens = #{firstlicens,jdbcType=VARCHAR},

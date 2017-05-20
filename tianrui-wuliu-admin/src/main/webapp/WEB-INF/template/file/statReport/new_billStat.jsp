@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>index</title>
+<title>运单报表统计</title>
 <meta name="keywords" content=" 天瑞" />
 <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
 <link href="${stylesRoot }/base.css" rel="stylesheet">
@@ -100,52 +100,39 @@
 							<div class="pro_opra">
 								<button class="btn btnblue billReport_">导出</button>
 								<button class="btn btnorange printReport">打印</button>
-								<!-- 
-								<div class="pro_opra_r">
-									<label>总计：</label>
-									<div class="pro_opra_rstl pro_opra_rstl1">
-										<p>计划总量</p>
-										<p id="totalSum"></p>
-									</div>
-									<div class="pro_opra_rstl pro_opra_rstl2">
-										<p>实际执行总量</p>
-										<p id="completedSum"></p>
-									</div>
-									<div class="pro_opra_rstl pro_opra_rstl3">
-										<p>含税总金额</p>
-										<p id="completePriceSum"></p>
-									</div>
-								</div>
-								 -->
 							</div>
 							<!--用户表格begin-->
-							<table id="anlianBillReport" class="table table-bordered">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>运单类型</th>
-										<th>业务日期</th>
-	                                    <th>计划单号</th>
-	                                    <th>运单号</th>
-	                                    <th>发货方</th>
-	                                    <th>收货方</th>
-	                                    <th>车主姓名</th>
-	                                    <th>车牌号</th>
-	                                    <th>司机姓名</th>
-	                                    <th>货物名称</th>
-	                                    <th>开始时间</th>
-	                                    <th>结束时间</th>
-	                                    <th>提货数量</th>
-	                                    <th>运输路线</th>
-	                                    <th>计划总量</th>
-	                                    <th>卸货量</th>
-	                                    <th>执行总量</th>
-	                                    <th>运单状态</th>
-									</tr>
-								</thead>
-								<tbody id="innerHml">
-								</tbody>
-							</table>
+							<div style="overflow-x:scroll;">
+								<table id="anlianBillReport" class="table table-bordered" style="white-space: nowrap">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>运单类型</th>
+											<th>业务日期</th>
+		                                    <th>计划单号</th>
+		                                    <th>运单号</th>
+		                                    <th>发货方</th>
+		                                    <th>收货方</th>
+		                                    <th>车主姓名</th>
+		                                    <th>车牌号</th>
+		                                    <th>司机姓名</th>
+		                                    <th>货物名称</th>
+		                                    <th>开始时间</th>
+		                                    <th>结束时间</th>
+		                                   	<th>提货地偏差</th>
+		                                   	<th>卸货地偏差</th>
+		                                    <th>提货数量</th>
+		                                    <th>运输路线</th>
+		                                    <th>计划总量</th>
+		                                    <th>卸货量</th>
+		                                    <th>执行总量</th>
+		                                    <th>运单状态</th>
+										</tr>
+									</thead>
+									<tbody id="innerHml">
+									</tbody>
+								</table>
+							</div>
 							<!--用户表格end-->
 						</div>
 						<!-- 分页部分  开始-->
@@ -234,7 +221,7 @@
 	<script type="text/javascript" src="${scriptsRoot}/select2.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0425"></script>
+	<script type="text/javascript" src="/resources/js/statReport/new_billStat.js?0510"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.search').trigger('click');

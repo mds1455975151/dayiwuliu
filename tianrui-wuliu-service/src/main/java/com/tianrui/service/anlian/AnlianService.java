@@ -82,6 +82,7 @@ public class AnlianService implements IAnlianService{
 			rs.setData(obj.get("driverid").toString());
 		}else {
 			rs.setCode(obj.get("status").toString());
+			rs.setData(info.getIdcard());
 			rs.setError(obj.get("error").toString());
 		}
 		return rs;

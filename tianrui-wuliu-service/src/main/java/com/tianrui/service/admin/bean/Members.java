@@ -26,6 +26,11 @@ public class Members{
 	
 	private String rtblno;
 	
+	/**身份证正面*/
+    private String positive;
+    /** 身份证反面*/
+    private String opposite;
+	
 	private String sex;
     private String birthday;
     private String firstlicens;
@@ -449,6 +454,22 @@ public class Members{
 
 	public void setIdcardaddress(String idcardaddress) {
 		this.idcardaddress = idcardaddress;
+	}
+
+	public String getPositive() {
+		return positive;
+	}
+
+	public void setPositive(String positive) {
+		this.positive = positive;
+	}
+
+	public String getOpposite() {
+		return opposite;
+	}
+
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
 	
 }

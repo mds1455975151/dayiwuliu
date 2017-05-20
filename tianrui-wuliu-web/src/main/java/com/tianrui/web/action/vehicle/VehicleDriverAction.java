@@ -3,6 +3,8 @@ package com.tianrui.web.action.vehicle;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.web.util.SessionManager;
 
 /**
  * 车辆司机处理类
@@ -281,6 +285,17 @@ public class VehicleDriverAction {
 		// 插入操作
 		rs = vehicleDriverService.insert(vehiDriverReq);
 		
+		return rs;
+	}
+	/**已知安联账号，车辆司机绑定
+	 * @throws Exception  */
+	@RequestMapping("alSaveDriverVehicle")
+	@ResponseBody
+	public Result alSaveDriverVehicle(VehicleDriverReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setCreator(vo.getId());
+		vehicleDriverService.anlianInsert(req);
 		return rs;
 	}
 	

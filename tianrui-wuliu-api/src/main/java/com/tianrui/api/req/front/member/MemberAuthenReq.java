@@ -26,6 +26,11 @@ public class MemberAuthenReq {
     private String starttime;
     private String usefullife;
     private String idcardaddress;
+    
+    /**身份证正面*/
+    private String positive;
+    /** 身份证反面*/
+    private String opposite;
 	
     public String getId() {
 		return id;
@@ -122,5 +127,17 @@ public class MemberAuthenReq {
 	}
 	public void setIdcardaddress(String idcardaddress) {
 		this.idcardaddress = idcardaddress;
+	}
+	public String getPositive() {
+		return positive;
+	}
+	public void setPositive(String positive) {
+		this.positive = positive;
+	}
+	public String getOpposite() {
+		return opposite;
+	}
+	public void setOpposite(String opposite) {
+		this.opposite = opposite;
 	}
 }

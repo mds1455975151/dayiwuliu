@@ -20,7 +20,7 @@
     <result column="authStats" property="authstats" jdbcType="TINYINT" />
     <result column="authRemark" property="authremark" jdbcType="VARCHAR" />
     <result column="authUser" property="authuser" jdbcType="VARCHAR" />
-    <result column="authTime" property="authtime" jdbcType="VARCHAR" />
+    <result column="authTime" property="authtime" jdbcType="BIGINT" />
     <result column="createTime" property="createtime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -35,6 +35,29 @@
     from tr_vehicle_driver_new
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    select 
+    <include refid="Base_Column_List" />
+	    from tr_vehicle_driver_new
+	    <where>
+	    	<if test="drivername != null">
+	    		driverName = = #{drivername,jdbcType=VARCHAR}
+	    	</if>
+	    </where>
+  </select>
+  
+  <select id="countByCondition" resultType="long" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
+    select 
+    		count(0)
+	    from tr_vehicle_driver_new
+	    <where>
+	    	<if test="drivername != null">
+	    		driverName = = #{drivername,jdbcType=VARCHAR}
+	    	</if>
+	    </where>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tr_vehicle_driver_new
     where id = #{id,jdbcType=VARCHAR}
@@ -54,7 +77,7 @@
       #{drivercardlicenceorg,jdbcType=VARCHAR}, #{drivercardregdate,jdbcType=VARCHAR}, 
       #{drivercardusefullife,jdbcType=VARCHAR}, #{drivercardtype,jdbcType=VARCHAR}, #{drivercardimg,jdbcType=VARCHAR}, 
       #{checkstatus,jdbcType=TINYINT}, #{authstats,jdbcType=TINYINT}, #{authremark,jdbcType=VARCHAR}, 
-      #{authuser,jdbcType=VARCHAR}, #{authtime,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}
+      #{authuser,jdbcType=VARCHAR}, #{authtime,jdbcType=BIGINT}, #{createtime,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >
@@ -177,7 +200,7 @@
         #{authuser,jdbcType=VARCHAR},
       </if>
       <if test="authtime != null" >
-        #{authtime,jdbcType=VARCHAR},
+        #{authtime,jdbcType=BIGINT},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=BIGINT},
@@ -239,7 +262,7 @@
         authUser = #{authuser,jdbcType=VARCHAR},
       </if>
       <if test="authtime != null" >
-        authTime = #{authtime,jdbcType=VARCHAR},
+        authTime = #{authtime,jdbcType=BIGINT},
       </if>
       <if test="createtime != null" >
         createTime = #{createtime,jdbcType=BIGINT},
@@ -266,7 +289,7 @@
       authStats = #{authstats,jdbcType=TINYINT},
       authRemark = #{authremark,jdbcType=VARCHAR},
       authUser = #{authuser,jdbcType=VARCHAR},
-      authTime = #{authtime,jdbcType=VARCHAR},
+      authTime = #{authtime,jdbcType=BIGINT},
       createTime = #{createtime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>

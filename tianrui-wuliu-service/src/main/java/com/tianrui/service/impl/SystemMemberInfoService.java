@@ -155,7 +155,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setStarttime(record.getStarttime());
 			info.setUsefullife(record.getUsefullife());
 			info.setIdcardaddress(record.getIdcardaddress());
-			
+			info.setPositive(record.getPositive());
+			info.setOpposite(record.getOpposite());
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 			
 			
@@ -296,6 +297,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		info.setLicenseImagePath(req.getLicenseImagePath());
 		info.setRtblimgurl(req.getRtblimgurl());
 		info.setRtblno(req.getRtblno());
+		info.setOpposite(req.getOpposite());
+		info.setPositive(req.getPositive());
 		info.setId(req.getId());
 		
 		int a = systemMemberInfoMapper.updateByPrimaryKeySelective(info);

@@ -150,7 +150,8 @@
             	</a>
                 </li>
                 <li class="bgblue">
-            	<a href="">
+            	<a href="/count/pay">
+            	<!-- 
             		<div class="dtail_tit">
                         <label>运费总额</label>
                         <span class="fr">
@@ -175,7 +176,7 @@
                         39.10万元
                         </span>
                     </div>
-            		<!-- 
+            	 -->
                     <div class="dtail_tit">
                         <label>运费总额</label>
                         <span class="fr">
@@ -216,7 +217,6 @@
 						</c:if>
 						
                     </div>
-                     -->
             	</a>
                 </li>
             </ul>

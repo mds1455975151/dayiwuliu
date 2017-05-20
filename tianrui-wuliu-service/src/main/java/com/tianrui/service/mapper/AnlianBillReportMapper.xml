@@ -26,6 +26,9 @@
     <result column="routename" property="routename" jdbcType="VARCHAR" />
     <result column="orgid" property="orgid" jdbcType="VARCHAR" />
     <result column="palnid" property="palnid" jdbcType="VARCHAR" />
+    
+    <result column="q_deviation" property="q_deviation" jdbcType="DOUBLE" />
+    <result column="d_deviation" property="d_deviation" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List">
   		id, type, createtime, 
@@ -36,7 +39,7 @@
       plancode, shipperMerchant, consigneeMerchant, 
       shipperMerchantname, consigneeMerchantname, 
       remarkname, routename, orgid, 
-      palnid
+      palnid,q_deviation,d_deviation
   </sql>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
   	select 

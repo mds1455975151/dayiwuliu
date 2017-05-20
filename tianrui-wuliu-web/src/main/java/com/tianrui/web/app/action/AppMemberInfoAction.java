@@ -130,17 +130,6 @@ public class AppMemberInfoAction {
 		
 		MemberInfoReq req = appParam.getBody();
 		req.setMemberId(appParam.getHead().getId());
-//		if(!"".equals(req.getDriveImagePath())){
-//			FileUploadReq freq = new FileUploadReq();
-//			freq.setImgStr(req.getDriveImagePath());
-//			result = iFileService.uploadImg(freq);
-//			if("000000".equals(result.getCode())){
-//				req.setDriveImagePath(result.getData().toString());
-//			}else{
-//				return AppResult.valueOf(result);
-//			}
-//		}
-//		req.setDriveImagePath(result.getData().toString());
 		result= systemMemberInfoRecordService.driverAuthentication(req);
 		return AppResult.valueOf(result);
 	}

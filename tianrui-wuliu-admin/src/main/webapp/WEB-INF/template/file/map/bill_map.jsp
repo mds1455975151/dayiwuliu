@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>index</title>
+<title>map</title>
 <meta name="keywords" content=" 天瑞" />
 <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
 <link href="${stylesRoot }/base.css" rel="stylesheet">

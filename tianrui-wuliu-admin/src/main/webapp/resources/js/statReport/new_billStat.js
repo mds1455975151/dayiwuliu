@@ -103,6 +103,11 @@ function innerHTML(data){
 		}
 		var s = a+1;
 		
+		//提货位置偏差
+		var q_deviation = (data[a].q_deviation == undefined || data[a].q_deviation == -1)?"":data[a].q_deviation+"米";
+		//到货位置偏差
+		var d_deviation = (data[a].d_deviation == undefined || data[a].d_deviation == -1)?"":data[a].d_deviation+"米";
+		
 		hml +="<tr>" +
 				"<td>"+s+"</td>" +
 				"<td><a onclick=\"bill_map('"+data[a].type+"','"+data[a].id+"')\"><span>"+data[a].type+"</span></a></td>" +
@@ -117,6 +122,10 @@ function innerHTML(data){
 				"<td>"+data[a].cargoname+"</td>" +
 				"<td>"+data[a].begintimeStr+"</td>" +
 				"<td>"+data[a].unloadtimeStr+"</td>" +
+				
+				"<td>"+q_deviation+"</td>" +
+				"<td>"+d_deviation+"</td>" +
+				
 				"<td>"+pickupweight+"</td>" +
 				"<td>"+data[a].routename+"</td>" +
 				"<td>"+data[a].weight+"</td>" +
@@ -169,7 +178,7 @@ function bill_map(type,id){
 	}else{
 		type = "a";
 	}
-	window.location.href="/report/map?type="+type+"&id="+id+"&menuId=7";
+	window.open("/report/map?type="+type+"&id="+id+"&menuId=7");
 }
 
 function vehicle_details(vehicleno){
@@ -289,6 +298,16 @@ function bill_innerHml(data){
 	if(venderName == undefined){
 		venderName = "";
 	}
+	
+	//提货榜单
+	var pickupimgurl = data.pickupimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.pickupimgurl+"' target='_blank'>查看图片</a></span>");
+	//卸货
+	var signimgurl = data.signimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.signimgurl+"' target='_blank'>查看图片</a></span>");
+	//提货位置偏差
+	var q_deviation = data.q_deviation == undefined?"":data.q_deviation;
+	//到货位置偏差
+	var d_deviation = data.d_deviation == undefined?"":data.d_deviation;
+	
 	var hml = "<div class='file_detail'><label>运单编码：</label><span>"+data.waybillno+"</span></div>"+
 				"<div class='file_detail'><label>组织名称：</label><span>"+orgName+"</span></div>"+
 				"<div class='file_detail'><label>承运商：</label><span>"+venderName+"</span></div>"+
@@ -308,6 +327,10 @@ function bill_innerHml(data){
 				"<div class='file_detail'><label>运单价格：</label><span>"+data.price+"元</span></div>"+
 				"<div class='file_detail2'><label>车辆信息：</label><span>"+data.vehicleno+"</span>" +
 				"<span>"+data.drivername+"</span><span>"+data.drivertel+"</span></div>"+
+				"<div class='file_detail'><label>提货榜单：</label><span>"+pickupimgurl+"</span></div>"+
+				"<div class='file_detail'><label>卸货榜单：</label><span>"+signimgurl+"</span></div>"+
+				"<div class='file_detail'><label>提货位置偏差：</label><span>"+q_deviation+"米</span></div>"+
+				"<div class='file_detail'><label>卸货位置偏差：</label><span>"+d_deviation+"米</span></div>"+
 				"<div class='clear'></div>";
 				$("#Billdetailhml").html(hml);
 }
@@ -354,6 +377,7 @@ function  trimVal(a){
 }
 //导出
 $(".billReport_").on("click",function(){
+	$(".billReport_").attr('disabled',true);
 	$.ajax({
 		type:"post",
 		data:getParams(0),
@@ -361,11 +385,14 @@ $(".billReport_").on("click",function(){
 		success:function(ret){
 			if(ret.data.total>2000){
 				alert("数据超过2000条，请联系管理员导出！");
+				$(".billReport_").attr('disabled',false);
 			}else if(ret.data.total=0){
 				alert("没有要导出的数据！");
+				$(".billReport_").attr('disabled',false);
 			}else{
 				var path = '/report/reload?'+$.param(getParams());
 				$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
+				$(".billReport_").attr('disabled',false);
 			}
 		}
 	});

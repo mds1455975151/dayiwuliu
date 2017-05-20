@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                     </div>
                     <div class="user_shtitle mt20">
-                        <h3>认证文件</h3>
+                        <h3>认证文件</h3><input type="hidden" id="infoid" value="${memberInfo.id }">
                     </div>
                     <div class="row ">
                         <div class="person_cont">
@@ -87,7 +87,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <img height="200" src="${memberInfo.driverimage }">
                             </a>
                             </span>
-                       		<input type="hidden" id="infoid" value="${memberInfo.id }">
+                        </div>
+                        
+                        <div class="person_cont">
+                            <label>身份证正面：</label>
+                            <span> 
+                            <a href="/imageView/index?imageUrl=${memberInfo.positive }" target="_blank">
+                            <img height="200" src="${memberInfo.positive }">
+                            </a>
+                            </span>
+                        </div>
+                        
+                        <div class="person_cont">
+                            <label>身份证反面：</label>
+                            <span> 
+                            <a href="/imageView/index?imageUrl=${memberInfo.opposite }" target="_blank">
+                            <img height="200" src="${memberInfo.opposite }">
+                            </a>
+                            </span>
                         </div>
                     </div>
                     <div class="row ">

@@ -164,9 +164,13 @@ $(".ticket_shenhe").on("click",function(){
 		type:"post",
 		success: function(ret) {
 			if(ret.code!="000000"){
-				$(".ticket_success").show();
 				$(".ticket_shenhe").attr("disabled",false);
-				$("#error_massage").html("错误信息："+ret.error);
+				if(ret.error=="TruckHadBeenRegistered"){
+					$(".ticket_success").show();
+					$("#error_massage").html("错误信息：该车辆已在安联注册");
+				}else{
+					$("#error_massage").html("错误信息：审核失败，请联系后台管理员");
+				}
 			}else{
 				$(".ticket_shenhe").attr("disabled",false);
 				$(".ticket_hide").click();

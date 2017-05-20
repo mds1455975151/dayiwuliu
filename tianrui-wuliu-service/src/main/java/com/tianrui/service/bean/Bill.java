@@ -5,8 +5,12 @@ public class Bill {
 	private String payType;
 	private String payDESC1;
 	
+	
 	private String jtb;
-
+	
+	private Double q_deviation;
+	private Double d_deviation;
+	
 	private String id;
     private String planid;
     private String plancode;
@@ -1189,6 +1193,22 @@ public class Bill {
 
 	public void setIsAssess(String isAssess) {
 		this.isAssess = isAssess;
+	}
+
+	public Double getQ_deviation() {
+		return q_deviation;
+	}
+
+	public void setQ_deviation(Double q_deviation) {
+		this.q_deviation = q_deviation;
+	}
+
+	public Double getD_deviation() {
+		return d_deviation;
+	}
+
+	public void setD_deviation(Double d_deviation) {
+		this.d_deviation = d_deviation;
 	}
 
 }

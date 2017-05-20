@@ -243,7 +243,9 @@ function details(id){
 		}else if(sex == "xy"){
 			sex = "男";
 		}
-		var driveImagePath = a.driveImagePath == ""?"未上传":("<span><a href='/imageView/index?imageUrl="+a.driveImagePath+"' target='_blank'>查看图片</a>");
+		var driveImagePath = a.driveImagePath == undefined?"未上传":("<span><a href='/imageView/index?imageUrl="+a.driveImagePath+"' target='_blank'>查看图片</a>");
+		var idcard_image_A = a.positive == undefined?"未上传":("<span><a href='/imageView/index?imageUrl="+a.positive+"' target='_blank'>查看图片</a>");
+		var idcard_image_B = a.opposite == undefined?"未上传":("<span><a href='/imageView/index?imageUrl="+a.opposite+"' target='_blank'>查看图片</a>");
 		var licenseType = a.licenseType == undefined ? "":a.licenseType;
 		var hml = "<div class='file_detail'><label>司机账号：</label><span>"+a.cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>司机姓名：</label><span>"+userName+"</span></div>"+
@@ -262,7 +264,9 @@ function details(id){
 			"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
 			"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+
-			"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>";
+			"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>"+
+			"<div class='file_detail2'><label>身份证正面：</label><span>"+idcard_image_A+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></span></div>"+
+			"<div class='file_detail2'><label>身份证反面：</label><span>"+idcard_image_B+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></span></div>";
 		document.getElementById("detailid").innerHTML = hml;	
 }
 
