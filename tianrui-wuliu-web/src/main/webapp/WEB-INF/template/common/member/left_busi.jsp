@@ -65,6 +65,23 @@
 	                </div>
 	            </div>
         	</c:when>
+        	<c:when test="${role eq 'cl' }">
+        		<div class="rz_lhead bgblue">
+	                <i class="iconfont icon-user"></i><span>我是车辆</span>
+	            </div>
+	            <div class="rz_list">
+	                <div class="rz_listb bgwhite">
+	                    <ul>
+	                    	<li><a href="/trwuliu/vehicle/new/driverpage"  id="billdriver">我的驾驶员</a></li>
+	                        <li><a href="/trwuliu/vehicle/new//vehicledetail" id="handdriver">我的车辆</a></li>
+	                        <li><a href="/trwuliu/billdriver/main"  id="billdriver">我运输的运单</a></li>
+	                        <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li>
+	                        <li><a href="/trwuliu/payInvoiceDriver/main" id="driverpay">运费结算单</a></li>
+	                        <li><a href="/trwuliu/billAnlian/driver" id="driverAnlian">开票运单</a></li>
+	                    </ul>
+	                </div>
+	            </div>
+        	</c:when>
         </c:choose>
 
             <div class="rz_list">

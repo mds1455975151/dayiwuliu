@@ -8,6 +8,9 @@
 	$('#sjBtn').off('click').on('click',function(){
 		chooseRole('sj');
 	});
+	$('#clBtn').off('click').on('click',function(){
+		chooseRole('cl');
+	});
 	var chooseRole = function(role){
 		$.post(PATH + "/trwuliu/Member/bindRole",{role:role},function(result){
 			if(result.code == '000000'){
