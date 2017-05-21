@@ -64,7 +64,7 @@ public class FileVehicleNewAction {
 		return rs;
 	}
 	
-	/** 创建司机账户和车辆
+	/** 创建司机账户和车辆--后台审核
 	 * @throws Exception */
 	@RequestMapping("saveDriverAndVehicle")
 	@ResponseBody

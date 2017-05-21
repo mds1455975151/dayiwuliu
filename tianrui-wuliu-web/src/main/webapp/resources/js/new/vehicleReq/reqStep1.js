@@ -1,8 +1,71 @@
 $(function(){
+	index_();
+});
+//页面初始状态
+function index_(){
+	$(".lin_renzhen").hide();
 	$(".vehicle_class").show();
 	$(".info_class").hide();
 	$(".driver_class").hide();
+}
+
+//完全认证点击事件
+$("#add_class_w").on("click",function(){
+	//点击后台进入车辆信息显示层
+	$(".vehicel_info").click();
+	//临时/完全认证样式控制
+	$("#add_class_w").addClass("select");
+	$("#add_class_l").removeClass("select");
+	//隐藏input 控制车辆认证类型
+	$("#authType_req").val("1");
+	//显示输入框前小红点
+	$(".authType_style").show();
+	//完全认证输入框显示
+	$(".renzhen").show();
+	//临时认证输入框隐藏
+	$(".lin_renzhen").hide();
+	cleanVehicleNO();
 });
+//临时认证点击事件
+$("#add_class_l").on("click",function(){
+	//点击后台进入车辆信息显示层
+	$(".vehicel_info").click();
+	//临时/完全认证样式控制
+	$("#add_class_l").addClass("select");
+	$("#add_class_w").removeClass("select");
+	//隐藏input 控制车辆认证类型
+	$("#authType_req").val("2");
+	//去掉输入框前小红点
+	$(".authType_style").hide();
+	//临时认证输入框显示
+	$(".lin_renzhen").show();
+	//完全认证输入框隐藏
+	$(".renzhen").hide();
+	//临时认证初始显示为输入车牌号
+	VehilceNo_yuan();
+	cleanVehicleNO()
+});
+//临时认证获取车牌号
+function getVehilceNo(){
+	$("#lin_vehicle").show();
+	$("#you_vehicle").hide();
+	$.ajax({
+		url : '/trwuliu/Member/myVehicle/getVehicleNo',// 跳转到 action
+		data : {},
+		type : "post",
+		success : function(result) {
+			if (result.code == "000000") {
+				$("#vehicle_add_vehiNo").val(result.data);
+				$("#vehicleNo_req").val(result.data);
+			} 
+		}
+	});
+}
+//临时认证输入车牌号
+function VehilceNo_yuan(){
+	$("#lin_vehicle").hide();
+	$("#you_vehicle").show();
+}
 
 //车辆信息点击事件
 $(".vehicel_info").on("click",function(){
@@ -84,20 +147,21 @@ function vehicle_test(){
 }
 /** 验证信息是否完整*/
 function info_test(){
-	
-	if($("#roadTransportNo_req").val()==""){
+	//1-完全认证 2-临时认证
+	var type=$("#authType_req").val();
+	if(type=="1"&&$("#roadTransportNo_req").val()==""){
 		alert("道路运输证号不能为空");
 		return false;
 	}
-	if($("#taxiLicenseNo_req").val()==""){
+	if(type=="1"&&$("#taxiLicenseNo_req").val()==""){
 		alert("经营许可证号不能为空");
 		return false;
 	}
-	if($("#taxiLicenseImg_req_str").val()==""){
+	if(type=="1"&&$("#taxiLicenseImg_req_str").val()==""){
 		alert("请上传经营许可证照片");
 		return false;
 	}
-	if($("#taxiLicenseTerm_req").val()==""){
+	if(type=="1"&&$("#taxiLicenseTerm_req").val()==""){
 		alert("经营许可证有效期不能为空");
 		return false;
 	}
@@ -105,7 +169,7 @@ function info_test(){
 		alert("请上传车辆照片");
 		return false;
 	}
-	if($("#drivingLicenseImg_req_str").val()==""){
+	if(type=="1"&&$("#drivingLicenseImg_req_str").val()==""){
 		alert("请上传行驶证照片");
 		return false;
 	}
@@ -212,8 +276,15 @@ $(".saveVehicleReg").on("click",function(){
 		}
 	});
 });
+
 /** 验证车牌号*/
-$("#vehicleNo_req").on("blur",function(){
+$(".vehicleNo_req_rz").on("blur",function(){
+	$("#vehicleNo_req").val($(this).val());
+	$("#vehicleNo_req").click();
+});
+
+/** 验证车牌号*/
+$("#vehicleNo_req").on("click",function(){
 	//各个省份简称
 	var CityNo="京津沪申渝冀晋辽吉黑苏浙皖闽赣鲁豫鄂湘粤琼川黔贵滇云陕秦甘陇青藏桂蒙宁新港澳台";
 	// 车牌号正则表达式
@@ -244,7 +315,11 @@ $("#vehicleNo_req").on("blur",function(){
 		});
 	}
 });
-
-
+//清除车牌号信息
+function cleanVehicleNO(){
+	$(".vehicleNo_req_rz").val("");
+	$("#vehicleNo_req").val("");
+	$("#vehicleNo_massage").html("");
+}
 
 

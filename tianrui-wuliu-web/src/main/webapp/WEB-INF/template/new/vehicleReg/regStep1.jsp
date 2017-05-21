@@ -76,26 +76,47 @@
 				<div class="car_rzbox">
 					<div class="car_rztab">
 						<ul>
-							<li class="select">完全认证</li>
-							<li>临时认证</li>
+							<li id="add_class_w" class="select">完全认证</li>
+							<li id="add_class_l" class="">临时认证</li>
 						</ul>
 						<div class="car_rzborder"></div>
 					</div>
 					<form id="vehicleRegStep">
 					<div class="car_rztabbox">
+						<input type="hidden" value="1" name="authType" id="authType_req">
 						<!--tab切换的内容  车辆信息-->
 						<div class="cg_tabcont vehicle_class">
 							<div class="rz_carbox">
-								<div class="rz_carsolo">
-									<label>车牌号:</label>
+								
+								<div class="rz_carsolo renzhen">
+									<label><span style="color: red">*</span>车牌号码:</label>
 									<div class="rz_carsolocont">
-										<input name="vehicleNo" id="vehicleNo_req" type="text">
+										<input class="vehicleNo_req_rz" type="text">
 										<br>
 										<span style="color: red" id="vehicleNo_massage"></span>
 									</div>
 								</div>
+								
+								<div class="rz_carsolo lin_renzhen">
+									<label> 
+										<span style="color: red">*</span>
+										车牌号码:
+									</label>
+									<span id="lin_vehicle">
+										<input value="" type="text" id="vehicle_add_vehiNo" class="vehicleNo_req_rz" readonly="readonly">
+										<input style="margin-left: 20px" type="button" class="btn btnblue" onclick="VehilceNo_yuan()" value="已有车牌">
+									</span>
+									<span id="you_vehicle">
+										<input value="" type="text" class="vehicleNo_req_rz">
+										<input style="margin-left: 20px" type="button" class="btn btnblue" onclick="getVehilceNo()" value="获取车牌">
+									</span>
+									<p id="message_vehiNo"></p>
+								</div>
+								
+								<input name="vehicleNo" id="vehicleNo_req" type="hidden">
+								
 								<div class="rz_carsolo">
-									<label>车辆类型:</label>
+									<label><span style="color: red">*</span>车辆类型:</label>
 									<div class="rz_carsolocont">
 										<select class="form-control w350" name="vehicleType" id="vehicleType_req">
 											<option value="">请选择</option>
@@ -107,47 +128,47 @@
 								</div>
 								
 								<div class="rz_carsolo">
-									<label>车长:</label>
+									<label><span style="color: red">*</span>车长:</label>
 									<div class="rz_carsolocont">
-										<input type="text" name="vehicleLen" id="vehicleLen_req">
+										<input type="text" name="vehicleLen" id="vehicleLen_req">米
 									</div>
 								</div>
 								
 								<div class="rz_carsolo">
 									<label>车宽:</label>
 									<div class="rz_carsolocont">
-										<input type="text" name="vehicleWide" id="vehicleWide_req">
+										<input type="text" name="vehicleWide" id="vehicleWide_req">米
 									</div>
 								</div>
 								
 								<div class="rz_carsolo">
 									<label>车高:</label>
 									<div class="rz_carsolocont">
-										<input type="text" name="vehicleHigh" id="vehicleHigh_req">
+										<input type="text" name="vehicleHigh" id="vehicleHigh_req">米
 									</div>
 								</div>
 								
 								<div class="rz_carsolo">
-									<label>载重:</label>
+									<label><span style="color: red">*</span>载重:</label>
 									<div class="rz_carsolocont">
-										<input type="text" name="vehicleLoad" id="vehicleLoad_req">
+										<input type="text" name="vehicleLoad" id="vehicleLoad_req">米
 									</div>
 								</div>
 								
 								<div class="rz_carsolo">
-									<label>所有人:</label>
+									<label><span style="color: red">*</span>所有人:</label>
 									<div class="rz_carsolocont">
 										<input type="text" name="vehicleOwner" id="vehicleOwner_req">
 									</div>
 								</div>
 								<div class="rz_carsolo">
-									<label>联系方式:</label>
+									<label><span style="color: red">*</span>联系方式:</label>
 									<div class="rz_carsolocont">
 										<input type="text" name="vehicleOwnerTel" id="vehicleOwnerTel_req">
 									</div>
 								</div>
 								<div class="rz_carsolo">
-									<label>随车电话:</label>
+									<label><span style="color: red">*</span>随车电话:</label>
 									<div class="rz_carsolocont">
 										<input type="text" name="vehicleMobile" id="vehicleMobile_req">
 									</div>
@@ -163,13 +184,13 @@
 						<div class="cg_tabcont info_class">
 							<div class="rz_carbox">
 								<div class="rz_carsolo">
-									<label>道路运输证号:</label>
+									<label><span class="authType_style" style="color: red">*</span>道路运输证号:</label>
 									<div class="rz_carsolocont">
 										<input type="text" name="roadTransportNo" id="roadTransportNo_req">
 									</div>
 								</div>
 								<div class="rz_carsolo">
-									<label>经营许可证号:</label>
+									<label><span class="authType_style" style="color: red">*</span>经营许可证号:</label>
 									<div class="rz_carsolocont">
 										<input type="text" name="taxiLicenseNo" id="taxiLicenseNo_req">
 										<!--身份证默认图片-->
@@ -184,13 +205,13 @@
 									</div>
 								</div>
 								<div class="rz_carsolo">
-									<label>经营许可证有效期:</label>
+									<label><span class="authType_style" style="color: red">*</span>经营许可证有效期:</label>
 									<div class="rz_carsolocont">
 										<input type="text" name="taxiLicenseTerm" id="taxiLicenseTerm_req">
 									</div>
 								</div>
 								<div class="rz_carsolo">
-									<label>车辆照片:</label>
+									<label><span style="color: red">*</span>车辆照片:</label>
 									<div class="rz_carsolocont">
 										<input type="hidden" name="vehicleImg" id="vehicleImg_req_str">
 										<!--身份证默认图片-->
@@ -205,7 +226,7 @@
 								</div>
 								
 								<div class="rz_carsolo">
-									<label>行驶证:</label>
+									<label><span class="authType_style" style="color: red">*</span>行驶证:</label>
 									<div class="rz_carsolocont">
 										<input type="hidden" name="drivingLicenseImg" id="drivingLicenseImg_req_str">
 										<!--身份证默认图片-->
@@ -476,7 +497,7 @@
 		src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
-    <script type="text/javascript" src="/resources/js/new/vehicleReq/reqStep1.js?0519"></script>
+    <script type="text/javascript" src="/resources/js/new/vehicleReq/reqStep1.js?0521"></script>
     <script type="text/javascript">
     var trRoot = "${trRoot}";
     </script>
