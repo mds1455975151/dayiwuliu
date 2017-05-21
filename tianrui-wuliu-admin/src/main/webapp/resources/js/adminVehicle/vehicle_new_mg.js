@@ -68,14 +68,33 @@ function innerHtml(d){
 	for (var a = 0; a < d.length; a++) {
 		var c = a+1;
 	    var date = new Date(d[a].createTime);
-		hml += "<tr><td>"+c+"</td>"+
+	    var authType = "";
+	    if(d[a].authType=="0"){
+	    	authType="默认";
+	    }else if(d[a].authType=="1"){
+	    	authType="完全认证";
+	    }else if(d[a].authType=="2"){
+	    	authType="临时认证";
+	    }else if(d[a].authType=="3"){
+	    	authType="开票认证";
+	    }
+	    
+	    var checkStatus = "";
+	    if(d[a].checkStatus==0){
+	    	checkStatus="未审核";
+	    }else if(d[a].checkStatus==1){
+	    	checkStatus="通过审核";
+	    }else if(d[a].checkStatus==2){
+	    	checkStatus="审核失败";
+	    }
+	    hml += "<tr><td>"+c+"</td>"+
 			"<td>"+d[a].vehicleNo+"</td>"+
 			"<td>"+d[a].vehicleMobile+"</td>"+
-			"<td>"+d[a].vehicleType+"</td>"+
+			"<td>"+checkVehicleType(d[a].vehicleType)+"</td>"+
 			"<td>"+d[a].vehicleOwner+"</td>"+
 			"<td>"+d[a].vehicleLoad+"</td>"+
-			"<td>新增</td>"+
-			"<td>"+d[a].checkStatus+"</td>"+
+			"<td>"+authType+"</td>"+
+			"<td>"+checkStatus+"</td>"+
 			"<td>"+date.format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 			"<td><span><a data-toggle='modal' onclick=\"detail_id('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";
 			hml += "<span><a data-toggle='modal' onclick=\"VehicleShenhe('"+d[a].id+"')\" data-target='#shenhe'>【审核】</a></span>";
@@ -166,7 +185,7 @@ $(".tongguo").on("click",function(){
 $(".butongguo").on("click",function(){
 	$(this).css('background','#B9D3EE');
 	$(".tongguo").css('background','');
-	$("#vehicle_status").val("-1");
+	$("#vehicle_status").val("2");
 });
 
 function VehicleShenhe(id){
@@ -190,7 +209,7 @@ $(".vehicle_shenhe").on("click",function(){
 		url:"/admin/fileVehicle/saveDriverAndVehicle",
 		type:"post",
 		data:{"id":$("#vehicle_id").val(),
-			"status":$("#vehicle_status").val()
+			"chackType":$("#vehicle_status").val()
 			},
 		success:function(ret){
 			$(".vehicle_shenhe").attr("disabled",false);
@@ -203,4 +222,48 @@ $(".vehicle_shenhe").on("click",function(){
 	});
 })
 
+/** 车辆类型处理*/
+function checkVehicleType(type){
+	switch (type) {
+	case "1":
+		return "厢式"
+		break;
+	case "2":
+		return "板车"
+		break;
+	case "3":
+		return "冷藏"
+		break;
+	case "4":
+		return "散装罐车"
+		break;
+	case "5":
+		return "半挂车"
+		break;
+	case "6":
+		return "重型自卸货车"
+		break;
+	case "7":
+		return "轻型自卸货车"
+		break;
+	case "8":
+		return "三轮农用运输"
+		break;
+	case "9":
+		return "四轮农用普通货车"
+		break;
+	case "10":
+		return "四轮农用自卸车"
+		break;
+	case "11":
+		return "小型轮式拖拉机"
+		break;
+	case "12":
+		return "大型轮式拖拉机"
+		break;
 
+	default:
+		return "暂无此类型"
+		break;
+	}
+}

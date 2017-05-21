@@ -9,5 +9,7 @@ public interface IFileVehicleNewService {
 	/** 查询车辆信息*/
 	PaginationVO<FileVehicleNewResp> find(FileVehicleNewReq req)throws Exception;
 	/** 车辆认证审核通过，并添加司机账户*/
-	Result saveVehicleAndDriver(String id)throws Exception;
+	Result saveVehicleAndDriver(String id ,String chackType)throws Exception;
+	/** 查询车辆详情*/
+	Result selectByid(String id)throws Exception;
 }

@@ -152,6 +152,8 @@ public class VehicleRegService implements IVehicleRegService{
 		VehicleReg bean = new VehicleReg();
 		PropertyUtils.copyProperties(bean, req);
 		bean.setCreateTime(System.currentTimeMillis());
+		//0未审核
+		bean.setCheckStatus((short)0);
 		vehicleRegDao.save(bean);
 		return rs;
 	}

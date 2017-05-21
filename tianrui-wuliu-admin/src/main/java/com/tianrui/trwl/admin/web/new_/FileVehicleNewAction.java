@@ -45,6 +45,15 @@ public class FileVehicleNewAction {
 		rs.setData(resp);
 		return rs;
 	}
+	
+	@RequestMapping("selectId")
+	@ResponseBody
+	public Result selectId(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = fileVehicleNewService.selectByid(id);
+		return rs;
+	}
+	
 	/** mongodb 司机信息查询*/
 	@RequestMapping("/find")
 	@ResponseBody
@@ -68,9 +77,9 @@ public class FileVehicleNewAction {
 	 * @throws Exception */
 	@RequestMapping("saveDriverAndVehicle")
 	@ResponseBody
-	public Result saveDriverAndVehicle(String id) throws Exception{
+	public Result saveDriverAndVehicle(String id,String chackType) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = fileVehicleNewService.saveVehicleAndDriver(id);
+		rs = fileVehicleNewService.saveVehicleAndDriver(id,chackType);
 		return rs;
 	}
 	

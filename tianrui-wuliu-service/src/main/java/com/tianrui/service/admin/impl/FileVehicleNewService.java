@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,18 @@ import org.springframework.stereotype.Service;
 import com.tianrui.api.admin.intf.IFileVehicleNewService;
 import com.tianrui.api.req.admin.vehicle_new.FileVehicleNewReq;
 import com.tianrui.api.resp.admin.vehicle_new.FileVehicleNewResp;
+import com.tianrui.common.utils.Md5Utils;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleReg;
 import com.tianrui.service.bean.vehiclereg.FileVehicleNew;
 import com.tianrui.service.bean.vehiclereg.VehicleDriverNew;
 import com.tianrui.service.mapper.FileVehicleNewMapper;
+import com.tianrui.service.mapper.SystemMemberInfoMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverNewMapper;
 import com.tianrui.service.mongo.VehicleRegDao;
 @Service
@@ -29,6 +35,10 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 	VehicleRegDao vehicleRegDao;
 	@Autowired
 	VehicleDriverNewMapper vehicleDriverNewMapper;
+	@Autowired
+	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	SystemMemberInfoMapper systemMemberInfoMapper;
 	
 	@Override
 	public PaginationVO<FileVehicleNewResp> find(FileVehicleNewReq req) throws Exception {
@@ -60,18 +70,50 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 	}
 
 	@Override
-	public Result saveVehicleAndDriver(String id) throws Exception {
+	public Result saveVehicleAndDriver(String id,String chackType) throws Exception {
 		Result rs = Result.getSuccessResult();
 		VehicleReg req = vehicleRegDao.findVehicleById(id);
-		String driverid = UUIDUtil.getId();
-		String vehicleid = UUIDUtil.getId();
-		//创建司机账号
-		saveDrvier(req,vehicleid,driverid);
-		//创建车辆
-		saveVehicle(req,vehicleid,driverid);
+		short a = 0;
+		if(req.getCheckStatus()!=a){
+			rs.setCode("1");
+			rs.setError("该车辆已经审核过了");
+			return rs;
+		}else{
+			//审核通过
+			if(StringUtils.equals("1", chackType)){
+				String driverid = UUIDUtil.getId();
+				String vehicleid = UUIDUtil.getId();
+				//创建司机账号
+				saveDrvier(req,vehicleid,driverid);
+				//创建车辆
+				saveVehicle(req,vehicleid,driverid);
+				saveVehicle_member(vehicleid,req.getVehicleNo());
+				req.setCheckStatus((short)1);
+			}else if(StringUtils.equals("2", chackType)){//审核不通过
+				req.setCheckStatus((short)2);
+			}
+			vehicleRegDao.remove(req.getId());
+			vehicleRegDao.save(req);
+		}
 		return rs;
 	}
-	/** 创建司机账户*/
+	/** 创建车辆登录账号*/
+	protected void saveVehicle_member(String id,String vehicleNo) {
+		//TODO
+		SystemMember member = new SystemMember();
+		member.setId(id);
+		member.setCellphone(vehicleNo);
+		member.setStatus("1");
+		//默认密码666666
+		member.setPassword(Md5Utils.MD5("666666"));
+		systemMemberMapper.insertSelective(member);
+		SystemMemberInfo info = new SystemMemberInfo();
+		info.setId(id);
+		info.setMemberid(id);
+		systemMemberInfoMapper.insertSelective(info);
+	}
+	
+	/** 司机账户*/
 	protected String saveDrvier(VehicleReg req,String vehicleid,String driverid){
 		
 		VehicleDriverNew vd = new VehicleDriverNew();
@@ -130,13 +172,23 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 //		ve.setIdentification(req.getidentification);
 //		ve.setMotor(req.getmotor);
 //		ve.setMotorno(req.getmotorno);
-		//完全认证
-		ve.setAuthtype((byte)2);
+		//0:默认 1:完全  2:临时  3:开票
+		ve.setAuthtype((byte)req.getAuthType());
 		//用户添加
-		ve.setVehiclesource((byte)2);
+		ve.setVehiclesource((byte)1);
 		//空闲状态
 		ve.setBillstatus((byte) 0);
 		ve.setCreatetime(System.currentTimeMillis());
 		fileVehicleNewMapper.insertSelective(ve);
+	}
+
+	@Override
+	public Result selectByid(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		FileVehicleNewResp resp = new FileVehicleNewResp();
+		FileVehicleNew ne = fileVehicleNewMapper.selectByPrimaryKey(id);
+		PropertyUtils.copyProperties(resp, ne);
+		rs.setData(resp);
+		return rs;
 	}
 }
