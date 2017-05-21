@@ -20,4 +20,6 @@ public interface VehicleDriverNewMapper {
     List<VehicleDriverNew> selectByCondition(VehicleDriverNew record);
     
     long countByCondition(VehicleDriverNew record);
+    
+    void updateCheckStatusByVehicleId(String vId);
 }

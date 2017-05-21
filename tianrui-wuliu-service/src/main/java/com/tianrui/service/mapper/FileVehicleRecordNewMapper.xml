@@ -48,6 +48,16 @@
     from tr_file_vehicle_record_new
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_file_vehicle_record_new
+   	<where>
+   	   <if test="vehicleid != null" >
+         and  vehicleId = #{vehicleid,jdbcType=VARCHAR} and authType != -1
+      </if>
+   	</where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tr_file_vehicle_record_new
     where id = #{id,jdbcType=VARCHAR}
@@ -408,5 +418,12 @@
       authUser = #{authuser,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <update id="disableVehicleRecord"  parameterType="java.lang.String">
+    update tr_file_vehicle_record_new
+    set authType = -1
+    where vehicleId = #{vId,jdbcType=VARCHAR}
   </update>
 </mapper>

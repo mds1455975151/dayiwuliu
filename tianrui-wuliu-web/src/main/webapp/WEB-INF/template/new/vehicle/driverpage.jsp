@@ -47,18 +47,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                            <td>身份证号：${item.idcard }</td>
 			                            <td >状态：
 			                            	<c:if test="${ item.authSatus=='1'}">
-			                            	<label class="coloryello">已审核</label> 
+			                            	<label class="colorblue">已审核</label> 
 			                            	</c:if>
 			                            	<c:if test="${ item.authSatus=='2'}">
 			                            	<label class="coloryello">审核中</label> 
 			                            	</c:if>
 			                            	<c:if test="${ item.authSatus=='3'}">
-			                            	<label class="coloryello">审核失败</label> 
+			                            	<label class="colorgray">审核失败</label> 
 			                            	</c:if>
 			                            </td>
 			                            <td class="f12 bill_lineh2">
-											<c:if test="${item.checkStatus =='0' }">
-												<button class="btn btnfail">选择</button>
+											<c:if test="${item.checkStatus =='0' && item.authSatus=='1'  }">
+												<button class="btn btnblue chooseBtn"  dataId="${item.id}" dataName="${item.name}">选择</button>
+											</c:if>
+											<c:if test="${item.checkStatus =='1'  }">
+												<button class="btn btnyello" dataId="${item.id}">已选择</button>
+											</c:if>
+											<c:if test="${ item.authSatus=='3'  }">
+												<button class="btn btnblue delBtn" dataId="${item.id}" dataName="${item.name}">删除</button>
 											</c:if>
 			                            </td>
 			                        </tr>
@@ -77,5 +83,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
+		<script>
+			$(function(){
+				$(".delBtn").click(function(){
+					var title=$(this).attr("dataName");
+					var id=$(this).attr("dataId");
+					confirm("操作提示","确认删除驾驶员["+title+"]吗,是否确认操作?",function(){
+						$.ajax({
+							url : '/trwuliu/vehicle/new/driverDel',// 跳转到 action
+							data : {"id":id},
+							type : "post",
+							dataType:"json",
+							success : function(result) {
+								if(result.code=="000000"){
+									alert("操作成功","提示",function(){
+										window.location.reload(true);
+									});
+								}else{
+									alert(result.error,"提示",function(){
+										window.location.reload(true);
+									});
+								}
+							}
+						}); 
+					});
+				});	
+				$(".chooseBtn").click(function(){
+					var title=$(this).attr("dataName");
+					var id=$(this).attr("dataId");
+					confirm("操作提示","确认选中该驾驶员["+title+"]为当前驾驶员吗,是否确认操作?",function(){
+						$.ajax({
+							url : '/trwuliu/vehicle/new/driverCheck',// 跳转到 action
+							data : {"id":id},
+							type : "post",
+							dataType:"json",
+							success : function(result) {
+								if(result.code=="000000"){
+									alert("操作成功","提示",function(){
+										window.location.reload(true);
+									});
+								}else{
+									alert(result.error,"提示",function(){
+										window.location.reload(true);
+									});
+								}
+							}
+						}); 
+					});
+				});	
+			})
+		</script>
 	</body>
 </html>

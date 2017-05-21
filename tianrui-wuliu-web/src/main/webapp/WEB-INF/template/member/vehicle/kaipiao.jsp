@@ -84,10 +84,9 @@
 				</div>
 				</form>
 			</div>
+			<!--个人中心右侧end-->
 		</div>
-		<!-- 个人车辆end -->
 	</div>
-	<!--个人中心右侧end-->
 </div>
 <!--上传进度条-->
 <a id="showload" data-toggle="modal" data-target="#detail"></a>

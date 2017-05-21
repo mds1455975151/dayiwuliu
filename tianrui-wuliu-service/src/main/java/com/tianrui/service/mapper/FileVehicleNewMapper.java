@@ -20,4 +20,5 @@ public interface FileVehicleNewMapper {
     List<FileVehicleNew> selectByContent(FileVehicleNew record);
     
     long selectByCount(FileVehicleNew record);
+    
 }

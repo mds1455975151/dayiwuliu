@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.vehicle;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 我的车辆详情
  * 
@@ -29,8 +31,10 @@ public class VehicleRegVehicleDetailResp {
 	/**
 	 * 认证信息
 	 */
-	// 认证类型 临时认证 ,完全认证中,完全认证中,开票认证中,开票认证
+	// 认证状态 临时认证 ,完全认证中,完全认证中,开票认证中,开票认证
 	private String authstatus;
+	//认证类型
+	private String authType;
 	// 营运证号
 	private String taxiLicenseNo;
 	// 道路运输证号
@@ -47,6 +51,24 @@ public class VehicleRegVehicleDetailResp {
 	private String vehicleGradeNo;
 	// 车辆登记证图片
 	private String vehicleGradeImg;
+	
+	/**
+	 * 开票认证
+	 */
+	//使用性质 1-营运 2-非营运
+	private String nature;
+	//总质量
+	private String quality;
+	//证件号码
+	private String idcardno;
+	//登记证书编号
+	private String certificateno;
+	//检验有效期止
+	private String expirydata;
+	//车辆识别码
+	private String identification;
+	//发动机号
+	private String motor;
 	public String getVehicleNo() {
 		return vehicleNo;
 	}
@@ -154,6 +176,77 @@ public class VehicleRegVehicleDetailResp {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getAuthType() {
+		return authType;
+	}
+	public String getAuthTypeStr() {
+		String rs="";
+		if( StringUtils.equals("1", this.getAuthType()) ){
+			rs="临时认证";
+		}else if( StringUtils.equals("2", this.getAuthType()) ){
+			rs="完全认证";
+		}else if(StringUtils.equals("3", this.getAuthType())){
+			rs="开票认证";
+		}
+		return rs;
+	}
+	public String getAuthstatusStr(){
+		String rs="";
+		if( StringUtils.equals("1", this.getAuthstatus()) ){
+			rs="通过";
+		}else if( StringUtils.equals("2", this.getAuthstatus()) ){
+			rs="中";
+		}else if(StringUtils.equals("3", this.getAuthstatus())){
+			rs="失败 ";
+		}
+		return rs;
+	}
+	public void setAuthType(String authType) {
+		this.authType = authType;
+	}
+	public String getNature() {
+		return nature;
+	}
+	public void setNature(String nature) {
+		this.nature = nature;
+	}
+	public String getQuality() {
+		return quality;
+	}
+	public void setQuality(String quality) {
+		this.quality = quality;
+	}
+	public String getIdcardno() {
+		return idcardno;
+	}
+	public void setIdcardno(String idcardno) {
+		this.idcardno = idcardno;
+	}
+	public String getCertificateno() {
+		return certificateno;
+	}
+	public void setCertificateno(String certificateno) {
+		this.certificateno = certificateno;
+	}
+	public String getExpirydata() {
+		return expirydata;
+	}
+	public void setExpirydata(String expirydata) {
+		this.expirydata = expirydata;
+	}
+	public String getIdentification() {
+		return identification;
+	}
+	public void setIdentification(String identification) {
+		this.identification = identification;
+	}
+	public String getMotor() {
+		return motor;
+	}
+	public void setMotor(String motor) {
+		this.motor = motor;
 	}
 	
 	

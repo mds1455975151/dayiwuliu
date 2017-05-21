@@ -103,7 +103,7 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 			VehicleDriverNew dbBean=vehicleDriverNewMapper.selectByPrimaryKey(req.getId());
 			//验证是否为当前用户
 			if( dbBean !=null && StringUtils.equals(dbBean.getVehicleid(), req.getCurrVId())){
-				//vehicleDriverNewMapper.updateCheckStatusByVehicleId(dbBean.getVehicleid());
+				vehicleDriverNewMapper.updateCheckStatusByVehicleId(dbBean.getVehicleid());
 				
 				VehicleDriverNew update = new VehicleDriverNew();
 				update.setCheckstatus((byte)1);
@@ -120,34 +120,15 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 		Result rs =Result.getErrorResult();
 		//TODO 我的车辆信息  认证成功的就获取认证成功的.  认证中的就获取
 		if( req!=null && StringUtils.isNotBlank(req.getCurrVId()) ){
-			FileVehicleNew dbBean=fileVehicleNewMapper.selectByPrimaryKey(req.getCurrVId());
-			if( dbBean !=null ){
-				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-				VehicleRegVehicleDetailResp resp=new VehicleRegVehicleDetailResp();
-				resp.setId(dbBean.getId());
-				resp.setVehicleNo(dbBean.getVehicleno());
-				resp.setVehicleMobile(dbBean.getVehiclemobile());
-				resp.setAuthTime(DateUtil.getDateString(dbBean.getCreatetime(),"yyyy-MM-dd HH:mm:ss"));
-				resp.setVehicleType(dbBean.getVehicletype());
-				resp.setVehicleLen(dbBean.getVehiclelen()+"米");
-				resp.setVehicleLoad(dbBean.getVehicleload()+"吨");
-				resp.setVehicleOwner(dbBean.getVehicleowner());
-				resp.setVehicleOwnerTel(dbBean.getVehicleownerTel());
-				resp.setAuthstatus(String.valueOf(dbBean.getAuthtype()));
-				
-				resp.setTaxiLicenseNo(dbBean.getTaxilicenseno());
-				resp.setRoadTransportNo(dbBean.getRoadtransportno());
-				resp.setTaxiLicenseImg(dbBean.getTaxilicenseimg());
-				
-				resp.setVehicleImg(dbBean.getVehicleimg());
-				
-				resp.setDrivingLicenseNo(dbBean.getDrivinglicenseno());
-				resp.setDrivingLicenseImg(dbBean.getDrivinglicenseimg());
-				
-				resp.setVehicleGradeNo(dbBean.getVehiclegradeno());
-				resp.setVehicleGradeImg(dbBean.getVehiclegradeimg());
-				
-				rs.setData(resp);
+			//先去记录表 再取认证表 记录表有数据就不取了
+			FileVehicleRecordNew query = new FileVehicleRecordNew();
+			query.setVehicleid(req.getCurrVId());
+			List<FileVehicleRecordNew>  dblist= fileVehicleRecordNewMapper.selectByCondition(query);
+			if( CollectionUtils.isNotEmpty(dblist)){
+				rs =convertDetailRs(dblist.get(0));
+			}else{
+				FileVehicleNew dbBean=fileVehicleNewMapper.selectByPrimaryKey(req.getCurrVId());
+				rs =convertDetailRs(dbBean);
 			}
 		}
 		return rs;
@@ -163,33 +144,36 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 	@Override
 	public Result vehicleAuthTicket(VechicleRegVehicleTicketAuthReq req) {
 		Result rs =Result.getErrorResult();
-		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
+		if( req !=null && StringUtils.isNotBlank(req.getCurrVId()) && StringUtils.isNotBlank(req.getQuality())){
+			//修改其他的记录信息为作废记录 
+			fileVehicleRecordNewMapper.disableVehicleRecord(req.getCurrVId());
 			//获取车辆信息
 			FileVehicleNew dbBean=fileVehicleNewMapper.selectByPrimaryKey(req.getCurrVId());
-			if( dbBean !=null ){
-				//修改其他的记录信息为作废记录 
-				//fileVehicleRecordNewMapper.update
-				FileVehicleRecordNew  saveBean =new FileVehicleRecordNew();
-				try {
-					//原有信息记录
-					BeanUtils.copyProperties(saveBean, dbBean);
-					saveBean.setId(UUIDUtil.getId());
-					saveBean.setCreatetime(System.currentTimeMillis());
-					
-					//新信息保存
-					saveBean.setAuthtype(Byte.valueOf("3"));
-					saveBean.setNature(req.getNature());
-					saveBean.setQuality(req.getQuality());
-					saveBean.setIdcardno(req.getIdcardno());
-					saveBean.setCertificateno(req.getCertificateno());
-					saveBean.setExpirydata(req.getExpirydata());
-					saveBean.setIdentification(req.getIdentification());
-					saveBean.setMotor(req.getMotor());
-					saveBean.setMotorno(req.getMotor());
-					fileVehicleRecordNewMapper.insert(saveBean);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			FileVehicleRecordNew  saveBean =new FileVehicleRecordNew();
+			try {
+				//原有信息记录
+				BeanUtils.copyProperties(saveBean, dbBean);
+				saveBean.setId(UUIDUtil.getId());
+				saveBean.setCreatetime(System.currentTimeMillis());
+				saveBean.setVehicleid(req.getCurrVId());
+				
+				//新信息保存
+				//认证中
+				saveBean.setAuthstatus(Byte.valueOf("2"));
+				//开票认证
+				saveBean.setAuthtype(Byte.valueOf("3"));
+				saveBean.setNature(req.getNature());
+				saveBean.setQuality(req.getQuality());
+				saveBean.setIdcardno(req.getIdcardno());
+				saveBean.setCertificateno(req.getCertificateno());
+				saveBean.setExpirydata(req.getExpirydata());
+				saveBean.setIdentification(req.getIdentification());
+				saveBean.setMotor(req.getMotor());
+				saveBean.setMotorno(req.getMotor());
+				fileVehicleRecordNewMapper.insert(saveBean);
+				rs =Result.getSuccessResult();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		
@@ -236,6 +220,80 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 				}
 			}
 		}
+		return rs;
+	}
+	
+	private Result convertDetailRs(FileVehicleRecordNew dbBean){
+		Result rs = Result.getSuccessResult();
+		VehicleRegVehicleDetailResp resp=new VehicleRegVehicleDetailResp();
+		resp.setId(dbBean.getId());
+		resp.setVehicleNo(dbBean.getVehicleno());
+		resp.setVehicleMobile(dbBean.getVehiclemobile());
+		resp.setAuthTime(DateUtil.getDateString(dbBean.getCreatetime(),"yyyy-MM-dd HH:mm:ss"));
+		resp.setVehicleType(dbBean.getVehicletype());
+		resp.setVehicleLen(dbBean.getVehiclelen()+"米");
+		resp.setVehicleLoad(dbBean.getVehicleload()+"吨");
+		resp.setVehicleOwner(dbBean.getVehicleowner());
+		resp.setAuthstatus(String.valueOf(dbBean.getAuthstatus()));
+		resp.setAuthType(String.valueOf(dbBean.getAuthtype()));
+		resp.setTaxiLicenseNo(dbBean.getTaxilicenseno());
+		resp.setRoadTransportNo(dbBean.getRoadtransportno());
+		resp.setTaxiLicenseImg(dbBean.getTaxilicenseimg());
+		resp.setVehicleImg(dbBean.getVehicleimg());
+		resp.setDrivingLicenseNo(dbBean.getDrivinglicenseno());
+		resp.setDrivingLicenseImg(dbBean.getDrivinglicenseimg());
+		
+		resp.setVehicleGradeNo(dbBean.getVehiclegradeno());
+		resp.setVehicleGradeImg(dbBean.getVehiclegradeimg());
+		
+		resp.setNature(dbBean.getNature());
+		resp.setQuality(dbBean.getQuality());
+		resp.setIdcardno(dbBean.getIdcardno());
+		resp.setCertificateno(dbBean.getCertificateno());
+		resp.setExpirydata(dbBean.getExpirydata());
+		resp.setIdentification(dbBean.getIdentification());
+		resp.setMotor(dbBean.getMotor());
+		
+		rs.setData(resp);
+		return rs;
+	}
+	
+	private Result convertDetailRs(FileVehicleNew dbBean){
+		Result rs = Result.getSuccessResult();
+		VehicleRegVehicleDetailResp resp=new VehicleRegVehicleDetailResp();
+		resp.setId(dbBean.getId());
+		resp.setVehicleNo(dbBean.getVehicleno());
+		resp.setVehicleMobile(dbBean.getVehiclemobile());
+		resp.setAuthTime(DateUtil.getDateString(dbBean.getCreatetime(),"yyyy-MM-dd HH:mm:ss"));
+		resp.setVehicleType(dbBean.getVehicletype());
+		resp.setVehicleLen(dbBean.getVehiclelen()+"米");
+		resp.setVehicleLoad(dbBean.getVehicleload()+"吨");
+		resp.setVehicleOwner(dbBean.getVehicleowner());
+		resp.setVehicleOwnerTel(dbBean.getVehicleownerTel());
+		//认证状态
+		resp.setAuthstatus("1");
+		resp.setAuthType(String.valueOf(dbBean.getAuthtype()));
+		resp.setTaxiLicenseNo(dbBean.getTaxilicenseno());
+		resp.setRoadTransportNo(dbBean.getRoadtransportno());
+		resp.setTaxiLicenseImg(dbBean.getTaxilicenseimg());
+		
+		resp.setVehicleImg(dbBean.getVehicleimg());
+		
+		resp.setDrivingLicenseNo(dbBean.getDrivinglicenseno());
+		resp.setDrivingLicenseImg(dbBean.getDrivinglicenseimg());
+		
+		resp.setVehicleGradeNo(dbBean.getVehiclegradeno());
+		resp.setVehicleGradeImg(dbBean.getVehiclegradeimg());
+		
+		resp.setNature(dbBean.getNature());
+		resp.setQuality(dbBean.getQuality());
+		resp.setIdcardno(dbBean.getIdcardno());
+		resp.setCertificateno(dbBean.getCertificateno());
+		resp.setExpirydata(dbBean.getExpirydata());
+		resp.setIdentification(dbBean.getIdentification());
+		resp.setMotor(dbBean.getMotor());
+		
+		rs.setData(resp);
 		return rs;
 	}
 	

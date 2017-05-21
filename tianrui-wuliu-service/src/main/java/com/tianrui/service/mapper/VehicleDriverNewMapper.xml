@@ -296,4 +296,9 @@
       createTime = #{createtime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateCheckStatusByVehicleId" parameterType="java.lang.String" >
+    update tr_vehicle_driver_new
+    set checkStatus =0
+    where vehicleId = #{vId,jdbcType=VARCHAR}
+  </update>
 </mapper>

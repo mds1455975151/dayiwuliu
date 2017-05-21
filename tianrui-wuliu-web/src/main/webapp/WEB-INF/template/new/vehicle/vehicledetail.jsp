@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	    <title>new-我的运力</title>
+	    <title>我的车辆</title>
 	    <meta name="keywords" content=" 天瑞"/>
 	    <meta name="description" content="">
 	    <meta name="author" content="">
@@ -32,6 +32,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		             <div class="rz_right">
 		                <div class="car_title bgblue">
 		                    <h2>我的车辆</h2>
+		                    <!-- 开票认证    开票认证失败  完全认证成功 -->
+		                    <c:if test="${(vehicle.authType=='3' && vehicle.authstatus=='3')||(vehicle.authType=='2' && vehicle.authstatus=='1')}">
+			                    <a href="ticketAuthView"><span>开票认证</span></a>
+		                    </c:if>
+		                    <!-- 完全认证  完全认证失败  临时认证成功 -->
+		                    <c:if test="${(vehicle.authType=='2' && vehicle.authstatus=='3')||(vehicle.authType=='1' && vehicle.authstatus=='1')}">
+			                    <a href="#"><span>完全认证</span></a>
+		                    </c:if>
 		                </div>
 		                <div class="mycar_dt">
 	                    <div style="width: 100%;margin-bottom: 30px;">
@@ -60,9 +68,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <label>联系方式：${vehicle.vehicleOwnerTel }</label>
 	                        </div>
 	                        <div class="mycar_dtsolo">
-	                            <label>认证类型：</label>
-	                            <span class="coloryello">${vehicle.authstatus }</span>
+	                            <label>认证状态：</label>
+	                            <span class="coloryello">${vehicle.authTypeStr }${vehicle.authstatusStr }</span>
 	                        </div>
+	                          <!-- 开票认证信息 -->
+	                    <c:if test="${vehicle.authType=='3'}" >
+	                       <div class="mycar_dtsolo">
+	                            <label>使用性质：${vehicle.nature }</label>
+	                       </div>
+	                       <div class="mycar_dtsolo">
+	                            <label>总质量：${vehicle.quality }</label>
+	                       </div>
+	                       <div class="mycar_dtsolo">
+	                            <label>登记证书编号：${vehicle.certificateno }</label>
+	                       </div>
+	                       <div class="mycar_dtsolo">
+	                            <label>证件号码：${vehicle.idcardno }</label>
+	                       </div>
+	                       <div class="mycar_dtsolo">
+	                            <label>检验有效期止：${vehicle.expirydata }</label>
+	                       </div>
+	                       <div class="mycar_dtsolo">
+	                            <label>车辆识别码：${vehicle.identification }</label>
+	                       </div>
+	                       <div class="mycar_dtsolo">
+	                            <label>发动机号：${vehicle.motor }</label>
+	                       </div>
+	                    </c:if>
+	                    <!--开票认证信息end  -->
 	                    </div>
 	                    <div class="clear"></div>
 	                    <div class="mycar_div">
@@ -79,10 +112,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        <img src="${vehicle.drivingLicenseImg }">
 	                    </div>
 	                    <div class="mycar_div">
-	                        <p>车辆等级证：${vehicle.vehicleGradeNo }</p>
+	                        <p>车辆登记证：${vehicle.vehicleGradeNo }</p>
 	                        <img src="${vehicle.vehicleGradeImg }">
 	                    </div>
-	                    
 	                </div>
 	            </div>		
 		            <!--个人中心右侧end-->

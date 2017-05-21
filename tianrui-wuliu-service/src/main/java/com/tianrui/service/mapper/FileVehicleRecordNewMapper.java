@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.vehiclereg.FileVehicleRecordNew;
 
 public interface FileVehicleRecordNewMapper {
@@ -14,4 +16,9 @@ public interface FileVehicleRecordNewMapper {
     int updateByPrimaryKeySelective(FileVehicleRecordNew record);
 
     int updateByPrimaryKey(FileVehicleRecordNew record);
+    
+    //作废记录表车辆信息
+    void disableVehicleRecord(String vId);
+    
+    List<FileVehicleRecordNew> selectByCondition(FileVehicleRecordNew record);
 }

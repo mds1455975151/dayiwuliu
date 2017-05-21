@@ -40,9 +40,19 @@ var _userName="${user.userName}";
 var _compantName="${user.companyName}";
 var rsd = "${session_member.driverpercheck}";
 var trImgRoot = "${trRoot}/tianrui/images/";
-window.alert =function(msg,title){
+window.alert =function(msg,title,callback){
 	$("#modal_common_content").html(msg);
 	$("#modal_common_title").html(title||"确认");
+	if(callback){
+		$("#commonModal").off("click",".closeBtn").on("click",".closeBtn",function(){
+			$("#commonModal").modal("hide");
+			callback();
+		});
+	}else{
+		$("#commonModal").off("click",".closeBtn").on("click",".closeBtn",function(){
+			$("#commonModal").modal("hide");
+		});
+	}
 	$("#commonModal").modal();
 }
 window.confirm =function(msg,title,commitCallback,cancelCallBack){
