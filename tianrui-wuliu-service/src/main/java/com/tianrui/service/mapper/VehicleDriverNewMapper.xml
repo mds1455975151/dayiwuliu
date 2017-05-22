@@ -48,6 +48,9 @@
 	    		vehicleId =#{vehicleid,jdbcType=VARCHAR}
 	    	</if>
 	    </where>
+	    <if test="start != null">
+	    	limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+	    </if>
   </select>
   
   <select id="countByCondition" resultType="long" parameterType="com.tianrui.service.bean.vehiclereg.VehicleDriverNew" >

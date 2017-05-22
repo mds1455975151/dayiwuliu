@@ -21,4 +21,6 @@ public interface FileVehicleRecordNewMapper {
     void disableVehicleRecord(String vId);
     
     List<FileVehicleRecordNew> selectByCondition(FileVehicleRecordNew record);
+    
+    long selectByCount(FileVehicleRecordNew record);
 }

@@ -52,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        <div class="mycar_dtsolo">
 	                            <label>随车电话：${vehicle.vehicleMobile }</label>
 	                        </div>
-	                        <div class="mycar_dtsolo">
-	                            <label>车辆类型：${vehicle.vehicleType }</label>
+	                        <div class="mycar_dtsolo"><input type="hidden" id="vehicleType" value="${vehicle.vehicleType }">
+	                            <label>车辆类型：<span id="vehicleType_req"></span></label>
 	                        </div>
 	                        <div class="mycar_dtsolo">
 	                            <label>车长：${vehicle.vehicleLen }</label>
@@ -126,5 +126,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 		<script type="text/javascript"> var trRoot = "${trRoot}";</script>
+		<script type="text/javascript">
+		$(function(){
+			var vehicleType = $("#vehicleType").val();
+			$("#vehicleType_req").html(checkVehicleType(vehicleType));
+		});
+			/** 车辆类型处理*/
+			function checkVehicleType(type){
+				switch (type) {
+				case "1":
+					return "厢式"
+					break;
+				case "2":
+					return "板车"
+					break;
+				case "3":
+					return "冷藏"
+					break;
+				case "4":
+					return "散装罐车"
+					break;
+				case "5":
+					return "半挂车"
+					break;
+				case "6":
+					return "重型自卸货车"
+					break;
+				case "7":
+					return "轻型自卸货车"
+					break;
+				case "8":
+					return "三轮农用运输"
+					break;
+				case "9":
+					return "四轮农用普通货车"
+					break;
+				case "10":
+					return "四轮农用自卸车"
+					break;
+				case "11":
+					return "小型轮式拖拉机"
+					break;
+				case "12":
+					return "大型轮式拖拉机"
+					break;
+
+				default:
+					return "暂无此类型"
+					break;
+				}
+			}
+		</script>
 	</body>
 </html>

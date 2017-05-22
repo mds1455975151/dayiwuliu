@@ -62,9 +62,12 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 			saveBean.setId(UUIDUtil.getId());
 			saveBean.setCreatetime(System.currentTimeMillis());
 			saveBean.setVehicleid(req.getCurrVId());
+			//0未选中 1已经选中
 			saveBean.setCheckstatus((byte)0);
-			saveBean.setAuthstats((byte)0);
+			//0 未审核 1审核成功 2审核中 3审核失败
+			saveBean.setAuthstats((byte)2);
 			
+			saveBean.setDriverlinktel(req.getDriverLinkTel());
 			saveBean.setDrivername(req.getDriverName());
 			saveBean.setDriversex(req.getDriverSex());
 			saveBean.setDriveridcard(req.getDriverIdCard());

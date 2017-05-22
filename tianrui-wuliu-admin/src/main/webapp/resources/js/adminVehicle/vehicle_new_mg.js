@@ -97,7 +97,9 @@ function innerHtml(d){
 			"<td>"+checkStatus+"</td>"+
 			"<td>"+date.format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 			"<td><span><a data-toggle='modal' onclick=\"detail_id('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";
-			hml += "<span><a data-toggle='modal' onclick=\"VehicleShenhe('"+d[a].id+"')\" data-target='#shenhe'>【审核】</a></span>";
+			if(d[a].checkStatus==0){
+				hml += "<span><a data-toggle='modal' onclick=\"VehicleShenhe('"+d[a].id+"')\" data-target='#shenhe'>【审核】</a></span>";
+			}
 			hml += "</td></tr>";
 	}
 	$("#innerhml").html(hml);

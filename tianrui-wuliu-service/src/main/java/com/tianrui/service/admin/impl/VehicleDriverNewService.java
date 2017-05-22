@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.admin.intf.IVehicleDriverNewService;
+import com.tianrui.api.req.admin.vehicle_new.DriverNewAuthReq;
 import com.tianrui.api.req.admin.vehicle_new.VehicleDriverNewReq;
 import com.tianrui.api.resp.admin.vehicle_new.VehicleDriverNewResp;
 import com.tianrui.common.vo.PaginationVO;
+import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.vehiclereg.FileVehicleNew;
 import com.tianrui.service.bean.vehiclereg.VehicleDriverNew;
 import com.tianrui.service.mapper.FileVehicleNewMapper;
@@ -31,6 +33,10 @@ public class VehicleDriverNewService implements IVehicleDriverNewService{
 		
 		VehicleDriverNew record = new VehicleDriverNew();
 		PropertyUtils.copyProperties(record, req);
+		if(req.getStart()!=null){
+			record.setStart(req.getStart()*req.getLimit());
+			record.setLimit(req.getLimit());
+		}
 		List<VehicleDriverNew> list = vehicleDriverNewMapper.selectByCondition(record);
 		Long a = vehicleDriverNewMapper.countByCondition(record);
 		page.setTotal(a);
@@ -60,5 +66,18 @@ public class VehicleDriverNewService implements IVehicleDriverNewService{
 		PropertyUtils.copyProperties(resp, vd);
 		
 		return resp;
+	}
+
+	@Override
+	public Result authCheckType(DriverNewAuthReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		VehicleDriverNew record = new VehicleDriverNew();
+		record.setId(req.getId());
+		record.setAuthstats(req.getAuthstats());
+		record.setAuthuser(req.getAuthuser());
+		record.setAuthtime(System.currentTimeMillis());
+		vehicleDriverNewMapper.updateByPrimaryKeySelective(record);
+		return rs;
 	}
 }

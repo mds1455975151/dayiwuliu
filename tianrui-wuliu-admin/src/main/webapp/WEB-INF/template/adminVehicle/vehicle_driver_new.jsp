@@ -121,6 +121,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--后台整体布局end-->
     <!--侧边栏end-->
     
+    <!--审核begin-->
+	<div class="modal fade" id="shenhe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document" >
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" >审核</h4>
+	            </div>
+	            <div class="modal-body">
+	            <button type="button" class="btn tongguo">通过</button>
+	            <button type="button" class="btn butongguo">不通过</button>
+	            <input type="hidden" id="vehicle_status">
+	            <input type="hidden" id="vehicle_id">
+	            </div>
+	            <div class="modal-body">
+				<span style="color: red" id="error_massage"></span>
+				</div>           
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary driver_shenhe" >确定</button>
+	                <button type="button" class="btn btn-default ticket_hide" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!--审核详情end-->
+    
     <!--查看详情begin-->
 <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width: 780px;">
@@ -209,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_driver_new.js?05.22" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_driver_new.js?05.220" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 

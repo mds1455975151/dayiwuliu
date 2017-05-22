@@ -1,5 +1,7 @@
 package com.tianrui.trwl.admin.web.new_;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,10 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IVehicleDriverNewService;
+import com.tianrui.api.req.admin.vehicle_new.DriverNewAuthReq;
 import com.tianrui.api.req.admin.vehicle_new.VehicleDriverNewReq;
 import com.tianrui.api.resp.admin.vehicle_new.VehicleDriverNewResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.Users;
+import com.tianrui.trwl.admin.util.SessionManager;
 
 /** 后台司机认证_new*/
 @Controller
@@ -44,6 +49,17 @@ public class VehicleDriverNewAction {
 		Result rs = Result.getSuccessResult();
 		VehicleDriverNewResp resp = vehicleDriverNewService.selectBykey(id);
 		rs.setData(resp);
+		return rs;
+	}
+	/** 司机审核
+	 * @throws Exception */
+	@RequestMapping("authCheckType")
+	@ResponseBody
+	public Result authCheckType(DriverNewAuthReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Users user = SessionManager.getSessionMember(request);
+		req.setAuthuser(user.getAccount());
+		rs = vehicleDriverNewService.authCheckType(req);
 		return rs;
 	}
 }

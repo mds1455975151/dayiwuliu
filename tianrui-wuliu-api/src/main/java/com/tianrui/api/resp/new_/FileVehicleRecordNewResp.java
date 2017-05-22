@@ -1,6 +1,6 @@
-package com.tianrui.service.bean.vehiclereg;
+package com.tianrui.api.resp.new_;
 
-public class FileVehicleRecordNew {
+public class FileVehicleRecordNewResp {
     //  主键uuid
     private String id;
 
@@ -9,51 +9,15 @@ public class FileVehicleRecordNew {
 
     //  驾驶员id
     private String driverid;
-
-    //  车牌号码
-    private String vehicleno;
-
-    //  随车电话,账户
-    private String vehiclemobile;
-
-    //  车辆类型
-    private String vehicletype;
-
-    //  车长
-    private String vehiclelen;
-
-    //  载重
-    private String vehicleload;
-
+    
     //  所有人
     private String vehicleowner;
 
     //  所有人证件号
     private String vehicleowneridcard;
 
-    //  营运证号
-    private String taxilicenseno;
-
-    //  道路运输证号
-    private String roadtransportno;
-
-    //  营运证图片
-    private String taxilicenseimg;
-
-    //  车辆图片
-    private String vehicleimg;
-
-    //  行驶证
-    private String drivinglicenseno;
-
-    //  行驶证图片
-    private String drivinglicenseimg;
-
-    //  车辆登记证
-    private String vehiclegradeno;
-
-    //  车辆登记证图片
-    private String vehiclegradeimg;
+    //  车牌号码
+    private String vehicleno;
 
     //  使用性质,1营运,2非营运
     private String nature;
@@ -96,10 +60,6 @@ public class FileVehicleRecordNew {
 
     //  创建时间
     private Long createtime;
-    
-    private Integer pageNo;
-    
-    private Integer pageSize;
 
     public String getId() {
         return id;
@@ -133,117 +93,6 @@ public class FileVehicleRecordNew {
         this.vehicleno = vehicleno == null ? null : vehicleno.trim();
     }
 
-    public String getVehiclemobile() {
-        return vehiclemobile;
-    }
-
-    public void setVehiclemobile(String vehiclemobile) {
-        this.vehiclemobile = vehiclemobile == null ? null : vehiclemobile.trim();
-    }
-
-    public String getVehicletype() {
-        return vehicletype;
-    }
-
-    public void setVehicletype(String vehicletype) {
-        this.vehicletype = vehicletype == null ? null : vehicletype.trim();
-    }
-
-    public String getVehiclelen() {
-        return vehiclelen;
-    }
-
-    public void setVehiclelen(String vehiclelen) {
-        this.vehiclelen = vehiclelen == null ? null : vehiclelen.trim();
-    }
-
-    public String getVehicleload() {
-        return vehicleload;
-    }
-
-    public void setVehicleload(String vehicleload) {
-        this.vehicleload = vehicleload == null ? null : vehicleload.trim();
-    }
-
-    public String getVehicleowner() {
-        return vehicleowner;
-    }
-
-    public void setVehicleowner(String vehicleowner) {
-        this.vehicleowner = vehicleowner == null ? null : vehicleowner.trim();
-    }
-
-    public String getVehicleowneridcard() {
-        return vehicleowneridcard;
-    }
-
-    public void setVehicleowneridcard(String vehicleowneridcard) {
-        this.vehicleowneridcard = vehicleowneridcard == null ? null : vehicleowneridcard.trim();
-    }
-
-    public String getTaxilicenseno() {
-        return taxilicenseno;
-    }
-
-    public void setTaxilicenseno(String taxilicenseno) {
-        this.taxilicenseno = taxilicenseno == null ? null : taxilicenseno.trim();
-    }
-
-    public String getRoadtransportno() {
-        return roadtransportno;
-    }
-
-    public void setRoadtransportno(String roadtransportno) {
-        this.roadtransportno = roadtransportno == null ? null : roadtransportno.trim();
-    }
-
-    public String getTaxilicenseimg() {
-        return taxilicenseimg;
-    }
-
-    public void setTaxilicenseimg(String taxilicenseimg) {
-        this.taxilicenseimg = taxilicenseimg == null ? null : taxilicenseimg.trim();
-    }
-
-    public String getVehicleimg() {
-        return vehicleimg;
-    }
-
-    public void setVehicleimg(String vehicleimg) {
-        this.vehicleimg = vehicleimg == null ? null : vehicleimg.trim();
-    }
-
-    public String getDrivinglicenseno() {
-        return drivinglicenseno;
-    }
-
-    public void setDrivinglicenseno(String drivinglicenseno) {
-        this.drivinglicenseno = drivinglicenseno == null ? null : drivinglicenseno.trim();
-    }
-
-    public String getDrivinglicenseimg() {
-        return drivinglicenseimg;
-    }
-
-    public void setDrivinglicenseimg(String drivinglicenseimg) {
-        this.drivinglicenseimg = drivinglicenseimg == null ? null : drivinglicenseimg.trim();
-    }
-
-    public String getVehiclegradeno() {
-        return vehiclegradeno;
-    }
-
-    public void setVehiclegradeno(String vehiclegradeno) {
-        this.vehiclegradeno = vehiclegradeno == null ? null : vehiclegradeno.trim();
-    }
-
-    public String getVehiclegradeimg() {
-        return vehiclegradeimg;
-    }
-
-    public void setVehiclegradeimg(String vehiclegradeimg) {
-        this.vehiclegradeimg = vehiclegradeimg == null ? null : vehiclegradeimg.trim();
-    }
 
     public String getNature() {
         return nature;
@@ -357,19 +206,19 @@ public class FileVehicleRecordNew {
         this.createtime = createtime;
     }
 
-	public Integer getPageNo() {
-		return pageNo;
+	public String getVehicleowner() {
+		return vehicleowner;
 	}
 
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
+	public void setVehicleowner(String vehicleowner) {
+		this.vehicleowner = vehicleowner;
 	}
 
-	public Integer getPageSize() {
-		return pageSize;
+	public String getVehicleowneridcard() {
+		return vehicleowneridcard;
 	}
 
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+	public void setVehicleowneridcard(String vehicleowneridcard) {
+		this.vehicleowneridcard = vehicleowneridcard;
 	}
 }

@@ -7,13 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.new_.IMemberVehicleNewService;
 import com.tianrui.api.intf.new_.IVehicleReg4VehicleService;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
+import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehicleDetailResp;
 import com.tianrui.common.vo.MemberVo;
@@ -52,15 +52,25 @@ public class VehicleNewAction {
 	}
 	
 	
-	/** TODO 添加驾驶员
+	/** TODO 添加驾驶员page
 	 * @throws Exception */
 	@RequestMapping("driverAddView")
-	public ModelAndView driveraddView(HttpServletRequest request) throws Exception{
+	public ModelAndView driveraddView(HttpServletRequest request,String vehicleId) throws Exception{
 		ModelAndView view = new ModelAndView();
-		
+		MemberVo vo = SessionManager.getSessionMember(request);
+		view.addObject("vehicleId", vo.getId());
 		view.setViewName("/new/vehicle/driverAddView");
 		return view;
 	}
+	/** 添加驾驶员*/
+	@RequestMapping("driverAdd")
+	@ResponseBody
+	public Result driverAdd(VechicleRegDriverSaveReq req){
+		Result rs = Result.getSuccessResult();
+		rs = vehicleReg4VehicleService.driverSave(req);
+		return rs;
+	}
+	
 	//选中驾驶员
 	@RequestMapping("driverCheck")
 	@ResponseBody

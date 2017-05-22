@@ -20,8 +20,8 @@ function displayRec(pageNo){
 	var status = $("#vehiclestatus").val();
 	$.ajax({
 		url:'/admin/vehicleDriver/new/find',
-		data:{"pageNo":(pageNo),
-			"pageSize":pageSize,
+		data:{"start":(pageNo),
+			"limit":pageSize,
 			"vehicleno":vehicleno,
 			"vehicleowner":ownerName,
 			"vehiclemobile":vehiclemobile,
@@ -100,11 +100,8 @@ function innerHtml(d){
 			"<td>"+new Date(d[a].authtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 			"<td>"+new Date(d[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 			"<td><span><a data-toggle='modal' onclick=\"driverDetail('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";
-			if(d[a].status=="2"){
-				hml += "<span><a>【审核】</a></span>";
-			}
-			if(d[a].status=="1"){
-				hml += "<span><a data-toggle='modal' data-target='#updateDeatil'>【修改】</a></span>";
+			if(d[a].authstats=="2"){
+				hml += "<span><a data-toggle='modal' onclick=\"driverShenhe('"+d[a].id+"')\" data-target='#shenhe'>【审核】</a></span>";
 			}
 			hml += "</td></tr>";
 	}
@@ -136,3 +133,46 @@ function driverDetail(id){
 		}
 	});
 }
+
+$(".tongguo").on("click",function(){
+	$(this).css('background','#B9D3EE');
+	$(".butongguo").css('background','');
+	$("#vehicle_status").val("1");
+});
+$(".butongguo").on("click",function(){
+	$(this).css('background','#B9D3EE');
+	$(".tongguo").css('background','');
+	$("#vehicle_status").val("3");
+});
+function driverShenhe(id){
+	$(".butongguo").css('background','');
+	$(".tongguo").css('background','');
+	$("#vehicle_status").val("");
+	$("#vehicle_id").val(id);
+}
+$(".driver_shenhe").on("click",function(){
+	if($("#vehicle_status").val()==""){
+		alert("请选择是否通过");
+		return;
+	}
+	if($("#vehicle_id").val()==""){
+		alert("网络异常，请刷新页面重新选择");
+		return;
+	}
+	$(".vehicle_shenhe").attr("disabled",true);
+	$.ajax({
+		url:"/admin/vehicleDriver/new/authCheckType",
+		type:"post",
+		data:{"id":$("#vehicle_id").val(),
+			"authstats":$("#vehicle_status").val()
+			},
+		success:function(ret){
+			$(".vehicle_shenhe").attr("disabled",false);
+			if(ret.code == 000000){
+				alert("操作成功");
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+});
