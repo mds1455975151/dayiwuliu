@@ -71,6 +71,23 @@ function innerHtml(d){
 	var hml = "";
 	for (var a = 0; a < d.length; a++) {
 		var c = a+1;
+		var checkstatus = "";
+		if(d[a].checkstatus==0){
+			checkstatus = "未选中";
+		}else if(d[a].checkstatus==1){
+			checkstatus = "已选中";
+		}
+		
+		var authstats = "";
+		if(d[a].authstats==0){
+			authstats = "未审核";
+		}else if(d[a].authstats==1){
+			authstats = "审核成功";
+		}else if(d[a].authstats==2){
+			authstats = "审核中";
+		}else if(d[a].authstats==3){
+			authstats = "审核失败";
+		}
 		hml += "<tr><td>"+c+"</td>"+
 			"<td>"+d[a].vehicleno+"</td>"+
 			"<td>"+d[a].drivername+"</td>"+
@@ -78,11 +95,11 @@ function innerHtml(d){
 			"<td>"+d[a].driveridcard+"</td>"+
 			"<td>"+d[a].drivercardfirstlicens+"</td>"+
 			"<td>"+d[a].drivercardusefullife+"</td>"+
-			"<td>"+d[a].checkstatus+"</td>"+
-			"<td>"+d[a].authstats+"</td>"+
+			"<td>"+checkstatus+"</td>"+
+			"<td>"+authstats+"</td>"+
 			"<td>"+new Date(d[a].authtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 			"<td>"+new Date(d[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
-			"<td><span><a data-toggle='modal' data-target='#detail'>【详情】</a></span>";
+			"<td><span><a data-toggle='modal' onclick=\"driverDetail('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";
 			if(d[a].status=="2"){
 				hml += "<span><a>【审核】</a></span>";
 			}
@@ -91,5 +108,31 @@ function innerHtml(d){
 			}
 			hml += "</td></tr>";
 	}
-	document.getElementById("innerhml").innerHTML = hml;
+	$("#innerhml").html(hml);
 }	
+
+function driverDetail(id){
+	$.ajax({
+		url:"/admin/vehicleDriver/new/selectBykey",
+		type:"post",
+		data:{"id":id},
+		success:function(ret){
+			if(ret.code=="000000"){
+				var data = ret.data;
+				
+				$("#driverName_mg").html(data.drivername);
+				$("#driverCardFirstlicens_mg").html(data.drivercardfirstlicens);
+				$("#driverSex_mg").html(data.driversex=="xx"?"女":"男");
+				$("#driverCardLicenceorg_mg").html(data.drivercardlicenceorg);
+				$("#driverBirthDate_mg").html(data.driverbirthdate);
+				$("#driverCardRegDate_mg").html(data.drivercardregdate);
+				$("#driverLinkTel_mg").html(data.driverlinktel);
+				$("#driverCardUsefullife_mg").html(data.drivercardusefullife);
+				$("#driverIdCard_mg").html(data.driveridcard);
+				$("#driverCardType_mg").html(data.drivercardtype);
+				$("#driverIdCardAddr_mg").html(data.driveridcardaddr);
+				$("#driverCardImg_mg").html(data.drivercardimg==undefined?"未上传":"<a href='/imageView/index?imageUrl="+data.drivercardimg+"' target='_blank'>查看图片</a>");
+			}
+		}
+	});
+}

@@ -174,8 +174,8 @@ public class FileVehicleNewService implements IFileVehicleNewService{
 //		ve.setMotorno(req.getmotorno);
 		//0:默认 1:完全  2:临时  3:开票
 		ve.setAuthtype((byte)req.getAuthType());
-		//用户添加
-		ve.setVehiclesource((byte)1);
+		//1历史数据导入,2用户添加
+		ve.setVehiclesource((byte)2);
 		//空闲状态
 		ve.setBillstatus((byte) 0);
 		ve.setCreatetime(System.currentTimeMillis());

@@ -120,6 +120,71 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </div>
             <!--后台整体布局end-->
     <!--侧边栏end-->
+    
+    <!--查看详情begin-->
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 780px;">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="car_yhtab">
+                    <ul>
+                        <li class="select"> <h4 class="modal-title" >驾驶员信息详情</h4></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="intel_tabbox">
+                    <!--驾驶员信息详情begin-->
+                    <div class="intel_tabcont">
+                        <div class="car_yhline">
+                            <label>姓名：</label><span id="driverName_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>初次领证日期：</label><span id="driverCardFirstlicens_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>性别：</label><span id="driverSex_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>发证机关：</label><span id="driverCardLicenceorg_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>出生日期：</label><span id="driverBirthDate_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>驾驶证注册日期：</label><span id="driverCardRegDate_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>联系电话：</label><span id="driverLinkTel_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>有效年限：</label><span id="driverCardUsefullife_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>身份证号/驾驶证号：</label><span id="driverIdCard_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>准驾车型：</label><span id="driverCardType_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>身份证地址：</label><span id="driverIdCardAddr_mg"></span>
+                        </div>
+                        <div class="car_yhline">
+                            <label>驾驶证：</label><span class="colorblue" id="driverCardImg_mg">查看图片</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看详情end-->
 
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
@@ -144,49 +209,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_driver_new.js?05.172" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_driver_new.js?05.22" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript">
-    // 弹出信息的tab切换菜单
-    var alt_li = $('.car_yhtab ul li');
-    alt_li.click(function () {
-        $(this).addClass('select').siblings().removeClass('select');
-        var index = alt_li.index(this);
-        $('.intel_tabbox > .intel_tabcont').eq(index).show().siblings().hide();
-    });
-
-</script>
-<script type="text/javascript">
-		$("#file_yyzz").fileinput({
-			language : 'zh',
-			showUpload : false,
-			dropZoneEnabled : false,
-			maxFileCount : 1,
-//       	minImageWidth: 50, //图片的最小宽度
-//	  	 	minImageHeight: 50,//图片的最小高度
-//   	  	maxImageWidth: 600,//图片的最大宽度
-//	 	  	maxImageHeight: 600,//图片的最大高度
-			maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
-			resizeImage : true,
-			showCaption : true,
-			showPreview : true,
-			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
-		}).on('fileuploaderror',function(event, data, previewId, index) {
-			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-			console.log(data);
-			console.log('File upload error');
-		}).on('fileerror', function(event, data) {
-			console.log(data.id);
-			console.log(data.index);
-			console.log(data.file);
-			console.log(data.reader);
-			console.log(data.files);
-		}).on('fileuploaded',function(event, data, previewId, index) {
-			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-			console.log('File uploaded triggered');
-		});
-	</script>
 
 </body>
 </html>

@@ -114,11 +114,11 @@ function detail_id(id){
 				var data = ret.data;
 				$("#vehicleNo_mg").html(data.vehicleNo);
 				$("#vehicleOwnerTel_mg").html(data.vehicleOwnerTel);
-				$("#vehicleType_mg").html(data.vehicleType);
+				$("#vehicleType_mg").html(checkVehicleType(data.vehicleType));
 				$("#vehicleLoad_mg").html(data.vehicleLoad);
 				$("#vehicleLen_mg").html(data.vehicleLen);
 				$("#checkStatus_mg").html(data.checkStatus);
-				$("#createTime_mg").html(data.createTime);
+				$("#createTime_mg").html(new Date(data.createTime).format("yyyy-MM-dd hh:mm:ss"));
 				$("#vehicleMobile_mg").html(data.vehicleMobile);
 				//营运证号
 				$("#taxiLicenseNo_mg").html(data.taxiLicenseNo);

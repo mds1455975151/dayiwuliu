@@ -297,36 +297,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 
 </script>
-<script type="text/javascript">
-		$("#file_yyzz").fileinput({
-			language : 'zh',
-			showUpload : false,
-			dropZoneEnabled : false,
-			maxFileCount : 1,
-//       	minImageWidth: 50, //图片的最小宽度
-//	  	 	minImageHeight: 50,//图片的最小高度
-//   	  	maxImageWidth: 600,//图片的最大宽度
-//	 	  	maxImageHeight: 600,//图片的最大高度
-			maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
-			resizeImage : true,
-			showCaption : true,
-			showPreview : true,
-			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
-		}).on('fileuploaderror',function(event, data, previewId, index) {
-			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-			console.log(data);
-			console.log('File upload error');
-		}).on('fileerror', function(event, data) {
-			console.log(data.id);
-			console.log(data.index);
-			console.log(data.file);
-			console.log(data.reader);
-			console.log(data.files);
-		}).on('fileuploaded',function(event, data, previewId, index) {
-			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-			console.log('File uploaded triggered');
-		});
-	</script>
 
 </body>
 </html>
