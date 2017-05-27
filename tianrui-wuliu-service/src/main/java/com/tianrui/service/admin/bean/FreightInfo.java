@@ -8,6 +8,8 @@ public class FreightInfo {
     private Long taketime;
 
     private Double price;
+    
+    private String payment;
 
     private Double tallage;
 
@@ -195,4 +197,12 @@ public class FreightInfo {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
 }

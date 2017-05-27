@@ -19,6 +19,8 @@ public class FreightResp extends BaseResp{
      * 所属组织名称 
      */
     private String organizationname;
+    
+    private String payment;
     /**
      /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
@@ -226,6 +228,12 @@ public class FreightResp extends BaseResp{
 	}
 	public void setTaketime(Long taketime) {
 		this.taketime = taketime;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 	
 }

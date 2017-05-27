@@ -14,6 +14,9 @@ public class Freight {
 	private String measureName;
 	private String measureCode;
 	private String priceUnits;
+	
+	private String payment;
+	
 	 /**
      * 货物id
      */
@@ -129,5 +132,11 @@ public class Freight {
 	}
 	public void setMeasureCode(String measureCode) {
 		this.measureCode = measureCode;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 }

@@ -49,12 +49,14 @@ function displayData(pageNo){
 	var SRoute = $("#SRoute").val();
 	var Saudit = $("#Saudit").val();
 	var pageSize=$("#pageSize").val();
+	var payment_ser = $("#payment_ser").val();
 	$.ajax({
 		url : CONTEXTPATH + '/freightinfo/indexAudit',// 跳转到 action
 		data : {"cargoid":Scargo,
 			"routeid":SRoute,
 			"freightName":SfreightName,
 			"auditstatus":Saudit,
+			"payment":payment_ser,
 			"pageNo":(pageNo + 1),
 			"pageSize":pageSize
 		},
@@ -179,6 +181,13 @@ function interHTML(data){
 		}
 		var frebilltype = data[a].frebilltype=="1"?"原发":"实收";
 		var modifytime = data[a].modifytime == undefined ? "":data[a].modifytime;
+		var payment = "";
+		if(data[a].payment=="1"){
+			payment = "支付到司机";
+		}
+		if(data[a].payment=="2"){
+			payment = "支付到车主";
+		}
 		hml +="<tr>" +
 				"<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
@@ -186,6 +195,7 @@ function interHTML(data){
 			"<td>"+data[a].priceunits+"</td>"+ 
 			"<td>"+tallage+"</td>"+ 
 			"<td>"+frebilltype+"</td>"+ 
+			"<td>"+payment+"</td>"+ 
 			"<td>"+tallageInfo+"</td>"+ 
 			"<td>"+auditstatus+"</td>"+
 			"<td>"+data[a].cargoid+

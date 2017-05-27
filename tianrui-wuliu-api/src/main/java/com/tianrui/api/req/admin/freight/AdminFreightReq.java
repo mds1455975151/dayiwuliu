@@ -15,6 +15,7 @@ public class AdminFreightReq extends BaseReq{
      * 审核状态
      */
     private String auditstatus;
+    private String payment;
     /**
      * 所属组织名称 
      */
@@ -213,5 +214,11 @@ public class AdminFreightReq extends BaseReq{
 	}
 	public void setModifytime(Long modifytime) {
 		this.modifytime = modifytime;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 }

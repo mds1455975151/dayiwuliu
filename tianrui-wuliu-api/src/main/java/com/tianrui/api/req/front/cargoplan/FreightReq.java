@@ -23,6 +23,8 @@ public class FreightReq extends BaseReq{
      * 审核状态
      */
     private String auditstatus;
+    /**1-司机 2-车主*/
+    private String payment;
     /**
      * 所属组织名称 
      */
@@ -256,6 +258,12 @@ public class FreightReq extends BaseReq{
 	}
 	public void setTaketime(Long taketime) {
 		this.taketime = taketime;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 	
 }

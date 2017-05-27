@@ -25,6 +25,7 @@
 		r.routename routeid,
 		r. STATUS DESC4,
 		i.desc1 desc1,
+		f.payment payment,
 		m.measureName measure,
 		(select count(*) from wuliu_plan p where p.freightid = f.id) count
 	FROM
@@ -38,6 +39,9 @@
 		AND f. STATUS != 2
 		<if test="organizationid != null and organizationid != ''">
     		and f.organizationid = #{organizationid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="payment != null and payment != ''">
+	    	and f.payment = #{payment,jdbcType=VARCHAR}
 	    </if>
 	    <if test="cargoid != null and cargoid != ''" >
 	   		and f.cargoid in (select ID from file_org_cargo where cargoname like "%" #{cargoid,jdbcType=VARCHAR} "%")
@@ -72,6 +76,9 @@
 		AND f. STATUS != 2
 		<if test="organizationid != null and organizationid != ''">
     		and f.organizationid = #{organizationid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="payment != null and payment != ''">
+	    	and f.payment = #{payment,jdbcType=VARCHAR}
 	    </if>
 	    <if test="cargoid != null and cargoid != ''" >
 	   		and f.cargoid in (select ID from file_org_cargo where cargoname like "%" #{cargoid,jdbcType=VARCHAR} "%")

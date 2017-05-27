@@ -27,6 +27,9 @@ public class AdminFreightResp extends BaseResp{
     private Double oldprice;
     /** 生效前税率*/
     private Double oldtallage;
+    
+    private String payment;
+    
     /**
      * 运价状态（0-可用；1-暂不可用；2-已删除）
      */
@@ -328,5 +331,13 @@ public class AdminFreightResp extends BaseResp{
 
 	public void setOldtallage(Double oldtallage) {
 		this.oldtallage = oldtallage;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 }
