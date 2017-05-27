@@ -55,8 +55,8 @@ public class VehicleRegAction {
 	@ResponseBody
 	public Result saveVehicleRegStep(VehiclReqStepReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
-		MemberVo vo = SessionManager.getSessionMember(request);
-		req.setCreaterId(vo.getId());
+//		MemberVo vo = SessionManager.getSessionMember(request);
+//		req.setCreaterId(vo.getId());
 		rs = vehicleRegService.saveVehicleRegStep(req);
 		return rs;
 	}

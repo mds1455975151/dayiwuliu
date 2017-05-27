@@ -1,19 +1,18 @@
-var pagenow ;
-var pageSize = 10;
+var pageSize = 2;
 var hml;
 var total;
 var pageNo;
 $(function (){
 	$("#showtext").hide();
 	$('#mycapaPage_new').addClass('selected');
-	index(1,0);
+	index(0,0);
 });
 
 function index(pageNo,flag){
 	$.ajax({
 		url : '/trwuliu/member_vehicle/new/find',// 跳转到 action
 		data : {
-			"pageNo":pageNo-1,
+			"pageNo":pageNo,
 			"search":$("#searchText").val(),
 			"pageSize":pageSize
 		},
@@ -36,7 +35,8 @@ function innerHTML(result,flag){
 	var data = result.list;
 	total = result.total;
 	document.getElementById("total").innerHTML=total;
-	if(pageNo*pageSize>=total){
+	pageNo = result.pageNo;
+	if((pageNo+1)*pageSize>=total){
 		$("#moredate").hide();
 	}else{
 		$("#moredate").show();
@@ -45,6 +45,12 @@ function innerHTML(result,flag){
 		hml = "";
 	}
 	for (var a = 0; a < data.length; a++) {
+		var billstatus = "";
+		if(data[a].billstatus == "0"){
+			billstatus = "空闲";
+		}else if(data[a].billstatus == "1"){
+			billstatus = "运输中";
+		}
 		hml += "<tr><td >" +
 		"<div class='car_cont1'>"+
 			"<p><i>"+data[a].vehicleno+"</i><em></em></p>"+
@@ -53,14 +59,14 @@ function innerHTML(result,flag){
 		"</td>" +
 		"<td ><div class='car_cont1'><p><i>"+data[a].remarkname+"</i></p><p><i>"+data[a].cellphone+"</i></p></div></td>" +
 		"<td >"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+" </td>" +
-		"<td>"+data[a].billstatus+"</td>" +
+		"<td>"+billstatus+"</td>" +
 		"<td class='f12 bill_lineh2'>";
-		if(data[a].status != -1){
+		if(data[a].billstatus == "0"){
 			hml +="<button class='btn btnyello' onclick=\"deletecapa('"+data[a].id+"')\">删除</button>";
 		}
 		hml += "</td></tr>";
 	}
-	document.getElementById("innerHML").innerHTML=hml;
+	$("#innerHML").html(hml);
 }
 function deletecapa(id){
 	confirm("删除确认","确定删除这条运力吗,确认/取消?",function(){

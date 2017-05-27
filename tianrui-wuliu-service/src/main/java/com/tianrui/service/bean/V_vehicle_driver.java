@@ -6,6 +6,8 @@ public class V_vehicle_driver {
 
     private String vehicleid;
 
+    private String search;
+    
     private String vehicleno;
 
     private Byte billstatus;
@@ -110,5 +112,13 @@ public class V_vehicle_driver {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }

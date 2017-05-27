@@ -42,10 +42,19 @@
 	    from tr_vehicle_driver_new
 	    <where>
 	    	<if test="drivername != null">
-	    		driverName = #{drivername,jdbcType=VARCHAR}
+	    		and driverName = #{drivername,jdbcType=VARCHAR}
 	    	</if>
 	    	<if test="vehicleid != null">
-	    		vehicleId =#{vehicleid,jdbcType=VARCHAR}
+	    		and vehicleId =#{vehicleid,jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="drivername_like != null and drivername_like != ''">
+	    		and driverName like "%" #{drivername_like,jdbcType=VARCHAR} "%"
+	    	</if>
+	    	<if test="driverlinktel != null and driverlinktel != ''">
+	    		and driverLinkTel like "%" #{driverlinktel,jdbcType=VARCHAR} "%"
+	    	</if>
+	    	<if test="authstats != null and authstats != ''">
+	    	    and authStats = #{authstats,jdbcType=TINYINT}
 	    	</if>
 	    </where>
 	    <if test="start != null">
@@ -59,7 +68,19 @@
 	    from tr_vehicle_driver_new
 	    <where>
 	    	<if test="drivername != null">
-	    		driverName = = #{drivername,jdbcType=VARCHAR}
+	    		and driverName = #{drivername,jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="vehicleid != null">
+	    		and vehicleId =#{vehicleid,jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="drivername_like != null and drivername_like != ''">
+	    		and driverName like "%" #{drivername_like,jdbcType=VARCHAR} "%"
+	    	</if>
+	    	<if test="driverlinktel != null and driverlinktel != ''">
+	    		and driverLinkTel like "%" #{driverlinktel,jdbcType=VARCHAR} "%"
+	    	</if>
+	    	<if test="authstats != null and authstats != ''">
+	    	    and authStats = #{authstats,jdbcType=TINYINT}
 	    	</if>
 	    </where>
   </select>

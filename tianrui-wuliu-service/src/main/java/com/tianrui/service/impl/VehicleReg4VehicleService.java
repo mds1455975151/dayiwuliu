@@ -141,6 +141,39 @@ public class VehicleReg4VehicleService implements IVehicleReg4VehicleService{
 	public Result vehicleAuth(VechicleRegVehicleAuthReq req) {
 		Result rs =Result.getErrorResult();
 		//保存认证信息  以供后台审核
+		if( req !=null && StringUtils.isNotBlank(req.getId())){
+			//修改其他的记录信息为作废记录 
+			fileVehicleRecordNewMapper.disableVehicleRecord(req.getId());
+			//获取车辆信息
+			FileVehicleNew dbBean=fileVehicleNewMapper.selectByPrimaryKey(req.getId());
+			FileVehicleRecordNew  saveBean =new FileVehicleRecordNew();
+			try {
+				//原有信息记录
+				BeanUtils.copyProperties(saveBean, dbBean);
+				saveBean.setId(UUIDUtil.getId());
+				saveBean.setCreatetime(System.currentTimeMillis());
+				saveBean.setVehicleid(req.getId());
+				
+				//新信息保存
+				//认证中
+				saveBean.setAuthstatus(Byte.valueOf("2"));
+				//完全认证
+				saveBean.setAuthtype(Byte.valueOf("2"));
+				
+				saveBean.setTaxilicenseno(req.getTaxiLicenseNo());;
+				saveBean.setRoadtransportno(req.getRoadTransportNo());
+				saveBean.setTaxilicenseimg(req.getTaxiLicenseImg());
+				saveBean.setVehicleimg(req.getVehicleImg());
+				saveBean.setDrivinglicenseno(req.getDrivingLicenseNo());
+				saveBean.setDrivinglicenseimg(req.getDrivingLicenseImg());
+				saveBean.setVehiclegradeno(req.getVehicleGradeNo());
+				saveBean.setVehiclegradeimg(req.getVehicleGradeImg());
+				fileVehicleRecordNewMapper.insert(saveBean);
+				rs =Result.getSuccessResult();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return rs;
 	}
 

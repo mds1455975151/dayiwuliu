@@ -85,6 +85,8 @@ public class AnlianBillResp {
     
     private Integer limit;
     private String desc1;
+    
+    private String desc4;
 
     public String getId() {
         return id;
@@ -408,6 +410,12 @@ public class AnlianBillResp {
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
 	}
-	
-	
+
+	public String getDesc4() {
+		return desc4;
+	}
+
+	public void setDesc4(String desc4) {
+		this.desc4 = desc4;
+	}
 }

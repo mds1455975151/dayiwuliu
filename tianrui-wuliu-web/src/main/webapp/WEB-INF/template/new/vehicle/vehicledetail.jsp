@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </c:if>
 		                    <!-- 完全认证  完全认证失败  临时认证成功 -->
 		                    <c:if test="${(vehicle.authType=='2' && vehicle.authstatus=='3')||(vehicle.authType=='1' && vehicle.authstatus=='1')}">
-			                    <a href="#"><span>完全认证</span></a>
+			                    <a href="/trwuliu/vehicle/new/vheicle_w"><span>完全认证</span></a>
 		                    </c:if>
 		                </div>
 		                <div class="mycar_dt">

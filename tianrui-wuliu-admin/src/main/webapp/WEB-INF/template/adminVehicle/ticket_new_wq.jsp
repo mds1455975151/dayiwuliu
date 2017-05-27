@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-md-10 ">
                 <div class="ht_content">
                     <div id="content-header">
-                        <h3>车辆开票认证管理</h3>
+                        <h3>车辆完全认证管理</h3>
                     </div>
                     <!--查询框begin-->
                     <div class="row">
@@ -73,15 +73,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      <tr>
                                          <th>序号</th>
                                          <th >车牌号 </th>
-                                         <th >使用性质</th>
-                                         <th >所有人</th>
-                                         <th >证件号码 </th>
-                                         <th >总质量</th>
-                                         <th >登记证书编号</th>
-                                         <th >检验有效期</th>
-                                         <th >车辆识别码 </th>
-                                         <th >发动机号</th>
-                                         <th >发动机型号 </th>
+                                         <th >经营许可证号</th>
+                                         <th >道路运输证号</th>
+                                         <th >车辆照片 </th>
+                                         <th >行驶证</th>
+                                         <th >车辆登记证</th>
                                          <th>认证状态</th>
                                          <th>申请时间</th>
                                          <th >操作 </th>
@@ -161,6 +157,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/ticket_new.js?0522" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/ticket_new_wq.js?0522" ></script>
 </body>
 </html>

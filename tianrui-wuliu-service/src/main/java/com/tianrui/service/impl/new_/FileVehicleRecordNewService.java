@@ -65,11 +65,12 @@ public class FileVehicleRecordNewService implements IFileVehicleRecordNewService
 			rs.setError("查询不到该认证信息");
 			return rs;
 		}else{
+			FileVehicleRecordNew record = new FileVehicleRecordNew();
 			byte t = 1;//认证通过
 			if(t==req.getAuthstatus()){
 				uptVehicle(vehciel);
+				record.setAuthtype((byte)-1);
 			}
-			FileVehicleRecordNew record = new FileVehicleRecordNew();
 			record.setId(req.getId());
 			record.setAuthstatus(req.getAuthstatus());
 			String mat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
@@ -95,6 +96,51 @@ public class FileVehicleRecordNewService implements IFileVehicleRecordNewService
 		file.setMotorno(vehciel.getMotor());
 		
 		fileVehicleNewMapper.updateByPrimaryKeySelective(file);
+	}
+
+	@Override
+	public Result vehicleCheck(FileVehicleRecordNewReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		//查询认证信息
+		FileVehicleRecordNew vehciel = fileVehicleRecordNewMapper.selectByPrimaryKey(req.getId());
+		if(vehciel==null){
+			rs.setCode("1");
+			rs.setError("查询不到该认证信息");
+			return rs;
+		}else{
+			FileVehicleRecordNew record = new FileVehicleRecordNew();
+			byte t = 1;//认证通过
+			if(t==req.getAuthstatus()){
+				uptAuthVehicle(vehciel);
+				record.setAuthtype((byte)-1);
+			}
+			record.setId(req.getId());
+			record.setAuthstatus(req.getAuthstatus());
+			String mat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+			record.setAuthtime(mat);
+			record.setAuthuser(req.getAuthuser());
+			fileVehicleRecordNewMapper.updateByPrimaryKeySelective(record);
+		}
+		return rs;
+	}
+	
+	/** 修改*/
+	protected void uptAuthVehicle(FileVehicleRecordNew req) {
+		FileVehicleNew saveBean = fileVehicleNewMapper.selectByPrimaryKey(req.getVehicleid());
+		
+		//完全认证
+		saveBean.setAuthtype(Byte.valueOf("2"));
+		
+		saveBean.setTaxilicenseno(req.getTaxilicenseno());;
+		saveBean.setRoadtransportno(req.getRoadtransportno());
+		saveBean.setTaxilicenseimg(req.getTaxilicenseimg());
+		saveBean.setVehicleimg(req.getVehicleimg());
+		saveBean.setDrivinglicenseno(req.getDrivinglicenseno());
+		saveBean.setDrivinglicenseimg(req.getDrivinglicenseimg());
+		saveBean.setVehiclegradeno(req.getVehiclegradeno());
+		saveBean.setVehiclegradeimg(req.getVehiclegradeimg());
+		
+		fileVehicleNewMapper.updateByPrimaryKeySelective(saveBean);
 	}
 
 }

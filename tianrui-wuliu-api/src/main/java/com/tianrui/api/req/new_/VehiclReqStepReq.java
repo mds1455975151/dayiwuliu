@@ -33,7 +33,7 @@ public class VehiclReqStepReq {
 	/**
 	 * 认证信息
 	 */
-	//认证类型   0:默认 1:完全  2:临时  3:开票
+	//认证类型   0:默认1:临时 2:完全    3:开票
 	private short authType;
 	//经营许可证号
 	private String taxiLicenseNo;

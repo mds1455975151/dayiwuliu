@@ -77,9 +77,11 @@ public class PortalsFilter implements Filter {
 //				res.sendRedirect(contextPath+"/count/route");
 			}else if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")||req.getRequestURI().equals("/publicMember/loginPage")){
 				res.sendRedirect(contextPath+"/count/route");
+			}else if(req.getRequestURI().contains("common/vehicleReg/regStep1")){
+				chain.doFilter(request, response);
 			}else if(req.getRequestURI().contains("/trwuliu/")){
 				//nc支付回调验证 不做session处理
-				if(req.getRequestURI().contains("/driverNcConfirm")){
+				if(req.getRequestURI().contains("/driverNcConfirm")||req.getRequestURI().contains("Member/myVehicle/getVehicleNo")){
 					chain.doFilter(request, response);
 				}else{
 					MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);

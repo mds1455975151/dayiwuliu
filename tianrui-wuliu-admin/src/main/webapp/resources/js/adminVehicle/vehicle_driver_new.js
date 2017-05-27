@@ -11,21 +11,25 @@ function displayData(d){
 		$("#recPage").val("");
 	}
 }
+function clearSearch(){
+	$("#drivername").val("");
+	$("#driverlinktel").val("");
+	$("#authstats").val("");
+}
+
 function displayRec(pageNo){
 	var pageSize=$("#pageSize").val();
-	var vehicleno = $("#vehicleno").val();
-	var ownerName = $("#ownerName").val();
-	var vehiclemobile = $("#vehiclemobile").val();
-	var authtype = $("#authtype").val();
-	var status = $("#vehiclestatus").val();
+	
+	var drivername = $("#drivername").val();
+	var driverlinktel = $("#driverlinktel").val();
+	var authstats = $("#authstats").val();
 	$.ajax({
 		url:'/admin/vehicleDriver/new/find',
 		data:{"start":(pageNo),
 			"limit":pageSize,
-			"vehicleno":vehicleno,
-			"vehicleowner":ownerName,
-			"vehiclemobile":vehiclemobile,
-			"authtype":authtype
+			"drivername_like":drivername,
+			"driverlinktel":driverlinktel,
+			"authstats":authstats
 		},
 		type:"post",
 		success: function(ret) {
@@ -35,6 +39,7 @@ function displayRec(pageNo){
 				$("#totalRecords").html(ret.data.total);
 		    	document.getElementById("goPage").value = pageNo+1;
 			    if(ret.data.total == 0) {
+			    	var hml = "";
 			    	$("#totalPages").html(1);  
 			    	hml +='<td colspan="12">';
 		    		hml +='<div class="ht_none">';
@@ -45,6 +50,7 @@ function displayRec(pageNo){
 		    		hml +='</div>';
 		    		hml +='</div>';
 		    		hml +='</td>';
+		    		$("#innerhml").html(hml);
 			    }else {
 			    	$("#totalPages").html(parseInt((ret.data.total-1)/pageSize+1));  
 			    	var d = ret.data.list;

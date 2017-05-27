@@ -56,7 +56,7 @@ public class MemberVehicleNewAction {
 		return rs;
 	}
 	
-	/** 查询运力
+	/** 查找运力
 	 * @throws Exception */
 	@RequestMapping("selectVehicle")
 	@ResponseBody
@@ -74,7 +74,7 @@ public class MemberVehicleNewAction {
 		Result rs = null;
 		MemberVo vo =SessionManager.getSessionMember(request);
 		req.setMemberid(vo.getId());
-			rs = memberVehicleNewService.saveMyVehicle(req);
+		rs = memberVehicleNewService.saveMyVehicle(req);
 		return rs;
 	}
 	@RequestMapping("delect")

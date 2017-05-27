@@ -11,13 +11,22 @@ function displayData(d){
 		$("#recPage").val("");
 	}
 }
+
+function clearSearch(){
+	$("#vehicleno").val("");
+	$("#ownerName").val("");
+	$("#vehiclemobile").val("");
+	$("#authtype").val("");
+	$("#vehiclesource").val("");
+}
+
 function displayRec(pageNo){
 	var pageSize=$("#pageSize").val();
 	var vehicleno = $("#vehicleno").val();
 	var ownerName = $("#ownerName").val();
 	var vehiclemobile = $("#vehiclemobile").val();
 	var authtype = $("#authtype").val();
-	var status = $("#vehiclestatus").val();
+	var vehiclesource = $("#vehiclesource").val();
 	$.ajax({
 		url:'/admin/fileVehicle/page',
 		data:{"pageNo":(pageNo),
@@ -25,6 +34,7 @@ function displayRec(pageNo){
 			"vehicleno":vehicleno,
 			"vehicleowner":ownerName,
 			"vehiclemobile":vehiclemobile,
+			"vehiclesource":vehiclesource,
 			"authtype":authtype
 		},
 		type:"post",
@@ -32,9 +42,10 @@ function displayRec(pageNo){
 			if(ret.code!="000000"){
 				alert("加载失败");
 			}else{
-				$("#totalRecords").html(ret.data.count);
+				$("#totalRecords").html(ret.data.total);
 		    	document.getElementById("goPage").value = pageNo+1;
-			    if(ret.data.count == 0) {
+			    if(ret.data.total == 0) {
+			    	var hml = "";
 			    	$("#totalPages").html(1);  
 			    	hml +='<td colspan="12">';
 		    		hml +='<div class="ht_none">';
@@ -45,13 +56,14 @@ function displayRec(pageNo){
 		    		hml +='</div>';
 		    		hml +='</div>';
 		    		hml +='</td>';
+		    		$("#innerhml").html(hml);
 			    }else {
-			    	$("#totalPages").html(parseInt((ret.data.count-1)/pageSize+1));  
+			    	$("#totalPages").html(parseInt((ret.data.total-1)/pageSize+1));  
 			    	var d = ret.data.list;
 			    	innerHtml(d);
 			    }  
 				
-				$("#pagination").pagination(ret.data.count, {   
+				$("#pagination").pagination(ret.data.total, {   
 				    callback: pageCallback,   
 				    prev_text: '上一页',   
 				    next_text: '下一页',   
@@ -59,7 +71,7 @@ function displayRec(pageNo){
 				    num_display_entries:4,   
 				    current_page:pageNo,   
 				    num_edge_entries:1, 
-				    maxentries: ret.data.count, 
+				    maxentries: ret.data.total, 
 				    link_to:"javascript:void(0)"
 				}); 
 			}
@@ -74,9 +86,9 @@ function innerHtml(d){
 		var authType = "";//0:默认 1:完全  2:临时  3:开票
 	    if(d[a].authtype=="0"){
 	    	authType="默认";
-	    }else if(d[a].authtype=="1"){
-	    	authType="完全认证";
 	    }else if(d[a].authtype=="2"){
+	    	authType="完全认证";
+	    }else if(d[a].authtype=="1"){
 	    	authType="临时认证";
 	    }else if(d[a].authtype=="3"){
 	    	authType="开票认证";

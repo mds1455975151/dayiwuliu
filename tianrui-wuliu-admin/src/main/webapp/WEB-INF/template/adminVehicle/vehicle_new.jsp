@@ -52,12 +52,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <input type="text" id="vehiclemobile" placeholder=" ">
                                 </div>
                                 <div class="ht_div">
-                                        <label>认证状态:</label>
-                                        <select class="form-control" id="vehiclestatus">
+                                        <label>车辆来源:</label>
+                                        <select class="form-control" id="vehiclesource">
                                             <option value="">请选择</option>
-                                            <option value="2">认证中</option>
-                                            <option value="-1">认证失败</option>
-                                            <option value="1">认证成功</option>
+                                            <option value="2">用户添加</option>
+                                            <option value="1">历史数据导入</option>
                                         </select>
                                 </div>
                                 <div class="ht_div">
@@ -195,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new.js?05.21" ></script>
+<script type="text/javascript" src="/resources/js/adminVehicle/vehicle_new.js?05.23" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

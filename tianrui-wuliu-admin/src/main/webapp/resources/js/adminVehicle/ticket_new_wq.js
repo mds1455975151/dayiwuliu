@@ -21,7 +21,7 @@ function displayRect(pageNo){
 	var vehicleNo = $("#find_vehicleNo").val();
 	var status = $("#find_status").val();
 	$.ajax({
-		url:'/admin/fileVehicle/new/find',
+		url:'/admin/fileVehicle/new/find_wq',
 		data:{
 			"vehicleno":$.trim(vehicleNo),
 			"authstatus":$.trim(status),
@@ -67,28 +67,28 @@ function displayRect(pageNo){
 							status = "认证中";
 						}
 						var d = a+1;
+						var vehicleimg = data[a].vehicleimg==undefined?"未上传":"<a href='/imageView/index?imageUrl="+data[a].vehicleimg+"' target='_blank'>查看图片</a>";
+						var drivinglicenseimg = data[a].drivinglicenseimg==undefined?"未上传":"<a href='/imageView/index?imageUrl="+data[a].drivinglicenseimg+"' target='_blank'>查看图片</a>";
+						var vehiclegradeimg = data[a].vehiclegradeimg==undefined?"未上传":"<a href='/imageView/index?imageUrl="+data[a].vehiclegradeimg+"' target='_blank'>查看图片</a>";
+						//data[a].vehiclegradeimg==undefined?"未上传":"<a href='/imageView/index?imageUrl="+data[a].vehiclegradeimg+"' target='_blank'>查看图片</a>"	
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].vehicleno+"</td>"+
-							"<td >"+nature+" </td>"+
-							"<td >"+data[a].vehicleowner+"</td>"+
-							"<td >"+data[a].idcardno+"</td>"+
-							"<td >"+data[a].quality+"</td>"+
-							"<td >"+data[a].certificateno+"</td>"+
-							"<td >"+data[a].expirydata+"</td>"+
-							"<td >"+data[a].identification+"</td>"+
-							"<td >"+data[a].motor+"</td>"+
-							"<td >"+data[a].motorno+"</td>"+
+							"<td >"+data[a].taxilicenseno+" </td>"+
+							"<td >"+data[a].roadtransportno+"</td>"+
+							"<td >"+vehicleimg+"</td>"+
+							"<td >"+drivinglicenseimg+"</td>"+
+							"<td >"+vehiclegradeimg+"</td>"+
 						    "<td >"+status+"</td>" +
 						    "<td >"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 						    		"<td>";
-							hml += "<span><a data-toggle='modal' onclick=\"Ticketdetails('"+a+"')\" data-target='#detail'>【详情】</a></span>";
+//							hml += "<span><a data-toggle='modal' onclick=\"Ticketdetails('"+a+"')\" data-target='#detail'>【详情】</a></span>";
 							if(data[a].authstatus == "2"){
 								hml += "<span><a data-toggle='modal' onclick=\"Ticketshenhe('"+data[a].id+"')\" data-target='#shenhe'>【审核】</a></span>";
 							}
 								hml += "</td></tr>";
 					}
 			    } 
-				document.getElementById("innerHml").innerHTML=hml;
+			    $("#innerHml").html(hml);
 				$("#pagination").pagination(ret.data.total, {   
 				    callback: pageCallback,   
 				    prev_text: '上一页',   
@@ -117,8 +117,7 @@ function Ticketdetails(id){
 		nature = "营运";
 	}else if(a.nature == "2"){
 		nature = "非营运";
-	}
-	var hml = "<div class='file_detail'><label>车牌号：</label><span>"+a.vehicleno+"</span></div>"+
+	}var hml = "<div class='file_detail'><label>车牌号：</label><span>"+a.vehicleno+"</span></div>"+
 	"<div class='file_detail'><label>使用性质：</label><span>"+nature+"</span></div>"+
 	"<div class='file_detail'><label>所有人：</label><span>"+a.vehicleowner+"</span></div>"+
 	"<div class='file_detail'><label>证件号码：</label><span>"+a.idcardno+"</span></div>"+

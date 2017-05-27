@@ -34,7 +34,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                <h2>我的车辆</h2>
 			                <a href="${path}/trwuliu/Member/myVehicle/addLinVehiclePage"><span>临时认证</span></a>
 			                <a href="${path}/trwuliu/Member/myVehicle/addVehiclePage"><span>完全认证</span></a>
-			                <a href="${path}/common/vehicleReg/regStep1"><span>new_完全认证</span></a>
 			            </div>
 			            <div class="car_search">
 			                <ul>

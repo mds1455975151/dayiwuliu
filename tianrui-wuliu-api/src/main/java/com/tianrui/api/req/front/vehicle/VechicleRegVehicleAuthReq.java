@@ -6,7 +6,7 @@ public class VechicleRegVehicleAuthReq extends BaseReq {
 	
 	private static final long serialVersionUID = -7190183760043617974L;
 	private String id ;
-	//认证类型   0:默认  1:完全  2:临时  3:开票
+	//认证类型   0:默认  2:完全  1:临时  3:开票
 	private short authType;
 	//营运证号
 	private String taxiLicenseNo;

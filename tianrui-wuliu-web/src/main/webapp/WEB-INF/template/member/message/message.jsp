@@ -45,8 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class=" bgblue">
                     <h2>站内消息</h2>
                 </div>
-                <table  id ="messagelist">
-                </table>
+                <div  id ="messagelist">
+                </div>
                <div class="goods_more pageMore" style="display:hide">
 	                     <h4>查看更多</h4>
 	            </div>   

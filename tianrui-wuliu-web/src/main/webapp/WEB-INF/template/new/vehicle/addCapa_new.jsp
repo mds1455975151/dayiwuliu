@@ -74,6 +74,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 引用公共footer部分 -->
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/new/vehicle/addCapa_new.js?0518" ></script>
+		<script type="text/javascript" src="/resources/js/new/vehicle/addCapa_new.js?0522" ></script>
 	</body>
 </html>

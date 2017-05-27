@@ -56,6 +56,16 @@
    	   <if test="vehicleid != null" >
          and  vehicleId = #{vehicleid,jdbcType=VARCHAR} and authType != -1
       </if>
+      <if test="authtype != null and authtype != ''">
+     	and authType = #{authtype,jdbcType=TINYINT}
+     </if>
+      <if test="vehicleno != null">
+      	and vehicleNo like '%' #{vehicleno,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="authstatus != null">
+      	and authStatus = #{authstatus,jdbcType=TINYINT}
+      </if>
+      and authType != -1
    	</where>
    	<if test="pageNo != null">
    		limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
@@ -70,6 +80,16 @@
    	   <if test="vehicleid != null" >
          and  vehicleId = #{vehicleid,jdbcType=VARCHAR} and authType != -1
       </if>
+     <if test="authtype != null and authtype != ''">
+     	and authType = #{authtype,jdbcType=TINYINT}
+     </if>
+      <if test="vehicleno != null">
+      	and vehicleNo like '%' #{vehicleno,jdbcType=VARCHAR} '%'
+      </if>
+      <if test="authstatus != null">
+      	and authStatus = #{authstatus,jdbcType=TINYINT}
+      </if>
+      and authType != -1
    	</where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

@@ -31,10 +31,29 @@ public class VehicleTicketNewAction {
 		return view;
 	}
 	
+	@RequestMapping("page_wq")
+	public ModelAndView page_wq(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/adminVehicle/ticket_new_wq");
+		///admin/fileVehicle/new/page
+		return view;
+	}
+	
 	@RequestMapping("find")
 	@ResponseBody
 	public Result find(FileVehicleRecordNewReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
+		req.setAuthtype((byte)3);
+		PaginationVO<FileVehicleRecordNewResp> page = fileVehicleRecordNewService.select(req);
+		rs.setData(page);
+		return rs;
+	}
+	
+	@RequestMapping("find_wq")
+	@ResponseBody
+	public Result find_wq(FileVehicleRecordNewReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		req.setAuthtype((byte)2);
 		PaginationVO<FileVehicleRecordNewResp> page = fileVehicleRecordNewService.select(req);
 		rs.setData(page);
 		return rs;

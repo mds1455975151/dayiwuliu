@@ -94,12 +94,23 @@ public class MemberVehicleNewService implements IMemberVehicleNewService{
 	@Override
 	public Result saveMyVehicle(MemberVehicleNewReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
-		MemberVehicleNew record = new MemberVehicleNew();
-		record.setId(UUIDUtil.getId());
-		record.setMemberid(req.getMemberid());
-		record.setVehicleid(req.getVehicleid());
-		record.setCreatetime(System.currentTimeMillis());
-		memberVehicleNewMapper.insertSelective(record);
+		
+		MemberVehicleNew find = new MemberVehicleNew();
+		find.setMemberid(req.getMemberid());
+		find.setVehicleid(req.getVehicleid());
+		List<MemberVehicleNew> list = memberVehicleNewMapper.selectByCondition(find);
+		if(list.size()!=0){
+			rs.setCode("1");
+			rs.setError("改运力已添加");
+			return rs;
+		}else{
+			MemberVehicleNew record = new MemberVehicleNew();
+			record.setId(UUIDUtil.getId());
+			record.setMemberid(req.getMemberid());
+			record.setVehicleid(req.getVehicleid());
+			record.setCreatetime(System.currentTimeMillis());
+			memberVehicleNewMapper.insertSelective(record);
+		}
 		return rs;
 	}
 

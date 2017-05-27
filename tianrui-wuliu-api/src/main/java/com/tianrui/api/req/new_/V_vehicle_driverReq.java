@@ -3,6 +3,8 @@ package com.tianrui.api.req.new_;
 /** 我的运力视图 实体类*/
 public class V_vehicle_driverReq {
     private String id;
+    
+    private String search;
 
     private String vehicleid;
 
@@ -40,7 +42,15 @@ public class V_vehicle_driverReq {
         this.vehicleid = vehicleid == null ? null : vehicleid.trim();
     }
 
-    public String getVehicleno() {
+    public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getVehicleno() {
         return vehicleno;
     }
 

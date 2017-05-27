@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,24 +43,26 @@ public class AnlianBillPosition {
 //        	req.setDesc4("已到货");
         	List<AnlianBillResp> list = anlianBillService.findAll(req);
         	for(AnlianBillResp resp : list){
-        		Result rs = Result.getSuccessResult();
-        		rs = anlianService.detail(resp.getBillno());
-        		JSONObject json = (JSONObject) rs.getData();
-        		AnlianBillUpdateReq upt = new AnlianBillUpdateReq();
-        		upt.setId(resp.getId());
-        		if("000000".equals(rs.getCode())){
-        			BillAnlianPosition t = new BillAnlianPosition();
-        			PropertyUtils.copyProperties(t, json);
-        			t.setShipmentno(resp.getBillno());
-        			t.setCreatetime(System.currentTimeMillis());
-	        		if(t!= null){
-	        			billAnlianPositionDao.save(t);
-	        		}
-	        		upt.setDesc4("运输中");
-        		}else{
-        			upt.setDesc4(rs.getError());
+        		if(!StringUtils.contains(resp.getDesc4(),"已到货")){
+        			Result rs = Result.getSuccessResult();
+        			rs = anlianService.detail(resp.getBillno());
+        			JSONObject json = (JSONObject) rs.getData();
+        			AnlianBillUpdateReq upt = new AnlianBillUpdateReq();
+        			upt.setId(resp.getId());
+        			if("000000".equals(rs.getCode())){
+        				BillAnlianPosition t = new BillAnlianPosition();
+        				PropertyUtils.copyProperties(t, json);
+        				t.setShipmentno(resp.getBillno());
+        				t.setCreatetime(System.currentTimeMillis());
+        				if(t!= null){
+        					billAnlianPositionDao.save(t);
+        				}
+        				upt.setDesc4("运输中");
+        			}else{
+        				upt.setDesc4(rs.getError());
+        			}
+        			anlianBillService.update(upt);
         		}
-        		anlianBillService.update(upt);
         	}
         } catch (Exception e) {
 			logger.error(e.getMessage(),e);

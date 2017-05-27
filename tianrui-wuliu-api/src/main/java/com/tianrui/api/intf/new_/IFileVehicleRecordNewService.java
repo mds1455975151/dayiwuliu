@@ -10,4 +10,6 @@ public interface IFileVehicleRecordNewService {
 	PaginationVO<FileVehicleRecordNewResp> select(FileVehicleRecordNewReq req) throws Exception;
 	/** 开票运力审核*/
 	Result vehicleTrickCheck(FileVehicleRecordNewReq req)throws Exception;
+	/** 完全认证审核*/
+	Result vehicleCheck(FileVehicleRecordNewReq req)throws Exception;
 }

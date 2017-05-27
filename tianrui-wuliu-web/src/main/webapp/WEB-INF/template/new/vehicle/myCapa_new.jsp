@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <!--个人中心右侧搜索框begin-->
 		                <div class="plan_search">
 		                    <input type="text" placeholder="司机姓名/司机电话/车牌号" id="searchText">
-		                    <button type="submit" class="btn btnyello" onclick="index(1,0)">搜索</button>
+		                    <button type="submit" class="btn btnyello" onclick="index(0,0)">搜索</button>
 		                </div>
 		                <!--个人中心右侧搜索框end-->
 			            <div style="height: 15px;background: #f0f0f0;"></div>
@@ -72,6 +72,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 		<script type="text/javascript"> var trRoot = "${trRoot}";</script>
-		<script type="text/javascript" src="/resources/js/new/vehicle/myCapa_new.js?0518" ></script>
+		<script type="text/javascript" src="/resources/js/new/vehicle/myCapa_new.js?0522" ></script>
 	</body>
 </html>

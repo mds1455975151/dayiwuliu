@@ -608,7 +608,7 @@ public class BillService implements IBillService{
 		billMassage.setTelephoneNumber(db.getDrivertel());
 		billMassage.setDescriptionOfGoods(db.getCargoname());
 		billMassage.setCargoTypeClassificationCode("94");//货物分类代码 4.2.5
-		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",db.getTrueweight()));//三位小数
+		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",db.getTrueweight()*1000));//三位小数
 		
 		if(flag){
 			JtbHttpRequset jtb = new JtbHttpRequset();
@@ -2135,7 +2135,7 @@ public class BillService implements IBillService{
 		billMassage.setTelephoneNumber(sl.get(0).getCellphone());
 		billMassage.setDescriptionOfGoods(ab.getHpmc());
 		billMassage.setCargoTypeClassificationCode("94");//货物分类代码 4.2.5
-		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",Double.valueOf(ab.getHpsx())));//三位小数
+		billMassage.setGoodsItemGrossWeight(String.format("%.3f ",Double.valueOf(ab.getSl())*1000));//三位小数
 		
 		JtbHttpRequset jtb = new JtbHttpRequset();
 		String result = jtb.putJtb(billMassage);

@@ -10,11 +10,27 @@
   <sql id="Base_Column_List" >
     id, vehicleId, memberId, createTime
   </sql>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from tr_member_vehicle_new
     where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.vehiclereg.MemberVehicleNew" >
+    select 
+    <include refid="Base_Column_List" />
+    from tr_member_vehicle_new
+    <where>
+    	<if test="vehicleid != null and vehicleid != ''">
+    		and vehicleId = #{vehicleid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="memberid != null and memberid != ''">
+    	 	and memberId = #{memberid,jdbcType=VARCHAR}
+    	</if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tr_member_vehicle_new

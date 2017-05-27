@@ -3,7 +3,33 @@ package com.tianrui.api.resp.new_;
 public class FileVehicleRecordNewResp {
     //  主键uuid
     private String id;
+    
+    //  营运证号
+    private String taxilicenseno;
 
+    //  道路运输证号
+    private String roadtransportno;
+
+    //  营运证图片
+    private String taxilicenseimg;
+
+    //  车辆图片
+    private String vehicleimg;
+
+    //  行驶证
+    private String drivinglicenseno;
+
+    //  行驶证图片
+    private String drivinglicenseimg;
+
+    //  车辆登记证
+    private String vehiclegradeno;
+
+    //  车辆登记证图片
+    private String vehiclegradeimg;
+
+    //-------------------------------------------------
+    
     //  车辆id
     private String vehicleid;
 
@@ -93,8 +119,71 @@ public class FileVehicleRecordNewResp {
         this.vehicleno = vehicleno == null ? null : vehicleno.trim();
     }
 
+    public String getTaxilicenseno() {
+		return taxilicenseno;
+	}
 
-    public String getNature() {
+	public void setTaxilicenseno(String taxilicenseno) {
+		this.taxilicenseno = taxilicenseno;
+	}
+
+	public String getRoadtransportno() {
+		return roadtransportno;
+	}
+
+	public void setRoadtransportno(String roadtransportno) {
+		this.roadtransportno = roadtransportno;
+	}
+
+	public String getTaxilicenseimg() {
+		return taxilicenseimg;
+	}
+
+	public void setTaxilicenseimg(String taxilicenseimg) {
+		this.taxilicenseimg = taxilicenseimg;
+	}
+
+	public String getVehicleimg() {
+		return vehicleimg;
+	}
+
+	public void setVehicleimg(String vehicleimg) {
+		this.vehicleimg = vehicleimg;
+	}
+
+	public String getDrivinglicenseno() {
+		return drivinglicenseno;
+	}
+
+	public void setDrivinglicenseno(String drivinglicenseno) {
+		this.drivinglicenseno = drivinglicenseno;
+	}
+
+	public String getDrivinglicenseimg() {
+		return drivinglicenseimg;
+	}
+
+	public void setDrivinglicenseimg(String drivinglicenseimg) {
+		this.drivinglicenseimg = drivinglicenseimg;
+	}
+
+	public String getVehiclegradeno() {
+		return vehiclegradeno;
+	}
+
+	public void setVehiclegradeno(String vehiclegradeno) {
+		this.vehiclegradeno = vehiclegradeno;
+	}
+
+	public String getVehiclegradeimg() {
+		return vehiclegradeimg;
+	}
+
+	public void setVehiclegradeimg(String vehiclegradeimg) {
+		this.vehiclegradeimg = vehiclegradeimg;
+	}
+
+	public String getNature() {
         return nature;
     }
 

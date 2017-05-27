@@ -3,10 +3,8 @@ $(function(){
 });
 //页面初始状态
 function index_(){
-	$(".lin_renzhen").hide();
 	$(".vehicle_class").show();
 	$(".info_class").hide();
-	$(".driver_class").hide();
 }
 
 //完全认证点击事件
@@ -24,93 +22,30 @@ $("#add_class_w").on("click",function(){
 	$(".renzhen").show();
 	//临时认证输入框隐藏
 	$(".lin_renzhen").hide();
-	cleanVehicleNO();
 });
-//临时认证点击事件
-$("#add_class_l").on("click",function(){
-	//点击后台进入车辆信息显示层
-	$(".vehicel_info").click();
-	//临时/完全认证样式控制
-	$("#add_class_l").addClass("select");
-	$("#add_class_w").removeClass("select");
-	//隐藏input 控制车辆认证类型
-	$("#authType_req").val("1");
-	//去掉输入框前小红点
-	$(".authType_style").hide();
-	//临时认证输入框显示
-	$(".lin_renzhen").show();
-	//完全认证输入框隐藏
-	$(".renzhen").hide();
-	//临时认证初始显示为输入车牌号
-	VehilceNo_yuan();
-	cleanVehicleNO()
-});
-//临时认证获取车牌号
-function getVehilceNo(){
-	$("#lin_vehicle").show();
-	$("#you_vehicle").hide();
-	$.ajax({
-		url : '/trwuliu/Member/myVehicle/getVehicleNo',// 跳转到 action
-		data : {},
-		type : "post",
-		success : function(result) {
-			if (result.code == "000000") {
-				$("#vehicle_add_vehiNo").val(result.data);
-				$("#vehicleNo_req").val(result.data);
-			} 
-		}
-	});
-}
-//临时认证输入车牌号
-function VehilceNo_yuan(){
-	$("#lin_vehicle").hide();
-	$("#you_vehicle").show();
-}
 
 //车辆信息点击事件
 $(".vehicel_info").on("click",function(){
 	$("#vehicel_img").attr('src',trRoot+"/tianrui/images/zhmm11.jpg"); 
 	$("#info_img").attr('src',trRoot+"/tianrui/images/zhmm22.jpg"); 
-	$("#driver_img").attr('src',trRoot+"/tianrui/images/zhmm32.jpg"); 
 	
 	$("#vehicel_class").addClass("colorblue");
 	$("#info_class").removeClass("colorblue");
-	$("#driver_class").removeClass("colorblue");
 	
 	$(".vehicle_class").show();
 	$(".info_class").hide();
-	$(".driver_class").hide();
 });
 //认证信息点击事件
 $(".info_info").on("click",function(){
 	if(vehicle_test()){
 		$("#vehicel_img").attr('src',trRoot+"/tianrui/images/zhmm12.jpg"); 
 		$("#info_img").attr('src',trRoot+"/tianrui/images/zhmm21.jpg"); 
-		$("#driver_img").attr('src',trRoot+"/tianrui/images/zhmm32.jpg"); 
 		
 		$("#vehicel_class").removeClass("colorblue");
 		$("#info_class").addClass("colorblue");
-		$("#driver_class").removeClass("colorblue");
 		
 		$(".vehicle_class").hide();
 		$(".info_class").show();
-		$(".driver_class").hide();
-	}
-});
-//驾驶员信息点击事件
-$(".driver_info").on("click",function(){
-	if(vehicle_test()&&info_test()){
-		$("#vehicel_img").attr('src',trRoot+"/tianrui/images/zhmm12.jpg"); 
-		$("#info_img").attr('src',trRoot+"/tianrui/images/zhmm22.jpg"); 
-		$("#driver_img").attr('src',trRoot+"/tianrui/images/zhmm31.jpg"); 
-		
-		$("#vehicel_class").removeClass("colorblue");
-		$("#info_class").removeClass("colorblue");
-		$("#driver_class").addClass("colorblue");
-		
-		$(".vehicle_class").hide();
-		$(".info_class").hide();
-		$(".driver_class").show();
 	}
 });
 /** 验证车辆信息是否完整*/
@@ -171,61 +106,6 @@ function info_test(){
 	}
 	if(type=="1"&&$("#drivingLicenseImg_req_str").val()==""){
 		alert("请上传行驶证照片");
-		return false;
-	}
-	return true;
-}
-/** 验证司机信息是否完整*/
-function driver_test(){
-	if($("#driverName_req").val()==""){
-		alert("司机姓名不能为空");
-		return false;
-	}
-	if($("#driverIdCard_req").val()==""){
-		alert("司机身份证/驾驶证不能为空");
-		return false;
-	}
-	if($("#driverBirthDate_req").val()==""){
-		alert("司机出生日期不能为空");
-		return false;
-	}
-	if($("#driverLinkTel_req").val()==""){
-		alert("司机联系电话不能为空");
-		return false;
-	}
-	if($("#driverIdCardAddr_req").val()==""){
-		alert("司机身份证地址不能为空");
-		return false;
-	}
-	if($("#driverCardFirstlicens_req").val()==""){
-		alert("司机初次领证日期不能为空");
-		return false;
-	}
-	if($("#driverCardLicenceorg_req").val()==""){
-		alert("发证机关不能为空");
-		return false;
-	}
-	if($("#driverCardRegDate_req").val()==""){
-		alert("驾驶证注册日期不能为空");
-		return false;
-	}
-	if($("#driverCardUsefullife_req").val()==""){
-		alert("有效年限不能为空");
-		return false;
-	}
-	
-	if($("#driverCardImg_req_str").val()==""){
-		alert("请上传驾驶证照片");
-		return false;
-	}
-	
-	if($("#driverIdCard_A_req_str").val()==""){
-		alert("请上传身份证正面");
-		return false;
-	}
-	
-	if($("#driverIdCard_B_req_str").val()==""){
-		alert("请上传身份证反面");
 		return false;
 	}
 	return true;

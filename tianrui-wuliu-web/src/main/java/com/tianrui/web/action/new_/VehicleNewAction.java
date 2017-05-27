@@ -10,14 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.admin.intf.IFileVehicleNewService;
+import com.tianrui.api.intf.IDataService;
+import com.tianrui.api.intf.new_.IFileVehicleRecordNewService;
 import com.tianrui.api.intf.new_.IMemberVehicleNewService;
 import com.tianrui.api.intf.new_.IVehicleReg4VehicleService;
+import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverQueryReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegDriverSaveReq;
+import com.tianrui.api.req.front.vehicle.VechicleRegVehicleAuthReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehicleDetailResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.Users;
 import com.tianrui.web.util.SessionManager;
 
 /***
@@ -34,7 +40,39 @@ public class VehicleNewAction {
 
 	@Autowired
 	IMemberVehicleNewService memberVehicleNewService;
+	@Autowired
+	IFileVehicleRecordNewService fileVehicleRecordNewService;
 	
+	@Autowired
+	IFileVehicleNewService fileVehicleNewService;
+	
+	@Autowired
+	IDataService dataService;
+	
+	/**车辆完全认证
+	 * @throws Exception */
+	@RequestMapping("vheicle_w")
+	public ModelAndView vheicle_w(HttpServletRequest request) throws Exception{
+		ModelAndView view = new ModelAndView();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		Result rs = fileVehicleNewService.selectByid(vo.getId());
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		view.addObject("vt", dataService.find(req));
+		view.addObject("vehicle", rs.getData());
+		view.setViewName("/new/vehicle/vehicleAuth");
+		return view;
+	}
+	/** 添加车辆完全认证信息*/
+	@RequestMapping("vehicle_w_save")
+	@ResponseBody
+	public Result vehicle_w_save(VechicleRegVehicleAuthReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setId(vo.getId());
+		vehicleReg4VehicleService.vehicleAuth(req);
+		return rs;
+	}
 	
 	/** 我的驾驶员*/
 	@RequestMapping("driverpage")

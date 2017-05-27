@@ -9,6 +9,8 @@ public class VehicleDriverNew {
 
     //  姓名
     private String drivername;
+    
+    private String drivername_like;
 
     //  性别   1:男� 2女
     private String driversex;
@@ -238,6 +240,14 @@ public class VehicleDriverNew {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public String getDrivername_like() {
+		return drivername_like;
+	}
+
+	public void setDrivername_like(String drivername_like) {
+		this.drivername_like = drivername_like;
 	}
     
     

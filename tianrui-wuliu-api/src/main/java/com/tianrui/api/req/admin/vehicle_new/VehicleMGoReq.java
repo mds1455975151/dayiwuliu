@@ -7,6 +7,8 @@ public class VehicleMGoReq {
 	
 	private String vheicleNo;
 	
+	private short authtype;
+	
 	private Integer pageNo;
 	
 	private Integer pageSize;
@@ -42,4 +44,13 @@ public class VehicleMGoReq {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public short getAuthtype() {
+		return authtype;
+	}
+
+	public void setAuthtype(short authtype) {
+		this.authtype = authtype;
+	}
+
 }

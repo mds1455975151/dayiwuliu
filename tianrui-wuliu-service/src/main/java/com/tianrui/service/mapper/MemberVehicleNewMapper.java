@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.vehiclereg.MemberVehicleNew;
 
 public interface MemberVehicleNewMapper {
@@ -14,4 +16,6 @@ public interface MemberVehicleNewMapper {
     int updateByPrimaryKeySelective(MemberVehicleNew record);
 
     int updateByPrimaryKey(MemberVehicleNew record);
+    
+    List<MemberVehicleNew> selectByCondition(MemberVehicleNew record);
 }

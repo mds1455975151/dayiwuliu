@@ -34,7 +34,17 @@ public class VehicleRegDaoImpl extends BaseDaoImpl<VehicleReg, String>  implemen
 		PaginationVO<VehicleReg> page = new PaginationVO<VehicleReg>();
 		List<VehicleReg> list = new ArrayList<VehicleReg>();
 		Query query =new Query();
-		query.with(new Sort(Direction.DESC,"createtime"));
+//		Criteria criteria = Criteria.where("vehicleNo").is(req.getVheicleNo()).where("authType").is(req.getAuthtype());
+//		query.addCriteria(criteria);
+		if(StringUtils.isNotBlank(req.getVheicleNo())){
+			Criteria criteria = Criteria.where("vehicleNo").is(req.getVheicleNo()).and("authType").is(req.getAuthtype());
+			query.addCriteria(criteria);
+		}else{
+			Criteria criteria = Criteria.where("authType").is(req.getAuthtype());
+			query.addCriteria(criteria);
+		}
+		
+		query.with(new Sort(Direction.DESC,"createTime"));
 		//不分页
 		list=mongoTemplate.find(query, VehicleReg.class);
 		page.setTotal(list.size());

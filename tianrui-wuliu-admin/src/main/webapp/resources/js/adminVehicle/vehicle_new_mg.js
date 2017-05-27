@@ -11,17 +11,21 @@ function displayData(d){
 		$("#recPage").val("");
 	}
 }
+function clearSearch(){
+	$("#vehicleno").val("");
+	$("#authtype").val("2");
+}
+
 function displayRec(pageNo){
 	var pageSize=$("#pageSize").val();
 	var vehicleno = $("#vehicleno").val();
-	var ownerName = $("#ownerName").val();
-	var vehiclemobile = $("#vehiclemobile").val();
 	var authtype = $("#authtype").val();
-	var status = $("#vehiclestatus").val();
 	$.ajax({
 		url:'/admin/fileVehicle/find',
 		data:{"pageNo":(pageNo),
-			"pageSize":pageSize
+			"pageSize":pageSize,
+			"vheicleNo":vehicleno,
+			"authtype":authtype
 		},
 		type:"post",
 		success: function(ret) {
@@ -31,6 +35,7 @@ function displayRec(pageNo){
 				$("#totalRecords").html(ret.data.total);
 		    	document.getElementById("goPage").value = pageNo+1;
 			    if(ret.data.total == 0) {
+			    	var hml;
 			    	$("#totalPages").html(1);  
 			    	hml +='<td colspan="12">';
 		    		hml +='<div class="ht_none">';
@@ -41,6 +46,7 @@ function displayRec(pageNo){
 		    		hml +='</div>';
 		    		hml +='</div>';
 		    		hml +='</td>';
+		    		$("#innerhml").html(hml);
 			    }else {
 			    	$("#totalPages").html(parseInt((ret.data.total-1)/pageSize+1));  
 			    	var d = ret.data.list;
@@ -71,9 +77,9 @@ function innerHtml(d){
 	    var authType = "";
 	    if(d[a].authType=="0"){
 	    	authType="默认";
-	    }else if(d[a].authType=="1"){
-	    	authType="完全认证";
 	    }else if(d[a].authType=="2"){
+	    	authType="完全认证";
+	    }else if(d[a].authType=="1"){
 	    	authType="临时认证";
 	    }else if(d[a].authType=="3"){
 	    	authType="开票认证";

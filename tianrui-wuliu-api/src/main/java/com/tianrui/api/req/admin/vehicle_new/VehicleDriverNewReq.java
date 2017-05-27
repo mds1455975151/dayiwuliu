@@ -9,6 +9,8 @@ public class VehicleDriverNewReq {
 
     //  姓名
     private String drivername;
+    
+    private String drivername_like;
 
     //  性别   1:男� 2女
     private String driversex;
@@ -72,7 +74,15 @@ public class VehicleDriverNewReq {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getVehicleid() {
+    public String getDrivername_like() {
+		return drivername_like;
+	}
+
+	public void setDrivername_like(String drivername_like) {
+		this.drivername_like = drivername_like;
+	}
+
+	public String getVehicleid() {
         return vehicleid;
     }
 

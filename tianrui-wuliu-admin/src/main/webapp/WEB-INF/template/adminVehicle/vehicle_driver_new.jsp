@@ -40,32 +40,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="col-md-12">
                             <div class="contuser_search">
                                 <div class="ht_div">
-                                    <label>车牌号：</label>
-                                    <input type="text" id="vehicleno" placeholder=" ">
+                                    <label>司机姓名：</label>
+                                    <input type="text" id="drivername">
                                 </div>
                                 <div class="ht_div">
-                                    <label>所有人：</label>
-                                    <input type="text" id="ownerName" placeholder=" ">
-                                </div>
-                                <div class="ht_div">
-                                    <label>随车电话：</label>
-                                    <input type="text" id="vehiclemobile" placeholder=" ">
+                                    <label>联系电话：</label>
+                                    <input type="text" id="driverlinktel">
                                 </div>
                                 <div class="ht_div">
                                         <label>认证状态:</label>
-                                        <select class="form-control" id="vehiclestatus">
+                                        <select class="form-control" id="authstats">
                                             <option value="">请选择</option>
                                             <option value="2">认证中</option>
-                                            <option value="-1">认证失败</option>
+                                            <option value="3">认证失败</option>
                                             <option value="1">认证成功</option>
-                                        </select>
-                                </div>
-                                <div class="ht_div">
-                                        <label>认证方式:</label>
-                                        <select class="form-control" id="authtype">
-                                            <option value="">请选择</option>
-                                            <option value="1">临时认证</option>
-                                            <option value="2">完全认证</option>
                                         </select>
                                 </div>
                             </div>

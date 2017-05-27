@@ -24,7 +24,7 @@ public class DaySchedule {
 	@Autowired
 	ICountService countService;
 	
-	@Scheduled(cron="0 0/30 *  * * ? ")
+//	@Scheduled(cron="0 0 0/12  * * ? ")
     public void everyDay() throws Exception{  
 	   
 		CountSelectReq req = new CountSelectReq();

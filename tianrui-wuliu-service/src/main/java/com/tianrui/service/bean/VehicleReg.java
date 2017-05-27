@@ -40,7 +40,7 @@ public class VehicleReg implements Serializable{
 	/**
 	 * 认证信息
 	 */
-	//认证类型   0:默认 1:完全  2:临时  3:开票
+	//认证类型   0:默认 2:完全  1:临时  3:开票
 	private short authType;
 	//营运证号
 	private String taxiLicenseNo;
