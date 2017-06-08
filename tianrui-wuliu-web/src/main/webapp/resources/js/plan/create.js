@@ -179,9 +179,16 @@ $(function(){
 			success : function(rs) {
 				if( rs.code=="000000" ){
 					var data = rs.data;
-		            $("#hprice").html( data.price);
+					var payment = "";
+					if(data.payment=="1"){
+						payment = "支付到司机";
+					}else if(data.payment=="2"){
+						payment = "支付到车主";
+					}
+					$("#hprice").html( data.price);
 	            	$("#tallage").html(parseInt(data.tallage)+'%');
 	                $("#hpriceunits").html( data.priceunits);
+	                $("#payment").html(payment);
 	                $(".cargoSel").val( data.cargoid);
 	                $(".routeSel").val( data.routeid);
 	                $("#organizationname").val(data.organizationname);
@@ -283,6 +290,22 @@ $(function(){
 //			alert("请选择收货方.");
 //			return false;
 //		}
+		if( !$("#sendname").val()){
+			alert("发货人姓名不能为空");
+			return false;
+		}
+		if( !$("#sendtel").val()){
+			alert("发货人电话不能为空");
+			return false;
+		}
+		if( !$("#recname").val()){
+			alert("收货人姓名不能为空");
+			return false;
+		}
+		if( !$("#rectell").val()){
+			alert("收货人电话不能为空");
+			return false;
+		}
 		if($("input[name=venderId]:checked").length==0){
 			alert("请选择车主.");
 			return false;

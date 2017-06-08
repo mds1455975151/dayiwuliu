@@ -29,6 +29,11 @@
     
     <result column="q_deviation" property="q_deviation" jdbcType="DOUBLE" />
     <result column="d_deviation" property="d_deviation" jdbcType="DOUBLE" />
+    
+    <result column="ownerSigntime" property="ownerSigntime" jdbcType="BIGINT" />
+    <result column="begintime" property="begintime" jdbcType="BIGINT" />
+    <result column="interTime" property="interTime" jdbcType="BIGINT" />
+     <result column="interDistance" property="interDistance" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Base_Column_List">
   		id, type, createtime, 
@@ -39,13 +44,31 @@
       plancode, shipperMerchant, consigneeMerchant, 
       shipperMerchantname, consigneeMerchantname, 
       remarkname, routename, orgid, 
-      palnid,q_deviation,d_deviation
+      palnid,q_deviation,d_deviation,begintime,interDistance,interTime,ownerSigntime
   </sql>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
   	select 
     <include refid="Base_Column_List" />
     from v_anlian_billreport
     <where>
+    	<if test="t_position == 1">
+    		and q_deviation is not null
+    	</if>
+    	<if test="d_position == 1">
+    		and d_deviation is not null
+    	</if>
+    	<if test="interTimeStr != null and interTimeStr != ''">
+    		and ${interTimeStr}
+    	</if>
+    	<if test="interDistanceStr != null and interDistanceStr != ''">
+    		and ${interDistanceStr}
+    	</if>
+    	<if test="waybillno != null and waybillno != ''">
+    		and waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="plancode != null and plancode != ''">
+    		and plancode like "%" #{plancode,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="status != null">
     		and status = #{status,jdbcType=TINYINT}
     	</if>
@@ -65,10 +88,16 @@
     		and type = #{type,jdbcType=VARCHAR}
     	</if>
     	<if test="starttime != null">
-    		and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+    		and begintime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
     	</if>
     	<if test="endtime != null">
-    		and createtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+    		and begintime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+    	</if>
+    	<if test="ownerSigntime_0 != null">
+    		and ownerSigntime <![CDATA[>=]]> #{ownerSigntime_0,jdbcType=BIGINT}
+    	</if>
+    	<if test="ownerSigntime_1 != null">
+    		and ownerSigntime <![CDATA[<=]]> #{ownerSigntime_1,jdbcType=BIGINT}
     	</if>
     </where>
     order by createtime desc
@@ -82,6 +111,24 @@
     count(0)
     from v_anlian_billreport
     <where>
+    	<if test="t_position == 1">
+    		and q_deviation is not null
+    	</if>
+    	<if test="d_position == 1">
+    		and d_deviation is not null
+    	</if>
+    	<if test="interTimeStr != null and interTimeStr != ''">
+    		and ${interTimeStr}
+    	</if>
+    	<if test="interDistanceStr != null and interDistanceStr != ''">
+    		and ${interDistanceStr}
+    	</if>
+    	<if test="waybillno != null and waybillno != ''">
+    		and waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="plancode != null and plancode != ''">
+    		and plancode like "%" #{plancode,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="status != null">
     		and status = #{status,jdbcType=TINYINT}
     	</if>
@@ -101,10 +148,16 @@
     		and type = #{type,jdbcType=VARCHAR}
     	</if>
     	<if test="starttime != null">
-    		and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+    		and begintime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
     	</if>
     	<if test="endtime != null">
-    		and createtime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+    		and begintime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+    	</if>
+    	<if test="ownerSigntime_0 != null">
+    		and ownerSigntime <![CDATA[>=]]> #{ownerSigntime_0,jdbcType=BIGINT}
+    	</if>
+    	<if test="ownerSigntime_1 != null">
+    		and ownerSigntime <![CDATA[<=]]> #{ownerSigntime_1,jdbcType=BIGINT}
     	</if>
     </where>
   </select>

@@ -7,14 +7,30 @@ public class AnlianBillReport {
 	private Integer pageSize;
 	
     private Long starttime;
+    
+    //货运时间
+    private String interTimeStr;
+    //货运距离
+    private String interDistanceStr;
+    
+    //签收时间起
+    private Long ownerSigntime_0;
+    //签收时间止
+    private Long ownerSigntime_1;
 	
 	private Long endtime;
 	
     private String id;
+    //是否有提货地 1-有
+  	private String t_position;
+  	//是否有到货地
+  	private String d_position;
     
     private Double q_deviation;
     
     private Double d_deviation;
+    
+    private Long ownerSigntime;
 
     private String type;
 
@@ -61,6 +77,12 @@ public class AnlianBillReport {
     private String orgid;
 
     private String palnid;
+   
+    private Long begintime;
+    
+    private Long interTime;
+    
+    private Double interDistance;
 
     public String getId() {
         return id;
@@ -300,6 +322,86 @@ public class AnlianBillReport {
 
 	public void setD_deviation(Double d_deviation) {
 		this.d_deviation = d_deviation;
+	}
+
+	public Long getBegintime() {
+		return begintime;
+	}
+
+	public void setBegintime(Long begintime) {
+		this.begintime = begintime;
+	}
+
+	public Long getInterTime() {
+		return interTime;
+	}
+
+	public void setInterTime(Long interTime) {
+		this.interTime = interTime;
+	}
+
+	public Double getInterDistance() {
+		return interDistance;
+	}
+
+	public void setInterDistance(Double interDistance) {
+		this.interDistance = interDistance;
+	}
+
+	public Long getOwnerSigntime() {
+		return ownerSigntime;
+	}
+
+	public void setOwnerSigntime(Long ownerSigntime) {
+		this.ownerSigntime = ownerSigntime;
+	}
+
+	public String getInterTimeStr() {
+		return interTimeStr;
+	}
+
+	public void setInterTimeStr(String interTimeStr) {
+		this.interTimeStr = interTimeStr;
+	}
+
+	public String getInterDistanceStr() {
+		return interDistanceStr;
+	}
+
+	public void setInterDistanceStr(String interDistanceStr) {
+		this.interDistanceStr = interDistanceStr;
+	}
+
+	public String getT_position() {
+		return t_position;
+	}
+
+	public void setT_position(String t_position) {
+		this.t_position = t_position;
+	}
+
+	public String getD_position() {
+		return d_position;
+	}
+
+	public void setD_position(String d_position) {
+		this.d_position = d_position;
+	}
+
+	public Long getOwnerSigntime_0() {
+		return ownerSigntime_0;
+	}
+
+	public void setOwnerSigntime_0(Long ownerSigntime_0) {
+		this.ownerSigntime_0 = ownerSigntime_0;
+	}
+
+	public Long getOwnerSigntime_1() {
+		return ownerSigntime_1;
+	}
+
+	public void setOwnerSigntime_1(Long ownerSigntime_1) {
+		this.ownerSigntime_1 = ownerSigntime_1;
 	}
 
 }

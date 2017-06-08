@@ -121,6 +121,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             	<td>${plan.systemShipper }</td>
                             </tr>
                             </tbody>
+                            <thead>
+                            <tr>
+                                <th>支付对象</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            	<td>
+                            	<c:if test="${plan.payment eq '1'}">支付到司机</c:if>
+                            	<c:if test="${plan.payment eq '2'}">支付到车主</c:if>
+                            	</td>
+                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

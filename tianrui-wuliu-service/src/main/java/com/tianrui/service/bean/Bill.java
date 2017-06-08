@@ -11,6 +11,12 @@ public class Bill {
 	private Double q_deviation;
 	private Double d_deviation;
 	
+	private Double interDistance;
+	private Long interTime;
+	private Long begintime;
+	private Long acctepttime;
+	private Long ownerSigntime;
+	
 	private String id;
     private String planid;
     private String plancode;
@@ -1209,6 +1215,46 @@ public class Bill {
 
 	public void setD_deviation(Double d_deviation) {
 		this.d_deviation = d_deviation;
+	}
+
+	public Double getInterDistance() {
+		return interDistance;
+	}
+
+	public Long getAcctepttime() {
+		return acctepttime;
+	}
+
+	public void setAcctepttime(Long acctepttime) {
+		this.acctepttime = acctepttime;
+	}
+
+	public void setInterDistance(Double interDistance) {
+		this.interDistance = interDistance;
+	}
+
+	public Long getInterTime() {
+		return interTime;
+	}
+
+	public void setInterTime(Long interTime) {
+		this.interTime = interTime;
+	}
+
+	public Long getBegintime() {
+		return begintime;
+	}
+
+	public void setBegintime(Long begintime) {
+		this.begintime = begintime;
+	}
+
+	public Long getOwnerSigntime() {
+		return ownerSigntime;
+	}
+
+	public void setOwnerSigntime(Long ownerSigntime) {
+		this.ownerSigntime = ownerSigntime;
 	}
 
 }

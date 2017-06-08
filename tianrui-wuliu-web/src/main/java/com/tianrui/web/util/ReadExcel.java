@@ -6,6 +6,7 @@ package com.tianrui.web.util;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ public class ReadExcel {
 	}
 	
 	public static JSONArray readXls() throws IOException {
-		InputStream is = new FileInputStream("H:/upt.xls");
+		InputStream is = new FileInputStream("H:/bank_address.xls");
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
 		JSONArray array = new JSONArray();
 		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -47,17 +48,34 @@ public class ReadExcel {
 			for (int rowNum = 0; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
 				HSSFRow hssfRow = hssfSheet.getRow(rowNum);
 				if (hssfRow != null) {
-					HSSFCell no = hssfRow.getCell((short) 0);
-					
+					HSSFCell no = null;
 					
 					JSONObject json = new JSONObject();
-					json.put("code", getValue(no));
+//					no = hssfRow.getCell((short) 0);
+//					json.put("A", getValue(no));
+					
+					no = hssfRow.getCell((short) 1);
+					json.put("address", getValue(no));
+					
+					no = hssfRow.getCell((short) 2);
+					try {
+						BigDecimal db = new BigDecimal(getValue(no));
+						System.out.println("普通计数：" + db.toPlainString());
+						json.put("code", db.toPlainString());
+					} catch (Exception e) {
+						json.put("code", getValue(no));
+					}
+					
+					no = hssfRow.getCell((short) 3);
+					json.put("innercode", getValue(no));
+					
+					no = hssfRow.getCell((short) 4);
+					json.put("name", getValue(no));
 					
 					array.add(json);
 				}
 			}
 		}
-		System.out.println(array.size());
 		return array;
 	}
 	

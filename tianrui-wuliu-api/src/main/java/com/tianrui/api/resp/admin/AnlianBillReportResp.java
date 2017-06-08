@@ -31,6 +31,11 @@ public class AnlianBillReportResp {
     /** 到货地点偏差距离*/
     private Double dlength;
     
+    private Long ownerSigntime;
+    
+    private Long interTime;
+    
+    private Double interDistance;
     
     private Double q_deviation;
     
@@ -482,6 +487,30 @@ public class AnlianBillReportResp {
 
 	public void setD_deviation(Double d_deviation) {
 		this.d_deviation = d_deviation;
+	}
+
+	public Long getInterTime() {
+		return interTime;
+	}
+
+	public void setInterTime(Long interTime) {
+		this.interTime = interTime;
+	}
+
+	public Double getInterDistance() {
+		return interDistance;
+	}
+
+	public void setInterDistance(Double interDistance) {
+		this.interDistance = interDistance;
+	}
+
+	public Long getOwnerSigntime() {
+		return ownerSigntime;
+	}
+
+	public void setOwnerSigntime(Long ownerSigntime) {
+		this.ownerSigntime = ownerSigntime;
 	}
 	
 }

@@ -477,6 +477,7 @@ public class BillService implements IBillService{
 						update.setTrueweight(Double.valueOf(req.getWeight()));
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
+						update.setOwnerSigntime(System.currentTimeMillis());
 						billMapper.updateByPrimaryKeySelective(update);
 						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
@@ -725,6 +726,7 @@ public class BillService implements IBillService{
 						update.setId(req.getId());
 						int index = 0;
 						if(StringUtils.equals(Constant.BILL_TYPE_0, req.getType())){//普通运单
+							update.setAcctepttime(System.currentTimeMillis());
 							update.setModifier(req.getCurruId());
 							update.setModifytime(System.currentTimeMillis());
 							update.setStatus((byte)BillStatusEnum.ACCEPT.getStatus());
@@ -743,6 +745,7 @@ public class BillService implements IBillService{
 							b.setWaybillno(codeGenDao.codeGen(2));
 							b.setType(Byte.parseByte(Constant.BILL_TYPE_0));
 							b.setOvernumber("1");
+							b.setAcctepttime(System.currentTimeMillis());
 							b.setTotalnumber("1");
 							b.setModifier(req.getCurruId());
 							b.setModifytime(System.currentTimeMillis());
@@ -909,7 +912,6 @@ public class BillService implements IBillService{
 			if( db !=null ){
 				//保存卸货地位置信息
 				saveBillPosition(req);
-				
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"transit") ){
 						//移动端图片保存
@@ -925,18 +927,30 @@ public class BillService implements IBillService{
 							return rs;
 						}
 						if(rs!=null &&StringUtils.equals(rs.getCode(), "000000") && StringUtils.isNotBlank(rs.getData().toString())){
+							Long timestape = System.currentTimeMillis();
 							Bill update =new Bill();
 							update.setId(req.getId());
 							update.setSignweight(req.getPsweight());
 							update.setSignimgurl(String.valueOf(rs.getData()));
 							update.setStatus((byte)BillStatusEnum.SIGN.getStatus());
-							update.setUnloadtime(System.currentTimeMillis());
+							update.setUnloadtime(timestape);
 							update.setModifier(req.getCurruId());
-							update.setModifytime(System.currentTimeMillis());
+							update.setModifytime(timestape);
 							//计算到货地距离偏差
 							FileRoute route = routeMapper.selectByPrimaryKey(db.getRouteid());
 							update.setD_deviation(distanceChange(route.getDpositionid(),req.getLon(),req.getLat()));
-							
+							//提货位置
+							BillPosition bp = billPositionDao.findBillIdAndStatus(req.getId(), "2");
+							if(bp!=null){
+								//提货位置
+//								bp.getLat();//坐标点
+//								bp.getLon();//坐标点
+//								bp.getCreatetime();//坐标点
+								//提货-到货，时间间隔
+								update.setInterTime(timestape-bp.getCreatetime());
+								//提货-到货，距离间隔
+								update.setInterDistance(MapDistanceUtil.getDistance(bp.getLon(), bp.getLat(), req.getLon(),req.getLat()));
+							}
 							
 							billMapper.updateByPrimaryKeySelective(update);
 							saveBillTrack(db.getId(),1,BIllTrackMsg.STEP11,req.getCurruId(),BillStatusEnum.SIGN.getStatus());
@@ -1025,7 +1039,8 @@ public class BillService implements IBillService{
 								update.setPickupweight(req.getPsweight());
 							}
 							update.setStatus((byte)BillStatusEnum.DEPARTURE.getStatus());
-							
+							//运单开始时间
+							update.setBegintime(System.currentTimeMillis());
 							update.setModifier(req.getCurruId());
 							update.setModifytime(System.currentTimeMillis());
 							//计算始发地距离偏差
@@ -1283,6 +1298,7 @@ public class BillService implements IBillService{
 				if(fileFreight != null){
 					resp.setTallage(fileFreight.getTallage());
 					resp.setPrice(fileFreight.getPrice()+"");
+					resp.setPayment(fileFreight.getPayment());
 				}
 				resp.setOverweight(inspectTraffic(pid));
 				if(StringUtils.isNotBlank(plan.getConsigneeMerchant())){

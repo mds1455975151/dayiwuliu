@@ -60,6 +60,8 @@ public class ReportAction {
 		rs.setData(page);
 		return rs;
 	}
+	
+	/**处理历史运单数据*/
 	@RequestMapping("upt")
 	@ResponseBody
 	public Result upt() throws Exception{

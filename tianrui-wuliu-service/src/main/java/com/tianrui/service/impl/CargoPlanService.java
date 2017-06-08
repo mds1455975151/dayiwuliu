@@ -154,6 +154,7 @@ public class CargoPlanService implements ICargoPlanService{
 				resp.setPrice(fileFreight.getPrice());
 				resp.setTallage(fileFreight.getTallage());
 				resp.setOrgname(fileFreight.getOrganizationname());
+				resp.setPayment(fileFreight.getPayment());
 			}else{
 				FileFreight fileFreight = freightMapper.selectByPrimaryKey(resp.getFreightid());
 				resp.setOrgname(fileFreight.getOrganizationname());

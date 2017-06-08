@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form id="file" action="add1" method="post" enctype="multipart/form-data">
+<form id="file" action="add" method="post" enctype="multipart/form-data">
 文件：
 <input id="file_djz" type="file" name="file" value="选择文件">
 <input type="submit" value="提交">
@@ -27,7 +27,7 @@ function djzfile(){
 	var formData = new FormData();
 	formData.append("file",file_djz);
 	$.ajax({
-		url : '/upload/add1',// 跳转到 action
+		url : '/upload/add',// 跳转到 action
 		data : formData,
 		type : "post",
 		processData : false,//告诉jQuery不要去处理发送的数据

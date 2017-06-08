@@ -24,6 +24,8 @@ public class BillPlanResp extends BaseResp{
     private String consigneeMerchant;
     private String consignee;
     
+    private String payment;
+    
 	private String planId;
 	/**
      * 起始地
@@ -206,6 +208,12 @@ public class BillPlanResp extends BaseResp{
 	}
 	public void setIsAppoint(String isAppoint) {
 		this.isAppoint = isAppoint;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
     
 }

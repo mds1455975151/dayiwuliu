@@ -66,6 +66,13 @@
 		
 		<result column="q_deviation" property="q_deviation" jdbcType="DOUBLE" />
 		<result column="d_deviation" property="d_deviation" jdbcType="DOUBLE" />
+		
+		<result column="interDistance" property="interDistance" jdbcType="DOUBLE" />
+		<result column="interTime" property="interTime" jdbcType="BIGINT" />
+		<result column="begintime" property="begintime" jdbcType="BIGINT" />
+		<result column="acctepttime" property="acctepttime" jdbcType="BIGINT" />
+		<result column="ownerSigntime" property="ownerSigntime" jdbcType="BIGINT" />
+		
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
@@ -82,7 +89,8 @@
 		orgid,plancode,creator, createtime,
 		modifier, modifytime, pickupimgurl,
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
-		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,jtb,q_deviation,d_deviation
+		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,
+		jtb,q_deviation,d_deviation,interDistance,interTime,begintime,acctepttime,ownerSigntime
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -413,7 +421,9 @@
 		modifier,
 		modifytime, overnumber,totalnumber, tallage,unloadtime, DESC1,
 		DESC2,
-		DESC3, DESC4,isClearing,pathID,pickupweight, signweight,isAssess,q_deviation,d_deviation
+		DESC3, DESC4,isClearing,pathID,pickupweight, 
+		signweight,isAssess,q_deviation,d_deviation,
+		interDistance,interTime,begintime,acctepttime,ownerSigntime
 		)
 		values
 		(#{id,jdbcType=VARCHAR},
@@ -457,7 +467,12 @@
 		#{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
 		#{isClearing,jdbcType=VARCHAR}, #{pathID,jdbcType=VARCHAR}, 
 		#{pickupweight,jdbcType=DOUBLE}, #{signweight,jdbcType=DOUBLE},
-		#{isAssess,jdbcType=VARCHAR},#{q_deviation,jdbcType=DOUBLE},#{d_deviation,jdbcType=DOUBLE}
+		#{isAssess,jdbcType=VARCHAR},
+		#{q_deviation,jdbcType=DOUBLE},#{d_deviation,jdbcType=DOUBLE},
+		#{interDistance,jdbcType=DOUBLE},
+		#{interTime,jdbcType=BIGINT},
+		#{begintime,jdbcType=BIGINT},#{acctepttime,jdbcType=BIGINT},
+		#{ownerSigntime,jdbcType=BIGINT}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -621,6 +636,21 @@
 			<if test="d_deviation != null">
 				d_deviation,
 			</if>
+			<if test="interDistance != null">
+				interDistance,
+			</if>
+			<if test="interTime != null">
+				interTime,
+			</if>
+			<if test="begintime != null">
+				begintime,
+			</if>
+			<if test="acctepttime != null">
+				acctepttime,
+			</if>
+			<if test="ownerSigntime != null">
+				ownerSigntime,			
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -779,6 +809,22 @@
 			<if test="d_deviation != null">
 				#{d_deviation,jdbcType=DOUBLE},
 			</if>
+			
+			<if test="interDistance != null">
+				#{interDistance,jdbcType=DOUBLE},
+			</if>
+			<if test="interTime != null">
+				#{interTime,jdbcType=BIGINT},
+			</if>
+			<if test="begintime != null">
+				#{begintime,jdbcType=BIGINT},
+			</if>
+			<if test="acctepttime != null">
+				#{acctepttime,jdbcType=BIGINT},
+			</if>
+			<if test="ownerSigntime != null">
+				#{ownerSigntime,jdbcType=BIGINT},		
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Bill">
@@ -786,6 +832,22 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		<set>
+			<if test="ownerSigntime != null">
+				ownerSigntime = #{ownerSigntime,jdbcType=BIGINT},		
+			</if>
+			<if test="acctepttime != null">
+				acctepttime = #{acctepttime,jdbcType=BIGINT},
+			</if>
+			<if test="interDistance != null">
+				interDistance = #{interDistance,jdbcType=DOUBLE},
+			</if>
+			<if test="interTime != null">
+				interTime = #{interTime,jdbcType=BIGINT},
+			</if>
+			<if test="begintime != null">
+				begintime = #{begintime,jdbcType=BIGINT},
+			</if>
+		
 			<if test="q_deviation != null">
 				q_deviation = #{q_deviation,jdbcType=DOUBLE},
 			</if>
@@ -956,8 +1018,12 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		set planid = #{planid,jdbcType=VARCHAR},
-		vehicleid =
-		#{vehicleid,jdbcType=VARCHAR},
+		ownerSigntime = #{ownerSigntime,jdbcType=BIGINT},
+		acctepttime = #{acctepttime,jdbcType=BIGINT},
+		vehicleid = #{vehicleid,jdbcType=VARCHAR},
+		interDistance = #{interDistance,jdbcType=DOUBLE},
+		interTime = #{interTime,jdbcType=BIGINT},
+		begintime = #{begintime,jdbcType=BIGINT},
 		q_deviation = #{q_deviation,jdbcType=DOUBLE},
 		d_deviation = #{d_deviation,jdbcType=DOUBLE},
 		driverid = #{driverid,jdbcType=VARCHAR},

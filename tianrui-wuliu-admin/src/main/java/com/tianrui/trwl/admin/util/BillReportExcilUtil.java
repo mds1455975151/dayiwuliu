@@ -1,5 +1,6 @@
 package com.tianrui.trwl.admin.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import com.tianrui.common.utils.UUIDUtil;
 public class BillReportExcilUtil extends AbstractExcelView {
 
 	private static String[] titles = new String[] { "序号", "运单类型","业务日期","计划单号","运单号",
-			"发货方","收货方","车主姓名","车牌号","司机姓名","货物名称","开始时间","结束时间","提货地偏差","卸货地偏差",
+			"发货方","收货方","车主姓名","车牌号","司机姓名","货物名称","间隔分钟数","间隔距离","提货时间","到货时间","签收时间","提货地偏差","卸货地偏差",
 			"提货数量","运输路线","计划总量","卸货量","执行总量","运单状态"};
 	
 	@Override
@@ -117,19 +118,46 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			cell = getCell(sheet, cellNum, 10);
 			cell.setCellStyle(contentStyle);
 			setText(cell, cargoname);
-			//开始时间
-			String begintime = list.get(i).getBegintimeStr();
+			//间隔分钟数
 			cell = getCell(sheet, cellNum, 11);
 			cell.setCellStyle(contentStyle);
-			setText(cell, begintime);
-			//结束时间
-			String un = list.get(i).getUnloadtimeStr();
+			if(list.get(i).getInterTime() != null){
+				Long inetTime = list.get(i).getInterTime()/(60*1000);
+				setText(cell, inetTime.toString()+"分钟");
+			}else{
+				setText(cell, "");
+			}
+			//间隔距离
 			cell = getCell(sheet, cellNum, 12);
 			cell.setCellStyle(contentStyle);
+			if(list.get(i).getInterDistance() != null){
+				Double inetDist = list.get(i).getInterDistance();
+				setText(cell, inetDist.toString()+"米");
+			}else{
+				setText(cell, "");
+			}
+			//提货时间
+			String begintime = list.get(i).getBegintimeStr();
+			cell = getCell(sheet, cellNum, 13);
+			cell.setCellStyle(contentStyle);
+			setText(cell, begintime);
+			//到货时间
+			String un = list.get(i).getUnloadtimeStr();
+			cell = getCell(sheet, cellNum, 14);
+			cell.setCellStyle(contentStyle);
 			setText(cell, un);
+			//签收时间
+			cell = getCell(sheet, cellNum, 15);
+			cell.setCellStyle(contentStyle);
+			if(list.get(i).getOwnerSigntime() != null){
+				Long ownerTime = list.get(i).getOwnerSigntime();
+				setText(cell, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(ownerTime)));
+			}else{
+				setText(cell, "");
+			}
 			
 			//提货地偏差
-			cell = getCell(sheet, cellNum, 13);
+			cell = getCell(sheet, cellNum, 16);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getQ_deviation()!=null){
 				Double op = list.get(i).getQ_deviation();
@@ -139,7 +167,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			}
 			
 			//卸货地偏差
-			cell = getCell(sheet, cellNum, 14);
+			cell = getCell(sheet, cellNum, 17);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getD_deviation()!=null){
 				Double dp = list.get(i).getD_deviation();
@@ -151,7 +179,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			
 			//提货数量
 			Double pickup = null;
-			cell = getCell(sheet, cellNum, 15);
+			cell = getCell(sheet, cellNum, 18);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getPickupweight() != null){
 				pickup = list.get(i).getPickupweight();
@@ -161,17 +189,17 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			}
 			//运输路线
 			String routetime = list.get(i).getRoutename();
-			cell = getCell(sheet, cellNum, 16);
+			cell = getCell(sheet, cellNum, 19);
 			cell.setCellStyle(contentStyle);
 			setText(cell, routetime);
 			//计划总量
 			String weight = list.get(i).getWeight();
-			cell = getCell(sheet, cellNum, 17);
+			cell = getCell(sheet, cellNum, 20);
 			cell.setCellStyle(contentStyle);
 			setText(cell, weight);
 			//卸货量
 			Double sign = null;
-			cell = getCell(sheet, cellNum, 18);
+			cell = getCell(sheet, cellNum, 21);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getSignweight() != null){
 				sign = list.get(i).getSignweight();
@@ -181,7 +209,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			}
 			//执行总量
 			Double trueweight = null;
-			cell = getCell(sheet, cellNum, 19);
+			cell = getCell(sheet, cellNum, 22);
 			cell.setCellStyle(contentStyle);
 			if(list.get(i).getTrueweight()!= null){
 				trueweight = list.get(i).getTrueweight();
@@ -227,7 +255,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 				status = "安联运单";
 				break;
 			}
-			cell = getCell(sheet, cellNum, 20);
+			cell = getCell(sheet, cellNum, 23);
 			cell.setCellStyle(contentStyle);
 			setText(cell, status);
 		}

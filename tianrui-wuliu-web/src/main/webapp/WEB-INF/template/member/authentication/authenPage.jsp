@@ -48,6 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <button type="button" class="btn  btn-primary btn-sm ml30 "  disabled="disabled" id="corpAuthen_status">未认证</button>
                 <button type="button" class="btn  btn-primary btn-sm fr mr50" id="toCorpAuthen_button">申请认证</button>
             </div>
+            <div class="rz_rline border_gray" id="member_bank">
+                <label>我的银行卡</label>
+                <button type="button" onclick="window.location.href='/trwuliu/bank/card/page'" class="btn  btn-primary btn-sm ml30 "  >详情</button>
+            </div>
             <div class="rz_rline2 border_gray">
                 <h3>重要声明</h3>
                 <p>1、您的资料可能会被提交到国家公安机关及其下属单位进行证件真实性核实，我们不会将您的证件资料用作商业用途或非法提供给他人，但是如果出现法律纠纷它可能作为相关证据使用。

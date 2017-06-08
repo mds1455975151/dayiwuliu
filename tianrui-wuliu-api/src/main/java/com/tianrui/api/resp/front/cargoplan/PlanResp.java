@@ -17,6 +17,8 @@ public class PlanResp extends BaseResp{
     private String routeid;
     private String cargoid;
     
+    private String payment;
+    
     private String systemShipper=Constant.SYSTEM_SHIPPER;
 
     /** 发货方id*/
@@ -446,5 +448,11 @@ public class PlanResp extends BaseResp{
 	}
 	public void setSystemShipper(String systemShipper) {
 		this.systemShipper = systemShipper;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 }

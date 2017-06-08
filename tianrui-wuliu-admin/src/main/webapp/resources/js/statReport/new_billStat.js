@@ -25,7 +25,7 @@ function displayData(pageNo){
 						innerHTML(ret.data.list);
 					}else{
 						var hml="";
-						hml +='<td colspan="19">';
+						hml +='<td colspan="23">';
 				    	hml +='<div class="ht_none">';
 				    	hml +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
 				    	hml +='<div>';
@@ -108,10 +108,31 @@ function innerHTML(data){
 		//到货位置偏差
 		var d_deviation = (data[a].d_deviation == undefined || data[a].d_deviation == -1)?"":data[a].d_deviation+"米";
 		
+		var interDistance = "";
+		var interTime = "";
+		var begintime = "";
+		var ywtime="";
+		if(data[a].type == "普通运单"){
+			if(data[a].interTime != undefined){//(Number(data[a].interTime/(1000 * 60))).toFixed(2)
+				interTime = (Number(data[a].interTime/(1000 * 60))).toFixed(2)+"分钟";
+			}
+			if(data[a].interDistance != undefined){
+				interDistance = data[a].interDistance+"米";
+			}
+			if(data[a].begintime != ""&&data[a].begintime != undefined){
+				begintime = data[a].begintimeStr;
+				ywtime = new Date(data[a].begintime).format("yyyy-MM-dd");
+			}
+		}
+		var ownerSigntime = "";
+		if(data[a].ownerSigntime != undefined && data[a].ownerSigntime != ""){
+			ownerSigntime = new Date(data[a].ownerSigntime).format("yyyy-MM-dd hh:mm:ss");
+		}
+		
 		hml +="<tr>" +
 				"<td>"+s+"</td>" +
 				"<td><a onclick=\"bill_map('"+data[a].type+"','"+data[a].id+"')\"><span>"+data[a].type+"</span></a></td>" +
-				"<td>"+data[a].createtimeStr+"</td>" +
+				"<td>"+ywtime+"</td>" +
 				"<td><span><a data-toggle='modal' onclick=\"plan_datails('"+data[a].palnid+"')\" data-target='#Plandetail'>"+data[a].plancode+"</a></span></td>" +
 				"<td><span><a data-toggle='modal' onclick=\"bill_details('"+data[a].id+"','"+data[a].type+"')\" data-target='#Billdetail'>"+data[a].waybillno+"</a></span></td>" +
 				"<td>"+data[a].shippermerchantname+"</td>" +
@@ -120,12 +141,13 @@ function innerHTML(data){
 				"<td><span><a data-toggle='modal' onclick=\"vehicle_details('"+data[a].vehicleno+"')\" data-target='#vehicledetail'>"+data[a].vehicleno+"</a></span></td>" +
 				"<td>"+data[a].drivername+"</td>" +
 				"<td>"+data[a].cargoname+"</td>" +
-				"<td>"+data[a].begintimeStr+"</td>" +
+				"<td>"+interTime+"</td>" +
+				"<td>"+interDistance+"</td>" +
+				"<td>"+begintime+"</td>" +
 				"<td>"+data[a].unloadtimeStr+"</td>" +
-				
+				"<td>"+ownerSigntime+"</td>" +
 				"<td>"+q_deviation+"</td>" +
 				"<td>"+d_deviation+"</td>" +
-				
 				"<td>"+pickupweight+"</td>" +
 				"<td>"+data[a].routename+"</td>" +
 				"<td>"+data[a].weight+"</td>" +
@@ -146,6 +168,14 @@ function regist(){
 	$("#starttimeStr").val("");
 	$("#endtimeStr").val("");
 	$("#bill_type").val("");
+	$("#waybillno").val("");
+	$("#plancode").val("");
+	$("#d_position").val("");
+	$("#t_position").val("");
+	$("#ownerSigntime_0Str").val("");
+	$("#ownerSigntime_1Str").val("");
+	$("#interTimeStr").val("");
+	$("#interDistanceStr").val("");
 }
 
 function getParams(pageNo){
@@ -166,6 +196,14 @@ function getParams(pageNo){
 		"remarkname":$("#remarkname").val(),
 		"vehicleno":$("#vehicleno").val(),
 		"cargoname":$("#cargoname").val(),
+		"waybillno":$("#waybillno").val(),
+		"plancode":$("#plancode").val(),
+		"d_position":$("#d_position").val(),
+		"t_position":$("#t_position").val(),
+		"ownerSigntime_0Str":$("#ownerSigntime_0Str").val(),
+		"ownerSigntime_1Str":$("#ownerSigntime_1Str").val(),
+		"interTimeStr":$("#interTimeStr").val(),
+		"interDistanceStr":$("#interDistanceStr").val(),
 		"orgid":orgid,
 		"type":$("#bill_type").val(),
 		"starttimeStr":$("#starttimeStr").val(),

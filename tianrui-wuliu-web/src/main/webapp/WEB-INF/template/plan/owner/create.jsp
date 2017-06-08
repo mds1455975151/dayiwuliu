@@ -77,13 +77,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	<option value="">请选择运价策略</option>
                     </select>
                 </div>
-                <!-- 
-                <div class="goods_line" id="select03">
-                    <label> 运价策略：</label>
-                     <input type="text"  placeholder="请输入策略名称" id="freightname_v" class="form-control">
-                    <input type="hidden" id="freightname_v_id" name="freightid">
-                </div>
-                 -->
                 <div class="goods_line">
                     <div class="plan_table">
                         <table class="table " >
@@ -140,11 +133,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>税率</th>
+                                <th>支付对象</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                             	<td style="height: 35px"><span id="tallage"></span></td>
+                            	<td style="height: 35px"><span id="payment"></span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -292,6 +287,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/select_locale_zh-CN.js" ></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/plan/create.js?12.20" ></script>
+<script type="text/javascript" src="/resources/js/plan/create.js?06.05" ></script>
 </body>
 </html>
