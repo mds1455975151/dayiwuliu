@@ -2,7 +2,7 @@
 <div class="bghui">
     <div class="wrap foot">
         <div class="footcont">
-            <img src="images/footlogo.png">
+            <img src="${trRoot}/tianrui/images/footlogo.png">
             <div class="footline">
                 <ul>
                     <li><a href="/count/route">首页</a></li>
