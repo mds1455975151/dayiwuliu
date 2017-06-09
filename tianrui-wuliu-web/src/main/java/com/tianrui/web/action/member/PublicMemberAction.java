@@ -23,12 +23,14 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.tianrui.api.intf.IAppVersionService;
 import com.tianrui.api.intf.ISendMobileMessage;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.req.front.member.MemberSaveReq;
 import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.api.resp.front.version.AppVersionResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.utils.DateUtil;
@@ -67,6 +69,31 @@ public class PublicMemberAction {
 	CacheClient cache ;
 	@Autowired
 	private ISystemMemberService systemMemberService;
+	@Autowired
+	IAppVersionService appVersionService;
+	
+	@RequestMapping("loadPage")
+	public ModelAndView loadPage() throws Exception{
+		ModelAndView view = new ModelAndView();
+		AppVersionResp url1 = appVersionService.selectByid("android");
+		AppVersionResp url2 = appVersionService.selectByid("huozhu_android");
+		view.setViewName("/common/dyindex_tz");
+		view.addObject("android", url1.getVersionurl());
+		view.addObject("huozhu_android", url2.getVersionurl());
+		return view;
+	}
+	
+	@RequestMapping("phoneloadPage")
+	public ModelAndView phoneloadPage() throws Exception{
+		ModelAndView view = new ModelAndView();
+		AppVersionResp url1 = appVersionService.selectByid("android");
+		AppVersionResp url2 = appVersionService.selectByid("huozhu_android");
+		view.setViewName("/common/index");
+		view.addObject("android", url1.getVersionurl());
+		view.addObject("huozhu_android", url2.getVersionurl());
+		return view;
+	}
+	
 	/**
 	 * 
 	 * @描述:平台协议查看

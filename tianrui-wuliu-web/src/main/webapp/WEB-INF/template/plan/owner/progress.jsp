@@ -75,7 +75,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                                 <!--长进度条结束-->
                                 <!--进度条下方数字开始-->
-                                <div class="progress_data">
+                                <div class="progress_data" style="left: 
+										<c:if test="${plan.status eq '3' }">
+                                			100%;
+                                	  	</c:if>
+                                	   	<c:if test="${plan.status eq '2' }">
+                                			<fmt:formatNumber value="${plan.completed/plan.totalplanned*100 }" pattern="00.00"/>%;
+                                	  	</c:if>">
                                 	 <c:if test="${plan.status eq '3' }">
                                 		 <h4>100%</h4>
                                 	  </c:if>
