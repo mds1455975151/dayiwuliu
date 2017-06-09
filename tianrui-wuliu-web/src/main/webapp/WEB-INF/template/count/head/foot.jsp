@@ -11,7 +11,8 @@
                 </ul>
             </div>
             <div class="footline">
-                <p>中原大易科技 Copyright © 2016 豫ICP备16036132号-1</p>
+                <p>Copyright © 2016 豫ICP备16036132号-1</p>
+                <p>中原大易物流科技有限公司版权所有</p>
             </div>
         </div>
        	<div class="foottip">
