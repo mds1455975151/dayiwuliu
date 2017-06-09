@@ -37,6 +37,7 @@
                     <div class="h3bg">
                         <h3 class="lh200">用户登录</h3>
                     </div>
+                    <div style=" padding: 0 10px;margin: 18px 0 30px 0;">
                         <!--手机输入beigin-->
                         <div class="login_tel">
                                 <div class="loginint">
@@ -66,7 +67,8 @@
                             <h4><span class="error" id="message"></span></h4>
                         </div>
                         <!--提示信息end-->
-                        <button class="btn btn-block btnlg" type="button"  id="login">登录</button>
+                        <button class="btn btn-block btnlg" type="button"  id="login" style="margin-top: 30px;">登录</button>
+                    </div>
                 </div>
         <!--验证框end-->
         </div>
