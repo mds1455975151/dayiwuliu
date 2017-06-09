@@ -29,9 +29,10 @@ import com.tianrui.common.vo.Result;
  * @创建人：lsj
  * @创建时间：2016年10月28日下午4:14:39
  *
- * @修改人：lsj
- * @修改时间：2016年10月28日下午4:14:39
- * @修改备注：
+ * @修改人：guyuke
+ * @修改时间：2017年06月09日下午4:04:00
+ * @修改备注：①新增关于我们画面；
+ *            ②新增联系我们画面。
  *
  */
 @Controller
@@ -177,6 +178,25 @@ public class CountAction {
 		
 		
 	}
+	
+	/** 关于我们
+	 * @throws Exception */
+	@RequestMapping("aboutUs")
+	public ModelAndView aboutUs() throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("count/aboutus");
+		return view;
+	}
+	
+	/** 联系我们
+	 * @throws Exception */
+	@RequestMapping("contactUs")
+	public ModelAndView countactUs() throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("count/contactus");
+		return view;
+	}
+	
 	/** 初始页面查询
 	 * @throws Exception */
 	public ModelAndView index() throws Exception{
