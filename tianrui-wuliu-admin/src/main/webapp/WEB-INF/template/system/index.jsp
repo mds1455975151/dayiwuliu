@@ -9,8 +9,8 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>大易物流平台后台管理系统-首页</title>
-    <meta name="keywords" content=" 天瑞"/>
+    <title>大易物流平台信息管理中心-首页</title>
+    <meta name="keywords" content=" 大易物流"/>
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
@@ -55,7 +55,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
                 <!--内容begin-->
                 <div class="ht_indexd">
                     <h3>您好，<%= user.getUsertype() %></h3>
-                    <h2>欢迎登陆大易物流平台后台</h2>
+                    <h2>欢迎登陆大易物流信息管理中心</h2>
                     <p><label>您的组织：</label><%= user.getOrgname() %></p>
                     <p><label>您的手机号：</label><%= user.getTelnum() %></p>
                     <p><label>您的登录账号：</label><%= user.getAccount() %></p>
