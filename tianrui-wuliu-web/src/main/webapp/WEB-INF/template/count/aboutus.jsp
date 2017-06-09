@@ -30,7 +30,7 @@
             <div class="header_right">
                 <ul class="about_head">
                     <li><a href="/count/contactUs">联系我们</a></li>
-                    <li class="select"><a href="/count/abouttUs">关于我们</a></li>
+                    <li class="select"><a href="/count/aboutUs">关于我们</a></li>
                 </ul>
             </div>
         </div>
