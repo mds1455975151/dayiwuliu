@@ -5,9 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>大易物流平台</title>
-    <meta name="keywords" content=" 天瑞"/>
-    <meta name="description" content="">
+   <meta name="description" content="">
     <meta name="author" content="">
 
     <link href="${trRoot}/tianrui/css/bootstrap.css" rel="stylesheet">
