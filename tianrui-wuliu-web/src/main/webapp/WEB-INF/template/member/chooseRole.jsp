@@ -18,12 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/style.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -38,7 +32,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <button id="hzBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/hzwhite.png">货主</button>
                     <button id="czBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/czwhite.png">车主</button>
                     <button id="sjBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/sjwhite.png">司机</button>
+                    <!-- 
                     <button id="clBtn" class="btn btn_cz"><img src="${trRoot}/tianrui/images/sjwhite.png">车辆</button>
+                     -->
                 </div>
             </div>
         </div>

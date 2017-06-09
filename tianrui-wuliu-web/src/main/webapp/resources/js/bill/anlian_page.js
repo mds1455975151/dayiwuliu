@@ -69,5 +69,5 @@ function billdetail(id){
 	window.location.href="/trwuliu/billAnlian/detail?id="+id;
 }
 function billPosition(id){
-	window.location.href="/trwuliu/billAppoint/tarckAnlian?id="+id;
+	window.open("/trwuliu/billAppoint/tarckAnlian?id="+id);
 }

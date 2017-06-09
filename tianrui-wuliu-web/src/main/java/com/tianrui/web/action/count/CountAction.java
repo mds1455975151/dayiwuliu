@@ -55,7 +55,7 @@ public class CountAction {
 	public Result billLine(CountAddReq req) throws Exception{
 		//1-路线，2货运，3-车辆，4-交易，5-运费
 		Result rs = Result.getSuccessResult();
-		req.setType("1");
+		req.setType("4");
 		List<CountAddResp> list = countAddService.selectByCondition(req);
 		rs.setData(list);
 		return rs;

@@ -92,6 +92,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "driver";
 </script>
-<script type="text/javascript" src="/resources/js/bill/anlian_page.js?04.17" ></script>
+<script type="text/javascript" src="/resources/js/bill/anlian_page.js?06.097" ></script>
 </body>
 </html>

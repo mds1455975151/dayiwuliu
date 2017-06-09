@@ -150,7 +150,7 @@
             	</a>
                 </li>
                 <li class="bgblue">
-            	<a href="/count/pay">
+            	<a href="">
             	<!-- 
             		<div class="dtail_tit">
                         <label>运费总额</label>
