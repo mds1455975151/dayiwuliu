@@ -3,8 +3,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>天瑞物流平台后台管理系统</title>
-    <meta name="keywords" content=" 天瑞"/>
+    <title>大易物流平台后台管理系统</title>
+    <meta name="keywords" content=" 大易物流"/>
     <meta name="description" content="">
     <meta name="author" content="">
     
@@ -32,7 +32,6 @@
 <div class="container">
     <div class="login_map">
     <div class="row">
-                <img src="${imagesRoot }/g1.png">
         <!--验证框beigin-->
 			 <div class="loginbox">
                     <div class="h3bg">
@@ -76,7 +75,7 @@
 </div>
 <!--close-Headercont-part-->
 <div class="login_foot">
-    <h4>版权所有@天瑞集团 2016-2017</h4>
+    <h4>版权所有@大易科技 2016-2017</h4>
 </div>
  	<script type="text/javascript" src="${scriptsRoot }/jquery-1.11.1.js"></script>
  	<script type="text/javascript">
