@@ -64,6 +64,34 @@
         </div>
     </div>
 </div>
+<!--地图下面加上合作-->
+<div class="coperation">
+    <h2>合作伙伴</h2>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb1.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb2.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb3.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb4.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb5.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb6.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb7.jpg">
+    </div>
+    <div class="cop_solo">
+        <img src="${trRoot}/tianrui/images/hb8.jpg">
+    </div>
+</div>
 <jsp:include page="head/foot.jsp"></jsp:include>
 
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>

@@ -37,7 +37,7 @@
                     <div class="yunf_chart">
                    	 	<h5>万</h5>
                         <!--折线图-->
-                        <div id="container" style="width: 790px; height: 280px; "></div>
+                        <div id="container" style="width: 760px; height: 280px; "></div>
                         <!--折线图-->
                         <div class="yf_border"></div>
                     </div>

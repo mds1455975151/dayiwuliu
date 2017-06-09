@@ -34,7 +34,7 @@
             <div class="goods_chart">
                 <h5>吨</h5>
                 <!--折线图-->
-                <div id="container" style="width: 988px; height:250px;">
+                <div id="container" style="width: 920px; height:250px;">
                 </div>
                 <!--折线图-->
                 <div class="goods_time">

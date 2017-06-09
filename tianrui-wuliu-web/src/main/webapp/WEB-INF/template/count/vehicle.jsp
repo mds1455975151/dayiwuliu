@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="goods_chart">
                 <h5>辆</h5>
                 <!--折线图-->
-                <div id="line2" style="width: 988px; height:250px;">
+                <div id="line2" style="width: 920px; height:250px;">
                 </div>
                 <!--折线图-->
                 <div class="goods_time">
