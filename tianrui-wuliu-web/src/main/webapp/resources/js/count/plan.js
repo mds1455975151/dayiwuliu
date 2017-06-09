@@ -74,6 +74,7 @@ $(document).ready(function(){
 		                name: '总量',
 		                data: sdata,
 		                color: "rgba(59,186,236,1)",
+		                visible:false  //设置不现实
 
 
 		            }, {
