@@ -2,7 +2,17 @@
 <div class="bghui">
     <div class="wrap foot">
         <div class="footcont">
-            <p>中原大易科技 Copyright © 2016 豫ICP备16036132号</p>
+            <img src="images/footlogo.png">
+            <div class="footline">
+                <ul>
+                    <li><a href="/count/route">首页</a></li>
+                    <li><a href="/count/aboutUs">关于我们</a></li>
+                    <li><a href="/count/contactUs">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footline">
+                <p>中原大易科技 Copyright © 2016 豫ICP备16036132号-1</p>
+            </div>
         </div>
        	<div class="foottip">
             <h4>大易物流客户端APP</h4>
