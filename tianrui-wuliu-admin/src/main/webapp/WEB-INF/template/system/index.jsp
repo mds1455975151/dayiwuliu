@@ -88,7 +88,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 					}else{
 						for (var i = 0; i < data.length; i++) {
 								var userRole = "【"+data[i].name+"】";
-								if((i + 1)%2 == 0){
+								if((i + 1)%3 == 0){
 									$("#role").append("<span>"+userRole+"</span><br>");
 								}else{
 									$("#role").append("<span>"+userRole+"</span>");
