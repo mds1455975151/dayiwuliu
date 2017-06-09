@@ -71,6 +71,7 @@ $(document).ready(function(){
 		                name: '活跃',
 		                data: sdata,
 		                color: "rgba(255,82,78,1)",
+		                visible:false  //设置不现实
 		            }]
 		        });
 				//end
