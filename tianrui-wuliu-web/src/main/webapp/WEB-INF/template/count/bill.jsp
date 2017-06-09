@@ -29,7 +29,7 @@
             <div class="goods_chart">
                 <h5>趟</h5>
                 <!--折线图-->
-                <div id="line3" style="width: 988px; height:250px;"></div>
+                <div id="line3" style="width: 920px; height:250px;"></div>
                 <!--折线图-->
                 <div class="goods_time">
                     <label>时间</label>
