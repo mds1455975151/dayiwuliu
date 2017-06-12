@@ -1,5 +1,6 @@
 package com.tianrui.api.intf.bankcard;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -20,4 +21,10 @@ public interface IMemberBankCardService {
 	public PaginationVO<MemberBankCardResp> selectBankCard(MemberBankCardReq req)throws Exception;
 	/** 查询银行卡详情*/
 	public Result findBankCardById(String id)throws Exception;
+	/** 查询银行卡详情*/
+	public Result findBankAddress()throws Exception;
+	
+	public Result insertBankAddress(JSONArray array)throws Exception;
+	
+	public Result insertBankType(JSONArray array)throws Exception;
 }

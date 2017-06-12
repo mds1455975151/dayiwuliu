@@ -949,7 +949,7 @@ public class BillService implements IBillService{
 								//提货-到货，时间间隔
 								update.setInterTime(timestape-bp.getCreatetime());
 								//提货-到货，距离间隔
-								update.setInterDistance(MapDistanceUtil.getDistance(bp.getLon(), bp.getLat(), req.getLon(),req.getLat()));
+								update.setInterDistance(MapDistanceUtil.getDistance(bp.getLon()*Math.pow(10,-6), bp.getLat()*Math.pow(10,-6), req.getLon()*Math.pow(10,-6),req.getLat()*Math.pow(10,-6)));
 							}
 							
 							billMapper.updateByPrimaryKeySelective(update);

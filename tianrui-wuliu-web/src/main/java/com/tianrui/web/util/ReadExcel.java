@@ -7,10 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -37,7 +33,7 @@ public class ReadExcel {
 	}
 	
 	public static JSONArray readXls() throws IOException {
-		InputStream is = new FileInputStream("H:/bank_address.xls");
+		InputStream is = new FileInputStream("H:/bank_type.xls");
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
 		JSONArray array = new JSONArray();
 		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -51,11 +47,6 @@ public class ReadExcel {
 					HSSFCell no = null;
 					
 					JSONObject json = new JSONObject();
-//					no = hssfRow.getCell((short) 0);
-//					json.put("A", getValue(no));
-					
-					no = hssfRow.getCell((short) 1);
-					json.put("address", getValue(no));
 					
 					no = hssfRow.getCell((short) 2);
 					try {
@@ -67,10 +58,10 @@ public class ReadExcel {
 					}
 					
 					no = hssfRow.getCell((short) 3);
-					json.put("innercode", getValue(no));
+					json.put("name", getValue(no));
 					
 					no = hssfRow.getCell((short) 4);
-					json.put("name", getValue(no));
+					json.put("bank_key", getValue(no));
 					
 					array.add(json);
 				}
