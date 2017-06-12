@@ -27,7 +27,7 @@ public class DaySchedule {
 	 * 每天早上1点触发
 	 * @throws Exception
 	 */
-	@Scheduled(cron="0 0 0/12  * * ? ")
+	@Scheduled(cron="0 0 1 * * ?")
     public void everyDay() throws Exception{  
 		countIndexService.everyDay(null);
 	   
