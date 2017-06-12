@@ -50,20 +50,20 @@
                     <div class="dtail_tit">
                         <label>货运总量</label>
                         <span class="fr">
-                        	<c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
+                        	<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
                         	同比上月增长
                         	<fmt:formatNumber value="${(plan.sumdate - monthplan.sumdate)/monthplan.sumdate }" type="number" pattern="0.00%" />
                         	</c:if>
                         	<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
                         	同比上月减少
                         	<fmt:formatNumber value="${(monthplan.sumdate - plan.sumdate)/monthplan.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if>
+                        	</c:if> --%>
                         	
                        	</span>
                     </div>
                     <div class="divder_tm"></div>
                     <div class="dtail_body">
-                        <label><fmt:formatNumber value="${plan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber></label><span>吨</span>
+                        <label><fmt:formatNumber value="${plan.sumdate/10000 }" type="number" pattern="0.00"></fmt:formatNumber></label><span>万吨</span>
                     </div>
                     <div class="dtail_foot">
                         <label>本月</label><i class="icononline">
@@ -87,7 +87,7 @@
                     <div class="dtail_tit">
                         <label>车辆总数</label>
                         <span class="fr">
-                        	<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">
+                        <%-- 	<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">
                        		同比上月增长
                        		<fmt:formatNumber value="${(vehicle.sumdate - monthvehicle.sumdate)/monthvehicle.sumdate }" type="number" pattern="0.00%" />
                         	</c:if>
@@ -95,7 +95,7 @@
                        		同比上月减少
                        		<fmt:formatNumber value="${(monthvehicle.sumdate - vehicle.sumdate)/monthvehicle.sumdate }" type="number" pattern="0.00%" />
                         	</c:if>
-                       		
+                       		 --%>
                        		</span>
                     </div>
                     <div class="divder_tm"></div>
@@ -121,14 +121,14 @@
                     <div class="dtail_tit">
                         <label>交易总量</label>
                         <span class="fr">
-                        	<c:if test="${bill.sumdate - monthbill.sumdate >= 0}">
+                        	<%-- <c:if test="${bill.sumdate - monthbill.sumdate >= 0}">
                         	同比上月增长
                         	<fmt:formatNumber value="${(bill.sumdate - monthbill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
                         	</c:if>
                         	<c:if test="${bill.sumdate - monthbill.sumdate < 0}">
                         	同比上月减少
                         	<fmt:formatNumber value="${(monthbill.sumdate - bill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if>
+                        	</c:if> --%>
                        	</span>
                     </div>
                     <div class="divder_tm"></div>
@@ -180,14 +180,14 @@
                     <div class="dtail_tit">
                         <label>运费总额</label>
                         <span class="fr">
-                        <c:if test="${pay.sumdate - monthpay.sumdate >= 0}">
+                        <%-- <c:if test="${pay.sumdate - monthpay.sumdate >= 0}">
                         	同比上月增长
                         <fmt:formatNumber value="${(pay.sumdate - monthpay.sumdate)/monthpay.sumdate }" type="number" pattern="0.00%" />
                         </c:if>
                         <c:if test="${pay.sumdate - monthpay.sumdate < 0}">
                         	同比上月增长
                         <fmt:formatNumber value="${(monthpay.sumdate - pay.sumdate)/monthpay.sumdate }" type="number" pattern="0.00%" />
-                        </c:if>
+                        </c:if> --%>
                         
                         </span>
                     </div>

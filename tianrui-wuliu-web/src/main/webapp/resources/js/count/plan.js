@@ -24,10 +24,10 @@ $(document).ready(function(){
 				for (var a = 9; a >= 0; a--) {
 					stime.push(sum[a].showtimeStr);
 					sdata.push(sum[a].sumdate);
-					sumCountPlan = sum[a].sumdate;
+					sumCountPlan= sum[a].sumdate;
 				}
-				$("#addCountPlan").html(addCountPlan);
-				$("#sumCountPlan").html(sumCountPlan);
+				$("#addCountPlan").html((+addCountPlan/10000).toFixed(2));
+				$("#sumCountPlan").html((+sumCountPlan/10000).toFixed(2));
 				//折线图
 				$('#container').highcharts({
 		            chart: {

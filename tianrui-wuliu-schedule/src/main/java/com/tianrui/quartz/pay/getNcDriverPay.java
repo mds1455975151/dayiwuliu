@@ -19,7 +19,7 @@ public class getNcDriverPay {
 	@Autowired
 	protected IPayInvoiceDetailService payInvoiceDetailService;
 
-	@Scheduled(cron="0 0/30 *  * * ? ")
+//	@Scheduled(cron="0 0/30 *  * * ? ")
 //	@Scheduled(cron="0/5 * *  * * ? ")
     public void getncPay() {  
     	Long st = new Date().getTime();

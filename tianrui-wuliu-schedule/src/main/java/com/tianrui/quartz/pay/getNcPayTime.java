@@ -18,7 +18,7 @@ public class getNcPayTime {
 	@Autowired
 	protected IPayInvoiceService payInvoiceService;
 
-	@Scheduled(cron="0 0/30 *  * * ? ")
+	//@Scheduled(cron="0 0/30 *  * * ? ")
     public void getncPay() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[getncPay]启动.时间是 :" + DateUtil.getDateString());  

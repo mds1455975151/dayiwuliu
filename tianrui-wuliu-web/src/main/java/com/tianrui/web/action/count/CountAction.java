@@ -202,6 +202,7 @@ public class CountAction {
 	public ModelAndView index() throws Exception{
 		ModelAndView view = new ModelAndView();
 		CountSumReq req = new CountSumReq();
+		//总量显示昨天数据
 		req.setShowtime(getDay());
 		List<CountSumResp> list = countSumService.selectByCondition(req);
 		
@@ -257,11 +258,12 @@ public class CountAction {
 		}
 		return view;
 	}
-	
+	// 昨天
 	public long getDay() {
 		Date date = new Date();
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
+		c.add(Calendar.DATE, -1);
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
@@ -269,17 +271,16 @@ public class CountAction {
 		return c.getTimeInMillis();
 	}
 	
-	/** 上月最后一天*/
+	/** 上个月最后一天*/
 	public long getOld30Day(){
 		Date date = new Date();
-		Calendar c = Calendar.getInstance();
-		c.setTime(date);
-		c.set(Calendar.DAY_OF_MONTH, 1);
-		c.set(Calendar.DATE, -1);
+		Calendar c = Calendar.getInstance();   
+	    c.set(Calendar.DAY_OF_MONTH,0);
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
 		c.set(Calendar.MILLISECOND, 0);
 		return c.getTimeInMillis();
 	}
+	
 }

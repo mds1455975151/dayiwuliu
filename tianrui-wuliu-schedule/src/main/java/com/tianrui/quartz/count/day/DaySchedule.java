@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.tianrui.api.intf.ICountIndexService;
 import com.tianrui.api.intf.ICountService;
 import com.tianrui.api.req.count.CountSelectReq;
 
@@ -22,17 +23,22 @@ import com.tianrui.api.req.count.CountSelectReq;
 public class DaySchedule {
 	
 	@Autowired
-	ICountService countService;
+	ICountIndexService countIndexService;
 	
-	@Scheduled(cron="0 0 0/12  * * ? ")
+	/**
+	 * 每天早上1点触发
+	 * @throws Exception
+	 */
+	@Scheduled(cron="0 0 1 * * ? *")
     public void everyDay() throws Exception{  
+		countIndexService.everyDay(null);
 	   
-		CountSelectReq req = new CountSelectReq();
-	   //-ok
-	   countService.everyDay(req);
-	   //-ok
-	   countService.routeHot(req);
-	   //查询各省打点情况
-	   countService.selectpostition();
+//		CountSelectReq req = new CountSelectReq();
+//	   //-ok
+//	   countService.everyDay(req);
+//	   //-ok
+//	   countService.routeHot(req);
+//	   //查询各省打点情况
+//	   countService.selectpostition();
     }  
 }

@@ -38,10 +38,10 @@
    <bean id="resourcePathExposer" class="com.tianrui.web.util.ResourcePathExposer"
 		init-method="init" >
 		<property name="localScripts" value="/resources/js" />
-		<property name="imagesRoot" value="http://www.da156.com/trwlWebStatic/tianrui/images" />
-		<property name="scriptsRoot" value="http://www.da156.com/trwlWebStatic/tianrui/js" />
-		<property name="stylesRoot" value="http://www.da156.com/trwlWebStatic/tianrui/css" />
-		<property name="trRoot" value="http://www.da156.com/trwlWebStatic" />
+		<property name="imagesRoot" value="http://www.da156.cn/trwlWebStatic/tianrui/images" />
+		<property name="scriptsRoot" value="http://www.da156.cn/trwlWebStatic/tianrui/js" />
+		<property name="stylesRoot" value="http://www.da156.cn/trwlWebStatic/tianrui/css" />
+		<property name="trRoot" value="http://www.da156.cn/trwlWebStatic" />
 	</bean>
 	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
@@ -52,7 +52,7 @@
         <property name="maxInMemorySize" value="2048" />    
          -->  
     </bean>    
-	
+
 	<!-- 资源文件路径 css js images -->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
 	<mvc:resources location="/favicon.ico" mapping="/favicon.ico" /> 

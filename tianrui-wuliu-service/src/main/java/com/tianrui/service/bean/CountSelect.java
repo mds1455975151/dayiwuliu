@@ -23,6 +23,9 @@ public class CountSelect {
 	private Double sum;
 	
 	private String remark;
+	
+	private Long minQueryTime;
+	private Long maxQueryTime;
 
 	public String getId() {
 		return id;
@@ -114,4 +117,21 @@ public class CountSelect {
 	public void setMax(Integer max) {
 		this.max = max;
 	}
+
+	public Long getMinQueryTime() {
+		return minQueryTime;
+	}
+
+	public void setMinQueryTime(Long minQueryTime) {
+		this.minQueryTime = minQueryTime;
+	}
+
+	public Long getMaxQueryTime() {
+		return maxQueryTime;
+	}
+
+	public void setMaxQueryTime(Long maxQueryTime) {
+		this.maxQueryTime = maxQueryTime;
+	}
+	
 }

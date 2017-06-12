@@ -62,6 +62,12 @@
 		<if test="selecttime != null and selecttime != ''">
 			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
 		</if>
+		<if test="minQueryTime == null and maxQueryTime != null">
+			and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
+		</if>
+		<if test="minQueryTime != null and maxQueryTime != null">
+			and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+		</if>
    	</where>
   </select>
   <!-- 车量总数 -->
@@ -76,6 +82,12 @@
 		<if test="selecttime != null and selecttime != ''">
 			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
 		</if> 
+		<if test="minQueryTime == null and maxQueryTime != null">
+			and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
+		</if>
+		<if test="minQueryTime != null and maxQueryTime != null">
+			and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+		</if>
    	</where>
   </select>
   
@@ -94,6 +106,12 @@
 		<if test="selecttime != null and selecttime != ''">
 			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
 		</if> 
+		<if test="minQueryTime == null and maxQueryTime != null">
+			and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
+		</if>
+		<if test="minQueryTime != null and maxQueryTime != null">
+			and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+		</if>
 	</where>	
 	GROUP BY
 		vehicleid
@@ -114,22 +132,62 @@
 		<if test="selecttime != null and selecttime != ''">
 			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
 		</if>
+		<if test="minQueryTime == null and maxQueryTime != null">
+			and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
+		</if>
+		<if test="minQueryTime != null and maxQueryTime != null">
+			and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+		</if>		
 	</where> 
   </select>
   
-  <select id="selectPayCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
+  <!-- 安联运单 -->
+  <select id="selectAlBillCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
    SELECT 
-   		SUM(bill_total_price) 
-	FROM 
-		pay_invoice_detail 
-   	<where> 
-   	 	<if test="status != null and status != ''">
+   		COUNT(0) 
+   from 
+   		anlian_bill 
+	<where>
+		<if test="minQueryTime == null and maxQueryTime != null">
+			and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
 		</if>
-		<if test="selecttime != null and selecttime != ''">
-			and createtime <![CDATA[>=]]> #{selecttime,jdbcType=BIGINT}
-		</if>
-   	</where>
+		<if test="minQueryTime != null and maxQueryTime != null">
+			and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+		</if>		
+	</where> 
   </select>
+  
+  <select id="selectPayCount" resultType="double" parameterType="com.tianrui.service.bean.CountSelect" >
+  	SELECT
+		sum(trueweight * price)
+	FROM
+		wuliu_bill
+	where 
+		STATUS = 6	
+	<if test="minQueryTime == null and maxQueryTime != null">
+		and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
+	</if>
+	<if test="minQueryTime != null and maxQueryTime != null">
+		and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+	</if>
+  </select>
+  
+  <select id="selectAlPayCount" resultType="double" parameterType="com.tianrui.service.bean.CountSelect" >
+  	SELECT
+		sum(yf)
+	FROM
+		anlian_bill
+	where 
+		desc4 = '配载单已到货!'
+	<if test="minQueryTime == null and maxQueryTime != null">
+		and createtime <![CDATA[<=]]> #{maxQueryTime,jdbcType=BIGINT}
+	</if>
+	<if test="minQueryTime != null and maxQueryTime != null">
+		and (createtime between  #{minQueryTime,jdbcType=BIGINT} and #{maxQueryTime,jdbcType=BIGINT})
+	</if>
+  </select>
+  
+  
   <select id="selectPayBillCount" resultType="long" parameterType="com.tianrui.service.bean.CountSelect" >
    SELECT 
    		count(0) count

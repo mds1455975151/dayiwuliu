@@ -36,12 +36,12 @@
                 </div>
             </div>
             <div class="data_roadr">
-                <div class="data_jiaoyi border_goods">
+            <!--     <div class="data_jiaoyi border_goods">
                     <h5>昨天成交运单</h5>
                     <label class="coloryello" id="ytodaybill">单</label>
-                </div>
+                </div> -->
                 <div class="data_jiaoyi border_goods">
-                    <h5>今天成交运单</h5>
+                    <h5>昨日运单数</h5>
                     <label class="colorred" id="todaybill">单</label>
                 </div>
                 <div class="data_jiaoyi">

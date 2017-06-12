@@ -22,7 +22,7 @@
     <h5 class="fbold">运营数据</h5>
     <div class="data_road">
         <div class="data_roadtit">
-            <label>货源总量</label>
+            <label>货源计划总量</label>
             <div class="data_roadshow">
                 <span>总量</span>
                 <img src="${trRoot}/tianrui/images/roadlan.png">
@@ -43,17 +43,17 @@
             </div>
             <div class="data_roadr">
                 <div class="data_roadrline border_goods">
-                    <h5>货源总量</h5>
+                    <h5>货源计划总量</h5>
                     <p>
                         <label class="colorgreen" id="sumCountPlan">86456452</label>
-                        <span>吨</span>
+                        <span>万吨</span>
                     </p>
                 </div>
                 <div class="data_roadrline">
-                    <h5>新增货源量</h5>
+                    <h5>昨日新增计划量</h5>
                     <p>
                         <label class="colorred" id="addCountPlan">864512256452</label>
-                        <span>吨</span>
+                        <span>万吨</span>
                     </p>
                 </div>
             </div>

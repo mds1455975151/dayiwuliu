@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.ICountService;
 import com.tianrui.api.req.count.CountSelectReq;
+import com.tianrui.common.utils.CountDateUtils;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.service.bean.CountAdd;
 import com.tianrui.service.bean.CountSelect;
@@ -31,6 +33,7 @@ public class CountService implements ICountService{
 	CountSumMapper countSumMapper;
 	@Autowired
 	CountAddMapper countAddMapper;
+	
 	
 	@Override
 	public void everyDay(CountSelectReq count)throws Exception {
@@ -60,7 +63,7 @@ public class CountService implements ICountService{
 		billCoubtSave(bill,time);
 		//运费总和 -ok
 		s.setStatus(null);
-		long pay = countSelectMapper.selectPayCount(s);
+		double pay = countSelectMapper.selectPayCount(s);
 		payCountSave(pay,time);
 		
 		//查询活跃车辆 30天内 -ok
@@ -79,7 +82,7 @@ public class CountService implements ICountService{
 		logger.info("查询路线总数="+route+"查询货物总量="+plan+"车辆总数="+vehcile+"活跃车辆="+vehicAct+"运单总量="+bill+"运费总和="+pay);
 	}
 	/** 插入运费总和*/
-	public void payCountSave(long pay,long time){
+	public void payCountSave(double pay,long time){
 		//'1-路线，2货运总量，3-车辆总数，4-交易总量，5-运费总额,6-活跃车辆数',
 		CountSum query = new CountSum();
 		query.setType("5");
@@ -95,7 +98,7 @@ public class CountService implements ICountService{
 			countSumMapper.insertSelective(sum);
 		}else{
 			for(CountSum sum : list){
-				sum.setSumdate((double)pay);
+				sum.setSumdate(pay);
 				sum.setModifytime(System.currentTimeMillis());
 				countSumMapper.updateByPrimaryKeySelective(sum);
 			}
@@ -509,4 +512,5 @@ public class CountService implements ICountService{
 			countAddMapper.updateByPrimaryKeySelective(save);
 		}
 	}
+	
 }

@@ -2,9 +2,7 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
-import com.tianrui.service.bean.CountAdd;
 import com.tianrui.service.bean.CountSelect;
-import com.tianrui.service.bean.CountSum;
 
 /**
  * 
@@ -40,9 +38,11 @@ public interface CountSelectMapper {
 	
 	/** 成运单量*/
 	long selectBillCount(CountSelect countData);
+	long selectAlBillCount(CountSelect countData);
 	
 	/** 运费总和*/
-	long selectPayCount(CountSelect countData);
+	double selectPayCount(CountSelect countData);
+	double selectAlPayCount(CountSelect countData);
 	/** 运费条数*/
 	long selectPayBillCount(CountSelect countData);
 	//TODO

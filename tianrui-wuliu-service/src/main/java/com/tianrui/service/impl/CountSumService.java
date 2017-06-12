@@ -20,7 +20,6 @@ public class CountSumService implements ICountSumService{
 	
 	@Override
 	public List<CountSumResp> selectByCondition(CountSumReq req)throws Exception {
-		// TODO Auto-generated method stub
 		CountSum sum = new CountSum();
 		PropertyUtils.copyProperties(sum, req);
 		List<CountSum> list = countSumMapper.selectByCondition(sum);

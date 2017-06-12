@@ -75,8 +75,8 @@ public class PortalsFilter implements Filter {
 				logger.debug("IP访问带过频繁={}",ip);
 				res.getWriter().write("Request frequently, please try again later");
 //				res.sendRedirect(contextPath+"/count/route");
-			}else if(req.getRequestURI().equals("/")||req.getRequestURI().equals("/publicMember/index")||req.getRequestURI().equals("/publicMember/loginPage")){
-				res.sendRedirect(contextPath+"/count/route");
+			}else if(req.getRequestURI().equals("/publicMember/index")||req.getRequestURI().equals("/publicMember/loginPage")){
+				res.sendRedirect(contextPath);
 			}else if(req.getRequestURI().contains("common/vehicleReg/regStep1")){
 				chain.doFilter(request, response);
 			}else if(req.getRequestURI().contains("/trwuliu/")){
@@ -86,7 +86,7 @@ public class PortalsFilter implements Filter {
 				}else{
 					MemberVo sessionMember=SessionManager.getSessionMember((HttpServletRequest)request);
 					if (sessionMember == null) {
-						res.sendRedirect(contextPath+"/count/route");	
+						res.sendRedirect(contextPath);	
 					}else{
 						chain.doFilter(request, response);
 					}
