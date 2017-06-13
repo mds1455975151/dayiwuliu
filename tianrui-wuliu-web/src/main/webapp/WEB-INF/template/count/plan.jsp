@@ -42,17 +42,17 @@
                 </div>
             </div>
             <div class="data_roadr">
-                <div class="data_roadrline border_goods">
+<!--                 <div class="data_roadrline border_goods">
                     <h5>货源计划总量</h5>
                     <p>
-                        <label class="colorgreen" id="sumCountPlan">86456452</label>
+                        <label class="colorgreen" id="sumCountPlan"></label>
                         <span>万吨</span>
                     </p>
-                </div>
+                </div> -->
                 <div class="data_roadrline">
                     <h5>昨日新增计划量</h5>
                     <p>
-                        <label class="colorred" id="addCountPlan">864512256452</label>
+                        <label class="colorred" id="addCountPlan"></label>
                         <span>万吨</span>
                     </p>
                 </div>

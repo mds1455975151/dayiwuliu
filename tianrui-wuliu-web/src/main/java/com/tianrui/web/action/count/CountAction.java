@@ -260,9 +260,7 @@ public class CountAction {
 	}
 	// 昨天
 	public long getDay() {
-		Date date = new Date();
 		Calendar c = Calendar.getInstance();
-		c.setTime(date);
 		c.add(Calendar.DATE, -1);
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
@@ -273,7 +271,6 @@ public class CountAction {
 	
 	/** 上个月最后一天*/
 	public long getOld30Day(){
-		Date date = new Date();
 		Calendar c = Calendar.getInstance();   
 	    c.set(Calendar.DAY_OF_MONTH,0);
 		c.set(Calendar.HOUR_OF_DAY, 0);
