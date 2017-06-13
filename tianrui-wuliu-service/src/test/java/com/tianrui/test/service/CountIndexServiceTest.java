@@ -20,11 +20,11 @@ public class CountIndexServiceTest {
 	@Test
 	public void everyDay()throws Exception{
 		
-		for( int i=1;i<=31;i++){
-			countIndexService.everyDay("2017-05-"+i);
-		}
+//		for( int i=1;i<=31;i++){
+//			countIndexService.everyDay("2017-05-"+i);
+//		}
 		
-		for( int i=1;i<=11;i++){
+		for( int i=1;i<=12;i++){
 			countIndexService.everyDay("2017-06-"+i);
 		}
 	}

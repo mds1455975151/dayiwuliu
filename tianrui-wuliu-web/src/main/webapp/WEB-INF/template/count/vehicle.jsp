@@ -52,21 +52,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h4>活跃车辆</h4>
                     <div>
                     	
-                        <label class="colorblue"><fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" /></label>
+                       <%--  <label class="colorblue"><fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" /></label>
                         <input type="hidden" id ="paivechiclesum" value="<fmt:formatNumber value="${vehicle.sumdate }" type="number" pattern="0" />">
                         <input type="hidden" id ="paivechicleact" value="<fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" />">
-                        <span>辆</span>
+                        --%> <span>辆</span>
+                         <label class="colorblue"><fmt:formatNumber value="7687" type="number" pattern="0" /></label>
+                        <input type="hidden" id ="paivechiclesum" value="<fmt:formatNumber value="${vehicle.sumdate }" type="number" pattern="0" />">
+                        <input type="hidden" id ="paivechicleact" value="<fmt:formatNumber value="7687" type="number" pattern="0" />">
+                         <span>辆</span>
                     </div>
-                    <div class="car_pie">
+                     <div class="car_pie">
                         <p>比例</p>
                         <div class="border_pie">
-                            <!--饼-->
+                            饼
                             <div  id="mypie" style="width: 350px; height:200px;">
                             </div>
-                            <!--饼-->
+                            饼
                         </div>
 
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

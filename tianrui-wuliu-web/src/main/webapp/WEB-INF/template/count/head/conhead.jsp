@@ -48,7 +48,7 @@
                 <li class="bgred">
             	<a href="/count/plan">
                     <div class="dtail_tit">
-                        <label>货运总量</label>
+                        <label>货运计划总量</label>
                         <span class="fr">
                         	<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
                         	同比上月增长
