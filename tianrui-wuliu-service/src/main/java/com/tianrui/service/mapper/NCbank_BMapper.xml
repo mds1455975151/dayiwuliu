@@ -11,12 +11,25 @@
   <sql id="Base_Column_List" >
     id, address, code, innercode, name
   </sql>
+ 
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.NCbank_B" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_NC_bank_B
+    <where>
+    	<if test="name != null and name != ''">
+    		and name like "%" #{name,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from wuliu_NC_bank_B
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_NC_bank_B
     where id = #{id,jdbcType=VARCHAR}

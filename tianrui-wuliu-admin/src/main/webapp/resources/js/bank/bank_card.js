@@ -71,7 +71,9 @@ function displayRect(pageNo){
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].bankcard+"</td>"+
 							"<td >"+data[a].idname+"</td>"+
+							"<td >"+(data[a].idcard==undefined?"":data[a].idcard)+"</td>"+
 							"<td >"+data[a].bankname+"</td>"+
+							"<td >"+(data[a].desc1==undefined?"":data[a].desc1)+"</td>"+
 							"<td >"+bankautid+"</td>"+
 						    "<td >"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 						    		"<td>";
@@ -100,6 +102,7 @@ function displayRect(pageNo){
 }
 
 function bankdetails(id){
+	detailClear();
 	$.ajax({
 		url:"/admin/bank/card/findId",
 		type:"post",
@@ -119,12 +122,24 @@ function bankdetails(id){
 				$("#idname_mg").html(data.idname);
 				$("#bankname_mg").html(data.bankname);
 				$("#bankautid_mg").html(bankautid);
+				$("#idcard_mg").html(data.idcard);
+				$("#desc1_mg").html(data.desc1);
 				//<a href="/imageView/index?imageUrl=http://172.19.4.73/uploadimgs/048632411efd40b1a1991ee824e8db1e.png" target="_blank">查看图片</a>
 				var img = "<a href='/imageView/index?imageUrl="+data.bankimg+"' target='_blank'>查看图片</a>";
 				$("#bankautidImg_mg").html(img);
 			}
 		}
 	});
+}
+
+function detailClear(){
+	$("#bankcard_mg").html("");
+	$("#idname_mg").html("");
+	$("#bankname_mg").html("");
+	$("#bankautid_mg").html("");
+	$("#idcard_mg").html("");
+	$("#desc1_mg").html("");
+	$("#bankautidImg_mg").html("");
 }
 
 function Bankshenhe(id){

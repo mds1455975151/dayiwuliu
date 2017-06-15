@@ -60,8 +60,13 @@
     		and creater = #{creater,jdbcType=VARCHAR}
     	</if>
     </where>
-	order by createtime desc
-   	<if test="pageNo != null and pageNo != ''">
+    <if test="creater != null and creater != ''">
+		order by bankstatus desc
+	</if>
+	<if test="creater == null">
+		order by createtime desc
+	</if>
+   	<if test="pageNo != null">
    		limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
    	</if>
   </select>

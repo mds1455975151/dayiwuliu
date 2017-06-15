@@ -46,6 +46,8 @@ public class MemberInfoMassageResp {
 	 */
 	private String identityCard;
 	
+	private String userName;
+	
 	public String getId() {
 		return id;
 	}
@@ -112,5 +114,11 @@ public class MemberInfoMassageResp {
 	}
 	public void setCompanypercheck(Short companypercheck) {
 		this.companypercheck = companypercheck;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

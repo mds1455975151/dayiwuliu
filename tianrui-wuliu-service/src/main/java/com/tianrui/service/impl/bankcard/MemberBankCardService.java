@@ -18,9 +18,11 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.NCbankType;
 import com.tianrui.service.bean.NCbank_B;
+import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.NCbankTypeMapper;
 import com.tianrui.service.mapper.NCbank_BMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 
 @Service
 public class MemberBankCardService implements IMemberBankCardService{
@@ -31,14 +33,30 @@ public class MemberBankCardService implements IMemberBankCardService{
 	NCbank_BMapper ncbank_BMapper;
 	@Autowired
 	NCbankTypeMapper ncbank_TypeMapper;
+	@Autowired
+	SystemMemberMapper systemMemberMapper;
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
 
 		Result rs = Result.getSuccessResult();
+		SystemMember mem = systemMemberMapper.selectByPrimaryKey(req.getCreater());
+		Short a = 1;
+		if(mem.getDriverpercheck()!=a){
+			rs.setCode("1");
+			rs.setError("司机尚未认证成功，请先去进行司机认证");
+			return rs;
+		}
 		MemberBankCard find = new MemberBankCard();
 		find.setCreater(req.getCreater());
 		List<MemberBankCard> list = memberBankCardMapper.selectByCondition(find);
+		find.setBankcard(req.getBankcard());
+		List<MemberBankCard> only = memberBankCardMapper.selectByCondition(find);
+		if(only.size()!=0){
+			rs.setCode("1");
+			rs.setError("您已添加过该银行卡");
+			return rs;
+		}
 		MemberBankCard record = new MemberBankCard();
 		PropertyUtils.copyProperties(record, req);
 		record.setId(UUIDUtil.getId());
@@ -53,6 +71,22 @@ public class MemberBankCardService implements IMemberBankCardService{
 		}
 		memberBankCardMapper.insertSelective(record);
 		
+		return rs;
+	}
+	
+	@Override
+	public Result update(MemberBankCardReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		MemberBankCard card = memberBankCardMapper.selectByPrimaryKey(req.getId());
+		if(card == null){
+			rs.setError("id有误");
+			rs.setCode("1");
+		}else{
+			PropertyUtils.copyProperties(card, req);
+			card.setBankautid("2");
+			memberBankCardMapper.updateByPrimaryKeySelective(card);
+		}
 		return rs;
 	}
 
@@ -138,12 +172,6 @@ public class MemberBankCardService implements IMemberBankCardService{
 	}
 
 	@Override
-	public Result findBankAddress() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Result insertBankAddress(JSONArray array) throws Exception {
 		Result rs = Result.getSuccessResult();
 		for (int i = 0; i < array.size(); i++) {
@@ -178,4 +206,37 @@ public class MemberBankCardService implements IMemberBankCardService{
 		return rs;
 	}
 
+	@Override
+	public Result findBankType() throws Exception {
+		Result rs = Result.getSuccessResult();
+		List<NCbankType> list = ncbank_TypeMapper.selectByCondtion(null);
+		rs.setData(list);
+		return rs;
+	}
+	
+	@Override
+	public Result findBankAddress(String key) throws Exception {
+		Result rs = Result.getSuccessResult();
+		NCbank_B bk = new NCbank_B();
+		bk.setName(key);
+		List<NCbank_B> list = ncbank_BMapper.selectByCondition(bk);
+		rs.setData(list);
+		return rs;
+	}
+
+	@Override
+	public Result findBankOnly(String memberid, String code) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		MemberBankCard find = new MemberBankCard();
+		find.setCreater(memberid);
+		find.setBankcard(code);
+		List<MemberBankCard> only = memberBankCardMapper.selectByCondition(find);
+		if(only.size()!=0){
+			rs.setCode("1");
+			rs.setError("您已添加过该银行卡");
+			return rs;
+		}
+		return rs;
+	}
 }

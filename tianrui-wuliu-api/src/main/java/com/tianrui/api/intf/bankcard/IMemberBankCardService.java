@@ -15,6 +15,8 @@ public interface IMemberBankCardService {
 	public Result autidBankCard(MemberBankCardReq req)throws Exception;
 	/** 设置默认银行卡*/
 	public Result defaulBankCard(MemberBankCardReq req)throws Exception;
+	/** 重新认证*/
+	public Result update(MemberBankCardReq req)throws Exception;
 	/** 删除银行卡*/
 	public Result deltBankCard(String id)throws Exception;
 	/** 查询银行卡*/
@@ -22,7 +24,11 @@ public interface IMemberBankCardService {
 	/** 查询银行卡详情*/
 	public Result findBankCardById(String id)throws Exception;
 	/** 查询银行卡详情*/
-	public Result findBankAddress()throws Exception;
+	public Result findBankAddress(String key)throws Exception;
+	/** 查询银行卡类别*/
+	public Result findBankType()throws Exception;
+	/** 查询银行卡唯一*/
+	public Result findBankOnly(String memberid,String code)throws Exception;
 	
 	public Result insertBankAddress(JSONArray array)throws Exception;
 	

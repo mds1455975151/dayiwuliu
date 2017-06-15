@@ -32,6 +32,8 @@ public class MemberBankCardReq {
 
     private Long auditortime;
 
+    private String desc1;
+    
     private Integer pageNo;
     
     private Integer pageSize;
@@ -170,6 +172,14 @@ public class MemberBankCardReq {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
 	}
 
 }

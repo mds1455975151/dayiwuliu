@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 	<head>
 	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	    <title>添加银行卡</title>
+	    <title>银行卡重新认证</title>
 	    <meta name="keywords" content=" 天瑞"/>
 	    <meta name="description" content="">
 	    <meta name="author" content="">
@@ -36,14 +36,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <!--个人中心右侧begin-->
 		            <div class="rz_right">
 		             	<div class=" bgblue">
-							<h2>添加银行卡</h2>
+							<h2>重新认证</h2>
 						</div>
 						<!-- 个人车辆begin -->
 						<form id="member_bank">
 						<div class="car_box">
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行卡账户:</label> 
-								<input type="text" id="bankcard_req" name="bankcard"> 
+								<input type="hidden" name="id" value="${bankid }"> 
+								<input type="text" id="bankcard_req" value="${bankcard }" name="bankcard"> 
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行名称:</label> 
@@ -70,9 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="select_class">
 									<select style="width: 350px" class="form-control select2" id="desc1_select">
 										<option>请选择</option>
-										<c:forEach items="${bankAddress }" var="type">
-										<option value="${type.name }">${type.name }</option>
-										</c:forEach>
+										
 									</select>
 									<button type="button" class="btn btnblue text_sele">编辑</button>
 								</div>
@@ -93,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="car_photo">
 								<div class="car_addbtn">
-									<button type="button" class="btn btnyello" id="member_bank_add">添加</button>
+									<button type="button" class="btn btnyello" id="member_bank_add">重新认证</button>
 								</div>
 							</div>
 						</div>
@@ -132,9 +131,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-		<script type="text/javascript" src="/resources/js/bank/saveBankCard.js?6140"></script>
+		<script type="text/javascript" src="/resources/js/bank/uptBankCard.js?6141"></script>
 		<script type="text/javascript">
-		
 		$("#bankimg_req")
 		.fileinput({
 			language : 'zh',
@@ -164,6 +162,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				function(event, data, previewId, index) {
 					var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
 				});
+		
+		index();
 		</script>
 	</body>
 </html>

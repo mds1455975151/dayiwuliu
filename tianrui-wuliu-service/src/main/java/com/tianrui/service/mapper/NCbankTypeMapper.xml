@@ -16,6 +16,14 @@
     from wuliu_NC_bank_type
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+   <select id="selectByCondtion" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.NCbankType" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_NC_bank_type
+    
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_NC_bank_type
     where id = #{id,jdbcType=VARCHAR}
