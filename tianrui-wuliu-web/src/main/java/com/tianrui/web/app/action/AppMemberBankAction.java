@@ -1,6 +1,8 @@
 package com.tianrui.web.app.action;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +14,12 @@ import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
+import com.tianrui.web.util.SessionManager;
 
 @Controller
 @RequestMapping("/app/bank/card")
@@ -37,6 +41,20 @@ public class AppMemberBankAction {
 		req.setCreater(vo.getId());
 		rs = memberBankCardService.insertBankCard(req);
 		return AppResult.valueOf(rs);
+	}
+	
+	/** 重新认证*/
+	@RequestMapping("uptAutid")
+	@ApiParamRawType(MemberBankCardReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public Result uptAutid(AppParam<MemberBankCardReq> appParam) throws Exception{
+		Result rs = Result .getSuccessResult();
+		Head vo = appParam.getHead();
+		MemberBankCardReq req = appParam.getBody();
+		req.setCreater(vo.getId());
+		rs = memberBankCardService.update(req);
+		return rs;
 	}
 	
 	/** 查询*/
@@ -65,6 +83,29 @@ public class AppMemberBankAction {
 		Head head = appParam.getHead();
 		req.setCreater(head.getId());
 		rs = memberBankCardService.defaulBankCard(req);
+		return AppResult.valueOf(rs);
+	}
+	
+	
+	/** 银行地址*/
+	@RequestMapping("address")
+	@ApiParamRawType(MemberBankCardReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult address(AppParam<MemberBankCardReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = memberBankCardService.findBankAddress(appParam.getBody().getDesc1());
+		return AppResult.valueOf(rs);
+	}
+	
+	/** 银行类别*/
+	@RequestMapping("type")
+	@ApiParamRawType(MemberBankCardReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult type(AppParam<MemberBankCardReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = memberBankCardService.findBankType();
 		return AppResult.valueOf(rs);
 	}
 }    

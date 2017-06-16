@@ -2,18 +2,22 @@ package com.tianrui.web.action.bankCard;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
+import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.web.util.HttpRequestUtil;
 import com.tianrui.web.util.SessionManager;
 
 @Controller
@@ -22,6 +26,8 @@ public class BankCardAction {
 
 	@Autowired
 	IMemberBankCardService memberBankCardService;
+	@Autowired
+	private ISystemMemberService systemMemberService;
 	
 	/** 我的银行卡
 	 * @throws Exception */
@@ -41,10 +47,24 @@ public class BankCardAction {
 	/** 添加页面
 	 * @throws Exception */
 	@RequestMapping("savePage")
-	public ModelAndView savePage() throws Exception{
+	public ModelAndView savePage(HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
+		view.addObject("member", member);
 		view.setViewName("/bank/saveBankCard");
+		view.addObject("bankType", memberBankCardService.findBankType().getData());
+		view.addObject("bankAddress", memberBankCardService.findBankAddress("").getData());
 		return view;
+	}
+	/** 查询开户行.
+	 * @throws Exception */
+	@RequestMapping("findAddress")
+	@ResponseBody
+	public Result findAddress(String name) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = memberBankCardService.findBankAddress(name);
+		return rs;
 	}
 	
 	/** 查询*/
@@ -59,6 +79,31 @@ public class BankCardAction {
 		return rs;
 	}
 	
+	@RequestMapping("uptAutidPage")
+	public ModelAndView uptAutidPage(MemberBankCardReq req,HttpServletRequest request) throws Exception{
+		ModelAndView view = new ModelAndView();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
+		view.addObject("member", member);
+		view.setViewName("/bank/uptBankCard");
+		view.addObject("bankid", req.getId());
+		view.addObject("bankcard", req.getBankcard());
+		view.addObject("bankType", memberBankCardService.findBankType().getData());
+		view.addObject("bankAddress", memberBankCardService.findBankAddress("").getData());
+		return view;
+	}
+	
+	/** 重新认证*/
+	@RequestMapping("uptAutid")
+	@ResponseBody
+	public Result uptAutid(MemberBankCardReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result .getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setCreater(vo.getId());
+		rs = memberBankCardService.update(req);
+		return rs;
+	}
+	
 	/** 添加
 	 * @throws Exception */
 	@RequestMapping("save")
@@ -68,6 +113,24 @@ public class BankCardAction {
 		MemberVo vo = SessionManager.getSessionMember(request);
 		req.setCreater(vo.getId());
 		rs = memberBankCardService.insertBankCard(req);
+		return rs;
+	}
+	//查询银行类型
+	@RequestMapping("bankCardType")
+	@ResponseBody
+	public Result bankCardType(String bankcode) throws Exception{
+		Result rs = Result.getSuccessResult();
+		String name = HttpRequestUtil.putRequest(bankcode);
+		rs.setData(name);
+		return rs;
+	}
+	//查询银行类型
+	@RequestMapping("bankCardOnly")
+	@ResponseBody
+	public Result bankCardOnly(String bankcode,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		rs = memberBankCardService.findBankOnly(vo.getId(), bankcode);
 		return rs;
 	}
 	

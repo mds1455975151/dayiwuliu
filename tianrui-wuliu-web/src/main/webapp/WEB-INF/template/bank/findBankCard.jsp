@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				bankautid = "认证失败";
 			}
 			var hml = "";
-			hml = "<div class='head_background' onclick=\"moreng('"+list[a].id+"','"+list[a].bankstatus+"')\">"+
+			hml = "<div class='head_background' onclick=\"moreng('"+list[a].id+"','"+list[a].bankstatus+"','"+list[a].bankautid+"','"+list[a].bankcard+"')\">"+
 			"<div class='inline'><div class='display_3 inline'>"+
 			"<div style='margin-top: -10px'>"+
 			bankstatus+"</div><div>"+bankautid+"</div></div>"+
@@ -164,8 +164,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$("#innerHml").append(hml);
 		}
 	}
-	function moreng(id,status){
-		if(status=="0"){
+	function moreng(id,status,autid,card){
+		//认证失败
+		if(autid == "3"){
+			window.location.href="/trwuliu/bank/card/uptAutidPage?id="+id+"&bankcard="+card;
+		}else if(status=="0"&&autid=="1"){
 			confirm("确认修改","确认设置该银行卡为默认银行卡吗?",function(){
 				$.ajax({
 					type:"post",

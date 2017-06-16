@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.NCbankType;
 
 public interface NCbankTypeMapper {
@@ -14,4 +16,6 @@ public interface NCbankTypeMapper {
     int updateByPrimaryKeySelective(NCbankType record);
 
     int updateByPrimaryKey(NCbankType record);
+    
+    List<NCbankType> selectByCondtion(NCbankType record);
 }

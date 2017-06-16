@@ -16,7 +16,6 @@ $(".text_but").on("click",function(){
 	$(".text_class").hide();
 	$(".select_class").show();
 });
-
 $("#member_bank_add").on("click",function(){
 	
 	if($("#showType").val()=="1"){
@@ -57,7 +56,7 @@ $("#member_bank_add").on("click",function(){
 		return;
 	}
 	$.ajax({
-		url:"/trwuliu/bank/card/save",
+		url:"/trwuliu/bank/card/uptAutid",
 		type:"post",
 		data:$('#member_bank').serialize(),
 		success:function(ret){
@@ -70,9 +69,11 @@ $("#member_bank_add").on("click",function(){
 	});
 	
 });
-
 $(".select2").select2(); 
 $("#bankcard_req").on("blur",function(){
+	index();
+});
+function index(){
 	$.ajax({
 		url:"/trwuliu/bank/card/bankCardType",
 		type:"post",
@@ -82,26 +83,12 @@ $("#bankcard_req").on("blur",function(){
 			bankAddress(ret.data);
 		}
 	});
-});
-
-$("#bankcard_req").on("blur",function(){
-	$.ajax({
-		url:"/trwuliu/bank/card/bankCardOnly",
-		type:"post",
-		data:{"bankcode":$("#bankcard_req").val()},
-		success:function(ret){
-			if(ret.code!="000000"){
-				alert(ret.error);
-			}
-		}
-	});
-});
-
+}
 function bankAddress(type){
 	$.ajax({
 		url:"/trwuliu/bank/card/findAddress",
-		type:"post",
 		data:{"name":type},
+		type:"post",
 		success:function(ret){
 			var data = ret.data;
 			$("#desc1_select").empty();

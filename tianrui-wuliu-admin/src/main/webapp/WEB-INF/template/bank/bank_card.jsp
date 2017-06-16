@@ -78,6 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                          <th>序号</th>
                                          <th >银行卡账户 </th>
                                          <th >持卡人名称</th>
+                                         <th >身份证号</th>
+                                         <th>银行名称</th>
                                          <th >开户行名称</th>
                                          <th >认证状态 </th>
                                          <th >创建时间</th>
@@ -122,9 +124,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span id="idname_mg">二二</span>
 				</div>
 				<div class="file_detail">
-					<label>开户行名称：</label>
+					<label>身份证号：</label>
+					<span id="idcard_mg">二二</span>
+				</div>
+				<div class="file_detail">
+					<label>银行名称：</label>
 					<span id="bankname_mg">二二</span>
 				</div>
+				<div class="file_detail">
+					<label>开户行名称：</label>
+					<span id="desc1_mg">二二</span>
+				</div>
+				
 				<div class=file_detail>
 					<label>认证状态 ：</label>
 					<span id="bankautid_mg">二二</span>
