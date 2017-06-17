@@ -35,25 +35,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="rz_rline border_gray" id="perAuthen_div">
                 <label>个人认证</label>
+                <a id="user_href">
                 <button type="button" class="btn  btn-primary btn-sm ml30"  disabled="disabled" id="perAuthen_status">未认证</button>
+                </a>
                 <button type="button" class="btn  btn-primary btn-sm fr mr50" id="toPerAuthen_button">申请认证</button>
             </div>
             <div class="rz_rline border_gray" id="drivAuthen_div">
                 <label>司机认证</label>
-                <button type="button" class="btn  btn-primary btn-sm ml30 "  disabled="disabled" id="drivAuthen_status">未认证</button>
+                <a id="driver_href">
+                <button type="button" onclick="index();" class="btn  btn-primary btn-sm ml30"  disabled="disabled" id="drivAuthen_status">未认证</button>
+                </a>
                 <button type="button" class="btn  btn-primary btn-sm fr mr50" id="todrivAuthen_button">申请认证</button>
             </div>
             <div class="rz_rline border_gray" id="corpAuthen_div">
                 <label>企业认证</label>
+                <a id="company_href">
                 <button type="button" class="btn  btn-primary btn-sm ml30 "  disabled="disabled" id="corpAuthen_status">未认证</button>
+                </a>
                 <button type="button" class="btn  btn-primary btn-sm fr mr50" id="toCorpAuthen_button">申请认证</button>
             </div>
-           	<!-- 
-            <div class="rz_rline border_gray" id="member_bank">
-                <label>我的银行卡</label>
-                <button type="button" onclick="window.location.href='/trwuliu/bank/card/page'" class="btn  btn-primary btn-sm ml30 "  >详情</button>
-            </div>
-           	 -->
             <div class="rz_rline2 border_gray">
                 <h3>重要声明</h3>
                 <p>1、您的资料可能会被提交到国家公安机关及其下属单位进行证件真实性核实，我们不会将您的证件资料用作商业用途或非法提供给他人，但是如果出现法律纠纷它可能作为相关证据使用。
@@ -108,7 +108,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/member/authentication/authenPage.js?0104" ></script>
-
+<script type="text/javascript" src="/resources/js/member/authentication/authenPage.js?0615" ></script>
 </body>
 </html>

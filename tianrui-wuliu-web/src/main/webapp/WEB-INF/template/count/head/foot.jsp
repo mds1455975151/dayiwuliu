@@ -15,27 +15,19 @@
                 <p>中原大易物流科技有限公司版权所有</p>
             </div>
         </div>
-       	<div class="foottip">
-            <h4>大易物流客户端APP</h4>
-            <button class="btn" onclick="window.location.href='/publicMember/loadPage'">扫码二维码下载APP</button>
+        <div class="footmid">
+	       	<div class="foottip">
+	            <h4>大易物流客户端APP</h4>
+	            <button class="btn" onclick="window.location.href='/publicMember/loadPage'">扫码二维码下载APP</button>
+	        </div>
+	        <div class="footimg">
+	            <img style="width: 125px;height: 125px" src="${trRoot}/tianrui/images/phone_load.png">
+	        </div>
         </div>
-        <div class="footimg">
-            <img style="width: 125px;height: 125px" src="${trRoot}/tianrui/images/phone_load.png">
+        <div class="foot400">
+            <h3>全国服务热线</h3>
+            <h4>400-056-1156</h4>
         </div>
-       	<!-- 
-        <div class="footimg">
-            <p>IOS客户端</p>
-            <img height="125px" width="125px" src="${trRoot}/tianrui/images/erios.png">
-        </div>
-        <div class="footimg">
-            <p>车主安卓客户端</p>
-            <img height="125px" width="125px" src="${trRoot}/tianrui/images/erandroid.png">
-        </div>
-        <div class="footimg">
-            <p>货主安卓客户端</p>
-            <img height="125px" width="125px" src="${trRoot}/tianrui/images/huozhu.png">
-        </div>
-       	 -->
     </div>
 
 </div>

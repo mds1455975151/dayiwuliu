@@ -14,7 +14,6 @@ $(function() {
 	// 界面根据认证状态变动
 	setPageByStatus();
 });
-
 // 个人认证按钮事件
 $("#toPerAuthen_button").click(function() {
 	if (0 == userpercheck) {
@@ -105,7 +104,8 @@ function setPageByStatus() {
 		$("#corpAuthen_status").addClass("btn  btn-primary btn-sm ml30");
 		$("#toCorpAuthen_button").hide();
 	} else if (1 == companypercheck) {
-		$("#corpAuthen_status").html("企业认证成功");
+		$("#company_href").attr("href","/trwuliu/Memberinfo/page?type=company"); 
+		$("#corpAuthen_status").html("企业认证成功");//
 		$("#corpAuthen_status").removeClass();
 		$("#corpAuthen_status").addClass("btn  btn-rzsucc btn-sm ml30");
 		$("#toCorpAuthen_button").hide();
@@ -124,8 +124,9 @@ function setPageByStatus() {
 		$("#toPerAuthen_button").hide();
 	} else if (1 == userpercheck) {
 		// 判断用户认证信息，如果已经认证成为司机，显示《司机认证成功》
+		$("#user_href").attr("href","/trwuliu/Memberinfo/page?type=user"); 
 		$("#toPerAuthen_button").hide();
-		$("#perAuthen_status").html("个人认证成功");
+		$("#perAuthen_status").html("个人认证成功");//
 		$("#toPerAuthen_button").html("司机认证");
 		$("#perAuthen_status").removeClass();
 		$("#perAuthen_status").addClass("btn  btn-rzsucc btn-sm ml30");
@@ -143,7 +144,8 @@ function setPageByStatus() {
 		$("#drivAuthen_status").addClass("btn  btn-primary btn-sm ml30");
 		$("#todrivAuthen_button").hide();
 	} else if (1 == driverpercheck) {
-		$("#drivAuthen_status").html("司机认证成功");
+		$("#driver_href").attr("href","/trwuliu/Memberinfo/page?type=driver"); 
+		$("#drivAuthen_status").html("司机认证成功");//
 		$("#drivAuthen_status").removeClass();
 		$("#drivAuthen_status").addClass("btn  btn-rzsucc btn-sm ml30");
 		$("#todrivAuthen_button").hide();
@@ -154,3 +156,4 @@ function setPageByStatus() {
 		$("#todrivAuthen_button").html("查看原因");
 	}
 }
+
