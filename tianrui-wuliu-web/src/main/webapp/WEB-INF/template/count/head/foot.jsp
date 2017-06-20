@@ -1,8 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<div class="bghui">
+<div class="bgfoot">
     <div class="wrap foot">
         <div class="footcont">
-            <img src="${trRoot}/tianrui/images/footlogo.png">
+            <img src="${trRoot}/tianrui/images/footlogo2.png">
             <div class="footline">
                 <ul>
                     <li><a href="/count/route">首页</a></li>
@@ -14,28 +14,27 @@
                 <p>Copyright © 2016 豫ICP备16036132号-1</p>
                 <p>中原大易物流科技有限公司版权所有</p>
             </div>
+            <div class="footxin">
+                <a href="zhengshu.html" target="_blank">
+                	<img src="${trRoot}/tianrui/images/xin.png">
+             	</a>
+            </div>
         </div>
-       	<div class="foottip">
+<!--        	<div class="foottip">
             <h4>大易物流客户端APP</h4>
             <button class="btn" onclick="window.location.href='/publicMember/loadPage'">扫码二维码下载APP</button>
         </div>
-        <div class="footimg">
-            <img style="width: 125px;height: 125px" src="${trRoot}/tianrui/images/phone_load.png">
+ -->        
+        <div class="footmid">
+            <div class="footimg">
+                <img src="${trRoot}/tianrui/images/phone_load.png">
+                <a href="/publicMember/loadPage" target="_blank"><h4>大易物流客户端APP</h4></a>
+            </div>
         </div>
-       	<!-- 
-        <div class="footimg">
-            <p>IOS客户端</p>
-            <img height="125px" width="125px" src="${trRoot}/tianrui/images/erios.png">
+        <div class="foot400">
+            <h3>全国服务热线</h3>
+            <h4>400-056-1156</h4>
         </div>
-        <div class="footimg">
-            <p>车主安卓客户端</p>
-            <img height="125px" width="125px" src="${trRoot}/tianrui/images/erandroid.png">
-        </div>
-        <div class="footimg">
-            <p>货主安卓客户端</p>
-            <img height="125px" width="125px" src="${trRoot}/tianrui/images/huozhu.png">
-        </div>
-       	 -->
     </div>
 
 </div>

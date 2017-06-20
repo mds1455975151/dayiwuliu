@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<div class="bghui">
+<div class="bghead">
     <div class="wrap">
         <!--登录头部行begin-->
-        <div class="header">
+        <div class="header_tj">
             <div class="header_left">
                 <label class="mr10">欢迎来到大易物流平台！</label>
                 <a href="/count/route"><label> 请[登录]</label></a>
