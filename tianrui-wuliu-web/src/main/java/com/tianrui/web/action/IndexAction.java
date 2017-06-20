@@ -19,4 +19,11 @@ public class IndexAction {
 		ModelAndView model =new ModelAndView("/index");
 		return model;
 	}
+	
+	@RequestMapping("/zs")
+	public ModelAndView zs() throws IOException{
+		ModelAndView model =new ModelAndView("/count/zs");
+		return model;
+	}
+
 }

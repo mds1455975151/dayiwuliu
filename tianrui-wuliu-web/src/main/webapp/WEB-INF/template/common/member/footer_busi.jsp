@@ -23,16 +23,16 @@
                 <p>Copyright © 2016 豫ICP备16036132号-1</p>
                 <p>中原大易物流科技有限公司版权所有</p>
             </div>
+              <div class="footxin">
+                <a href="/zs" target="_blank">
+                    <img src="${trRoot}/tianrui/images/xin.png">
+                </a>
+            </div>
         </div>
        	<div class="footmid">
-	       	<div class="foottip">
-	            <h4>大易物流客户端APP</h4>
-	            <a href="/publicMember/loadPage" class="btn bottom_btn" target="_blank">
-	            	扫码二维码下载APP
-	            </a>
-	        </div>
 	        <div class="footimg">
-	            <img title="扫码下载" style="width: 125px;height: 125px" src="${trRoot}/tianrui/images/phone_load.png">
+	            <img  src="${trRoot}/tianrui/images/phone_load.png">
+	            <a href="/publicMember/loadPage"><h4>大易物流客户端APP</h4></a>
 	        </div>
         </div>
         <div class="foot400">
