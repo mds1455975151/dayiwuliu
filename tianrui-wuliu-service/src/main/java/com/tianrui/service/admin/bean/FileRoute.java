@@ -10,6 +10,8 @@ public class FileRoute {
     
     private String count;//被引用次数
     
+    private String receiveid;
+    
     private String opositionid;
     private String oaddr;
     private String dpositionid;
@@ -475,6 +477,14 @@ public class FileRoute {
 
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+
+	public String getReceiveid() {
+		return receiveid;
+	}
+
+	public void setReceiveid(String receiveid) {
+		this.receiveid = receiveid;
 	}
     
 }

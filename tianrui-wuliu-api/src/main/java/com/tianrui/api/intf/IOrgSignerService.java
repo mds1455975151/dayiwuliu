@@ -18,5 +18,7 @@ public interface IOrgSignerService {
 	
 	public PaginationVO<OrgSignerResp> select(OrgSignerFindReq req)throws Exception;
 	
-	public List<OrgSignerResp> findCellphonr(String cellphone)throws Exception;
+	public List<OrgSignerResp> findlist(OrgSignerFindReq req)throws Exception;
+	
+	public Result detail(String id)throws Exception;
 }

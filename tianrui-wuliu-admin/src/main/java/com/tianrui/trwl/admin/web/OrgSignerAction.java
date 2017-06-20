@@ -78,6 +78,14 @@ public class OrgSignerAction {
 		return rs;
 	}
 	
+	@RequestMapping("detail")
+	@ResponseBody
+	public Result detail(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = orgSignerService.detail(id);
+		return rs;
+	}
+	
 	/** 查询账号*/
 	@RequestMapping("/findPhone")
 	@ResponseBody
@@ -93,9 +101,9 @@ public class OrgSignerAction {
 			return rs;
 		}
 		
-		OrgMemberReq om = new OrgMemberReq();
-		om.setMembertel(phone);
-		List<OrgSignerResp> list = orgSignerService.findCellphonr(phone);
+		OrgSignerFindReq om = new OrgSignerFindReq();
+		om.setCellphone(phone);
+		List<OrgSignerResp> list = orgSignerService.findlist(om);
 		if(list.size()==1){
 			rs.setCode("1");
 			rs.setError("用户已绑定");

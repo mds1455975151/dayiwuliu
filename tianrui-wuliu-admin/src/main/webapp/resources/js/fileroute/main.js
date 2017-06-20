@@ -11,7 +11,9 @@ $(function(){
 		//可用 禁用url
 		"enableUrl":"/file/fileroute/disable",	
 		//详情url
-		"detailUrl":"/file/fileroute/detail",	
+		"detailUrl":"/file/fileroute/detail",
+		//收货人详情
+		"signdetail":"/file/fileOrgSigner/detail"
 	}
 	//页面数据初始化
 	displayData(0);
@@ -24,7 +26,21 @@ $(function(){
 			return false;
 		}
 	});
-	
+	//收获人选择事件
+	$("#receiveid_req").on("change",function(){
+		$("#receivepersionphone_req").val("");
+		$("#receivepersion_req").val("");
+		$.ajax({
+			url : URL.signdetail,
+			data : {"id":$("#receiveid_req").val()},
+			type : "POST",
+			success : function(ret){
+				$("#receivepersionphone_req").val(ret.data.cellphone);
+				$("#receivepersion_req").val(ret.data.membername);
+			}
+				
+		});
+	});
 	//搜索按钮绑定事件
 	$(".searchbtn").click(function(){
 		displayData(0);
@@ -198,7 +214,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code=="000000" ){
-						alert("添加成功");
+						alert("操作成功");
 						$(".searchbtn").trigger("click");
 					}else{
 						alert(rs.error);
@@ -317,6 +333,7 @@ $(function(){
 					$("#addModal .routename").val(data.routename);
 					$("#addModal .distanceStr").val(data.distance);
 					
+					$("#receiveid_req").val(data.receiveid);
 					
 					$("#addModal .titleSpan").text("修改");
 					$("#addModal").modal("show");

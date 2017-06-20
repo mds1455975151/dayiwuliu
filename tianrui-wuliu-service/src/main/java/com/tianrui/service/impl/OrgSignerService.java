@@ -1,6 +1,5 @@
 package com.tianrui.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,11 +79,19 @@ public class OrgSignerService implements IOrgSignerService{
 	}
 
 	@Override
-	public List<OrgSignerResp> findCellphonr(String cellphone) throws Exception {
+	public List<OrgSignerResp> findlist(OrgSignerFindReq req) throws Exception {
 		OrgSigner org = new OrgSigner();
-		org.setCellphone(cellphone);
+		PropertyUtils.copyProperties(org, req);
 		List<OrgSigner> list  = orgSignerMapper.selectByCondition(org);
 		return copyProperties2(list);
+	}
+
+	@Override
+	public Result detail(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		OrgSigner org =orgSignerMapper.selectByPrimaryKey(id);
+		rs.setData(org);
+		return rs;
 	}
 
 }
