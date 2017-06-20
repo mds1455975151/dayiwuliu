@@ -105,7 +105,7 @@ Users sesionuser = (Users) request.getSession().getAttribute("session_user");
 <!--修改密码end-->
 <script type="text/javascript">
 var password = "<%= sesionuser.getPassword() %>";
-//long类型装dataStr
+//long类型装dataStr  new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")
 Date.prototype.format = function(f){
     var o ={
         "M+" : this.getMonth()+1, //month

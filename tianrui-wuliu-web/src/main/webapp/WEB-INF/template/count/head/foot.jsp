@@ -18,7 +18,7 @@
         <div class="footmid">
 	       	<div class="foottip">
 	            <h4>大易物流客户端APP</h4>
-	            <button class="btn" onclick="window.location.href='/publicMember/loadPage'">扫码二维码下载APP</button>
+	            <button class="btn" onclick="window.open('/publicMember/loadPage')">扫码二维码下载APP</button>
 	        </div>
 	        <div class="footimg">
 	            <img style="width: 125px;height: 125px" src="${trRoot}/tianrui/images/phone_load.png">
