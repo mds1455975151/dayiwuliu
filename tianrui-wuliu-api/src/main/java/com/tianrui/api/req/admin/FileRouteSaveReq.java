@@ -12,6 +12,8 @@ public class FileRouteSaveReq extends BaseReq {
 	private String oaddr;
 	private String dpositionid;
 	private String daddr;
+	
+	private String receiveid;
 
 	private String sendpersion;
 	private String sendpersionphone;
@@ -105,7 +107,11 @@ public class FileRouteSaveReq extends BaseReq {
 	public void setCurrOrgName(String currOrgName) {
 		this.currOrgName = currOrgName;
 	}
-	
-	
+	public String getReceiveid() {
+		return receiveid;
+	}
+	public void setReceiveid(String receiveid) {
+		this.receiveid = receiveid;
+	}
 
 }

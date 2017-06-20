@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id=" ">新增</h4>
+                <h4 class="modal-title" id=" ">详情</h4>
             </div>
             <div class="modal-body">
               <!-- body内容 -->
@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <label>发货人：</label><input class="sendpersion formV" name="sendpersion"  type="text" dataType="s2-18" />
                 </div>
               	<div class="usermodal userlabel4">
-                    <label>发货电话：</label><input class="sendpersionphone formV" name="sendpersionphone"  type="text" dataType="m" />
+                    <label>发货电话：</label><input maxlength="11" class="sendpersionphone formV" name="sendpersionphone"  type="text" dataType="m" />
                 </div>
               	<div class="usermodal userlabel4">
               		 <label>收货地点：</label>
@@ -143,10 +143,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </select>
                 </div>
               	<div class="usermodal userlabel4">
-                    <label>收货人：</label><input class="receivepersion formV" name="receivepersion"  type="text"  dataType="s2-18">
+                    <label>收货账号：</label>
+                    <select class="form-control receiveid formV" id="receiveid_req" name="receiveid" dataType="*" >
+                    	<option value="">请选择</option>
+                   		<c:forEach  var="item"   items="${signer}"  >
+                   			<option value="${item.id}">${item.cellphone}</option>
+                   		</c:forEach>
+                    </select>
+                    <input class="receivepersionphone formV" id="receivepersionphone_req" name="receivepersionphone"  type="hidden" dataType="m" >
                 </div>
               	<div class="usermodal userlabel4">
-                    <label>收货电话：</label><input class="receivepersionphone formV" name="receivepersionphone"  type="text" dataType="m" >
+                    <label>收货人：</label>
+                    <input class="receivepersion formV" id="receivepersion_req" name="receivepersion" readonly="readonly"  type="text"  dataType="s2-18">
                 </div>
               	<div class="usermodal userlabel4">
                     <label>距离：</label><input class="distanceStr formV" name="distanceStr"  type="text" dataType="n">

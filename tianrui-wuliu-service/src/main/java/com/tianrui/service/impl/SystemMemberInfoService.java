@@ -347,7 +347,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 
 	@Override
 	public MemberInfoRecordResp selectMemberInfo(String id) throws Exception {
-		// TODO Auto-generated method stub
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(id);
 		SystemMemberInfo info =systemMemberInfoMapper.selectByPrimaryKey(id);
 		MemberInfoRecordResp resp = new MemberInfoRecordResp();

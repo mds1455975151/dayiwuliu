@@ -28,14 +28,14 @@
                     <div class="tz_vandroid">
                         <h5 style="color: white;">安卓端下载</h5>
                     </div>
-                    <img src="${trRoot}/tianrui/images/erandroid.png">
+                    <img title="android车主版" src="${trRoot}/tianrui/images/erandroid.png">
                    	</a>
                 </div>
                 <div class="tz_vers">
                     <div class="tz_vios">
                         <h5>IOS端下载</h5>
                     </div>
-                    <img src="${trRoot}/tianrui/images/erios.png">
+                    <img title="IOS版苹果商店下载" src="${trRoot}/tianrui/images/erios.png">
                 </div>
             </div>
             <div class="tz_vtotal">
@@ -45,14 +45,14 @@
                     <div class="tz_vandroid">
                         <h5 style="color: white;">安卓端下载</h5>
                     </div>
-                    <img src="${trRoot}/tianrui/images/huozhu.png">
+                    <img title="android货主版" src="${trRoot}/tianrui/images/huozhu.png">
                    	</a>
                 </div>
                 <div class="tz_vers">
                     <div class="tz_vios">
                         <h5>IOS端下载</h5>
                     </div>
-                    <img src="${trRoot}/tianrui/images/huozhu_ios.png">
+                    <img title="IOS版苹果商店下载" src="${trRoot}/tianrui/images/huozhu_ios.png">
                 </div>
             </div>
         </div>

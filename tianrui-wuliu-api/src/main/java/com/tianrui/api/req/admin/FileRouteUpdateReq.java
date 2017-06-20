@@ -14,6 +14,8 @@ public class FileRouteUpdateReq extends BaseReq{
 	private String oaddr;
 	private String dpositionid;
 	private String daddr;
+	
+	private String receiveid;
 
 	private String sendpersion;
 	private String sendpersionphone;
@@ -40,6 +42,12 @@ public class FileRouteUpdateReq extends BaseReq{
 	}
 	public String getOpositionid() {
 		return opositionid;
+	}
+	public String getReceiveid() {
+		return receiveid;
+	}
+	public void setReceiveid(String receiveid) {
+		this.receiveid = receiveid;
 	}
 	public void setOpositionid(String opositionid) {
 		this.opositionid = opositionid;

@@ -20,6 +20,7 @@
              	</a>
             </div>
         </div>
+<<<<<<< HEAD
 <!--        	<div class="foottip">
             <h4>大易物流客户端APP</h4>
             <button class="btn" onclick="window.location.href='/publicMember/loadPage'">扫码二维码下载APP</button>
@@ -31,6 +32,17 @@
                 <a href="/publicMember/loadPage" target="_blank"><h4>大易物流客户端APP</h4></a>
             </div>
         </div>
+=======
+        <div class="footmid">
+	       	<div class="foottip">
+	            <h4>大易物流客户端APP</h4>
+	            <button class="btn" onclick="window.open('/publicMember/loadPage')">扫码二维码下载APP</button>
+	        </div>
+	        <div class="footimg">
+	            <img style="width: 125px;height: 125px" src="${trRoot}/tianrui/images/phone_load.png">
+	        </div>
+        </div>
+>>>>>>> 4a200e5a9771288bc8f84165fe8a3ac76aa2fa5d
         <div class="foot400">
             <h3>全国服务热线</h3>
             <h4>400-056-1156</h4>

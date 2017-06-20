@@ -53,6 +53,16 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 			rs.setError("认证中用户不得修改");
 			return rs;
 		}
+		short k = 3;
+		//司机认证失败
+		if(member.getDriverpercheck()==k){
+			member.setDriverpercheck((short)0);
+		}
+		//企业认证失败
+		if(member.getCompanypercheck()==k){
+			member.setCompanypercheck((short)0);
+		}
+		
 		Long t = new Date().getTime();
 		SystemMemberInfoRecord info = new SystemMemberInfoRecord();
 		//数值转换
@@ -120,6 +130,15 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 			rs.setError("认证中用户不得修改");
 			return rs;
 		}
+		short k = 3;
+		//司机认证失败
+		if(member.getUserpercheck()==k){
+			member.setUserpercheck((short)0);
+		}
+		//企业认证失败
+		if(member.getDriverpercheck()==k){
+			member.setDriverpercheck((short)0);
+		}
 		Long t = new Date().getTime();
 		SystemMemberInfoRecord info = new SystemMemberInfoRecord();
 		//数值转换
@@ -155,11 +174,19 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 			rs.setError("认证中用户不得修改");
 			return rs;
 		}
+		short k = 3;
+		//司机认证失败
+		if(member.getUserpercheck()==k){
+			member.setUserpercheck((short)0);
+		}
+		//企业认证失败
+		if(member.getCompanypercheck()==k){
+			member.setCompanypercheck((short)0);
+		}
+		
 		Long t = new Date().getTime();
 		SystemMemberInfoRecord info = new SystemMemberInfoRecord();
 		//数值转换
-		
-		//TODO
 		info = copyProperties(req);
 		info.setId(UUIDUtil.getId());
 		info.setMemberid(req.getMemberId());

@@ -13,12 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IFilePositionService;
 import com.tianrui.api.admin.intf.IFileRouteService;
+import com.tianrui.api.intf.IOrgSignerService;
 import com.tianrui.api.req.admin.FilePositionReq;
 import com.tianrui.api.req.admin.FileRouteReq;
 import com.tianrui.api.req.admin.FileRouteSaveReq;
 import com.tianrui.api.req.admin.FileRouteUpdateReq;
+import com.tianrui.api.req.admin.OrgSignerFindReq;
 import com.tianrui.api.resp.admin.FilePositionResp;
 import com.tianrui.api.resp.admin.FileRouteResp;
+import com.tianrui.api.resp.admin.OrgSignerResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
@@ -38,6 +41,8 @@ public class FileRouteAction {
 	IFileRouteService fileRouteService;
 	@Autowired
 	IFilePositionService filePositionService;
+	@Autowired
+	IOrgSignerService  orgSignerService;
 	
 	//主页面
 	@RequestMapping("/main")
@@ -48,6 +53,12 @@ public class FileRouteAction {
 		FilePositionReq req = new FilePositionReq();
 		req.setCurrOrgId(user.getOrgid());
 		List<FilePositionResp> positionList =filePositionService.findWithCondition(req);
+		
+		OrgSignerFindReq om = new OrgSignerFindReq();
+		om.setOrgid(user.getOrgid());
+		List<OrgSignerResp> list = orgSignerService.findlist(om);
+		
+		model.addObject("signer", list);
 		model.addObject("positionList", positionList);
 		return model;
 	}

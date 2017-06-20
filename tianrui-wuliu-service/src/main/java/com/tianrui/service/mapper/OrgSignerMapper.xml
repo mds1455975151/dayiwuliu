@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.OrgSignerMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.OrgSigner" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="memberid" property="memberid" jdbcType="VARCHAR" />
+    <result column="membername" property="membername" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="upter" property="upter" jdbcType="VARCHAR" />
+    <result column="upttime" property="upttime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, orgid, cellphone, memberid, membername, remark, creater, createtime, upter, upttime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_org_signer
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.OrgSigner" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_org_signer
+    <where>
+    	<if test="orgid != null and orgid != ''">
+    		and orgid = #{orgid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cellphone != null and cellphone != ''">
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="membername != null and membername != ''">
+    		and membername like "%" #{membername,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+    	order by createtime desc
+    	<if test="pageNo != null">
+    		limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    	</if>
+  </select>
+  
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.OrgSigner" >
+    select 
+    count(0)
+    from file_org_signer
+    <where>
+    	<if test="orgid != null and orgid != ''">
+    		and orgid = #{orgid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cellphone != null and cellphone != ''">
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="membername != null and membername != ''">
+    		and membername like "%" #{membername,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from file_org_signer
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.OrgSigner" >
+    insert into file_org_signer (id, orgid, cellphone, 
+      memberid, membername, remark, 
+      creater, createtime, upter, 
+      upttime)
+    values (#{id,jdbcType=VARCHAR}, #{orgid,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, 
+      #{memberid,jdbcType=VARCHAR}, #{membername,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, #{upter,jdbcType=VARCHAR}, 
+      #{upttime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.OrgSigner" >
+    insert into file_org_signer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgid != null" >
+        orgid,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="memberid != null" >
+        memberid,
+      </if>
+      <if test="membername != null" >
+        membername,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="upter != null" >
+        upter,
+      </if>
+      <if test="upttime != null" >
+        upttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="membername != null" >
+        #{membername,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="upter != null" >
+        #{upter,jdbcType=VARCHAR},
+      </if>
+      <if test="upttime != null" >
+        #{upttime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.OrgSigner" >
+    update file_org_signer
+    <set >
+      <if test="orgid != null" >
+        orgid = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null" >
+        memberid = #{memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="membername != null" >
+        membername = #{membername,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="upter != null" >
+        upter = #{upter,jdbcType=VARCHAR},
+      </if>
+      <if test="upttime != null" >
+        upttime = #{upttime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.OrgSigner" >
+    update file_org_signer
+    set orgid = #{orgid,jdbcType=VARCHAR},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      memberid = #{memberid,jdbcType=VARCHAR},
+      membername = #{membername,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      upter = #{upter,jdbcType=VARCHAR},
+      upttime = #{upttime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

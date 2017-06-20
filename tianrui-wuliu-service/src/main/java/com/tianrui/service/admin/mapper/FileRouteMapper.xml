@@ -23,6 +23,8 @@
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
     <result column="modifier" property="modifier" jdbcType="VARCHAR" />
     <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+    
+    <result column="receiveid" property="receiveid" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="PlanRouteMap" type="com.tianrui.api.resp.front.cargoplan.PlanRouteResp" >
@@ -30,7 +32,7 @@
   <sql id="Base_Column_List" >
     ID, organizationname, organizationid, routename, status, oPositionId, oAddr, dPositionId, 
     dAddr, sendPersion, sendPersionPhone, receivePersion, receivePersionPhone, distance, 
-    creator, createtime, modifier, modifytime
+    creator, createtime, modifier, modifytime, receiveid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -59,7 +61,7 @@
     select 
 	    f.ID, f.organizationname, f.organizationid, f.routename, f.status, f.oPositionId, f.oAddr, f.dPositionId, 
 	    f.dAddr, f.sendPersion, f.sendPersionPhone, f.receivePersion, f.receivePersionPhone, f.distance, 
-	    f.creator, f.createtime, f.modifier, f.modifytime,
+	    f.creator, f.createtime, f.modifier, f.modifytime,f.receiveid,
 	    (select count(*) from file_freight t where t.routeid = f.ID) count
     from file_route f
     <where>
@@ -106,14 +108,14 @@
       oAddr, dPositionId, dAddr, 
       sendPersion, sendPersionPhone, receivePersion, 
       receivePersionPhone, distance, creator, 
-      createtime, modifier, modifytime
+      createtime, modifier, modifytime,receiveid
       )
     values (#{id,jdbcType=VARCHAR}, #{organizationname,jdbcType=VARCHAR}, #{organizationid,jdbcType=VARCHAR}, 
       #{routename,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{opositionid,jdbcType=VARCHAR}, 
       #{oaddr,jdbcType=VARCHAR}, #{dpositionid,jdbcType=VARCHAR}, #{daddr,jdbcType=VARCHAR}, 
       #{sendpersion,jdbcType=VARCHAR}, #{sendpersionphone,jdbcType=VARCHAR}, #{receivepersion,jdbcType=VARCHAR}, 
       #{receivepersionphone,jdbcType=VARCHAR}, #{distance,jdbcType=DOUBLE}, #{creator,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}
+      #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, #{receiveid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.FileRoute" >
@@ -173,6 +175,9 @@
       <if test="modifytime != null" >
         modifytime,
       </if>
+      <if test="receiveid != null">
+      	 receiveid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -229,6 +234,9 @@
       <if test="modifytime != null" >
         #{modifytime,jdbcType=BIGINT},
       </if>
+      <if test="receiveid != null">
+      	 #{receiveid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.FileRoute" >
@@ -238,6 +246,9 @@
     -->
     update file_route
     <set >
+      <if test="receiveid != null">
+      	 receiveid = #{receiveid,jdbcType=VARCHAR},
+      </if>
       <if test="organizationname != null" >
         organizationname = #{organizationname,jdbcType=VARCHAR},
       </if>
@@ -299,6 +310,7 @@
     -->
     update file_route
     set organizationname = #{organizationname,jdbcType=VARCHAR},
+    	receiveid = #{receiveid,jdbcType=VARCHAR},
       organizationid = #{organizationid,jdbcType=VARCHAR},
       routename = #{routename,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
