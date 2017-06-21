@@ -101,6 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <tr>
                                 <th>发货人</th>
                                 <th>收货人</th>
+                                <th>支付对象</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -112,6 +113,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td >
                                     <h4>${plan.receivepersion }</h4>
                                     <h4>${plan.receivepersionphone }</h4>
+                                </td>
+                                <td >
+                                    <h4>
+                                    <c:if test="${plan.payment eq '1'}">
+                                    	司机
+                                    </c:if>
+                                    <c:if test="${plan.payment eq '2'}">
+                                    	车主
+                                    </c:if>
+                                    </h4>
                                 </td>
                             </tr>
                             </tbody>

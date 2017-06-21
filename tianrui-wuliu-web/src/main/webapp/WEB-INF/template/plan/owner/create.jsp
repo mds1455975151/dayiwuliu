@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <select class="form-control" id="receiveid_req" name="receiveid">
                     	<option>请选择</option>
                     	<c:forEach items="${signer }" var="signer">
-                    		<option value="${signer.memberid }">${signer.membername }-${signer.cellphone }</option>
+                    		<option value="${signer.id }">${signer.membername }-${signer.cellphone }</option>
                     	</c:forEach>
                     </select>
                     <input type="hidden" id="recname" name="consigneeName">

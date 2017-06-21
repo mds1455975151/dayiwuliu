@@ -39,11 +39,14 @@
     <result column="desc2" property="desc2" jdbcType="VARCHAR" />
     <result column="desc3" property="desc3" jdbcType="VARCHAR" />
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+    
+    <result column="payment" property="payment" jdbcType="VARCHAR" />
+    <result column="receive_memberid" property="receive_memberid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, billno, ownerid, driverid, venderid, ddh, dwzl, sj, cph, zzl, ztj, zsl, yf, jffs, 
     qycs, mdcs, lc, yqthrq, yqdhrq, khdm, thdz, shdz, shr, lxsj, jj, hpmc, sl, dw, hpsx, 
-    creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4
+    creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, payment, receive_memberid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -156,7 +159,7 @@
       hpmc, sl, dw, hpsx, 
       creater, createtime, modifier, 
       modifytime, desc1, desc2, 
-      desc3, desc4)
+      desc3, desc4,payment, receive_memberid)
     values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
       #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
       #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
@@ -167,7 +170,9 @@
       #{hpmc,jdbcType=VARCHAR}, #{sl,jdbcType=VARCHAR}, #{dw,jdbcType=VARCHAR}, #{hpsx,jdbcType=VARCHAR}, 
       #{creater,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, 
       #{modifytime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
-      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
+       #{payment,jdbcType=VARCHAR},
+        #{receive_memberid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     insert into anlian_bill
@@ -283,6 +288,12 @@
       <if test="desc4 != null" >
         desc4,
       </if>
+      <if test="payment != null">
+        payment,
+      </if>
+      <if test="receive_memberid != null">
+        receive_memberid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -396,11 +407,23 @@
       <if test="desc4 != null" >
         #{desc4,jdbcType=VARCHAR},
       </if>
+      <if test="payment != null">
+      	#{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="receive_memberid != null">
+        #{receive_memberid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     <set >
+    	<if test="payment != null">
+      	payment = #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="receive_memberid != null">
+        receive_memberid = #{receive_memberid,jdbcType=VARCHAR},
+      </if>
       <if test="billno != null" >
         billno = #{billno,jdbcType=VARCHAR},
       </if>
@@ -512,6 +535,8 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     set billno = #{billno,jdbcType=VARCHAR},
+      	payment = #{payment,jdbcType=VARCHAR},
+        receive_memberid = #{receive_memberid,jdbcType=VARCHAR},
       ownerid = #{ownerid,jdbcType=VARCHAR},
       driverid = #{driverid,jdbcType=VARCHAR},
       venderid = #{venderid,jdbcType=VARCHAR},

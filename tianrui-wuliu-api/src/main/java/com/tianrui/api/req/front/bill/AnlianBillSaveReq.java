@@ -9,6 +9,10 @@ public class AnlianBillSaveReq {
 	private String billEndTime;
 	/** 车辆司机关系表主键id*/
 	private String vehicleDrvierid;
+	 //支付对象 1-司机 2-车主
+    private String payment;
+    //收货人用户id
+    private String receive_memberid;
 	
 	private String price;
 	/** 体积*/
@@ -95,5 +99,17 @@ public class AnlianBillSaveReq {
 	}
 	public void setVenderid(String venderid) {
 		this.venderid = venderid;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+	public String getReceive_memberid() {
+		return receive_memberid;
+	}
+	public void setReceive_memberid(String receive_memberid) {
+		this.receive_memberid = receive_memberid;
 	}
 }

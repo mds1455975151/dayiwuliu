@@ -12,7 +12,11 @@ public class AnlianBill {
     private String driverid;
 
     private String venderid;
-
+    //支付对象 1-司机 2-车主
+    private String payment;
+    //收货人用户id
+    private String receive_memberid;
+   
     private String ddh;
 
     private String dwzl;
@@ -402,4 +406,19 @@ public class AnlianBill {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
 
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public String getReceive_memberid() {
+		return receive_memberid;
+	}
+
+	public void setReceive_memberid(String receive_memberid) {
+		this.receive_memberid = receive_memberid;
+	}
 }

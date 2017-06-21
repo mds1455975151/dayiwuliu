@@ -135,14 +135,21 @@
 										<tr>
 											<th>车辆</th>
 											<th>司机</th>
-											<th>联系方式</th>
+											<th>支付对象</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>${bill.vehicleno }</td>
-											<td>${bill.drivername }</td>
-											<td>${bill.drivertel }</td>
+											<td><h4>${bill.drivername }</h4><h4>${bill.drivertel }</h4></td>
+											<td>
+											<c:if test="${bill.payment eq '1' }">
+												司机
+											</c:if>
+											<c:if test="${bill.payment eq '2' }">
+												车主
+											</c:if>
+											</td>
 										</tr>
 									</tbody>
 									<thead>

@@ -138,14 +138,20 @@
 									<thead>
 										<tr>
 											<th>司机</th>
-											<th>联系方式</th>
+											<th>支付对象</th>
 											<th>总趟数</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td>${bill.drivername }</td>
-											<td>${bill.drivertel }</td>
+											<td><h4>${bill.drivername }</h4>
+											<h4>${bill.drivertel }</h4></td>
+											<td><c:if test="${bill.payment eq '1' }">
+												司机
+											</c:if>
+											<c:if test="${bill.payment eq '2' }">
+												车主
+											</c:if></td>
 											<td>共${bill.totalnumber }趟</td>
 										</tr>
 									</tbody>

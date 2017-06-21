@@ -75,6 +75,7 @@ import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberPositionRecord;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.OrgSigner;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
@@ -88,6 +89,7 @@ import com.tianrui.service.mapper.AnlianDictMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.OrgSignerMapper;
 import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.PositionCountyMapper;
@@ -171,6 +173,9 @@ public class BillService implements IBillService{
 	AnlianDictMapper anlianDictMapper;
 	@Autowired
 	AnlianBillMapper anlianBillMapper;
+	@Autowired
+	OrgSignerMapper orgSignerMapper;
+	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -195,6 +200,15 @@ public class BillService implements IBillService{
 					Plan planRoot = null;
 					if(StringUtils.equals(plan.getIsAppoint(), "1")){
 						planRoot = planMapper.selectRootPlanByPlanId(plan.getId());
+					}
+					//TODO
+					OrgSigner orgsigner = null;
+					if(StringUtils.isNotBlank(plan.getReceiveid())){
+						orgsigner = orgSignerMapper.selectByPrimaryKey(plan.getReceiveid());
+					}
+					String payment = null;
+					if(StringUtils.isNotBlank(plan.getPayment())){
+						payment = plan.getPayment();
 					}
 					for(  VehicleDriverVO item:vehicleDrivers){
 						
@@ -265,6 +279,10 @@ public class BillService implements IBillService{
 							bill.setDesc4(plan.getIsAppoint());
 							bill.setPathID(plan.getPathID());
 							bill.setIsClearing("0");
+							//支付对象
+							bill.setPayment(payment);
+							//收货人
+							bill.setReceive_memberid(orgsigner.getMemberid());
 							bills.add(bill);
 					}
 				}
@@ -299,6 +317,11 @@ public class BillService implements IBillService{
 					alreq.setVenderid(item.getVenderid());
 					// 货主信息
 					alreq.setOwnerid(item.getOwnerid());
+					
+					//支付对象
+					alreq.setPayment(item.getPayment());
+					//收货人
+					alreq.setReceive_memberid(item.getReceive_memberid());
 					rs = anlianBillService.alBillSave(alreq);
 				}else{
 					billMapper.insert(item);
@@ -1282,6 +1305,7 @@ public class BillService implements IBillService{
 				resp.setVender(plan.getVehicleownerid());
 				resp.setPrice(String.valueOf(plan.getPrice()));
 				resp.setIsAppoint(plan.getIsAppoint());
+				resp.setPayment(plan.getPayment());
 		
 				if( plan.getStarttime() !=null ){
 					resp.setStartTime(DateUtil.getDateString(new Date(plan.getStarttime())));
@@ -1298,7 +1322,6 @@ public class BillService implements IBillService{
 				if(fileFreight != null){
 					resp.setTallage(fileFreight.getTallage());
 					resp.setPrice(fileFreight.getPrice()+"");
-					resp.setPayment(fileFreight.getPayment());
 				}
 				resp.setOverweight(inspectTraffic(pid));
 				if(StringUtils.isNotBlank(plan.getConsigneeMerchant())){

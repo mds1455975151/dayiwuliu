@@ -16,6 +16,11 @@ public class AnlianBillResp {
     private String drivertel;
 
     private String billno;
+    
+    //支付对象 1-司机 2-车主
+    private String payment;
+    //收货人用户id
+    private String receive_memberid;
 
     private String ownerid;
 
@@ -417,5 +422,21 @@ public class AnlianBillResp {
 
 	public void setDesc4(String desc4) {
 		this.desc4 = desc4;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public String getReceive_memberid() {
+		return receive_memberid;
+	}
+
+	public void setReceive_memberid(String receive_memberid) {
+		this.receive_memberid = receive_memberid;
 	}
 }

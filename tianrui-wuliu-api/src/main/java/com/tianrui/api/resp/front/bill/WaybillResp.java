@@ -17,6 +17,9 @@ public class WaybillResp extends BaseResp{
 	private String payType;
 	private String payDESC1;
 	
+	private String payment;
+	private String receive_memberid;
+	
 	private Double q_deviation;
 	private Double d_deviation;
 	
@@ -540,5 +543,17 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setD_deviation(Double d_deviation) {
 		this.d_deviation = d_deviation;
+	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+	public String getReceive_memberid() {
+		return receive_memberid;
+	}
+	public void setReceive_memberid(String receive_memberid) {
+		this.receive_memberid = receive_memberid;
 	}
 }

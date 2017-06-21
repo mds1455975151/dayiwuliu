@@ -179,10 +179,12 @@ public class AnlianBillService implements IAnlianBillService{
 		
 		order.setLines(ll);
 		shipment.setOrders(ol);
-		rs = anlianService.shipment(shipment);
-		if(rs.getCode().equals("000000")){
-			anlianBillInsert(shipment,rs.getData().toString(),req);
-		}
+		//TODO
+//		rs = anlianService.shipment(shipment);
+//		if(rs.getCode().equals("000000")){
+//			anlianBillInsert(shipment,rs.getData().toString(),req);
+//		}
+		anlianBillInsert(shipment,"CS0000000",req);
 		return rs;
 	}
 	/** 运单本地保存
@@ -197,6 +199,8 @@ public class AnlianBillService implements IAnlianBillService{
 		bill.setOwnerid(req.getOwnerid());
 		bill.setVenderid(req.getVenderid());
 		bill.setDesc1(req.getPlanid());
+		bill.setPayment(req.getPayment());
+		bill.setReceive_memberid(req.getReceive_memberid());
 		PropertyUtils.copyProperties(bill, shipment);
 		List<OrdersReq> lo = shipment.getOrders();
 		for(OrdersReq r : lo){

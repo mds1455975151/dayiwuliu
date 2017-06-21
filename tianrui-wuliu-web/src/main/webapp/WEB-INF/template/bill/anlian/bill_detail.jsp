@@ -122,12 +122,17 @@
 										<tr>
 											<th>承运方</th>
 											<th>运单状态</th>
+											<th>支付对象</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>${bill.systemShipper}</td>
 											<td>${bill.status }</td>
+											<td>
+											<c:if test="${bill.payment eq '1' }">司机</c:if>
+											<c:if test="${bill.payment eq '2' }">车主</c:if>
+											</td>
 										</tr>
 									</tbody>
 								</table>

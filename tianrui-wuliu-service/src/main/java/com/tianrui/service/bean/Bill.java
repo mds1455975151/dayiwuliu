@@ -17,6 +17,9 @@ public class Bill {
 	private Long acctepttime;
 	private Long ownerSigntime;
 	
+	private String payment;
+	private String receive_memberid;
+	
 	private String id;
     private String planid;
     private String plancode;
@@ -1255,6 +1258,22 @@ public class Bill {
 
 	public void setOwnerSigntime(Long ownerSigntime) {
 		this.ownerSigntime = ownerSigntime;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public String getReceive_memberid() {
+		return receive_memberid;
+	}
+
+	public void setReceive_memberid(String receive_memberid) {
+		this.receive_memberid = receive_memberid;
 	}
 
 }
