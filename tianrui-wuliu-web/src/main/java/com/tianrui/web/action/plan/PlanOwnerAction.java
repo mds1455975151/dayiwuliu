@@ -22,8 +22,10 @@ import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.IFreightService;
 import com.tianrui.api.intf.IMemberOwnerService;
+import com.tianrui.api.intf.IOrgSignerService;
 import com.tianrui.api.intf.IRouteService;
 import com.tianrui.api.req.admin.FileOrgCargoReq;
+import com.tianrui.api.req.admin.OrgSignerFindReq;
 import com.tianrui.api.req.admin.merchant.MerchantReq;
 import com.tianrui.api.req.front.cargoplan.FreightReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
@@ -33,6 +35,7 @@ import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
 import com.tianrui.api.req.front.cargoplan.RouteReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.resp.admin.FileOrgCargoResp;
+import com.tianrui.api.resp.admin.OrgSignerResp;
 import com.tianrui.api.resp.admin.merchant.MerchantResp;
 import com.tianrui.api.resp.front.cargoplan.FreightResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
@@ -74,6 +77,8 @@ public class PlanOwnerAction {
 	private IFreightInfoService freightInfoService;
 	@Autowired
 	private IMerchantService merchantService;
+	@Autowired
+	IOrgSignerService  orgSignerService;
 
 	//计划修改页面
 	@RequestMapping("editView")
@@ -148,7 +153,14 @@ public class PlanOwnerAction {
 		Result rs= cargoPlanService.savePlan(req);
 		return rs;
 	}
-	
+	//收货方详情
+	@RequestMapping("signerDetail")
+	@ResponseBody
+	public Result signerDetail(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = orgSignerService.detail(id);
+		return rs;
+	}
 	
 	//计划新增操作
 	@RequestMapping("create")
@@ -182,6 +194,11 @@ public class PlanOwnerAction {
 		if(merchant.getTotalInt()!=0){
 			model.addObject("merchant",merchant.getList());
 		}
+		//TODO
+		OrgSignerFindReq orgSigner = new OrgSignerFindReq();
+		orgSigner.setOrgid(currUser.getOrgid());
+		List<OrgSignerResp> signer = orgSignerService.findlist(orgSigner);
+		model.addObject("signer",signer);
 		return model;
 	}
 	

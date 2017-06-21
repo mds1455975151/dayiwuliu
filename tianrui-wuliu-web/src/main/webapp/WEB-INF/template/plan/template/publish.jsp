@@ -111,7 +111,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>税率</th>
-                                <th>支付对象</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -121,10 +120,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             		<fmt:formatNumber type="number" value="${plan.tallage}" maxFractionDigits="0"/>%
                             	</c:if>
                             	</span></td>
-                            	<td>
-                            	<c:if test="${plan.payment eq '1'}">支付到司机</c:if>
-                            	<c:if test="${plan.payment eq '2'}">支付到车主</c:if>
-                            	</td>
                             </tr>
                             </tbody>
                         </table>
@@ -169,6 +164,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <label> 联系电话：</label>
                     <input type="text" placeholder="" name="telephone"  value="${plan.telephone }" class="goods_tel" id="telephone" maxlength="20">
+                </div>
+                 <div class="goods_line">
+                    <label> 支付对象：</label>
+                   	<div style="margin-top: 8px">
+	                   	<c:if test="${plan.payment eq '1' }">
+	                   		司机
+	                   	</c:if>
+	              		<c:if test="${plan.payment eq '2' }">
+	                   		车主
+	                   	</c:if>
+                   	</div>
+                   	<input type="hidden" name="payment" value="${plan.payment }">
                 </div>
                 <!--发布对象begin-->
                 <div class="plan_fabu">

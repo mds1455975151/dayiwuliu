@@ -58,14 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <option value="2">审批失败</option>
                             </select>
                         </div>
-                         <div class="ht_div">
-                            <label>支付对象：</label>
-                            <select class="form-control" id="payment_ser">
-                                <option value="">请选择</option>
-	                            <option value="1">司机</option>
-	                            <option value="2">车主</option>
-                            </select>
-                        </div>
                         <div class="ht_divbtn">
                             <button onclick="SearchPrice();" class="btn btnblue" type="submit">搜索</button>
                             <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
@@ -87,7 +79,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>计价单位</th>
                                 <th>原税率</th>
                                 <th>运单类型</th>
-                                <th>支付对象</th>
                                 <th>审核税率</th>
                                 <th>状态</th>
                                 <th>货物名称</th>

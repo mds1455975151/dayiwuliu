@@ -63,6 +63,8 @@ public class AnlianBillReportResp {
 
     private String begintimeStr;
     
+    private String begintime_ywStr;
+    
     private Long unloadtime;
     
     private String unloadtimeStr;
@@ -386,6 +388,19 @@ public class AnlianBillReportResp {
 			begintimeStr = "";
 		}
 		return begintimeStr;
+	}
+
+	public String getBegintime_ywStr() {
+		if(begintime != null){
+			begintime_ywStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date(begintime));
+		}else{
+			begintime_ywStr = "";
+		}
+		return begintime_ywStr;
+	}
+
+	public void setBegintime_ywStr(String begintime_ywStr) {
+		this.begintime_ywStr = begintime_ywStr;
 	}
 
 	public void setBegintimeStr(String begintimeStr) {

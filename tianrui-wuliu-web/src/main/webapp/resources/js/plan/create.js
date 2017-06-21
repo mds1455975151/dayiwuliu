@@ -7,10 +7,26 @@ $(function(){
 		queryCargo:"/trwuliu/planowner/queryCargo",
 		queryRoute:"/trwuliu/planowner/queryRoute",
 		queryFreightInfo:"/trwuliu/planowner/queryFreightInfo",
-		savePlan:"/trwuliu/planowner/save"
+		savePlan:"/trwuliu/planowner/save",
+		signdetail:"/trwuliu/planowner/signerDetail"
 	}
 	innerFreight();
 //	init();
+	
+	$("#receiveid_req").change(function(){
+		$("#recname").val("");
+		$("#rectell").val("");
+		$.ajax({
+			url : URL.signdetail,
+			data : {"id":$("#receiveid_req").val()},
+			type : "POST",
+			success : function(ret){
+				$("#rectell").val(ret.data.cellphone);
+				$("#recname").val(ret.data.membername);
+			}
+		});
+	});
+	
 	//货物changge事件
 	$(".cargoSel").change(function(){
 		freightClear();
@@ -180,15 +196,9 @@ $(function(){
 				if( rs.code=="000000" ){
 					var data = rs.data;
 					var payment = "";
-					if(data.payment=="1"){
-						payment = "支付到司机";
-					}else if(data.payment=="2"){
-						payment = "支付到车主";
-					}
 					$("#hprice").html( data.price);
 	            	$("#tallage").html(parseInt(data.tallage)+'%');
 	                $("#hpriceunits").html( data.priceunits);
-	                $("#payment").html(payment);
 	                $(".cargoSel").val( data.cargoid);
 	                $(".routeSel").val( data.routeid);
 	                $("#organizationname").val(data.organizationname);
@@ -240,6 +250,7 @@ $(function(){
 					$("#sendname").val(data.sendpersion);
 					$("#sendtel").val(data.sendpersionphone);
 					$("#recname").val(data.receivepersion);
+					$("#receiveid_req").val(data.receiveid);
 					$("#rectell").val(data.receivepersionphone);
 					$("#hdistance").html(data.distance);
 					$("#hstartcity").html(data.oaddr);

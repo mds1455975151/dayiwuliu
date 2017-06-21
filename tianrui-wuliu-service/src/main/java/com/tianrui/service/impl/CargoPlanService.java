@@ -154,7 +154,6 @@ public class CargoPlanService implements ICargoPlanService{
 				resp.setPrice(fileFreight.getPrice());
 				resp.setTallage(fileFreight.getTallage());
 				resp.setOrgname(fileFreight.getOrganizationname());
-				resp.setPayment(fileFreight.getPayment());
 			}else{
 				FileFreight fileFreight = freightMapper.selectByPrimaryKey(resp.getFreightid());
 				resp.setOrgname(fileFreight.getOrganizationname());
@@ -432,8 +431,11 @@ public class CargoPlanService implements ICargoPlanService{
 				plan.setSendperson(req.getShipperName());
 				plan.setSendpersonphone(req.getShipperTell());
 				//收货人
+				plan.setReceiveid(req.getReceiveid());
 				plan.setReceiveperson(req.getConsigneeName());
 				plan.setReceivepersonphone(req.getConsigneeTell());
+				//支付对象 1-司机 2-车主
+				plan.setPayment(req.getPayment());
 				
 				planMapper.insert(plan);
 				

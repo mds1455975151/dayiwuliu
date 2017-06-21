@@ -74,7 +74,7 @@ public class BillReportExcilUtil extends AbstractExcelView {
 			cell.setCellStyle(contentStyle);
 			setText(cell, type);
 			//"业务日期"
-			String createtime = list.get(i).getCreatetimeStr();
+			String createtime = list.get(i).getBegintime_ywStr();
 			cell = getCell(sheet, cellNum, 2);
 			cell.setCellStyle(contentStyle);
 			setText(cell, createtime);

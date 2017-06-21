@@ -170,19 +170,11 @@ function interHTML(data){
 		if(data[a].taketimeStr != undefined){
 			taketimeStr = data[a].taketimeStr;
 		}
-		var payment = "";
-		if(data[a].payment=="1"){
-			payment = "支付到司机";
-		}
-		if(data[a].payment=="2"){
-			payment = "支付到车主";
-		}
 		hml +="<td>"+data[a].freightName+"</td>"+ 
 			"<td>"+price+"</td>"+ 
 			"<td>"+data[a].priceunits+"</td>"+ 
 			"<td>"+tallage+"</td>"+ 
 			"<td>"+frebilltype+"</td>"+ 
-			"<td>"+payment+"</td>"+ 
 			"<td>"+auditstatus+"</td>"+ 
 			"<td>"+pricestatus+"</td>"+ 
 			"<td>"+data[a].cargoid + 
@@ -356,7 +348,6 @@ function findById(id){
 				document.getElementById("uptmeasure").value = data.measure;
 				document.getElementById("upttallage").value = data.tallage;
 				document.getElementById("uptfrebilltype").value = data.frebilltype;
-				$("#payment_upt").val(data.payment);
 				document.getElementById("taketime").value = data.taketimeStr;
 				document.getElementById("oldtaketime").value = data.taketimeStr;
 			}

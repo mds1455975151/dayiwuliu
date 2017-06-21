@@ -133,13 +133,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <thead>
                             <tr>
                                 <th>税率</th>
-                                <th>支付对象</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                             	<td style="height: 35px"><span id="tallage"></span></td>
-                            	<td style="height: 35px"><span id="payment"></span></td>
                             </tr>
                             </tbody>
                         </table>
@@ -175,8 +173,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="goods_line">
                     <label> 收货人：</label>
-                    <input type="text" id="recname" name="consigneeName" style="width:160px">
-                    <input type="text" id="rectell" name="consigneeTell" style="width:220px">
+                    <select class="form-control" id="receiveid_req" name="receiveid">
+                    	<option>请选择</option>
+                    	<c:forEach items="${signer }" var="signer">
+                    		<option value="${signer.memberid }">${signer.membername }-${signer.cellphone }</option>
+                    	</c:forEach>
+                    </select>
+                    <input type="hidden" id="recname" name="consigneeName">
+                    <input type="hidden" id="rectell" name="consigneeTell">
                 </div>
                 <div class="goods_line">
                     <label> 计划总量：</label>
@@ -203,6 +207,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="goods_line">
                     <label> 联系电话：</label>
                     <input type="text" placeholder="" name="telephone"  value="${currUser.cellphone }" class="goods_tel" id="telephone" maxlength="20">
+                </div>
+                <div class="goods_line">
+                    <label> 支付对象：</label>
+              		<input type="radio" name="payment" checked="checked" value="2">&nbsp&nbsp车主
+              		<input type="radio" name="payment" value="1">&nbsp&nbsp司机
                 </div>
                  <!--发布对象begin-->
                 <div class="plan_fabu">
@@ -287,6 +296,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/select_locale_zh-CN.js" ></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/plan/create.js?06.05" ></script>
+<script type="text/javascript" src="/resources/js/plan/create.js?06.20" ></script>
 </body>
 </html>

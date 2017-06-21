@@ -34,6 +34,7 @@ public class RouteResp extends BaseResp  {
     
     private String receivepersionphone;
     
+    private String receiveid;
     /**
      * 路径名称
      * @mbggenerated
@@ -115,6 +116,14 @@ public class RouteResp extends BaseResp  {
 
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}
+
+	public String getReceiveid() {
+		return receiveid;
+	}
+
+	public void setReceiveid(String receiveid) {
+		this.receiveid = receiveid;
 	}
     
 }

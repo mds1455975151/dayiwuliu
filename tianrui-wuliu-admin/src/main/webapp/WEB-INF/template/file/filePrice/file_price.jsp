@@ -59,14 +59,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <option value="2">审批失败</option>
                             </select>
                         </div>
-                         <div class="ht_div">
-                            <label>支付对象：</label>
-                            <select class="form-control" id="payment_ser">
-                                <option value="">请选择</option>
-	                            <option value="1">司机</option>
-	                            <option value="2">车主</option>
-                            </select>
-                        </div>
                         <div class="ht_divbtn">
                             <button onclick="SearchPrice();" class="btn btnblue" type="submit">搜索</button>
                             <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
@@ -93,7 +85,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>计价单位</th>
                                 <th>税率</th>
                                 <th>运单类型</th>
-                                <th>支付对象</th>
 								<th>审核状态</th>
 								<th>状态</th>
                                 <th>货物名称</th>
@@ -196,13 +187,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label>生效日期：</label>
                     生效日期为审核通过日期
                     </div>
-                    <div class="model_width" id="blurmeasure">
-                        <label><i style="color: #ff2f00;">*</i>支付对象：</label>
-                        <select class="form-control" name="payment">
-                            <option value="2">车主</option>
-                            <option value="1">司机</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -285,13 +269,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label><i style="color: #ff2f00;">*</i>生效时间：</label>
                         <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'${datenow}'})" class="Wdate" style="width:160px"/>
                     	<input type="hidden" id="oldtaketime">
-                    </div>
-                    <div class="model_width" id="blurmeasure">
-                        <label><i style="color: #ff2f00;">*</i>支付对象：</label>
-                        <select class="form-control" disabled="disabled" id="payment_upt">
-                            <option value="2">车主</option>
-                            <option value="1">司机</option>
-                        </select>
                     </div>
           			<div class="ht_div">
 	                    <label><i style="color: #ff2f00;">*</i>调价原因：</label>

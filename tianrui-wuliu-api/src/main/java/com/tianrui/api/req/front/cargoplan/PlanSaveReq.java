@@ -24,6 +24,11 @@ public class PlanSaveReq extends BaseReq{
     //是否为熟车   1为熟车  0普通
     private String isFamily;
     
+    //我的收货员id
+    private String receiveid;
+    //支付对象 1-司机 2-车主
+    private String payment;
+    
     /** 发货方id*/
     private String shipperMerchant;
     /** 发货人姓名*/
@@ -215,5 +220,21 @@ public class PlanSaveReq extends BaseReq{
 
 	public void setOrganizationname(String organizationname) {
 		this.organizationname = organizationname;
+	}
+
+	public String getReceiveid() {
+		return receiveid;
+	}
+
+	public void setReceiveid(String receiveid) {
+		this.receiveid = receiveid;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
 }

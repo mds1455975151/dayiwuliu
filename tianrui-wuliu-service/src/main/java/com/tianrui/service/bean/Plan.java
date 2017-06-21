@@ -18,6 +18,10 @@ public class Plan implements IModel{
     private String shipperMerchant;
     /** 收货方id*/
     private String consigneeMerchant;
+    //我的收货员id
+    private String receiveid;
+    //支付对象 1-司机 2-车主
+    private String payment;
     /**
      * 路径id
      */
@@ -1149,6 +1153,14 @@ public class Plan implements IModel{
 		this.pid = pid;
 	}
 
+	public String getReceiveid() {
+		return receiveid;
+	}
+
+	public void setReceiveid(String receiveid) {
+		this.receiveid = receiveid;
+	}
+
 	public Double getTallage() {
 		return tallage;
 	}
@@ -1163,6 +1175,14 @@ public class Plan implements IModel{
 
 	public void setPathID(String pathID) {
 		this.pathID = pathID;
+	}
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
     
 }

@@ -42,8 +42,10 @@ public class OrgSignerAction {
 	
 	@RequestMapping("find")
 	@ResponseBody
-	public Result find(OrgSignerFindReq req) throws Exception{
+	public Result find(OrgSignerFindReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
+		Users user = SessionManager.getSessionMember(request);
+		req.setOrgid(user.getOrgid());
 		PaginationVO<OrgSignerResp> page = orgSignerService.select(req);
 		rs.setData(page);
 		return rs;

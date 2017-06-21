@@ -61,6 +61,9 @@
     <result column="DESC2" property="desc2" jdbcType="VARCHAR" />
     <result column="DESC3" property="desc3" jdbcType="VARCHAR" />
     <result column="DESC4" property="desc4" jdbcType="VARCHAR" />
+    
+    <result column="receiveid" property="receiveid" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ID, freightid, routeid, measure, cargoid, cargoname, priceUnits, startcity, endcity, 
@@ -69,7 +72,7 @@
     vehicleownerphone, creator, createtime, modifier, modifytime, isFamily, planCode, 
     ownerDelFlag, venderDelFlag, refuseReson, refuseResonType, sendPerson, sendPersonPhone, 
     receivePerson, receivePersonPhone, cargocode,freightname,orgid,isAppoint,pid,tallage,pathID,
-    DESC1, DESC2, DESC3, DESC4,shipperMerchant,consigneeMerchant
+    DESC1, DESC2, DESC3, DESC4,shipperMerchant,consigneeMerchant,receiveid,payment
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -250,7 +253,7 @@
       refuseReson, refuseResonType, sendPerson, 
       sendPersonPhone, receivePerson, receivePersonPhone,cargocode,freightname,orgid,isAppoint,pid,tallage,pathID,
       DESC1, DESC2, DESC3, 
-      DESC4,shipperMerchant,consigneeMerchant)
+      DESC4,shipperMerchant,consigneeMerchant,receiveid,payment)
     values (#{id,jdbcType=VARCHAR}, #{freightid,jdbcType=VARCHAR}, #{routeid,jdbcType=VARCHAR}, 
       #{measure,jdbcType=VARCHAR}, #{cargoid,jdbcType=VARCHAR}, #{cargoname,jdbcType=VARCHAR}, 
       #{priceunits,jdbcType=VARCHAR}, #{startcity,jdbcType=VARCHAR}, #{endcity,jdbcType=VARCHAR}, 
@@ -267,7 +270,8 @@
       #{cargocode,jdbcType=VARCHAR},#{freightname,jdbcType=VARCHAR},#{orgid,jdbcType=VARCHAR},#{isAppoint,jdbcType=VARCHAR},
       #{pid,jdbcType=VARCHAR}, #{tallage,jdbcType=DOUBLE}, #{pathID,jdbcType=VARCHAR},
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
-      #{desc4,jdbcType=VARCHAR},#{shipperMerchant,jdbcType=VARCHAR},#{consigneeMerchant,jdbcType=VARCHAR})
+      #{desc4,jdbcType=VARCHAR},#{shipperMerchant,jdbcType=VARCHAR},
+      #{consigneeMerchant,jdbcType=VARCHAR},#{receiveid,jdbcType=VARCHAR},#{payment,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.Plan" >
     insert into wuliu_plan
@@ -428,6 +432,12 @@
       <if test="desc4 != null" >
         DESC4,
       </if>
+      <if test="receiveid != null">
+      	receiveid,
+      </if>
+      <if test="payment != null">
+      	payment,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -586,6 +596,12 @@
       <if test="desc4 != null" >
         #{desc4,jdbcType=VARCHAR},
       </if>
+      <if test="receiveid != null">
+      	#{receiveid,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+      	#{payment,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Plan" >
@@ -595,6 +611,12 @@
     -->
     update wuliu_plan
     <set >
+      <if test="payment != null">
+      	payment = #{payment,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveid != null">
+      	receiveid = #{receiveid,jdbcType=VARCHAR},
+      </if>
    	  <if test="shipperMerchant != null" >
         shipperMerchant = #{shipperMerchant,jdbcType=VARCHAR},
       </if>
@@ -758,6 +780,8 @@
     -->
     update wuliu_plan
     set 
+    	payment = #{payment,jdbcType=VARCHAR},
+    	receiveid = #{receiveid,jdbcType=VARCHAR},
       shipperMerchant = #{shipperMerchant,jdbcType=VARCHAR},
       consigneeMerchant = #{consigneeMerchant,jdbcType=VARCHAR},
    	  freightid = #{freightid,jdbcType=VARCHAR},

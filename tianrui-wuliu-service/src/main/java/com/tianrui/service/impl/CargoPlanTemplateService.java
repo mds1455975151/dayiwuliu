@@ -59,7 +59,6 @@ public class CargoPlanTemplateService implements ICargoPlanTemplateService{
 				resp.setTallage(fileFreight.getTallage());
 				resp.setPrice(fileFreight.getPrice());
 				resp.setOrgname(fileFreight.getOrganizationname());
-				resp.setPayment(fileFreight.getPayment());
 				if(StringUtils.equals(fileFreight.getStatus(), "0")){
 					resp.setFstatus("0");
 				}else{
