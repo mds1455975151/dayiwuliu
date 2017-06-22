@@ -26,7 +26,7 @@
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >
     select 
     <include refid="Base_Column_List" />
-    from wuliu_NC_bank_B
+    from v_signer_bill
     <where>
     	<if test="billno != null and billno != ''">
     		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
@@ -34,8 +34,11 @@
     	<if test="vehicleno != null and vehicleno != ''">
     		and vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="recive_cellphone != null and recive_cellphone != ''">
-    		and recive_cellphone like "%" #{recive_cellphone,jdbcType=VARCHAR} "%"
+    	<if test="reciveCellphone != null and reciveCellphone != ''">
+    		and recive_cellphone like "%" #{reciveCellphone,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiveMemberid != null and receiveMemberid != ''">
+    		and receive_memberid like "%" #{receiveMemberid,jdbcType=VARCHAR} "%"
     	</if>
     </where>
     order by createtime desc
@@ -47,7 +50,7 @@
   <select id="selectBycount" resultType="long" parameterType="com.tianrui.service.bean.SignerBill" >
     select 
     	count(0)
-    from wuliu_NC_bank_B
+    from v_signer_bill
     <where>
     	<if test="billno != null and billno != ''">
     		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
@@ -55,8 +58,11 @@
     	<if test="vehicleno != null and vehicleno != ''">
     		and vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="recive_cellphone != null and recive_cellphone != ''">
-    		and recive_cellphone like "%" #{recive_cellphone,jdbcType=VARCHAR} "%"
+    	<if test="reciveCellphone != null and reciveCellphone != ''">
+    		and recive_cellphone like "%" #{reciveCellphone,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiveMemberid != null and receiveMemberid != ''">
+    		and receive_memberid like "%" #{receiveMemberid,jdbcType=VARCHAR} "%"
     	</if>
     </where>
   </select>

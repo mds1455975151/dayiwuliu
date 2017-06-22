@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
+import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -22,4 +23,6 @@ public interface IAnlianBillService {
 	public Result findPosition(AnlianBillFindReq req)throws Exception;
 	
 	public Result update(AnlianBillUpdateReq req)throws Exception;
+	/** 安联运单签收*/
+	public Result billSigner(AnlianBillSignerReq req)throws Exception;
 }

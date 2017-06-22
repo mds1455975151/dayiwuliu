@@ -19,6 +19,7 @@ import com.tianrui.api.req.admin.anlian.LinesReq;
 import com.tianrui.api.req.admin.anlian.OrdersReq;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
+import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
@@ -303,12 +304,29 @@ public class AnlianBillService implements IAnlianBillService{
 	}
 	@Override
 	public Result update(AnlianBillUpdateReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		AnlianBill record = new AnlianBill();
 		record.setId(req.getId());
 		record.setDesc3(req.getDesc3());
 		record.setDesc4(req.getDesc4());
+		anlianBillMapper.updateByPrimaryKeySelective(record);
+		return rs;
+	}
+	@Override
+	public Result billSigner(AnlianBillSignerReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		AnlianBill record = new AnlianBill();
+		record.setId(req.getId());
+		if(StringUtils.isNotBlank(req.getSignimgurl())){
+			record.setSignimgurl(req.getSignimgurl());
+		}
+		if(StringUtils.isNotBlank(req.getPickupimgurl())){
+			record.setPickupimgurl(req.getPickupimgurl());
+		}
+		record.setSignweight(req.getSignweight());
+		record.setPickupweight(req.getPickupweight());
+		record.setTrueweight(req.getTrueweight());
+		record.setSigntime(System.currentTimeMillis());
 		anlianBillMapper.updateByPrimaryKeySelective(record);
 		return rs;
 	}

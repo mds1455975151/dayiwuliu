@@ -101,7 +101,7 @@ var renderDate=function(bills,pageNo){
 		dataArr.push('<td>'+item.modifytimeStr+'</td>');
 		dataArr.push('<td>');
 		/*dataArr.push('<a target="_blank" href="'+URL.detailViewUrl+'?id='+item.id+'"><button class="btn btnyello">查看</button></a>');*/
-		if(item.status ==5){
+		if(item.status ==5 && item.receive_memberid == undefined){//if(item.status ==5){
 			dataArr.push('<a ><button class="btn btnyello signBtn" dataId="'+item.id+'"  dataImg="'+item.signimgurl+'" qhdataImg="'+item.pickupimgurl+'" '
 					+'weight="'+item.weight+'" planWeight="'+item.planWeight+'" planCompleteWeight="'+item.planCompleteWeight+'" '
 					+'pickupweight="'+item.pickupweight+'" signweight="'+item.signweight+'">签收</button></a>');

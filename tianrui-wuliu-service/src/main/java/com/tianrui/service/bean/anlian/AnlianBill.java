@@ -3,6 +3,15 @@ package com.tianrui.service.bean.anlian;
 public class AnlianBill {
     private String id;
     
+    private Double pickupweight; 
+    private String pickupimgurl;
+    
+    private Double signweight; 
+    private String signimgurl;
+    private Long signtime;
+    
+    private Double trueweight;
+    
     private String searchKey;
 
     private String billno;
@@ -420,5 +429,53 @@ public class AnlianBill {
 
 	public void setReceive_memberid(String receive_memberid) {
 		this.receive_memberid = receive_memberid;
+	}
+
+	public Double getPickupweight() {
+		return pickupweight;
+	}
+
+	public void setPickupweight(Double pickupweight) {
+		this.pickupweight = pickupweight;
+	}
+
+	public String getPickupimgurl() {
+		return pickupimgurl;
+	}
+
+	public void setPickupimgurl(String pickupimgurl) {
+		this.pickupimgurl = pickupimgurl;
+	}
+
+	public Double getSignweight() {
+		return signweight;
+	}
+
+	public void setSignweight(Double signweight) {
+		this.signweight = signweight;
+	}
+
+	public String getSignimgurl() {
+		return signimgurl;
+	}
+
+	public void setSignimgurl(String signimgurl) {
+		this.signimgurl = signimgurl;
+	}
+
+	public Long getSigntime() {
+		return signtime;
+	}
+
+	public void setSigntime(Long signtime) {
+		this.signtime = signtime;
+	}
+
+	public Double getTrueweight() {
+		return trueweight;
+	}
+
+	public void setTrueweight(Double trueweight) {
+		this.trueweight = trueweight;
 	}
 }

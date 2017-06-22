@@ -1,6 +1,6 @@
 $(function(){
 	
-	$("#billowner").addClass("selected");
+//	$("#billowner").addClass("selected");
 	var URL={
 		signUrl:"/trwuliu/billowner/signConfirm",
 		deleteUrl:"/trwuliu/billowner/delete",
@@ -49,7 +49,7 @@ $(function(){
     			dataType:"json",
     			success:function(rs){
     				if( rs && rs.code =="000000" ){
-    					window.location.href=URL.mainUrl;
+    					window.location.reload();
     				}else{
     					alert(rs.error);
     				}

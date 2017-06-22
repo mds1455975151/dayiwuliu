@@ -491,7 +491,11 @@ public class BillService implements IBillService{
 				
 				Plan plan =planMapper.selectByPrimaryKey(db.getPlanid());
 				Plan rootPlan = planMapper.selectRootPlanByPlanId(plan.getId());
-				if( checkBillauthForCuser(db,req.getCurruId(),"owner") || (StringUtils.equals(plan.getIsAppoint(), "1") && StringUtils.equals(rootPlan.getCreator(), req.getCurruId()))){
+//				if( checkBillauthForCuser(db,req.getCurruId(),"owner") || (StringUtils.equals(plan.getIsAppoint(), "1") && StringUtils.equals(rootPlan.getCreator(), req.getCurruId()))){
+				//是否为收货人||是否为货主
+				//TODO
+				if(checkBillauthForCuser(db,req.getCurruId(),"signer")||checkBillauthForCuser(db,req.getCurruId(),"owner")){
+					//是否为代签收状态	
 					if( checkBillauthForstatus(db,"sign") ){
 						Bill update =new Bill();
 						update.setId(req.getId());
@@ -1507,6 +1511,14 @@ public class BillService implements IBillService{
 		case "owner":
 			if( bill.getOwnerid().equals(cuserId) ){
 				flag =true;
+			}
+			break;
+		//收货人	
+		case "signer":
+			if(StringUtils.isNotBlank(bill.getReceive_memberid())){
+				if( bill.getReceive_memberid().equals(cuserId) ){
+					flag =true;
+				}
 			}
 			break;
 

@@ -72,7 +72,7 @@ public class BillOwnerAction {
 		return view;
 	}
 	
-	//货主确认签收运单
+	//签收运单
 	@RequestMapping("/signConfirm")
 	@ResponseBody
 	public Result signConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception{

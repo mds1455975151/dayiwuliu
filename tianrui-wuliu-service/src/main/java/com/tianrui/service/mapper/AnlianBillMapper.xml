@@ -42,11 +42,22 @@
     
     <result column="payment" property="payment" jdbcType="VARCHAR" />
     <result column="receive_memberid" property="receive_memberid" jdbcType="VARCHAR" />
+    
+    <result column="pickupweight" property="pickupweight" jdbcType="DOUBLE" />
+    <result column="signweight" property="signweight" jdbcType="DOUBLE" />
+    <result column="pickupimgurl" property="pickupimgurl" jdbcType="VARCHAR" />
+    <result column="signimgurl" property="signimgurl" jdbcType="VARCHAR" />
+    <result column="signtime" property="signtime" jdbcType="BIGINT" />
+    
+    <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, billno, ownerid, driverid, venderid, ddh, dwzl, sj, cph, zzl, ztj, zsl, yf, jffs, 
     qycs, mdcs, lc, yqthrq, yqdhrq, khdm, thdz, shdz, shr, lxsj, jj, hpmc, sl, dw, hpsx, 
-    creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, payment, receive_memberid
+    creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, 
+    payment, receive_memberid,
+    pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -159,7 +170,8 @@
       hpmc, sl, dw, hpsx, 
       creater, createtime, modifier, 
       modifytime, desc1, desc2, 
-      desc3, desc4,payment, receive_memberid)
+      desc3, desc4,payment, receive_memberid,
+      pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight)
     values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
       #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
       #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
@@ -171,8 +183,13 @@
       #{creater,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, 
       #{modifytime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
       #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR},
-       #{payment,jdbcType=VARCHAR},
-        #{receive_memberid,jdbcType=VARCHAR})
+      #{payment,jdbcType=VARCHAR},#{receive_memberid,jdbcType=VARCHAR},
+      #{pickupweight,jdbcType=DOUBLE},
+      #{pickupimgurl,jdbcType=VARCHAR},
+      #{signweight,jdbcType=DOUBLE},
+      #{signimgurl,jdbcType=VARCHAR},
+      #{signtime,jdbcType=BIGINT},
+      #{trueweight,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     insert into anlian_bill
@@ -294,6 +311,25 @@
       <if test="receive_memberid != null">
         receive_memberid,
       </if>
+      
+      <if test="pickupweight != null">
+	      pickupweight
+      </if>
+      <if test="pickupimgurl != null">
+	      pickupimgurl
+      </if>
+      <if test="signweight != null">
+	      signweight
+      </if>
+      <if test="signimgurl != null">
+	      signimgurl,
+      </if>
+      <if test="signtime != null">
+	      signtime,
+      </if>
+      <if test="trueweight != null">
+       		trueweight,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -413,11 +449,49 @@
       <if test="receive_memberid != null">
         #{receive_memberid,jdbcType=VARCHAR},
       </if>
+      
+      <if test="pickupweight != null">
+	      #{pickupweight,jdbcType=DOUBLE},
+      </if>
+      <if test="pickupimgurl != null">
+	      #{pickupimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="signweight != null">
+	      #{signweight,jdbcType=DOUBLE},
+      </if>
+      <if test="signimgurl != null">
+	      #{signimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="signtime != null">
+	      #{signtime,jdbcType=BIGINT},
+      </if>
+       <if test="trueweight != null">
+       	#{trueweight,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     <set >
+     <if test="trueweight != null">
+      trueweight = #{trueweight,jdbcType=DOUBLE},
+      </if>
+    	 <if test="pickupweight != null">
+	     pickupweight = #{pickupweight,jdbcType=DOUBLE},
+      </if>
+      <if test="pickupimgurl != null">
+	     pickupimgurl = #{pickupimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="signweight != null">
+	     signweight = #{signweight,jdbcType=DOUBLE},
+      </if>
+      <if test="signimgurl != null">
+	     signimgurl = #{signimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="signtime != null">
+	     signtime = #{signtime,jdbcType=BIGINT},
+      </if>
+      
     	<if test="payment != null">
       	payment = #{payment,jdbcType=VARCHAR},
       </if>
@@ -535,6 +609,12 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     set billno = #{billno,jdbcType=VARCHAR},
+    trueweight = #{trueweight,jdbcType=DOUBLE},
+     pickupweight = #{pickupweight,jdbcType=DOUBLE},
+     pickupimgurl = #{pickupimgurl,jdbcType=VARCHAR},
+     signweight = #{signweight,jdbcType=DOUBLE},
+     signimgurl = #{signimgurl,jdbcType=VARCHAR},
+     signtime = #{signtime,jdbcType=BIGINT},
       	payment = #{payment,jdbcType=VARCHAR},
         receive_memberid = #{receive_memberid,jdbcType=VARCHAR},
       ownerid = #{ownerid,jdbcType=VARCHAR},

@@ -15,6 +15,7 @@
 	                        <li><a href="/trwuliu/planowner/main" id="planowner">我发布的计划</a></li>
 	                        <li><a href="/trwuliu/plantemplate/main" id="plantemplate">我的计划模板</a></li>
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
+	                         <li><a href="/trwuliu/billSigner/main" id="billsigner">我签收的运单</a></li>
 	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> -->
 	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>
 	                        <li><a href="/trwuliu/billAnlian/owner" id="ownerAnlian">开票运单</a></li>
