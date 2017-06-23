@@ -59,7 +59,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	IAnlianService anlianService;
 	@Autowired
 	VehicleDriverMapper vehicleDriverMapper;
-	//@Autowired
+	@Autowired
     private TaskExecutor taskExecutor;
 	
 	@Override
