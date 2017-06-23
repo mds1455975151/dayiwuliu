@@ -10,16 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.ApiResult;
 
 
 public class HttpUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 	
-	public static AppResult post(Object object, String path){
+	public static ApiResult post(Object object, String path){
 		logger.info("post url:{},params:{}",new Object[]{path,JSON.toJSONString(object)});
-		AppResult appResult = null;
+		ApiResult apiResult = null;
 		HttpURLConnection connection = null;
 		OutputStream out = null;
 		InputStreamReader input = null;
@@ -45,7 +45,7 @@ public class HttpUtil {
 			reader = new BufferedReader(input);
 			//发送请求
 			String result = reader.readLine();
-			appResult = JSON.parseObject(result, AppResult.class);
+			apiResult = JSON.parseObject(result, ApiResult.class);
         } catch (Exception e) {
         	logger.error("发送 POST 请求出现异常！"+e);
             e.printStackTrace();
@@ -66,6 +66,6 @@ public class HttpUtil {
 			} catch (Exception e2) {
 			}
         }
-        return appResult;
+        return apiResult;
 	}
 }

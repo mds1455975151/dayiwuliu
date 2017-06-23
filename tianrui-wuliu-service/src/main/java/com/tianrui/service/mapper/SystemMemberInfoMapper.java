@@ -58,4 +58,6 @@ public interface SystemMemberInfoMapper {
      * @return
      */
     List<SystemMemberInfo> selectVenderByDriverId(String driverId);
+    
+    List<SystemMemberInfo> selectSelective(SystemMemberInfo record);
 }

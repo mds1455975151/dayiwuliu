@@ -132,6 +132,15 @@ public class Constant {
     //已支付
     public final static Integer YES_PAY = 2;
     
+    /**
+     * NC供应商推送状态
+     */
+    //审核通过，但组织已分配
+    public final static Integer NC_MEMBER_PUSH_STATUS_YES_ORG = 0;
+    //审核通过，但组织未分配
+    public final static Integer NC_MEMBER_PUSH_STATUS_NOT_ORG = 1;
+    
+    
 	public static String getFILE_URL_PRE() {
 		return FILE_URL_PRE;
 	}

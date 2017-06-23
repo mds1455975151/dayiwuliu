@@ -21,7 +21,7 @@ import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.HttpUtil;
-import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.PayInvoice;
@@ -168,9 +168,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				push.setBillTotalPrice(String.valueOf(payInvoice.getAmountPayable()));
 				push.setSignTime(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
 				logger.info("into service: driver pay invoice push NC param bean: =" + push.toString());
-				AppResult appResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
-				logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(appResult).toString());
-				if (appResult != null && StringUtils.equals(appResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+				ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
+				logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
+				if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 					PayInvoice bean = new PayInvoice();
 					bean.setId(payInvoice.getId());
 					bean.setPushStatus(Constant.YES_PUSH);
@@ -212,9 +212,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				push.setBankCard(payInvoice.getPayeeBankCardNumber());
 				push.setBankCardId(payInvoice.getPayeeBankCardId());
 				logger.info("into service: vender pay invoice push NC param bean: =" + push.toString());
-				AppResult appResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
-				logger.info("into service: vender pay invoice push NC http result{}: =" + JSON.toJSONString(appResult).toString());
-				if (appResult != null && StringUtils.equals(appResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+				ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
+				logger.info("into service: vender pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
+				if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 					PayInvoice bean = new PayInvoice();
 					bean.setId(payInvoice.getId());
 					bean.setPushStatus(Constant.YES_PUSH);

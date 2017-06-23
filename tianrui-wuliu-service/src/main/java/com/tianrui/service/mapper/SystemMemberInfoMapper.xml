@@ -34,8 +34,8 @@
     <result column="idcardaddress" property="idcardaddress" jdbcType="VARCHAR" />
     <result column="positive" property="positive" jdbcType="VARCHAR" />
     <result column="opposite" property="opposite" jdbcType="VARCHAR" />
-    <result column="pushStatus" property="pushStatus" jdbcType="INT" />
-    <result column="ncStatus" property="ncStatus" jdbcType="INT" />
+    <result column="pushStatus" property="pushStatus" jdbcType="BIT" />
+    <result column="ncStatus" property="ncStatus" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -91,8 +91,8 @@
       #{idcardaddress,jdbcType=VARCHAR},
       #{positive,jdbcType=VARCHAR},
       #{opposite,jdbcType=VARCHAR},
-      #{pushStatus,jdbcType=INT},
-      #{ncStatus,jdbcType=INT}
+      #{pushStatus,jdbcType=BIT},
+      #{ncStatus,jdbcType=BIT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.SystemMemberInfo" >
@@ -275,10 +275,10 @@
         #{opposite,jdbcType=VARCHAR},
       </if>
       <if test="pushStatus != null" >
-        #{pushStatus,jdbcType=INT},
+        #{pushStatus,jdbcType=BIT},
       </if>
       <if test="ncStatus != null" >
-        #{ncStatus,jdbcType=INT},
+        #{ncStatus,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -296,10 +296,10 @@
     	opposite = #{opposite,jdbcType=VARCHAR},
     	</if>
     	<if test="pushStatus != null">
-    	pushStatus = #{pushStatus,jdbcType=INT},
+    	pushStatus = #{pushStatus,jdbcType=BIT},
     	</if>
     	<if test="ncStatus != null">
-    	ncStatus = #{ncStatus,jdbcType=INT},
+    	ncStatus = #{ncStatus,jdbcType=BIT},
     	</if>
     	<if test="sex != null">
     	sex = #{sex,jdbcType=VARCHAR},
@@ -386,8 +386,8 @@
     set 
     	positive = #{positive,jdbcType=VARCHAR},
     	opposite = #{opposite,jdbcType=VARCHAR},
-    	pushStatus = #{pushStatus,jdbcType=INT},
-    	ncStatus = #{ncStatus,jdbcType=INT},
+    	pushStatus = #{pushStatus,jdbcType=BIT},
+    	ncStatus = #{ncStatus,jdbcType=BIT},
     	sex = #{sex,jdbcType=VARCHAR},
     	birthday = #{birthday,jdbcType=VARCHAR},
     	firstlicens = #{firstlicens,jdbcType=VARCHAR},
@@ -421,5 +421,98 @@
 	where v.vehicleid in (
 	select vehicleid from wuliu_vehicle_driver where driverid=#{driverId,jdbcType=VARCHAR}
 	)
+  </select>
+  <select id="selectSelective" parameterType="com.tianrui.service.bean.SystemMemberInfo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from member_info
+  	<where>
+	  <if test="id != null" >
+	    and id = #{id,jdbcType=VARCHAR}
+	  </if>
+	  <if test="licenseImagePath != null" >
+	    and licenseImagePath = #{licenseImagePath,jdbcType=VARCHAR}
+	  </if>
+	  <if test="memberid != null" >
+	    and memberid = #{memberid,jdbcType=VARCHAR}
+	  </if>
+	  <if test="submittime != null" >
+	    and submittime = #{submittime,jdbcType=BIGINT}
+	  </if>
+	  <if test="username != null" >
+	    and username = #{username,jdbcType=VARCHAR}
+	  </if>
+	  <if test="telphone != null" >
+	    and telphone = #{telphone,jdbcType=VARCHAR}
+	  </if>
+	  <if test="idcard != null" >
+	    and idcard = #{idcard,jdbcType=VARCHAR}
+	  </if>
+	  <if test="idcardimage != null" >
+	    and idcardimage = #{idcardimage,jdbcType=VARCHAR}
+	  </if>
+	  <if test="driverimage != null" >
+	    and driverimage = #{driverimage,jdbcType=VARCHAR}
+	  </if>
+	  <if test="companyname != null" >
+	    and companyname = #{companyname,jdbcType=VARCHAR}
+	  </if>
+	  <if test="companycontact != null" >
+	    and companycontact = #{companycontact,jdbcType=VARCHAR}
+	  </if>
+	  <if test="companycode != null" >
+	    and companycode = #{companycode,jdbcType=VARCHAR}
+	  </if>
+	  <if test="companytel != null" >
+	    and companytel = #{companytel,jdbcType=VARCHAR}
+	  </if>
+	  <if test="companyaddress != null" >
+	    and companyaddress = #{companyaddress,jdbcType=VARCHAR}
+	  </if>
+	  <if test="createtime != null" >
+	    and createtime = #{createtime,jdbcType=BIGINT}
+	  </if>
+      <if test="rtblno != null" >
+	    and rtblno = #{rtblno,jdbcType=VARCHAR}
+	  </if>
+	  <if test="rtblimgurl != null" >
+	    and rtblimgurl = #{rtblimgurl,jdbcType=VARCHAR}
+	  </if>
+	  <if test="licenseType != null" >
+	    and licenseType = #{licenseType,jdbcType=VARCHAR}
+	  </if>
+	  <if test="sex != null" >
+	    and sex = #{sex,jdbcType=VARCHAR}
+	  </if>
+	  <if test="birthday != null" >
+	    and birthday = #{birthday,jdbcType=VARCHAR}
+	  </if>
+	  <if test="firstlicens != null" >
+	    and firstlicens = #{firstlicens,jdbcType=VARCHAR}
+	  </if>
+	  <if test="licenceorg != null" >
+	    and licenceorg = #{licenceorg,jdbcType=VARCHAR}
+	  </if>
+	  <if test="starttime != null" >
+	    and starttime = #{starttime,jdbcType=VARCHAR}
+	  </if>
+	  <if test="usefullife != null" >
+	    and usefullife = #{usefullife,jdbcType=VARCHAR}
+	  </if>
+	  <if test="idcardaddress != null" >
+	    and idcardaddress = #{idcardaddress,jdbcType=VARCHAR}
+	  </if>
+	  <if test="positive != null" >
+	    and positive = #{positive,jdbcType=VARCHAR}
+	  </if>
+	  <if test="opposite != null" >
+	    and opposite = #{opposite,jdbcType=VARCHAR}
+	  </if>
+	  <if test="pushStatus != null" >
+	    and pushStatus = #{pushStatus,jdbcType=BIT}
+	  </if>
+	  <if test="ncStatus != null" >
+	    and ncStatus = #{ncStatus,jdbcType=BIT}
+	  </if>
+  	</where>
   </select>
 </mapper>

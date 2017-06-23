@@ -1,7 +1,6 @@
 package com.tianrui.api.intf;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
@@ -73,5 +72,12 @@ public interface ISystemMemberInfoService {
 	Result uptDrvierAnlian(AdminMenberInfoReq req)throws Exception;
 	/** 查看用户信息*/
 	MemberInfoRecordResp selectMemberInfo(String id)throws Exception;
+	/**
+	 * @Description 查询推送成功但未分配组织（不能使用）的供应商，根据nc返回结果回写memberinfo表中ncStatus字段
+	 * @exception 
+	 * @author zhanggaohao
+	 * @version 2017年6月23日 上午11:47:55
+	 */
+	void scheduleCallBackPushStatus();
 
 }

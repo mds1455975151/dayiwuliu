@@ -4,14 +4,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
@@ -26,7 +28,7 @@ import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.HttpUtil;
-import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.SystemMember;
@@ -57,7 +59,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	IAnlianService anlianService;
 	@Autowired
 	VehicleDriverMapper vehicleDriverMapper;
-	@Resource(name = "taskExecutor")
+	//@Autowired
     private TaskExecutor taskExecutor;
 	
 	@Override
@@ -294,13 +296,17 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 				@Override
 				public void run() {
 					//这里编写处理业务代码
-					AppResult appResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
-					if (appResult != null && StringUtils.equals(appResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+					ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
+					if (apiResult != null 
+							&& (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())
+									|| StringUtils.equals(apiResult.getCode(), ErrorCode.MEMBER_PUSH_ERROR1.getCode()))) {
 						//推送成功修改推送状态
 						SystemMemberInfo info = new SystemMemberInfo();
 						info.setId(push.getSuppid());
 						info.setPushStatus(Constant.YES_PUSH);
 						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					} else {
+						LoggerFactory.getLogger("pushMessage").info("供应商推送失败错误信息: ", apiResult.getMessage());
 					}
 				}
 			});
@@ -407,5 +413,46 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		PropertyUtils.copyProperties(resp, info);
 		return resp;
 	}
-
+	
+	@Override
+	public void scheduleCallBackPushStatus() {
+		SystemMemberInfo info = new SystemMemberInfo();
+		info.setPushStatus(Constant.YES_PUSH);
+		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
+		List<SystemMemberInfo> list = systemMemberInfoMapper.selectSelective(info);
+		if (CollectionUtils.isNotEmpty(list)) {
+			List<String> ids = new ArrayList<String>();
+			for (SystemMemberInfo bean : list) {
+				ids.add(bean.getId());
+			}
+			selectNCMemberPushStatus(ids);
+		}
+	}
+	
+	private ApiResult selectNCMemberPushStatus(List<String> list){
+		ApiResult apiResult = null;
+		if (CollectionUtils.isNotEmpty(list)) {
+			apiResult = HttpUtil.post(list, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH_NC_STATUS);
+			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
+				for (Object object : array) {
+					JSONObject jsonObject = (JSONObject) object;
+					String id = jsonObject.getString("id");
+					String status = jsonObject.getString("status");
+					//审核通过并分配组织
+					if (StringUtils.equals(status, String.valueOf(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG))) {
+						//回写供应商ncStatus
+						SystemMemberInfo info = new SystemMemberInfo();
+						info.setId(id);
+						info.setPushStatus(Integer.parseInt(status));
+						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					}
+				}
+			} else {
+				LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态错误信息: ", apiResult.getMessage());
+			}
+		}
+		return apiResult;
+	}
+	
 }
