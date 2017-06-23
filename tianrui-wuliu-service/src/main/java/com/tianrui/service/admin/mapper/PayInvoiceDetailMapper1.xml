@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="pay_invoice_id" property="payInvoiceId" jdbcType="VARCHAR" />
+    <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="driver_id_no" property="driverIdNo" jdbcType="VARCHAR" />
+    <result column="vender_id" property="venderId" jdbcType="VARCHAR" />
+    <result column="vender_id_no" property="venderIdNo" jdbcType="VARCHAR" />
+    <result column="owner_id" property="ownerId" jdbcType="VARCHAR" />
+    <result column="owner_id_no" property="ownerIdNo" jdbcType="VARCHAR" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="invoice_name" property="invoiceName" jdbcType="VARCHAR" />
+    <result column="bill_id" property="billId" jdbcType="VARCHAR" />
+    <result column="bill_code" property="billCode" jdbcType="VARCHAR" />
+    <result column="bill_type" property="billType" jdbcType="BIT" />
+    <result column="material_code" property="materialCode" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
+    <result column="bill_weight" property="billWeight" jdbcType="DOUBLE" />
+    <result column="bill_price" property="billPrice" jdbcType="DOUBLE" />
+    <result column="tax_rate" property="taxRate" jdbcType="DOUBLE" />
+    <result column="reception_bill_total_price" property="receptionBillTotalPrice" jdbcType="DOUBLE" />
+    <result column="backstage_bill_total_price" property="backstageBillTotalPrice" jdbcType="DOUBLE" />
+    <result column="reception_deduct_weight_misc" property="receptionDeductWeightMisc" jdbcType="DOUBLE" />
+    <result column="reception_deduct_money" property="receptionDeductMoney" jdbcType="DOUBLE" />
+    <result column="reception_deduct_other" property="receptionDeductOther" jdbcType="DOUBLE" />
+    <result column="reception_deduct_oil_card" property="receptionDeductOilCard" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_weight_misc" property="backstageDeductWeightMisc" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_money" property="backstageDeductMoney" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_other" property="backstageDeductOther" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_oil_card" property="backstageDeductOilCard" jdbcType="DOUBLE" />
+    <result column="whether_close" property="whetherClose" jdbcType="BIT" />
+    <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="orgname" property="orgname" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, pay_invoice_id, driver_id, driver_id_no, vender_id, vender_id_no, owner_id, 
+    owner_id_no, invoice_code, invoice_name, bill_id, bill_code, bill_type, material_code, 
+    material_name, cargo_name, bill_weight, bill_price, tax_rate, reception_bill_total_price, 
+    backstage_bill_total_price, reception_deduct_weight_misc, reception_deduct_money, 
+    reception_deduct_other, reception_deduct_oil_card, backstage_deduct_weight_misc, 
+    backstage_deduct_money, backstage_deduct_other, backstage_deduct_oil_card, whether_close, 
+    orgid, orgname, state, creator, create_time, modifier, modify_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_invoice_detail_1
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pay_invoice_detail_1
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    insert into pay_invoice_detail_1 (id, code, pay_invoice_id, 
+      driver_id, driver_id_no, vender_id, 
+      vender_id_no, owner_id, owner_id_no, 
+      invoice_code, invoice_name, bill_id, 
+      bill_code, bill_type, material_code, 
+      material_name, cargo_name, bill_weight, 
+      bill_price, tax_rate, reception_bill_total_price, 
+      backstage_bill_total_price, reception_deduct_weight_misc, 
+      reception_deduct_money, reception_deduct_other, 
+      reception_deduct_oil_card, backstage_deduct_weight_misc, 
+      backstage_deduct_money, backstage_deduct_other, 
+      backstage_deduct_oil_card, whether_close, orgid, 
+      orgname, state, creator, 
+      create_time, modifier, modify_time, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{payInvoiceId,jdbcType=VARCHAR}, 
+      #{driverId,jdbcType=VARCHAR}, #{driverIdNo,jdbcType=VARCHAR}, #{venderId,jdbcType=VARCHAR}, 
+      #{venderIdNo,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{ownerIdNo,jdbcType=VARCHAR}, 
+      #{invoiceCode,jdbcType=VARCHAR}, #{invoiceName,jdbcType=VARCHAR}, #{billId,jdbcType=VARCHAR}, 
+      #{billCode,jdbcType=VARCHAR}, #{billType,jdbcType=BIT}, #{materialCode,jdbcType=VARCHAR}, 
+      #{materialName,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, #{billWeight,jdbcType=DOUBLE}, 
+      #{billPrice,jdbcType=DOUBLE}, #{taxRate,jdbcType=DOUBLE}, #{receptionBillTotalPrice,jdbcType=DOUBLE}, 
+      #{backstageBillTotalPrice,jdbcType=DOUBLE}, #{receptionDeductWeightMisc,jdbcType=DOUBLE}, 
+      #{receptionDeductMoney,jdbcType=DOUBLE}, #{receptionDeductOther,jdbcType=DOUBLE}, 
+      #{receptionDeductOilCard,jdbcType=DOUBLE}, #{backstageDeductWeightMisc,jdbcType=DOUBLE}, 
+      #{backstageDeductMoney,jdbcType=DOUBLE}, #{backstageDeductOther,jdbcType=DOUBLE}, 
+      #{backstageDeductOilCard,jdbcType=DOUBLE}, #{whetherClose,jdbcType=BIT}, #{orgid,jdbcType=VARCHAR}, 
+      #{orgname,jdbcType=VARCHAR}, #{state,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=BIGINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    insert into pay_invoice_detail_1
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="payInvoiceId != null" >
+        pay_invoice_id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="driverIdNo != null" >
+        driver_id_no,
+      </if>
+      <if test="venderId != null" >
+        vender_id,
+      </if>
+      <if test="venderIdNo != null" >
+        vender_id_no,
+      </if>
+      <if test="ownerId != null" >
+        owner_id,
+      </if>
+      <if test="ownerIdNo != null" >
+        owner_id_no,
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code,
+      </if>
+      <if test="invoiceName != null" >
+        invoice_name,
+      </if>
+      <if test="billId != null" >
+        bill_id,
+      </if>
+      <if test="billCode != null" >
+        bill_code,
+      </if>
+      <if test="billType != null" >
+        bill_type,
+      </if>
+      <if test="materialCode != null" >
+        material_code,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="cargoName != null" >
+        cargo_name,
+      </if>
+      <if test="billWeight != null" >
+        bill_weight,
+      </if>
+      <if test="billPrice != null" >
+        bill_price,
+      </if>
+      <if test="taxRate != null" >
+        tax_rate,
+      </if>
+      <if test="receptionBillTotalPrice != null" >
+        reception_bill_total_price,
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        backstage_bill_total_price,
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        reception_deduct_weight_misc,
+      </if>
+      <if test="receptionDeductMoney != null" >
+        reception_deduct_money,
+      </if>
+      <if test="receptionDeductOther != null" >
+        reception_deduct_other,
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        reception_deduct_oil_card,
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        backstage_deduct_weight_misc,
+      </if>
+      <if test="backstageDeductMoney != null" >
+        backstage_deduct_money,
+      </if>
+      <if test="backstageDeductOther != null" >
+        backstage_deduct_other,
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        backstage_deduct_oil_card,
+      </if>
+      <if test="whetherClose != null" >
+        whether_close,
+      </if>
+      <if test="orgid != null" >
+        orgid,
+      </if>
+      <if test="orgname != null" >
+        orgname,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="payInvoiceId != null" >
+        #{payInvoiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverIdNo != null" >
+        #{driverIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="venderId != null" >
+        #{venderId,jdbcType=VARCHAR},
+      </if>
+      <if test="venderIdNo != null" >
+        #{venderIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerIdNo != null" >
+        #{ownerIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceName != null" >
+        #{invoiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="billCode != null" >
+        #{billCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null" >
+        #{billType,jdbcType=BIT},
+      </if>
+      <if test="materialCode != null" >
+        #{materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="billWeight != null" >
+        #{billWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="billPrice != null" >
+        #{billPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="taxRate != null" >
+        #{taxRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionBillTotalPrice != null" >
+        #{receptionBillTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        #{backstageBillTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        #{receptionDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductMoney != null" >
+        #{receptionDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOther != null" >
+        #{receptionDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        #{receptionDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        #{backstageDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductMoney != null" >
+        #{backstageDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOther != null" >
+        #{backstageDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        #{backstageDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="whetherClose != null" >
+        #{whetherClose,jdbcType=BIT},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgname != null" >
+        #{orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    update pay_invoice_detail_1
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="payInvoiceId != null" >
+        pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverIdNo != null" >
+        driver_id_no = #{driverIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="venderId != null" >
+        vender_id = #{venderId,jdbcType=VARCHAR},
+      </if>
+      <if test="venderIdNo != null" >
+        vender_id_no = #{venderIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null" >
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerIdNo != null" >
+        owner_id_no = #{ownerIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceName != null" >
+        invoice_name = #{invoiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        bill_id = #{billId,jdbcType=VARCHAR},
+      </if>
+      <if test="billCode != null" >
+        bill_code = #{billCode,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null" >
+        bill_type = #{billType,jdbcType=BIT},
+      </if>
+      <if test="materialCode != null" >
+        material_code = #{materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="billWeight != null" >
+        bill_weight = #{billWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="billPrice != null" >
+        bill_price = #{billPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="taxRate != null" >
+        tax_rate = #{taxRate,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionBillTotalPrice != null" >
+        reception_bill_total_price = #{receptionBillTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        backstage_bill_total_price = #{backstageBillTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        reception_deduct_weight_misc = #{receptionDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductMoney != null" >
+        reception_deduct_money = #{receptionDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOther != null" >
+        reception_deduct_other = #{receptionDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        reception_deduct_oil_card = #{receptionDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        backstage_deduct_weight_misc = #{backstageDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductMoney != null" >
+        backstage_deduct_money = #{backstageDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOther != null" >
+        backstage_deduct_other = #{backstageDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        backstage_deduct_oil_card = #{backstageDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="whetherClose != null" >
+        whether_close = #{whetherClose,jdbcType=BIT},
+      </if>
+      <if test="orgid != null" >
+        orgid = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgname != null" >
+        orgname = #{orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    update pay_invoice_detail_1
+    set code = #{code,jdbcType=VARCHAR},
+      pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR},
+      driver_id = #{driverId,jdbcType=VARCHAR},
+      driver_id_no = #{driverIdNo,jdbcType=VARCHAR},
+      vender_id = #{venderId,jdbcType=VARCHAR},
+      vender_id_no = #{venderIdNo,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      owner_id_no = #{ownerIdNo,jdbcType=VARCHAR},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      invoice_name = #{invoiceName,jdbcType=VARCHAR},
+      bill_id = #{billId,jdbcType=VARCHAR},
+      bill_code = #{billCode,jdbcType=VARCHAR},
+      bill_type = #{billType,jdbcType=BIT},
+      material_code = #{materialCode,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR},
+      bill_weight = #{billWeight,jdbcType=DOUBLE},
+      bill_price = #{billPrice,jdbcType=DOUBLE},
+      tax_rate = #{taxRate,jdbcType=DOUBLE},
+      reception_bill_total_price = #{receptionBillTotalPrice,jdbcType=DOUBLE},
+      backstage_bill_total_price = #{backstageBillTotalPrice,jdbcType=DOUBLE},
+      reception_deduct_weight_misc = #{receptionDeductWeightMisc,jdbcType=DOUBLE},
+      reception_deduct_money = #{receptionDeductMoney,jdbcType=DOUBLE},
+      reception_deduct_other = #{receptionDeductOther,jdbcType=DOUBLE},
+      reception_deduct_oil_card = #{receptionDeductOilCard,jdbcType=DOUBLE},
+      backstage_deduct_weight_misc = #{backstageDeductWeightMisc,jdbcType=DOUBLE},
+      backstage_deduct_money = #{backstageDeductMoney,jdbcType=DOUBLE},
+      backstage_deduct_other = #{backstageDeductOther,jdbcType=DOUBLE},
+      backstage_deduct_oil_card = #{backstageDeductOilCard,jdbcType=DOUBLE},
+      whether_close = #{whetherClose,jdbcType=BIT},
+      orgid = #{orgid,jdbcType=VARCHAR},
+      orgname = #{orgname,jdbcType=VARCHAR},
+      state = #{state,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

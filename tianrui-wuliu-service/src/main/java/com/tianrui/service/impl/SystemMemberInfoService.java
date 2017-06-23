@@ -4,22 +4,29 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
-import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
+import com.tianrui.api.req.admin.PushMember;
 import com.tianrui.api.req.front.member.AdminMenberInfoReq;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberTransferResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.constants.HttpUrl;
 import com.tianrui.common.enums.MessageCodeEnum;
+import com.tianrui.common.utils.HttpUtil;
+import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.SystemMember;
@@ -50,6 +57,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	IAnlianService anlianService;
 	@Autowired
 	VehicleDriverMapper vehicleDriverMapper;
+	@Resource(name = "taskExecutor")
+    private TaskExecutor taskExecutor;
 	
 	@Override
 	public Result userReview(MemberInfoReq req) throws Exception {
@@ -106,6 +115,12 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		if("1".equals(req.getUserpercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_USER_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_USER_PASS.getType());
+			//审核通过推送到NC
+			PushMember push = new PushMember();
+			push.setSuppid(record.getMemberid());
+			push.setName(record.getUsername());
+			push.setVbusinlicense(record.getIdcard());
+			runTheadPoolTask(push);
 		}else {//if("3".equals(req.getUserpercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_USER_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_USER_NOTPASS.getType());
@@ -189,6 +204,12 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		if("1".equals(req.getDriverpercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_DRIVER_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_DRIVER_PASS.getType());
+			//审核通过推送到NC
+			PushMember push = new PushMember();
+			push.setSuppid(record.getMemberid());
+			push.setName(record.getUsername());
+			push.setVbusinlicense(record.getIdcard());
+			runTheadPoolTask(push);
 		}else if("3".equals(req.getDriverpercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_DRIVER_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_DRIVER_NOTPASS.getType());
@@ -251,6 +272,12 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_COMPANY_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_COMPANY_PASS.getType());
 			messageService.sendMessageInside(mreq);
+			//推送审核通过的供应商
+			PushMember push = new PushMember();
+			push.setSuppid(record.getMemberid());
+			push.setName(record.getCompanyname());
+			push.setVbusinlicense(record.getCompanycode());
+			runTheadPoolTask(push);
 		}else if("3".equals(req.getCompanypercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_COMPANY_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_COMPANY_NOTPASS.getType());
@@ -261,6 +288,27 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		return rs;
 	}
 	
+	private void runTheadPoolTask(final PushMember push) {
+		try {
+			taskExecutor.execute(new Runnable() {
+				@Override
+				public void run() {
+					//这里编写处理业务代码
+					AppResult appResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
+					if (appResult != null && StringUtils.equals(appResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+						//推送成功修改推送状态
+						SystemMemberInfo info = new SystemMemberInfo();
+						info.setId(push.getSuppid());
+						info.setPushStatus(Constant.YES_PUSH);
+						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					}
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public Result handView(String dirverId) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		List<SystemMemberInfo> list = systemMemberInfoMapper.selectVenderByDriverId(dirverId);
 		List<MemberTransferResp> rlist = copyProperties(list);

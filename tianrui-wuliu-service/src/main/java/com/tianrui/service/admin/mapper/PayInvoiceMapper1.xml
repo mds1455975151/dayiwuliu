@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.admin.mapper.PayInvoiceMapper1" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.admin.bean.PayInvoice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="invoice_name" property="invoiceName" jdbcType="VARCHAR" />
+    <result column="amount_payable" property="amountPayable" jdbcType="DOUBLE" />
+    <result column="paid_amount" property="paidAmount" jdbcType="DOUBLE" />
+    <result column="audit_status" property="auditStatus" jdbcType="BIT" />
+    <result column="audit_time" property="auditTime" jdbcType="BIGINT" />
+    <result column="push_status" property="pushStatus" jdbcType="BIT" />
+    <result column="push_time" property="pushTime" jdbcType="BIGINT" />
+    <result column="pay_status" property="payStatus" jdbcType="BIT" />
+    <result column="pay_time" property="payTime" jdbcType="BIGINT" />
+    <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="orgname" property="orgname" jdbcType="VARCHAR" />
+    <result column="material_code" property="materialCode" jdbcType="VARCHAR" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="payee_id" property="payeeId" jdbcType="VARCHAR" />
+    <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    <result column="payee_identity" property="payeeIdentity" jdbcType="BIT" />
+    <result column="payee_account" property="payeeAccount" jdbcType="VARCHAR" />
+    <result column="payee_bank_card_id" property="payeeBankCardId" jdbcType="VARCHAR" />
+    <result column="payee_bank_card_number" property="payeeBankCardNumber" jdbcType="VARCHAR" />
+    <result column="payee_id_no" property="payeeIdNo" jdbcType="VARCHAR" />
+    <result column="reception_bill_total_price" property="receptionBillTotalPrice" jdbcType="DOUBLE" />
+    <result column="reception_deduct_weight_misc" property="receptionDeductWeightMisc" jdbcType="DOUBLE" />
+    <result column="reception_deduct_money" property="receptionDeductMoney" jdbcType="DOUBLE" />
+    <result column="reception_deduct_other" property="receptionDeductOther" jdbcType="DOUBLE" />
+    <result column="reception_deduct_oil_card" property="receptionDeductOilCard" jdbcType="DOUBLE" />
+    <result column="backstage_bill_total_price" property="backstageBillTotalPrice" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_weight_misc" property="backstageDeductWeightMisc" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_money" property="backstageDeductMoney" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_other" property="backstageDeductOther" jdbcType="DOUBLE" />
+    <result column="backstage_deduct_oil_card" property="backstageDeductOilCard" jdbcType="DOUBLE" />
+    <result column="application_time" property="applicationTime" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultVoMap" type="com.tianrui.api.resp.admin.PayInvoiceVo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="invoice_name" property="invoiceName" jdbcType="VARCHAR" />
+    <result column="amount_payable" property="amountPayable" jdbcType="DOUBLE" />
+    <result column="paid_amount" property="paidAmount" jdbcType="DOUBLE" />
+    <result column="audit_status" property="auditStatus" jdbcType="BIT" />
+    <result column="push_status" property="pushStatus" jdbcType="BIT" />
+    <result column="pay_status" property="payStatus" jdbcType="BIT" />
+    <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultAuditVoMap" type="com.tianrui.api.resp.admin.PayInvoiceAuditVo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    <result column="payee_bank_card_number" property="payeeBankCardNumber" jdbcType="VARCHAR" />
+    <result column="bill_total_price" property="billTotalPrice" jdbcType="DOUBLE" />
+    <result column="deduct_weight_misc" property="deductWeightMisc" jdbcType="DOUBLE" />
+    <result column="deduct_money" property="deductMoney" jdbcType="DOUBLE" />
+    <result column="deduct_other" property="deductOther" jdbcType="DOUBLE" />
+    <result column="deduct_oil_card" property="deductOilCard" jdbcType="DOUBLE" />
+    <result column="amount_payable" property="amountPayable" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, invoice_code, invoice_name, amount_payable, paid_amount, audit_status, 
+    audit_time, push_status, push_time, pay_status, pay_time, orgid, orgname, material_code, material_name, payee_id, 
+    payee_name, payee_identity, payee_account, payee_bank_card_id, payee_bank_card_number, payee_id_no, reception_bill_total_price, 
+    reception_deduct_weight_misc, reception_deduct_money, reception_deduct_other, reception_deduct_oil_card, 
+    backstage_bill_total_price, backstage_deduct_weight_misc, backstage_deduct_money, backstage_deduct_other, 
+    backstage_deduct_oil_card, application_time, state, creator, create_time, modifier, modify_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_invoice_1
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pay_invoice_1
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.admin.bean.PayInvoice" >
+    insert into pay_invoice_1 (id, code, invoice_code, 
+      invoice_name, amount_payable, paid_amount, 
+      audit_status, audit_time, push_status, 
+      push_time, pay_status, pay_time, 
+      orgid, orgname, material_code, material_name, payee_id, 
+      payee_name, payee_identity, payee_account, payee_bank_card_id,
+      payee_bank_card_number, payee_id_no, reception_bill_total_price,
+      reception_deduct_weight_misc, reception_deduct_money, reception_deduct_other, 
+      reception_deduct_oil_card, backstage_bill_total_price, backstage_deduct_weight_misc, 
+      backstage_deduct_money, backstage_deduct_other, 
+      backstage_deduct_oil_card, application_time, 
+      state, creator, create_time, 
+      modifier, modify_time, remark
+      )
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{invoiceCode,jdbcType=VARCHAR}, 
+      #{invoiceName,jdbcType=VARCHAR}, #{amountPayable,jdbcType=DOUBLE}, #{paidAmount,jdbcType=DOUBLE}, 
+      #{auditStatus,jdbcType=BIT}, #{auditTime,jdbcType=BIGINT}, #{pushStatus,jdbcType=BIT}, 
+      #{pushTime,jdbcType=BIGINT}, #{payStatus,jdbcType=BIT}, #{payTime,jdbcType=BIGINT}, 
+      #{orgid,jdbcType=VARCHAR}, #{orgname,jdbcType=VARCHAR}, #{materialCode,jdbcType=VARCHAR}, 
+      #{materialName,jdbcType=VARCHAR}, #{payeeId,jdbcType=VARCHAR}, #{payeeName,jdbcType=VARCHAR}, 
+      #{payeeIdentity,jdbcType=BIT}, #{payeeAccount,jdbcType=VARCHAR}, #{payeeBankCardId,jdbcType=VARCHAR}, #{payeeBankCardNumber,jdbcType=VARCHAR}, 
+      #{payeeIdNo,jdbcType=VARCHAR}, #{receptionBillTotalPrice,jdbcType=DOUBLE}, #{receptionDeductWeightMisc,jdbcType=DOUBLE}, 
+      #{receptionDeductMoney,jdbcType=DOUBLE}, #{receptionDeductOther,jdbcType=DOUBLE}, #{receptionDeductOilCard,jdbcType=DOUBLE}, 
+      #{backstageBillTotalPrice,jdbcType=DOUBLE}, #{backstageDeductWeightMisc,jdbcType=DOUBLE}, #{backstageDeductMoney,jdbcType=DOUBLE}, 
+      #{backstageDeductOther,jdbcType=DOUBLE}, #{backstageDeductOilCard,jdbcType=DOUBLE}, #{applicationTime,jdbcType=BIGINT}, 
+      #{state,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.PayInvoice" >
+    insert into pay_invoice_1
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code,
+      </if>
+      <if test="invoiceName != null" >
+        invoice_name,
+      </if>
+      <if test="amountPayable != null" >
+        amount_payable,
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="pushStatus != null" >
+        push_status,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="orgid != null" >
+        orgid,
+      </if>
+      <if test="orgname != null" >
+        orgname,
+      </if>
+      <if test="materialCode != null" >
+        material_code,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="payeeId != null" >
+        payee_id,
+      </if>
+      <if test="payeeName != null" >
+        payee_name,
+      </if>
+      <if test="payeeIdentity != null" >
+        payee_identity,
+      </if>
+      <if test="payeeAccount != null" >
+        payee_account,
+      </if>
+      <if test="payeeBankCardId != null" >
+        payee_bank_card_id,
+      </if>
+      <if test="payeeBankCardNumber != null" >
+        payee_bank_card_number,
+      </if>
+      <if test="payeeIdNo != null" >
+        payee_id_no,
+      </if>
+      <if test="receptionBillTotalPrice != null" >
+        reception_bill_total_price,
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        reception_deduct_weight_misc,
+      </if>
+      <if test="receptionDeductMoney != null" >
+        reception_deduct_money,
+      </if>
+      <if test="receptionDeductOther != null" >
+        reception_deduct_other,
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        reception_deduct_oil_card,
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        backstage_bill_total_price,
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        backstage_deduct_weight_misc,
+      </if>
+      <if test="backstageDeductMoney != null" >
+        backstage_deduct_money,
+      </if>
+      <if test="backstageDeductOther != null" >
+        backstage_deduct_other,
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        backstage_deduct_oil_card,
+      </if>
+      <if test="applicationTime != null" >
+        application_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceName != null" >
+        #{invoiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPayable != null" >
+        #{amountPayable,jdbcType=DOUBLE},
+      </if>
+      <if test="paidAmount != null" >
+        #{paidAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=BIT},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=BIGINT},
+      </if>
+      <if test="pushStatus != null" >
+        #{pushStatus,jdbcType=BIT},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=BIGINT},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=BIT},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=BIGINT},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgname != null" >
+        #{orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCode != null" >
+        #{materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeId != null" >
+        #{payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeName != null" >
+        #{payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdentity != null" >
+        #{payeeIdentity,jdbcType=BIT},
+      </if>
+      <if test="payeeAccount != null" >
+        #{payeeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardId != null" >
+        #{payeeBankCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardNumber != null" >
+        #{payeeBankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdNo != null" >
+        #{payeeIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        #{receptionDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductMoney != null" >
+        #{receptionDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOther != null" >
+        #{receptionDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        #{receptionDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        #{backstageDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductMoney != null" >
+        #{backstageDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOther != null" >
+        #{backstageDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        #{backstageDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="applicationTime != null" >
+        #{applicationTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.PayInvoice" >
+    update pay_invoice_1
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceName != null" >
+        invoice_name = #{invoiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPayable != null" >
+        amount_payable = #{amountPayable,jdbcType=DOUBLE},
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount = #{paidAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=BIT},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=BIGINT},
+      </if>
+      <if test="pushStatus != null" >
+        push_status = #{pushStatus,jdbcType=BIT},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=BIGINT},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=BIT},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=BIGINT},
+      </if>
+      <if test="orgid != null" >
+        orgid = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="orgname != null" >
+        orgname = #{orgname,jdbcType=VARCHAR},
+      </if>
+      <if test="materialCode != null" >
+        material_code = #{materialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeId != null" >
+        payee_id = #{payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeName != null" >
+        payee_name = #{payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdentity != null" >
+        payee_identity = #{payeeIdentity,jdbcType=BIT},
+      </if>
+      <if test="payeeAccount != null" >
+        payee_account = #{payeeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardId != null" >
+        payee_bank_card_id = #{payeeBankCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardNumber != null" >
+        payee_bank_card_number = #{payeeBankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdNo != null" >
+        payee_id_no = #{payeeIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receptionBillTotalPrice != null" >
+        reception_bill_total_price = #{receptionBillTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        reception_deduct_weight_misc = #{receptionDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductMoney != null" >
+        reception_deduct_money = #{receptionDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOther != null" >
+        reception_deduct_other = #{receptionDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        reception_deduct_oil_card = #{receptionDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        backstage_bill_total_price = #{backstageBillTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        backstage_deduct_weight_misc = #{backstageDeductWeightMisc,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductMoney != null" >
+        backstage_deduct_money = #{backstageDeductMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOther != null" >
+        backstage_deduct_other = #{backstageDeductOther,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        backstage_deduct_oil_card = #{backstageDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="applicationTime != null" >
+        application_time = #{applicationTime,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.PayInvoice" >
+    update pay_invoice_1
+    set code = #{code,jdbcType=VARCHAR},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      invoice_name = #{invoiceName,jdbcType=VARCHAR},
+      amount_payable = #{amountPayable,jdbcType=DOUBLE},
+      paid_amount = #{paidAmount,jdbcType=DOUBLE},
+      audit_status = #{auditStatus,jdbcType=BIT},
+      audit_time = #{auditTime,jdbcType=BIGINT},
+      push_status = #{pushStatus,jdbcType=BIT},
+      push_time = #{pushTime,jdbcType=BIGINT},
+      pay_status = #{payStatus,jdbcType=BIT},
+      pay_time = #{payTime,jdbcType=BIGINT},
+      orgid = #{orgid,jdbcType=VARCHAR},
+      orgname = #{orgname,jdbcType=VARCHAR},
+      material_code = #{materialCode,jdbcType=VARCHAR},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      payee_id = #{payeeId,jdbcType=VARCHAR},
+      payee_name = #{payeeName,jdbcType=VARCHAR},
+      payee_identity = #{payeeIdentity,jdbcType=BIT},
+      payee_account = #{payeeAccount,jdbcType=VARCHAR},
+      payee_bank_card_id = #{payeeBankCardId,jdbcType=VARCHAR},
+      payee_bank_card_number = #{payeeBankCardNumber,jdbcType=VARCHAR},
+      payee_id_no = #{payeeIdNo,jdbcType=VARCHAR},
+      reception_bill_total_price = #{receptionBillTotalPrice,jdbcType=DOUBLE},
+      reception_deduct_weight_misc = #{receptionDeductWeightMisc,jdbcType=DOUBLE},
+      reception_deduct_money = #{receptionDeductMoney,jdbcType=DOUBLE},
+      reception_deduct_other = #{receptionDeductOther,jdbcType=DOUBLE},
+      reception_deduct_oil_card = #{receptionDeductOilCard,jdbcType=DOUBLE},
+      backstage_bill_total_price = #{backstageBillTotalPrice,jdbcType=DOUBLE},
+      backstage_deduct_weight_misc = #{backstageDeductWeightMisc,jdbcType=DOUBLE},
+      backstage_deduct_money = #{backstageDeductMoney,jdbcType=DOUBLE},
+      backstage_deduct_other = #{backstageDeductOther,jdbcType=DOUBLE},
+      backstage_deduct_oil_card = #{backstageDeductOilCard,jdbcType=DOUBLE},
+      application_time = #{applicationTime,jdbcType=BIGINT},
+      state = #{state,jdbcType=BIT},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectPayInvoicePage" parameterType="com.tianrui.api.req.admin.PayInvoiceReq" resultMap="BaseResultVoMap">
+  	SELECT
+  		p1.id,
+		p1.code,
+		p1.invoice_name,
+		p1.amount_payable,
+		p1.paid_amount,
+		p1.payee_name,
+		p1.audit_status,
+		p1.push_status,
+		p1.pay_status
+	FROM
+		pay_invoice_1 p1
+	LEFT JOIN pay_invoice_detail_1 p2 ON p1.id = p2.pay_invoice_id
+	<where>
+		<if test="likeBillCode != null and likeBillCode != ''">
+			and p2.bill_code LIKE CONCAT('%',#{likeBillCode, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="likeCargoName != null and likeCargoName != ''">
+			and p2.cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="state != null and state != ''">
+			and p1.state = #{state, jdbcType=BIT}
+		</if>
+		<if test="payeeIdentity != null and payeeIdentity != ''">
+			and p1.payee_identity = #{payeeIdentity, jdbcType=BIT} 
+		</if>
+	</where>
+	<if test="orderColumn != null and orderColumn != ''">
+  		order by ${orderColumn} 
+  		<choose>
+  			<when test="orderAsc == 'DESC'">
+  				DESC
+  			</when>
+  			<otherwise>
+  				ASC
+  			</otherwise>
+  		</choose>
+  	</if>
+  	<if test="start != null and start >= 0">
+  		<if test="limit != null">
+			limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  		</if>
+  	</if>
+  </select>
+  <select id="selectPayInvoicePageCount" parameterType="com.tianrui.api.req.admin.PayInvoiceReq" resultType="java.lang.Long">
+  	SELECT
+		count(0)
+	FROM
+		pay_invoice_1 p1
+	LEFT JOIN pay_invoice_detail_1 p2 ON p1.id = p2.pay_invoice_id
+	<where>
+		<if test="likeBillCode != null and likeBillCode != ''">
+			and p2.bill_code LIKE CONCAT('%',#{likeBillCode, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="likeCargoName != null and likeCargoName != ''">
+			and p2.cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="state != null and state != ''">
+			and p1.state = #{state, jdbcType=BIT}
+		</if>
+		<if test="payeeIdentity != null and payeeIdentity != ''">
+			and p1.payee_identity = #{payeeIdentity, jdbcType=BIT} 
+		</if>
+	</where>
+  </select>
+  <select id="selectPayInvoiceAuditData" parameterType="java.lang.String" resultMap="BaseResultAuditVoMap">
+  	SELECT
+		id,
+		payee_name,
+		payee_bank_card_number,
+		reception_bill_total_price as bill_total_price,
+		reception_deduct_weight_misc as deduct_weight_misc,
+		reception_deduct_money as deduct_money,
+		reception_deduct_other as deduct_other,
+		reception_deduct_oil_card as deduct_oil_card,
+		amount_payable
+	FROM
+		pay_invoice_1
+	WHERE state = 1 AND id = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

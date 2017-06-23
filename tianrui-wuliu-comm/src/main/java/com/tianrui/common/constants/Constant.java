@@ -14,6 +14,10 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public class Constant {
+	
+	public final static Integer ZERO = 0;
+	
+	public final static Integer ONE = 1;
     
     public final static String INFO = "[INFO]";
     
@@ -93,6 +97,41 @@ public class Constant {
     public final static String BILL_TYPE_1 = "1";
     //批量运单
     public final static String BILL_TYPE_2 = "2";
+
+    /**
+     * 账单常量
+     */
+    //无效
+    public final static Integer DATA_INVALID = 0;
+    //有效
+    public final static Integer DATA_VALID = 1;
+    //收货人身份
+    //司机
+    public final static Integer PAY_INVOICE_DRIVER = 1;
+    //车主
+    public final static Integer PAY_INVOICE_VENDER = 2;
+    //审核状态
+    //未审核
+    public final static Integer NOT_AUDIT = 0;
+    //审核中
+    public final static Integer AUDIT_ING = 1;
+    //已审核
+    public final static Integer YES_AUDIT = 2;
+    //推单状态
+    //未推单
+    public final static Integer NOT_PUSH = 0;
+    //推单中
+    public final static Integer PUSH_ING = 1;
+    //已推单
+    public final static Integer YES_PUSH = 2;
+    //支付状态
+    //未支付
+    public final static Integer NOT_PAY = 0;
+    //支付中
+    public final static Integer PAY_ING = 1;
+    //已支付
+    public final static Integer YES_PAY = 2;
+    
 	public static String getFILE_URL_PRE() {
 		return FILE_URL_PRE;
 	}

@@ -9,6 +9,10 @@
 		    padding-bottom: 10px;
 		  }
     	</style>
+    	<script type="text/javascript">
+    		CONTEXTPATH = "${contextPath}";
+			imagesRoot = "${imagesRoot}";
+		</script>
     <!--公共头部begin-->
     <input type="hidden" id="menuId" value="${menuId}">
     <div class="row">

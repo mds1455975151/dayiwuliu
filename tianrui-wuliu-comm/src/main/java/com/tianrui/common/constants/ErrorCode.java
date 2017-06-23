@@ -20,6 +20,7 @@ public enum ErrorCode {
 	MEMBER_LOGIN_PSWD_ERROR("E200002","用户密码错误."),
 	MEMBER_USER_ERROR("E200003","用户尚未登录."),
 	MEMBER_USER_LOGIN_MAST("E200004","该用户已经在别的设备登录,是否强制登录?"),
+	MEMBER_PUSH_ERROR("E200005","供应商推单失败."),
 	
 	//路径档案
 	FILEROUTE_USER_IS_NULL("E201001","登录用户或者用户组织为空."),
@@ -59,6 +60,7 @@ public enum ErrorCode {
 	PAY_DATA_NOT_ADMIN("E401010","非本组织账单不能操作."),
 	PAY_DATA_NOT_ISCLEAN("E401011","运单已确认，不能重复操作"),
 	PAY_DATA_PAY_ADVICE("E401012","不合法的支付单状态"),
+	PAY_INVOICE_ERROR("E401013","账单推单失败."),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机"),

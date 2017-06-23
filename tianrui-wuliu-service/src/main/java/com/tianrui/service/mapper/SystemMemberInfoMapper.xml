@@ -34,6 +34,8 @@
     <result column="idcardaddress" property="idcardaddress" jdbcType="VARCHAR" />
     <result column="positive" property="positive" jdbcType="VARCHAR" />
     <result column="opposite" property="opposite" jdbcType="VARCHAR" />
+    <result column="pushStatus" property="pushStatus" jdbcType="INT" />
+    <result column="ncStatus" property="ncStatus" jdbcType="INT" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -42,7 +44,7 @@
     -->
     id, memberid, submittime,licenseImagePath, username, telphone, idcard, idcardimage, driverimage, companyname, 
     companycontact, companycode, companytel, companyaddress, createtime,rtblno,rtblimgurl,licenseType,
-    sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress,positive,opposite
+    sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress,positive,opposite, pushStatus, ncStatus
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -72,7 +74,7 @@
       idcardimage, driverimage, companyname, 
       companycontact, companycode, companytel, 
       companyaddress, createtime,rtblno,rtblimgurl,licenseType,
-      sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress,positive,opposite
+      sex, birthday, firstlicens, licenceorg, starttime, usefullife, idcardaddress,positive,opposite, pushStatus, ncStatus
       )
     values (#{id,jdbcType=VARCHAR},#{licenseImagePath,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{submittime,jdbcType=BIGINT}, 
       #{username,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
@@ -88,7 +90,9 @@
       #{usefullife,jdbcType=VARCHAR},
       #{idcardaddress,jdbcType=VARCHAR},
       #{positive,jdbcType=VARCHAR},
-      #{opposite,jdbcType=VARCHAR}
+      #{opposite,jdbcType=VARCHAR},
+      #{pushStatus,jdbcType=INT},
+      #{ncStatus,jdbcType=INT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.SystemMemberInfo" >
@@ -180,6 +184,12 @@
       <if test="opposite != null" >
         opposite,
       </if>
+      <if test="pushStatus != null" >
+        pushStatus,
+      </if>
+      <if test="ncStatus != null" >
+        ncStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -264,6 +274,12 @@
       <if test="opposite != null" >
         #{opposite,jdbcType=VARCHAR},
       </if>
+      <if test="pushStatus != null" >
+        #{pushStatus,jdbcType=INT},
+      </if>
+      <if test="ncStatus != null" >
+        #{ncStatus,jdbcType=INT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.SystemMemberInfo" >
@@ -278,6 +294,12 @@
     	</if>
     	<if test="opposite != null">
     	opposite = #{opposite,jdbcType=VARCHAR},
+    	</if>
+    	<if test="pushStatus != null">
+    	pushStatus = #{pushStatus,jdbcType=INT},
+    	</if>
+    	<if test="ncStatus != null">
+    	ncStatus = #{ncStatus,jdbcType=INT},
     	</if>
     	<if test="sex != null">
     	sex = #{sex,jdbcType=VARCHAR},
@@ -364,6 +386,8 @@
     set 
     	positive = #{positive,jdbcType=VARCHAR},
     	opposite = #{opposite,jdbcType=VARCHAR},
+    	pushStatus = #{pushStatus,jdbcType=INT},
+    	ncStatus = #{ncStatus,jdbcType=INT},
     	sex = #{sex,jdbcType=VARCHAR},
     	birthday = #{birthday,jdbcType=VARCHAR},
     	firstlicens = #{firstlicens,jdbcType=VARCHAR},
