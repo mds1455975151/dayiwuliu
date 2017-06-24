@@ -53,6 +53,8 @@
     <result column="push_status" property="pushStatus" jdbcType="BIT" />
     <result column="pay_status" property="payStatus" jdbcType="BIT" />
     <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    <result column="application_time" property="applicationTime" jdbcType="BIGINT" />
+    
   </resultMap>
   <resultMap id="BaseResultAuditVoMap" type="com.tianrui.api.resp.admin.PayInvoiceAuditVo" >
     <id column="id" property="id" jdbcType="VARCHAR" />
@@ -530,7 +532,8 @@
 		p1.payee_name,
 		p1.audit_status,
 		p1.push_status,
-		p1.pay_status
+		p1.pay_status,
+		p1.application_time
 	FROM
 		pay_invoice_1 p1
 	LEFT JOIN pay_invoice_detail_1 p2 ON p1.id = p2.pay_invoice_id

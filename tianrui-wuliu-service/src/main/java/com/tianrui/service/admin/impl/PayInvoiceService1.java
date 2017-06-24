@@ -238,4 +238,30 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		return result;
 	}
 
+	@Override
+	public Result payAudit(String id) {
+		Result rs = Result.getSuccessResult();
+		PayInvoice upt = new PayInvoice();
+		upt.setId(id);
+		upt.setAuditStatus(2);
+		payInvoiceMapper.updateByPrimaryKeySelective(upt);
+		return rs;
+	}
+
+	@Override
+	public Result payPush(String id) {
+		Result rs = Result.getSuccessResult();
+		PayInvoice upt = new PayInvoice();
+		upt.setId(id);
+		upt.setPushStatus(1);
+		payInvoiceMapper.updateByPrimaryKeySelective(upt);
+		return rs;
+	}
+
+	@Override
+	public Result pushBack(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

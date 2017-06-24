@@ -50,5 +50,32 @@ public class PayInvoice_1Action {
 		return result;
 	}
 	
+	/**账单自审*/
+	@RequestMapping("payAudit")
+	@ResponseBody
+	public Result payAudit(String id){
+		Result rs = Result.getSuccessResult();
+		rs = payInvoiceService.payAudit(id);
+		return rs;
+	}
+	
+	/**账单推送后台*/
+	@RequestMapping("payPush")
+	@ResponseBody
+	public Result payPush(String id){
+		Result rs = Result.getSuccessResult();
+		rs = payInvoiceService.payPush(id);
+		return rs;
+	}
+	
+	/**账单推送收回*/
+	@RequestMapping("pushBack")
+	@ResponseBody
+	public Result pushBack(String id){
+		Result rs = Result.getSuccessResult();
+		rs = payInvoiceService.pushBack(id);
+		return rs;
+	}
+	
 }
 	

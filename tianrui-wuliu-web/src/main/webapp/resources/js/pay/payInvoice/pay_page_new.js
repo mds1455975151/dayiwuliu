@@ -68,41 +68,36 @@ function innerHTML(ret,flag){
 	if(flag == 0){
 		$("#paylist").empty();
 	}
-	var payStatus;//发票单 0新建  1 已推单 2支付中  3支付完成
-	var adviceStatus //审核状态  0未审核  1 已审核
-	var statusStr;
-	var shenhe;
-	var delt;
 	for (var a = 0; a < data.length; a++) {
-		shenhe = "";
-		delt = "";
-		if(data[a].payStatus == "0"){
-			if(data[a].adviceStatus == "0"){
-				statusStr = "未审核";
-				shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
-			}else if(data[a].adviceStatus == "1"){
-				statusStr = "已审核";
-				delt = "<button onclick=\"payInvoiceDelt('"+data[a].id+"')\" class='btn btnyello'>收回</button>"
-				shenhe = "<button onclick=\"payInvoiceSave('"+data[a].id+"');this.disabled=true\" class='btn btnyello'>提交</button>"
-			}
+		var shenhe = ""
+		var pay_audit_push_Status = "";
+		//先判断支付状态
+		if(data[a].payStatus == "2"){
+			pay_audit_push_Status = "支付完成";
 		}else if(data[a].payStatus == "1"){
-			statusStr = "已推单";
-		}else if(data[a].payStatus == "2"){
-			statusStr = "支付中";
-		}else if(data[a].payStatus == "3"){
-			statusStr = "支付完成";
+			pay_audit_push_Status = "支付中";
+		}else if(data[a].pushStatus == "2"){
+			pay_audit_push_Status = "已推送";
+		}else if(data[a].pushStatus == "1"){
+			pay_audit_push_Status = "推送中";
+			shenhe = "<button onclick=\"pushBack('"+data[a].id+"')\" class='btn btnyello'>推送</button>"
+		}else if(data[a].auditStatus == "2"){
+			pay_audit_push_Status = "已审核";
+			shenhe = "<button onclick=\"payPush('"+data[a].id+"')\" class='btn btnyello'>推送</button>"
+		}else if(data[a].auditStatus == "0"){
+			pay_audit_push_Status = "未审核";
+			shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 		}
-		var df = data[a].payDealPrice - data[a].paidPrice;
 		hml += "<tr >" +
-				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'>"+data[a].payCode+"</td>" +
-				"<td >"+data[a].invoiceTypeName+" </td>" +
-				"<td >"+data[a].applyDate+"</td>" +
-				"<td >"+data[a].payDealPrice+"</td>" +
-				"<td >"+data[a].paidPrice+"元</td>" +
-				"<td >"+df+"</td>" +
-				"<td>"+statusStr+"</td>" +
-				"<td>"+shenhe+delt+"</td>" +
-						"</tr>";
+				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'>"+data[a].code+"</td>" +
+				"<td >"+data[a].invoiceName+" </td>" +
+				"<td >"+new Date(data[a].applicationTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+				"<td >"+data[a].amountPayable+"</td>" +
+				"<td >"+data[a].paidAmount+"元</td>" +
+				"<td >"+(data[a].amountPayable-data[a].paidAmount)+"元</td>" +
+				"<td>"+pay_audit_push_Status+"</td>" +
+				"<td>"+shenhe+"</td>" +
+				"</tr>";
 	}
 	$("#paylist").append(hml);
 }
@@ -140,6 +135,38 @@ function innerDetail(ret){
 	}
 	$("#paydetails").append(hml);
 }
+/**推送收回*/
+function pushBack(id){
+	$.ajax({
+		url : "/trwuliu/payInvoice_1/pushBack",//
+		data : {"id":id},
+		type : "post",
+		success : function(rs){
+			if(rs.code=="000000"){
+				index(0,0);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+
+/** 账单推送*/
+function payPush(id){
+	$.ajax({
+		url : "/trwuliu/payInvoice_1/payPush",//
+		data : {"id":id},
+		type : "post",
+		success : function(rs){
+			if(rs.code=="000000"){
+				index(0,0);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+
 /** 运费单自审*/
 function payAudit(id){
 	$.ajax({
@@ -148,7 +175,7 @@ function payAudit(id){
 		type : "post",
 		success : function(rs){
 			if(rs.code=="000000"){
-				index(1,0);
+				index(0,0);
 			}else{
 				alert(rs.error);
 			}

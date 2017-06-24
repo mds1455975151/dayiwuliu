@@ -31,6 +31,8 @@ public class PayInvoiceVo extends BaseResp {
     private String payeeName;
     //操作按钮（1：审核，2：修改和提交，3：无）
     private Integer btnOpts;
+    //申请时间
+    private Long applicationTime;
     
 	public String getId() {
 		return id;
@@ -87,9 +89,14 @@ public class PayInvoiceVo extends BaseResp {
 		}
 		return payStatusStr;
 	}
-//	public Integer getPayStatus() {
-//		return payStatus;
-//	}
+	
+	
+	public Long getApplicationTime() {
+		return applicationTime;
+	}
+	public void setApplicationTime(Long applicationTime) {
+		this.applicationTime = applicationTime;
+	}
 	public void setPayStatus(Integer payStatus) {
 		this.payStatus = payStatus;
 	}

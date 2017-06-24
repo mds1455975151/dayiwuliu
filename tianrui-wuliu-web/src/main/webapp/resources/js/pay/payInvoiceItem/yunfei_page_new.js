@@ -126,7 +126,7 @@ function saveDetail(){
 	 		type : "post",
 	 		success : function(rs){
 	 			if(rs.code=="000000"){
-	 				index(1,0);
+	 				index(0,0);
 	 			}else{
 	 				alert(rs.error);
 	 			}
