@@ -136,9 +136,9 @@ public class Constant {
      * NC供应商推送状态
      */
     //审核通过，但组织已分配
-    public final static Integer NC_MEMBER_PUSH_STATUS_YES_ORG = 0;
+    public final static Integer NC_MEMBER_PUSH_STATUS_YES_ORG = 1;
     //审核通过，但组织未分配
-    public final static Integer NC_MEMBER_PUSH_STATUS_NOT_ORG = 1;
+    public final static Integer NC_MEMBER_PUSH_STATUS_NOT_ORG = 2;
     
     
 	public static String getFILE_URL_PRE() {

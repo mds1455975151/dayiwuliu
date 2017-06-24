@@ -515,4 +515,16 @@
 	  </if>
   	</where>
   </select>
+  <select id="selectNcNotUse" parameterType="com.tianrui.service.bean.SystemMemberInfo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from member_info
+  	<where>
+	  <if test="pushStatus != null" >
+	    and pushStatus = #{pushStatus,jdbcType=BIT}
+	  </if>
+	  <if test="ncStatus != null" >
+	    and ncStatus != #{ncStatus,jdbcType=BIT}
+	  </if>
+  	</where>
+  </select>
 </mapper>

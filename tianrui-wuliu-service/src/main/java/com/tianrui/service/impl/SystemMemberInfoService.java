@@ -26,6 +26,7 @@ import com.tianrui.api.resp.front.member.MemberTransferResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
+import com.tianrui.common.constants.NCResultEnum;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.HttpUtil;
 import com.tianrui.common.vo.ApiResult;
@@ -418,8 +419,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	public void scheduleCallBackPushStatus() {
 		SystemMemberInfo info = new SystemMemberInfo();
 		info.setPushStatus(Constant.YES_PUSH);
-		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
-		List<SystemMemberInfo> list = systemMemberInfoMapper.selectSelective(info);
+		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
+		List<SystemMemberInfo> list = systemMemberInfoMapper.selectNcNotUse(info);
 		if (CollectionUtils.isNotEmpty(list)) {
 			List<String> ids = new ArrayList<String>();
 			for (SystemMemberInfo bean : list) {
@@ -440,16 +441,24 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 					String id = jsonObject.getString("id");
 					String status = jsonObject.getString("status");
 					//审核通过并分配组织
-					if (StringUtils.equals(status, String.valueOf(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG))) {
+					if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
 						//回写供应商ncStatus
 						SystemMemberInfo info = new SystemMemberInfo();
 						info.setId(id);
-						info.setPushStatus(Integer.parseInt(status));
+						info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
 						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
+						//回写供应商ncStatus
+						SystemMemberInfo info = new SystemMemberInfo();
+						info.setId(id);
+						info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
+						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					} else {
+						LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态: 供应商ID: "+ id + ", 查询结果： " + NCResultEnum.getMessage(status));
 					}
 				}
 			} else {
-				LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态错误信息: ", apiResult.getMessage());
+				LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态错误信息: " + apiResult.getMessage());
 			}
 		}
 		return apiResult;

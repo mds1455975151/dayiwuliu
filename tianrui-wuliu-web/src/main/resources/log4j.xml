@@ -101,6 +101,7 @@
 		<level value="INFO" />
 		<appender-ref ref="performanceAppender" />
 	</logger>
+	
 	<logger name="pushMessage" additivity="false">
 		<level value="INFO" />
 		<appender-ref ref="pushMessageAppender" />

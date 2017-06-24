@@ -27,7 +27,7 @@ public class NCPushSchedule {
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
 	
-	//@Scheduled(cron="0 0/30 *  * * ? ")
+	@Scheduled(cron="* 0/10 *  * * ? ")
 	public void callBackPushStatus(){
 		systemMemberInfoService.scheduleCallBackPushStatus();
 	}

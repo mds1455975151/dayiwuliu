@@ -60,4 +60,6 @@ public interface SystemMemberInfoMapper {
     List<SystemMemberInfo> selectVenderByDriverId(String driverId);
     
     List<SystemMemberInfo> selectSelective(SystemMemberInfo record);
+
+	List<SystemMemberInfo> selectNcNotUse(SystemMemberInfo info);
 }

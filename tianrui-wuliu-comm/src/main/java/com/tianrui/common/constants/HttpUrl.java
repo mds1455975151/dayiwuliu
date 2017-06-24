@@ -3,7 +3,7 @@ package com.tianrui.common.constants;
 public class HttpUrl {
 
 	//NC url ip+端口好
-	public final static String NC_URL_IP_PORT = "http://"; 
+	public final static String NC_URL_IP_PORT = "http://172.20.10.161"; 
 	//支付申请单保存接口
 	public final static String PAY_INVOICE_DRIVER_PUSH = "/tcp/paySupplier/querySupplier";
 	//供应商推送接口
