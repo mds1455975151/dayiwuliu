@@ -77,5 +77,14 @@ public class PayInvoice_1Action {
 		return rs;
 	}
 	
+	/**账单删除*/
+	@RequestMapping("payDelete")
+	@ResponseBody
+	public Result payDelete(String id){
+		Result rs = Result.getSuccessResult();
+		rs = payInvoiceService.payDelete(id);
+		return rs;
+	}
+	
 }
 	

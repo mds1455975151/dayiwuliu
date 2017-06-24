@@ -23,5 +23,7 @@ public interface IPayInvoiceService {
 	Result payPush(String id);
 	/**前台推送收回*/
 	Result pushBack(String id);
+	/**账单删除*/
+	Result payDelete(String id);
 
 }

@@ -25,6 +25,8 @@ import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.PayInvoice;
+import com.tianrui.service.admin.bean.PayInvoiceDetail;
+import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
 
 @Service
@@ -34,6 +36,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 
 	@Autowired
 	private PayInvoiceMapper1 payInvoiceMapper;
+	@Autowired
+	PayInvoiceDetailMapper1 payInvoiceDetailMapper1;
 	
 	@Override
 	public PaginationVO<PayInvoiceVo> page(PayInvoiceReq req) {
@@ -261,8 +265,29 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 
 	@Override
 	public Result pushBack(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Result rs = Result.getSuccessResult();
+		PayInvoice upt = new PayInvoice();
+		upt.setId(id);
+		upt.setPushStatus(0);
+		payInvoiceMapper.updateByPrimaryKeySelective(upt);
+		return rs;
+	}
+
+	@Override
+	public Result payDelete(String id) {
+		Result rs = Result.getSuccessResult();
+		PayInvoiceDetail query = new PayInvoiceDetail();
+		query.setPayInvoiceId(id);
+		List<PayInvoiceDetail> list = payInvoiceDetailMapper1.selectByCondition(query);
+		for(PayInvoiceDetail pay : list){
+			PayInvoiceDetail upt = new PayInvoiceDetail();
+			upt.setId(pay.getId());
+			upt.setPayInvoiceId("");
+			upt.setWhetherClose(false);
+			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
+		}
+		payInvoiceMapper.deleteByPrimaryKey(id);
+		return rs;
 	}
 
 }
