@@ -43,11 +43,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="contuser_search">
                                     <div class="ht_div">
                                         <label>银行卡号：</label>
-                                        <input type="text" maxlength="10" id="find_bankcard" placeholder=" ">
+                                        <input type="text" maxlength="20" id="find_bankcard" placeholder=" ">
                                     </div>
                                     <div class="ht_div">
                                         <label>持卡人名称：</label>
-                                        <input type="text" maxlength="10" id="find_idname" placeholder=" ">
+                                        <input type="text" maxlength="20" id="find_idname" placeholder=" ">
                                     </div>
                                     <div class="ht_div">
                                         <label>认证状态:</label>

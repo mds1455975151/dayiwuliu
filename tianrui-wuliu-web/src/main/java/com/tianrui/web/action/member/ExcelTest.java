@@ -43,7 +43,7 @@ public class ExcelTest {
 	public Result insertBank() throws IOException, Exception{
 		Result rs = Result.getSuccessResult();
 //		memberBankCardService.insertBankAddress(ReadExcel.readXls());
-		memberBankCardService.insertBankType(ReadExcel.readXls());
+		//memberBankCardService.insertBankType(ReadExcel.readXls());
 		return rs;
 	}
 }

@@ -1,6 +1,6 @@
 package com.tianrui.service.bean;
 
-public class NCbank_B {
+public class NCbank_B2 {
     private String id;
 
     private String address;

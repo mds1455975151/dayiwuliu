@@ -1,4 +1,4 @@
-package com.tianrui.web.util;
+package com.tianrui.common.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

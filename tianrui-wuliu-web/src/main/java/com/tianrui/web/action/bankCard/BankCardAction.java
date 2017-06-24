@@ -14,10 +14,10 @@ import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
+import com.tianrui.common.utils.HttpRequestUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.web.util.HttpRequestUtil;
 import com.tianrui.web.util.SessionManager;
 
 @Controller
@@ -53,17 +53,16 @@ public class BankCardAction {
 		MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
 		view.addObject("member", member);
 		view.setViewName("/bank/saveBankCard");
-		view.addObject("bankType", memberBankCardService.findBankType().getData());
-		view.addObject("bankAddress", memberBankCardService.findBankAddress("").getData());
+		//view.addObject("bankAddress", memberBankCardService.findBankAddress("").getData());
 		return view;
 	}
 	/** 查询开户行.
 	 * @throws Exception */
 	@RequestMapping("findAddress")
 	@ResponseBody
-	public Result findAddress(String name) throws Exception{
+	public Result findAddress(String id) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = memberBankCardService.findBankAddress(name);
+		rs = memberBankCardService.findBankSubbranch(id);
 		return rs;
 	}
 	
@@ -88,8 +87,7 @@ public class BankCardAction {
 		view.setViewName("/bank/uptBankCard");
 		view.addObject("bankid", req.getId());
 		view.addObject("bankcard", req.getBankcard());
-		view.addObject("bankType", memberBankCardService.findBankType().getData());
-		view.addObject("bankAddress", memberBankCardService.findBankAddress("").getData());
+		//view.addObject("bankAddress", memberBankCardService.findBankAddress("").getData());
 		return view;
 	}
 	
@@ -121,7 +119,7 @@ public class BankCardAction {
 	public Result bankCardType(String bankcode) throws Exception{
 		Result rs = Result.getSuccessResult();
 		String name = HttpRequestUtil.putRequest(bankcode);
-		rs.setData(name);
+		rs = memberBankCardService.selectBankTypeByName(name);
 		return rs;
 	}
 	//查询银行类型

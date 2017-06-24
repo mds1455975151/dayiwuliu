@@ -94,7 +94,7 @@ public class AppMemberBankAction {
 	@ResponseBody
 	public AppResult address(AppParam<MemberBankCardReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = memberBankCardService.findBankAddress(appParam.getBody().getDesc1());
+		rs = memberBankCardService.findBankSubbranch(appParam.getBody().getDesc1());
 		return AppResult.valueOf(rs);
 	}
 	

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tianrui.service.mapper.NCbankTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.NCbankType" >
+<mapper namespace="com.tianrui.service.mapper.NCbankTypeMapper2" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.NCbankType2" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="banktype" property="banktype" jdbcType="VARCHAR" />
     <result column="bankname" property="bankname" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
   
-   <select id="selectByCondtion" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.NCbankType" >
+   <select id="selectByCondtion" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.NCbankType2" >
     select 
     <include refid="Base_Column_List" />
     from wuliu_NC_bank_type
@@ -28,13 +28,13 @@
     delete from wuliu_NC_bank_type
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.tianrui.service.bean.NCbankType" >
+  <insert id="insert" parameterType="com.tianrui.service.bean.NCbankType2" >
     insert into wuliu_NC_bank_type (id, banktype, bankname, 
       bankkey)
     values (#{id,jdbcType=VARCHAR}, #{banktype,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, 
       #{bankkey,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tianrui.service.bean.NCbankType" >
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.NCbankType2" >
     insert into wuliu_NC_bank_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -65,7 +65,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.NCbankType" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.NCbankType2" >
     update wuliu_NC_bank_type
     <set >
       <if test="banktype != null" >
@@ -80,7 +80,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.NCbankType" >
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.NCbankType2" >
     update wuliu_NC_bank_type
     set banktype = #{banktype,jdbcType=VARCHAR},
       bankname = #{bankname,jdbcType=VARCHAR},

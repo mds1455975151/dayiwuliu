@@ -70,7 +70,13 @@ public enum ErrorCode {
 	VEHICLE_VEHICLE_IDNULL("E502002","无效的车辆id"),
 	VEHICLE_TICKET_NOTONLY("E502003","车辆开票认证已存在"),
 	VEHICLE_DRIVER_NOTONLY("E502004","非空闲车辆不能进行开票认证"),
-	VEHICLE_DRIVER1_NOTONLY("E502004","绑定车辆司机不能进行开票认证")
+	VEHICLE_DRIVER1_NOTONLY("E502004","绑定车辆司机不能进行开票认证"),
+	
+	
+	/**
+	 * 银行卡
+	 */
+	NOT_FIND_PANK("E600000","没有找到匹配的银行.");
 	;
 	
 	private String code;

@@ -16,57 +16,57 @@ $(".text_but").on("click",function(){
 	$(".text_class").hide();
 	$(".select_class").show();
 });
-$("#member_bank_add").on("click",function(){
-	
-	if($("#showType").val()=="1"){
-		var dd = $("#desc1_text").val();
-		if(dd==""){
-			alert("请输入开户行");
-			return;
-		}
-		$("#desc1_req").val(dd);
-	}
-	if($("#showType").val()=="2"){
-		var ff = $("#desc1_select").val();
-		if(ff=="请选择"){
-			alert("请选择开户行");
-			return;
-		}
-		$("#desc1_req").val(ff);
-	}
-	
-	if($("#bankcard_req").val()==""){
+
+function validate(params){
+	if(!params.bankcard){
 		alert("银行卡账户不能为空");
 		return;
 	}
-	if($("#idname_req").val()==""){
-		alert("持卡人名称不能为空");
+	if(!params.bankSubbranchId && !params.bankSubbranchName){
+		alert("请选择或输入开户行名称");
 		return;
 	}
-	if($("#idcard_req").val()==""){
-		alert("身份证号不能为空");
-		return;
-	}
-	if($("#bankname_req").val()==""){
-		alert("开户行名称不能为空");
-		return;
-	}
-	if($("#bankimg_req_str").val()==""){
+	if(!params.bankimg){
 		alert("请上传银行卡照片");
 		return;
 	}
-	$.ajax({
-		url:"/trwuliu/bank/card/uptAutid",
-		type:"post",
-		data:$('#member_bank').serialize(),
-		success:function(ret){
-			if(ret.code=="000000"){
-				window.location.href="/trwuliu/bank/card/page";
-			}else{
-				alert(ret.error)
+	return params;
+}
+$("#member_bank_add").on("click",function(){
+	if($("#showType").val()=="1"){
+		var dd = $("#desc1_text").val();
+		$("#desc1_req").removeAttr('bankSubbranchId').val(dd);
+	}
+	if($("#showType").val()=="2"){
+		var ff = $("#desc1_select").val(); ff = $.trim(ff);
+		$("#desc1_req").attr('bankSubbranchId', ff).val('');
+	}
+	var id = $("#bankId").val(); id = $.trim(id);
+	var bankcarkno = $("#bankcard_req").val(); bankcarkno = $.trim(bankcarkno);
+	var bankSubbranchId = $("#desc1_req").attr('bankSubbranchId'); bankSubbranchId = $.trim(bankSubbranchId);
+	var bankSubbranchName = $("#desc1_req").val(); bankSubbranchName = $.trim(bankSubbranchName);
+	var bankimg = $("#bankimg_req_str").val(); bankimg = $.trim(bankimg);
+	var params = {
+			id: id,
+			bankcard: bankcarkno,
+			bankSubbranchId: bankSubbranchId,
+			bankSubbranchName: bankSubbranchName,
+			bankimg: bankimg
+	};
+	if (validate(params)) {
+		$.ajax({
+			url:"/trwuliu/bank/card/uptAutid",
+			type:"post",
+			data:params,
+			success:function(ret){
+				if(ret.code=="000000"){
+					window.location.href="/trwuliu/bank/card/page";
+				}else{
+					alert(ret.error)
+				}
 			}
-		}
-	});
+		});
+	}
 	
 });
 $(".select2").select2(); 
@@ -78,23 +78,30 @@ function index(){
 		url:"/trwuliu/bank/card/bankCardType",
 		type:"post",
 		data:{"bankcode":$("#bankcard_req").val()},
-		success:function(ret){
-			$("#bankname_req").val(ret.data);
-			bankAddress(ret.data);
+		success:function(res){
+			if (res != null && res.code == '000000' && res.data != null) {
+				$("#bankname_req").val(res.data.name).attr('bankTypeId', res.data.id);
+				bankAddress(res.data.id);
+			} else {
+				$("#bankname_req").val('').removeAttr('bankTypeId');
+				$("#desc1_select").empty();
+				alert(res.error);
+			}
 		}
 	});
 }
-function bankAddress(type){
+function bankAddress(id){
+	$("#desc1_req").removeAttr('bankSubbranchId').val('');
 	$.ajax({
 		url:"/trwuliu/bank/card/findAddress",
-		data:{"name":type},
+		data:{"id":id},
 		type:"post",
 		success:function(ret){
 			var data = ret.data;
 			$("#desc1_select").empty();
-			$("#desc1_select").append("<option>请选择</option>");
+			$("#desc1_select").append("<option value=''>请选择</option>");
 			for (var a = 0; a < data.length; a++) {
-				$("#desc1_select").append("<option value='"+data[a].name+"'>"+data[a].name+"</option>");
+				$("#desc1_select").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
 			}
 		}
 	});

@@ -37,7 +37,11 @@ public class MemberBankCardReq {
     private Integer pageNo;
     
     private Integer pageSize;
-
+    //银行支行id
+    private String bankSubbranchId;
+    //银行支行名称
+    private String bankSubbranchName;
+    
     public String getId() {
         return id;
     }
@@ -180,6 +184,22 @@ public class MemberBankCardReq {
 
 	public void setDesc1(String desc1) {
 		this.desc1 = desc1;
+	}
+
+	public String getBankSubbranchId() {
+		return bankSubbranchId;
+	}
+
+	public void setBankSubbranchId(String bankSubbranchId) {
+		this.bankSubbranchId = bankSubbranchId;
+	}
+
+	public String getBankSubbranchName() {
+		return bankSubbranchName;
+	}
+
+	public void setBankSubbranchName(String bankSubbranchName) {
+		this.bankSubbranchName = bankSubbranchName;
 	}
 
 }

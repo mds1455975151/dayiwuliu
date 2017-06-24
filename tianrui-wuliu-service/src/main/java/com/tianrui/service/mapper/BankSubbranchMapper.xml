@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.BankSubbranchMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.BankSubbranch" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="bank_line_number" property="bankLineNumber" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="innercode" property="innercode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="bank_type_id" property="bankTypeId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bank_line_number, code, innercode, name, bank_type_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_NC_bank_subbranch
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuliu_NC_bank_subbranch
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.BankSubbranch" >
+    insert into wuliu_NC_bank_subbranch (id, bank_line_number, code, 
+      innercode, name, bank_type_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{bankLineNumber,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{innercode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{bankTypeId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.BankSubbranch" >
+    insert into wuliu_NC_bank_subbranch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bankLineNumber != null" >
+        bank_line_number,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="innercode != null" >
+        innercode,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="bankTypeId != null" >
+        bank_type_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bankLineNumber != null" >
+        #{bankLineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="innercode != null" >
+        #{innercode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bankTypeId != null" >
+        #{bankTypeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.BankSubbranch" >
+    update wuliu_NC_bank_subbranch
+    <set >
+      <if test="bankLineNumber != null" >
+        bank_line_number = #{bankLineNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="innercode != null" >
+        innercode = #{innercode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="bankTypeId != null" >
+        bank_type_id = #{bankTypeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.BankSubbranch" >
+    update wuliu_NC_bank_subbranch
+    set bank_line_number = #{bankLineNumber,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      innercode = #{innercode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      bank_type_id = #{bankTypeId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByCondtion" parameterType="com.tianrui.service.bean.BankSubbranch" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from wuliu_NC_bank_subbranch
+  	<where>
+   	  <if test="id != null" >
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+   	  <if test="bankLineNumber != null" >
+        and bank_line_number = #{bankLineNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="code != null" >
+        and code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="innercode != null" >
+        and innercode = #{innercode,jdbcType=VARCHAR}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="bankTypeId != null" >
+        and bank_type_id = #{bankTypeId,jdbcType=VARCHAR}
+      </if>
+  	</where>
+  </select>
+</mapper>

@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行名称:</label> 
-								<input type="text" id="bankname_req" name="bankname"> 
+								<input type="text" id="bankname_req" name="bankname" readonly="readonly"> 
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>持卡人名称:</label> 
@@ -69,10 +69,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input type="hidden" id="desc1_req" name="desc1"> 
 								<div class="select_class">
 									<select style="width: 350px" class="form-control select2" id="desc1_select">
-										<option>请选择</option>
+										<%-- <option>请选择</option>
 										<c:forEach items="${bankAddress }" var="type">
 										<option value="${type.name }">${type.name }</option>
-										</c:forEach>
+										</c:forEach> --%>
 									</select>
 									<button type="button" class="btn btnblue text_sele">编辑</button>
 								</div>
