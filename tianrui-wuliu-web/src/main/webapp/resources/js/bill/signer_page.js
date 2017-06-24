@@ -80,12 +80,13 @@ function innerHTML(data){
 			"<td>"+billstatus+"</td>" +
 			"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 			"<td>";
-		if(data[a].billstatus ==5){
+		if(data[a].billstatus ==5){//普通运单签收
 			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
-		}else if(data[a].billtype == "al"){
+		}else if(data[a].billtype == "al"){//安联运单签收
 			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 		}
-		hml +="<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"','"+data[a].billtype+"')\"'>运单跟踪</button></a>" +
+		hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价确认</button></a>" +
+			"<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"','"+data[a].billtype+"')\"'>运单跟踪</button></a>" +
 			"</td>" +
 			"</tr>";
 	}
@@ -94,6 +95,93 @@ function innerHTML(data){
 $(".pageMore").on("click",function(){
 	pageNo = pageNo+1;
 	index(pageNo);
+});
+//运价确认
+function yj_queren(id,type,totalprice){
+	$("#deduct_bill_id").val(id);
+	$("#deduct_bill_type").val(type);
+	$("#totalprice").html(totalprice);
+	$("#deduct_weight_misc").val("");
+	$("#deduct_money").val("");
+	$("#deduct_other").val("");
+	$("#deduct_oil_card").val("");
+	$("#true_totalprice").html("");
+	$("#yj_queren").modal();
+}
+//计算实际支付金额
+$(".total_price_count").on("change",function(){
+	var deduct_weight_misc = $("#deduct_weight_misc").val();
+	if(!test_number(deduct_weight_misc)&&deduct_weight_misc!=""){
+		alert("输入格式整数最大6位，小数最大2位");
+		return ;
+	}
+	
+	var deduct_money = $("#deduct_money").val();
+	if(!test_number(deduct_money)&&deduct_money!=""){
+		alert("输入格式整数最大6位，小数最大2位");
+		return ;
+	}
+	
+	var deduct_other = $("#deduct_other").val();
+	if(!test_number(deduct_other)&&deduct_other!=""){
+		alert("输入格式整数最大6位，小数最大2位");
+		return ;
+	}
+	
+	var deduct_oil_card = $("#deduct_oil_card").val();
+	if(!test_number(deduct_oil_card)&&deduct_oil_card!=""){
+		alert("输入格式整数最大6位，小数最大2位");
+		return ;
+	}
+	//运单总额
+	var totalprice = $("#totalprice").html();
+	if(totalprice == ""){
+		alert("当前运价为空，不能进行运价确认。");
+		return;
+	}
+	var true_totalprice = totalprice-deduct_weight_misc-deduct_money-deduct_other-deduct_oil_card;
+	
+	$("#true_totalprice").html(true_totalprice);
+	
+});
+//验证输入数字
+function test_number(number){
+	if(!(/^\d{1,6}(\.\d{0,2})?$/.test(number)) ){
+		return false;
+	}else{
+		return true;
+	}
+}
+/**运价确认提交*/
+$(".confirmPrice").on("click",function(){
+	
+	var deduct_weight_misc = $("#deduct_weight_misc").val();
+	var deduct_money = $("#deduct_money").val();
+	var deduct_other = $("#deduct_other").val();
+	var deduct_oil_card = $("#deduct_oil_card").val();
+	var true_totalprice = $("#true_totalprice").html();
+	var deduct_bill_id = $("#deduct_bill_id").val();
+	var deduct_bill_type = $("#deduct_bill_type").val();
+	$.ajax({
+		url:"/trwuliu/billSigner/confirmTotalPrice",
+		type:"POST",
+		data:{"id":deduct_bill_id,
+			"type":deduct_bill_type,
+			"deduct_weight_misc":deduct_weight_misc,
+			"deduct_money":deduct_money,
+			"deduct_other":deduct_other,
+			"deduct_oil_card":deduct_oil_card,
+			"truetotalprice":true_totalprice
+		},
+		success:function(ret){
+			if(ret.code=="000000"){
+				$(".searchBtn").trigger("click");
+				$("#yj_queren").modal("hide");
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
 });
 
 function billSign_(id,type){
@@ -107,8 +195,8 @@ function billSign_(id,type){
 	$("#al_signweight").val("");
 	$("#signimgurlReq_str").val("");
 	$("#al_trueweight").val("");
-	//大易运单签收
 	if(type=="dy"){
+		//大易运单签收
 		$.ajax({
 			url:"/trwuliu/billSigner/findDybillDetail",
 			type:"POST",
@@ -125,6 +213,7 @@ function billSign_(id,type){
 		});
 		$("#signModal").modal();
 	}else if(type=="al"){
+		//安联运单签收
 		$("#al_signBill_id").val(id)
 		$("#anlian_signModal").modal();
 	}

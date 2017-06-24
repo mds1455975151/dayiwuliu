@@ -22,6 +22,8 @@ public class SignerBillResp {
     private Long modifytime;
 
     private String reciveCellphone;
+    
+    private Double totalprice;
 
     public String getId() {
         return id;
@@ -110,4 +112,12 @@ public class SignerBillResp {
     public void setReciveCellphone(String reciveCellphone) {
         this.reciveCellphone = reciveCellphone == null ? null : reciveCellphone.trim();
     }
+
+	public Double getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(Double totalprice) {
+		this.totalprice = totalprice;
+	}
 }

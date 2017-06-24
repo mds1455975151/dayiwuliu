@@ -23,6 +23,8 @@ public class SignerBill {
 
     private String reciveCellphone;
     
+    private Double totalprice;
+    
     private Integer pageNo;
     
     private Integer pageSize;
@@ -129,5 +131,13 @@ public class SignerBill {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Double getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(Double totalprice) {
+		this.totalprice = totalprice;
 	}
 }

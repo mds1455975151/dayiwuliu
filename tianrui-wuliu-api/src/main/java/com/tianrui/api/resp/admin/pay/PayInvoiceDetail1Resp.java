@@ -1,16 +1,12 @@
-package com.tianrui.service.admin.bean;
+package com.tianrui.api.resp.admin.pay;
 /**
  * @Description 运费结算Bean
  * @author zhanggaohao
  * @version 2017年6月20日 下午3:14:02
  */
-public class PayInvoiceDetail {
+public class PayInvoiceDetail1Resp {
 	
 	private String id;
-	
-	private Integer pageNo;
-	
-	private Integer pageSize;
     //单据编号
     private String code;
     //账单ID
@@ -399,95 +395,5 @@ public class PayInvoiceDetail {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
-
-	public Integer getPageNo() {
-		return pageNo;
-	}
-
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
-	}
-
-	public Integer getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public PayInvoiceDetail() {
-		super();
-	}
-
-	public PayInvoiceDetail(String id, String code, String payInvoiceId, String driverId, String driverIdNo,
-			String venderId, String venderIdNo, String ownerId, String ownerIdNo, String invoiceCode,
-			String invoiceName, String billId, String billCode, Integer billType, String materialCode,
-			String materialName, String cargoName, Double billWeight, Double billPrice, Double taxRate,
-			Double receptionBillTotalPrice, Double backstageBillTotalPrice, Double receptionDeductWeightMisc,
-			Double receptionDeductMoney, Double receptionDeductOther, Double receptionDeductOilCard,
-			Double backstageDeductWeightMisc, Double backstageDeductMoney, Double backstageDeductOther,
-			Double backstageDeductOilCard, Boolean whetherClose, String orgid, String orgname, Boolean state,
-			String creator, Long createTime, String modifier, Long modifyTime, String remark) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.payInvoiceId = payInvoiceId;
-		this.driverId = driverId;
-		this.driverIdNo = driverIdNo;
-		this.venderId = venderId;
-		this.venderIdNo = venderIdNo;
-		this.ownerId = ownerId;
-		this.ownerIdNo = ownerIdNo;
-		this.invoiceCode = invoiceCode;
-		this.invoiceName = invoiceName;
-		this.billId = billId;
-		this.billCode = billCode;
-		this.billType = billType;
-		this.materialCode = materialCode;
-		this.materialName = materialName;
-		this.cargoName = cargoName;
-		this.billWeight = billWeight;
-		this.billPrice = billPrice;
-		this.taxRate = taxRate;
-		this.receptionBillTotalPrice = receptionBillTotalPrice;
-		this.backstageBillTotalPrice = backstageBillTotalPrice;
-		this.receptionDeductWeightMisc = receptionDeductWeightMisc;
-		this.receptionDeductMoney = receptionDeductMoney;
-		this.receptionDeductOther = receptionDeductOther;
-		this.receptionDeductOilCard = receptionDeductOilCard;
-		this.backstageDeductWeightMisc = backstageDeductWeightMisc;
-		this.backstageDeductMoney = backstageDeductMoney;
-		this.backstageDeductOther = backstageDeductOther;
-		this.backstageDeductOilCard = backstageDeductOilCard;
-		this.whetherClose = whetherClose;
-		this.orgid = orgid;
-		this.orgname = orgname;
-		this.state = state;
-		this.creator = creator;
-		this.createTime = createTime;
-		this.modifier = modifier;
-		this.modifyTime = modifyTime;
-		this.remark = remark;
-	}
-
-	@Override
-	public String toString() {
-		return "PayInvoiceDetail [id=" + id + ", code=" + code + ", payInvoiceId=" + payInvoiceId + ", driverId="
-				+ driverId + ", driverIdNo=" + driverIdNo + ", venderId=" + venderId + ", venderIdNo=" + venderIdNo
-				+ ", ownerId=" + ownerId + ", ownerIdNo=" + ownerIdNo + ", invoiceCode=" + invoiceCode
-				+ ", invoiceName=" + invoiceName + ", billId=" + billId + ", billCode=" + billCode + ", billType="
-				+ billType + ", materialCode=" + materialCode + ", materialName=" + materialName + ", cargoName="
-				+ cargoName + ", billWeight=" + billWeight + ", billPrice=" + billPrice + ", taxRate=" + taxRate
-				+ ", receptionBillTotalPrice=" + receptionBillTotalPrice + ", backstageBillTotalPrice="
-				+ backstageBillTotalPrice + ", receptionDeductWeightMisc=" + receptionDeductWeightMisc
-				+ ", receptionDeductMoney=" + receptionDeductMoney + ", receptionDeductOther=" + receptionDeductOther
-				+ ", receptionDeductOilCard=" + receptionDeductOilCard + ", backstageDeductWeightMisc="
-				+ backstageDeductWeightMisc + ", backstageDeductMoney=" + backstageDeductMoney
-				+ ", backstageDeductOther=" + backstageDeductOther + ", backstageDeductOilCard="
-				+ backstageDeductOilCard + ", whetherClose=" + whetherClose + ", orgid=" + orgid + ", orgname="
-				+ orgname + ", state=" + state + ", creator=" + creator + ", createTime=" + createTime + ", modifier="
-				+ modifier + ", modifyTime=" + modifyTime + ", remark=" + remark + "]";
-	}
     
 }

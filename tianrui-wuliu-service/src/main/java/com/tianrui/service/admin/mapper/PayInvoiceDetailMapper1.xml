@@ -57,6 +57,40 @@
     from pay_invoice_detail_1
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    select 
+    	<include refid="Base_Column_List" />
+    from pay_invoice_detail_1
+		<where>
+   		  <if test="code != null and code != ''">
+   		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
+   		  </if> 
+   		  <if test="cargoName != null and cargoName != ''">
+   		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		</where>
+   		order by create_time desc
+   		<if test="pageNo != null">
+   			limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   		</if>
+  </select>
+  
+  <select id="selectBycount" resultType="long" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    select 
+    	count(0)
+    from pay_invoice_detail_1
+		<where>
+   		  <if test="code != null and code != ''">
+   		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
+   		  </if> 
+   		  <if test="cargoName != null and cargoName != ''">
+   		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		</where>
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from pay_invoice_detail_1
     where id = #{id,jdbcType=VARCHAR}

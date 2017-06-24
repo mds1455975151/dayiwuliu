@@ -12,6 +12,7 @@ import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ISignerBillService;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
+import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.req.front.bill.SignerBillReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.front.bill.SignerBillResp;
@@ -70,4 +71,15 @@ public class BillSignerAction {
 		rs = anlianBillService.billSigner(req);
 		return rs;
 	}
+	//前台运价确认
+	@RequestMapping("confirmTotalPrice")
+	@ResponseBody
+	public Result confirmTotalPrice(BillConfirmPriceReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setCreater(vo.getId());
+		rs = signerService.BillConfirmPrice(req);
+		return rs;
+	}
+	
 }

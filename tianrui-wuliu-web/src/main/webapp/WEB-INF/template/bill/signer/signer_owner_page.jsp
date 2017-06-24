@@ -192,6 +192,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!-- 签收moal结束 -->
+
+<!-- 运价确认modal -->
+<div class="modal fade" id="yj_queren" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id=" ">运价确认</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bdimg">
+	                <div class="modal-body">
+		                <div class="tab-content">
+		                    <div class="tab-pane fade in active">
+			                    <div>
+			                    	<span>
+				                    <label>当前运价：</label><span id="totalprice"></span>元
+			                    	</span>
+			                    </div>
+			                    <div style="margin-top: 10px">
+			                    	<span>
+				                    <label>扣重扣杂：</label><input class="total_price_count" id="deduct_weight_misc" type="text">元
+			                    	</span>
+									<span style="float:right;">	
+				                    <label>扣款：</label><input class="total_price_count" id="deduct_money" type="text">元
+			                    	</span>
+			                    </div>
+			                    <div style="margin-top: 10px">
+				                    <span>
+				                    <label>其它扣款：</label><input class="total_price_count" id="deduct_other" type="text">元
+				                    </span>
+				                    <span style="float:right;">
+				                    <label>油卡：</label><input class="total_price_count" id="deduct_oil_card" type="text">元
+			                    	</span>
+			                    </div>
+			                    <input type="hidden" id="deduct_bill_id">
+			                    <input type="hidden" id="deduct_bill_type">
+			                    <div style="margin-top: 10px">
+				                    <span style="float:right;">
+				                    <label>实际支付：</label><span id="true_totalprice"></span>元
+			                    	</span>
+			                    </div>
+		                    </div>
+		                </div>
+		            </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirmPrice">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 运价确认moal结束 -->
 <!--上传进度条-->
 	<a id="showload" data-toggle="modal" data-target="#detail"></a>
 	<div class="modal fade" id="detail" tabindex="-1" role="dialog"
@@ -221,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?06.221" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?06.23" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

@@ -25,4 +25,5 @@ public interface IAnlianBillService {
 	public Result update(AnlianBillUpdateReq req)throws Exception;
 	/** 安联运单签收*/
 	public Result billSigner(AnlianBillSignerReq req)throws Exception;
+	
 }

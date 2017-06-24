@@ -13,6 +13,8 @@
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
     <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
     <result column="recive_cellphone" property="reciveCellphone" jdbcType="VARCHAR" />
+    
+    <result column="totalprice" property="totalprice" jdbcType="DOUBLE" />
   </resultMap>
   
   
@@ -20,7 +22,7 @@
       ID, billtype, billno, 
       vehicleno, cargoname, billstatus, 
       payment, receive_memberid, createtime, 
-      modifytime, recive_cellphone
+      modifytime, recive_cellphone, totalprice
   </sql>
  
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >
