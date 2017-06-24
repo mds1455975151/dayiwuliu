@@ -44,32 +44,36 @@ public class MemberBankCardService implements IMemberBankCardService{
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
-
 		Result rs = Result.getSuccessResult();
 		if(req != null && StringUtils.isNotBlank(req.getBankcard())
 				&& (StringUtils.isNotBlank(req.getBankSubbranchId())
 				|| StringUtils.isNotBlank(req.getBankSubbranchName()))
 				&& StringUtils.isNotBlank(req.getBankimg())){
+			MemberBankCard record = new MemberBankCard();
 			MemberVo memberVo = memberVoService.get(req.getCreater());
-			if(!StringUtils.equals(memberVo.getDriverpercheck(), Constant.AUTHSTATUS_PASS)){
-				rs.setCode("1");
-				rs.setError("司机尚未认证成功，请先去进行司机认证");
-				return rs;
+			if(StringUtils.equals(memberVo.getCompanypercheck(), Constant.AUTHSTATUS_PASS)){
+				record.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS);
+			}else{
+				if(StringUtils.equals(memberVo.getDriverpercheck(), Constant.AUTHSTATUS_PASS)
+						&& StringUtils.equals(memberVo.getUserpercheck(), Constant.AUTHSTATUS_PASS)){
+					record.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR);
+				}else{
+					rs.setCode("1");
+					rs.setError("您还未进行认证或未认证通过，请认证成功后再来吧！");
+					return rs;
+				}
 			}
-			MemberBankCard find = new MemberBankCard();
-			find.setCreater(req.getCreater());
-			List<MemberBankCard> list = memberBankCardMapper.selectByCondition(find);
-			find.setBankcard(req.getBankcard());
-			List<MemberBankCard> only = memberBankCardMapper.selectByCondition(find);
+			record.setCreater(req.getCreater());
+			List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
+			record.setBankcard(req.getBankcard());
+			List<MemberBankCard> only = memberBankCardMapper.selectByCondition(record);
 			if(only.size()!=0){
 				rs.setCode("1");
 				rs.setError("您已添加过该银行卡");
 				return rs;
 			}
-			String name = HttpRequestUtil.putRequest(req.getBankcard());
-			MemberBankCard record = new MemberBankCard();
 			record.setId(UUIDUtil.getId());
-			record.setBankcard(req.getBankcard());
+			String name = HttpRequestUtil.putRequest(req.getBankcard());
 			record.setBankname(name);
 			BankType bankType = new BankType();
 			bankType.setName(name);

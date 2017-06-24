@@ -12,13 +12,15 @@ public class PayInvoiceAuditUpdate extends BaseReq {
 	private static final long serialVersionUID = 4715061147059379090L;
 	
 	private String id;
-    //后台扣重扣杂
+	//账单总额
+	private Double billTotalPrice;
+    //扣重扣杂
     private Double deductWeightMisc;
-    //后台扣款
+    //扣款
     private Double deductMoney;
-    //后台其他扣款
+    //其他扣款
     private Double deductOther;
-    //后台油卡扣款
+    //油卡扣款
     private Double deductOilCard;
     
 	public String getId() {
@@ -26,6 +28,12 @@ public class PayInvoiceAuditUpdate extends BaseReq {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public Double getBillTotalPrice() {
+		return billTotalPrice;
+	}
+	public void setBillTotalPrice(Double billTotalPrice) {
+		this.billTotalPrice = billTotalPrice;
 	}
 	public Double getDeductWeightMisc() {
 		return deductWeightMisc;
