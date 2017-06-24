@@ -140,6 +140,13 @@ public class Constant {
     //审核通过，但组织未分配
     public final static Integer NC_MEMBER_PUSH_STATUS_NOT_ORG = 2;
     
+    /**
+     * 银行卡开户人身份
+     */
+    //个人
+    public final static String BANK_ACCOUNT_PERSON_IDENTITY_GR = "1";
+    //公司
+    public final static String BANK_ACCOUNT_PERSON_IDENTITY_GS = "2";
     
 	public static String getFILE_URL_PRE() {
 		return FILE_URL_PRE;

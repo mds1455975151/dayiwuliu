@@ -107,11 +107,12 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			logger.info("into service: driver pay invoice update selectByPrimaryKey bean: " + payInvoice.toString());
 			PayInvoice bean = new PayInvoice();
 			bean.setId(payInvoice.getId());
+			bean.setBackstageBillTotalPrice(auditUpdate.getBillTotalPrice());
 			bean.setBackstageDeductWeightMisc(auditUpdate.getDeductWeightMisc());
 			bean.setBackstageDeductMoney(auditUpdate.getDeductMoney());
 			bean.setBackstageDeductOther(auditUpdate.getDeductOther());
 			bean.setBackstageDeductOilCard(auditUpdate.getDeductOilCard());
-			bean.setAmountPayable(payInvoice.getBackstageBillTotalPrice() 
+			bean.setAmountPayable(bean.getBackstageBillTotalPrice() 
 										- bean.getBackstageDeductMoney() 
 										- bean.getBackstageDeductOilCard() 
 										- bean.getBackstageDeductOther() 

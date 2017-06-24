@@ -207,7 +207,7 @@
 	}
 	//获取审核修改的参数
 	function getAuditParams(){
-		var params = {}
+		var params = {};
 		$('.payMoney input').each(function(){
 			var name = $(this).attr('data-name');
 			params[name] = $(this).val();
@@ -218,6 +218,9 @@
 	function validate(params){
 		if(!params.id){
 			alert("审核ID不能为空！");return;
+		}
+		if(!params.billTotalPrice){
+			alert("账单总额不能为空！");return;
 		}
 		if(!params.deductOilCard){
 			alert("油卡金额不能为空！");return;

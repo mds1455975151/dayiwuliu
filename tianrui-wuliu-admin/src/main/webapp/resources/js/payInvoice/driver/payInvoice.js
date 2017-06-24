@@ -219,6 +219,9 @@
 		if(!params.id){
 			alert("审核ID不能为空！");return;
 		}
+		if(!params.billTotalPrice){
+			alert("账单总额不能为空！");return;
+		}
 		if(!params.deductOilCard){
 			alert("油卡金额不能为空！");return;
 		}
