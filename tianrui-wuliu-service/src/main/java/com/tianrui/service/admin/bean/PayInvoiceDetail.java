@@ -1,4 +1,7 @@
 package com.tianrui.service.admin.bean;
+
+import java.util.List;
+
 /**
  * @Description 运费结算Bean
  * @author zhanggaohao
@@ -7,6 +10,9 @@ package com.tianrui.service.admin.bean;
 public class PayInvoiceDetail {
 	
 	private String id;
+	
+	//多条id
+	private List<String> ids;
 	
 	private Integer pageNo;
 	
@@ -410,6 +416,14 @@ public class PayInvoiceDetail {
 
 	public Integer getPageSize() {
 		return pageSize;
+	}
+
+	public List<String> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<String> ids) {
+		this.ids = ids;
 	}
 
 	public void setPageSize(Integer pageSize) {

@@ -7,6 +7,8 @@ package com.tianrui.api.req.admin.pay;
 public class PayInvoiceDetail1Req {
 	
 	private String id;
+	//多条id
+	private String idStr;
 	
 	private Integer pageNo;
 	
@@ -285,5 +287,12 @@ public class PayInvoiceDetail1Req {
 	public void setOrgname(String orgname) {
 		this.orgname = orgname;
 	}
+	public String getIdStr() {
+		return idStr;
+	}
+	public void setIdStr(String idStr) {
+		this.idStr = idStr;
+	}
+	
     
 }

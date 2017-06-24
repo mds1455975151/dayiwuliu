@@ -69,6 +69,19 @@
    		  <if test="cargoName != null and cargoName != ''">
    		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
    		  </if>
+   		  <if test="venderId != null and venderId != ''">
+   		  	and vender_id = #{venderId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="billType != null and billType != ''">
+   		    and bill_type = #{billType,jdbcType=BIT}
+   		  </if>
+   		  <if test="ids != null">
+	      	and id in 
+	      	<foreach collection="ids" item="employeeId" index="index"
+	            open="(" close=")" separator=",">
+	            #{employeeId}
+	        </foreach> 
+	      </if>
    		</where>
    		order by create_time desc
    		<if test="pageNo != null">
@@ -86,6 +99,12 @@
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
    		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="venderId != null and venderId != ''">
+   		  	and vender_id = #{venderId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="billType != null and billType != ''">
+   		    and bill_type = #{billType,jdbcType=BIT}
    		  </if>
    		</where>
   </select>

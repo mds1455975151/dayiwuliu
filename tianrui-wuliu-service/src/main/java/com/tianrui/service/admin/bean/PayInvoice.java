@@ -42,7 +42,7 @@ public class PayInvoice {
     //收款人名称
     private String payeeName;
     //收款人身份（1：司机，2：车主）
-    private Boolean payeeIdentity;
+    private Integer payeeIdentity;
     //收款人帐号
     private String payeeAccount;
     //收款人银行卡ID
@@ -74,7 +74,7 @@ public class PayInvoice {
     //申请时间
     private Long applicationTime;
     //是否有效（0：无效，1：有效）
-    private Boolean state;
+    private Integer state;
     //创建人
     private String creator;
     //创建时间
@@ -230,11 +230,11 @@ public class PayInvoice {
         this.payeeName = payeeName == null ? null : payeeName.trim();
     }
 
-    public Boolean getPayeeIdentity() {
+    public Integer getPayeeIdentity() {
         return payeeIdentity;
     }
 
-    public void setPayeeIdentity(Boolean payeeIdentity) {
+    public void setPayeeIdentity(Integer payeeIdentity) {
         this.payeeIdentity = payeeIdentity;
     }
 
@@ -358,11 +358,11 @@ public class PayInvoice {
         this.applicationTime = applicationTime;
     }
 
-    public Boolean getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Boolean state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -413,12 +413,12 @@ public class PayInvoice {
 	public PayInvoice(String id, String code, String invoiceCode, String invoiceName, Double amountPayable,
 			Double paidAmount, Integer auditStatus, Long auditTime, Integer pushStatus, Long pushTime,
 			Integer payStatus, Long payTime, String orgid, String orgname, String materialCode, String materialName,
-			String payeeId, String payeeName, Boolean payeeIdentity, String payeeAccount, String payeeBankCardId,
+			String payeeId, String payeeName, Integer payeeIdentity, String payeeAccount, String payeeBankCardId,
 			String payeeBankCardNumber, String payeeIdNo, Double receptionBillTotalPrice,
 			Double receptionDeductWeightMisc, Double receptionDeductMoney, Double receptionDeductOther,
 			Double receptionDeductOilCard, Double backstageBillTotalPrice, Double backstageDeductWeightMisc,
 			Double backstageDeductMoney, Double backstageDeductOther, Double backstageDeductOilCard,
-			Long applicationTime, Boolean state, String creator, Long createTime, String modifier, Long modifyTime,
+			Long applicationTime, Integer state, String creator, Long createTime, String modifier, Long modifyTime,
 			String remark) {
 		super();
 		this.id = id;
