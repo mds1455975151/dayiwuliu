@@ -11,6 +11,8 @@ import com.tianrui.common.constants.Constant;
 public class PayInvoiceReq extends BasePage {
 	
 	private static final long serialVersionUID = -5734564963486255823L;
+	
+	private String id;
 	//模糊匹配运单号
 	private String likeBillCode;
 	//模糊匹配货物名称
@@ -46,6 +48,12 @@ public class PayInvoiceReq extends BasePage {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	@Override
 	public String toString() {

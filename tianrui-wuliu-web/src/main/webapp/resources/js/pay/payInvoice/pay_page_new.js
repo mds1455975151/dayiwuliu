@@ -105,11 +105,9 @@ function innerHTML(ret,flag){
 //查看账单详情
 function showdetail(id){
 	$.ajax({
-		url : "/trwuliu/payInvoiceItem/page",//
+		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
-				"payId":id,
-				"pageNo":1,
-				"pageSize":25},
+				"payInvoiceId":id},
 		type : "post",
 		success : function(rs){
 			if(rs.code=="000000"){
@@ -126,13 +124,16 @@ function innerDetail(ret){
 	var data = ret.list;
 	var hml ;
 	for (var a = 0; a < data.length; a++) {
+		var totalPrice = data[a].receptionBillTotalPrice;
+		if(data[a].backstageBillTotalPrice != 0){
+			totalPrice = data[a].backstageBillTotalPrice;
+		}
 		hml += "<tr><td >"+data[a].billCode+"</td>" +
 			"<td >"+data[a].cargoName+"</td>" +
-			"<td >"+data[a].signTime+"</td>" +
+			"<td >"+data[a].invoiceName+"</td>" +
 			"<td >"+data[a].billWeight+"吨</td>" +
-			"<td >"+data[a].billPrice+"元</td>" +
-			"<td >"+data[a].taxRate+"%</td>" +
-			"<td >"+data[a].billTotalPrice+"元</td></tr>";
+			"<td >"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+			"<td >"+totalPrice+"元</td></tr>";
 	}
 	$("#paydetails").append(hml);
 }

@@ -12,6 +12,9 @@ public class AnlianBill {
     
     private Double trueweight;
     
+    private String 	confirmPriceA;
+    private String	confirmPriceB;
+    
     private String searchKey;
 
     private String billno;
@@ -477,5 +480,18 @@ public class AnlianBill {
 
 	public void setTrueweight(Double trueweight) {
 		this.trueweight = trueweight;
+	}
+
+	public String getConfirmPriceA() {
+		return confirmPriceA;
+	}
+	public void setConfirmPriceA(String confirmPriceA) {
+		this.confirmPriceA = confirmPriceA;
+	}
+	public String getConfirmPriceB() {
+		return confirmPriceB;
+	}
+	public void setConfirmPriceB(String confirmPriceB) {
+		this.confirmPriceB = confirmPriceB;
 	}
 }

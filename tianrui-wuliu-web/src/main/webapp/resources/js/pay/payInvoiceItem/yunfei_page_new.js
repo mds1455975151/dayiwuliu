@@ -65,7 +65,7 @@ function innerHTML(ret,flag){
 			remark = "安联运单";
 		}
 		var price = data[a].receptionBillTotalPrice;
-		if(data[a].backstageBillTotalPrice != undefined){
+		if(data[a].backstageBillTotalPrice != 0){
 			price = data[a].backstageBillTotalPrice;
 		}
 		
@@ -165,7 +165,7 @@ function innerDetail(ret){
 		invoiceTypename = data[a].invoiceName;
 		
 		var price = data[a].receptionBillTotalPrice;
-		if(data[a].backstageBillTotalPrice != undefined){
+		if(data[a].backstageBillTotalPrice != 0){
 			price = data[a].backstageBillTotalPrice;
 		}
 		
@@ -189,6 +189,6 @@ function innerDetail(ret){
 			"</div>" +
 			"<div class='fapiao_dt'>" +
 				"<h4>账单总价："+totprice+"元</h4>" +
-			"</div>" ;
+			"</div>";
 		$(".fapiao_body").append(hml);
 }

@@ -103,7 +103,7 @@
 						 .append('<td>'+(obj.invoiceName || '')+'</td>')
 						 .append('<td>应付款'+(obj.amountPayable || '')+'元<br/>已付款'+(obj.paidAmount || '')+'元</td>')
 						 .append('<td>'+(obj.payeeName || '')+'</td>')
-						 .append('<td>'+(obj.payStatus || '')+'</td>')
+						 .append('<td>'+(obj.payInvoiceStatus || '')+'</td>')
 						 .append('<td>'+operationBtn(obj.btnOpts)+'</td>')
 						 .data('option-data-id', obj.id)
 						 .appendTo('#dataBody');

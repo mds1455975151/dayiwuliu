@@ -51,13 +51,17 @@
     
     <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
     
+    <result column="confirm_Price_A" property="confirmPriceA" jdbcType="VARCHAR" />
+		<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, billno, ownerid, driverid, venderid, ddh, dwzl, sj, cph, zzl, ztj, zsl, yf, jffs, 
     qycs, mdcs, lc, yqthrq, yqdhrq, khdm, thdz, shdz, shr, lxsj, jj, hpmc, sl, dw, hpsx, 
     creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, 
     payment, receive_memberid,
-    pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight
+    pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
+    confirm_Price_A,confirm_Price_B
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -171,7 +175,8 @@
       creater, createtime, modifier, 
       modifytime, desc1, desc2, 
       desc3, desc4,payment, receive_memberid,
-      pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight)
+      pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
+      confirm_Price_A,confirm_Price_B)
     values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
       #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
       #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
@@ -189,7 +194,8 @@
       #{signweight,jdbcType=DOUBLE},
       #{signimgurl,jdbcType=VARCHAR},
       #{signtime,jdbcType=BIGINT},
-      #{trueweight,jdbcType=DOUBLE})
+      #{trueweight,jdbcType=DOUBLE},
+      #{confirmPriceA,jdbcType=VARCHAR},#{confirmPriceB,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     insert into anlian_bill
@@ -330,6 +336,14 @@
       <if test="trueweight != null">
        		trueweight,
       </if>
+      
+      <if test="confirmPriceA != null">
+      	confirmPriceA,
+      </if>
+      <if test="confirmPriceB != null">
+        confirmPriceB,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -468,11 +482,27 @@
        <if test="trueweight != null">
        	#{trueweight,jdbcType=DOUBLE},
       </if>
+      
+      <if test="confirmPriceA != null">
+      	#{confirmPriceA,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmPriceB != null">
+        #{confirmPriceB,jdbcType=VARCHAR},
+      </if>
+      
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     <set >
+     
+     <if test="confirmPriceA != null">
+      	confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmPriceB != null">
+        confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},
+      </if>
+     
      <if test="trueweight != null">
       trueweight = #{trueweight,jdbcType=DOUBLE},
       </if>
@@ -609,6 +639,8 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     set billno = #{billno,jdbcType=VARCHAR},
+    	confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
+        confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},
     trueweight = #{trueweight,jdbcType=DOUBLE},
      pickupweight = #{pickupweight,jdbcType=DOUBLE},
      pickupimgurl = #{pickupimgurl,jdbcType=VARCHAR},

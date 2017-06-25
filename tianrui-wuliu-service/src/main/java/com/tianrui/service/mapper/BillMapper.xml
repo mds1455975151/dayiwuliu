@@ -75,6 +75,9 @@
 		
 		<result column="payment" property="payment" jdbcType="VARCHAR" />
 		<result column="receive_memberid" property="receive_memberid" jdbcType="VARCHAR" />
+		
+		<result column="confirm_Price_A" property="confirmPriceA" jdbcType="VARCHAR" />
+		<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
@@ -93,7 +96,7 @@
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
 		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,
 		jtb,q_deviation,d_deviation,interDistance,interTime,begintime,
-		acctepttime,ownerSigntime,payment,receive_memberid
+		acctepttime,ownerSigntime,payment,receive_memberid,confirm_Price_A,confirm_Price_B
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -427,7 +430,8 @@
 		DESC3, DESC4,isClearing,pathID,pickupweight, 
 		signweight,isAssess,q_deviation,d_deviation,
 		interDistance,interTime,begintime,
-		acctepttime,ownerSigntime,payment,receive_memberid
+		acctepttime,ownerSigntime,payment,receive_memberid,
+		confirm_Price_A,confirm_Price_B
 		)
 		values
 		(#{id,jdbcType=VARCHAR},
@@ -478,7 +482,9 @@
 		#{begintime,jdbcType=BIGINT},#{acctepttime,jdbcType=BIGINT},
 		#{ownerSigntime,jdbcType=BIGINT},
 		 #{payment,jdbcType=VARCHAR}, 
-		  #{receive_memberid,jdbcType=VARCHAR} 
+		  #{receive_memberid,jdbcType=VARCHAR},
+		  #{confirmPriceA,jdbcType=VARCHAR},
+		   #{confirmPriceB,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -663,6 +669,13 @@
 			<if test="receive_memberid != null">
 		 		receive_memberid,
 			</if>
+			
+			<if test="confirmPriceA != null">
+				confirm_Price_A,
+			</if>
+			<if test="confirmPriceB != null">
+		  		 confirm_Price_B,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -843,6 +856,13 @@
 			<if test="receive_memberid != null">
 		 		 #{receive_memberid,jdbcType=VARCHAR},
 			</if>
+			
+			<if test="confirmPriceA != null">
+				#{confirmPriceA,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmPriceB != null">
+		  		 #{confirmPriceB,jdbcType=VARCHAR},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Bill">
@@ -850,6 +870,14 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		<set>
+			
+			<if test="confirmPriceA != null">
+				confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
+			</if>
+			<if test="confirmPriceB != null">
+		  		confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},
+			</if>
+		
 			<if test="payment != null">
 				payment = #{payment,jdbcType=VARCHAR}, 
 			</if>
@@ -1042,6 +1070,8 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		set planid = #{planid,jdbcType=VARCHAR},
+		confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
+		confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},
 		payment = #{payment,jdbcType=VARCHAR}, 
  		receive_memberid = #{receive_memberid,jdbcType=VARCHAR},
 		ownerSigntime = #{ownerSigntime,jdbcType=BIGINT},

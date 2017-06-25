@@ -24,6 +24,10 @@ public class SignerBillResp {
     private String reciveCellphone;
     
     private Double totalprice;
+    
+    private String confirmPriceA;
+    
+    private String confirmPriceB;
 
     public String getId() {
         return id;
@@ -119,5 +123,21 @@ public class SignerBillResp {
 
 	public void setTotalprice(Double totalprice) {
 		this.totalprice = totalprice;
+	}
+
+	public String getConfirmPriceA() {
+		return confirmPriceA;
+	}
+
+	public void setConfirmPriceA(String confirmPriceA) {
+		this.confirmPriceA = confirmPriceA;
+	}
+
+	public String getConfirmPriceB() {
+		return confirmPriceB;
+	}
+
+	public void setConfirmPriceB(String confirmPriceB) {
+		this.confirmPriceB = confirmPriceB;
 	}
 }

@@ -27,6 +27,8 @@ public class PayInvoiceVo extends BaseResp {
     private Integer pushStatus;
     //支付状态（0：未支付，1：支付中，2：已支付）
     private Integer payStatus;
+    //账单状态
+    private String payInvoiceStatus;
     //收款人名称
     private String payeeName;
     //操作按钮（1：审核，2：修改和提交，3：无）
@@ -64,33 +66,26 @@ public class PayInvoiceVo extends BaseResp {
 	public void setPaidAmount(String paidAmount) {
 		this.paidAmount = paidAmount;
 	}
-	public Integer getAuditStatus() {
-		return auditStatus;
-	}
 	public void setAuditStatus(Integer auditStatus) {
 		this.auditStatus = auditStatus;
-	}
-	public Integer getPushStatus() {
-		return pushStatus;
 	}
 	public void setPushStatus(Integer pushStatus) {
 		this.pushStatus = pushStatus;
 	}
-	public String getPayStatus() {
-		String payStatusStr;
-		if (payStatus == Constant.NOT_PAY){
-			payStatusStr = "未支付";
-		} else if (payStatus == Constant.PAY_ING){
-			payStatusStr = "支付中";
-		} else if (payStatus == Constant.YES_PAY){
-			payStatusStr = "已支付";
-		} else {
-			payStatusStr = String.valueOf(payStatus);
-		}
-		return payStatusStr;
+	public String getPayInvoiceStatus() {
+		return payInvoiceStatus;
 	}
-	
-	
+	public void setPayInvoiceStatus(String payInvoiceStatus) {
+		if (payStatus == Constant.NOT_PAY){
+			this.payInvoiceStatus = "未支付";
+		} else if (payStatus == Constant.PAY_ING){
+			this.payInvoiceStatus = "支付中";
+		} else if (payStatus == Constant.YES_PAY){
+			this.payInvoiceStatus = "已支付";
+		} else {
+			this.payInvoiceStatus = "";
+		}
+	}
 	public Long getApplicationTime() {
 		return applicationTime;
 	}

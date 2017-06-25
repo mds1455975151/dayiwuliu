@@ -15,6 +15,9 @@
     <result column="recive_cellphone" property="reciveCellphone" jdbcType="VARCHAR" />
     
     <result column="totalprice" property="totalprice" jdbcType="DOUBLE" />
+    
+    <result column="confirmPriceA" property="confirmPriceA" jdbcType="VARCHAR" />
+    <result column="confirmPriceB" property="confirmPriceB" jdbcType="VARCHAR" />
   </resultMap>
   
   
@@ -22,7 +25,7 @@
       ID, billtype, billno, 
       vehicleno, cargoname, billstatus, 
       payment, receive_memberid, createtime, 
-      modifytime, recive_cellphone, totalprice
+      modifytime, recive_cellphone, totalprice,confirmPriceA,confirmPriceB
   </sql>
  
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >

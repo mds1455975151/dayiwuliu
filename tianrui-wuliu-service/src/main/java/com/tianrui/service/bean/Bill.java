@@ -19,6 +19,10 @@ public class Bill {
 	
 	private String payment;
 	private String receive_memberid;
+	//前台运价确认
+	private String confirmPriceA;
+	//后台运价确认
+	private String confirmPriceB;
 	
 	private String id;
     private String planid;
@@ -1274,6 +1278,22 @@ public class Bill {
 
 	public void setReceive_memberid(String receive_memberid) {
 		this.receive_memberid = receive_memberid;
+	}
+
+	public String getConfirmPriceA() {
+		return confirmPriceA;
+	}
+
+	public void setConfirmPriceA(String confirmPriceA) {
+		this.confirmPriceA = confirmPriceA;
+	}
+
+	public String getConfirmPriceB() {
+		return confirmPriceB;
+	}
+
+	public void setConfirmPriceB(String confirmPriceB) {
+		this.confirmPriceB = confirmPriceB;
 	}
 
 }

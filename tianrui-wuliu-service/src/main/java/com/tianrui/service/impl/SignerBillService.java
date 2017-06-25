@@ -92,11 +92,20 @@ public class SignerBillService implements ISignerBillService{
 			Bill bill = billMapper.selectByPrimaryKey(req.getId());
 			pay = changeDyBill(req,bill);
 			pay.setRemark("dy");
+			Bill upt = new Bill();
+			upt.setId(bill.getId());
+			upt.setConfirmPriceA("1");//前台已运价确认
+			billMapper.updateByPrimaryKeySelective(upt);
+			
 		}else if(StringUtils.equals(req.getType(), "al")){
 			//处理安联平台运单
 			AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
 			pay = changeAlBill(req,bill);
 			pay.setRemark("al");
+			AnlianBill alupt = new AnlianBill();
+			alupt.setId(bill.getId());
+			alupt.setConfirmPriceA("1");//前台已运价确认
+			anlianBillMapper.updateByPrimaryKeySelective(alupt);
 		}
 		payInvoiceDetailMapper1.insertSelective(pay);
 		return rs;

@@ -83,7 +83,21 @@ function innerHTML(data){
 		if(data[a].billstatus ==5){//普通运单签收
 			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 		}else if(data[a].billtype == "al"){//安联运单签收
-			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
+			if(data[a].billstatus == undefined){//前台未运价确认
+				hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
+			}
+		}
+		if(data[a].confirmPriceB == "0"){
+			//后台未运价确认
+		
+		}else if(data[a].confirmPriceB == "1"){
+			//后台已运价确认
+		
+		}else if(data[a].confirmPriceA == "0"){
+			//前台未运价确认
+			
+		}else if(data[a].confirmPriceA == "1"){
+			//前台已运价确认
 		}
 		hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价确认</button></a>" +
 			"<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"','"+data[a].billtype+"')\"'>运单跟踪</button></a>" +

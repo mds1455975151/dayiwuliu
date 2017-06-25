@@ -120,11 +120,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tr>
                             <th >运单号</th>
                             <th >货物名称</th>
-                            <th >到货时间</th>
+                            <th >发票类型</th>
                             <th>到货量</th>
-                            <th>含税单价</th>
-                            <th >税率</th>
-                            <th >账单总价</th>
+                            <th >创建时间</th>
+                            <th >运价</th>
                         </tr>
                         </thead>
                         <tbody id="paydetails">
@@ -145,6 +144,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page_new.js?12.29" ></script>
+<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page_new.js?0625" ></script>
 </body>
 </html>
