@@ -44,7 +44,7 @@ function displayData(pageNo){
 							bytpe = "车主";
 						}
 						hml +=
-							"<tr><td>"+d+"</td>"+
+							"<tr><td>"+d+data[a].billId+"</td>"+
 							"<td>"+data[a].billCode+"</td>"+
 							"<td>"+data[a].invoiceName+"</td>"+
 							"<td>"+(data[a].cargoName || "")+"</td>"+

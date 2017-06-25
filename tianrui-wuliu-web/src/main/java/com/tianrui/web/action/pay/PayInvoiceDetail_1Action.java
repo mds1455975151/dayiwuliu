@@ -60,7 +60,7 @@ public class PayInvoiceDetail_1Action {
 			MemberVo vo = SessionManager.getSessionMember(request);
 			req.setVenderId(vo.getId());
 			//1-司机 2-车主
-			req.setBillType(2);
+//			req.setBillType(2);
 			PaginationVO<PayInvoiceDetail1Resp> page = payInvoiceDetail1Service.select(req);
 			rs.setData(page);
 		} catch (Exception e) {

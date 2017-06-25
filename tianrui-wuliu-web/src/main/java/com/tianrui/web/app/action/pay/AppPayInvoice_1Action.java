@@ -15,6 +15,7 @@ import com.tianrui.api.resp.admin.PayInvoiceVo;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
@@ -36,8 +37,10 @@ public class AppPayInvoice_1Action {
 	public AppResult page(AppParam<PayInvoiceReq> appParam){
 		Result result = Result.getSuccessResult();
 		try {
+			Head head = appParam.getHead();
 			PayInvoiceReq req = appParam.getBody();
-			req.setPayeeIdentity(Constant.PAY_INVOICE_VENDER);
+//			req.setPayeeIdentity(Constant.PAY_INVOICE_VENDER);
+			req.setPayeeId(head.getId());
 			PaginationVO<PayInvoiceVo> page = payInvoiceService.page(req);
 			result.setData(page);
 		} catch (Exception e) {

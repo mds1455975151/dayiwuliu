@@ -64,6 +64,7 @@
 	                        <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li>
 	                        <li><a href="/trwuliu/payInvoiceDriver/main" id="driverpay">运费结算单</a></li>
 	                        <li><a href="/trwuliu/billAnlian/driver" id="driverAnlian">开票运单</a></li>
+	                        <li><a href="/trwuliu/payInvoice_1/mainDriver" id="paymainDriver">支付发票账单</a></li>
 	                        <li><a href="/trwuliu/bank/card/page" id="driverBank">我的银行卡</a></li>
 	                    </ul>
 	                </div>

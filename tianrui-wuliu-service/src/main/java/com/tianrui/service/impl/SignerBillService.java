@@ -170,7 +170,7 @@ public class SignerBillService implements ISignerBillService{
 		pay.setTaxRate(freight.getTallage());
 		
 		//前台运价确认价格
-		pay.setReceptionBillTotalPrice(req.getTruetotalprice());
+		pay.setReceptionBillTotalPrice(Double.valueOf(bill.getYf()));
 		//前台扣重扣杂
 		pay.setReceptionDeductWeightMisc(req.getDeduct_weight_misc());
 		//前台扣款
@@ -232,9 +232,8 @@ public class SignerBillService implements ISignerBillService{
 		pay.setBillPrice(freight.getPrice());
 		//税率
 		pay.setTaxRate(freight.getTallage());
-		
-		//前台运价确认价格
-		pay.setReceptionBillTotalPrice(req.getTruetotalprice());
+		//账单总价
+		pay.setReceptionBillTotalPrice(bill.getTrueweight()*freight.getPrice());
 		//前台扣重扣杂
 		pay.setReceptionDeductWeightMisc(req.getDeduct_weight_misc());
 		//前台扣款

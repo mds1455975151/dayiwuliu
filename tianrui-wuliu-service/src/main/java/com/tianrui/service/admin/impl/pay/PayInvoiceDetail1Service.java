@@ -19,6 +19,7 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
+import com.tianrui.service.admin.bean.PayPriceSave;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
 import com.tianrui.service.bean.Bill;
@@ -148,16 +149,27 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 				return rs;
 			}
 		}
+		//支付对象为司机
+		if(pay.getBillType()==1){
+			PayInviceSave1Req driverPay = new PayInviceSave1Req();
+			driverPay.setIdStr(pay.getId());
+			driverPay.setAdPayeeidType("1");
+			driverPay.setCreater("admin");
+			//生成账单
+			rs = savePayInvoice(driverPay);
+		}
+		
 		PayInvoiceDetail upt = new PayInvoiceDetail();
 		PropertyUtils.copyProperties(upt, req);
 		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
+		
 		return rs;
 	}
 	@Override
 	public Result savePayInvoice(PayInviceSave1Req req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		
-		if(StringUtils.isNotBlank(req.getCreater())&&StringUtils.isNotBlank(req.getIdStr())){
+		if((StringUtils.isNotBlank(req.getCreater())&&StringUtils.isNotBlank(req.getIdStr()))||StringUtils.isNotBlank(req.getAdPayeeidType())){
 			String[] idArr = req.getIdStr().split(";");
 			PayInvoiceDetail pay = new PayInvoiceDetail();
 			pay.setIds(Arrays.asList(idArr));
@@ -170,43 +182,112 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 					if(checkInvoiceStatus(list)){
 						//验证发票类型
 						if(checkInvoiceType(list)){
+							//前台--
+							//总价
+							Double totalPrice = 0.00;
+							//扣重扣杂
+							Double weightMisc = 0.00;
+							//扣款
+							Double deductMoney = 0.00;
+							//扣款
+							Double deductOther = 0.00;
+							//油卡扣款
+							Double oilCard = 0.00;
+							
+							//后台--
+							//总价
+							Double totalPriceB = 0.00;
+							//扣重扣杂
+							Double weightMiscB = 0.00;
+							//扣款
+							Double deductMoneyB = 0.00;
+							//扣款
+							Double deductOtherB = 0.00;
+							//油卡扣款
+							Double oilCardB = 0.00;
+							for(PayInvoiceDetail d : list){
+								if(d.getBackstageBillTotalPrice()==0){
+									rs.setCode("1");
+									rs.setError("管理员尚未确认的账单"+d.getBillCode());
+									return rs;
+								}else {
+									//后台
+									totalPriceB += d.getBackstageBillTotalPrice();
+									weightMiscB += d.getBackstageDeductWeightMisc();
+									deductMoneyB += d.getBackstageDeductMoney();
+									deductOtherB += d.getBackstageDeductOther();
+									oilCardB += d.getBackstageDeductOilCard();
+									//前台
+									totalPrice += d.getReceptionBillTotalPrice();
+									weightMisc += d.getReceptionDeductWeightMisc();
+									deductMoney += d.getReceptionDeductMoney();
+									deductOther += d.getReceptionDeductOther();
+									oilCard += d.getReceptionDeductOilCard();
+								}
+							}
 							PayInvoice invoice = new PayInvoice();
 							String invoiceid = UUIDUtil.getId();
 							//账单id
 							invoice.setId(invoiceid);
+							//后台扣款信息
+							invoice.setBackstageBillTotalPrice(totalPriceB);
+							invoice.setBackstageDeductMoney(deductMoneyB);
+							invoice.setBackstageDeductOilCard(oilCardB);
+							invoice.setBackstageDeductOther(deductOtherB);
+							invoice.setBackstageDeductWeightMisc(weightMiscB);
+							//前台扣款信息
+							invoice.setReceptionBillTotalPrice(totalPrice);
+							invoice.setReceptionDeductMoney(deductMoney);
+							invoice.setReceptionDeductOilCard(oilCard);
+							invoice.setReceptionDeductOther(deductOther);
+							invoice.setReceptionDeductWeightMisc(weightMisc);
+							//应付金额=总额-后台运价确认扣款信息
+							invoice.setAmountPayable(totalPriceB-deductMoneyB-oilCardB-deductOtherB-weightMiscB);
 							//编号
 							invoice.setCode(codeGenDao.codeGen(4));
 							//账单类型
 							invoice.setInvoiceCode(list.get(0).getInvoiceCode());
 							//账单类型名称
 							invoice.setInvoiceName(list.get(0).getInvoiceName());
-							//应付金额
-							invoice.setAmountPayable(req.getAmountPayable());
 							//已付金额
 							invoice.setPaidAmount((double) 0);
-							//审核状态（0：未审核，1：审核中，2：已审核）
-							invoice.setAuditStatus(Constant.NOT_AUDIT);
-							//推单状态（0：未推单，1：退单中，2已退单）
-							invoice.setPushStatus(Constant.NOT_PUSH);
-							//支付状态（0：未支付，1：支付中，2：已支付）
-							invoice.setPayStatus(Constant.NOT_PAY);
-							//是否有效（0：无效，1：有效）
-							invoice.setState(Constant.DATA_VALID);
+							
 							//物料编码
 							invoice.setMaterialCode(list.get(0).getInvoiceCode());
 							invoice.setMaterialName(list.get(0).getInvoiceName());
 							//收款人身份
 							invoice.setPayeeIdentity(list.get(0).getBillType());
 							
+							//支付状态（0：未支付，1：支付中，2：已支付）
+							invoice.setPayStatus(Constant.NOT_PAY);
+							//是否有效（0：无效，1：有效）
+							invoice.setState(Constant.DATA_VALID);
+							
 							String payeeid = "";
-							if(list.get(0).getBillType()==Constant.PAY_INVOICE_DRIVER){
-								//支付到司机
-								//收款人id
-								payeeid = list.get(0).getDriverId();
+							if(StringUtils.equals("1", req.getAdPayeeidType())){
+								//判断是否为后台司机运价确认
+								if(list.get(0).getBillType()==Constant.PAY_INVOICE_DRIVER){
+									//支付到司机
+									//收款人id
+									payeeid = list.get(0).getDriverId();
+									//审核状态（0：未审核，1：审核中，2：已审核）
+									invoice.setAuditStatus(Constant.YES_AUDIT);
+									//推单状态（0：未推单，1：退单中，2已退单）
+									invoice.setPushStatus(Constant.PUSH_ING);
+								}else if(list.get(0).getBillType()==Constant.PAY_INVOICE_VENDER){
+									rs.setCode("1");
+									rs.setError("车主账单，不支持改操作");
+									return rs;
+								}
+								
 							}else if(list.get(0).getBillType()==Constant.PAY_INVOICE_VENDER){
 								//支付到车主
 								//收款人id
 								payeeid = list.get(0).getVenderId();
+								//审核状态（0：未审核，1：审核中，2：已审核）
+								invoice.setAuditStatus(Constant.NOT_AUDIT);
+								//推单状态（0：未推单，1：退单中，2已退单）
+								invoice.setPushStatus(Constant.NOT_PUSH);
 							}else{
 								rs.setCode("1");
 								rs.setError("未找到支付对象");

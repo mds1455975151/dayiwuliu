@@ -26,7 +26,7 @@ public class PayInvoice_1Action {
 	
 	@Autowired
 	private IPayInvoiceService payInvoiceService;
-	
+	/**车主账单*/
 	@RequestMapping("main")
 	public ModelAndView main(HttpServletRequest request){
 		ModelAndView model = new ModelAndView("pay/payInvoice/pay_page_new");
@@ -35,13 +35,22 @@ public class PayInvoice_1Action {
 		return model;
 	}
 	
+	/**车主账单*/
+	@RequestMapping("mainDriver")
+	public ModelAndView mainDriver(HttpServletRequest request){
+		ModelAndView model = new ModelAndView("pay/driverpay/pay_page_new");
+		MemberVo vo = SessionManager.getSessionMember(request);
+		model.addObject("currId", vo.getId());
+		return model;
+	}
 	
 	@RequestMapping("/page")
 	@ResponseBody
 	public Result page(HttpServletRequest request,PayInvoiceReq req){
 		Result result = Result.getSuccessResult();
 		try {
-			req.setPayeeIdentity(Constant.PAY_INVOICE_VENDER);
+			MemberVo vo = SessionManager.getSessionMember(request);
+			req.setPayeeId(vo.getId());
 			PaginationVO<PayInvoiceVo> page = payInvoiceService.page(req);
 			result.setData(page);
 		} catch (Exception e) {

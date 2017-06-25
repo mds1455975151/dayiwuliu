@@ -70,6 +70,18 @@ public class AppPayInvoiceDetail_1Action {
 		return AppResult.valueOf(rs);
 	}
 	
+	/**billId  运单id 查询运价确认信息*/
+	@RequestMapping("billSelectPrice")
+	@ApiParamRawType(PayInvoiceDetail1Req.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult billSelectPrice(AppParam<PayInvoiceDetail1Req> appParam) throws Exception{
+		Result rs =Result.getSuccessResult();
+		PayInvoiceDetail1Req req = appParam.getBody();
+		rs = payInvoiceDetail1Service.billSelectPrice(req);
+		return AppResult.valueOf(rs);
+	}
+	
 	/** 查询多选数据
 	 * @throws Exception */
 	@RequestMapping(value="/selectIds",method = RequestMethod.POST)

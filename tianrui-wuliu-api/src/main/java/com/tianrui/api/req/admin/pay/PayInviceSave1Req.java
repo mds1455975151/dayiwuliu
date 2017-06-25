@@ -9,6 +9,8 @@ public class PayInviceSave1Req {
     private String invoiceName;
     //应付金额
     private Double amountPayable;
+    //支付对象
+    private String adPayeeidType;
 	
 	private String creater;
 
@@ -51,6 +53,12 @@ public class PayInviceSave1Req {
 	public void setAmountPayable(Double amountPayable) {
 		this.amountPayable = amountPayable;
 	}
-	
-	
+
+	public String getAdPayeeidType() {
+		return adPayeeidType;
+	}
+
+	public void setAdPayeeidType(String adPayeeidType) {
+		this.adPayeeidType = adPayeeidType;
+	}
 }

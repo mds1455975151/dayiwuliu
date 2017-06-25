@@ -32,7 +32,7 @@ function index(No,flag){
 	$.ajax({
 		url : "/trwuliu/payInvoice_1/page",//
 		data : {
-			"payeeIdentity":"2",//车主账单
+			"payeeIdentity":"1",//司机账单
 			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",

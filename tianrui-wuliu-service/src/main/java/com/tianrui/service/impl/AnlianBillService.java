@@ -389,9 +389,9 @@ public class AnlianBillService implements IAnlianBillService{
 		}
 		planMapper.updateByPrimaryKeySelective(planUpdate);
 		//为车主发送站内信
-		MemberVo currUser =getMember(req.getCreater());
-		MemberVo receive =getMember(bill.getVenderid());
-		sendMsgInside(Arrays.asList(new String[]{bill.getBillno(),currUser.getRealName()}), bill.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_ALSIGN, "vender");
+//		MemberVo currUser =getMember(req.getCreater());
+//		MemberVo receive =getMember(bill.getVenderid());
+//		sendMsgInside(Arrays.asList(new String[]{bill.getBillno(),currUser.getCellphone()}), bill.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_ALSIGN, "vender");
 		return rs;
 	}
 	

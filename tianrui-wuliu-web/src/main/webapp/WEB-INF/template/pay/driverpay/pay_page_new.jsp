@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>支付发票账单/车主</title>
+    <title>支付发票账单/司机</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -144,6 +144,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page_new.js?0625" ></script>
+<script type="text/javascript" src="/resources/js/pay/driverpay/pay_page_new.js?0625" ></script>
 </body>
 </html>

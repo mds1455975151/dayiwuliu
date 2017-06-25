@@ -309,6 +309,9 @@
       <if test="payeeIdNo != null" >
         #{payeeIdNo,jdbcType=VARCHAR},
       </if>
+      <if test="receptionBillTotalPrice != null" >
+        #{receptionBillTotalPrice,jdbcType=DOUBLE},
+      </if>
       <if test="receptionDeductWeightMisc != null" >
         #{receptionDeductWeightMisc,jdbcType=DOUBLE},
       </if>
@@ -320,6 +323,9 @@
       </if>
       <if test="receptionDeductOilCard != null" >
         #{receptionDeductOilCard,jdbcType=DOUBLE},
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        #{backstageBillTotalPrice,jdbcType=DOUBLE},
       </if>
       <if test="backstageDeductWeightMisc != null" >
         #{backstageDeductWeightMisc,jdbcType=DOUBLE},
@@ -685,6 +691,9 @@
 		<if test="payeeIdentity != null and payeeIdentity != ''">
 			and p1.payee_identity = #{payeeIdentity, jdbcType=BIT} 
 		</if>
+		<if test="payeeId != null and payeeId != ''">
+			and p1.payee_id = #{payeeId, jdbcType=VARCHAR}
+		</if>
 	</where>
 	<if test="orderColumn != null and orderColumn != ''">
   		order by ${orderColumn} 
@@ -729,6 +738,9 @@
 		</if>
 		<if test="payeeIdentity != null and payeeIdentity != ''">
 			and p1.payee_identity = #{payeeIdentity, jdbcType=BIT} 
+		</if>
+		<if test="payeeId != null and payeeId != ''">
+			and p1.payee_id = #{payeeId, jdbcType=VARCHAR}
 		</if>
 	</where>
   </select>

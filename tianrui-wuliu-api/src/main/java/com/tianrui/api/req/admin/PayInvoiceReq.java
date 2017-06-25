@@ -19,6 +19,8 @@ public class PayInvoiceReq extends BasePage {
 	private String likeCargoName;
 	//账单收款身份
 	private Integer payeeIdentity;
+	//收款人id
+	private String payeeId;
 	//是否有效数据
 	private Integer state = Constant.DATA_VALID;
 	
@@ -54,6 +56,12 @@ public class PayInvoiceReq extends BasePage {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPayeeId() {
+		return payeeId;
+	}
+	public void setPayeeId(String payeeId) {
+		this.payeeId = payeeId;
 	}
 	@Override
 	public String toString() {

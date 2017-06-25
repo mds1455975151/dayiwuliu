@@ -16,12 +16,7 @@ function index(No,flag){
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
-			"billNO":billcode,
-			"signTime":signtime,
-			"cargoName":cargoName,
-			"isInvoice":isvoid,
-			"invoiceType":invoiceType,
-			"ownername":ownername,
+			"billType":2,
 			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
@@ -64,9 +59,22 @@ function innerHTML(ret,flag){
 		}else if(data[a].remark == "al"){
 			remark = "安联运单";
 		}
-		var price = data[a].receptionBillTotalPrice;
+		var price = 0;
 		if(data[a].backstageBillTotalPrice != 0){
-			price = data[a].backstageBillTotalPrice;
+			//后台已运价确认
+			price = data[a].backstageBillTotalPrice
+				-data[a].backstageDeductMoney
+				-data[a].backstageDeductOilCard
+				-data[a].backstageDeductOther
+				-data[a].backstageDeductWeightMisc;
+			
+		}else {
+			//后台未运价确认
+			price = data[a].receptionBillTotalPrice 
+				-data[a].receptionDeductMoney
+				-data[a].receptionDeductOther
+				-data[a].receptionDeductWeightMisc
+				-data[a].receptionDeductOilCard;
 		}
 		
 		var piao
@@ -164,9 +172,22 @@ function innerDetail(ret){
 		}
 		invoiceTypename = data[a].invoiceName;
 		
-		var price = data[a].receptionBillTotalPrice;
+		var price = 0;
 		if(data[a].backstageBillTotalPrice != 0){
-			price = data[a].backstageBillTotalPrice;
+			//后台已运价确认
+			price = data[a].backstageBillTotalPrice
+				-data[a].backstageDeductMoney
+				-data[a].backstageDeductOilCard
+				-data[a].backstageDeductOther
+				-data[a].backstageDeductWeightMisc;
+			
+		}else {
+			//后台未运价确认
+			price = data[a].receptionBillTotalPrice 
+				-data[a].receptionDeductMoney
+				-data[a].receptionDeductOther
+				-data[a].receptionDeductWeightMisc
+				-data[a].receptionDeductOilCard;
 		}
 		
 		totprice = Number(totprice + price);
