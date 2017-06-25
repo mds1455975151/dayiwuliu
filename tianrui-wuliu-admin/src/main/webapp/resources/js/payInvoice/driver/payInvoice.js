@@ -36,6 +36,7 @@
 		$('#pageSize').change(function(){
 			getDataForAjax(1);
 		});
+		onpropertychange();
 	}
 	//重置搜索条件
 	function resetSearchParams(){
@@ -280,6 +281,15 @@
 				}
 			});
 		}
+	}
+	//给审核和修改弹出窗绑定onpropertychange
+	function onpropertychange(){
+		$('.payMoney input').off('keyup').on('keyup', function(e){
+			e.stopPropagation();
+			var params = getAuditParams();
+			var amountPayable = params.billTotalPrice - params.deductOilCard - params.deductWeightMisc - params.deductMoney - params.deductOther;
+			$('.payMoney input[data-name="amountPayable"]').val(amountPayable);
+		});
 	}
 	
 })(jQuery);

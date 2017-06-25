@@ -25,4 +25,6 @@ public interface PayInvoiceMapper1 {
     long selectPayInvoicePageCount(PayInvoiceReq req);
     
     PayInvoiceAuditVo selectPayInvoiceAuditData(String id);
+
+	List<PayInvoice> selectByCondition(PayInvoice record);
 }

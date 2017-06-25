@@ -62,6 +62,7 @@ public enum ErrorCode {
 	PAY_DATA_NOT_ISCLEAN("E401011","运单已确认，不能重复操作"),
 	PAY_DATA_PAY_ADVICE("E401012","不合法的支付单状态"),
 	PAY_INVOICE_ERROR("E401013","账单推单失败."),
+	PAY_INVOICE_ERROR1("E401013","账单已推过，请勿重复推单."),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机"),

@@ -522,6 +522,134 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectByCondition" parameterType="com.tianrui.service.admin.bean.PayInvoice" resultMap="BaseResultMap">
+  	SELECT
+		<include refid="Base_Column_List" />
+	FROM
+		pay_invoice_1
+	<where>
+	  <if test="id != null" >
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+	  <if test="code != null" >
+        and code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="invoiceCode != null" >
+        and invoice_code = #{invoiceCode,jdbcType=VARCHAR}
+      </if>
+      <if test="invoiceName != null" >
+        and invoice_name = #{invoiceName,jdbcType=VARCHAR}
+      </if>
+      <if test="amountPayable != null" >
+        and amount_payable = #{amountPayable,jdbcType=DOUBLE}
+      </if>
+      <if test="paidAmount != null" >
+        and paid_amount = #{paidAmount,jdbcType=DOUBLE}
+      </if>
+      <if test="auditStatus != null" >
+        and audit_status = #{auditStatus,jdbcType=BIT}
+      </if>
+      <if test="auditTime != null" >
+        and audit_time = #{auditTime,jdbcType=BIGINT}
+      </if>
+      <if test="pushStatus != null" >
+        and push_status = #{pushStatus,jdbcType=BIT}
+      </if>
+      <if test="pushTime != null" >
+        and push_time = #{pushTime,jdbcType=BIGINT}
+      </if>
+      <if test="payStatus != null" >
+        and pay_status = #{payStatus,jdbcType=BIT}
+      </if>
+      <if test="payTime != null" >
+        and pay_time = #{payTime,jdbcType=BIGINT}
+      </if>
+      <if test="orgid != null" >
+        and orgid = #{orgid,jdbcType=VARCHAR}
+      </if>
+      <if test="orgname != null" >
+        and orgname = #{orgname,jdbcType=VARCHAR}
+      </if>
+      <if test="materialCode != null" >
+        and material_code = #{materialCode,jdbcType=VARCHAR}
+      </if>
+      <if test="materialName != null" >
+        and material_name = #{materialName,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeId != null" >
+        and payee_id = #{payeeId,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeName != null" >
+        and payee_name = #{payeeName,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeIdentity != null" >
+        and payee_identity = #{payeeIdentity,jdbcType=BIT}
+      </if>
+      <if test="payeeAccount != null" >
+        and payee_account = #{payeeAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeBankCardId != null" >
+        and payee_bank_card_id = #{payeeBankCardId,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeBankCardNumber != null" >
+        and payee_bank_card_number = #{payeeBankCardNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeIdNo != null" >
+        and payee_id_no = #{payeeIdNo,jdbcType=VARCHAR}
+      </if>
+      <if test="receptionBillTotalPrice != null" >
+        and reception_bill_total_price = #{receptionBillTotalPrice,jdbcType=DOUBLE}
+      </if>
+      <if test="receptionDeductWeightMisc != null" >
+        and reception_deduct_weight_misc = #{receptionDeductWeightMisc,jdbcType=DOUBLE}
+      </if>
+      <if test="receptionDeductMoney != null" >
+        and reception_deduct_money = #{receptionDeductMoney,jdbcType=DOUBLE}
+      </if>
+      <if test="receptionDeductOther != null" >
+        and reception_deduct_other = #{receptionDeductOther,jdbcType=DOUBLE}
+      </if>
+      <if test="receptionDeductOilCard != null" >
+        and reception_deduct_oil_card = #{receptionDeductOilCard,jdbcType=DOUBLE}
+      </if>
+      <if test="backstageBillTotalPrice != null" >
+        and backstage_bill_total_price = #{backstageBillTotalPrice,jdbcType=DOUBLE}
+      </if>
+      <if test="backstageDeductWeightMisc != null" >
+        and backstage_deduct_weight_misc = #{backstageDeductWeightMisc,jdbcType=DOUBLE}
+      </if>
+      <if test="backstageDeductMoney != null" >
+        and backstage_deduct_money = #{backstageDeductMoney,jdbcType=DOUBLE}
+      </if>
+      <if test="backstageDeductOther != null" >
+        and backstage_deduct_other = #{backstageDeductOther,jdbcType=DOUBLE}
+      </if>
+      <if test="backstageDeductOilCard != null" >
+        and backstage_deduct_oil_card = #{backstageDeductOilCard,jdbcType=DOUBLE}
+      </if>
+      <if test="applicationTime != null" >
+        and application_time = #{applicationTime,jdbcType=BIGINT}
+      </if>
+      <if test="state != null" >
+        and state = #{state,jdbcType=BIT}
+      </if>
+      <if test="creator != null" >
+        and creator = #{creator,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=BIGINT}
+      </if>
+      <if test="modifier != null" >
+        and modifier = #{modifier,jdbcType=VARCHAR}
+      </if>
+      <if test="modifyTime != null" >
+        and modify_time = #{modifyTime,jdbcType=BIGINT}
+      </if>
+      <if test="remark != null" >
+        and remark = #{remark,jdbcType=VARCHAR}
+      </if>
+	</where>
+  </select>
   <select id="selectPayInvoicePage" parameterType="com.tianrui.api.req.admin.PayInvoiceReq" resultMap="BaseResultVoMap">
   	SELECT
   		p1.id,
@@ -536,14 +664,21 @@
 		p1.application_time
 	FROM
 		pay_invoice_1 p1
-	LEFT JOIN pay_invoice_detail_1 p2 ON p1.id = p2.pay_invoice_id
 	<where>
-		<if test="likeBillCode != null and likeBillCode != ''">
-			and p2.bill_code LIKE CONCAT('%',#{likeBillCode, jdbcType=VARCHAR} ,'%')
-		</if>
-		<if test="likeCargoName != null and likeCargoName != ''">
-			and p2.cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
-		</if>
+		AND EXISTS (
+			SELECT
+				COUNT(0)
+			FROM
+				pay_invoice_detail_1
+			WHERE
+				p1.id = pay_invoice_id
+				<if test="likeBillCode != null and likeBillCode != ''">
+					and bill_code LIKE CONCAT('%',#{likeBillCode, jdbcType=VARCHAR} ,'%')
+				</if>
+				<if test="likeCargoName != null and likeCargoName != ''">
+					and cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
+				</if>
+		)
 		<if test="state != null and state != ''">
 			and p1.state = #{state, jdbcType=BIT}
 		</if>
@@ -575,12 +710,20 @@
 		pay_invoice_1 p1
 	LEFT JOIN pay_invoice_detail_1 p2 ON p1.id = p2.pay_invoice_id
 	<where>
-		<if test="likeBillCode != null and likeBillCode != ''">
-			and p2.bill_code LIKE CONCAT('%',#{likeBillCode, jdbcType=VARCHAR} ,'%')
-		</if>
-		<if test="likeCargoName != null and likeCargoName != ''">
-			and p2.cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
-		</if>
+		AND EXISTS (
+			SELECT
+				COUNT(0)
+			FROM
+				pay_invoice_detail_1
+			WHERE
+				p1.id = pay_invoice_id
+				<if test="likeBillCode != null and likeBillCode != ''">
+					and bill_code LIKE CONCAT('%',#{likeBillCode, jdbcType=VARCHAR} ,'%')
+				</if>
+				<if test="likeCargoName != null and likeCargoName != ''">
+					and cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
+				</if>
+		)
 		<if test="state != null and state != ''">
 			and p1.state = #{state, jdbcType=BIT}
 		</if>

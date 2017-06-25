@@ -41,12 +41,12 @@ public class ApiResult {
 	public String toString() {
 		return "ApiResult [code=" + code + ", message=" + message + ", data=" + data + "]";
 	}
-	public ApiResult getSuccessResult(){
+	public static ApiResult getSuccessResult(){
 		ApiResult apiResult = new ApiResult();
 		apiResult.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		return apiResult;
 	}
-	public ApiResult getErrorResult(){
+	public static ApiResult getErrorResult(){
 		ApiResult apiResult = new ApiResult();
 		apiResult.setErrorCode(ErrorCode.SYSTEM_ERROR);
 		return apiResult;

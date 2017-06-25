@@ -436,25 +436,27 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			apiResult = HttpUtil.post(list, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH_NC_STATUS);
 			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
-				for (Object object : array) {
-					JSONObject jsonObject = (JSONObject) object;
-					String id = jsonObject.getString("id");
-					String status = jsonObject.getString("status");
-					//审核通过并分配组织
-					if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
-						//回写供应商ncStatus
-						SystemMemberInfo info = new SystemMemberInfo();
-						info.setId(id);
-						info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
-						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
-					} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
-						//回写供应商ncStatus
-						SystemMemberInfo info = new SystemMemberInfo();
-						info.setId(id);
-						info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
-						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
-					} else {
-						LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态: 供应商ID: "+ id + ", 查询结果： " + NCResultEnum.getMessage(status));
+				if(CollectionUtils.isNotEmpty(array)){
+					for (Object object : array) {
+						JSONObject jsonObject = (JSONObject) object;
+						String id = jsonObject.getString("id");
+						String status = jsonObject.getString("status");
+						//审核通过并分配组织
+						if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
+							//回写供应商ncStatus
+							SystemMemberInfo info = new SystemMemberInfo();
+							info.setId(id);
+							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
+							systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
+							//回写供应商ncStatus
+							SystemMemberInfo info = new SystemMemberInfo();
+							info.setId(id);
+							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
+							systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+						} else {
+							LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态: 供应商ID: "+ id + ", 查询结果： " + NCResultEnum.getMessage(status));
+						}
 					}
 				}
 			} else {

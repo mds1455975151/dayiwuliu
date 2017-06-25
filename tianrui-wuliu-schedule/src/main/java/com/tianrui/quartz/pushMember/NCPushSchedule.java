@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
 
 /**
@@ -26,10 +27,17 @@ public class NCPushSchedule {
 	
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
-	
+	@Autowired
+	private IPayInvoiceService payInvoiceService;
+
 	@Scheduled(cron="* 0/10 *  * * ? ")
 	public void callBackPushStatus(){
 		systemMemberInfoService.scheduleCallBackPushStatus();
+	}
+
+	@Scheduled(cron="0/10 * *  * * ? ")
+	public void callBackPayInvoicePaidAmount(){
+		payInvoiceService.callBackPayInvoicePaidAmount();
 	}
 	
 }

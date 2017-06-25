@@ -25,5 +25,12 @@ public interface IPayInvoiceService {
 	Result pushBack(String id);
 	/**账单删除*/
 	Result payDelete(String id);
+	/**
+	 * @Description 定时查询NC接口获取账单id及对应的应付金额并回写
+	 * @exception 
+	 * @author zhanggaohao
+	 * @version 2017年6月25日 上午9:16:22
+	 */
+	void callBackPayInvoicePaidAmount();
 
 }
