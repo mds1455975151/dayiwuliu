@@ -22,15 +22,17 @@ import com.tianrui.common.utils.HttpRequestUtil;
 import com.tianrui.common.utils.HttpUtil;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.ApiResult;
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.BankSubbranch;
 import com.tianrui.service.bean.BankType;
 import com.tianrui.service.bean.MemberBankCard;
+import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.mapper.BankSubbranchMapper;
 import com.tianrui.service.mapper.BankTypeMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
+import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 
 @Service
@@ -45,102 +47,139 @@ public class MemberBankCardService implements IMemberBankCardService{
 	@Autowired
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
+	SystemMemberInfoMapper systemMemberInfoMapper;
+	@Autowired
 	IMemberVoService memberVoService;
 	@Autowired
 	private TaskExecutor taskExecutor;
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
-		Result rs = Result.getSuccessResult();
+		Result rs = Result.getErrorResult();
 		if(req != null && StringUtils.isNotBlank(req.getBankcard())
 				&& (StringUtils.isNotBlank(req.getBankSubbranchId())
 				|| StringUtils.isNotBlank(req.getBankSubbranchName()))){
 			MemberBankCard record = new MemberBankCard();
-			MemberVo memberVo = memberVoService.get(req.getCreater());
-			if(StringUtils.equals(memberVo.getCompanypercheck(), Constant.AUTHSTATUS_PASS)){
-				record.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS);
-			}else{
-				if(StringUtils.equals(memberVo.getDriverpercheck(), Constant.AUTHSTATUS_PASS)
-						&& StringUtils.equals(memberVo.getUserpercheck(), Constant.AUTHSTATUS_PASS)){
-					if (StringUtils.isNotBlank(req.getBankimg())){
-						rs.setCode("1");
-						rs.setError("请先上传银行卡图片！");
-						return rs;
-					}
-					record.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR);
-				}else{
+			//MemberVo memberVo = memberVoService.get(req.getCreater());
+			SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getCreater());
+			if (member != null && validateUserRole(rs, member, req.getDesc4(), req.getBankimg())) {
+				record.setDesc4(req.getDesc4());
+				record.setCreater(req.getCreater());
+				List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
+				record.setBankcard(req.getBankcard());
+				List<MemberBankCard> only = memberBankCardMapper.selectByCondition(record);
+				if(only.size()!=0){
 					rs.setCode("1");
-					rs.setError("您还未进行认证或未认证通过，请认证成功后再来吧！");
+					rs.setError("您已添加过该银行卡");
 					return rs;
 				}
-			}
-			record.setCreater(req.getCreater());
-			List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
-			record.setBankcard(req.getBankcard());
-			List<MemberBankCard> only = memberBankCardMapper.selectByCondition(record);
-			if(only.size()!=0){
-				rs.setCode("1");
-				rs.setError("您已添加过该银行卡");
-				return rs;
-			}
-			record.setId(UUIDUtil.getId());
-			String name = HttpRequestUtil.putRequest(req.getBankcard());
-			record.setBankname(name);
-			BankType bankType = new BankType();
-			bankType.setName(name);
-			List<BankType> list1 = bankTypeMapper.selectByCondtion(bankType);
-			if (CollectionUtils.isNotEmpty(list1)) {
-				record.setBankcode(list1.get(0).getAbbrName());
-				record.setDesc3(list1.get(0).getId());
-			}
-			if(StringUtils.isNotBlank(req.getBankSubbranchId())){
-				record.setDesc2(req.getBankSubbranchId());
-				BankSubbranch bs = bankSubbranchMapper.selectByPrimaryKey(req.getBankSubbranchId());
-				if(bs != null){
-					record.setDesc1(bs.getName());
+				record.setId(UUIDUtil.getId());
+				String name = HttpRequestUtil.putRequest(req.getBankcard());
+				record.setBankname(name);
+				BankType bankType = new BankType();
+				bankType.setName(name);
+				List<BankType> list1 = bankTypeMapper.selectByCondtion(bankType);
+				if (CollectionUtils.isNotEmpty(list1)) {
+					record.setBankcode(list1.get(0).getAbbrName());
+					record.setDesc3(list1.get(0).getId());
 				}
+				if(StringUtils.isNotBlank(req.getBankSubbranchId())){
+					record.setDesc2(req.getBankSubbranchId());
+					BankSubbranch bs = bankSubbranchMapper.selectByPrimaryKey(req.getBankSubbranchId());
+					if(bs != null){
+						record.setDesc1(bs.getName());
+					}
+				}
+				if (StringUtils.isNotBlank(req.getBankSubbranchName())) {
+					record.setDesc1(req.getBankSubbranchName());
+					record.setDesc2(null);
+				}
+				SystemMemberInfo memberInfo = systemMemberInfoMapper.selectByPrimaryKey(member.getId());
+				if(memberInfo != null){
+					if (StringUtils.equals(record.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS)) {
+						record.setIdcard(memberInfo.getCompanycode());
+						record.setIdname(memberInfo.getCompanyname());
+						record.setIdcardimg(memberInfo.getLicenseImagePath());
+						record.setTelphone(memberInfo.getCompanytel());
+					}
+					if (StringUtils.equals(record.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)) {
+						record.setIdcard(memberInfo.getIdcard());
+						record.setIdname(memberInfo.getUsername());
+						record.setIdcardimg(memberInfo.getIdcardimage());
+						record.setTelphone(memberInfo.getTelphone());
+					}
+				}
+				record.setBankimg(req.getBankimg());
+				record.setCreater(req.getCreater());
+				record.setCreatetime(System.currentTimeMillis());
+				//认证中
+				record.setBankautid("2");
+				if(list.size()==0){
+					record.setBankstatus("1");
+				}else{
+					//非默认
+					record.setBankstatus("0");
+				}
+				memberBankCardMapper.insertSelective(record);
+				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 			}
-			if (StringUtils.isNotBlank(req.getBankSubbranchName())) {
-				record.setDesc1(req.getBankSubbranchName());
-				record.setDesc2(null);
-			}
-			if(memberVo != null){
-				record.setIdcard(memberVo.getIdcard());
-				record.setIdname(memberVo.getRealName());
-				record.setIdcardimg(memberVo.getIdcardimage());
-				record.setTelphone(memberVo.getCellphone());
-			}
-			record.setBankimg(req.getBankimg());
-			record.setCreater(req.getCreater());
-			record.setCreatetime(System.currentTimeMillis());
-			//认证中
-			record.setBankautid("2");
-			if(list.size()==0){
-				record.setBankstatus("1");
-			}else{
-				//非默认
-				record.setBankstatus("0");
-			}
-			memberBankCardMapper.insertSelective(record);
 		}else{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
 		}
 		return rs;
 	}
 	
+	private boolean validateUserRole(Result rs, SystemMember memberVo, String desc4, String bankimg) {
+		boolean flag = false;
+		if (StringUtils.equals(desc4, Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS)) {
+			if (memberVo.getCompanypercheck() == Constant.AUTHSTATUS_PASS_SHORT) {
+				flag = true;
+			} else {
+				rs.setCode("1");
+				rs.setError("您还未进行或未通过企业认证，请认证成功后再来吧！");
+				flag = false;
+			}
+		} else if(StringUtils.equals(desc4, Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)) {
+			if(memberVo.getDriverpercheck() == Constant.AUTHSTATUS_PASS_SHORT
+					&& memberVo.getUserpercheck() == Constant.AUTHSTATUS_PASS_SHORT){
+				if (StringUtils.isNotBlank(bankimg)){
+					flag = true;
+				}else{
+					rs.setCode("1");
+					rs.setError("请先上传银行卡图片！");
+					flag = false;
+				}
+			} else {
+				rs.setCode("2");
+				rs.setError("您还未进行或未通过司机认证，请认证成功后再来吧！");
+				flag = false;
+			}
+		} else {
+			rs.setCode("3");
+			rs.setError("请选择用户角色！");
+			flag = false;
+		}
+		return flag;
+	}
+
 	@Override
 	public Result update(MemberBankCardReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if(req != null && StringUtils.isNotBlank(req.getBankcard())
 				&& StringUtils.isNotBlank(req.getId())
 				&& (StringUtils.isNotBlank(req.getBankSubbranchId())
-				|| StringUtils.isNotBlank(req.getBankSubbranchName()))
-				&& StringUtils.isNotBlank(req.getBankimg())){
+				|| StringUtils.isNotBlank(req.getBankSubbranchName()))){
 			MemberBankCard card = memberBankCardMapper.selectByPrimaryKey(req.getId());
 			if(card == null){
 				rs.setError("id有误");
 				rs.setCode("1");
 			}else{
+				if(StringUtils.equals(card.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)
+						&& StringUtils.isBlank(req.getBankimg())) {
+					rs.setCode("1");
+					rs.setError("请先上传银行卡图片！");
+					return rs;
+				}
 				String name = HttpRequestUtil.putRequest(req.getBankcard());
 				card.setBankcard(req.getBankcard());
 				card.setBankname(name);

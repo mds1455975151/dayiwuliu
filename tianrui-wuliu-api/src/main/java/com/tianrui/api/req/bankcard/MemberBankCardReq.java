@@ -41,6 +41,8 @@ public class MemberBankCardReq {
     private String bankSubbranchId;
     //银行支行名称
     private String bankSubbranchName;
+    //开户人身份（1：个人，2：公司）
+    private String desc4;
     
     public String getId() {
         return id;
@@ -200,6 +202,14 @@ public class MemberBankCardReq {
 
 	public void setBankSubbranchName(String bankSubbranchName) {
 		this.bankSubbranchName = bankSubbranchName;
+	}
+
+	public String getDesc4() {
+		return desc4;
+	}
+
+	public void setDesc4(String desc4) {
+		this.desc4 = desc4;
 	}
 
 }

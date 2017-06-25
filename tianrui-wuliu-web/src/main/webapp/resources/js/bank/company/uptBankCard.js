@@ -26,13 +26,8 @@ function validate(params){
 		alert("请选择或输入开户行名称");
 		return;
 	}
-	if(!params.bankimg){
-		alert("请上传银行卡照片");
-		return;
-	}
 	return params;
 }
-
 $("#member_bank_add").on("click",function(){
 	if($("#showType").val()=="1"){
 		var dd = $("#desc1_text").val();
@@ -42,12 +37,13 @@ $("#member_bank_add").on("click",function(){
 		var ff = $("#desc1_select").val(); ff = $.trim(ff);
 		$("#desc1_req").attr('bankSubbranchId', ff).val('');
 	}
+	var id = $("#bankId").val(); id = $.trim(id);
 	var bankcarkno = $("#bankcard_req").val(); bankcarkno = $.trim(bankcarkno);
 	var bankSubbranchId = $("#desc1_req").attr('bankSubbranchId'); bankSubbranchId = $.trim(bankSubbranchId);
 	var bankSubbranchName = $("#desc1_req").val(); bankSubbranchName = $.trim(bankSubbranchName);
 	var bankimg = $("#bankimg_req_str").val(); bankimg = $.trim(bankimg);
 	var params = {
-			desc4: 1,
+			id: id,
 			bankcard: bankcarkno,
 			bankSubbranchId: bankSubbranchId,
 			bankSubbranchName: bankSubbranchName,
@@ -55,56 +51,47 @@ $("#member_bank_add").on("click",function(){
 	};
 	if (validate(params)) {
 		$.ajax({
-			url:"/trwuliu/bank/card/save",
+			url:"/trwuliu/bank/card/uptAutid",
 			type:"post",
 			data:params,
 			success:function(ret){
 				if(ret.code=="000000"){
-					window.location.href="/trwuliu/bank/card/page";
+					window.location.href="/trwuliu/bank/card/vender/page";
 				}else{
 					alert(ret.error)
 				}
 			}
 		});
 	}
+	
 });
-
 $(".select2").select2(); 
 $("#bankcard_req").on("blur",function(){
+	index();
+});
+function index(){
 	$.ajax({
-		url:"/trwuliu/bank/card/bankCardOnly",
+		url:"/trwuliu/bank/card/bankCardType",
 		type:"post",
 		data:{"bankcode":$("#bankcard_req").val()},
-		success:function(ret){
-			if(ret.code == "000000"){
-				$.ajax({
-					url:"/trwuliu/bank/card/bankCardType",
-					type:"post",
-					data:{"bankcode":$("#bankcard_req").val()},
-					success:function(res){
-						if (res != null && res.code == '000000' && res.data != null) {
-							$("#bankname_req").val(res.data.name).attr('bankTypeId', res.data.id);
-							bankAddress(res.data.id);
-						} else {
-							$("#bankname_req").val('').removeAttr('bankTypeId');
-							$("#desc1_select").empty();
-							alert(res.error);
-						}
-					}
-				});
-			}else{
-				alert(ret.error);
+		success:function(res){
+			if (res != null && res.code == '000000' && res.data != null) {
+				$("#bankname_req").val(res.data.name).attr('bankTypeId', res.data.id);
+				bankAddress(res.data.id);
+			} else {
+				$("#bankname_req").val('').removeAttr('bankTypeId');
+				$("#desc1_select").empty();
+				alert(res.error);
 			}
 		}
 	});
-});
-
+}
 function bankAddress(id){
 	$("#desc1_req").removeAttr('bankSubbranchId').val('');
 	$.ajax({
 		url:"/trwuliu/bank/card/findAddress",
-		type:"post",
 		data:{"id":id},
+		type:"post",
 		success:function(ret){
 			var data = ret.data;
 			$("#desc1_select").empty();
