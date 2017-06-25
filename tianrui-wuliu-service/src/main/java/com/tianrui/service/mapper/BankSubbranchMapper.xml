@@ -128,4 +128,14 @@
       </if>
   	</where>
   </select>
+  <select id="selectlikeBankSubbranchName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from wuliu_NC_bank_subbranch
+  	<where>
+      <if test="likeName != null and likeName != ''" >
+        and name LIKE CONCAT('%',#{likeName,jdbcType=VARCHAR} , '%')
+      </if>
+  	</where>
+  </select>
 </mapper>

@@ -42,6 +42,10 @@ public class MemberBankCard {
     private Integer pageNo;
     
     private Integer pageSize;
+    
+    private Integer pushStatus;
+    
+    private Long pushTime;
 
     public String getId() {
         return id;
@@ -209,5 +213,21 @@ public class MemberBankCard {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Integer getPushStatus() {
+		return pushStatus;
+	}
+
+	public void setPushStatus(Integer pushStatus) {
+		this.pushStatus = pushStatus;
+	}
+
+	public Long getPushTime() {
+		return pushTime;
+	}
+
+	public void setPushTime(Long pushTime) {
+		this.pushTime = pushTime;
 	}
 }

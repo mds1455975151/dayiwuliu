@@ -13,7 +13,7 @@ public class PushNCBankCard {
 	private String accountPersonId;
 	//开户人名称
 	private String accountPersonName;
-	//开户人身份（0：个人，1：公司）
+	//开户人身份（1：个人，2：公司）
 	private String accountPersonIdentity;
 	//银行类别ID
 	private String bankTypeId;

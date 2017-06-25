@@ -30,6 +30,10 @@ public interface IMemberBankCardService {
 	public Result findBankOnly(String memberid,String code)throws Exception;
 	/** 根据银行名称查询银行 */
 	Result selectBankTypeByName(String name);
+	/** 定时查询未推送的银行卡并进行推送 */
+	void pushBankCardAndCallBackPushStatus();
+	/** 根据名称LIKE模糊查询银行支行信息 */
+	public Result findBankSubbranchLike(String desc1);
 	
 //	public Result insertBankAddress(JSONArray array)throws Exception;
 //	

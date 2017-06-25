@@ -7,16 +7,21 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
+import com.tianrui.api.req.bankcard.PushNCBankCard;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.constants.HttpUrl;
 import com.tianrui.common.utils.HttpRequestUtil;
+import com.tianrui.common.utils.HttpUtil;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -41,14 +46,15 @@ public class MemberBankCardService implements IMemberBankCardService{
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	IMemberVoService memberVoService;
+	@Autowired
+	private TaskExecutor taskExecutor;
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if(req != null && StringUtils.isNotBlank(req.getBankcard())
 				&& (StringUtils.isNotBlank(req.getBankSubbranchId())
-				|| StringUtils.isNotBlank(req.getBankSubbranchName()))
-				&& StringUtils.isNotBlank(req.getBankimg())){
+				|| StringUtils.isNotBlank(req.getBankSubbranchName()))){
 			MemberBankCard record = new MemberBankCard();
 			MemberVo memberVo = memberVoService.get(req.getCreater());
 			if(StringUtils.equals(memberVo.getCompanypercheck(), Constant.AUTHSTATUS_PASS)){
@@ -56,6 +62,11 @@ public class MemberBankCardService implements IMemberBankCardService{
 			}else{
 				if(StringUtils.equals(memberVo.getDriverpercheck(), Constant.AUTHSTATUS_PASS)
 						&& StringUtils.equals(memberVo.getUserpercheck(), Constant.AUTHSTATUS_PASS)){
+					if (StringUtils.isNotBlank(req.getBankimg())){
+						rs.setCode("1");
+						rs.setError("请先上传银行卡图片！");
+						return rs;
+					}
 					record.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR);
 				}else{
 					rs.setCode("1");
@@ -169,9 +180,51 @@ public class MemberBankCardService implements IMemberBankCardService{
 		bank.setBankautid(req.getBankautid());
 		bank.setAuditor(req.getAuditor());
 		bank.setAuditortime(System.currentTimeMillis());
+		if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS)) {
+			pushBankCard(bank);
+		}
 		memberBankCardMapper.updateByPrimaryKeySelective(bank);
 		return rs;
 	}
+	
+	@Override
+	public void pushBankCardAndCallBackPushStatus(){
+		MemberBankCard record = new MemberBankCard();
+		record.setPushStatus(Constant.NOT_PUSH);
+		List<MemberBankCard> list = memberBankCardMapper.selectSelective(record);
+		if (CollectionUtils.isNotEmpty(list)) {
+			for (MemberBankCard bankCard : list) {
+				pushBankCard(bankCard);
+			}
+		}
+	}
+	
+	//银行卡认证通过推送给NC
+	private void pushBankCard(final MemberBankCard bankCard){
+		taskExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				PushNCBankCard push = new PushNCBankCard();
+				push.setId(bankCard.getId());
+				push.setBankCardNo(bankCard.getBankcard());
+				push.setAccountPersonId(bankCard.getCreater());
+				push.setAccountPersonName(bankCard.getIdname());
+				push.setAccountPersonIdentity(bankCard.getDesc4());
+				push.setBankTypeId(bankCard.getDesc3());
+				push.setBankSubbranchId(bankCard.getDesc1());
+				push.setBankSubbranchName(bankCard.getDesc2());
+				ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
+				if (apiResult != null && (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode()))) {
+					MemberBankCard bankCard = new MemberBankCard();
+					bankCard.setId(push.getId());
+					bankCard.setPushStatus(Constant.YES_PUSH);
+					bankCard.setPushTime(System.currentTimeMillis());
+					memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
+				}
+			}
+		});
+	}
+	
 
 	/** 设置用户名下银行卡为非默认*/
 	protected void defaulCard_0(String creater) {
@@ -287,12 +340,16 @@ public class MemberBankCardService implements IMemberBankCardService{
 	
 	@Override
 	public Result findBankSubbranch(String backTypeId) throws Exception {
-		Result rs = Result.getSuccessResult();
-		BankSubbranch bankSubbranch = new BankSubbranch();
-		bankSubbranch.setBankTypeId(backTypeId);
-		List<BankSubbranch> list = bankSubbranchMapper.selectByCondtion(bankSubbranch);
-		rs.setData(list);
-		return rs;
+		Result result = Result.getSuccessResult();
+		if (StringUtils.isNotBlank(backTypeId)) {
+			BankSubbranch bankSubbranch = new BankSubbranch();
+			bankSubbranch.setBankTypeId(backTypeId);
+			List<BankSubbranch> list = bankSubbranchMapper.selectByCondtion(bankSubbranch);
+			result.setData(list);
+		}else{
+			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+		}
+		return result;
 	}
 
 	@Override
@@ -327,5 +384,17 @@ public class MemberBankCardService implements IMemberBankCardService{
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
 		}
 		return rs;
+	}
+
+	@Override
+	public Result findBankSubbranchLike(String likeBankSubbranchName) {
+		Result result = Result.getSuccessResult();
+		if (StringUtils.isNotBlank(likeBankSubbranchName)) {
+			List<BankSubbranch> list = bankSubbranchMapper.selectlikeBankSubbranchName(likeBankSubbranchName);
+			result.setData(list);
+		}else{
+			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+		}
+		return result;
 	}
 }

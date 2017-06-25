@@ -1,8 +1,5 @@
 package com.tianrui.web.app.action;
 
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +11,10 @@ import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
-import com.tianrui.web.util.SessionManager;
 
 @Controller
 @RequestMapping("/app/bank/card")
@@ -94,7 +89,7 @@ public class AppMemberBankAction {
 	@ResponseBody
 	public AppResult address(AppParam<MemberBankCardReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = memberBankCardService.findBankSubbranch(appParam.getBody().getDesc1());
+		rs = memberBankCardService.findBankSubbranchLike(appParam.getBody().getDesc1());
 		return AppResult.valueOf(rs);
 	}
 	

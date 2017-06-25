@@ -21,11 +21,13 @@
     <result column="desc2" property="desc2" jdbcType="VARCHAR" />
     <result column="desc3" property="desc3" jdbcType="VARCHAR" />
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+    <result column="pushStatus" property="pushStatus" jdbcType="BIT" />
+    <result column="pushTime" property="pushTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, bankstatus, bankautid, bankcard, bankname, bankcode, bankimg, idcard, idname, 
     idcardimg, telphone, creater, createtime, auditor, auditortime, desc1, desc2, desc3, 
-    desc4
+    desc4, pushStatus, pushTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -110,14 +112,14 @@
       idcardimg, telphone, creater, 
       createtime, auditor, auditortime, 
       desc1, desc2, desc3, 
-      desc4)
+      desc4, pushStatus, pushTime)
     values (#{id,jdbcType=VARCHAR}, #{bankstatus,jdbcType=VARCHAR}, #{bankautid,jdbcType=VARCHAR}, 
       #{bankcard,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, 
       #{bankimg,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{idname,jdbcType=VARCHAR}, 
       #{idcardimg,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=BIGINT}, #{auditor,jdbcType=VARCHAR}, #{auditortime,jdbcType=BIGINT}, 
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
-      #{desc4,jdbcType=VARCHAR})
+      #{desc4,jdbcType=VARCHAR}, #{pushStatus,jdbcType=BIT}, #{pushTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.MemberBankCard" >
     insert into wuliu_member_bankcard
@@ -179,6 +181,12 @@
       <if test="desc4 != null" >
         desc4,
       </if>
+      <if test="pushStatus != null" >
+        pushStatus,
+      </if>
+      <if test="pushTime != null" >
+        pushTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -237,6 +245,12 @@
       </if>
       <if test="desc4 != null" >
         #{desc4,jdbcType=VARCHAR},
+      </if>
+      <if test="pushStatus != null" >
+        #{pushStatus,jdbcType=BIT},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -297,6 +311,12 @@
       <if test="desc4 != null" >
         desc4 = #{desc4,jdbcType=VARCHAR},
       </if>
+      <if test="pushStatus != null" >
+        pushStatus = #{pushStatus,jdbcType=BIT},
+      </if>
+      <if test="pushTime != null" >
+        pushTime = #{pushTime,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -319,7 +339,79 @@
       desc1 = #{desc1,jdbcType=VARCHAR},
       desc2 = #{desc2,jdbcType=VARCHAR},
       desc3 = #{desc3,jdbcType=VARCHAR},
-      desc4 = #{desc4,jdbcType=VARCHAR}
+      desc4 = #{desc4,jdbcType=VARCHAR},
+      pushStatus = #{pushStatus,jdbcType=BIT},
+      pushTime = #{pushTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectSelective" parameterType="com.tianrui.service.bean.MemberBankCard" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+  	from wuliu_member_bankcard
+  	<where>
+      <if test="id != null" >
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="bankstatus != null" >
+        and bankstatus = #{bankstatus,jdbcType=VARCHAR}
+      </if>
+      <if test="bankautid != null" >
+        and bankautid = #{bankautid,jdbcType=VARCHAR}
+      </if>
+      <if test="bankcard != null" >
+        and bankcard = #{bankcard,jdbcType=VARCHAR}
+      </if>
+      <if test="bankname != null" >
+        and bankname = #{bankname,jdbcType=VARCHAR}
+      </if>
+      <if test="bankcode != null" >
+        and bankcode = #{bankcode,jdbcType=VARCHAR}
+      </if>
+      <if test="bankimg != null" >
+        and bankimg = #{bankimg,jdbcType=VARCHAR}
+      </if>
+      <if test="idcard != null" >
+        and idcard = #{idcard,jdbcType=VARCHAR}
+      </if>
+      <if test="idname != null" >
+        and idname = #{idname,jdbcType=VARCHAR}
+      </if>
+      <if test="idcardimg != null" >
+        and idcardimg = #{idcardimg,jdbcType=VARCHAR}
+      </if>
+      <if test="telphone != null" >
+        and telphone = #{telphone,jdbcType=VARCHAR}
+      </if>
+      <if test="creater != null" >
+        and creater = #{creater,jdbcType=VARCHAR}
+      </if>
+      <if test="createtime != null" >
+        and createtime = #{createtime,jdbcType=BIGINT}
+      </if>
+      <if test="auditor != null" >
+        and auditor = #{auditor,jdbcType=VARCHAR}
+      </if>
+      <if test="auditortime != null" >
+        and auditortime = #{auditortime,jdbcType=BIGINT}
+      </if>
+      <if test="desc1 != null" >
+        and desc1 = #{desc1,jdbcType=VARCHAR}
+      </if>
+      <if test="desc2 != null" >
+        and desc2 = #{desc2,jdbcType=VARCHAR}
+      </if>
+      <if test="desc3 != null" >
+        and desc3 = #{desc3,jdbcType=VARCHAR}
+      </if>
+      <if test="desc4 != null" >
+        and desc4 = #{desc4,jdbcType=VARCHAR}
+      </if>
+      <if test="pushStatus != null" >
+        and pushStatus = #{pushStatus,jdbcType=BIT}
+      </if>
+      <if test="pushTime != null" >
+        and pushTime = #{pushTime,jdbcType=BIGINT}
+      </if>
+  	</where>
+  </select>
 </mapper>

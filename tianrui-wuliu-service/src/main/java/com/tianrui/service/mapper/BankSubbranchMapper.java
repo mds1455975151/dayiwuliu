@@ -2,6 +2,8 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tianrui.service.bean.BankSubbranch;
 
 public interface BankSubbranchMapper {
@@ -18,4 +20,6 @@ public interface BankSubbranchMapper {
     int updateByPrimaryKey(BankSubbranch record);
 
 	List<BankSubbranch> selectByCondtion(BankSubbranch record);
+
+	List<BankSubbranch> selectlikeBankSubbranchName(@Param("likeName")String likeBankSubbranchName);
 }

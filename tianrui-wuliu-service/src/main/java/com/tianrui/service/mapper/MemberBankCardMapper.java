@@ -20,4 +20,6 @@ public interface MemberBankCardMapper {
     List<MemberBankCard> selectByCondition(MemberBankCard record);
     
     long selectBycount(MemberBankCard record);
+    
+    List<MemberBankCard> selectSelective(MemberBankCard record);
 }
