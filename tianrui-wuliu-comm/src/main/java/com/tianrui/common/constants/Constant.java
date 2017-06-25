@@ -89,6 +89,15 @@ public class Constant {
     public final static String AUTHSTATUS_ING ="2";
     //认证失败
     public final static String AUTHSTATUS_FAIL ="3";
+    //认证申请状态
+    //初始化
+    public final static Short AUTHSTATUS_INIT_SHORT = 0;
+    //认证通过
+    public final static Short AUTHSTATUS_PASS_SHORT = 1;
+    //认证中
+    public final static Short AUTHSTATUS_ING_SHORT = 2;
+    //认证失败
+    public final static Short AUTHSTATUS_FAIL_SHORT = 3;
     
     //运单类型
     //普通运单

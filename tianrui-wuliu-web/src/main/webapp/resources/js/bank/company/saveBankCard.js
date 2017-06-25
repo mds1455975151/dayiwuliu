@@ -26,10 +26,6 @@ function validate(params){
 		alert("请选择或输入开户行名称");
 		return;
 	}
-	if(!params.bankimg){
-		alert("请上传银行卡照片");
-		return;
-	}
 	return params;
 }
 
@@ -47,7 +43,7 @@ $("#member_bank_add").on("click",function(){
 	var bankSubbranchName = $("#desc1_req").val(); bankSubbranchName = $.trim(bankSubbranchName);
 	var bankimg = $("#bankimg_req_str").val(); bankimg = $.trim(bankimg);
 	var params = {
-			desc4: 1,
+			desc4: 2,
 			bankcard: bankcarkno,
 			bankSubbranchId: bankSubbranchId,
 			bankSubbranchName: bankSubbranchName,

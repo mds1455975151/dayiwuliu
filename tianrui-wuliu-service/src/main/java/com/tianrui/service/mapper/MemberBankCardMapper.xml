@@ -61,6 +61,9 @@
     	<if test="creater != null and creater != ''">
     		and creater = #{creater,jdbcType=VARCHAR}
     	</if>
+    	<if test="desc4 != null and desc4 != ''">
+    		and desc4 = #{desc4,jdbcType=VARCHAR}
+    	</if>
     </where>
     <if test="creater != null and creater != ''">
 		order by bankstatus desc
@@ -97,6 +100,9 @@
     	</if>
     	<if test="creater != null and creater != ''">
     		and creater = #{creater,jdbcType=VARCHAR}
+    	</if>
+    	<if test="desc4 != null and desc4 != ''">
+    		and desc4 = #{desc4,jdbcType=VARCHAR}
     	</if>
     </where>
   </select>

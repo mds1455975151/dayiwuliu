@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</style>
     
 	<!-- 引用公共header部分 -->
-	<jsp:include page="../common/member/header_busi.jsp"></jsp:include>
+	<jsp:include page="../../common/member/header_busi.jsp"></jsp:include>
 		<!--内容部分begin-->
 		<div class="bghui">
 			<div class="container">
@@ -75,13 +75,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    </div>
 			    <div class="row">
 			        <!--个人中心左侧begin-->
-			        <jsp:include page="../common/member/left_busi.jsp"></jsp:include>
+			        <jsp:include page="../../common/member/left_busi.jsp"></jsp:include>
 			        <!--个人中心左侧end-->
 		            <!--个人中心右侧begin-->
 		            <div class="rz_right">
 		             	<div class="car_title bgblue">
 							<h2>银行卡详情</h2>
-							<a href="/trwuliu/bank/card/savePage"><span>添加银行卡</span></a>
+							<a href="/trwuliu/bank/card/vender/savePage"><span>添加银行卡</span></a>
 						</div>
 						<div class="head_body" id="innerHml">
 							<!-- 循环开始 
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!--内容部分end-->
 		<!-- 引用公共footer部分 -->
-		<jsp:include page="../common/member/footer_busi.jsp"></jsp:include>
+		<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 		<script type="text/javascript"> var trRoot = "${trRoot}";</script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
@@ -117,13 +117,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	$(function(){
 		index();
+		$('#venderBank').addClass("selected");
 	});
 	
 	function index(){
 		$.ajax({
 			url:"/trwuliu/bank/card/find",
 			type:"post",
-			data:{desc4: 1},
+			data:{desc4: 2},
 			success:function(ret){
 				if(ret.code=="000000"){
 					innerHtml(ret.data.list);
@@ -167,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function moreng(id,status,autid,card){
 		//认证失败
 		if(autid == "3"){
-			window.location.href="/trwuliu/bank/card/uptAutidPage?id="+id+"&bankcard="+card;
+			window.location.href="/trwuliu/bank/card/vender/uptAutidPage?id="+id+"&bankcard="+card;
 		}else if(status=="0"&&autid=="1"){
 			confirm("确认修改","确认设置该银行卡为默认银行卡吗?",function(){
 				$.ajax({
