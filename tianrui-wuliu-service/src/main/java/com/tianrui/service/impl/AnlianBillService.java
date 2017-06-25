@@ -2,6 +2,7 @@ package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +10,16 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
+import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.req.admin.anlian.AnlianShipmentReq;
 import com.tianrui.api.req.admin.anlian.LinesReq;
 import com.tianrui.api.req.admin.anlian.OrdersReq;
@@ -21,9 +27,13 @@ import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
+import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
+import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
+import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
@@ -55,6 +65,7 @@ import com.tianrui.service.mongo.BillAnlianPositionDao;
 @Service
 public class AnlianBillService implements IAnlianBillService{
 
+	private static Logger loger =LoggerFactory.getLogger(AnlianBillService.class);
 	@Autowired
 	PlanMapper planMapper;
 	@Autowired
@@ -85,6 +96,12 @@ public class AnlianBillService implements IAnlianBillService{
 	BillAnlianPositionDao billAnlianPositionDao;
 	@Autowired
 	MerchantMapper merchantMapper;
+	@Autowired
+	protected ICargoPlanService cargoPlanService;
+	@Autowired
+	IMemberVoService MemberVoService;
+	@Autowired
+	MessageService messageService;
 	
 	@Override
 	public Result alBillSave(AnlianBillSaveReq req) throws Exception {
@@ -315,6 +332,12 @@ public class AnlianBillService implements IAnlianBillService{
 	@Override
 	public Result billSigner(AnlianBillSignerReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
+		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+		if(bill.getTrueweight()!=null){
+			rs.setCode("1");
+			rs.setError("运单已被签收");
+			return rs;
+		}
 		AnlianBill record = new AnlianBill();
 		record.setId(req.getId());
 		if(StringUtils.isNotBlank(req.getSignimgurl())){
@@ -327,7 +350,90 @@ public class AnlianBillService implements IAnlianBillService{
 		record.setPickupweight(req.getPickupweight());
 		record.setTrueweight(req.getTrueweight());
 		record.setSigntime(System.currentTimeMillis());
+		record.setConfirmPriceA("0");//前台未运价确认
 		anlianBillMapper.updateByPrimaryKeySelective(record);
+		
+		Plan plan =planMapper.selectByPrimaryKey(bill.getDesc1());//desc1计划id
+		Plan rootPlan = planMapper.selectRootPlanByPlanId(plan.getId());
+		Plan planUpdate =new Plan();
+		if(StringUtils.equals(plan.getIsAppoint(), "1")){
+			planUpdate.setId(rootPlan.getId());
+			if( rootPlan.getCompleted() !=null ){
+				planUpdate.setCompleted(rootPlan.getCompleted()+Double.valueOf(req.getTrueweight()));
+			}else{
+				planUpdate.setCompleted(Double.valueOf(req.getTrueweight()));
+			}
+			//判断总计签收量 是否大于计划总量
+			if(planUpdate.getCompleted() != null){
+				if(planUpdate.getCompleted() >= rootPlan.getTotalplanned()){
+					PlanConfirmReq planReq = new PlanConfirmReq();
+					planReq.setId(rootPlan.getId());
+					cargoPlanService.completePlan(planReq);
+				}
+			}
+		}else{
+			planUpdate.setId(plan.getId());
+			if( plan.getCompleted() !=null ){
+				planUpdate.setCompleted(plan.getCompleted()+Double.valueOf(req.getTrueweight()));
+			}else{
+				planUpdate.setCompleted(Double.valueOf(req.getTrueweight()));
+			}
+			//判断总计签收量 是否大于计划总量
+			if(planUpdate.getCompleted() != null){
+				if(planUpdate.getCompleted() >= plan.getTotalplanned()){
+					PlanConfirmReq planReq = new PlanConfirmReq();
+					planReq.setId(plan.getId());
+					cargoPlanService.completePlan(planReq);
+				}
+			}
+		}
+		planMapper.updateByPrimaryKeySelective(planUpdate);
+		//为车主发送站内信
+		MemberVo currUser =getMember(req.getCreater());
+		MemberVo receive =getMember(bill.getVenderid());
+		sendMsgInside(Arrays.asList(new String[]{bill.getBillno(),currUser.getRealName()}), bill.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_ALSIGN, "vender");
 		return rs;
+	}
+	
+	private void sendMsgInside(List<String> params,String kId,MemberVo sendUser,MemberVo receiveUser,MessageCodeEnum codeEnum,String type ){
+		SendMsgReq req =new SendMsgReq();
+		if( sendUser !=null && receiveUser !=null && codeEnum !=null ){
+			req.setParams(params);
+			req.setKeyid(kId);
+			//发送人
+			req.setSendid(sendUser.getId());
+			req.setSendname(sendUser.getRealName());
+			//接受人
+			req.setRecid(receiveUser.getId());
+			req.setRecname(receiveUser.getRealName());
+			req.setCodeEnum(codeEnum);
+			req.setRecType(codeEnum.getType());
+			//消息类别  系统 还是会员
+			req.setType("2");
+			//详情URI
+			String uri ="";
+			switch (type) {
+				case "driver":
+					uri ="/trwuliu/billdriver/detail?id="+kId;
+					break;
+				case "owner":
+					uri ="/trwuliu/billowner/detail?id="+kId;
+					break;
+				case "vender":
+					uri ="/trwuliu/billvender/detail?id="+kId;
+					break;
+			}
+			req.setURI(uri);
+			try {
+				messageService.sendMessageInside(req);
+			} catch (Exception e) {
+				loger.warn("站内信发送失败,发送信息:{}",JSON.toJSON(req),e);
+			}
+		}
+	}
+	
+	private MemberVo getMember(String id){
+		MemberVo member =MemberVoService.get(id);
+		return member;
 	}
 }

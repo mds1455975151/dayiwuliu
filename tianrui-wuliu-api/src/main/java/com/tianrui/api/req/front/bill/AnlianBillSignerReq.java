@@ -12,6 +12,8 @@ public class AnlianBillSignerReq {
     //签收量
     private Double trueweight;
     private Long signtime;
+    
+    private String creater;
 	public String getId() {
 		return id;
 	}
@@ -53,5 +55,11 @@ public class AnlianBillSignerReq {
 	}
 	public void setTrueweight(Double trueweight) {
 		this.trueweight = trueweight;
+	}
+	public String getCreater() {
+		return creater;
+	}
+	public void setCreater(String creater) {
+		this.creater = creater;
 	}
 }

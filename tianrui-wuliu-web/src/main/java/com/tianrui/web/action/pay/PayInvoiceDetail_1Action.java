@@ -37,10 +37,18 @@ public class PayInvoiceDetail_1Action {
 	public ModelAndView main(HttpServletRequest request) throws Exception{
 		ModelAndView model = new ModelAndView("pay/payInvoiceItem/yunfei_page_new");
 		MemberVo vo = SessionManager.getSessionMember(request);
-		Result rs = payInvoiceDetailService.getCargoTypeName();
+//		Result rs = payInvoiceDetailService.getCargoTypeName();
 		model.addObject("currId", vo.getId());
-		model.addObject("paytype", rs.getData());
+//		model.addObject("paytype", rs.getData());
 		return model;
+	}
+	//billId  运单id 查询运价确认信息
+	@RequestMapping("billSelectPrice")
+	@ResponseBody
+	public Result billSelectPrice(PayInvoiceDetail1Req req) throws Exception{
+		Result rs =Result.getSuccessResult();
+		rs = payInvoiceDetail1Service.billSelectPrice(req);
+		return rs;
 	}
 	
 	//车主结算单查询

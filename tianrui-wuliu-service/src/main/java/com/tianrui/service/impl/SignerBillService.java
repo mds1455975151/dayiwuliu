@@ -86,6 +86,23 @@ public class SignerBillService implements ISignerBillService{
 	@Override
 	public Result BillConfirmPrice(BillConfirmPriceReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
+		
+		PayInvoiceDetail query = new PayInvoiceDetail();
+		query.setBillId(req.getId());
+		//验证是否运价确认
+		List<PayInvoiceDetail> list = payInvoiceDetailMapper1.selectByCondition(query);
+		if(list.size()>1){
+			rs.setCode("1");
+			rs.setError("数据异常，请联系管理员");
+			return rs;
+		}else if(list.size()==1){
+			if(list.get(0).getBackstageBillTotalPrice()!=0){
+				rs.setCode("3");
+				rs.setError("后台已运价确认，不能修改");
+				return rs;
+			}
+		}
+		
 		PayInvoiceDetail pay = null;
 		if(StringUtils.equals(req.getType(), "dy")){
 			//处理大易平台运单
@@ -95,8 +112,8 @@ public class SignerBillService implements ISignerBillService{
 			Bill upt = new Bill();
 			upt.setId(bill.getId());
 			upt.setConfirmPriceA("1");//前台已运价确认
+			upt.setConfirmPriceB("0");//后台未已运价确认
 			billMapper.updateByPrimaryKeySelective(upt);
-			
 		}else if(StringUtils.equals(req.getType(), "al")){
 			//处理安联平台运单
 			AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
@@ -105,9 +122,15 @@ public class SignerBillService implements ISignerBillService{
 			AnlianBill alupt = new AnlianBill();
 			alupt.setId(bill.getId());
 			alupt.setConfirmPriceA("1");//前台已运价确认
+			alupt.setConfirmPriceB("0");//后台未已运价确认
 			anlianBillMapper.updateByPrimaryKeySelective(alupt);
 		}
-		payInvoiceDetailMapper1.insertSelective(pay);
+		if(list.size()==0){
+			payInvoiceDetailMapper1.insertSelective(pay);
+		}else if(list.size()==1){
+			pay.setId(list.get(0).getId());
+			payInvoiceDetailMapper1.updateByPrimaryKeySelective(pay);
+		}
 		return rs;
 	}
 	

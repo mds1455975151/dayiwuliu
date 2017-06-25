@@ -87,20 +87,18 @@ function innerHTML(data){
 				hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 			}
 		}
-		if(data[a].confirmPriceB == "0"){
-			//后台未运价确认
+		if(data[a].confirmPriceB == "1"){
+			//后台已运价确认-运价确认按钮消失
 		
-		}else if(data[a].confirmPriceB == "1"){
-			//后台已运价确认
-		
+		}else if(data[a].confirmPriceB == "0" && data[a].confirmPriceA == "1"){
+			//前台已确认，后台未运价确认-运价修改
+			hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价修改</button></a>";
 		}else if(data[a].confirmPriceA == "0"){
-			//前台未运价确认
-			
-		}else if(data[a].confirmPriceA == "1"){
-			//前台已运价确认
+			//前台未运价确认-运价确认
+			hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价确认</button></a>";
 		}
-		hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价确认</button></a>" +
-			"<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"','"+data[a].billtype+"')\"'>运单跟踪</button></a>" +
+		
+		hml +="<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"','"+data[a].billtype+"')\"'>运单跟踪</button></a>" +
 			"</td>" +
 			"</tr>";
 	}
@@ -120,8 +118,24 @@ function yj_queren(id,type,totalprice){
 	$("#deduct_other").val("");
 	$("#deduct_oil_card").val("");
 	$("#true_totalprice").html("");
+	$.ajax({
+		url:"/trwuliu/payInvoiceItem_1/billSelectPrice",
+		type:"POST",
+		data:{"billId":id},
+		success:function(ret){
+			if(ret.code=="000000"){
+				var data = ret.data;
+				$("#deduct_weight_misc").val(data.receptionDeductWeightMisc);
+				$("#deduct_money").val(data.receptionDeductMoney);
+				$("#deduct_other").val(data.receptionDeductOther);
+				$("#deduct_oil_card").val(data.receptionDeductOilCard);
+				$("#true_totalprice").html(data.receptionBillTotalPrice);
+			}
+		}
+	});
 	$("#yj_queren").modal();
 }
+
 //计算实际支付金额
 $(".total_price_count").on("change",function(){
 	var deduct_weight_misc = $("#deduct_weight_misc").val();

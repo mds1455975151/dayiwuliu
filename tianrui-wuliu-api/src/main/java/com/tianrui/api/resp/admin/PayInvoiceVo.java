@@ -42,6 +42,18 @@ public class PayInvoiceVo extends BaseResp {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public Integer getAuditStatus() {
+		return auditStatus;
+	}
+	public Integer getPushStatus() {
+		return pushStatus;
+	}
+	public Integer getPayStatus() {
+		return payStatus;
+	}
+	public void setBtnOpts(Integer btnOpts) {
+		this.btnOpts = btnOpts;
+	}
 	public String getCode() {
 		return code;
 	}

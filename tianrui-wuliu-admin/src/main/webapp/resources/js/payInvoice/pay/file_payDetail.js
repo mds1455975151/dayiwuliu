@@ -50,9 +50,11 @@ function displayData(pageNo){
 							"<td>"+(data[a].cargoName || "")+"</td>"+
 							"<td>"+bytpe+"</td>"+
 							"<td>"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
-							"<td>" +
-							"<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价确认】</a></span>"+
-							"</td></tr>";
+							"<td>";
+						if(data[a].whetherClose == false){
+							hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价确认】</a></span>";
+						}
+						hml +="</td></tr>";
 					}
 			    }   
 				document.getElementById("innerHml").innerHTML=hml;

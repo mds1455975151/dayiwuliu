@@ -25,6 +25,7 @@ public enum MessageCodeEnum {
 	BILL_2VENDER_ARRIVED(106,"驾驶员(<_>)已到达收货地点,准备卸货.运单号[<_>].请查看详情.",2),
 	BILL_2VENDER_DISCHARGE(107,"驾驶员(<_>)已经卸货完成.运单号[<_>].请查看详情.",2),
 	BILL_2VENDER_SIGN(108,"运单[<_>]已被用户(<_>)签收.请查看详情",2),
+	BILL_2VENDER_ALSIGN(109,"安联运单[<_>]已被用户(<_>)签收.请查看详情",2),
 
 	//发送给货主
 	BILL_2OWNER_DISCHARGE(121,"驾驶员(<_>)已经卸货完成.运单号[<_>].请进行签收确认.",3),

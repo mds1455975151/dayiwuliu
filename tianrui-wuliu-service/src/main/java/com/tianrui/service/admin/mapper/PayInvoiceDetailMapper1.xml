@@ -78,6 +78,9 @@
    		  <if test="payInvoiceId != null and payInvoiceId != ''">
    		    and pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
    		  </if>
+   		  <if test="billId != null and billId != ''">
+   		  	and bill_id = #{billId,jdbcType=VARCHAR}
+   		  </if>
    		  <if test="ids != null">
 	      	and id in 
 	      	<foreach collection="ids" item="employeeId" index="index"
@@ -111,6 +114,9 @@
    		  </if>
    		  <if test="payInvoiceId != null and payInvoiceId != ''">
    		    and pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="billId != null and billId != ''">
+   		  	and bill_id = #{billId,jdbcType=VARCHAR}
    		  </if>
    		</where>
   </select>

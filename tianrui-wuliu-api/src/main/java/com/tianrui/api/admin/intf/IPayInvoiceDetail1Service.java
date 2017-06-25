@@ -18,4 +18,6 @@ public interface IPayInvoiceDetail1Service {
 	public Result uptPrice(PayInvoiceDetail1Req req) throws Exception;
 	/** 生成账单*/
 	public Result savePayInvoice(PayInviceSave1Req req)throws Exception;
+	/** 通过运单id 查询运价确认量*/
+	public Result billSelectPrice(PayInvoiceDetail1Req req)throws Exception;
 }

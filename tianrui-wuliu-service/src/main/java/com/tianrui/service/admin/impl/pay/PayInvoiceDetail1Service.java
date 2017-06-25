@@ -21,8 +21,12 @@ import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.anlian.AnlianBill;
+import com.tianrui.service.mapper.AnlianBillMapper;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -40,7 +44,35 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	MemberBankCardMapper memberBankCardMapper;
 	@Autowired
 	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	BillMapper billMapper;
+	@Autowired
+	AnlianBillMapper anlianBillMapper;
 	
+	@Override
+	public Result billSelectPrice(PayInvoiceDetail1Req req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		if(StringUtils.isBlank(req.getBillId())){
+			rs.setCode("1");
+			rs.setError("运单id不能为空");
+			return rs;
+		}
+		PayInvoiceDetail pay = new PayInvoiceDetail();
+		pay.setBillId(req.getBillId());
+		List<PayInvoiceDetail> list = payInvoiceDetailMapper1.selectByCondition(pay);
+		if(list.size()==0){
+			rs.setCode("1");
+			rs.setError("运单还未运价确认");
+			return rs;
+		}else if(list.size()==1){
+			rs.setData(list.get(0));
+			return rs;
+		}else {
+			rs.setCode("2");
+			rs.setError("运单异常，请联系管理员");
+			return rs;
+		}
+	}
 	
 	@Override
 	public PaginationVO<PayInvoiceDetail1Resp> select(PayInvoiceDetail1Req req) throws Exception {
@@ -83,9 +115,39 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		PropertyUtils.copyProperties(resp, pay);
 		return resp;
 	}
+	/** 后台运价确认*/
 	@Override
 	public Result uptPrice(PayInvoiceDetail1Req req) throws Exception{
 		Result rs = Result.getSuccessResult();
+		PayInvoiceDetail pay = payInvoiceDetailMapper1.selectByPrimaryKey(req.getId());
+		//修改运单状态为后台已审核状态
+		if(StringUtils.equals("dy", pay.getRemark())){
+			//大易运单
+			Bill bill = billMapper.selectByPrimaryKey(pay.getBillId());
+			if(bill != null){
+				Bill upt = new Bill();
+				upt.setId(bill.getId());
+				upt.setConfirmPriceB("1");//后台已运价确认
+				billMapper.updateByPrimaryKeySelective(upt);
+			}else {
+				rs.setCode("1");
+				rs.setError("数据异常，请联系管理员");
+				return rs;
+			}
+		}else if(StringUtils.equals("al", pay.getRemark())){
+			//安联运单
+			AnlianBill bill =anlianBillMapper.selectByPrimaryKey(pay.getBillId());
+			if(bill != null){
+				AnlianBill upt = new AnlianBill();
+				upt.setId(bill.getId());
+				upt.setConfirmPriceB("1");
+				anlianBillMapper.updateByPrimaryKeySelective(upt);
+			}else{
+				rs.setCode("1");
+				rs.setError("数据异常，请联系管理员");
+				return rs;
+			}
+		}
 		PayInvoiceDetail upt = new PayInvoiceDetail();
 		PropertyUtils.copyProperties(upt, req);
 		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
@@ -93,7 +155,6 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	}
 	@Override
 	public Result savePayInvoice(PayInviceSave1Req req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		
 		if(StringUtils.isNotBlank(req.getCreater())&&StringUtils.isNotBlank(req.getIdStr())){
@@ -252,4 +313,5 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		}
 		return true;
 	}
+	
 }

@@ -505,6 +505,7 @@ public class BillService implements IBillService{
 						update.setModifier(req.getCurruId());
 						update.setModifytime(System.currentTimeMillis());
 						update.setOwnerSigntime(System.currentTimeMillis());
+						update.setConfirmPriceA("0");//前台未运价确认状态
 						billMapper.updateByPrimaryKeySelective(update);
 						
 						saveBillTrack(db.getId(),1,BIllTrackMsg.STEP4,req.getCurruId(),BillStatusEnum.COMPLETE.getStatus());
