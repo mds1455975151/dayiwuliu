@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form id="member_bank">
 						<div class="car_box">
 							<div class="reg_tel">
-								<label> <span style="color: red">*</span>企业执照号:</label> 
+								<label> <span style="color: red">*</span>企业银行卡号:</label> 
 								<input id="bankId" type="hidden" name="id" value="${bankid }"> 
 								<input type="text" id="bankcard_req" value="${bankcard }" name="bankcard"> 
 							</div>
