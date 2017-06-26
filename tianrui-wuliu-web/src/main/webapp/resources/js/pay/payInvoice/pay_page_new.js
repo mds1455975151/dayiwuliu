@@ -80,7 +80,7 @@ function innerHTML(ret,flag){
 		}else if(data[a].auditStatus == "2"){
 			pay_audit_push_Status = "已审核";
 			shenhe = "<button onclick=\"payPush('"+data[a].id+"')\" class='btn btnyello'>推送</button>" +
-					"<button onclick=\"payDelete('"+data[a].id+"')\" class='btn btnyello'>收回</button>";
+					"<button onclick=\"payDelete('"+data[a].id+"')\" class='btn btnyello'>删除</button>";
 		}else if(data[a].auditStatus == "0"){
 			pay_audit_push_Status = "未审核";
 			shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"

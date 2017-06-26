@@ -165,7 +165,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			logger.info("into service: driver pay invoice push params: id=" + id);
 			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(id);
 			if (payInvoice != null) {
-				if (payInvoice.getPushStatus() == Constant.NOT_PUSH) {
+				//修改原（Constant.NOT_PUSH 未推单） 改（Constant.PUSH_ING 推单中）
+				if (payInvoice.getPushStatus() == Constant.PUSH_ING) {
 					logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
 					PayInvoiceDriverPush push = new PayInvoiceDriverPush();
 					push.setId(payInvoice.getId());
@@ -215,7 +216,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			logger.info("into service: vender pay invoice push params: id=" + id);
 			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(id);
 			if (payInvoice != null) {
-				if (payInvoice.getPushStatus() == Constant.NOT_PUSH) {
+				
+				//修改验证条件——原（Constant.NOT_PUSH-未推送） -改（Constant.PUSH_ING -前台用户推单中）
+				if (payInvoice.getPushStatus() == Constant.PUSH_ING) {
 					logger.info("into service: vender pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
 					PayInvoiceVenderPush push = new PayInvoiceVenderPush();
 					push.setId(payInvoice.getId());
@@ -278,16 +281,31 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	@Override
 	public Result pushBack(String id) {
 		Result rs = Result.getSuccessResult();
-		PayInvoice upt = new PayInvoice();
-		upt.setId(id);
-		upt.setPushStatus(0);
-		payInvoiceMapper.updateByPrimaryKeySelective(upt);
+		PayInvoice pay = payInvoiceMapper.selectByPrimaryKey(id);
+		//已推送运单，不能操作
+		if(pay.getPushStatus()==2){
+			rs.setCode("1");
+			rs.setError("已推送运单，不能操作");
+		}else{
+			PayInvoice upt = new PayInvoice();
+			upt.setId(id);
+			upt.setPushStatus(0);
+			payInvoiceMapper.updateByPrimaryKeySelective(upt);
+		}
 		return rs;
 	}
 
 	@Override
 	public Result payDelete(String id) {
 		Result rs = Result.getSuccessResult();
+		
+		PayInvoice pa = payInvoiceMapper.selectByPrimaryKey(id);
+		if(pa.getPushStatus()==2){
+			rs.setCode("1");
+			rs.setError("已推送运单，不能操作");
+			return rs;
+		}
+		
 		PayInvoiceDetail query = new PayInvoiceDetail();
 		query.setPayInvoiceId(id);
 		List<PayInvoiceDetail> list = payInvoiceDetailMapper.selectByCondition(query);
@@ -319,6 +337,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					venderParams.add(payInvoice.getId());
 				}
 			}
+			//TODO
 			postNcDriverCallBack(driverParams);
 			postNcVenderCallBack(venderParams);
 		}

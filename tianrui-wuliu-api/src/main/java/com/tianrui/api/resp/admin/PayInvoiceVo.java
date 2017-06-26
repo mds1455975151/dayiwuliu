@@ -94,10 +94,10 @@ public class PayInvoiceVo extends BaseResp {
 		}else if(pushStatus == Constant.PUSH_ING&&payStatus == Constant.NOT_PAY){
 			//推送中
 			this.payInvoiceStatus = "未支付";
-		}else if (payStatus == Constant.PAY_ING){
+		}else if(pushStatus == Constant.YES_PUSH&&payStatus == Constant.NOT_PAY){
 			//支付中
 			this.payInvoiceStatus = "支付中";
-		} else if (payStatus == Constant.YES_PAY){
+		}else if (payStatus == Constant.YES_PAY){
 			//已支付
 			this.payInvoiceStatus = "已支付";
 		} else {

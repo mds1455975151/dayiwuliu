@@ -276,7 +276,7 @@
 					if(result.code == '000000'){
 						$('.search').click();
 					}else{
-						alert('系统异常，请稍候再试！');
+						alert(result.error);
 					}
 				}
 			});
