@@ -15,7 +15,6 @@ import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
-import com.tianrui.common.utils.HttpRequestUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -158,8 +157,7 @@ public class BankCardAction {
 	@ResponseBody
 	public Result bankCardType(String bankcode) throws Exception{
 		Result rs = Result.getSuccessResult();
-		String name = HttpRequestUtil.putRequest(bankcode);
-		rs = memberBankCardService.selectBankTypeByName(name);
+		rs = memberBankCardService.selectBankTypeByName(bankcode);
 		return rs;
 	}
 	//查询银行类型

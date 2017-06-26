@@ -410,19 +410,22 @@ public class MemberBankCardService implements IMemberBankCardService{
 	}
 	
 	@Override
-	public Result selectBankTypeByName(String name) {
+	public Result selectBankTypeByName(String bankcode) {
 		Result rs = Result.getSuccessResult();
-		if (StringUtils.isNotBlank(name)) {
-			BankType bankType = new BankType();
-			bankType.setName(name);
-			List<BankType> list = bankTypeMapper.selectByCondtion(bankType);
-			if (CollectionUtils.isNotEmpty(list)) {
-				rs.setData(list.get(0));
+		if (StringUtils.isNotBlank(bankcode)) {
+			String name = HttpRequestUtil.putRequest(bankcode);
+			if (StringUtils.isNotBlank(name)) {
+				BankType bankType = new BankType();
+				bankType.setName(name);
+				List<BankType> list = bankTypeMapper.selectByCondtion(bankType);
+				if (CollectionUtils.isNotEmpty(list)) {
+					rs.setData(list.get(0));
+				} else {
+					rs.setErrorCode(ErrorCode.NOT_FIND_PANK);
+				}
 			} else {
-				rs.setErrorCode(ErrorCode.NOT_FIND_PANK);
-			}
-		} else {
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+			}
 		}
 		return rs;
 	}

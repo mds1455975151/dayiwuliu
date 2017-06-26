@@ -82,9 +82,14 @@ $("#bankcard_req").on("blur",function(){
 					type:"post",
 					data:{"bankcode":$("#bankcard_req").val()},
 					success:function(res){
-						if (res != null && res.code == '000000' && res.data != null) {
-							$("#bankname_req").val(res.data.name).attr('bankTypeId', res.data.id);
-							bankAddress(res.data.id);
+						if (res != null && res.code == '000000') {
+							if (res.data != null) {
+								$("#bankname_req").val(res.data.name).attr('bankTypeId', res.data.id);
+								bankAddress(res.data.id);
+							}else{
+								$("#bankname_req").val('').removeAttr('bankTypeId');
+								$("#desc1_select").empty();
+							}
 						} else {
 							$("#bankname_req").val('').removeAttr('bankTypeId');
 							$("#desc1_select").empty();
