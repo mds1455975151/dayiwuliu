@@ -395,14 +395,16 @@ public class MemberBankCardService implements IMemberBankCardService{
 	public Result findBankOnly(String memberid, String code) throws Exception {
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
-		MemberBankCard find = new MemberBankCard();
-		find.setCreater(memberid);
-		find.setBankcard(code);
-		List<MemberBankCard> only = memberBankCardMapper.selectByCondition(find);
-		if(only.size()!=0){
-			rs.setCode("1");
-			rs.setError("您已添加过该银行卡");
-			return rs;
+		if(StringUtils.isNotBlank(memberid) && StringUtils.isNotBlank(code)){
+			MemberBankCard find = new MemberBankCard();
+			find.setCreater(memberid);
+			find.setBankcard(code);
+			List<MemberBankCard> only = memberBankCardMapper.selectByCondition(find);
+			if(only.size()!=0){
+				rs.setCode("1");
+				rs.setError("您已添加过该银行卡");
+				return rs;
+			}
 		}
 		return rs;
 	}
