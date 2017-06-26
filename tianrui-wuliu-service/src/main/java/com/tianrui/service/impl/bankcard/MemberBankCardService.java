@@ -250,9 +250,9 @@ public class MemberBankCardService implements IMemberBankCardService{
 				push.setAccountPersonName(bankCard.getIdname());
 				push.setAccountPersonIdentity(bankCard.getDesc4());
 				push.setBankTypeId(bankCard.getDesc3());
-				push.setBankSubbranchId(bankCard.getDesc1());
-				push.setBankSubbranchName(bankCard.getDesc2());
-				ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
+				push.setBankSubbranchId(bankCard.getDesc2());
+				push.setBankSubbranchName(bankCard.getDesc1());
+				ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.BANK_CARD_PUSH_NC);
 				if (apiResult != null && (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode()))) {
 					MemberBankCard bankCard = new MemberBankCard();
 					bankCard.setId(push.getId());
