@@ -38,13 +38,6 @@ public class BankCardAction {
 	@RequestMapping("page")
 	public ModelAndView page(HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();
-		
-//		MemberVo vo = SessionManager.getSessionMember(request);
-//		MemberBankCardReq req = new MemberBankCardReq();
-//		req.setCreater(vo.getId());
-//		req.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR);
-//		PaginationVO<MemberBankCardResp> page = memberBankCardService.selectBankCard(req);
-//		view.addObject("bank", page.getList());
 		view.setViewName("/bank/findBankCard");
 		return view;
 	}
@@ -53,14 +46,12 @@ public class BankCardAction {
 	@RequestMapping("vender/page")
 	public ModelAndView venderPage(HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();
-//		
-//		MemberVo vo = SessionManager.getSessionMember(request);
-//		MemberBankCardReq req = new MemberBankCardReq();
-//		req.setCreater(vo.getId());
-//		req.setDesc4(Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS);
-//		PaginationVO<MemberBankCardResp> page = memberBankCardService.selectBankCard(req);
-//		view.addObject("bank", page.getList());
-		view.setViewName("/bank/company/findBankCard");
+		MemberVo vo = SessionManager.getSessionMember(request);
+		if(StringUtils.equals(vo.getCompanypercheck(), Constant.AUTHSTATUS_PASS)){
+			view.setViewName("/bank/company/findBankCard");
+		}else{
+			view.setViewName("/bank/findBankCard");
+		}
 		return view;
 	}
 	
