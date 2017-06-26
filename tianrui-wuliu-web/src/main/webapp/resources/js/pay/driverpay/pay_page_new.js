@@ -76,14 +76,14 @@ function innerHTML(ret,flag){
 			pay_audit_push_Status = "已推送";
 		}else if(data[a].pushStatus == "1"){
 			pay_audit_push_Status = "推送中";
-			shenhe = "<button onclick=\"pushBack('"+data[a].id+"')\" class='btn btnyello'>收回</button>"
+//			shenhe = "<button onclick=\"pushBack('"+data[a].id+"')\" class='btn btnyello'>收回</button>"
 		}else if(data[a].auditStatus == "2"){
 			pay_audit_push_Status = "已审核";
-			shenhe = "<button onclick=\"payPush('"+data[a].id+"')\" class='btn btnyello'>推送</button>" +
+//			shenhe = "<button onclick=\"payPush('"+data[a].id+"')\" class='btn btnyello'>推送</button>" +
 					"<button onclick=\"payDelete('"+data[a].id+"')\" class='btn btnyello'>收回</button>";
 		}else if(data[a].auditStatus == "0"){
 			pay_audit_push_Status = "未审核";
-			shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
+//			shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 		}
 		hml += "<tr >" +
 				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'>"+data[a].code+"</td>" +

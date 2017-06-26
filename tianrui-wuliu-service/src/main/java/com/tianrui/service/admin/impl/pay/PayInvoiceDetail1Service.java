@@ -315,8 +315,6 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 							invoice.setPayeeBankCardId(bcard.getId());
 							//收款人银行卡号
 							invoice.setPayeeBankCardNumber(bcard.getBankcard());
-							//收款人银行卡名称
-							invoice.setPayeeBankCardNumber(bcard.getBankname());
 							//收款人证件号
 							invoice.setPayeeIdNo(bcard.getIdcard());
 							//申请日期
@@ -336,8 +334,6 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 								upt.setPayInvoiceId(invoiceid);
 								payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 							}
-							
-							
 						}else{
 							rs.setCode("1");
 							rs.setError("发票类型不一致");
