@@ -96,23 +96,59 @@ function selectBill(id){
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data;
-				if(data.remark=="dy"){
-					//账单总额
-					$("#billTotalPrice").val(data.billPrice*data.billWeight);
-				}else if(data.remark=="al"){
-					//账单总额
-					$("#billTotalPrice").val(data.billPrice);
+//				if(data.remark=="dy"){
+//					//账单总额
+//					$("#billTotalPrice").val(data.billPrice*data.billWeight);
+//					//应付金额
+//					$("#amountPayable").val(data.billPrice*data.billWeight-data.receptionDeductOilCard-data.receptionDeductWeightMisc-data.receptionDeductMoney-data.receptionDeductOther);
+//
+//				}else if(data.remark=="al"){
+//					//账单总额
+//					$("#billTotalPrice").val(data.billPrice);
+//					//应付金额
+//					$("#amountPayable").val(data.billPrice-data.receptionDeductOilCard-data.receptionDeductWeightMisc-data.receptionDeductMoney-data.receptionDeductOther);
+//				}
+				
+				var price = 0;
+				if(data.backstageBillTotalPrice != 0){
+					//后台已运价确认
+					price = data.backstageBillTotalPrice
+						-data.backstageDeductMoney
+						-data.backstageDeductOilCard
+						-data.backstageDeductOther
+						-data.backstageDeductWeightMisc;
+					//油卡
+					$("#deductOilCard").val(data.backstageDeductOilCard);
+					//扣重扣杂
+					$("#deductWeightMisc").val(data.backstageDeductWeightMisc);
+					//扣款
+					$("#deductMoney").val(data.backstageDeductMoney);
+					//其它款项
+					$("#deductOther").val(data.backstageDeductOther);
+					
+				}else {
+					//后台未运价确认
+					price = data.receptionBillTotalPrice 
+						-data.receptionDeductMoney
+						-data.receptionDeductOther
+						-data.receptionDeductWeightMisc
+						-data.receptionDeductOilCard;
+						//油卡
+						$("#deductOilCard").val(data.receptionDeductOilCard);
+						//扣重扣杂
+						$("#deductWeightMisc").val(data.receptionDeductWeightMisc);
+						//扣款
+						$("#deductMoney").val(data.receptionDeductMoney);
+						//其它款项
+						$("#deductOther").val(data.receptionDeductOther);
 				}
+				
+				//总额
+				$("#billTotalPrice").val(data.backstageBillTotalPrice);
 				//应付金额
-				$("#amountPayable").val(data.receptionBillTotalPrice-data.receptionDeductOilCard-data.receptionDeductWeightMisc-data.receptionDeductMoney-data.receptionDeductOther);
-				//油卡
-				$("#deductOilCard").val(data.receptionDeductOilCard);
-				//扣重扣杂
-				$("#deductWeightMisc").val(data.receptionDeductWeightMisc);
-				//扣款
-				$("#deductMoney").val(data.receptionDeductMoney);
-				//其它款项
-				$("#deductOther").val(data.receptionDeductOther);
+				$("#amountPayable").val(price);
+		
+				
 				//主键id
 				$("#payId").val(id);
 				
@@ -167,11 +203,12 @@ function test_number(number){
 	}
 }
 
+//后台运价确认
 $("#auditCommit").on("click",function(){
 	$.ajax({
 		url:"/pay/InviceDetail1/uptPrice",
 		data:{"id":$("#payId").val(),
-			"backstageBillTotalPrice":$("#amountPayable").val(),
+//			"backstageBillTotalPrice":$("#amountPayable").val(),
 			"backstageDeductWeightMisc":$("#deductWeightMisc").val(),
 			"backstageDeductMoney":$("#deductMoney").val(),
 			"backstageDeductOther":$("#deductOther").val(),
