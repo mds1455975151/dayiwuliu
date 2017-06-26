@@ -82,7 +82,7 @@ public class BankCardAction {
 	public ModelAndView venderSavePage(HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();
 		MemberVo vo = SessionManager.getSessionMember(request);
-		if(StringUtils.equals(vo.getCompanyName(), Constant.AUTHSTATUS_PASS)){
+		if(StringUtils.equals(vo.getCompanypercheck(), Constant.AUTHSTATUS_PASS)){
 			MemberInfoRecordResp info = systemMemberInfoService.selectMemberInfo(vo.getId());
 			view.addObject("info", info);
 			view.setViewName("/bank/company/saveBankCard");
@@ -129,13 +129,14 @@ public class BankCardAction {
 	
 	@RequestMapping("/vender/uptAutidPage")
 	public ModelAndView venderUptAutidPage(MemberBankCardReq req,HttpServletRequest request) throws Exception{
-		ModelAndView view = new ModelAndView("/bank/company/uptBankCard");
+		ModelAndView view = new ModelAndView();
 		MemberVo vo = SessionManager.getSessionMember(request);
-		if(StringUtils.equals(vo.getCompanyName(), Constant.AUTHSTATUS_PASS)){
+		if(StringUtils.equals(vo.getCompanypercheck(), Constant.AUTHSTATUS_PASS)){
 			MemberInfoRecordResp info = systemMemberInfoService.selectMemberInfo(vo.getId());
 			view.addObject("info", info);
 			view.addObject("bankid", req.getId());
 			view.addObject("bankcard", req.getBankcard());
+			view.setViewName("/bank/company/uptBankCard");
 		}else{
 			MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
 			view.addObject("member", member);
