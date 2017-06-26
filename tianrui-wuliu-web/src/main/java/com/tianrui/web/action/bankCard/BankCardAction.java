@@ -2,6 +2,7 @@ package com.tianrui.web.action.bankCard;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -80,9 +82,15 @@ public class BankCardAction {
 	public ModelAndView venderSavePage(HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView();
 		MemberVo vo = SessionManager.getSessionMember(request);
-		MemberInfoRecordResp info = systemMemberInfoService.selectMemberInfo(vo.getId());
-		view.addObject("info", info);
-		view.setViewName("/bank/company/saveBankCard");
+		if(StringUtils.equals(vo.getCompanyName(), Constant.AUTHSTATUS_PASS)){
+			MemberInfoRecordResp info = systemMemberInfoService.selectMemberInfo(vo.getId());
+			view.addObject("info", info);
+			view.setViewName("/bank/company/saveBankCard");
+		}else{
+			MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
+			view.addObject("member", member);
+			view.setViewName("/bank/saveBankCard");
+		}
 		return view;
 	}
 	/** 查询开户行.
@@ -123,10 +131,18 @@ public class BankCardAction {
 	public ModelAndView venderUptAutidPage(MemberBankCardReq req,HttpServletRequest request) throws Exception{
 		ModelAndView view = new ModelAndView("/bank/company/uptBankCard");
 		MemberVo vo = SessionManager.getSessionMember(request);
-		MemberInfoRecordResp info = systemMemberInfoService.selectMemberInfo(vo.getId());
-		view.addObject("info", info);
-		view.addObject("bankid", req.getId());
-		view.addObject("bankcard", req.getBankcard());
+		if(StringUtils.equals(vo.getCompanyName(), Constant.AUTHSTATUS_PASS)){
+			MemberInfoRecordResp info = systemMemberInfoService.selectMemberInfo(vo.getId());
+			view.addObject("info", info);
+			view.addObject("bankid", req.getId());
+			view.addObject("bankcard", req.getBankcard());
+		}else{
+			MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
+			view.addObject("member", member);
+			view.setViewName("/bank/uptBankCard");
+			view.addObject("bankid", req.getId());
+			view.addObject("bankcard", req.getBankcard());
+		}
 		return view;
 	}
 	

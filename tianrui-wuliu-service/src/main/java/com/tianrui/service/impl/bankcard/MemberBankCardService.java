@@ -140,8 +140,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 				flag = false;
 			}
 		} else if(StringUtils.equals(desc4, Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)) {
-			if(memberVo.getDriverpercheck() == Constant.AUTHSTATUS_PASS_SHORT
-					&& memberVo.getUserpercheck() == Constant.AUTHSTATUS_PASS_SHORT){
+			if(memberVo.getUserpercheck() == Constant.AUTHSTATUS_PASS_SHORT){
 				if (StringUtils.isNotBlank(bankimg)){
 					flag = true;
 				}else{
@@ -151,7 +150,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 				}
 			} else {
 				rs.setCode("2");
-				rs.setError("您还未进行或未通过司机认证，请认证成功后再来吧！");
+				rs.setError("您还未进行或未通过个人认证，请认证成功后再来吧！");
 				flag = false;
 			}
 		} else {
