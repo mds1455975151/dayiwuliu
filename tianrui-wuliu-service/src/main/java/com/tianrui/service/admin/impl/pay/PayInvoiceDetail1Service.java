@@ -149,6 +149,11 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 				return rs;
 			}
 		}
+		
+		PayInvoiceDetail upt = new PayInvoiceDetail();
+		PropertyUtils.copyProperties(upt, req);
+		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
+		
 		//支付对象为司机
 		if(pay.getBillType()==1){
 			PayInviceSave1Req driverPay = new PayInviceSave1Req();
@@ -158,11 +163,6 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			//生成账单
 			rs = savePayInvoice(driverPay);
 		}
-		
-		PayInvoiceDetail upt = new PayInvoiceDetail();
-		PropertyUtils.copyProperties(upt, req);
-		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
-		
 		return rs;
 	}
 	@Override

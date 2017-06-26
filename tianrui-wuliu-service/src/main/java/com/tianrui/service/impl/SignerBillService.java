@@ -186,12 +186,13 @@ public class SignerBillService implements ISignerBillService{
 		pay.setCreator(req.getCreater());
 		pay.setCreateTime(System.currentTimeMillis());
 		
-		if(StringUtils.equals(bill.getPayment(), "1")){
-			//支付司机
-		}else if(StringUtils.equals(bill.getPayment(), "1")){
-			//支付车主
+//		if(StringUtils.equals(bill.getPayment(), "1")){
+//			//支付司机
+//		}else if(StringUtils.equals(bill.getPayment(), "1")){
+//			//支付车主
+//		}else 
+		if(StringUtils.isNotBlank(bill.getPayment())){
 			pay.setWhetherClose(false);
-		}else if(StringUtils.isNotBlank(bill.getPayment())){
 			//支付对象 1-司机  2-车主
 			pay.setBillType(Integer.valueOf(bill.getPayment()));
 		}
@@ -249,13 +250,14 @@ public class SignerBillService implements ISignerBillService{
 		pay.setCreator(req.getCreater());
 		pay.setCreateTime(System.currentTimeMillis());
 		
-		if(StringUtils.equals(bill.getPayment(), "1")){
-			//支付司机
-		}else if(StringUtils.equals(bill.getPayment(), "1")){
-			//支付车主
-			pay.setWhetherClose(false);
-		}else if(StringUtils.isNotBlank(bill.getPayment())){
+//		if(StringUtils.equals(bill.getPayment(), "1")){
+//			//支付司机
+//		}else if(StringUtils.equals(bill.getPayment(), "1")){
+//			//支付车主
+//		}else 
+		if(StringUtils.isNotBlank(bill.getPayment())){
 			//支付对象 1-司机  2-车主
+			pay.setWhetherClose(false);
 			pay.setBillType(Integer.valueOf(bill.getPayment()));
 		}
 		return pay;

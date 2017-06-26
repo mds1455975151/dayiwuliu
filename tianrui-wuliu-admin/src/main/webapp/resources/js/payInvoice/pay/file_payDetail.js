@@ -44,7 +44,7 @@ function displayData(pageNo){
 							bytpe = "车主";
 						}
 						hml +=
-							"<tr><td>"+d+data[a].billId+"</td>"+
+							"<tr><td>"+d+"</td>"+
 							"<td>"+data[a].billCode+"</td>"+
 							"<td>"+data[a].invoiceName+"</td>"+
 							"<td>"+(data[a].cargoName || "")+"</td>"+
@@ -104,7 +104,7 @@ function selectBill(id){
 					$("#billTotalPrice").val(data.billPrice);
 				}
 				//应付金额
-				$("#amountPayable").val(data.receptionBillTotalPrice);
+				$("#amountPayable").val(data.receptionBillTotalPrice-data.receptionDeductOilCard-data.receptionDeductWeightMisc-data.receptionDeductMoney-data.receptionDeductOther);
 				//油卡
 				$("#deductOilCard").val(data.receptionDeductOilCard);
 				//扣重扣杂
@@ -180,8 +180,10 @@ $("#auditCommit").on("click",function(){
 		type:"POST",
 		success:function(ret){
 			if(ret.code=="000000"){
-				$("#audit").hide();
+				$(".closeAudit").click();
 				searchMember();
+			}else {
+				alert(ret.error);
 			}
 		}
 	});

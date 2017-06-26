@@ -85,18 +85,28 @@ public class PayInvoiceVo extends BaseResp {
 		this.pushStatus = pushStatus;
 	}
 	public String getPayInvoiceStatus() {
-		return payInvoiceStatus;
-	}
-	public void setPayInvoiceStatus(String payInvoiceStatus) {
-		if (payStatus == Constant.NOT_PAY){
+		if(auditStatus==Constant.NOT_AUDIT){
+			//未审核
+			this.payInvoiceStatus = "用户未审核";
+		}else if(auditStatus == Constant.YES_AUDIT&&pushStatus == Constant.NOT_PUSH){
+			//已审核，未推送
+			this.payInvoiceStatus = "用户未推送";
+		}else if(pushStatus == Constant.PUSH_ING&&payStatus == Constant.NOT_PAY){
+			//推送中
 			this.payInvoiceStatus = "未支付";
-		} else if (payStatus == Constant.PAY_ING){
+		}else if (payStatus == Constant.PAY_ING){
+			//支付中
 			this.payInvoiceStatus = "支付中";
 		} else if (payStatus == Constant.YES_PAY){
+			//已支付
 			this.payInvoiceStatus = "已支付";
 		} else {
 			this.payInvoiceStatus = "";
 		}
+		return payInvoiceStatus;
+	}
+	public void setPayInvoiceStatus(String payInvoiceStatus) {
+		this.payInvoiceStatus = payInvoiceStatus;
 	}
 	public Long getApplicationTime() {
 		return applicationTime;
@@ -114,11 +124,9 @@ public class PayInvoiceVo extends BaseResp {
 		this.payeeName = payeeName;
 	}
 	public Integer getBtnOpts() {
-		if (this.auditStatus == Constant.NOT_AUDIT
-				&& this.pushStatus == Constant.NOT_PUSH) {
-			this.btnOpts = 1;
-		} else if (this.auditStatus == Constant.YES_AUDIT
-				&& this.pushStatus == Constant.NOT_PUSH) {
+		//前台已审核，已推后台
+		if (this.auditStatus == Constant.YES_AUDIT
+				&& this.pushStatus == Constant.PUSH_ING) {
 			this.btnOpts = 2;
 		} else if (this.auditStatus == Constant.YES_AUDIT
 				&& this.pushStatus == Constant.YES_PUSH) {
