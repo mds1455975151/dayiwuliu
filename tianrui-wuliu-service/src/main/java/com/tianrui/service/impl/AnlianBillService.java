@@ -198,11 +198,11 @@ public class AnlianBillService implements IAnlianBillService{
 		order.setLines(ll);
 		shipment.setOrders(ol);
 		//TODO
-//		rs = anlianService.shipment(shipment);
-//		if(rs.getCode().equals("000000")){
-//			anlianBillInsert(shipment,rs.getData().toString(),req);
-//		}
-		anlianBillInsert(shipment,"CS0000000",req);
+		rs = anlianService.shipment(shipment);
+		if(rs.getCode().equals("000000")){
+			anlianBillInsert(shipment,rs.getData().toString(),req);
+		}
+//		anlianBillInsert(shipment,"CS0000000",req);
 		return rs;
 	}
 	/** 运单本地保存

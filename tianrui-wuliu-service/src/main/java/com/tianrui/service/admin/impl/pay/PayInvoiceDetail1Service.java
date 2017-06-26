@@ -152,6 +152,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		
 		PayInvoiceDetail upt = new PayInvoiceDetail();
 		PropertyUtils.copyProperties(upt, req);
+		upt.setBackstageBillTotalPrice(pay.getReceptionBillTotalPrice());
 		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		
 		//支付对象为司机

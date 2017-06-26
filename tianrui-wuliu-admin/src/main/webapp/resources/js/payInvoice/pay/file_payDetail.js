@@ -144,7 +144,7 @@ function selectBill(id){
 				}
 				
 				//总额
-				$("#billTotalPrice").val(data.backstageBillTotalPrice);
+				$("#billTotalPrice").val(data.receptionBillTotalPrice);
 				//应付金额
 				$("#amountPayable").val(price);
 		
