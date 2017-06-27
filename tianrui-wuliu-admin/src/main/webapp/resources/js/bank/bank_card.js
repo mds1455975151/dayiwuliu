@@ -68,6 +68,7 @@ function displayRect(pageNo){
 						}else if(data[a].bankautid=="3"){
 							bankautid = "认证失败";
 						}
+						var pushStatus = data[a].pushStatus;
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].bankcard+"</td>"+
 							"<td >"+data[a].idname+"</td>"+
@@ -75,6 +76,7 @@ function displayRect(pageNo){
 							"<td >"+data[a].bankname+"</td>"+
 							"<td >"+(data[a].desc1==undefined?"":data[a].desc1)+"</td>"+
 							"<td >"+bankautid+"</td>"+
+							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
 						    "<td >"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 						    		"<td>";
 							hml += "<span><a data-toggle='modal' onclick=\"bankdetails('"+data[a].id+"')\" data-target='#detail'>【详情】</a></span>";
