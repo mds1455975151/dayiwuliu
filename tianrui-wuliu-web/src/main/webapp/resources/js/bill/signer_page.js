@@ -11,7 +11,6 @@ function index(no){
 	$.ajax({
 		url:"/trwuliu/billSigner/find",
 		data:{"searchKey":$("#searchKey").val(),
-			"type":type,
 			"pageNo":no,
 			"pageSize":pageSize
 		},

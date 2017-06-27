@@ -46,43 +46,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h2>运费结算单</h2>
             </div>
             <!--个人中心右侧搜索框begin-->
-            <div class="yf_search">
+            <div class="plan_search">
                 <div class="yf_fl">
                     <div class="yf_sline">
-                        <label>运单号：</label>
-                        <input type="text" id="billcode" placeholder="请输入运单号">
-                    </div>
-                    <div class="yf_sline">
-                        <label>货主名称：</label>
-                        <input type="text" id="ownername" placeholder="请输入货主名称">
-                    </div>
-                    <div class="yf_sline">
-                        <label>到货时间：</label>
-                        <input type="text" id="signtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_fapiao" style="width:200px"/>
+                        <input type="text" id="searchKey" placeholder="运单号/货物名称">
+                <button type="submit" onclick="index(0,0)" class="btn btnblue">搜索</button>
                     </div>
                 </div>
-                <div class="yf_fl">
-                    <div class="yf_sline">
-                        <label>发票类型：</label>
-                       <!-- 
-                        <input type="text" id="cargoName" placeholder="请输入货物名称">
-                        -->
-	                       <select id="invoiceType" class="form-control">
-	                           <option value="">请选择</option>
-	                           <c:forEach items="${paytype }" var="p">
-	                           	<option value="${p.code }">${p.name }</option>
-	                           </c:forEach>
-	                       </select>
-                    </div>
-                    <div class="yf_sline">
-                        <label>状态：</label>
-                        <select id="isvoid" class="form-control">
-                            <option value="0">未开票</option>
-                            <option value="1">已开票</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" onclick="index(1,0)" class="btn btnblue">搜索</button>
             </div>
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->

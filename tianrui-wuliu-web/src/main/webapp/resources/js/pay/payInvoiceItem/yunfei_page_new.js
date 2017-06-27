@@ -16,6 +16,7 @@ function index(No,flag){
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
+			"searchKey":$("#searchKey").val(),
 			"billType":2,
 			"pageNo":No,
 			"pageSize":pageSize},

@@ -47,31 +47,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h2>支付发票账单</h2>
             </div>
             <!--个人中心右侧搜索框begin-->
-            <div class="yf_search">
+            <div class="plan_search">
                 <div class="yf_fl">
                     <div class="yf_sline">
-                        <label>账单编号：</label>
-                         <input type="text" id="paycode" placeholder="请输入账单编号">
-                    </div>
-                    <div class="yf_sline">
-                        <label>申请时间：</label>
-                        <input type="text" id="applytime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_fapiao" style="width:200px"/>
+                         <input type="text" id="searchKey" placeholder="账单编号/账单类型">
+               			 <button type="submit" onclick="index(1,0)" class="btn btnblue fpbtn">搜索</button>
                     </div>
                 </div>
-                <div class="yf_fl">
-                    <div class="yf_sline">
-                        <label>状态：</label>
-                        <select id="paystatus" class="form-control">
-                            <option value="">请选择</option>
-                            <option value="0">未审核</option>
-                            <option value="1">已审核</option>
-                            <option value="3">已推单</option>
-                            <option value="4">支付中</option>
-                            <option value="5">支付完成 </option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" onclick="index(1,0)" class="btn btnblue fpbtn">搜索</button>
+               
             </div>
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->

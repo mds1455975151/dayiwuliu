@@ -13,6 +13,8 @@ public class PayInvoiceDetail {
 	
 	//多条id
 	private List<String> ids;
+	//查询关键字
+	private String searchKey;
 	
 	private Integer pageNo;
 	
@@ -428,6 +430,14 @@ public class PayInvoiceDetail {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getSearchKey() {
+		return searchKey;
+	}
+
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 
 	public PayInvoiceDetail() {

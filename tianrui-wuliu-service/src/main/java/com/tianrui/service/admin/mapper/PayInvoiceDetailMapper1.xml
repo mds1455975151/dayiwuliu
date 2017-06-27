@@ -63,6 +63,11 @@
     	<include refid="Base_Column_List" />
     from pay_invoice_detail_1
 		<where>
+			<if test="searchKey != null and searchKey != ''">
+			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
+			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%"
+			)
+			</if>
    		  <if test="code != null and code != ''">
    		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
    		  </if> 
@@ -100,6 +105,10 @@
     	count(0)
     from pay_invoice_detail_1
 		<where>
+			<if test="searchKey != null and searchKey != ''">
+			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
+			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			</if>
    		  <if test="code != null and code != ''">
    		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
    		  </if> 

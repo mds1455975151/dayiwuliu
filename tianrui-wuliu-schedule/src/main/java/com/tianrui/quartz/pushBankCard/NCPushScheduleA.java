@@ -22,7 +22,7 @@ import com.tianrui.api.intf.bankcard.IMemberBankCardService;
  *
  */
 @Component  
-public class NCPushSchedule {
+public class NCPushScheduleA {
 
 	@Autowired
 	IMemberBankCardService memberBankCardService;

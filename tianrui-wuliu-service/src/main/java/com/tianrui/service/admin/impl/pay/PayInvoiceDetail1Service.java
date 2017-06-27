@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
+import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.constants.Constant;
@@ -76,12 +77,12 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	}
 	
 	@Override
-	public PaginationVO<PayInvoiceDetail1Resp> select(PayInvoiceDetail1Req req) throws Exception {
+	public PaginationVO<PayInvoiceDetail1Resp> select(PayInvoiceDetail1FindReq req) throws Exception {
 		PaginationVO<PayInvoiceDetail1Resp> page = new PaginationVO<PayInvoiceDetail1Resp>();
 		
 		PayInvoiceDetail pay = new PayInvoiceDetail();
 		PropertyUtils.copyProperties(pay, req);
-		
+		pay.setSearchKey(req.getSearchKey());
 		if(StringUtils.isNotBlank(req.getIdStr())){
 			String[] idArr = req.getIdStr().split(";");
 			pay.setIds(Arrays.asList(idArr));

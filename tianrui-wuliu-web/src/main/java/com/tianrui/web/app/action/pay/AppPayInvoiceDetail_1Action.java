@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
+import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.vo.AppParam;
@@ -36,13 +37,13 @@ public class AppPayInvoiceDetail_1Action {
 	
 	//车主结算单查询
 	@RequestMapping("/page")
-	@ApiParamRawType(PayInvoiceDetail1Req.class)
+	@ApiParamRawType(PayInvoiceDetail1FindReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult page(AppParam<PayInvoiceDetail1Req> appParam){
+	public AppResult page(AppParam<PayInvoiceDetail1FindReq> appParam){
 		Result rs = Result.getSuccessResult();
 		try {
-			PayInvoiceDetail1Req req = appParam.getBody();
+			PayInvoiceDetail1FindReq req = appParam.getBody();
 			Head vo = appParam.getHead();
 			req.setVenderId(vo.getId());
 			//1-司机 2-车主
@@ -88,9 +89,9 @@ public class AppPayInvoiceDetail_1Action {
 	@ApiParamRawType(PayInvoiceDetail1Req.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult selectIds(AppParam<PayInvoiceDetail1Req> appParam) throws Exception{
+	public AppResult selectIds(AppParam<PayInvoiceDetail1FindReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
-		PayInvoiceDetail1Req req = appParam.getBody();
+		PayInvoiceDetail1FindReq req = appParam.getBody();
 		if(StringUtils.isBlank(req.getIdStr())){
 			rs.setCode("1");
 			rs.setError("请选择数据");

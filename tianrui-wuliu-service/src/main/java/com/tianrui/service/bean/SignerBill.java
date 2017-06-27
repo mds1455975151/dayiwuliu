@@ -2,6 +2,8 @@ package com.tianrui.service.bean;
 
 public class SignerBill {
     private String id;
+    
+    private String searchKey;
 
     private String billtype;
 
@@ -155,5 +157,13 @@ public class SignerBill {
 	}
 	public void setConfirmPriceB(String confirmPriceB) {
 		this.confirmPriceB = confirmPriceB;
+	}
+
+	public String getSearchKey() {
+		return searchKey;
+	}
+
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 }

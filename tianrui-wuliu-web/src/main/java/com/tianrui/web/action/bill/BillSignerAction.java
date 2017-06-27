@@ -13,6 +13,7 @@ import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ISignerBillService;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
+import com.tianrui.api.req.front.bill.SignerBillFindReq;
 import com.tianrui.api.req.front.bill.SignerBillReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.front.bill.SignerBillResp;
@@ -42,7 +43,7 @@ public class BillSignerAction {
 	
 	@RequestMapping("find")
 	@ResponseBody
-	public Result find(SignerBillReq req,HttpServletRequest request) throws Exception{
+	public Result find(SignerBillFindReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 		MemberVo vo =SessionManager.getSessionMember(request);
 		req.setReceiveMemberid(vo.getId());

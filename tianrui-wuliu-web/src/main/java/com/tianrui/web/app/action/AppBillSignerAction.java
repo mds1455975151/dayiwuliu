@@ -15,6 +15,7 @@ import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.admin.OrgSignerFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
+import com.tianrui.api.req.front.bill.SignerBillFindReq;
 import com.tianrui.api.req.front.bill.SignerBillReq;
 import com.tianrui.api.resp.admin.OrgSignerResp;
 import com.tianrui.api.resp.front.bill.SignerBillResp;
@@ -31,7 +32,7 @@ import com.tianrui.web.util.SessionManager;
 
 @Controller
 @RequestMapping("/app/billSigner")
-public class AppSignerBillAction {
+public class AppBillSignerAction {
 
 	@Autowired
 	ISignerBillService signerService;
@@ -45,12 +46,12 @@ public class AppSignerBillAction {
 	
 	//查询我签收的运单
 	@RequestMapping(value="/find",method=RequestMethod.POST)
-	@ApiParamRawType(SignerBillReq.class)
+	@ApiParamRawType(SignerBillFindReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult find(AppParam<SignerBillReq> appParam) throws Exception{
+	public AppResult find(AppParam<SignerBillFindReq> appParam) throws Exception{
 		AppResult rs = new AppResult();
-		SignerBillReq req = appParam.getBody();
+		SignerBillFindReq req = appParam.getBody();
 		Head vo = appParam.getHead();
 		req.setReceiveMemberid(vo.getId());
 		PaginationVO<SignerBillResp> resp =signerService.select(req);

@@ -685,6 +685,11 @@
 					and cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
 				</if>
 		)
+		
+		<if test="searchKey != null and searchKey != ''">
+			and (p1.code LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%')
+			or p1.invoice_name LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%'))
+		</if>
 		<if test="state != null and state != ''">
 			and p1.state = #{state, jdbcType=BIT}
 		</if>
@@ -733,6 +738,10 @@
 					and cargo_name LIKE CONCAT('%',#{likeCargoName, jdbcType=VARCHAR} ,'%')
 				</if>
 		)
+		<if test="searchKey != null and searchKey != ''">
+			and (p1.code LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%')
+			or p1.invoice_name LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%'))
+		</if>
 		<if test="state != null and state != ''">
 			and p1.state = #{state, jdbcType=BIT}
 		</if>

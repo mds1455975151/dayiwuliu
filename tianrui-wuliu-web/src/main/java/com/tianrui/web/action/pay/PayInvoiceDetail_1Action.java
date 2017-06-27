@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
+import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.vo.MemberVo;
@@ -54,7 +55,7 @@ public class PayInvoiceDetail_1Action {
 	//车主结算单查询
 	@RequestMapping("/page")
 	@ResponseBody
-	public Result page(HttpServletRequest request,PayInvoiceDetail1Req req){
+	public Result page(HttpServletRequest request,PayInvoiceDetail1FindReq req){
 		Result rs = Result.getSuccessResult();
 		try {
 			MemberVo vo = SessionManager.getSessionMember(request);
@@ -85,7 +86,7 @@ public class PayInvoiceDetail_1Action {
 	 * @throws Exception */
 	@RequestMapping(value="/selectIds",method = RequestMethod.POST)
 	@ResponseBody
-	public Result selectIds(PayInvoiceDetail1Req req,HttpServletRequest request) throws Exception{
+	public Result selectIds(PayInvoiceDetail1FindReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 		MemberVo vo = SessionManager.getSessionMember(request);
 		if(StringUtils.isBlank(req.getIdStr())){

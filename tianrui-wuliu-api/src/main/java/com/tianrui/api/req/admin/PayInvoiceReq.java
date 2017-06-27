@@ -13,6 +13,9 @@ public class PayInvoiceReq extends BasePage {
 	private static final long serialVersionUID = -5734564963486255823L;
 	
 	private String id;
+	
+	private String searchKey;
+	
 	//模糊匹配运单号
 	private String likeBillCode;
 	//模糊匹配货物名称
@@ -35,6 +38,12 @@ public class PayInvoiceReq extends BasePage {
 	}
 	public void setLikeCargoName(String likeCargoName) {
 		this.likeCargoName = likeCargoName;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 	public Integer getPayeeIdentity() {
 		return payeeIdentity;

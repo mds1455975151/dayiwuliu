@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.tianrui.api.admin.intf.IFreightInfoService;
 import com.tianrui.api.intf.ISignerBillService;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
+import com.tianrui.api.req.front.bill.SignerBillFindReq;
 import com.tianrui.api.req.front.bill.SignerBillReq;
 import com.tianrui.api.resp.front.bill.SignerBillResp;
 import com.tianrui.common.utils.UUIDUtil;
@@ -58,10 +59,12 @@ public class SignerBillService implements ISignerBillService{
 	AnlianBillMapper anlianBillMapper;
 	
 	@Override
-	public PaginationVO<SignerBillResp> select(SignerBillReq req) throws Exception {
+	public PaginationVO<SignerBillResp> select(SignerBillFindReq req) throws Exception {
 		PaginationVO<SignerBillResp> page = new PaginationVO<SignerBillResp>();
 		SignerBill bill = new SignerBill();
-		PropertyUtils.copyProperties(bill, req);
+//		PropertyUtils.copyProperties(bill, req);
+		bill.setReceiveMemberid(req.getReceiveMemberid());
+		bill.setSearchKey(req.getSearchKey());
 		if(req.getPageNo()!=null){
 			bill.setPageNo(req.getPageNo()*req.getPageSize());
 			bill.setPageSize(req.getPageSize());
