@@ -143,7 +143,27 @@ public class Members{
 	private String licenseImagePath;
 	/**准驾车型*/
 	private String licenseType;
+	//推送状态（0：未推送，1：推送中，2：已推送）
+    private Integer pushStatus;
+    // NC推送返回状态（1：审核通过，且组织已分配，2：审核通过，但组织未分配）
+    private Integer ncStatus;
 	
+
+	public Integer getPushStatus() {
+		return pushStatus;
+	}
+
+	public void setPushStatus(Integer pushStatus) {
+		this.pushStatus = pushStatus;
+	}
+
+	public Integer getNcStatus() {
+		return ncStatus;
+	}
+
+	public void setNcStatus(Integer ncStatus) {
+		this.ncStatus = ncStatus;
+	}
 
 	public String getRemarkname() {
 		return remarkname;

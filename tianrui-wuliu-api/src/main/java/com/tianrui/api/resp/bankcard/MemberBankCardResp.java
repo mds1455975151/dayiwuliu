@@ -38,6 +38,10 @@ public class MemberBankCardResp {
     private String desc3;
 
     private String desc4;
+    //推送状态（0：未推送，1：推送中，2：已推送）
+    private Integer pushStatus;
+    //推送时间
+    private Long pushTime;
 
     public String getId() {
         return id;
@@ -190,4 +194,20 @@ public class MemberBankCardResp {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+	public Integer getPushStatus() {
+		return pushStatus;
+	}
+
+	public void setPushStatus(Integer pushStatus) {
+		this.pushStatus = pushStatus;
+	}
+
+	public Long getPushTime() {
+		return pushTime;
+	}
+
+	public void setPushTime(Long pushTime) {
+		this.pushTime = pushTime;
+	}
 }

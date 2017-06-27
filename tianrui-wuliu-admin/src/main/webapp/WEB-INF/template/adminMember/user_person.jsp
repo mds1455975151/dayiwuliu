@@ -94,14 +94,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                  <table id="sample2" class="table table-bordered"   data-options="">
                                      <thead>
                                      <tr>
-                                         <th >会员名 </th>
-                                         <th >会员账号 </th>
-                                         <th >注册时间</th>
-                                         <th >提交时间</th>
-                                         <th > 会员状态 </th>
-                                         <th > 认证状态 </th>
-                                         <th > 操作 </th>
-                                         <th >  最后登录时间</th>
+                                         <th>会员名 </th>
+                                         <th>会员账号 </th>
+                                         <th>注册时间</th>
+                                         <th>提交时间</th>
+                                         <th>会员状态 </th>
+                                         <th>认证状态 </th>
+                                         <th>推送状态 </th>
+                                         <th>NC审核状态 </th>
+                                         <th>操作 </th>
+                                         <th>最后登录时间</th>
                                      </tr>
                                      </thead>
                                     

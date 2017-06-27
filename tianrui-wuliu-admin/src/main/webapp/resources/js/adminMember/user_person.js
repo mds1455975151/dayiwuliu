@@ -113,6 +113,8 @@ function displayRect(pageNo){
 						if(data[a].lastTimeStr == undefined){
 							lastTime = "";
 						}
+						var pushStatus = data[a].pushStatus;
+						var ncStatus = data[a].ncStatus;
 						hml += "<tr>" +
 							"<td >"+userName+" </td>"+
 							"<td >"+cellPhone+"</td>"+
@@ -120,6 +122,8 @@ function displayRect(pageNo){
 							"<td >"+submitDate+"</td>"+
 							"<td >"+s+"</td>"+
 							"<td >"+per+"</td>"+
+							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
+							"<td >"+(ncStatus == 0 ? '未审核' : ncStatus == 1 ? '审核通过，且组织已分配' : ncStatus == 2 ? '审核通过，但组织未分配' : '')+"</td>"+
 							"<td>";
 							if(data[a].companypercheck=='1'||data[a].userpercheck=='1'){
 								hml += "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";

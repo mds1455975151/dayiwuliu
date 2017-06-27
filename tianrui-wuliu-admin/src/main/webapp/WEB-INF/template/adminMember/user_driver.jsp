@@ -104,15 +104,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      <thead>
                                      <tr>
                                          <th>序号</th>
-                                         <th >司机账号 </th>
-                                         <th >安联账号 </th>
-                                         <th >司机姓名 </th>
-                                         <th >联系方式</th>
-                                         <th >驾驶证号 </th>
-                                         <th >认证状态</th>
-                                         <th > 注册时间 </th>
-                                         <th > 认证时间 </th>
-                                         <th > 操作 </th>
+                                         <th>司机账号 </th>
+                                         <th>安联账号 </th>
+                                         <th>司机姓名 </th>
+                                         <th>联系方式</th>
+                                         <th>驾驶证号 </th>
+                                         <th>认证状态</th>
+                                         <th>推送状态 </th>
+                                         <th>NC审核状态 </th>
+                                         <th>注册时间 </th>
+                                         <th>认证时间 </th>
+                                         <th>操作 </th>
                                      </tr>
                                      </thead>
                                      <tbody id="innerHml">

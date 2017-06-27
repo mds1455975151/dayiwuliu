@@ -42,9 +42,9 @@ public class MemberBankCard {
     private Integer pageNo;
     
     private Integer pageSize;
-    
+    //推送状态（0：未推送，1：推送中，2：已推送）
     private Integer pushStatus;
-    
+    //推送时间
     private Long pushTime;
 
     public String getId() {

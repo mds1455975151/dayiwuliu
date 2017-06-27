@@ -124,6 +124,8 @@ function displayRect(pageNo){
 						if(aldriverid == "1"){
 							aldriverid = "<span><a onclick=\"alert('请前台用户绑定车辆')\">【认证成功】</a></span>";
 						}
+						var pushStatus = data[a].pushStatus;
+						var ncStatus = data[a].ncStatus;
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].cellPhone+"</td>"+
 							"<td >"+aldriverid+"</td>"+
@@ -131,6 +133,8 @@ function displayRect(pageNo){
 							"<td >"+telphone+"</td>"+
 							"<td >"+identityCard+"</td>"+
 							"<td >"+per+"</td>"+
+							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
+							"<td >"+(ncStatus == 0 ? '未审核' : ncStatus == 1 ? '审核通过，且组织已分配' : ncStatus == 2 ? '审核通过，但组织未分配' : '')+"</td>"+
 							"<td >"+data[a].registtimeStr+"</td>"+
 							"<td >"+submitDate+"</td><td>";
 							if(data[a].driverpercheck=="1"){
