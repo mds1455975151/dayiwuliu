@@ -84,10 +84,10 @@ function displayRec(pageNo){
 						if(d[a].telphone == undefined){
 							telphone = "";
 						}
-						var ownerphone = d[a].ownerphone;
+						var ownerphone = d[a].cellphone;
 						var ownername = d[a].ownername;
 						if(d[a].ownerphone == undefined){
-							ownerphone = d[a].companytel;
+//							ownerphone = d[a].companytel;
 							ownername = d[a].companyname;
 						}
 						var anlian = "";

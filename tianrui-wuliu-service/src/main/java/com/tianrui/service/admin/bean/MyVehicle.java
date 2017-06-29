@@ -19,6 +19,8 @@ public class MyVehicle{
 	 * 车主id
 	 */
 	private String memberid;
+	//车主账号
+	private String cellphone;
 	
 	private String registcode;
 	private String registimage;
@@ -355,4 +357,13 @@ public class MyVehicle{
 	public void setVehiheight(Double vehiheight) {
 		this.vehiheight = vehiheight;
 	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+
 }

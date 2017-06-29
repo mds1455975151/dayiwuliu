@@ -5,12 +5,14 @@ function searchMember(){
 	displayData(0);
 }
 function displayData(pageNo){
-	var cellPhone = $("#cellPhone").val();
+	var code = $("#code").val();
+	var invoiceName =  $("#invoiceName").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:"/pay/InviceDetail1/find",
 		data:{
-			"cellphone":cellPhone,
+			"invoiceName":invoiceName,
+			"code":code,
 			"pageNo":(pageNo),
 			"pageSize":pageSize
 		},
@@ -209,10 +211,10 @@ $("#auditCommit").on("click",function(){
 		url:"/pay/InviceDetail1/uptPrice",
 		data:{"id":$("#payId").val(),
 //			"backstageBillTotalPrice":$("#amountPayable").val(),
-			"backstageDeductWeightMisc":$("#deductWeightMisc").val(),
-			"backstageDeductMoney":$("#deductMoney").val(),
-			"backstageDeductOther":$("#deductOther").val(),
-			"backstageDeductOilCard":$("#deductOilCard").val()
+			"backstageDeductWeightMisc":$("#deductWeightMisc").val().trim(),
+			"backstageDeductMoney":$("#deductMoney").val().trim(),
+			"backstageDeductOther":$("#deductOther").val().trim(),
+			"backstageDeductOilCard":$("#deductOilCard").val().trim()
 		},
 		type:"POST",
 		success:function(ret){

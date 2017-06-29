@@ -26,6 +26,9 @@ public class MyVehicleResp extends BaseResp{
 	 * 车主id
 	 */
 	private String memberid;
+	
+	private String cellphone;
+	
 	private String ownername;
 	private String ownerphone;
 	private String companyname;
@@ -311,5 +314,11 @@ public class MyVehicleResp extends BaseResp{
 	}
 	public void setVehiheight(Double vehiheight) {
 		this.vehiheight = vehiheight;
+	}
+	public String getCellphone() {
+		return cellphone;
+	}
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 }

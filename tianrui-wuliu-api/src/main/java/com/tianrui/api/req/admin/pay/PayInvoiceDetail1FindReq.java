@@ -12,6 +12,17 @@ public class PayInvoiceDetail1FindReq {
 	
 	private String searchKey;
 	
+	//单据编号
+    private String code;
+    //发票类型NAME
+    private String invoiceName;
+    //说明al-安联运单  dy-大易运单
+    private String remark;
+    //货物名称
+    private String cargoName;
+    
+    private Boolean whetherClose;
+	
 	private Integer pageNo;
 	
 	private Integer pageSize;
@@ -22,8 +33,13 @@ public class PayInvoiceDetail1FindReq {
     
   //运单身份（1：司机运单，2：车主运单）
     private Integer billType;
-    
-   
+	
+    public Boolean getWhetherClose() {
+		return whetherClose;
+	}
+	public void setWhetherClose(Boolean whetherClose) {
+		this.whetherClose = whetherClose;
+	}
 	public Integer getBillType() {
 		return billType;
 	}
@@ -71,5 +87,29 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setVenderId(String venderId) {
 		this.venderId = venderId;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getInvoiceName() {
+		return invoiceName;
+	}
+	public void setInvoiceName(String invoiceName) {
+		this.invoiceName = invoiceName;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getCargoName() {
+		return cargoName;
+	}
+	public void setCargoName(String cargoName) {
+		this.cargoName = cargoName;
 	}
 }

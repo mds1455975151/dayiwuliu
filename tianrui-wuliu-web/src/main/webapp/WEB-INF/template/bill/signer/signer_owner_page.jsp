@@ -277,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?06.23" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?06.29" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

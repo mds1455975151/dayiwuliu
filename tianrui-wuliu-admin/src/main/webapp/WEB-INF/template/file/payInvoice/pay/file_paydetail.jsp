@@ -39,12 +39,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="col-md-12">
                     <div class="contuser_search">
                         <div class="ht_div">
-                            <label>手机号：</label>
-                            <input type="text" id="cellPhone" maxlength="11" placeholder=" ">
+                            <label>运单号：</label>
+                            <input type="text" id="code" placeholder=" ">
+                        </div>
+                        <div class="ht_div">
+                            <label>发票类型：</label>
+                            <input type="text" id="invoiceName" placeholder=" ">
                         </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue " onclick="searchMember();" type="submit">搜索</button>
-                            <button class="btn btngreen" onclick="resetvalue();" type="submit">重置</button>
                         </div>
                     </div>
                 </div>

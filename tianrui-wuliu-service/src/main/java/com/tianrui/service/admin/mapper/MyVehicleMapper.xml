@@ -22,10 +22,12 @@
 		i.username ownername,
 		i.telphone ownerphone,
 		i.companyname companyname,
-		i.companytel companytel
+		i.companytel companytel,
+		m.cellphone cellphone
 	FROM
 		wuliu_member_vehicle mv
 		LEFT JOIN member_info i ON mv.memberid = i.id
+		LEFT JOIN member m on mv.memberid = m.id
     <where> 1=1
  	  <if test="ownername != null  and ownername !='' " >
        and (i.username like "%" #{ownername,jdbcType=VARCHAR} "%"

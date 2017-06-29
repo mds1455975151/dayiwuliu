@@ -690,6 +690,21 @@
 			and (p1.code LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%')
 			or p1.invoice_name LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%'))
 		</if>
+		<if test="code != null and code != ''">
+			and p1.code LIKE CONCAT('%',#{code, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="invoiceName != null and invoiceName != ''">
+			and  p1.invoice_name LIKE CONCAT('%',#{invoiceName, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="auditStatus != null">
+			and p1.audit_status = #{auditStatus,jdbcType=BIT}
+		</if>
+		<if test="pushStatus != null">
+			and p1.push_status = #{pushStatus,jdbcType=BIT}
+		</if>
+		<if test="payStatus != null">
+			and p1.pay_status = #{payStatus,jdbcType=BIT}
+		</if>
 		<if test="state != null and state != ''">
 			and p1.state = #{state, jdbcType=BIT}
 		</if>
@@ -741,6 +756,21 @@
 		<if test="searchKey != null and searchKey != ''">
 			and (p1.code LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%')
 			or p1.invoice_name LIKE CONCAT('%',#{searchKey, jdbcType=VARCHAR} ,'%'))
+		</if>
+		<if test="code != null and code != ''">
+			and p1.code LIKE CONCAT('%',#{code, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="invoiceName != null and invoiceName != ''">
+			and  p1.invoice_name LIKE CONCAT('%',#{invoiceName, jdbcType=VARCHAR} ,'%')
+		</if>
+		<if test="auditStatus != null">
+			and p1.audit_status = #{auditStatus,jdbcType=BIT}
+		</if>
+		<if test="pushStatus != null">
+			and p1.push_status = #{pushStatus,jdbcType=BIT}
+		</if>
+		<if test="payStatus != null">
+			and p1.pay_status = #{payStatus,jdbcType=BIT}
 		</if>
 		<if test="state != null and state != ''">
 			and p1.state = #{state, jdbcType=BIT}

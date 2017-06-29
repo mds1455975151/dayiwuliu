@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
+import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.vo.PaginationVO;
@@ -28,7 +29,7 @@ public class PayInviceDetail1Action {
 	
 	@RequestMapping("find")
 	@ResponseBody
-	public Result find(PayInvoiceDetail1Req req) throws Exception{
+	public Result find(PayInvoiceDetail1FindReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
 		PaginationVO<PayInvoiceDetail1Resp> page = payInvoiceDetail1Service.select(req);
 		rs.setData(page);

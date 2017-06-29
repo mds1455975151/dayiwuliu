@@ -34,6 +34,7 @@ public class BankCardAction {
 	private ISystemMemberInfoService systemMemberInfoService;
 
 	/** 我的银行卡
+
 	 * @throws Exception */
 	@RequestMapping("page")
 	public ModelAndView page(HttpServletRequest request) throws Exception{

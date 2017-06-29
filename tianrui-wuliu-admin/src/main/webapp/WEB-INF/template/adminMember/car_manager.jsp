@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <th>所有人姓名</th>
                                         <th>联系方式</th>
                                         <th>车主姓名</th>
-                                        <th>车主联系方式</th>
+                                        <th>车主账号</th>
                                         <th>车型</th>
                                         <th>载重（吨）</th>
                                         <th>认证方式</th>
@@ -418,7 +418,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?04.26" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.28" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

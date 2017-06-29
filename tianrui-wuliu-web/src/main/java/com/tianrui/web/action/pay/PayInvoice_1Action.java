@@ -35,7 +35,7 @@ public class PayInvoice_1Action {
 		return model;
 	}
 	
-	/**车主账单*/
+	/**司机账单*/
 	@RequestMapping("mainDriver")
 	public ModelAndView mainDriver(HttpServletRequest request){
 		ModelAndView model = new ModelAndView("pay/driverpay/pay_page_new");

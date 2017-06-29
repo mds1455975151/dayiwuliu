@@ -14,8 +14,20 @@ public class PayInvoiceReq extends BasePage {
 	
 	private String id;
 	
-	private String searchKey;
+	//账单编码
+    private String code;
+    //发票类型NAME
+    private String invoiceName;
+    //查询支付状态 1-未审核 2-未推单 3-推单中 4-已推单 5-支付中 6-已支付
+    private Integer pay;
+    //审核状态（0：未审核，1：审核中，2：已审核）
+    private Integer auditStatus;
+    //推单状态（0：未推单，1：退单中，2已退单）
+    private Integer pushStatus;
+    //支付状态（0：未支付，1：支付中，2：已支付）
+    private Integer payStatus;
 	
+	private String searchKey;
 	//模糊匹配运单号
 	private String likeBillCode;
 	//模糊匹配货物名称
@@ -27,6 +39,75 @@ public class PayInvoiceReq extends BasePage {
 	//是否有效数据
 	private Integer state = Constant.DATA_VALID;
 	
+	public Integer getPay() {
+		return pay;
+	}
+	public void setPay(Integer pay) {
+		if(pay != null){
+			if(pay==1){
+				//未审核
+				auditStatus=0;
+				pushStatus=0;
+				payStatus=0;
+			}else if(pay==2){
+				//未推单
+				auditStatus=2;
+				pushStatus=0;
+				payStatus=0;
+			}else if(pay==3){
+				//推单中
+				auditStatus=2;
+				pushStatus=1;
+				payStatus=0;
+			}else if(pay==4){
+				//已推单
+				auditStatus=2;
+				pushStatus=2;
+				payStatus=0;
+			}else if(pay==5){
+				//支付中
+				auditStatus=2;
+				pushStatus=2;
+				payStatus=1;
+			}else if(pay==6){
+				//已支付
+				auditStatus=2;
+				pushStatus=2;
+				payStatus=2;
+			}
+		}
+		this.pay = pay;
+	}
+	public Integer getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(Integer auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public Integer getPushStatus() {
+		return pushStatus;
+	}
+	public void setPushStatus(Integer pushStatus) {
+		this.pushStatus = pushStatus;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getInvoiceName() {
+		return invoiceName;
+	}
+	public void setInvoiceName(String invoiceName) {
+		this.invoiceName = invoiceName;
+	}
+	public Integer getPayStatus() {
+		return payStatus;
+	}
+	public void setPayStatus(Integer payStatus) {
+		this.payStatus = payStatus;
+	}
 	public String getLikeBillCode() {
 		return likeBillCode;
 	}

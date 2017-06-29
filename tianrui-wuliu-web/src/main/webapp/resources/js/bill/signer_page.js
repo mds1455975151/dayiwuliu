@@ -128,7 +128,7 @@ function yj_queren(id,type,totalprice){
 				$("#deduct_money").val(data.receptionDeductMoney);
 				$("#deduct_other").val(data.receptionDeductOther);
 				$("#deduct_oil_card").val(data.receptionDeductOilCard);
-				$("#true_totalprice").html(data.receptionBillTotalPrice);
+				$("#true_totalprice").html(data.receptionBillTotalPrice-data.receptionDeductMoney-data.receptionDeductWeightMisc-data.receptionDeductOther-data.receptionDeductOilCard);
 			}
 		}
 	});
@@ -182,13 +182,13 @@ function test_number(number){
 /**运价确认提交*/
 $(".confirmPrice").on("click",function(){
 	
-	var deduct_weight_misc = $("#deduct_weight_misc").val();
-	var deduct_money = $("#deduct_money").val();
-	var deduct_other = $("#deduct_other").val();
-	var deduct_oil_card = $("#deduct_oil_card").val();
-	var true_totalprice = $("#true_totalprice").html();
-	var deduct_bill_id = $("#deduct_bill_id").val();
-	var deduct_bill_type = $("#deduct_bill_type").val();
+	var deduct_weight_misc = $("#deduct_weight_misc").val().trim();
+	var deduct_money = $("#deduct_money").val().trim();
+	var deduct_other = $("#deduct_other").val().trim();
+	var deduct_oil_card = $("#deduct_oil_card").val().trim();
+	var true_totalprice = $("#true_totalprice").html().trim();
+	var deduct_bill_id = $("#deduct_bill_id").val().trim();
+	var deduct_bill_type = $("#deduct_bill_type").val().trim();
 	$.ajax({
 		url:"/trwuliu/billSigner/confirmTotalPrice",
 		type:"POST",

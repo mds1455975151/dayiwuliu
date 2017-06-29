@@ -65,14 +65,22 @@
 		<where>
 			<if test="searchKey != null and searchKey != ''">
 			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
-			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%"
-			)
+			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			</if>
+			<if test="whetherClose != null">
+				and whether_close = #{whetherClose,jdbcType=BIT}
+			</if>
+			<if test="invoiceName != null and invoiceName != ''">
+				and invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
 			</if>
    		  <if test="code != null and code != ''">
    		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
    		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="remark != null and remark != ''">
+   		  	and remark = #{remark,jdbcType=VARCHAR}
    		  </if>
    		  <if test="venderId != null and venderId != ''">
    		  	and vender_id = #{venderId,jdbcType=VARCHAR}
@@ -109,11 +117,20 @@
 			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
 			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
 			</if>
+			<if test="whetherClose != null">
+				and whether_close = #{whetherClose,jdbcType=BIT}
+			</if>
+			<if test="invoiceName != null and invoiceName != ''">
+				and invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
+			</if>
    		  <if test="code != null and code != ''">
    		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
    		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="remark != null and remark != ''">
+   		  	and remark = #{remark,jdbcType=VARCHAR}
    		  </if>
    		  <if test="venderId != null and venderId != ''">
    		  	and vender_id = #{venderId,jdbcType=VARCHAR}
