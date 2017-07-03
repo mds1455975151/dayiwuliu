@@ -23,7 +23,6 @@ public class PlanSaveReq extends BaseReq{
     private String venderId;
     //是否为熟车   1为熟车  0普通
     private String isFamily;
-    
     //我的收货员id
     private String receiveid;
     //支付对象 1-司机 2-车主

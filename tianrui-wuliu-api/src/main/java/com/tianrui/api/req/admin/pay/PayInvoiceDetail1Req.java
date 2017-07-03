@@ -9,6 +9,8 @@ public class PayInvoiceDetail1Req {
 	private String id;
 	//多条id
 	private String idStr;
+	//运价确认附件
+	private String appendix;
 	
 	private Integer pageNo;
 	
@@ -292,6 +294,12 @@ public class PayInvoiceDetail1Req {
 	}
 	public void setIdStr(String idStr) {
 		this.idStr = idStr;
+	}
+	public String getAppendix() {
+		return appendix;
+	}
+	public void setAppendix(String appendix) {
+		this.appendix = appendix;
 	}
 	
     

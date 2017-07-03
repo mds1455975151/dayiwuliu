@@ -66,7 +66,7 @@ function innerHTML(data){
 			jtb = "未推送";
 		}
 		hml +="<tr><td>"+d+"</td>"+
-		"<td>"+data[a].waybillno+"</td>"+
+		"<td><a onclick=\"bill_map('"+data[a].id+"')\">"+data[a].waybillno+"</a></td>"+
 		"<td>"+data[a].vehicleno+"</td>"+
 		"<td>"+jtb+"</td>"+
 		"<td>"+data[a].creatimeStr+"</td>"+
@@ -76,7 +76,9 @@ function innerHTML(data){
 }
 	document.getElementById("innhml").innerHTML=hml;
 }
-
+function bill_map(id){
+	window.open("/report/map?type=a&id="+id+"&menuId=6");
+}
 function getDetail(id){
 	$.ajax({
 		url: CONTEXTPATH + "/admin/waybill/findAnlianBillId",

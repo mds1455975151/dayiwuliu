@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">运单详情</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="datail_html">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

@@ -565,12 +565,7 @@ public class BillService implements IBillService{
 	public Result billExchange(Bill db) throws Exception{
 		Result rs = Result.getSuccessResult();
 		boolean flag = true;
-		if(db.getPrice() <= 0){
-			rs.setCode("1");
-			rs.setError("单价必须大于0");
-			flag = false;
-			return rs;
-		}
+		
 		BillMassageReq billMassage = new BillMassageReq();
 		billMassage.setOriginalDocumentNumber(db.getWaybillno());
 		billMassage.setCarrier("中原大易科技有限公司");
@@ -2105,6 +2100,23 @@ public class BillService implements IBillService{
 			rs.setError("运单已推送交通部，不能重复提交");
 			return rs;
 		}
+		if(db.getPrice() == null || db.getPrice() <= 0){
+			rs.setCode("1");
+			rs.setError("推送单价必须大于0");
+			return rs;
+		}
+		if(db.getTrueweight() == null || db.getTrueweight() >= 99*1000 || db.getTrueweight() <= 0){
+			rs.setCode("1");
+			rs.setError("推送重量必须大于0且小于99吨");
+			return rs;
+		}
+		if(db.getInterTime() == null ||db.getInterTime()<=1000*60*30){
+			rs.setCode("1");
+			rs.setError("提货卸货时间间隔不能小于30分钟");
+			return rs;
+		}
+		
+		
 		//运单推送交通部
 		rs = billExchange(db);
 		if(StringUtils.equals(rs.getCode(), "000000")){
@@ -2119,16 +2131,7 @@ public class BillService implements IBillService{
 	 * @throws Exception */
 	public Result anlianBillExchange(AnlianBill ab) throws Exception{
 		Result rs = Result.getSuccessResult();
-		if (Double.valueOf(ab.getYf()) <= 0) {
-			rs.setCode("1");
-			rs.setError("单价必须大于0");
-			return rs;
-		}
-		if (Double.valueOf(ab.getZzl()) <= 0 || Double.valueOf(ab.getZzl()) >= 99) {
-			rs.setCode("1");
-			rs.setError("签收总量必须大于0且小于99吨");
-			return rs;
-		}
+		
 		BillMassageReq billMassage = new BillMassageReq();
 		billMassage.setOriginalDocumentNumber(ab.getBillno());
 		billMassage.setCarrier("中原大易科技有限公司");
@@ -2233,6 +2236,17 @@ public class BillService implements IBillService{
 			rs.setError("运单已经推送交通部，不能重复推送");
 			return rs;
 		}
+		if (Double.valueOf(ab.getYf()) <= 0) {
+			rs.setCode("1");
+			rs.setError("单价必须大于0");
+			return rs;
+		}
+		if (Double.valueOf(ab.getZzl()) <= 0 || Double.valueOf(ab.getZzl()) >= 99) {
+			rs.setCode("1");
+			rs.setError("总量必须大于0且小于99吨");
+			return rs;
+		}
+		
 		rs = anlianBillExchange(ab);
 		if(StringUtils.equals("000000", rs.getCode())){
 			ab.setDesc2("1"); 

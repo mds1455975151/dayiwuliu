@@ -98,19 +98,6 @@ function selectBill(id){
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data;
-//				if(data.remark=="dy"){
-//					//账单总额
-//					$("#billTotalPrice").val(data.billPrice*data.billWeight);
-//					//应付金额
-//					$("#amountPayable").val(data.billPrice*data.billWeight-data.receptionDeductOilCard-data.receptionDeductWeightMisc-data.receptionDeductMoney-data.receptionDeductOther);
-//
-//				}else if(data.remark=="al"){
-//					//账单总额
-//					$("#billTotalPrice").val(data.billPrice);
-//					//应付金额
-//					$("#amountPayable").val(data.billPrice-data.receptionDeductOilCard-data.receptionDeductWeightMisc-data.receptionDeductMoney-data.receptionDeductOther);
-//				}
-				
 				var price = 0;
 				if(data.backstageBillTotalPrice != 0){
 					//后台已运价确认
@@ -149,7 +136,6 @@ function selectBill(id){
 				$("#billTotalPrice").val(data.receptionBillTotalPrice);
 				//应付金额
 				$("#amountPayable").val(price);
-		
 				
 				//主键id
 				$("#payId").val(id);
@@ -210,7 +196,7 @@ $("#auditCommit").on("click",function(){
 	$.ajax({
 		url:"/pay/InviceDetail1/uptPrice",
 		data:{"id":$("#payId").val(),
-//			"backstageBillTotalPrice":$("#amountPayable").val(),
+			"appendix":$("#pay_fj").val(),
 			"backstageDeductWeightMisc":$("#deductWeightMisc").val().trim(),
 			"backstageDeductMoney":$("#deductMoney").val().trim(),
 			"backstageDeductOther":$("#deductOther").val().trim(),
@@ -227,6 +213,26 @@ $("#auditCommit").on("click",function(){
 		}
 	});
 });
+
+function fileUpload(type){
+	var file = $("#file_"+type)[0].files[0];
+	var formData = new FormData();
+	formData.append("file",file);
+	$.ajax({
+		type:"post",
+		url:"/upload/add",
+		data:formData,
+		processData : false,//告诉jQuery不要去处理发送的数据
+		contentType : false,//告诉jQuery不要去设置Content-Type请求头
+		success: function(rs) {
+			if(rs.code=="000000"){
+				$("#pay_"+type).val(rs.data);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
 
 
 

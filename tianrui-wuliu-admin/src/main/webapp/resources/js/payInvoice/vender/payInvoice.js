@@ -99,8 +99,8 @@
 		if(list && list.length>0){
 			for(var i=0;i<list.length;i++){
 				var obj = list[i] || '';
-				$('<tr>').append('<td>'+(i+1)+'</td>')
-						 .append('<td>'+(obj.code || '')+'</td>')
+				$('<tr>').append('<td >'+(i+1)+'</td>')
+						 .append('<td><a class=\"pay_detail\">'+(obj.code || '')+'</a></td>')
 						 .append('<td>'+(obj.invoiceName || '')+'</td>')
 						 .append('<td>应付款'+(obj.amountPayable || '')+'元<br/>已付款'+(obj.paidAmount || '')+'元</td>')
 						 .append('<td>'+(obj.payeeName || '')+'</td>')

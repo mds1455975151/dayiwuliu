@@ -17,6 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/style.css" rel="stylesheet">
     <link href="${stylesRoot }/tr-media.css" rel="stylesheet">
     <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
+    <link href="${trRoot}/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     <link href="${stylesRoot }/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link rel="Shortcut Icon" href="${imagesRoot}/favicon.ico" type="image/x-icon">
     <link href="${stylesRoot}/imgcut.css" rel="stylesheet">
@@ -132,6 +133,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="text" class="total_price_count" id="deductOther">
 							<input type="hidden" id="payId">
 						</div>
+		                <div class="reg_tel" style="width: 450px;margin: 0 auto;">
+		                    <label>附件：</label>
+		                    <div class="img_upload">
+								<input id="file_fj" onchange="fileUpload('fj')" name="file" class="file" type="file">
+								<input type="hidden" id="pay_fj">
+								<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+							</div>
+		                </div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -147,8 +156,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0623" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0703" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
+<script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
+<script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
+<script type="text/javascript">
+		$("#file_yyzz").fileinput({
+			language : 'zh',
+			showUpload : false,
+			dropZoneEnabled : false,
+			maxFileCount : 1,
+//       	minImageWidth: 50, //图片的最小宽度
+//	  	 	minImageHeight: 50,//图片的最小高度
+//   	  	maxImageWidth: 600,//图片的最大宽度
+//	 	  	maxImageHeight: 600,//图片的最大高度
+			maxFileSize : 5120,//单位为kb，如果为0表示不限制文件大小
+			resizeImage : true,
+			showCaption : true,
+			showPreview : true,
+			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
+		}).on('fileuploaderror',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log(data);
+			console.log('File upload error');
+		}).on('fileerror', function(event, data) {
+			console.log(data.id);
+			console.log(data.index);
+			console.log(data.file);
+			console.log(data.reader);
+			console.log(data.files);
+		}).on('fileuploaded',function(event, data, previewId, index) {
+			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
+			console.log('File uploaded triggered');
+		});
+	</script>
 </body>
 </html>

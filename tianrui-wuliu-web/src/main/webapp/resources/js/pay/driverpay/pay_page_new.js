@@ -82,6 +82,7 @@ function showdetail(id){
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
+				"billType":1,//司机账单
 				"payInvoiceId":id},
 		type : "post",
 		success : function(rs){

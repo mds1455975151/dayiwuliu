@@ -66,7 +66,7 @@ function innerHTML(data){
 			jtb = "未推送";
 		}
 		hml +="<tr><td>"+d+"</td>"+
-		"<td>"+data[a].waybillno+"</td>"+
+		"<td><a onclick=\"bill_map('"+data[a].id+"')\">"+data[a].waybillno+"</a></td>"+
 		"<td>"+data[a].vehicleno+"</td>"+
 		"<td>"+jtb+"</td>"+
 		"<td>"+data[a].creatimeStr+"</td>"+
@@ -83,6 +83,11 @@ function getDetail(id){
 		}
 	});
 }
+
+function bill_map(id){
+	window.open("/report/map?type=w&id="+id+"&menuId=6");
+}
+
 //查看详情
 function details(data){
 	var orgName = data.orgName;
@@ -126,7 +131,7 @@ function details(data){
 				"<div class='file_detail'><label>提货位置偏差：</label><span>"+q_deviation+"米</span></div>"+
 				"<div class='file_detail'><label>卸货位置偏差：</label><span>"+d_deviation+"米</span></div>"+
 				"<div class='clear'></div>";
-	document.getElementById("dateilshml").innerHTML=hml;
+	document.getElementById("datail_html").innerHTML=hml;
 	$('#detail').modal('show');
 }
 //提交
@@ -163,6 +168,7 @@ function submit(obj){
 	$("#thsj").html(new Date(obj.begintime).toString() || '');
 	$("#dhsj").html(new Date(obj.unloadtime).toString() || '');
 	$("#zj").html(obj.price * obj.trueweight || '').append('元');
+//	$("#jgsj").html((obj.interTime/(1000*60)) || '').append('分钟');
 	$("#submit").modal('show');
 }
 

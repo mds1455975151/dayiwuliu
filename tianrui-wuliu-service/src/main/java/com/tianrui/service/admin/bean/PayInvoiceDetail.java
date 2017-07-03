@@ -15,6 +15,8 @@ public class PayInvoiceDetail {
 	private List<String> ids;
 	//查询关键字
 	private String searchKey;
+	//附件图片
+	private String appendix;
 	
 	private Integer pageNo;
 	
@@ -438,6 +440,14 @@ public class PayInvoiceDetail {
 
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
+	}
+
+	public String getAppendix() {
+		return appendix;
+	}
+
+	public void setAppendix(String appendix) {
+		this.appendix = appendix;
 	}
 
 	public PayInvoiceDetail() {

@@ -673,7 +673,7 @@
 	<where>
 		AND EXISTS (
 			SELECT
-				COUNT(0)
+				id
 			FROM
 				pay_invoice_detail_1
 			WHERE
@@ -741,7 +741,7 @@
 	<where>
 		AND EXISTS (
 			SELECT
-				COUNT(0)
+				id
 			FROM
 				pay_invoice_detail_1
 			WHERE

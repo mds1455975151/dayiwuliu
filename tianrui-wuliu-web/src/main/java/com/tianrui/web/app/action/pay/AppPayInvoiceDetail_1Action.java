@@ -45,9 +45,20 @@ public class AppPayInvoiceDetail_1Action {
 		try {
 			PayInvoiceDetail1FindReq req = appParam.getBody();
 			Head vo = appParam.getHead();
-			req.setVenderId(vo.getId());
-			//1-司机 2-车主
-			req.setBillType(2);
+			if(req.getBillType()==null){
+				rs.setCode("1");
+				rs.setError("请选择账单身份");
+				return AppResult.valueOf(rs);
+			}
+			if(req.getBillType()==1){
+				req.setDriverId(vo.getId());
+			}else if(req.getBillType()==2){
+				req.setVenderId(vo.getId());
+			}else {
+				rs.setCode("1");
+				rs.setError("请选择账单身份");
+				return AppResult.valueOf(rs);
+			}
 			PaginationVO<PayInvoiceDetail1Resp> page = payInvoiceDetail1Service.select(req);
 			rs.setData(page);
 		} catch (Exception e) {

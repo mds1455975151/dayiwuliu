@@ -30,8 +30,9 @@ public class PayInvoiceDetail1FindReq {
     private String payInvoiceId;
     //车主ID
     private String venderId;
-    
-  //运单身份（1：司机运单，2：车主运单）
+    //司机ID
+    private String driverId;
+    //运单身份（1：司机运单，2：车主运单）
     private Integer billType;
 	
     public Boolean getWhetherClose() {
@@ -111,5 +112,11 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setCargoName(String cargoName) {
 		this.cargoName = cargoName;
+	}
+	public String getDriverId() {
+		return driverId;
+	}
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
 	}
 }

@@ -124,6 +124,22 @@
 		<!--后台整体布局end-->
 		<!--侧边栏end-->
 	</div>
+	<!-- 账单详情开始 -->
+	<div class="modal fade" id="pay_detail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">确定</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<div class="modal fade" id="audit" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -199,6 +215,6 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.pagination.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/payInvoice/vender/payInvoice.js"></script>
+		src="/resources/js/payInvoice/vender/payInvoice.js?0703"></script>
 </body>
 </html>

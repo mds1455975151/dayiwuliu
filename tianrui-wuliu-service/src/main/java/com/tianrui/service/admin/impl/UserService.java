@@ -51,7 +51,7 @@ public class UserService implements IUserService{
 	public Result login(UserLoginReq req) throws Exception {
 		
 		Result rs = Result.getSuccessResult();
-		if( req ==null || StringUtils.isBlank(req.getAccount()) || StringUtils.isBlank(req.getPassword()) || StringUtils.isBlank(req.getAuthCode())){
+		if( req ==null || StringUtils.isBlank(req.getAccount()) || StringUtils.isBlank(req.getPassword())){
 			rs =new Result("error", "登录参数错误");
 		}else{
 			Users query = new Users();

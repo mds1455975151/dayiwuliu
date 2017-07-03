@@ -1,6 +1,5 @@
 package com.tianrui.web.app.action.pay;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.req.admin.PayInvoiceReq;
-import com.tianrui.api.req.front.pay.PayInvoiceDetailQueryReq;
 import com.tianrui.api.resp.admin.PayInvoiceVo;
-import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;

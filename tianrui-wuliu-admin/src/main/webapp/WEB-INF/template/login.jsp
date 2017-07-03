@@ -58,10 +58,12 @@
                             </div>
                         </div>
                         <!--密码end-->
+                       	<!-- 
                         <div class="login_yz">
                                 <input id="pass" maxlength="8" type="text" placeholder="验证码">
                             <button onclick="javascript:getValCode();" type="submit" >发送验证码</button>
                         </div>
+                       	 -->
                          <!--提示信息beigin-->
                         <div class="note">
                             <h4><span class="error" id="message"></span></h4>

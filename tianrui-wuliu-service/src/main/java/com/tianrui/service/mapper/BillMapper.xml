@@ -1251,7 +1251,7 @@
 			b.trueweight,
 			b.ownerid, b.venderid, b.venderdelflag,
 			b.ownerdelflag, b.driverdelflag,
-			b.orgid,b.plancode,b.creator, b.createtime,
+			b.orgid,b.plancode,b.creator, b.createtime,b.interTime,
 			b.modifier, b.modifytime, b.pickupimgurl, b.interDistance, b.begintime, 
 			b.signimgurl,b.overnumber,b.totalnumber,b.tallage,b.unloadtime,b.pathID,
 			c.payType,c.DESC1 payDESC1,

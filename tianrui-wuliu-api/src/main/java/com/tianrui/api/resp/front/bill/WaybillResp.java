@@ -68,6 +68,7 @@ public class WaybillResp extends BaseResp{
     private Double tallage;
     private String pickupimgurl;
     private Double interDistance;
+    private Long interTime;
     private Long begintime;
     
     /** 发货方id*/
@@ -578,6 +579,12 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setInterDistance(Double interDistance) {
 		this.interDistance = interDistance;
+	}
+	public Long getInterTime() {
+		return interTime;
+	}
+	public void setInterTime(Long interTime) {
+		this.interTime = interTime;
 	}
 	public Long getBegintime() {
 		return begintime;
