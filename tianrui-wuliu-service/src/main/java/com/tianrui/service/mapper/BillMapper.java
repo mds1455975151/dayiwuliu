@@ -64,6 +64,8 @@ public interface BillMapper {
     
     long countSelectJtbBill(Bill record);
     
+    Bill selectByBillId(@Param("id")String id);
+    
     List<Bill> selectByCondition(Bill record);
     List<Bill> selectByConditionForBack(Bill record);
     /** 批量修改运单*/

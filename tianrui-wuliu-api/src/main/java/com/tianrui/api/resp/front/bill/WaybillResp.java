@@ -67,6 +67,8 @@ public class WaybillResp extends BaseResp{
     private String desc4;
     private Double tallage;
     private String pickupimgurl;
+    private Double interDistance;
+    private Long begintime;
     
     /** 发货方id*/
     private String shipperMerchant;
@@ -570,5 +572,17 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setConfirmPriceB(String confirmPriceB) {
 		this.confirmPriceB = confirmPriceB;
+	}
+	public Double getInterDistance() {
+		return interDistance;
+	}
+	public void setInterDistance(Double interDistance) {
+		this.interDistance = interDistance;
+	}
+	public Long getBegintime() {
+		return begintime;
+	}
+	public void setBegintime(Long begintime) {
+		this.begintime = begintime;
 	}
 }

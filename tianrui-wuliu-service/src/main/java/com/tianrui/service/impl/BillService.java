@@ -565,7 +565,12 @@ public class BillService implements IBillService{
 	public Result billExchange(Bill db) throws Exception{
 		Result rs = Result.getSuccessResult();
 		boolean flag = true;
-		
+		if(db.getPrice() <= 0){
+			rs.setCode("1");
+			rs.setError("单价必须大于0");
+			flag = false;
+			return rs;
+		}
 		BillMassageReq billMassage = new BillMassageReq();
 		billMassage.setOriginalDocumentNumber(db.getWaybillno());
 		billMassage.setCarrier("中原大易科技有限公司");
@@ -2081,6 +2086,17 @@ public class BillService implements IBillService{
 	}
 
 	@Override
+	public Result findJtbBillDetail(WaybillQueryReq req) throws Exception {
+		Result result = Result.getSuccessResult();
+		if (req != null && StringUtils.isNotBlank(req.getId())) {
+			result.setData(conver2billResp(billMapper.selectByBillId(req.getId())));
+		} else {
+			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+		}
+		return result;
+	}
+
+	@Override
 	public Result putJtbBill(String id) throws Exception {
 		Result rs = Result.getSuccessResult();
 		Bill db = billMapper.selectByPrimaryKey(id);
@@ -2103,6 +2119,16 @@ public class BillService implements IBillService{
 	 * @throws Exception */
 	public Result anlianBillExchange(AnlianBill ab) throws Exception{
 		Result rs = Result.getSuccessResult();
+		if (Double.valueOf(ab.getYf()) <= 0) {
+			rs.setCode("1");
+			rs.setError("单价必须大于0");
+			return rs;
+		}
+		if (Double.valueOf(ab.getZzl()) <= 0 || Double.valueOf(ab.getZzl()) >= 99) {
+			rs.setCode("1");
+			rs.setError("签收总量必须大于0且小于99吨");
+			return rs;
+		}
 		BillMassageReq billMassage = new BillMassageReq();
 		billMassage.setOriginalDocumentNumber(ab.getBillno());
 		billMassage.setCarrier("中原大易科技有限公司");

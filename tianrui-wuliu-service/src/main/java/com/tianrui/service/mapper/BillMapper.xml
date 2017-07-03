@@ -1238,7 +1238,34 @@
 			#{item}
 		</foreach>
 	</select>
-
+	<select id="selectByBillId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+			b.ID, b.planid, b.vehicleid, b.driverid, b.routeid, b.drivername,
+			b.drivertel,b.isClearing,
+			b.vehicleno, b.vehicletypeName,
+			b.cargoname, b.startcity,
+			b.consignorname, b.consignortel, b.endTime, b.startTime, b.endcity,
+			b.receivername,
+			b.receivertel, b.priceUnits, b.distance, b.price, b.type, b.status,
+			b.waybillno, b.weight,
+			b.trueweight,
+			b.ownerid, b.venderid, b.venderdelflag,
+			b.ownerdelflag, b.driverdelflag,
+			b.orgid,b.plancode,b.creator, b.createtime,
+			b.modifier, b.modifytime, b.pickupimgurl, b.interDistance, b.begintime, 
+			b.signimgurl,b.overnumber,b.totalnumber,b.tallage,b.unloadtime,b.pathID,
+			c.payType,c.DESC1 payDESC1,
+			b.pickupweight, b.signweight, b.isAssess, b.DESC1, b.DESC2, b.DESC3, b.DESC4,
+			b.q_deviation q_deviation,b.d_deviation d_deviation
+		from wuliu_bill b
+		LEFT JOIN wuliu_plan p ON p.ID = b.planid 
+		LEFT JOIN file_cargo c ON c.ID = p.cargoid
+		<where>
+			<if test="id != null and id != ''">
+				and b.id =#{id,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
 	<select id="selectByConditionForBack" resultMap="BaseResultMap"
 		parameterType="com.tianrui.service.bean.Bill">
 		select

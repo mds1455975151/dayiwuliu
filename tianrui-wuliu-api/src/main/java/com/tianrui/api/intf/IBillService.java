@@ -117,4 +117,6 @@ public interface IBillService {
 	/** 安联运单推送交通部*/
 	public Result putAnlianJtbBill(String id)throws Exception;
 	
+	public Result findJtbBillDetail(WaybillQueryReq req) throws Exception;
+	
 }

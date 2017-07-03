@@ -38,6 +38,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    margin-bottom:-4px;
 		    margin-right: 10px;
 		}
+		div.submit_detail {
+		    padding: 5px 0px;
+		}
+		div.submit_detail label {
+		    margin: 0px;
+		    padding: 0px;
+		}
+		div.submit_detail span {
+		    padding-right: 50px;
+		}
 	</style>
 </head>
 <body>
@@ -108,11 +118,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">运单详情</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看详情end-->
+
+<!--提交begin-->
+<div class="modal fade" id="submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">操作确认</h4>
             </div>
+           	<input type="hidden" id="billId">
             <div class="modal-body" style=" " id="dateilshml">
-            	<input type="hidden" id="billId">
-				是否将运单<span id="billNo"></span>提交交通部？
+				<div class="submit_detail">
+					是否将运单<i id="billNo"></i>提交交通部？
+				</div>
+				<div class="submit_detail">
+					<label>单价：</label><span id="dj"></span>
+					<label>运输距离：</label><span id="ysjl"></span>
+					<label>签收重量：</label><span id="qszl"></span>
+				</div>
+				<div class="submit_detail">
+					<label>提货时间：</label><span id="thsj"></span>
+					<label>到货时间：</label><span id="dhsj"></span>
+				</div>
+				<div class="submit_detail">
+					<label>总价：</label><span id="zj"></span>
+				</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="putJtb" data-dismiss="modal">确定</button>
@@ -121,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-<!--查看详情end-->
+<!--提交end-->
 <%@include file="../../common/footer.jsp" %>
 <script type="text/javascript">
     $(document).ready(function () {

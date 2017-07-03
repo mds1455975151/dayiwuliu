@@ -70,15 +70,61 @@ function innerHTML(data){
 		"<td>"+data[a].vehicleno+"</td>"+
 		"<td>"+jtb+"</td>"+
 		"<td>"+data[a].creatimeStr+"</td>"+
-		"<td><span><a data-toggle='modal' onclick=\"details('"+data[a].id+"','"+data[a].waybillno+"')\" data-target='#detail'>【提交】</a></span>"+
-		"</td>";
-	}
+		"<td><span><a data-toggle='modal' onclick=\"getDetail('"+data[a].id+"')\">【查看详情】</a></span>"
+		+"<span><a data-toggle='modal' onclick=\"submitView('"+data[a].id+"')\">【提交】</a></span>"+
+	"</td>";
+}
 	document.getElementById("innhml").innerHTML=hml;
 }
 
-function details(id,billno){
-	$("#billId").val(id);
-	$("#billNo").html(billno);
+function getDetail(id){
+	$.ajax({
+		url: CONTEXTPATH + "/admin/waybill/findAnlianBillId",
+		data:{"id":id},
+		type:"post",
+		success:function(ret){
+			if(ret.code=="000000"){
+				var data = ret.data;
+				var hml = "<div class='file_detail'><label>运单号：</label><span>"+data.billno+"</span></div>"+
+				"<div class='file_detail'><label>货物名称：</label><span>"+data.hpmc+"</span></div>"+
+				"<div class='file_detail'><label>承运方：</label><span>"+data.systemShipper+"</span></div>"+
+				"<div class='file_detail'><label>创建时间：</label><span>"+data.createtimeStr+"</span></div>"+
+				"<div class='file_detail'><label>计价单位：</label><span>"+data.dw+"</span></div>"+
+				"<div class='file_detail'><label>起运地：</label><span>"+data.qycs+"</span></div>"+
+				"<div class='file_detail'><label>目的地：</label><span>"+data.mdcs+"</span></div>"+
+				"<div class='file_detail'><label>结算里程数：</label><span>"+data.lc+" </span></div>"+
+				"<div class='file_detail'><label>收货人：</label><span>"+data.shr+" </span></div>"+
+				"<div class='file_detail'><label>联系手机：</label><span>"+data.lxsj+"</span></div>"+
+				"<div class='file_detail'><label>运输量：</label><span>"+data.sl+"吨</span></div>"+
+				"<div class='file_detail'><label>要求提货日期：</label><span>"+data.yqthrq+"</span></div>"+
+				"<div class='file_detail'><label>要求到货日期：</label><span>"+data.yqdhrq+"</span></div>"+
+				"<div class='file_detail'><label>总运费：</label><span>"+data.yf+"元</span></div>"+
+				"<div class='file_detail'><label>车辆：</label><span>"+data.cph+"</span></div>"+
+				"<div class='file_detail'><label>司机(安联)：</label><span>"+data.sj+"</span></div>"+
+				"<div class='file_detail'><label>联系方式：</label><span>"+data.drivertel+"</span></div>"+
+				"<div class='file_detail2'><label>运单状态：</label><span>"+data.status+"</span>" +
+				"<div class='clear'></div>";
+				document.getElementById("dateilshml").innerHTML=hml;
+				$('#detail').modal('show');
+			}
+		}
+	})
+}
+function submitView(id){
+	$.get(CONTEXTPATH + '/admin/waybill/findAnlianBillId', {id: id}, function(result){
+		if (result && result.code == '000000') {
+			submit(result.data);
+		}
+	});
+}
+function submit(obj){
+	$("#billId").val(obj.id);
+	$("#billNo").html(obj.waybillno);
+	/*$("#dj").html(obj.price || '').append('元');
+	$("#ysjl").html(obj.interDistance || '').append('km');*/
+	$("#qszl").html(obj.zzl || '').append('吨');
+	$("#zj").html(obj.yf || '').append('元');
+	$("#submit").modal('show');
 }
 
 $("#putJtb").on("click",function(){

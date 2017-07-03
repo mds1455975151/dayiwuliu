@@ -100,6 +100,11 @@ public class WaybillAction {
 		rs.setData(resp);
 		return rs;
 	}
+	@RequestMapping("/findJTBBillDetail")
+	@ResponseBody
+	public Result findJTBBillDetail(WaybillQueryReq req) throws Exception{
+		return billService.findJtbBillDetail(req);
+	}
 	/** 运单推送交通部
 	 * @throws Exception */
 	@RequestMapping("/putJtbBill")

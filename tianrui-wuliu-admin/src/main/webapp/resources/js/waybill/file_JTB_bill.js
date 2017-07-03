@@ -70,15 +70,100 @@ function innerHTML(data){
 		"<td>"+data[a].vehicleno+"</td>"+
 		"<td>"+jtb+"</td>"+
 		"<td>"+data[a].creatimeStr+"</td>"+
-		"<td><span><a data-toggle='modal' onclick=\"details('"+data[a].id+"','"+data[a].waybillno+"')\" data-target='#detail'>【提交】</a></span>"+
+		"<td><span><a data-toggle='modal' onclick=\"getDetail('"+data[a].id+"')\">【查看详情】</a></span>"
+			+"<span><a data-toggle='modal' onclick=\"submitView('"+data[a].id+"')\">【提交】</a></span>"+
 		"</td>";
 	}
 	document.getElementById("innhml").innerHTML=hml;
 }
+function getDetail(id){
+	$.get(CONTEXTPATH + '/admin/waybill/findJTBBillDetail', {id: id}, function(result){
+		if (result && result.code == '000000') {
+			details(result.data);
+		}
+	});
+}
+//查看详情
+function details(data){
+	var orgName = data.orgName;
+	if(orgName == undefined){
+		orgName = "";
+	}
+	var venderName = data.venderName;
+	if(venderName == undefined){
+		venderName = "";
+	}
+	//提货榜单
+	var pickupimgurl = data.pickupimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.pickupimgurl+"' target='_blank'>查看图片</a></span>");
+	//卸货
+	var signimgurl = data.signimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.signimgurl+"' target='_blank'>查看图片</a></span>");
+	//提货位置偏差
+	var q_deviation = data.q_deviation == undefined?"":data.q_deviation;
+	//到货位置偏差
+	var d_deviation = data.d_deviation == undefined?"":data.d_deviation;
+	
+	var hml = "<div class='file_detail'><label>运单编码：</label><span>"+data.waybillno+"</span></div>"+
+				"<div class='file_detail'><label>组织名称：</label><span>"+orgName+"</span></div>"+
+				"<div class='file_detail'><label>承运商：</label><span>"+venderName+"</span></div>"+
+				"<div class='file_detail'><label>创建时间：</label><span>"+data.createtimeStr+"</span></div>"+
+				"<div class='file_detail'><label>货物名称：</label><span>"+data.cargoname+"</span></div>"+
+				"<div class='file_detail'><label>计量单位：</label><span>"+data.desc1+"</span></div>"+
+				"<div class='file_detail'><label>计价单位：</label><span>"+data.priceunits+"</span></div>"+
+				"<div class='file_detail'><label>起运地：</label><span>"+data.startcity+" </span></div>"+
+				"<div class='file_detail'><label>目的地：</label><span>"+data.endcity+" </span></div>"+
+				"<div class='file_detail'><label>结算里程数：</label><span>"+data.distance+"</span></div>"+
+				"<div class='file_detail'><label>发货人：</label><span>"+data.consignorname+data.consignortel+"</span></div>"+
+				"<div class='file_detail'><label>收货人：</label><span>"+data.receivername+data.receivertel+"</span></div>"+
+				"<div class='file_detail'><label>开始时间：</label><span>"+data.starttime+"</span></div>"+
+				"<div class='file_detail'><label>结束时间：</label><span>"+data.endtime+"</span></div>"+
+				"<div class='file_detail'><label>原发运输量：</label><span>"+data.weight+"吨</span></div>"+
+				"<div class='file_detail'><label>签收运输量：</label><span>"+data.trueweight+"吨</span></div>"+
+				"<div class='file_detail'><label>运单价格：</label><span>"+data.price+"元</span></div>"+
+				"<div class='file_detail2'><label>车辆信息：</label><span>"+data.vehicleno+"</span>" +
+				"<span>"+data.drivername+"</span><span>"+data.drivertel+"</span></div>"+
+				"<div class='file_detail'><label>提货榜单：</label><span>"+pickupimgurl+"</span></div>"+
+				"<div class='file_detail'><label>卸货榜单：</label><span>"+signimgurl+"</span></div>"+
+				"<div class='file_detail'><label>提货位置偏差：</label><span>"+q_deviation+"米</span></div>"+
+				"<div class='file_detail'><label>卸货位置偏差：</label><span>"+d_deviation+"米</span></div>"+
+				"<div class='clear'></div>";
+	document.getElementById("dateilshml").innerHTML=hml;
+	$('#detail').modal('show');
+}
+//提交
+function submitView(id){
+	$.get(CONTEXTPATH + '/admin/waybill/findJTBBillDetail', {id: id}, function(result){
+		if (result && result.code == '000000') {
+			submit(result.data);
+		}
+	});
+}
 
-function details(id,billno){
-	$("#billId").val(id);
-	$("#billNo").html(billno);
+function addZero(number){
+	if (number < 10) {
+		number = "0" + number;
+	}
+	return number;
+}
+
+Date.prototype.toString = function() {
+	return this.getFullYear() + '-' 
+			+ addZero(this.getMonth()) + '-' 
+			+ addZero(this.getDate()) + ' ' 
+			+ addZero(this.getHours()) + ':' 
+			+ addZero(this.getMinutes()) + ':' 
+			+ addZero(this.getSeconds());
+}
+
+function submit(obj){
+	$("#billId").val(obj.id);
+	$("#billNo").html(obj.waybillno);
+	$("#dj").html(obj.price || '').append('元');
+	$("#ysjl").html(obj.interDistance || '').append('km');
+	$("#qszl").html(obj.trueweight || '').append('吨');
+	$("#thsj").html(new Date(obj.begintime).toString() || '');
+	$("#dhsj").html(new Date(obj.unloadtime).toString() || '');
+	$("#zj").html(obj.price * obj.trueweight || '').append('元');
+	$("#submit").modal('show');
 }
 
 $("#putJtb").on("click",function(){
