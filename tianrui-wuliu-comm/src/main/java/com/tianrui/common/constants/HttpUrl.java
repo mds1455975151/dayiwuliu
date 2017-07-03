@@ -19,6 +19,6 @@ public class HttpUrl {
 	//供应商推送NC状态查询接口
 	public final static String MEMBER_INFO_PUSH_NC_STATUS = "/service/TrSupplierQryServlet";
 	//供应商银行卡推送到NC
-	public final static String BANK_CARD_PUSH_NC = "/service/TrSupBankAccAddServlet";
+	public final static String BANK_CARD_PUSH_NC = "/service/TrSupBankAddServlet";
 	
 }

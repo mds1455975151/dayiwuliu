@@ -247,7 +247,13 @@ public class MemberBankCardService implements IMemberBankCardService{
 				push.setBankCardNo(bankCard.getBankcard());
 				push.setAccountPersonId(bankCard.getCreater());
 				push.setAccountPersonName(bankCard.getIdname());
-				push.setAccountPersonIdentity(bankCard.getDesc4());
+				if (StringUtils.equals(bankCard.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)) {
+ 					push.setAccountPersonIdentity("1");
+				} else if (StringUtils.equals(bankCard.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS)) {
+					push.setAccountPersonIdentity("0");
+				} else {
+					push.setAccountPersonIdentity("");
+				}
 				push.setBankTypeId(bankCard.getDesc3());
 				push.setBankSubbranchId(bankCard.getDesc2());
 				push.setBankSubbranchName(bankCard.getDesc1());

@@ -446,22 +446,22 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 						info.setId(id);
 						if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
 							//回写供应商ncStatus
-							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST);
+							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST);
 						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
 							//回写供应商ncStatus
-							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);
+							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);
 						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_3.getCode()))) {
 							//回写供应商ncStatus
-							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_REFUSED);
+							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_REFUSED);
 						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_4.getCode()))) {
 							//回写供应商ncStatus
-							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_ING);
+							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_ING);
 						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_5.getCode()))) {
 							//回写供应商ncStatus
-							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
+							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
 						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_6.getCode()))) {
 							//回写供应商ncStatus
-							info.setPushStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
+							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
 						} else {
 							LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态: 供应商ID: "+ id + ", 查询结果： " + NCResultEnum.getMessage(status));
 						}
