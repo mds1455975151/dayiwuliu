@@ -1,4 +1,4 @@
-;(function($){
+(function($){
 	var URL = {
 			page: '/pay/invoice/vender/page',
 			auditData: '/pay/invoice/driver/auditData',
@@ -100,7 +100,7 @@
 			for(var i=0;i<list.length;i++){
 				var obj = list[i] || '';
 				$('<tr>').append('<td >'+(i+1)+'</td>')
-						 .append('<td><a class=\"pay_detail\">'+(obj.code || '')+'</a></td>')
+						 .append("<td><a data-toggle='modal' onclick=\"pays_detail('"+obj.id+"')\" data-target='#pay_detail'>"+(obj.code || '')+"</a></td>")
 						 .append('<td>'+(obj.invoiceName || '')+'</td>')
 						 .append('<td>应付款'+(obj.amountPayable || '')+'元<br/>已付款'+(obj.paidAmount || '')+'元</td>')
 						 .append('<td>'+(obj.payeeName || '')+'</td>')
@@ -293,3 +293,37 @@
 	}
 	
 })(jQuery);
+
+//查看账单详情
+function pays_detail(id){
+	$.ajax({
+		type:"POST",
+		data:{"payInvoiceId":id},
+		url:"/pay/InviceDetail1/find",
+		success:function(ret){
+			if(ret.data.total!=0){
+				var data = ret.data.list;
+				var hml = "";
+				for (var a = 0; a < data.length; a++) {
+					var billType = "";
+					if(data[a].billType==1){
+						billType = "司机";
+					}else if(data[a].billType==2){
+						billType = "车主";
+					}
+					hml +="<tr>" +
+							"<td>"+(a+1)+"</td>" +
+							"<td>"+data[a].billCode+"</td>" +
+							"<td>"+data[a].invoiceName+"</td>" +
+							"<td>"+data[a].cargoName+"</td>" +
+							"<td>"+billType+"</td>" +
+							"</tr>";
+				}
+				$("#paylist").html(hml);
+			}
+		}
+	});
+}
+
+
+
