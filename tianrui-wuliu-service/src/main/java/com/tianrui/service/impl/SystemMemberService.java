@@ -31,6 +31,7 @@ import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.member.SystemMemberResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.exception.ApplicationExectpion;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.MakePrimaryKey;
 import com.tianrui.common.utils.MsgUtil;
 import com.tianrui.common.utils.UUIDUtil;
@@ -338,11 +339,10 @@ public class SystemMemberService implements ISystemMemberService{
 						module = CacheModule.ADMINLOGIN;
 					}
 				}
-				
+				//手机号  业务类别 判断是否重复发送
 				String key = CacheHelper.buildKey(module, new String[]{type,telnum});
 				UserLoginVo value = (UserLoginVo) cacheClient.getObj(key, UserLoginVo.class);
 				String msg="";
-				String sendPermit=GetApplicationPropertery.getValueByKey("sendPermit");
 				//判断是否第一次发送
 				if(value==null){
 					UserLoginVo u=new UserLoginVo();
@@ -351,7 +351,9 @@ public class SystemMemberService implements ISystemMemberService{
 					u.setEndTime(System.currentTimeMillis());
 					u.setUserCode(userCode);
 					u.setUserName(telnum);
-					cacheClient.saveObject(key, u, 60*30); //半小时内有效
+					//短信发送key
+					cacheClient.saveObject(key, u, 2*60*60); //2小时内有效
+					//cacheClient.saveObject(key, u, 2*60); //2分钟内有效
 					msg = MsgUtil.getSendmsg(userCode,type);
 					SmsDetails sms = new SmsDetails();
 					sms.setTelephoneReceiver(telnum);
@@ -359,32 +361,9 @@ public class SystemMemberService implements ISystemMemberService{
 					//该处代码插入发送代码
 					sendMobileMessage.sendMobileMessage(sms);
 				}else{
-					boolean isTimeOut = true;// 获取时间是否超时
-					int count=value.getCount();
-					long stime=value.getStartTime();
-					long now=System.currentTimeMillis();
-					isTimeOut = now - stime > 60 * 1000;
-					if(isTimeOut && count<5){
-						count=count+1;
-						value.setCount(count);
-						cacheClient.saveObject(key, value, Long.valueOf((30 * 60 - (now - stime) / 1000)).intValue());
-					}else{
-						if(count>=5){
-							rs.setCode("4"); 
-							rs.setError("用户频繁操作");
-						}else{
-							rs.setCode("5"); 
-							rs.setError("一分钟内请求次数过多");
-						}
-					}
-					msg = MsgUtil.getSendmsg(userCode,type);
-					SmsDetails sms = new SmsDetails();
-					sms.setTelephoneReceiver(telnum);
-					sms.setSmsContent(msg);
-					sendMobileMessage.sendMobileMessage(sms);
-				}
-				if(sendPermit.equals("0")){
-					System.out.println(msg);
+					rs.setCode("4"); 
+					rs.setError("请勿频繁操作.");
+					System.out.println(telnum+"频繁发送短信.");
 				}
 			}
 		}else{
@@ -496,7 +475,7 @@ public class SystemMemberService implements ISystemMemberService{
 							req.getAccount(),req.getAuthCode()});
 					if(StringUtils.isNotBlank(cacheClient.getString(key))){
 						successFlag =true;
-						cacheClient.remove(key);
+						//cacheClient.remove(key);
 					}else{
 						rs.setErrorCode(ErrorCode.MEMBER_LOGIN_PSWD_ERROR);
 					}

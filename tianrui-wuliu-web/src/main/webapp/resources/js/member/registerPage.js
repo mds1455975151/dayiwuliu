@@ -117,11 +117,10 @@ $("#idcode_button").click(function() {
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){
-				$("#modal_common_content").html("手机验证已发送至手机！");
+				alert("手机验证已发送至手机！");
 			}else if(result && result.error){
-				$("#modal_common_content").html(result.error);
+				alert(result.error);
 			}
-			$("#commonModal").modal();
 		}
 	});
 });
@@ -195,11 +194,10 @@ $("#getLostCode").click(function() {
 		type : "post",
 		success : function(result) {
 			if( result && result.code =="000000" ){
-				$("#modal_common_content").html("手机验证已发送至手机！");
+				alert("手机验证已发送至手机！");
 			}else if(result && result.error){
-				$("#modal_common_content").html(result.error);
+				alert(result.error);
 			}
-			$("#commonModal").modal();
 		}
 	});
 });
@@ -231,8 +229,7 @@ $("#resetPass").click(function() {
 			if( result && result.code =="000000" ){
 				window.location.href = PATH + "/publicMember/resetPassPage?tel="+tel +"&registerCode="+idCode;
 			}else if(result && result.error){
-				$("#modal_common_content").html(result.error);
-				$("#commonModal").modal();
+				alert(result.error);
 			}
 		}
 	});
@@ -280,8 +277,7 @@ $("#resetP").click(function() {
 			if( result && result.code =="000000" ){
 				window.location.href = PATH + "/publicMember/resetpsu";
 			}else if(result && result.error){
-				$("#modal_common_content").html(result.error);
-				$("#commonModal").modal();
+				alert(result.error);
 			}
 		}
 	});

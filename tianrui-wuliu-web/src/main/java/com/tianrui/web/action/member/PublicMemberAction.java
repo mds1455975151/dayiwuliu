@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,6 @@ import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.util.ExcilUtil;
 import com.tianrui.web.util.SessionManager;
-import com.tianrui.web.util.VdCode;
 
 
 /**
@@ -243,7 +241,7 @@ public class PublicMemberAction {
 			rs.setError("请重新获取验证码");
 		}else if(StringUtils.isNotBlank(vCode)){
 			if(vCode.toLowerCase().equals(vc.toLowerCase())){
-				systemMemberService.getValCode(telnum,type,"pc");
+				rs =systemMemberService.getValCode(telnum,type,"pc");
 			}else{
 				rs.setCode("1");
 				rs.setError("验证码有误,请重新获取验证码");
@@ -294,7 +292,7 @@ public class PublicMemberAction {
 					String validateCode=value.getUserCode()+"";
 					if(registerCode.equals(validateCode)){
 						codeValidate=true;
-						cache.remove(key);
+						//cache.remove(key);
 					}
 				}
 				if(StringUtils.equals(registerCode,Constant.authCodeValue ) || codeValidate){
@@ -444,7 +442,7 @@ public class PublicMemberAction {
 			String validateCode=value.getUserCode()+"";
 			if(registerCode.equals(validateCode)){
 				codeValidate=true;
-				cache.remove(key);
+				//cache.remove(key);
 			}
 		}
 		if(StringUtils.equals(registerCode,Constant.authCodeValue ) || codeValidate){

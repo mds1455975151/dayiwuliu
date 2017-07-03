@@ -158,7 +158,7 @@ public class AppMemberAction {
 					String validateCode=value.getUserCode()+"";
 					if(appParam.getBody().getAuthCode().equals(validateCode)){
 						codeValidate=true;
-						cache.remove(key);
+						//cache.remove(key);
 					}
 				}
 				if(StringUtils.equals(Constant.authCodeValue, appParam.getBody().getAuthCode() )|| codeValidate){
@@ -211,7 +211,7 @@ public class AppMemberAction {
 			String validateCode=value.getUserCode()+"";
 			if(appParam.getBody().getAuthCode().equals(validateCode)){
 				codeValidate=true;
-				cache.remove(key);
+				//cache.remove(key);
 			}
 		}
 		if(StringUtils.equals(Constant.authCodeValue, appParam.getBody().getAuthCode() ) || codeValidate){
@@ -271,7 +271,7 @@ public class AppMemberAction {
 					}
 				}
 				if(StringUtils.equals(appParam.getBody().getAuthCode(),Constant.authCodeValue ) || codeValidate){
-					cache.remove(key);
+					//cache.remove(key);
 					appResult.setCode("000000");
 					appResult.setMessage("验证通过");
 				}else {

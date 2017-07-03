@@ -62,7 +62,6 @@ public class MakePrimaryKey {
 	 * @创建时间 2016年1月29日下午3:03:46
 	 */
     public static  boolean isMobileNO(String mobiles){  
-		//只判断是否为  13  15  17  或者  18 开头的 11位纯数字  
 		if(mobiles == null){
 			return false;
 		}
