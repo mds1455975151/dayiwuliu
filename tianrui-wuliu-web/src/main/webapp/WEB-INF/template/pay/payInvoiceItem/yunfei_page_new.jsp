@@ -72,7 +72,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th >创建时间</th>
                          <th>到货量</th>
                          <th >运价</th>
-                         <th> 状态</th>
                      </tr>
                      </thead>
                      <tbody id="yunfeilist">

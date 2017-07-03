@@ -93,7 +93,6 @@ function innerHTML(ret,flag){
 				"<td >"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 				"<td >"+data[a].billWeight+"吨</td>" +
 				"<td >"+price+"元</td>" +
-				"<td ></td>" +
 				"</tr>";
 	}
 	$("#yunfeilist").append(hml);

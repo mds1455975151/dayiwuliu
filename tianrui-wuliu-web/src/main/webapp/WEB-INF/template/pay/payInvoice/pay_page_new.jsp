@@ -47,14 +47,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h2>支付发票账单</h2>
             </div>
             <!--个人中心右侧搜索框begin-->
-            <div class="plan_search">
+            <div class="yf_search">
                 <div class="yf_fl">
                     <div class="yf_sline">
-                         <input type="text" id="searchKey" placeholder="账单编号/账单类型">
-               			 <button type="submit" onclick="index(1,0)" class="btn btnblue fpbtn">搜索</button>
+                        <label>账单编号：</label>
+                         <input type="text" id="code_req" placeholder="请输入账单编号">
+                    </div>
+                     <div class="yf_sline">
+                        <label>运单编号：</label>
+                         <input type="text" id="likeBillCode_req" placeholder="请输入运单编号">
+                    </div>
+                </div>    
+                <div class="yf_fl">    
+                    <div class="yf_sline">
+                        <label>发票类型：</label>
+                         <select id="invoiceName_req" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="熟料">熟料运输费用</option>
+                            <option value="原煤">原煤运输费用</option>
+                            <option value="水泥">水泥运输费用</option>
+                        </select>
+                    </div>
+                    <div class="yf_sline">
+                        <label>状态：</label>
+                        <select id="pay_req" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="1">未审核</option>
+                            <option value="2">未推单 </option>
+                            <option value="3">推单中</option>
+                            <option value="4">已推送</option>
+                            <option value="5">支付中</option>
+                            <option value="6">已支付 </option>
+                        </select>
                     </div>
                 </div>
-               
+               <button type="submit" onclick="index(1,0)" class="btn btnblue fpbtn">搜索</button>
             </div>
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
@@ -127,6 +154,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page_new.js?0625" ></script>
+<script type="text/javascript" src="/resources/js/pay/payInvoice/pay_page_new.js?0703" ></script>
 </body>
 </html>

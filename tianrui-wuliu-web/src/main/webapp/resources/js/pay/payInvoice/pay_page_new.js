@@ -10,7 +10,10 @@ function index(No,flag){
 	$.ajax({
 		url : "/trwuliu/payInvoice_1/page",//
 		data : {
-			"searchKey":$("#searchKey").val(),
+			"code":$("#code_req").val().trim(),
+			"likeBillCode":$("#likeBillCode_req").val().trim(),
+			"invoiceName":$("#invoiceName_req").val().trim(),
+			"pay":$("#pay_req").val().trim(),
 			"payeeIdentity":"2",//车主账单
 			"pageNo":No,
 			"pageSize":pageSize},
@@ -65,7 +68,7 @@ function innerHTML(ret,flag){
 			shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 		}
 		hml += "<tr >" +
-				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'>"+data[a].code+"</td>" +
+				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'><a>"+data[a].code+"</a></td>" +
 				"<td >"+data[a].invoiceName+" </td>" +
 				"<td >"+new Date(data[a].applicationTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 				"<td >"+data[a].amountPayable+"</td>" +
