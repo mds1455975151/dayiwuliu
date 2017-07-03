@@ -11,6 +11,8 @@ public class PayInvoiceDetail1Resp {
     private String code;
     //账单ID
     private String payInvoiceId;
+    //附件图片
+  	private String appendix;
     //司机ID
     private String driverId;
     //司机证件号码
@@ -395,5 +397,13 @@ public class PayInvoiceDetail1Resp {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public String getAppendix() {
+		return appendix;
+	}
+
+	public void setAppendix(String appendix) {
+		this.appendix = appendix;
+	}
     
 }

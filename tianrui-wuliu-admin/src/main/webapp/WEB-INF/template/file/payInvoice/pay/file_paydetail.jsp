@@ -135,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 		                <div class="reg_tel" style="width: 450px;margin: 0 auto;">
 		                    <label>附件：</label>
+		                    <span id="appendix"></span>
 		                    <div class="img_upload">
 								<input id="file_fj" onchange="fileUpload('fj')" name="file" class="file" type="file">
 								<input type="hidden" id="pay_fj">
@@ -156,13 +157,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0703" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?07030" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript">
-		$("#file_yyzz").fileinput({
+		$("#file_fj").fileinput({
 			language : 'zh',
 			showUpload : false,
 			dropZoneEnabled : false,

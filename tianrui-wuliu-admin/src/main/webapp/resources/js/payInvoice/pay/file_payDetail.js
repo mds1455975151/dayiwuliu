@@ -54,7 +54,11 @@ function displayData(pageNo){
 							"<td>"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 							"<td>";
 						if(data[a].whetherClose == false){
-							hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价确认】</a></span>";
+							if(data[a].backstageBillTotalPrice==0){
+								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价确认】</a></span>";
+							}else {
+								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价修改】</a></span>";
+							}
 						}
 						hml +="</td></tr>";
 					}
@@ -90,7 +94,11 @@ function selectBill(id){
 	$("#deductMoney").val("");
 	//其它款项
 	$("#deductOther").val("");
-	
+	//附件图片
+	$("#file_fj").val("");
+	//附件url
+	$("#pay_fj").val("");
+	$(".fileinput-remove-button").click();
 	$.ajax({
 		url:"/pay/InviceDetail1/findById",
 		type:"POST",
@@ -99,6 +107,10 @@ function selectBill(id){
 			if(ret.code=="000000"){
 				var data = ret.data;
 				var price = 0;
+				
+				var appendix = data.appendix==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.appendix+"' target='_blank'>查看图片</a></span>");
+				
+				$("#appendix").html(appendix);
 				if(data.backstageBillTotalPrice != 0){
 					//后台已运价确认
 					price = data.backstageBillTotalPrice
@@ -193,25 +205,28 @@ function test_number(number){
 
 //后台运价确认
 $("#auditCommit").on("click",function(){
-	$.ajax({
-		url:"/pay/InviceDetail1/uptPrice",
-		data:{"id":$("#payId").val(),
-			"appendix":$("#pay_fj").val(),
-			"backstageDeductWeightMisc":$("#deductWeightMisc").val().trim(),
-			"backstageDeductMoney":$("#deductMoney").val().trim(),
-			"backstageDeductOther":$("#deductOther").val().trim(),
-			"backstageDeductOilCard":$("#deductOilCard").val().trim()
-		},
-		type:"POST",
-		success:function(ret){
-			if(ret.code=="000000"){
-				$(".closeAudit").click();
-				searchMember();
-			}else {
-				alert(ret.error);
+	setTimeout(function(){
+		$.ajax({
+			url:"/pay/InviceDetail1/uptPrice",
+			data:{"id":$("#payId").val(),
+				"appendix":$("#pay_fj").val(),
+				"backstageDeductWeightMisc":$("#deductWeightMisc").val().trim(),
+				"backstageDeductMoney":$("#deductMoney").val().trim(),
+				"backstageDeductOther":$("#deductOther").val().trim(),
+				"backstageDeductOilCard":$("#deductOilCard").val().trim()
+			},
+			type:"POST",
+			success:function(ret){
+				if(ret.code=="000000"){
+					$(".closeAudit").click();
+					searchMember();
+				}else {
+					alert(ret.error);
+				}
 			}
-		}
-	});
+		});
+	}, 800);
+	
 });
 
 function fileUpload(type){
