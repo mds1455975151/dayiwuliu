@@ -123,7 +123,7 @@ function displayRect(pageNo){
 							"<td >"+s+"</td>"+
 							"<td >"+per+"</td>"+
 							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
-							"<td >"+(ncStatus == 0 ? '未审核' : ncStatus == 1 ? '审核通过，且组织已分配' : ncStatus == 2 ? '审核通过，但组织未分配' : '')+"</td>"+
+							"<td >"+(ncStatus == 1 ? '供应商不存在' : ncStatus == 2 ? '未审核' : ncStatus == 3 ? '审核未通过' : ncStatus == 4 ? '审核中' : ncStatus == 5 ? '审核通过，但组织未分配' : ncStatus == 6 ? '审核通过，且组织已分配' : '')+"</td>"+
 							"<td>";
 							if(data[a].companypercheck=='1'||data[a].userpercheck=='1'){
 								hml += "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";

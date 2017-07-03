@@ -7,9 +7,12 @@ import java.util.Map;
 public enum NCResultEnum {
 	
 
-	NC_RESULT_ENUM_1("E001","审核通过，但组织未分配."),
-	NC_RESULT_ENUM_2("E002","审核通过，且组织已分配."),
-	NC_RESULT_ENUM_3("E003","供应商不存在.");
+	NC_RESULT_ENUM_1("E001","供应商不存在."),
+	NC_RESULT_ENUM_2("E002","供应商还未审核."),
+	NC_RESULT_ENUM_3("E003","供应商审核未通过."),
+	NC_RESULT_ENUM_4("E004","供应商审核进行中."),
+	NC_RESULT_ENUM_5("E005","审核通过，但组织未分配."),
+	NC_RESULT_ENUM_6("E006","审核通过，且组织已分配.");
 	
 	private String code;
 	private String msg;

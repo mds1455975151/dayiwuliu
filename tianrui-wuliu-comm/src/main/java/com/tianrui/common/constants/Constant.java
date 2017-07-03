@@ -144,10 +144,18 @@ public class Constant {
     /**
      * NC供应商推送状态
      */
-    //审核通过，但组织已分配
-    public final static Integer NC_MEMBER_PUSH_STATUS_YES_ORG = 1;
+    //供应商不存在
+    public final static Integer NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST = 1;
+    //未审核
+    public final static Integer NC_MEMBER_PUSH_STATUS_NOT_AUDIT = 2;
+    //审核未通过
+    public final static Integer NC_MEMBER_PUSH_STATUS_AUDIT_REFUSED = 3;
+    //审核中
+    public final static Integer NC_MEMBER_PUSH_STATUS_AUDIT_ING = 4;
     //审核通过，但组织未分配
-    public final static Integer NC_MEMBER_PUSH_STATUS_NOT_ORG = 2;
+    public final static Integer NC_MEMBER_PUSH_STATUS_NOT_ORG = 5;
+    //审核通过，但组织已分配
+    public final static Integer NC_MEMBER_PUSH_STATUS_YES_ORG = 6;
     
     /**
      * 银行卡开户人身份
