@@ -327,7 +327,7 @@ public class SystemMemberService implements ISystemMemberService{
 						module = CacheModule.RESETPASS_APP;
 					}
 					else if ("2".equals(type)) {
-						module = CacheModule.MEMBERLOGIN_APP;
+						module = CacheModule.LOGIN_APP_AUTHCODE;
 					}
 				}else if ("pc".equals(resource)) {
 					if("0".equals(type)){
@@ -471,7 +471,7 @@ public class SystemMemberService implements ISystemMemberService{
 					}
 				//验证码登录	
 				}else{
-					String key =CacheHelper.buildKey(CacheModule.MEMBERLOGIN_APP, new String[]{
+					String key =CacheHelper.buildKey(CacheModule.LOGIN_APP_AUTHCODE, new String[]{
 							req.getAccount(),req.getAuthCode()});
 					if(StringUtils.isNotBlank(cacheClient.getString(key))){
 						successFlag =true;

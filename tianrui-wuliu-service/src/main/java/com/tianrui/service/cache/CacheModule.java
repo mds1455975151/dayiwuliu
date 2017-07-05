@@ -32,7 +32,8 @@ public enum CacheModule {
 	RESETPASS("resetPass-","PC端重置密码验证码"),
 	RESETPASS_APP("resetPass1-","APP端重置密码验证码"),
 	
-	MEMBERLOGIN_APP("logincodeApp-","APP端登录验证码"),
+	LOGIN_APP_AUTHCODE("loginAppCode-","APP端登录验证码"),
+	MEMBERLOGIN_APP("logincodeApp-","APP登录标识"),
 	ADMINLOGIN("loginAdmin-","后台管理用户登录");
 	
 	private String code;
