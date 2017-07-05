@@ -471,8 +471,10 @@ public class SystemMemberService implements ISystemMemberService{
 					}
 				//验证码登录	
 				}else{
+//					String key =CacheHelper.buildKey(CacheModule.LOGIN_APP_AUTHCODE, new String[]{
+//							req.getAccount(),req.getAuthCode()});
 					String key =CacheHelper.buildKey(CacheModule.LOGIN_APP_AUTHCODE, new String[]{
-							req.getAccount(),req.getAuthCode()});
+							"2",req.getAccount()});
 					if(StringUtils.isNotBlank(cacheClient.getString(key))){
 						successFlag =true;
 						//cacheClient.remove(key);
