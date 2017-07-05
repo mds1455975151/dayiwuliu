@@ -34,6 +34,15 @@ public class PayInvoice_1Action {
 		model.addObject("currId", vo.getId());
 		return model;
 	}
+
+	//查询账单详情
+	@RequestMapping("payDetail")
+	public ModelAndView payDetail(String id){
+		ModelAndView view = new ModelAndView();
+		view.addObject("pay", payInvoiceService.payDetail(id).getData());
+		view.setViewName("pay/payInvoice/pay_detail");
+		return view;
+	}
 	
 	/**司机账单*/
 	@RequestMapping("mainDriver")
@@ -57,6 +66,13 @@ public class PayInvoice_1Action {
 			logger.error(e.getMessage(), e);
 		}
 		return result;
+	}
+	
+	@RequestMapping("payDateil_page")
+	public ModelAndView payDateil_page(){
+		ModelAndView view = new ModelAndView();
+		
+		return view;
 	}
 	
 	/**账单自审*/

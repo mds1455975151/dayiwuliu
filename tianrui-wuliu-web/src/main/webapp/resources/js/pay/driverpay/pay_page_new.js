@@ -75,10 +75,16 @@ function innerHTML(ret,flag){
 				"<td >"+data[a].paidAmount+"元</td>" +
 				"<td >"+(data[a].amountPayable-data[a].paidAmount)+"元</td>" +
 				"<td>"+pay_audit_push_Status+"</td>" +
+				"<td><a onclick=\"payDeatil('"+data[a].id+"')\">详情</a></td>" +
 				"</tr>";
 	}
 	$("#paylist").append(hml);
 }
+//查看账单
+function payDeatil(id){
+	window.location.href="/trwuliu/payInvoice_1/payDetail?id="+id;
+}
+
 //查看账单详情
 function showdetail(id){
 	$.ajax({

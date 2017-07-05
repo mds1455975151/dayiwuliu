@@ -46,6 +46,18 @@ public class AppPayInvoice_1Action {
 		return AppResult.valueOf(result);
 	}
 	
+	/**账单详情*/
+	@RequestMapping("payDetail")
+	@ApiParamRawType(PayInvoiceReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult payDetail(AppParam<PayInvoiceReq> appParam){
+		Result rs = Result.getSuccessResult();
+		PayInvoiceReq req = appParam.getBody();
+		rs = payInvoiceService.payDetail(req.getId());
+		return AppResult.valueOf(rs);
+	}
+	
 	/**账单自审*/
 	@RequestMapping("payAudit")
 	@ApiParamRawType(PayInvoiceReq.class)

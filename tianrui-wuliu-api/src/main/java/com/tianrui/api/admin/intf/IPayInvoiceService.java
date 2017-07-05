@@ -14,6 +14,9 @@ public interface IPayInvoiceService {
 
 	Result payInvoiceUpdate(PayInvoiceAuditUpdate auditUpdate, boolean isAudit);
 
+	/** 账单详情*/
+	Result payDetail(String id);
+	
 	Result driverPush(String id);
 
 	Result venderPush(String id);

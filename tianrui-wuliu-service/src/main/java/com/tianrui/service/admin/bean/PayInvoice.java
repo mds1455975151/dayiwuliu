@@ -1,4 +1,7 @@
 package com.tianrui.service.admin.bean;
+
+import com.tianrui.common.constants.Constant;
+
 /**
  * @Description 账单Bean
  * @author zhanggaohao
@@ -23,10 +26,12 @@ public class PayInvoice {
     private Long auditTime;
     //推单状态（0：未推单，1：退单中，2已退单）
     private Integer pushStatus;
+    private String payInvoiceStatus;
     //推单时间
     private Long pushTime;
     //支付状态（0：未支付，1：支付中，2：已支付）
     private Integer payStatus;
+    
     //支付时间
     private Long payTime;
     //组织ID
@@ -405,6 +410,32 @@ public class PayInvoice {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public String getPayInvoiceStatus() {
+		if(auditStatus==Constant.NOT_AUDIT){
+			//未审核
+			this.payInvoiceStatus = "未审核";
+		}else if(auditStatus == Constant.YES_AUDIT&&pushStatus == Constant.NOT_PUSH){
+			//已审核，未推送
+			this.payInvoiceStatus = "已审核";
+		}else if(pushStatus == Constant.PUSH_ING&&payStatus == Constant.NOT_PAY){
+			//推送中
+			this.payInvoiceStatus = "推送中";
+		}else if(pushStatus == Constant.YES_PUSH&&payStatus == Constant.NOT_PAY){
+			//支付中
+			this.payInvoiceStatus = "已推送";
+		}else if (payStatus == Constant.YES_PAY){
+			//已支付
+			this.payInvoiceStatus = "支付完成";
+		} else {
+			this.payInvoiceStatus = "";
+		}
+		return payInvoiceStatus;
+	}
+
+	public void setPayInvoiceStatus(String payInvoiceStatus) {
+		this.payInvoiceStatus = payInvoiceStatus;
+	}
 
 	public PayInvoice() {
 		super();

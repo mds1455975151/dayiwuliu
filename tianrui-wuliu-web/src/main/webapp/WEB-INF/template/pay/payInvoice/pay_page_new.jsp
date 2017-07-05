@@ -97,6 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th >待付款</th>
                          <th> 账单状态</th>
                          <th>操作</th>
+                         <th>详情</th>
                      </tr>
                      </thead>
                      <tbody id = "paylist">

@@ -337,7 +337,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					venderParams.add(payInvoice.getId());
 				}
 			}
-			//TODO
 			postNcDriverCallBack(driverParams);
 			postNcVenderCallBack(venderParams);
 		}
@@ -385,6 +384,14 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				payInvoiceMapper.updateByPrimaryKeySelective(bean);
 			}
 		}
+	}
+
+	@Override
+	public Result payDetail(String id) {
+		Result rs = Result.getSuccessResult();
+		PayInvoice pay = payInvoiceMapper.selectByPrimaryKey(id);
+		rs.setData(pay);
+		return rs;
 	}
 
 }
