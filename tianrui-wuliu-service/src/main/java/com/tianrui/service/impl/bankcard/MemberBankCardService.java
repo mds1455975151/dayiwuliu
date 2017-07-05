@@ -218,7 +218,9 @@ public class MemberBankCardService implements IMemberBankCardService{
 		bank.setBankautid(req.getBankautid());
 		bank.setAuditor(req.getAuditor());
 		bank.setAuditortime(System.currentTimeMillis());
-		if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS)) {
+		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(bank.getCreater());
+		if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS) 
+				&& info.getPushStatus() == Constant.YES_PUSH) {
 			pushBankCard(bank);
 		}
 		memberBankCardMapper.updateByPrimaryKeySelective(bank);
@@ -232,7 +234,10 @@ public class MemberBankCardService implements IMemberBankCardService{
 		List<MemberBankCard> list = memberBankCardMapper.selectSelective(record);
 		if (CollectionUtils.isNotEmpty(list)) {
 			for (MemberBankCard bankCard : list) {
-				pushBankCard(bankCard);
+				SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(bankCard.getCreater());
+				if (info.getPushStatus() == Constant.YES_PUSH) {
+					pushBankCard(bankCard);
+				}
 			}
 		}
 	}
@@ -426,7 +431,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 				if (CollectionUtils.isNotEmpty(list)) {
 					rs.setData(list.get(0));
 				} else {
-					rs.setErrorCode(ErrorCode.NOT_FIND_PANK);
+					rs.setErrorCode(ErrorCode.NOT_FIND_BANK);
 				}
 			} else {
 			rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);

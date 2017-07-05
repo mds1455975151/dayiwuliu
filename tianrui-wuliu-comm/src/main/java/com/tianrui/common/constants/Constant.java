@@ -18,6 +18,8 @@ public class Constant {
 	public final static Integer ZERO = 0;
 	
 	public final static Integer ONE = 1;
+	
+	public final static Integer TWO = 2;
     
     public final static String INFO = "[INFO]";
     

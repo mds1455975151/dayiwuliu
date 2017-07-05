@@ -1,6 +1,8 @@
 package com.tianrui.service.admin.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -25,13 +28,20 @@ import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.HttpUtil;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
+import com.tianrui.service.admin.bean.PayInvoiceMsg;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
+import com.tianrui.service.admin.mapper.PayInvoiceMsgMapper;
+import com.tianrui.service.bean.MemberBankCard;
+import com.tianrui.service.bean.SystemMemberInfo;
+import com.tianrui.service.mapper.MemberBankCardMapper;
+import com.tianrui.service.mapper.SystemMemberInfoMapper;
 
 @Service
 public class PayInvoiceService1 implements IPayInvoiceService {
@@ -41,7 +51,13 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	@Autowired
 	private PayInvoiceMapper1 payInvoiceMapper;
 	@Autowired
-	PayInvoiceDetailMapper1 payInvoiceDetailMapper;
+	private PayInvoiceDetailMapper1 payInvoiceDetailMapper;
+	@Autowired
+	private SystemMemberInfoMapper systemMemberInfoMapper;
+	@Autowired
+	private MemberBankCardMapper memberBankCardMapper;
+	@Autowired
+	private PayInvoiceMsgMapper payInvoiceMsgMapper;
 	
 	@Override
 	public PaginationVO<PayInvoiceVo> page(PayInvoiceReq req) {
@@ -157,8 +173,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		return false;
 	}
 
+	@Transactional
 	@Override
-	public Result driverPush(String id) {
+	public synchronized Result driverPush(String id) {
 		logger.info("into service: driver pay invoice push.");
 		Result result = Result.getErrorResult();
 		if (StringUtils.isNotBlank(id)) {
@@ -167,33 +184,34 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			if (payInvoice != null) {
 				//修改原（Constant.NOT_PUSH 未推单） 改（Constant.PUSH_ING 推单中）
 				if (payInvoice.getPushStatus() == Constant.PUSH_ING) {
-					logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
-					PayInvoiceDriverPush push = new PayInvoiceDriverPush();
-					push.setId(payInvoice.getId());
-					push.setBillcode(payInvoice.getCode());
-					push.setSupplierId(payInvoice.getPayeeId());
-					push.setBankCardId(payInvoice.getPayeeBankCardId());
-					push.setBankCard(payInvoice.getPayeeBankCardNumber());
-					push.setDrivercode(payInvoice.getPayeeIdNo());
-					push.setInvoiceType(payInvoice.getMaterialCode());
-					push.setBillTotalPrice(String.valueOf(payInvoice.getAmountPayable()));
-					push.setSignTime(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
-					logger.info("into service: driver pay invoice push NC param bean: =" + push.toString());
-					ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
-					logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
-					if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
-						PayInvoice bean = new PayInvoice();
-						bean.setId(payInvoice.getId());
-						bean.setPushStatus(Constant.YES_PUSH);
-						bean.setPushTime(System.currentTimeMillis());
-						logger.info("into service: driver pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
-						if (payInvoiceMapper.updateByPrimaryKeySelective(bean) == 1) {
-							result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
+						if (validatePayInvoiceMsg(id)) {
+							logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
+							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice);
+							logger.info("into service: driver pay invoice push NC param bean: =" + push.toString());
+							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
+							logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
+							if (apiResult != null) {
+								if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+									PayInvoice bean = callBackPushStatus(payInvoice);
+									logger.info("into service: driver pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
+									if (payInvoiceMapper.updateByPrimaryKeySelective(bean) == 1) {
+										result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+									} else {
+										result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+									}
+									logger.info("into service: driver pay invoice insert payInvoice");
+									loggerPayInvoiceMsg(payInvoice);
+								} else {
+									result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
+									result.setError(result.getError() + ": "+ apiResult.getMessage());
+								}
+							} else {
+								result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
+							}
 						} else {
-							result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+							result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR1);
 						}
-					} else {
-						result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
 					}
 				} else {
 					result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR1);
@@ -208,42 +226,45 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		return result;
 	}
 
+	@Transactional
 	@Override
-	public Result venderPush(String id) {
+	public synchronized Result venderPush(String id) {
 		logger.info("into service: vender pay invoice push.");
 		Result result = Result.getErrorResult();
 		if (StringUtils.isNotBlank(id)) {
 			logger.info("into service: vender pay invoice push params: id=" + id);
 			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(id);
 			if (payInvoice != null) {
-				
 				//修改验证条件——原（Constant.NOT_PUSH-未推送） -改（Constant.PUSH_ING -前台用户推单中）
 				if (payInvoice.getPushStatus() == Constant.PUSH_ING) {
-					logger.info("into service: vender pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
-					PayInvoiceVenderPush push = new PayInvoiceVenderPush();
-					push.setId(payInvoice.getId());
-					push.setInvoiceType(payInvoice.getMaterialCode());
-					push.setSupplierId(payInvoice.getPayeeId());
-					push.setApplyDate(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
-					push.setPayDealPrice(String.valueOf(payInvoice.getAmountPayable()));
-					push.setBankCard(payInvoice.getPayeeBankCardNumber());
-					push.setBankCardId(payInvoice.getPayeeBankCardId());
-					logger.info("into service: vender pay invoice push NC param bean: =" + push.toString());
-					ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_VENDER_PUSH);
-					logger.info("into service: vender pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
-					if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
-						PayInvoice bean = new PayInvoice();
-						bean.setId(payInvoice.getId());
-						bean.setPushStatus(Constant.YES_PUSH);
-						bean.setPushTime(System.currentTimeMillis());
-						logger.info("into service: vender pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
-						if (payInvoiceMapper.updateByPrimaryKeySelective(bean) == 1) {
-							result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
+						if (validatePayInvoiceMsg(id)) {
+							logger.info("into service: vender pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
+							PayInvoiceVenderPush push = setPayInvoiceVender(payInvoice);
+							logger.info("into service: vender pay invoice push NC param bean: =" + push.toString());
+							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_VENDER_PUSH);
+							logger.info("into service: vender pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
+							if (apiResult != null) {
+								if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+									PayInvoice bean = callBackPushStatus(payInvoice);
+									logger.info("into service: vender pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
+									if (payInvoiceMapper.updateByPrimaryKeySelective(bean) == 1) {
+										result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+									} else {
+										result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+									}
+									logger.info("into service: vender pay invoice insert payInvoice");
+									loggerPayInvoiceMsg(payInvoice);
+								} else {
+									result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
+									result.setError(result.getError() + ": "+ apiResult.getMessage());
+								}
+							} else {
+								result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
+							}
 						} else {
-							result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+							result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR1);
 						}
-					} else {
-						result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
 					}
 				} else {
 					result.setErrorCode(ErrorCode.PAY_DATA_NOT_EXISTSS);
@@ -256,6 +277,119 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		}
 		logger.info("out service: vender pay invoice push.");
 		return result;
+	}
+	/**
+	 * @annotation 推送前 校验用户NC已审核和银行卡已推送
+	 * @param payeeId
+	 * @param bankCardId
+	 * @param result
+	 * @return boolean
+	 */
+	private boolean validate(String payeeId, String bankCardId, Result result) {
+		boolean flag = false;
+		SystemMemberInfo memberInfo = systemMemberInfoMapper.selectByPrimaryKey(payeeId);
+		if (memberInfo.getNcStatus() == Constant.NC_MEMBER_PUSH_STATUS_YES_ORG) {
+			MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(bankCardId);
+			if (bankCard.getPushStatus() == Constant.YES_PUSH) {
+				flag = true;
+			} else {
+				result.setErrorCode(ErrorCode.NOT_PUSH_BANK);
+			}
+		} else {
+			result.setErrorCode(ErrorCode.MEMBER_NC_NOT_ORG);
+		}
+		
+		return flag;
+	}
+	/**
+	 * @annotation 校验账单支付信息日志最后一次推送是否失败
+	 * @param payInvoiceId
+	 * @return boolean
+	 */
+	public boolean validatePayInvoiceMsg(String payInvoiceId) {
+		boolean flag = false;
+		PayInvoiceMsg record = new PayInvoiceMsg();
+		record.setPayInvoiceId(payInvoiceId);
+		List<PayInvoiceMsg> list = payInvoiceMsgMapper.selectByCondition(record);
+		if (CollectionUtils.isNotEmpty(list)) {
+			Collections.sort(list, new Comparator<PayInvoiceMsg>() {
+				@Override
+				public int compare(PayInvoiceMsg o1, PayInvoiceMsg o2) {
+					return (int) (o2.getPayTime() - o1.getPayTime());
+				}
+			});
+			if (list.get(0).getPayStatus() == Constant.ZERO) {
+				flag = true;
+			}
+		} else {
+			flag = true;
+		}
+		return flag;
+	}
+	/**
+	 * @annotation 赋值待推送NC司机支付账单
+	 * @param payInvoice
+	 * @return PayInvoiceDriverPush
+	 */
+	private PayInvoiceDriverPush setPayInvoiceDriver(PayInvoice payInvoice) {
+		PayInvoiceDriverPush push = new PayInvoiceDriverPush();
+		push.setId(payInvoice.getId());
+		push.setBillcode(payInvoice.getCode());
+		push.setSupplierId(payInvoice.getPayeeId());
+		push.setBankCardId(payInvoice.getPayeeBankCardId());
+		push.setBankCard(payInvoice.getPayeeBankCardNumber());
+		push.setDrivercode(payInvoice.getPayeeIdNo());
+		push.setInvoiceType(payInvoice.getMaterialCode());
+		push.setBillTotalPrice(String.valueOf(payInvoice.getAmountPayable()));
+		push.setSignTime(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
+		return push;
+	}
+	/**
+	 * @annotation 赋值待推送NC司机支付账单
+	 * @param payInvoice
+	 * @return PayInvoiceDriverPush
+	 */
+	private PayInvoiceVenderPush setPayInvoiceVender(PayInvoice payInvoice) {
+		PayInvoiceVenderPush push = new PayInvoiceVenderPush();
+		push.setId(payInvoice.getId());
+		push.setInvoiceType(payInvoice.getMaterialCode());
+		push.setSupplierId(payInvoice.getPayeeId());
+		push.setApplyDate(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
+		push.setPayDealPrice(String.valueOf(payInvoice.getAmountPayable()));
+		push.setBankCard(payInvoice.getPayeeBankCardNumber());
+		push.setBankCardId(payInvoice.getPayeeBankCardId());
+		return push;
+	}
+
+	/**
+	 * @annotation 回写账单推送状态
+	 * @param payInvoice
+	 * @return PayInvoice
+	 */
+	private PayInvoice callBackPushStatus(PayInvoice payInvoice) {
+		PayInvoice bean = new PayInvoice();
+		bean.setId(payInvoice.getId());
+		bean.setPushStatus(Constant.YES_PUSH);
+		bean.setPushTime(System.currentTimeMillis());
+		return bean;
+	}
+	/**
+	 * @annotation 增加支付信息日志
+	 * @param payInvoice
+	 */
+	private void loggerPayInvoiceMsg(PayInvoice payInvoice) {
+		PayInvoiceMsg msg = new PayInvoiceMsg();
+		msg.setId(UUIDUtil.getId());
+		msg.setPayInvoiceId(payInvoice.getPayeeId());
+		msg.setPayeeId(payInvoice.getPayeeId());
+		msg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
+		msg.setAmountPayable(payInvoice.getAmountPayable());
+		msg.setPaidAmount(payInvoice.getPaidAmount());
+		msg.setPayStatus(Constant.ONE);
+		msg.setPayTime(System.currentTimeMillis());
+		logger.info("into service: driver pay invoice insert payInvoice: " + msg.toString());
+		payInvoiceMsgMapper.insertSelective(msg);
+		logger.info("into service: driver pay invoice insert payInvoice true");
 	}
 	
 	@Override
@@ -320,6 +454,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		return rs;
 	}
 
+	@Transactional
 	@Override
 	public void callBackPayInvoicePaidAmount() {
 		PayInvoice record = new PayInvoice();
@@ -368,6 +503,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		
 	}
 
+	// TODO 支付失败 回写PayInvoiceMsg
 	private void callBackPaidAmount(JSONArray array) {
 		for (Object object : array) {
 			JSONObject jsonObject = (JSONObject) object;
@@ -380,6 +516,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				bean.setPaidAmount(Double.valueOf(paidAmount));
 				if (bean.getPaidAmount().doubleValue() == payInvoice.getAmountPayable().doubleValue()) {
 					bean.setPayStatus(Constant.YES_PAY);
+					PayInvoiceMsg record = new PayInvoiceMsg();
+					record.setPayInvoiceId(id);
+					record.setPayStatus(Constant.TWO);
+					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(record);
 				}
 				payInvoiceMapper.updateByPrimaryKeySelective(bean);
 			}

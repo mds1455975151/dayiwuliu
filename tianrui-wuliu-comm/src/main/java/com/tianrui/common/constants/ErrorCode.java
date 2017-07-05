@@ -22,6 +22,7 @@ public enum ErrorCode {
 	MEMBER_USER_LOGIN_MAST("E200004","该用户已经在别的设备登录,是否强制登录?"),
 	MEMBER_PUSH_ERROR("E200005","供应商推单失败."),
 	MEMBER_PUSH_ERROR1("222222","供应商推单数据重复."),
+	MEMBER_NC_NOT_ORG("E200006","供应商NC未审核通过且分配组织."),
 	
 	//路径档案
 	FILEROUTE_USER_IS_NULL("E201001","登录用户或者用户组织为空."),
@@ -77,7 +78,8 @@ public enum ErrorCode {
 	/**
 	 * 银行卡
 	 */
-	NOT_FIND_PANK("E600000","没有找到匹配的银行.");
+	NOT_FIND_BANK("E600000","没有找到匹配的银行."),
+	NOT_PUSH_BANK("E600001","银行未推送到NC.");
 	;
 	
 	private String code;

@@ -446,6 +446,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 						info.setId(id);
 						if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
 							//回写供应商ncStatus
+							info.setPushStatus(Constant.NOT_PUSH);
 							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST);
 						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
 							//回写供应商ncStatus

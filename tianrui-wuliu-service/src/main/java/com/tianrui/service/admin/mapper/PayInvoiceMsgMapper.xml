@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianrui.service.admin.mapper.PayInvoiceMsgMapper">
+  <resultMap id="BaseResultMap" type="com.tianrui.service.admin.bean.PayInvoiceMsg">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="pay_invoice_id" jdbcType="VARCHAR" property="payInvoiceId" />
+    <result column="payee_id" jdbcType="VARCHAR" property="payeeId" />
+    <result column="payee_bank_card_id" jdbcType="VARCHAR" property="payeeBankCardId" />
+    <result column="payee_bank_card_number" jdbcType="VARCHAR" property="payeeBankCardNumber" />
+    <result column="payee_bank_subbranch_id" jdbcType="VARCHAR" property="payeeBankSubbranchId" />
+    <result column="payee_bank_subbranch_name" jdbcType="VARCHAR" property="payeeBankSubbranchName" />
+    <result column="amount_payable" jdbcType="DOUBLE" property="amountPayable" />
+    <result column="paid_amount" jdbcType="DOUBLE" property="paidAmount" />
+    <result column="pay_status" jdbcType="BIT" property="payStatus" />
+    <result column="pay_time" jdbcType="BIGINT" property="payTime" />
+    <result column="pay_status_msg" jdbcType="VARCHAR" property="payStatusMsg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pay_invoice_id, payee_id, payee_bank_card_id, payee_bank_card_number, payee_bank_subbranch_id, 
+    payee_bank_subbranch_name, amount_payable, paid_amount, pay_status, pay_time, pay_status_msg
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pay_invoice_msg
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pay_invoice_msg
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.admin.bean.PayInvoiceMsg">
+    insert into pay_invoice_msg (id, pay_invoice_id, payee_id, 
+      payee_bank_card_id, payee_bank_card_number, payee_bank_subbranch_id, 
+      payee_bank_subbranch_name, amount_payable, paid_amount, 
+      pay_status, pay_time, pay_status_msg
+      )
+    values (#{id,jdbcType=VARCHAR}, #{payInvoiceId,jdbcType=VARCHAR}, #{payeeId,jdbcType=VARCHAR}, 
+      #{payeeBankCardId,jdbcType=VARCHAR}, #{payeeBankCardNumber,jdbcType=VARCHAR}, #{payeeBankSubbranchId,jdbcType=VARCHAR}, 
+      #{payeeBankSubbranchName,jdbcType=VARCHAR}, #{amountPayable,jdbcType=DOUBLE}, #{paidAmount,jdbcType=DOUBLE}, 
+      #{payStatus,jdbcType=BIT}, #{payTime,jdbcType=BIGINT}, #{payStatusMsg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceMsg">
+    insert into pay_invoice_msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="payInvoiceId != null">
+        pay_invoice_id,
+      </if>
+      <if test="payeeId != null">
+        payee_id,
+      </if>
+      <if test="payeeBankCardId != null">
+        payee_bank_card_id,
+      </if>
+      <if test="payeeBankCardNumber != null">
+        payee_bank_card_number,
+      </if>
+      <if test="payeeBankSubbranchId != null">
+        payee_bank_subbranch_id,
+      </if>
+      <if test="payeeBankSubbranchName != null">
+        payee_bank_subbranch_name,
+      </if>
+      <if test="amountPayable != null">
+        amount_payable,
+      </if>
+      <if test="paidAmount != null">
+        paid_amount,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="payStatusMsg != null">
+        pay_status_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="payInvoiceId != null">
+        #{payInvoiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeId != null">
+        #{payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardId != null">
+        #{payeeBankCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardNumber != null">
+        #{payeeBankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankSubbranchId != null">
+        #{payeeBankSubbranchId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankSubbranchName != null">
+        #{payeeBankSubbranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPayable != null">
+        #{amountPayable,jdbcType=DOUBLE},
+      </if>
+      <if test="paidAmount != null">
+        #{paidAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=BIT},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=BIGINT},
+      </if>
+      <if test="payStatusMsg != null">
+        #{payStatusMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceMsg">
+    update pay_invoice_msg
+    <set>
+      <if test="payInvoiceId != null">
+        pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeId != null">
+        payee_id = #{payeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardId != null">
+        payee_bank_card_id = #{payeeBankCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCardNumber != null">
+        payee_bank_card_number = #{payeeBankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankSubbranchId != null">
+        payee_bank_subbranch_id = #{payeeBankSubbranchId,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankSubbranchName != null">
+        payee_bank_subbranch_name = #{payeeBankSubbranchName,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPayable != null">
+        amount_payable = #{amountPayable,jdbcType=DOUBLE},
+      </if>
+      <if test="paidAmount != null">
+        paid_amount = #{paidAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=BIT},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=BIGINT},
+      </if>
+      <if test="payStatusMsg != null">
+        pay_status_msg = #{payStatusMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.PayInvoiceMsg">
+    update pay_invoice_msg
+    set pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR},
+      payee_id = #{payeeId,jdbcType=VARCHAR},
+      payee_bank_card_id = #{payeeBankCardId,jdbcType=VARCHAR},
+      payee_bank_card_number = #{payeeBankCardNumber,jdbcType=VARCHAR},
+      payee_bank_subbranch_id = #{payeeBankSubbranchId,jdbcType=VARCHAR},
+      payee_bank_subbranch_name = #{payeeBankSubbranchName,jdbcType=VARCHAR},
+      amount_payable = #{amountPayable,jdbcType=DOUBLE},
+      paid_amount = #{paidAmount,jdbcType=DOUBLE},
+      pay_status = #{payStatus,jdbcType=BIT},
+      pay_time = #{payTime,jdbcType=BIGINT},
+      pay_status_msg = #{payStatusMsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByCondition" parameterType="com.tianrui.service.admin.bean.PayInvoiceMsg" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List" />
+  	from pay_invoice_msg
+  	<where>
+      <if test="id != null">
+        and id = #{id,jdbcType=VARCHAR}
+      </if>
+      <if test="payInvoiceId != null">
+        and pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeId != null">
+        and payee_id = #{payeeId,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeBankCardId != null">
+        and payee_bank_card_id = #{payeeBankCardId,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeBankCardNumber != null">
+        and payee_bank_card_number = #{payeeBankCardNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeBankSubbranchId != null">
+        and payee_bank_subbranch_id = #{payeeBankSubbranchId,jdbcType=VARCHAR}
+      </if>
+      <if test="payeeBankSubbranchName != null">
+        and payee_bank_subbranch_name = #{payeeBankSubbranchName,jdbcType=VARCHAR}
+      </if>
+      <if test="amountPayable != null">
+        and amount_payable = #{amountPayable,jdbcType=DOUBLE}
+      </if>
+      <if test="paidAmount != null">
+        and paid_amount = #{paidAmount,jdbcType=DOUBLE}
+      </if>
+      <if test="payStatus != null">
+        and pay_status = #{payStatus,jdbcType=BIT}
+      </if>
+      <if test="payTime != null">
+        and pay_time = #{payTime,jdbcType=BIGINT}
+      </if>
+      <if test="payStatusMsg != null">
+        and pay_status_msg = #{payStatusMsg,jdbcType=VARCHAR}
+      </if>
+  	</where>
+  </select>
+  <update id="updateLastPayStatusByPayInvoiceId" parameterType="com.tianrui.service.admin.bean.PayInvoiceMsg">
+    UPDATE pay_invoice_msg
+	SET pay_status = #{payStatus,jdbcType=BIT}
+	WHERE
+		pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+	AND pay_time = (
+		SELECT
+			a.maxTime
+		FROM
+			(
+				SELECT
+					MAX(pay_time) maxTime
+				FROM
+					pay_invoice_msg
+				WHERE
+					pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+			) a
+	)
+  </update>
+</mapper>
