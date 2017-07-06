@@ -422,15 +422,26 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
 		List<SystemMemberInfo> list = systemMemberInfoMapper.selectNcNotUse(info);
 		if (CollectionUtils.isNotEmpty(list)) {
-			List<String> ids = new ArrayList<String>();
+			List<Object> ids = new ArrayList<Object>();
 			for (SystemMemberInfo bean : list) {
-				ids.add(bean.getId());
+				JSONObject obj = new JSONObject();
+				obj.put("suppid", bean.getId());
+				if(StringUtils.isBlank(bean.getCompanyname())){
+					//企业名为空 个人认证
+					obj.put("name", bean.getUsername());
+					obj.put("vbusinlicense", bean.getIdcard());
+				}else {
+					//企业认证
+					obj.put("name", bean.getCompanyname());
+					obj.put("vbusinlicense", bean.getCompanycode());
+				}
+				ids.add(obj);
 			}
 			selectNCMemberPushStatus(ids);
 		}
 	}
 	
-	private ApiResult selectNCMemberPushStatus(List<String> list){
+	private ApiResult selectNCMemberPushStatus(List<Object> list){
 		ApiResult apiResult = null;
 		if (CollectionUtils.isNotEmpty(list)) {
 			apiResult = HttpUtil.post(list, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH_NC_STATUS);
