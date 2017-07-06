@@ -191,7 +191,7 @@ $(".total_price_count").on("change",function(){
 	}
 	var true_totalprice = totalprice-deduct_weight_misc-deduct_money-deduct_other-deduct_oil_card;
 	
-	$("#amountPayable").val(true_totalprice);
+	$("#amountPayable").val(true_totalprice.toFixed(2));
 	
 });
 //验证输入数字
