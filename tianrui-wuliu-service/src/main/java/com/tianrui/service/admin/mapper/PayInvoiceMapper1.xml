@@ -53,6 +53,7 @@
     <result column="push_status" property="pushStatus" jdbcType="BIT" />
     <result column="pay_status" property="payStatus" jdbcType="BIT" />
     <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    <result column="payee_bank_card_number" property="payeeBankCardNumber" jdbcType="VARCHAR" />
     <result column="application_time" property="applicationTime" jdbcType="BIGINT" />
     
   </resultMap>
@@ -664,6 +665,7 @@
 		p1.amount_payable,
 		p1.paid_amount,
 		p1.payee_name,
+		p1.payee_bank_card_number,
 		p1.audit_status,
 		p1.push_status,
 		p1.pay_status,

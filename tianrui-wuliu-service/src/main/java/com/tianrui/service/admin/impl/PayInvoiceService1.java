@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,6 +59,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	private MemberBankCardMapper memberBankCardMapper;
 	@Autowired
 	private PayInvoiceMsgMapper payInvoiceMsgMapper;
+	@Autowired
+    private TaskExecutor taskExecutor;
 	
 	@Override
 	public PaginationVO<PayInvoiceVo> page(PayInvoiceReq req) {
@@ -533,6 +536,65 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		PayInvoice pay = payInvoiceMapper.selectByPrimaryKey(id);
 		rs.setData(pay);
 		return rs;
+	}
+
+	@Override
+	public Result updateBankCard(String id, String bankCardId) {
+		logger.info("into the payInvoiceService updateBankCard.");
+		Result result = Result.getSuccessResult();
+		if (StringUtils.isNotBlank(id) && StringUtils.isNotBlank(bankCardId)) {
+			logger.info("out the payInvoiceService updateBankCard success.");
+			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(id);
+			if (payInvoice != null) {
+				if (payInvoice.getPayStatus() == Constant.THREE) {
+					MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(bankCardId);
+					if (bankCard != null) {
+						if (StringUtils.equals(bankCard.getBankautid(), Constant.ONE_STR)) {
+							PayInvoice bean = new PayInvoice();
+							bean.setId(id);
+							bean.setPayeeBankCardId(bankCardId);
+							bean.setPayeeBankCardNumber(bankCard.getBankcard());
+							payInvoiceMapper.updateByPrimaryKeySelective(bean);
+							result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+							logger.info("out the payInvoiceService updateBankCard success.");
+							runTheadPoolTask(id);
+						} else {
+							result.setErrorCode(ErrorCode.BANK_CARD_NOT_AUDIT);
+							logger.info("out the payInvoiceService updateBankCard error: " + result.getError());
+						}
+					} else {
+						result.setErrorCode(ErrorCode.BANK_CARD_NOT_EXIST);
+						logger.info("out the payInvoiceService updateBankCard error: " + result.getError());
+					}
+				} else {
+					result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR2);
+					logger.info("out the payInvoiceService updateBankCard error: " + result.getError());
+				}
+			} else {
+				result.setErrorCode(ErrorCode.PAY_DATA_NOT_EXISTSS);
+				logger.info("out the payInvoiceService updateBankCard error: " + result.getError());
+			}
+		} else {
+			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+			logger.info("out the payInvoiceService updateBankCard error: " + result.getError());
+		}
+		logger.info("out the payInvoiceService updateBankCard.");
+		return result;
+	}
+	
+	private void runTheadPoolTask(final String id) {
+		try {
+			taskExecutor.execute(new Runnable() {
+
+				@Override
+				public void run() {
+					driverPush(id);
+				}
+				
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

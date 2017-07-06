@@ -45,6 +45,7 @@
      
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
+<script type="text/javascript" src="/resources/ui/layer/layer.js"></script>
 
 <script>
 var PATH = "${path}";
