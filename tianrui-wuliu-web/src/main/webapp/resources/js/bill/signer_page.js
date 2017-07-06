@@ -48,7 +48,7 @@ function innerHTML(data){
 		var billstatus = "";
 		if(data[a].billtype == "al"){
 			type = "开票运单";
-			billstatus = "开票运单";
+			billstatus = data[a].signed;
 		}else if(data[a].billtype == "dy"){
 			type = "普通运单";
 			if(data[a].billstatus ==0){
@@ -82,7 +82,7 @@ function innerHTML(data){
 		if(data[a].billstatus ==5){//普通运单签收
 			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 		}else if(data[a].billtype == "al"){//安联运单签收
-			if(data[a].billstatus == undefined){//前台未运价确认
+			if(data[a].billstatus == undefined && data[a].signedStr == '1'){//前台未运价确认
 				hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 			}
 		}

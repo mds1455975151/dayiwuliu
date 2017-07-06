@@ -1,5 +1,7 @@
 package com.tianrui.trwl.admin.web.pay;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,8 @@ import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.Users;
+import com.tianrui.trwl.admin.util.SessionManager;
 
 @Controller
 @RequestMapping("/pay/InviceDetail1")
@@ -48,9 +52,10 @@ public class PayInviceDetail1Action {
 	//后台运价确认
 	@RequestMapping("uptPrice")
 	@ResponseBody
-	public Result uptPrice(PayInvoiceDetail1Req req) throws Exception{
+	public Result uptPrice(PayInvoiceDetail1Req req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = payInvoiceDetail1Service.uptPrice(req);
+		Users user = SessionManager.getSessionMember(request);
+		rs = payInvoiceDetail1Service.uptPrice(req,user.getAccount());
 		return rs;
 	}
 	

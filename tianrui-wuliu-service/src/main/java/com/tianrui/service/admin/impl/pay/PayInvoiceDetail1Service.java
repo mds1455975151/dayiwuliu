@@ -119,7 +119,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	}
 	/** 后台运价确认*/
 	@Override
-	public Result uptPrice(PayInvoiceDetail1Req req) throws Exception{
+	public Result uptPrice(PayInvoiceDetail1Req req,String account) throws Exception{
 		Result rs = Result.getSuccessResult();
 		PayInvoiceDetail pay = payInvoiceDetailMapper1.selectByPrimaryKey(req.getId());
 		//修改运单状态为后台已审核状态
@@ -161,7 +161,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			PayInviceSave1Req driverPay = new PayInviceSave1Req();
 			driverPay.setIdStr(pay.getId());
 			driverPay.setAdPayeeidType("1");
-			driverPay.setCreater("admin");
+			driverPay.setCreater(account);
 			//生成账单
 			rs = savePayInvoice(driverPay);
 		}

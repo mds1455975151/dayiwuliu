@@ -16,7 +16,7 @@ public interface IPayInvoiceDetail1Service {
 	PayInvoiceDetail1Resp selectById(String id)throws Exception;
 	/**后台运价确认
 	 * @throws Exception */
-	public Result uptPrice(PayInvoiceDetail1Req req) throws Exception;
+	public Result uptPrice(PayInvoiceDetail1Req req,String account) throws Exception;
 	/** 生成账单*/
 	public Result savePayInvoice(PayInviceSave1Req req)throws Exception;
 	/** 通过运单id 查询运价确认量*/

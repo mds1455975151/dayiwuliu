@@ -263,9 +263,26 @@ public class AnlianBillService implements IAnlianBillService{
 	public Result findByid(AnlianBillFindReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+		//车主
+		SystemMember vender = systemMemberMapper.selectByPrimaryKey(bill.getVenderid());
+		//司机
+		SystemMember driver = systemMemberMapper.selectByPrimaryKey(bill.getDriverid());
+		//货主
+		SystemMember owner = systemMemberMapper.selectByPrimaryKey(bill.getOwnerid());
 		
 		AnlianBillResp resp = new AnlianBillResp();
 		PropertyUtils.copyProperties(resp, bill);
+		
+		resp.setOwnername(owner.getRemarkname());
+		resp.setOwnertel(owner.getCellphone());
+		
+		resp.setVendername(vender.getRemarkname());
+		resp.setVendertel(vender.getCellphone());
+		
+		resp.setDrivername(driver.getRemarkname());
+		resp.setDrivertel(driver.getCellphone());
+		resp.setAldriverid(driver.getAldriverid());
+		
 		resp.setStatus(bill.getDesc4());
 		rs.setData(resp);
 		return rs;

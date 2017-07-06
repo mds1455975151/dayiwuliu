@@ -31,6 +31,8 @@ public class SignerBill {
     
     private String confirmPriceB;
     
+    private String signed;
+    
     private Integer pageNo;
     
     private Integer pageSize;
@@ -165,5 +167,13 @@ public class SignerBill {
 
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
+	}
+
+	public String getSigned() {
+		return signed;
+	}
+
+	public void setSigned(String signed) {
+		this.signed = signed;
 	}
 }

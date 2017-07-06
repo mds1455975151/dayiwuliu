@@ -58,8 +58,8 @@ public class BillAnlianAction {
 		ModelAndView view = new ModelAndView();
 		Result rs = anlianBillService.findByid(req);
 		AnlianBillResp bill = (AnlianBillResp) rs.getData();
-		MemberResp resp = systemMemberService.findById(bill.getDriverid());
-		bill.setDrivertel(resp.getCellPhone());
+//		MemberResp resp = systemMemberService.findById(bill.getDriverid());
+//		bill.setDrivertel(resp.getCellPhone());
 		view.addObject("bill", bill);
 		view.setViewName("bill/anlian/bill_detail");
 		return view;

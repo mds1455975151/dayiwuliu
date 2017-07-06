@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.front.bill;
 
+import org.apache.commons.lang.StringUtils;
+
 public class SignerBillResp {
     private String id;
 
@@ -24,6 +26,10 @@ public class SignerBillResp {
     private String reciveCellphone;
     
     private Double totalprice;
+    
+    private String signed;
+    
+    private String signedStr;
     
     private String confirmPriceA;
     
@@ -139,5 +145,30 @@ public class SignerBillResp {
 
 	public void setConfirmPriceB(String confirmPriceB) {
 		this.confirmPriceB = confirmPriceB;
+	}
+
+	public String getSigned() {
+		return signed;
+	}
+
+	public void setSigned(String signed) {
+		this.signed = signed;
+	}
+
+	public String getSignedStr() {
+		if(StringUtils.isNotBlank(signed)){
+			if(StringUtils.equals(billtype, "al")){
+				if(StringUtils.equals(signed, "配载单已到货!")){
+					signedStr = "1";
+				}else {
+					signedStr = "0";
+				}
+			}
+		}
+		return signedStr;
+	}
+
+	public void setSignedStr(String signedStr) {
+		this.signedStr = signedStr;
 	}
 }

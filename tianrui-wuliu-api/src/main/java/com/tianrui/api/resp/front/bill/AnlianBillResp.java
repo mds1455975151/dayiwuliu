@@ -13,6 +13,13 @@ public class AnlianBillResp {
     
     private String status;
     
+    private String vendertel;
+    private String vendername;
+    
+    private String ownertel;
+    private String ownername;
+
+    private String drivername;
     private String drivertel;
 
     private String billno;
@@ -514,5 +521,45 @@ public class AnlianBillResp {
 
 	public void setConfirmPriceB(String confirmPriceB) {
 		this.confirmPriceB = confirmPriceB;
+	}
+
+	public String getVendertel() {
+		return vendertel;
+	}
+
+	public void setVendertel(String vendertel) {
+		this.vendertel = vendertel;
+	}
+
+	public String getVendername() {
+		return vendername;
+	}
+
+	public void setVendername(String vendername) {
+		this.vendername = vendername;
+	}
+
+	public String getOwnertel() {
+		return ownertel;
+	}
+
+	public void setOwnertel(String ownertel) {
+		this.ownertel = ownertel;
+	}
+
+	public String getOwnername() {
+		return ownername;
+	}
+
+	public void setOwnername(String ownername) {
+		this.ownername = ownername;
+	}
+
+	public String getDrivername() {
+		return drivername;
+	}
+
+	public void setDrivername(String drivername) {
+		this.drivername = drivername;
 	}
 }

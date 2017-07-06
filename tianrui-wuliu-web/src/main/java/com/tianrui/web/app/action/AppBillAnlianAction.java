@@ -40,10 +40,10 @@ public class AppBillAnlianAction {
 		AnlianBillFindReq req = appParam.getBody();
 		Result rs = anlianBillService.findByid(req);
 		AnlianBillResp bill = (AnlianBillResp) rs.getData();
-		MemberResp resp = systemMemberService.findById(bill.getDriverid());
-		bill.setDrivertel(resp.getCellPhone());
-		//安联账户
-		bill.setAldriverid(resp.getAldriverid());
+//		MemberResp resp = systemMemberService.findById(bill.getDriverid());
+//		bill.setDrivertel(resp.getCellPhone());
+//		//安联账户
+//		bill.setAldriverid(resp.getAldriverid());
 		as.setReturnData(bill);
 		return as;
 	}

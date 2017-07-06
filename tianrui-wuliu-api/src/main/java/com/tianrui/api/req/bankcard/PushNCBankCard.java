@@ -21,6 +21,10 @@ public class PushNCBankCard {
 	private String bankSubbranchId;
 	//银行支行名称
 	private String bankSubbranchName;
+	//供应商名称
+	private String name;
+	//供应商证件号
+	private String vbusinlicense;
 	
 	public String getId() {
 		return id;
@@ -69,6 +73,18 @@ public class PushNCBankCard {
 	}
 	public void setBankSubbranchName(String bankSubbranchName) {
 		this.bankSubbranchName = bankSubbranchName;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getVbusinlicense() {
+		return vbusinlicense;
+	}
+	public void setVbusinlicense(String vbusinlicense) {
+		this.vbusinlicense = vbusinlicense;
 	}
 	public PushNCBankCard() {
 		super();

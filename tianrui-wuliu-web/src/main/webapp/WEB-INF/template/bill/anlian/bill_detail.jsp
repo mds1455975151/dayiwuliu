@@ -90,20 +90,37 @@
 											<td>${bill.sl }</td>
 										</tr>
 									</tbody>
+									
 									<thead>
 										<tr>
+											<th>车主</th>
+											<th>车主电话</th>
 											<th>要求提货日期</th>
-											<th>要求到货日期</th>
-											<th>总运费</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
+											<td>${bill.vendername }</td>
+											<td>${bill.vendertel }</td>
 											<td>${bill.yqthrq }</td>
-											<td>${bill.yqdhrq }</td>
-											<td>${bill.yf}元</td>
 										</tr>
 									</tbody>
+									
+									<thead>
+										<tr>
+											<th>货主</th>
+											<th>货主电话</th>
+											<th>要求到货日期</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>${bill.ownername }</td>
+											<td>${bill.ownertel }</td>
+											<td>${bill.yqdhrq }</td>
+										</tr>
+									</tbody>
+									
 									<thead>
 										<tr>
 											<th>车辆</th>
@@ -114,7 +131,7 @@
 									<tbody>
 										<tr>
 											<td>${bill.cph }</td>
-											<td>${bill.sj }</td>
+											<td>${bill.sj }-${bill.drivername }</td>
 											<td>${bill.drivertel }</td>
 										</tr>
 									</tbody>
@@ -133,6 +150,16 @@
 											<c:if test="${bill.payment eq '1' }">司机</c:if>
 											<c:if test="${bill.payment eq '2' }">车主</c:if>
 											</td>
+										</tr>
+									</tbody>
+									<thead>
+										<tr>
+											<th>总运费</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>${bill.yf}元</td>
 										</tr>
 									</tbody>
 								</table>
