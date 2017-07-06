@@ -54,5 +54,9 @@ public interface IPayInvoiceService {
 	 * @return
 	 */
 	Result updateBankCard(String id, String bankCardId);
+	/**
+	 * @annotation 定时查询账单支付状态并回写
+	 */
+	void callBackPayInvoicePayStatus();
 
 }

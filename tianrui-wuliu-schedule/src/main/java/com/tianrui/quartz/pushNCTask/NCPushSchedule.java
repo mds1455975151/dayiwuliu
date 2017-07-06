@@ -1,4 +1,4 @@
-package com.tianrui.quartz.pushMember;
+package com.tianrui.quartz.pushNCTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
+import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 
 /**
   * cron配置
@@ -28,16 +29,28 @@ public class NCPushSchedule {
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
 	@Autowired
+	IMemberBankCardService memberBankCardService;
+	@Autowired
 	private IPayInvoiceService payInvoiceService;
 
 	@Scheduled(cron="* 0/10 *  * * ? ")
-	public void callBackPushStatus(){
-		systemMemberInfoService.scheduleCallBackPushStatus();
+	public void callBackMemberPushStatus(){
+		systemMemberInfoService.callBackMemberPushStatus();
+	}
+
+	@Scheduled(cron="* 0/10 *  * * ? ")
+	public void pushBankCardAndCallBackPushStatus(){
+		memberBankCardService.pushBankCardAndCallBackPushStatus();
 	}
 
 	@Scheduled(cron="* 0/10 *  * * ? ")
 	public void callBackPayInvoicePaidAmount(){
 		payInvoiceService.callBackPayInvoicePaidAmount();
+	}
+
+	@Scheduled(cron="* 0/10 *  * * ? ")
+	public void callBackPayInvoicePayStatus(){
+		payInvoiceService.callBackPayInvoicePayStatus();
 	}
 	
 }

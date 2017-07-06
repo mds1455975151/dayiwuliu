@@ -78,6 +78,6 @@ public interface ISystemMemberInfoService {
 	 * @author zhanggaohao
 	 * @version 2017年6月23日 上午11:47:55
 	 */
-	void scheduleCallBackPushStatus();
+	void callBackMemberPushStatus();
 
 }

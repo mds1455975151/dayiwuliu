@@ -507,7 +507,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		
 	}
 
-	// TODO 支付失败 回写PayInvoiceMsg
+	/**
+	 * @annotation 回写支付账单已付金额
+	 * @param array
+	 */
 	private void callBackPaidAmount(JSONArray array) {
 		for (Object object : array) {
 			JSONObject jsonObject = (JSONObject) object;
@@ -520,10 +523,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				bean.setPaidAmount(Double.valueOf(paidAmount));
 				if (bean.getPaidAmount().doubleValue() == payInvoice.getAmountPayable().doubleValue()) {
 					bean.setPayStatus(Constant.YES_PAY);
-					PayInvoiceMsg record = new PayInvoiceMsg();
-					record.setPayInvoiceId(id);
-					record.setPayStatus(Constant.TWO);
-					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(record);
 				}
 				payInvoiceMapper.updateByPrimaryKeySelective(bean);
 			}
@@ -582,6 +581,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		return result;
 	}
 	
+	/**
+	 * @annotation 司机修改银行卡后推送一次账单
+	 * @param id
+	 */
 	private void runTheadPoolTask(final String id) {
 		try {
 			taskExecutor.execute(new Runnable() {
@@ -595,6 +598,12 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void callBackPayInvoicePayStatus() {
+		
+		
 	}
 
 }

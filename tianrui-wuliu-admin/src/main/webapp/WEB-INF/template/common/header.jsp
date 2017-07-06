@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<link href="/resources/ui/layer/mobile/need/layer.css" rel="stylesheet">
          <!--增加最大高度，数据多出滚动条-->
 	    <style>
 	     .ui-autocomplete {

@@ -416,7 +416,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	}
 	
 	@Override
-	public void scheduleCallBackPushStatus() {
+	public void callBackMemberPushStatus() {
 		SystemMemberInfo info = new SystemMemberInfo();
 		info.setPushStatus(Constant.YES_PUSH);
 		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
