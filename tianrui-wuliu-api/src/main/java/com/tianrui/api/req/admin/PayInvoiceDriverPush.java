@@ -12,6 +12,8 @@ public class PayInvoiceDriverPush {
 	private String billcode;
 	//供应商主键
 	private String supplierId;
+	//供应商名称
+	private String name;
 	//银行卡主键
 	private String bankCardId;
 	//银行卡号
@@ -47,6 +49,14 @@ public class PayInvoiceDriverPush {
 
 	public void setSupplierId(String supplierId) {
 		this.supplierId = supplierId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getBankCardId() {
@@ -99,8 +109,8 @@ public class PayInvoiceDriverPush {
 
 	@Override
 	public String toString() {
-		return "PayInvoiceDriverPush [id=" + id + ", billcode=" + billcode + ", supplierId=" + supplierId
-				+ ", bankCardId=" + bankCardId + ", bankCard=" + bankCard + ", drivercode=" + drivercode
+		return "PayInvoiceDriverPush [id=" + id + ", billcode=" + billcode + ", supplierId=" + supplierId + ", name="
+				+ name + ", bankCardId=" + bankCardId + ", bankCard=" + bankCard + ", drivercode=" + drivercode
 				+ ", invoiceType=" + invoiceType + ", billTotalPrice=" + billTotalPrice + ", signTime=" + signTime
 				+ "]";
 	}

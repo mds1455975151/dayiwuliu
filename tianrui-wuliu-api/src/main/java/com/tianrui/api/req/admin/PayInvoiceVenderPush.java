@@ -12,6 +12,10 @@ public class PayInvoiceVenderPush {
 	private String invoiceType;
 	//供应商主键
 	private String supplierId;
+	//供应商名称
+	private String name;
+	//营业执照号
+	private String vbusinlicense;
 	//支付单日期
 	private String applyDate;
 	//支付金额
@@ -38,6 +42,18 @@ public class PayInvoiceVenderPush {
 	}
 	public void setSupplierId(String supplierId) {
 		this.supplierId = supplierId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getVbusinlicense() {
+		return vbusinlicense;
+	}
+	public void setVbusinlicense(String vbusinlicense) {
+		this.vbusinlicense = vbusinlicense;
 	}
 	public String getApplyDate() {
 		return applyDate;
@@ -66,7 +82,8 @@ public class PayInvoiceVenderPush {
 	@Override
 	public String toString() {
 		return "PayInvoiceVenderPush [id=" + id + ", invoiceType=" + invoiceType + ", supplierId=" + supplierId
-				+ ", applyDate=" + applyDate + ", payDealPrice=" + payDealPrice + ", bankCard=" + bankCard
-				+ ", bankCardId=" + bankCardId + "]";
+				+ ", name=" + name + ", vbusinlicense=" + vbusinlicense + ", applyDate=" + applyDate + ", payDealPrice="
+				+ payDealPrice + ", bankCard=" + bankCard + ", bankCardId=" + bankCardId + "]";
 	}
+	
 }

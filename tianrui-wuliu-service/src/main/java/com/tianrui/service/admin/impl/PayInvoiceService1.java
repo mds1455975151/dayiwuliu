@@ -27,6 +27,7 @@ import com.tianrui.api.resp.admin.PayInvoiceVo;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
+import com.tianrui.common.constants.NCResultEnum;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.HttpUtil;
 import com.tianrui.common.utils.UUIDUtil;
@@ -339,6 +340,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		push.setId(payInvoice.getId());
 		push.setBillcode(payInvoice.getCode());
 		push.setSupplierId(payInvoice.getPayeeId());
+		push.setName(payInvoice.getPayeeName());
 		push.setBankCardId(payInvoice.getPayeeBankCardId());
 		push.setBankCard(payInvoice.getPayeeBankCardNumber());
 		push.setDrivercode(payInvoice.getPayeeIdNo());
@@ -483,6 +485,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 
 	private void postNcDriverCallBack(List<String> params) {
 		if (CollectionUtils.isNotEmpty(params)) {
+			//回写已付金额
 			ApiResult apiResult = HttpUtil.post_longlong(params, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_CALLBACK_PAIDAMOUNT);
 			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
@@ -496,6 +499,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 
 	private void postNcVenderCallBack(List<String> params) {
 		if (CollectionUtils.isNotEmpty(params)) {
+			//回写已付金额
 			ApiResult apiResult = HttpUtil.post_longlong(params, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_VENDER_CALLBACK_PAIDAMOUNT);
 			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
@@ -602,8 +606,44 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 
 	@Override
 	public void callBackPayInvoicePayStatus() {
-		
-		
+		PayInvoice record = new PayInvoice();
+		record.setPushStatus(Constant.YES_PUSH);
+		record.setPayStatus(Constant.PAY_ING);
+		List<PayInvoice> list = payInvoiceMapper.selectByCondition(record);
+		List<String> ids = new ArrayList<String>();
+		if (CollectionUtils.isNotEmpty(list)) {
+			for (PayInvoice payInvoice : list) {
+				ids.add(payInvoice.getId());
+			}
+		}
+		if (CollectionUtils.isNotEmpty(ids)) {
+			//回写支付状态
+			ApiResult apiResult = HttpUtil.post_longlong(ids, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_PAY_STATUS);
+			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
+				if (CollectionUtils.isNotEmpty(array)) {
+					callBackPayStatus(array);
+				}
+			}
+		}
+	}
+
+	private void callBackPayStatus(JSONArray array) {
+		for (Object object : array) {
+			JSONObject jsonObject = (JSONObject) object;
+			String id = jsonObject.getString("billId");
+			String payStatus = jsonObject.getString("payStatus");
+			if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_13.getCode())) {
+				PayInvoiceMsg payInvoiceMsg = new PayInvoiceMsg();
+				payInvoiceMsg.setPayInvoiceId(id);
+				payInvoiceMsg.setPayStatus(Constant.ZERO);
+				payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+				PayInvoice PayInvoice = new PayInvoice();
+				PayInvoice.setId(id);
+				PayInvoice.setPayStatus(Constant.THREE);
+				payInvoiceMapper.updateByPrimaryKeySelective(PayInvoice);
+			}
+		}
 	}
 
 }
