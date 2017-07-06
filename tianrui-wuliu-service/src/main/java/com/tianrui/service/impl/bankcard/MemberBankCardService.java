@@ -400,7 +400,20 @@ public class MemberBankCardService implements IMemberBankCardService{
 		}
 		return result;
 	}
-
+		//查询银行卡连行号
+		@Override
+		public Result findBankNum(String id) throws Exception {
+			Result result = Result.getSuccessResult();
+			if (StringUtils.isNotBlank(id)) {
+				BankSubbranch bankSubbranch = new BankSubbranch();
+				bankSubbranch.setId(id);
+				BankSubbranch bankNum = bankSubbranchMapper.selectByPrimaryKey(id);
+				result.setData(bankNum);
+			}else{
+				result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+			}
+			return result;
+		}
 	@Override
 	public Result findBankOnly(String memberid, String code) throws Exception {
 		// TODO Auto-generated method stub

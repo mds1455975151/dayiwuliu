@@ -70,42 +70,49 @@ $("#member_bank_add").on("click",function(){
 });
 
 $(".select2").select2(); 
-$("#bankcard_req").on("blur",function(){
+$("#selectBankName").on("blur",function(){
 	$.ajax({
 		url:"/trwuliu/bank/card/bankCardOnly",
 		type:"post",
 		data:{"bankcode":$("#bankcard_req").val()},
 		success:function(ret){
-			if(ret.code == "000000"){
-				$.ajax({
-					url:"/trwuliu/bank/card/bankCardType",
-					type:"post",
-					data:{"bankcode":$("#bankcard_req").val()},
-					success:function(res){
-						if (res != null && res.code == '000000') {
-							if (res.data != null) {
-								$("#bankname_req").val(res.data.name).attr('bankTypeId', res.data.id);
-								bankAddress(res.data.id);
-							}else{
-								$("#bankname_req").val('').removeAttr('bankTypeId');
-								$("#desc1_select").empty();
-							}
-						} else {
-							$("#bankname_req").val('').removeAttr('bankTypeId');
-							$("#desc1_select").empty();
-							alert(res.error);
-						}
-					}
-				});
-			}else{
-				alert(ret.error);
-			}
+				
 		}
 	});
 });
-
-function bankAddress(id){
-	$("#desc1_req").removeAttr('bankSubbranchId').val('');
+window.onload=selectBankName;
+function selectBankName(){
+	$.ajax({
+		url:"/trwuliu/bank/card/bankCardType",
+		type:"post",
+		success:function(ret){
+				var data = ret.data;
+				$("#selectBankName").empty();
+				$("#selectBankName").append("<option value=''>请选择</option>");
+				for (var a = 0; a < data.length; a++) {
+					$("#selectBankName").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
+				}
+			}
+		});
+}
+//联行号
+$("#desc1_select").change(function(){	
+	var id = $("desc1_select option:selected").val();
+	$.ajax({
+		url:"/trwuliu/bank/card/findBankNum",
+		type:"post",
+		data:{"id":id},
+		success:function(ret){
+			var data = ret.data;
+			$("#bankLineNumber").empty();
+			$("#bankLineNumber").val(data.bankLineNumber);
+			
+		}
+	});
+})
+//开户行名称
+$("#selectBankName").change(function(){
+	var id=$("#selectBankName option:selected").val();
 	$.ajax({
 		url:"/trwuliu/bank/card/findAddress",
 		type:"post",
@@ -116,11 +123,13 @@ function bankAddress(id){
 			$("#desc1_select").append("<option value=''>请选择</option>");
 			for (var a = 0; a < data.length; a++) {
 				$("#desc1_select").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
+				$("#bankLineNumber").val(data[a].bankLineNumber );
 			}
 		}
 	});
-}
+});
 
+	
 //图片上传
 function fileupload(id,remove){
 	var file = $("#"+id)[0].files[0];

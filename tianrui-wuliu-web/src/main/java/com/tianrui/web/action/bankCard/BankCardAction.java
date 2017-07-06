@@ -94,7 +94,16 @@ public class BankCardAction {
 		rs = memberBankCardService.findBankSubbranch(id);
 		return rs;
 	}
-	
+	/** 查询开户行连行号.
+	 * @throws Exception 
+	 **/
+	@RequestMapping("findBankNum")
+	@ResponseBody
+	public Result findBankNum(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = memberBankCardService.findBankNum(id);
+		return rs;
+	}
 	/** 查询*/
 	@RequestMapping("find")
 	@ResponseBody
@@ -166,7 +175,7 @@ public class BankCardAction {
 	@ResponseBody
 	public Result bankCardType(String bankcode) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = memberBankCardService.selectBankTypeByName(bankcode);
+		rs = memberBankCardService.findBankType();
 		return rs;
 	}
 	//查询银行类型

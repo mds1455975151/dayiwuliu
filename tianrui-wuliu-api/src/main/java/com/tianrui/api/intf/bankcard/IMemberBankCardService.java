@@ -26,6 +26,8 @@ public interface IMemberBankCardService {
 	public Result findBankSubbranch(String bankTypeId)throws Exception;
 	/** 查询银行卡类别*/
 	public Result findBankType()throws Exception;
+	/** 查询银行卡联行号*/
+	public Result findBankNum(String id)throws Exception;
 	/** 查询银行卡唯一*/
 	public Result findBankOnly(String memberid,String code)throws Exception;
 	/** 根据银行名称查询银行 */
