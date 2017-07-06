@@ -29,7 +29,7 @@ public class PayInvoice {
     private String payInvoiceStatus;
     //推单时间
     private Long pushTime;
-    //支付状态（0：未支付，1：支付中，2：已支付）
+    //支付状态（0：未支付，1：支付中，2：已支付，3：支付失败）
     private Integer payStatus;
     
     //支付时间

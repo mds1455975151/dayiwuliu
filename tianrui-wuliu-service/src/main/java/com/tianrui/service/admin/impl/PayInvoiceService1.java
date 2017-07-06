@@ -370,6 +370,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		PayInvoice bean = new PayInvoice();
 		bean.setId(payInvoice.getId());
 		bean.setPushStatus(Constant.YES_PUSH);
+		bean.setPayStatus(Constant.PAY_ING);
 		bean.setPushTime(System.currentTimeMillis());
 		return bean;
 	}
@@ -385,7 +386,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		msg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
 		msg.setAmountPayable(payInvoice.getAmountPayable());
 		msg.setPaidAmount(payInvoice.getPaidAmount());
-		msg.setPayStatus(Constant.ONE);
+		msg.setPayStatus(Constant.PAY_ING);
 		msg.setPayTime(System.currentTimeMillis());
 		logger.info("into service: driver pay invoice insert payInvoice: " + msg.toString());
 		payInvoiceMsgMapper.insertSelective(msg);
@@ -459,7 +460,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	public void callBackPayInvoicePaidAmount() {
 		PayInvoice record = new PayInvoice();
 		record.setPushStatus(Constant.YES_PUSH);
-		record.setPayStatus(Constant.NOT_PAY);
+		record.setPayStatus(Constant.PAY_ING);
 		List<PayInvoice> list = payInvoiceMapper.selectByCondition(record);
 		if (CollectionUtils.isNotEmpty(list)) {
 			List<String> driverParams = new ArrayList<String>();

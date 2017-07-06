@@ -25,7 +25,7 @@ public class PayInvoiceVo extends BaseResp {
     private Integer auditStatus;
     //推单状态（0：未推单，1：退单中，2已退单）
     private Integer pushStatus;
-    //支付状态（0：未支付，1：支付中，2：已支付）
+    //支付状态（0：未支付，1：支付中，2：已支付, 3:支付失败）
     private Integer payStatus;
     //账单状态
     private String payInvoiceStatus;

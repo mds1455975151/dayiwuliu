@@ -37,6 +37,8 @@ public class MemberBankCardReq {
     private Integer pageNo;
     
     private Integer pageSize;
+    //银行卡类别ID
+    private String bankTypeId;
     //银行支行id
     private String bankSubbranchId;
     //银行支行名称
@@ -186,6 +188,14 @@ public class MemberBankCardReq {
 
 	public void setDesc1(String desc1) {
 		this.desc1 = desc1;
+	}
+
+	public String getBankTypeId() {
+		return bankTypeId;
+	}
+
+	public void setBankTypeId(String bankTypeId) {
+		this.bankTypeId = bankTypeId;
 	}
 
 	public String getBankSubbranchId() {
