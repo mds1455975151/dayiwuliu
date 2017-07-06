@@ -64,6 +64,7 @@ public enum ErrorCode {
 	PAY_DATA_PAY_ADVICE("E401012","不合法的支付单状态"),
 	PAY_INVOICE_ERROR("E401013","账单推单失败."),
 	PAY_INVOICE_ERROR1("E401013","账单已推过，请勿重复推单."),
+	PAY_INVOICE_ERROR2("E401014","账单支付中不能更换银行卡."),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机"),
@@ -79,7 +80,9 @@ public enum ErrorCode {
 	 * 银行卡
 	 */
 	NOT_FIND_BANK("E600000","没有找到匹配的银行."),
-	NOT_PUSH_BANK("E600001","银行未推送到NC.");
+	NOT_PUSH_BANK("E600001","银行未推送到NC."),
+	BANK_CARD_NOT_EXIST("E600002","该银行卡不存在"),
+	BANK_CARD_NOT_AUDIT("E600003","银行卡未通过审核.");
 	;
 	
 	private String code;

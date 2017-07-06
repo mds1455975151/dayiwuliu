@@ -12,6 +12,8 @@ public class HttpUrl {
 	public final static String PAY_INVOICE_DRIVER_CALLBACK_PAIDAMOUNT = "/tcp/paySupplier/queryPayStatus";
 	//查询车主账单并回写已付金额
 	public final static String PAY_INVOICE_VENDER_CALLBACK_PAIDAMOUNT = "/tcp/payinvoice/queryPayStatus";
+	//账单支付状态
+	public final static String PAY_INVOICE_PAY_STATUS = "/service/TrPayStatusQryServlet";
 	
 	
 	//供应商推送接口

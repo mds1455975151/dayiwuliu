@@ -464,4 +464,16 @@ public class MemberBankCardService implements IMemberBankCardService{
 		}
 		return result;
 	}
+
+	@Override
+	public Result findAuditBankCard(MemberBankCardReq req) {
+		Result result = Result.getErrorResult();
+		MemberBankCard record = new MemberBankCard();
+		record.setBankautid(Constant.ONE_STR);
+		record.setCreater(req.getCreater());
+		List<MemberBankCard> list = memberBankCardMapper.selectSelective(record);
+		result.setData(list);
+		result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+		return result;
+	}
 }

@@ -36,6 +36,12 @@ public interface IMemberBankCardService {
 	void pushBankCardAndCallBackPushStatus();
 	/** 根据名称LIKE模糊查询银行支行信息 */
 	public Result findBankSubbranchLike(String desc1);
+	/**
+	 * @annotation 查询审核通过的所有银行卡
+	 * @param req
+	 * @return
+	 */
+	public Result findAuditBankCard(MemberBankCardReq req);
 	
 //	public Result insertBankAddress(JSONArray array)throws Exception;
 //	

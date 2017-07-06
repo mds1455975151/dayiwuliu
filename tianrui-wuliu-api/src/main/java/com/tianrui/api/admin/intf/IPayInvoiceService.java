@@ -47,5 +47,16 @@ public interface IPayInvoiceService {
 	Result payDelete(String id);
 	/** 账单详情*/
 	Result payDetail(String id);
+	/**
+	 * @annotation 修改银行卡
+	 * @param id
+	 * @param bankCardId
+	 * @return
+	 */
+	Result updateBankCard(String id, String bankCardId);
+	/**
+	 * @annotation 定时查询账单支付状态并回写
+	 */
+	void callBackPayInvoicePayStatus();
 
 }

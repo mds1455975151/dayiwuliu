@@ -20,6 +20,17 @@ public class Constant {
 	public final static Integer ONE = 1;
 	
 	public final static Integer TWO = 2;
+	
+	public final static Integer THREE = 3;
+
+	
+	public final static String ZERO_STR = "0";
+	
+	public final static String ONE_STR = "1";
+	
+	public final static String TWO_STR = "2";
+	
+	public final static String THREE_STR = "3";
     
     public final static String INFO = "[INFO]";
     

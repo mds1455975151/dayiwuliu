@@ -67,6 +67,10 @@ function innerHTML(ret,flag){
 			pay_audit_push_Status = "未审核";
 //			shenhe = "<button onclick=\"payAudit('"+data[a].id+"')\" class='btn btnyello'>审核</button>"
 		}
+		var updateBankCard = '';
+		if (data[a].payStatus == 3){
+			updateBankCard = '<a class="oper" onclick="getBankCard(\''+data[a].id+'\', \''+data[a].payeeBankCardNumber+'\', this)">更换银行卡</a>';
+		}
 		hml += "<tr >" +
 				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'><a>"+data[a].code+"</a></td>" +
 				"<td >"+data[a].invoiceName+" </td>" +
@@ -75,11 +79,72 @@ function innerHTML(ret,flag){
 				"<td >"+data[a].paidAmount+"元</td>" +
 				"<td >"+(data[a].amountPayable-data[a].paidAmount)+"元</td>" +
 				"<td>"+pay_audit_push_Status+"</td>" +
-				"<td><a onclick=\"payDeatil('"+data[a].id+"')\">详情</a></td>" +
+				"<td><a class='oper' onclick=\"payDeatil('"+data[a].id+"')\">详情</a>"+updateBankCard+"</td>" +
 				"</tr>";
 	}
 	$("#paylist").append(hml);
 }
+
+//更换银行卡
+function getBankCard(id, payeeBankCardNumber, _this){
+	$.get('/trwuliu/bank/card/findAuditBankCard',{},function(result){
+		if (result) {
+			if (result.code == '000000') {
+				parseBankCard(id, result.data, payeeBankCardNumber, _this)
+			} else {
+				alert(result.error);
+			}
+		} else {
+			alert('操作失败');
+		}
+	});
+}
+
+function parseBankCard(id, data, payeeBankCardNumber, _this){
+	if (data && data.length > 0) {
+		var options = '';
+		for (var i = 0; i < data.length; i++) {
+			if (payeeBankCardNumber != data[i].bankcard) {
+				options += '<option value="'+data[i].id+'">' + data[i].bankcard + ' --- ' + data[i].bankname + '</option>';
+			}
+		}
+		if (options) {
+			var index = layer.open({
+				title: '银行卡列表',
+				content: '<select id="bankCardId" class="form-control">' + options + '</select>',
+				yes: function(index, layero){
+					var bankCardId = $('#bankCardId').val();
+					if (bankCardId) {
+						updateBankCard(id, bankCardId);
+						$(_this).remove();
+						//$(_this).removeAttr("onclick");
+					}
+					layer.close(index);
+				}
+			});
+		} else {
+			alert('暂无银行卡可用');
+		}
+	} else {
+		alert('暂无银行卡可用');
+	}
+}
+
+function updateBankCard(id, bankCardId){
+	$.post('/trwuliu/payInvoice_1/updateBankCard',{id: id, bankCardId: bankCardId},function(result){
+		if (result) {
+			if (result.code == '000000') {
+				window.location.reload();
+			} else {
+				alert(result.error);
+			}
+		} else {
+			alert('操作失败');
+		}
+		$('.fpbtn').click();
+	});
+}
+
 //查看账单
 function payDeatil(id){
 	window.location.href="/trwuliu/payInvoice_1/payDetail?id="+id;

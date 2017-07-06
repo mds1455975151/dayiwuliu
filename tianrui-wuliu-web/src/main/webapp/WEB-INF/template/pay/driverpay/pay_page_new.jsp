@@ -22,7 +22,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${trRoot }/tianrui/My97DatePicker/WdatePicker.js"></script>
-    
+    <style type="text/css">
+    	.pay_page_new th,td {
+    		text-align: center;
+    	}
+    	a.oper {
+    		padding: 0px 5px;
+   		}
+    </style>
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -86,17 +93,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
              <div class="fapiao_table">
-                 <table class="table table-hover" >
+                 <table class="table table-hover pay_page_new" >
                      <thead>
                      <tr>
-                         <th >账单编号</th>
-                         <th >账单类型</th>
-                         <th >申请时间</th>
+                         <th>账单编号</th>
+                         <th>账单类型</th>
+                         <th>申请时间</th>
                          <th>账单总价</th>
                          <th>已付款</th>
-                         <th >待付款</th>
-                         <th> 账单状态</th>
-                         <th>详情</th>
+                         <th>待付款</th>
+                         <th>账单状态</th>
+                         <th>操作</th>
                      </tr>
                      </thead>
                      <tbody id = "paylist">

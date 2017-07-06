@@ -31,6 +31,8 @@ public class PayInvoiceVo extends BaseResp {
     private String payInvoiceStatus;
     //收款人名称
     private String payeeName;
+    //收款人银行卡号
+    private String payeeBankCardNumber;
     //操作按钮（1：审核，2：修改和提交，3：无）
     private Integer btnOpts;
     //申请时间
@@ -78,6 +80,12 @@ public class PayInvoiceVo extends BaseResp {
 	public void setPaidAmount(String paidAmount) {
 		this.paidAmount = paidAmount;
 	}
+	public String getPayeeBankCardNumber() {
+		return payeeBankCardNumber;
+	}
+	public void setPayeeBankCardNumber(String payeeBankCardNumber) {
+		this.payeeBankCardNumber = payeeBankCardNumber;
+	}
 	public void setAuditStatus(Integer auditStatus) {
 		this.auditStatus = auditStatus;
 	}
@@ -94,7 +102,7 @@ public class PayInvoiceVo extends BaseResp {
 		}else if(pushStatus == Constant.PUSH_ING&&payStatus == Constant.NOT_PAY){
 			//推送中
 			this.payInvoiceStatus = "未支付";
-		}else if(pushStatus == Constant.YES_PUSH&&payStatus == Constant.NOT_PAY){
+		}else if(pushStatus == Constant.YES_PUSH&&payStatus == Constant.PAY_ING){
 			//支付中
 			this.payInvoiceStatus = "支付中";
 		}else if (payStatus == Constant.YES_PAY){
@@ -129,9 +137,14 @@ public class PayInvoiceVo extends BaseResp {
 				&& this.pushStatus == Constant.PUSH_ING) {
 			this.btnOpts = 2;
 		} else if (this.auditStatus == Constant.YES_AUDIT
-				&& this.pushStatus == Constant.YES_PUSH) {
+				&& this.pushStatus == Constant.YES_PUSH
+				&& this.payStatus != Constant.THREE) {
 			this.btnOpts = 3;
-		}
+		} else if (this.auditStatus == Constant.YES_AUDIT
+				&& this.pushStatus == Constant.YES_PUSH
+				&& this.payStatus == Constant.THREE) {
+			this.btnOpts = 2;
+		} 
 		return btnOpts;
 	}
 	public static long getSerialversionuid() {

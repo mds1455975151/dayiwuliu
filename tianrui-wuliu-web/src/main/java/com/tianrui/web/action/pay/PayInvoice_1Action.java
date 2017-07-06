@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.req.admin.PayInvoiceReq;
 import com.tianrui.api.resp.admin.PayInvoiceVo;
-import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -109,6 +108,13 @@ public class PayInvoice_1Action {
 		Result rs = Result.getSuccessResult();
 		rs = payInvoiceService.payDelete(id);
 		return rs;
+	}
+	
+	/**账单删除*/
+	@RequestMapping("updateBankCard")
+	@ResponseBody
+	public Result updateBankCard(String id, String bankCardId){
+		return payInvoiceService.updateBankCard(id, bankCardId);
 	}
 	
 }
