@@ -194,8 +194,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice);
 							logger.info("into service: driver pay invoice push NC param bean: =" + push.toString());
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
-							logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
 							if (apiResult != null) {
+								logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
 								if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 									PayInvoice bean = callBackPushStatus(payInvoice);
 									logger.info("into service: driver pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
@@ -247,8 +247,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 							PayInvoiceVenderPush push = setPayInvoiceVender(payInvoice);
 							logger.info("into service: vender pay invoice push NC param bean: =" + push.toString());
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_VENDER_PUSH);
-							logger.info("into service: vender pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
 							if (apiResult != null) {
+								logger.info("into service: vender pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
 								if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 									PayInvoice bean = callBackPushStatus(payInvoice);
 									logger.info("into service: vender pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
@@ -618,7 +618,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		}
 		if (CollectionUtils.isNotEmpty(ids)) {
 			//回写支付状态
-			ApiResult apiResult = HttpUtil.post_longlong(ids, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_PAY_STATUS);
+			ApiResult apiResult = HttpUtil.post(ids, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_PAY_STATUS);
 			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
 				if (CollectionUtils.isNotEmpty(array)) {
