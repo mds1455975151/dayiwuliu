@@ -371,6 +371,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		push.setBankCardId(payInvoice.getPayeeBankCardId());
 		push.setName(payInvoice.getPayeeName());
 		push.setVbusinlicense(payInvoice.getPayeeIdNo());
+		MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(payInvoice.getPayeeBankCardId());
+		if (bankCard != null) {
+			push.setBankTypeId(bankCard.getDesc3());
+		}
 		return push;
 	}
 
@@ -398,6 +402,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		msg.setPayeeId(payInvoice.getPayeeId());
 		msg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
 		msg.setAmountPayable(payInvoice.getAmountPayable());
+		msg.setPayeeBankCardNumber(payInvoice.getPayeeBankCardNumber());
 		msg.setPaidAmount(payInvoice.getPaidAmount());
 		msg.setPayStatus(Constant.PAY_ING);
 		msg.setPayTime(System.currentTimeMillis());

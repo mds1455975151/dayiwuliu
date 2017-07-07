@@ -26,12 +26,20 @@ public class PayInvoiceVenderPush {
 	private String bankCard;
 	//银行卡主键
 	private String bankCardId;
+	//银行类别ID
+	private String bankTypeId;
 	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getBankTypeId() {
+		return bankTypeId;
+	}
+	public void setBankTypeId(String bankTypeId) {
+		this.bankTypeId = bankTypeId;
 	}
 	public String getBillNo() {
 		return billNo;

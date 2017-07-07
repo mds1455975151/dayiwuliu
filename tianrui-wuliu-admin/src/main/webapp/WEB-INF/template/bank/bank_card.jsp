@@ -189,6 +189,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bank/bank_card.js?0531" ></script>
+<script type="text/javascript" src="/resources/js/bank/bank_card.js?0707" ></script>
 </body>
 </html>
