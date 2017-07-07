@@ -229,11 +229,18 @@ public class MemberBankCardService implements IMemberBankCardService{
 		bank.setAuditor(req.getAuditor());
 		bank.setAuditortime(System.currentTimeMillis());
 		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(bank.getCreater());
-		if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS) 
-				&& info.getPushStatus() == Constant.YES_PUSH) {
-			pushBankCard(bank);
+		
+		if(info.getPushStatus()==Constant.YES_PUSH && info.getNcStatus()==Constant.NC_MEMBER_PUSH_STATUS_YES_ORG){
+			//用户已推送 已分配组织
+			if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS) 
+					&& info.getPushStatus() == Constant.YES_PUSH) {
+				pushBankCard(bank);
+			}
+			memberBankCardMapper.updateByPrimaryKeySelective(bank);
+		}else{
+			rs.setCode("1");
+			rs.setError("该用户暂未符合NC推送状态");
 		}
-		memberBankCardMapper.updateByPrimaryKeySelective(bank);
 		return rs;
 	}
 	
@@ -283,7 +290,13 @@ public class MemberBankCardService implements IMemberBankCardService{
 					bankCard.setPushStatus(Constant.YES_PUSH);
 					bankCard.setPushTime(System.currentTimeMillis());
 					memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
-				}
+				}else if(StringUtils.equals(apiResult.getMessage(), "接口调用失败 银行类别+账号重复。")){
+					MemberBankCard bankCard = new MemberBankCard();
+					bankCard.setId(push.getId());
+					bankCard.setPushStatus(Constant.YES_PUSH);
+					bankCard.setPushTime(System.currentTimeMillis());
+					memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
+				}//接口调用失败 银行类别+账号重复。
 			}
 		});
 	}

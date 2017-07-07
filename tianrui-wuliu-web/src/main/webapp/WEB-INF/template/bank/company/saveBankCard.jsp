@@ -47,7 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行名称:</label> 
-								<input type="text" id="bankname_req" name="bankname" readonly="readonly"> 
+								<div class="select_classs">
+									<select style="width: 350px" class="form-control select2" id="selectBankName"></select>
+								</div>
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>企业账户名:</label> 
@@ -76,6 +78,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</select>
 									<button type="button" class="btn btnblue text_sele">编辑</button>
 								</div>
+							</div>
+							<div class="reg_tel">
+								<label> <span style="color: red"></span>联行号:</label>
+								<input type="text" id="bankLineNumber" name="bankLineNumber" readonly="readonly"> 
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行卡照片:</label> 

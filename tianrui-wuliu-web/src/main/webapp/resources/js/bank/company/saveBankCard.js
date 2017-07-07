@@ -42,12 +42,14 @@ $("#member_bank_add").on("click",function(){
 	var bankSubbranchId = $("#desc1_req").attr('bankSubbranchId'); bankSubbranchId = $.trim(bankSubbranchId);
 	var bankSubbranchName = $("#desc1_req").val(); bankSubbranchName = $.trim(bankSubbranchName);
 	var bankimg = $("#bankimg_req_str").val(); bankimg = $.trim(bankimg);
+	var bankname = $("#selectBankName").val(); bankname=$.trim(bankname);
 	var params = {
 			desc4: 2,
 			bankcard: bankcarkno,
 			bankSubbranchId: bankSubbranchId,
 			bankSubbranchName: bankSubbranchName,
-			bankimg: bankimg
+			bankimg: bankimg,
+			bankTypeId:bankname
 	};
 	if (validate(params)) {
 		$.ajax({
@@ -56,13 +58,62 @@ $("#member_bank_add").on("click",function(){
 			data:params,
 			success:function(ret){
 				if(ret.code=="000000"){
-					window.location.href="/trwuliu/bank/card/page";
+					window.location.href="/trwuliu/bank/card/vender/page?desc4=2";
 				}else{
 					alert(ret.error)
 				}
 			}
 		});
 	}
+});
+window.onload=selectBankName;
+function selectBankName(){
+	$.ajax({
+		url:"/trwuliu/bank/card/bankCardType",
+		type:"post",
+		success:function(ret){
+				var data = ret.data;
+				$("#selectBankName").empty();
+				$("#selectBankName").append("<option value=''>请选择</option>");
+				for (var a = 0; a < data.length; a++) {
+					$("#selectBankName").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
+				}
+			}
+		});
+}
+
+//开户行名称
+$("#selectBankName").change(function(){
+	var id=$("#selectBankName option:selected").val();
+	$.ajax({
+		url:"/trwuliu/bank/card/findAddress",
+		type:"post",
+		data:{"id":id},
+		success:function(ret){
+			var data = ret.data;
+			$("#desc1_select").empty();
+			$("#desc1_select").append("<option value=''>请选择</option>");
+			for (var a = 0; a < data.length; a++) {
+				$("#desc1_select").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
+				$("#bankLineNumber").val(data[a].bankLineNumber );
+			}
+		}
+	});
+});
+//联行号
+$("#desc1_select").change(function(){	
+	var id = $("#desc1_select").val();
+	$.ajax({
+		url:"/trwuliu/bank/card/findBankNum",
+		type:"post",
+		data:{"id":id},
+		success:function(ret){
+			var data = ret.data;
+			$("#bankLineNumber").empty();
+			$("#bankLineNumber").val(data.bankLineNumber);
+			
+		}
+	});
 });
 
 $(".select2").select2(); 

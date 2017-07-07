@@ -304,7 +304,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			result.setErrorCode(ErrorCode.MEMBER_NC_NOT_ORG);
 		}
 		
-		return flag;
+		return true;
 	}
 	/**
 	 * @annotation 校验账单支付信息日志最后一次推送是否失败
@@ -369,6 +369,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		push.setPayDealPrice(String.valueOf(payInvoice.getAmountPayable()));
 		push.setBankCard(payInvoice.getPayeeBankCardNumber());
 		push.setBankCardId(payInvoice.getPayeeBankCardId());
+		push.setName(payInvoice.getPayeeName());
+		push.setVbusinlicense(payInvoice.getPayeeIdNo());
 		return push;
 	}
 
