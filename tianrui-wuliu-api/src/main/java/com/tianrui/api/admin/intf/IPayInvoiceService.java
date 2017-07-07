@@ -1,8 +1,10 @@
 package com.tianrui.api.admin.intf;
 
 import com.tianrui.api.req.admin.PayInvoiceAuditUpdate;
+import com.tianrui.api.req.admin.PayInvoiceNcCheckParams;
 import com.tianrui.api.req.admin.PayInvoiceReq;
 import com.tianrui.api.resp.admin.PayInvoiceVo;
+import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
@@ -58,5 +60,11 @@ public interface IPayInvoiceService {
 	 * @annotation 定时查询账单支付状态并回写
 	 */
 	void callBackPayInvoicePayStatus();
+	/**
+	 * @annotation nc检测账单接口
+	 * @param apiParam
+	 * @return
+	 */
+	ApiResult checkPayInvoice(PayInvoiceNcCheckParams apiParam);
 
 }

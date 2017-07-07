@@ -8,6 +8,8 @@ package com.tianrui.api.req.admin;
 public class PayInvoiceVenderPush {
 	//支付申请单id
 	private String id;
+	//支付申请单单据号
+	private String billNo;
 	//物料信息（CODE）
 	private String invoiceType;
 	//供应商主键
@@ -30,6 +32,12 @@ public class PayInvoiceVenderPush {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getBillNo() {
+		return billNo;
+	}
+	public void setBillNo(String billNo) {
+		this.billNo = billNo;
 	}
 	public String getInvoiceType() {
 		return invoiceType;
@@ -81,9 +89,10 @@ public class PayInvoiceVenderPush {
 	}
 	@Override
 	public String toString() {
-		return "PayInvoiceVenderPush [id=" + id + ", invoiceType=" + invoiceType + ", supplierId=" + supplierId
-				+ ", name=" + name + ", vbusinlicense=" + vbusinlicense + ", applyDate=" + applyDate + ", payDealPrice="
-				+ payDealPrice + ", bankCard=" + bankCard + ", bankCardId=" + bankCardId + "]";
+		return "PayInvoiceVenderPush [id=" + id + ", billNo=" + billNo + ", invoiceType=" + invoiceType
+				+ ", supplierId=" + supplierId + ", name=" + name + ", vbusinlicense=" + vbusinlicense + ", applyDate="
+				+ applyDate + ", payDealPrice=" + payDealPrice + ", bankCard=" + bankCard + ", bankCardId=" + bankCardId
+				+ "]";
 	}
 	
 }

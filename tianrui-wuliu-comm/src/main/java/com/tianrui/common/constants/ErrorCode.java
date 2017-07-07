@@ -65,6 +65,11 @@ public enum ErrorCode {
 	PAY_INVOICE_ERROR("E401013","账单推单失败."),
 	PAY_INVOICE_ERROR1("E401013","账单已推过，请勿重复推单."),
 	PAY_INVOICE_ERROR2("E401014","账单支付中不能更换银行卡."),
+	PAY_INVOICE_ERROR3("E401015","账单不存在."),
+	PAY_INVOICE_ERROR4("E401016","账单应付金额不一致."),
+	PAY_INVOICE_ERROR5("E401017","账单收款人名称不一致."),
+	PAY_INVOICE_ERROR6("E401018","账单收款人证件号不一致."),
+	PAY_INVOICE_ERROR7("E401019","账单收款人银行卡号不一致."),
 	//运力共享_
 	VEHICLE_CAPA_EXIST("E501000","运力已添加"),
 	VEHICLE_CAPA_VEHICLE("E501001","车辆不存在或未绑定司机"),

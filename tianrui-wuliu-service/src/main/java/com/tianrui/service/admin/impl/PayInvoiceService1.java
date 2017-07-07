@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.req.admin.PayInvoiceAuditUpdate;
 import com.tianrui.api.req.admin.PayInvoiceDriverPush;
+import com.tianrui.api.req.admin.PayInvoiceNcCheckParams;
 import com.tianrui.api.req.admin.PayInvoiceReq;
 import com.tianrui.api.req.admin.PayInvoiceVenderPush;
 import com.tianrui.api.resp.admin.PayInvoiceAuditVo;
@@ -338,7 +339,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	private PayInvoiceDriverPush setPayInvoiceDriver(PayInvoice payInvoice) {
 		PayInvoiceDriverPush push = new PayInvoiceDriverPush();
 		push.setId(payInvoice.getId());
-		push.setBillcode(payInvoice.getCode());
+		push.setBillNo(payInvoice.getCode());
 		push.setSupplierId(payInvoice.getPayeeId());
 		push.setName(payInvoice.getPayeeName());
 		push.setBankCardId(payInvoice.getPayeeBankCardId());
@@ -347,6 +348,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		push.setInvoiceType(payInvoice.getMaterialCode());
 		push.setBillTotalPrice(String.valueOf(payInvoice.getAmountPayable()));
 		push.setSignTime(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
+		MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(payInvoice.getPayeeBankCardId());
+		if (bankCard != null) {
+			push.setBankTypeId(bankCard.getDesc3());
+		}
 		return push;
 	}
 	/**
@@ -357,6 +362,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	private PayInvoiceVenderPush setPayInvoiceVender(PayInvoice payInvoice) {
 		PayInvoiceVenderPush push = new PayInvoiceVenderPush();
 		push.setId(payInvoice.getId());
+		push.setBillNo(payInvoice.getCode());
 		push.setInvoiceType(payInvoice.getMaterialCode());
 		push.setSupplierId(payInvoice.getPayeeId());
 		push.setApplyDate(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
@@ -644,6 +650,39 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				payInvoiceMapper.updateByPrimaryKeySelective(PayInvoice);
 			}
 		}
+	}
+
+	@Override
+	public ApiResult checkPayInvoice(PayInvoiceNcCheckParams apiParam) {
+		ApiResult apiResult = ApiResult.getErrorResult();
+		apiResult.setData(0);
+		if (apiParam != null 
+				&& StringUtils.isNotBlank(apiParam.getId())
+				&& StringUtils.isNotBlank(apiParam.getAmountPayable())
+				&& StringUtils.isNotBlank(apiParam.getPayeeName())
+				&& StringUtils.isNotBlank(apiParam.getPayeeIdNo())
+				&& StringUtils.isNotBlank(apiParam.getPayeeBankCardNumber())) {
+			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(apiParam.getId());
+			if (payInvoice != null) {
+				if (StringUtils.equals(String.valueOf(payInvoice.getAmountPayable()), apiParam.getAmountPayable())) {
+					if (StringUtils.equals(payInvoice.getPayeeName(), apiParam.getPayeeName())) {
+						if (StringUtils.equals(payInvoice.getPayeeBankCardNumber(), apiParam.getPayeeBankCardNumber())) {
+							apiResult.setData(1);
+							apiResult.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+						} else {
+							apiResult.setErrorCode(ErrorCode.PAY_INVOICE_ERROR7);
+						}
+					} else {
+						apiResult.setErrorCode(ErrorCode.PAY_INVOICE_ERROR6);
+					}
+				} else {
+					apiResult.setErrorCode(ErrorCode.PAY_INVOICE_ERROR4);
+				}
+			} else {
+				apiResult.setErrorCode(ErrorCode.PAY_INVOICE_ERROR3);
+			}
+		}
+		return apiResult;
 	}
 
 }
