@@ -206,15 +206,5 @@ public class BankCardAction {
 		rs = memberBankCardService.deltBankCard(id);
 		return rs;
 	}
-
-	@RequestMapping("findAuditBankCard")
-	@ResponseBody
-	public Result findAuditBankCard(MemberBankCardReq req,HttpServletRequest request) throws Exception{
-		Result rs = Result .getSuccessResult();
-		MemberVo vo = SessionManager.getSessionMember(request);
-		req.setCreater(vo.getId());
-		rs = memberBankCardService.findAuditBankCard(req);
-		return rs;
-	}
 	
 }

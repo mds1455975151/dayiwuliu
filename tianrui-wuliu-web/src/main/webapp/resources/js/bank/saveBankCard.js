@@ -46,12 +46,16 @@ $("#member_bank_add").on("click",function(){
 	var bankSubbranchId = $("#desc1_req").attr('bankSubbranchId'); bankSubbranchId = $.trim(bankSubbranchId);
 	var bankSubbranchName = $("#desc1_req").val(); bankSubbranchName = $.trim(bankSubbranchName);
 	var bankimg = $("#bankimg_req_str").val(); bankimg = $.trim(bankimg);
+	
+	var bankname = $("#selectBankName").val(); bankname=$.trim(bankname);
+	
 	var params = {
 			desc4: 1,
 			bankcard: bankcarkno,
 			bankSubbranchId: bankSubbranchId,
 			bankSubbranchName: bankSubbranchName,
-			bankimg: bankimg
+			bankimg: bankimg,
+			bankTypeId:bankname
 	};
 	if (validate(params)) {
 		$.ajax({
@@ -97,7 +101,7 @@ function selectBankName(){
 }
 //联行号
 $("#desc1_select").change(function(){	
-	var id = $("desc1_select option:selected").val();
+	var id = $("#desc1_select").val();
 	$.ajax({
 		url:"/trwuliu/bank/card/findBankNum",
 		type:"post",
@@ -109,7 +113,7 @@ $("#desc1_select").change(function(){
 			
 		}
 	});
-})
+});
 //开户行名称
 $("#selectBankName").change(function(){
 	var id=$("#selectBankName option:selected").val();

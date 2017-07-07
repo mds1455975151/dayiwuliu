@@ -68,20 +68,30 @@ public class MemberBankCardService implements IMemberBankCardService{
 				List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
 				record.setBankcard(req.getBankcard());
 				List<MemberBankCard> only = memberBankCardMapper.selectByCondition(record);
+				
+				MemberBankCard size = new MemberBankCard();
+				size.setCreater(req.getCreater());
+				int  a =(int) memberBankCardMapper.selectBycount(size);
+				if(a>=5){
+					rs.setCode("8");
+					rs.setError("您最多只能添加五张银行卡！");
+					return rs;
+				}
 				if(only.size()!=0){
 					rs.setCode("1");
 					rs.setError("您已添加过该银行卡");
 					return rs;
-				}
+				} 
 				record.setId(UUIDUtil.getId());
-				String name = HttpRequestUtil.putRequest(req.getBankcard());
-				record.setBankname(name);
-				BankType bankType = new BankType();
-				bankType.setName(name);
-				List<BankType> list1 = bankTypeMapper.selectByCondtion(bankType);
-				if (CollectionUtils.isNotEmpty(list1)) {
-					record.setBankcode(list1.get(0).getAbbrName());
-					record.setDesc3(list1.get(0).getId());
+//				String name = HttpRequestUtil.putRequest(req.getBankcard());
+//				record.setBankname(req.getBankname());
+//				BankType bankType = new BankType();
+//				bankType.setName(req.getBankname());
+				BankType list1 = bankTypeMapper.selectByPrimaryKey(req.getBankTypeId());
+				if (list1!=null) {
+					record.setBankcode(list1.getAbbrName());
+					record.setDesc3(list1.getId());
+					record.setBankname(list1.getName());
 				}
 				if(StringUtils.isNotBlank(req.getBankSubbranchId())){
 					record.setDesc2(req.getBankSubbranchId());
