@@ -460,7 +460,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	public void callBackMemberPushStatus() {
 		SystemMemberInfo info = new SystemMemberInfo();
 		info.setPushStatus(Constant.YES_PUSH);
-		info.setNcStatus(Constant.ZERO);
+		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
 		List<SystemMemberInfo> list = systemMemberInfoMapper.selectNcNotUse(info);
 		if (CollectionUtils.isNotEmpty(list)) {
 			List<Object> ids = new ArrayList<Object>();
