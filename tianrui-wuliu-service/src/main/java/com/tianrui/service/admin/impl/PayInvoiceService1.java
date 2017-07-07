@@ -304,7 +304,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			result.setErrorCode(ErrorCode.MEMBER_NC_NOT_ORG);
 		}
 		
-		return true;
+		return flag;
 	}
 	/**
 	 * @annotation 校验账单支付信息日志最后一次推送是否失败
