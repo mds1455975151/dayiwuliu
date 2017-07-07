@@ -178,7 +178,7 @@ $(".bank_shenhe").on("click",function(){
 		success: function(ret) {
 			if(ret.code!="000000"){
 				$(".bank_shenhe").attr("disabled",false);
-				alert("审核失败");
+				alert("审核失败. " + ret.error);
 			}else{
 				$(".bank_shenhe").attr("disabled",false);
 				$(".bank_hide").click();
