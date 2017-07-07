@@ -485,7 +485,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 						}
 					}
 				} else {
-					LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态错误信息: " + apiResult.getMessage());
+					LoggerFactory.getLogger("querySupplierAndCallbackNcStatus").info("查询供应商推送状态错误信息: " + apiResult.getMessage());
 				}
 			}
 		}
