@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-		<script type="text/javascript" src="/resources/js/bank/saveBankCard.js?6140"></script>
+		<script type="text/javascript" src="/resources/js/bank/saveBankCard.js?07070"></script>
 		<script type="text/javascript">
 		
 		$("#bankimg_req")
