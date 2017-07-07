@@ -28,8 +28,8 @@ public class HttpUtil {
         	URL url = new URL(path);
 			//打开链接
 			connection = (HttpURLConnection) url.openConnection();
-          //连接超时设置
-			connection.setConnectTimeout(50000);
+			//连接超时设置
+			connection.setConnectTimeout(120000);
 			//读取超时设置
 			connection.setReadTimeout(150000);
 			//设置请求类型

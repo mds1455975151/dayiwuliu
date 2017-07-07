@@ -168,7 +168,7 @@ public class MemberResp extends BaseResp{
 	private Long vehicleOwnerState;
 	//推送状态（0：未推送，1：推送中，2：已推送）
     private Integer pushStatus;
-    // NC推送返回状态（1：审核通过，且组织已分配，2：审核通过，但组织未分配）
+    //NC推送返回状态（1：供应商不存在，2：未审核，3：审核未通过，4：审核中，5：审核通过，但组织未分配，6：审核通过，且组织已分配）
     private Integer ncStatus;
 	
 	public Integer getPushStatus() {

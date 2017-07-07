@@ -79,5 +79,11 @@ public interface ISystemMemberInfoService {
 	 * @version 2017年6月23日 上午11:47:55
 	 */
 	void callBackMemberPushStatus();
+	/**
+	 * @annotaion 推送供应商到NC
+	 * @param id
+	 * @return
+	 */
+	Result pushNc(String id);
 
 }

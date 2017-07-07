@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
@@ -284,19 +285,24 @@ public class MemberBankCardService implements IMemberBankCardService{
 				push.setVbusinlicense(bankCard.getIdcard());
 				
 				ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.BANK_CARD_PUSH_NC);
-				if (apiResult != null && (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode()))) {
-					MemberBankCard bankCard = new MemberBankCard();
-					bankCard.setId(push.getId());
-					bankCard.setPushStatus(Constant.YES_PUSH);
-					bankCard.setPushTime(System.currentTimeMillis());
-					memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
-				}else if(StringUtils.equals(apiResult.getMessage(), "接口调用失败 银行类别+账号重复。")){
-					MemberBankCard bankCard = new MemberBankCard();
-					bankCard.setId(push.getId());
-					bankCard.setPushStatus(Constant.YES_PUSH);
-					bankCard.setPushTime(System.currentTimeMillis());
-					memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
-				}//接口调用失败 银行类别+账号重复。
+				if (apiResult != null){
+					if(StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+						MemberBankCard bankCard = new MemberBankCard();
+						bankCard.setId(push.getId());
+						bankCard.setPushStatus(Constant.YES_PUSH);
+						bankCard.setPushTime(System.currentTimeMillis());
+						memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
+					//接口调用失败 银行类别+账号重复。
+					}else if(StringUtils.equals(apiResult.getCode(), "222222")){
+						MemberBankCard bankCard = new MemberBankCard();
+						bankCard.setId(push.getId());
+						bankCard.setPushStatus(Constant.YES_PUSH);
+						bankCard.setPushTime(System.currentTimeMillis());
+						memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
+					} else {
+						LoggerFactory.getLogger("pushBankCard").info("推送银行卡错误信息: " + apiResult.getMessage());
+					}
+				} 
 			}
 		});
 	}

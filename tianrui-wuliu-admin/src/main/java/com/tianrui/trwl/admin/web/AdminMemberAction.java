@@ -664,4 +664,16 @@ public class AdminMemberAction {
 		}
 		return rs;
 	}
+	
+	@RequestMapping("pushNc")
+	@ResponseBody
+	public Result pushNc(String id){
+		Result result = Result.getErrorResult();
+		try {
+			result = systemMemberInfoService.pushNc(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

@@ -75,6 +75,17 @@
 			<param name="ConversionPattern" value="%d{ISO8601} - %m%n" />
 		</layout>
 	</appender>
+	
+	<!-- Fop Performance Log appender -->
+	<appender name="pushBankCardAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Encoding" value="UTF-8" />
+		<param name="File" value="${catalina.home}/logs/trwlWeb/pushBankCardAppender.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} - %m%n" />
+		</layout>
+	</appender>
 
 	<!-- Fop External invoke Log appender -->
 	<appender name="externalAppender" class="org.apache.log4j.DailyRollingFileAppender">
@@ -105,6 +116,11 @@
 	<logger name="pushMessage" additivity="false">
 		<level value="INFO" />
 		<appender-ref ref="pushMessageAppender" />
+	</logger>
+	
+	<logger name="pushBankCard" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="pushBankCardAppender" />
 	</logger>
 
 	<!-- access logger -->

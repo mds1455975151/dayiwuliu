@@ -131,6 +131,9 @@ function displayRect(pageNo){
 							if(data[a].companypercheck=='2'||data[a].userpercheck=='2'){
 								hml += "<span><a onclick=\"shenHe('"+data[a].id+"','2','"+menuId+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
+							if((data[a].companypercheck=='1'||data[a].userpercheck=='1') && data[a].ncStatus == 0 && (data[a].pushStatus == '0' || data[a].userpercheck == '3')){
+								hml += "<span><a onclick=\"push('"+data[a].id+"')\">【推送】</a></span>";
+							}
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#qiyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
 							//"<span><a data-toggle='modal' onclick=\"deletebyid('"+data[a].id+"')\" data-target='#dele'>删除</a></span></td>" +
@@ -154,6 +157,27 @@ function displayRect(pageNo){
 		}
 	});  
 }
+//推送NC
+function push(id){
+	if (confirm('是否推送到NC？')) {
+		$.ajax({
+			url:CONTEXTPATH+'/AdminMember/pushNc',
+			data:{id: id},
+			type:"post",
+			async: true,
+			success: function(result) {
+				if(result.code == "000000"){
+					alert("推送成功！");
+					searchSubmit();
+				}else{
+					alert(result.error);
+				}
+			}
+		
+		});
+	}
+}
+
 /**
  * 删除02
  */

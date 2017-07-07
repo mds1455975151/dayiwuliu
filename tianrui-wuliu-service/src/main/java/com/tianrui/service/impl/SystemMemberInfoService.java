@@ -30,6 +30,7 @@ import com.tianrui.common.constants.NCResultEnum;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.HttpUtil;
 import com.tianrui.common.vo.ApiResult;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.SystemMember;
@@ -300,24 +301,61 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			taskExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
-					//这里编写处理业务代码---333
-					ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
-					if (apiResult != null 
-							&& (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())
-									|| StringUtils.equals(apiResult.getCode(), ErrorCode.MEMBER_PUSH_ERROR1.getCode()))) {
-						//推送成功修改推送状态
-						SystemMemberInfo info = new SystemMemberInfo();
-						info.setId(push.getSuppid());
-						info.setPushStatus(Constant.YES_PUSH);
-						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
-					} else {
-						LoggerFactory.getLogger("pushMessage").info("供应商推送失败错误信息: ", apiResult.getMessage());
-					}
+					pushMemberToNc(push);
 				}
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public Result pushNc(String id){
+		Result result = Result.getSuccessResult();
+		if(StringUtils.isNotBlank(id)){
+			MemberVo vo = moberVoService.get(id);
+			PushMember push = new PushMember();
+			push.setSuppid(vo.getId());
+			if(StringUtils.equals(vo.getCompanypercheck(), "1")){
+				push.setName(vo.getCompanyName());
+				push.setVbusinlicense(vo.getCompCode());
+			}
+			if(StringUtils.equals(vo.getUserpercheck(), "1")){
+				push.setName(vo.getIdcard());
+				push.setVbusinlicense(vo.getUserName());
+			}
+			result = pushMemberToNc(push);
+		}else{
+			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+		}
+		return result;
+	}
+	
+	private Result pushMemberToNc(PushMember push){
+		Result result = Result.getErrorResult();
+		if(push != null){
+			//这里编写处理业务代码---333
+			ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
+			if (apiResult != null){
+				if(StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())
+						|| StringUtils.equals(apiResult.getCode(), ErrorCode.MEMBER_PUSH_ERROR1.getCode())) {
+					//推送成功修改推送状态
+					SystemMemberInfo info = new SystemMemberInfo();
+					info.setId(push.getSuppid());
+					info.setPushStatus(Constant.YES_PUSH);
+					systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+				}else{
+					result.setErrorCode(ErrorCode.MEMBER_PUSH_ERROR);
+					result.setError(result.getError() + "失败信息" + apiResult.getMessage());
+					LoggerFactory.getLogger("pushMessage").info("供应商推送失败错误信息: ", apiResult.getMessage());
+				}
+			} else {
+				result.setErrorCode(ErrorCode.MEMBER_PUSH_ERROR);
+				LoggerFactory.getLogger("pushMessage").info("供应商推送失败错误信息: apiResult= " + apiResult);
+			}
+		}
+		return result;
 	}
 
 	public Result handView(String dirverId) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
@@ -422,7 +460,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	public void callBackMemberPushStatus() {
 		SystemMemberInfo info = new SystemMemberInfo();
 		info.setPushStatus(Constant.YES_PUSH);
-		info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
+		info.setNcStatus(Constant.ZERO);
 		List<SystemMemberInfo> list = systemMemberInfoMapper.selectNcNotUse(info);
 		if (CollectionUtils.isNotEmpty(list)) {
 			List<Object> ids = new ArrayList<Object>();
@@ -462,7 +500,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 							if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
 								//回写供应商ncStatus
 								info.setPushStatus(Constant.NOT_PUSH);
-								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST);
+								info.setNcStatus(Constant.ZERO);
 							} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
 								//回写供应商ncStatus
 								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);

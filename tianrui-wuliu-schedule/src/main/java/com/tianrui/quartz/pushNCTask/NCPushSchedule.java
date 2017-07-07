@@ -33,22 +33,22 @@ public class NCPushSchedule {
 	@Autowired
 	private IPayInvoiceService payInvoiceService;
 
-	@Scheduled(cron="* 0/10 *  * * ? ")
+	@Scheduled(cron="0/10 * *  * * ? ")
 	public void callBackMemberPushStatus(){
 		systemMemberInfoService.callBackMemberPushStatus();
 	}
 
-	@Scheduled(cron="* 0/10 *  * * ? ")
+	@Scheduled(cron="0/10 * *  * * ? ")
 	public void pushBankCardAndCallBackPushStatus(){
 		memberBankCardService.pushBankCardAndCallBackPushStatus();
 	}
 
-	@Scheduled(cron="* 0/10 *  * * ? ")
+	@Scheduled(cron="0/10 * *  * * ? ")
 	public void callBackPayInvoicePaidAmount(){
 		payInvoiceService.callBackPayInvoicePaidAmount();
 	}
 
-	@Scheduled(cron="* 0/10 *  * * ? ")
+	@Scheduled(cron="0/10 * *  * * ? ")
 	public void callBackPayInvoicePayStatus(){
 		payInvoiceService.callBackPayInvoicePayStatus();
 	}
