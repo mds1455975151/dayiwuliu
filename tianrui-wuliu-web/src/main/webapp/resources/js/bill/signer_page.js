@@ -128,7 +128,7 @@ function yj_queren(id,type,totalprice){
 				$("#deduct_money").val(data.receptionDeductMoney);
 				$("#deduct_other").val(data.receptionDeductOther);
 				$("#deduct_oil_card").val(data.receptionDeductOilCard);
-				$("#true_totalprice").html(data.receptionBillTotalPrice-data.receptionDeductMoney-data.receptionDeductWeightMisc-data.receptionDeductOther-data.receptionDeductOilCard);
+				$("#true_totalprice").html((data.receptionBillTotalPrice-data.receptionDeductMoney-data.receptionDeductWeightMisc-data.receptionDeductOther-data.receptionDeductOilCard).toFixed(2));
 			}
 		}
 	});

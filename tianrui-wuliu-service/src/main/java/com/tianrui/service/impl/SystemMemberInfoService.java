@@ -118,12 +118,16 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		if("1".equals(req.getUserpercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_USER_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_USER_PASS.getType());
+			SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(record.getMemberid());
 			//审核通过推送到NC
-			PushMember push = new PushMember();
-			push.setSuppid(record.getMemberid());
-			push.setName(record.getUsername());
-			push.setVbusinlicense(record.getIdcard());
-			runTheadPoolTask(push);
+			if(info.getPushStatus()==0){
+				//审核通过推送到NC
+				PushMember push = new PushMember();
+				push.setSuppid(record.getMemberid());
+				push.setName(record.getUsername());
+				push.setVbusinlicense(record.getIdcard());
+				runTheadPoolTask(push);
+			}
 		}else {//if("3".equals(req.getUserpercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_USER_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_USER_NOTPASS.getType());
@@ -148,14 +152,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		
 		if("1".equals(req.getDriverpercheck())){//认证通过
 			
-//			AnlianDriverReq alreq = new AnlianDriverReq();
-//			alreq.setRecorid(req.getId());
-//			rs = anlianService.driver(alreq);
-//			if(rs.getCode().equals("000000")){
-//				member.setAldriverid(rs.getData().toString());
-//			}else{
-//				return rs;
-//			}
 			member.setAldriverid("1");
 			SystemMemberInfo info = new SystemMemberInfo();
 			info.setId(record.getMemberid());
@@ -207,12 +203,16 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		if("1".equals(req.getDriverpercheck())){//通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_DRIVER_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_DRIVER_PASS.getType());
+			SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(record.getMemberid());
 			//审核通过推送到NC
-			PushMember push = new PushMember();
-			push.setSuppid(record.getMemberid());
-			push.setName(record.getUsername());
-			push.setVbusinlicense(record.getIdcard());
-			runTheadPoolTask(push);
+			if(info.getPushStatus()==0){
+				//用户未推送NC
+				PushMember push = new PushMember();
+				push.setSuppid(record.getMemberid());
+				push.setName(record.getUsername());
+				push.setVbusinlicense(record.getIdcard());
+				runTheadPoolTask(push);
+			}
 		}else if("3".equals(req.getDriverpercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_DRIVER_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_DRIVER_NOTPASS.getType());
@@ -275,12 +275,16 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_COMPANY_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_COMPANY_PASS.getType());
 			messageService.sendMessageInside(mreq);
-			//推送审核通过的供应商
-			PushMember push = new PushMember();
-			push.setSuppid(record.getMemberid());
-			push.setName(record.getCompanyname());
-			push.setVbusinlicense(record.getCompanycode());
-			runTheadPoolTask(push);
+			SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(record.getMemberid());
+			//审核通过推送到NC
+			if(info.getPushStatus()==0){
+				//推送审核通过的供应商
+				PushMember push = new PushMember();
+				push.setSuppid(record.getMemberid());
+				push.setName(record.getCompanyname());
+				push.setVbusinlicense(record.getCompanycode());
+				runTheadPoolTask(push);
+			}
 		}else if("3".equals(req.getCompanypercheck())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_COMPANY_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_COMPANY_NOTPASS.getType());
@@ -296,7 +300,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			taskExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
-					//这里编写处理业务代码
+					//这里编写处理业务代码---333
 					ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
 					if (apiResult != null 
 							&& (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())
@@ -367,7 +371,6 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 
 	@Override
 	public Result uptDrvierAnlian(AdminMenberInfoReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getId());
 		
@@ -445,43 +448,45 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		ApiResult apiResult = null;
 		if (CollectionUtils.isNotEmpty(list)) {
 			apiResult = HttpUtil.post(list, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH_NC_STATUS);
-			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
-				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
-				if(CollectionUtils.isNotEmpty(array)){
-					for (Object object : array) {
-						JSONObject jsonObject = (JSONObject) object;
-						String id = jsonObject.getString("id");
-						String status = jsonObject.getString("status");
-						//审核通过并分配组织
-						SystemMemberInfo info = new SystemMemberInfo();
-						info.setId(id);
-						if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
-							//回写供应商ncStatus
-							info.setPushStatus(Constant.NOT_PUSH);
-							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST);
-						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
-							//回写供应商ncStatus
-							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);
-						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_3.getCode()))) {
-							//回写供应商ncStatus
-							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_REFUSED);
-						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_4.getCode()))) {
-							//回写供应商ncStatus
-							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_ING);
-						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_5.getCode()))) {
-							//回写供应商ncStatus
-							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
-						} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_6.getCode()))) {
-							//回写供应商ncStatus
-							info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
-						} else {
-							LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态: 供应商ID: "+ id + ", 查询结果： " + NCResultEnum.getMessage(status));
+			if (apiResult != null) {
+				if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+					JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
+					if(CollectionUtils.isNotEmpty(array)){
+						for (Object object : array) {
+							JSONObject jsonObject = (JSONObject) object;
+							String id = jsonObject.getString("id");
+							String status = jsonObject.getString("status");
+							//审核通过并分配组织
+							SystemMemberInfo info = new SystemMemberInfo();
+							info.setId(id);
+							if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_1.getCode()))) {
+								//回写供应商ncStatus
+								info.setPushStatus(Constant.NOT_PUSH);
+								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_DOES_NOT_EXIST);
+							} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_2.getCode()))) {
+								//回写供应商ncStatus
+								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);
+							} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_3.getCode()))) {
+								//回写供应商ncStatus
+								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_REFUSED);
+							} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_4.getCode()))) {
+								//回写供应商ncStatus
+								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_AUDIT_ING);
+							} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_5.getCode()))) {
+								//回写供应商ncStatus
+								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_ORG);
+							} else if (StringUtils.equals(status, String.valueOf(NCResultEnum.NC_RESULT_ENUM_6.getCode()))) {
+								//回写供应商ncStatus
+								info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_YES_ORG);
+							} else {
+								LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态: 供应商ID: "+ id + ", 查询结果： " + NCResultEnum.getMessage(status));
+							}
+							systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 						}
-						systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 					}
+				} else {
+					LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态错误信息: " + apiResult.getMessage());
 				}
-			} else {
-				LoggerFactory.getLogger("pushMessage").info("查询供应商推送状态错误信息: " + apiResult.getMessage());
 			}
 		}
 		return apiResult;

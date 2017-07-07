@@ -147,7 +147,7 @@ function selectBill(id){
 				//总额
 				$("#billTotalPrice").val(data.receptionBillTotalPrice);
 				//应付金额
-				$("#amountPayable").val(price);
+				$("#amountPayable").val(price.toFixed(2));
 				
 				//主键id
 				$("#payId").val(id);
@@ -225,7 +225,7 @@ $("#auditCommit").on("click",function(){
 				}
 			}
 		});
-	}, 800);
+	}, 300);
 	
 });
 
