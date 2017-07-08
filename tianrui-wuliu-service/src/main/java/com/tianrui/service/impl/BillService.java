@@ -282,7 +282,9 @@ public class BillService implements IBillService{
 							//支付对象
 							bill.setPayment(payment);
 							//收货人
-							bill.setReceive_memberid(orgsigner.getMemberid());
+							if (orgsigner != null) {
+								bill.setReceive_memberid(orgsigner.getMemberid());
+							}
 							bills.add(bill);
 					}
 				}

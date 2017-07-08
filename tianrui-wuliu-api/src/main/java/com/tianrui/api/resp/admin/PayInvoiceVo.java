@@ -108,6 +108,9 @@ public class PayInvoiceVo extends BaseResp {
 		}else if (payStatus == Constant.YES_PAY){
 			//已支付
 			this.payInvoiceStatus = "已支付";
+		} else if (payStatus == Constant.THREE) {
+			//支付失败
+			this.payInvoiceStatus = "支付失败";
 		} else {
 			this.payInvoiceStatus = "";
 		}

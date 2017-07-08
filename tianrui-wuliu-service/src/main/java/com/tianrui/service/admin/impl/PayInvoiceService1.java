@@ -639,6 +639,13 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					ids.add(payInvoice.getId());
 				}
 			}
+			List<PayInvoiceMsg> payInvoiceMsgList = payInvoiceMsgMapper.selectByPayInvoiceIdList(ids);
+			if (CollectionUtils.isNotEmpty(payInvoiceMsgList)) {
+				ids.clear();
+				for (PayInvoiceMsg payInvoiceMsg : payInvoiceMsgList) {
+					ids.add(payInvoiceMsg.getId());
+				}
+			}
 		}
 		if (CollectionUtils.isNotEmpty(ids)) {
 			//回写支付状态

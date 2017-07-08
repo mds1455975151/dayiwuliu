@@ -236,4 +236,16 @@
 			) a
 	)
   </update>
+  <select id="selectByPayInvoiceIdList" parameterType="java.util.List" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List" />
+  	from pay_invoice_msg
+  	where pay_status = 1 
+  	<if test="list !=null and list.size()>0">
+  		and pay_invoice_id in 
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+		 	#{item}  
+		</foreach>
+  	</if>
+  </select>
 </mapper>
