@@ -101,7 +101,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 						record.setDesc1(bs.getName());
 					}
 				}
-				if (StringUtils.isNotBlank(req.getBankSubbranchName())) {
+				if (StringUtils.isBlank(req.getBankSubbranchId()) && StringUtils.isNotBlank(req.getBankSubbranchName())) {
 					record.setDesc1(req.getBankSubbranchName());
 					record.setDesc2(null);
 				}

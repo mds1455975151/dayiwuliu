@@ -131,7 +131,7 @@ function displayRect(pageNo){
 							if(data[a].companypercheck=='2'||data[a].userpercheck=='2'){
 								hml += "<span><a onclick=\"shenHe('"+data[a].id+"','2','"+menuId+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
-							if((data[a].companypercheck=='1'||data[a].userpercheck=='1') && data[a].ncStatus == 0 && (data[a].pushStatus == '0' || data[a].userpercheck == '3')){
+							if((data[a].companypercheck=='1'||data[a].userpercheck=='1') && data[a].pushStatus == 0 && (data[a].ncStatus == '0' || data[a].ncStatus == '1' || data[a].ncStatus == '3')){
 								hml += "<span><a onclick=\"push('"+data[a].id+"')\">【推送】</a></span>";
 							}
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#qiyong'>【"+staus+"】</a></span>"+
@@ -160,6 +160,10 @@ function displayRect(pageNo){
 //推送NC
 function push(id){
 	if (confirm('是否推送到NC？')) {
+		var index = layer.load(2, {
+			time: 1000*10,
+			shade: [0.3,'#fff'] //0.1透明度的白色背景
+		});
 		$.ajax({
 			url:CONTEXTPATH+'/AdminMember/pushNc',
 			data:{id: id},
@@ -172,6 +176,7 @@ function push(id){
 				}else{
 					alert(result.error);
 				}
+				layer.close(index);
 			}
 		
 		});
