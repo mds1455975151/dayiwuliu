@@ -337,13 +337,19 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			//这里编写处理业务代码---333
 			ApiResult apiResult = HttpUtil.post(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.MEMBER_INFO_PUSH);
 			if (apiResult != null){
-				if(StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())
-						|| StringUtils.equals(apiResult.getCode(), ErrorCode.MEMBER_PUSH_ERROR1.getCode())) {
+				if(StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 					//推送成功修改推送状态
 					SystemMemberInfo info = new SystemMemberInfo();
 					info.setId(push.getSuppid());
 					info.setPushStatus(Constant.YES_PUSH);
 					info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);
+					systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+				}else if(StringUtils.equals(apiResult.getCode(), ErrorCode.MEMBER_PUSH_ERROR1.getCode())){
+					//推送成功修改推送状态
+					SystemMemberInfo info = new SystemMemberInfo();
+					info.setId(push.getSuppid());
+					info.setPushStatus(Constant.YES_PUSH);
 					systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 				}else{
