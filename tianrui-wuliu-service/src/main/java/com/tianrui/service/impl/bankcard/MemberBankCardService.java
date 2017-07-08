@@ -190,15 +190,13 @@ public class MemberBankCardService implements IMemberBankCardService{
 					rs.setError("请先上传银行卡图片！");
 					return rs;
 				}
-				String name = HttpRequestUtil.putRequest(req.getBankcard());
-				card.setBankcard(req.getBankcard());
-				card.setBankname(name);
-				BankType bankType = new BankType();
-				bankType.setName(name);
-				List<BankType> list1 = bankTypeMapper.selectByCondtion(bankType);
-				if (CollectionUtils.isNotEmpty(list1)) {
-					card.setBankcode(list1.get(0).getAbbrName());
-					card.setDesc3(list1.get(0).getId());
+				
+
+				BankType list1 = bankTypeMapper.selectByPrimaryKey(req.getBankTypeId());
+				if (list1!=null) {
+					card.setBankcode(list1.getAbbrName());
+					card.setDesc3(list1.getId());
+					card.setBankname(list1.getName());
 				}
 				if(StringUtils.isNotBlank(req.getBankSubbranchId())){
 					card.setDesc2(req.getBankSubbranchId());
@@ -207,7 +205,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 						card.setDesc1(bs.getName());
 					}
 				}
-				if (StringUtils.isNotBlank(req.getBankSubbranchName())) {
+				if (StringUtils.isBlank(req.getBankSubbranchId()) && StringUtils.isNotBlank(req.getBankSubbranchName())) {
 					card.setDesc1(req.getBankSubbranchName());
 					card.setDesc2(null);
 				}

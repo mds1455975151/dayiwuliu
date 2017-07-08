@@ -188,11 +188,12 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(id);
 			if (payInvoice != null) {
 				//修改原（Constant.NOT_PUSH 未推单） 改（Constant.PUSH_ING 推单中）
-				if (payInvoice.getPushStatus() == Constant.PUSH_ING) {
+				if (payInvoice.getPushStatus() == Constant.PUSH_ING || (payInvoice.getPushStatus() == Constant.YES_PUSH && payInvoice.getPayStatus() == Constant.THREE)) {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
 						if (validatePayInvoiceMsg(id)) {
+							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
 							logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
-							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice);
+							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice, payInvoiceMsg);
 							logger.info("into service: driver pay invoice push NC param bean: =" + push.toString());
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
 							if (apiResult != null) {
@@ -205,8 +206,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 									} else {
 										result.setErrorCode(ErrorCode.SYSTEM_ERROR);
 									}
-									logger.info("into service: driver pay invoice insert payInvoice");
-									loggerPayInvoiceMsg(payInvoice);
+									logger.info("into service: driver pay invoice insert payInvoiceMsg");
+									logger.info("into service: driver pay invoice insert payInvoiceMsg{}: " + payInvoiceMsg.toString());
+									payInvoiceMsgMapper.insertSelective(payInvoiceMsg);
+									logger.info("into service: driver pay invoice insert payInvoiceMsg true");
 								} else {
 									result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
 									result.setError(result.getError() + ": "+ apiResult.getMessage());
@@ -245,7 +248,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
 						if (validatePayInvoiceMsg(id)) {
 							logger.info("into service: vender pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
-							PayInvoiceVenderPush push = setPayInvoiceVender(payInvoice);
+							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
+							logger.info("into service: vender pay invoice new PayInvoiceMsg{}:" + payInvoiceMsg.toString());
+							PayInvoiceVenderPush push = setPayInvoiceVender(payInvoice, payInvoiceMsg);
 							logger.info("into service: vender pay invoice push NC param bean: =" + push.toString());
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_VENDER_PUSH);
 							if (apiResult != null) {
@@ -258,8 +263,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 									} else {
 										result.setErrorCode(ErrorCode.SYSTEM_ERROR);
 									}
-									logger.info("into service: vender pay invoice insert payInvoice");
-									loggerPayInvoiceMsg(payInvoice);
+									logger.info("into service: vender pay invoice insert PayInvoiceMsg");
+									logger.info("into service: driver pay invoice insert payInvoiceMsg{}: " + payInvoiceMsg.toString());
+									payInvoiceMsgMapper.insertSelective(payInvoiceMsg);
+									logger.info("into service: driver pay invoice insert payInvoiceMsg true");
 								} else {
 									result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
 									result.setError(result.getError() + ": "+ apiResult.getMessage());
@@ -334,11 +341,12 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	/**
 	 * @annotation 赋值待推送NC司机支付账单
 	 * @param payInvoice
+	 * @param payInvoiceMsg 
 	 * @return PayInvoiceDriverPush
 	 */
-	private PayInvoiceDriverPush setPayInvoiceDriver(PayInvoice payInvoice) {
+	private PayInvoiceDriverPush setPayInvoiceDriver(PayInvoice payInvoice, PayInvoiceMsg payInvoiceMsg) {
 		PayInvoiceDriverPush push = new PayInvoiceDriverPush();
-		push.setId(payInvoice.getId());
+		push.setId(payInvoiceMsg.getId());
 		push.setBillNo(payInvoice.getCode());
 		push.setSupplierId(payInvoice.getPayeeId());
 		push.setName(payInvoice.getPayeeName());
@@ -357,11 +365,13 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	/**
 	 * @annotation 赋值待推送NC司机支付账单
 	 * @param payInvoice
+	 * @param payInvoiceMsg 
 	 * @return PayInvoiceDriverPush
 	 */
-	private PayInvoiceVenderPush setPayInvoiceVender(PayInvoice payInvoice) {
+	private PayInvoiceVenderPush setPayInvoiceVender(PayInvoice payInvoice, PayInvoiceMsg payInvoiceMsg) {
 		PayInvoiceVenderPush push = new PayInvoiceVenderPush();
 		push.setId(payInvoice.getId());
+		push.setPayInvoiceMsgId(payInvoiceMsg.getId());
 		push.setBillNo(payInvoice.getCode());
 		push.setInvoiceType(payInvoice.getMaterialCode());
 		push.setSupplierId(payInvoice.getPayeeId());
@@ -394,21 +404,20 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	/**
 	 * @annotation 增加支付信息日志
 	 * @param payInvoice
+	 * @return 
 	 */
-	private void loggerPayInvoiceMsg(PayInvoice payInvoice) {
-		PayInvoiceMsg msg = new PayInvoiceMsg();
-		msg.setId(UUIDUtil.getId());
-		msg.setPayInvoiceId(payInvoice.getId());
-		msg.setPayeeId(payInvoice.getPayeeId());
-		msg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
-		msg.setAmountPayable(payInvoice.getAmountPayable());
-		msg.setPayeeBankCardNumber(payInvoice.getPayeeBankCardNumber());
-		msg.setPaidAmount(payInvoice.getPaidAmount());
-		msg.setPayStatus(Constant.PAY_ING);
-		msg.setPayTime(System.currentTimeMillis());
-		logger.info("into service: driver pay invoice insert payInvoice: " + msg.toString());
-		payInvoiceMsgMapper.insertSelective(msg);
-		logger.info("into service: driver pay invoice insert payInvoice true");
+	private PayInvoiceMsg loggerPayInvoiceMsg(PayInvoice payInvoice) {
+		PayInvoiceMsg payInvoiceMsg = new PayInvoiceMsg();
+		payInvoiceMsg.setId(UUIDUtil.getId());
+		payInvoiceMsg.setPayInvoiceId(payInvoice.getId());
+		payInvoiceMsg.setPayeeId(payInvoice.getPayeeId());
+		payInvoiceMsg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
+		payInvoiceMsg.setAmountPayable(payInvoice.getAmountPayable());
+		payInvoiceMsg.setPayeeBankCardNumber(payInvoice.getPayeeBankCardNumber());
+		payInvoiceMsg.setPaidAmount(payInvoice.getPaidAmount());
+		payInvoiceMsg.setPayStatus(Constant.PAY_ING);
+		payInvoiceMsg.setPayTime(System.currentTimeMillis());
+		return payInvoiceMsg;
 	}
 	
 	@Override
@@ -626,7 +635,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		List<String> ids = new ArrayList<String>();
 		if (CollectionUtils.isNotEmpty(list)) {
 			for (PayInvoice payInvoice : list) {
-				ids.add(payInvoice.getId());
+				if (payInvoice.getPayeeIdentity() == Constant.PAY_INVOICE_DRIVER) {
+					ids.add(payInvoice.getId());
+				}
 			}
 		}
 		if (CollectionUtils.isNotEmpty(ids)) {
@@ -646,15 +657,43 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			JSONObject jsonObject = (JSONObject) object;
 			String id = jsonObject.getString("billId");
 			String payStatus = jsonObject.getString("payStatus");
-			if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_13.getCode())) {
+			PayInvoiceMsg bean = payInvoiceMsgMapper.selectByPrimaryKey(id);
+			if (bean != null) {
 				PayInvoiceMsg payInvoiceMsg = new PayInvoiceMsg();
-				payInvoiceMsg.setPayInvoiceId(id);
-				payInvoiceMsg.setPayStatus(Constant.ZERO);
-				payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
-				PayInvoice PayInvoice = new PayInvoice();
-				PayInvoice.setId(id);
-				PayInvoice.setPayStatus(Constant.THREE);
-				payInvoiceMapper.updateByPrimaryKeySelective(PayInvoice);
+				PayInvoice payInvoice = new PayInvoice();
+				//支付成功
+				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_11.getCode())) {
+					payInvoiceMsg.setId(id);
+					payInvoiceMsg.setPaidAmount(payInvoiceMsg.getAmountPayable());
+					payInvoiceMsg.setPayStatus(Constant.TWO);
+					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+
+					payInvoice.setId(bean.getPayInvoiceId());
+					payInvoice.setPaidAmount(payInvoiceMsg.getAmountPayable());
+					payInvoice.setPayStatus(Constant.TWO);
+					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
+				}
+				//支付中
+				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_11.getCode())) {
+					payInvoiceMsg.setId(id);
+					payInvoiceMsg.setPayStatus(Constant.ONE);
+					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+					
+					payInvoice.setId(bean.getPayInvoiceId());
+					payInvoice.setPayStatus(Constant.ONE);
+					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
+				}
+				//支付失败
+				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_13.getCode())) {
+					payInvoiceMsg.setId(id);
+					payInvoiceMsg.setPayStatus(Constant.ZERO);
+					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+					payInvoice.setId(bean.getPayInvoiceId());
+					payInvoice.setPayStatus(Constant.THREE);
+					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
+				} 
+			} else {
+				LoggerFactory.getLogger("callbackPayInvoice").info("账单回写状态和金额错误信息: 该帐单流水查不到！");
 			}
 		}
 	}

@@ -8,6 +8,8 @@ package com.tianrui.api.req.admin;
 public class PayInvoiceVenderPush {
 	//支付申请单id
 	private String id;
+	//流水单ID
+	private String payInvoiceMsgId;
 	//支付申请单单据号
 	private String billNo;
 	//物料信息（CODE）
@@ -34,6 +36,12 @@ public class PayInvoiceVenderPush {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPayInvoiceMsgId() {
+		return payInvoiceMsgId;
+	}
+	public void setPayInvoiceMsgId(String payInvoiceMsgId) {
+		this.payInvoiceMsgId = payInvoiceMsgId;
 	}
 	public String getBankTypeId() {
 		return bankTypeId;
