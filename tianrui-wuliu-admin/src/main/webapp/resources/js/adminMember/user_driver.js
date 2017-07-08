@@ -171,6 +171,10 @@ function displayRect(pageNo){
 //推送NC
 function push(id){
 	if (confirm('是否推送到NC？')) {
+		var index = layer.load(2, {
+			time: 1000*10,
+			shade: [0.3,'#fff'] //0.1透明度的白色背景
+		});
 		$.ajax({
 			url:CONTEXTPATH+'/AdminMember/pushNc',
 			data:{id: id},
@@ -183,6 +187,7 @@ function push(id){
 				}else{
 					alert(result.error);
 				}
+				layer.close(index);
 			}
 		
 		});

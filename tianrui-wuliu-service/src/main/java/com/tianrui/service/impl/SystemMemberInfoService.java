@@ -343,6 +343,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 					SystemMemberInfo info = new SystemMemberInfo();
 					info.setId(push.getSuppid());
 					info.setPushStatus(Constant.YES_PUSH);
+					info.setNcStatus(Constant.NC_MEMBER_PUSH_STATUS_NOT_AUDIT);
 					systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 				}else{
