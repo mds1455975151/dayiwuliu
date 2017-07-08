@@ -257,6 +257,9 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setCompanytel(record.getCompanytel());
 			info.setSubmittime(record.getSubmittime());
 			info.setLicenseImagePath(record.getLicenseImagePath());
+			info.setRtblimgurl(record.getRtblimgurl());
+			info.setRtblno(record.getRtblno());
+			info.setCompanyaddress(record.getCompanyAddress());
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 			member.setCompanypercheck((short)1);
 		}
@@ -451,6 +454,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		resp.setCompanypercheck(member.getCompanypercheck().toString());
 		resp.setCellphone(member.getCellphone());
 		resp.setRegisttime(member.getRegisttime());
+		resp.setCompanyAddress(info.getCompanyaddress());
 //		PropertyUtils.copyProperties(resp, member);
 		PropertyUtils.copyProperties(resp, info);
 		return resp;

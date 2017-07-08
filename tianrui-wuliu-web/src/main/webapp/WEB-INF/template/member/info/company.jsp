@@ -54,6 +54,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   <div class="mycar_dtsolo">
 						<label>营业执照号:${member.companycode }</label> 
 			   </div>
+			   <div class="mycar_dtsolo">
+						<label>道路运输经营许可证号:${member.rtblno }</label> 
+			   </div>
 			   
 			   <div class="clear"></div>
 					

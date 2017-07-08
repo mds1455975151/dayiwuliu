@@ -97,6 +97,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <!--企业认证模块end-->
           </div>
           <!--个人中心右侧end-->
+          <!--上传进度条-->
+			<a id="showload" data-toggle="modal" data-target="#detail"></a>
+			<div class="modal fade" id="detail" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document" style="width: 400px;">
+				<div class="upmodal">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="upload">
+								<img src="${trRoot}/tianrui/images/upload.gif">
+								<div class="upload_font">
+									<img src="${trRoot}/tianrui/images/sc.png">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+				</div>
+			</div>
+			<!--上传进度条end-->
        </div>
 	</div>
 </div>

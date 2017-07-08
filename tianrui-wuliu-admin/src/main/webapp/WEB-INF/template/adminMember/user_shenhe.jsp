@@ -55,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>联系人：</label><span>${memberInfo.companycontact }</span><br>
                             <label>联系人电话：</label><span>${memberInfo.companytel }</span><br>
                             <label>公司名称：</label><span>${memberInfo.companyname }</span><br>
+                            <label>营业执照号码：</label><span>${memberInfo.companycode }</span><br>
                             </c:if>
                             <label>注册时间：</label><span>${memberInfo.registtimeStr }</span><br>
                             <label>认证时间：</label><span>${memberInfo.submittimeStr }</span><br>

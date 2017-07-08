@@ -89,7 +89,7 @@ $("#corpAuthen_button").click(function() {
 	var corpAuthen_tel = $("#corpAuthen_tel").val();
 	// 营业执照图片路径
 	var file_yyzz = $("#file_yyzz_str").val();
-	
+	//营业执照号
 	var companycode = $("#corpAuthen_code").val();
 	
 	//道路许可证
@@ -180,6 +180,11 @@ function fileupload(id,remove){
 		processData : false,//告诉jQuery不要去处理发送的数据
 		contentType : false,//告诉jQuery不要去设置Content-Type请求头
 		type : "post",
+		beforeSend : function() {
+	        //请求前的处理
+			$('#detail').modal({backdrop: 'static', keyboard: false});
+			$("#showload").click();
+		},
 		success : function(result) {
 			var ret = result.code;
 			var msg = result.error;
@@ -187,6 +192,7 @@ function fileupload(id,remove){
 			if (ret == 000000) {
 				$("#"+id+"_str").val(result.data);
 				$("."+remove).remove();
+				$('#detail').modal("hide");
 			}
 		}
 	});
