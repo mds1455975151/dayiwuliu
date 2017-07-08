@@ -673,7 +673,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					payInvoiceMsg.setId(id);
 					payInvoiceMsg.setPaidAmount(payInvoiceMsg.getAmountPayable());
 					payInvoiceMsg.setPayStatus(Constant.TWO);
-					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+					payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
 
 					payInvoice.setId(bean.getPayInvoiceId());
 					payInvoice.setPaidAmount(payInvoiceMsg.getAmountPayable());
@@ -681,10 +681,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
 				}
 				//支付中
-				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_11.getCode())) {
+				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_12.getCode())) {
 					payInvoiceMsg.setId(id);
 					payInvoiceMsg.setPayStatus(Constant.ONE);
-					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+					payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
 					
 					payInvoice.setId(bean.getPayInvoiceId());
 					payInvoice.setPayStatus(Constant.ONE);
@@ -694,7 +694,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_13.getCode())) {
 					payInvoiceMsg.setId(id);
 					payInvoiceMsg.setPayStatus(Constant.ZERO);
-					payInvoiceMsgMapper.updateLastPayStatusByPayInvoiceId(payInvoiceMsg);
+					payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
 					payInvoice.setId(bean.getPayInvoiceId());
 					payInvoice.setPayStatus(Constant.THREE);
 					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
