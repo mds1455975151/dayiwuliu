@@ -143,7 +143,7 @@ function displayRect(pageNo){
 							if(data[a].driverpercheck=="2"){
 								hml += "<span><a onclick=\"driverShenhe('"+data[a].id+"','"+data[a].driverpercheck+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
-							if((data[a].driverpercheck == '1') && data[a].ncStatus == 0 && (data[a].pushStatus == '0' || data[a].userpercheck == '3')){
+							if((data[a].driverpercheck == '1') && data[a].pushStatus == 0 && (data[a].ncStatus == '0' || data[a].ncStatus == '1' || data[a].ncStatus == '3')){
 								hml += "<span><a onclick=\"push('"+data[a].id+"')\">【推送】</a></span>";
 							}
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+staus+"】</a></span>"+

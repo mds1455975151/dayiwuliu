@@ -321,8 +321,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 				push.setVbusinlicense(vo.getCompCode());
 			}
 			if(StringUtils.equals(vo.getUserpercheck(), "1")){
-				push.setName(vo.getIdcard());
-				push.setVbusinlicense(vo.getUserName());
+				push.setName(vo.getUserName());
+				push.setVbusinlicense(vo.getIdcard());
 			}
 			result = pushMemberToNc(push);
 		}else{

@@ -398,7 +398,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	private void loggerPayInvoiceMsg(PayInvoice payInvoice) {
 		PayInvoiceMsg msg = new PayInvoiceMsg();
 		msg.setId(UUIDUtil.getId());
-		msg.setPayInvoiceId(payInvoice.getPayeeId());
+		msg.setPayInvoiceId(payInvoice.getId());
 		msg.setPayeeId(payInvoice.getPayeeId());
 		msg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
 		msg.setAmountPayable(payInvoice.getAmountPayable());
