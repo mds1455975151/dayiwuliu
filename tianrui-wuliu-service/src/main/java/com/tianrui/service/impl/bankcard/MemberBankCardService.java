@@ -230,17 +230,21 @@ public class MemberBankCardService implements IMemberBankCardService{
 		bank.setAuditor(req.getAuditor());
 		bank.setAuditortime(System.currentTimeMillis());
 		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(bank.getCreater());
-		
-		if(info.getPushStatus()==Constant.YES_PUSH && info.getNcStatus()==Constant.NC_MEMBER_PUSH_STATUS_YES_ORG){
-			//用户已推送 已分配组织
-			if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS) 
-					&& info.getPushStatus() == Constant.YES_PUSH) {
-				pushBankCard(bank);
+		if(StringUtils.equals("1", req.getBankautid())){
+			//银行卡认证成功
+			if(info.getPushStatus()==Constant.YES_PUSH && info.getNcStatus()==Constant.NC_MEMBER_PUSH_STATUS_YES_ORG){
+				//用户已推送 已分配组织
+				if (StringUtils.equals(bank.getBankautid(), Constant.AUTHSTATUS_PASS) 
+						&& info.getPushStatus() == Constant.YES_PUSH) {
+					pushBankCard(bank);
+				}
+				memberBankCardMapper.updateByPrimaryKeySelective(bank);
+			}else{
+				rs.setCode("1");
+				rs.setError("该用户暂未符合NC推送状态");
 			}
-			memberBankCardMapper.updateByPrimaryKeySelective(bank);
 		}else{
-			rs.setCode("1");
-			rs.setError("该用户暂未符合NC推送状态");
+			memberBankCardMapper.updateByPrimaryKeySelective(bank);
 		}
 		return rs;
 	}
@@ -300,6 +304,10 @@ public class MemberBankCardService implements IMemberBankCardService{
 						bankCard.setPushTime(System.currentTimeMillis());
 						memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
 					} else {
+						MemberBankCard bankCard = new MemberBankCard();
+						bankCard.setId(push.getId());
+						bankCard.setErrorMassage(apiResult.getMessage());
+						memberBankCardMapper.updateByPrimaryKeySelective(bankCard);
 						LoggerFactory.getLogger("pushBankCard").info("推送银行卡错误信息: " + apiResult.getMessage());
 					}
 				} 

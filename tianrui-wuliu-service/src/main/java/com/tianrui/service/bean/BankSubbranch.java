@@ -11,6 +11,8 @@ public class BankSubbranch {
     private String innercode;
     //支行名称
     private String name;
+    //之行名称模糊查询
+    private String likeName;
     //银行类别表ID
     private String bankTypeId;
 
@@ -18,7 +20,16 @@ public class BankSubbranch {
         return id;
     }
 
-    public void setId(String id) {
+	public String getLikeName() {
+		return likeName;
+	}
+
+	public void setLikeName(String likeName) {
+		this.likeName = likeName;
+	}
+
+
+	public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 

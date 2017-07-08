@@ -46,6 +46,8 @@ public class MemberBankCard {
     private Integer pushStatus;
     //推送时间
     private Long pushTime;
+    //推送nc错误返回信息
+    private String errorMassage;
 
     public String getId() {
         return id;
@@ -229,5 +231,13 @@ public class MemberBankCard {
 
 	public void setPushTime(Long pushTime) {
 		this.pushTime = pushTime;
+	}
+
+	public String getErrorMassage() {
+		return errorMassage;
+	}
+
+	public void setErrorMassage(String errorMassage) {
+		this.errorMassage = errorMassage;
 	}
 }

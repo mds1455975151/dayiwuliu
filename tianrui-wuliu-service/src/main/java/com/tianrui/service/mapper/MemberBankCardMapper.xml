@@ -23,11 +23,13 @@
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
     <result column="pushStatus" property="pushStatus" jdbcType="BIT" />
     <result column="pushTime" property="pushTime" jdbcType="BIGINT" />
+    
+    <result column="error_massage" property="errorMassage" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, bankstatus, bankautid, bankcard, bankname, bankcode, bankimg, idcard, idname, 
     idcardimg, telphone, creater, createtime, auditor, auditortime, desc1, desc2, desc3, 
-    desc4, pushStatus, pushTime
+    desc4, pushStatus, pushTime, error_massage
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -118,14 +120,14 @@
       idcardimg, telphone, creater, 
       createtime, auditor, auditortime, 
       desc1, desc2, desc3, 
-      desc4, pushStatus, pushTime)
+      desc4, pushStatus, pushTime,error_massage)
     values (#{id,jdbcType=VARCHAR}, #{bankstatus,jdbcType=VARCHAR}, #{bankautid,jdbcType=VARCHAR}, 
       #{bankcard,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, 
       #{bankimg,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{idname,jdbcType=VARCHAR}, 
       #{idcardimg,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=BIGINT}, #{auditor,jdbcType=VARCHAR}, #{auditortime,jdbcType=BIGINT}, 
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
-      #{desc4,jdbcType=VARCHAR}, #{pushStatus,jdbcType=BIT}, #{pushTime,jdbcType=BIGINT})
+      #{desc4,jdbcType=VARCHAR}, #{pushStatus,jdbcType=BIT}, #{pushTime,jdbcType=BIGINT}, #{errorMassage,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.MemberBankCard" >
     insert into wuliu_member_bankcard
@@ -193,6 +195,9 @@
       <if test="pushTime != null" >
         pushTime,
       </if>
+      <if test="errorMassage != null">
+      	error_massage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -258,11 +263,17 @@
       <if test="pushTime != null" >
         #{pushTime,jdbcType=BIGINT},
       </if>
+      <if test="errorMassage != null">
+      	#{errorMassage,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MemberBankCard" >
     update wuliu_member_bankcard
     <set >
+    <if test="errorMassage != null">
+      	error_massage = #{errorMassage,jdbcType=VARCHAR},
+      </if>
       <if test="bankstatus != null" >
         bankstatus = #{bankstatus,jdbcType=VARCHAR},
       </if>
@@ -329,6 +340,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.MemberBankCard" >
     update wuliu_member_bankcard
     set bankstatus = #{bankstatus,jdbcType=VARCHAR},
+     error_massage = #{errorMassage,jdbcType=VARCHAR},
       bankautid = #{bankautid,jdbcType=VARCHAR},
       bankcard = #{bankcard,jdbcType=VARCHAR},
       bankname = #{bankname,jdbcType=VARCHAR},
