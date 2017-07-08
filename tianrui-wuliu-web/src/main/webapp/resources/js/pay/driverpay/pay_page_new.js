@@ -123,10 +123,10 @@ function parseBankCard(id, data, payeeBankCardNumber, _this){
 				}
 			});
 		} else {
-			alert('暂无银行卡可用');
+			alert('暂无银行卡可用，请添加一张新的银行卡');
 		}
 	} else {
-		alert('暂无银行卡可用');
+		alert('暂无银行卡可用，请添加一张新的银行卡');
 	}
 }
 
