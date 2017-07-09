@@ -131,6 +131,10 @@ function parseBankCard(id, data, payeeBankCardNumber, _this){
 }
 
 function updateBankCard(id, bankCardId){
+	var index = layer.load(2, {
+		time: 1000*60,
+		shade: [0.3,'#fff'] //0.1透明度的白色背景
+	});
 	$.post('/trwuliu/payInvoice_1/updateBankCard',{id: id, bankCardId: bankCardId},function(result){
 		if (result) {
 			if (result.code == '000000') {
@@ -142,6 +146,7 @@ function updateBankCard(id, bankCardId){
 			alert('操作失败');
 		}
 		$('.fpbtn').click();
+		layer.close(index);
 	});
 }
 

@@ -110,7 +110,7 @@ public class PayInvoice_1Action {
 		return rs;
 	}
 	
-	/**账单删除*/
+	/**更换银行卡*/
 	@RequestMapping("updateBankCard")
 	@ResponseBody
 	public Result updateBankCard(String id, String bankCardId){

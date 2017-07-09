@@ -266,7 +266,7 @@
 		var flag = window.confirm('是否确认提交？');
 		if(flag){
 			var index = layer.load(2, {
-				time: 1000*10,
+				time: 1000*60,
 				shade: [0.3,'#fff'] //0.1透明度的白色背景
 			});
 			$.ajax({

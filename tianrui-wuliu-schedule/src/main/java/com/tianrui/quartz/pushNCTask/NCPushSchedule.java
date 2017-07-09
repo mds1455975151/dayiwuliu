@@ -43,10 +43,10 @@ public class NCPushSchedule {
 		memberBankCardService.pushBankCardAndCallBackPushStatus();
 	}
 
-	@Scheduled(cron="0 0/3 *  * * ? ")
-	public void callBackPayInvoicePaidAmount(){
-		payInvoiceService.callBackPayInvoicePaidAmount();
-	}
+//	@Scheduled(cron="0 0/3 *  * * ? ")
+//	public void callBackPayInvoicePaidAmount(){
+//		payInvoiceService.callBackPayInvoicePaidAmount();
+//	}
 
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void callBackPayInvoicePayStatus(){
