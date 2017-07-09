@@ -5,6 +5,8 @@ public class MemberBankCardResp {
     
     //联行号
     private String bankLineNumber;
+    
+    private String bankLineCode;
 
     private String bankstatus;
 
@@ -231,5 +233,13 @@ public class MemberBankCardResp {
 
 	public void setBankLineNumber(String bankLineNumber) {
 		this.bankLineNumber = bankLineNumber;
+	}
+
+	public String getBankLineCode() {
+		return bankLineCode;
+	}
+
+	public void setBankLineCode(String bankLineCode) {
+		this.bankLineCode = bankLineCode;
 	}
 }

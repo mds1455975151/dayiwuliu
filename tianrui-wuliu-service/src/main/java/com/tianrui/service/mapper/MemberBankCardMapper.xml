@@ -63,7 +63,8 @@
 		mb.pushStatus,
 		pushTime,
 		mb.error_massage,
-		nc.bank_line_number bank_line_number
+		nc.bank_line_number bank_line_number,
+		nc.`code` bankLineCode
 	FROM
 		wuliu_member_bankcard mb
 	LEFT JOIN wuliu_NC_bank_subbranch nc ON nc.id = mb.desc2

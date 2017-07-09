@@ -78,11 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                          <th>序号</th>
                                          <th>银行卡账户 </th>
                                          <th>持卡人名称</th>
-                                         <th>身份证号</th>
                                          <th>银行名称</th>
-                                         <th>银行简称</th>
                                          <th>开户行名称</th>
-                                         <th>开户行联行号</th>
                                          <th>认证状态 </th>
                                          <th>推送状态 </th>
                                          <th>创建时间</th>
@@ -133,6 +130,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="file_detail">
 					<label>银行名称：</label>
 					<span id="bankname_mg">二二</span>
+				</div>
+				<div class="file_detail">
+					<label>银行编码：</label>
+					<span id="bankLineCode_mg">二二</span>
+				</div><div class="file_detail">
+					<label>开户行联行号：</label>
+					<span id="bankLineNumber_mg">二二</span>
 				</div>
 				<div class="file_detail">
 					<label>开户行名称：</label>
@@ -191,6 +195,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bank/bank_card.js?0707" ></script>
+<script type="text/javascript" src="/resources/js/bank/bank_card.js?07090" ></script>
 </body>
 </html>

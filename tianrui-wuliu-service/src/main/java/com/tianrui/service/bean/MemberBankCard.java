@@ -4,6 +4,8 @@ public class MemberBankCard {
     private String id;
     //联行号
     private String bankLineNumber;
+    
+    private String bankLineCode;
 
     private String bankstatus;
 
@@ -249,5 +251,13 @@ public class MemberBankCard {
 
 	public void setErrorMassage(String errorMassage) {
 		this.errorMassage = errorMassage;
+	}
+
+	public String getBankLineCode() {
+		return bankLineCode;
+	}
+
+	public void setBankLineCode(String bankLineCode) {
+		this.bankLineCode = bankLineCode;
 	}
 }

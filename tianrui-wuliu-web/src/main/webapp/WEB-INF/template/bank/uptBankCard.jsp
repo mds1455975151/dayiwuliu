@@ -43,12 +43,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="car_box">
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行卡账户:</label> 
-								<input id="bankId" type="hidden" name="id" value="${bankid }"> 
-								<input type="text" id="bankcard_req" value="${bankcard }" name="bankcard"> 
+								<input id="bankId" type="hidden" name="id" value="${bank.id }"> 
+								<input type="text" id="bankcard_req" value="${bank.bankcard }" name="bankcard"> 
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行名称:</label> 
+								<!-- 
 								<input type="text" id="bankname_req" name="bankname" readonly="readonly"> 
+								 -->
+								<div class="select_classs">
+									<select style="width: 350px" class="form-control select2" id="selectBankName">
+									
+									</select>
+								</div>
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>持卡人名称:</label> 
@@ -75,6 +82,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</select>
 									<button type="button" class="btn btnblue text_sele">编辑</button>
 								</div>
+							</div>
+							<div class="reg_tel">
+								<label> <span style="color: red"></span>联行号:</label>
+								<input type="text" id="bankLineNumber" name="bankLineNumber" readonly="readonly"> 
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行卡照片:</label> 
@@ -131,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-		<script type="text/javascript" src="/resources/js/bank/uptBankCard.js?6141"></script>
+		<script type="text/javascript" src="/resources/js/bank/uptBankCard.js?0709"></script>
 		<script type="text/javascript">
 		$("#bankimg_req")
 		.fileinput({

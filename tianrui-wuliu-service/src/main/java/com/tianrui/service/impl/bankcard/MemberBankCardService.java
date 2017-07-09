@@ -69,7 +69,11 @@ public class MemberBankCardService implements IMemberBankCardService{
 				List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
 				record.setBankcard(req.getBankcard());
 				List<MemberBankCard> only = memberBankCardMapper.selectByCondition(record);
-				
+				if(req.getBankcard().length()>19){
+					rs.setCode("8");
+					rs.setError("银行卡号最多19位");
+					return rs;
+				}
 				MemberBankCard size = new MemberBankCard();
 				size.setCreater(req.getCreater());
 				int  a =(int) memberBankCardMapper.selectBycount(size);
@@ -190,7 +194,13 @@ public class MemberBankCardService implements IMemberBankCardService{
 					rs.setError("请先上传银行卡图片！");
 					return rs;
 				}
-				
+				if(req.getBankcard().length()>19){
+					rs.setCode("1");
+					rs.setError("银行卡号最多19位");
+					return rs;
+				}else{
+					card.setBankcard(req.getBankcard());
+				}
 
 				BankType list1 = bankTypeMapper.selectByPrimaryKey(req.getBankTypeId());
 				if (list1!=null) {
@@ -330,7 +340,6 @@ public class MemberBankCardService implements IMemberBankCardService{
 	
 	@Override
 	public Result defaulBankCard(MemberBankCardReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		defaulCard_0(req.getCreater());
 		MemberBankCard upt = new MemberBankCard();
@@ -378,47 +387,19 @@ public class MemberBankCardService implements IMemberBankCardService{
 	@Override
 	public Result findBankCardById(String id) throws Exception {
 		Result rs = Result.getSuccessResult();
-		MemberBankCard resp = new MemberBankCard();
+		MemberBankCardResp resp = new MemberBankCardResp();
 		MemberBankCard card = memberBankCardMapper.selectByPrimaryKey(id);
-		PropertyUtils.copyProperties(resp, card);
+		if(card != null){
+			PropertyUtils.copyProperties(resp, card);
+			BankSubbranch subbranch = bankSubbranchMapper.selectByPrimaryKey(card.getDesc2());
+			if(subbranch != null){
+				resp.setBankLineCode(subbranch.getCode());
+				resp.setBankLineNumber(subbranch.getBankLineNumber());
+			}
+		}
 		rs.setData(resp);
 		return rs;
 	}
-
-//	@Override
-//	public Result insertBankAddress(JSONArray array) throws Exception {
-//		Result rs = Result.getSuccessResult();
-//		for (int i = 0; i < array.size(); i++) {
-//			NCbank_B ncb = new NCbank_B();
-//			JSONObject obj = (JSONObject) array.get(i);
-//			ncb.setId(UUIDUtil.getId());
-//			ncb.setAddress(obj.get("address").toString());
-//			ncb.setCode(obj.get("code").toString());
-//			ncb.setInnercode(obj.get("innercode").toString());
-//			ncb.setName(obj.get("name").toString());
-//			ncbank_BMapper.insertSelective(ncb);
-//		}
-//		return rs;
-//	}
-
-//	@Override
-//	public Result insertBankType(JSONArray array) throws Exception {
-//		// TODO Auto-generated method stub
-//		
-//		Result rs = Result.getSuccessResult();
-//		for (int i = 0; i < array.size(); i++) {
-//			NCbankType ncb = new NCbankType();
-//			JSONObject obj = (JSONObject) array.get(i);
-//			ncb.setId(UUIDUtil.getId());
-//			ncb.setBankkey(obj.get("bank_key").toString());
-//		
-//			ncb.setBankname(obj.get("name").toString());
-//
-//			ncb.setBanktype(obj.get("code").toString());
-//			ncbank_TypeMapper.insertSelective(ncb);
-//		}
-//		return rs;
-//	}
 
 	@Override
 	public Result findBankType() throws Exception {
@@ -457,7 +438,6 @@ public class MemberBankCardService implements IMemberBankCardService{
 		}
 	@Override
 	public Result findBankOnly(String memberid, String code) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		if(StringUtils.isNotBlank(memberid) && StringUtils.isNotBlank(code)){
 			MemberBankCard find = new MemberBankCard();

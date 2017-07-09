@@ -121,10 +121,12 @@ public class BankCardAction {
 		ModelAndView view = new ModelAndView();
 		MemberVo vo = SessionManager.getSessionMember(request);
 		MemberInfoMassageResp member = systemMemberService.findInfoMassageById(vo.getId());
+		Result rs = memberBankCardService.findBankCardById(req.getId());
 		view.addObject("member", member);
 		view.setViewName("/bank/uptBankCard");
-		view.addObject("bankid", req.getId());
-		view.addObject("bankcard", req.getBankcard());
+		view.addObject("bank", rs.getData());
+//		view.addObject("bankid", req.getId());
+//		view.addObject("bankcard", req.getBankcard());
 		return view;
 	}
 	
