@@ -25,6 +25,8 @@
     <result column="pushTime" property="pushTime" jdbcType="BIGINT" />
     
     <result column="error_massage" property="errorMassage" jdbcType="VARCHAR" />
+    <result column="bank_line_number" property="bankLineNumber" jdbcType="VARCHAR" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, bankstatus, bankautid, bankcard, bankname, bankcode, bankimg, idcard, idname, 
@@ -38,37 +40,61 @@
     where id = #{id,jdbcType=VARCHAR}
   </select>
    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.MemberBankCard" >
-    select 
-    <include refid="Base_Column_List" />
-    from wuliu_member_bankcard
+    SELECT
+		mb.id,
+		mb.bankstatus,
+		mb.bankautid,
+		mb.bankcard,
+		mb.bankname,
+		mb.bankcode,
+		mb.bankimg,
+		mb.idcard,
+		mb.idname,
+		mb.idcardimg,
+		mb.telphone,
+		mb.creater,
+		mb.createtime,
+		mb.auditor,
+		mb.auditortime,
+		mb.desc1,
+		mb.desc2,
+		mb.desc3,
+		mb.desc4,
+		mb.pushStatus,
+		pushTime,
+		mb.error_massage,
+		nc.bank_line_number bank_line_number
+	FROM
+		wuliu_member_bankcard mb
+	LEFT JOIN wuliu_NC_bank_subbranch nc ON nc.id = mb.desc2
     <where>
     	<if test="bankstatus != null and bankstatus != ''">
-    		and bankstatus = #{bankstatus,jdbcType=VARCHAR}
+    		and mb.bankstatus = #{bankstatus,jdbcType=VARCHAR}
     	</if>
     	<if test="bankautid != null and bankautid != ''">
-    		and bankautid = #{bankautid,jdbcType=VARCHAR}
+    		and mb.bankautid = #{bankautid,jdbcType=VARCHAR}
     	</if>
     	<if test="bankcard != null and bankcard != ''">
-    		and bankcard like "%" #{bankcard,jdbcType=VARCHAR} "%"
+    		and mb.bankcard like "%" #{bankcard,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="bankname != null and bankname != ''">
-    		and bankname like "%" #{bankname,jdbcType=VARCHAR} "%"
+    		and mb.bankname like "%" #{bankname,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="idcard != null and idcard != ''">
-    		and idcard like "%" #{idcard,jdbcType=VARCHAR} "%"
+    		and mb.idcard like "%" #{idcard,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="idname != null and idname != ''">
-    		and idname like "%" #{idname,jdbcType=VARCHAR} "%"
+    		and mb.idname like "%" #{idname,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="creater != null and creater != ''">
-    		and creater = #{creater,jdbcType=VARCHAR}
+    		and mb.creater = #{creater,jdbcType=VARCHAR}
     	</if>
     	<if test="desc4 != null and desc4 != ''">
-    		and desc4 = #{desc4,jdbcType=VARCHAR}
+    		and mb.desc4 = #{desc4,jdbcType=VARCHAR}
     	</if>
     </where>
     <if test="creater != null and creater != ''">
-		order by bankstatus desc
+		order by mb.bankstatus desc
 	</if>
 	<if test="creater == null">
 		order by createtime desc

@@ -2,6 +2,8 @@ package com.tianrui.service.bean;
 
 public class MemberBankCard {
     private String id;
+    //联行号
+    private String bankLineNumber;
 
     private String bankstatus;
 
@@ -117,7 +119,15 @@ public class MemberBankCard {
         return idname;
     }
 
-    public void setIdname(String idname) {
+    public String getBankLineNumber() {
+		return bankLineNumber;
+	}
+
+	public void setBankLineNumber(String bankLineNumber) {
+		this.bankLineNumber = bankLineNumber;
+	}
+
+	public void setIdname(String idname) {
         this.idname = idname == null ? null : idname.trim();
     }
 

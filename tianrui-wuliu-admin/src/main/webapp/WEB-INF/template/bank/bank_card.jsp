@@ -80,7 +80,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                          <th>持卡人名称</th>
                                          <th>身份证号</th>
                                          <th>银行名称</th>
+                                         <th>银行简称</th>
                                          <th>开户行名称</th>
+                                         <th>开户行联行号</th>
                                          <th>认证状态 </th>
                                          <th>推送状态 </th>
                                          <th>创建时间</th>

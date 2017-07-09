@@ -74,8 +74,11 @@ function displayRect(pageNo){
 							"<td >"+data[a].bankcard+"</td>"+
 							"<td >"+data[a].idname+"</td>"+
 							"<td >"+(data[a].idcard==undefined?"":data[a].idcard)+"</td>"+
-							"<td >"+data[a].bankname+"</td>"+
+							"<td >"+(data[a].bankname==undefined?"":data[a].bankname)+"</td>"+
+							"<td >"+(data[a].bankcode==undefined?"":data[a].bankcode)+"</td>"+
+							
 							"<td >"+(data[a].desc1==undefined?"":data[a].desc1)+"</td>"+
+							"<td >"+(data[a].bankLineNumber==undefined?"":data[a].bankLineNumber)+"</td>"+
 							"<td >"+bankautid+"</td>"+
 							"<td >"+(pushStatus == 0 ? "<a onclick=\"showMassage('"+msg+"')\">未推送</a>" : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
 						    "<td >"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+

@@ -2,6 +2,9 @@ package com.tianrui.api.resp.bankcard;
 
 public class MemberBankCardResp {
     private String id;
+    
+    //联行号
+    private String bankLineNumber;
 
     private String bankstatus;
 
@@ -220,5 +223,13 @@ public class MemberBankCardResp {
 
 	public void setErrorMassage(String errorMassage) {
 		this.errorMassage = errorMassage;
+	}
+
+	public String getBankLineNumber() {
+		return bankLineNumber;
+	}
+
+	public void setBankLineNumber(String bankLineNumber) {
+		this.bankLineNumber = bankLineNumber;
 	}
 }
