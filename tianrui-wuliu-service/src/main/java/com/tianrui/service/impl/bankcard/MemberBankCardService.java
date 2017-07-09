@@ -251,6 +251,8 @@ public class MemberBankCardService implements IMemberBankCardService{
 	public void pushBankCardAndCallBackPushStatus(){
 		MemberBankCard record = new MemberBankCard();
 		record.setPushStatus(Constant.NOT_PUSH);
+		//1审核通过
+		record.setBankautid("1");
 		List<MemberBankCard> list = memberBankCardMapper.selectSelective(record);
 		if (CollectionUtils.isNotEmpty(list)) {
 			for (MemberBankCard bankCard : list) {
