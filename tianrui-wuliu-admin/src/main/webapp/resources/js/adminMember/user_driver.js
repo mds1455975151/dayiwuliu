@@ -183,7 +183,7 @@ function push(id){
 			success: function(result) {
 				if(result.code == "000000"){
 					alert("推送成功！");
-					searchSubmit();
+					driverSearch();
 				}else{
 					alert(result.error);
 				}
