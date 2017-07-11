@@ -45,4 +45,8 @@ public class TimeUtils {
 		}
 		return date;
 	}
+	
+	public static void main(String[] args) throws Exception {
+		System.out.println(StringZoLong("2017-07-09 00:00:00"));
+	}
 }
