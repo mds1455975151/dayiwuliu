@@ -671,12 +671,12 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				//支付成功
 				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_11.getCode())) {
 					payInvoiceMsg.setId(id);
-					payInvoiceMsg.setPaidAmount(payInvoiceMsg.getAmountPayable());
+					payInvoiceMsg.setPaidAmount(bean.getAmountPayable());
 					payInvoiceMsg.setPayStatus(Constant.TWO);
 					payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
 
 					payInvoice.setId(bean.getPayInvoiceId());
-					payInvoice.setPaidAmount(payInvoiceMsg.getAmountPayable());
+					payInvoice.setPaidAmount(bean.getAmountPayable());
 					payInvoice.setPayStatus(Constant.TWO);
 					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
 				}

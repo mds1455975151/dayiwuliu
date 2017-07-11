@@ -167,13 +167,13 @@ public class SignerBillService implements ISignerBillService{
 		pay.setCargoName(cargo.getCargoname());
 		//运单重量
 		pay.setBillWeight(bill.getTrueweight());
-		//安联运单 为总价
-		pay.setBillPrice(Double.valueOf(bill.getYf()));
+		//安联运单 单价
+		pay.setBillPrice(Double.valueOf(bill.getYf())/Double.valueOf(bill.getZzl()));
 		//税率
 		pay.setTaxRate(freight.getTallage());
 		
 		//前台运价确认价格
-		pay.setReceptionBillTotalPrice(Double.valueOf(bill.getYf()));
+		pay.setReceptionBillTotalPrice(pay.getBillPrice()*bill.getTrueweight());
 		//前台扣重扣杂
 		pay.setReceptionDeductWeightMisc(req.getDeduct_weight_misc());
 		//前台扣款
