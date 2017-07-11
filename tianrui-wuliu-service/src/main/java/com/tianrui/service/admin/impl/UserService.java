@@ -147,6 +147,9 @@ public class UserService implements IUserService{
 			update.setAccount(req.getAccount());
 			update.setUsertype(req.getUsertype());
 			update.setStatus(req.getStatus());
+			if(StringUtils.isNotBlank(req.getPassword())){
+				update.setPassword(req.getPassword());
+			}
 			usersMapper.updateByPrimaryKeySelective(update);
 			//删除所有关系
 			List<Integer> ids = new ArrayList<Integer>();
