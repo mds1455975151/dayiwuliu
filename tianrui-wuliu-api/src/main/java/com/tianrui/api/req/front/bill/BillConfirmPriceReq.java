@@ -5,8 +5,10 @@ public class BillConfirmPriceReq {
 	private String id;
 	
 	private String type;
-	//当前运价
-	private Double totalprice;
+	//单价
+	private Double billPrice;
+	//签收重量
+	private Double billTrueWeight;
 	//空重 扣杂
 	private Double deduct_weight_misc;
 	//扣款
@@ -15,8 +17,6 @@ public class BillConfirmPriceReq {
 	private Double deduct_other;
 	//油卡
 	private Double deduct_oil_card;
-	//实际支付
-	private Double truetotalprice;
 	//创建人
 	private String creater;
 	public String getId() {
@@ -30,15 +30,6 @@ public class BillConfirmPriceReq {
 	}
 	public void setType(String type) {
 		this.type = type;
-	}
-	public Double getTotalprice() {
-		if(totalprice==null){
-			totalprice=(double) 0;
-		}
-		return totalprice;
-	}
-	public void setTotalprice(Double totalprice) {
-		this.totalprice = totalprice;
 	}
 	public Double getDeduct_weight_misc() {
 		if(deduct_weight_misc==null){
@@ -77,19 +68,22 @@ public class BillConfirmPriceReq {
 	public void setDeduct_oil_card(Double deduct_oil_card) {
 		this.deduct_oil_card = deduct_oil_card;
 	}
-	public Double getTruetotalprice() {
-		if(truetotalprice==null){
-			truetotalprice = (double) 0;
-		}
-		return truetotalprice;
-	}
-	public void setTruetotalprice(Double truetotalprice) {
-		this.truetotalprice = truetotalprice;
-	}
 	public String getCreater() {
 		return creater;
 	}
 	public void setCreater(String creater) {
 		this.creater = creater;
+	}
+	public Double getBillPrice() {
+		return billPrice;
+	}
+	public void setBillPrice(Double billPrice) {
+		this.billPrice = billPrice;
+	}
+	public Double getBillTrueWeight() {
+		return billTrueWeight;
+	}
+	public void setBillTrueWeight(Double billTrueWeight) {
+		this.billTrueWeight = billTrueWeight;
 	}
 }

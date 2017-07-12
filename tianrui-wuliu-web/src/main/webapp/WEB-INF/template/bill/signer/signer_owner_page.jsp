@@ -208,8 +208,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <div class="tab-content">
 		                    <div class="tab-pane fade in active">
 			                    <div>
-			                    	<span>
+			                    	<span >
 				                    <label>当前运价：</label><span id="totalprice"></span>元
+			                    	</span>
+			                    </div>
+			                    <div style="margin-top: 10px">
+			                    	<span>
+				                    <label>签收重量：</label><input class="total_price_count" id="trueweight" type="text">吨
+			                    	</span>
+									<span style="float:right;">	
+				                    <label>单价：</label><input style="width: 137px" class="total_price_count" id="bill_price" type="text">元/吨
 			                    	</span>
 			                    </div>
 			                    <div style="margin-top: 10px">
@@ -277,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?07.01" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?07.12" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

@@ -91,10 +91,10 @@ function innerHTML(data){
 		
 		}else if(data[a].confirmPriceB == "0" && data[a].confirmPriceA == "1"){
 			//前台已确认，后台未运价确认-运价修改
-			hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价修改</button></a>";
+			hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"','"+data[a].trueweight+"')\">运价修改</button></a>";
 		}else if(data[a].confirmPriceA == "0"){
 			//前台未运价确认-运价确认
-			hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"')\">运价确认</button></a>";
+			hml +="<a ><button class='btn btnyello delBtn' onclick=\"yj_queren('"+data[a].id+"','"+data[a].billtype+"','"+data[a].totalprice+"','"+data[a].trueweight+"')\">运价确认</button></a>";
 		}
 		
 		hml +="<a ><button class='btn btnyello delBtn' onclick=\"billPosition('"+data[a].id+"','"+data[a].billtype+"')\"'>运单跟踪</button></a>" +
@@ -108,15 +108,17 @@ $(".pageMore").on("click",function(){
 	index(pageNo);
 });
 //运价确认
-function yj_queren(id,type,totalprice){
+function yj_queren(id,type,totalprice,trueweight){
 	$("#deduct_bill_id").val(id);
 	$("#deduct_bill_type").val(type);
 	$("#totalprice").html(totalprice);
-	$("#deduct_weight_misc").val("");
-	$("#deduct_money").val("");
-	$("#deduct_other").val("");
-	$("#deduct_oil_card").val("");
-	$("#true_totalprice").html("");
+	$("#trueweight").val(trueweight);
+	$("#bill_price").val(totalprice/trueweight);
+	$("#deduct_weight_misc").val("0");
+	$("#deduct_money").val("0");
+	$("#deduct_other").val("0");
+	$("#deduct_oil_card").val("0");
+	$("#true_totalprice").html(totalprice);
 	$.ajax({
 		url:"/trwuliu/payInvoiceItem_1/billSelectPrice",
 		type:"POST",
@@ -124,6 +126,11 @@ function yj_queren(id,type,totalprice){
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data;
+				
+				$("#totalprice").html(data.receptionBillTotalPrice);
+				$("#trueweight").val(data.billWeight);
+				$("#bill_price").val(data.billPrice);
+				
 				$("#deduct_weight_misc").val(data.receptionDeductWeightMisc);
 				$("#deduct_money").val(data.receptionDeductMoney);
 				$("#deduct_other").val(data.receptionDeductOther);
@@ -166,8 +173,12 @@ $(".total_price_count").on("change",function(){
 		alert("当前运价为空，不能进行运价确认。");
 		return;
 	}
-	var true_totalprice = totalprice-deduct_weight_misc-deduct_money-deduct_other-deduct_oil_card;
-	
+	//单价
+	var bill_price = $("#bill_price").val();
+	//签收量
+	var trueweight = $("#trueweight").val();
+	$("#totalprice").html(bill_price*trueweight);
+	var true_totalprice = (bill_price*trueweight)-deduct_weight_misc-deduct_money-deduct_other-deduct_oil_card;
 	$("#true_totalprice").html(true_totalprice.toFixed(2));
 	
 });
@@ -186,9 +197,11 @@ $(".confirmPrice").on("click",function(){
 	var deduct_money = $("#deduct_money").val().trim();
 	var deduct_other = $("#deduct_other").val().trim();
 	var deduct_oil_card = $("#deduct_oil_card").val().trim();
-	var true_totalprice = $("#true_totalprice").html().trim();
 	var deduct_bill_id = $("#deduct_bill_id").val().trim();
 	var deduct_bill_type = $("#deduct_bill_type").val().trim();
+	
+	var billPrice = $("#bill_price").val().trim();
+	var billTrueWeight = $("#trueweight").val().trim();
 	$.ajax({
 		url:"/trwuliu/billSigner/confirmTotalPrice",
 		type:"POST",
@@ -198,7 +211,8 @@ $(".confirmPrice").on("click",function(){
 			"deduct_money":deduct_money,
 			"deduct_other":deduct_other,
 			"deduct_oil_card":deduct_oil_card,
-			"truetotalprice":true_totalprice
+			"billPrice":billPrice,
+			"billTrueWeight":billTrueWeight
 		},
 		success:function(ret){
 			if(ret.code=="000000"){

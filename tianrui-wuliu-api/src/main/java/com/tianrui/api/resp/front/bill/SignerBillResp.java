@@ -27,6 +27,8 @@ public class SignerBillResp {
     
     private Double totalprice;
     
+    private Double trueweight;
+    
     private String signed;
     
     private String signedStr;
@@ -153,6 +155,14 @@ public class SignerBillResp {
 
 	public void setSigned(String signed) {
 		this.signed = signed;
+	}
+
+	public Double getTrueweight() {
+		return trueweight;
+	}
+
+	public void setTrueweight(Double trueweight) {
+		this.trueweight = trueweight;
 	}
 
 	public String getSignedStr() {

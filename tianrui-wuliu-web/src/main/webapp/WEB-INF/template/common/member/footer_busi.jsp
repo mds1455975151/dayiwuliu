@@ -20,8 +20,8 @@
                 </ul>
             </div>
             <div class="footline">
-                <p>Copyright © 2016 豫ICP备16036132号-1</p>
-                <p>中原大易物流科技有限公司版权所有</p>
+                 <a href="http://www.miitbeian.gov.cn"  target="_blank"><p style="color: white;">Copyright © 2016 豫ICP备16036132号-1</p></a>
+               <p>中原大易物流科技有限公司版权所有</p>
             </div>
               <div class="footxin">
                 <a href="/zs" target="_blank">

@@ -166,14 +166,13 @@ public class SignerBillService implements ISignerBillService{
 		//货物名称
 		pay.setCargoName(cargo.getCargoname());
 		//运单重量
-		pay.setBillWeight(bill.getTrueweight());
+		pay.setBillWeight(req.getBillTrueWeight());
 		//安联运单 单价
-		pay.setBillPrice(Double.valueOf(bill.getYf())/Double.valueOf(bill.getZzl()));
+		pay.setBillPrice(req.getBillPrice());
 		//税率
 		pay.setTaxRate(freight.getTallage());
-		
 		//前台运价确认价格
-		pay.setReceptionBillTotalPrice(pay.getBillPrice()*bill.getTrueweight());
+		pay.setReceptionBillTotalPrice(req.getBillTrueWeight()*req.getBillPrice());
 		//前台扣重扣杂
 		pay.setReceptionDeductWeightMisc(req.getDeduct_weight_misc());
 		//前台扣款
@@ -231,13 +230,13 @@ public class SignerBillService implements ISignerBillService{
 		//货物名称
 		pay.setCargoName(bill.getCargoname());
 		//运单重量
-		pay.setBillWeight(bill.getTrueweight());
+		pay.setBillWeight(req.getBillTrueWeight());
 		//运单单价
-		pay.setBillPrice(freight.getPrice());
+		pay.setBillPrice(req.getBillPrice());
 		//税率
 		pay.setTaxRate(freight.getTallage());
 		//账单总价
-		pay.setReceptionBillTotalPrice(bill.getTrueweight()*freight.getPrice());
+		pay.setReceptionBillTotalPrice(req.getBillPrice()*req.getBillTrueWeight());
 		//前台扣重扣杂
 		pay.setReceptionDeductWeightMisc(req.getDeduct_weight_misc());
 		//前台扣款
