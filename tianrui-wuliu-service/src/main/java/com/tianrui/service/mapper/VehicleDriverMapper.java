@@ -53,6 +53,9 @@ public interface VehicleDriverMapper {
      */
     int updateByPrimaryKey(VehicleDriver record);
     
+    List<VehicleDriver> findList(VehicleDriver record);
+    
+    long findListCount(VehicleDriver record);
     
     List<VehicleDriver> findWithEntity(VehicleDriver record);
     

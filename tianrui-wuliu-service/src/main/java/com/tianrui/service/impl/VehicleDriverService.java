@@ -10,14 +10,17 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.clause.FlashbackQueryClause.VersionsFlashbackQueryClause;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.MyVehicle;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
@@ -308,7 +311,7 @@ public class VehicleDriverService implements IVehicleDriverService {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public Result anlianInsert(VehicleDriverReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -340,5 +343,67 @@ public class VehicleDriverService implements IVehicleDriverService {
 		}
 		return rs;
 	}
+
+	@Override
+	public PaginationVO<VehicleDriverResp> find(VehicleDriverReq req) throws Exception {
+		
+		PaginationVO<VehicleDriverResp> page = new PaginationVO<VehicleDriverResp>();
+		VehicleDriver record = new VehicleDriver();
+		record.setDrivername(req.getDriverName());
+		record.setDrivertel(req.getDriverTel());
+		record.setVehicleno(req.getVehicleNo());
+		record.setVehicletypename(req.getVehicleTypeName());
+		record.setStart((req.getPageNo()-1)*req.getPageSize());
+		record.setLimit(req.getPageSize());
+		
+		List<VehicleDriver> list =vehicleDriverMapper.findList(record);
+		long a =vehicleDriverMapper.findListCount(record);
+		page.setList(convert2VehicleDriverList(list));
+		page.setPageNo(req.getPageNo());
+		page.setPageSize(req.getPageSize());
+		page.setTotal(a);
+		return page;
+	}
+
+	@SuppressWarnings("null")
+	@Override
+	public Result unbundled(String id) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		VehicleDriver vehicleDriver =vehicleDriverMapper.selectByPrimaryKey(id);
+		MemberVehicle vehicle=memberVehicleMapper.selectByVehicleid(vehicleDriver.getVehicleid());
+		if(null!=vehicleDriver&&null!=vehicle){
+			if(vehicle.getBillstatus().equals("5")){
+				vehicleDriverMapper.deleteByPrimaryKey(id);
+				rs.setCode("000000");
+				rs.setError("解绑成功！");
+			}else{
+				rs.setCode("2223");
+				rs.setError("解绑失败！");
+			}
+		}else{
+			rs.setCode("2223");
+			rs.setError("解绑失败！");
+		}
+		return rs;
+		
+	}
+
+	@Override
+	public VehicleDriverResp findUnbundledById(String id) throws Exception {
+		VehicleDriver m = vehicleDriverMapper.selectByPrimaryKey(id);
+//		MemberVehicle m = memberVehicleMapper.selectByPrimaryKey(id);
+		VehicleDriverResp resp = new VehicleDriverResp();
+		resp.setVehicleNo(m.getVehicleno());
+		resp.setDriverName(m.getDrivername());
+		resp.setDriverTel(m.getDrivertel());
+		resp.setVehicleTypeName(m.getVehicletypename());
+		resp.setCreator(m.getCreator());
+		resp.setVehicleRemark(m.getVehicleremark());
+		return resp;
+	}
+
+	
+
 	
 }

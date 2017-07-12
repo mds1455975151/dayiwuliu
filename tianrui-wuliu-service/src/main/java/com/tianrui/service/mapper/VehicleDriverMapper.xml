@@ -42,6 +42,49 @@
 		      </if>
     	</where>
   </select>
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.VehicleDriver" >
+    select 
+        <include refid="Base_Column_List" />
+      from  wuliu_vehicle_driver
+   	<where>1=1
+   	
+   	  <if test="vehicleno != null  and vehicleno !='' " >
+       and (vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
+      </if>
+ 	  <if test="drivername != null  and drivername !='' " >
+     	and (drivername like "%" #{drivername,jdbcType=VARCHAR} "%")
+      </if>
+      <if test="drivertel != null  and drivertel !='' " >
+     	and (drivertel like "%" #{drivertel,jdbcType=VARCHAR} "%")
+      </if>
+   		order by creatTime desc
+   		<if test="start != null and start != 0 and limit != null">
+	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+      </if>
+      <if test="start == 0 and limit != null">
+	    limit #{limit,jdbcType=INTEGER}
+      </if>
+  	</where> 
+  </select>
+  
+   <select id="findListCount" resultType="long" parameterType="com.tianrui.service.bean.VehicleDriver" >
+    select 
+        count(*)
+      from wuliu_vehicle_driver
+   	<where>1=1
+	   	<if test="vehicleno != null  and vehicleno !='' " >
+	       and (vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
+	      </if>
+	 	  <if test="drivername != null  and drivername !='' " >
+	     	and (drivername like "%" #{drivername,jdbcType=VARCHAR} "%")
+	      </if>
+	      <if test="drivertel != null  and drivertel !='' " >
+	     	and (drivertel like "%" #{drivertel,jdbcType=VARCHAR} "%")
+	      </if>
+	   		order by creatTime desc
+	   	
+   	</where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--
       WARNING - @mbggenerated

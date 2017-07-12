@@ -33,6 +33,7 @@ import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoRecordService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
+import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.MyVehicleReq;
 import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.capa.CapaReq;
@@ -42,6 +43,7 @@ import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.req.front.system.DataDictReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
+import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.common.DataDictResp;
@@ -50,9 +52,11 @@ import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
+import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
+import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.trwl.admin.util.SessionManager;
 
 /**
@@ -91,6 +95,8 @@ public class AdminMemberAction {
 	IMemberOwnerService memberOwnerService;
 	@Autowired
 	IDataService dataService;
+	@Autowired
+	private IVehicleDriverService vehicleDriverService;
 	/**
 	 * @描述:车主查询
 	 * @return
@@ -164,7 +170,61 @@ public class AdminMemberAction {
 		view.addObject("pageNo", pageNo);
 		return view;
 	}
-	
+	/**
+	 * 运力管理界面
+	 * @param pageNo
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/Capacity")
+	public ModelAndView chezhuManager(String pageNo,VehicleDriverReq req) throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/adminMember/management");
+		return view;
+	}
+	/**
+	 * 运力查询
+	 * @param req
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/findCapacity")
+	@ResponseBody
+	public Result findCapacity(VehicleDriverReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<VehicleDriverResp> page = vehicleDriverService.find(req);
+		rs.setData(page);
+		return rs;
+		
+	}
+	/**
+	 * 运力解绑
+	 * @param vehicleId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/unbundled")
+	@ResponseBody
+	public Result unbundled(String id)throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs=vehicleDriverService.unbundled(id);
+		return rs;
+		
+	}
+	/**
+	 * 运力解绑详情
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/findUnbundledById")
+	@ResponseBody
+	public Result findUnbundledById(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		VehicleDriverResp resp = vehicleDriverService.findUnbundledById(id);
+		rs.setData(resp);
+		return rs;
+	}
 	/**
 	 * 
 	 * @描述:司机信息查询
@@ -482,6 +542,7 @@ public class AdminMemberAction {
 		rs.setData(list);
 		return rs;
 	}
+	
 	/**
 	 * 
 	 * @描述:车辆详细信息

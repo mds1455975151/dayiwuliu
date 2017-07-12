@@ -3,6 +3,7 @@ package com.tianrui.api.intf;
 import java.util.List;
 
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -53,6 +54,27 @@ public interface IVehicleDriverService {
 	/** 已知安联账号，车辆司机绑定*/
 	public Result anlianInsert(VehicleDriverReq req)throws Exception;
 	
+	/**
+	 * 运力查询
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 */
+	public PaginationVO<VehicleDriverResp> find(VehicleDriverReq req)throws Exception;
+	/**
+	 * 运力解绑
+	 * @param vehicleId
+	 * @return
+	 * @throws Exception
+	 */
+	public Result unbundled(String id)throws Exception;
+	/**
+	 * 运力解绑详情
+	 * @param vehicleId
+	 * @return
+	 * @throws Exception
+	 */
+	public VehicleDriverResp findUnbundledById(String id)throws Exception;
 	/**
 	 * 车辆司机关系信息修改后保存操作
 	 * <p>
