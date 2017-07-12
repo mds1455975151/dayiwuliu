@@ -13,6 +13,9 @@ public class PayInvoiceDetail1Resp {
     private String payInvoiceId;
     //附件图片
   	private String appendix;
+  	private Double billweightB;
+    
+	private Double billpriceB;
     //司机ID
     private String driverId;
     //司机证件号码
@@ -404,6 +407,22 @@ public class PayInvoiceDetail1Resp {
 
 	public void setAppendix(String appendix) {
 		this.appendix = appendix;
+	}
+
+	public Double getBillweightB() {
+		return billweightB;
+	}
+
+	public void setBillweightB(Double billweightB) {
+		this.billweightB = billweightB;
+	}
+
+	public Double getBillpriceB() {
+		return billpriceB;
+	}
+
+	public void setBillpriceB(Double billpriceB) {
+		this.billpriceB = billpriceB;
 	}
     
 }

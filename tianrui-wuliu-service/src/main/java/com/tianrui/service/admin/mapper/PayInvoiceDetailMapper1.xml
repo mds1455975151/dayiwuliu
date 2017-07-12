@@ -42,6 +42,9 @@
     <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="appendix" property="appendix" jdbcType="VARCHAR" />
+    
+    <result column="billweightB" property="billweightB" jdbcType="DOUBLE" />
+    <result column="billpriceB" property="billpriceB" jdbcType="DOUBLE" />
 
   </resultMap>
   <sql id="Base_Column_List" >
@@ -51,7 +54,7 @@
     backstage_bill_total_price, reception_deduct_weight_misc, reception_deduct_money, 
     reception_deduct_other, reception_deduct_oil_card, backstage_deduct_weight_misc, 
     backstage_deduct_money, backstage_deduct_other, backstage_deduct_oil_card, whether_close, 
-    orgid, orgname, state, creator, create_time, modifier, modify_time, remark, appendix
+    orgid, orgname, state, creator, create_time, modifier, modify_time, remark, appendix, billweightB, billpriceB
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -169,7 +172,7 @@
       backstage_deduct_oil_card, whether_close, orgid, 
       orgname, state, creator, 
       create_time, modifier, modify_time, 
-      remark,appendix)
+      remark,appendix, billweightB, billpriceB)
     values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{payInvoiceId,jdbcType=VARCHAR}, 
       #{driverId,jdbcType=VARCHAR}, #{driverIdNo,jdbcType=VARCHAR}, #{venderId,jdbcType=VARCHAR}, 
       #{venderIdNo,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{ownerIdNo,jdbcType=VARCHAR}, 
@@ -184,7 +187,9 @@
       #{backstageDeductOilCard,jdbcType=DOUBLE}, #{whetherClose,jdbcType=BIT}, #{orgid,jdbcType=VARCHAR}, 
       #{orgname,jdbcType=VARCHAR}, #{state,jdbcType=BIT}, #{creator,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=BIGINT}, 
-      #{remark,jdbcType=VARCHAR},#{appendix,jdbcType=VARCHAR})
+      #{remark,jdbcType=VARCHAR},#{appendix,jdbcType=VARCHAR},
+      #{billweightB,jdbcType=DOUBLE}, 
+      #{billpriceB,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     insert into pay_invoice_detail_1
@@ -309,6 +314,12 @@
       <if test="appendix != null">
       	appendix,
       </if>
+      <if test="billpriceB != null">
+     	billpriceB,
+      </if>
+       <if test="billweightB != null">
+      	billweightB,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -431,11 +442,23 @@
        <if test="appendix != null">
       	#{appendix,jdbcType=VARCHAR},
       </if>
+      <if test="billpriceB != null">
+     	 #{billpriceB,jdbcType=DOUBLE},
+      </if>
+       <if test="billweightB != null">
+      	 #{billweightB,jdbcType=DOUBLE}, 
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     update pay_invoice_detail_1
     <set >
+    	<if test="billpriceB != null">
+     	billpriceB = #{billpriceB,jdbcType=DOUBLE},
+      </if>
+       <if test="billweightB != null">
+      	billweightB = #{billweightB,jdbcType=DOUBLE}, 
+      </if>
       <if test="appendix != null">
         appendix = #{appendix,jdbcType=VARCHAR},
       </if>
@@ -560,6 +583,8 @@
     update pay_invoice_detail_1
     set code = #{code,jdbcType=VARCHAR},
     	appendix = #{appendix,jdbcType=VARCHAR},
+    	billpriceB = #{billpriceB,jdbcType=DOUBLE},
+      	billweightB = #{billweightB,jdbcType=DOUBLE}, 
       pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR},
       driver_id = #{driverId,jdbcType=VARCHAR},
       driver_id_no = #{driverIdNo,jdbcType=VARCHAR},

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
+import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -52,7 +53,7 @@ public class PayInviceDetail1Action {
 	//后台运价确认
 	@RequestMapping("uptPrice")
 	@ResponseBody
-	public Result uptPrice(PayInvoiceDetail1Req req,HttpServletRequest request) throws Exception{
+	public Result uptPrice(BillConfirmPriceReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 		Users user = SessionManager.getSessionMember(request);
 		rs = payInvoiceDetail1Service.uptPrice(req,user.getAccount());

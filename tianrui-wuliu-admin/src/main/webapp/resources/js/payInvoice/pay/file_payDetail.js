@@ -98,6 +98,11 @@ function selectBill(id){
 	$("#file_fj").val("");
 	//附件url
 	$("#pay_fj").val("");
+	
+	$("#billPrice").val("");
+	//签收重量
+	$("#billWeight").val("");
+	
 	$(".fileinput-remove-button").click();
 	$.ajax({
 		url:"/pay/InviceDetail1/findById",
@@ -118,6 +123,8 @@ function selectBill(id){
 						-data.backstageDeductOilCard
 						-data.backstageDeductOther
 						-data.backstageDeductWeightMisc;
+					//总额
+					$("#billTotalPrice").val(data.backstageBillTotalPrice);
 					//油卡
 					$("#deductOilCard").val(data.backstageDeductOilCard);
 					//扣重扣杂
@@ -126,7 +133,10 @@ function selectBill(id){
 					$("#deductMoney").val(data.backstageDeductMoney);
 					//其它款项
 					$("#deductOther").val(data.backstageDeductOther);
-					
+					//单价
+					$("#billPrice").val(data.billpriceB);
+					//签收重量
+					$("#billWeight").val(data.billweightB);
 				}else {
 					//后台未运价确认
 					price = data.receptionBillTotalPrice 
@@ -134,6 +144,8 @@ function selectBill(id){
 						-data.receptionDeductOther
 						-data.receptionDeductWeightMisc
 						-data.receptionDeductOilCard;
+						//总额
+						$("#billTotalPrice").val(data.receptionBillTotalPrice);
 						//油卡
 						$("#deductOilCard").val(data.receptionDeductOilCard);
 						//扣重扣杂
@@ -142,13 +154,13 @@ function selectBill(id){
 						$("#deductMoney").val(data.receptionDeductMoney);
 						//其它款项
 						$("#deductOther").val(data.receptionDeductOther);
+						//单价
+						$("#billPrice").val(data.billPrice);
+						//签收重量
+						$("#billWeight").val(data.billWeight);
 				}
-				
-				//总额
-				$("#billTotalPrice").val(data.receptionBillTotalPrice);
 				//应付金额
 				$("#amountPayable").val(price.toFixed(2));
-				
 				//主键id
 				$("#payId").val(id);
 				
@@ -189,7 +201,12 @@ $(".total_price_count").on("change",function(){
 		alert("账单总额为空，不能进行运价确认。");
 		return;
 	}
-	var true_totalprice = totalprice-deduct_weight_misc-deduct_money-deduct_other-deduct_oil_card;
+	//单价
+	var billPrice = $("#billPrice").val();
+	//重量
+	var billWeight = $("#billWeight").val();
+	$("#billTotalPrice").val(billPrice*billWeight);
+	var true_totalprice = (billPrice*billWeight)-deduct_weight_misc-deduct_money-deduct_other-deduct_oil_card;
 	
 	$("#amountPayable").val(true_totalprice.toFixed(2));
 	
@@ -210,10 +227,12 @@ $("#auditCommit").on("click",function(){
 			url:"/pay/InviceDetail1/uptPrice",
 			data:{"id":$("#payId").val(),
 				"appendix":$("#pay_fj").val(),
-				"backstageDeductWeightMisc":$("#deductWeightMisc").val().trim(),
-				"backstageDeductMoney":$("#deductMoney").val().trim(),
-				"backstageDeductOther":$("#deductOther").val().trim(),
-				"backstageDeductOilCard":$("#deductOilCard").val().trim()
+				"billPrice":$("#billPrice").val(),
+				"billTrueWeight":$("#billWeight").val(),
+				"deduct_weight_misc":$("#deductWeightMisc").val().trim(),
+				"deduct_money":$("#deductMoney").val().trim(),
+				"deduct_other":$("#deductOther").val().trim(),
+				"deduct_oil_card":$("#deductOilCard").val().trim()
 			},
 			type:"POST",
 			success:function(ret){

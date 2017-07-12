@@ -117,6 +117,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="text" id="amountPayable" readonly="readonly">
 						</div>
 						<div class="model_width">
+							<label>单价：</label>
+							<input type="text" class="total_price_count" id="billPrice">
+						</div>
+						<div class="model_width">
+							<label>签收重量：</label>
+							<input type="text" class="total_price_count" id="billWeight">
+						</div>
+						<div class="model_width">
 							<label>油卡：</label>
 							<input type="text" class="total_price_count" id="deductOilCard">
 						</div>
@@ -157,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?07030" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?07121" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>

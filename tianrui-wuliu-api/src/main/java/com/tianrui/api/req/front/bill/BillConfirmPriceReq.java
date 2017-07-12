@@ -17,6 +17,8 @@ public class BillConfirmPriceReq {
 	private Double deduct_other;
 	//油卡
 	private Double deduct_oil_card;
+	//附件
+	private String appendix;
 	//创建人
 	private String creater;
 	public String getId() {
@@ -85,5 +87,11 @@ public class BillConfirmPriceReq {
 	}
 	public void setBillTrueWeight(Double billTrueWeight) {
 		this.billTrueWeight = billTrueWeight;
+	}
+	public String getAppendix() {
+		return appendix;
+	}
+	public void setAppendix(String appendix) {
+		this.appendix = appendix;
 	}
 }

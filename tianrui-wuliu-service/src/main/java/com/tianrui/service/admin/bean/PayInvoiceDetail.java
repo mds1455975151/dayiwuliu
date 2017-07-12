@@ -18,6 +18,10 @@ public class PayInvoiceDetail {
 	//附件图片
 	private String appendix;
 	
+	private Double billweightB;
+   
+	private Double billpriceB;
+	
 	private Integer pageNo;
 	
 	private Integer pageSize;
@@ -448,6 +452,22 @@ public class PayInvoiceDetail {
 
 	public void setAppendix(String appendix) {
 		this.appendix = appendix;
+	}
+
+	public Double getBillweightB() {
+		return billweightB;
+	}
+
+	public void setBillweightB(Double billweightB) {
+		this.billweightB = billweightB;
+	}
+
+	public Double getBillpriceB() {
+		return billpriceB;
+	}
+
+	public void setBillpriceB(Double billpriceB) {
+		this.billpriceB = billpriceB;
 	}
 
 	public PayInvoiceDetail() {

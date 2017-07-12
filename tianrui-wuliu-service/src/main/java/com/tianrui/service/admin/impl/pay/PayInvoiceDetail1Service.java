@@ -13,6 +13,7 @@ import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
+import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
@@ -119,7 +120,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	}
 	/** 后台运价确认*/
 	@Override
-	public Result uptPrice(PayInvoiceDetail1Req req,String account) throws Exception{
+	public Result uptPrice(BillConfirmPriceReq req,String account) throws Exception{
 		Result rs = Result.getSuccessResult();
 		PayInvoiceDetail pay = payInvoiceDetailMapper1.selectByPrimaryKey(req.getId());
 		//修改运单状态为后台已审核状态
@@ -152,8 +153,20 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		}
 		
 		PayInvoiceDetail upt = new PayInvoiceDetail();
-		PropertyUtils.copyProperties(upt, req);
-		upt.setBackstageBillTotalPrice(pay.getReceptionBillTotalPrice());
+		upt.setId(req.getId());
+		//后台总价
+		upt.setBackstageBillTotalPrice(req.getBillPrice()*req.getBillTrueWeight());
+		//后台单价
+		upt.setBillpriceB(req.getBillPrice());
+		//后台重量
+		upt.setBillweightB(req.getBillTrueWeight());
+		upt.setBackstageDeductMoney(req.getDeduct_money());
+		upt.setBackstageDeductOilCard(req.getDeduct_oil_card());
+		upt.setBackstageDeductOther(req.getDeduct_other());
+		upt.setBackstageDeductWeightMisc(req.getDeduct_weight_misc());
+		if(StringUtils.isNotBlank(req.getAppendix())){
+			upt.setAppendix(req.getAppendix());
+		}
 		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		
 		//支付对象为司机

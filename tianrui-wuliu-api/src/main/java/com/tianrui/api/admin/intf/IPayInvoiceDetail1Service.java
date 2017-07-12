@@ -4,6 +4,7 @@ package com.tianrui.api.admin.intf;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
+import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -16,7 +17,7 @@ public interface IPayInvoiceDetail1Service {
 	PayInvoiceDetail1Resp selectById(String id)throws Exception;
 	/**后台运价确认
 	 * @throws Exception */
-	public Result uptPrice(PayInvoiceDetail1Req req,String account) throws Exception;
+	public Result uptPrice(BillConfirmPriceReq req,String account) throws Exception;
 	/** 生成账单*/
 	public Result savePayInvoice(PayInviceSave1Req req)throws Exception;
 	/** 通过运单id 查询运价确认量*/
