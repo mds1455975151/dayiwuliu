@@ -186,11 +186,6 @@ function details(id){
 	 */
 	function unbundled(id){
 		if (confirm('是否解绑？')) {
-			var index = layer.load(2, {
-				
-				time: 1000*10,
-				shade: [0.3,'#fff'] //0.1透明度的白色背景
-			});
 		$.ajax({
 			url: CONTEXTPATH+'/AdminMember/unbundled',
 			data:{"id":id},
