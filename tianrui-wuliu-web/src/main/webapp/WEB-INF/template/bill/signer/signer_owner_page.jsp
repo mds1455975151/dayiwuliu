@@ -214,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    </div>
 			                    <div style="margin-top: 10px">
 			                    	<span>
-				                    <label>签收重量：</label><input class="total_price_count" id="trueweight" type="text">吨
+				                    <label>签收重量：</label><input class="total_price_count" id="trueweight" type="text" readonly >吨
 			                    	</span>
 									<span style="float:right;">	
 				                    <label>单价：</label><input style="width: 137px" class="total_price_count" id="bill_price" type="text">元/吨
