@@ -54,7 +54,7 @@ function displayRec(pageNo){
 							"<td>"+d[a].vehicleNo+"</td>"+
 							"<td>"+d[a].vehicleTypeName+"</td>"+
 							"<td>"+d[a].driverName+"</td>"+
-							"<td>"+d[a].driverTel+"<span><a data-toggle='modal' onclick=\"driverDetail('"+d[a].vehicleId+"')\" data-target='#unbundled'>【详情】</a></span></td>"+
+							"<td>"+d[a].driverTel+"</td>"+
 							"<td>"+d[a].createTime+"</td>"+
 							"<td><span><a data-toggle='modal' onclick=\"details('"+d[a].vehicleId+"')\" data-target='#detail'>【详情】</a></span>"+
 							"<span><a data-toggle='modal' onclick=\"unbundled('"+d[a].id+"')\" data-target='#unbundled'>【解绑】</a></span>"+
@@ -187,6 +187,7 @@ function details(id){
 	function unbundled(id){
 		if (confirm('是否解绑？')) {
 			var index = layer.load(2, {
+				
 				time: 1000*10,
 				shade: [0.3,'#fff'] //0.1透明度的白色背景
 			});
