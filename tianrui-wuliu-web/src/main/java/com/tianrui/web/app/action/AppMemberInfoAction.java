@@ -6,15 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.ISystemMemberInfoRecordService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.req.front.member.MemberReq;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
+import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
+import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
@@ -29,8 +30,6 @@ public class AppMemberInfoAction {
 
 	@Autowired
 	private ISystemMemberService systemMemberService;
-	@Autowired
-	private IFileService iFileService;
 	@Autowired
 	protected ISystemMemberInfoRecordService systemMemberInfoRecordService;
 	@Autowired
@@ -64,6 +63,16 @@ public class AppMemberInfoAction {
 		result.setCode("000000");
 		result.setReturnData(resp);
 		return result;
+	}
+	/** 查看认证信息*/
+	@RequestMapping(value="/findMemberAutid",method=RequestMethod.POST)
+	@ApiParamRawType(MemberReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult findMemberAutid(AppParam<MemberReq> appParam) throws Exception{
+		Head head = appParam.getHead();
+		Result rs = systemMemberInfoRecordService.memberRecoredAutid(head.getId());
+		return AppResult.valueOf(rs);
 	}
 	
 	/**
