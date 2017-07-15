@@ -15,6 +15,7 @@ function displayRec(pageNo){
 	var vehicleno = $("#vehicleno").val();
 	var drivername = $("#drivername").val();
 	var drivertel = $("#drivertel").val();
+	var desc1 = $("#desc1").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCapacity',
@@ -22,6 +23,7 @@ function displayRec(pageNo){
 			"vehicleNo":$.trim(vehicleno),
 			"driverName":$.trim(drivername),
 			"driverTel":$.trim(drivertel),
+			"desc1":$.trim(desc1),
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -49,15 +51,29 @@ function displayRec(pageNo){
 			    	var d = ret.data.list;
 					for (var a = 0; a < d.length; a++) {
 						var c = a+1;
+						var desc1 = "";
 						
+						if(d[a].desc1=='1'){
+							desc1 = "开票车辆";
+						}else{
+							desc1 = "普通车辆";
+						}
+						var aldriverid = d[a].aldriverid;
+						if(d[a].aldriverid == undefined){
+							aldriverid = "";
+						}
+						if(d[a].aldriverid == 1){
+							aldriverid = "";
+						}
 						hml += "<tr><td>"+c+"</td>"+
-							"<td>"+d[a].vehicleNo+"</td>"+
+							"<td>"+"<span><a  data-toggle='modal' onclick=\"details('"+d[a].vehicleId+"')\" data-target='#detail'>"+d[a].vehicleNo+"</a></span></td>"+
 							"<td>"+d[a].vehicleTypeName+"</td>"+
+							"<td>"+desc1+"</td>"+
+							"<td>"+aldriverid+"</td>"+
 							"<td>"+d[a].driverName+"</td>"+
-							"<td>"+d[a].driverTel+"</td>"+
+							"<td>"+"<span><a data-toggle='modal' onclick=\"driverDetail('"+d[a].driverId+"')\" data-target='#detail'>"+d[a].driverTel+"</a></span></td>"+
 							"<td>"+d[a].createTime+"</td>"+
-							"<td><span><a data-toggle='modal' onclick=\"details('"+d[a].vehicleId+"')\" data-target='#detail'>【详情】</a></span>"+
-							"<span><a data-toggle='modal' onclick=\"unbundled('"+d[a].id+"')\" data-target='#unbundled'>【解绑】</a></span>"+
+							"<td>"+"<span><a data-toggle='modal' onclick=\"unbundled('"+d[a].id+"')\" data-target='#unbundled'>【解绑】</a></span></td>"+
 							"</td></tr>";
 					}
 			    }  
@@ -84,6 +100,7 @@ function clearSearch(){
 	$("#vehicleno").val("");
 	$("#drivername").val("");
 	$("#drivertel").val("");
+	$("#desc1").val("");
 	displayRec(0);
 }
 
@@ -92,16 +109,79 @@ function clearSearch(){
  * 司机详情
  */
 function driverDetail(id){
-	alert(id);
+//	alert(id);
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findDriverDetail',
-		data:{"vehicleId":id},
+		data:{"driverId":id},
 		type:"post",
 		success: function(ret) {
-			alert(666);
+			var a = ret.data;
+			var per = "";
+			if(a.driverpercheck=='0'){
+				per = "未认证";
+			}
+			if(a.driverpercheck=='1'){
+				per = "认证通过";
+			}
+			if(a.driverpercheck=='2'){
+				per = "认证中";
+			}
+			if(a.driverpercheck=='3'){
+				per = "认证失败";
+			}
+			var userName = a.userName;
+			if(a.userName == undefined){
+				userName = "";
+			}
+			var telphone = a.telphone;
+			if(a.telphone == undefined){
+				telphone = "";
+			}
+			var identityCard = a.identityCard;
+			if(a.identityCard == undefined){
+				identityCard = "";
+			}
+			var sex = a.sex == undefined ? "":a.sex;
+			var birthday = a.birthday == undefined ? "":a.birthday;
+			var firstlicens = a.firstlicens == undefined ? "":a.firstlicens;
+			var licenceorg = a.licenceorg == undefined ? "":a.licenceorg;
+			var starttime = a.starttime == undefined ? "":a.starttime;
+			var usefullife = a.usefullife == undefined ? "":a.usefullife;
+			var idcardaddress = a.idcardaddress == undefined ? "":a.idcardaddress;
+			if(sex == "xx"){
+				sex = "女";
+			}else if(sex == "xy"){
+				sex = "男";
+			}
+			var driveImagePath = a.driveImagePath == undefined?"未上传":("<span><a href='/imageView/index?imageUrl="+a.driveImagePath+"' target='_blank'>查看图片</a>");
+			var idcard_image_A = a.positive == undefined?"未上传":("<span><a href='/imageView/index?imageUrl="+a.positive+"' target='_blank'>查看图片</a>");
+			var idcard_image_B = a.opposite == undefined?"未上传":("<span><a href='/imageView/index?imageUrl="+a.opposite+"' target='_blank'>查看图片</a>");
+			var licenseType = a.licenseType == undefined ? "":a.licenseType;
+			document.getElementById("detailid").innerHTML = "";	
+			var hmls = "<div class='file_detail'><label>司机账号：</label><span>"+a.cellPhone+"</span></div>"+
+				"<div class='file_detail'><label>司机姓名：</label><span>"+userName+"</span></div>"+
+				
+				"<div class='file_detail'><label>司机性别：</label><span>"+sex+"</span></div>"+
+				"<div class='file_detail'><label>出生日期：</label><span>"+birthday+"</span></div>"+
+				"<div class='file_detail'><label>身份证地址：</label><span>"+idcardaddress+"</span></div>"+
+				"<div class='file_detail'><label>初次领证日期：</label><span>"+firstlicens+"</span></div>"+
+				"<div class='file_detail'><label>发证机关：</label><span>"+licenceorg+"</span></div>"+
+				"<div class='file_detail'><label>有效年限：</label><span>"+usefullife+"</span></div>"+
+				"<div class='file_detail3'><label>驾驶证注册日期：</label><span>"+starttime+"</span></div>"+
+				
+				"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
+				"<div class='file_detail'><label>驾驶证号：</label><span>"+identityCard+"</span></div>"+
+				"<div class='file_detail'><label>准驾车型：</label><span>"+licenseType+"</span></div>"+
+				"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
+				"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
+				"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+
+				"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>"+
+				"<div class='file_detail2'><label>身份证正面：</label><span>"+idcard_image_A+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></span></div>"+
+				"<div class='file_detail2'><label>身份证反面：</label><span>"+idcard_image_B+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></span></div>";
+			document.getElementById("detailid").innerHTML = hmls;	
 			
 		}
-	})
+	});
 			
 }
 /**

@@ -43,6 +43,7 @@ import com.tianrui.api.req.front.member.MemberUpdateReq;
 import com.tianrui.api.req.front.system.DataDictReq;
 import com.tianrui.api.req.front.vehicle.MemberOwnerReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
+import com.tianrui.api.req.front.vehicle.VehicleDriverMemberReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.admin.PageResp;
@@ -52,11 +53,13 @@ import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.MemberOwnerResp;
 import com.tianrui.api.resp.front.vehicle.MemberVehicleResp;
+import com.tianrui.api.resp.front.vehicle.VehicleDriverMemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.VehicleDriverMember;
 import com.tianrui.trwl.admin.util.SessionManager;
 
 /**
@@ -190,9 +193,9 @@ public class AdminMemberAction {
 	 */
 	@RequestMapping("/findCapacity")
 	@ResponseBody
-	public Result findCapacity(VehicleDriverReq req) throws Exception{
+	public Result findCapacity(VehicleDriverMemberReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		PaginationVO<VehicleDriverResp> page = vehicleDriverService.find(req);
+		PaginationVO<VehicleDriverMemberResp> page = vehicleDriverService.find(req);
 		rs.setData(page);
 		return rs;
 		
@@ -345,6 +348,21 @@ public class AdminMemberAction {
 		rs.setData(list);
 		return rs;
 	}
+	/**
+	 * 查询运力管理中司机详情
+	 * @param member
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/findDriverDetail")
+	@ResponseBody
+	public Result findDriverDetail(String driverId) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberResp resp = systemMemberService.findByMemberId(driverId);
+		rs.setData(resp);
+		return rs;
+	}
+	
 	/**
 	 * 
 	 * @描述:车主档案查询

@@ -2,8 +2,10 @@ package com.tianrui.api.intf;
 
 import java.util.List;
 
+import com.tianrui.api.req.front.vehicle.VehicleDriverMemberReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
+import com.tianrui.api.resp.front.vehicle.VehicleDriverMemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -60,7 +62,7 @@ public interface IVehicleDriverService {
 	 * @return
 	 * @throws Exception
 	 */
-	public PaginationVO<VehicleDriverResp> find(VehicleDriverReq req)throws Exception;
+	public PaginationVO<VehicleDriverMemberResp> find(VehicleDriverMemberReq req)throws Exception;
 	/**
 	 * 运力解绑
 	 * @param vehicleId

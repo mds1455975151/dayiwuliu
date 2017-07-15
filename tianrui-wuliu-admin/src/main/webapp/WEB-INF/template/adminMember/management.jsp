@@ -51,6 +51,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <label>司机电话：</label>
                                     <input type="text" id="drivertel" placeholder=" ">
                                 </div>
+                                  <div class="ht_div">
+                                        <label>认证状态:</label>
+                                        <select class="form-control" id="desc1">
+                                            <option value="">请选择</option>
+                                            <option value="1">开票车辆</option>
+                                            <option value="3">普通车辆</option>
+                                        </select>
+                                </div>
                             </div>
                             <div class="contuser_search">
                                 <div class="ht_divbtn">
@@ -72,6 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <th>序号</th>
                                         <th>车牌号</th>
                                         <th>车型</th>
+                                        <th>车辆认证类型</th>
+                                        <th>安联关联司机ID</th>
                                         <th>司机姓名</th>
                                         <th>司机电话</th>
                                        <!--  <th>车辆状态</th> -->
@@ -189,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/management.js?07.120" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/management.js?07.140" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 

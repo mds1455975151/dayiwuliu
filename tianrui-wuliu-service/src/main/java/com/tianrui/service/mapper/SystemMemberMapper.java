@@ -66,5 +66,11 @@ public interface SystemMemberMapper {
     long findsMemberListCount(MemberFind find);
     
     Members findsMemberbyId(String id);
+    /**
+     * 运力管理联合查询
+     * @param id
+     * @return
+     */
+	Members findByMemberId(String id);
     
 }

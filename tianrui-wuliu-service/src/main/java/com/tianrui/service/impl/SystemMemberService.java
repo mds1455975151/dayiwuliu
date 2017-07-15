@@ -578,6 +578,14 @@ public class SystemMemberService implements ISystemMemberService{
 		}
 		return rs;
 	}
+	@Override
+	public MemberResp findByMemberId(String id) throws Exception {
+		Members m= systemMemberMapper.findByMemberId(id);
+		MemberResp resp = new MemberResp();
+		PropertyUtils.copyProperties(resp, m);
+		return resp;
+		
+	}
 	
 	
 }

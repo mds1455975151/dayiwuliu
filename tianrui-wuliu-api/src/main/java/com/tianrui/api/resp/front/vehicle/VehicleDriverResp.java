@@ -34,7 +34,8 @@ public class VehicleDriverResp extends BaseResp{
 	private String creator;
 	/** 创建时间 */
 	private String createTime;
-	
+	private String aldriverid;
+	private String desc1;
 	/**
 	 * 获取主键
 	 * @return id
@@ -210,4 +211,22 @@ public class VehicleDriverResp extends BaseResp{
 	public void setCreateTime(String newCreateTime) {
 		this.createTime = newCreateTime;
 	}
+
+	public String getAldriverid() {
+		return aldriverid;
+	}
+
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+
+	public String getDesc1() {
+		return desc1;
+	}
+
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
+	
+	
 }
