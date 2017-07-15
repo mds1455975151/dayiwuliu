@@ -66,6 +66,8 @@ public interface ISystemMemberInfoRecordService {
 	MemberInfoRecordResp findByMemberId(String id)throws Exception;
 	
 	MemberInfoRecordResp findByMemberRecordId(String id)throws Exception;
+	/** 查看最新认证信息*/
+	Result memberRecoredAutid(String id)throws Exception;
 	/**
 	 * 
 	 * @描述:查询认证记录

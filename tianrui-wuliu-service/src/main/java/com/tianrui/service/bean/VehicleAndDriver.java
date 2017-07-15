@@ -54,6 +54,8 @@ public class VehicleAndDriver implements IModel {
 	private String desc1;
 	/** 1-临时车辆 2-认证车辆*/
 	private String desc2;
+	/** 经营许可证有效期*/
+	private String desc3;
 	/** 认证失败原因 */
 	private String memo;
 	/** 创建认证时间*/
@@ -333,6 +335,14 @@ public class VehicleAndDriver implements IModel {
 	 */
 	public void setVehiprefix(String newVehiprefix) {
 		this.vehiprefix = newVehiprefix;
+	}
+
+	public String getDesc3() {
+		return desc3;
+	}
+
+	public void setDesc3(String desc3) {
+		this.desc3 = desc3;
 	}
 
 	/**

@@ -41,7 +41,7 @@
 			f.opposite opposite
 	FROM
 		member_info_record f
-	LEFT JOIN member m ON m.ID = f.memberid
+	LEFT JOIN member m ON m.ID = f.memberid and m.submittime = f.submittime
 	WHERE
 		1 = 1
 		<if test="memberid != null and memberid != ''">

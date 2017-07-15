@@ -365,8 +365,9 @@ public class AnlianService implements IAnlianService{
 		driver.setQsrq(info.getStarttime());
 		/** 有效年限*/
 		driver.setYxqx(info.getUsefullife());
-		/** 手机号码*/
-		driver.setSjhm(info.getTelphone());
+		/** 手机号码 */
+		driver.setSjhm(member.getCellphone());
+//		driver.setSjhm(info.getTelphone());
 		/***/
 		driver.setEmail("");
 		/***/

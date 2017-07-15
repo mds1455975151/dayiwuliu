@@ -270,7 +270,22 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		if(list.size()==1){
 			PropertyUtils.copyProperties(resp, list.get(0));
 		}
-		return null;
+		return resp;
+	}
+
+	@Override
+	public Result memberRecoredAutid(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		SystemMemberInfoRecord record = new SystemMemberInfoRecord();
+		record.setMemberid(id);
+		List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(record);
+		if(list.size()==1){
+			rs.setData(list.get(0));
+		}else {
+			rs.setCode("1");
+			rs.setError("用户尚未进行认证");
+		}
+		return rs;
 	}
 
 }
