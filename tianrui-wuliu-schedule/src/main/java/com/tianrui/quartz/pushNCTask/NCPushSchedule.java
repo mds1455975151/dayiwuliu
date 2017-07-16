@@ -33,11 +33,17 @@ public class NCPushSchedule {
 	@Autowired
 	private IPayInvoiceService payInvoiceService;
 
+	/**
+	 * @annotation 定时查询供应商NC审核状态并回写
+	 */
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void callBackMemberPushStatus(){
 		systemMemberInfoService.callBackMemberPushStatus();
 	}
 
+	/**
+     * @annotation 定时推送银行卡并回写推送状态
+     */
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void pushBankCardAndCallBackPushStatus(){
 		memberBankCardService.pushBankCardAndCallBackPushStatus();
@@ -48,6 +54,9 @@ public class NCPushSchedule {
 //		payInvoiceService.callBackPayInvoicePaidAmount();
 //	}
 
+	/**
+     * @annotation 定时查询支付状态和金额并回写
+     */
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void callBackPayInvoicePayStatus(){
 		payInvoiceService.callBackPayInvoicePayStatus();
