@@ -47,6 +47,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>发票类型：</label>
                             <input type="text" id="invoiceName" placeholder=" ">
                         </div>
+                        <div class="ht_div">
+                        	<label>运单状态：</label>
+                            <select id="billPayStatus" class="form-control">
+                            	<option value="">请选择</option>
+ 								<option value="1">未确认</option>
+ 								<option value="2">已确认</option>
+ 								<option value="3">已合单</option>
+                            </select>
+                        </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue " onclick="searchMember();" type="submit">搜索</button>
                         </div>
@@ -165,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?07121" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0717" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>

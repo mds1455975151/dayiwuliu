@@ -72,6 +72,17 @@
 			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
 			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
 			</if>
+			<if test="billPayStatus == 1">
+				and backstage_bill_total_price = 0
+				and whether_close = 0
+			</if>
+			<if test="billPayStatus == 2">
+				and backstage_bill_total_price != 0
+				and whether_close = 0
+			</if>
+			<if test="billPayStatus == 3">
+				and whether_close = 1
+			</if>
 			<if test="whetherClose != null">
 				and whether_close = #{whetherClose,jdbcType=BIT}
 			</if>
@@ -121,6 +132,17 @@
 			<if test="searchKey != null and searchKey != ''">
 			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
 			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			</if>
+			<if test="billPayStatus == 1">
+				and backstage_bill_total_price = 0
+				and whether_close = 0
+			</if>
+			<if test="billPayStatus == 2">
+				and backstage_bill_total_price != 0
+				and whether_close = 0
+			</if>
+			<if test="billPayStatus == 3">
+				and whether_close = 1
 			</if>
 			<if test="whetherClose != null">
 				and whether_close = #{whetherClose,jdbcType=BIT}

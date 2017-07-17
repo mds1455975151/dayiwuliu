@@ -64,7 +64,6 @@ public class MemberBankCardService implements IMemberBankCardService{
 			//MemberVo memberVo = memberVoService.get(req.getCreater());
 			SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getCreater());
 			if (member != null && validateUserRole(rs, member, req.getDesc4(), req.getBankimg())) {
-				record.setDesc4(req.getDesc4());
 				record.setCreater(req.getCreater());
 				List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
 				record.setBankcard(req.getBankcard());
@@ -124,6 +123,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 						record.setTelphone(memberInfo.getTelphone());
 					}
 				}
+				record.setDesc4(req.getDesc4());
 				record.setBankimg(req.getBankimg());
 				record.setCreater(req.getCreater());
 				record.setCreatetime(System.currentTimeMillis());

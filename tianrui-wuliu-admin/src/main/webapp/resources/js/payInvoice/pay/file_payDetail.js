@@ -13,6 +13,7 @@ function displayData(pageNo){
 		data:{
 			"invoiceName":invoiceName,
 			"code":code,
+			"billPayStatus":$("#billPayStatus").val(),
 			"pageNo":(pageNo),
 			"pageSize":pageSize
 		},
@@ -53,6 +54,7 @@ function displayData(pageNo){
 							"<td>"+bytpe+"</td>"+
 							"<td>"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 							"<td>";
+						hml +="<span><a onclick=\"detail_pay('"+data[a].id+"')\">【运单详情】</a></span>";
 						if(data[a].whetherClose == false){
 							if(data[a].backstageBillTotalPrice==0){
 								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价确认】</a></span>";
@@ -80,6 +82,10 @@ function displayData(pageNo){
 			}
 		}
 	});
+}
+
+function detail_pay(id){
+	window.open("/pay/InviceDetail1/payInviceDetail?menuId=134&id="+id);
 }
 
 function selectBill(id){

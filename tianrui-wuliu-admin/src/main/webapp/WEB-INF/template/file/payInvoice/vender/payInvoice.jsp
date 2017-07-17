@@ -60,6 +60,10 @@
 					<div class="col-md-12">
 						<div class="contuser_search">
 							<div class="ht_div">
+								<label>账单号：</label> <input id="payCode" type="text"
+									placeholder="请输入账单号">
+							</div>
+							<div class="ht_div">
 								<label>运单号：</label> <input id="billCode" type="text"
 									placeholder="请输入运单号">
 							</div>
@@ -67,6 +71,15 @@
 								<label>货物名称：</label> <input id="cargoName" type="text"
 									placeholder="请输入货物名称">
 							</div>
+							<div class="ht_div">
+	                        	<label>支付状态：</label>
+	                            <select id="payStatus" class="form-control">
+	                            	<option value="">请选择</option>
+	 								<option value="3">未支付</option>
+	 								<option value="5">支付中</option>
+	 								<option value="6">已支付</option>
+	                            </select>
+	                        </div>
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" type="submit">搜索</button>
 								<button class="btn btngreen reset" type="submit">重置</button>
@@ -143,6 +156,7 @@
 	                            <th>发票类型</th>
 	                            <th>货物名称</th>
 	                            <th>支付对象</th>
+	                            <th>账单详情</th>
 	                        </tr>
 	                        </thead>
 	                        <tbody id="paylist">
@@ -237,6 +251,6 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.pagination.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/payInvoice/vender/payInvoice.js?07032"></script>
+		src="/resources/js/payInvoice/vender/payInvoice.js?0717"></script>
 </body>
 </html>

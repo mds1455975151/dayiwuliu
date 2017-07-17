@@ -15,6 +15,8 @@ public class PayInvoiceDetail {
 	private List<String> ids;
 	//查询关键字
 	private String searchKey;
+	//运价确认状态 1-未确认  2-已确认  3-已合单
+	private String billPayStatus;
 	//附件图片
 	private String appendix;
 	
@@ -402,7 +404,15 @@ public class PayInvoiceDetail {
         return modifyTime;
     }
 
-    public void setModifyTime(Long modifyTime) {
+    public String getBillPayStatus() {
+		return billPayStatus;
+	}
+
+	public void setBillPayStatus(String billPayStatus) {
+		this.billPayStatus = billPayStatus;
+	}
+
+	public void setModifyTime(Long modifyTime) {
         this.modifyTime = modifyTime;
     }
 
