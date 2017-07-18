@@ -12,13 +12,16 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IMemberVoService;
+import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.req.bankcard.PushNCBankCard;
+import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
+import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.HttpRequestUtil;
 import com.tianrui.common.utils.HttpUtil;
 import com.tianrui.common.utils.UUIDUtil;
@@ -53,6 +56,8 @@ public class MemberBankCardService implements IMemberBankCardService{
 	IMemberVoService memberVoService;
 	@Autowired
 	private TaskExecutor taskExecutor;
+	@Autowired
+	IMessageService messageService;
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
@@ -236,8 +241,18 @@ public class MemberBankCardService implements IMemberBankCardService{
 		MemberBankCard bank = memberBankCardMapper.selectByPrimaryKey(req.getId());
 		bank.setBankautid(req.getBankautid());
 		bank.setAuditor(req.getAuditor());
+		bank.setAuditMassage(req.getAuditMassage());
 		bank.setAuditortime(System.currentTimeMillis());
 		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(bank.getCreater());
+		//消息推送
+		SendMsgReq mreq = new SendMsgReq();
+		List<String> strs = new ArrayList<String>();
+//		strs.add(bank.getTelphone());
+//		strs.add(bank.getAuditMassage());
+		mreq.setParams(strs);
+		mreq.setType("1");
+		mreq.setRecid(bank.getCreater());
+		mreq.setRecname(bank.getIdname());
 		if(StringUtils.equals("1", req.getBankautid())){
 			//银行卡认证成功
 			if(info.getPushStatus()==Constant.YES_PUSH && info.getNcStatus()==Constant.NC_MEMBER_PUSH_STATUS_YES_ORG){
@@ -246,14 +261,24 @@ public class MemberBankCardService implements IMemberBankCardService{
 						&& info.getPushStatus() == Constant.YES_PUSH) {
 					pushBankCard(bank);
 				}
+				strs.add(bank.getBankcard());
+				mreq.setCodeEnum(MessageCodeEnum.ADMIN_BANKCARD_PASS);
+				mreq.setRecType(MessageCodeEnum.ADMIN_BANKCARD_PASS.getType());
+				messageService.sendMessageInside(mreq);
 				memberBankCardMapper.updateByPrimaryKeySelective(bank);
 			}else{
 				rs.setCode("1");
 				rs.setError("该用户暂未符合NC推送状态");
 			}
 		}else{
+			strs.add(bank.getBankcard());
+			strs.add(bank.getAuditMassage());
+			mreq.setCodeEnum(MessageCodeEnum.ADMIN_BANKCARD_NOTPASS);
+			mreq.setRecType(MessageCodeEnum.ADMIN_BANKCARD_NOTPASS.getType());
+			messageService.sendMessageInside(mreq);
 			memberBankCardMapper.updateByPrimaryKeySelective(bank);
 		}
+		
 		return rs;
 	}
 	

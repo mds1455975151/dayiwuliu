@@ -78,6 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                          <th>序号</th>
                                          <th>银行卡账户 </th>
                                          <th>持卡人名称</th>
+                                         <th>持卡人电话</th>
                                          <th>银行名称</th>
                                          <th>开户行名称</th>
                                          <th>认证状态 </th>
@@ -171,9 +172,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body">
             <button type="button" class="btn tongguo">通过</button>
-            <button type="button" class="btn butongguo">不通过</button>
+            <button type="button" class="btn butongguo">不通过</button></br></br></br>
             <input type="hidden" id="bank_status">
             <input type="hidden" id="bank_id">
+            <textarea id="auditMassage" name="auditMassage" rows="4" cols="80"></textarea>
             </div>
             <div class="modal-body">
 			<span style="color: red" id="error_massage"></span>
@@ -195,6 +197,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bank/bank_card.js?07090" ></script>
+<script type="text/javascript" src="/resources/js/bank/bank_card.js?07088" ></script>
 </body>
 </html>

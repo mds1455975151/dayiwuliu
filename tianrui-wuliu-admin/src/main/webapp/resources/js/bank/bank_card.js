@@ -73,9 +73,10 @@ function displayRect(pageNo){
 						hml += "<tr><td >"+d+"</td>"+
 							"<td >"+data[a].bankcard+"</td>"+
 							"<td >"+data[a].idname+"</td>"+
+							"<td >"+(data[a].telphone==undefined?"":data[a].telphone)+"</td>"+
 							"<td >"+(data[a].bankname==undefined?"":data[a].bankname)+"</td>"+
 							"<td >"+(data[a].desc1==undefined?"":data[a].desc1)+"</td>"+
-							"<td >"+bankautid+"</td>"+
+							"<td>"+"<span><a data-toggle='modal' onclick=\"massage('"+data[a].auditMassage+"')\" >"+bankautid+"</a></span></td>"+
 							"<td >"+(pushStatus == 0 ? "<a onclick=\"showMassage('"+msg+"')\">未推送</a>" : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
 						    "<td >"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 						    		"<td>";
@@ -105,7 +106,11 @@ function displayRect(pageNo){
 function showMassage(msg){
 		alert(msg);
 }
-
+function massage(auditMassage){
+	if(auditMassage!='undefined'){
+		alert(auditMassage);
+	}
+}
 function bankdetails(id){
 	detailClear();
 	$.ajax({
@@ -138,7 +143,6 @@ function bankdetails(id){
 		}
 	});
 }
-
 function detailClear(){
 	$("#bankcard_mg").html("");
 	$("#idname_mg").html("");
@@ -156,18 +160,22 @@ function Bankshenhe(id){
 	$("#bank_status").val("");
 	$(".butongguo").css('background','');
 	$(".tongguo").css('background','');
-	
+	$("#auditMassage").hide();
 	$("#error_massage").html("");
 }
 $(".tongguo").on("click",function(){
 	$(this).css('background','#B9D3EE');
 	$(".butongguo").css('background','');
 	$("#bank_status").val("1");
+	$("#auditMassage").hide();
 });
 $(".butongguo").on("click",function(){
 	$(this).css('background','#B9D3EE');
 	$(".tongguo").css('background','');
 	$("#bank_status").val("3");
+	$("#auditMassage").val("");
+	$("#auditMassage").show();
+	
 });
 
 $(".bank_shenhe").on("click",function(){
@@ -179,7 +187,8 @@ $(".bank_shenhe").on("click",function(){
 	$.ajax({
 		url:'/admin/bank/card/autid',
 		data:{"id":$("#bank_id").val(),
-			"bankautid":$("#bank_status").val()
+			"bankautid":$("#bank_status").val(),
+			"auditMassage":$("#auditMassage").val()
 		},
 		type:"post",
 		success: function(ret) {
