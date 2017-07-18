@@ -11,7 +11,8 @@ public class PayInvoiceDetail1FindReq {
 	private String idStr;
 	
 	private String searchKey;
-	
+	//运价确认状态 1-未确认  2-已确认  3-已合单
+	private String billPayStatus;
 	//单据编号
     private String code;
     //发票类型NAME
@@ -118,5 +119,11 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setDriverId(String driverId) {
 		this.driverId = driverId;
+	}
+	public String getBillPayStatus() {
+		return billPayStatus;
+	}
+	public void setBillPayStatus(String billPayStatus) {
+		this.billPayStatus = billPayStatus;
 	}
 }
