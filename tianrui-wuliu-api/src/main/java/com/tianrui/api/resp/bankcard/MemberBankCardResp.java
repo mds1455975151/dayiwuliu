@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.bankcard;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MemberBankCardResp {
     private String id;
     
@@ -31,6 +34,8 @@ public class MemberBankCardResp {
     private String creater;
 
     private Long createtime;
+    
+    private String createtimeStr;
 
     private String auditor;
 
@@ -156,7 +161,19 @@ public class MemberBankCardResp {
         this.creater = creater == null ? null : creater.trim();
     }
 
-    public Long getCreatetime() {
+    public String getCreatetimeStr() {
+		if(createtime != null){
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			createtimeStr = fmt.format(new Date(createtime));
+		}
+    	return createtimeStr;
+	}
+
+	public void setCreatetimeStr(String createtimeStr) {
+		this.createtimeStr = createtimeStr;
+	}
+
+	public Long getCreatetime() {
         return createtime;
     }
 

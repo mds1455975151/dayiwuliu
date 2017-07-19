@@ -13,6 +13,7 @@ import com.tianrui.api.intf.ISystemMemberInfoRecordService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.intf.IVehicleTicketService;
+import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.admin.weixin.WeixinUserReq;
 import com.tianrui.api.req.front.vehicle.TicketFindReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
@@ -33,6 +34,8 @@ public class WeixinPageAction {
 	ISystemMemberInfoService systemMemberInfoService;
 	@Autowired
 	IWXUserService wxUserService;
+	@Autowired
+	IMemberBankCardService memberBankCardService;
 	
 	@RequestMapping("excitLogin")
 	@ResponseBody
@@ -40,6 +43,14 @@ public class WeixinPageAction {
 		Result rs = Result.getSuccessResult();
 		rs = wxUserService.exciWXtLogin(req);
 		return rs;
+	}
+	
+	@RequestMapping("bankdetail")
+	public ModelAndView bankdetail(String id) throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.addObject("bank", memberBankCardService.findBankCardById(id).getData());
+		view.setViewName("/weixin/bank_detail");
+		return view;
 	}
 	
 	@RequestMapping("driverdetail")
@@ -88,7 +99,6 @@ public class WeixinPageAction {
 	@RequestMapping("kaipiaodetail")
 	public ModelAndView kaipiao(String id) throws Exception{
 		ModelAndView view = new ModelAndView();
-		TicketFindReq req = new TicketFindReq();
 		VehicleTicketResp resp = vehicleTicketService.findById(id);
 		view.addObject("tick", resp);
 		view.setViewName("/weixin/kaipiao_detail");
