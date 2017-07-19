@@ -316,7 +316,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 	public Result pushNc(String id){
 		Result result = Result.getSuccessResult();
 		if(StringUtils.isNotBlank(id)){
-			MemberVo vo = moberVoService.get(id);
+			MemberVo vo = moberVoService.get(id,true);
 			PushMember push = new PushMember();
 			push.setSuppid(vo.getId());
 			if(StringUtils.equals(vo.getCompanypercheck(), "1")){

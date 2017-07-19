@@ -64,7 +64,7 @@ public enum MessageCodeEnum {
 	ADMIN_COMPANY_PASS(207,"账号[<_>],企业认证后台审核通过",0),
 	ADMIN_COMPANY_NOTPASS(208,"账号[<_>],企业认证后台审核未通过",0),
 	ADMIN_BANKCARD_PASS(209,"银行卡[<_>],后台审核通过",0),
-	ADMIN_BANKCARD_NOTPASS(210,"银行卡[<_>],后台审核未通过,[<_>]",0),	
+	ADMIN_BANKCARD_NOTPASS(210,"银行卡[<_>],后台审核未通过,不通过原因[<_>]",0),	
 	
 	/** ========================= 司机换班相关(221 - 240) ======================= */
 	DRIVER_TRANSFER_BEG(221,"司机[<_>],请求与您换班",1),
