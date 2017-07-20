@@ -232,6 +232,7 @@ function clearSearch(){
 	$("#subtimefor").val("");
 	$("#subtimeend").val("");
 	$("#perCheckStatus").val("");
+	$("#ncStatus").val("");
 	driverSearch();
 }
 /**
