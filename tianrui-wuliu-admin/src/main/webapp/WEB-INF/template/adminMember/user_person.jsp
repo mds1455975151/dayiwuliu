@@ -69,6 +69,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">认证通过</option>
                                         </select>
                                     </div>
+                                    <div class="ht_div">
+                                        <label>NC审核状态 :</label>
+                                        <select class="form-control"  id="ncStatus">
+                                            <option value="">请选择</option>
+                                            <option value="1">供应商不存在</option>
+                                            <option value="2">未审核</option>
+                                            <option value="3">审核未通过</option>
+                                            <option value="4">审核中</option>
+                                            <option value="5">审核通过，但组织未分配</option>
+                                            <option value="6">审核通过，且组织已分配</option>
+                                        </select>
+                                    </div>
                                 <div class="contuser_search">
                                  	<div class="ht_div">
                                         <label>会员状态:</label>
@@ -271,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?124" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?1234" ></script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',

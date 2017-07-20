@@ -20,6 +20,7 @@ function displayRect(pageNo){
 	var personalType = $("#personalType").val();//用户类型 个人or企业
 	var status = $("#status").val();
 	var perCheckStatus = $("#perCheckStatus").val();//认证状态 
+	var ncStatus = $("#ncStatus").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findMemberList',
@@ -30,6 +31,7 @@ function displayRect(pageNo){
 			"personalType":$.trim(personalType),
 			"userpercheck":$.trim(perCheckStatus),
 			"companypercheck":$.trim(perCheckStatus),
+			"ncStatus":ncStatus,
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -255,6 +257,8 @@ function getType(id,status){
 	document.getElementById("status").value="";
 	document.getElementById("personalType").value="";
 	document.getElementById("perCheckStatus").value="";
+	document.getElementById("ncStatus").value="";
+	displayRect(0);
   }
   /**
    * 详情
