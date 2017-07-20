@@ -54,6 +54,9 @@
    	LEFT JOIN member_info f ON f.memberId = m.ID 
    	<where> 1=1
    		<!-- 0-查询普通用户, 1-查询司机用户   ,2-查询车主用户 -->
+   	  <if test="ncStatus != null and ncStatus !='' " >
+        and  f.ncStatus = #{ncStatus,jdbcType=VARCHAR}
+      </if>
    	  <if test="userType == 0">
    	  	and m.driverpercheck = '0'
    	  </if>
@@ -213,6 +216,9 @@
       </if>
       <if test="submitdateEnd != null and submitdateEnd !='' " >
        and m.submittime <![CDATA[<]]> #{submitdateEnd,jdbcType=VARCHAR}
+      </if>
+      <if test="ncStatus != null and ncStatus !='' " >
+        and  f.ncStatus = #{ncStatus,jdbcType=VARCHAR}
       </if>
    	</where>
   </select>

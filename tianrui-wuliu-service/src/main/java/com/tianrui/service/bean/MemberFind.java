@@ -51,6 +51,10 @@ public class MemberFind implements IModel{
 	 */
 	private String sourcetype;
 	/**
+	 * NC状态
+	 */
+	private Integer ncStatus;
+	/**
 	 * 注册时间始
 	 */
 	private Long registtimeFor;
@@ -208,5 +212,13 @@ public class MemberFind implements IModel{
 	public void setPercheck(String percheck) {
 		this.percheck = percheck;
 	}
+	public Integer getNcStatus() {
+		return ncStatus;
+	}
+	public void setNcStatus(Integer ncStatus) {
+		this.ncStatus = ncStatus;
+	}
+
+	
 	
 }

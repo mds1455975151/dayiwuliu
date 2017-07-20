@@ -83,9 +83,19 @@ public class MemberFindReq extends BaseReq{
 	 * 2-个人账户， 1-企业账户
 	 */
 	private String personalType;
-	
+	/**
+	 * NC推送状态
+	 */
+	private Integer ncStatus;
 	private Integer limit;
 	
+
+	public Integer getNcStatus() {
+		return ncStatus;
+	}
+	public void setNcStatus(Integer ncStatus) {
+		this.ncStatus = ncStatus;
+	}
 	public Integer getLimit() {
 		limit = (pageNo-1)*pageSize;
 		return limit;
