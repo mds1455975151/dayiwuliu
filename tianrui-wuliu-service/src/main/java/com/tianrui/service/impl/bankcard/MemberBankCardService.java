@@ -115,13 +115,13 @@ public class MemberBankCardService implements IMemberBankCardService{
 				}
 				SystemMemberInfo memberInfo = systemMemberInfoMapper.selectByPrimaryKey(member.getId());
 				if(memberInfo != null){
-					if (StringUtils.equals(record.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS)) {
+					if (StringUtils.equals(req.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GS)) {
 						record.setIdcard(memberInfo.getCompanycode());
 						record.setIdname(memberInfo.getCompanyname());
 						record.setIdcardimg(memberInfo.getLicenseImagePath());
 						record.setTelphone(memberInfo.getCompanytel());
 					}
-					if (StringUtils.equals(record.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)) {
+					if (StringUtils.equals(req.getDesc4(), Constant.BANK_ACCOUNT_PERSON_IDENTITY_GR)) {
 						record.setIdcard(memberInfo.getIdcard());
 						record.setIdname(memberInfo.getUsername());
 						record.setIdcardimg(memberInfo.getIdcardimage());
