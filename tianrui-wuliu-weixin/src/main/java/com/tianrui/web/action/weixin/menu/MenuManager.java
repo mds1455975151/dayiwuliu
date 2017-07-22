@@ -30,11 +30,11 @@ public class MenuManager {
 	//网页授权url
 	public final static String REDIRECT_URI = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 	
-	public final static String appid = "wxf22ce076abf3d066";
-	public final static String appSecret = "4add7800a76bf23866778b14d69bf6d4";
+//	public final static String appid = "wxf22ce076abf3d066";
+//	public final static String appSecret = "4add7800a76bf23866778b14d69bf6d4";
 	
-//	public final static String appid = "wxd1884771599e90b8";
-//	public final static String appSecret = "9423f5897fefeed3b965e2b81d40746b";
+	public final static String appid = "wxd1884771599e90b8";
+	public final static String appSecret = "9423f5897fefeed3b965e2b81d40746b";
 	/**
 	 * 定义菜单结构
 	 * 
@@ -43,8 +43,8 @@ public class MenuManager {
 	 */
 	private static Menu getMenu() throws UnsupportedEncodingException {
 		//服务地址 183-lisijia.imwork.net
-		String baseuri="http://183-lisijia.imwork.net";
-//		String baseuri="http://admin.da156.cn";
+//		String baseuri="http://183-lisijia.imwork.net";
+		String baseuri="http://admin.da156.cn";
 		//授权类型
 		String scope = "snsapi_base";
 		//项目网页授权访问地址

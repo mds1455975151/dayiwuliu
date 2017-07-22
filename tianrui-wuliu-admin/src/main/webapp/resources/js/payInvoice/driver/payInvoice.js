@@ -338,5 +338,6 @@ function pays_detail(id){
 }
 
 function detail_pay(id){
-	window.open("/pay/InviceDetail1/payInviceDetail?menuId=134&id="+id);
+	var menuId = $("#menuId").val();
+	window.open("/pay/InviceDetail1/payInviceDetail?menuId="+menuId+"&id="+id);
 }

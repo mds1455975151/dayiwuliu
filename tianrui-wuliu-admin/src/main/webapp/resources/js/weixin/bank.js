@@ -60,7 +60,7 @@ function innerHTML(data,type,s){
 				"<p>银行卡："+data[a].bankcard+"</p>" +
 				"<div class='menmber_line1'>" +
 				"<div class='menmber_line2'>" +
-				"<label>添加账号：<em>"+data[a].telphone+"</em></label>" +
+				"<label>持卡人：<em>"+data[a].idname+"</em></label>" +
 				"</div>" +
 				"<span>"+stats+"</span></div></div>";
 		$("#rzHTML"+type).append(hml);

@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link rel="Shortcut Icon" href="${imagesRoot}/favicon.ico" type="image/x-icon">
     <link href="${stylesRoot}/imgcut.css" rel="stylesheet">
+    <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
 </head>
 <body>
@@ -48,6 +49,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <input type="text" id="invoiceName" placeholder=" ">
                         </div>
                         <div class="ht_div">
+                            <label>发货方：</label>
+                            <input type="text" id="shipName" placeholder=" ">
+                        </div>
+                        <div class="ht_div">
                         	<label>运单状态：</label>
                             <select id="billPayStatus" class="form-control">
                             	<option value="">请选择</option>
@@ -56,10 +61,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  								<option value="3">已合单</option>
                             </select>
                         </div>
+                        
+                    </div>
+                     <div class="contuser_search">
+                     	<div class="ht_div">
+                            <label>创建时间：</label>
+                            <input type="text" id="createfor"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'createend\')}'})" class="Wdate" style="width:160px"/>
+                            <i>-</i>
+                            <input type="text" id="createend"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',minDate:'#F{$dp.$D(\'createfor\')}'})" class="Wdate" style="width:160px"/>
+                        </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue " onclick="searchMember();" type="submit">搜索</button>
+                            <button class="btn btnblue " onclick="registMember();" type="submit">重置</button>
                         </div>
-                    </div>
+                     </div>
                 </div>
             </div>
             <!--查询框end-->
@@ -78,7 +93,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>运单号</th>
                                 <th>发票类型</th>
                                 <th>货物名称</th>
+                                <th>发货方</th>
                                 <th>支付对象</th>
+                                <th>收款人</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>

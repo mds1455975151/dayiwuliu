@@ -4,15 +4,29 @@
 function searchMember(){
 	displayData(0);
 }
+function registMember(){
+	$("#code").val("");
+	$("#invoiceName").val("");
+	$("#shipName").val("");
+	$("#createfor").val("");
+	$("#createend").val("");
+	$("#billPayStatus").val("");
+}
 function displayData(pageNo){
 	var code = $("#code").val();
 	var invoiceName =  $("#invoiceName").val();
+	var ship = $("#shipName").val();
+	var timefor = $("#createfor").val();
+	var timeend = $("#createend").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:"/pay/InviceDetail1/find",
 		data:{
 			"invoiceName":invoiceName,
 			"code":code,
+			"beginTimeStr":timefor,
+			"endTiemStr":timeend,
+			"shipname":ship,
 			"billPayStatus":$("#billPayStatus").val(),
 			"pageNo":(pageNo),
 			"pageSize":pageSize
@@ -40,18 +54,30 @@ function displayData(pageNo){
 			    	for (var a = 0; a < data.length; a++) {
 						var d = a+1;
 						var bytpe = "";
+						var payName = "";
+						var ship = "";
 						if(data[a].billType == "1"){
 							bytpe = "司机";
+							payName = data[a].driverPhone +"-"+data[a].driverName;
 						}
 						if(data[a].billType == "2"){
 							bytpe = "车主";
+							payName = data[a].venderPhone +"-"+data[a].venderName;
+						}
+						if(data[a].remark == "al"){
+							ship = data[a].ashipname;
+						}
+						if(data[a].remark == "dy"){
+							ship = data[a].shipname;
 						}
 						hml +=
 							"<tr><td>"+d+"</td>"+
 							"<td>"+data[a].billCode+"</td>"+
 							"<td>"+data[a].invoiceName+"</td>"+
 							"<td>"+(data[a].cargoName || "")+"</td>"+
+							"<td>"+(ship || "")+"</td>"+
 							"<td>"+bytpe+"</td>"+
+							"<td>"+payName+"</td>"+
 							"<td>"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 							"<td>";
 						hml +="<span><a onclick=\"detail_pay('"+data[a].id+"')\">【运单详情】</a></span>";
@@ -85,7 +111,8 @@ function displayData(pageNo){
 }
 
 function detail_pay(id){
-	window.open("/pay/InviceDetail1/payInviceDetail?menuId=134&id="+id);
+	var menuId = $("#menuId").val();
+	window.open("/pay/InviceDetail1/payInviceDetail?menuId="+menuId+"&id="+id);
 }
 
 function selectBill(id){

@@ -39,6 +39,8 @@ public class PayAndBillDateilResp {
 	private String bankcard;
 	//银行名称
 	private String bankname;
+	//开户行名称
+	private String bankAdreess;
 	//发票类型CODE
     private String invoiceCode;
     //发票类型NAME
@@ -312,5 +314,11 @@ public class PayAndBillDateilResp {
 	}
 	public void setRouteName(String routeName) {
 		this.routeName = routeName;
+	}
+	public String getBankAdreess() {
+		return bankAdreess;
+	}
+	public void setBankAdreess(String bankAdreess) {
+		this.bankAdreess = bankAdreess;
 	}
 }

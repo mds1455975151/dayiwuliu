@@ -1,8 +1,11 @@
 package com.tianrui.service.admin.impl.pay;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -98,6 +101,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		PayInvoiceDetail pay = new PayInvoiceDetail();
 		PropertyUtils.copyProperties(pay, req);
 		pay.setSearchKey(req.getSearchKey());
+		pay.setTimeBegin(dateStrChange(req.getBeginTimeStr()));
+		pay.setTimeEnd(dateStrChange(req.getEndTiemStr()));
 		if(StringUtils.isNotBlank(req.getIdStr())){
 			String[] idArr = req.getIdStr().split(";");
 			pay.setIds(Arrays.asList(idArr));
@@ -115,6 +120,20 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		page.setList(copyProperties2(list));
 		return page;
 	}
+	
+	protected Long dateStrChange(String dateStr) {
+		Long lo = null;
+		try {
+			if(StringUtils.isNotBlank(dateStr)){
+				Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+				lo = date.getTime();
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return lo;
+	}
+	
 	protected List<PayInvoiceDetail1Resp> copyProperties2(List<PayInvoiceDetail> list) throws Exception {
 		List<PayInvoiceDetail1Resp> resp = new ArrayList<PayInvoiceDetail1Resp>();
 		for(PayInvoiceDetail pay : list){
@@ -458,6 +477,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	protected PayAndBillDateilResp changeBankDetail(PayAndBillDateilResp resp,MemberBankCard bank) throws Exception {
 		resp.setBankcard(bank.getBankcard());
 		resp.setBankname(bank.getBankname());
+		resp.setBankAdreess(bank.getDesc1());
 		return resp;
 	}
 	

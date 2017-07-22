@@ -251,6 +251,6 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.pagination.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/payInvoice/driver/payInvoice.js?0717"></script>
+		src="/resources/js/payInvoice/driver/payInvoice.js?0721"></script>
 </body>
 </html>
