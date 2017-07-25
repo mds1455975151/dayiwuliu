@@ -71,6 +71,9 @@ public class WeixinLoginAction {
 		case "mation":
 			view.setViewName("/weixin/mation");
 			break;
+		case "bank":
+			view.setViewName("/weixin/bank");
+			break;
 		default:
 			view.addObject("state", state);
 			view.addObject("openid", openid);
@@ -95,6 +98,9 @@ public class WeixinLoginAction {
 		case "driver":
 			view.setViewName("/weixin/driver");
 			break;
+		case "bank":
+			view.setViewName("/weixin/bank");
+			break;
 		case "member1":
 			view.setViewName("/weixin/member1");
 			break;
@@ -106,6 +112,9 @@ public class WeixinLoginAction {
 			break;
 		case "driver1":
 			view.setViewName("/weixin/driver1");
+			break;
+		case "bank1":
+			view.setViewName("/weixin/bank1");
 			break;
 		default:
 			view.setViewName("redirect:/weixin/login/loginPage");
@@ -145,6 +154,9 @@ public class WeixinLoginAction {
 				break;
 			case "mation":
 				view.setViewName("/weixin/mation");
+				break;
+			case "bank":
+				view.setViewName("/weixin/bank");
 				break;
 			default:
 				view.setViewName("redirect:/weixin/login/loginPage");

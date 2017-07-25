@@ -41,11 +41,12 @@
 			f.opposite opposite
 	FROM
 		member_info_record f
-	LEFT JOIN member m ON m.ID = f.memberid
+	LEFT JOIN member m ON m.ID = f.memberid 
 	WHERE
 		1 = 1
 		<if test="memberid != null and memberid != ''">
 		   and	f.memberid = #{memberid,jdbcType=VARCHAR}
+		   and  m.submittime = f.submittime
 		</if>
 		<if test="status != null and status != ''">
 			and f.status = #{status,jdbcType=VARCHAR}

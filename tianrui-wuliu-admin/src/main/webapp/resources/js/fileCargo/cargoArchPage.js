@@ -256,7 +256,7 @@ function appendContentToBody(data, flag) {
 			}
 			//发票类型
 			var desc2 = data[i].desc2==undefined?"":data[i].desc2;
-			var td12 = $("<td></td>").append(payType);
+//			var td12 = $("<td></td>").append(payType);
 			var td13 = $("<td></td>").append(desc2);
 			var td8 = $("<td></td>").append(data[i].spec);
 			var td9 = $("<td></td>").append(data[i].model);
@@ -333,7 +333,7 @@ function appendContentToBody(data, flag) {
 				td1.append(input1);
 			}
 			var tr = $("<tr></tr>").attr("id","rowIndex" + rowIndex).append(td1).append(td5)
-						             .append(td6).append(td2).append(td7).append(td4).append(td12).append(td13).append(td8).append(td9)
+						             .append(td6).append(td2).append(td7).append(td4).append(td13).append(td8).append(td9)
 						              .append(td10).append(td11);
 			
 			if (flag == 0) {
@@ -730,15 +730,15 @@ $("#modal_edit_save").click(function() {
 		url : CONTEXTPATH + '/fileCargo/updateCargoInfo',// 跳转到 action
 		data : {
 			 id: id,
-		     materCode: cargo_materCode,
-		     materName: cargo_materName,
-		     materClass: cargo_materClass,
-		     state: "",
-		     spec: cargo_spec,
-		     model: cargo_model,
-		     materMNCode: cargo_materMNCode,
-		     mainMeasUnit: cargo_mainMeasUnit, 
-		     payType: cargo_payType, 
+//		     materCode: cargo_materCode,
+//		     materName: cargo_materName,
+//		     materClass: cargo_materClass,
+//		     state: "",
+//		     spec: cargo_spec,
+//		     model: cargo_model,
+//		     materMNCode: cargo_materMNCode,
+//		     mainMeasUnit: cargo_mainMeasUnit, 
+//		     payType: cargo_payType, 
 		     imgPath: cargo_imgPath,
 		     userName: userName,
 		     desc1:desc1,

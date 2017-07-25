@@ -23,15 +23,15 @@
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
     <result column="pushStatus" property="pushStatus" jdbcType="BIT" />
     <result column="pushTime" property="pushTime" jdbcType="BIGINT" />
-    
     <result column="error_massage" property="errorMassage" jdbcType="VARCHAR" />
     <result column="bank_line_number" property="bankLineNumber" jdbcType="VARCHAR" />
+    <result column="auditMassage" property="auditMassage" jdbcType="VARCHAR" />
     
   </resultMap>
   <sql id="Base_Column_List" >
     id, bankstatus, bankautid, bankcard, bankname, bankcode, bankimg, idcard, idname, 
     idcardimg, telphone, creater, createtime, auditor, auditortime, desc1, desc2, desc3, 
-    desc4, pushStatus, pushTime, error_massage
+    desc4, pushStatus, pushTime, error_massage,auditMassage
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -63,6 +63,7 @@
 		mb.pushStatus,
 		pushTime,
 		mb.error_massage,
+		mb.auditMassage,
 		nc.bank_line_number bank_line_number,
 		nc.`code` bankLineCode
 	FROM
@@ -147,14 +148,15 @@
       idcardimg, telphone, creater, 
       createtime, auditor, auditortime, 
       desc1, desc2, desc3, 
-      desc4, pushStatus, pushTime,error_massage)
+      desc4, pushStatus, pushTime,error_massage,auditMassage)
     values (#{id,jdbcType=VARCHAR}, #{bankstatus,jdbcType=VARCHAR}, #{bankautid,jdbcType=VARCHAR}, 
       #{bankcard,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, 
       #{bankimg,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{idname,jdbcType=VARCHAR}, 
       #{idcardimg,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=BIGINT}, #{auditor,jdbcType=VARCHAR}, #{auditortime,jdbcType=BIGINT}, 
       #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, 
-      #{desc4,jdbcType=VARCHAR}, #{pushStatus,jdbcType=BIT}, #{pushTime,jdbcType=BIGINT}, #{errorMassage,jdbcType=VARCHAR})
+      #{desc4,jdbcType=VARCHAR}, #{pushStatus,jdbcType=BIT}, #{pushTime,jdbcType=BIGINT}, #{errorMassage,jdbcType=VARCHAR},
+      #{auditMassage,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.MemberBankCard" >
     insert into wuliu_member_bankcard
@@ -225,6 +227,9 @@
       <if test="errorMassage != null">
       	error_massage,
       </if>
+      <if test="auditMassage != null">
+      	auditMassage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -293,6 +298,9 @@
       <if test="errorMassage != null">
       	#{errorMassage,jdbcType=VARCHAR},
       </if>
+      <if test="auditMassage != null">
+      	#{auditMassage,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MemberBankCard" >
@@ -300,6 +308,9 @@
     <set >
     <if test="errorMassage != null">
       	error_massage = #{errorMassage,jdbcType=VARCHAR},
+      </if>
+      <if test="auditMassage != null">
+      	auditMassage = #{auditMassage,jdbcType=VARCHAR},
       </if>
       <if test="bankstatus != null" >
         bankstatus = #{bankstatus,jdbcType=VARCHAR},
@@ -368,6 +379,7 @@
     update wuliu_member_bankcard
     set bankstatus = #{bankstatus,jdbcType=VARCHAR},
      error_massage = #{errorMassage,jdbcType=VARCHAR},
+      auditMassage = #{auditMassage,jdbcType=VARCHAR},
       bankautid = #{bankautid,jdbcType=VARCHAR},
       bankcard = #{bankcard,jdbcType=VARCHAR},
       bankname = #{bankname,jdbcType=VARCHAR},

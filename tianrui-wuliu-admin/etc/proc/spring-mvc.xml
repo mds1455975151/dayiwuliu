@@ -37,20 +37,18 @@
 	
    <bean id="resourcePathExposer" class="com.tianrui.trwl.admin.util.ResourcePathExposer"
 		init-method="init" >
-		<property name="trRoot" value="http://www.da156.cn:81/trwlAdminStatic" />
-		<property name="localRoot" value="http://admin.da156.cn:81/trwlAdminStatic" />
+		<property name="trRoot" value="http://www.da156.cn/trwlAdminStatic" />
 		
-	</bean>
-	
-	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+</bean>
+        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
         <property name="defaultEncoding" value="UTF-8" />  
         <property name="maxUploadSize" value="10240000" />  
         <!-- 设置在文件上传时允许写到内存中的最大值，以字节为单位计算，默认是10240 -->  
         <!-- 但是经实验，上传文件大小若小于此参数，则不会生成临时文件，故改为2048
-        <property name="maxInMemorySize" value="2048" />    
+                     <property name="maxInMemorySize" value="2048" />    
          -->  
     </bean> 
-	
+
 	<!-- 资源文件路径 css js images -->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
 	

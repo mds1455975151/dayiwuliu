@@ -133,7 +133,6 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <th>计量单位</th>
 		                                <th>物料类别</th>
 		                                <th>状态</th>
-		                                <th>支付类型</th>
 		                                <th>发票类型</th>
 		                                <th>规格</th>
 		                                <th>型号</th>
@@ -219,6 +218,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		               <div class="model_width">
 		                    <label>物料助记码：</label><input type="text" maxlength="5" id="modal_add_materMNCode">
 		                </div>
+		              	<!-- 
 		               <div class="model_width">
 		                    <label>支付类型：</label>
 							<select class="form-control" id="modal_add_payType">
@@ -226,6 +226,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 								<option value="1">发票单支付</option>
 							</select>
 		                </div>
+		              	 -->
 		               <div class="model_width">
 		                    <label>发票类型：</label>
 							<select class="form-control" id="modal_add_desc1">
@@ -355,6 +356,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                 <div class="model_width">
 		                    <label>物料助记码：</label><input type="text" readonly="readonly" maxlength="5" id="modal_edit_materMNCode">
 		                </div>
+		               	<!-- 
 		                <div class="model_width">
 		                    <label>支付类型：</label>
 							<select class="form-control" id="modal_edit_payType">
@@ -362,6 +364,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 								<option value="1">发票单支付</option>
 							</select>
 		                </div>
+		               	 -->
 		                 <div class="model_width">
 		                    <label>发票类型：</label>
 							<select class="form-control" id="modal_edit_desc1">
@@ -479,9 +482,11 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <div class="file_detail">
 	                    <label>货物图片：</label><span><img id="modal_detail_img"  ></span>
 	                </div>
+	                <!-- 
 	                <div class="file_detail">
 	                    <label>支付类型：</label><span id="modal_detail_payType"></span>
 	                </div>
+	                 -->
 	                <div class="file_detail">
 	                    <label>发票类型：</label><span id="modal_detail_desc2"></span>
 	                </div>
@@ -571,7 +576,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var orgName = "<%= user.getDesc2() %>";
 	    var imagesRoot="${imagesRoot }";
 	</script>
-	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?12.08"></script>
+	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?07.23"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

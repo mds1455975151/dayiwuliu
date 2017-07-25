@@ -14,8 +14,10 @@ import com.alibaba.druid.sql.dialect.oracle.ast.clause.FlashbackQueryClause.Vers
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
+import com.tianrui.api.req.front.vehicle.VehicleDriverMemberReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
+import com.tianrui.api.resp.front.vehicle.VehicleDriverMemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
@@ -24,6 +26,7 @@ import com.tianrui.service.admin.bean.MyVehicle;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.VehicleDriverMember;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
@@ -209,6 +212,44 @@ public class VehicleDriverService implements IVehicleDriverService {
 	 * @author guyuke
 	 * @time 2016年6月06日 下午6:23:00
 	 */
+	private List<VehicleDriverMemberResp> convert2VehicleDriverMemberList(List<VehicleDriverMember> argVehicleDriverList) {
+		List<VehicleDriverMemberResp> vehicleDriverRespList = null;
+		if (argVehicleDriverList != null) {
+			vehicleDriverRespList = new ArrayList<VehicleDriverMemberResp>();
+			for (VehicleDriverMember vehicleDriver : argVehicleDriverList) {
+				VehicleDriverMemberResp vehicleDriverResp =  new VehicleDriverMemberResp();
+				// 主键
+				vehicleDriverResp.setId(vehicleDriver.getId());
+				// 司机主键
+				vehicleDriverResp.setDriverId(vehicleDriver.getDriverid());;
+				// 车辆主键
+				vehicleDriverResp.setVehicleId(vehicleDriver.getVehicleid());
+				// 车牌号
+				vehicleDriverResp.setVehicleNo(vehicleDriver.getVehicleno());
+				// 车型
+				vehicleDriverResp.setVehicleTypeName(vehicleDriver.getVehicletypename());
+				// 车辆备注名
+				vehicleDriverResp.setVehicleRemark(vehicleDriver.getVehicleremark());
+				// 司机名字
+				vehicleDriverResp.setDriverName(vehicleDriver.getDrivername());
+				// 司机电话
+				vehicleDriverResp.setDriverTel(vehicleDriver.getDrivertel());
+				// 司机备注名
+				vehicleDriverResp.setDriverRemark(vehicleDriver.getDriverremark());
+				// 创建人
+				vehicleDriverResp.setCreator(vehicleDriver.getCreator());
+				// 
+				vehicleDriverResp.setAldriverid(vehicleDriver.getAldriverid());
+				// 
+				vehicleDriverResp.setDesc1(vehicleDriver.getDesc1());
+				// 创建时间
+				vehicleDriverResp.setCreateTime(convertLongTODate(vehicleDriver.getCreatetime()));
+				vehicleDriverRespList.add(vehicleDriverResp);
+			}
+		}
+		return vehicleDriverRespList;
+	}
+	
 	private List<VehicleDriverResp> convert2VehicleDriverList(List<VehicleDriver> argVehicleDriverList) {
 		List<VehicleDriverResp> vehicleDriverRespList = null;
 		if (argVehicleDriverList != null) {
@@ -345,20 +386,21 @@ public class VehicleDriverService implements IVehicleDriverService {
 	}
 
 	@Override
-	public PaginationVO<VehicleDriverResp> find(VehicleDriverReq req) throws Exception {
+	public PaginationVO<VehicleDriverMemberResp> find(VehicleDriverMemberReq req) throws Exception {
 		
-		PaginationVO<VehicleDriverResp> page = new PaginationVO<VehicleDriverResp>();
-		VehicleDriver record = new VehicleDriver();
+		PaginationVO<VehicleDriverMemberResp> page = new PaginationVO<VehicleDriverMemberResp>();
+		VehicleDriverMember record = new VehicleDriverMember();
 		record.setDrivername(req.getDriverName());
 		record.setDrivertel(req.getDriverTel());
 		record.setVehicleno(req.getVehicleNo());
+		record.setAldriverid(req.getAldriverid());
+		record.setDesc1(req.getDesc1());
 		record.setVehicletypename(req.getVehicleTypeName());
 		record.setStart((req.getPageNo()-1)*req.getPageSize());
 		record.setLimit(req.getPageSize());
-		
-		List<VehicleDriver> list =vehicleDriverMapper.findList(record);
+		List<VehicleDriverMember>list  =vehicleDriverMapper.findList(record);
 		long a =vehicleDriverMapper.findListCount(record);
-		page.setList(convert2VehicleDriverList(list));
+		page.setList(convert2VehicleDriverMemberList(list));
 		page.setPageNo(req.getPageNo());
 		page.setPageSize(req.getPageSize());
 		page.setTotal(a);

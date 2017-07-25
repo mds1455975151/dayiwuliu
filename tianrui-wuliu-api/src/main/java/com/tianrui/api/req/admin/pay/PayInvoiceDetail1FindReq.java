@@ -1,4 +1,11 @@
 package com.tianrui.api.req.admin.pay;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @Description 运费结算Bean
  * @author zhanggaohao
@@ -9,9 +16,16 @@ public class PayInvoiceDetail1FindReq {
 	private String id;
 	//多条id
 	private String idStr;
+	//发货方名称
+	private String shipname;
+	//查询开始时间
+	private String beginTimeStr;
+	//结束时间
+	private String endTiemStr;
 	
 	private String searchKey;
-	
+	//运价确认状态 1-未确认  2-已确认  3-已合单
+	private String billPayStatus;
 	//单据编号
     private String code;
     //发票类型NAME
@@ -35,7 +49,19 @@ public class PayInvoiceDetail1FindReq {
     //运单身份（1：司机运单，2：车主运单）
     private Integer billType;
 	
-    public Boolean getWhetherClose() {
+    public String getBeginTimeStr() {
+    	return beginTimeStr;
+	}
+	public void setBeginTimeStr(String beginTimeStr) {
+		this.beginTimeStr = beginTimeStr;
+	}
+	public String getEndTiemStr() {
+		return endTiemStr;
+	}
+	public void setEndTiemStr(String endTiemStr) {
+		this.endTiemStr = endTiemStr;
+	}
+	public Boolean getWhetherClose() {
 		return whetherClose;
 	}
 	public void setWhetherClose(Boolean whetherClose) {
@@ -118,5 +144,17 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setDriverId(String driverId) {
 		this.driverId = driverId;
+	}
+	public String getBillPayStatus() {
+		return billPayStatus;
+	}
+	public void setBillPayStatus(String billPayStatus) {
+		this.billPayStatus = billPayStatus;
+	}
+	public String getShipname() {
+		return shipname;
+	}
+	public void setShipname(String shipname) {
+		this.shipname = shipname;
 	}
 }

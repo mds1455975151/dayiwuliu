@@ -10,9 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
-import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
+import com.tianrui.api.resp.pay.PayAndBillDateilResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
@@ -29,6 +29,17 @@ public class PayInviceDetail1Action {
 	public ModelAndView page(){
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/file/payInvoice/pay/file_paydetail");
+		return view;
+	}
+	/** 查看账单详情
+	 * @throws Exception */
+	@RequestMapping("payInviceDetail")
+	public ModelAndView payInviceDetail(String id) throws Exception{
+		ModelAndView view = new ModelAndView();
+		
+		PayAndBillDateilResp resp = payInvoiceDetail1Service.payInviuceDetail(id);
+		view.setViewName("/file/payInvoice/pay/payInvoice_detail");
+		view.addObject("pay", resp);
 		return view;
 	}
 	

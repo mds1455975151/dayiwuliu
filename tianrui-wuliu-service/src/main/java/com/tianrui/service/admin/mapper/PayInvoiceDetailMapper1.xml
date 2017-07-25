@@ -45,7 +45,18 @@
     
     <result column="billweightB" property="billweightB" jdbcType="DOUBLE" />
     <result column="billpriceB" property="billpriceB" jdbcType="DOUBLE" />
-
+    
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    
+    <result column="driverPhone" property="driverPhone" jdbcType="VARCHAR" />
+    <result column="driverName" property="driverName" jdbcType="VARCHAR" />
+    <result column="venderPhone" property="venderPhone" jdbcType="VARCHAR" />
+    <result column="venderName" property="venderName" jdbcType="VARCHAR" />
+    <result column="shipperMerchant" property="shipperMerchant" jdbcType="VARCHAR" />
+    <result column="shipname" property="shipname" jdbcType="VARCHAR" />
+    <result column="ashipname" property="ashipname" jdbcType="VARCHAR" />
+    
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, code, pay_invoice_id, driver_id, driver_id_no, vender_id, vender_id_no, owner_id, 
@@ -54,7 +65,8 @@
     backstage_bill_total_price, reception_deduct_weight_misc, reception_deduct_money, 
     reception_deduct_other, reception_deduct_oil_card, backstage_deduct_weight_misc, 
     backstage_deduct_money, backstage_deduct_other, backstage_deduct_oil_card, whether_close, 
-    orgid, orgname, state, creator, create_time, modifier, modify_time, remark, appendix, billweightB, billpriceB
+    orgid, orgname, state, creator, create_time, modifier, modify_time, remark, 
+    appendix, billweightB, billpriceB, memo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -65,49 +77,128 @@
   
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     select 
-    	<include refid="Base_Column_List" />
-    from pay_invoice_detail_1
+    	p.id,
+		p. CODE,
+		p.pay_invoice_id,
+		p.driver_id,
+		p.driver_id_no,
+		p.vender_id,
+		p.vender_id_no,
+		p.owner_id,
+		p.owner_id_no,
+		p.invoice_code,
+		p.invoice_name,
+		p.bill_id,
+		p.bill_code,
+		p.bill_type,
+		p.material_code,
+		p.material_name,
+		p.cargo_name,
+		p.bill_weight,
+		p.bill_price,
+		p.tax_rate,
+		p.reception_bill_total_price,
+		p.backstage_bill_total_price,
+		p.reception_deduct_weight_misc,
+		p.reception_deduct_money,
+		p.reception_deduct_other,
+		p.reception_deduct_oil_card,
+		p.backstage_deduct_weight_misc,
+		p.backstage_deduct_money,
+		p.backstage_deduct_other,
+		p.backstage_deduct_oil_card,
+		p.whether_close,
+		p.orgid,
+		p.orgname,
+		p.state,
+		p.creator,
+		p.create_time,
+		p.modifier,
+		p.modify_time,
+		p.remark,
+		p.appendix,
+		p.billweightB,
+		p.billpriceB,
+		p.memo,
+		dm.cellphone driverPhone,
+		dm.remarkname driverName,
+		vm.cellphone venderPhone,
+		vm.remarkname venderName,
+	  wp.shipperMerchant,
+		fm.`name` shipname,
+		afm.`name` ashipname
+    FROM
+		pay_invoice_detail_1 p
+		LEFT JOIN member dm ON dm.id = p.driver_id
+		LEFT JOIN member vm ON vm.id = p.vender_id
+		LEFT JOIN anlian_bill ab ON ab.id=p.bill_id
+		LEFT JOIN wuliu_plan ap ON ap.ID = ab.desc1
+		LEFT JOIN wuliu_bill b ON b.ID = p.bill_id
+		LEFT JOIN wuliu_plan wp ON wp.ID = b.planid
+		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
+		LEFT JOIN file_merchant afm ON ap.shipperMerchant = afm.id
 		<where>
+			<if test="timeBegin != null">
+				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+			</if>
+			<if test="timeEnd != null">
+				and p.create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+			</if>
+			<if test="shipname != null and shipname != ''">
+				and (fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
+				or afm.name like "%" #{shipname,jdbcType=VARCHAR} "%")
+			</if>
 			<if test="searchKey != null and searchKey != ''">
-			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
-			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+				and (p.code like "%" #{searchKey,jdbcType=VARCHAR} "%"
+				or p.cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			</if>
+			<if test="billPayStatus == 1">
+				and p.backstage_bill_total_price = 0
+				and p.whether_close = 0
+			</if>
+			<if test="billPayStatus == 2">
+				and p.backstage_bill_total_price != 0
+				and p.whether_close = 0
+			</if>
+			<if test="billPayStatus == 3">
+				and p.whether_close = 1
 			</if>
 			<if test="whetherClose != null">
-				and whether_close = #{whetherClose,jdbcType=BIT}
+				and p.whether_close = #{whetherClose,jdbcType=BIT}
 			</if>
 			<if test="invoiceName != null and invoiceName != ''">
-				and invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
+				and p.invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
 			</if>
    		  <if test="code != null and code != ''">
-   		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
+   		  	and p.code like "%" #{code,jdbcType=VARCHAR} "%"
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
-   		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
    		  </if>
    		  <if test="remark != null and remark != ''">
-   		  	and remark = #{remark,jdbcType=VARCHAR}
+   		  	and p.remark = #{remark,jdbcType=VARCHAR}
    		  </if>
    		  <if test="venderId != null and venderId != ''">
-   		  	and vender_id = #{venderId,jdbcType=VARCHAR}
+   		  	and p.vender_id = #{venderId,jdbcType=VARCHAR}
    		  </if>
    		  <if test="billType != null and billType != ''">
-   		    and bill_type = #{billType,jdbcType=BIT}
+   		    and p.bill_type = #{billType,jdbcType=BIT}
    		  </if>
    		  <if test="payInvoiceId != null and payInvoiceId != ''">
-   		    and pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+   		    and p.pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
    		  </if>
    		  <if test="billId != null and billId != ''">
-   		  	and bill_id = #{billId,jdbcType=VARCHAR}
+   		  	and p.bill_id = #{billId,jdbcType=VARCHAR}
    		  </if>
    		  <if test="ids != null">
-	      	and id in 
+	      	and p.id in 
 	      	<foreach collection="ids" item="employeeId" index="index"
 	            open="(" close=")" separator=",">
 	            #{employeeId}
 	        </foreach> 
 	      </if>
    		</where>
-   		order by create_time desc
+   		order by p.create_time desc
    		<if test="pageNo != null">
    			limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
    		</if>
@@ -116,38 +207,68 @@
   <select id="selectBycount" resultType="long" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     select 
     	count(0)
-    from pay_invoice_detail_1
+     FROM
+		pay_invoice_detail_1 p
+		LEFT JOIN member dm ON dm.id = p.driver_id
+		LEFT JOIN member vm ON vm.id = p.vender_id
+		LEFT JOIN anlian_bill ab ON ab.id=p.bill_id
+		LEFT JOIN wuliu_plan ap ON ap.ID = ab.desc1
+		LEFT JOIN wuliu_bill b ON b.ID = p.bill_id
+		LEFT JOIN wuliu_plan wp ON wp.ID = b.planid
+		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
+		LEFT JOIN file_merchant afm ON ap.shipperMerchant = afm.id
 		<where>
+			<if test="timeBegin != null">
+				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+			</if>
+			<if test="timeEnd != null">
+				and p.create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+			</if>
+			<if test="shipname != null and shipname != ''">
+				and (fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
+				or afm.name like "%" #{shipname,jdbcType=VARCHAR} "%")
+			</if>
 			<if test="searchKey != null and searchKey != ''">
-			and (code like "%" #{searchKey,jdbcType=VARCHAR} "%"
-			or cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			and (p.code like "%" #{searchKey,jdbcType=VARCHAR} "%"
+			or p.cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			</if>
+			<if test="billPayStatus == 1">
+				and p.backstage_bill_total_price = 0
+				and p.whether_close = 0
+			</if>
+			<if test="billPayStatus == 2">
+				and p.backstage_bill_total_price != 0
+				and p.whether_close = 0
+			</if>
+			<if test="billPayStatus == 3">
+				and p.whether_close = 1
 			</if>
 			<if test="whetherClose != null">
-				and whether_close = #{whetherClose,jdbcType=BIT}
+				and p.whether_close = #{whetherClose,jdbcType=BIT}
 			</if>
 			<if test="invoiceName != null and invoiceName != ''">
-				and invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
+				and p.invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
 			</if>
    		  <if test="code != null and code != ''">
-   		  	and code like "%" #{code,jdbcType=VARCHAR} "%"
+   		  	and p.code like "%" #{code,jdbcType=VARCHAR} "%"
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
-   		  	and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
    		  </if>
    		  <if test="remark != null and remark != ''">
-   		  	and remark = #{remark,jdbcType=VARCHAR}
+   		  	and p.remark = #{remark,jdbcType=VARCHAR}
    		  </if>
    		  <if test="venderId != null and venderId != ''">
-   		  	and vender_id = #{venderId,jdbcType=VARCHAR}
+   		  	and p.vender_id = #{venderId,jdbcType=VARCHAR}
    		  </if>
    		  <if test="billType != null and billType != ''">
-   		    and bill_type = #{billType,jdbcType=BIT}
+   		    and p.bill_type = #{billType,jdbcType=BIT}
    		  </if>
    		  <if test="payInvoiceId != null and payInvoiceId != ''">
-   		    and pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+   		    and p.pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
    		  </if>
    		  <if test="billId != null and billId != ''">
-   		  	and bill_id = #{billId,jdbcType=VARCHAR}
+   		  	and p.bill_id = #{billId,jdbcType=VARCHAR}
    		  </if>
    		</where>
   </select>
@@ -172,7 +293,7 @@
       backstage_deduct_oil_card, whether_close, orgid, 
       orgname, state, creator, 
       create_time, modifier, modify_time, 
-      remark,appendix, billweightB, billpriceB)
+      remark,appendix, billweightB, billpriceB,memo)
     values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{payInvoiceId,jdbcType=VARCHAR}, 
       #{driverId,jdbcType=VARCHAR}, #{driverIdNo,jdbcType=VARCHAR}, #{venderId,jdbcType=VARCHAR}, 
       #{venderIdNo,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{ownerIdNo,jdbcType=VARCHAR}, 
@@ -189,7 +310,9 @@
       #{createTime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=BIGINT}, 
       #{remark,jdbcType=VARCHAR},#{appendix,jdbcType=VARCHAR},
       #{billweightB,jdbcType=DOUBLE}, 
-      #{billpriceB,jdbcType=DOUBLE})
+      #{billpriceB,jdbcType=DOUBLE},
+      #{memo,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     insert into pay_invoice_detail_1
@@ -320,6 +443,9 @@
        <if test="billweightB != null">
       	billweightB,
       </if>
+      <if test="memo != null">
+      	memo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -448,11 +574,17 @@
        <if test="billweightB != null">
       	 #{billweightB,jdbcType=DOUBLE}, 
       </if>
+      <if test="memo != null">
+         #{memo,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     update pay_invoice_detail_1
     <set >
+     <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
     	<if test="billpriceB != null">
      	billpriceB = #{billpriceB,jdbcType=DOUBLE},
       </if>
@@ -582,6 +714,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     update pay_invoice_detail_1
     set code = #{code,jdbcType=VARCHAR},
+    	memo = #{memo,jdbcType=VARCHAR},
     	appendix = #{appendix,jdbcType=VARCHAR},
     	billpriceB = #{billpriceB,jdbcType=DOUBLE},
       	billweightB = #{billweightB,jdbcType=DOUBLE}, 

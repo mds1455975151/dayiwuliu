@@ -42,16 +42,22 @@
 	function resetSearchParams(){
 		$('#billCode').val('');
 		$('#cargoName').val('');
+		$('#payCode').val('');
+		$('#payStatus').val('');
 	}
 	//获取搜索条件
 	function getSearchParams(){
 		var billCode = $('#billCode').val(); billCode = $.trim(billCode);
 		var cargoName = $('#cargoName').val(); cargoName = $.trim(cargoName);
+		var payStatus = $('#payStatus').val(); payStatus = $.trim(payStatus);
+		var payCode = $('#payCode').val(); payCode = $.trim(payCode);
 		var pageSize = $('#pageSize').val() || ''; pageSize = $.trim(pageSize);
 		return {
 			likeBillCode: billCode,
 			likeCargoName: cargoName,
-			pageSize: pageSize
+			pageSize: pageSize,
+			pay:payStatus,
+			code:payCode
 		}
 	}
 	//ajax请求搜索结果
@@ -322,10 +328,16 @@ function pays_detail(id){
 							"<td>"+data[a].invoiceName+"</td>" +
 							"<td>"+data[a].cargoName+"</td>" +
 							"<td>"+billType+"</td>" +
+							"<td><a onclick=\"detail_pay('"+data[a].id+"')\">【详情】</a></td>" +
 							"</tr>";
 				}
 				$("#paylist").html(hml);
 			}
 		}
 	});
+}
+
+function detail_pay(id){
+	var menuId = $("#menuId").val();
+	window.open("/pay/InviceDetail1/payInviceDetail?menuId="+menuId+"&id="+id);
 }

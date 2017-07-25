@@ -588,6 +588,7 @@ public class MemberVehicleService implements IMemberVehicleService {
 				
 				memberVehicleResp.setDesc1(memberVehicle.getDesc1());
 				memberVehicleResp.setDesc2(memberVehicle.getDesc2());
+				memberVehicleResp.setDesc3(memberVehicle.getDesc3());
 				memberVehicleResp.setMemo(memberVehicle.getMemo());
 				
 				memberVehicleRespList.add(memberVehicleResp);

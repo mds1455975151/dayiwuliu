@@ -143,6 +143,13 @@ public interface ISystemMemberService {
 	 */
 	MemberResp findById(String id)throws Exception;
 	/**
+	 * 通过id查询司机信息
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	MemberResp findByMemberId(String id)throws Exception;
+	/**
 	 * 
 	 * @描述:修改用户信息
 	 * @param req

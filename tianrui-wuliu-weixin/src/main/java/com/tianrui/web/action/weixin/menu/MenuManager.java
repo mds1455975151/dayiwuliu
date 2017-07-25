@@ -30,6 +30,9 @@ public class MenuManager {
 	//网页授权url
 	public final static String REDIRECT_URI = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect";
 	
+//	public final static String appid = "wxf22ce076abf3d066";
+//	public final static String appSecret = "4add7800a76bf23866778b14d69bf6d4";
+	
 	public final static String appid = "wxd1884771599e90b8";
 	public final static String appSecret = "9423f5897fefeed3b965e2b81d40746b";
 	/**
@@ -39,7 +42,8 @@ public class MenuManager {
 	 * @throws UnsupportedEncodingException 
 	 */
 	private static Menu getMenu() throws UnsupportedEncodingException {
-		//服务地址
+		//服务地址 183-lisijia.imwork.net
+//		String baseuri="http://183-lisijia.imwork.net";
 		String baseuri="http://admin.da156.cn";
 		//授权类型
 		String scope = "snsapi_base";
@@ -71,6 +75,13 @@ public class MenuManager {
 		btn04.setType("view");
 		btn04.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
 
+		ViewButton btn06 = new ViewButton();
+		state = "bank";
+		btn06.setName("银行卡管理");
+		btn06.setType("view");
+		btn06.setUrl(REDIRECT_URI.replace("APPID", appid).replace("REDIRECT_URI", URLEncoder.encode(url,"UTF-8")).replace("SCOPE", scope).replace("STATE", state));
+
+		
 		ViewButton btn05 = new ViewButton();
 		state = "mation";
 		btn05.setName("用户信息");
@@ -85,7 +96,7 @@ public class MenuManager {
 
 		ComplexButton mainBtn1 = new ComplexButton();
 		mainBtn1.setName("后台管理");
-		mainBtn1.setSub_button(new Button[] { btn01, btn02, btn03, btn04});
+		mainBtn1.setSub_button(new Button[] { btn01, btn02, btn03, btn04,btn06});
 
 //		ComplexButton mainBtn2 = new ComplexButton();
 //		mainBtn2.setName("我的运单");

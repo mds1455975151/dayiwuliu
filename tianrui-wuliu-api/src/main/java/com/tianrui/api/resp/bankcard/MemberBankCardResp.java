@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.bankcard;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MemberBankCardResp {
     private String id;
     
@@ -31,6 +34,8 @@ public class MemberBankCardResp {
     private String creater;
 
     private Long createtime;
+    
+    private String createtimeStr;
 
     private String auditor;
 
@@ -49,9 +54,18 @@ public class MemberBankCardResp {
     private Long pushTime;
     //推送nc错误返回信息
     private String errorMassage;
+    //审核不通过返回信息
+    private String auditMassage;
 
+    public String getAuditMassage() {
+		return auditMassage;
+	}
 
-    public String getId() {
+	public void setAuditMassage(String auditMassage) {
+		this.auditMassage = auditMassage;
+	}
+
+	public String getId() {
         return id;
     }
 
@@ -147,7 +161,19 @@ public class MemberBankCardResp {
         this.creater = creater == null ? null : creater.trim();
     }
 
-    public Long getCreatetime() {
+    public String getCreatetimeStr() {
+		if(createtime != null){
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			createtimeStr = fmt.format(new Date(createtime));
+		}
+    	return createtimeStr;
+	}
+
+	public void setCreatetimeStr(String createtimeStr) {
+		this.createtimeStr = createtimeStr;
+	}
+
+	public Long getCreatetime() {
         return createtime;
     }
 

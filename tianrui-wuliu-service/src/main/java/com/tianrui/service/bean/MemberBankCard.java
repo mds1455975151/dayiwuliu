@@ -52,8 +52,18 @@ public class MemberBankCard {
     private Long pushTime;
     //推送nc错误返回信息
     private String errorMassage;
+    //审核不通过返回信息
+    private String auditMassage;
 
-    public String getId() {
+    public String getAuditMassage() {
+		return auditMassage;
+	}
+
+	public void setAuditMassage(String auditMassage) {
+		this.auditMassage = auditMassage;
+	}
+
+	public String getId() {
         return id;
     }
 

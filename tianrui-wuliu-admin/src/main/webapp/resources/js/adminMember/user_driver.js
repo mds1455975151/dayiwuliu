@@ -25,6 +25,7 @@ function displayRect(pageNo){
 	var registtimeEnd = $("#restimeend").val();
 	var submitdateFor = $("#subtimefor").val();
 	var submitdateEnd = $("#subtimeend").val();
+	var ncStatus = $("#ncStatus").val();
 	var pageSize=$("#pageSize").val();
 	if(registtimeFor != '' && registtimeEnd != ''){
 		if(registtimeFor>registtimeEnd){
@@ -49,6 +50,7 @@ function displayRect(pageNo){
 			"submitdateForStr":submitdateFor,
 			"driverpercheck":perCheckStatus,
 			"submitdateEndStr":submitdateEnd,
+			"ncStatus":ncStatus,
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -230,6 +232,7 @@ function clearSearch(){
 	$("#subtimefor").val("");
 	$("#subtimeend").val("");
 	$("#perCheckStatus").val("");
+	$("#ncStatus").val("");
 	driverSearch();
 }
 /**

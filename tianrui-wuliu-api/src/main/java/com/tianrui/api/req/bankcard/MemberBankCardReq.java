@@ -45,8 +45,18 @@ public class MemberBankCardReq {
     private String bankSubbranchName;
     //开户人身份（1：个人，2：公司）
     private String desc4;
+    //不通过原因
+    private String auditMassage;  
     
-    public String getId() {
+    public String getAuditMassage() {
+		return auditMassage;
+	}
+
+	public void setAuditMassage(String auditMassage) {
+		this.auditMassage = auditMassage;
+	}
+
+	public String getId() {
         return id;
     }
 

@@ -1,7 +1,11 @@
 package com.tianrui.service.admin.impl.pay;
 
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -15,22 +19,29 @@ import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
+import com.tianrui.api.resp.pay.PayAndBillDateilResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.bean.Merchant;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
 import com.tianrui.service.admin.bean.PayPriceSave;
+import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MemberBankCard;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
+import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mongo.CodeGenDao;
 
@@ -51,6 +62,12 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	BillMapper billMapper;
 	@Autowired
 	AnlianBillMapper anlianBillMapper;
+	@Autowired
+	PlanMapper planMapper;
+	@Autowired
+	MerchantMapper merchantMapper;
+	@Autowired
+	FileRouteMapper fileRouteMapper;
 	
 	@Override
 	public Result billSelectPrice(PayInvoiceDetail1Req req) throws Exception {
@@ -84,6 +101,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		PayInvoiceDetail pay = new PayInvoiceDetail();
 		PropertyUtils.copyProperties(pay, req);
 		pay.setSearchKey(req.getSearchKey());
+		pay.setTimeBegin(dateStrChange(req.getBeginTimeStr()));
+		pay.setTimeEnd(dateStrChange(req.getEndTiemStr()));
 		if(StringUtils.isNotBlank(req.getIdStr())){
 			String[] idArr = req.getIdStr().split(";");
 			pay.setIds(Arrays.asList(idArr));
@@ -101,6 +120,20 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		page.setList(copyProperties2(list));
 		return page;
 	}
+	
+	protected Long dateStrChange(String dateStr) {
+		Long lo = null;
+		try {
+			if(StringUtils.isNotBlank(dateStr)){
+				Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+				lo = date.getTime();
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return lo;
+	}
+	
 	protected List<PayInvoiceDetail1Resp> copyProperties2(List<PayInvoiceDetail> list) throws Exception {
 		List<PayInvoiceDetail1Resp> resp = new ArrayList<PayInvoiceDetail1Resp>();
 		for(PayInvoiceDetail pay : list){
@@ -404,6 +437,122 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public PayAndBillDateilResp payInviuceDetail(String id) throws Exception {
+		
+		PayAndBillDateilResp resp = new PayAndBillDateilResp();
+		//账单详情
+		PayInvoiceDetail pay = payInvoiceDetailMapper1.selectByPrimaryKey(id);
+		resp = changePayDetail(resp,pay);
+		//运单详情
+		if(pay.getRemark().equals("al")){
+			AnlianBill albill = anlianBillMapper.selectByPrimaryKey(pay.getBillId());
+			resp = changeAlBillPayDetail(resp,albill);
+		}else if(pay.getRemark().equals("dy")){
+			Bill bill = billMapper.selectByPrimaryKey(pay.getBillId());
+			resp = changeDyBillPayDetail(resp,bill);
+		}
+		//银行卡详情
+		MemberBankCard bank = new MemberBankCard();
+		if(pay.getBillType()==1){
+			//支付到司机
+			bank.setCreater(pay.getDriverId());
+		}else if(pay.getBillType()==2){
+			//支付到车主
+			bank.setCreater(pay.getVenderId());
+		}
+		//默认银行卡
+		bank.setBankstatus("1");
+		//审核通过
+		bank.setBankautid("1");
+		List<MemberBankCard> list = memberBankCardMapper.selectByCondition(bank);
+		if(list.size()==1){
+			resp = changeBankDetail(resp,list.get(0));
+		}
+		return resp;
+	}
+	
+	protected PayAndBillDateilResp changeBankDetail(PayAndBillDateilResp resp,MemberBankCard bank) throws Exception {
+		resp.setBankcard(bank.getBankcard());
+		resp.setBankname(bank.getBankname());
+		resp.setBankAdreess(bank.getDesc1());
+		return resp;
+	}
+	
+	protected PayAndBillDateilResp changePayDetail(PayAndBillDateilResp resp,PayInvoiceDetail pay) throws Exception {
+		PropertyUtils.copyProperties(resp, pay);
+		resp.setPayCode(pay.getCode());
+		return resp;
+	}
+	
+	protected PayAndBillDateilResp changeAlBillPayDetail(PayAndBillDateilResp resp,AnlianBill bill) {
+		resp.setPayMent(bill.getPayment());
+		resp.setBillNo(bill.getBillno());
+		resp.setVehicleNo(bill.getCph());
+		Plan plan = planMapper.selectByPrimaryKey(bill.getDesc1());
+		resp = changePlan(resp,plan);
+		SystemMember driver = systemMemberMapper.selectByPrimaryKey(bill.getDriverid());
+		resp.setDriverCellphone(driver.getCellphone());
+		resp.setDriverName(driver.getRemarkname());
+		resp.setDriverAlcode(driver.getAldriverid());
+		SystemMember owner = systemMemberMapper.selectByPrimaryKey(bill.getOwnerid());
+		resp.setOwnerCellphone(owner.getCellphone());
+		resp.setOwnerName(owner.getRemarkname());
+		SystemMember vender = systemMemberMapper.selectByPrimaryKey(bill.getVenderid());
+		resp.setVenderCellphone(vender.getCellphone());
+		resp.setVenderName(vender.getRemarkname());
+		SystemMember receive = systemMemberMapper.selectByPrimaryKey(bill.getReceive_memberid());
+		resp.setReceiveCellphone(receive.getCellphone());
+		resp.setReceiveName(receive.getRemarkname());
+		return resp;
+	}
+	
+	/** 账单详情大易运单数据交换*/
+	protected PayAndBillDateilResp changeDyBillPayDetail(PayAndBillDateilResp resp,Bill bill) {
+		resp.setPayMent(bill.getPayment());
+		resp.setBillNo(bill.getWaybillno());
+		resp.setVehicleNo(bill.getVehicleno());
+		Plan plan = planMapper.selectByPrimaryKey(bill.getPlanid());
+		
+		resp = changePlan(resp,plan);
+		
+		SystemMember driver = systemMemberMapper.selectByPrimaryKey(bill.getDriverid());
+		resp.setDriverCellphone(driver.getCellphone());
+		resp.setDriverName(driver.getRemarkname());
+		resp.setDriverAlcode(driver.getAldriverid());
+		SystemMember owner = systemMemberMapper.selectByPrimaryKey(bill.getOwnerid());
+		resp.setOwnerCellphone(owner.getCellphone());
+		resp.setOwnerName(owner.getRemarkname());
+		SystemMember vender = systemMemberMapper.selectByPrimaryKey(bill.getVenderid());
+		resp.setVenderCellphone(vender.getCellphone());
+		resp.setVenderName(vender.getRemarkname());
+		SystemMember receive = systemMemberMapper.selectByPrimaryKey(bill.getReceive_memberid());
+		resp.setReceiveCellphone(receive.getCellphone());
+		resp.setReceiveName(receive.getRemarkname());
+		return resp;
+	}
+	
+	/** 处理计划数据*/
+	protected PayAndBillDateilResp changePlan(PayAndBillDateilResp resp,Plan plan) {
+		resp.setPlancode(plan.getPlancode());
+		//收货方
+		Merchant conMer = merchantMapper.selectByPrimaryKey(plan.getConsigneeMerchant());
+		if(conMer != null){
+			resp.setConMer(conMer.getName());
+			resp.setConMerCode(conMer.getCode());
+		}
+		//发货方
+		Merchant shipMer = merchantMapper.selectByPrimaryKey(plan.getShipperMerchant());
+		if(shipMer != null){
+			resp.setShipMer(shipMer.getName());
+			resp.setShipMerCode(shipMer.getCode());
+		}
+		//路线
+		FileRoute route = fileRouteMapper.selectByPrimaryKey(plan.getRouteid());
+		resp.setRouteName(route.getRoutename());
+		return resp;
 	}
 	
 }

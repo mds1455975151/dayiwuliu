@@ -3,6 +3,7 @@ package com.tianrui.service.mapper;
 import java.util.List;
 
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.VehicleDriverMember;
 
 public interface VehicleDriverMapper {
     /**
@@ -53,9 +54,9 @@ public interface VehicleDriverMapper {
      */
     int updateByPrimaryKey(VehicleDriver record);
     
-    List<VehicleDriver> findList(VehicleDriver record);
+    List<VehicleDriverMember> findList(VehicleDriverMember record);
     
-    long findListCount(VehicleDriver record);
+    long findListCount(VehicleDriverMember record);
     
     List<VehicleDriver> findWithEntity(VehicleDriver record);
     

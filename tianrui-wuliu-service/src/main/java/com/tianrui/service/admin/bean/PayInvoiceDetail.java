@@ -15,8 +15,26 @@ public class PayInvoiceDetail {
 	private List<String> ids;
 	//查询关键字
 	private String searchKey;
+	//运价确认状态 1-未确认  2-已确认  3-已合单
+	private String billPayStatus;
 	//附件图片
 	private String appendix;
+	
+	private String memo;
+	
+	private Long timeBegin;
+	
+	private Long timeEnd;
+	
+	private String driverPhone;
+	private String driverName;
+	private String venderPhone;
+	private String venderName;
+	private String shipperMerchant;
+	private String shipname;
+	
+	private String ashipname;
+	
 	
 	private Double billweightB;
    
@@ -402,7 +420,15 @@ public class PayInvoiceDetail {
         return modifyTime;
     }
 
-    public void setModifyTime(Long modifyTime) {
+    public String getBillPayStatus() {
+		return billPayStatus;
+	}
+
+	public void setBillPayStatus(String billPayStatus) {
+		this.billPayStatus = billPayStatus;
+	}
+
+	public void setModifyTime(Long modifyTime) {
         this.modifyTime = modifyTime;
     }
 
@@ -450,6 +476,14 @@ public class PayInvoiceDetail {
 		return appendix;
 	}
 
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
 	public void setAppendix(String appendix) {
 		this.appendix = appendix;
 	}
@@ -468,6 +502,78 @@ public class PayInvoiceDetail {
 
 	public void setBillpriceB(Double billpriceB) {
 		this.billpriceB = billpriceB;
+	}
+
+	public String getDriverPhone() {
+		return driverPhone;
+	}
+
+	public void setDriverPhone(String driverPhone) {
+		this.driverPhone = driverPhone;
+	}
+
+	public String getDriverName() {
+		return driverName;
+	}
+
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
+
+	public String getVenderPhone() {
+		return venderPhone;
+	}
+
+	public void setVenderPhone(String venderPhone) {
+		this.venderPhone = venderPhone;
+	}
+
+	public String getVenderName() {
+		return venderName;
+	}
+
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+
+	public String getShipperMerchant() {
+		return shipperMerchant;
+	}
+
+	public String getAshipname() {
+		return ashipname;
+	}
+
+	public void setAshipname(String ashipname) {
+		this.ashipname = ashipname;
+	}
+
+	public void setShipperMerchant(String shipperMerchant) {
+		this.shipperMerchant = shipperMerchant;
+	}
+
+	public String getShipname() {
+		return shipname;
+	}
+
+	public void setShipname(String shipname) {
+		this.shipname = shipname;
+	}
+
+	public Long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(Long timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Long getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Long timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 
 	public PayInvoiceDetail() {

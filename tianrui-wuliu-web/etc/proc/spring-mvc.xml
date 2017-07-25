@@ -52,7 +52,7 @@
         <property name="maxInMemorySize" value="2048" />    
          -->  
     </bean>    
-
+	
 	<!-- 资源文件路径 css js images -->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
 	<mvc:resources location="/favicon.ico" mapping="/favicon.ico" /> 
