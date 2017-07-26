@@ -2112,19 +2112,21 @@ public class BillService implements IBillService{
 			rs.setError("推送重量必须大于0且小于99吨");
 			return rs;
 		}
-		if(db.getInterTime() == null ||db.getInterTime()<=1000*60*30){
-			rs.setCode("1");
-			rs.setError("提货卸货时间间隔不能小于30分钟");
-			return rs;
-		}
+//		if(db.getInterTime() == null ||db.getInterTime()<=1000*60*30){
+//			rs.setCode("1");
+//			rs.setError("提货卸货时间间隔不能小于30分钟");
+//			return rs;
+//		}
 		
 		
 		//运单推送交通部
-		rs = billExchange(db);
-		if(StringUtils.equals(rs.getCode(), "000000")){
+//		rs = billExchange(db);
+//		if(StringUtils.equals(rs.getCode(), "000000")){
+		if(true){
 			Bill upt = new Bill();
 			upt.setId(id);
 			upt.setJtb("1");
+			upt.setJTBPushTime(System.currentTimeMillis());
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 		return rs;
@@ -2249,10 +2251,14 @@ public class BillService implements IBillService{
 			return rs;
 		}
 		
-		rs = anlianBillExchange(ab);
-		if(StringUtils.equals("000000", rs.getCode())){
-			ab.setDesc2("1"); 
-			anlianBillMapper.updateByPrimaryKey(ab);
+//		rs = anlianBillExchange(ab);
+		if(true){
+//		if(StringUtils.equals("000000", rs.getCode())){
+			AnlianBill upt = new AnlianBill();
+			upt.setId(ab.getId());
+			upt.setDesc2("1"); 
+			upt.setJTBPushTime(System.currentTimeMillis());
+			anlianBillMapper.updateByPrimaryKeySelective(upt);
 		}
 		return rs;
 	}

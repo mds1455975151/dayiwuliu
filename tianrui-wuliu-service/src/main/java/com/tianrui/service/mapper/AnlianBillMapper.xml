@@ -52,7 +52,9 @@
     <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
     
     <result column="confirm_Price_A" property="confirmPriceA" jdbcType="VARCHAR" />
-		<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
+	<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
+	
+	<result column="JTBPushTime" property="JTBPushTime" jdbcType="BIGINT" />
     
   </resultMap>
   <sql id="Base_Column_List" >
@@ -61,7 +63,7 @@
     creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, 
     payment, receive_memberid,
     pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
-    confirm_Price_A,confirm_Price_B
+    confirm_Price_A,confirm_Price_B,JTBPushTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -177,7 +179,7 @@
       modifytime, desc1, desc2, 
       desc3, desc4,payment, receive_memberid,
       pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
-      confirm_Price_A,confirm_Price_B)
+      confirm_Price_A,confirm_Price_B,JTBPushTime)
     values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
       #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
       #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
@@ -196,7 +198,7 @@
       #{signimgurl,jdbcType=VARCHAR},
       #{signtime,jdbcType=BIGINT},
       #{trueweight,jdbcType=DOUBLE},
-      #{confirmPriceA,jdbcType=VARCHAR},#{confirmPriceB,jdbcType=VARCHAR})
+      #{confirmPriceA,jdbcType=VARCHAR},#{confirmPriceB,jdbcType=VARCHAR},#{JTBPushTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     insert into anlian_bill
@@ -344,7 +346,9 @@
       <if test="confirmPriceB != null">
         confirmPriceB,
       </if>
-      
+      <if test="JTBPushTime != null">
+        JTBPushTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -490,13 +494,17 @@
       <if test="confirmPriceB != null">
         #{confirmPriceB,jdbcType=VARCHAR},
       </if>
-      
+      <if test="JTBPushTime != null">
+        #{JTBPushTime,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     <set >
-     
+     <if test="JTBPushTime != null">
+        JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
+      </if>
      <if test="confirmPriceA != null">
       	confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
       </if>
@@ -640,6 +648,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     set billno = #{billno,jdbcType=VARCHAR},
+        JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
     	confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
         confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},
     trueweight = #{trueweight,jdbcType=DOUBLE},
@@ -687,4 +696,41 @@
       desc4 = #{desc4,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectAlJTBPushCount" resultType="long" parameterType="com.tianrui.service.bean.anlian.JtbPushCount" >
+    select 
+    count(0)
+    from anlian_bill
+    <where>
+    	<if test="pustStatus == 1">
+    		and desc2 = 1
+    		and JTBPushTime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
+    		and JTBPushTime <![CDATA[<=]]> #{endTime,jdbcType=BIGINT}
+    	</if>
+    	<if test="pustStatus == 2">
+    		and (desc2 != 1 or desc2 is null)
+    		and createtime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
+    		and createtime <![CDATA[<=]]> #{endTime,jdbcType=BIGINT}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectDYJTBPushCount" resultType="long" parameterType="com.tianrui.service.bean.anlian.JtbPushCount" >
+    select 
+    count(0)
+    from wuliu_bill
+    <where>
+    	<if test="pustStatus == 1">
+    		and jtb = 1
+    		and JTBPushTime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
+    		and JTBPushTime <![CDATA[<=]]> #{endTime,jdbcType=BIGINT}
+    	</if>
+    	<if test="pustStatus == 2">
+    		and (jtb != 1 or jtb is null)
+    		and createtime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
+    		and createtime <![CDATA[<=]]> #{endTime,jdbcType=BIGINT}
+    	</if>
+    </where>
+  </select>
+  
 </mapper>

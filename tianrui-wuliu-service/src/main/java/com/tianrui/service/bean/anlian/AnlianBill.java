@@ -3,6 +3,8 @@ package com.tianrui.service.bean.anlian;
 public class AnlianBill {
     private String id;
     
+    private Long JTBPushTime;
+    
     private Double pickupweight; 
     private String pickupimgurl;
     
@@ -493,5 +495,13 @@ public class AnlianBill {
 	}
 	public void setConfirmPriceB(String confirmPriceB) {
 		this.confirmPriceB = confirmPriceB;
+	}
+
+	public Long getJTBPushTime() {
+		return JTBPushTime;
+	}
+
+	public void setJTBPushTime(Long jTBPushTime) {
+		JTBPushTime = jTBPushTime;
 	}
 }

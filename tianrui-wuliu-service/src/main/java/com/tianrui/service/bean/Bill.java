@@ -10,7 +10,7 @@ public class Bill {
 	
 	private Double q_deviation;
 	private Double d_deviation;
-	
+	private Long  JTBPushTime;
 	private Double interDistance;
 	private Long interTime;
 	private Long begintime;
@@ -1290,6 +1290,14 @@ public class Bill {
 
 	public String getConfirmPriceB() {
 		return confirmPriceB;
+	}
+
+	public Long getJTBPushTime() {
+		return JTBPushTime;
+	}
+
+	public void setJTBPushTime(Long jTBPushTime) {
+		JTBPushTime = jTBPushTime;
 	}
 
 	public void setConfirmPriceB(String confirmPriceB) {

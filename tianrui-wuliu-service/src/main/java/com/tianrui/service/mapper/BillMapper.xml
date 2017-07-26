@@ -78,6 +78,8 @@
 		
 		<result column="confirm_Price_A" property="confirmPriceA" jdbcType="VARCHAR" />
 		<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
+		
+		<result column="JTBPushTime" property="JTBPushTime" jdbcType="BIGINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
@@ -96,7 +98,7 @@
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
 		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,
 		jtb,q_deviation,d_deviation,interDistance,interTime,begintime,
-		acctepttime,ownerSigntime,payment,receive_memberid,confirm_Price_A,confirm_Price_B
+		acctepttime,ownerSigntime,payment,receive_memberid,confirm_Price_A,confirm_Price_B,JTBPushTime
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -431,7 +433,7 @@
 		signweight,isAssess,q_deviation,d_deviation,
 		interDistance,interTime,begintime,
 		acctepttime,ownerSigntime,payment,receive_memberid,
-		confirm_Price_A,confirm_Price_B
+		confirm_Price_A,confirm_Price_B,JTBPushTime
 		)
 		values
 		(#{id,jdbcType=VARCHAR},
@@ -484,7 +486,8 @@
 		 #{payment,jdbcType=VARCHAR}, 
 		  #{receive_memberid,jdbcType=VARCHAR},
 		  #{confirmPriceA,jdbcType=VARCHAR},
-		   #{confirmPriceB,jdbcType=VARCHAR}
+		   #{confirmPriceB,jdbcType=VARCHAR},
+		   #{JTBPushTime,jdbcType=BIGINT}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -676,6 +679,9 @@
 			<if test="confirmPriceB != null">
 		  		 confirm_Price_B,
 			</if>
+			<if test="JTBPushTime != null">
+				JTBPushTime,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -863,6 +869,9 @@
 			<if test="confirmPriceB != null">
 		  		 #{confirmPriceB,jdbcType=VARCHAR},
 			</if>
+			<if test="JTBPushTime != null">
+				#{JTBPushTime,jdbcType=BIGINT},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Bill">
@@ -870,7 +879,9 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		<set>
-			
+			<if test="JTBPushTime != null">
+				JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
+			</if>
 			<if test="confirmPriceA != null">
 				confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
 			</if>
@@ -1070,6 +1081,7 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		set planid = #{planid,jdbcType=VARCHAR},
+		JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
 		confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
 		confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},
 		payment = #{payment,jdbcType=VARCHAR}, 
