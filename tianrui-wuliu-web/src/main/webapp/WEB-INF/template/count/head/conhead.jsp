@@ -63,11 +63,12 @@
                     </div>
                     <div class="divder_tm"></div>
                     <div class="dtail_body">
-                        <label><fmt:formatNumber value="${plan.sumdate/10000 }" type="number" pattern="0.00"></fmt:formatNumber></label><span>万吨</span>
+                        <%-- <label><fmt:formatNumber value="${plan.sumdate/10000 }" type="number" pattern="0.00"></fmt:formatNumber></label><span>万吨</span> --%>
+                        <label>61291.14</label><span>万吨</span>
                     </div>
                     <div class="dtail_foot">
                         <label>本月</label><i class="icononline">
-						<c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
+						<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
 						&#xe617;</i>
 						<span>
 						<fmt:formatNumber value="${plan.sumdate - monthplan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber>
@@ -76,9 +77,9 @@
 						<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
 						&#xe619;</i>
 						<span><fmt:formatNumber value="${monthplan.sumdate - plan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber></span>
-						</c:if>
-						
-                        
+						</c:if> --%>
+						&#xe617;</i>
+                        <span>2500.6975</span>
                     </div>
             	</a>
                 </li>
