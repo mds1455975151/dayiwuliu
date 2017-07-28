@@ -178,6 +178,9 @@ public class Constant {
     //公司
     public final static String BANK_ACCOUNT_PERSON_IDENTITY_GS = "2";
     
+    //安联对接私钥
+    public final static String PRIVATEKEY_ANLIAN ="";
+    
 	public static String getFILE_URL_PRE() {
 		return FILE_URL_PRE;
 	}

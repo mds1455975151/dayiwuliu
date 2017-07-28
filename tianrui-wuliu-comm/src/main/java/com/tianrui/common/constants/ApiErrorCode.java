@@ -10,6 +10,9 @@ public enum ApiErrorCode {
 	API_POSITION_PARAM_ERROR4("E000104","参数经度异常."),
 	API_POSITION_PARAM_ERROR5("E000105","参数trackingid异常."),
 	API_POSITION_PARAM_ERROR6("E000106","参数调用时间异常."),
+	API_POSITION_PARAM_ERROR7("E000107","参数vehicleNo不正确."),
+	API_POSITION_PARAM_ERROR8("E000108","参数token不正确."),
+	API_POSITION_PARAM_ERROR9("E000109","参数beginTime或者endTime不正确."),
 	
 	API_SYSTEM_SUCCESS("000000","操作成功.");
 
