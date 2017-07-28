@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IApiPostionService;
-import com.tianrui.api.req.front.api.APIVehicleGpsReq;
+import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
 import com.tianrui.common.constants.ApiErrorCode;
 import com.tianrui.common.constants.ErrorCode;
@@ -30,7 +29,7 @@ import com.tianrui.common.vo.Result;
  *
  */
 @Controller
-@RequestMapping("/otherApi/vehicle")
+@RequestMapping("/other/anlianApi")
 public class VehicleGpsAction {
 
 	private Logger logger = LoggerFactory.getLogger(VehicleGpsAction.class);
@@ -41,12 +40,8 @@ public class VehicleGpsAction {
 	//获取承运计划列表
 	@RequestMapping(value="/queryTrack",method=RequestMethod.POST)
 	@ResponseBody
-	public Result queryTrack(@RequestBody APIVehicleGpsReq req) throws Exception{
+	public Result queryTrack(@RequestBody VehicleGpsReq req) throws Exception{
 		Result rs =new Result();
-		//交验
-		// 1:md5验证防篡改 (使用原始md5值替换并生成md5串)
-		// 2:key验证来源(使用)
-		// 3:参数不能为空
 		ApiErrorCode error =validParam(req);
 		if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
 			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
@@ -55,18 +50,18 @@ public class VehicleGpsAction {
 			rs.setCode(error.getCode());
 			rs.setError(error.getMsg());
 		}
-		
-		logger.info("queryTrack 参数:{},返回值:{}",JSON.toJSON(req),rs.getCode());
+		rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+		logger.info("queryTrack 参数:{},返回值:{}",null,rs.getCode());
 		return rs;
 	}
 	
-	private ApiErrorCode validParam(APIVehicleGpsReq req){
+	private ApiErrorCode validParam(VehicleGpsReq req){
 		ApiErrorCode errorCode = ApiErrorCode.API_SYSTEM_ERROR;
 		if( req!=null ){
 			//参数为空的验证
 			if(  StringUtils.isNotBlank(req.getToken()) &&  StringUtils.isNotBlank(req.getBeginTime()) &&  StringUtils.isNotBlank(req.getVehicleNO()) ){
 				//车牌号格式
-				if( !checkVehciNoParam(req.getToken()) ){
+				if( !checkVehciNoParam(req.getVehicleNO()) ){
 					errorCode=ApiErrorCode.API_POSITION_PARAM_ERROR7;
 				//用户私钥	
 				}else if(!checkTokenParam(req.getToken(),req.getTime())){

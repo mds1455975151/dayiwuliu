@@ -2,9 +2,9 @@ package com.tianrui.api.req.front.api;
 
 import java.io.Serializable;
 
-public class APIVehicleGpsReq implements Serializable {
+public class VehicleGpsReq implements Serializable {
 
-	private static final long serialVersionUID = 8492180621540829387L;
+	private static final long serialVersionUID = 4601963309298898149L;
 	//查询条件
 	private String vehicleNO;
 	private String beginTime;
@@ -14,6 +14,8 @@ public class APIVehicleGpsReq implements Serializable {
 	private String time;
 	//用户私钥
 	private String token;
+	
+	
 	public String getVehicleNO() {
 		return vehicleNO;
 	}

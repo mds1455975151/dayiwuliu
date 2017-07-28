@@ -8,34 +8,39 @@ import java.net.URL;
 
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.req.front.api.APIPositionReq;
-import com.tianrui.common.utils.Md5Utils;
+import com.tianrui.api.req.front.api.APIPositionReq2;
+import com.tianrui.api.req.front.api.VehicleGpsReq;
 
-public class ApiTest {
+public class ApiTest2 {
 
-	private static String url="http://127.0.0.1/other/anlianApi/uploadPosition";
-	//防篡改
-	private static String API_KEY="!tR2016@#%";
-	//用户标识验证
-	private static String API_SECRET_KEY="anlian2016";
-	static APIPositionReq getParam(){
-		APIPositionReq req =new APIPositionReq();
-		req.setLat("lat");
-		req.setLng("lon");
+	private static String url="http://127.0.0.1/other/anlianApi/queryTrack";
+
+	//private static String url="http://127.0.0.1/other/anlianApi/uploadPosition";
+	
+	
+	static VehicleGpsReq getParam2(){
+		VehicleGpsReq req =new VehicleGpsReq();
+		req.setVehicleNO("A12345");
+		req.setBeginTime("TIME");
+		req.setEndTime("TIME");
 		req.setTime("2016-12-30 10:45:00");
-		req.setTrackingid("Trackingid");
-		req.setTrackingdate("2016-12-30 9:45:00");
-		return req;
+		req.setToken("Trackingid");
+		return  req;
 	}
 	
 	
-	static void setkey(APIPositionReq req){
-		req.setKey(Md5Utils.MD5(req.getTime()+API_SECRET_KEY));
-	}
 	
-	static void setMd5(APIPositionReq req){
-		req.setMd5(API_KEY);
-		req.setMd5(Md5Utils.MD5(JSON.toJSONString(req)));
-	}
+//	static APIPositionReq getParam2(){
+//		APIPositionReq req =new APIPositionReq();
+//		req.setLat("lat");
+//		req.setLng("lon");
+////		req.setTime("2016-12-30 10:45:00");
+////		req.setTrackingid("Trackingid");
+////		req.setTrackingdate("2016-12-30 9:45:00");
+//		return req;
+//	}
+	
+	
 	static String  httpPost(String url,String param){
 		StringBuffer sb = new StringBuffer("");
 	   
@@ -47,7 +52,7 @@ public class ApiTest {
 			conn.setRequestMethod("POST");
 			conn.setUseCaches(false);
 			conn.setInstanceFollowRedirects(true);
-			conn.setRequestProperty("Content-Type","application/json");
+			conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
 	        // 发送POST请求必须设置如下两行
 	        conn.setDoOutput(true);
 	        conn.setDoInput(true);
@@ -75,13 +80,10 @@ public class ApiTest {
 	    return sb.toString();
 	}
 	public static void main(String[] args) {
-		APIPositionReq req =getParam();
-		setkey(req);
-		setMd5(req);
-		String param =JSON.toJSONString(req);
+		String param =JSON.toJSONString(getParam2());
 		System.out.println(param);
+		//System.out.println(httpPost(url,req.toJSONString()));
 		System.out.println(httpPost(url,param));
-		
 		
 	}
 	
