@@ -146,7 +146,7 @@ function displayRect(pageNo){
 								hml += "<span><a onclick=\"driverShenhe('"+data[a].id+"','"+data[a].driverpercheck+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
 							if((data[a].driverpercheck == '1') && data[a].pushStatus == 0 && (data[a].ncStatus == '0' || data[a].ncStatus == '1' || data[a].ncStatus == '3')){
-								hml += "<span><a onclick=\"push('"+data[a].id+"')\">【推送】</a></span>";
+								hml += "<span><a onclick=\"push('"+data[a].id+"','"+(pageNo)+"')\">【推送】</a></span>";
 							}
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
@@ -171,7 +171,7 @@ function displayRect(pageNo){
 	});  
 }
 //推送NC
-function push(id){
+function push(id,pageNo){
 	if (confirm('是否推送到NC？')) {
 		var index = layer.load(2, {
 			time: 1000*10,
@@ -185,7 +185,7 @@ function push(id){
 			success: function(result) {
 				if(result.code == "000000"){
 					alert("推送成功！");
-					driverSearch();
+					displayRect(parseInt(pageNo));
 				}else{
 					alert(result.error);
 				}
