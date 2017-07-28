@@ -22,7 +22,7 @@ public class AuditReportSchedule {
 	 * @return void    
 	 * @throws
 	 */
-	@Scheduled(cron="0/5 * *  * * ? ")
+	@Scheduled(cron="0 0 1 * * ?")
 	public  void auditReport()throws Exception{
 		System.out.println("定时任务测试");
 		auditReportService.timingTask();
