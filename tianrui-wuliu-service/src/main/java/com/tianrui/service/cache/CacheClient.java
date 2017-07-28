@@ -41,7 +41,7 @@ public class CacheClient {
 			String  str=redisTemplate.opsForValue().get(key).toString();
 			rs= (T)JSON.parseObject(str,clazz);
 		} catch (Exception e) {
-			logger.warn(e.getLocalizedMessage());
+			//logger.warn(e.getLocalizedMessage());
 		} 
 		return rs;
 	}

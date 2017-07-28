@@ -3,28 +3,33 @@ package com.tianrui.app.web;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.alibaba.fastjson.JSON;
-import com.tianrui.api.req.front.api.APIPositionReq;
-import com.tianrui.api.req.front.api.APIPositionReq2;
 import com.tianrui.api.req.front.api.VehicleGpsReq;
+import com.tianrui.common.utils.Md5Utils;
 
 public class ApiTest2 {
 
-	private static String url="http://127.0.0.1/other/anlianApi/queryTrack";
+	private static String url="http://www.appb2b.com/other/anlianApi/queryTrack";
 
 	//private static String url="http://127.0.0.1/other/anlianApi/uploadPosition";
 	
 	
 	static VehicleGpsReq getParam2(){
 		VehicleGpsReq req =new VehicleGpsReq();
-		req.setVehicleNO("A12345");
+		try {
+			req.setVehicleNO(new String("京A12345".getBytes("utf-8"),"iso8859-1"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		req.setBeginTime("TIME");
 		req.setEndTime("TIME");
 		req.setTime("2016-12-30 10:45:00");
-		req.setToken("Trackingid");
+		req.setToken(Md5Utils.MD5("anlian!@2017#2016-12-30 10:45:00"));
 		return  req;
 	}
 	
@@ -52,7 +57,7 @@ public class ApiTest2 {
 			conn.setRequestMethod("POST");
 			conn.setUseCaches(false);
 			conn.setInstanceFollowRedirects(true);
-			conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+			conn.setRequestProperty("Content-Type","application/json");
 	        // 发送POST请求必须设置如下两行
 	        conn.setDoOutput(true);
 	        conn.setDoInput(true);

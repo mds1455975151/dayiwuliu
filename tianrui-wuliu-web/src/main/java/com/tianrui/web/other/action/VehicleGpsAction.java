@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.intf.IApiPostionService;
 import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
@@ -50,8 +51,8 @@ public class VehicleGpsAction {
 			rs.setCode(error.getCode());
 			rs.setError(error.getMsg());
 		}
-		rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-		logger.info("queryTrack 参数:{},返回值:{}",null,rs.getCode());
+		//rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+		logger.info("queryTrack 参数:{},返回值:{}",JSONObject.toJSON(req),rs.getCode());
 		return rs;
 	}
 	
