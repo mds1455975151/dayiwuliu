@@ -41,10 +41,14 @@ public class MyVehicle{
 	private String desc1;
 	private String desc2;
 	private String desc3;
-	
+	//查询开始时间
+  	private Long beginTime;
+  	//查询结束时间
+  	private Long endTime;
 	private Double vehiwidth;
 	 
 	private Double vehiheight;
+	private Long audittime;
 	/**
 	 * 车牌号前缀
 	 */
@@ -365,5 +369,31 @@ public class MyVehicle{
 	public void setCellphone(String cellphone) {
 		this.cellphone = cellphone;
 	}
+
+	public Long getAudittime() {
+		return audittime;
+	}
+
+	public void setAudittime(Long audittime) {
+		this.audittime = audittime;
+	}
+
+	public Long getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Long beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
+	}
+	
+	
 
 }

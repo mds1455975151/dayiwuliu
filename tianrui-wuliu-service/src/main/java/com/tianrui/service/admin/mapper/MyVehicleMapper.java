@@ -3,6 +3,7 @@ package com.tianrui.service.admin.mapper;
 import java.util.List;
 
 import com.tianrui.service.admin.bean.MyVehicle;
+import com.tianrui.service.bean.MemberVehicle;
 /**
  * 
  * @类描述：后台车辆管理查询
@@ -21,4 +22,6 @@ public interface MyVehicleMapper {
 	long findByEntityCount(MyVehicle vehicle);
 	
 	MyVehicle findByid(String id);
+	//车辆审核通过/不通过
+    Long vehicleNum(MemberVehicle mv);
 }

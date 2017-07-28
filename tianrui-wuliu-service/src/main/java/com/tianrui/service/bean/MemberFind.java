@@ -82,13 +82,36 @@ public class MemberFind implements IModel{
 	 * 每页几条
 	 */
 	private int pageSize;
+	private Integer limit;
 	/**
 	 * 0-查询普通用户, 1-查询司机用户
 	 */
 	private String userType;
+
+	/**
+	 * 审核时间
+	 */
+	private Long audittime;
 	
-	private Integer limit;
 	
+	//查询开始时间
+	private Long beginTime;
+	//查询结束时间
+	private Long endTime;
+	
+	
+	public Long getBeginTime() {
+		return beginTime;
+	}
+	public void setBeginTime(Long beginTime) {
+		this.beginTime = beginTime;
+	}
+	public Long getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
+	}
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -217,6 +240,12 @@ public class MemberFind implements IModel{
 	}
 	public void setNcStatus(Integer ncStatus) {
 		this.ncStatus = ncStatus;
+	}
+	public Long getAudittime() {
+		return audittime;
+	}
+	public void setAudittime(Long audittime) {
+		this.audittime = audittime;
 	}
 
 	
