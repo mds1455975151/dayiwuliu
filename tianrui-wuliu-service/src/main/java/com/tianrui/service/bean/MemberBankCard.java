@@ -34,6 +34,11 @@ public class MemberBankCard {
     private String auditor;
 
     private Long auditortime;
+    
+    //查询开始时间
+  	private Long beginTime;
+  	//查询结束时间
+  	private Long endTime;
 
     private String desc1;
 
@@ -54,8 +59,25 @@ public class MemberBankCard {
     private String errorMassage;
     //审核不通过返回信息
     private String auditMassage;
+    
+    
+    public Long getBeginTime() {
+		return beginTime;
+	}
 
-    public String getAuditMassage() {
+	public void setBeginTime(Long beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getAuditMassage() {
 		return auditMassage;
 	}
 

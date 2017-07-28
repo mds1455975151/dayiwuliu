@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AuditReportMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.AuditReport" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userByNum" property="userByNum" jdbcType="VARCHAR" />
+    <result column="userFailNum" property="userFailNum" jdbcType="VARCHAR" />
+    <result column="driverByNum" property="driverByNum" jdbcType="VARCHAR" />
+    <result column="driverFailNum" property="driverFailNum" jdbcType="VARCHAR" />
+    <result column="vehicleByNum" property="vehicleByNum" jdbcType="VARCHAR" />
+    <result column="vehicleFailNum" property="vehicleFailNum" jdbcType="VARCHAR" />
+    <result column="bankcardByNum" property="bankcardByNum" jdbcType="VARCHAR" />
+    <result column="bankcardFailNum" property="bankcardFailNum" jdbcType="VARCHAR" />
+    <result column="waybillByPushDJ" property="waybillByPushDJ" jdbcType="VARCHAR" />
+    <result column="waybillFailPushDJ" property="waybillFailPushDJ" jdbcType="VARCHAR" />
+    <result column="waybillByPushAJ" property="waybillByPushAJ" jdbcType="VARCHAR" />
+    <result column="waybillFailPushAJ" property="waybillFailPushAJ" jdbcType="VARCHAR" />
+    <result column="reviewTime" property="reviewTime" jdbcType="VARCHAR" />
+    <result column="creatertime" property="creatertime" jdbcType="VARCHAR" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+     <result column="starttime" property="starttime" jdbcType="BIGINT" />
+      <result column="endtime" property="endtime" jdbcType="BIGINT" />
+    <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userByNum, userFailNum,  driverByNum ,driverFailNum,vehicleByNum,vehicleFailNum,bankcardByNum,bankcardFailNum,
+    waybillByPushDJ,waybillFailPushDJ,waybillByPushAJ,waybillFailPushAJ,reviewTime,creatertime,modify,modifytime,
+    starttime,endtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from audit_report
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.AuditReport" >
+    select 
+    <include refid="Base_Column_List" />
+    from audit_report
+    <where>
+    	<if test="starttime != null and starttime != ''">
+				 and reviewTime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+		</if>
+		<if test="endtime != null and endtime != ''">
+				and reviewTime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+		</if>
+    </where>
+     <if test="pageNo != null and pageSize != null">
+       	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+  </select>
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from audit_report
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from audit_report where type =#{type,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.AuditReport" >
+   insert into audit_report (id, userByNum,userFailNum,driverByNum,driverFailNum,
+   		vehicleByNum,vehicleFailNum,bankcardByNum,bankcardFailNum,waybillByPushDJ,
+   		waybillFailPushDJ,waybillByPushAJ,waybillFailPushAJ,reviewTime,creatertime,
+   		modify,modifytime
+      )
+    	values (#{id,jdbcType=BIGINT}, #{userByNum,jdbcType=VARCHAR},#{userFailNum,jdbcType=VARCHAR},#{driverByNum,jdbcType=VARCHAR},
+    	#{driverFailNum,jdbcType=VARCHAR},#{vehicleByNum,jdbcType=VARCHAR},#{vehicleFailNum,jdbcType=VARCHAR},
+    	#{bankcardByNum,jdbcType=VARCHAR},#{bankcardFailNum,jdbcType=VARCHAR},#{waybillByPushDJ,jdbcType=VARCHAR},
+    	#{waybillFailPushDJ,jdbcType=VARCHAR},#{waybillByPushAJ,jdbcType=VARCHAR},#{waybillFailPushAJ,jdbcType=VARCHAR},
+    	#{reviewTime,jdbcType=VARCHAR},#{creatertime,jdbcType=VARCHAR},#{modify,jdbcType=VARCHAR},#{modifytime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.AuditReport" >
+    insert into audit_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userByNum != null" >
+        userByNum,
+      </if>
+      <if test="userFailNum != null" >
+        userFailNum,
+      </if>
+      <if test="driverByNum != null" >
+        driverByNum,
+      </if>
+      <if test="driverFailNum != null" >
+        driverFailNum,
+      </if>
+      <if test="vehicleByNum != null" >
+        vehicleByNum,
+      </if>
+      <if test="vehicleFailNum != null" >
+        vehicleFailNum,
+      </if>
+      <if test="bankcardByNum != null" >
+        bankcardByNum,
+      </if>
+      <if test="bankcardFailNum != null" >
+        bankcardFailNum,
+      </if>
+      <if test="waybillByPushDJ != null" >
+        waybillByPushDJ,
+      </if>
+      <if test="waybillFailPushDJ != null" >
+        waybillFailPushDJ,
+      </if>
+      <if test="waybillByPushAJ != null" >
+        waybillByPushAJ,
+      </if>
+      <if test="waybillFailPushAJ != null" >
+        waybillFailPushAJ,
+      </if>
+      <if test="reviewTime != null" >
+        reviewTime,
+      </if>
+      <if test="creatertime != null" >
+        creatertime,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+     <if test="userByNum != null" >
+        #{userByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userFailNum != null" >
+        #{userFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driverByNum != null" >
+        #{driverByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driverFailNum != null" >
+        #{driverFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleByNum != null" >
+        #{vehicleByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleFailNum != null" >
+        #{vehicleFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardByNum != null" >
+        #{bankcardByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardFailNum != null" >
+        #{bankcardFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillByPushDJ != null" >
+        #{waybillByPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillFailPushDJ != null" >
+        #{waybillFailPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillByPushAJ != null" >
+        #{waybillFailPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillFailPushAJ != null" >
+        #{waybillFailPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null" >
+        #{reviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creatertime != null" >
+        #{creatertime,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.AuditReport" >
+    update audit_report
+    <set >
+      <if test="userByNum != null" >
+        #{userByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userFailNum != null" >
+        #{userFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driverByNum != null" >
+        #{driverByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driverFailNum != null" >
+        #{driverFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleByNum != null" >
+        #{vehicleByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleFailNum != null" >
+        #{vehicleFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardByNum != null" >
+        #{bankcardByNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardFailNum != null" >
+        #{bankcardFailNum,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillByPushDJ != null" >
+        #{waybillByPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillFailPushDJ != null" >
+        #{waybillFailPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewTime != null" >
+        #{reviewTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creatertime != null" >
+        #{creatertime,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.AuditReport" >
+    update audit_report
+    set userByNum = #{userByNum,jdbcType=VARCHAR},
+      	userFailNum = #{userFailNum,jdbcType=VARCHAR},
+      	driverByNum = #{driverByNum,jdbcType=VARCHAR},
+      	driverFailNum = #{driverFailNum,jdbcType=VARCHAR},
+      	vehicleByNum = #{vehicleByNum,jdbcType=VARCHAR},
+      	vehicleFailNum = #{vehicleFailNum,jdbcType=VARCHAR},
+      	bankcardByNum = #{bankcardByNum,jdbcType=VARCHAR},
+      	bankcardFailNum = #{bankcardFailNum,jdbcType=VARCHAR},
+      	waybillByPushDJ = #{waybillByPushDJ,jdbcType=VARCHAR},
+      	waybillFailPushDJ = #{waybillFailPushDJ,jdbcType=VARCHAR},
+      	waybillByPushAJ = #{waybillByPushAJ,jdbcType=VARCHAR},
+      	waybillFailPushAJ = #{waybillFailPushAJ,jdbcType=VARCHAR},
+      	reviewTime = #{reviewTime,jdbcType=VARCHAR},
+      	creatertime = #{creatertime,jdbcType=VARCHAR},
+      	modify = #{modify,jdbcType=VARCHAR},
+      	modifytime = #{modifytime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findsAuditReportListCount" resultType="long" parameterType="com.tianrui.service.bean.AuditReport" >
+     select 
+	   count(*)
+    from audit_report 
+   <where>
+   		<if test="starttime != null and starttime != ''">
+				 and reviewTime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
+		</if>
+		<if test="endtime != null and endtime != ''">
+				and reviewTime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
+		</if>
+	   
+   	</where>
+  </select>
+  <select id="queryAuditReportCount" parameterType="com.tianrui.api.req.count.AuditReportReq" resultType="int">
+  	SELECT
+		count(1)
+	from audit_report 
+  </select>
+  <select id="queryAuditReport" parameterType="com.tianrui.api.req.count.AuditReportReq" resultType="com.tianrui.api.resp.count.AuditReportResp">
+  	SELECT
+		*
+	FROM
+		audit_report
+	WHERE 1=1
+	ORDER BY id 
+  </select>
+</mapper>

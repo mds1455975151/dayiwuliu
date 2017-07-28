@@ -72,5 +72,10 @@ public interface SystemMemberMapper {
      * @return
      */
 	Members findByMemberId(String id);
+	
+	//司机用户查询审核通过/不通过
+	 Long driverByNum(MemberFind ms);
+	 //用户
+	Long  userByNum(MemberFind ms);
     
 }

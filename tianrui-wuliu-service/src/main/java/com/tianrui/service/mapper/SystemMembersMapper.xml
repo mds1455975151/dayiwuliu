@@ -136,6 +136,25 @@
        	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
       </if>
   </select>
+    <!-- 审核通过查询条数 -->
+  <select id="driverByNum" resultType="long" parameterType="com.tianrui.service.bean.MemberFind" >
+     select 
+	   count(*)
+    from member m
+   	LEFT JOIN member_info f ON f.memberId = m.ID 
+   	left join member_info_record r on r.memberId = m.ID
+   <where> 1=1
+	  <if test="userpercheck != null and userpercheck !=''">
+	  	and m.userpercheck = #{userpercheck,jdbcType=VARCHAR}
+	  </if>
+   	<if test="beginTime != null and beginTime != ''">
+			 and r.audittime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
+	</if>
+	<if test="endTime != null and endTime != ''">
+			and r.audittime <![CDATA[<=]]> #{endTime,jdbcType=BIGINT}
+	</if>
+   	</where>
+  </select>
   <!-- 条件查询模糊查询条数 -->
   <select id="findsMemberListCount" resultType="long" parameterType="com.tianrui.service.bean.MemberFind" >
      select 
