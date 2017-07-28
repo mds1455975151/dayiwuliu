@@ -2120,9 +2120,9 @@ public class BillService implements IBillService{
 		
 		
 		//运单推送交通部
-//		rs = billExchange(db);
-//		if(StringUtils.equals(rs.getCode(), "000000")){
-		if(true){
+		rs = billExchange(db);
+		if(StringUtils.equals(rs.getCode(), "000000")){
+//		if(true){
 			Bill upt = new Bill();
 			upt.setId(id);
 			upt.setJtb("1");
@@ -2251,9 +2251,9 @@ public class BillService implements IBillService{
 			return rs;
 		}
 		
-//		rs = anlianBillExchange(ab);
-		if(true){
-//		if(StringUtils.equals("000000", rs.getCode())){
+		rs = anlianBillExchange(ab);
+//		if(true){
+		if(StringUtils.equals("000000", rs.getCode())){
 			AnlianBill upt = new AnlianBill();
 			upt.setId(ab.getId());
 			upt.setDesc2("1"); 
