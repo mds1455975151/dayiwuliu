@@ -30,7 +30,7 @@ import com.tianrui.common.vo.Result;
  *
  */
 @Controller
-@RequestMapping("/other/anlianApi")
+@RequestMapping("/otherApi/vehicle")
 public class VehicleGpsAction {
 
 	private Logger logger = LoggerFactory.getLogger(VehicleGpsAction.class);
