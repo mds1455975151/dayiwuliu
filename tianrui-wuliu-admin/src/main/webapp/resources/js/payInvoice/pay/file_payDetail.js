@@ -78,6 +78,7 @@ function displayData(pageNo){
 							"<td>"+(ship || "")+"</td>"+
 							"<td>"+bytpe+"</td>"+
 							"<td>"+payName+"</td>"+
+							"<td><a onclick=\"pay_memo('"+data[a].id+"','"+(data[a].memo||"")+"','"+data[a].billCode+"','"+pageNo+"')\" data-toggle='modal' data-target='#memo'>"+(data[a].memo || "【编辑】")+"</a></td>"+
 							"<td>"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 							"<td>";
 						hml +="<span><a onclick=\"detail_pay('"+data[a].id+"')\">【运单详情】</a></span>";
@@ -114,6 +115,27 @@ function detail_pay(id){
 	var menuId = $("#menuId").val();
 	window.open("/pay/InviceDetail1/payInviceDetail?menuId="+menuId+"&id="+id);
 }
+
+function pay_memo(id,memo,billCode,pageNo){
+	$("#memo_id").val(id);
+	$("#pay_memo").val(memo);
+	$("#memo_billNo").html("运单："+billCode);
+	$("#memo_pageNo").val(pageNo);
+}
+
+$("#memoCommit").on("click",function(){
+	$.ajax({
+		url:"/pay/InviceDetail1/payMemo",
+		data:{id:$("#memo_id").val(),
+			memo:$("#pay_memo").val()},
+		type:"POST",
+		success:function(ret){
+			if(ret.code=="000000"){
+				displayData($("#memo_pageNo").val());
+			}
+		}
+	});
+});
 
 function selectBill(id){
 	$("#billTotalPrice").val("");

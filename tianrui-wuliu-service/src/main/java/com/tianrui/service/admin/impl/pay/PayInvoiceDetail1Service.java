@@ -554,5 +554,15 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		resp.setRouteName(route.getRoutename());
 		return resp;
 	}
+
+	@Override
+	public Result payMemo(String id, String memo) throws Exception {
+		Result rs = Result.getSuccessResult();
+		PayInvoiceDetail upt = new PayInvoiceDetail();
+		upt.setId(id);
+		upt.setMemo(memo);
+		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
+		return rs;
+	}
 	
 }
