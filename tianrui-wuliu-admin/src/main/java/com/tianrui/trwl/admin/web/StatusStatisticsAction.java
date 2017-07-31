@@ -157,10 +157,10 @@ public class StatusStatisticsAction {
 		row.createCell(8).setCellValue(obj.getBankcardByNum());
 		row.createCell(9).setCellValue(obj.getBankcardFailNum());
 		row.createCell(10).setCellValue(obj.getWaybillByPushDJ());
-		row.createCell(10).setCellValue(obj.getWaybillFailPushDJ());
-		row.createCell(10).setCellValue(obj.getWaybillByPushAJ());
-		row.createCell(10).setCellValue(obj.getWaybillFailPushAJ());
-		row.createCell(10).setCellValue(obj.getCreatertimes());
+		row.createCell(11).setCellValue(obj.getWaybillFailPushDJ());
+		row.createCell(12).setCellValue(obj.getWaybillByPushAJ());
+		row.createCell(13).setCellValue(obj.getWaybillFailPushAJ());
+		row.createCell(14).setCellValue(obj.getCreatertimes());
 //		if(StringUtils.isNotBlank(obj.getWeight())){
 //			row.createCell(11).setCellValue(new BigDecimal(obj.getWeight()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 //		}
