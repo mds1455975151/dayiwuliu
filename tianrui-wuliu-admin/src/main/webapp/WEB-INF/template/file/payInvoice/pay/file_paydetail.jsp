@@ -58,6 +58,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>发货方：</label>
                             <input type="text" id="shipName" placeholder=" ">
                         </div>
+                         <div class="ht_div">
+                            <label>收货方：</label>
+                            <input type="text" id="consignee" placeholder=" ">
+                        </div>
                         <div class="ht_div">
                         	<label>运单状态：</label>
                             <select id="billPayStatus" class="form-control">
@@ -100,6 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>发票类型</th>
                                 <th>货物名称</th>
                                 <th>发货方</th>
+                                <th>收货方</th>
                                 <th>支付对象</th>
                                 <th>收款人</th>
                                 <th>备注</th>
@@ -225,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?07311" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0801" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>

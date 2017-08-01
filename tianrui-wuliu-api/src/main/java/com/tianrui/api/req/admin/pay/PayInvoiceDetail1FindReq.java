@@ -18,6 +18,8 @@ public class PayInvoiceDetail1FindReq {
 	private String idStr;
 	//发货方名称
 	private String shipname;
+	//收货方名称
+	private String consignee;
 	//查询开始时间
 	private String beginTimeStr;
 	//结束时间
@@ -156,5 +158,11 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setShipname(String shipname) {
 		this.shipname = shipname;
+	}
+	public String getConsignee() {
+		return consignee;
+	}
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
 	}
 }

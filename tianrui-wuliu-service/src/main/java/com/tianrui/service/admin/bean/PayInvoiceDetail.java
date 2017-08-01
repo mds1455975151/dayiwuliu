@@ -33,7 +33,7 @@ public class PayInvoiceDetail {
 	private String shipperMerchant;
 	private String shipname;
 	
-	private String ashipname;
+	private String consignee;
 	
 	
 	private Double billweightB;
@@ -540,12 +540,12 @@ public class PayInvoiceDetail {
 		return shipperMerchant;
 	}
 
-	public String getAshipname() {
-		return ashipname;
+	public String getConsignee() {
+		return consignee;
 	}
 
-	public void setAshipname(String ashipname) {
-		this.ashipname = ashipname;
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
 	}
 
 	public void setShipperMerchant(String shipperMerchant) {

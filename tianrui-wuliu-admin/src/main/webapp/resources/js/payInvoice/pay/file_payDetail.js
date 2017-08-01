@@ -11,6 +11,7 @@ function registMember(){
 	$("#createfor").val("");
 	$("#createend").val("");
 	$("#billPayStatus").val("");
+	$("#consignee").val("");
 }
 function displayData(pageNo){
 	var code = $("#code").val();
@@ -27,6 +28,7 @@ function displayData(pageNo){
 			"beginTimeStr":timefor,
 			"endTiemStr":timeend,
 			"shipname":ship,
+			"consignee":$("#consignee").val(),
 			"billPayStatus":$("#billPayStatus").val(),
 			"pageNo":(pageNo),
 			"pageSize":pageSize
@@ -55,7 +57,6 @@ function displayData(pageNo){
 						var d = a+1;
 						var bytpe = "";
 						var payName = "";
-						var ship = "";
 						if(data[a].billType == "1"){
 							bytpe = "司机";
 							payName = data[a].driverPhone +"-"+data[a].driverName;
@@ -64,18 +65,13 @@ function displayData(pageNo){
 							bytpe = "车主";
 							payName = data[a].venderPhone +"-"+data[a].venderName;
 						}
-						if(data[a].remark == "al"){
-							ship = data[a].ashipname;
-						}
-						if(data[a].remark == "dy"){
-							ship = data[a].shipname;
-						}
 						hml +=
 							"<tr><td>"+d+"</td>"+
 							"<td>"+data[a].billCode+"</td>"+
 							"<td>"+data[a].invoiceName+"</td>"+
 							"<td>"+(data[a].cargoName || "")+"</td>"+
-							"<td>"+(ship || "")+"</td>"+
+							"<td>"+(data[a].shipname || "")+"</td>"+
+							"<td>"+(data[a].consignee || "")+"</td>"+
 							"<td>"+bytpe+"</td>"+
 							"<td>"+payName+"</td>"+
 							"<td><a onclick=\"pay_memo('"+data[a].id+"','"+(data[a].memo||"")+"','"+data[a].billCode+"','"+pageNo+"')\" data-toggle='modal' data-target='#memo'>"+(data[a].memo || "【编辑】")+"</a></td>"+
