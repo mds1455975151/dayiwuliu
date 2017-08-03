@@ -1,5 +1,9 @@
 package com.tianrui.quartz.pushNCTask;
 
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -7,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
+import com.tianrui.common.utils.DateUtil;
 
 /**
   * cron配置
@@ -26,6 +31,8 @@ import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 @Component  
 public class NCPushSchedule {
 	
+	Logger logger = LoggerFactory.getLogger(NCPushSchedule.class);
+	
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
 	@Autowired
@@ -38,7 +45,11 @@ public class NCPushSchedule {
 	 */
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void callBackMemberPushStatus(){
+		Long st = new Date().getTime();
+		logger.info("定时器查询供应商NC审核状态[callBackMemberPushStatus]启动.时间是 :" + DateUtil.getDateString());  
 		systemMemberInfoService.callBackMemberPushStatus();
+		logger.info("定时器查询供应商NC审核状态[callBackMemberPushStatus]结束.耗时/毫秒 :" + (new Date().getTime()-st));  
+		
 	}
 
 	/**
@@ -46,7 +57,11 @@ public class NCPushSchedule {
      */
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void pushBankCardAndCallBackPushStatus(){
+		Long st = new Date().getTime();
+		logger.info("定时器推送银行卡[pushBankCardAndCallBackPushStatus]启动.时间是 :" + DateUtil.getDateString());  
 		memberBankCardService.pushBankCardAndCallBackPushStatus();
+		logger.info("定时器推送银行卡[pushBankCardAndCallBackPushStatus]结束.耗时/毫秒 :" + (new Date().getTime()-st));  
+		
 	}
 
 //	@Scheduled(cron="0 0/3 *  * * ? ")
@@ -59,7 +74,10 @@ public class NCPushSchedule {
      */
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void callBackPayInvoicePayStatus(){
+		Long st = new Date().getTime();
+		logger.info("定时器查询支付状态和金额[callBackPayInvoicePayStatus]启动.时间是 :" + DateUtil.getDateString());  
 		payInvoiceService.callBackPayInvoicePayStatus();
+		logger.info("定时器查询支付状态和金额[callBackPayInvoicePayStatus]结束.耗时/毫秒 :" + (new Date().getTime()-st));  
 	}
 	
 }

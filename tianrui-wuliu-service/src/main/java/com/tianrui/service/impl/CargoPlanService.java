@@ -576,7 +576,14 @@ public class CargoPlanService implements ICargoPlanService{
 
 	@Override
 	public List<PlanResp> findPlanByEndTime(Long st) throws Exception {
-		return copyProperties(planMapper.selectByEndTime(st));
+		List<PlanResp> resp = new ArrayList<PlanResp>();
+		List<Plan> list = planMapper.selectByEndTime(st);
+		for(Plan p : list){
+			PlanResp sp = new PlanResp();
+			PropertyUtils.copyProperties(sp, p);
+			resp.add(sp);
+		}
+		return resp;
 	}
 
 
