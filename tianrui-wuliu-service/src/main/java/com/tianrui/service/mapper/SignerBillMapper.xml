@@ -39,22 +39,23 @@
     <include refid="Base_Column_List" />
     from v_signer_bill
     <where>
-    	<if test="searchKey != null and searchKey != ''">
-    		and (billno like "%" #{searchKey,jdbcType=VARCHAR} "%"
-    		or vehicleno like "%" #{searchKey,jdbcType=VARCHAR} "%"
-    		)
+    	<if test="billtype != null and billtype != ''">
+    		and billtype like "%" #{billtype,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="billno != null and billno != ''">
-    		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
+    	<if test="cargoname != null and cargoname != ''">
+    		and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="vehicleno != null and vehicleno != ''">
     		and vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="reciveCellphone != null and reciveCellphone != ''">
-    		and recive_cellphone like "%" #{reciveCellphone,jdbcType=VARCHAR} "%"
+    	<if test="billno != null and billno != ''">
+    		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="receiveMemberid != null and receiveMemberid != ''">
-    		and receive_memberid like "%" #{receiveMemberid,jdbcType=VARCHAR} "%"
+    	<if test="billstatus != null and billstatus != '' and billstatus!='7'">
+    		and billstatus like "%" #{billstatus,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
+    		and billstatus in ('7','8')
     	</if>
     </where>
     order by createtime desc
@@ -68,22 +69,23 @@
     	count(0)
     from v_signer_bill
     <where>
-    	<if test="searchKey != null and searchKey != ''">
-    		and (billno like "%" #{searchKey,jdbcType=VARCHAR} "%"
-    		or vehicleno like "%" #{searchKey,jdbcType=VARCHAR} "%"
-    		)
+    	<if test="billtype != null and billtype != ''">
+    		and billtype like "%" #{billtype,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="billno != null and billno != ''">
-    		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
+    	<if test="cargoname != null and cargoname != ''">
+    		and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="vehicleno != null and vehicleno != ''">
     		and vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="reciveCellphone != null and reciveCellphone != ''">
-    		and recive_cellphone like "%" #{reciveCellphone,jdbcType=VARCHAR} "%"
+    	<if test="billno != null and billno != ''">
+    		and billno like "%" #{billno,jdbcType=VARCHAR} "%"
     	</if>
-    	<if test="receiveMemberid != null and receiveMemberid != ''">
-    		and receive_memberid like "%" #{receiveMemberid,jdbcType=VARCHAR} "%"
+    	<if test="billstatus != null and billstatus != '' and billstatus!='7'">
+    		and billstatus like "%" #{billstatus,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
+    		and billstatus in ('7','8')
     	</if>
     </where>
   </select>

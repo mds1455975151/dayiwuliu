@@ -218,6 +218,7 @@ $(".signsubmitbtn").click(function(){
 		title += "现已超过计划总量，确认将关闭货运计划。";
 	}
 	confirm("确认",title,function(){
+		$(".searchBtn").attr("disabled",true);
 		$.ajax({
 			url:URL.signUrl,
 			data:{"id":$("#hidid").val(),"weight":weightInput},
@@ -227,8 +228,10 @@ $(".signsubmitbtn").click(function(){
 				if( rs && rs.code =="000000" ){
 					$(".searchBtn").trigger("click");
 					$("#signModal").modal("hide");
+					$(".searchBtn").attr("disabled",false);
 				}else{
 					alert(rs.error);
+					$(".searchBtn").attr("disabled",false);
 				}
 			}
 		});

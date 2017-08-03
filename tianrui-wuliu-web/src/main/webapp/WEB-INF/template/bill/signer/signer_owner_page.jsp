@@ -44,10 +44,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h2>签收运单</h2>
                 </div>
                 <!--个人中心右侧搜索框begin-->
-                <div class="plan_search">
+                <div class="bb_search">
+						<div class="bb_line">
+	                        <div class="bb_czline">
+	                            <label>运单类别：</label>
+	                            <select id="billtype" class="form-control">
+									<option value="">全部</option>
+									<option value="dy">大易</option>
+									<option value="al">安联</option>
+								</select>
+	                        </div>
+	                        <div class="bb_czline">
+	                            <label>货物名称：</label>
+	                            <input id="cargoname" type="text" placeholder="请输入货物名称">
+	                        </div>
+	                        <div class="bb_czline">
+	                            <label>车牌号：</label>
+	                            <input id="vehicleno" type="text" placeholder="请输入车牌号">
+	                        </div>
+	                        <div class="bb_czline">
+	                            <label>运单号：</label>
+	                            <input id="billno" type="text" placeholder="请输入运单号">
+	                        </div>
+	                    </div>
+	                    <div class="bb_line">
+	                         <div class="bb_czline">
+	                            <label>运单状态：</label>
+	                            <select id="billstatus" class="form-control">
+									<option value="">全部</option>
+									<option value="-1">已收回</option>
+									<option value="1">已接受</option>
+									<option value="2">已提货</option>
+									<option value="3">运输中</option>
+									<option value="4">已到达</option>
+									<option value="5">已卸货</option>
+									<option value="6">已完成</option>
+									<option value="7">已拒绝</option>
+									<option value="0">新建</option>
+									
+								</select>
+	                        </div>
+	                        <div class="bb_czline">
+	                            <button type="submit" class="btn btnblue resetBtn">重置</button>
+								<button type="submit" class="btn btnyello searchBtn">搜索</button>
+	                        </div>
+	                    </div>
+	                    <div class="bb_line">
+	                        
+	                    </div>
+					</div>
+               <!--  <div class="plan_search">
                     <input type="text" id="searchKey" placeholder="请出入搜索内容">
                     <button type="button" class="btn btnblue searchBtn">搜索</button>
-                </div>
+                </div> -->
                 <!--个人中心右侧搜索框end-->
                 <div class="plan_fege"></div>
                 <!--计划模板表格begin-->
@@ -285,7 +334,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?07.12" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?07.29" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

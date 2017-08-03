@@ -64,7 +64,11 @@ public class SignerBillService implements ISignerBillService{
 		SignerBill bill = new SignerBill();
 //		PropertyUtils.copyProperties(bill, req);
 		bill.setReceiveMemberid(req.getReceiveMemberid());
-		bill.setSearchKey(req.getSearchKey());
+		bill.setBillno(req.getBillno());
+		bill.setBilltype(req.getBilltype());
+		bill.setCargoname(req.getCargoname());
+		bill.setVehicleno(req.getVehicleno());
+		bill.setBillstatus(req.getBillstatus());
 		if(req.getPageNo()!=null){
 			bill.setPageNo(req.getPageNo()*req.getPageSize());
 			bill.setPageSize(req.getPageSize());
