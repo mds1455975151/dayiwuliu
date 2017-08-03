@@ -69,6 +69,7 @@ public class SignerBillService implements ISignerBillService{
 		bill.setCargoname(req.getCargoname());
 		bill.setVehicleno(req.getVehicleno());
 		bill.setBillstatus(req.getBillstatus());
+		bill.setPaystatus(req.getPaystatus());
 		if(req.getPageNo()!=null){
 			bill.setPageNo(req.getPageNo()*req.getPageSize());
 			bill.setPageSize(req.getPageSize());

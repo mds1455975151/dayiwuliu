@@ -246,7 +246,7 @@ function savePrice(){
             }
 		}
 	}
-	
+	$("#primary").attr("disabled",true);
 	$.ajax({
 		cache: true,
 		type: "POST",
@@ -257,8 +257,10 @@ function savePrice(){
 			if(rs.code=="000000"){
 				SearchPrice();
 				document.getElementById("addclick").click();
+				$("#primary").attr("disabled",false);
 			}else{
 				alert(rs.error);
+				$("#primary").attr("disabled",false);
 			}
 		}
 	});

@@ -204,7 +204,7 @@ $(function(){
 			return;
 		}
 		
-		
+		$(".submutBtn").attr("disabled",true);
 		//表单验证通过
 		if(validFrom.check()){
 			$.ajax({
@@ -216,8 +216,10 @@ $(function(){
 					if( rs && rs.code=="000000" ){
 						alert("操作成功");
 						$(".searchbtn").trigger("click");
+						$(".submutBtn").attr("disabled",false);
 					}else{
 						alert(rs.error);
+						$(".submutBtn").attr("disabled",false);
 					}
 					$("#addModal").modal('hide');
 				}	

@@ -14,6 +14,19 @@ public class SignerBillFindReq {
     private String searchKey;
     //接收人id
     private String receiveMemberid;
+    
+    private String paystatus;
+
+    
+    
+
+	public String getPaystatus() {
+		return paystatus;
+	}
+
+	public void setPaystatus(String paystatus) {
+		this.paystatus = paystatus;
+	}
 
 	public String getId() {
 		return id;

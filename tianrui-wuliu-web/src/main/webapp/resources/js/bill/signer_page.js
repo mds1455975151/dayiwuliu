@@ -13,9 +13,12 @@ function index(no){
 	var vehicleno=$('#vehicleno').val();
 	var billno =$('#billno').val();
 	var billstatus =$('#billstatus').val();
+	var paystatus = $('#paystatus').val();
+	$(".searchBtn").attr("disabled",true);
 	$.ajax({
 		url:"/trwuliu/billSigner/find",
-		data:{"billtype":billtype,"cargoname":cargoname,"vehicleno":vehicleno,"billno":billno,"billstatus":billstatus,
+		data:{"billtype":billtype,"cargoname":cargoname,"vehicleno":vehicleno,"billno":billno,
+			"billstatus":billstatus,"paystatus":paystatus,
 			"pageNo":no,
 			"pageSize":pageSize
 		},
@@ -385,4 +388,5 @@ $('.resetBtn').off('click').on('click',function(){
 	$('#vehicleno').val('');
 	$('#billno').val('');
 	$('#billstatus').val('');
+	$('#paystatus').val('');
 });

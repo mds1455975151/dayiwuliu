@@ -96,8 +96,10 @@ $(function(){
 					$(this).attr("disabled",false);
 					if(rs.code=="000000"){
 						window.location.href = CONTEXTPATH + "/trwuliu/planowner/main";
+						$(".submitBtn").attr("disabled",false);
 					}else{
 						alert(rs.error);
+						$(".submitBtn").attr("disabled",false);
 					}
 				}
 			});
