@@ -27,6 +27,7 @@ import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanStatResp;
@@ -501,7 +502,10 @@ public class CargoPlanService implements ICargoPlanService{
 			PropertyUtils.copyProperties(resp, plan);
 			
 			if( StringUtils.isNotBlank(resp.getOrgid()) ){
-				resp.setOrgname(orgService.findOne(resp.getOrgid()).getOrganizationname());
+				OrganizationResp ss =orgService.findOne(resp.getOrgid());
+				if( ss !=null ){
+					resp.setOrgname(ss.getOrganizationname());
+				}
 			}
 			if( StringUtils.isNotBlank(resp.getCreator()) ){
 				MemberVo member =memberVoService.get(resp.getCreator());
