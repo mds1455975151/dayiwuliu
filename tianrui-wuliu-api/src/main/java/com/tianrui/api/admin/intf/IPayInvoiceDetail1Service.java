@@ -25,4 +25,6 @@ public interface IPayInvoiceDetail1Service {
 	public Result billSelectPrice(PayInvoiceDetail1Req req)throws Exception;
 	/**通过账单id查询支付单详情*/
 	public PayAndBillDateilResp payInviuceDetail(String id)throws Exception;
+	/** 账单备注*/
+	public Result payMemo(String id,String memo)throws Exception;
 }

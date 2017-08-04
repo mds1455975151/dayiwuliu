@@ -61,6 +61,13 @@ public class PayInviceDetail1Action {
 		return rs;
 	}
 	
+	//账单备注
+	@RequestMapping("payMemo")
+	@ResponseBody
+	public Result payMemo(String id,String memo) throws Exception{
+		return payInvoiceDetail1Service.payMemo(id, memo);
+	}
+	
 	//后台运价确认
 	@RequestMapping("uptPrice")
 	@ResponseBody

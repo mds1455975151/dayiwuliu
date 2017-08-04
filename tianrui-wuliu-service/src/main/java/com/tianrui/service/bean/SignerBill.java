@@ -38,8 +38,20 @@ public class SignerBill {
     private Integer pageNo;
     
     private Integer pageSize;
+    
+    private String paystatus;
+    
+    
 
-    public String getId() {
+    public String getPaystatus() {
+		return paystatus;
+	}
+
+	public void setPaystatus(String paystatus) {
+		this.paystatus = paystatus;
+	}
+
+	public String getId() {
         return id;
     }
 

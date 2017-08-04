@@ -23,7 +23,7 @@ public class PayInvoiceDetail1Resp {
 	private String shipperMerchant;
 	private String shipname;
   	
-	private String ashipname;
+	private String consignee;
   	private Double billweightB;
     
 	private Double billpriceB;
@@ -492,12 +492,11 @@ public class PayInvoiceDetail1Resp {
 		this.shipname = shipname;
 	}
 
-	public String getAshipname() {
-		return ashipname;
+	public String getConsignee() {
+		return consignee;
 	}
 
-	public void setAshipname(String ashipname) {
-		this.ashipname = ashipname;
+	public void setConsignee(String consignee) {
+		this.consignee = consignee;
 	}
-    
 }

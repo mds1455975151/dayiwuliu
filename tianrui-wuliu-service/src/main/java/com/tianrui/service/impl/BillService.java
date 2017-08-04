@@ -324,7 +324,13 @@ public class BillService implements IBillService{
 					alreq.setPayment(item.getPayment());
 					//收货人
 					alreq.setReceive_memberid(item.getReceive_memberid());
-					rs = anlianBillService.alBillSave(alreq);
+					item.getOvernumber();
+					for (int i = 0; i < Integer.valueOf(item.getOvernumber()); i++) {
+						rs = anlianBillService.alBillSave(alreq);
+						if(!StringUtils.equals(rs.getCode(), "000000")){
+							return rs;
+						}
+					}
 				}else{
 					billMapper.insert(item);
 					saveBillTrack(item.getId(),1,BIllTrackMsg.INIT,req.getCurruId(),item.getStatus());

@@ -128,15 +128,15 @@ $(function(){
     			pflag +=1 ;
     		}
     	})
-    	if(pflag != 0 && psize > 1){
-    		alert("包含开票运力，仅支持一车一单");
-    		return;
-    	}
+//    	if(pflag != 0 && psize > 1){
+//    		alert("包含开票运力，仅支持一车一单");
+//    		return;
+//    	}
     	if(pflag == 1 && psize == 1){
-    		if(pts != 1){
-    			alert("包含开票运力，仅支持一车一单");
-        		return;
-    		}
+//    		if(pts != 1){
+//    			alert("包含开票运力，仅支持一车一单");
+//        		return;
+//    		}
     		var _this = this;
     		$(_this).attr('disabled',true);
     		confirm("ok","此单为开票运单，是否继续？",function(){

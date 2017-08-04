@@ -23,7 +23,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot}/imgcut.css" rel="stylesheet">
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
+	<style type="text/css">
+	.model_width {
+	    line-height: 25px!important;
+	}
+	</style>
 </head>
+
 <body>
 
 <div class="container-fluid">
@@ -51,6 +57,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="ht_div">
                             <label>发货方：</label>
                             <input type="text" id="shipName" placeholder=" ">
+                        </div>
+                         <div class="ht_div">
+                            <label>收货方：</label>
+                            <input type="text" id="consignee" placeholder=" ">
                         </div>
                         <div class="ht_div">
                         	<label>运单状态：</label>
@@ -94,8 +104,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <th>发票类型</th>
                                 <th>货物名称</th>
                                 <th>发货方</th>
+                                <th>收货方</th>
                                 <th>支付对象</th>
                                 <th>收款人</th>
+                                <th>备注</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -185,13 +197,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="memo" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title"><span id="memo_billNo"></span></h4>
+				</div>
+				<div class="modal-body">
+					<div class="juesemodal" style="margin-bottom: 0px;">
+							<label>备注信息：</label>
+							<input type="text" id="pay_memo">
+							<input type="hidden" id= "memo_id">
+							<input type="hidden" id="memo_pageNo">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="memoCommit">确定</button>
+					<button type="button" class="btn btn-default closeMemo" data-dismiss="modal">取消</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <!--删除end-->
 <%@include file="../../../common/footer.jsp" %>
 <script type="text/javascript">
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0717" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0801" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>

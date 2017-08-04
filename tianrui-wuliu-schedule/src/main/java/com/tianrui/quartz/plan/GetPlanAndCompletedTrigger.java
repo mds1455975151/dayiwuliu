@@ -48,9 +48,6 @@ public class GetPlanAndCompletedTrigger {
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}
-        
-        
-        
         logger.info("定时任务[GetPlanAndCompletedTrigger]完成.处理数据{}条,耗时：{}",new Object[]{count,(new Date().getTime()-st)});
     }
 }

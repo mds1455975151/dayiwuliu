@@ -54,7 +54,7 @@
     <result column="venderName" property="venderName" jdbcType="VARCHAR" />
     <result column="shipperMerchant" property="shipperMerchant" jdbcType="VARCHAR" />
     <result column="shipname" property="shipname" jdbcType="VARCHAR" />
-    <result column="ashipname" property="ashipname" jdbcType="VARCHAR" />
+    <result column="consignee" property="consignee" jdbcType="VARCHAR" />
     
     
   </resultMap>
@@ -124,19 +124,16 @@
 		dm.remarkname driverName,
 		vm.cellphone venderPhone,
 		vm.remarkname venderName,
-	  wp.shipperMerchant,
+	  	wp.shipperMerchant,
 		fm.`name` shipname,
-		afm.`name` ashipname
+		afm.`name` consignee
     FROM
 		pay_invoice_detail_1 p
 		LEFT JOIN member dm ON dm.id = p.driver_id
 		LEFT JOIN member vm ON vm.id = p.vender_id
-		LEFT JOIN anlian_bill ab ON ab.id=p.bill_id
-		LEFT JOIN wuliu_plan ap ON ap.ID = ab.desc1
-		LEFT JOIN wuliu_bill b ON b.ID = p.bill_id
-		LEFT JOIN wuliu_plan wp ON wp.ID = b.planid
+		LEFT JOIN wuliu_plan wp ON wp.ID = p.planId
 		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
-		LEFT JOIN file_merchant afm ON ap.shipperMerchant = afm.id
+		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
 		<where>
 			<if test="timeBegin != null">
 				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
@@ -145,8 +142,10 @@
 				and p.create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
 			</if>
 			<if test="shipname != null and shipname != ''">
-				and (fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
-				or afm.name like "%" #{shipname,jdbcType=VARCHAR} "%")
+				and fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
+			</if>
+			<if test="consignee != null and consignee != ''">
+				and afm.name like "%" #{consignee,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="searchKey != null and searchKey != ''">
 				and (p.code like "%" #{searchKey,jdbcType=VARCHAR} "%"
@@ -211,12 +210,9 @@
 		pay_invoice_detail_1 p
 		LEFT JOIN member dm ON dm.id = p.driver_id
 		LEFT JOIN member vm ON vm.id = p.vender_id
-		LEFT JOIN anlian_bill ab ON ab.id=p.bill_id
-		LEFT JOIN wuliu_plan ap ON ap.ID = ab.desc1
-		LEFT JOIN wuliu_bill b ON b.ID = p.bill_id
-		LEFT JOIN wuliu_plan wp ON wp.ID = b.planid
+		LEFT JOIN wuliu_plan wp ON wp.ID = p.planId
 		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
-		LEFT JOIN file_merchant afm ON ap.shipperMerchant = afm.id
+		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
 		<where>
 			<if test="timeBegin != null">
 				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
@@ -225,8 +221,10 @@
 				and p.create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
 			</if>
 			<if test="shipname != null and shipname != ''">
-				and (fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
-				or afm.name like "%" #{shipname,jdbcType=VARCHAR} "%")
+				and fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
+			</if>
+			<if test="consignee != null and consignee != ''">
+				and afm.name like "%" #{consignee,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="searchKey != null and searchKey != ''">
 			and (p.code like "%" #{searchKey,jdbcType=VARCHAR} "%"

@@ -261,6 +261,7 @@ $(function(){
 				alert("行政区域不能为空");
 				return ;
 			}
+			$(".addSubBtn").attr("disabled",true);
 			$.ajax({
 				url:submitUrl,
 				data:$("#addModal .formV").serialize(),
@@ -270,8 +271,10 @@ $(function(){
 					if( rs && rs.code=="000000" ){
 						alert("操作成功");
 						$(".searchbtn").trigger("click");
+						$(".addSubBtn").attr("disabled",false);
 					}else{
 						alert(rs.error);
+						$(".addSubBtn").attr("disabled",false);
 					}
 					$("#addModal").modal('hide');
 				}	

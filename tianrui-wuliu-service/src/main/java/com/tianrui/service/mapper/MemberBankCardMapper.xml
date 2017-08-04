@@ -31,7 +31,7 @@
   <sql id="Base_Column_List" >
     id, bankstatus, bankautid, bankcard, bankname, bankcode, bankimg, idcard, idname, 
     idcardimg, telphone, creater, createtime, auditor, auditortime, desc1, desc2, desc3, 
-    desc4, pushStatus, pushTime, error_massage,auditMassage,beginTime,endTime
+    desc4, pushStatus, pushTime, error_massage,auditMassage
   </sql>
   <!-- 查询银行卡审核通过/不通过 -->
   <select id="bankcardByNum" resultType="long" parameterType="com.tianrui.service.bean.MemberBankCard" >

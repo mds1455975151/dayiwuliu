@@ -251,9 +251,6 @@ $('#addModal').on('shown.bs.modal', function (e) {
         }
     }).off('click').on('click',function(){
     	$(this).autocomplete('search');
-    }).change(function(){
-    	$("#modal_add_orgName").val('');
-    	$("#modal_add_orgId").val('');
     });
 	
 	// 清空原有用户状态，并默认选择用户状态为有效

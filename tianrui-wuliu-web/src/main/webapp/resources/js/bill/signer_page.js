@@ -8,9 +8,17 @@ $(function(){
 });
 
 function index(no){
+	var billtype=$('#billtype').val();
+	var cargoname =$('#cargoname').val();
+	var vehicleno=$('#vehicleno').val();
+	var billno =$('#billno').val();
+	var billstatus =$('#billstatus').val();
+	var paystatus = $('#paystatus').val();
+	$(".searchBtn").attr("disabled",true);
 	$.ajax({
 		url:"/trwuliu/billSigner/find",
-		data:{"searchKey":$("#searchKey").val(),
+		data:{"billtype":billtype,"cargoname":cargoname,"vehicleno":vehicleno,"billno":billno,
+			"billstatus":billstatus,"paystatus":paystatus,
 			"pageNo":no,
 			"pageSize":pageSize
 		},
@@ -30,7 +38,7 @@ function index(no){
 					$(".pageNone").show();
 				}
 				innerHTML(rs.data.list);
-				
+				$(".searchBtn").attr("disabled",false);
 			}
 		}
 	});
@@ -371,3 +379,14 @@ function fileupload(id){
 		}
 	});
 }
+
+
+//重置搜索条件
+$('.resetBtn').off('click').on('click',function(){
+	$('#billtype').val('');
+	$('#cargoname').val('');
+	$('#vehicleno').val('');
+	$('#billno').val('');
+	$('#billstatus').val('');
+	$('#paystatus').val('');
+});

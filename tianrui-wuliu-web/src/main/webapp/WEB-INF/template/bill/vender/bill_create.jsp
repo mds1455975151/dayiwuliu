@@ -189,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--底部end-->
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/bill/bill_create.js?02.15" ></script>
+<script type="text/javascript" src="/resources/js/bill/bill_create.js?08.03" ></script>
 
 </body>
 </html>
