@@ -31,6 +31,14 @@ public class AuditReport {
 	 */
 	private String vehicleFailNum;
 	/**
+	 * 临时认证车辆审核失败数量
+	 */
+	private String vehicleByNumL;
+	/**
+	 * 临时认证车辆审核成功数量
+	 */
+	private String vehicleFailNumL;
+	/**
 	 * 银行卡审核失败数量
 	 */
 	private String bankcardByNum;
@@ -220,6 +228,18 @@ public class AuditReport {
 	}
 	public void setCreatertime(Long creatertime) {
 		this.creatertime = creatertime;
+	}
+	public String getVehicleByNumL() {
+		return vehicleByNumL;
+	}
+	public void setVehicleByNumL(String vehicleByNumL) {
+		this.vehicleByNumL = vehicleByNumL;
+	}
+	public String getVehicleFailNumL() {
+		return vehicleFailNumL;
+	}
+	public void setVehicleFailNumL(String vehicleFailNumL) {
+		this.vehicleFailNumL = vehicleFailNumL;
 	}
 
 	

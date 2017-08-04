@@ -50,6 +50,14 @@ public class AuditReportResp extends BaseResp{
 	 */
 	private String vehicleFailNum;
 	/**
+	 * 临时认证车辆审核失败数量
+	 */
+	private String vehicleByNumL;
+	/**
+	 * 临时认证车辆审核成功数量
+	 */
+	private String vehicleFailNumL;
+	/**
 	 * 银行卡审核失败数量
 	 */
 	private String bankcardByNum;
@@ -236,6 +244,18 @@ public class AuditReportResp extends BaseResp{
 
 	public void setReviewTime(Long reviewTime) {
 		this.reviewTime = reviewTime;
+	}
+	public String getVehicleByNumL() {
+		return vehicleByNumL;
+	}
+	public void setVehicleByNumL(String vehicleByNumL) {
+		this.vehicleByNumL = vehicleByNumL;
+	}
+	public String getVehicleFailNumL() {
+		return vehicleFailNumL;
+	}
+	public void setVehicleFailNumL(String vehicleFailNumL) {
+		this.vehicleFailNumL = vehicleFailNumL;
 	}
 	
 	

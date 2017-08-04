@@ -73,8 +73,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <th >用户审核成功数量</th>
 						                <th >司机审核失败数量</th>
 						                <th >司机审核成功数量</th>
-						                <th >车辆审核失败数量</th>
-						                <th >车辆审核成功数量</th>
+						                <th >完全认证车辆审核失败数量</th>
+						                <th >完全认证车辆审核成功数量</th>
+						                <th >临时认证车辆审核失败数量</th>
+						                <th >临时认证车辆审核成功数量</th>
 						                <th >银行卡审核失败数量</th>
 						                <th >银行卡审核成功数量</th>
 						                <th >大易/交通部运单未推送数量</th>

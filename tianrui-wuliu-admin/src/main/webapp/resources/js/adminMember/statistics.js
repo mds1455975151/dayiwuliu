@@ -70,6 +70,14 @@ function displayRec(pageNo){
 						if(d[a].vehicleFailNum == undefined){
 							vehicleFailNum = "";
 						}
+						var vehicleByNumL = d[a].vehicleByNumL;
+						if(d[a].vehicleByNumL == undefined){
+							vehicleByNumL = "";
+						}
+						var vehicleFailNumL = d[a].vehicleFailNumL;
+						if(d[a].vehicleFailNumL == undefined){
+							vehicleFailNumL = "";
+						}
 						var bankcardByNum = d[a].bankcardByNum;
 						if(d[a].bankcardByNum == undefined){
 							bankcardByNum = "";
@@ -118,6 +126,8 @@ function displayRec(pageNo){
 							"<td>"+driverFailNum+"</td>"+
 							"<td>"+vehicleByNum+"</td>"+
 							"<td>"+vehicleFailNum+"</td>"+
+							"<td>"+vehicleByNumL+"</td>"+
+							"<td>"+vehicleFailNumL+"</td>"+
 							"<td>"+bankcardByNum+"</td>"+
 							"<td>"+bankcardFailNum+"</td>"+
 							"<td>"+waybillByPushDJ+"</td>"+
