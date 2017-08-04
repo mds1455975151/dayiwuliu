@@ -20,6 +20,8 @@ import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.FileReg;
+import com.tianrui.service.mongo.FileRegDao;
 
 @Service
 public class FileUploadService implements IFileService{
@@ -27,6 +29,8 @@ public class FileUploadService implements IFileService{
 	
 	@Autowired
 	private GridFsTemplate gridFsTemplate;
+	@Autowired
+	private FileRegDao fileRegDao;
 
 
 	//data:image/png;base64,
@@ -48,6 +52,8 @@ public class FileUploadService implements IFileService{
 					String imgURL = Constant.FILE_URL_PRE+imgURI;
 					result.setData(imgURL);
 					
+					//TODO 上传文件路径 时间
+					saveFileReg(imgURL,imgURI,fileUploadReq.getuId());
 				} catch (Exception e) {
 					logger.error("{}",e.getMessage(),e);
 					result =new Result("error","上传图片服务异常" );
@@ -62,7 +68,7 @@ public class FileUploadService implements IFileService{
 		return result;
 	}
 	
-	public Result uploadByteImg(MultipartFile file) throws Exception {
+	public Result uploadByteImg(MultipartFile file,String uId) throws Exception {
 		Result result=Result.getSuccessResult();
 		// 判断文件是否为空  
         if (!file.isEmpty()) {  
@@ -76,6 +82,9 @@ public class FileUploadService implements IFileService{
         			gridFsTemplate.store(input, imgURI);
         			String imgURL = Constant.FILE_URL_PRE+imgURI;
         			result.setData(imgURL);
+        			
+        			//TODO 上传文件路径 时间
+					saveFileReg(imgURL,imgURI,uId);
         		} catch (Exception e) {  
         			e.printStackTrace();  
         		}  
@@ -89,24 +98,16 @@ public class FileUploadService implements IFileService{
 	}
 	
 	
-	public Result uploadByteFile(File file) throws Exception {
-		Result result=Result.getSuccessResult();
-		// 判断文件是否为空  
-		if (file.exists()) {  
-			String sd = file.getName();
-			String fix = sd.substring(sd.lastIndexOf(".")+1);
-			//限制文件格式
-			try {  
-				InputStream input = new FileInputStream(file);
-				String fileUrl = System.currentTimeMillis()+"/"+sd;
-				gridFsTemplate.store(input, fileUrl);
-				String imgURL = Constant.FILE_URL_PRE+fileUrl;
-				result.setData(imgURL);
-			} catch (Exception e) {  
-				e.printStackTrace();  
-			}  
-		}  
-		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
-		return result;
+	
+	private void saveFileReg(String url,String fileName,String uId){
+		FileReg fileReg=new FileReg();
+		fileReg.setId(UUIDUtil.getId());
+		fileReg.setTimeStamp(System.currentTimeMillis());
+		fileReg.setFileName(fileName);
+		fileReg.setUrl(url);
+		fileReg.setUserId(uId);
+		fileReg.setIsDelFlag((short)0);
+		fileRegDao.save(fileReg);
 	}
+	
 }

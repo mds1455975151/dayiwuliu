@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.Users;
+import com.tianrui.trwl.admin.util.SessionManager;
 @Controller
 @RequestMapping("upload")
 public class UploadAction {
@@ -28,9 +30,10 @@ public class UploadAction {
 	 * @throws Exception */
 	@RequestMapping(value="add",method=RequestMethod.POST )
 	@ResponseBody
-	public Result upload(MultipartFile file) throws Exception{
+	public Result upload(HttpServletRequest request,MultipartFile file) throws Exception{
+		Users user =SessionManager.getSessionMember(request);
 		Result rs = Result.getSuccessResult();
-		rs = iFileService.uploadByteImg(file);
+		rs = iFileService.uploadByteImg(file,user.getAccount());
 		return rs;
 	}
 }
