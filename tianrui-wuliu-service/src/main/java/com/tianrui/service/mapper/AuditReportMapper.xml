@@ -9,6 +9,8 @@
     <result column="driverFailNum" property="driverFailNum" jdbcType="VARCHAR" />
     <result column="vehicleByNum" property="vehicleByNum" jdbcType="VARCHAR" />
     <result column="vehicleFailNum" property="vehicleFailNum" jdbcType="VARCHAR" />
+     <result column="vehicleByNumL" property="vehicleByNumL" jdbcType="VARCHAR" />
+    <result column="vehicleFailNumL" property="vehicleFailNumL" jdbcType="VARCHAR" />
     <result column="bankcardByNum" property="bankcardByNum" jdbcType="VARCHAR" />
     <result column="bankcardFailNum" property="bankcardFailNum" jdbcType="VARCHAR" />
     <result column="waybillByPushDJ" property="waybillByPushDJ" jdbcType="VARCHAR" />
@@ -25,7 +27,7 @@
   <sql id="Base_Column_List" >
     id, userByNum, userFailNum,  driverByNum ,driverFailNum,vehicleByNum,vehicleFailNum,bankcardByNum,bankcardFailNum,
     waybillByPushDJ,waybillFailPushDJ,waybillByPushAJ,waybillFailPushAJ,reviewTime,creatertime,modify,modifytime,
-    starttime,endtime
+    starttime,endtime,vehicleByNumL,vehicleFailNumL
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -60,12 +62,12 @@
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.AuditReport" >
    insert into audit_report (id, userByNum,userFailNum,driverByNum,driverFailNum,
-   		vehicleByNum,vehicleFailNum,bankcardByNum,bankcardFailNum,waybillByPushDJ,
+   		vehicleByNum,vehicleFailNum,vehicleByNumL,vehicleFailNumL,bankcardByNum,bankcardFailNum,waybillByPushDJ,
    		waybillFailPushDJ,waybillByPushAJ,waybillFailPushAJ,reviewTime,creatertime,
    		modify,modifytime
       )
     	values (#{id,jdbcType=BIGINT}, #{userByNum,jdbcType=VARCHAR},#{userFailNum,jdbcType=VARCHAR},#{driverByNum,jdbcType=VARCHAR},
-    	#{driverFailNum,jdbcType=VARCHAR},#{vehicleByNum,jdbcType=VARCHAR},#{vehicleFailNum,jdbcType=VARCHAR},
+    	#{driverFailNum,jdbcType=VARCHAR},#{vehicleByNum,jdbcType=VARCHAR},#{vehicleFailNum,jdbcType=VARCHAR},#{vehicleByNumL,jdbcType=VARCHAR},#{vehicleFailNumL,jdbcType=VARCHAR},
     	#{bankcardByNum,jdbcType=VARCHAR},#{bankcardFailNum,jdbcType=VARCHAR},#{waybillByPushDJ,jdbcType=VARCHAR},
     	#{waybillFailPushDJ,jdbcType=VARCHAR},#{waybillByPushAJ,jdbcType=VARCHAR},#{waybillFailPushAJ,jdbcType=VARCHAR},
     	#{reviewTime,jdbcType=VARCHAR},#{creatertime,jdbcType=VARCHAR},#{modify,jdbcType=VARCHAR},#{modifytime,jdbcType=VARCHAR}
@@ -94,6 +96,12 @@
       </if>
       <if test="vehicleFailNum != null" >
         vehicleFailNum,
+      </if>
+      <if test="vehicleByNumL != null" >
+        vehicleByNumL,
+      </if>
+      <if test="vehicleFailNumL != null" >
+        vehicleFailNumL,
       </if>
       <if test="bankcardByNum != null" >
         bankcardByNum,
@@ -148,6 +156,13 @@
       <if test="vehicleFailNum != null" >
         #{vehicleFailNum,jdbcType=VARCHAR},
       </if>
+      
+      <if test="vehicleByNumL != null" >
+        #{vehicleByNumL,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleFailNumL != null" >
+        #{vehicleFailNumL,jdbcType=VARCHAR},
+      </if>
       <if test="bankcardByNum != null" >
         #{bankcardByNum,jdbcType=VARCHAR},
       </if>
@@ -201,6 +216,13 @@
       <if test="vehicleFailNum != null" >
         #{vehicleFailNum,jdbcType=VARCHAR},
       </if>
+      
+      <if test="vehicleByNumL != null" >
+        #{vehicleByNumL,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleFailNumL != null" >
+        #{vehicleFailNumL,jdbcType=VARCHAR},
+      </if>
       <if test="bankcardByNum != null" >
         #{bankcardByNum,jdbcType=VARCHAR},
       </if>
@@ -236,6 +258,8 @@
       	driverFailNum = #{driverFailNum,jdbcType=VARCHAR},
       	vehicleByNum = #{vehicleByNum,jdbcType=VARCHAR},
       	vehicleFailNum = #{vehicleFailNum,jdbcType=VARCHAR},
+      	vehicleByNumL = #{vehicleByNumL,jdbcType=VARCHAR},
+      	vehicleFailNumL = #{vehicleFailNumL,jdbcType=VARCHAR},
       	bankcardByNum = #{bankcardByNum,jdbcType=VARCHAR},
       	bankcardFailNum = #{bankcardFailNum,jdbcType=VARCHAR},
       	waybillByPushDJ = #{waybillByPushDJ,jdbcType=VARCHAR},

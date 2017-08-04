@@ -98,7 +98,7 @@ public class StatusStatisticsAction {
 			if(list == null || list.size() == 0){
 				return;
 			}
-			String[] heads = {"序号","审核时间","用户审核失败数量","用户审核成功数量","司机审核失败数量","司机审核成功数量","车辆审核失败数量","车辆审核成功数量","银行卡审核失败数量","银行卡审核成功数量","大易/交通部运单未推送数量","大易/交通部运单已推送数量","安联/交通部运单未推送数量","安联/交通部运单已推送数量","创建时间"};
+			String[] heads = {"序号","审核时间","用户审核失败数量","用户审核成功数量","司机审核失败数量","司机审核成功数量","完全认证车辆审核失败数量","完全认证车辆审核成功数量","临时认证车辆审核失败数量","临时认证车辆审核成功数量","银行卡审核失败数量","银行卡审核成功数量","大易/交通部运单未推送数量","大易/交通部运单已推送数量","安联/交通部运单未推送数量","安联/交通部运单已推送数量","创建时间"};
 			workbook = new HSSFWorkbook();
 			HSSFSheet sheet = workbook.createSheet("审核报表");
 			HSSFRow headRow = sheet.createRow(0);
@@ -154,13 +154,15 @@ public class StatusStatisticsAction {
 		row.createCell(5).setCellValue(obj.getDriverFailNum());
 		row.createCell(6).setCellValue(obj.getVehicleByNum());
 		row.createCell(7).setCellValue(obj.getVehicleFailNum());
-		row.createCell(8).setCellValue(obj.getBankcardByNum());
-		row.createCell(9).setCellValue(obj.getBankcardFailNum());
-		row.createCell(10).setCellValue(obj.getWaybillByPushDJ());
-		row.createCell(11).setCellValue(obj.getWaybillFailPushDJ());
-		row.createCell(12).setCellValue(obj.getWaybillByPushAJ());
-		row.createCell(13).setCellValue(obj.getWaybillFailPushAJ());
-		row.createCell(14).setCellValue(obj.getCreatertimes());
+		row.createCell(8).setCellValue(obj.getVehicleByNumL());
+		row.createCell(9).setCellValue(obj.getVehicleFailNumL());
+		row.createCell(10).setCellValue(obj.getBankcardByNum());
+		row.createCell(11).setCellValue(obj.getBankcardFailNum());
+		row.createCell(12).setCellValue(obj.getWaybillByPushDJ());
+		row.createCell(13).setCellValue(obj.getWaybillFailPushDJ());
+		row.createCell(14).setCellValue(obj.getWaybillByPushAJ());
+		row.createCell(15).setCellValue(obj.getWaybillFailPushAJ());
+		row.createCell(16).setCellValue(obj.getCreatertimes());
 //		if(StringUtils.isNotBlank(obj.getWeight())){
 //			row.createCell(11).setCellValue(new BigDecimal(obj.getWeight()).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 //		}
