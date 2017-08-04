@@ -11,6 +11,7 @@ public class PayInvoiceDetail {
 	
 	private String id;
 	
+	private String planId;
 	//多条id
 	private List<String> ids;
 	//查询关键字
@@ -574,6 +575,14 @@ public class PayInvoiceDetail {
 
 	public void setTimeEnd(Long timeEnd) {
 		this.timeEnd = timeEnd;
+	}
+
+	public String getPlanId() {
+		return planId;
+	}
+
+	public void setPlanId(String planId) {
+		this.planId = planId;
 	}
 
 	public PayInvoiceDetail() {

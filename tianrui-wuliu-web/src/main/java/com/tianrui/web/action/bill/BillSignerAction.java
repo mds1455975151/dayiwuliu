@@ -14,7 +14,6 @@ import com.tianrui.api.intf.ISignerBillService;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.req.front.bill.SignerBillFindReq;
-import com.tianrui.api.req.front.bill.SignerBillReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.front.bill.SignerBillResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;

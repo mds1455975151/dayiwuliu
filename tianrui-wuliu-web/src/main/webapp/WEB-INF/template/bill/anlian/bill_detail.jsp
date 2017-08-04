@@ -164,8 +164,8 @@
 											<td>${bill.yf}元</td>
 											<c:if test="${not empty bill.pickupimgurl}">
 												<td><a href="/imageView/index?imageUrl=${bill.pickupimgurl}" target="_blank">查看磅单</a></td>
-												<td>${bill.pickupweight}</td>
 											</c:if>
+												<td>${bill.pickupweight}</td>
 										</tr>
 									</tbody>
 									
@@ -173,14 +173,16 @@
 										<tr>
 											<th>卸货榜单</th>
 											<th>卸货量</th>
+											<th>签收量</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<c:if test="${not empty bill.signimgurl}">
-												<td><td><a href="/imageView/index?imageUrl=${bill.signimgurl}" target="_blank">查看磅单</a></td></td>
-												<td>${bill.signweight}</td>
+												<td><a href="/imageView/index?imageUrl=${bill.signimgurl}" target="_blank">查看磅单</a></td>
 											</c:if>
+												<td>${bill.signweight}</td>
+												<td>${bill.trueweight}</td>
 										</tr>
 									</tbody>
 								</table>
