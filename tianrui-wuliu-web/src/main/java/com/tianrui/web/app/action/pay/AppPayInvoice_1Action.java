@@ -106,5 +106,17 @@ public class AppPayInvoice_1Action {
 		return AppResult.valueOf(rs);
 	}
 	
+	/**账单修改银行卡*/
+	@RequestMapping("updateBankCard")
+	@ApiParamRawType(PayInvoiceReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult updateBankCard(AppParam<PayInvoiceReq> appParam){
+		Result rs = Result.getSuccessResult();
+		PayInvoiceReq req = appParam.getBody();
+		rs = payInvoiceService.updateBankCard(req.getId(), req.getBankCardId());
+		return AppResult.valueOf(rs);
+	}
+	
 }
 	
