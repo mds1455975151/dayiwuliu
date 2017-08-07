@@ -2,7 +2,6 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
-import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
 
 public interface SystemMemberInfoRecordMapper {

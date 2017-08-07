@@ -1,13 +1,9 @@
 package com.tianrui.common.utils;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.Result;

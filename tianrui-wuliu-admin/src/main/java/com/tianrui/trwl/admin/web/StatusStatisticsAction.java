@@ -2,16 +2,12 @@ package com.tianrui.trwl.admin.web;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -25,14 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.req.count.AuditReportReq;
-import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.count.AuditReportResp;
-import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
-import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.AuditReportService;
-import com.tianrui.trwl.admin.util.SessionManager;
 
 /**
  * 

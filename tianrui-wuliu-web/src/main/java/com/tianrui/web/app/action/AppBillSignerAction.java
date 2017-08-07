@@ -16,19 +16,16 @@ import com.tianrui.api.req.admin.OrgSignerFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.req.front.bill.SignerBillFindReq;
-import com.tianrui.api.req.front.bill.SignerBillReq;
 import com.tianrui.api.resp.admin.OrgSignerResp;
 import com.tianrui.api.resp.front.bill.SignerBillResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
-import com.tianrui.web.util.SessionManager;
 
 @Controller
 @RequestMapping("/app/billSigner")

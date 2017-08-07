@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;

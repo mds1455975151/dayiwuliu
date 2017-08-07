@@ -13,13 +13,8 @@ import com.tianrui.api.intf.IDataService;
 import com.tianrui.api.intf.new_.IVehicleRegService;
 import com.tianrui.api.req.data.WebDictReq;
 import com.tianrui.api.req.front.vehicle.VechicleRegQueryReq;
-import com.tianrui.api.req.front.vehicle.VechicleRegStep1Req;
-import com.tianrui.api.req.front.vehicle.VechicleRegStep2Req;
-import com.tianrui.api.req.front.vehicle.VechicleRegStep3Req;
 import com.tianrui.api.req.new_.VehiclReqStepReq;
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
-import com.tianrui.web.util.SessionManager;
 
 /**
  * 车主注册
