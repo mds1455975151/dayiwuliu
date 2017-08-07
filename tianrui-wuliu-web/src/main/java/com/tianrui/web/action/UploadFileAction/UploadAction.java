@@ -18,7 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IFileService;
+import com.tianrui.api.req.front.system.FileUploadReq;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
+import com.tianrui.web.util.SessionManager;
 @Controller
 @RequestMapping("upload")
 public class UploadAction {
@@ -36,8 +39,19 @@ public class UploadAction {
 	@RequestMapping(value="add",method=RequestMethod.POST )
 	@ResponseBody
 	public Result upload(MultipartFile file,HttpServletRequest request) throws Exception{
+		MemberVo member =SessionManager.getSessionMember(request);
 		Result rs = Result.getSuccessResult();
-		rs = iFileService.uploadByteImg(file);
+		rs = iFileService.uploadByteImg(file,member.getId());
+		return rs;
+	}
+	
+	/** 文件上传
+	 * @throws Exception */
+	@RequestMapping(value="baes64Add",method=RequestMethod.POST )
+	@ResponseBody
+	public Result baes64Add(FileUploadReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = iFileService.uploadImg(req);
 		return rs;
 	}
 	

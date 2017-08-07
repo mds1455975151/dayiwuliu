@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.tianrui.common.utils.DateUtil;
+
 @Document(collection = "fileReg")
 public class FileReg implements Serializable{
 
@@ -25,6 +27,9 @@ public class FileReg implements Serializable{
 	private String userId;
 	//图片原始名称
 	private String fileName;
+	//时间戳
+	private String dateStr =DateUtil.getDateString();
+			
 	public String getId() {
 		return id;
 	}
@@ -63,6 +68,9 @@ public class FileReg implements Serializable{
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	public String getFileType() {
+		return fileType;
 	}
 	
 	

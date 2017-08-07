@@ -680,9 +680,10 @@ public class AdminMemberAction {
 	 * @throws Exception */
 	@RequestMapping(value="uptVehicPic",method=RequestMethod.POST )
 	@ResponseBody
-	public Result uptVehicPic(String id , MultipartFile file , String type, String code) throws Exception{
+	public Result uptVehicPic(HttpServletRequest request,String id , MultipartFile file , String type, String code) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = iFileService.uploadByteImg(file);
+		Users user =SessionManager.getSessionMember(request);
+		rs = iFileService.uploadByteImg(file,user.getAccount());
 		if("000000".equals(rs.getCode())){
 			MemberVehicleReq req = new MemberVehicleReq();
 			req.setId(id);
@@ -711,9 +712,10 @@ public class AdminMemberAction {
 	 * @throws Exception */
 	@RequestMapping(value="uptMemberPic",method=RequestMethod.POST )
 	@ResponseBody
-	public Result uptMemberPic(String id , MultipartFile file , String type,String code) throws Exception{
+	public Result uptMemberPic(HttpServletRequest request,String id , MultipartFile file , String type,String code) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = iFileService.uploadByteImg(file);
+		Users user =SessionManager.getSessionMember(request);
+		rs = iFileService.uploadByteImg(file,user.getAccount());
 		if("000000".equals(rs.getCode())){
 			MemberInfoReq req = new MemberInfoReq();
 			req.setId(id);

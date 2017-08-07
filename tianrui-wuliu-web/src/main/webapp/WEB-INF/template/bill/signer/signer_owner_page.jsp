@@ -84,13 +84,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</select>
 	                        </div> -->
 	                        <div class="bb_czline">
-	                            <label>支付运单状态：</label>
+	                            <label>运单状态：</label>
 	                            <select id=paystatus class="form-control">
 									<option value="">全部</option>
-									<option value="1">已付款</option>
 									<option value="2">未签收</option>
 									<option value="3">运价确认</option>
 									<option value="4">运价修改</option>
+									<option value="1">已付款</option>
 								</select>
 	                        </div>
 	                        <div class="bb_czline">
@@ -343,7 +343,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?07.29" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?08.04" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

@@ -30,17 +30,16 @@ public class MemberPositionService implements IMemberPositionService{
 	@Autowired
 	MemberPositionRecordDao memberPositionRecordDao; 
 	
-	
 	@Override
 	public Result savePosition(PositionSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getCurrId()) ){
 			if(req.getLat()<0||req.getLon()<0){
 				rs.setErrorCode(ErrorCode.PARAM_FU_ERROR);
-				LoggerFactory.getLogger("position").info("位置信息异常：lat [{}],lon[{}]", req.getLat(),req.getLon());
+				LoggerFactory.getLogger("position").info("用户[{}],位置信息异常：lat [{}],lon[{}]", req.getCurrId(),req.getLat(),req.getLon());
 				return rs;
 			}
-			LoggerFactory.getLogger("position").info("位置信息：lat [{}],lon[{}]", req.getLat(),req.getLon());
+			LoggerFactory.getLogger("position").info("用户[{}],位置信息：lat [{}],lon[{}]",req.getCurrId(), req.getLat(),req.getLon());
 			//查找是否有次记录
 			MemberPosition  posiotionDB =memberPositionMapper.findWithMid(req.getCurrId());
 			//存在就修改
@@ -137,8 +136,4 @@ public class MemberPositionService implements IMemberPositionService{
 		}
 		return list;
 	}
-	
-	
-	
-	
 }

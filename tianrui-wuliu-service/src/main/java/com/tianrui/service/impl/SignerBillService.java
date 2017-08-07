@@ -154,6 +154,8 @@ public class SignerBillService implements ISignerBillService{
 		pay.setId(UUIDUtil.getId());
 		//账单好、运单号
 		pay.setCode(bill.getBillno());
+		//计划id
+		pay.setPlanId(plan.getId());
 		//司机id
 		pay.setDriverId(bill.getDriverid());
 		//车主id
@@ -218,6 +220,8 @@ public class SignerBillService implements ISignerBillService{
 		pay.setId(UUIDUtil.getId());
 		//账单好、运单号
 		pay.setCode(bill.getWaybillno());
+		//计划id
+		pay.setPlanId(plan.getId());
 		//司机id
 		pay.setDriverId(bill.getDriverid());
 		//车主id

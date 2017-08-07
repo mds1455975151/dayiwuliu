@@ -14,6 +14,8 @@ public class PayInvoiceReq extends BasePage {
 	
 	private String id;
 	
+	private String bankCardId;
+	
 	//账单编码
     private String code;
     //发票类型NAME
@@ -131,6 +133,12 @@ public class PayInvoiceReq extends BasePage {
 	}
 	public void setPayeeIdentity(Integer payeeIdentity) {
 		this.payeeIdentity = payeeIdentity;
+	}
+	public String getBankCardId() {
+		return bankCardId;
+	}
+	public void setBankCardId(String bankCardId) {
+		this.bankCardId = bankCardId;
 	}
 	public Integer getState() {
 		return state;

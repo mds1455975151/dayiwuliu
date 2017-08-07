@@ -957,7 +957,7 @@ public class BillService implements IBillService{
 							uploadreq.setImgStr(req.getImgdata());
 							rs =fileUploadService.uploadImg(uploadreq);
 						}else if(req.getFile() != null){
-							rs = iFileService.uploadByteImg(req.getFile());
+							rs = iFileService.uploadByteImg(req.getFile(),req.getCurruId());
 						}else{
 							rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
 							return rs;
@@ -1068,7 +1068,7 @@ public class BillService implements IBillService{
 								}
 							}
 							if(req.getFile() != null){//PC端图片保存
-								rs = iFileService.uploadByteImg(req.getFile());
+								rs = iFileService.uploadByteImg(req.getFile(),req.getCurruId());
 								update.setPickupimgurl(rs.getData().toString());
 							}
 							if(req.getPsweight() !=null && StringUtils.isNotBlank(req.getPsweight().toString())){
@@ -1874,7 +1874,7 @@ public class BillService implements IBillService{
 						result =fileUploadService.uploadImg(uploadreq);
 					}
 					if(req.getFile() != null){//PC端图片保存
-						result = iFileService.uploadByteImg(req.getFile());
+						result = iFileService.uploadByteImg(req.getFile(),req.getCurruId());
 					}
 					if("TH".equals(req.getType())){
 						b.setPickupimgurl(result.getData().toString());

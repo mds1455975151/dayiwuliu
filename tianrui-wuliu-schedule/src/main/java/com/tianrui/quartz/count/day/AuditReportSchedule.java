@@ -1,16 +1,19 @@
 package com.tianrui.quartz.count.day;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.service.impl.AuditReportService;
 @Component  
 public class AuditReportSchedule {
+	Logger logger = LoggerFactory.getLogger(AuditReportSchedule.class);
 	@Autowired
 	AuditReportService auditReportService;
 	
@@ -22,20 +25,11 @@ public class AuditReportSchedule {
 	 * @return void    
 	 * @throws
 	 */
-//	@Scheduled(cron="0 0 1 * * ?")
+	@Scheduled(cron="0 0 1 * * ?")
 	public  void auditReport()throws Exception{
-		System.out.println("定时任务测试");
+		Long st = new Date().getTime();
+		logger.info("定时查询审核数据开始"+ DateUtil.getDateString());
 		auditReportService.timingTask();
-//		Timer timer = new Timer();
-//		 timer.schedule(new TimerTask() {
-//			public void run() {
-//		        System.out.println("-------设定要指定任务--------");
-//		        try {
-//					auditReportService.timingTask();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//		      }
-//		    }, 1*60*1000);
+		logger.info("定时查询审核数据结束"+ (new Date().getTime()-st));
 	}
 }

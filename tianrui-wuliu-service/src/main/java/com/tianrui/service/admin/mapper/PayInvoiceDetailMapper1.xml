@@ -56,6 +56,7 @@
     <result column="shipname" property="shipname" jdbcType="VARCHAR" />
     <result column="consignee" property="consignee" jdbcType="VARCHAR" />
     
+    <result column="planId" property="planId" jdbcType="VARCHAR" />
     
   </resultMap>
   <sql id="Base_Column_List" >
@@ -66,7 +67,7 @@
     reception_deduct_other, reception_deduct_oil_card, backstage_deduct_weight_misc, 
     backstage_deduct_money, backstage_deduct_other, backstage_deduct_oil_card, whether_close, 
     orgid, orgname, state, creator, create_time, modifier, modify_time, remark, 
-    appendix, billweightB, billpriceB, memo
+    appendix, billweightB, billpriceB, memo,planId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -296,7 +297,7 @@
       backstage_deduct_oil_card, whether_close, orgid, 
       orgname, state, creator, 
       create_time, modifier, modify_time, 
-      remark,appendix, billweightB, billpriceB,memo)
+      remark,appendix, billweightB, billpriceB,memo,planId)
     values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{payInvoiceId,jdbcType=VARCHAR}, 
       #{driverId,jdbcType=VARCHAR}, #{driverIdNo,jdbcType=VARCHAR}, #{venderId,jdbcType=VARCHAR}, 
       #{venderIdNo,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{ownerIdNo,jdbcType=VARCHAR}, 
@@ -314,7 +315,7 @@
       #{remark,jdbcType=VARCHAR},#{appendix,jdbcType=VARCHAR},
       #{billweightB,jdbcType=DOUBLE}, 
       #{billpriceB,jdbcType=DOUBLE},
-      #{memo,jdbcType=VARCHAR}
+      #{memo,jdbcType=VARCHAR},#{planId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
@@ -449,6 +450,9 @@
       <if test="memo != null">
       	memo,
       </if>
+      <if test="planId != null">
+      	planId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -580,11 +584,17 @@
       <if test="memo != null">
          #{memo,jdbcType=VARCHAR},
       </if>
+       <if test="planId != null">
+      	 #{planId,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     update pay_invoice_detail_1
     <set >
+    	<if test="planId != null">
+      	planId = #{planId,jdbcType=VARCHAR},
+      </if>
      <if test="memo != null">
         memo = #{memo,jdbcType=VARCHAR},
       </if>
@@ -717,6 +727,7 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     update pay_invoice_detail_1
     set code = #{code,jdbcType=VARCHAR},
+    	planId = #{planId,jdbcType=VARCHAR},
     	memo = #{memo,jdbcType=VARCHAR},
     	appendix = #{appendix,jdbcType=VARCHAR},
     	billpriceB = #{billpriceB,jdbcType=DOUBLE},

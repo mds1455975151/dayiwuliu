@@ -87,7 +87,7 @@ function innerHTML(data){
 			"<td>"+billstatus+"</td>" +
 			"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 			"<td>";
-		if(data[a].billstatus ==5){//普通运单签收
+		if(data[a].billstatus ==5&&data[a].billtype == "dy"){//普通运单签收
 			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 		}else if(data[a].billtype == "al"){//安联运单签收
 			if(data[a].billstatus == undefined && data[a].signedStr == '1'){//前台未运价确认

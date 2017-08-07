@@ -23,8 +23,7 @@ public interface IFileService  {
 	/** base64 上传图片*/
 	Result uploadImg(FileUploadReq fileUploadReq)throws Exception;
 	/** byte[]上传图片*/ 
-	Result uploadByteImg(MultipartFile file) throws Exception;
+	Result uploadByteImg(MultipartFile file,String uid) throws Exception;
 	
-	Result uploadByteFile(File file) throws Exception;
 	
 }
