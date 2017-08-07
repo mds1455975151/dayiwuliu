@@ -20,4 +20,6 @@ public interface PayInvoiceDetailMapper1 {
     List<PayInvoiceDetail> selectByCondition(PayInvoiceDetail record);
     
     long selectBycount(PayInvoiceDetail record);
+    
+    PayInvoiceDetail selectByPrimary(String payInvoiceId);
 }

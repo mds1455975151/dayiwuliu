@@ -74,7 +74,12 @@
     from pay_invoice_detail_1
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  
+  <select id="selectByPrimary" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_invoice_detail_1
+    where pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     select 
     	p.id,
