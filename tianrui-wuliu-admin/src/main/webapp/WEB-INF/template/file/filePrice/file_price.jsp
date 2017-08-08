@@ -267,7 +267,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     <div class="ht_div">
                         <label><i style="color: #ff2f00;">*</i>生效时间：</label>
-                        <input type="text" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:'${datenow}'})" class="Wdate" style="width:160px"/>
+                        <input type="text" placeholder="立即生效" id="taketime" name="taketimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'${datenow}'})" class="Wdate" style="width:160px"/>
                     	<input type="hidden" id="oldtaketime">
                     </div>
           			<div class="ht_div">
@@ -342,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/filePrice/file_price.js?05.27s" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_price.js?08.07s" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

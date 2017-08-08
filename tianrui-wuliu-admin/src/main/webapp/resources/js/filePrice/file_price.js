@@ -350,7 +350,7 @@ function findById(id){
 				document.getElementById("uptmeasure").value = data.measure;
 				document.getElementById("upttallage").value = data.tallage;
 				document.getElementById("uptfrebilltype").value = data.frebilltype;
-				document.getElementById("taketime").value = data.taketimeStr;
+				document.getElementById("taketime").value = "";
 				document.getElementById("oldtaketime").value = data.taketimeStr;
 			}
 		}
@@ -370,7 +370,7 @@ function updatePrice(){
 	var taketimeStr = $("#taketime").val();
 	var uptreason = $("#uptreason").val();
 	var oldtaketime = $("#oldtaketime").val();
-	if(taketimeStr < oldtaketime){
+	if(taketimeStr < oldtaketime&&taketimeStr != ''){
 		if(window.confirm('本次生效时间早于原生效时间，确定修改将会覆盖掉原生效时间')){
 			
 		}else{
@@ -381,10 +381,10 @@ function updatePrice(){
 		alert("原因不能为空");
 		return;
 	}
-	if(taketimeStr == ""){
-		alert("生效时间不能为空");
-		return;
-	}
+//	if(taketimeStr == ""){
+//		alert("生效时间不能为空");
+//		return;
+//	}
 	if(adddesc1 == ""){
 		alert("策略名称不能为空");
 		return;

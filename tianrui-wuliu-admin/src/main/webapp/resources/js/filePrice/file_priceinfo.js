@@ -171,7 +171,7 @@ function interHTML(data){
 		if(data[a].priceInfo != undefined){
 			priceInfo = data[a].priceInfo;
 		}
-		var taketimeStr = "";
+		var taketimeStr = "立即生效";
 		if(data[a].taketimeStrinfo != undefined){
 			taketimeStr = data[a].taketimeStrinfo;
 		}
@@ -195,7 +195,6 @@ function interHTML(data){
 			"<td>"+data[a].priceunits+"</td>"+ 
 			"<td>"+tallage+"</td>"+ 
 			"<td>"+frebilltype+"</td>"+ 
-			"<td>"+payment+"</td>"+ 
 			"<td>"+tallageInfo+"</td>"+ 
 			"<td>"+auditstatus+"</td>"+
 			"<td>"+data[a].cargoid+
@@ -206,12 +205,11 @@ function interHTML(data){
 			"<td>"+taketimeStr+"</td>"+
 			"<td>"+uptReason+"</td>"+
 			"<td>" +
-			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >查看</a></span>" +
-			"</td>" +
-			"<td>" ;
+			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >【查看】</a></span></td><td>" ;
+			
 		if(data[a].auditstatus=="0"){
-			hml += "<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"','"+modifytime+"')\" data-target='#tingyong'>审核</a></span>";
-		}
+				hml += "<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"','"+modifytime+"')\" data-target='#tingyong'>【审核】</a></span>";
+			}
 		hml += "</td>" +
 			"</tr>";
 	}
