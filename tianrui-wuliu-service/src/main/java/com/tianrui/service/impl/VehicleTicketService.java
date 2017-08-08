@@ -176,6 +176,7 @@ public class VehicleTicketService implements IVehicleTicketService{
 			VehicleTicket vt = new VehicleTicket();
 			vt.setId(req.getId());
 			vt.setStatus(req.getStatus());
+			vt.setDesc4(req.getDesc4());
 			vehicleTicketMapper.updateByPrimaryKeySelective(vt);
 			
 			MemberVehicle mv = new MemberVehicle();

@@ -259,7 +259,7 @@ function kaipiaoView(id,driverTel){
 }
 function kaipiaoUpt(id,driverTel){
 	if(driverTel == 'undefined'){
-		window.location.href = "/trwuliu/Member/vehicleticket/kaipiaoUpdate?vehicleid="+id;
+		window.location.href = "/trwuliu/Member/vehicleticket/filePage?vehicleid="+id;
 	}else{
 		alert("绑定司机车辆，不能进行开票认证");
 	}

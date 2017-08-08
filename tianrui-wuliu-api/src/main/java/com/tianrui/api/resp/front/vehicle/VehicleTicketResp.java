@@ -31,6 +31,8 @@ public class VehicleTicketResp {
 	    private String motorno;
 
 	    private String desc1;
+	    
+	    private String desc4;
 
 		public String getId() {
 			return id;
@@ -147,6 +149,14 @@ public class VehicleTicketResp {
 
 		public void setDesc1(String desc1) {
 			this.desc1 = desc1;
+		}
+
+		public String getDesc4() {
+			return desc4;
+		}
+
+		public void setDesc4(String desc4) {
+			this.desc4 = desc4;
 		}
 	    
 }

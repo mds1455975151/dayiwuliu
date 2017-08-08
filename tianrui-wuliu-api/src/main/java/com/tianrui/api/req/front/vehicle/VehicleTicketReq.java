@@ -3,6 +3,8 @@ package com.tianrui.api.req.front.vehicle;
 public class VehicleTicketReq {
 
 	private String id;
+	
+	private String desc4;
 
     private String vehicleid;
 
@@ -130,5 +132,13 @@ public class VehicleTicketReq {
 
 	public void setMotorno(String motorno) {
 		this.motorno = motorno;
+	}
+
+	public String getDesc4() {
+		return desc4;
+	}
+
+	public void setDesc4(String desc4) {
+		this.desc4 = desc4;
 	}
 }

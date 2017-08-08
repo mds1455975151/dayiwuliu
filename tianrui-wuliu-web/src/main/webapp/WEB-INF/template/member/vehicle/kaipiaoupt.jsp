@@ -87,7 +87,7 @@
 					<div class="car_photo">
 						<div class="car_addbtn">
 							<button type="button" class="btn btnyello" id="vehicle_ticket_upt">修改</button>
-							<button type="button" class="btn btnblue" id="">取消</button>
+							<button type="button" onclick="window.location.href='/trwuliu/Member/myVehicle/myVehiclePage'" class="btn btnblue" id="">取消</button>
 						</div>
 					</div>
 				</div>

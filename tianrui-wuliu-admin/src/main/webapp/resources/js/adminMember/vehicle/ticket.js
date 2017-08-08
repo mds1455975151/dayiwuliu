@@ -60,7 +60,11 @@ function displayRect(pageNo){
 						}
 						var status = "";
 						if(data[a].status == "-1"){
-							status = "认证失败";
+							if(data[a].desc4 != undefined){
+								status = "<a onclick='alert(\""+data[a].desc4+"\")'>认证失败</a>";
+							}else{
+								status = "认证失败";
+							}
 						}else if(data[a].status == "1"){
 							status = "认证成功";
 						}else if(data[a].status == "2"){
@@ -135,17 +139,19 @@ function Ticketshenhe(id){
 	$("#ticket_status").val("");
 	$(".butongguo").css('background','');
 	$(".tongguo").css('background','');
-	
+	$("#auditMassage").hide();
 	$(".ticket_success").hide();
 	$("#error_massage").html("");
 }
 $(".tongguo").on("click",function(){
 	$(this).css('background','#B9D3EE');
+	$("#auditMassage").hide();
 	$(".butongguo").css('background','');
 	$("#ticket_status").val("1");
 });
 $(".butongguo").on("click",function(){
 	$(this).css('background','#B9D3EE');
+	$("#auditMassage").show();
 	$(".tongguo").css('background','');
 	$("#ticket_status").val("-1");
 });
@@ -155,11 +161,16 @@ $(".ticket_shenhe").on("click",function(){
 		alert("请选择通过或不通过");
 		return;
 	}
+	if($("#auditMassage").val()==""&&$("#ticket_status").val() == "-1"){
+		alert("请输入不通过原因");
+		return;
+	}
 	$(this).attr("disabled",true);
 	$.ajax({
 		url:CONTEXTPATH+'/admin/ticket/shenhe',
 		data:{"id":$("#ticket_id").val(),
-			"status":$("#ticket_status").val()
+			"status":$("#ticket_status").val(),
+			"desc4":$("#auditMassage").val()
 		},
 		type:"post",
 		success: function(ret) {

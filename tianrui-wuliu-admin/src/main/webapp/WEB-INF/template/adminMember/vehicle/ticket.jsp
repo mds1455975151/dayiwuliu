@@ -138,6 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <button type="button" class="btn butongguo">不通过</button>
             <input type="hidden" id="ticket_status">
             <input type="hidden" id="ticket_id">
+            <textarea id="auditMassage" style="margin-top: 20px" rows="4" cols="80"></textarea>
             </div>
             <div class="modal-body">
 			<span style="color: red" id="error_massage"></span>
@@ -160,6 +161,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?04.25" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/vehicle/ticket.js?08.8" ></script>
 </body>
 </html>

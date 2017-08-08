@@ -39,6 +39,16 @@ public class VehicleTicketAction {
 		view.setViewName("/member/vehicle/kaipiao");
 		return view;
 	}
+	@RequestMapping("/filePage")
+	public ModelAndView filePage(String vehicleid) throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/member/vehicle/kaipiaoFailPage");
+		TicketFindReq req = new TicketFindReq();
+		req.setId(vehicleid);
+		Result rs = vehicleTicketService.findByVehicleId(req);
+		view.addObject("ticket", rs.getData());
+		return view;
+	}
 	
 	/** 开票认证页面跳转
 	 * @throws Exception */
