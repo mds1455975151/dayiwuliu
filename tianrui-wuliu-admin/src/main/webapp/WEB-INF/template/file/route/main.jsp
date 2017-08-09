@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
               	<div class="usermodal userlabel4">
                     <label>收货人：</label>
-                    <input class="receivepersion formV" id="receivepersion_req" name="receivepersion" readonly="readonly"  type="text"  dataType="s2-18">
+                    <input class="receivepersion formV" id="receivepersion_req" name="receivepersion" readonly="readonly"  type="text">
                 </div>
               	<div class="usermodal userlabel4">
                     <label>距离：</label><input class="distanceStr formV" name="distanceStr"  type="text" dataType="n">

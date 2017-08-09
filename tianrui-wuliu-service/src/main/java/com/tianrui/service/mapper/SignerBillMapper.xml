@@ -24,20 +24,17 @@
     <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
     
     
+    <result column="startcity" property="startcity" jdbcType="VARCHAR" />
+    <result column="endcity" property="endcity" jdbcType="VARCHAR" />
+    
+    
   </resultMap>
-  
-  
-  <sql id="Base_Column_List" >
-      ID, billtype, billno, 
-      vehicleno, cargoname, billstatus, 
-      payment, receive_memberid, createtime, 
-      modifytime, recive_cellphone, totalprice,confirmPriceA,confirmPriceB,signed,trueweight
-  </sql>
  
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >
     select 
    	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
-      vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,vb.confirmPriceB,vb.signed,vb.trueweight
+      vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,
+      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
     from v_signer_bill vb
     <where>
     	<if test="receiveMemberid != null and receiveMemberid != ''">

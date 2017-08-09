@@ -4,6 +4,10 @@ public class SignerBill {
     private String id;
     
     private String searchKey;
+    
+    private String startcity;
+    
+    private String endcity;
 
     private String billtype;
 
@@ -197,5 +201,21 @@ public class SignerBill {
 
 	public void setTrueweight(Double trueweight) {
 		this.trueweight = trueweight;
+	}
+
+	public String getStartcity() {
+		return startcity;
+	}
+
+	public void setStartcity(String startcity) {
+		this.startcity = startcity;
+	}
+
+	public String getEndcity() {
+		return endcity;
+	}
+
+	public void setEndcity(String endcity) {
+		this.endcity = endcity;
 	}
 }

@@ -110,13 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="plan_fege"></div>
                 <!--计划模板表格begin-->
                 <div class="bill_table" id="dateContent" >
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="white-space:nowrap;">
                         <thead>
                         <tr>
                             <th>运单号</th>
                             <th>运单类型 </th>
                             <th>货物名称</th>
                             <th>车牌号</th>
+                            <th>始发地-目的地</th>
                             <th>运单状态</th>
                             <th>创建时间</th>
                             <th>操作</th>
@@ -343,7 +344,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?08.04" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?08.09" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

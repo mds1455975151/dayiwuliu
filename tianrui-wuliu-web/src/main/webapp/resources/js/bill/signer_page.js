@@ -84,6 +84,7 @@ function innerHTML(data){
 			"<td>"+type+"</td>" +
 			"<td>"+data[a].cargoname+"</td>" +
 			"<td>"+data[a].vehicleno+"</td>" +
+			"<td><i class='iconfont icon-dizhi billc1'></i>"+data[a].startcity+"-<i class='iconfont icon-dizhi billc2'></i>"+data[a].endcity+"</td>" +
 			"<td>"+billstatus+"</td>" +
 			"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 			"<td>";
