@@ -115,6 +115,15 @@ function displayRect(pageNo){
 						if(data[a].lastTimeStr == undefined){
 							lastTime = "";
 						}
+						
+						var auditName = data[a].auditName;
+						if(data[a].auditName == undefined){
+							auditName = "";
+						}
+						var auditTimeStr = data[a].auditTimeStr;
+						if(data[a].auditTimeStr == undefined){
+							auditTimeStr = "";
+						}
 						var pushStatus = data[a].pushStatus;
 						var ncStatus = data[a].ncStatus;
 						hml += "<tr>" +
@@ -139,6 +148,8 @@ function displayRect(pageNo){
 							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#qiyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
 							//"<span><a data-toggle='modal' onclick=\"deletebyid('"+data[a].id+"')\" data-target='#dele'>删除</a></span></td>" +
+							"<td >"+auditName+"</td>" +
+							"<td >"+auditTimeStr+"</td>" +
 							"<td >"+lastTime+"</td>" +
 							"</tr>";
 						}

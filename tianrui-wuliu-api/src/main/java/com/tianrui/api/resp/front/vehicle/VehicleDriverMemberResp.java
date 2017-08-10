@@ -11,6 +11,8 @@ public class VehicleDriverMemberResp extends BaseResp{
 	
 	/** 主键 */
 	private String id;
+	private String ids;
+	private String vehicleprefix;
 	/** 司机主键 */
 	private String driverId;
 	/** 车辆主键 */
@@ -110,6 +112,18 @@ public class VehicleDriverMemberResp extends BaseResp{
 	}
 	public void setDesc1(String desc1) {
 		this.desc1 = desc1;
+	}
+	public String getIds() {
+		return ids;
+	}
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+	public String getVehicleprefix() {
+		return vehicleprefix;
+	}
+	public void setVehicleprefix(String vehicleprefix) {
+		this.vehicleprefix = vehicleprefix;
 	}
 	
 	

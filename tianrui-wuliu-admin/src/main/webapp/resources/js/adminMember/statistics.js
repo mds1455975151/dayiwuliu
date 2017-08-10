@@ -32,7 +32,7 @@ function displayRec(pageNo){
 		    	document.getElementById("goPage").value = pageNo+1;
 			    if(ret.data.count == 0) {
 			    	$("#totalPages").html(1);  
-			    	hml +='<td colspan="12">';
+			    	hml +='<td colspan="17">';
 		    		hml +='<div class="ht_none">';
 		    		hml +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
 		    		hml +='<div>';

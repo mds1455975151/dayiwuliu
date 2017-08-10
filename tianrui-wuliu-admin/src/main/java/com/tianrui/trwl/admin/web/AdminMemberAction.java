@@ -212,7 +212,6 @@ public class AdminMemberAction {
 		Result rs = Result.getSuccessResult();
 		rs=vehicleDriverService.unbundled(id);
 		return rs;
-		
 	}
 	/**
 	 * 运力解绑详情
@@ -226,6 +225,49 @@ public class AdminMemberAction {
 		Result rs = Result.getSuccessResult();
 		VehicleDriverResp resp = vehicleDriverService.findUnbundledById(id);
 		rs.setData(resp);
+		return rs;
+	}
+	/**
+	 * 运力全平台司机绑定
+	 * @Title: bind 
+	 * @Description: TODO
+	 * @param @param id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/bind")
+	@ResponseBody
+	public Result bind(String id,String driverid) throws Exception {
+		Result rs = Result.getSuccessResult();
+		rs= vehicleDriverService.bind(id,driverid);
+		return rs;
+	}
+	/**
+	 * @throws Exception 
+	 * @Title: bindDriver 
+	 * @Description: 全平台司机搜索
+	 * @param @return   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/bindDriver")
+	@ResponseBody
+	public Result bindDriver(String phone) throws Exception{
+		Result rs = new Result();
+		MemberResp resp =vehicleDriverService.bindDriver(phone);
+		if(resp==null){
+			rs.setCode("1");
+			rs.setError("无效的用户");
+			return rs;
+		}else if(resp.getDriverpercheck().toString().equals("1")){
+			rs.setCode("000000");
+			rs.setData(resp);
+		}else{
+			rs.setCode("2");
+			rs.setError("请先输入认证通过的司机账号！");
+		}
 		return rs;
 	}
 	/**

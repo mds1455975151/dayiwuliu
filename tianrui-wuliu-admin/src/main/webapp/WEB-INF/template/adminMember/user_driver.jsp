@@ -124,6 +124,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                          <th>认证状态</th>
                                          <th>推送状态 </th>
                                          <th>NC审核状态 </th>
+                                         <th>审核人</th>
+                                         <th>审核时间</th>
                                          <th>注册时间 </th>
                                          <th>认证时间 </th>
                                          <th>操作 </th>
@@ -354,7 +356,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0728" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0878" ></script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',

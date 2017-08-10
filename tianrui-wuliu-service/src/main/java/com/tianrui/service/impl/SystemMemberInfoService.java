@@ -107,6 +107,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		if("3".equals(req.getUserpercheck())){
 			member.setUserpercheck((short)3);
 		}
+		member.setAuditname(record.getAuditname());
+		member.setAudittime(record.getAudittime());
 		systemMemberMapper.updateByPrimaryKeySelective(member);
 		//发送消息
 		SendMsgReq mreq = new SendMsgReq();
@@ -182,6 +184,8 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		if("3".equals(req.getDriverpercheck())){
 			member.setDriverpercheck((short)3);
 		}
+		member.setAuditname(record.getAuditname());
+		member.setAudittime(record.getAudittime());
 		systemMemberMapper.updateByPrimaryKeySelective(member);
 		
 		//认证记录修改
@@ -260,12 +264,16 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			info.setRtblimgurl(record.getRtblimgurl());
 			info.setRtblno(record.getRtblno());
 			info.setCompanyaddress(record.getCompanyAddress());
+			info.setAuditname(record.getAuditname());
+			info.setAudittime(record.getAudittime());
 			systemMemberInfoMapper.updateByPrimaryKeySelective(info);
 			member.setCompanypercheck((short)1);
 		}
 		if("3".equals(req.getCompanypercheck())){
 			member.setCompanypercheck((short)3);
 		}
+		member.setAuditname(record.getAuditname());
+		member.setAudittime(record.getAudittime());
 		systemMemberMapper.updateByPrimaryKeySelective(member);
 		//消息推送
 		SendMsgReq mreq = new SendMsgReq();

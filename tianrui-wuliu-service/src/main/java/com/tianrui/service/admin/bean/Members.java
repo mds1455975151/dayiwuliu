@@ -38,7 +38,6 @@ public class Members{
     private String starttime;
     private String usefullife;
     private String idcardaddress;
-	
 	/**
 	 * 认证信息id
 	 */
@@ -491,5 +490,9 @@ public class Members{
 	public void setOpposite(String opposite) {
 		this.opposite = opposite;
 	}
+
+
+
+	
 	
 }

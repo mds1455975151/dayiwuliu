@@ -48,6 +48,12 @@ public class MemberResp extends BaseResp{
     private String starttime;
     private String usefullife;
     private String idcardaddress;
+    //审核人
+    private String auditName;
+    //审核时间
+    private String auditTimeStr;
+    //审核时间
+    private Long auditTime;
 	
 	/**
 	 * 组织id
@@ -529,6 +535,32 @@ public class MemberResp extends BaseResp{
 	public void setOpposite(String opposite) {
 		this.opposite = opposite;
 	}
+
+	public String getAuditName() {
+		return auditName;
+	}
+
+	public void setAuditName(String auditName) {
+		this.auditName = auditName;
+	}
+
+	public String getAuditTimeStr() {
+		if(auditTime != null){
+			auditTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(auditTime));
+		}
+		return auditTimeStr;
+	}
+
+	public Long getAuditTime() {
+		return auditTime;
+	}
+
+	public void setAuditTime(Long auditTime) {
+		this.auditTime = auditTime;
+	}
 	
+	
+	
+
 	
 }

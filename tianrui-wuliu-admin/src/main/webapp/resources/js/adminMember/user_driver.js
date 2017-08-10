@@ -118,6 +118,15 @@ function displayRect(pageNo){
 						if(data[a].submitDate == undefined){
 							submitDate = "";
 						}
+						
+						var auditName = data[a].auditName;
+						if(data[a].auditName == undefined){
+							auditName = "";
+						}
+						var auditTimeStr = data[a].auditTimeStr;
+						if(data[a].auditTimeStr == undefined){
+							auditTimeStr = "";
+						}
 						var anlian = "";
 						if(data[a].driverpercheck=='1'){
 							anlian = "<span><a data-toggle='modal' onclick=\"anlianrenzheng('"+a+"')\" data-target='#anlian'>【安联认证】</a></span>";
@@ -137,6 +146,8 @@ function displayRect(pageNo){
 							"<td >"+per+"</td>"+
 							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
 							"<td >"+(ncStatus == 1 ? '供应商不存在' : ncStatus == 2 ? '未审核' : ncStatus == 3 ? '审核未通过' : ncStatus == 4 ? '审核中' : ncStatus == 5 ? '审核通过，但组织未分配' : ncStatus == 6 ? '审核通过，且组织已分配' : '')+"</td>"+
+							"<td >"+auditName+"</td>"+
+							"<td >"+auditTimeStr+"</td>"+
 							"<td >"+data[a].registtimeStr+"</td>"+
 							"<td >"+submitDate+"</td><td>";
 							if(data[a].driverpercheck=="1"){

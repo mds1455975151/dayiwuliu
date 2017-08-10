@@ -54,7 +54,7 @@ public interface SystemMemberMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SystemMember record);
-    
+     
     List<SystemMember> selectByCondition(SystemMember record);
     /**
      * 后台会员查询
@@ -66,12 +66,15 @@ public interface SystemMemberMapper {
     long findsMemberListCount(MemberFind find);
     
     Members findsMemberbyId(String id);
+    
+    Members bindDriver(String phone);
     /**
      * 运力管理联合查询
      * @param id
      * @return
      */
 	Members findByMemberId(String id);
+	List<Members> findByMemberIds(String id);
 	
 	//司机用户查询审核通过/不通过
 	 Long driverByNum(MemberFind ms);

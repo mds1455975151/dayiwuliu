@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >车辆信息详情</h4>
+                <h4 class="modal-title" >详情信息</h4>
             </div>
             <div class="modal-body" id="detailid" style="">
             
@@ -130,6 +130,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
+<!--新增会员begin-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >搜索全平台司机</h4>
+            </div>
+            <div class="modal-body">
+                <div class="juesemodal">
+                    <p><label><i style="color: #ff2f00;">*</i>手机号：</label>
+                    <input id="addcellphone" type="text" maxlength="11" >
+                    <span style="color: red" id="error"></span>
+                    <button class="btn btnblue " onclick="searchPhone()" type="submit">搜索</button>
+                    </p>
+                    <p><label><i style="color: #ff2f00;">*</i>姓名：</label><input id="memberName" type="text" readonly="readonly"></p>
+                    <p><label>备注：</label><textarea id="massage" class="form-control" rows="2"></textarea></p>
+                    <input id="id" type=text style="display:none">
+                    <input id="driverid" type=text style="display:none">
+                    <input id="pageNo" type=text style="display:none">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="bind();">保存</button>
+                <button type="button" id="addclick" class="btn btn-default" onclick="resetvalue();" data-dismiss="modal" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新增会员end-->
+
 <!--修改begin-->
 <div class="modal fade" id="updateDeatil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
@@ -199,7 +231,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/management.js?07.140" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/management.js?07.1820" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 

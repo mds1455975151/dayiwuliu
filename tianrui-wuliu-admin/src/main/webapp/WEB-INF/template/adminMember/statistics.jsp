@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/statistics.js?0738" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/statistics.js?0758" ></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 
 </body>

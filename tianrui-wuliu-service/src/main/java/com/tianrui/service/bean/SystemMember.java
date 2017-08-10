@@ -10,6 +10,10 @@ public class SystemMember {
      * @mbggenerated
      */
     private String id;
+    //审核人  
+    private String auditname;
+    // 审核时间
+    private Long audittime;
     
     private List<String> ids;
     /** 安联认证后的司机id*/
@@ -545,6 +549,22 @@ public class SystemMember {
 
 	public void setIds(List<String> ids) {
 		this.ids = ids;
+	}
+
+	public String getAuditname() {
+		return auditname;
+	}
+
+	public void setAuditname(String auditname) {
+		this.auditname = auditname;
+	}
+
+	public Long getAudittime() {
+		return audittime;
+	}
+
+	public void setAudittime(Long audittime) {
+		this.audittime = audittime;
 	}
     
 }

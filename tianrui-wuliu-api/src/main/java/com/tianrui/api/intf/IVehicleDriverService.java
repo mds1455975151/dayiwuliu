@@ -5,6 +5,7 @@ import java.util.List;
 import com.tianrui.api.req.front.vehicle.VehicleDriverMemberReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
+import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverMemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -77,6 +78,21 @@ public interface IVehicleDriverService {
 	 * @throws Exception
 	 */
 	public VehicleDriverResp findUnbundledById(String id)throws Exception;
+	/**
+	 * @Title: bind 
+	 * @Description: 车辆绑定
+	 * @param @param id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	public  Result bind(String id,String driverid)throws Exception;
+	/**
+	 * 根据手机号搜索全平台司机
+	 */
+	public MemberResp bindDriver(String phone)throws Exception;
+		
 	/**
 	 * 车辆司机关系信息修改后保存操作
 	 * <p>

@@ -22,7 +22,12 @@ public class SystemMemberInfo {
     private String idcardaddress;
     private Integer pushStatus;
     private Integer ncStatus;
-
+    //审核人  
+    private String auditname;
+    // 审核时间
+    private Long audittime;
+    
+    
     public Integer getPushStatus() {
 		return pushStatus;
 	}
@@ -597,6 +602,22 @@ public class SystemMemberInfo {
 
 	public void setOpposite(String opposite) {
 		this.opposite = opposite;
+	}
+
+	public String getAuditname() {
+		return auditname;
+	}
+
+	public void setAuditname(String auditname) {
+		this.auditname = auditname;
+	}
+
+	public Long getAudittime() {
+		return audittime;
+	}
+
+	public void setAudittime(Long audittime) {
+		this.audittime = audittime;
 	}
     
 }

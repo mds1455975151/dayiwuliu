@@ -5,29 +5,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.druid.sql.dialect.oracle.ast.clause.FlashbackQueryClause.VersionsFlashbackQueryClause;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.anlian.AnlianDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverMemberReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
-import com.tianrui.api.resp.admin.MyVehicleResp;
+import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverMemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.admin.bean.MyVehicle;
+import com.tianrui.service.admin.bean.Members;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.OwnerDriver;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.bean.VehicleDriverMember;
 import com.tianrui.service.mapper.MemberVehicleMapper;
+import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 
@@ -48,6 +48,8 @@ public class VehicleDriverService implements IVehicleDriverService {
 	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
 	IAnlianService anlianService;
+	@Autowired
+	OwnerDriverMapper ownerDriverMapper;
 	
 	/**
 	 * 父类方法重写，根据条件进行车辆司机关联信息查询
@@ -220,12 +222,14 @@ public class VehicleDriverService implements IVehicleDriverService {
 				VehicleDriverMemberResp vehicleDriverResp =  new VehicleDriverMemberResp();
 				// 主键
 				vehicleDriverResp.setId(vehicleDriver.getId());
+				vehicleDriverResp.setIds(vehicleDriver.getIds());
 				// 司机主键
 				vehicleDriverResp.setDriverId(vehicleDriver.getDriverid());;
 				// 车辆主键
 				vehicleDriverResp.setVehicleId(vehicleDriver.getVehicleid());
 				// 车牌号
 				vehicleDriverResp.setVehicleNo(vehicleDriver.getVehicleno());
+				vehicleDriverResp.setVehicleprefix(vehicleDriver.getVehicleprefix());
 				// 车型
 				vehicleDriverResp.setVehicleTypeName(vehicleDriver.getVehicletypename());
 				// 车辆备注名
@@ -243,7 +247,9 @@ public class VehicleDriverService implements IVehicleDriverService {
 				// 
 				vehicleDriverResp.setDesc1(vehicleDriver.getDesc1());
 				// 创建时间
-				vehicleDriverResp.setCreateTime(convertLongTODate(vehicleDriver.getCreatetime()));
+				if(vehicleDriver.getCreatetime()!=null){
+					vehicleDriverResp.setCreateTime(convertLongTODate(vehicleDriver.getCreatetime()));
+				}
 				vehicleDriverRespList.add(vehicleDriverResp);
 			}
 		}
@@ -442,6 +448,77 @@ public class VehicleDriverService implements IVehicleDriverService {
 		resp.setVehicleTypeName(m.getVehicletypename());
 		resp.setCreator(m.getCreator());
 		resp.setVehicleRemark(m.getVehicleremark());
+		return resp;
+	}
+	
+	/**
+	 * 运力司机绑定
+	 */
+	@Override
+	public Result bind(String id,String driverid) throws Exception {
+		Result rs = Result.getSuccessResult();
+		//查询车辆信息
+		MemberVehicle memberVehicle = memberVehicleMapper.selectByPrimaryKey(id);
+		VehicleDriver record = new VehicleDriver();
+		record.setDriverid(driverid);
+		record.setVehicleid(memberVehicle.getVehicleid());
+		List<VehicleDriver> list=vehicleDriverMapper.findWithEntity(record);
+//		List<Members> member = systemMemberMapper.findByMemberIds(driverid);
+		SystemMember member = systemMemberMapper.selectByPrimaryKey(driverid);
+		if(list.size()==0){
+			VehicleDriver vehicleDriver = new VehicleDriver();
+			vehicleDriver.setDriverid(driverid);
+			vehicleDriver.setDrivername(member.getRemarkname());
+			vehicleDriver.setDrivertel(member.getCellphone());
+			vehicleDriver.setVehicleid(memberVehicle.getVehicleid());
+			vehicleDriver.setVehicleno(memberVehicle.getVehicleprefix()+memberVehicle.getVehicleno());
+			vehicleDriver.setVehicletypename(memberVehicle.getVehicletypename());
+			vehicleDriver.setCreatetime(new Date().getTime());
+			vehicleDriver.setCreator(memberVehicle.getMemberid());
+			vehicleDriver.setId(UUIDUtil.getId());
+			vehicleDriverMapper.insert(vehicleDriver);
+		}else{
+			rs.setCode("3");
+			rs.setError("车辆司机已绑定");
+			return rs;
+		}
+		
+		
+		OwnerDriver ownerDriver = new OwnerDriver();
+		ownerDriver.setDriverid(driverid);
+		ownerDriver.setVehicleownerid(memberVehicle.getMemberid());
+		List<OwnerDriver> list1=ownerDriverMapper.selectOwnerDriver(ownerDriver);
+		if(list1.size()==0){
+			OwnerDriver  ownerDrivers = new OwnerDriver();
+			ownerDrivers.setId(UUIDUtil.getId());
+			ownerDrivers.setVehicleownerid(memberVehicle.getMemberid());
+			ownerDrivers.setDriverid(driverid);
+			ownerDrivers.setDrivername(member.getRemarkname());
+			ownerDrivers.setDrivertel(member.getCellphone());
+			ownerDrivers.setStatus("1");
+			ownerDrivers.setCreator(memberVehicle.getMemberid());
+			ownerDrivers.setCreatetime(new Date().getTime());
+			ownerDriverMapper.insert(ownerDrivers);
+		}
+		return rs;
+	}
+	/**
+	 * 全平台司机搜索
+	 */
+	@SuppressWarnings("null")
+	@Override
+	public MemberResp bindDriver(String phone) throws Exception {
+		MemberResp resp = null ;
+		Members members=systemMemberMapper.bindDriver(phone);
+		if(members!=null){
+			resp = new MemberResp();
+			resp.setUserName(members.getRemarkname());
+			resp.setCellPhone(members.getCellPhone());
+			resp.setId(members.getId());
+			resp.setDriverpercheck(members.getDriverpercheck());
+			return resp;
+		}
+		
 		return resp;
 	}
 

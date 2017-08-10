@@ -10,7 +10,8 @@ public class VehicleDriverMember implements IModel{
 	 * 主键
 	 */
     private String id;
-
+    private String ids;
+    private String vehicleprefix;
    /**
     * 司机ID
     */
@@ -197,6 +198,23 @@ public class VehicleDriverMember implements IModel{
 	public void setQueryKey(String queryKey) {
 		this.queryKey = queryKey;
 	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
+	public String getVehicleprefix() {
+		return vehicleprefix;
+	}
+
+	public void setVehicleprefix(String vehicleprefix) {
+		this.vehicleprefix = vehicleprefix;
+	}
+	
     
     
 }

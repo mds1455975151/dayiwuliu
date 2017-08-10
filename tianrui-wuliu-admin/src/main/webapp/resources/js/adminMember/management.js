@@ -52,7 +52,6 @@ function displayRec(pageNo){
 					for (var a = 0; a < d.length; a++) {
 						var c = a+1;
 						var desc1 = "";
-						
 						if(d[a].desc1=='1'){
 							desc1 = "开票车辆";
 						}else{
@@ -65,15 +64,44 @@ function displayRec(pageNo){
 						if(d[a].aldriverid == 1){
 							aldriverid = "";
 						}
+						var vehicleNo = d[a].vehicleNo;
+						if(d[a].vehicleNo==undefined){
+							vehicleNo=""
+						}
+						var vehicleprefix = d[a].vehicleprefix;
+						if(d[a].vehicleprefix==undefined){
+							vehicleprefix=""
+						}
+						var vehicleTypeName = d[a].vehicleTypeName;
+						if(d[a].vehicleTypeName==undefined){
+							vehicleTypeName=""
+						}
+						var driverName = d[a].driverName;
+						if(d[a].driverName==undefined){
+							driverName=""
+						}
+						var driverTel = d[a].driverTel;
+						if(d[a].driverTel==undefined){
+							driverTel=""
+						}
+						var createTime = d[a].createTime;
+						if(d[a].createTime==undefined){
+							createTime=""
+						}
 						hml += "<tr><td>"+c+"</td>"+
-							"<td>"+"<span><a  data-toggle='modal' onclick=\"details('"+d[a].vehicleId+"')\" data-target='#detail'>"+d[a].vehicleNo+"</a></span></td>"+
-							"<td>"+d[a].vehicleTypeName+"</td>"+
+							"<td>"+"<span><a  data-toggle='modal' onclick=\"details('"+d[a].vehicleId+"')\" data-target='#detail'>"+vehicleprefix+vehicleNo+"</a></span></td>"+
+							"<td>"+vehicleTypeName+"</td>"+
 							"<td>"+desc1+"</td>"+
 							"<td>"+aldriverid+"</td>"+
-							"<td>"+d[a].driverName+"</td>"+
-							"<td>"+"<span><a data-toggle='modal' onclick=\"driverDetail('"+d[a].driverId+"')\" data-target='#detail'>"+d[a].driverTel+"</a></span></td>"+
-							"<td>"+d[a].createTime+"</td>"+
-							"<td>"+"<span><a data-toggle='modal' onclick=\"unbundled('"+d[a].id+"')\" data-target='#unbundled'>【解绑】</a></span></td>"+
+							"<td>"+driverName+"</td>"+
+							"<td>"+"<span><a data-toggle='modal' onclick=\"driverDetail('"+d[a].driverId+"')\" data-target='#detail'>"+driverTel+"</a></span></td>"+
+							"<td>"+createTime+"</td><td>";
+							if(d[a].id==undefined){
+								hml += "<span><a data-toggle='modal' onclick=\"binds('"+d[a].ids+"','"+(pageNo)+"')\"  data-target='#addModal'>【绑定】</a></span>";
+							}
+							if(d[a].id!=undefined){
+								hml += "<span><a data-toggle='modal' onclick=\"unbundled('"+d[a].id+"','"+(pageNo)+"')\" data-target='#unbundled'>【解绑】</a></span>";
+							}
 							"</td></tr>";
 					}
 			    }  
@@ -264,7 +292,7 @@ function details(id){
 	 * 解绑车辆
 	 * @param id
 	 */
-	function unbundled(id){
+	function unbundled(id,pageNo){
 		if (confirm('是否解绑？')) {
 		$.ajax({
 			url: CONTEXTPATH+'/AdminMember/unbundled',
@@ -273,7 +301,7 @@ function details(id){
 			success: function(ret){
 				if(ret.code=="000000"){
 					alert("解绑成功");
-					displayRec(0);
+					displayRec(parseInt(pageNo));
 				}else{
 					alert(ret.error);
 				}
@@ -281,8 +309,38 @@ function details(id){
 		});
 		}
 }
-	
-	
+	function binds(id,pageNo){
+		$("#id").val(id);
+		$("#pageNo").val(parseInt(pageNo));
+	}
+	/**
+	 * 绑定车辆
+	 * @param id
+	 * @param type
+	 */
+	function bind(){
+		var id = $("#id").val();
+		var pageNo = $("#pageNo").val();
+		//var pageNo= $("#pageNo").val();
+		var driverid=$("#driverid").val();
+		//var memberName = $("#memberName").val();
+		//var massage = $("#massage").val();
+		$.ajax({
+				url: CONTEXTPATH+'/AdminMember/bind',
+				data:{"id":id,"driverid":driverid},
+				type:"post",
+				success: function(ret){
+					if(ret.code=="000000"){
+						document.getElementById("addclick").click();
+						alert("绑定车辆成功！");
+						displayRec(parseInt(pageNo));
+					}else{
+						document.getElementById("addclick").click();
+						alert(ret.error);
+					}
+				}
+			});
+	}
 	
 	function hideWindow(id,type){
 		if(type==1||type==2){
@@ -295,8 +353,35 @@ function details(id){
 		$("#vehictype").val(type);
 		$("#code").val("");
 	}
+	//搜索全平台司机
+	function searchPhone(){
+		var phone = $("#addcellphone").val();
+		$.ajax({
+			url:CONTEXTPATH+"/AdminMember/bindDriver",
+			data:{"phone":phone},
+			type:"post",
+			success:function(ret){
+				if(ret.code!="000000"){
+					document.getElementById("error").innerHTML=ret.error;
+				}else{
+					var data = ret.data;
+					var userName = data.userName;
+					$("#memberName").val(userName);
+					var driverid = data.id;
+					$("#driverid").val(driverid);
+//					searchMember();
+//					document.getElementById("addclick").click();
+				}
+			}
+		});
+	}
 	
-	
-	
-	
+	/** 重置*/
+	function resetvalue(){
+		$("#cellPhone").val("");
+		$("#addcellphone").val("");
+		$("#error").html("");
+		$("#memberName").val("");
+		$("#massage").val(""); 
+	}
 	

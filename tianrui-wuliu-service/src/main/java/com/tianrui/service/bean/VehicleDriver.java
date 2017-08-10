@@ -186,5 +186,9 @@ public class VehicleDriver implements IModel {
 	public void setQueryKey(String queryKey) {
 		this.queryKey = queryKey;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 }

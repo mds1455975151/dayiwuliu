@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.bean.VehicleDriverMember;
+import com.tianrui.service.bean.VehicleDriverMembers;
 
 public interface VehicleDriverMapper {
     /**
