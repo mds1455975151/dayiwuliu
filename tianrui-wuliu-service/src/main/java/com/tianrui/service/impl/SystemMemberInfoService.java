@@ -2,6 +2,7 @@ package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
@@ -79,7 +81,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		//认证记录修改
 		record.setAuditid(req.getAuditid());
 		record.setAuditname(req.getAuditname());
-		record.setAudittime(req.getAudittime());
+		record.setAudittime(new Date().getTime());
 		record.setUserpercheck(req.getUserpercheck());
 		record.setAuditresson(req.getRejectReason());
 		record.setStatus("1");// 0-未审核，1-已审核',
@@ -191,7 +193,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		//认证记录修改
 		record.setAuditid(req.getAuditid());
 		record.setAuditname(req.getAuditname());
-		record.setAudittime(req.getAudittime());
+		record.setAudittime(new Date().getTime());
 		record.setDriverpercheck(req.getDriverpercheck());
 		record.setAuditresson(req.getRejectReason());
 		record.setStatus("1");// 0-未审核，1-已审核',
@@ -242,7 +244,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		//认证记录修改
 		record.setAuditid(req.getAuditid());
 		record.setAuditname(req.getAuditname());
-		record.setAudittime(req.getAudittime());
+		record.setAudittime(new Date().getTime());
 		record.setCompanypercheck(req.getCompanypercheck());
 		record.setAuditresson(req.getRejectReason());
 		record.setStatus("1");// 0-未审核，1-已审核',

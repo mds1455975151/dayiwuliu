@@ -503,7 +503,7 @@ public class AdminMemberAction {
 		req.setId(id);
 		req.setAuditid(id);
 		req.setAuditname(user.getAccount());
-		req.setAudittime(new Date().getTime());
+		//req.setAudittime(new Date().getTime());
 		req.setRejectReason(massage);
 		req.setUserpercheck(userpercheck);
 		rs = systemMemberInfoService.userReview(req);
@@ -535,7 +535,7 @@ public class AdminMemberAction {
 		req.setId(id);
 		req.setAuditid(id);
 		req.setAuditname(user.getAccount());
-		req.setAudittime(new Date().getTime());
+		//req.setAudittime(new Date().getTime());
 		req.setRejectReason(massage);
 		req.setDriverpercheck(driverpercheck);
 		rs = systemMemberInfoService.driverReview(req);
