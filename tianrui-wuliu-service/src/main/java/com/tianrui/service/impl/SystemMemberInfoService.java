@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mysql.fabric.xmlrpc.base.Data;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.intf.ISystemMemberInfoService;
@@ -81,7 +80,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		//认证记录修改
 		record.setAuditid(req.getAuditid());
 		record.setAuditname(req.getAuditname());
-		record.setAudittime(new Date().getTime());
+		record.setAudittime(req.getAudittime());
 		record.setUserpercheck(req.getUserpercheck());
 		record.setAuditresson(req.getRejectReason());
 		record.setStatus("1");// 0-未审核，1-已审核',
@@ -110,7 +109,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			member.setUserpercheck((short)3);
 		}
 		member.setAuditname(record.getAuditname());
-		member.setAudittime(record.getAudittime());
+		member.setAudittime(new Date().getTime());
 		systemMemberMapper.updateByPrimaryKeySelective(member);
 		//发送消息
 		SendMsgReq mreq = new SendMsgReq();
@@ -187,13 +186,13 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			member.setDriverpercheck((short)3);
 		}
 		member.setAuditname(record.getAuditname());
-		member.setAudittime(record.getAudittime());
+		member.setAudittime(new Date().getTime());
 		systemMemberMapper.updateByPrimaryKeySelective(member);
 		
 		//认证记录修改
 		record.setAuditid(req.getAuditid());
 		record.setAuditname(req.getAuditname());
-		record.setAudittime(new Date().getTime());
+		record.setAudittime(req.getAudittime());
 		record.setDriverpercheck(req.getDriverpercheck());
 		record.setAuditresson(req.getRejectReason());
 		record.setStatus("1");// 0-未审核，1-已审核',
@@ -244,7 +243,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		//认证记录修改
 		record.setAuditid(req.getAuditid());
 		record.setAuditname(req.getAuditname());
-		record.setAudittime(new Date().getTime());
+		record.setAudittime(req.getAudittime());
 		record.setCompanypercheck(req.getCompanypercheck());
 		record.setAuditresson(req.getRejectReason());
 		record.setStatus("1");// 0-未审核，1-已审核',
@@ -275,7 +274,7 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			member.setCompanypercheck((short)3);
 		}
 		member.setAuditname(record.getAuditname());
-		member.setAudittime(record.getAudittime());
+		member.setAudittime(new Date().getTime());
 		systemMemberMapper.updateByPrimaryKeySelective(member);
 		//消息推送
 		SendMsgReq mreq = new SendMsgReq();
