@@ -275,7 +275,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var imagesRoot="${imagesRoot }";
 	</script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/resources/js/myCargo/myCargoPage.js"></script>
+	<script type="text/javascript" src="/resources/js/myCargo/myCargoPage.js?0811"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

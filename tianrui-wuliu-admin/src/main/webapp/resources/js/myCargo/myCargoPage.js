@@ -261,9 +261,6 @@ $('#addModal').on('shown.bs.modal', function (e) {
 		        }
 		    }).off('click').on('click',function(){
 		    	$(this).autocomplete('search');
-		    }).change(function(){
-		    	$("#modal_add_materName").val('');
-		    	$("#modal_add_materId").val('');
 		    });
 		}
 	});

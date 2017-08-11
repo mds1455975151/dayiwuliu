@@ -462,7 +462,7 @@ public class VehicleDriverService implements IVehicleDriverService {
 		MemberVehicle memberVehicle = memberVehicleMapper.selectByPrimaryKey(id);
 		VehicleDriver record = new VehicleDriver();
 		record.setDriverid(driverid);
-		record.setVehicleid(memberVehicle.getVehicleid());
+//		record.setVehicleid(memberVehicle.getVehicleid());
 		List<VehicleDriver> list=vehicleDriverMapper.findWithEntity(record);
 //		List<Members> member = systemMemberMapper.findByMemberIds(driverid);
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(driverid);
@@ -504,7 +504,7 @@ public class VehicleDriverService implements IVehicleDriverService {
 			vehicleDriverMapper.insert(vehicleDriver);
 		}else{
 			rs.setCode("3");
-			rs.setError("车辆司机已绑定");
+			rs.setError("司机已绑定");
 			return rs;
 		}
 		OwnerDriver ownerDriver = new OwnerDriver();

@@ -100,7 +100,7 @@
                 <h4 id="modal_common_content"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary closeBtn" >关闭</button>
+                <button type="button" class="btn btn-primary closeBtn"  data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
