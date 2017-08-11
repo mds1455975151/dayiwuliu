@@ -122,7 +122,7 @@
 <!-- 引用公共footer部分 -->
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-<script type="text/javascript" src="/resources/js/member/vehicle/kaipiaoupt.js?01.11"></script>
+<script type="text/javascript" src="/resources/js/member/vehicle/kaipiaoupt.js?0811"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 </html>

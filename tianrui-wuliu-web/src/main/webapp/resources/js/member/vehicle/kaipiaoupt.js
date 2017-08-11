@@ -52,6 +52,7 @@ $("#vehicle_ticket_upt").on("click",function(){
 		success : function(result) {
 			if(result.code=="000000"){
 				alert("操作成功");
+				window.location.href="/trwuliu/Member/myVehicle/myVehiclePage";
 			}else{
 				alert(result.error);
 			}
