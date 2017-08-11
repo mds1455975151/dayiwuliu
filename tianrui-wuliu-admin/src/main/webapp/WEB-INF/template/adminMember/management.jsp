@@ -39,6 +39,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="row">
                         <div class="col-md-12">
                             <div class="contuser_search">
+                            	<div class="ht_div">
+                                    <label>车牌号前缀：</label>
+                                    <input type="text" id="vehicleprefix" placeholder=" ">
+                                </div>
                                 <div class="ht_div">
                                     <label>车牌号：</label>
                                     <input type="text" id="vehicleno" placeholder=" ">

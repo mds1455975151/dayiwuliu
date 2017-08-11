@@ -120,7 +120,10 @@
 	  LEFT JOIN member m ON m.id= v.driverid
    	<where>1=1
 		  <if test="vehicleno != null  and vehicleno !='' " >
-	       and (w.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")or((w.vehicleprefix like "%" #{vehicleno,jdbcType=VARCHAR} "%"))
+	       and (w.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
+	      </if>
+	      <if test="vehicleprefix != null  and vehicleprefix !='' " >
+	     	and (w.vehicleprefix like "%" #{vehicleprefix,jdbcType=VARCHAR} "%")
 	      </if>
 	 	  <if test="drivername != null  and drivername !='' " >
 	     	and (v.drivername like "%" #{drivername,jdbcType=VARCHAR} "%")
