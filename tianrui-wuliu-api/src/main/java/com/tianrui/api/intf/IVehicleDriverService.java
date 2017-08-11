@@ -87,7 +87,7 @@ public interface IVehicleDriverService {
 	 * @return Result    
 	 * @throws
 	 */
-	public  Result bind(String id,String driverid)throws Exception;
+	public  Result bind(String id,String driverid,String type)throws Exception;
 	/**
 	 * 根据手机号搜索全平台司机
 	 */

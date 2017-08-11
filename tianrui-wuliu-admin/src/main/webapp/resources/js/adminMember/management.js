@@ -315,22 +315,28 @@ function details(id){
 	function binds(id,pageNo){
 		$("#id").val(id);
 		$("#pageNo").val(parseInt(pageNo));
+		$(".mast").hide();
+		$("#alDriver").val("");
 	}
 	/**
 	 * 绑定车辆
 	 * @param id
 	 * @param type
 	 */
-	function bind(){
+	function bind(type){
 		var id = $("#id").val();
 		var pageNo = $("#pageNo").val();
-		//var pageNo= $("#pageNo").val();
 		var driverid=$("#driverid").val();
-		//var memberName = $("#memberName").val();
-		//var massage = $("#massage").val();
+		var alDriver = $("#alDriver").val();
+		if(type=="1"&&alDriver==""){
+			alert("司机安联账号不能为空");
+			return;
+		}
 		$.ajax({
 				url: CONTEXTPATH+'/AdminMember/bind',
-				data:{"id":id,"driverid":driverid},
+				data:{"id":id,
+					"driverid":driverid,
+					"alDriver":alDriver},
 				type:"post",
 				success: function(ret){
 					if(ret.code=="000000"){
@@ -338,8 +344,14 @@ function details(id){
 						alert("绑定车辆成功！");
 						displayRec(parseInt(pageNo));
 					}else{
-						document.getElementById("addclick").click();
-						alert(ret.error);
+						if(ret.error == "IDHadBeenRegistered"){
+							$(".mast").show();
+							$("#alDriver").val("");
+							$("#errorMassage").html(ret.error);
+						}else{
+							document.getElementById("addclick").click();
+							alert(ret.error);
+						}
 					}
 				}
 			});

@@ -40,11 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="col-md-12">
                             <div class="contuser_search">
                                 <div class="ht_div">
-                                    <label>车牌号前缀：</label>
-                                    <input type="text" id="vehicleprefix" placeholder=" ">
-                                </div>
-                                <div class="ht_div">
-                                    <label>车牌后缀：</label>
+                                    <label>车牌号：</label>
                                     <input type="text" id="vehicleno" placeholder=" ">
                                 </div>
                                 <div class="ht_div">
@@ -151,14 +147,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <button class="btn btnblue " onclick="searchPhone()" type="submit">搜索</button>
                     </p>
                     <p><label><i style="color: #ff2f00;">*</i>姓名：</label><input id="memberName" type="text" readonly="readonly"></p>
-                    <p><label>备注：</label><textarea id="massage" class="form-control" rows="2"></textarea></p>
+                   	<p class="mast">请提供司机安联账号：<input id="alDriver" type="text"></p>
+                   	<p class="mast">错误信息：<span style="color: red;" id="errorMassage"></span></p>
                     <input id="id" type=text style="display:none">
                     <input id="driverid" type=text style="display:none">
                     <input id="pageNo" type=text style="display:none">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="bind();">绑定</button>
+                <button type="button" class="btn btn-primary mast" onclick="bind(1);">强制绑定</button>
+                <button type="button" class="btn btn-primary" onclick="bind(0);">绑定</button>
                 <button type="button" id="addclick" class="btn btn-default" onclick="resetvalue();" data-dismiss="modal" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -235,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/management.js?07.180" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/management.js?0810" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 
