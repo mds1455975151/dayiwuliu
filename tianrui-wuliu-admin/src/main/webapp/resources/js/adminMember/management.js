@@ -13,6 +13,7 @@ function displayData(d){
 }
 function displayRec(pageNo){
 	var vehicleno = $("#vehicleno").val();
+	var vehicleprefix = $("#vehicleprefix").val();
 	var drivername = $("#drivername").val();
 	var drivertel = $("#drivertel").val();
 	var desc1 = $("#desc1").val();
@@ -23,6 +24,7 @@ function displayRec(pageNo){
 			"vehicleNo":$.trim(vehicleno),
 			"driverName":$.trim(drivername),
 			"driverTel":$.trim(drivertel),
+			"vehicleprefix":$.trim(vehicleprefix),
 			"desc1":$.trim(desc1),
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
@@ -126,6 +128,7 @@ function displayRec(pageNo){
  */
 function clearSearch(){
 	$("#vehicleno").val("");
+	$("#vehicleprefix").val("");
 	$("#drivername").val("");
 	$("#drivertel").val("");
 	$("#desc1").val("");

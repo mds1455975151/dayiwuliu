@@ -40,7 +40,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="col-md-12">
                             <div class="contuser_search">
                                 <div class="ht_div">
-                                    <label>车牌号：</label>
+                                    <label>车牌号前缀：</label>
+                                    <input type="text" id="vehicleprefix" placeholder=" ">
+                                </div>
+                                <div class="ht_div">
+                                    <label>车牌后缀：</label>
                                     <input type="text" id="vehicleno" placeholder=" ">
                                 </div>
                                 <div class="ht_div">
@@ -154,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="bind();">保存</button>
+                <button type="button" class="btn btn-primary" onclick="bind();">绑定</button>
                 <button type="button" id="addclick" class="btn btn-default" onclick="resetvalue();" data-dismiss="modal" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -231,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/management.js?07.1820" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/management.js?07.180" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 

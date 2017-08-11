@@ -17,6 +17,8 @@ public class VehicleDriverMemberReq extends BaseReq{
 	private String vehicleId;
 	/** 车牌号 */
 	private String vehicleNo;
+	/**车牌号前缀*/
+	private String vehicleprefix;
 	/** 车型 */
 	private String vehicleTypeName;
 	/** 车辆备注名 */
@@ -128,6 +130,12 @@ public class VehicleDriverMemberReq extends BaseReq{
 	}
 	public void setAldriverid(String aldriverid) {
 		this.aldriverid = aldriverid;
+	}
+	public String getVehicleprefix() {
+		return vehicleprefix;
+	}
+	public void setVehicleprefix(String vehicleprefix) {
+		this.vehicleprefix = vehicleprefix;
 	}
 	
 	

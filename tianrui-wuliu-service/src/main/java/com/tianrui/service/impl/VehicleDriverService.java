@@ -399,6 +399,7 @@ public class VehicleDriverService implements IVehicleDriverService {
 		record.setDrivername(req.getDriverName());
 		record.setDrivertel(req.getDriverTel());
 		record.setVehicleno(req.getVehicleNo());
+		record.setVehicleprefix(req.getVehicleprefix());
 		record.setAldriverid(req.getAldriverid());
 		record.setDesc1(req.getDesc1());
 		record.setVehicletypename(req.getVehicleTypeName());
