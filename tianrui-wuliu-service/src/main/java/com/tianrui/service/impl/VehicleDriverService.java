@@ -455,7 +455,7 @@ public class VehicleDriverService implements IVehicleDriverService {
 	 * 运力司机绑定
 	 */
 	@Override
-	public Result bind(String id,String driverid) throws Exception {
+	public Result bind(String id,String driverid,String alDriver) throws Exception {
 		Result rs = Result.getSuccessResult();
 		//查询车辆信息
 		MemberVehicle memberVehicle = memberVehicleMapper.selectByPrimaryKey(id);
@@ -466,6 +466,30 @@ public class VehicleDriverService implements IVehicleDriverService {
 //		List<Members> member = systemMemberMapper.findByMemberIds(driverid);
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(driverid);
 		if(list.size()==0){
+			//车辆通过安联认证，司机通过本地安联认证
+			if("1".equals(memberVehicle.getDesc1())&&(StringUtils.isNotBlank(member.getAldriverid()))){
+				if(StringUtils.isNotBlank(alDriver)){
+					SystemMember m = new SystemMember();
+					m.setId(driverid);
+					m.setAldriverid(alDriver);
+					systemMemberMapper.updateByPrimaryKeySelective(m);
+				}else{
+					// 司机推送安联
+					AnlianDriverReq r = new AnlianDriverReq();
+					r.setDriverid(driverid);
+					r.setVehicleNo(memberVehicle.getVehicleprefix()+memberVehicle.getVehicleno());
+					rs = anlianService.driver(r);
+					//安联认证成功
+					if("000000".equals(rs.getCode())){
+						SystemMember m = new SystemMember();
+						m.setId(driverid);
+						m.setAldriverid(rs.getData().toString());
+						systemMemberMapper.updateByPrimaryKeySelective(m);
+					}else{
+						return rs;
+					}
+				}
+			}
 			VehicleDriver vehicleDriver = new VehicleDriver();
 			vehicleDriver.setDriverid(driverid);
 			vehicleDriver.setDrivername(member.getRemarkname());
@@ -482,8 +506,6 @@ public class VehicleDriverService implements IVehicleDriverService {
 			rs.setError("车辆司机已绑定");
 			return rs;
 		}
-		
-		
 		OwnerDriver ownerDriver = new OwnerDriver();
 		ownerDriver.setDriverid(driverid);
 		ownerDriver.setVehicleownerid(memberVehicle.getMemberid());

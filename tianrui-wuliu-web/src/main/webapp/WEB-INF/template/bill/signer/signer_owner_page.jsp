@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <!--个人中心右侧搜索框end-->
                 <div class="plan_fege"></div>
                 <!--计划模板表格begin-->
-                <div class="bill_table" id="dateContent" >
+                <div class="bill_table" id="dateContent" style="overflow-x:scroll;">
                     <table class="table table-hover" style="white-space:nowrap;">
                         <thead>
                         <tr>

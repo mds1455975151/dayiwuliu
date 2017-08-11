@@ -239,9 +239,9 @@ public class AdminMemberAction {
 	 */
 	@RequestMapping("/bind")
 	@ResponseBody
-	public Result bind(String id,String driverid) throws Exception {
+	public Result bind(String id,String driverid,String alDriver) throws Exception {
 		Result rs = Result.getSuccessResult();
-		rs= vehicleDriverService.bind(id,driverid);
+		rs= vehicleDriverService.bind(id,driverid,alDriver);
 		return rs;
 	}
 	/**
