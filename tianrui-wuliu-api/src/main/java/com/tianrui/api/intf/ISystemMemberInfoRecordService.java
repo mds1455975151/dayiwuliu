@@ -65,6 +65,18 @@ public interface ISystemMemberInfoRecordService {
 	 */
 	MemberInfoRecordResp findByMemberId(String id)throws Exception;
 	
+	/**
+	 * @Title: findReason 
+	 * @Description:查询用户注册认真失败原因
+	 * @param @param id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return MemberInfoRecordResp    
+	 * @throws
+	 */
+	public Result findReason(String id)throws Exception;
+	
+	
 	MemberInfoRecordResp findByMemberRecordId(String id)throws Exception;
 	/** 查看最新认证信息*/
 	Result memberRecoredAutid(String id)throws Exception;

@@ -5,6 +5,7 @@ import java.util.List;
 import com.tianrui.api.req.front.vehicle.VehicleDriverMemberReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
+import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverMemberResp;
 import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;

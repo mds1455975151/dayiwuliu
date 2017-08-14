@@ -54,6 +54,8 @@ public class MemberResp extends BaseResp{
     private String auditTimeStr;
     //审核时间
     private Long auditTime;
+    //审核失败原因
+    private String rejectReason;
 	
 	/**
 	 * 组织id
@@ -557,6 +559,14 @@ public class MemberResp extends BaseResp{
 
 	public void setAuditTime(Long auditTime) {
 		this.auditTime = auditTime;
+	}
+
+	public String getRejectReason() {
+		return rejectReason;
+	}
+
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
 	}
 	
 	

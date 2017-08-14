@@ -228,6 +228,22 @@ public class AdminMemberAction {
 		return rs;
 	}
 	/**
+	 * @throws Exception 
+	 * @Title: findReason 
+	 * @Description: 注册用户认证失败原因
+	 * @param @param id
+	 * @param @return   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/findReason")
+	@ResponseBody
+	public Result findReason(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		rs = systemMemberInfoRecordService.findReason(id);
+		return rs;
+	}
+	/**
 	 * 运力全平台司机绑定
 	 * @Title: bind 
 	 * @Description: TODO

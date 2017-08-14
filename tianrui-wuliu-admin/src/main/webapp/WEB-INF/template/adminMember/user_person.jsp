@@ -260,6 +260,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--删除end-->
+
+<!--停用begin-->
+<div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >失败原因</h4>
+            </div>
+            <div class="modal-body">
+                <h4><span id="satus">认证失败原因:</span><input type="text" id="auditresson" value="" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px '></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--停用end-->
 <jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
 
 <script type="text/javascript">
@@ -285,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0368" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0968" ></script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',
