@@ -21,5 +21,5 @@ public interface PayInvoiceDetailMapper1 {
     
     long selectBycount(PayInvoiceDetail record);
     
-    PayInvoiceDetail selectByPrimary(String payInvoiceId);
+    List<PayInvoiceDetail> selectByPrimary(String payInvoiceId);
 }

@@ -1603,6 +1603,8 @@ public class BillService implements IBillService{
 			if( StringUtils.isNotBlank(resp.getOrgid()) ){
 				resp.setOrgName(orgService.findOne(resp.getOrgid()).getOrganizationname());
 			}
+			
+			
 			if( StringUtils.isNotBlank(bill.getDesc2()) ){
 				resp.setRefuseType(bill.getDesc3());
 				resp.setRefuseReson(bill.getDesc2());

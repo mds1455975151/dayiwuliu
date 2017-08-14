@@ -80,7 +80,10 @@ public enum MessageCodeEnum {
 	
 	/**========================= 支付相关(241 - 260) =======================*/
 	PAY_INVOICE_PASS(251,"您的支付账单[<_>]已经支付成功,请注意查收",0),
-	PAY_INVOICE_NOTPASS(252,"您的支付账单[<_>]已经支付失败,请重新选择银行",0);
+	PAY_INVOICE_NOTPASS(252,"您的支付账单[<_>]已经支付失败,请重新选择银行",0),
+	
+	PAY_INVOICE_PASS_REC(253,"您签收的运单[<_>]已经支付成功,请注意查收",0),
+	PAY_INVOICE_NOTPASS_REC(254,"您签收的运单[<_>]已经支付失败,请重新选择银行",0);
 	//消息code
 	private int code;
 	//消息描述

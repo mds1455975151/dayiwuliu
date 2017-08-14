@@ -647,6 +647,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			for (PayInvoice payInvoice : list) {
 				if (payInvoice.getPayeeIdentity() == Constant.PAY_INVOICE_DRIVER) {
 					ids.add(payInvoice.getId());
+//					payNotPassMessage(payInvoice);
+//					payNotPassMessages(payInvoice);
+//					payPassMessage(payInvoice);
+//					payPassMessages(payInvoice);
 				}
 			}
 			List<PayInvoiceMsg> payInvoiceMsgList = payInvoiceMsgMapper.selectByPayInvoiceIdList(ids);
@@ -660,6 +664,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		if (CollectionUtils.isNotEmpty(ids)) {
 			//回写支付状态
 			ApiResult apiResult = HttpUtil.post(ids, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_PAY_STATUS);
+			logger.info("NC请求回显数据："+apiResult.toString());
 			if (apiResult != null && StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
 				JSONArray array = JSONArray.parseArray(apiResult.getData().toString());
 				if (CollectionUtils.isNotEmpty(array)) {
@@ -689,7 +694,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					payInvoice.setPaidAmount(bean.getAmountPayable());
 					payInvoice.setPayStatus(Constant.TWO);
 					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
-					//TODO
 					payPassMessage(payInvoice);
 					payPassMessages(payInvoice);
 				}
@@ -755,16 +759,17 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	
 	//支付成功后司机消息推送
 	public void payPassMessage(PayInvoice payInvoice) {
-		SendMsgReq mreq = new SendMsgReq();
-		List<String> strs = new ArrayList<String>();
-		strs.add(payInvoice.getCode());//订单编号
-		mreq.setType("1");
-		mreq.setRecid(payInvoice.getPayeeId());
-		mreq.setRecname(payInvoice.getPayeeName());
-		mreq.setParams(strs);
-		mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_PASS);
-		mreq.setRecType(MessageCodeEnum.PAY_INVOICE_PASS.getType());
 		try {
+			PayInvoice pay = payInvoiceMapper.selectByPrimaryKey(payInvoice.getId());
+			SendMsgReq mreq = new SendMsgReq();
+			List<String> strs = new ArrayList<String>();
+			strs.add(pay.getCode());//订单编号
+			mreq.setType("1");
+			mreq.setRecid(pay.getPayeeId());
+			mreq.setRecname(pay.getPayeeName());
+			mreq.setParams(strs);
+			mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_PASS);
+			mreq.setRecType(MessageCodeEnum.PAY_INVOICE_PASS.getType());
 			messageService.sendMessageInside(mreq);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -772,16 +777,17 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	}
 	//支付成功后司机消息推送
 	public void payNotPassMessage(PayInvoice payInvoice) {
-		SendMsgReq mreq = new SendMsgReq();
-		List<String> strs = new ArrayList<String>();
-		strs.add(payInvoice.getCode());//订单编号
-		mreq.setType("1");
-		mreq.setRecid(payInvoice.getPayeeId());
-		mreq.setRecname(payInvoice.getPayeeName());
-		mreq.setParams(strs);
-		mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_NOTPASS);
-		mreq.setRecType(MessageCodeEnum.PAY_INVOICE_NOTPASS.getType());
 		try {
+			PayInvoice pay = payInvoiceMapper.selectByPrimaryKey(payInvoice.getId());
+			SendMsgReq mreq = new SendMsgReq();
+			List<String> strs = new ArrayList<String>();
+			strs.add(pay.getCode());//订单编号
+			mreq.setType("1");
+			mreq.setRecid(pay.getPayeeId());
+			mreq.setRecname(pay.getPayeeName());
+			mreq.setParams(strs);
+			mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_NOTPASS);
+			mreq.setRecType(MessageCodeEnum.PAY_INVOICE_NOTPASS.getType());
 			messageService.sendMessageInside(mreq);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -790,38 +796,42 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	
 	//支付成功后签收者消息推送
 		public void payPassMessages(PayInvoice payInvoice) {
-			PayInvoiceDetail payInvoiceDetail = payInvoiceDetailMapper.selectByPrimary(payInvoice.getId());
-			 SystemMember systemMember = systemMemberMapper.selectByPrimaryKey(payInvoiceDetail.getCreator());
-			SendMsgReq mreq = new SendMsgReq();
-			List<String> strs = new ArrayList<String>();
-			strs.add(payInvoice.getCode());//订单编号
-			mreq.setType("1");
-			mreq.setRecid(payInvoiceDetail.getCreator());
-			mreq.setRecname(systemMember.getRemarkname());
-			mreq.setParams(strs);
-			mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_PASS);
-			mreq.setRecType(MessageCodeEnum.PAY_INVOICE_PASS.getType());
 			try {
-				messageService.sendMessageInside(mreq);
+				List<PayInvoiceDetail> payInvoiceDetail = payInvoiceDetailMapper.selectByPrimary(payInvoice.getId());
+				for(PayInvoiceDetail pay : payInvoiceDetail){
+					SystemMember systemMember = systemMemberMapper.selectByPrimaryKey(pay.getCreator());
+					SendMsgReq mreq = new SendMsgReq();
+					List<String> strs = new ArrayList<String>();
+					strs.add(pay.getCode());//订单编号
+					mreq.setType("1");
+					mreq.setRecid(pay.getCreator());
+					mreq.setRecname(systemMember.getRemarkname());
+					mreq.setParams(strs);
+					mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_PASS_REC);
+					mreq.setRecType(MessageCodeEnum.PAY_INVOICE_PASS_REC.getType());
+					messageService.sendMessageInside(mreq);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		//支付成功后签收者消息推送
 		public void payNotPassMessages(PayInvoice payInvoice){
-			PayInvoiceDetail payInvoiceDetail = payInvoiceDetailMapper.selectByPrimary(payInvoice.getId());
-			 SystemMember systemMember = systemMemberMapper.selectByPrimaryKey(payInvoiceDetail.getCreator());
-			SendMsgReq mreq = new SendMsgReq();
-			List<String> strs = new ArrayList<String>();
-			strs.add(payInvoice.getCode());//订单编号
-			mreq.setType("1");
-			mreq.setRecid(payInvoiceDetail.getCreator());
-			mreq.setRecname(systemMember.getRemarkname());
-			mreq.setParams(strs);
-			mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_NOTPASS);
-			mreq.setRecType(MessageCodeEnum.PAY_INVOICE_NOTPASS.getType());
 			try {
-				messageService.sendMessageInside(mreq);
+				List<PayInvoiceDetail> payInvoiceDetail = payInvoiceDetailMapper.selectByPrimary(payInvoice.getId());
+				for(PayInvoiceDetail pay : payInvoiceDetail){
+					SystemMember systemMember = systemMemberMapper.selectByPrimaryKey(pay.getCreator());
+					SendMsgReq mreq = new SendMsgReq();
+					List<String> strs = new ArrayList<String>();
+					strs.add(pay.getCode());//订单编号
+					mreq.setType("1");
+					mreq.setRecid(pay.getCreator());
+					mreq.setRecname(systemMember.getRemarkname());
+					mreq.setParams(strs);
+					mreq.setCodeEnum(MessageCodeEnum.PAY_INVOICE_NOTPASS_REC);
+					mreq.setRecType(MessageCodeEnum.PAY_INVOICE_NOTPASS_REC.getType());
+					messageService.sendMessageInside(mreq);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
