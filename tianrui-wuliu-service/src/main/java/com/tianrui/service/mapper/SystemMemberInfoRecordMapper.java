@@ -63,4 +63,7 @@ public interface SystemMemberInfoRecordMapper {
      * @创建时间 2016年6月22日上午10:04:56
      */
     List<SystemMemberInfoRecord> selectByRecordEntity(SystemMemberInfoRecord record);
+    
+    SystemMemberInfoRecord findReason(String id);
+
 }

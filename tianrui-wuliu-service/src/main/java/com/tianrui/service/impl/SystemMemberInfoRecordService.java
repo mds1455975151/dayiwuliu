@@ -288,4 +288,17 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		return rs;
 	}
 
+	@Override
+	public Result findReason(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		SystemMemberInfoRecord memberInfoRecord = systemMemberInfoRecordMapper.findReason(id);
+		if(memberInfoRecord!=null){
+			rs.setData(memberInfoRecord);
+		}else{
+			rs.setCode("1");
+			rs.setError("未查到审核原因！");
+		}
+		return rs;
+	}
+
 }
