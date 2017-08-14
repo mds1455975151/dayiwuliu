@@ -689,6 +689,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					payInvoice.setPaidAmount(bean.getAmountPayable());
 					payInvoice.setPayStatus(Constant.TWO);
 					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
+					//TODO
 					payPassMessage(payInvoice);
 					payPassMessages(payInvoice);
 				}
@@ -766,7 +767,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		try {
 			messageService.sendMessageInside(mreq);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -784,7 +784,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		try {
 			messageService.sendMessageInside(mreq);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -805,7 +804,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			try {
 				messageService.sendMessageInside(mreq);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -825,7 +823,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			try {
 				messageService.sendMessageInside(mreq);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
