@@ -484,6 +484,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	protected PayAndBillDateilResp changePayDetail(PayAndBillDateilResp resp,PayInvoiceDetail pay) throws Exception {
 		PropertyUtils.copyProperties(resp, pay);
 		resp.setPayCode(pay.getCode());
+		resp.setRemarkImg(pay.getAppendix());
 		return resp;
 	}
 	
@@ -491,6 +492,11 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		resp.setPayMent(bill.getPayment());
 		resp.setBillNo(bill.getBillno());
 		resp.setVehicleNo(bill.getCph());
+		resp.setPickupimgurl(bill.getPickupimgurl());
+		resp.setPickupweight(bill.getPickupweight());
+		resp.setSignimgurl(bill.getSignimgurl());
+		resp.setSignweight(bill.getSignweight());
+		resp.setTrueweight(bill.getTrueweight());
 		Plan plan = planMapper.selectByPrimaryKey(bill.getDesc1());
 		resp = changePlan(resp,plan);
 		SystemMember driver = systemMemberMapper.selectByPrimaryKey(bill.getDriverid());
@@ -514,6 +520,11 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		resp.setPayMent(bill.getPayment());
 		resp.setBillNo(bill.getWaybillno());
 		resp.setVehicleNo(bill.getVehicleno());
+		resp.setPickupimgurl(bill.getPickupimgurl());
+		resp.setPickupweight(bill.getPickupweight());
+		resp.setSignimgurl(bill.getSignimgurl());
+		resp.setSignweight(bill.getSignweight());
+		resp.setTrueweight(bill.getTrueweight());
 		Plan plan = planMapper.selectByPrimaryKey(bill.getPlanid());
 		
 		resp = changePlan(resp,plan);

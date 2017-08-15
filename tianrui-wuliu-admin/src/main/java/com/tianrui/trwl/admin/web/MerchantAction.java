@@ -1,6 +1,5 @@
 package com.tianrui.trwl.admin.web;
 
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +24,15 @@ public class MerchantAction {
 	
 	@Autowired
 	IMerchantService merchantService;
+	
+	@RequestMapping("upt")
+	@ResponseBody
+	public Result upt() throws Exception{
+		Result rs = Result.getErrorResult();
+		merchantService.uptErrorMassage();
+		return rs;
+	}
+
 	
 	@RequestMapping("index")
 	public ModelAndView index(){
@@ -70,5 +78,5 @@ public class MerchantAction {
 		Result rs = merchantService.delete(req);
 		return rs;
 	}
-
+	
 }

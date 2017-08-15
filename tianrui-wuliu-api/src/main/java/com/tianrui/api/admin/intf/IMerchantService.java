@@ -24,4 +24,6 @@ public interface IMerchantService {
 	Result delete(MerchantReq req)throws Exception;
 	
 	MerchantResp findByid(String id)throws Exception;
+	
+	void uptErrorMassage()throws Exception;
 }

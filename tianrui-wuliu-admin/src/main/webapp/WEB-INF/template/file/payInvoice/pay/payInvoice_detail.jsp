@@ -47,6 +47,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>收货方名称：</label><span>${pay.conMer }</span><br>
 	                               <label>收货方编码：</label><span>${pay.conMerCode }</span><br>
 	                               <label>路线名称：</label><span>${pay.routeName }</span><br>
+	                               <c:if test="${pay.pickupweight ne null}">
+	                               <label>提货重量：</label><span>${pay.pickupweight }吨</span><br>
+	                               </c:if>
+	                               <c:if test="${pay.signweight ne null}">
+	                               <label>卸货重量：</label><span>${pay.signweight }吨</span><br>
+	                               </c:if>
+	                               <c:if test="${pay.trueweight ne null}">
+	                               <label>签收重量：</label><span>${pay.trueweight }吨</span><br>
+	                               </c:if>
+                              	 <c:if test="${pay.pickupimgurl ne null}">
+	                               <label>榜单图片：</label><span><a href="/imageView/index?imageUrl=${pay.pickupimgurl }" target="_blank">提货榜单</a></span><br>
+                              	 </c:if>
+                              	  <c:if test="${pay.signimgurl ne null}">
+	                               <label>榜单图片：</label><span><a href="/imageView/index?imageUrl=${pay.signimgurl }" target="_blank">卸货榜单</a></span><br>
+                              	  </c:if>
+	                               <c:if test="${pay.remarkImg ne null}">
+	                               <label>榜单图片：</label><span><a href="/imageView/index?imageUrl=${pay.remarkImg }" target="_blank">附件图片</a></span><br>
+	                               </c:if>
 	                            </div>
 	                        </div>
 	                    </div>

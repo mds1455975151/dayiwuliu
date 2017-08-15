@@ -4,6 +4,17 @@ package com.tianrui.api.resp.pay;
 public class PayAndBillDateilResp {
 	//账单id
 	private String id;
+	
+	private Double pickupweight; 
+    private String pickupimgurl;
+    
+    private Double signweight; 
+    private String signimgurl;
+    
+    private Double trueweight;
+    
+    private String remarkImg;
+	
 	//账单编号
 	private String payCode;
 	//运单号
@@ -320,5 +331,41 @@ public class PayAndBillDateilResp {
 	}
 	public void setBankAdreess(String bankAdreess) {
 		this.bankAdreess = bankAdreess;
+	}
+	public Double getPickupweight() {
+		return pickupweight;
+	}
+	public void setPickupweight(Double pickupweight) {
+		this.pickupweight = pickupweight;
+	}
+	public String getPickupimgurl() {
+		return pickupimgurl;
+	}
+	public void setPickupimgurl(String pickupimgurl) {
+		this.pickupimgurl = pickupimgurl;
+	}
+	public Double getSignweight() {
+		return signweight;
+	}
+	public void setSignweight(Double signweight) {
+		this.signweight = signweight;
+	}
+	public String getSignimgurl() {
+		return signimgurl;
+	}
+	public void setSignimgurl(String signimgurl) {
+		this.signimgurl = signimgurl;
+	}
+	public Double getTrueweight() {
+		return trueweight;
+	}
+	public void setTrueweight(Double trueweight) {
+		this.trueweight = trueweight;
+	}
+	public String getRemarkImg() {
+		return remarkImg;
+	}
+	public void setRemarkImg(String remarkImg) {
+		this.remarkImg = remarkImg;
 	}
 }

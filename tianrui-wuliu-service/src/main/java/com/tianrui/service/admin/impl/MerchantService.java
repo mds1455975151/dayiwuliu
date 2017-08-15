@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -142,6 +143,27 @@ public class MerchantService implements IMerchantService {
 		MerchantResp resp = new MerchantResp();
 		PropertyUtils.copyProperties(resp, mer);
 		return resp;
+	}
+
+	@Override
+	public void uptErrorMassage() throws Exception {
+		// TODO Auto-generated method stub
+		Merchant record = new Merchant();
+		List<Merchant> list = merchantMapper.selectByCondition(record);
+		int a = 0;
+		for(Merchant upt : list){
+			String code = upt.getCode();
+			if(code.length()==12){
+				if(StringUtils.equals(code.substring(0, 2), "GY")){
+					a = a+1;
+					Merchant ad = new Merchant();
+					ad.setId(upt.getId());
+					ad.setCode(upt.getCode().substring(upt.getCode().length()-10, upt.getCode().length()));
+					merchantMapper.updateByPrimaryKeySelective(ad);
+				}
+			}
+		}
+		System.out.println("处理数据条数="+a+"条");
 	}
 
 }
