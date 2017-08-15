@@ -64,6 +64,6 @@ public interface SystemMemberInfoRecordMapper {
      */
     List<SystemMemberInfoRecord> selectByRecordEntity(SystemMemberInfoRecord record);
     
-    SystemMemberInfoRecord findReason(String id);
+    SystemMemberInfoRecord findReason(SystemMemberInfoRecord record);
 
 }

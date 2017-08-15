@@ -132,13 +132,13 @@ function displayRect(pageNo){
 							"<td >"+registtime+"</td>"+
 							"<td >"+submitDate+"</td>"+
 							"<td >"+s+"</td>"+
-							"<td>"+"<span><a data-toggle='modal' onclick=\"yuanyin('"+data[a].id+"','"+(per)+"')\" data-target='#yuanyin'>"+per+"</a></span></td>"+
+							"<td>"+"<span><a data-toggle='modal' onclick=\"yuanyin('"+data[a].id+"','"+(per)+"','"+data[a].submitDate+"')\" data-target='#yuanyin'>"+per+"</a></span></td>"+
 							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
 							"<td >"+(ncStatus == 1 ? '供应商不存在' : ncStatus == 2 ? '未审核' : ncStatus == 3 ? '审核未通过' : ncStatus == 4 ? '审核中' : ncStatus == 5 ? '审核通过，但组织未分配' : ncStatus == 6 ? '审核通过，且组织已分配' : '')+"</td>"+
 							"<td>";
-							if(data[a].companypercheck=='1'||data[a].userpercheck=='1'){
+							//if(data[a].companypercheck=='1'||data[a].userpercheck=='1'){
 								hml += "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";
-							}
+							//}
 							if(data[a].companypercheck=='2'||data[a].userpercheck=='2'){
 								hml += "<span><a onclick=\"shenHe('"+data[a].id+"','2','"+menuId+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
@@ -290,7 +290,6 @@ function getType(id,status){
 		if(a.companypercheck=='3'||a.userpercheck=='3'){
 			per = "认证失败";
 		}
-		
 		var cellPhone = a.cellPhone;
 		if(a.cellPhone == undefined){
 			cellPhone = "";
@@ -352,9 +351,9 @@ function getType(id,status){
 		}else if(sex == "xy"){
 			sex = "男";
 		}
+		
 		var rtblimgurl = a.rtblimgurl == ""?"未上传":("证书编号："+a.rtblno+"--<a href='/imageView/index?imageUrl="+a.rtblimgurl+"' target='_blank'>查看图片</a>");
 		var idcardsImagePath = idcardsImagePath == ""?"未上传":("<span><a href='/imageView/index?imageUrl="+idcardsImagePath+"' target='_blank'>查看图片</a>");
-		
 		var hml = "<div class='file_detail'><label>会员类别：</label><span>"+userType+"</span></div>"+
 			"<div class='file_detail'><label>会员账号：</label><span>"+cellPhone+"</span></div>"+
 			"<div class='file_detail'><label>会员名称：</label><span>"+userName+"</span></div>"+
@@ -408,17 +407,22 @@ function uploadfile(){
 	});
 }
   
-function yuanyin(id,per){
+function yuanyin(id,per,submitDate){
 	if(per=="认证失败"){
 		$.ajax({
 			type:"post",
 			url:"/AdminMember/findReason",
-			data:{"id":id},
+			data:{"id":id,"submitDate":submitDate},
 			success: function(rs) {
 				if(rs.code=="000000"){
 					$("#auditresson").val(rs.data.auditresson);
-				}else{
-					alert(rs.error);
+					auditresson = rs.data.auditresson;
+					if(auditresson == undefined){
+						auditresson = "";
+					}
+					alert(auditresson);
+//				}else{
+//					alert(rs.error);
 				}
 			}
 		});

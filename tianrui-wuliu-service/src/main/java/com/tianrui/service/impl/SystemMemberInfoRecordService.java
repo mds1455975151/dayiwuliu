@@ -289,9 +289,12 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 	}
 
 	@Override
-	public Result findReason(String id) throws Exception {
+	public Result findReason(String id,Long submitDate) throws Exception {
 		Result rs = Result.getSuccessResult();
-		SystemMemberInfoRecord memberInfoRecord = systemMemberInfoRecordMapper.findReason(id);
+		SystemMemberInfoRecord record = new SystemMemberInfoRecord();
+		record.setMemberid(id);
+		record.setSubmittime(submitDate);
+		SystemMemberInfoRecord memberInfoRecord = systemMemberInfoRecordMapper.findReason(record);
 		if(memberInfoRecord!=null){
 			rs.setData(memberInfoRecord);
 		}else{

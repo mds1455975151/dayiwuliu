@@ -74,7 +74,7 @@ public interface ISystemMemberInfoRecordService {
 	 * @return MemberInfoRecordResp    
 	 * @throws
 	 */
-	public Result findReason(String id)throws Exception;
+	public Result findReason(String id,Long submitDate)throws Exception;
 	
 	
 	MemberInfoRecordResp findByMemberRecordId(String id)throws Exception;

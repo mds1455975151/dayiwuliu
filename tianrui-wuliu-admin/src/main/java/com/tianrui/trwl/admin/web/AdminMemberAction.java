@@ -238,9 +238,9 @@ public class AdminMemberAction {
 	 */
 	@RequestMapping("/findReason")
 	@ResponseBody
-	public Result findReason(String id) throws Exception {
+	public Result findReason(String id,Long submitDate) throws Exception {
 		Result rs = Result.getSuccessResult();
-		rs = systemMemberInfoRecordService.findReason(id);
+		rs = systemMemberInfoRecordService.findReason(id,submitDate);
 		return rs;
 	}
 	/**
