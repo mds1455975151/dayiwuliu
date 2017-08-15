@@ -50,6 +50,7 @@
 				and reviewTime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
 		</if>
     </where>
+    order by reviewTime desc 
      <if test="pageNo != null and pageSize != null">
        	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
       </if>
@@ -58,9 +59,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from audit_report
     where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="delete" parameterType="java.lang.String" >
-    delete from audit_report where type =#{type,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.AuditReport" >
    insert into audit_report (id, userByNum,userFailNum,driverByNum,driverFailNum,
@@ -191,10 +189,10 @@
         #{waybillFailPushDJ,jdbcType=VARCHAR},
       </if>
       <if test="waybillByPushAJ != null" >
-        #{waybillFailPushDJ,jdbcType=VARCHAR},
+        #{waybillByPushAJ,jdbcType=VARCHAR},
       </if>
       <if test="waybillFailPushAJ != null" >
-        #{waybillFailPushDJ,jdbcType=VARCHAR},
+        #{waybillFailPushAJ,jdbcType=VARCHAR},
       </if>
       <if test="reviewTime != null" >
         #{reviewTime,jdbcType=VARCHAR},
@@ -255,6 +253,12 @@
       </if>
       <if test="waybillFailPushDJ != null" >
         #{waybillFailPushDJ,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillByPushAJ != null" >
+        #{waybillByPushAJ,jdbcType=VARCHAR},
+      </if>
+      <if test="waybillFailPushAJ != null" >
+        #{waybillFailPushAJ,jdbcType=VARCHAR},
       </if>
       <if test="reviewTime != null" >
         #{reviewTime,jdbcType=VARCHAR},
