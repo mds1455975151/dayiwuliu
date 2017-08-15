@@ -75,8 +75,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <th >司机审核成功数量</th>
 						                <th >完全认证车辆审核失败数量</th>
 						                <th >完全认证车辆审核成功数量</th>
-						                <th >临时认证车辆审核失败数量</th>
-						                <th >临时认证车辆审核成功数量</th>
+						                <th >临时认证车辆审核数量</th>
+						                <th>开票车辆审核成功数量</th>
+						                <th>开票车辆审核失败数量</th>
 						                <th >银行卡审核失败数量</th>
 						                <th >银行卡审核成功数量</th>
 						                <th >大易/交通部运单未推送数量</th>
@@ -84,6 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                <th >安联/交通部运单未推送数量</th>
 						                <th >安联/交通部运单已推送数量</th>
 						                <th >创建时间</th>
+						                <th >统计</th>
                                     </tr>
                                     </thead>
                                     <tbody id="innerhml">
@@ -176,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/statistics.js?0758" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/statistics.js?0768" ></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 
 </body>

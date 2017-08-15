@@ -74,6 +74,16 @@ function displayRec(pageNo){
 						if(d[a].vehicleByNumL == undefined){
 							vehicleByNumL = "";
 						}
+						
+						var vehicleNotPass = d[a].vehicleNotPass;
+						if(d[a].vehicleNotPass == undefined){
+							vehicleNotPass = "";
+						}
+						var vehiclePass = d[a].vehiclePass;
+						if(d[a].vehiclePass == undefined){
+							vehiclePass = "";
+						}
+						
 						var vehicleFailNumL = d[a].vehicleFailNumL;
 						if(d[a].vehicleFailNumL == undefined){
 							vehicleFailNumL = "";
@@ -126,15 +136,17 @@ function displayRec(pageNo){
 							"<td>"+driverFailNum+"</td>"+
 							"<td>"+vehicleByNum+"</td>"+
 							"<td>"+vehicleFailNum+"</td>"+
-							"<td>"+vehicleByNumL+"</td>"+
 							"<td>"+vehicleFailNumL+"</td>"+
+							"<td>"+vehiclePass+"</td>"+
+							"<td>"+vehicleNotPass+"</td>"+
 							"<td>"+bankcardByNum+"</td>"+
 							"<td>"+bankcardFailNum+"</td>"+
 							"<td>"+waybillByPushDJ+"</td>"+
 							"<td>"+waybillFailPushDJ+"</td>"+
 							"<td>"+waybillByPushAJ+"</td>"+
 							"<td>"+waybillFailPushAJ+"</td>"+
-							"<td>"+creatertime+"</td></tr>";
+							"<td>"+creatertime+"</td>"+
+							"<td>"+vehicleByNumL+"</td></tr>";
 					}
 			    }  
 			   

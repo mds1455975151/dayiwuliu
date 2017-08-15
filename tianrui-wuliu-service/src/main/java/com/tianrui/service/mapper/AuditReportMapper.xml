@@ -9,7 +9,9 @@
     <result column="driverFailNum" property="driverFailNum" jdbcType="VARCHAR" />
     <result column="vehicleByNum" property="vehicleByNum" jdbcType="VARCHAR" />
     <result column="vehicleFailNum" property="vehicleFailNum" jdbcType="VARCHAR" />
-     <result column="vehicleByNumL" property="vehicleByNumL" jdbcType="VARCHAR" />
+    <result column="vehicleByNumL" property="vehicleByNumL" jdbcType="VARCHAR" />
+    <result column="vehicleNotPass" property="vehicleNotPass" jdbcType="VARCHAR" />
+    <result column="vehiclePass" property="vehiclePass" jdbcType="VARCHAR" />
     <result column="vehicleFailNumL" property="vehicleFailNumL" jdbcType="VARCHAR" />
     <result column="bankcardByNum" property="bankcardByNum" jdbcType="VARCHAR" />
     <result column="bankcardFailNum" property="bankcardFailNum" jdbcType="VARCHAR" />
@@ -27,7 +29,7 @@
   <sql id="Base_Column_List" >
     id, userByNum, userFailNum,  driverByNum ,driverFailNum,vehicleByNum,vehicleFailNum,bankcardByNum,bankcardFailNum,
     waybillByPushDJ,waybillFailPushDJ,waybillByPushAJ,waybillFailPushAJ,reviewTime,creatertime,modify,modifytime,
-    starttime,endtime,vehicleByNumL,vehicleFailNumL
+    starttime,endtime,vehicleByNumL,vehicleFailNumL,vehicleNotPass,vehiclePass
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -64,13 +66,14 @@
    insert into audit_report (id, userByNum,userFailNum,driverByNum,driverFailNum,
    		vehicleByNum,vehicleFailNum,vehicleByNumL,vehicleFailNumL,bankcardByNum,bankcardFailNum,waybillByPushDJ,
    		waybillFailPushDJ,waybillByPushAJ,waybillFailPushAJ,reviewTime,creatertime,
-   		modify,modifytime
+   		modify,modifytime,vehicleNotPass,vehiclePass
       )
     	values (#{id,jdbcType=BIGINT}, #{userByNum,jdbcType=VARCHAR},#{userFailNum,jdbcType=VARCHAR},#{driverByNum,jdbcType=VARCHAR},
     	#{driverFailNum,jdbcType=VARCHAR},#{vehicleByNum,jdbcType=VARCHAR},#{vehicleFailNum,jdbcType=VARCHAR},#{vehicleByNumL,jdbcType=VARCHAR},#{vehicleFailNumL,jdbcType=VARCHAR},
     	#{bankcardByNum,jdbcType=VARCHAR},#{bankcardFailNum,jdbcType=VARCHAR},#{waybillByPushDJ,jdbcType=VARCHAR},
     	#{waybillFailPushDJ,jdbcType=VARCHAR},#{waybillByPushAJ,jdbcType=VARCHAR},#{waybillFailPushAJ,jdbcType=VARCHAR},
-    	#{reviewTime,jdbcType=VARCHAR},#{creatertime,jdbcType=VARCHAR},#{modify,jdbcType=VARCHAR},#{modifytime,jdbcType=VARCHAR}
+    	#{reviewTime,jdbcType=VARCHAR},#{creatertime,jdbcType=VARCHAR},#{modify,jdbcType=VARCHAR},#{modifytime,jdbcType=VARCHAR},
+    	#{vehicleNotPass,jdbcType=VARCHAR},#{vehiclePass,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.AuditReport" >
@@ -78,6 +81,12 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="vehicleNotPass != null" >
+        vehicleNotPass,
+      </if>
+      <if test="vehiclePass != null" >
+        vehiclePass,
       </if>
       <if test="userByNum != null" >
         userByNum,
@@ -137,6 +146,12 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vehicleNotPass != null" >
+        #{vehicleNotPass,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclePass != null" >
+        #{vehiclePass,jdbcType=VARCHAR},
       </if>
      <if test="userByNum != null" >
         #{userByNum,jdbcType=VARCHAR},
@@ -198,6 +213,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.AuditReport" >
     update audit_report
     <set >
+    	<if test="vehicleNotPass != null" >
+        #{vehicleNotPass,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclePass != null" >
+        #{vehiclePass,jdbcType=VARCHAR},
+      </if>
       <if test="userByNum != null" >
         #{userByNum,jdbcType=VARCHAR},
       </if>
@@ -251,8 +272,10 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.AuditReport" >
-    update audit_report
-    set userByNum = #{userByNum,jdbcType=VARCHAR},
+    update audit_report 
+    set vehicleNotPass = #{vehicleNotPass,jdbcType=VARCHAR},
+      	vehiclePass = #{vehiclePass,jdbcType=VARCHAR},
+    	userByNum = #{userByNum,jdbcType=VARCHAR},
       	userFailNum = #{userFailNum,jdbcType=VARCHAR},
       	driverByNum = #{driverByNum,jdbcType=VARCHAR},
       	driverFailNum = #{driverFailNum,jdbcType=VARCHAR},

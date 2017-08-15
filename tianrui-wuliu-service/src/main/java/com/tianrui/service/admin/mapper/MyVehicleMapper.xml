@@ -73,6 +73,9 @@
     	<if test="desc2 != null and desc2 != ''">
     		and mv.desc2 = #{desc2,jdbcType=VARCHAR}
     	</if>
+    	<if test="desc1 != null and desc1 != ''">
+    		and mv.desc1 = #{desc1,jdbcType=VARCHAR}
+    	</if>
     	<if test="beginTime != null and beginTime != ''">
 				 and mv.audittime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
 		</if>

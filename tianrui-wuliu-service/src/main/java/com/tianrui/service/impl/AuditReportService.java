@@ -163,18 +163,22 @@ public class AuditReportService implements IAuditReportService{
 		mb.setEndTime(endTime());
 		Long bankcardNums = memberBankCardMapper.bankcardByNum(mb);
 		
-		//查询车临时车辆审核通过/不通过数量
+		
+		//查询车临时车辆审核数量
 		MemberVehicle mv = new MemberVehicle();
-		mv.setStatus("1");
 		mv.setBeginTime(startTime());
 		mv.setEndTime(endTime());
 		mv.setDesc2("1");//临时车辆
 		Long vehicleNumL  = vehicleMapper.vehicleNum(mv);
-		mv.setStatus("-1");
-		mv.setDesc2("1"); 
+		//查询开票车辆认证成功/认证失败数量
 		mv.setBeginTime(startTime());
 		mv.setEndTime(endTime());
-		Long vehicleNumsL  = vehicleMapper.vehicleNum(mv);
+		mv.setDesc1("1");//开票车辆认证成功
+		Long vehiclePass  = vehicleMapper.vehicleNum(mv);
+		mv.setBeginTime(startTime());
+		mv.setEndTime(endTime());
+		mv.setDesc1("-1");//开票车辆认证失败
+		Long vehicleNotPass  = vehicleMapper.vehicleNum(mv);
 		//完全认证车辆审核通过/不通过
 		mv.setStatus("1");//认证成功
 		mv.setBeginTime(startTime());
@@ -190,13 +194,17 @@ public class AuditReportService implements IAuditReportService{
 		MemberFind m = new MemberFind();
 		Short a = new Short(yes);
 		m.setUserpercheck(a);
+		m.setCompanypercheck(a);
 		m.setBeginTime(startTime());
 		m.setEndTime(endTime());
+		m.setDriverpercheck((short) 0);
 		Long userNum =systemMemberMapper.driverByNum(m);
 		Short as = new Short(no);
 		m.setUserpercheck(as);
+		m.setCompanypercheck(as);
 		m.setBeginTime(startTime());
 		m.setEndTime(endTime());
+		m.setDriverpercheck((short) 0);
 		Long userNums =systemMemberMapper.driverByNum(m);
 		
 		//查询大易推送
@@ -228,21 +236,24 @@ public class AuditReportService implements IAuditReportService{
 		MemberFind ms = new MemberFind();
 		Short ab = new Short(yes);
 		ms.setUserpercheck(ab);
+		ms.setCompanypercheck(ab);
 		ms.setBeginTime(startTime());
 		ms.setEndTime(endTime());
+		ms.setDriverpercheck((short) 0);
 		Long driverNum =systemMemberMapper.driverByNum(ms);
 		Short ac = new Short(no);
 		ms.setUserpercheck(ac);
+		ms.setCompanypercheck(ac);
 		ms.setBeginTime(startTime());
 		ms.setEndTime(endTime());
+		ms.setDriverpercheck((short) 0);
 		Long driverNums =systemMemberMapper.driverByNum(ms);
 		AuditReport ar = new AuditReport();
-		
+		long count= bankcardNums+bankcardNum+vehicleNums+vehicleNum+vehicleNumL+driverNums+driverNum+userNums+userNum+ads+ad+JtbPushCountNums+JtbPushCountNum;
 		ar.setBankcardByNum(bankcardNums.toString());//银行卡审核失败的数量
 		ar.setBankcardFailNum(bankcardNum.toString());
 		ar.setVehicleByNum(vehicleNums.toString());
 		ar.setVehicleFailNum(vehicleNum.toString());
-		ar.setVehicleByNumL(vehicleNumsL.toString());
 		ar.setVehicleFailNumL(vehicleNumL.toString());
 		ar.setDriverByNum(driverNums.toString());
 		ar.setDriverFailNum(driverNum.toString());
@@ -254,6 +265,9 @@ public class AuditReportService implements IAuditReportService{
 		ar.setWaybillFailPushDJ(JtbPushCountNum.toString());
 		ar.setCreatertime(System.currentTimeMillis());
 		ar.setReviewTime(System.currentTimeMillis()-24*60*60*1000);
+		ar.setVehicleByNumL(count+"");
+		ar.setVehiclePass(vehiclePass.toString());
+		ar.setVehicleNotPass(vehicleNotPass.toString());
 		auditReportMapper.insertSelective(ar);
 	}
 	/**

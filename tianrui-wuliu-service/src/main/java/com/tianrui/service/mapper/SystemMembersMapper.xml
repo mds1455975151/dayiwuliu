@@ -147,8 +147,12 @@
    	left join member_info_record r on r.memberId = m.ID
    <where> 1=1
 	  <if test="userpercheck != null and userpercheck !=''">
-	  	and m.userpercheck = #{userpercheck,jdbcType=VARCHAR}
+	  	and (m.userpercheck = #{userpercheck,jdbcType=VARCHAR}
+   	  	or m.companypercheck = #{companypercheck,jdbcType=VARCHAR})
 	  </if>
+	   <if test="driverpercheck != null and driverpercheck !=''">
+   	  	and m.driverpercheck = #{driverpercheck,jdbcType=VARCHAR}
+   	  </if>
    	<if test="beginTime != null and beginTime != ''">
 			 and r.audittime <![CDATA[>=]]> #{beginTime,jdbcType=BIGINT}
 	</if>
