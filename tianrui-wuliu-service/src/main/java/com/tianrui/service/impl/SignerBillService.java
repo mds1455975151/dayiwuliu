@@ -76,10 +76,23 @@ public class SignerBillService implements ISignerBillService{
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
-		List<SignerBill> list = signerBillMapper.selectByCondition(bill);
-		Long a = signerBillMapper.selectBycount(bill);
-		page.setList(copyProperties2(list));
-		page.setTotal(a);
+		if(req.getBilltype().equals("dy")){
+			List<SignerBill> list = signerBillMapper.DyselectByCondition(bill);
+			Long a = signerBillMapper.DyselectBycount(bill);
+			page.setList(copyProperties2(list));
+			page.setTotal(a);
+		}else if(req.getBilltype().equals("al")){
+			List<SignerBill> list = signerBillMapper.AlselectByCondition(bill);
+			Long a = signerBillMapper.AlselectBycount(bill);
+			page.setList(copyProperties2(list));
+			page.setTotal(a);
+		}else{
+			List<SignerBill> list = signerBillMapper.selectByCondition(bill);
+			Long a = signerBillMapper.selectBycount(bill);
+			page.setList(copyProperties2(list));
+			page.setTotal(a);
+		}
+		
 		return page;
 	}
 	protected List<SignerBillResp> copyProperties2(List<SignerBill> list) throws Exception{

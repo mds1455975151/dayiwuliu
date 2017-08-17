@@ -318,8 +318,12 @@ public class AnlianService implements IAnlianService{
 			truck.setCwkg(str.substring(0, str.indexOf(".")));
 		}
 		//道路运输证号
-		if(StringUtils.isNotBlank(vehicle.getRoadtransportcode())){
-			truck.setDlysjyxkzbh(vehicle.getRoadtransportcode());
+//		if(StringUtils.isNotBlank(vehicle.getRoadtransportcode())){
+//			truck.setDlysjyxkzbh(vehicle.getRoadtransportcode());
+//		}
+		//营运证
+		if(StringUtils.isNotBlank(vehicle.getOpercode())){
+			truck.setDlysjyxkzbh(vehicle.getOpercode());
 		}
 		if(StringUtils.isNotBlank(vehicle.getDesc3())){
 			truck.setDlysjyxkzyxqz(vehicle.getDesc3());

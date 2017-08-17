@@ -13,23 +13,65 @@
     <result column="createtime" property="createtime" jdbcType="BIGINT" />
     <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
     <result column="recive_cellphone" property="reciveCellphone" jdbcType="VARCHAR" />
-    
     <result column="totalprice" property="totalprice" jdbcType="DOUBLE" />
-    
     <result column="confirmPriceA" property="confirmPriceA" jdbcType="VARCHAR" />
     <result column="confirmPriceB" property="confirmPriceB" jdbcType="VARCHAR" />
-    
     <result column="signed" property="signed" jdbcType="VARCHAR" />
-    
     <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
-    
-    
     <result column="startcity" property="startcity" jdbcType="VARCHAR" />
     <result column="endcity" property="endcity" jdbcType="VARCHAR" />
-    
-    
   </resultMap>
+ 	
+  <sql id="Query_Column_List" >
+  	<if test="receiveMemberid != null and receiveMemberid != ''">
+   		and vb.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
+   	</if>
+   	<if test="billtype != null and billtype != ''">
+   		and vb.billtype like "%" #{billtype,jdbcType=VARCHAR} "%"
+   	</if>
+   	<if test="cargoname != null and cargoname != ''">
+   		and vb.cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
+   	</if>
+   	<if test="vehicleno != null and vehicleno != ''">
+   		and vb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+   	</if>
+   	<if test="billno != null and billno != ''">
+   		and vb.billno like "%" #{billno,jdbcType=VARCHAR} "%"
+   	</if>
+   	<if test="billstatus != null and billstatus != '' and billstatus!='7'">
+   		and vb.billstatus like "%" #{billstatus,jdbcType=VARCHAR} "%"
+   	</if>
+   	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
+   		and vb.billstatus in ('7','8')
+   	</if>
+   	<if test="paystatus != null and paystatus != '' and paystatus == 1">
+    	and	EXISTS (
+				SELECT
+					p1.id,
+					p2.id,
+					p2.pay_status
+				FROM
+					 pay_invoice_detail_1 p1 
+				LEFT JOIN pay_invoice_1 p2 ON p2.id = p1.pay_invoice_id
+				WHERE
+					p2.pay_status = 2 AND p1.bill_id = vb.ID
+		)
+   	</if>
+   	<if test="paystatus != null and paystatus != '' and paystatus == 2">
+    	 AND vb.trueweight IS NULL
+ 			 AND (vb.signed = '配载单已到货!' OR vb.billstatus = 5)
+   	</if>
+   	<if test="paystatus != null and paystatus != '' and paystatus == 3">
+    	AND vb.trueweight IS NOT NULL
+ 			AND vb.confirmPriceA = '0'
+   	</if>
+   	<if test="paystatus != null and paystatus != '' and paystatus == 4">
+    	AND vb.confirmPriceA = '1'
+		AND vb.confirmPriceB = '0'
+   	</if>
+  </sql>
  
+  <!-- 全部我签收的运单 --> 
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >
     select 
    	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
@@ -37,111 +79,70 @@
       vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
     from v_signer_bill vb
     <where>
-    	<if test="receiveMemberid != null and receiveMemberid != ''">
-    		and vb.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
-    	</if>
-    	<if test="billtype != null and billtype != ''">
-    		and vb.billtype like "%" #{billtype,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="cargoname != null and cargoname != ''">
-    		and vb.cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="vehicleno != null and vehicleno != ''">
-    		and vb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="billno != null and billno != ''">
-    		and vb.billno like "%" #{billno,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="billstatus != null and billstatus != '' and billstatus!='7'">
-    		and vb.billstatus like "%" #{billstatus,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
-    		and vb.billstatus in ('7','8')
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 1">
-	    	and	EXISTS (
-					SELECT
-						p1.id,
-						p2.id,
-						p2.pay_status
-					FROM
-						 pay_invoice_detail_1 p1 
-					LEFT JOIN pay_invoice_1 p2 ON p2.id = p1.pay_invoice_id
-					WHERE
-						p2.pay_status = 2 AND p1.bill_id = vb.ID
-			)
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 2">
-	    	 AND vb.trueweight IS NULL
-  			 AND (vb.signed = '配载单已到货!' OR vb.billstatus = 5)
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 3">
-	    	AND vb.trueweight IS NOT NULL
-  			AND vb.confirmPriceA = '0'
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 4">
-	    	AND vb.confirmPriceA = '1'
-			AND vb.confirmPriceB = '0'
-    	</if>
+    	<include refid="Query_Column_List" />
     </where>
     order by createtime desc
     <if test="pageNo != null">
     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
-  
   <select id="selectBycount" resultType="long" parameterType="com.tianrui.service.bean.SignerBill" >
     select 
     	count(0)
      from v_signer_bill vb
     <where>
-    	<if test="receiveMemberid != null and receiveMemberid != ''">
-    		and vb.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
-    	</if>
-    	<if test="billtype != null and billtype != ''">
-    		and vb.billtype like "%" #{billtype,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="cargoname != null and cargoname != ''">
-    		and vb.cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="vehicleno != null and vehicleno != ''">
-    		and vb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="billno != null and billno != ''">
-    		and vb.billno like "%" #{billno,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="billstatus != null and billstatus != '' and billstatus!='7'">
-    		and vb.billstatus like "%" #{billstatus,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
-    		and vb.billstatus in ('7','8')
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 1">
-	    	and	EXISTS (
-					SELECT
-						p1.id,
-						p2.id,
-						p2.pay_status
-					FROM
-						 pay_invoice_detail_1 p1 
-					LEFT JOIN pay_invoice_1 p2 ON p2.id = p1.pay_invoice_id
-					WHERE
-						p2.pay_status = 2 AND p1.bill_id = vb.ID
-			)
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 2">
-	    	 AND vb.trueweight IS NULL
-  			 AND (vb.signed = '配载单已到货!' OR vb.billstatus = 5)
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 3">
-	    	AND vb.trueweight IS NOT NULL
-  			AND vb.confirmPriceA = '0'
-    	</if>
-    	<if test="paystatus != null and paystatus != '' and paystatus == 4">
-	    	AND vb.confirmPriceA = '1'
-			AND vb.confirmPriceB = '0'
-    	</if>
+    	<include refid="Query_Column_List" />
     </where>
   </select>
+  <!-- 全部我签收的运单 --> 
   
+  <!-- 我签收的运单 安联 --> 
+  <select id="AlselectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >
+    select 
+   	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
+      vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,
+      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
+    from v_signer_bill_al vb
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+    order by createtime desc
+    <if test="pageNo != null">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="AlselectBycount" resultType="long" parameterType="com.tianrui.service.bean.SignerBill" >
+    select 
+    	count(0)
+     from v_signer_bill_al vb
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+  </select>
+  <!-- 我签收的运单 安联 --> 
+  
+  <!-- 我签收的运单 大易 --> 
+  <select id="DyselectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.SignerBill" >
+    select 
+   	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
+      vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,
+      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
+    from v_signer_bill_dy vb
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+    order by createtime desc
+    <if test="pageNo != null">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="DyselectBycount" resultType="long" parameterType="com.tianrui.service.bean.SignerBill" >
+    select 
+    	count(0)
+     from v_signer_bill_dy vb
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+  </select>
+  <!-- 我签收的运单 大易 --> 
 </mapper>
