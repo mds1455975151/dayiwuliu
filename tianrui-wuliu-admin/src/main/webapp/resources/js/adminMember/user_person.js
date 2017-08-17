@@ -132,13 +132,21 @@ function displayRect(pageNo){
 							"<td >"+registtime+"</td>"+
 							"<td >"+submitDate+"</td>"+
 							"<td >"+s+"</td>"+
-							"<td>"+"<span><a data-toggle='modal' onclick=\"yuanyin('"+data[a].id+"','"+(per)+"','"+data[a].submitDate+"')\" data-target='#yuanyin'>"+per+"</a></span></td>"+
+							
+							
+							"<td>";
+							if(data[a].companypercheck=='3'||data[a].userpercheck=='3'){
+								hml += "<span><a data-toggle='modal' onclick=\"yuanyin('"+data[a].id+"','"+(per)+"','"+data[a].submitDate+"')\" data-target='#yuanyin'>"+per+"</a></span>";
+							}else{
+								hml += "<span><a >" + per + "</a></span>";
+							}
+							hml += "<span><a ></a></span>"+
 							"<td >"+(pushStatus == 0 ? '未推送' : pushStatus == 1 ? '推送中' : pushStatus == 2 ? '已推送' : '')+"</td>"+
 							"<td >"+(ncStatus == 1 ? '供应商不存在' : ncStatus == 2 ? '未审核' : ncStatus == 3 ? '审核未通过' : ncStatus == 4 ? '审核中' : ncStatus == 5 ? '审核通过，但组织未分配' : ncStatus == 6 ? '审核通过，且组织已分配' : '')+"</td>"+
 							"<td>";
-							//if(data[a].companypercheck=='1'||data[a].userpercheck=='1'){
+							if(data[a].companypercheck=='1'||data[a].userpercheck=='1'){
 								hml += "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";
-							//}
+							}
 							if(data[a].companypercheck=='2'||data[a].userpercheck=='2'){
 								hml += "<span><a onclick=\"shenHe('"+data[a].id+"','2','"+menuId+"','"+(pageNo+1)+"')\">【审核】</a></span>";
 							}
@@ -362,7 +370,7 @@ function getType(id,status){
 			"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
 			"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 			"<div class='file_detail'><label>注册时间：</label><span>"+registtime+"</span></div>"+
-			"<div class='file_detail'><label>认证时间：</label><span>"+submitDate+"</span></div><br>"+
+			"<div class='file_detail'><label>认证时间：</label><span>"+submitDate+"</span></div>"+
 			"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></span></div>"+
 			"<div class='file_detail3'><label>营业执照/身份证号：</label><span>"+identityCard+"</span></div>"+
 			"<div class='file_detail3'><label>营业执照/身份证照片：</label><span>"+idcardsImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\""+pictype+"\")' data-target='#againPice'>【重新上传】</a></span></div>";
@@ -408,6 +416,7 @@ function uploadfile(){
 }
   
 function yuanyin(id,per,submitDate){
+	$("#errorMassage").empty();
 	if(per=="认证失败"){
 		$.ajax({
 			type:"post",
@@ -415,12 +424,100 @@ function yuanyin(id,per,submitDate){
 			data:{"id":id,"submitDate":submitDate},
 			success: function(rs) {
 				if(rs.code=="000000"){
-					$("#auditresson").val(rs.data.auditresson);
-					auditresson = rs.data.auditresson;
-					if(auditresson == undefined){
-						auditresson = "";
+					
+					var per =rs.data.per;
+					if(rs.data.companypercheck=='0'||rs.data.userpercheck=='0'){
+						per = "未认证";
 					}
-					alert(auditresson);
+					if(rs.data.companypercheck=='1'||rs.data.userpercheck=='1'){
+						per = "认证通过";
+					}
+					if(rs.data.companypercheck=='2'||rs.data.userpercheck=='2'){
+						per = "认证中";
+					}
+					if(rs.data.companypercheck=='3'||rs.data.userpercheck=='3'){
+						per = "认证失败";
+					}
+					if(per=="认证失败"){
+						
+					var companyContact = rs.data.companyContact;//公司联系人
+					if(rs.data.companyContact == undefined){
+						companyContact = "";
+					}
+					var companyName = rs.data.companyName;//公司名称
+					if(rs.data.companyName == undefined){
+						companyName = "";
+					}
+					var contactTel = rs.data.contactTel;//联系人电话
+					if(rs.data.contactTel == undefined){
+						contactTel = "";
+					}
+					var telphone = rs.data.telphone;//联系人电话
+					if(rs.data.telphone == undefined){
+						telphone = "";
+					}
+					var idcard = rs.data.idcard;
+					if(rs.data.idcard == undefined){
+						idcard = "";
+					}
+					var idcardimage = rs.data.idcardimage;
+					var userType = "";
+					var pictype = "";
+					//企业用户展示企业相应信息
+					if(rs.data.companypercheck=='1'){
+						userType = "企业用户";
+						userName = companyContact;
+						telphone = contactTel;
+						idcard = rs.data.companycode;
+						idcardimage =rs.data.licenseImagePath;
+						pictype = "3"
+					}else if(rs.data.userpercheck=='1'){
+						userType = "个人用户";
+						pictype = "1"
+					}else{
+						userType = "暂无";
+					}
+					var sex = rs.data.sex == undefined ? "":rs.data.sex;
+					var birthday = rs.data.birthday == undefined ? "":rs.data.birthday;
+					if(sex == "xx"){
+						sex = "女";
+					}else if(sex == "xy"){
+						sex = "男";
+					}
+					var username = rs.data.username==undefined ? "":rs.data.username;
+					var auditresson = rs.data.auditresson==undefined ? "":rs.data.auditresson;
+					var rtblno =rs.data.rtblno==undefined?"":rs.data.rtblno;
+					var auditname =rs.data.auditname==undefined?"":rs.data.auditname;
+					var submittime =rs.data.submittime==undefined?"":rs.data.submittime;
+					var idcardimage = rs.data.idcardimage == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>");
+					var rtblimgurl = rs.data.rtblimgurl == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>");
+					
+//					var idcardimage = "身份证号："+idcard+"--<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>";
+//					var rtblimgurl = "证书编号："+rtblno+"--<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>";
+					
+					
+					var hml = "<div class='file_detail'><label>审核人名称：</label><span>"+auditname+"</span></div>"+
+					"<div class='file_detail'><label>性别：</label><span>"+sex+"</span></div>"+
+					
+					"<div class='file_detail'><label>会员类别：</label><span>"+userType+"</span></div>"+
+					"<div class='file_detail'><label>出生日期：</label><span>"+birthday+"</span></div>"+
+					
+					"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
+					
+					"<div class='file_detail'><label>用户名称：</label><span>"+username+"</span></div>"+
+					"<div class='file_detail'><label>失败原因：</label><span>"+auditresson+"</span></div>"+
+					
+					"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
+					"<div class='file_detail'><label>身份证号：</label><span>"+idcard+"</span></div>"+
+					
+					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblno+"</span></div>"+
+					
+					"<div class='file_detail3'><label>营业执照/身份证照：</label><span>"+idcardimage+"</span></div>";
+					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"</span></div>";
+					document.getElementById("errorMassage").innerHTML = hml;
+					}else{
+						$("#yuanyin").hide();
+					}
 //				}else{
 //					alert(rs.error);
 				}
@@ -428,4 +525,20 @@ function yuanyin(id,per,submitDate){
 		});
 	}
 	
+}
+function empty(){
+	$("#submitDate").val("");
+	$("#auditname").val("");
+	$("#userType").val("");
+	$("#birthday").val("");
+	$("#sex").val("");
+	$("#telphone").val("");
+	$("#per").val("");
+	$("#registtime").val("");
+	$("#username").val("");
+	$("#auditresson").val("");
+	$("#status").val("");
+	$("#idcard").val("");
+	$("#userpercheck").val("");
+	$("#rtblno").val("");
 }

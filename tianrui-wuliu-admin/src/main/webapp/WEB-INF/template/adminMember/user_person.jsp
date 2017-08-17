@@ -151,33 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4 class="modal-title" >注册会员详情</h4>
             </div>
             <div class="modal-body" style=" " id="detailid">
-                <div class="file_detail">
-                    <label>会员类别：</label><span>个人</span>
-                </div>
-                <div class="file_detail">
-                    <label>会员账号：</label><span>tr15451212</span>
-                </div>
-                <div class="file_detail">
-                    <label>会员名称：</label><span>shhnkdjl</span>
-                </div>
-                <div class="file_detail">
-                    <label>联系方式：</label><span>315641212</span>
-                </div>
-                <div class="file_detail">
-                    <label>会员状态：</label><span>认证成功</span>
-                </div>
-                <div class="file_detail">
-                    <label>注册时间：</label><span>2016-02-13</span>
-                </div>
-                <div class="file_detail">
-                    <label>认证时间：</label><span>2016-02-13</span>
-                </div>
-                <div class="file_detail3">
-                    <label>营业执照/身份证号：</label><span>41222219880000111111</span>
-                </div>
-                <div class="file_detail2">
-                    <label>驾驶证照片：</label><span><img src=""></span>
-                </div>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
@@ -187,6 +161,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
+
+<!--失败原因begin-->
+<div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >失败原因</h4>
+            </div>
+            <div class="modal-body" id="errorMassage">
+            		
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="empty()" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--失败原因end-->
 <!--修改照片begin-->
 <div class="modal fade" id="againPice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -260,25 +254,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--删除end-->
-
-<!--停用begin-->
-<div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >失败原因</h4>
-            </div>
-            <div class="modal-body">
-                <h4><span id="satus">认证失败原因:</span><input type="text" id="auditresson" value="" style='border-left:0px;border-top:0px;border-right:0px;border-bottom:1px '></h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--停用end-->
 <jsp:include page="../common/footer.jsp" flush="false"></jsp:include>
 
 <script type="text/javascript">
@@ -304,7 +279,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0968" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0369" ></script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',
