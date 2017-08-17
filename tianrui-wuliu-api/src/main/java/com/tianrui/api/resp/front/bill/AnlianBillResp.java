@@ -13,6 +13,8 @@ public class AnlianBillResp {
     
     private String status;
     
+    private String planCode;
+    
     private String vendertel;
     private String vendername;
     
@@ -561,5 +563,13 @@ public class AnlianBillResp {
 
 	public void setDrivername(String drivername) {
 		this.drivername = drivername;
+	}
+
+	public String getPlanCode() {
+		return planCode;
+	}
+
+	public void setPlanCode(String planCode) {
+		this.planCode = planCode;
 	}
 }

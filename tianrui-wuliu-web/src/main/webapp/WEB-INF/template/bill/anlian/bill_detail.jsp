@@ -52,14 +52,14 @@
 										<tr>
 											<th>运单号</th>
 											<th>货物名称</th>
-											<th>计价单位</th>
+											<th>计划编码</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>${bill.billno}</td>
 											<td>${bill.hpmc}</td>
-											<td>${bill.dw}</td>
+											<td>${bill.planCode}</td>
 										</tr>
 									</tbody>
 									<thead>
@@ -87,7 +87,7 @@
 										<tr>
 											<td>${bill.shr }</td>
 											<td>${bill.lxsj }</td>
-											<td>${bill.sl }</td>
+											<td>${bill.sl }${bill.dw}</td>
 										</tr>
 									</tbody>
 									

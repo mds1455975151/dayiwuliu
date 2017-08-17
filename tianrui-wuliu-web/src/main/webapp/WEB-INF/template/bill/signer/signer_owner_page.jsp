@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <select id="billtype" class="form-control">
 									<option value="">全部</option>
 									<option value="dy">大易</option>
-									<option value="al">安联</option>
+									<option selected="selected" value="al">安联</option>
 								</select>
 	                        </div>
 	                        <div class="bb_czline">

@@ -54,14 +54,14 @@
 										<tr>
 											<th>运单号</th>
 											<th>货物名称</th>
-											<th>计价单位</th>
+											<th>计划编码</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>${bill.waybillno}</td>
 											<td>${bill.cargoname}</td>
-											<td>${bill.priceunits}</td>
+											<td>${bill.plancode}</td>
 										</tr>
 									</tbody>
 									<thead>

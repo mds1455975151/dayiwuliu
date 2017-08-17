@@ -197,7 +197,6 @@ public class AnlianBillService implements IAnlianBillService{
 		
 		order.setLines(ll);
 		shipment.setOrders(ol);
-		//TODO
 		rs = anlianService.shipment(shipment);
 		if(rs.getCode().equals("000000")){
 			anlianBillInsert(shipment,rs.getData().toString(),req);
@@ -269,10 +268,14 @@ public class AnlianBillService implements IAnlianBillService{
 		SystemMember driver = systemMemberMapper.selectByPrimaryKey(bill.getDriverid());
 		//货主
 		SystemMember owner = systemMemberMapper.selectByPrimaryKey(bill.getOwnerid());
+		//计划
+		Plan plan = planMapper.selectByPrimaryKey(bill.getDesc1());
 		
 		AnlianBillResp resp = new AnlianBillResp();
 		PropertyUtils.copyProperties(resp, bill);
-		
+		if(plan != null){
+			resp.setPlanCode(plan.getPlancode());
+		}
 		resp.setOwnername(owner.getRemarkname());
 		resp.setOwnertel(owner.getCellphone());
 		
