@@ -35,6 +35,7 @@ import com.tianrui.api.req.front.position.PositionQueryReq;
 import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
@@ -1601,7 +1602,10 @@ public class BillService implements IBillService{
 			resp =new WaybillResp();
 			PropertyUtils.copyProperties(resp, bill);
 			if( StringUtils.isNotBlank(resp.getOrgid()) ){
-				resp.setOrgName(orgService.findOne(resp.getOrgid()).getOrganizationname());
+				OrganizationResp org =orgService.findOne(resp.getOrgid());
+				if( org !=null ){
+					resp.setOrgName(org.getOrganizationname());
+				}
 			}
 			
 			
