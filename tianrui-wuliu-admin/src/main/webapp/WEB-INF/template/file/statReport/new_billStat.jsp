@@ -124,7 +124,6 @@
 							<div class="ht_div">
 								<label>运单类型：</label> 
 								<select id="bill_type">
-									<option value="">请选择</option>
 									<option value="anlian">开票运单</option>									 
 	                                <option value="wuliu">普通运单</option>
 								</select>	

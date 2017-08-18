@@ -9,4 +9,12 @@ public interface AnlianBillReportMapper {
     List<AnlianBillReport> selectByCondition(AnlianBillReport record);
     
     long selectBycount(AnlianBillReport record);
+    
+    List<AnlianBillReport> AlselectByCondition(AnlianBillReport record);
+    
+    long AlselectBycount(AnlianBillReport record);
+    
+    List<AnlianBillReport> DyselectByCondition(AnlianBillReport record);
+    
+    long DyselectBycount(AnlianBillReport record);
 }
