@@ -46,12 +46,9 @@
       remarkname, routename, orgid, 
       palnid,q_deviation,d_deviation,begintime,interDistance,interTime,ownerSigntime
   </sql>
-  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
-  	select 
-    <include refid="Base_Column_List" />
-    from v_anlian_billreport
-    <where>
-    	<if test="t_position == 1">
+  
+  <sql id="Query_Column_List">
+  		<if test="t_position == 1">
     		and q_deviation is not null
     	</if>
     	<if test="d_position == 1">
@@ -99,6 +96,14 @@
     	<if test="ownerSigntime_1 != null">
     		and ownerSigntime <![CDATA[<=]]> #{ownerSigntime_1,jdbcType=BIGINT}
     	</if>
+  </sql>
+  <!-- ow -->
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    <include refid="Base_Column_List" />
+    from v_anlian_billreport
+    <where>
+    	<include refid="Query_Column_List" />
     </where>
     order by createtime desc
     <if test="pageNo != null">
@@ -111,54 +116,56 @@
     count(0)
     from v_anlian_billreport
     <where>
-    	<if test="t_position == 1">
-    		and q_deviation is not null
-    	</if>
-    	<if test="d_position == 1">
-    		and d_deviation is not null
-    	</if>
-    	<if test="interTimeStr != null and interTimeStr != ''">
-    		and ${interTimeStr}
-    	</if>
-    	<if test="interDistanceStr != null and interDistanceStr != ''">
-    		and ${interDistanceStr}
-    	</if>
-    	<if test="waybillno != null and waybillno != ''">
-    		and waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="plancode != null and plancode != ''">
-    		and plancode like "%" #{plancode,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="status != null">
-    		and status = #{status,jdbcType=TINYINT}
-    	</if>
-    	<if test="remarkname != null and remarkname != ''">
-    		and remarkname like '%' #{remarkname,jdbcType=VARCHAR} '%'
-    	</if>
-    	<if test="vehicleno != null and vehicleno != ''">
-    		and vehicleno like '%' #{vehicleno,jdbcType=VARCHAR} '%'
-    	</if>
-    	<if test="cargoname != null and cargoname != ''">
-    		and cargoname like '%' #{cargoname,jdbcType=VARCHAR} '%'
-    	</if>
-    	<if test="orgid != null and orgid != ''">
-    		and orgid in (${orgid})
-    	</if>
-    	<if test="type != null and type != ''">
-    		and type = #{type,jdbcType=VARCHAR}
-    	</if>
-    	<if test="starttime != null">
-    		and begintime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT}
-    	</if>
-    	<if test="endtime != null">
-    		and begintime <![CDATA[<=]]> #{endtime,jdbcType=BIGINT}
-    	</if>
-    	<if test="ownerSigntime_0 != null">
-    		and ownerSigntime <![CDATA[>=]]> #{ownerSigntime_0,jdbcType=BIGINT}
-    	</if>
-    	<if test="ownerSigntime_1 != null">
-    		and ownerSigntime <![CDATA[<=]]> #{ownerSigntime_1,jdbcType=BIGINT}
-    	</if>
+    	<include refid="Query_Column_List" />
     </where>
   </select>
+  <!-- ow -->
+  
+  <!-- dy -->
+  <select id="DyselectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    <include refid="Base_Column_List" />
+    from v_anlian_billreport_dy
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+    order by createtime desc
+    <if test="pageNo != null">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="DyselectBycount" resultType="long" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    count(0)
+    from v_anlian_billreport_dy
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+  </select>
+  <!-- dy -->
+  
+  <!-- al -->
+  <select id="AlselectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    <include refid="Base_Column_List" />
+    from v_anlian_billreport_al
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+    order by createtime desc
+    <if test="pageNo != null">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="AlselectBycount" resultType="long" parameterType="com.tianrui.service.bean.anlian.AnlianBillReport" >
+  	select 
+    count(0)
+    from v_anlian_billreport_al
+    <where>
+    	<include refid="Query_Column_List" />
+    </where>
+  </select>
+  <!-- al -->
 </mapper>
