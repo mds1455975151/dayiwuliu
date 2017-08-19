@@ -176,6 +176,8 @@ public class BillService implements IBillService{
 	AnlianBillMapper anlianBillMapper;
 	@Autowired
 	OrgSignerMapper orgSignerMapper;
+	@Autowired
+	MemberVoService memberVoService;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -1669,8 +1671,17 @@ public class BillService implements IBillService{
 			for( Bill bill :billList){
 				WaybillResp rp = new WaybillResp();
 				PropertyUtils.copyProperties(rp, bill);
-				//TODO
-//				resp.add(conver2billResp(bill));
+				
+				//防止为空
+				rp.setVenderTel("");
+				rp.setVenderName("");
+				if( bill!=null && StringUtils.isNotBlank(bill.getVenderid()) ){
+					MemberVo vender =memberVoService.get(bill.getVenderid());
+					if(vender!=null ){
+						rp.setVenderName(vender.getRealName());
+						rp.setVenderTel(vender.getCellphone());
+					}
+				}
 				resp.add(rp);
 			}
 		}
