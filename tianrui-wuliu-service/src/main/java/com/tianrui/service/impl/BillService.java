@@ -1667,7 +1667,11 @@ public class BillService implements IBillService{
 		if( CollectionUtils.isNotEmpty(billList) ){
 			resp =new ArrayList<WaybillResp>();
 			for( Bill bill :billList){
-				resp.add(conver2billResp(bill));
+				WaybillResp rp = new WaybillResp();
+				PropertyUtils.copyProperties(rp, bill);
+				//TODO
+//				resp.add(conver2billResp(bill));
+				resp.add(rp);
 			}
 		}
 		return resp;
