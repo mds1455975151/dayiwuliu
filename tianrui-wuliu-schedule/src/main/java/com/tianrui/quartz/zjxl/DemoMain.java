@@ -1,8 +1,11 @@
 package com.tianrui.quartz.zjxl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.openapi.sdk.service.DataExchangeService;
 import com.openapi.sdk.service.TransCode;
+import com.tianrui.common.vo.ZjxlBean;
+import com.tianrui.common.vo.ZjxlResult;
 
 /***
  * 接口客户端调用示例
@@ -12,22 +15,23 @@ import com.openapi.sdk.service.TransCode;
  */
 public class DemoMain {
 
-	private static String apiUrl = "https://testopen.95155.com/apis";//联调测试环境接口地址
+	private static String apiUrl = "https://zhiyunopenapi.95155.com/apis";//联调测试环境接口地址
 	
 	private static String apiUser = "ddff6c51-3099-4ad7-a5b8-13e371e28d1d";//这里需要替换成：您的API账号
 	private static String password = "gF6P3318P34Ib82C8Z9m5A0h7P7g92";//这里需要替换成：您的API账号密码
 	private static String client_id = "cae8e873-2ca5-49d4-bca1-688dbcc3f257";//这里需要替换成：您的客户端ID
 	
-	private static String token ;//动态令牌，调用登录接口获取，建议将其缓存到第三方缓存服务中
+	private static String token = "1bd138ed-7e37-4720-872a-6c51dac36b2d" ;//动态令牌，调用登录接口获取，建议将其缓存到第三方缓存服务中
 	
 	/** 调用示例 **/
 	public static void main(String[] args)throws Exception {
 		//第一步，调用登录接口获取Token
-		DemoReturnBean bean = login();
-		token = bean.getResult()+"";//将令牌缓存，令牌有效期默认3天
-		System.out.println(token);
+//		DemoReturnBean bean = login();
+//		token = bean.getResult()+"";//将令牌缓存，令牌有效期默认3天
+//		System.out.println(token);
 //		//第二步，调用业务接口
-//		vLastLocation();//一、车辆最新位置查询（车牌号）接口
+		ZjxlResult bean = vLastLocation("豫AC7336");//一、车辆最新位置查询（车牌号）接口
+		
 //		vLastLocationVin();//二、车辆最新位置查询（vin车架号）接口
 //		vLastLocationMulti();//三、	多车最新位置查询接口
 //		vHisTrack24();//四、	车辆轨迹查询（车牌号）接口
@@ -88,10 +92,11 @@ public class DemoMain {
 	 * 返回值示例：
 	 * {"result":{"adr":"安徽省安庆市怀宁县金拱服务区－公厕，向东北方向，89米","drc":"244","lat":"18465990","lon":"70113699","spd":"20.0","utc":"1496826330000"},"status":1001}
 	 *  */
-	public static void vLastLocation() {
+	public static ZjxlResult vLastLocation(String vclN) {
+		ZjxlResult zjxl = new ZjxlResult();
 		try {
 			System.out.println("一、	车辆最新位置查询（车牌号）接口");
-			String p = "token="+token+"&vclN=陕YH0009&timeNearby=24";
+			String p = "token="+token+"&vclN="+vclN+"&timeNearby=24";
 			System.out.println("参数:"+p);
 			p = TransCode.encode(p);//DES加密
 			String url = apiUrl+"/vLastLocation/" + p+"?client_id="+client_id;
@@ -99,12 +104,19 @@ public class DemoMain {
 			System.out.println("请求地址:"+url);
 			String res = des.accessHttps(url, "POST");
 			res = TransCode.decode(res);//DES解密
-			System.out.println("返回:"+res);
+			JSONObject obj = JSONObject.parseObject(res);
+			Object sta = obj.get("status");
+			JSONObject rest = (JSONObject) obj.get("result");
+			zjxl.setStatus(sta.toString());
+			zjxl.setResult(rest);
+			System.out.println("返回:"+obj);
 			DemoReturnBean bean = JSON.parseObject(res, DemoReturnBean.class);
 			analysisStatus(bean);//解析接口返回状态
 			System.out.println("------------------------------------------------------");
+			return zjxl;
 		} catch (Exception e) {
 			System.out.println("e:" + e.getMessage());
+			return zjxl;
 		}
 	}
 
