@@ -30,7 +30,7 @@ public class DemoMain {
 //		token = bean.getResult()+"";//将令牌缓存，令牌有效期默认3天
 //		System.out.println(token);
 //		//第二步，调用业务接口
-		ZjxlResult bean = vLastLocation("豫AC7336");//一、车辆最新位置查询（车牌号）接口
+		ZjxlResult bean = vLastLocation("豫P6K087",token);//一、车辆最新位置查询（车牌号）接口
 		
 //		vLastLocationVin();//二、车辆最新位置查询（vin车架号）接口
 //		vLastLocationMulti();//三、	多车最新位置查询接口
@@ -92,11 +92,11 @@ public class DemoMain {
 	 * 返回值示例：
 	 * {"result":{"adr":"安徽省安庆市怀宁县金拱服务区－公厕，向东北方向，89米","drc":"244","lat":"18465990","lon":"70113699","spd":"20.0","utc":"1496826330000"},"status":1001}
 	 *  */
-	public static ZjxlResult vLastLocation(String vclN) {
+	public static ZjxlResult vLastLocation(String vclN,String apiToken) {
 		ZjxlResult zjxl = new ZjxlResult();
 		try {
 			System.out.println("一、	车辆最新位置查询（车牌号）接口");
-			String p = "token="+token+"&vclN="+vclN+"&timeNearby=24";
+			String p = "token="+apiToken+"&vclN="+vclN+"&timeNearby=24";
 			System.out.println("参数:"+p);
 			p = TransCode.encode(p);//DES加密
 			String url = apiUrl+"/vLastLocation/" + p+"?client_id="+client_id;

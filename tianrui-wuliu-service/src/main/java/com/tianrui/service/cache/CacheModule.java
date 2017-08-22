@@ -28,9 +28,9 @@ public enum CacheModule {
 	VCODE_NUMBER("code_number","获取验证码次数"),
 	VCODE_ID("vcode_id","获取验证码次数"),
 	VEHICLE_NO("vehicle_no","临时车牌号"),
-	
 	RESETPASS("resetPass-","PC端重置密码验证码"),
 	RESETPASS_APP("resetPass1-","APP端重置密码验证码"),
+	ZJXL_TOKEN("zjxl_token","中交兴路token"),
 	
 	LOGIN_APP_AUTHCODE("loginAppCode-","APP端登录验证码"),
 	MEMBERLOGIN_APP("logincodeApp-","APP登录标识"),
