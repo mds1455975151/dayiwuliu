@@ -34,7 +34,7 @@ public class VehicleGpsZjxlSchedule {
 	
 	Logger logger = LoggerFactory.getLogger(NCPushSchedule.class);
 	
-	@Scheduled(cron="0 0/1 * * * ?")
+	//@Scheduled(cron="0 0/1 * * * ?")
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
 		logger.info("查询车辆位置开始"+begin);

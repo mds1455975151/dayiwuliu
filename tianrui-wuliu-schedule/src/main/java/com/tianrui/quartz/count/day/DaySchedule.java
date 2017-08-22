@@ -8,7 +8,7 @@ import com.tianrui.api.intf.ICountIndexService;
 
 /**
  * 
- * @类描述：每天执行的定时任务
+ * @类描述：首页统计定时任务
  * @创建人：lsj
  * @创建时间：2016年10月29日下午2:47:17
  *
@@ -30,13 +30,5 @@ public class DaySchedule {
 	@Scheduled(cron="0 0 1 * * ?")
     public void everyDay() throws Exception{  
 		countIndexService.everyDay(null);
-	   
-//		CountSelectReq req = new CountSelectReq();
-//	   //-ok
-//	   countService.everyDay(req);
-//	   //-ok
-//	   countService.routeHot(req);
-//	   //查询各省打点情况
-//	   countService.selectpostition();
     }  
 }
