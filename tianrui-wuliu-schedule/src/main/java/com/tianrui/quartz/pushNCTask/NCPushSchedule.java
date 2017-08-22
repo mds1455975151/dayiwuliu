@@ -14,6 +14,7 @@ import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.common.utils.DateUtil;
 
 /**
+  * nc的供应商审核.银行卡审核,支付窗台查询 
   * cron配置
 	"0 0 12 * * ?"    每天中午十二点触发 
 	"0 15 10 ? * *"    每天早上10：15触发 
@@ -64,10 +65,6 @@ public class NCPushSchedule {
 		
 	}
 
-//	@Scheduled(cron="0 0/3 *  * * ? ")
-//	public void callBackPayInvoicePaidAmount(){
-//		payInvoiceService.callBackPayInvoicePaidAmount();
-//	}
 
 	/**
      * @annotation 定时查询支付状态和金额并回写
