@@ -31,7 +31,7 @@ public class AuditReportSchedule {
 	 * @throws
 	 */
 
-	@Scheduled(cron="*0 0 1 * * ?")
+	@Scheduled(cron="0 0 1 * * ?")
 	public  void auditReport()throws Exception{
 		Long st = new Date().getTime();
 		logger.info("定时查询审核数据开始"+ DateUtil.getDateString());
