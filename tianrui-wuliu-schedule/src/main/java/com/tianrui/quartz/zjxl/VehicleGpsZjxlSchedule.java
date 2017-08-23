@@ -16,7 +16,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Visits;
 import com.tianrui.common.vo.ZjxlResult;
-import com.tianrui.quartz.pushNCTask.NCPushSchedule;
 import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
@@ -32,9 +31,9 @@ public class VehicleGpsZjxlSchedule {
 	@Autowired
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	
-	Logger logger = LoggerFactory.getLogger(NCPushSchedule.class);
+	Logger logger = LoggerFactory.getLogger(VehicleGpsZjxlSchedule.class);
 	
-	//@Scheduled(cron="0 0/1 * * * ?")
+	@Scheduled(cron="0 0/15 * * * ?")
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
 		logger.info("查询车辆位置开始"+begin);
@@ -54,13 +53,15 @@ public class VehicleGpsZjxlSchedule {
 					logger.debug("请求返回值code="+bean.getResult());
 					VehicleGpsZjxl zjxl = vehicleGpsZjxlDao.getVehiclePosition(vehNo);
 					if(zjxl == null || 
-						(zjxl.getLat()!=Long.valueOf(obj.getString("lat"))&&
-						  zjxl.getLon()!=Long.valueOf(obj.getString("lon")))){
+						(zjxl.getLat()!=Double.valueOf(obj.getString("lat"))/600000&&
+						  zjxl.getLon()!=Double.valueOf(obj.getString("lon"))/600000)){
 						VehicleGpsZjxl t = new VehicleGpsZjxl();
 						t.setAddr(obj.getString("adr"));
 						t.setId(UUIDUtil.getId());
-						t.setLat(Long.valueOf(obj.getString("lat"))/600000);
-						t.setLon(Long.valueOf(obj.getString("lon"))/600000);
+						Double lat = Double.valueOf(obj.getString("lat"))/600000;
+						Double lon = Double.valueOf(obj.getString("lon"))/600000;
+						t.setLat(lat);
+						t.setLon(lon);
 						t.setSpd(obj.getString("spd"));
 						t.setUtc(Long.valueOf(obj.getString("utc")));
 						t.setVehicleNo(vehNo);

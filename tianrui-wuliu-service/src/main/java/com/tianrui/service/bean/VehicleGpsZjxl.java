@@ -22,8 +22,8 @@ public class VehicleGpsZjxl implements Serializable{
 	//utc时间
 	private String utcTime ;
 	
-	private Long lat;
-	private Long lon;
+	private Double lat;
+	private Double lon;
 	private Long utc;
 	private String vehicleNo;
 	private String addr;
@@ -46,18 +46,6 @@ public class VehicleGpsZjxl implements Serializable{
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
-	}
-	public Long getLat() {
-		return lat;
-	}
-	public void setLat(Long lat) {
-		this.lat = lat;
-	}
-	public Long getLon() {
-		return lon;
-	}
-	public void setLon(Long lon) {
-		this.lon = lon;
 	}
 	public Long getUtc() {
 		return utc;
@@ -83,6 +71,23 @@ public class VehicleGpsZjxl implements Serializable{
 	public void setSpd(String spd) {
 		this.spd = spd;
 	}
-	
+	public String getUtcTime() {
+		return utcTime;
+	}
+	public void setUtcTime(String utcTime) {
+		this.utcTime = utcTime;
+	}
+	public Double getLat() {
+		return lat;
+	}
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+	public Double getLon() {
+		return lon;
+	}
+	public void setLon(Double lon) {
+		this.lon = lon;
+	}
 	
 }
