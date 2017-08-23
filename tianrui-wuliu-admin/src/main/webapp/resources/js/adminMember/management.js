@@ -206,9 +206,9 @@ function driverDetail(id){
 				"<div class='file_detail'><label>档案状态：</label><span>"+per+"</span></div>"+
 				"<div class='file_detail'><label>注册时间：</label><span>"+a.registtimeStr+"</span></div>"+
 				"<div class='file_detail'><label>认证时间：</label><span>"+a.submitDateStr+"</span></div>"+
-				"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"2\")' data-target='#againPice'>【重新上传】</a></span></div>"+
-				"<div class='file_detail2'><label>身份证正面：</label><span>"+idcard_image_A+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></span></div>"+
-				"<div class='file_detail2'><label>身份证反面：</label><span>"+idcard_image_B+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+a.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></span></div>";
+				"<div class='file_detail2'><label>驾驶证照片：</label><span>"+driveImagePath+"</span></div>"+
+				"<div class='file_detail2'><label>身份证正面：</label><span>"+idcard_image_A+"</span></div>"+
+				"<div class='file_detail2'><label>身份证反面：</label><span>"+idcard_image_B+"</span></div>";
 			document.getElementById("detailid").innerHTML = hmls;	
 			
 		}

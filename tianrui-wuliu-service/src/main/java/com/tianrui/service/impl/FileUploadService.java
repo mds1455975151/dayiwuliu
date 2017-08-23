@@ -50,6 +50,7 @@ public class FileUploadService implements IFileService{
 					InputStream input = new ByteArrayInputStream(out);
 					gridFsTemplate.store(input, imgURI);
 					String imgURL = Constant.FILE_URL_PRE+imgURI;
+					result.setCode("000000");
 					result.setData(imgURL);
 					
 					//TODO 上传文件路径 时间

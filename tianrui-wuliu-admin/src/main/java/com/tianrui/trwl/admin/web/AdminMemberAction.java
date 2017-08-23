@@ -738,29 +738,29 @@ public class AdminMemberAction {
 	 * @throws Exception */
 	@RequestMapping(value="uptVehicPic",method=RequestMethod.POST )
 	@ResponseBody
-	public Result uptVehicPic(HttpServletRequest request,String id , MultipartFile file , String type, String code) throws Exception{
+	public Result uptVehicPic(HttpServletRequest request,String id , String file , String type, String code) throws Exception{
 		Result rs = Result.getSuccessResult();
 		Users user =SessionManager.getSessionMember(request);
-		rs = iFileService.uploadByteImg(file,user.getAccount());
+//		rs = iFileService.uploadByteImg(file,user.getAccount());
 		if("000000".equals(rs.getCode())){
 			MemberVehicleReq req = new MemberVehicleReq();
 			req.setId(id);
 			if("1".equals(type)){
-				req.setVehiHeadImgPath(rs.getData().toString());
+				req.setVehiHeadImgPath(file);
 			}else if("2".equals(type)){
-				req.setVehiLicenseImgPath(rs.getData().toString());
+				req.setVehiLicenseImgPath(file);
 			}else if("3".equals(type)){
 				req.setRegistcode(code);
-				req.setRegistimage(rs.getData().toString());
+				req.setRegistimage(file);
 			}else if("4".equals(type)){
 				req.setOpercode(code);
-				req.setOperimage(rs.getData().toString());
+				req.setOperimage(file);
 			}else if("5".equals(type)){
 				req.setRoadtransportcode(code);
-				req.setRoadtransportimage(rs.getData().toString());
+				req.setRoadtransportimage(file);
 			}else if("6".equals(type)){
 				req.setIdentitycode(code);
-				req.setIdentieyimage(rs.getData().toString());
+				req.setIdentieyimage(file);
 			}
 			rs = memberVehicleService.updateByPrimaryKeySelective(req);
 		}
@@ -770,30 +770,30 @@ public class AdminMemberAction {
 	 * @throws Exception */
 	@RequestMapping(value="uptMemberPic",method=RequestMethod.POST )
 	@ResponseBody
-	public Result uptMemberPic(HttpServletRequest request,String id , MultipartFile file , String type,String code) throws Exception{
+	public Result uptMemberPic(HttpServletRequest request,String id , String file , String type,String code) throws Exception{
 		Result rs = Result.getSuccessResult();
 		Users user =SessionManager.getSessionMember(request);
-		rs = iFileService.uploadByteImg(file,user.getAccount());
+//		rs = iFileService.uploadByteImg(file,user.getAccount());
 		if("000000".equals(rs.getCode())){
 			MemberInfoReq req = new MemberInfoReq();
 			req.setId(id);
 			//身份证
 			if("1".equals(type)){
-				req.setIdcardsImagePath(rs.getData().toString());
+				req.setIdcardsImagePath(file);
 			//驾驶证
 			}else if("2".equals(type)){
-				req.setDriveImagePath(rs.getData().toString());
+				req.setDriveImagePath(file);
 			//企业
 			}else if("3".equals(type)){
-				req.setLicenseImagePath(rs.getData().toString());
+				req.setLicenseImagePath(file);
 			//道路运输经营许可证
 			}else if("4".equals(type)){
-				req.setRtblimgurl(rs.getData().toString());
+				req.setRtblimgurl(file);
 				req.setRtblno(code);
 			}else if("5".equals(type)){//身份证正面
-				req.setPositive(rs.getData().toString());
+				req.setPositive(file);
 			}else if("6".equals(type)){//身份证反面
-				req.setOpposite(rs.getData().toString());
+				req.setOpposite(file);
 			}else{
 				rs.setCode("1");
 				rs.setError("数据不全");

@@ -354,7 +354,9 @@ function uploadfile(){
 		alert("编号不能为空");
 		return;
 	}
-	var file = $("#file_yyzz")[0].files[0];
+	imgUrl();
+	var file = $("#imgUrl").val();
+//	var file = $("#file_yyzz")[0].files[0];
 	var formData = new FormData();
 	formData.append("id",$("#uptmemberid").val());
 	formData.append("file",file);
