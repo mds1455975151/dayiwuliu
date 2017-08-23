@@ -98,7 +98,7 @@ function details(data){
 	if(venderName == undefined){
 		venderName = "";
 	}
-	//提货榜单
+	//提货磅单
 	var pickupimgurl = data.pickupimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.pickupimgurl+"' target='_blank'>查看图片</a></span>");
 	//卸货
 	var signimgurl = data.signimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.signimgurl+"' target='_blank'>查看图片</a></span>");
@@ -126,8 +126,8 @@ function details(data){
 				"<div class='file_detail'><label>运单价格：</label><span>"+data.price+"元</span></div>"+
 				"<div class='file_detail2'><label>车辆信息：</label><span>"+data.vehicleno+"</span>" +
 				"<span>"+data.drivername+"</span><span>"+data.drivertel+"</span></div>"+
-				"<div class='file_detail'><label>提货榜单：</label><span>"+pickupimgurl+"</span></div>"+
-				"<div class='file_detail'><label>卸货榜单：</label><span>"+signimgurl+"</span></div>"+
+				"<div class='file_detail'><label>提货磅单：</label><span>"+pickupimgurl+"</span></div>"+
+				"<div class='file_detail'><label>卸货磅单：</label><span>"+signimgurl+"</span></div>"+
 				"<div class='file_detail'><label>提货位置偏差：</label><span>"+q_deviation+"米</span></div>"+
 				"<div class='file_detail'><label>卸货位置偏差：</label><span>"+d_deviation+"米</span></div>"+
 				"<div class='clear'></div>";

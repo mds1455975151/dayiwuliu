@@ -57,13 +57,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>签收重量：</label><span>${pay.trueweight }吨</span><br>
 	                               </c:if>
                               	 <c:if test="${pay.pickupimgurl ne null}">
-	                               <label>榜单图片：</label><span><a href="/imageView/index?imageUrl=${pay.pickupimgurl }" target="_blank">提货榜单</a></span><br>
+	                               <label>磅单图片：</label><span><a href="/imageView/index?imageUrl=${pay.pickupimgurl }" target="_blank">提货磅单</a></span><br>
                               	 </c:if>
                               	  <c:if test="${pay.signimgurl ne null}">
-	                               <label>榜单图片：</label><span><a href="/imageView/index?imageUrl=${pay.signimgurl }" target="_blank">卸货榜单</a></span><br>
+	                               <label>磅单图片：</label><span><a href="/imageView/index?imageUrl=${pay.signimgurl }" target="_blank">卸货磅单</a></span><br>
                               	  </c:if>
 	                               <c:if test="${pay.remarkImg ne null}">
-	                               <label>榜单图片：</label><span><a href="/imageView/index?imageUrl=${pay.remarkImg }" target="_blank">附件图片</a></span><br>
+	                               <label>磅单图片：</label><span><a href="/imageView/index?imageUrl=${pay.remarkImg }" target="_blank">附件图片</a></span><br>
 	                               </c:if>
 	                            </div>
 	                        </div>
