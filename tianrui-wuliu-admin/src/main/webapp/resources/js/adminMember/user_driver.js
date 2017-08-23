@@ -370,8 +370,7 @@ function yuanyin(id,per,submitDate){
 					var rtblno =rs.data.rtblno==undefined?"":rs.data.rtblno;
 					var auditname =rs.data.auditname==undefined?"":rs.data.auditname;
 					var submittime =rs.data.submittime==undefined?"":rs.data.submittime;
-					var idcardimage = rs.data.idcardimage == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>");
-					var rtblimgurl = rs.data.rtblimgurl == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>");
+					var idcardimage = rs.data.positive == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.positive+"' target='_blank'>查看图片</a>");
 					
 //					var idcardimage = "身份证号："+idcard+"--<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>";
 //					var rtblimgurl = "证书编号："+rtblno+"--<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>";
@@ -390,10 +389,8 @@ function yuanyin(id,per,submitDate){
 					"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 					"<div class='file_detail'><label>身份证号：</label><span>"+idcard+"</span></div>"+
 					
-					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblno+"</span></div>"+
 					
-					"<div class='file_detail3'><label>营业执照/身份证照：</label><span>"+idcardimage+"</span></div>";
-					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"</span></div>";
+					"<div class='file_detail3'><label>身份证照：</label><span>"+idcardimage+"</span></div>";
 					document.getElementById("errorMassage").innerHTML = hml;
 					}else{
 						$("#yuanyin").hide();

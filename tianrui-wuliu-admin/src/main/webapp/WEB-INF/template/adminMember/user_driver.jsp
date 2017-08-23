@@ -379,7 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0328" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0330" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){
