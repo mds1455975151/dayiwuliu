@@ -68,9 +68,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        </div>
 	                    </div>
 	                    <div class="bb_line">
-	                          <div class="bb_czline">
+	                           	<!-- 
+	                        <div class="bb_czline dybill">
 	                            <label>运单状态：</label>
-	                            <select id="billstatus" class="form-control">
+	                            <select class="form-control">
 									<option value="">全部</option>
 									<option value="-1">已收回</option>
 									<option value="1">已接受</option>
@@ -83,10 +84,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<option value="0">新建</option>
 								</select>
 	                        </div> 
+	                           	 -->
 	                        <div class="bb_czline">
 	                            <label>运单状态：</label>
 	                            <select id=paystatus class="form-control">
 									<option value="">全部</option>
+									<option value="5">待接单</option>
+									<option value="6">待提货</option>
+									<option value="7">运输中</option>
 									<option value="2">未签收</option>
 									<option value="3">运价确认</option>
 									<option value="4">运价修改</option>

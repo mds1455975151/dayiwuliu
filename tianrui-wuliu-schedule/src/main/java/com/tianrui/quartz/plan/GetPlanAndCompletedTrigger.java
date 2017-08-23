@@ -13,7 +13,11 @@ import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.common.utils.DateUtil;
-
+/**
+ * 计划定时关闭
+ * @author Administrator
+ *
+ */
 @Component 
 public class GetPlanAndCompletedTrigger {
 	

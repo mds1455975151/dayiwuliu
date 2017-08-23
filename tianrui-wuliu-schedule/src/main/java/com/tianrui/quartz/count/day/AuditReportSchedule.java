@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.service.impl.AuditReportService;
+/**
+ * 审核通过及不通过数据
+ * @author Administrator
+ *
+ */
 @Component  
 public class AuditReportSchedule {
 	Logger logger = LoggerFactory.getLogger(AuditReportSchedule.class);
@@ -25,6 +30,7 @@ public class AuditReportSchedule {
 	 * @return void    
 	 * @throws
 	 */
+
 	@Scheduled(cron="*0 0 1 * * ?")
 	public  void auditReport()throws Exception{
 		Long st = new Date().getTime();

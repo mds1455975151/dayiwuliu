@@ -53,10 +53,22 @@ public class AnlianBillReportService implements IAnlianBillReportService{
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
-		List<AnlianBillReport> list = anlianBillReportMapper.selectByCondition(record);
-		long a = anlianBillReportMapper.selectBycount(record);
-		page.setList(copyProperties(list));
-		page.setTotal(a);
+		if(req.getType().equals("anlian")){
+			List<AnlianBillReport> list = anlianBillReportMapper.AlselectByCondition(record);
+			long a = anlianBillReportMapper.AlselectBycount(record);
+			page.setList(copyProperties(list));
+			page.setTotal(a);
+		}else if(req.getType().equals("wuliu")){
+			List<AnlianBillReport> list = anlianBillReportMapper.DyselectByCondition(record);
+			long a = anlianBillReportMapper.DyselectBycount(record);
+			page.setList(copyProperties(list));
+			page.setTotal(a);
+		}else{
+			List<AnlianBillReport> list = anlianBillReportMapper.selectByCondition(record);
+			long a = anlianBillReportMapper.selectBycount(record);
+			page.setList(copyProperties(list));
+			page.setTotal(a);
+		}
 		return page;
 	}
 	

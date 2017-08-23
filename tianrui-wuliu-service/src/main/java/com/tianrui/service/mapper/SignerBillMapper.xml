@@ -27,7 +27,7 @@
    		and vb.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
    	</if>
    	<if test="billtype != null and billtype != ''">
-   		and vb.billtype like "%" #{billtype,jdbcType=VARCHAR} "%"
+   		and vb.billtype = #{billtype,jdbcType=VARCHAR} 
    	</if>
    	<if test="cargoname != null and cargoname != ''">
    		and vb.cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
@@ -39,7 +39,7 @@
    		and vb.billno like "%" #{billno,jdbcType=VARCHAR} "%"
    	</if>
    	<if test="billstatus != null and billstatus != '' and billstatus!='7'">
-   		and vb.billstatus like "%" #{billstatus,jdbcType=VARCHAR} "%"
+   		and vb.billstatus = #{billstatus,jdbcType=VARCHAR} 
    	</if>
    	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
    		and vb.billstatus in ('7','8')
@@ -68,6 +68,18 @@
    	<if test="paystatus != null and paystatus != '' and paystatus == 4">
     	AND vb.confirmPriceA = '1'
 		AND vb.confirmPriceB = '0'
+   	</if>
+   	<!-- 待接单 -->
+   	<if test="paystatus != null and paystatus != '' and paystatus == 5">
+		and vb.billstatus in ('0')
+   	</if>
+   	<!-- 待提货 -->
+   	<if test="paystatus != null and paystatus != '' and paystatus == 6">
+		and (vb.billstatus in ('1') or vb.signed = '配载单还未提货!')
+   	</if>
+   	<!-- 运输中 -->
+   	<if test="paystatus != null and paystatus != '' and paystatus == 7">
+		and (vb.billstatus in ('2','3') or vb.signed = '运输中')
    	</if>
   </sql>
  

@@ -45,6 +45,8 @@ public class VehicleGpsAction {
 		Result rs =new Result();
 		ApiErrorCode error =validParam(req);
 		if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
+			
+			//TODO
 			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 			rs.setData(getData());
 		}else{

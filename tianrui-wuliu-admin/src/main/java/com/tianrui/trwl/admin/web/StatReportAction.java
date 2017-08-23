@@ -26,6 +26,7 @@ import com.tianrui.api.admin.intf.IOrganizationService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
+import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -63,10 +64,15 @@ public class StatReportAction {
 		try {
 			String orgid = SessionManager.getSessionMember(request).getOrgid();
 			if(StringUtils.isNotBlank(orgid)){
-				String orgCode = orgService.findOne(orgid).getOrganizationno();
-				if(!StringUtils.equals(orgCode, "0000")){
-					req.setOrgid(orgid);
+				OrganizationResp org =orgService.findOne(orgid);
+				if( org !=null ){
+					String orgCode = org.getOrganizationno();
+					if(!StringUtils.equals(orgCode, "0000")){
+						req.setOrgid(orgid);
+					}
 				}
+				
+				
 			}
 			page = planService.queryAdminStatReport(req);
 			result.setData(page);
@@ -246,10 +252,15 @@ public class StatReportAction {
 		try {
 			String orgid = SessionManager.getSessionMember(request).getOrgid();
 			if(StringUtils.isNotBlank(orgid)){
-				String orgCode = orgService.findOne(orgid).getOrganizationno();
-				if(!StringUtils.equals(orgCode, "0000")){
-					req.setOrgid(orgid);
+				
+				OrganizationResp org =orgService.findOne(orgid);
+				if( org !=null ){
+					String orgCode = org.getOrganizationno();
+					if(!StringUtils.equals(orgCode, "0000")){
+						req.setOrgid(orgid);
+					}
 				}
+				
 			}
 			page = billService.queryAdminStatReport(req);
 			result.setData(page);

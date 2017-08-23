@@ -177,6 +177,13 @@
 			<artifactId>quartz</artifactId>
 			<version>1.8.5</version>
 		</dependency>
+		
+		<!-- zjxl   -->
+		<dependency>
+		  <groupId>com.tianrui</groupId>
+		  <artifactId>tianrui-other-zjxl</artifactId>
+		  <version>1.0.0</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
