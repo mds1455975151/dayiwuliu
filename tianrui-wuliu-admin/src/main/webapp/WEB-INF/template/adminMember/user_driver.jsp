@@ -225,6 +225,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
+<!--失败原因begin-->
+<div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >失败原因</h4>
+            </div>
+            <div class="modal-body" id="errorMassage">
+            		
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="empty()" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--失败原因end-->
 <!--安联认证begin-->
 <div class="modal fade" id="anlian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
@@ -360,7 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0879" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0328" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

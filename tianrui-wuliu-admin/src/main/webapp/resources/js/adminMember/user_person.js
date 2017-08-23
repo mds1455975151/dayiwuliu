@@ -132,8 +132,6 @@ function displayRect(pageNo){
 							"<td >"+registtime+"</td>"+
 							"<td >"+submitDate+"</td>"+
 							"<td >"+s+"</td>"+
-							
-							
 							"<td>";
 							if(data[a].companypercheck=='3'||data[a].userpercheck=='3'){
 								hml += "<span><a data-toggle='modal' onclick=\"yuanyin('"+data[a].id+"','"+(per)+"','"+data[a].submitDate+"')\" data-target='#yuanyin'>"+per+"</a></span>";

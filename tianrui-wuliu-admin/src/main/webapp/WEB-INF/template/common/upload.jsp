@@ -15,25 +15,6 @@
 </div>
 <script type="text/javascript" src="${trRoot}/js/upImg.js" ></script>
 <script type="text/javascript">
-    //upImg();
- /**    $(function(){
-      $(document).ready(function () {
-          // 表格列宽度手动调整
-      //    $("table").resizableColumns({});
-
-          $(".rz_persontab").off("click").on("click",function(){
-//            $('#detail').modal('hide');//第一层先隐藏
-              $('#againPice').css("z-index",1);
-              $('.modal-backdrop').css("z-index",0);
-              $('.cropperBox').css("z-index",999);
-          });
-          upImg();
-      });
- })
- */ 
-</script>
-
-<script type="text/javascript">
 	function imgUrl(){
 		 var imgStr = $(".myimg").attr("src");
 			$.ajax({
