@@ -431,7 +431,7 @@ function hideWindow(id,type){
 	}
 	$("#uptmemberid").val(id);
 	$("#uptmembertype").val(type);
-	$("#detail").hide();
+//	$("#detail").hide();
 } 
 
 

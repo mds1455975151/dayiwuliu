@@ -175,6 +175,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--停用end-->
+<!--查看详情begin-->
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >司机信息详情</h4>
+            </div>
+            <div class="modal-body" id="detailid" style=" ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看详情end-->
 <!--修改照片begin-->
 <div class="modal fade" id="againPice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -207,24 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--修改照片end-->
-<!--查看详情begin-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >司机信息详情</h4>
-            </div>
-            <div class="modal-body" id="detailid" style=" ">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--查看详情end-->
+
 <!--失败原因begin-->
 <div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
@@ -379,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0330" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0337" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){
@@ -388,10 +389,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       //    $("table").resizableColumns({});
 
           $(".rz_persontab").off("click").on("click",function(){
-//            $('#detail').modal('hide');//第一层先隐藏
-              $('#againPice').css("z-index",1);
-              $('.modal-backdrop').css("z-index",0);
-              $('.cropperBox').css("z-index",999);
+        	  $('#detail').css("z-index",1200);
+              $('#againPice').css("z-index",1201);
+              $('.modal-backdrop').css("z-index",200);
+              $('.cropperBox').css("z-index",1500);
           });
           upImg();
       });

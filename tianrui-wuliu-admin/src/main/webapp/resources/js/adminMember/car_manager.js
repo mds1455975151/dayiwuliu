@@ -398,7 +398,7 @@ function details(id){
 		}else{
 			$("#showcode").show();
 		}
-		$('#updateDeatil').modal('hide');
+//		$('#updateDeatil').modal('hide');
 		$("#uptmemberid").val(id);
 		$("#uptmembertype").val(type);
 		$("#code").val("");

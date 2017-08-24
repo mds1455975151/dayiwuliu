@@ -422,7 +422,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.30" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.01" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">
@@ -433,10 +433,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       //    $("table").resizableColumns({});
 
           $(".rz_persontab").off("click").on("click",function(){
-//            $('#detail').modal('hide');//第一层先隐藏
-              $('#againPice').css("z-index",1);
-              $('.modal-backdrop').css("z-index",0);
-              $('.cropperBox').css("z-index",999);
+        	  $('#updateDeatil').css("z-index",1200);
+              $('#againPice').css("z-index",1201);
+              $('.modal-backdrop').css("z-index",200);
+              $('.cropperBox').css("z-index",1500);
           });
           upImg();
       });

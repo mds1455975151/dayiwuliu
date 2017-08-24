@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--查看详情end-->
 
 <!--失败原因begin-->
-<div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade yy" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -274,7 +274,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0179" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?017933" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){
@@ -284,9 +284,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
           $(".rz_persontab").off("click").on("click",function(){
 //            $('#detail').modal('hide');//第一层先隐藏
-              $('#againPice').css("z-index",1);
-              $('.modal-backdrop').css("z-index",0);
-              $('.cropperBox').css("z-index",999);
+//              $('#againPice').css("z-index",1);
+//              $('.modal-backdrop').css("z-index",0);
+//              $('.cropperBox').css("z-index",999);
+        	  $('#detail').css("z-index",1000);
+              $('#detail2').css("z-index",1001);
+              $('.modal-backdrop').css("z-index",200);
+              $('.cropperBox').css("z-index",1500);
+
           });
           upImg();
       });
