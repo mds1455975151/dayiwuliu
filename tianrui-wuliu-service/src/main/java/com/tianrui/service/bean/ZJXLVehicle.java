@@ -18,7 +18,14 @@ public class ZJXLVehicle {
     private String modifier;
 
     private Long modifytime;
-
+    
+    private int pageNo;
+	/**
+	 * 每页几条
+	 */
+	private int pageSize;
+	private Integer limit;
+	
     public String getId() {
         return id;
     }
@@ -90,4 +97,30 @@ public class ZJXLVehicle {
     public void setModifytime(Long modifytime) {
         this.modifytime = modifytime;
     }
+
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getLimit() {
+		return limit;
+	}
+
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+    
+    
 }

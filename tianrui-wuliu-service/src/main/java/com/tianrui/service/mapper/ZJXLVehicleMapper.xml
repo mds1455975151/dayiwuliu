@@ -139,4 +139,30 @@
       modifytime = #{modifytime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+    select 
+    <include refid="Base_Column_List" />
+    from zhongjiao_vehicle
+    <where>1=1
+    	<if test="vehicleno != null and vehicleno != ''">
+				and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+		</if>
+    </where>
+    order by createtime desc 
+     <if test="pageNo != null and pageSize != null">
+       	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <select id="findsZJXLVehicleListCount" resultType="long" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+     select 
+	   count(*)
+    from zhongjiao_vehicle 
+   <where>1=1
+   		<if test="vehicleno != null and vehicleno != ''">
+				and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+		</if>
+   	</where>
+  </select>
 </mapper>
