@@ -474,7 +474,13 @@ function yuanyin(id,per,submitDate){
 					}else if(rs.data.userpercheck=='1'){
 						userType = "个人用户";
 						pictype = "1"
-					}else{
+					}else if(rs.data.companypercheck=='3'){
+						userType = "企业用户";
+						pictype = "3"
+					}else if(rs.data.userpercheck=='3'){
+						userType = "个人用户";
+						pictype = "1"
+					}else {
 						userType = "暂无";
 					}
 					var sex = rs.data.sex == undefined ? "":rs.data.sex;
@@ -503,7 +509,6 @@ function yuanyin(id,per,submitDate){
 					"<div class='file_detail'><label>出生日期：</label><span>"+birthday+"</span></div>"+
 					
 					"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
-					
 					"<div class='file_detail'><label>用户名称：</label><span>"+username+"</span></div>"+
 					"<div class='file_detail'><label>失败原因：</label><span>"+auditresson+"</span></div>"+
 					

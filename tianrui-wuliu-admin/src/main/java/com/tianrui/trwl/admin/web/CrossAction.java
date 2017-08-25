@@ -34,6 +34,8 @@ public class CrossAction {
 		rs.setData(list);
 		return rs;
 	}
+	@RequestMapping("/saveAdd")
+	@ResponseBody
 	public Result saveAdd(ZJXLVehicleReq req) throws Exception{
 		Result rs = crossVehicleService.insert(req);
 		return rs;

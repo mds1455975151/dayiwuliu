@@ -369,8 +369,18 @@ function yuanyin(id,per,submitDate){
 					var auditresson = rs.data.auditresson==undefined ? "":rs.data.auditresson;
 					var rtblno =rs.data.rtblno==undefined?"":rs.data.rtblno;
 					var auditname =rs.data.auditname==undefined?"":rs.data.auditname;
-					var submittime =rs.data.submittime==undefined?"":rs.data.submittime;
-					var idcardimage = rs.data.positive == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.positive+"' target='_blank'>查看图片</a>");
+					var submittime =rs.data.submittime==undefined?"":rs.data.submittime;idcardaddress
+					
+					var cellphone =rs.data.cellphone==undefined?"":rs.data.submittime;cellphone
+					var firstlicens=rs.data.firstlicens==undefined?"":rs.data.firstlicens;
+					var idcardaddress =rs.data.idcardaddress==undefined?"":rs.data.idcardaddress;
+					var licenseType =rs.data.licenseType==undefined?"":rs.data.licenseType;
+					var licenceorg=rs.data.licenceorg==undefined?"":rs.data.licenceorg;
+					var usefullife = rs.data.usefullife==undefined?"":rs.data.usefullife;
+					var registtime = rs.data.registtime==undefined?"":rs.data.registtime;
+					var rtblimgurl = rs.data.rtblimgurl == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>");
+					var positive = rs.data.positive == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.positive+"' target='_blank'>查看图片</a>");
+					var opposite = rs.data.opposite == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.opposite+"' target='_blank'>查看图片</a>");
 					
 //					var idcardimage = "身份证号："+idcard+"--<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>";
 //					var rtblimgurl = "证书编号："+rtblno+"--<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>";
@@ -388,9 +398,17 @@ function yuanyin(id,per,submitDate){
 					
 					"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 					"<div class='file_detail'><label>身份证号：</label><span>"+idcard+"</span></div>"+
-					
-					
-					"<div class='file_detail3'><label>身份证照：</label><span>"+idcardimage+"</span></div>";
+					"<div class='file_detail'><label>司机账号：</label><span>"+cellphone+"</span></div>"+
+					"<div class='file_detail'><label>身份证地址：</label><span>"+idcardaddress+"</span></div>"+
+					"<div class='file_detail'><label>有效年限：</label><span>"+usefullife+"</span></div>"+
+					"<div class='file_detail'><label>发证机关：</label><span>"+licenceorg+"</span></div>"+
+					"<div class='file_detail'><label>初次领证日期：</label><span>"+firstlicens+"</span></div>"+
+					"<div class='file_detail'><label>准驾车型：</label><span>"+licenseType+"</span></div>"+
+					"<div class='file_detail'><label>注册日期：</label><span>"+registtime+"</span></div>"+
+					"<div class='file_detail3'><label>运输经营许可证号码：</label><span>"+rtblno+"</span></div>"+
+					"<div class='file_detail3'><label>运输经营许可证图片：</label><span>"+rtblimgurl+"</span></div>"+
+					"<div class='file_detail3'><label>身份证照正面：</label><span>"+positive+"</span></div>"+
+					"<div class='file_detail3'><label>身份证照反面：</label><span>"+opposite+"</span></div>";
 					document.getElementById("errorMassage").innerHTML = hml;
 					}else{
 						$("#yuanyin").hide();
