@@ -490,6 +490,8 @@ function yuanyin(id,per,submitDate){
 					}else if(sex == "xy"){
 						sex = "男";
 					}
+					var registtime = rs.data.registtime==undefined ? "":rs.data.registtime;
+					var cellphone = rs.data.cellphone==undefined ? "":rs.data.cellphone;
 					var username = rs.data.username==undefined ? "":rs.data.username;
 					var auditresson = rs.data.auditresson==undefined ? "":rs.data.auditresson;
 					var rtblno =rs.data.rtblno==undefined?"":rs.data.rtblno;
@@ -511,7 +513,9 @@ function yuanyin(id,per,submitDate){
 					"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
 					"<div class='file_detail'><label>用户名称：</label><span>"+username+"</span></div>"+
 					"<div class='file_detail'><label>失败原因：</label><span>"+auditresson+"</span></div>"+
+					"<div class='file_detail'><label>注册日期：</label><span>"+registtime+"</span></div>"+
 					
+					"<div class='file_detail'><label>会员账号：</label><span>"+cellphone+"</span></div>"+
 					"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 					"<div class='file_detail'><label>身份证号：</label><span>"+idcard+"</span></div>"+
 					
