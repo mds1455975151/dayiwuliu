@@ -69,25 +69,24 @@ function displayRec(pageNo){
 						if(d[a].creator == undefined){
 							creator = "";
 						}
-						var createtime = d[a].createtime;
-						if(d[a].createtime == undefined){
+						var createtime = d[a].createtimes;
+						if(d[a].createtimes == undefined){
 							createtime = "";
-						}
-						if(createtime!=""){
-							var createtime=new Date(createtime).toLocaleDateString().replace(/\//g, "-"); 
 						}
 						hml += "<tr><td>"+c+"</td>"+
 						    "<td>"+vehicleno+"</td>"+
-							"<td>"+crossloge+"</td><td>";
+							"<td>"+crossloge+"</td>"+
+							"<td>"+vehiclelogo+"</td>"+
+							"<td>"+creator+"</td>"+
+							"<td>"+createtime+"</td><td>";
 							if(d[a].vehiclelogo==1){
-								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【启用】</a></span>";
-							}
-							if(d[a].vehiclelogo==0){
 								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【禁用】</a></span>";
 							}
-							hml += "<span><a ></a></span>"+
-							"<td>"+creator+"</td>"+
-							"<td>"+createtime+"</td></tr>";
+							if(d[a].vehiclelogo==0){
+								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【启用】</a></span>";
+							}
+							hml +="</td></tr>";
+							
 					}
 			    }  
 			   
@@ -122,7 +121,7 @@ function saveAdd(){
 	var vehiclelogo = $("#vehiclelogo").val();
 	vehiclelogo = $.trim(vehiclelogo);
 	if(vehiclelogo==""){
-		alert("请选择车辆标识！");
+		alert("请选择车辆！");
 		return;
 	}
 	$.ajax({

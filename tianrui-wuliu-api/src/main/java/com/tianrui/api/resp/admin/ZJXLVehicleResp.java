@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.admin;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.tianrui.api.resp.BaseResp;
 
 public class ZJXLVehicleResp extends BaseResp{
@@ -21,6 +24,8 @@ public class ZJXLVehicleResp extends BaseResp{
 	    private String creator;
 
 	    private Long createtime;
+	    
+	    private String createtimes;
 
 	    private String modifier;
 
@@ -97,6 +102,18 @@ public class ZJXLVehicleResp extends BaseResp{
 		public void setModifytime(Long modifytime) {
 			this.modifytime = modifytime;
 		}
+
+		 public String getCreatetimes() {
+				if(createtime != null){
+					SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					createtimes = fmt.format(new Date(createtime));
+				}
+		    	return createtimes;
+			}
+
+			public void setCreatetimes(String createtimes) {
+				this.createtimes = createtimes;
+			}
 	    
 	    
 }
