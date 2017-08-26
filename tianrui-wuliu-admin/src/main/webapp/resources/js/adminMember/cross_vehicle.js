@@ -51,9 +51,13 @@ function displayRec(pageNo){
 						if(d[a].vehicleno == undefined){
 							vehicleno = "";
 						}
-						var crossloge = d[a].crossloge;
-						if(d[a].crossloge == undefined){
-							crossloge = "";
+						var crossloge = "";
+						if(d[a].crossloge == "0"){
+							crossloge = "未入网";
+						}else if(d[a].crossloge == "1"){
+							crossloge = "已入网";
+						}else if(d[a].crossloge == "2"){
+							crossloge = "校验异常";
 						}
 						var vehiclelogo = d[a].vehiclelogo;
 						if(d[a].vehiclelogo == undefined){
@@ -228,7 +232,16 @@ function select(){
 					$("#status").val(status);//车辆状态
 					$("#desc1").val(desc1);//开票认证状态
 					$("#desc2").val(desc2);//临时车辆or认证车辆
-					$("#crossloge").val(ret.data.zjxStatus+ret.data.zjxResult);
+					if(ret.data.zjxResult == "yes"){
+						$("#crossloge").val("1");
+						$("#crossloge_req").val("已入网");
+					}else if(ret.data.zjxResult == "no"){
+						$("#crossloge").val("0");
+						$("#crossloge_req").val("未入网");
+					}else{
+						$("#crossloge").val("2");
+						$("#crossloge_req").val("校验异常");
+					}
 				}else{
 					alert(ret.error);
 				}

@@ -145,8 +145,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                     
                     <div class="model_width" >
-                        <label>中交标识：</label>
-                        <input name="crossloge" id="crossloge" type="text">
+                        <label>是否入网：</label>
+                        <input id="crossloge" type="hidden">
+                        <input id="crossloge_req" type="text">
                     </div>
                     <div class="model_width">
                         <label>车辆标识：</label>
