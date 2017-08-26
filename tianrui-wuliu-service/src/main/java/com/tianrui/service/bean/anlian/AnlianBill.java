@@ -5,6 +5,10 @@ public class AnlianBill {
     
     private Long JTBPushTime;
     
+    private Long ptBegintime;
+    
+    private Long ptEndtime;
+    
     private Double pickupweight; 
     private String pickupimgurl;
     
@@ -236,7 +240,23 @@ public class AnlianBill {
         this.jffs = jffs == null ? null : jffs.trim();
     }
 
-    public String getQycs() {
+    public Long getPtBegintime() {
+		return ptBegintime;
+	}
+
+	public void setPtBegintime(Long ptBegintime) {
+		this.ptBegintime = ptBegintime;
+	}
+
+	public Long getPtEndtime() {
+		return ptEndtime;
+	}
+
+	public void setPtEndtime(Long ptEndtime) {
+		this.ptEndtime = ptEndtime;
+	}
+
+	public String getQycs() {
         return qycs;
     }
 

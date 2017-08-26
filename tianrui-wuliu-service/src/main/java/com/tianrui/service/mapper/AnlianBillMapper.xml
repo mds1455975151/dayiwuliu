@@ -55,6 +55,9 @@
 	<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
 	
 	<result column="JTBPushTime" property="JTBPushTime" jdbcType="BIGINT" />
+	
+	<result column="ptBegintime" property="ptBegintime" jdbcType="BIGINT" />
+	<result column="ptEndtime" property="ptEndtime" jdbcType="BIGINT" />
     
   </resultMap>
   <sql id="Base_Column_List" >
@@ -63,7 +66,7 @@
     creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, 
     payment, receive_memberid,
     pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
-    confirm_Price_A,confirm_Price_B,JTBPushTime
+    confirm_Price_A,confirm_Price_B,JTBPushTime,ptBegintime,ptEndtime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -179,7 +182,7 @@
       modifytime, desc1, desc2, 
       desc3, desc4,payment, receive_memberid,
       pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
-      confirm_Price_A,confirm_Price_B,JTBPushTime)
+      confirm_Price_A,confirm_Price_B,JTBPushTime,ptBegintime,ptEndtime)
     values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
       #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
       #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
@@ -198,7 +201,8 @@
       #{signimgurl,jdbcType=VARCHAR},
       #{signtime,jdbcType=BIGINT},
       #{trueweight,jdbcType=DOUBLE},
-      #{confirmPriceA,jdbcType=VARCHAR},#{confirmPriceB,jdbcType=VARCHAR},#{JTBPushTime,jdbcType=BIGINT})
+      #{confirmPriceA,jdbcType=VARCHAR},#{confirmPriceB,jdbcType=VARCHAR},#{JTBPushTime,jdbcType=BIGINT},
+      #{ptBegintime,jdbcType=VARCHAR},#{ptEndtime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     insert into anlian_bill
@@ -349,6 +353,12 @@
       <if test="JTBPushTime != null">
         JTBPushTime,
       </if>
+      <if test="ptBegintime != null">
+      	ptBegintime,
+      </if>
+      <if test="ptEndtime != null">
+        ptEndtime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -497,11 +507,24 @@
       <if test="JTBPushTime != null">
         #{JTBPushTime,jdbcType=BIGINT},
       </if>
+      
+      <if test="ptBegintime != null">
+      	#{ptBegintime,jdbcType=VARCHAR},
+      </if>
+      <if test="ptEndtime != null">
+        #{ptEndtime,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     <set >
+    	<if test="ptBegintime != null">
+      	ptBegintime = #{ptBegintime,jdbcType=VARCHAR},
+      </if>
+      <if test="ptEndtime != null">
+       ptEndtime = #{ptEndtime,jdbcType=BIGINT},
+      </if>
      <if test="JTBPushTime != null">
         JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
       </if>
@@ -648,6 +671,8 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     set billno = #{billno,jdbcType=VARCHAR},
+      	ptBegintime = #{ptBegintime,jdbcType=VARCHAR},
+       ptEndtime = #{ptEndtime,jdbcType=BIGINT},
         JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
     	confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
         confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},

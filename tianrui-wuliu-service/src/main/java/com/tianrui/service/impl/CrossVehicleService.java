@@ -18,6 +18,8 @@ import com.tianrui.service.bean.ZJXLVehicle;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.ZJXLVehicleMapper;
+import com.tianrui.service.util.DemoMain;
+import com.tianrui.service.util.DemoReturnBean;
 
 @Service
 public class CrossVehicleService implements ICrossVehicleService{
@@ -137,7 +139,13 @@ public class CrossVehicleService implements ICrossVehicleService{
 				 if(member!=null){
 					 memberVehicle.setCellphone(member.getCellphone());
 				 }
+				 String token = DemoMain.getToken();
+				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
 				 rs.setCode("000000");
+				 memberVehicle.setZjxStatus(bean.getStatus());
+				 if(bean.getResult() != null){
+					 memberVehicle.setZjxResult(bean.getResult().toString());
+				 }
 				 rs.setData(memberVehicle);
 			 }else{
 				 rs.setCode("333333");

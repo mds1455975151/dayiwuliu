@@ -228,6 +228,7 @@ function select(){
 					$("#status").val(status);//车辆状态
 					$("#desc1").val(desc1);//开票认证状态
 					$("#desc2").val(desc2);//临时车辆or认证车辆
+					$("#crossloge").val(ret.data.zjxStatus+ret.data.zjxResult);
 				}else{
 					alert(ret.error);
 				}

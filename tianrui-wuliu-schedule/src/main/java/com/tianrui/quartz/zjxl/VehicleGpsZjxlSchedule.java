@@ -1,6 +1,5 @@
 package com.tianrui.quartz.zjxl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -13,14 +12,19 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tianrui.api.intf.ICrossVehicleService;
+import com.tianrui.api.req.admin.ZJXLVehicleReq;
+import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.admin.ZJXLVehicleResp;
 import com.tianrui.common.utils.UUIDUtil;
-import com.tianrui.common.vo.Visits;
 import com.tianrui.common.vo.ZjxlResult;
 import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.service.mongo.VehicleGpsZjxlDao;
+import com.tianrui.service.util.DemoMain;
+import com.tianrui.service.util.DemoReturnBean;
 
 @Component  
 public class VehicleGpsZjxlSchedule {
@@ -30,6 +34,8 @@ public class VehicleGpsZjxlSchedule {
 
 	@Autowired
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	Logger logger = LoggerFactory.getLogger(VehicleGpsZjxlSchedule.class);
 	
@@ -37,21 +43,20 @@ public class VehicleGpsZjxlSchedule {
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
 		logger.info("查询车辆位置开始"+begin);
-		List<String> list = new ArrayList<String>();
-		list.add("豫AC7336");
-		list.add("豫N81498");
-		list.add("豫D68263");
-		list.add("豫A5038K");
-		list.add("豫P6K087");
-		String token = getToken();
-		for(String vehNo : list){
-			ZjxlResult bean = DemoMain.vLastLocation(vehNo,token);
+		ZJXLVehicleReq req = new ZJXLVehicleReq();
+		req.setVehiclelogo("1");
+		PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
+		
+		List<ZJXLVehicleResp> list = page.getList();
+		String token = DemoMain.getToken();
+		for(ZJXLVehicleResp vehNo : list){
+			ZjxlResult bean = DemoMain.vLastLocation(vehNo.getVehicleno(),token);
 			try {
 				if(StringUtils.equals("1001", bean.getStatus())){
-					logger.debug("查询车辆位置成功---"+vehNo);
+					logger.debug("查询车辆位置成功---"+vehNo.getVehicleno());
 					JSONObject obj =  (JSONObject) bean.getResult();
 					logger.debug("请求返回值code="+bean.getResult());
-					VehicleGpsZjxl zjxl = vehicleGpsZjxlDao.getVehiclePosition(vehNo);
+					VehicleGpsZjxl zjxl = vehicleGpsZjxlDao.getVehiclePosition(vehNo.getVehicleno());
 					if(zjxl == null || 
 						(zjxl.getLat()!=Double.valueOf(obj.getString("lat"))/600000&&
 						  zjxl.getLon()!=Double.valueOf(obj.getString("lon"))/600000)){
@@ -64,7 +69,7 @@ public class VehicleGpsZjxlSchedule {
 						t.setLon(lon);
 						t.setSpd(obj.getString("spd"));
 						t.setUtc(Long.valueOf(obj.getString("utc")));
-						t.setVehicleNo(vehNo);
+						t.setVehicleNo(vehNo.getVehicleno());
 						t.setTimeStamp(System.currentTimeMillis());
 						vehicleGpsZjxlDao.save(t);
 					}else{
@@ -72,7 +77,7 @@ public class VehicleGpsZjxlSchedule {
 						logger.info("车辆位置无变化-new_lat="+obj.getString("lat")+"-new_lon="+obj.getString("lon"));
 					}
 				}else{
-					logger.info("查询车辆位置失败---"+vehNo);
+					logger.info("查询车辆位置失败---"+vehNo.getVehicleno());
 				}
 			} catch (Exception e) {
 				logger.info("数据解析异常---"+e.getMessage());
@@ -81,21 +86,4 @@ public class VehicleGpsZjxlSchedule {
 		logger.info("查询车辆位置结束"+(System.currentTimeMillis()-begin));
 	}
 	
-	protected String getToken() {
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		CacheClient cacheClient =wac.getBean(CacheClient.class);
-		String key=CacheHelper.buildKey(CacheModule.ZJXL_TOKEN, "");
-		String token = cacheClient.getObj(key, String.class);
-		if(StringUtils.isBlank(token)){
-			DemoReturnBean bean = DemoMain.login();
-			if(bean.getStatus().equals("1001")){
-				token = bean.getResult().toString();
-				cacheClient.saveObject(key, token, 2*24*60*60);
-			}
-			logger.info("token为空请求token--"+token);
-		}else{
-			logger.info("token不为空--"+token);
-		}
-		return token;
-	}
 }

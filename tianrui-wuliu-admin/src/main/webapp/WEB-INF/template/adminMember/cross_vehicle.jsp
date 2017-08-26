@@ -99,35 +99,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--侧边栏end-->
     </div>
 
-
-<!--新增车辆对话框begin-->
-<!--  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" style="height: 500px;">
-        <div class="modal-content" >
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >新增车辆</h4>
-            </div>
-            <div class="modal-body" style="height: 200px;">
-                        <label><i style="color: #ff2f00;">*</i>车牌号码：</label><input type="text" maxlength="16" id="vehiclenos">
-                        <button type="button" class="btn btn-primary" onclick="select()">搜索</button></br>
-                        <input type="hidden" id="modal_add_id">
-                        <label><i style="color: #ff2f00;">*</i>中交标识：</label><input type="text" maxlength="16" id="crossloge"></br>
-                        <label><i style="color: #ff2f00;">*</i>车辆状态:</label>
-                        <select id="vehiclelogo" maxlength="50" >
-                            <option value="">请选择</option>
-                            <option value="0">启用</option>
-                            <option value="1">停用</option>
-                        </select>
-                </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="modal_add_save" onclick="saveAdd()">保存</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>-->
-<!--新增车辆对话框end-->
 <!--新增车辆begin-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <form id="saveMerchant">

@@ -1,4 +1,4 @@
-package com.tianrui.quartz.zjxl;
+package com.tianrui.service.util;
 
 /***
  * 登录接口返回值Bean

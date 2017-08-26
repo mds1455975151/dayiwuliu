@@ -13,6 +13,10 @@ public class AnlianBillResp {
     
     private String status;
     
+    private Long ptBegintime;
+    
+    private Long ptEndtime;
+    
     private String planCode;
     
     private String vendertel;
@@ -571,5 +575,21 @@ public class AnlianBillResp {
 
 	public void setPlanCode(String planCode) {
 		this.planCode = planCode;
+	}
+
+	public Long getPtBegintime() {
+		return ptBegintime;
+	}
+
+	public void setPtBegintime(Long ptBegintime) {
+		this.ptBegintime = ptBegintime;
+	}
+
+	public Long getPtEndtime() {
+		return ptEndtime;
+	}
+
+	public void setPtEndtime(Long ptEndtime) {
+		this.ptEndtime = ptEndtime;
 	}
 }
