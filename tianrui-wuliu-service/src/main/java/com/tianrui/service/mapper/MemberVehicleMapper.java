@@ -38,6 +38,17 @@ public interface MemberVehicleMapper {
      */
     MemberVehicle selectByVehicleid(String id);
     /**
+     * 根据车牌号查询车辆信息
+     * @Title: selectByVehicleid 
+     * @Description: TODO
+     * @param @param id
+     * @param @return   
+     * @return MemberVehicle    
+     * @throws
+     */
+    MemberVehicle selectVehicle(MemberVehicle memberVehicles);
+    
+    /**
      * 根据车辆id查询
      * @param id
      * @return

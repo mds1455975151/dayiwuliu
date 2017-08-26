@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <div class="col-md-10 ">
                 <div class="ht_content">
                     <div id="content-header">
-                        <h3>中交型录车辆管理</h3>
+                        <h3>中交兴路车辆管理</h3>
                     </div>
                     <!--查询框begin-->
                     <div class="row">
@@ -39,14 +39,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="contuser_search">
                                     <div class="ht_div">
                                         <label>车牌号码:</label>
-                                        <input type="text"  value="${zjxlVehicle.vehicleno }" id="vehicleno" placeholder=" ">
+                                        <input type="text"   id="vehicleno" >
                                     </div>
                                     <div class="ht_div">
                                         <label>车辆状态:</label>
-                                        <select class="form-control" id="vehiclestatus">
+                                        <select class="form-control" id="vehiclelogos">
                                             <option value="">请选择</option>
-                                            <option value="0">启用</option>
-                                            <option value="1">停用</option>
+                                            <option value="1">启用</option>
+                                            <option value="0">禁用</option>
                                         </select>
                                 </div>
                                     <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <!--新增车辆对话框begin-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="height: 500px;">
         <div class="modal-content" >
             <div class="modal-header">
@@ -106,9 +106,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4 class="modal-title" >新增车辆</h4>
             </div>
             <div class="modal-body" style="height: 200px;">
-                        <label><i style="color: #ff2f00;">*</i>车牌号码：</label><input type="text" maxlength="16" id="vehicleno"></br>
+                        <label><i style="color: #ff2f00;">*</i>车牌号码：</label><input type="text" maxlength="16" id="vehiclenos">
+                        <button type="button" class="btn btn-primary" onclick="select()">搜索</button></br>
                         <input type="hidden" id="modal_add_id">
-                        <label><i style="color: #ff2f00;">*</i>中交标识：</label><input type="text" class="" maxlength="16" id="crossloge"></br>
+                        <label><i style="color: #ff2f00;">*</i>中交标识：</label><input type="text" maxlength="16" id="crossloge"></br>
                         <label><i style="color: #ff2f00;">*</i>车辆状态:</label>
                         <select id="vehiclelogo" maxlength="50" >
                             <option value="">请选择</option>
@@ -122,8 +123,77 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!--新增车辆对话框end-->
+<!--新增车辆begin-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form id="saveMerchant">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">新增车辆信息</h4>
+            </div>
+            <div class="modal-body" style=" ">
+                <div class="usermodal userlabel3">
+                    <div >
+                        <label><i style="color: #ff2f00;">*</i>车牌号码：</label>
+                        <input name="vehiclenos" id="vehiclenos" type="text"> <button type="button" class="btn btn-primary" onclick="select()">搜索</button>
+                    </div><br>
+                    <div class="model_width"  style="display: none">
+                        <label>添加账号：</label>
+                        <input name="cellphone" id="cellphone" type="text">
+                    </div>
+                     <div class="model_width" style="display: none">
+                        <label>所有人电话：</label>
+                        <input maxlength="8" name="vehiOwnerTel" maxlength="11"  id="vehiOwnerTel" type="text">
+                    </div>
+                    <div class="model_width" style="display: none">
+                        <label>所有人名称：</label>
+                        <input type="text" id="vehiOwnerName" name="vehiOwnerName">
+                    </div>
+                    <div class="model_width" style="display: none">
+                        <label>车辆名称：</label>
+                        <input type="text" id="vehicletypename" name="vehicletypename">
+                    </div>
+                    <div class="model_width" style="display: none">
+                        <label>车辆状态：</label>
+                        <input type="text" id="status" name="status">
+                    </div>
+                    <div class="model_width" style="display: none">
+                        <label>开票状态：</label>
+                        <input type="text" id="desc1" name="desc1">
+                    </div>
+                    <div class="model_width" style="display: none">
+                        <label>认证方式：</label>
+                        <input type="text" id="desc2" name="desc2">
+                    </div>
+                    
+                    <div class="model_width" >
+                        <label>中交标识：</label>
+                        <input name="crossloge" id="crossloge" type="text">
+                    </div>
+                    <div class="model_width">
+                        <label>车辆状态：</label>
+                        <select class="form-control" id="vehiclelogo" name="type">
+                           	<option value="">请选择</option>
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save_Merchant" onclick="saveAdd()">保存</button>
+                <button type="button" id="addclick" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<!--新增车辆end-->
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
@@ -149,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0823" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0802" ></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 
 </body>

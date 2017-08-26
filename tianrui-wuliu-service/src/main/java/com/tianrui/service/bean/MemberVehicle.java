@@ -14,6 +14,8 @@ public class MemberVehicle implements IModel {
     
     /** 车辆运单状态*/
 	private String billstatus;
+	/**添加账户*/
+	private String cellphone;
 	
 	private String registcode;
 	private String registimage;
@@ -1022,4 +1024,13 @@ public class MemberVehicle implements IModel {
 	public void setLimit(Integer newLimit) {
 		this.limit = newLimit;
 	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+	
 }

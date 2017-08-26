@@ -148,6 +148,24 @@
     	<if test="vehicleno != null and vehicleno != ''">
 				and vehicleno = #{vehicleno,jdbcType=VARCHAR}
 		</if>
+		<if test="crossloge != null and crossloge != ''">
+				and crossloge = #{crossloge,jdbcType=VARCHAR}
+		</if>
+		<if test="vehiclelogo != null and vehiclelogo != ''">
+				and vehiclelogo = #{vehiclelogo,jdbcType=VARCHAR}
+		</if>
+		<if test="creator != null and creator != ''">
+				and creator = #{creator,jdbcType=VARCHAR}
+		</if>
+		<if test="createtime != null and createtime != ''">
+				and createtime = #{createtime,jdbcType=VARCHAR}
+		</if>
+		<if test="modifier != null and modifier != ''">
+				and modifier = #{modifier,jdbcType=VARCHAR}
+		</if>
+		<if test="modifytime != null and modifytime != ''">
+				and modifytime = #{modifytime,jdbcType=VARCHAR}
+		</if>
     </where>
     order by createtime desc 
      <if test="pageNo != null and pageSize != null">
@@ -162,6 +180,24 @@
    <where>1=1
    		<if test="vehicleno != null and vehicleno != ''">
 				and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+		</if>
+		<if test="crossloge != null and crossloge != ''">
+				and crossloge = #{crossloge,jdbcType=VARCHAR}
+		</if>
+		<if test="vehiclelogo != null and vehiclelogo != ''">
+				and vehiclelogo = #{vehiclelogo,jdbcType=VARCHAR}
+		</if>
+		<if test="creator != null and creator != ''">
+				and creator = #{creator,jdbcType=VARCHAR}
+		</if>
+		<if test="createtime != null and createtime != ''">
+				and createtime = #{createtime,jdbcType=VARCHAR}
+		</if>
+		<if test="modifier != null and modifier != ''">
+				and modifier = #{modifier,jdbcType=VARCHAR}
+		</if>
+		<if test="modifytime != null and modifytime != ''">
+				and modifytime = #{modifytime,jdbcType=VARCHAR}
 		</if>
    	</where>
   </select>

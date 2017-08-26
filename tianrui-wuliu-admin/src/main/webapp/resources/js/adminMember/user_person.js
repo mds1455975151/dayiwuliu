@@ -499,7 +499,9 @@ function yuanyin(id,per,submitDate){
 					var submittime =rs.data.submittime==undefined?"":rs.data.submittime;
 					var idcardimage = rs.data.idcardimage == ""?"未上传":("<a href='/imageView/index?imageUrl="+idcardimage+"' target='_blank'>查看图片</a>");
 					var rtblimgurl = rs.data.rtblimgurl == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>");
-					
+					if(registtime!=""){
+						var registtime=new Date(registtime).toLocaleDateString().replace(/\//g, "-"); 
+					}
 //					var idcardimage = "身份证号："+idcard+"--<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>";
 //					var rtblimgurl = "证书编号："+rtblno+"--<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>";
 					

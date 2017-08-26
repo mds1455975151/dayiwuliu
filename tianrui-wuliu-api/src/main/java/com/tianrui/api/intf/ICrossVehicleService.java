@@ -18,5 +18,35 @@ public interface ICrossVehicleService {
 	 */
 	PageResp<ZJXLVehicleResp> find(ZJXLVehicleReq req)throws Exception;
 	
+	/**
+	 * @Title: insert 
+	 * @Description: TODO 添加车辆
+	 * @param @param req
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
 	Result insert(ZJXLVehicleReq req)throws Exception;
+	/**
+	 * @Title: update 
+	 * @Description: 启用/禁用
+	 * @param @param id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	Result update(String id)throws Exception;
+	/**
+	 * 
+	 * @Title: selectVehicle 
+	 * @Description: 车辆查找
+	 * @param @param vehicleno
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	Result selectVehicle(String vehicleno)throws Exception;
 }

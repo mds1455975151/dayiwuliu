@@ -13,10 +13,12 @@ function displayData(d){
 }
 function displayRec(pageNo){
 	var vehicleno = $('#vehicleno').val() || '';vehicleno = $.trim(vehicleno);
+	var vehiclelogo = $('#vehiclelogos').val() || '';vehiclelogos = $.trim(vehiclelogos);
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/fileCross/crossVehicle',
 		data:{"vehicleno":vehicleno,
+			"vehiclelogo":vehiclelogo,
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -57,11 +59,11 @@ function displayRec(pageNo){
 						if(d[a].vehiclelogo == undefined){
 							vehiclelogo = "";
 						}
-						if(d[a].vehiclelogo == 0){
+						if(d[a].vehiclelogo == 1){
 							vehiclelogo = "启用";
 						}
-						if(d[a].vehiclelogo == 1){
-							vehiclelogo = "停用";
+						if(d[a].vehiclelogo == 0){
+							vehiclelogo = "禁用";
 						}
 						var creator = d[a].creator;
 						if(d[a].creator == undefined){
@@ -71,10 +73,19 @@ function displayRec(pageNo){
 						if(d[a].createtime == undefined){
 							createtime = "";
 						}
+						if(createtime!=""){
+							var createtime=new Date(createtime).toLocaleDateString().replace(/\//g, "-"); 
+						}
 						hml += "<tr><td>"+c+"</td>"+
 						    "<td>"+vehicleno+"</td>"+
-							"<td>"+crossloge+"</td>"+
-							"<td>"+vehiclelogo+"</td>"+
+							"<td>"+crossloge+"</td><td>";
+							if(d[a].vehiclelogo==1){
+								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【启用】</a></span>";
+							}
+							if(d[a].vehiclelogo==0){
+								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【禁用】</a></span>";
+							}
+							hml += "<span><a ></a></span>"+
 							"<td>"+creator+"</td>"+
 							"<td>"+createtime+"</td></tr>";
 					}
@@ -100,9 +111,17 @@ function displayRec(pageNo){
  * 添加车辆信息
  */
 function saveAdd(){
-	var vehicleno = $("#vehicleno").val();
+	empty();
+	var vehicleno = $("#vehiclenos").val();
+	vehicleno = $.trim(vehicleno);
+	if(vehicleno==""){
+		alert("车牌号不能为空！");
+		return;
+	}
 	var crossloge = $("#crossloge").val();
+	crossloge = $.trim(crossloge);
 	var vehiclelogo = $("#vehiclelogo").val();
+	vehiclelogo = $.trim(vehiclelogo);
 	$.ajax({
 		url:CONTEXTPATH+'/fileCross/saveAdd',
 		data:{"vehicleno":vehicleno,
@@ -111,18 +130,121 @@ function saveAdd(){
 			},
 		type:"post",
 		success: function(ret) {
-			
+			if(ret.code=="000000"){
+				alert(ret.error);
+				displayRec(0);
+			}else{
+				alert(ret.error);
+			}
 		}
 	})		
 }
 /**
- * 清空搜索
+ * 重置按钮
  */
 function clearSearch(){
 	$("#vehicleno").val("");
-
+	$("#vehiclelogo").val("");
+	displayRec(0);
 }
+/**
+ * 启用/禁用
+ */
+function vehiclelogo(id,pageNo){
+	$.ajax({
+		url: CONTEXTPATH+'/fileCross/vehiclelogo',
+		data:{"id":id,
+			"pageNo":pageNo,},
+		type:"post",
+		success: function(ret){
+			if(ret.code=="000000"){
+				displayRec(parseInt(pageNo));
+				alert(ret.error);
+			}else{
+				alert(ret.error);
+			}
+		}
+	})
+}
+/**
+ * 搜索车辆信息
+ */
+function select(){
+	var vehicleno = $("#vehiclenos").val();
+	vehicleno = $.trim(vehicleno);
+	if(vehicleno==""){
+		alert("车牌号不能为空！");
+		return;
+	}
+	$.ajax({
+		url: CONTEXTPATH+'/fileCross/selectVehicle',
+		data:{"vehicleno":vehicleno},
+		type:"post",
+		success: function(ret){
+				if(ret.code=="000000"){
+					$(".model_width").css('display','block'); 
+					var cellphone =ret.data.cellphone == undefined ? "":ret.data.cellphone;
+					var vehiOwnerTel =ret.data.vehiOwnerTel == undefined ? "":ret.data.vehiOwnerTel;
+					var vehiOwnerName =ret.data.vehiOwnerName == undefined ? "":ret.data.vehiOwnerName;
+					var vehicletypename =ret.data.vehicletypename == undefined ? "":ret.data.vehicletypename;
+					var status =ret.data.status == undefined ? "":ret.data.status;
+					if(status!=""&&status=="-1"){
+						status="认证失败";
+					}
+					if(status!=""&&status=="0"){
+						status="未认证";
+					}
+					if(status!=""&&status=="1"){
+						status="认证成功";
+					}
+					if(status!=""&&status=="2"){
+						status="认证中";
+					}
+					var desc1 =ret.data.desc1 == undefined ? "":ret.data.desc1;
+					if(desc1!=""&&desc1=="-1"){
+						desc1="认证失败";
+					}
+					if(desc1!=""&&desc1=="0"){
+						desc1="未认证";
+					}
+					if(desc1!=""&&desc1=="1"){
+						desc1="认证成功";
+					}
+					if(desc1!=""&&desc1=="2"){
+						desc1="认证中";
+					}
+					var desc2 =ret.data.desc2 == undefined ? "":ret.data.desc2;
+					if(desc2!=""&&desc2==1){
+						desc2="临时认证";
+					}if(desc2!=""&&desc2==2){
+						desc2="完全认证";
+					}
+					$("#cellphone").val(cellphone);//添加账号
+					$("#vehiOwnerTel").val(vehiOwnerTel);//所有人电话
+					$("#vehiOwnerName").val(vehiOwnerName);//所有人名称
+					$("#vehicletypename").val(vehicletypename);//车辆名称
+					$("#status").val(status);//车辆状态
+					$("#desc1").val(ret.data.desc1);//开票认证状态
+					$("#desc2").val(ret.data.desc2);//临时车辆or认证车辆
+				}else{
+					alert(ret.error);
+				}
+			}
+		})
+}
+/**
+ * 清空添加弹框车辆信息
+ * */
 
-
-
-
+function empty(){
+	$("#crossloge").val("")
+	$("#vehiclelogo").val("")
+	$("#vehicleno").val("")
+	$("#cellphone").val("")
+	$("#vehiOwnerTel").val("")
+	$("#vehiOwnerName").val("")
+	$("#vehicletypename").val("")
+	$("#status").val("")
+	$("#desc1").val("")
+	$("#desc2").val("")
+}
