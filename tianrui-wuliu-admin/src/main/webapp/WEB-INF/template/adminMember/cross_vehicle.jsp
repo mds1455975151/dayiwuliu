@@ -37,20 +37,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="row">
                         <div class="col-md-12">
                             <div class="contuser_search">
-                                    <div class="ht_div">
-                                        <label>车牌号码:</label>
-                                        <input type="text"   id="vehicleno" >
-                                    </div>
-                                    <div class="ht_div">
-                                        <label>车辆状态:</label>
-                                        <select class="form-control" id="vehiclelogos">
-                                            <option value="">请选择</option>
-                                            <option value="1">启用</option>
-                                            <option value="0">禁用</option>
-                                        </select>
+                                <div class="ht_div">
+                                    <label>车牌号码:</label>
+                                    <input type="text"   id="vehicleno" >
                                 </div>
-                                    <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
-                                    <button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>
+                                <div class="ht_div">
+                                    <label>车辆状态:</label>
+                                    <select class="form-control" id="vehiclelogos">
+                                        <option value="">请选择</option>
+                                        <option value="1">启用</option>
+                                        <option value="0">禁用</option>
+                                    </select>
+                            	</div>
+                               	<div class="ht_divbtn">
+			                        <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
+                                   	<button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>
+		                        </div>
                             </div>
                     	</div>
                     </div>
@@ -175,10 +177,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input name="crossloge" id="crossloge" type="text">
                     </div>
                     <div class="model_width">
-                        <label>车辆状态：</label>
+                        <label>车辆标识：</label>
                         <select class="form-control" id="vehiclelogo" name="type">
                            	<option value="">请选择</option>
-                            <option value="1">启用</option>
+                            <option  value="1" >启用</option>
                             <option value="0">禁用</option>
                         </select>
                     </div>
@@ -219,7 +221,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0804" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0808" ></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 
 </body>

@@ -99,7 +99,8 @@ public class CrossVehicleService implements ICrossVehicleService{
 		ZJXLVehicle zjxlVehicle =zjxlVehicleMapper.selectByPrimaryKey(id);
 		if(zjxlVehicle.getVehiclelogo().equals("1")){
 			record.setVehiclelogo("0");
-		}else if(zjxlVehicle.getVehiclelogo().equals("0")){
+		}
+		if(zjxlVehicle.getVehiclelogo().equals("0")){
 			record.setVehiclelogo("1");
 		}	
 		record.setModifytime(new Date().getTime());
@@ -109,7 +110,6 @@ public class CrossVehicleService implements ICrossVehicleService{
 			rs.setCode("2");
 			rs.setError("操作失败！");
 		}else{
-			rs.setCode("000000");
 			rs.setError("操作成功！");
 		}
 		return rs;

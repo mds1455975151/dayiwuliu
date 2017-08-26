@@ -12,8 +12,8 @@ function displayData(d){
 	}
 }
 function displayRec(pageNo){
-	var vehicleno = $('#vehicleno').val() || '';vehicleno = $.trim(vehicleno);
-	var vehiclelogo = $('#vehiclelogos').val() || '';vehiclelogos = $.trim(vehiclelogos);
+	var vehicleno = $('#vehicleno').val();
+	var vehiclelogo = $('#vehiclelogos').val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+'/fileCross/crossVehicle',
@@ -121,6 +121,10 @@ function saveAdd(){
 	crossloge = $.trim(crossloge);
 	var vehiclelogo = $("#vehiclelogo").val();
 	vehiclelogo = $.trim(vehiclelogo);
+	if(vehiclelogo==""){
+		alert("请选择车辆标识！");
+		return;
+	}
 	$.ajax({
 		url:CONTEXTPATH+'/fileCross/saveAdd',
 		data:{"vehicleno":vehicleno,
@@ -143,7 +147,7 @@ function saveAdd(){
  */
 function clearSearch(){
 	$("#vehicleno").val("");
-	$("#vehiclelogo").val("");
+	$("#vehiclelogos").val("");
 	displayRec(0);
 }
 /**
@@ -157,8 +161,8 @@ function vehiclelogo(id,pageNo){
 		type:"post",
 		success: function(ret){
 			if(ret.code=="000000"){
-				displayRec(parseInt(pageNo));
 				alert(ret.error);
+				displayRec(parseInt(pageNo));
 			}else{
 				alert(ret.error);
 			}
@@ -223,8 +227,8 @@ function select(){
 					$("#vehiOwnerName").val(vehiOwnerName);//所有人名称
 					$("#vehicletypename").val(vehicletypename);//车辆名称
 					$("#status").val(status);//车辆状态
-					$("#desc1").val(ret.data.desc1);//开票认证状态
-					$("#desc2").val(ret.data.desc2);//临时车辆or认证车辆
+					$("#desc1").val(desc1);//开票认证状态
+					$("#desc2").val(desc2);//临时车辆or认证车辆
 				}else{
 					alert(ret.error);
 				}
