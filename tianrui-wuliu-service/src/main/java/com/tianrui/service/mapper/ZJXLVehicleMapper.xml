@@ -168,7 +168,7 @@
 		</if>
     </where>
     order by createtime desc 
-     <if test="pageNo != null and pageSize != null">
+     <if test="pageNo != null and pageNo != ''">
        	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
       </if>
   </select>

@@ -126,19 +126,27 @@ public class CrossVehicleService implements ICrossVehicleService{
 		 String vehiclenos =vehicleno.substring(2,7);
 		 memberVehicles.setVehicleprefix(vehicleprefix);
 		 memberVehicles.setVehicleno(vehiclenos);
-		MemberVehicle memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
-		
-		if(memberVehicle!=null){
-			SystemMember  member = systemMemberMapper.selectByPrimaryKey(memberVehicle.getMemberid());
-			if(member!=null){
-				memberVehicle.setCellphone(member.getCellphone());
-			}
-			rs.setCode("000000");
-			rs.setData(memberVehicle);
-		}else{
-			rs.setCode("666666");
-			rs.setError("未查到该车辆，请确认车牌号！");
-		}
+		 //查询车辆是否被添加过
+		 ZJXLVehicle  zjxlVehicle = new ZJXLVehicle();
+		 zjxlVehicle.setVehicleno(vehicleno);
+		 List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(zjxlVehicle);
+		 if(list.size()<1){
+			 MemberVehicle memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
+			 if(memberVehicle!=null){
+				 SystemMember  member = systemMemberMapper.selectByPrimaryKey(memberVehicle.getMemberid());
+				 if(member!=null){
+					 memberVehicle.setCellphone(member.getCellphone());
+				 }
+				 rs.setCode("000000");
+				 rs.setData(memberVehicle);
+			 }else{
+				 rs.setCode("666666");
+				 rs.setError("未查到该车辆，请确认车牌号！");
+			 }
+		 }else{
+			 rs.setCode("777777");
+			 rs.setError("该车辆已添加过！");
+		 }
 		return rs;
 	} 
 }

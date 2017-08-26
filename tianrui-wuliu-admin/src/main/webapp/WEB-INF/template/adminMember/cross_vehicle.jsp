@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="col-md-12">
                             <div class="content-user">
                              <div class="content-tou">
-                                 	<button data-toggle="modal" data-target="#addModal"><i class="glyphicon glyphicon-plus"></i><span>新增</span></button>
+                                 	<button data-toggle="modal"  onclick="empty()" data-target="#addModal"><i class="glyphicon glyphicon-plus"></i><span>新增</span></button>
                                  </div>
                                 <!--用户表格begin-->
                                 <table id="auditReport" class="table table-bordered">
@@ -141,31 +141,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label><i style="color: #ff2f00;">*</i>车牌号码：</label>
                         <input name="vehiclenos" id="vehiclenos" type="text"> <button type="button" class="btn btn-primary" onclick="select()">搜索</button>
                     </div><br>
-                    <div class="model_width"  style="display: none">
+                    <div class="model_width"  style="display: none" name="selects">
                         <label>添加账号：</label>
                         <input name="cellphone" id="cellphone" type="text">
                     </div>
-                     <div class="model_width" style="display: none">
+                     <div class="model_width" style="display: none" name="selects">
                         <label>所有人电话：</label>
                         <input maxlength="8" name="vehiOwnerTel" maxlength="11"  id="vehiOwnerTel" type="text">
                     </div>
-                    <div class="model_width" style="display: none">
+                    <div class="model_width" style="display: none" name="selects">
                         <label>所有人名称：</label>
                         <input type="text" id="vehiOwnerName" name="vehiOwnerName">
                     </div>
-                    <div class="model_width" style="display: none">
+                    <div class="model_width" style="display: none" name="selects">
                         <label>车辆名称：</label>
                         <input type="text" id="vehicletypename" name="vehicletypename">
                     </div>
-                    <div class="model_width" style="display: none">
+                    <div class="model_width" style="display: none" name="selects">
                         <label>车辆状态：</label>
                         <input type="text" id="status" name="status">
                     </div>
-                    <div class="model_width" style="display: none">
+                    <div class="model_width" style="display: none" name="selects">
                         <label>开票状态：</label>
-                        <input type="text" id="desc1" name="desc1">
+                        <input type="text" id="desc1" name="desc1" >
                     </div>
-                    <div class="model_width" style="display: none">
+                    <div class="model_width" style="display: none" name="selects">
                         <label>认证方式：</label>
                         <input type="text" id="desc2" name="desc2">
                     </div>
@@ -219,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0802" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0804" ></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 
 </body>

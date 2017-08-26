@@ -111,7 +111,6 @@ function displayRec(pageNo){
  * 添加车辆信息
  */
 function saveAdd(){
-	empty();
 	var vehicleno = $("#vehiclenos").val();
 	vehicleno = $.trim(vehicleno);
 	if(vehicleno==""){
@@ -132,7 +131,7 @@ function saveAdd(){
 		success: function(ret) {
 			if(ret.code=="000000"){
 				alert(ret.error);
-				displayRec(0);
+				 window.location.reload();
 			}else{
 				alert(ret.error);
 			}
@@ -237,9 +236,10 @@ function select(){
  * */
 
 function empty(){
+	$("[name='selects']").css('display','none'); 
 	$("#crossloge").val("")
 	$("#vehiclelogo").val("")
-	$("#vehicleno").val("")
+	$("#vehiclenos").val("")
 	$("#cellphone").val("")
 	$("#vehiOwnerTel").val("")
 	$("#vehiOwnerName").val("")
