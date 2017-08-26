@@ -73,6 +73,7 @@ public class CrossVehicleService implements ICrossVehicleService{
 	public Result insert(ZJXLVehicleReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		ZJXLVehicle  record = new ZJXLVehicle();
+		MemberVehicle memberVehicles = new MemberVehicle();
 		record.setVehicleid(req.getVehicleid());
 		record.setVehiclelogo(req.getVehiclelogo());
 		record.setVehicleno(req.getVehicleno());
@@ -80,6 +81,14 @@ public class CrossVehicleService implements ICrossVehicleService{
 		record.setCreatetime(new Date().getTime());
 		record.setCreator(req.getCreator());
 		record.setId(UUIDUtil.getId());
+		String vehicleprefix=req.getVehicleno().substring(0,2);
+		 String vehiclenos =req.getVehicleno().substring(2,7);
+		 memberVehicles.setVehicleprefix(vehicleprefix);
+		 memberVehicles.setVehicleno(vehiclenos);
+		 MemberVehicle memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
+		 if(memberVehicle!=null){
+			record.setVehicleid(memberVehicle.getVehicleid());
+		 }
 		int a =zjxlVehicleMapper.insertSelective(record);
 		if(a!=1){
 			rs.setCode("2");
