@@ -140,7 +140,7 @@ public class CrossVehicleService implements ICrossVehicleService{
 				 rs.setCode("000000");
 				 rs.setData(memberVehicle);
 			 }else{
-				 rs.setCode("666666");
+				 rs.setCode("333333");
 				 rs.setError("未查到该车辆，请确认车牌号！");
 			 }
 		 }else{
