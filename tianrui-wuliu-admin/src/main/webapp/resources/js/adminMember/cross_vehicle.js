@@ -84,10 +84,10 @@ function displayRec(pageNo){
 							"<td>"+creator+"</td>"+
 							"<td>"+createtime+"</td><td>";
 							if(d[a].vehiclelogo==1){
-								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【禁用】</a></span>";
+								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"','"+vehiclelogo+"')\"  >【禁用】</a></span>";
 							}
 							if(d[a].vehiclelogo==0){
-								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【启用】</a></span>";
+								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"','"+vehiclelogo+"')\"  >【启用】</a></span>";
 							}
 							hml += "<span><a  onclick=\"deletes('"+d[a].id+"','"+(pageNo)+"')\"  >【删除】</a></span>";
 							hml +="</td></tr>";
@@ -157,7 +157,15 @@ function clearSearch(){
 /**
  * 启用/禁用
  */
-function vehiclelogo(id,pageNo){
+function vehiclelogo(id,pageNo,vehiclelogo){
+	var veh = "";
+	if(vehiclelogo=="启用"){
+		veh="禁用";
+	}
+	if(vehiclelogo=="禁用"){
+		veh="启用";
+	}
+	if (confirm('是否'+veh+'?')) {
 	$.ajax({
 		url: CONTEXTPATH+'/fileCross/vehiclelogo',
 		data:{"id":id,
@@ -172,6 +180,9 @@ function vehiclelogo(id,pageNo){
 			}
 		}
 	})
+	}else{
+		return;
+	}
 }
 /**
  * 搜索车辆信息
@@ -265,6 +276,8 @@ function deletes(id,pageNo){
 				}
 			}
 		})
+	}else{
+		return;
 	}
 }
 /**
