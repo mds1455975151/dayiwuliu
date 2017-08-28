@@ -90,6 +90,7 @@ function displayRec(pageNo){
 								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"','"+vehiclelogo+"')\"  >【启用】</a></span>";
 							}
 							hml += "<span><a  onclick=\"deletes('"+d[a].id+"','"+(pageNo)+"')\"  >【删除】</a></span>";
+							hml += "<span><a  onclick=\"viewTracks('"+d[a].vehicleno+"')\"  >【查看轨迹】</a></span>";
 							hml +="</td></tr>";
 							
 					}
@@ -260,6 +261,11 @@ function select(){
 			}
 		})
 }
+/**
+ * 删除功能
+ * @param id
+ * @param pageNo
+ */
 function deletes(id,pageNo){
 	if (confirm('是否删除？')) {
 		$.ajax({
@@ -279,6 +285,15 @@ function deletes(id,pageNo){
 	}else{
 		return;
 	}
+}
+
+/**
+ * 查看轨迹
+ */
+function viewTracks(no){menuId
+	var url = encodeURI(encodeURI("/report/vehicleMapPage?menuId="+$("#menuId").val()+"&vehicleNo="+no))
+	window.open(url);
+	//window.open("/report/vehicleMapPage?vehicleNo="+no);
 }
 /**
  * 清空添加弹框车辆信息
