@@ -47,6 +47,7 @@ $("#member_bank_add").on("click",function(){
 	var bankSubbranchName = $("#desc1_req").val(); bankSubbranchName = $.trim(bankSubbranchName);
 	var bankimg = $("#bankimg_req_str").val(); bankimg = $.trim(bankimg);
 	
+	
 	var bankname = $("#selectBankName").val(); bankname=$.trim(bankname);
 	
 	var params = {

@@ -155,7 +155,7 @@
 									<thead>
 										<tr>
 											<th>总运费</th>
-											<th>提货榜单</th>
+											<th>提货磅单</th>
 											<th>提货量</th>
 										</tr>
 									</thead>
@@ -171,7 +171,7 @@
 									
 									<thead>
 										<tr>
-											<th>卸货榜单</th>
+											<th>卸货磅单</th>
 											<th>卸货量</th>
 											<th>签收量</th>
 										</tr>

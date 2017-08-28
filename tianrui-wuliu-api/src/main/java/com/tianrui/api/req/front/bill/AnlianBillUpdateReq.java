@@ -7,6 +7,11 @@ public class AnlianBillUpdateReq {
 	private String desc3;
 	/** 文字提示*/
 	private String desc4;
+	//位置开始时间
+	private Long ptBegintime;
+    //位置结束时间
+    private Long ptEndtime;
+    
 	public String getId() {
 		return id;
 	}
@@ -24,5 +29,17 @@ public class AnlianBillUpdateReq {
 	}
 	public void setDesc4(String desc4) {
 		this.desc4 = desc4;
+	}
+	public Long getPtBegintime() {
+		return ptBegintime;
+	}
+	public void setPtBegintime(Long ptBegintime) {
+		this.ptBegintime = ptBegintime;
+	}
+	public Long getPtEndtime() {
+		return ptEndtime;
+	}
+	public void setPtEndtime(Long ptEndtime) {
+		this.ptEndtime = ptEndtime;
 	}
 }

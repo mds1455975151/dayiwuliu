@@ -1,6 +1,7 @@
 package com.tianrui.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,7 +20,9 @@ import com.alibaba.fastjson.JSON;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.intf.IMemberVoService;
+import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.admin.anlian.AnlianShipmentReq;
 import com.tianrui.api.req.admin.anlian.LinesReq;
 import com.tianrui.api.req.admin.anlian.OrdersReq;
@@ -29,6 +32,8 @@ import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.admin.ZJXLVehicleResp;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
 import com.tianrui.common.enums.MessageCodeEnum;
@@ -52,6 +57,7 @@ import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.AnlianDictMapper;
@@ -62,6 +68,7 @@ import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.VehicleTicketMapper;
 import com.tianrui.service.mongo.BillAnlianPositionDao;
+import com.tianrui.service.mongo.VehicleGpsZjxlDao;
 @Service
 public class AnlianBillService implements IAnlianBillService{
 
@@ -102,6 +109,10 @@ public class AnlianBillService implements IAnlianBillService{
 	IMemberVoService MemberVoService;
 	@Autowired
 	MessageService messageService;
+	@Autowired
+	VehicleGpsZjxlDao vehicleGpsZjxlDao;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	@Override
 	public Result alBillSave(AnlianBillSaveReq req) throws Exception {
@@ -305,8 +316,29 @@ public class AnlianBillService implements IAnlianBillService{
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
 		if(bill != null){
-			List<BillAnlianPosition> list = billAnlianPositionDao.findPosition(bill.getBillno());
-			rs.setData(list);
+			//TODO
+			//查询车辆是否有中交兴路地址
+			ZJXLVehicleReq zjreq = new ZJXLVehicleReq();
+			zjreq.setVehicleno(bill.getCph());
+			zjreq.setVehiclelogo("1");
+			zjreq.setCrossloge("1");
+			PageResp<ZJXLVehicleResp> page = crossVehicleService.find(zjreq);
+			List<ZJXLVehicleResp> zjlist = page.getList();
+			List<BillAnlianPosition> resp = new ArrayList<BillAnlianPosition>();
+			if(zjlist.size()==1){
+				List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(bill.getCph(), bill.getPtBegintime(), bill.getPtEndtime());
+				for(VehicleGpsZjxl zjxl : list){
+					BillAnlianPosition post = new BillAnlianPosition();
+					post.setCreatetime(zjxl.getUtc());
+					post.setLat(zjxl.getLat().toString());
+					post.setLng(zjxl.getLon().toString());
+					post.setShipmentno(bill.getBillno());
+					resp.add(post);
+				}
+			}else{
+				resp = billAnlianPositionDao.findPosition(bill.getBillno());
+			}
+			rs.setData(resp);
 		}else{
 			rs.setCode("1");
 			rs.setError("请输入正确id");

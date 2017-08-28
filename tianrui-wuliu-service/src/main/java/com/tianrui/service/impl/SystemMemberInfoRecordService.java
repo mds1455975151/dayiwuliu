@@ -15,6 +15,7 @@ import com.tianrui.api.req.front.member.MemberInfoReq;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.Members;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
 import com.tianrui.service.mapper.SystemMemberInfoRecordMapper;
@@ -295,6 +296,11 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		record.setMemberid(id);
 		record.setSubmittime(submitDate);
 		SystemMemberInfoRecord memberInfoRecord = systemMemberInfoRecordMapper.findReason(record);
+		SystemMember  member = systemMemberMapper.selectByPrimaryKey(id);
+		if(member!=null){
+			memberInfoRecord.setRegisttime(member.getRegisttime());
+			memberInfoRecord.setCellphone(member.getCellphone());
+		}
 		if(memberInfoRecord!=null){
 			rs.setData(memberInfoRecord);
 		}else{

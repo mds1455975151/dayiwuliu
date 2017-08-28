@@ -132,8 +132,6 @@ function displayRect(pageNo){
 							"<td >"+registtime+"</td>"+
 							"<td >"+submitDate+"</td>"+
 							"<td >"+s+"</td>"+
-							
-							
 							"<td>";
 							if(data[a].companypercheck=='3'||data[a].userpercheck=='3'){
 								hml += "<span><a data-toggle='modal' onclick=\"yuanyin('"+data[a].id+"','"+(per)+"','"+data[a].submitDate+"')\" data-target='#yuanyin'>"+per+"</a></span>";
@@ -385,7 +383,7 @@ function hideWindow(id,type){
 	}
 	$("#uptmemberid").val(id);
 	$("#uptmembertype").val(type);
-	$("#detail").hide();
+//	$("#detail").hide();
 } 
 
 function uploadfile(){
@@ -393,7 +391,9 @@ function uploadfile(){
 		alert("编号不能为空");
 		return;
 	}
-	var file = $("#file_yyzz")[0].files[0];
+	imgUrl();
+	var file = $("#imgUrl").val();
+//	var file = $("#file_yyzz")[0].files[0];
 	var formData = new FormData();
 	formData.append("id",$("#uptmemberid").val());
 	formData.append("file",file);
@@ -474,7 +474,13 @@ function yuanyin(id,per,submitDate){
 					}else if(rs.data.userpercheck=='1'){
 						userType = "个人用户";
 						pictype = "1"
-					}else{
+					}else if(rs.data.companypercheck=='3'){
+						userType = "企业用户";
+						pictype = "3"
+					}else if(rs.data.userpercheck=='3'){
+						userType = "个人用户";
+						pictype = "1"
+					}else {
 						userType = "暂无";
 					}
 					var sex = rs.data.sex == undefined ? "":rs.data.sex;
@@ -484,14 +490,18 @@ function yuanyin(id,per,submitDate){
 					}else if(sex == "xy"){
 						sex = "男";
 					}
+					var registtime = rs.data.registtime==undefined ? "":rs.data.registtime;
+					var cellphone = rs.data.cellphone==undefined ? "":rs.data.cellphone;
 					var username = rs.data.username==undefined ? "":rs.data.username;
 					var auditresson = rs.data.auditresson==undefined ? "":rs.data.auditresson;
 					var rtblno =rs.data.rtblno==undefined?"":rs.data.rtblno;
 					var auditname =rs.data.auditname==undefined?"":rs.data.auditname;
 					var submittime =rs.data.submittime==undefined?"":rs.data.submittime;
-					var idcardimage = rs.data.idcardimage == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>");
+					var idcardimage = rs.data.idcardimage == ""?"未上传":("<a href='/imageView/index?imageUrl="+idcardimage+"' target='_blank'>查看图片</a>");
 					var rtblimgurl = rs.data.rtblimgurl == ""?"未上传":("<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>");
-					
+					if(registtime!=""){
+						var registtime=new Date(registtime).toLocaleDateString().replace(/\//g, "-"); 
+					}
 //					var idcardimage = "身份证号："+idcard+"--<a href='/imageView/index?imageUrl="+rs.data.idcardimage+"' target='_blank'>查看图片</a>";
 //					var rtblimgurl = "证书编号："+rtblno+"--<a href='/imageView/index?imageUrl="+rs.data.rtblimgurl+"' target='_blank'>查看图片</a>";
 					
@@ -503,17 +513,18 @@ function yuanyin(id,per,submitDate){
 					"<div class='file_detail'><label>出生日期：</label><span>"+birthday+"</span></div>"+
 					
 					"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
-					
 					"<div class='file_detail'><label>用户名称：</label><span>"+username+"</span></div>"+
 					"<div class='file_detail'><label>失败原因：</label><span>"+auditresson+"</span></div>"+
+					"<div class='file_detail'><label>注册日期：</label><span>"+registtime+"</span></div>"+
 					
+					"<div class='file_detail'><label>会员账号：</label><span>"+cellphone+"</span></div>"+
 					"<div class='file_detail'><label>会员状态：</label><span>"+per+"</span></div>"+
 					"<div class='file_detail'><label>身份证号：</label><span>"+idcard+"</span></div>"+
 					
 					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblno+"</span></div>"+
 					
+					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"</span></div>"+
 					"<div class='file_detail3'><label>营业执照/身份证照：</label><span>"+idcardimage+"</span></div>";
-					"<div class='file_detail3'><label>道路运输经营许可证：</label><span>"+rtblimgurl+"</span></div>";
 					document.getElementById("errorMassage").innerHTML = hml;
 					}else{
 						$("#yuanyin").hide();

@@ -1,11 +1,19 @@
-package com.tianrui.quartz.zjxl;
+package com.tianrui.service.util;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.openapi.sdk.service.DataExchangeService;
 import com.openapi.sdk.service.TransCode;
-import com.tianrui.common.vo.ZjxlBean;
 import com.tianrui.common.vo.ZjxlResult;
+import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 
 /***
  * 接口客户端调用示例
@@ -14,7 +22,7 @@ import com.tianrui.common.vo.ZjxlResult;
  * keytool.exe -import -trustcacerts -alias testopen -file "D:\JavaTeam\4__.95155.com.crt" -keystore "d:\JavaTeam\JavaHome\jdk1.6.0_18\jre\lib\security\cacerts" -storepass changeit
  */
 public class DemoMain {
-
+	
 	private static String apiUrl = "https://zhiyunopenapi.95155.com/apis";//联调测试环境接口地址
 	
 	private static String apiUser = "ddff6c51-3099-4ad7-a5b8-13e371e28d1d";//这里需要替换成：您的API账号
@@ -23,6 +31,25 @@ public class DemoMain {
 	
 	private static String token = "1bd138ed-7e37-4720-872a-6c51dac36b2d" ;//动态令牌，调用登录接口获取，建议将其缓存到第三方缓存服务中
 	
+
+	public static String getToken() {
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		CacheClient cacheClient =wac.getBean(CacheClient.class);
+		String key=CacheHelper.buildKey(CacheModule.ZJXL_TOKEN, "");
+		String token = cacheClient.getObj(key, String.class);
+		if(StringUtils.isBlank(token)){
+			DemoReturnBean bean = DemoMain.login();
+			if(bean.getStatus().equals("1001")){
+				token = bean.getResult().toString();
+				cacheClient.saveObject(key, token, 2*24*60*60);
+			}
+			System.out.println("token为空请求token--"+token);
+		}else{
+			System.out.println("token不为空--"+token);
+		}
+		return token;
+	}
+	
 	/** 调用示例 **/
 	public static void main(String[] args)throws Exception {
 		//第一步，调用登录接口获取Token
@@ -30,13 +57,13 @@ public class DemoMain {
 //		token = bean.getResult()+"";//将令牌缓存，令牌有效期默认3天
 //		System.out.println(token);
 //		//第二步，调用业务接口
-		ZjxlResult bean = vLastLocation("豫AC7336");//一、车辆最新位置查询（车牌号）接口
+		ZjxlResult bean = vLastLocation("豫P6K087",token);//一、车辆最新位置查询（车牌号）接口
 		
 //		vLastLocationVin();//二、车辆最新位置查询（vin车架号）接口
 //		vLastLocationMulti();//三、	多车最新位置查询接口
 //		vHisTrack24();//四、	车辆轨迹查询（车牌号）接口
 //		vHisTrackVin24();//五、	车辆轨迹查询（vin车架号）接口
-//		checkTruckExist();//六、	车辆入网验证
+		checkTruckExist("豫P6K087",token);//六、	车辆入网验证
 //		checkVehicleExist();//七、	车辆确认接口
 //		checkOwnerByVclNo();//八、	车主真实性验证接口
 //		checkAreaByVclNo();//九、	套牌车验证
@@ -92,11 +119,11 @@ public class DemoMain {
 	 * 返回值示例：
 	 * {"result":{"adr":"安徽省安庆市怀宁县金拱服务区－公厕，向东北方向，89米","drc":"244","lat":"18465990","lon":"70113699","spd":"20.0","utc":"1496826330000"},"status":1001}
 	 *  */
-	public static ZjxlResult vLastLocation(String vclN) {
+	public static ZjxlResult vLastLocation(String vclN,String apiToken) {
 		ZjxlResult zjxl = new ZjxlResult();
 		try {
 			System.out.println("一、	车辆最新位置查询（车牌号）接口");
-			String p = "token="+token+"&vclN="+vclN+"&timeNearby=24";
+			String p = "token="+apiToken+"&vclN="+vclN+"&timeNearby=24";
 			System.out.println("参数:"+p);
 			p = TransCode.encode(p);//DES加密
 			String url = apiUrl+"/vLastLocation/" + p+"?client_id="+client_id;
@@ -228,10 +255,11 @@ public class DemoMain {
 	 * 接口返回数据解码后样例：
 		{"result":"yes","status":1001}
 	 *  */
-	public static void checkTruckExist() {
+	public static DemoReturnBean checkTruckExist(String tokens,String vehicleNo) {
+		DemoReturnBean bean = new DemoReturnBean();
 		try {
 			System.out.println("六、	车辆入网验证");
-			String p = "token="+token+"&vclN=陕YH0009";
+			String p = "token="+tokens+"&vclN="+vehicleNo;
 			System.out.println("参数:"+p);
 			p = TransCode.encode(p);//DES加密
 			String url = apiUrl+"/checkTruckExist/" + p+"?client_id="+client_id;
@@ -240,11 +268,13 @@ public class DemoMain {
 			String res = des.accessHttps(url, "POST");
 			res = TransCode.decode(res);//DES解密
 			System.out.println("返回:"+res);
-			DemoReturnBean bean = JSON.parseObject(res, DemoReturnBean.class);
+			bean = JSON.parseObject(res, DemoReturnBean.class);
 			analysisStatus(bean);//解析接口返回状态
 			System.out.println("------------------------------------------------------");
+			return bean;
 		} catch (Exception e) {
 			System.out.println("e:" + e.getMessage());
+			return bean;
 		}
 	}
 	

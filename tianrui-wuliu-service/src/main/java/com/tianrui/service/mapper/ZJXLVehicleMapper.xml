@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.ZJXLVehicleMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.ZJXLVehicle" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="vehicleid" property="vehicleid" jdbcType="VARCHAR" />
+    <result column="vehicleno" property="vehicleno" jdbcType="VARCHAR" />
+    <result column="crossLoge" property="crossloge" jdbcType="VARCHAR" />
+    <result column="vehicleLogo" property="vehiclelogo" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vehicleid, vehicleno, crossLoge, vehicleLogo, creator, createtime, modifier, 
+    modifytime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from zhongjiao_vehicle
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from zhongjiao_vehicle
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+    insert into zhongjiao_vehicle (id, vehicleid, vehicleno, 
+      crossLoge, vehicleLogo, creator, 
+      createtime, modifier, modifytime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, 
+      #{crossloge,jdbcType=VARCHAR}, #{vehiclelogo,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+    insert into zhongjiao_vehicle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vehicleid != null" >
+        vehicleid,
+      </if>
+      <if test="vehicleno != null" >
+        vehicleno,
+      </if>
+      <if test="crossloge != null" >
+        crossLoge,
+      </if>
+      <if test="vehiclelogo != null" >
+        vehicleLogo,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleid != null" >
+        #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="crossloge != null" >
+        #{crossloge,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclelogo != null" >
+        #{vehiclelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+    update zhongjiao_vehicle
+    <set >
+      <if test="vehicleid != null" >
+        vehicleid = #{vehicleid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null" >
+        vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="crossloge != null" >
+        crossLoge = #{crossloge,jdbcType=VARCHAR},
+      </if>
+      <if test="vehiclelogo != null" >
+        vehicleLogo = #{vehiclelogo,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+    update zhongjiao_vehicle
+    set vehicleid = #{vehicleid,jdbcType=VARCHAR},
+      vehicleno = #{vehicleno,jdbcType=VARCHAR},
+      crossLoge = #{crossloge,jdbcType=VARCHAR},
+      vehicleLogo = #{vehiclelogo,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+    select 
+    <include refid="Base_Column_List" />
+    from zhongjiao_vehicle
+    <where>1=1
+    	<if test="vehicleno != null and vehicleno != ''">
+				and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+		</if>
+		<if test="crossloge != null and crossloge != ''">
+				and crossloge = #{crossloge,jdbcType=VARCHAR}
+		</if>
+		<if test="vehiclelogo != null and vehiclelogo != ''">
+				and vehiclelogo = #{vehiclelogo,jdbcType=VARCHAR}
+		</if>
+		<if test="creator != null and creator != ''">
+				and creator = #{creator,jdbcType=VARCHAR}
+		</if>
+		<if test="createtime != null and createtime != ''">
+				and createtime = #{createtime,jdbcType=VARCHAR}
+		</if>
+		<if test="modifier != null and modifier != ''">
+				and modifier = #{modifier,jdbcType=VARCHAR}
+		</if>
+		<if test="modifytime != null and modifytime != ''">
+				and modifytime = #{modifytime,jdbcType=VARCHAR}
+		</if>
+    </where>
+    order by createtime desc 
+     <if test="pageNo != null and pageNo != ''">
+       	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <select id="findsZJXLVehicleListCount" resultType="long" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
+     select 
+	   count(*)
+    from zhongjiao_vehicle 
+   <where>1=1
+   		<if test="vehicleno != null and vehicleno != ''">
+				and vehicleno = #{vehicleno,jdbcType=VARCHAR}
+		</if>
+		<if test="crossloge != null and crossloge != ''">
+				and crossloge = #{crossloge,jdbcType=VARCHAR}
+		</if>
+		<if test="vehiclelogo != null and vehiclelogo != ''">
+				and vehiclelogo = #{vehiclelogo,jdbcType=VARCHAR}
+		</if>
+		<if test="creator != null and creator != ''">
+				and creator = #{creator,jdbcType=VARCHAR}
+		</if>
+		<if test="createtime != null and createtime != ''">
+				and createtime = #{createtime,jdbcType=VARCHAR}
+		</if>
+		<if test="modifier != null and modifier != ''">
+				and modifier = #{modifier,jdbcType=VARCHAR}
+		</if>
+		<if test="modifytime != null and modifytime != ''">
+				and modifytime = #{modifytime,jdbcType=VARCHAR}
+		</if>
+   	</where>
+  </select>
+</mapper>

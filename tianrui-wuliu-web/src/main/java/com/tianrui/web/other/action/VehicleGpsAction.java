@@ -19,8 +19,11 @@ import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
 import com.tianrui.common.constants.ApiErrorCode;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.Md5Utils;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.VehicleGpsZjxl;
+import com.tianrui.service.mongo.VehicleGpsZjxlDao;
 
 
 /**
@@ -37,6 +40,8 @@ public class VehicleGpsAction {
 	
 	@Autowired
 	IApiPostionService apiPostionService;
+	@Autowired
+	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	
 	//获取承运计划列表
 	@RequestMapping(value="/queryTrack",method=RequestMethod.POST)
@@ -45,10 +50,11 @@ public class VehicleGpsAction {
 		Result rs =new Result();
 		ApiErrorCode error =validParam(req);
 		if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
-			
-			//TODO
+			long begin = DateUtil.parse(req.getBeginTime(), "yyyy-MM-dd HH:mm:ss");
+			long end = DateUtil.parse(req.getEndTime(), "yyyy-MM-dd HH:mm:ss");
+			List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(req.getVehicleNO(), begin, end);
 			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-			rs.setData(getData());
+			rs.setData(getData(list));
 		}else{
 			rs.setCode(error.getCode());
 			rs.setError(error.getMsg());
@@ -110,23 +116,16 @@ public class VehicleGpsAction {
 		return rs;
 	}
 	
-	
-	private List<APIVehicleGpsResp>  getData(){
-		List<APIVehicleGpsResp> list =new ArrayList<APIVehicleGpsResp>();
-		
-		APIVehicleGpsResp item1 =new APIVehicleGpsResp();
-		item1.setLat("30.77665");
-		item1.setLon("116.856165");;
-		item1.setUtc("1496826230000");
-		list.add(item1);
-		
-		APIVehicleGpsResp item2 =new APIVehicleGpsResp();
-		item1.setLat("30.78665");
-		item1.setLon("116.866165");
-		item1.setUtc("1496826330000");
-		list.add(item2);
-		
-		return list;
+	private List<APIVehicleGpsResp>  getData(List<VehicleGpsZjxl> list){
+		List<APIVehicleGpsResp> resp =new ArrayList<APIVehicleGpsResp>();
+		for(VehicleGpsZjxl sp : list){
+			APIVehicleGpsResp item1 =new APIVehicleGpsResp();
+			item1.setLat(sp.getLat().toString());
+			item1.setLon(sp.getLon().toString());;
+			item1.setUtc(sp.getUtc().toString());
+			resp.add(item1);
+		}
+		return resp;
 	}
 	
 }

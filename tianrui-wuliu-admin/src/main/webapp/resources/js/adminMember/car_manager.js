@@ -398,23 +398,26 @@ function details(id){
 		}else{
 			$("#showcode").show();
 		}
-		$('#updateDeatil').modal('hide');
-		$("#vehicid").val(id);
-		$("#vehictype").val(type);
+//		$('#updateDeatil').modal('hide');
+		$("#uptmemberid").val(id);
+		$("#uptmembertype").val(type);
 		$("#code").val("");
 	}
 	
 	function uploadfile(){
 		// 营业执照图片路径
-		var file = $("#file_yyzz")[0].files[0];
+		
+//		var file = $("#file_yyzz")[0].files[0];
 		if($.trim($("#code").val())==""&&($("#vehictype").val()=="3"||$("#vehictype").val()=="4"||$("#vehictype").val()=="5"||$("#vehictype").val()=="6")){
 			alert("证书编码不能为空");
 			return;
 		}
+		imgUrl();
+		var file = $("#imgUrl").val();
 		var formData = new FormData();
-		formData.append("id",$("#vehicid").val());
+		formData.append("id",$("#uptmemberid").val());
 		formData.append("file",file);
-		formData.append("type",$("#vehictype").val());
+		formData.append("type",$("#uptmembertype").val());
 		formData.append("code",$("#code").val());
 		$.ajax({
 			type:"post",

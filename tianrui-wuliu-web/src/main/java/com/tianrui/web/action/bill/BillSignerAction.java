@@ -63,7 +63,7 @@ public class BillSignerAction {
 		return rs;
 	}
 	
-	//安联运单签收 上传榜单
+	//安联运单签收 上传磅单
 	@RequestMapping("alBillsigner")
 	@ResponseBody
 	public Result alBillsigner(AnlianBillSignerReq req) throws Exception{

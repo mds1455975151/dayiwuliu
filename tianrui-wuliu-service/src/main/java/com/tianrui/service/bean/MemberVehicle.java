@@ -14,6 +14,12 @@ public class MemberVehicle implements IModel {
     
     /** 车辆运单状态*/
 	private String billstatus;
+	/**添加账户*/
+	private String cellphone;
+	
+	private String zjxStatus;
+	
+	private String zjxResult;
 	
 	private String registcode;
 	private String registimage;
@@ -46,6 +52,22 @@ public class MemberVehicle implements IModel {
 
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getZjxStatus() {
+		return zjxStatus;
+	}
+
+	public void setZjxStatus(String zjxStatus) {
+		this.zjxStatus = zjxStatus;
+	}
+
+	public String getZjxResult() {
+		return zjxResult;
+	}
+
+	public void setZjxResult(String zjxResult) {
+		this.zjxResult = zjxResult;
 	}
 
 	/**
@@ -1022,4 +1044,13 @@ public class MemberVehicle implements IModel {
 	public void setLimit(Integer newLimit) {
 		this.limit = newLimit;
 	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+	
 }

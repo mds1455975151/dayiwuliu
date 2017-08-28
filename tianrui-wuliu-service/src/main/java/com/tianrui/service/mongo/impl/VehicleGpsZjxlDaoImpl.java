@@ -33,8 +33,7 @@ public class VehicleGpsZjxlDaoImpl extends BaseDaoImpl<VehicleGpsZjxl, String>  
 			//TODO 只能获取3天内的数据
 			Query query =new Query();
 			
-			@SuppressWarnings("static-access")
-			Criteria criteria =Criteria.where("utc").gt(beginTime).lt(endTime).where("vehicleNo").is(vehicleNo);
+			Criteria criteria =Criteria.where("utc").gt(beginTime).lt(endTime).and("vehicleNo").is(vehicleNo);
 			query.addCriteria(criteria);
 			
 			query.with(new Sort(Direction.ASC,"utc"));

@@ -20,9 +20,11 @@ import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
@@ -36,6 +38,8 @@ import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
+import com.tianrui.api.resp.admin.PageResp;
+import com.tianrui.api.resp.admin.ZJXLVehicleResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfBillResp;
 import com.tianrui.api.resp.front.bill.BillGpsResp;
 import com.tianrui.api.resp.front.bill.BillPlanResp;
@@ -81,6 +85,7 @@ import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.VehicleDriver;
+import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.bean.anlian.PositionCounty;
 import com.tianrui.service.jtb.BillMassageReq;
@@ -101,6 +106,7 @@ import com.tianrui.service.mongo.BillPositionDao;
 import com.tianrui.service.mongo.BillTrackDao;
 import com.tianrui.service.mongo.CodeGenDao;
 import com.tianrui.service.mongo.MemberPositionRecordDao;
+import com.tianrui.service.mongo.VehicleGpsZjxlDao;
 import com.tianrui.service.util.MapDistanceUtil;
 import com.tianrui.service.vo.BIllTrackMsg;
 import com.tianrui.service.vo.VehicleDriverVO;
@@ -163,8 +169,6 @@ public class BillService implements IBillService{
 	@Autowired
 	private BillPositionDao billPositionDao;
 	@Autowired
-	private MemberPositionRecordDao memberPositionRecordDao;
-	@Autowired
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	IAnlianBillService anlianBillService;
@@ -178,6 +182,12 @@ public class BillService implements IBillService{
 	OrgSignerMapper orgSignerMapper;
 	@Autowired
 	MemberVoService memberVoService;
+	@Autowired
+	VehicleGpsZjxlDao vehicleGpsZjxlDao;
+	@Autowired
+	MemberPositionRecordDao memberPositionRecordDao;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -204,7 +214,6 @@ public class BillService implements IBillService{
 					if(StringUtils.equals(plan.getIsAppoint(), "1")){
 						planRoot = planMapper.selectRootPlanByPlanId(plan.getId());
 					}
-					//TODO
 					OrgSigner orgsigner = null;
 					if(StringUtils.isNotBlank(plan.getReceiveid())){
 						orgsigner = orgSignerMapper.selectByPrimaryKey(plan.getReceiveid());
@@ -504,7 +513,6 @@ public class BillService implements IBillService{
 				Plan rootPlan = planMapper.selectRootPlanByPlanId(plan.getId());
 //				if( checkBillauthForCuser(db,req.getCurruId(),"owner") || (StringUtils.equals(plan.getIsAppoint(), "1") && StringUtils.equals(rootPlan.getCreator(), req.getCurruId()))){
 				//是否为收货人||是否为货主
-				//TODO
 				if(checkBillauthForCuser(db,req.getCurruId(),"signer")||checkBillauthForCuser(db,req.getCurruId(),"owner")){
 					//是否为代签收状态	
 					if( checkBillauthForstatus(db,"sign") ){
@@ -2020,44 +2028,42 @@ public class BillService implements IBillService{
 			}
 			endTime = endTime==null?System.currentTimeMillis():endTime;
 			if(beginTime!=null){
-				System.out.println("db.getDriverid()="+db.getDriverid());
-				System.out.println("beginTime="+beginTime);
-				System.out.println("endTime="+endTime);
-				List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
-				System.out.println("m.size()="+m.size());
-				Long t = null;
-				for (int i = 0; i < m.size(); i++) {
-					BillPositionResp r = new BillPositionResp();
-					r.setBillid(bid);
-					r.setLat(m.get(i).getLat());
-					r.setLon(m.get(i).getLon());
-					r.setStatus("");
-					r.setRemark("");
-					r.setCreatetime(m.get(i).getCreatetime());
-					list.add(r);
-//					if(t==null){
-//						t=m.get(i).getCreatetime();
-//						BillPositionResp r = new BillPositionResp();
-//						r.setBillid(bid);
-//						r.setLat(m.get(i).getLat());
-//						r.setLon(m.get(i).getLon());
-//						r.setStatus("");
-//						r.setRemark("");
-//						r.setCreatetime(m.get(i).getCreatetime());
-//						list.add(r);
-//					}else if((m.get(i).getCreatetime()-t)>=(3000*60)){
-//						//时间价格大于三分钟
-//						t=m.get(i).getCreatetime();
-//						BillPositionResp r = new BillPositionResp();
-//						r.setBillid(bid);
-//						r.setLat(m.get(i).getLat());
-//						r.setLon(m.get(i).getLon());
-//						r.setStatus("");
-//						r.setRemark("");
-//						r.setCreatetime(m.get(i).getCreatetime());
-//						list.add(r);
-//					}
+				//查询车辆是否有中交兴路地址
+				ZJXLVehicleReq req = new ZJXLVehicleReq();
+				req.setVehicleno(db.getVehicleno());
+				req.setVehiclelogo("1");
+				req.setCrossloge("1");
+				PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
+				List<ZJXLVehicleResp> zjxl = page.getList();
+				if(zjxl.size()==1){
+					List<VehicleGpsZjxl> m = vehicleGpsZjxlDao.getVehicleTrack(db.getVehicleno(),beginTime,endTime );
+					System.out.println("m.size()="+m.size());
+					for (int i = 0; i < m.size(); i++) {
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(Integer.valueOf((int) (m.get(i).getLat()*1000000)));
+						r.setLon(Integer.valueOf((int) (m.get(i).getLon()*1000000)));
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getUtc());
+						list.add(r);
+					}
+				}else{
+					List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
+					System.out.println("m.size()="+m.size());
+					for (int i = 0; i < m.size(); i++) {
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(m.get(i).getLat());
+						r.setLon(m.get(i).getLon());
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getCreatetime());
+						list.add(r);
+					}
 				}
+				
+				
 			}
 			for (int i = 0; i < p.size(); i++) {
 				if(p.get(i).getStatus().equals("3")){

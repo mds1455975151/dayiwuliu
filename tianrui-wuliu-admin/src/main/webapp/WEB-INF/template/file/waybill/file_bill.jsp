@@ -195,8 +195,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body">
 	            <input type="hidden" id="billid">
-	            <div class='file_detail'><label> 提货榜单：</label><span id="pickupweight"></span>吨</div>
-	            <div class='file_detail'><label> 签收榜单：</label><span id="signweight"></span>吨</div>
+	            <div class='file_detail'><label> 提货磅单：</label><span id="pickupweight"></span>吨</div>
+	            <div class='file_detail'><label> 签收磅单：</label><span id="signweight"></span>吨</div>
 	            <div class='file_detail'><label> 签收重量：</label><span id="trueweight"></span>吨</div>
 	            <div class='file_detail'><label> 当前运价：</label><span id="pricenow"></span></div>
 	            <div class='file_detail'><label> 修改运价：</label><span><input style="width: 120px;height: 30px" id="trueprice" type="text"></span></div>

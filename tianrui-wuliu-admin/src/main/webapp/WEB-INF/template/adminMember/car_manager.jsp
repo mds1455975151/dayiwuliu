@@ -17,6 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/style.css" rel="stylesheet">
     <link href="${stylesRoot }/tr-media.css" rel="stylesheet">
     <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
+    <link href="${trRoot}/css/cropper.css" rel="stylesheet">
+	<link href="${trRoot}/css/cycss.css" rel="stylesheet">
     <link href="${trRoot}/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
@@ -187,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <span id="showcode">
 			     		证书编号：<input id="code" type="text">
 			        </span>
-	                <div class="reg_tel">
+	               <!--  <div class="reg_tel">
 	                    <label></label>
 	                    <div class="img_upload">
 							<input id="file_yyzz" name="file" class="file" type="file">
@@ -195,7 +197,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="hidden" name="type" id="vehictype">
 							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
-	                </div>
+	                </div> -->
+	                 <jsp:include page="../common/upload.jsp" flush="false"></jsp:include>
 	            </div>
             <div class="modal-footer">
                 <button type="button" onclick="uploadfile()" class="btn btn-primary">确定</button>
@@ -418,9 +421,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.28" ></script>
+<script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.01" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
+<script type="text/javascript">
+    //upImg();
+     $(function(){
+      $(document).ready(function () {
+          // 表格列宽度手动调整
+      //    $("table").resizableColumns({});
+
+          $(".rz_persontab").off("click").on("click",function(){
+        	  $('#updateDeatil').css("z-index",1200);
+              $('#againPice').css("z-index",1201);
+              $('.modal-backdrop').css("z-index",200);
+              $('.cropperBox').css("z-index",1500);
+          });
+          upImg();
+      });
+  })
+
+</script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',

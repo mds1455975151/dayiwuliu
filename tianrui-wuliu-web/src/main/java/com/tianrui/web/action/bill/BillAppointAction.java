@@ -22,7 +22,9 @@ import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.impl.BillService;
+import com.tianrui.service.mongo.VehicleGpsZjxlDao;
 import com.tianrui.web.smvc.AuthValidation;
 import com.tianrui.web.util.SessionManager;
 
@@ -36,6 +38,8 @@ public class BillAppointAction {
 	private BillService billService;
 	@Autowired
 	private IAnlianBillService anlianBillService;
+	@Autowired
+	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	
 	@RequestMapping("main")
 	@AuthValidation(autyType=Constant.AUTHCHECK_VEHICLE_OWNER)
@@ -81,6 +85,21 @@ public class BillAppointAction {
 			model.setViewName("/error/msg");
 		}
 		return model;
+	}
+	
+	@RequestMapping("tarckTest")
+	public ModelAndView mainTest(HttpServletRequest request){
+		ModelAndView model = new ModelAndView("bill/maps/tarckTest");
+		return model;
+	}
+
+	@RequestMapping("zjxltrackData")
+	@ResponseBody
+	public Result zjxltrackData(String vehicleNo){
+		Result rs = Result.getSuccessResult();
+		List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(vehicleNo, System.currentTimeMillis()-3*24*60*60*1000, System.currentTimeMillis());
+		rs.setData(list);
+		return rs;
 	}
 	
 	@RequestMapping("trackdata")

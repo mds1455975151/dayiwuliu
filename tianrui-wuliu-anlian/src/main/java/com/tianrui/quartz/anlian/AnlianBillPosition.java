@@ -56,6 +56,14 @@ public class AnlianBillPosition {
         				if(t!= null){
         					billAnlianPositionDao.save(t);
         				}
+        				if(resp.getPtBegintime()==null){
+        					//第一次查询到位置 保存时间 开始时间 结束时间 均为当前时间
+        					upt.setPtBegintime(System.currentTimeMillis());
+        					upt.setPtEndtime(System.currentTimeMillis());
+        				}else{
+        					//有开始时间 结束时间保存为当前时间
+        					upt.setPtEndtime(System.currentTimeMillis());
+        				}
         				upt.setDesc4("运输中");
         			}else{
         				upt.setDesc4(rs.getError());

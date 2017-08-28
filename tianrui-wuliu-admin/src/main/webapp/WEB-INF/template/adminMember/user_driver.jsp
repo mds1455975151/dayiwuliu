@@ -19,6 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/tr-media.css"  rel="stylesheet">
     <link href="${stylesRoot }/easyTree.css"  rel="stylesheet">
     <link href="${stylesRoot }/imgcut.css" rel="stylesheet">
+    <link href="${trRoot}/css/cropper.css" rel="stylesheet">
+	<link href="${trRoot}/css/cycss.css" rel="stylesheet">
     <link href="${trRoot}/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
@@ -173,37 +175,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--停用end-->
-<!--修改照片begin-->
-<div class="modal fade" id="againPice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id=" ">修改照片</h4>
-            </div>
-	            <div class="modal-body">
-	                <span id="showcode">
-			     		证书编号：<input id="uptmembercode" type="text">
-			        </span>
-	                <div class="reg_tel">
-	                    <label></label>
-	                    <div class="img_upload">
-							<input id="file_yyzz" name="file" class="file" type="file">
-							<input type="hidden" name="id" id="uptmemberid">
-							<input type="hidden" name="type" id="uptmembertype">
-							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-						</div>
-	                </div>
-	            </div>
-            <div class="modal-footer">
-                <button type="button" onclick="uploadfile()" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--修改照片end-->
 <!--查看详情begin-->
 <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
@@ -222,6 +193,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <!--查看详情end-->
+<!--修改照片begin-->
+<div class="modal fade" id="againPice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id=" ">修改照片</h4>
+            </div>
+	            <div class="modal-body">
+	                <span id="showcode">
+			     		证书编号：<input id="uptmembercode" type="text">
+			        </span>
+	               <!-- <div class="reg_tel">
+	                    <label></label>
+	                    <div class="img_upload">
+							<input id="file_yyzz" name="file" class="file" type="file">
+							<input type="hidden" name="id" id="uptmemberid">
+							<input type="hidden" name="type" id="uptmembertype">
+							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
+						</div>
+	                </div>-->
+	                <jsp:include page="../common/upload.jsp" flush="false"></jsp:include>
+	            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="uploadfile()" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改照片end-->
+
+<!--失败原因begin-->
+<div class="modal fade" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >失败原因</h4>
+            </div>
+            <div class="modal-body" id="errorMassage">
+            		
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="empty()" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--失败原因end-->
 <!--安联认证begin-->
 <div class="modal fade" id="anlian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
@@ -356,7 +379,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0878" ></script>
+<script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0342" ></script>
+<script type="text/javascript">
+    //upImg();
+     $(function(){
+      $(document).ready(function () {
+          // 表格列宽度手动调整
+      //    $("table").resizableColumns({});
+
+          $(".rz_persontab").off("click").on("click",function(){
+        	  $('#detail').css("z-index",1200);
+              $('#againPice').css("z-index",1201);
+              $('.modal-backdrop').css("z-index",200);
+              $('.cropperBox').css("z-index",1500);
+          });
+          upImg();
+      });
+  })
+
+</script>
 <script type="text/javascript">
 		$("#file_yyzz").fileinput({
 			language : 'zh',
