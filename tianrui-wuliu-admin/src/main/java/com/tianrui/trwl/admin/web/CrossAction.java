@@ -93,6 +93,23 @@ public class CrossAction {
 	}
 	/**
 	 * 
+	 * @Title: deletes 
+	 * @Description: 删除中交兴路车辆信息
+	 * @param @param id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/deletes")
+	@ResponseBody
+	public Result deletes(String id) throws Exception{
+		Result rs = crossVehicleService.deletes(id);
+		return rs;
+		
+	}
+	/**
+	 * 
 	 * @Title: selectVehicle 
 	 * @Description: 根据车牌号码搜索车辆信心
 	 * @param @param vehicleno

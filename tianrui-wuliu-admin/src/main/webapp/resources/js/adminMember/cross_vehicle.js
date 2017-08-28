@@ -89,6 +89,7 @@ function displayRec(pageNo){
 							if(d[a].vehiclelogo==0){
 								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"')\"  >【启用】</a></span>";
 							}
+							hml += "<span><a  onclick=\"deletes('"+d[a].id+"','"+(pageNo)+"')\"  >【删除】</a></span>";
 							hml +="</td></tr>";
 							
 					}
@@ -247,6 +248,24 @@ function select(){
 				}
 			}
 		})
+}
+function deletes(id,pageNo){
+	if (confirm('是否删除？')) {
+		$.ajax({
+			url: CONTEXTPATH+'/fileCross/deletes',
+			data:{"id":id,
+				"pageNo":pageNo,},
+			type:"post",
+			success: function(ret){
+				if(ret.code=="000000"){
+					alert(ret.error);
+					displayRec(parseInt(pageNo));
+				}else{
+					alert(ret.error);
+				}
+			}
+		})
+	}
 }
 /**
  * 清空添加弹框车辆信息

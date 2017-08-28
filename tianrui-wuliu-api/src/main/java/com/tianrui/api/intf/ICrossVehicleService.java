@@ -49,4 +49,15 @@ public interface ICrossVehicleService {
 	 * @throws
 	 */
 	Result selectVehicle(String vehicleno)throws Exception;
+	/**
+	 * 
+	 * @Title: deletes 
+	 * @Description: 删除车辆信息
+	 * @param @param id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	Result deletes(String id)throws Exception;
 }

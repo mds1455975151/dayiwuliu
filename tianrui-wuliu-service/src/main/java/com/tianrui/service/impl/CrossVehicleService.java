@@ -165,5 +165,18 @@ public class CrossVehicleService implements ICrossVehicleService{
 			 rs.setError("该车辆已添加过！");
 		 }
 		return rs;
+	}
+
+	@Override
+	public Result deletes(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		int re =zjxlVehicleMapper.deleteByPrimaryKey(id);
+		if(re!=1){
+			rs.setCode("3333");
+			rs.setError("删除失败！");
+		}else{
+			rs.setError("删除成功！");
+		}
+		return rs;
 	} 
 }
