@@ -45,6 +45,7 @@ public class VehicleGpsZjxlSchedule {
 		logger.info("查询车辆位置开始"+begin);
 		ZJXLVehicleReq req = new ZJXLVehicleReq();
 		req.setVehiclelogo("1");
+		req.setCrossloge("1");
 		PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
 		
 		List<ZJXLVehicleResp> list = page.getList();

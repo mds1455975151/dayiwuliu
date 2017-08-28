@@ -2030,8 +2030,9 @@ public class BillService implements IBillService{
 			if(beginTime!=null){
 				//查询车辆是否有中交兴路地址
 				ZJXLVehicleReq req = new ZJXLVehicleReq();
-				req.setVehicleid(db.getVehicleid());
+				req.setVehicleno(db.getVehicleno());
 				req.setVehiclelogo("1");
+				req.setCrossloge("1");
 				PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
 				List<ZJXLVehicleResp> zjxl = page.getList();
 				if(zjxl.size()==1){

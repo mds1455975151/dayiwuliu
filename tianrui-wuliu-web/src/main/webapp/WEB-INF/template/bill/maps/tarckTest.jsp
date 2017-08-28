@@ -93,8 +93,8 @@
 					//位置长度
 					var length = list.length;
 					for (var a = 0; a < list.length; a++) {
-						lon = list[a].lon/600000;
-						lat = list[a].lat/600000;
+						lon = list[a].lon;
+						lat = list[a].lat;
 						addMarker(lon,lat);
 							var thePoint1 = new BMap.Point(lon,lat);
 							nlon = lon;

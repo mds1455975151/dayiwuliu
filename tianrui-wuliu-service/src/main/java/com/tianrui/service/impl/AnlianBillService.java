@@ -321,6 +321,7 @@ public class AnlianBillService implements IAnlianBillService{
 			ZJXLVehicleReq zjreq = new ZJXLVehicleReq();
 			zjreq.setVehicleno(bill.getCph());
 			zjreq.setVehiclelogo("1");
+			zjreq.setCrossloge("1");
 			PageResp<ZJXLVehicleResp> page = crossVehicleService.find(zjreq);
 			List<ZJXLVehicleResp> zjlist = page.getList();
 			List<BillAnlianPosition> resp = new ArrayList<BillAnlianPosition>();
