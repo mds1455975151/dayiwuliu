@@ -647,10 +647,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			for (PayInvoice payInvoice : list) {
 				if (payInvoice.getPayeeIdentity() == Constant.PAY_INVOICE_DRIVER) {
 					ids.add(payInvoice.getId());
-//					payNotPassMessage(payInvoice);
-//					payNotPassMessages(payInvoice);
-//					payPassMessage(payInvoice);
-//					payPassMessages(payInvoice);
 				}
 			}
 			List<PayInvoiceMsg> payInvoiceMsgList = payInvoiceMsgMapper.selectByPayInvoiceIdList(ids);
