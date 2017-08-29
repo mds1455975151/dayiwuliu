@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input name="vehiclenos" id="vehiclenos" type="text"> <button type="button" class="btn btn-primary" onclick="select()">搜索</button>
                     </div><br>
                     <div class="model_width"  style="display: none" name="selects">
-                        <label>添加账号：</label>
+                        <label>车主账号：</label>
                         <input name="cellphone" id="cellphone" type="text">
                     </div>
                      <div class="model_width" style="display: none" name="selects">
@@ -132,6 +132,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <input type="text" id="vehicletypename" name="vehicletypename">
                     </div>
                     <div class="model_width" style="display: none" name="selects">
+                        <label>车主名称：</label>
+                        <input type="text" id="auditname" name="auditname">
+                    </div>
+                    <div class="model_width" style="display: none" name="selects">
                         <label>车辆状态：</label>
                         <input type="text" id="status" name="status">
                     </div>
@@ -139,10 +143,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <label>开票状态：</label>
                         <input type="text" id="desc1" name="desc1" >
                     </div>
-                    <div class="model_width" style="display: none" name="selects">
+                    <!--  <div class="model_width" style="display: none" name="selects">
                         <label>认证方式：</label>
                         <input type="text" id="desc2" name="desc2">
-                    </div>
+                    </div>-->
                     
                     <div class="model_width" >
                         <label>是否入网：</label>
@@ -152,7 +156,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="model_width">
                         <label>车辆标识：</label>
                         <select class="form-control" id="vehiclelogo" name="type">
-                           	<option value="">请选择</option>
                             <option  value="1" >启用</option>
                             <option value="0">禁用</option>
                         </select>
@@ -194,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0828" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/cross_vehicle.js?0830" ></script>
 <script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
 
 </body>

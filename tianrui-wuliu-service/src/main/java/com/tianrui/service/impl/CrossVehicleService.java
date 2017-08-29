@@ -13,6 +13,7 @@ import com.tianrui.api.resp.admin.ZJXLVehicleResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.MemberVehicles;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.ZJXLVehicle;
 import com.tianrui.service.mapper.MemberVehicleMapper;
@@ -85,7 +86,7 @@ public class CrossVehicleService implements ICrossVehicleService{
 		 String vehiclenos =req.getVehicleno().substring(2,7);
 		 memberVehicles.setVehicleprefix(vehicleprefix);
 		 memberVehicles.setVehicleno(vehiclenos);
-		 MemberVehicle memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
+		 MemberVehicles memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
 		 if(memberVehicle!=null){
 			record.setVehicleid(memberVehicle.getVehicleid());
 		 }
@@ -142,19 +143,20 @@ public class CrossVehicleService implements ICrossVehicleService{
 		 zjxlVehicle.setVehicleno(vehicleno);
 		 List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(zjxlVehicle);
 		 if(list.size()<1){
-			 MemberVehicle memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
+			 MemberVehicles memberVehicle =memberVehicleMapper.selectVehicle(memberVehicles);
 			 if(memberVehicle!=null){
 				 SystemMember  member = systemMemberMapper.selectByPrimaryKey(memberVehicle.getMemberid());
 				 if(member!=null){
 					 memberVehicle.setCellphone(member.getCellphone());
+					 memberVehicle.setAuditname(member.getRemarkname());
 				 }
-				 String token = DemoMain.getToken();
-				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
-				 rs.setCode("000000");
-				 memberVehicle.setZjxStatus(bean.getStatus());
-				 if(bean.getResult() != null){
-					 memberVehicle.setZjxResult(bean.getResult().toString());
-				 }
+//				 String token = DemoMain.getToken();
+//				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
+//				 rs.setCode("000000");
+//				 memberVehicle.setZjxStatus(bean.getStatus());
+//				 if(bean.getResult() != null){
+//					 memberVehicle.setZjxResult(bean.getResult().toString());
+//				 }
 				 rs.setData(memberVehicle);
 			 }else{
 				 rs.setCode("333333");
