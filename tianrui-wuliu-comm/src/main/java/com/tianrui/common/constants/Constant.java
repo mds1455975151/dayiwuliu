@@ -54,6 +54,8 @@ public class Constant {
     public static String ANLIAN_USERNAME;
     //安联密码
     public static String ANLIAN_PASSWORD;
+    //查询当前日期几天内运单
+    public static String ANLIAN_TIME;
     //微信appid
     public static String WEIXIN_APPID;
     //微信secret
@@ -324,5 +326,13 @@ public class Constant {
 
 	public static void setWEIXIN_SECRET(String wEIXIN_SECRET) {
 		WEIXIN_SECRET = wEIXIN_SECRET;
+	}
+
+	public static String getANLIAN_TIME() {
+		return ANLIAN_TIME;
+	}
+
+	public static void setANLIAN_TIME(String aNLIAN_TIME) {
+		ANLIAN_TIME = aNLIAN_TIME;
 	}
 }

@@ -130,6 +130,9 @@
     	<if test="venderid != null and venderid != ''">
     		and venderid = #{venderid,jdbcType=VARCHAR}
     	</if>
+    	<if test="createtime != null and createtime != ''">
+    		and createtime <![CDATA[>=]]>  #{createtime,jdbcType=BIGINT}
+    	</if>
     </where>
     order by createtime desc
     <if test="start != null">
