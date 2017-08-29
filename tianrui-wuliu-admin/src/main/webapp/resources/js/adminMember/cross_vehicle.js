@@ -328,4 +328,5 @@ function empty(){
 	$("#status").val("")
 	$("#desc1").val("")
 	$("#desc2").val("")
+	$("#crossloge_req").val("");
 }
