@@ -56,6 +56,8 @@ public class Constant {
     public static String ANLIAN_PASSWORD;
     //查询当前日期几天内运单
     public static String ANLIAN_TIME;
+    //中交兴路状态 1-启用  0-停用
+    public static String ZJXL_STATIC;
     //微信appid
     public static String WEIXIN_APPID;
     //微信secret
@@ -334,5 +336,13 @@ public class Constant {
 
 	public static void setANLIAN_TIME(String aNLIAN_TIME) {
 		ANLIAN_TIME = aNLIAN_TIME;
+	}
+
+	public static String getZJXL_STATIC() {
+		return ZJXL_STATIC;
+	}
+
+	public static void setZJXL_STATIC(String zJXL_STATIC) {
+		ZJXL_STATIC = zJXL_STATIC;
 	}
 }

@@ -1,5 +1,6 @@
 package com.tianrui.quartz.zjxl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.ZjxlResult;
 import com.tianrui.service.bean.VehicleGpsZjxl;
@@ -43,46 +45,55 @@ public class VehicleGpsZjxlSchedule {
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
 		logger.info("查询车辆位置开始"+begin);
-		ZJXLVehicleReq req = new ZJXLVehicleReq();
-		req.setVehiclelogo("1");
-		req.setCrossloge("1");
-		PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
-		
-		List<ZJXLVehicleResp> list = page.getList();
-		String token = DemoMain.getToken();
-		for(ZJXLVehicleResp vehNo : list){
-			ZjxlResult bean = DemoMain.vLastLocation(vehNo.getVehicleno(),token);
-			try {
-				if(StringUtils.equals("1001", bean.getStatus())){
-					logger.debug("查询车辆位置成功---"+vehNo.getVehicleno());
-					JSONObject obj =  (JSONObject) bean.getResult();
-					logger.debug("请求返回值code="+bean.getResult());
-					VehicleGpsZjxl zjxl = vehicleGpsZjxlDao.getVehiclePosition(vehNo.getVehicleno());
-					if(zjxl == null || 
-						(zjxl.getLat()!=Double.valueOf(obj.getString("lat"))/600000&&
-						  zjxl.getLon()!=Double.valueOf(obj.getString("lon"))/600000)){
-						VehicleGpsZjxl t = new VehicleGpsZjxl();
-						t.setAddr(obj.getString("adr"));
-						t.setId(UUIDUtil.getId());
-						Double lat = Double.valueOf(obj.getString("lat"))/600000;
-						Double lon = Double.valueOf(obj.getString("lon"))/600000;
-						t.setLat(lat);
-						t.setLon(lon);
-						t.setSpd(obj.getString("spd"));
-						t.setUtc(Long.valueOf(obj.getString("utc")));
-						t.setVehicleNo(vehNo.getVehicleno());
-						t.setTimeStamp(System.currentTimeMillis());
-						vehicleGpsZjxlDao.save(t);
+		if(Constant.ZJXL_STATIC.equals("1")){
+			//中交兴路状态为 1  查询中交兴路位置
+			ZJXLVehicleReq req = new ZJXLVehicleReq();
+			req.setVehiclelogo("1");
+			req.setCrossloge("1");
+			PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
+			List<ZJXLVehicleResp> list = page.getList();
+			String token = DemoMain.getToken();
+			for(ZJXLVehicleResp vehNo : list){
+				ZjxlResult bean = DemoMain.vLastLocation(vehNo.getVehicleno(),token);
+				try {
+					if(StringUtils.equals("1001", bean.getStatus())){
+						logger.debug("查询车辆位置成功---"+vehNo.getVehicleno());
+						JSONObject obj =  (JSONObject) bean.getResult();
+						logger.debug("请求返回值code="+bean.getResult());
+						VehicleGpsZjxl zjxl = vehicleGpsZjxlDao.getVehiclePosition(vehNo.getVehicleno());
+						if(zjxl == null || zjxl.getUtc()!=Long.valueOf(obj.getString("utc"))){
+							VehicleGpsZjxl t = new VehicleGpsZjxl();
+							t.setAddr(obj.getString("adr"));
+							t.setId(UUIDUtil.getId());
+							Double lat = Double.valueOf(obj.getString("lat"))/600000;
+							BigDecimal   blat   =   new   BigDecimal(lat);
+							//保留6位小数
+							Double   f1lat   =   blat.setScale(6,   BigDecimal.ROUND_HALF_UP).doubleValue(); 
+							Double lon = Double.valueOf(obj.getString("lon"))/600000;
+							BigDecimal   blon   =   new   BigDecimal(lon);
+							//保留6位小数
+							Double   f1lon   =   blon.setScale(6,   BigDecimal.ROUND_HALF_UP).doubleValue(); 
+							t.setLat(f1lat);
+							t.setLon(f1lon);
+							t.setSpd(obj.getString("spd"));
+							t.setUtc(Long.valueOf(obj.getString("utc")));
+							t.setVehicleNo(vehNo.getVehicleno());
+							t.setTimeStamp(System.currentTimeMillis());
+							vehicleGpsZjxlDao.save(t);
+							logger.info("本次查询保存车辆位置lat[{}],lon[{}]",f1lat,f1lon);
+						}else{
+							logger.info("车辆位置无变化-old_lat="+zjxl.getLat()+"-old_lon="+zjxl.getLon());
+							logger.info("车辆位置无变化-new_lat="+obj.getString("lat")+"-new_lon="+obj.getString("lon"));
+						}
 					}else{
-						logger.info("车辆位置无变化-old_lat="+zjxl.getLat()+"-old_lon="+zjxl.getLon());
-						logger.info("车辆位置无变化-new_lat="+obj.getString("lat")+"-new_lon="+obj.getString("lon"));
+						logger.info("查询车辆位置失败---"+vehNo.getVehicleno());
 					}
-				}else{
-					logger.info("查询车辆位置失败---"+vehNo.getVehicleno());
+				} catch (Exception e) {
+					logger.info("数据解析异常---"+e.getMessage());
 				}
-			} catch (Exception e) {
-				logger.info("数据解析异常---"+e.getMessage());
 			}
+		}else{
+			logger.info("未开启中交兴路查询功能");
 		}
 		logger.info("查询车辆位置结束"+(System.currentTimeMillis()-begin));
 	}

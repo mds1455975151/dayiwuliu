@@ -63,6 +63,7 @@
 		
 		<property name="ANLIAN_TIME" value="${anlian.time}"></property>
 		
+		<property name="ZJXL_STATIC" value="${zjxl.static}"></property>
 		
 	</bean>
      

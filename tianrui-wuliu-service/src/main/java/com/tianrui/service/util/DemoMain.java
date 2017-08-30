@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.openapi.sdk.service.DataExchangeService;
 import com.openapi.sdk.service.TransCode;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.ZjxlResult;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
@@ -33,21 +34,25 @@ public class DemoMain {
 	
 
 	public static String getToken() {
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		CacheClient cacheClient =wac.getBean(CacheClient.class);
-		String key=CacheHelper.buildKey(CacheModule.ZJXL_TOKEN, "");
-		String token = cacheClient.getObj(key, String.class);
-		if(StringUtils.isBlank(token)){
-			DemoReturnBean bean = DemoMain.login();
-			if(bean.getStatus().equals("1001")){
-				token = bean.getResult().toString();
-				cacheClient.saveObject(key, token, 2*24*60*60);
+		//TODO
+		String tokens = "";
+		if(Constant.ZJXL_STATIC.equals("1")){
+			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+			CacheClient cacheClient =wac.getBean(CacheClient.class);
+			String key=CacheHelper.buildKey(CacheModule.ZJXL_TOKEN, "");
+			tokens = cacheClient.getObj(key, String.class);
+			if(StringUtils.isBlank(token)){
+				DemoReturnBean bean = DemoMain.login();
+				if(bean.getStatus().equals("1001")){
+					tokens = bean.getResult().toString();
+					cacheClient.saveObject(key, token, 2*24*60*60);
+				}
+				System.out.println("token为空请求token--"+token);
+			}else{
+				System.out.println("token不为空--"+token);
 			}
-			System.out.println("token为空请求token--"+token);
-		}else{
-			System.out.println("token不为空--"+token);
 		}
-		return token;
+		return tokens;
 	}
 	
 	/** 调用示例 **/

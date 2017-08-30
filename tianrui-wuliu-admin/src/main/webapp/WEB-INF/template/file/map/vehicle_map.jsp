@@ -102,7 +102,7 @@ function showToolAutoDef(map) {
 				for (var a = 0; a < list.length; a++) {
 					lon = list[a].lon;
 					lat = list[a].lat;
-					addMarker(lon,lat);
+					addMarker(lon,lat,list[a].addr);
 						var thePoint1 = new BMap.Point(lon,lat);
 						nlon = lon;
 						nlat = lat
@@ -123,14 +123,14 @@ function showToolAutoDef(map) {
 }
 
 //创建marker
-function addMarker(lng, lat){
+function addMarker(lng, lat,addr){
 	    var point = new BMap.Point(lng,lat);
 	    var iconImg = createIcon();
 	    var marker = new BMap.Marker(point,{icon:iconImg});
 	    
 	    var _marker = marker;
 				_marker.addEventListener("click",function(){
-				    alert(lng+" |  "+lat);
+				    alert(addr);
 			    });
 	    
 	    map.addOverlay(marker);
