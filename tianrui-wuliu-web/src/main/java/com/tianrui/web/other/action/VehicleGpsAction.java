@@ -1,5 +1,6 @@
 package com.tianrui.web.other.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tianrui.api.intf.IApiPostionService;
 import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
 import com.tianrui.common.constants.ApiErrorCode;
@@ -39,8 +39,6 @@ public class VehicleGpsAction {
 	private Logger logger = LoggerFactory.getLogger(VehicleGpsAction.class);
 	
 	@Autowired
-	IApiPostionService apiPostionService;
-	@Autowired
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	
 	//获取承运计划列表
@@ -49,17 +47,27 @@ public class VehicleGpsAction {
 	public Result queryTrack(@RequestBody VehicleGpsReq req) throws Exception{
 		Result rs =new Result();
 		ApiErrorCode error =validParam(req);
-		if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
-			long begin = DateUtil.parse(req.getBeginTime(), "yyyy-MM-dd HH:mm:ss");
-			long end = DateUtil.parse(req.getEndTime(), "yyyy-MM-dd HH:mm:ss");
-			List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(req.getVehicleNO(), begin, end);
-			rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-			rs.setData(getData(list));
-		}else{
-			rs.setCode(error.getCode());
-			rs.setError(error.getMsg());
+		try{
+			if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
+				
+				long begin = DateUtil.parse(req.getBeginTime(), "yyyy-MM-dd HH:mm:ss");
+				long end = DateUtil.parse(req.getEndTime(), "yyyy-MM-dd HH:mm:ss");
+				List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(req.getVehicleNO(), begin, end);
+				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+				rs.setData(getData(list));
+			}else{
+				rs.setCode(error.getCode());
+				rs.setError(error.getMsg());
+			}
+		}catch(RuntimeException e){
+			logger.debug("queryTrack 调用失败.异常:{}",e.getMessage(),e);
+			rs.setCode(ErrorCode.PARAM_ERROR.getCode());
+			rs.setError(ErrorCode.PARAM_ERROR.getMsg());
+		}catch(Exception e){
+			logger.warn("queryTrack 调用失败.异常:{}",e.getMessage(),e);
+			rs.setCode(ErrorCode.SYSTEM_ERROR.getCode());
+			rs.setError(ErrorCode.SYSTEM_ERROR.getMsg());
 		}
-		//rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		logger.info("queryTrack 参数:{},返回值:{}",JSONObject.toJSON(req),rs.getCode());
 		return rs;
 	}
@@ -120,8 +128,8 @@ public class VehicleGpsAction {
 		List<APIVehicleGpsResp> resp =new ArrayList<APIVehicleGpsResp>();
 		for(VehicleGpsZjxl sp : list){
 			APIVehicleGpsResp item1 =new APIVehicleGpsResp();
-			item1.setLat(sp.getLat().toString());
-			item1.setLon(sp.getLon().toString());;
+			item1.setLat(BigDecimal.valueOf(sp.getLat()).setScale(6,BigDecimal.ROUND_HALF_UP).toString());
+			item1.setLon(BigDecimal.valueOf(sp.getLon()).setScale(6,BigDecimal.ROUND_HALF_UP).toString());;
 			item1.setUtc(sp.getUtc().toString());
 			resp.add(item1);
 		}

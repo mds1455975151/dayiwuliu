@@ -13,7 +13,7 @@ import com.tianrui.common.utils.Md5Utils;
 
 public class ApiTest2 {
 
-	private static String url="http://www.appb2b.com/other/anlianApi/queryTrack";
+	private static String url="http://www.appb2b.com/otherApi/vehicle/queryTrack";
 
 	//private static String url="http://127.0.0.1/other/anlianApi/uploadPosition";
 	
@@ -21,13 +21,13 @@ public class ApiTest2 {
 	static VehicleGpsReq getParam2(){
 		VehicleGpsReq req =new VehicleGpsReq();
 		try {
-			req.setVehicleNO(new String("京A12345".getBytes("utf-8"),"iso8859-1"));
+			req.setVehicleNO(new String("豫DR0868".getBytes("utf-8"),"iso8859-1"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		req.setBeginTime("TIME");
-		req.setEndTime("TIME");
+		req.setBeginTime("2017-08-27 09:08:00");
+		req.setEndTime("2017-08-30 12:08:00");
 		req.setTime("2016-12-30 10:45:00");
 		req.setToken(Md5Utils.MD5("anlian!@2017#2016-12-30 10:45:00"));
 		return  req;
