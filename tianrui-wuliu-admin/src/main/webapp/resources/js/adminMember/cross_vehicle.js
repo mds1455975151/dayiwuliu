@@ -90,6 +90,7 @@ function displayRec(pageNo){
 								hml += "<span><a  onclick=\"vehiclelogo('"+d[a].id+"','"+(pageNo)+"','"+vehiclelogo+"')\"  >【启用】</a></span>";
 							}
 							hml += "<span><a  onclick=\"deletes('"+d[a].id+"','"+(pageNo)+"')\"  >【删除】</a></span>";
+							hml += "<span><a  onclick=\"viewTracks('"+d[a].vehicleno+"')\"  >【查看轨迹】</a></span>";
 							hml +="</td></tr>";
 							
 					}
@@ -205,19 +206,41 @@ function select(){
 					var vehiOwnerTel =ret.data.vehiOwnerTel == undefined ? "":ret.data.vehiOwnerTel;
 					var vehiOwnerName =ret.data.vehiOwnerName == undefined ? "":ret.data.vehiOwnerName;
 					var vehicletypename =ret.data.vehicletypename == undefined ? "":ret.data.vehicletypename;
+					var auditname =ret.data.auditname == undefined ? "":ret.data.auditname;
+					
+					var desc2 =ret.data.desc2 == undefined ? "":ret.data.desc2;
 					var status =ret.data.status == undefined ? "":ret.data.status;
-					if(status!=""&&status=="-1"){
-						status="认证失败";
+					if(desc2!=""&&desc2==1){
+//						desc2="临时认证";
+						if(status!=""&&status=="-1"){
+							status="临时认证  认证失败";
+						}
+						if(status!=""&&status=="0"){
+							status="未认证";
+						}
+						if(status!=""&&status=="1"){
+							status="临时认证  认证成功";
+						}
+						if(status!=""&&status=="2"){
+							status="认证中";
+						}
+					}if(desc2!=""&&desc2==2){
+//						desc2="完全认证";
+						if(status!=""&&status=="-1"){
+							status="完全认证 认证失败";
+						}
+						if(status!=""&&status=="0"){
+							status="未认证";
+						}
+						if(status!=""&&status=="1"){
+							status="完全认证 认证成功";
+						}
+						if(status!=""&&status=="2"){
+							status="认证中";
+						}
 					}
-					if(status!=""&&status=="0"){
-						status="未认证";
-					}
-					if(status!=""&&status=="1"){
-						status="认证成功";
-					}
-					if(status!=""&&status=="2"){
-						status="认证中";
-					}
+					
+					
 					var desc1 =ret.data.desc1 == undefined ? "":ret.data.desc1;
 					if(desc1!=""&&desc1=="-1"){
 						desc1="认证失败";
@@ -231,12 +254,7 @@ function select(){
 					if(desc1!=""&&desc1=="2"){
 						desc1="认证中";
 					}
-					var desc2 =ret.data.desc2 == undefined ? "":ret.data.desc2;
-					if(desc2!=""&&desc2==1){
-						desc2="临时认证";
-					}if(desc2!=""&&desc2==2){
-						desc2="完全认证";
-					}
+					$("#auditname").val(auditname);//车主名称
 					$("#cellphone").val(cellphone);//添加账号
 					$("#vehiOwnerTel").val(vehiOwnerTel);//所有人电话
 					$("#vehiOwnerName").val(vehiOwnerName);//所有人名称
@@ -260,6 +278,11 @@ function select(){
 			}
 		})
 }
+/**
+ * 删除功能
+ * @param id
+ * @param pageNo
+ */
 function deletes(id,pageNo){
 	if (confirm('是否删除？')) {
 		$.ajax({
@@ -280,6 +303,15 @@ function deletes(id,pageNo){
 		return;
 	}
 }
+
+/**
+ * 查看轨迹
+ */
+function viewTracks(no){menuId
+	var url = encodeURI(encodeURI("/report/vehicleMapPage?menuId="+$("#menuId").val()+"&vehicleNo="+no))
+	window.open(url);
+	//window.open("/report/vehicleMapPage?vehicleNo="+no);
+}
 /**
  * 清空添加弹框车辆信息
  * */
@@ -287,7 +319,7 @@ function deletes(id,pageNo){
 function empty(){
 	$("[name='selects']").css('display','none'); 
 	$("#crossloge").val("")
-	$("#vehiclelogo").val("")
+	$("#vehiclelogo").val("1")
 	$("#vehiclenos").val("")
 	$("#cellphone").val("")
 	$("#vehiOwnerTel").val("")
@@ -296,4 +328,5 @@ function empty(){
 	$("#status").val("")
 	$("#desc1").val("")
 	$("#desc2").val("")
+	$("#crossloge_req").val("");
 }

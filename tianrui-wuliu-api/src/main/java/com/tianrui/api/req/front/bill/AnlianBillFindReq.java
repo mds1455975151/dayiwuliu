@@ -18,6 +18,8 @@ public class AnlianBillFindReq {
     
     private String desc4;
     
+    private Long createtime;
+    
     private Integer pageNo;
     
     private Integer pageSize;
@@ -99,5 +101,13 @@ public class AnlianBillFindReq {
 
 	public void setDesc4(String desc4) {
 		this.desc4 = desc4;
+	}
+
+	public Long getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Long createtime) {
+		this.createtime = createtime;
 	}
 }

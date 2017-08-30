@@ -17,6 +17,7 @@ import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.BillAnlianPosition;
@@ -33,15 +34,21 @@ public class AnlianBillPosition {
 	protected IAnlianService anlianService;
 	
 	
-	@Scheduled(cron="0 0/10 *  * * ? ")
+//	@Scheduled(cron="0 0/10 *  * * ? ")
+	@Scheduled(cron="0/10 * *  * * ? ")
     public void getncPay() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[AnlianBillPosition]启动.时间是 :" + DateUtil.getDateString());  
         try {
         	AnlianBillFindReq req = new AnlianBillFindReq();
         	req.setDesc4("配载单已到货!");
+        	String size = Constant.ANLIAN_TIME;
+        	req.setCreatetime(System.currentTimeMillis()-Integer.valueOf(size)*24*60*60*1000);
         	List<AnlianBillResp> list = anlianBillService.findAll(req);
+        	int a = 0;
         	for(AnlianBillResp resp : list){
+        		a = a+1;
+        		logger.info("执行数据总量[{}],执行到第[{}]条:",list.size(),a); 
         		if(!StringUtils.contains(resp.getDesc4(),"已到货")){
         			Result rs = Result.getSuccessResult();
         			rs = anlianService.detail(resp.getBillno());

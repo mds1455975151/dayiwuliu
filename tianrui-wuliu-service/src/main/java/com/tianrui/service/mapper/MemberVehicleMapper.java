@@ -3,6 +3,7 @@ package com.tianrui.service.mapper;
 import java.util.List;
 
 import com.tianrui.service.bean.MemberVehicle;
+import com.tianrui.service.bean.MemberVehicles;
 import com.tianrui.service.bean.VehicleAndDriver;
 
 public interface MemberVehicleMapper {
@@ -46,7 +47,7 @@ public interface MemberVehicleMapper {
      * @return MemberVehicle    
      * @throws
      */
-    MemberVehicle selectVehicle(MemberVehicle memberVehicles);
+    MemberVehicles selectVehicle(MemberVehicle memberVehicles);
     
     /**
      * 根据车辆id查询

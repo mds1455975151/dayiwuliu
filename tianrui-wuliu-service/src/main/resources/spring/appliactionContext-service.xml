@@ -61,6 +61,9 @@
 		<property name="WEIXIN_APPID" value="${weixin.appid}"></property>
 		<property name="WEIXIN_SECRET" value="${weixin.secret}"></property>
 		
+		<property name="ANLIAN_TIME" value="${anlian.time}"></property>
+		
+		
 	</bean>
      
      <import resource="applicationContext-db.xml"/>
