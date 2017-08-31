@@ -36,8 +36,13 @@ public class AppPayInvoice_1Action {
 		try {
 			Head head = appParam.getHead();
 			PayInvoiceReq req = appParam.getBody();
-//			req.setPayeeIdentity(Constant.PAY_INVOICE_VENDER);
-			req.setPayeeId(head.getId());
+
+			if(req.getPayeeIdentity()==3){
+				req.setCreator(head.getId());
+				req.setPayeeIdentity(null);
+			}else{
+				req.setPayeeId(head.getId());
+			}
 			PaginationVO<PayInvoiceVo> page = payInvoiceService.page(req);
 			result.setData(page);
 		} catch (Exception e) {

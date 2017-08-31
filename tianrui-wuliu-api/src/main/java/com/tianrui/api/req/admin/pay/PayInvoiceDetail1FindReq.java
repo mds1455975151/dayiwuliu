@@ -48,8 +48,10 @@ public class PayInvoiceDetail1FindReq {
     private String venderId;
     //司机ID
     private String driverId;
-    //运单身份（1：司机运单，2：车主运单）
+    //运单身份（1：司机运单，2：车主运单, 3：签收人）
     private Integer billType;
+    //创建人
+    private String creator;
 	
     public String getBeginTimeStr() {
     	return beginTimeStr;
@@ -164,5 +166,11 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setConsignee(String consignee) {
 		this.consignee = consignee;
+	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 }

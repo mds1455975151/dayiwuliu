@@ -76,7 +76,7 @@ function getMap(){
 	  showToolAutoDef(map);
 }
 function showToolAutoDef(map) { 
-	var vehicleNo=$("#vehicleNo").val()
+	var vehicleNo=$("#vehicleNo").val();
 	var starttime = $("#starttime").val();
 	var endtime = $("#endtime").val();
 	if(starttime == "" || endtime == ""){
@@ -102,7 +102,7 @@ function showToolAutoDef(map) {
 				for (var a = 0; a < list.length; a++) {
 					lon = list[a].lon;
 					lat = list[a].lat;
-					addMarker(lon,lat,list[a].addr);
+					addMarker(lon,lat,list[a].addr,list[a].createTime);
 						var thePoint1 = new BMap.Point(lon,lat);
 						nlon = lon;
 						nlat = lat
@@ -121,19 +121,30 @@ function showToolAutoDef(map) {
 	})
 			
 }
-
+var opts = {
+		width : 250,     // 信息窗口宽度
+		height: 120,     // 信息窗口高度
+		title : $("#vehicleNo").val() , // 信息窗口标题
+		enableMessage:true//设置允许信息窗发送短息
+	   };
 //创建marker
-function addMarker(lng, lat,addr){
+function addMarker(lng, lat,addr,time){
 	    var point = new BMap.Point(lng,lat);
 	    var iconImg = createIcon();
 	    var marker = new BMap.Marker(point,{icon:iconImg});
 	    
 	    var _marker = marker;
 				_marker.addEventListener("click",function(){
-				    alert(addr);
+				    openInfo(lng,lat,"<br>"+addr+"\<br><br>"+lat+","+lng+"<br><br>"+time);
 			    });
 	    
 	    map.addOverlay(marker);
+}
+
+function openInfo(lng,lat,addr,time){
+	var point = new BMap.Point(lng, lat);
+	var infoWindow = new BMap.InfoWindow(addr,opts);  // 创建信息窗口对象 
+	map.openInfoWindow(infoWindow,point); //开启信息窗口
 }
 
 /**

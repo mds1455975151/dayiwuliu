@@ -67,7 +67,10 @@ public class PayInvoiceDetail_1Action {
 				req.setDriverId(vo.getId());
 			}else if(req.getBillType()==2){
 				req.setVenderId(vo.getId());
-			}else {
+			}else if(req.getBillType()==3){
+				req.setCreator(vo.getId());
+				req.setBillType(null);
+			}else{
 				rs.setCode("1");
 				rs.setError("请选择账单身份");
 				return rs;

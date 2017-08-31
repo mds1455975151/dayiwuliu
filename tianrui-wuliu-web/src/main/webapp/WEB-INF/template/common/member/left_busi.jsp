@@ -16,6 +16,10 @@
 	                        <li><a href="/trwuliu/plantemplate/main" id="plantemplate">我的计划模板</a></li>
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
 	                         <li><a href="/trwuliu/billSigner/main" id="billsigner">我签收的运单</a></li>
+	 					    <li><a href="/trwuliu/payInvoiceItem_1/main" id="yunfei">运费结算单</a></li>
+	                        <li><a href="/trwuliu/payInvoice_1/main" id="paymain">支付发票账单</a></li>
+	                         <!-- 
+	 					     -->
 	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> -->
 	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>
 	                        <li><a href="/trwuliu/billAnlian/owner" id="ownerAnlian">开票运单</a></li>
@@ -37,14 +41,13 @@
 	                        <!-- 
 	                        <li><a href="/trwuliu/member_vehicle/new/page" id="mycapaPage_new">我的运力_new</a></li>
 	                         -->
-	                       
 	                        <li><a href="/trwuliu/planvender/main" id="planvender">我承运的计划</a></li>
 	                        <li><a href="/trwuliu/planAppoint/main" id="planAppoint">我委派的计划</a></li>
 	                        <li><a href="/trwuliu/billvender/main" id="billvender">我承运的运单</a></li>
 	                        <li><a href="/trwuliu/billAppoint/main" id="billAppoint">我委派的运单</a></li>
+	 					    <!-- 
 	 					    <li><a href="/trwuliu/payInvoiceItem_1/main" id="yunfei">运费结算单</a></li>
 	                        <li><a href="/trwuliu/payInvoice_1/main" id="paymain">支付发票账单</a></li>
-	 					    <!-- 
 	 					     -->
 	                        <li><a href="/trwuliu/venderreport/main" id="venderreport">我的报表</a></li>
 	                        <li><a href="/trwuliu/billAnlian/vender" id="venderAnlian">开票运单</a></li>

@@ -15,7 +15,6 @@ public class PayInvoiceReq extends BasePage {
 	private String id;
 	
 	private String bankCardId;
-	
 	//账单编码
     private String code;
     //发票类型NAME
@@ -34,12 +33,14 @@ public class PayInvoiceReq extends BasePage {
 	private String likeBillCode;
 	//模糊匹配货物名称
 	private String likeCargoName;
-	//账单收款身份
+	//账单收款身份 3-签收人账单
 	private Integer payeeIdentity;
 	//收款人id
 	private String payeeId;
 	//是否有效数据
 	private Integer state = Constant.DATA_VALID;
+	//创建人/签收人
+	private String creator;
 	
 	public Integer getPay() {
 		return pay;
@@ -160,6 +161,12 @@ public class PayInvoiceReq extends BasePage {
 	}
 	public void setPayeeId(String payeeId) {
 		this.payeeId = payeeId;
+	}
+	public String getCreator() {
+		return creator;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 	@Override
 	public String toString() {

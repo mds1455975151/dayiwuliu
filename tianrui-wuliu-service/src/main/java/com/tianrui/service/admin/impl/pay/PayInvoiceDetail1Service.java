@@ -222,6 +222,11 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			PayInvoiceDetail pay = new PayInvoiceDetail();
 			pay.setIds(Arrays.asList(idArr));
 			List<PayInvoiceDetail> list = payInvoiceDetailMapper1.selectByCondition(pay);
+			//校验支付对象是否为同一人
+			if(!checkPayMent(list)){
+				rs.setCode("1");
+				rs.setError("收款对象不是同一人");
+			}else
 			//传入数据无误
 			if(idArr.length==list.size()){
 				//验证操作权限
@@ -419,8 +424,35 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	protected boolean checkVender(String creater,List<PayInvoiceDetail> list) {
 		for(PayInvoiceDetail pay : list){
 			if(pay.getBillType()==2){
-				//车主    车主账单前台账户操作 
-				if(!StringUtils.equals(creater, pay.getVenderId())){
+				//签收人   签收人账单前台账户操作 
+				if(!StringUtils.equals(creater, pay.getCreator())){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	/** 校验支付对象是否为同一人*/
+	protected boolean checkPayMent(List<PayInvoiceDetail> list) {
+		
+		for (int i = 0; i < list.size(); i++) {
+			PayInvoiceDetail pay = list.get(0);
+			//支付对象id
+			String mentID = "";
+			if(pay.getBillType()==1){
+				//司机账单
+				mentID = pay.getDriverId();
+			}else if(pay.getBillType()==2){
+				//车主账单
+				mentID = pay.getVenderId();
+			}
+			if(list.get(i).getBillType()==1){
+				if(!StringUtils.equals(mentID, list.get(i).getDriverId())){
+					return false;
+				}
+			}else if(list.get(i).getBillType()==2){
+				if(!StringUtils.equals(mentID, list.get(i).getVenderId())){
 					return false;
 				}
 			}

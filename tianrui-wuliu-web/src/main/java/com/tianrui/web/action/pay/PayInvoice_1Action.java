@@ -58,7 +58,12 @@ public class PayInvoice_1Action {
 		Result result = Result.getSuccessResult();
 		try {
 			MemberVo vo = SessionManager.getSessionMember(request);
-			req.setPayeeId(vo.getId());
+			if(req.getPayeeIdentity()==3){
+				req.setCreator(vo.getId());
+				req.setPayeeIdentity(null);
+			}else{
+				req.setPayeeId(vo.getId());
+			}
 			PaginationVO<PayInvoiceVo> page = payInvoiceService.page(req);
 			result.setData(page);
 		} catch (Exception e) {

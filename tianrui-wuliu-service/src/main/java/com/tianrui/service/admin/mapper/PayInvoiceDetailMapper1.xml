@@ -141,6 +141,9 @@
 		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
 		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
 		<where>
+			<if test="creator != null and creator != ''">
+				and p.creator = #{creator,jdbcType=VARCHAR}
+			</if>
 			<if test="timeBegin != null">
 				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
 			</if>
@@ -220,6 +223,9 @@
 		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
 		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
 		<where>
+			<if test="creator != null and creator != ''">
+				and p.creator = #{creator,jdbcType=VARCHAR}
+			</if>
 			<if test="timeBegin != null">
 				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
 			</if>

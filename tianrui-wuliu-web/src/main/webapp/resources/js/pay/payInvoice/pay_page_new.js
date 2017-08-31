@@ -14,7 +14,7 @@ function index(No,flag){
 			"likeBillCode":$("#likeBillCode_req").val().trim(),
 			"invoiceName":$("#invoiceName_req").val().trim(),
 			"pay":$("#pay_req").val().trim(),
-			"payeeIdentity":"2",//车主账单
+			"payeeIdentity":"3",//车主账单
 			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
@@ -92,7 +92,7 @@ function showdetail(id){
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
-				"billType":2,//车主账单
+				"billType":3,//签收人账单
 				"payInvoiceId":id},
 		type : "post",
 		success : function(rs){

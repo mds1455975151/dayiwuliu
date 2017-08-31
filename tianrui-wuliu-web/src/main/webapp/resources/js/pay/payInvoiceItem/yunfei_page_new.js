@@ -17,7 +17,7 @@ function index(No,flag){
 		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
 			"searchKey":$("#searchKey").val(),
-			"billType":2,
+			"billType":3,
 			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
