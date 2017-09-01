@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.req.front.vehicle.AddVehicleBankCardReq;
-import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
-import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
@@ -23,7 +21,7 @@ import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
 
 @Controller
-@RequestMapping("/trwuliu/bank/card")
+@RequestMapping("/trwuliu/bankcard")
 public class AppBankCardAction {
 	
 	public Logger logger = LoggerFactory.getLogger(AppBankCardAction.class);
