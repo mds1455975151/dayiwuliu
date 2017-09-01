@@ -34,7 +34,7 @@ public class AnlianBillPosition {
 	protected IAnlianService anlianService;
 	
 	
-	@Scheduled(cron="0 0/10 *  * * ? ")
+	@Scheduled(cron="0 0/5 *  * * ? ")
     public void getncPay() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[AnlianBillPosition]启动.时间是 :" + DateUtil.getDateString());  

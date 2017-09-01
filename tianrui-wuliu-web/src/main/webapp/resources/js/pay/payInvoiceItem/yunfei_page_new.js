@@ -16,7 +16,11 @@ function index(No,flag){
 	$.ajax({
 		url : "/trwuliu/payInvoiceItem_1/page",//
 		data : {
-			"searchKey":$("#searchKey").val(),
+			"code":$("#code_req").val(),
+			"invoiceName":$("#invoiceName_req").val(),
+			"billPayStatus":$("#billPayStatus_req").val(),
+			"remark":$("#remark_req").val(),
+			"venderId":$("#venderId_req").val(),
 			"billType":3,
 			"pageNo":No,
 			"pageSize":pageSize},
@@ -89,6 +93,7 @@ function innerHTML(ret,flag){
 				"<td >"+data[a].billCode+"</td>" +
 				"<td >"+remark+"</td>" +
 				"<td >"+data[a].cargoName+"</td>" +
+				"<td >"+data[a].venderName+"<br>"+data[a].venderPhone+"</td>" +
 				"<td >"+data[a].invoiceName+"</td>" +
 				"<td >"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 				"<td >"+data[a].billWeight+"吨</td>" +

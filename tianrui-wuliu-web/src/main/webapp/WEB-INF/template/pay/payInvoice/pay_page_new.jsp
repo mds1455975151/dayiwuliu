@@ -92,6 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th >账单编号</th>
                          <th >账单类型</th>
                          <th >申请时间</th>
+                         <th>收款人</th>
                          <th>账单总价</th>
                          <th>已付款</th>
                          <th >待付款</th>

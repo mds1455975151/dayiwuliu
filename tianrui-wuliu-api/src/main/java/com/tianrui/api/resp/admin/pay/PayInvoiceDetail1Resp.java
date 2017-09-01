@@ -14,6 +14,7 @@ public class PayInvoiceDetail1Resp {
     //附件图片
   	private String appendix;
   	
+  	
   	private String memo;
 	
 	private String driverPhone;

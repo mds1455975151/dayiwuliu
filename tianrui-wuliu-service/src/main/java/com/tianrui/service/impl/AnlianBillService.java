@@ -378,6 +378,12 @@ public class AnlianBillService implements IAnlianBillService{
 		record.setId(req.getId());
 		record.setDesc3(req.getDesc3());
 		record.setDesc4(req.getDesc4());
+		if(req.getPtBegintime()!=null){
+			record.setPtBegintime(req.getPtBegintime());
+		}
+		if(req.getPtEndtime()!=null){
+			record.setPtEndtime(req.getPtEndtime());
+		}
 		anlianBillMapper.updateByPrimaryKeySelective(record);
 		return rs;
 	}

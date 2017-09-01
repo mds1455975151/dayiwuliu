@@ -1,5 +1,7 @@
 package com.tianrui.web.app.action.pay;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
+import com.tianrui.api.resp.pay.PayVenderGroupResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
@@ -56,7 +59,7 @@ public class AppPayInvoiceDetail_1Action {
 				req.setVenderId(vo.getId());
 			}else if(req.getBillType()==3){
 				req.setCreator(vo.getId());
-				req.setBillType(null);
+				req.setBillType(2);
 			}else {
 				rs.setCode("1");
 				rs.setError("请选择账单身份");
@@ -113,6 +116,22 @@ public class AppPayInvoiceDetail_1Action {
 		}
 		PaginationVO<PayInvoiceDetail1Resp> page =payInvoiceDetail1Service.select(req);
 		rs.setData(page);
+		return AppResult.valueOf(rs);
+	}
+	/** 获取车主列表
+	 * @throws Exception */
+	@RequestMapping(value="/groupVender",method = RequestMethod.POST)
+	@ApiParamRawType(PayInvoiceDetail1FindReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult groupVender(AppParam<PayInvoiceDetail1FindReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		Head vo = appParam.getHead();
+		PayInvoiceDetail1FindReq req = appParam.getBody();
+		req.setCreator(vo.getId());
+		req.setBillType(2);
+		List<PayVenderGroupResp> list = payInvoiceDetail1Service.groupByVender(req);
+		rs.setData(list);
 		return AppResult.valueOf(rs);
 	}
 }

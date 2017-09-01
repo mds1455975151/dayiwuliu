@@ -60,7 +60,7 @@ public class PayInvoice_1Action {
 			MemberVo vo = SessionManager.getSessionMember(request);
 			if(req.getPayeeIdentity()==3){
 				req.setCreator(vo.getId());
-				req.setPayeeIdentity(null);
+				req.setPayeeIdentity(2);
 			}else{
 				req.setPayeeId(vo.getId());
 			}

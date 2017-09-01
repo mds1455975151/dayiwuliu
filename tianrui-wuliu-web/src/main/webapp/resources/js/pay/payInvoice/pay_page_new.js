@@ -71,6 +71,7 @@ function innerHTML(ret,flag){
 				"<td data-toggle='modal' onclick=\"showdetail('"+data[a].id+"')\" data-target='#fp_dtail'><a>"+data[a].code+"</a></td>" +
 				"<td >"+data[a].invoiceName+" </td>" +
 				"<td >"+new Date(data[a].applicationTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+				"<td >"+data[a].payeeName+"<br>"+data[a].payeeBankCardNumber+"</td>" +
 				"<td >"+data[a].amountPayable+"</td>" +
 				"<td >"+data[a].paidAmount+"元</td>" +
 				"<td >"+(data[a].amountPayable-data[a].paidAmount)+"元</td>" +

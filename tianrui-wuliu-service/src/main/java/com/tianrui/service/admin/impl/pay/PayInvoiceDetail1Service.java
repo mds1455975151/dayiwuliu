@@ -14,14 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
+import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.api.resp.pay.PayAndBillDateilResp;
+import com.tianrui.api.resp.pay.PayVenderGroupResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileRoute;
@@ -38,6 +41,7 @@ import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.anlian.AnlianBill;
+import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
@@ -68,7 +72,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	MerchantMapper merchantMapper;
 	@Autowired
 	FileRouteMapper fileRouteMapper;
-	
+	@Autowired
+	IMemberVoService memberVoService;
 	@Override
 	public Result billSelectPrice(PayInvoiceDetail1Req req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -606,6 +611,31 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		upt.setMemo(memo);
 		payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		return rs;
+	}
+
+	@Override
+	public List<PayVenderGroupResp> groupByVender(PayInvoiceDetail1FindReq req) throws Exception {
+		// TODO Auto-generated method stub
+		PayInvoiceDetail rec = new PayInvoiceDetail();
+		rec.setCreator(req.getCreator());
+		rec.setBillType(req.getBillType());
+		List<PayInvoiceDetail> list = payInvoiceDetailMapper1.groupByVender(rec);
+		List<PayVenderGroupResp> resp = new ArrayList<PayVenderGroupResp>();
+		for(PayInvoiceDetail det : list){
+			PayVenderGroupResp group = new PayVenderGroupResp();
+			MemberVo vo = memberVoService.get(det.getVenderId());
+			if(vo!=null){
+				group.setVenderId(vo.getId());
+				group.setVenderPhone(vo.getCellphone());
+				if(vo.getCompanypercheck().equals("1")){
+					group.setVnederName(vo.getCompanyName());
+				}else{
+					group.setVnederName(vo.getUserName());
+				}
+				resp.add(group);
+			}
+		}
+		return resp;
 	}
 	
 }

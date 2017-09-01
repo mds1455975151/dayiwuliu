@@ -46,6 +46,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h2>运费结算单</h2>
             </div>
             <!--个人中心右侧搜索框begin-->
+           
+           <div class="yf_search">
+                <div class="yf_fl">
+                     <div class="yf_sline">
+                        <label>运单号：</label>
+                         <input type="text" id="code_req" placeholder="请输入运单编号">
+                    </div>
+                </div>    
+                <div class="yf_fl">    
+                    <div class="yf_sline">
+                        <label>发票类型：</label>
+                         <select id="invoiceName_req" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="熟料">熟料运输费用</option>
+                            <option value="原煤">原煤运输费用</option>
+                            <option value="水泥">水泥运输费用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="yf_fl">    
+                    <div class="yf_sline">
+                        <label>状态：</label>
+                         <select id="billPayStatus_req" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="3">已合单</option>
+                            <option value="2">未合单</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="yf_fl">    
+                    <div class="yf_sline">
+                        <label>选择车主：</label>
+                         <select id="venderId_req" class="form-control">
+                            <option value="">请选择</option>
+                           	<c:forEach items="${group }" var="group">
+                           		<option value="${group.venderId }">${group.vnederName }</option>
+                           	</c:forEach>
+                        </select>
+                    </div>
+                </div>
+                
+                 <div class="yf_fl">    
+                    <div class="yf_sline">
+                        <label>运单类型：</label>
+                         <select id="remark_req" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="al">安联运单</option>
+                            <option value="dy">普通运单</option>
+                        </select>
+                    </div>
+                </div>
+	               <button type="submit" onclick="index(0,0)" class="btn btnblue">搜索</button>
+            </div>
+           
+           
+           <!-- 
             <div class="plan_search">
                 <div class="yf_fl">
                     <div class="yf_sline">
@@ -54,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                 </div>
             </div>
+            -->
             <!--个人中心右侧搜索框end-->
             <!--计划模板表格begin-->
              <div class="yunfei">
@@ -68,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                          <th >运单号</th>
                          <th >运单类型</th>
                          <th >货物名称</th>
+                         <th> 车主</th>
                          <th >发票类型</th>
                          <th >创建时间</th>
                          <th>到货量</th>
@@ -116,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/pay/payInvoiceItem/yunfei_page_new.js?0830" ></script>
+<script type="text/javascript" src="/resources/js/pay/payInvoiceItem/yunfei_page_new.js?083100" ></script>
 
 </body>
 </html>

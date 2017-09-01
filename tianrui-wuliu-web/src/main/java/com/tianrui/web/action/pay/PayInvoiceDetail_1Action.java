@@ -1,5 +1,7 @@
 package com.tianrui.web.action.pay;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +18,7 @@ import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
+import com.tianrui.api.resp.pay.PayVenderGroupResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -38,9 +41,12 @@ public class PayInvoiceDetail_1Action {
 	public ModelAndView main(HttpServletRequest request) throws Exception{
 		ModelAndView model = new ModelAndView("pay/payInvoiceItem/yunfei_page_new");
 		MemberVo vo = SessionManager.getSessionMember(request);
-//		Result rs = payInvoiceDetailService.getCargoTypeName();
+		PayInvoiceDetail1FindReq req = new PayInvoiceDetail1FindReq();
+		req.setCreator(vo.getId());
+		req.setBillType(2);
+		List<PayVenderGroupResp> list = payInvoiceDetail1Service.groupByVender(req);
 		model.addObject("currId", vo.getId());
-//		model.addObject("paytype", rs.getData());
+		model.addObject("group", list);
 		return model;
 	}
 	//billId  运单id 查询运价确认信息
@@ -69,7 +75,7 @@ public class PayInvoiceDetail_1Action {
 				req.setVenderId(vo.getId());
 			}else if(req.getBillType()==3){
 				req.setCreator(vo.getId());
-				req.setBillType(null);
+				req.setBillType(2);
 			}else{
 				rs.setCode("1");
 				rs.setError("请选择账单身份");

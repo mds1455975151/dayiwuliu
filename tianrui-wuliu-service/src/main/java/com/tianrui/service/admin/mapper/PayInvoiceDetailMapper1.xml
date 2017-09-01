@@ -81,6 +81,21 @@
     from pay_invoice_detail_1
     where pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
   </select>
+   <select id="groupByVender" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail">
+  	SELECT
+		vender_id
+	FROM
+		pay_invoice_detail_1
+	<where>
+		<if test="creator != null and creator != ''">
+			AND creator = #{creator,jdbcType=VARCHAR}
+		</if>
+		<if test="billType != null and billType != ''">
+			AND bill_type = #{billType,jdbcType=BIT}
+		</if>
+	</where>
+	GROUP BY vender_id
+  </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     select 
     	p.id,

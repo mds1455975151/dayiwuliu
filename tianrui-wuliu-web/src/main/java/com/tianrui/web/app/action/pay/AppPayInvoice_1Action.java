@@ -39,7 +39,7 @@ public class AppPayInvoice_1Action {
 
 			if(req.getPayeeIdentity()==3){
 				req.setCreator(head.getId());
-				req.setPayeeIdentity(null);
+				req.setPayeeIdentity(2);
 			}else{
 				req.setPayeeId(head.getId());
 			}

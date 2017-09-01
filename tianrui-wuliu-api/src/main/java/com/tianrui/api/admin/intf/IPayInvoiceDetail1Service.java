@@ -1,12 +1,15 @@
 package com.tianrui.api.admin.intf;
 
 
+import java.util.List;
+
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.api.resp.pay.PayAndBillDateilResp;
+import com.tianrui.api.resp.pay.PayVenderGroupResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
@@ -27,4 +30,6 @@ public interface IPayInvoiceDetail1Service {
 	public PayAndBillDateilResp payInviuceDetail(String id)throws Exception;
 	/** 账单备注*/
 	public Result payMemo(String id,String memo)throws Exception;
+	/** 获取车主列表*/
+	public List<PayVenderGroupResp> groupByVender(PayInvoiceDetail1FindReq req)throws Exception;
 }
