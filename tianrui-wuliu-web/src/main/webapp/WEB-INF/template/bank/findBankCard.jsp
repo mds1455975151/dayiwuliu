@@ -81,7 +81,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <div class="rz_right">
 		             	<div class="car_title bgblue">
 							<h2>银行卡详情</h2>
-							<a href="/trwuliu/bank/card/savePage"><span>添加银行卡</span></a>
+							
+							<a href="/trwuliu/bank/card/savePage"><span>添加自己银行卡</span></a>
+							
+							<a href="/trwuliu/bank/card/saveOwnerPage"><span>引用别人银行卡</span></a>
 						</div>
 						<div class="head_body" id="innerHml">
 							<!-- 循环开始 

@@ -2,6 +2,7 @@ package com.tianrui.api.intf;
 
 import java.util.List;
 
+import com.tianrui.api.req.front.vehicle.AddVehicleBankCardReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
 import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
@@ -16,6 +17,18 @@ import com.tianrui.common.vo.Result;
  * @time 2016年6月1日 下午2:15:37
  */
 public interface IOwnerDriverService {
+	
+	/**
+	 * 
+	 * @Title: findOwnerById 
+	 * @Description: 根据司机id查询车主id
+	 * @param @param memberId
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return List<OwnerDriverResp>    
+	 * @throws
+	 */
+//	List<OwnerDriverResp> findOwnerById(String memberId) throws Exception;
 	
 	List<OwnerDriverResp> findOwnDriveById(String memberId) throws Exception;
 	
@@ -113,5 +126,7 @@ public interface IOwnerDriverService {
 	 * @time 2016年6月1日 下午2:15:37
 	 */
 	public Result deleteByPrimaryKey(String id) throws Exception;
+	
+	Result addVehicleownerBankcard(AddVehicleBankCardReq addVehicle)throws Exception;
 	
 }

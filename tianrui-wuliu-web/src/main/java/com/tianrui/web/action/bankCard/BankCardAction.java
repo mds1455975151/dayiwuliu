@@ -1,25 +1,27 @@
 package com.tianrui.web.action.bankCard;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.tianrui.api.intf.ISystemMemberInfoService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
+import com.tianrui.api.req.front.vehicle.AddVehicleBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.api.resp.front.member.MemberInfoMassageResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.common.constants.Constant;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.impl.OwnerDriverService;
 import com.tianrui.web.util.SessionManager;
 
 @Controller
@@ -32,6 +34,8 @@ public class BankCardAction {
 	private ISystemMemberService systemMemberService;
 	@Autowired
 	private ISystemMemberInfoService systemMemberInfoService;
+	@Autowired
+	OwnerDriverService ownerDriverService;
 
 	/** 我的银行卡
 
@@ -66,6 +70,46 @@ public class BankCardAction {
 		view.addObject("member", member);
 		view.setViewName("/bank/saveBankCard");
 		return view;
+	}
+	/**
+	 * @Title: saveOwnerPage 
+	 * @Description: 添加车主银行卡页面
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return ModelAndView    
+	 * @throws
+	 */
+	@RequestMapping("saveOwnerPage")
+	public ModelAndView saveOwnerPage(HttpServletRequest request)throws Exception{
+		ModelAndView view = new ModelAndView();
+		MemberVo vo = SessionManager.getSessionMember(request);
+//		List<OwnerDriverResp> list = ownerDriverService.findOwnerById(vo.getId());
+		List <MemberBankCardResp> list = memberBankCardService.findOwnerById(vo.getId());
+		view.addObject("list",list);
+		view.setViewName("/bank/saveOwnerBankCard");
+		return view;
+		
+	}
+	/**
+	 * 
+	 * @Title: addVehicleownerBankcard 
+	 * @Description: TODO添加车主银行卡id
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/addVehicleownerBankcard")
+	@ResponseBody
+	public Result addVehicleownerBankcard(HttpServletRequest request,String vehicleownerid)throws Exception {
+		MemberVo vo = SessionManager.getSessionMember(request);
+		AddVehicleBankCardReq addVehicle = new AddVehicleBankCardReq();
+		addVehicle.setDriverid(vo.getId());
+		addVehicle.setVehicleownerid(vehicleownerid);
+		addVehicle.setId(UUIDUtil.getId());
+		Result rs = ownerDriverService.addVehicleownerBankcard(addVehicle);
+		
+		return rs;
 	}
 	
 	/** 添加页面

@@ -22,6 +22,9 @@ public interface MemberBankCardMapper {
     long selectBycount(MemberBankCard record);
     
     List<MemberBankCard> selectSelective(MemberBankCard record);
+    
+    MemberBankCard selectOwnerCard(MemberBankCard record);
+
     //银行卡审核
     Long bankcardByNum(MemberBankCard record);
     

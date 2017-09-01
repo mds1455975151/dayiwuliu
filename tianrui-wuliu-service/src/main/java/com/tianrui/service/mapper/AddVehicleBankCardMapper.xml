@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AddVehicleBankCardMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.AddVehicleBankCard" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="driverid" property="driverid" jdbcType="VARCHAR" />
+    <result column="vehicleownerid" property="vehicleownerid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, driverid,vehicleownerid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wulliu_addvehicle_bankcard
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wulliu_addvehicle_bankcard
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+    insert into wulliu_addvehicle_bankcard (id, driverid, vehicleownerid )
+    values (#{id,jdbcType=VARCHAR}, #{driverid,jdbcType=VARCHAR}, #{vehicleownerid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+    insert into wulliu_addvehicle_bankcard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="driverid != null" >
+        driverid,
+      </if>
+      <if test="vehicleownerid != null" >
+        vehicleownerid
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="driverid != null" >
+        #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownerid != null" >
+        #{vehicleownerid,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+    update wulliu_addvehicle_bankcard
+    <set >
+      <if test="driverid != null" >
+        driverid = #{driverid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownerid != null" >
+        vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+    update wulliu_addvehicle_bankcard
+    set driverid = #{driverid,jdbcType=VARCHAR},
+      vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+    select 
+    <include refid="Base_Column_List" />
+    from wulliu_addvehicle_bankcard
+    <where>1=1
+    	<if test="driverid != null and driverid != ''">
+				and driverid = #{driverid,jdbcType=VARCHAR}
+		</if>
+		<if test="vehicleownerid != null and vehicleownerid != ''">
+				and vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR}
+		</if>
+    </where>
+  </select>
+  
+  <select id="findsAddVehicleBankCardListCount" resultType="long" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+     select 
+	   count(*)
+    from wulliu_addvehicle_bankcard 
+   <where>1=1
+   		<if test="driverid != null and driverid != ''">
+				and driverid = #{driverid,jdbcType=VARCHAR}
+		</if>
+		<if test="vehicleownerid != null and vehicleownerid != ''">
+				and vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR}
+		</if>
+   	</where>
+  </select>
+  <select id="selectAddVehicleBankCard" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.AddVehicleBankCard" >
+     select 
+	 <include refid="Base_Column_List" />
+    from wulliu_addvehicle_bankcard 
+   <where>1=1
+   		<if test="driverid != null and driverid != ''">
+				and driverid = #{driverid,jdbcType=VARCHAR}
+		</if>
+		<if test="vehicleownerid != null and vehicleownerid != ''">
+				and vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR}
+		</if>
+   	</where>
+  </select>
+</mapper>

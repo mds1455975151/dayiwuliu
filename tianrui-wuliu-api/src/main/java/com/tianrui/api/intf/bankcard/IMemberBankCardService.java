@@ -1,5 +1,7 @@
 package com.tianrui.api.intf.bankcard;
 
+import java.util.List;
+
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -8,6 +10,8 @@ import com.tianrui.common.vo.Result;
 /** 我的银行卡*/
 public interface IMemberBankCardService {
 	
+	//根据司机id查询车主列表
+	List<MemberBankCardResp> findOwnerById(String id)throws Exception;
 	/** 添加银行卡*/
 	public Result insertBankCard(MemberBankCardReq req)throws Exception;
 	/** 审核银行卡*/
