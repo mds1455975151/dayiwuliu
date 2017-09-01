@@ -31,11 +31,13 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.BankSubbranch;
 import com.tianrui.service.bean.BankType;
 import com.tianrui.service.bean.MemberBankCard;
+import com.tianrui.service.bean.OwnerDriver;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.mapper.BankSubbranchMapper;
 import com.tianrui.service.mapper.BankTypeMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
+import com.tianrui.service.mapper.OwnerDriverMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 
@@ -58,6 +60,8 @@ public class MemberBankCardService implements IMemberBankCardService{
 	private TaskExecutor taskExecutor;
 	@Autowired
 	IMessageService messageService;
+	@Autowired
+	OwnerDriverMapper ownerDriverMapper;
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
@@ -521,5 +525,32 @@ public class MemberBankCardService implements IMemberBankCardService{
 		result.setData(list);
 		result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		return result;
+	}
+	
+	/**
+	 * 根据司机id查询车主银行卡信息
+	 * @throws Exception 
+	 */
+	@Override
+	public List<MemberBankCardResp> findOwnerById(String id) throws Exception {
+		// TODO Auto-generated method stub
+		OwnerDriver  ownerDriver = new OwnerDriver();
+		ownerDriver.setDriverid(id);
+		List<OwnerDriver> lists = ownerDriverMapper.selectOwnerDriver(ownerDriver);
+		List <MemberBankCard>list = new ArrayList<MemberBankCard>();
+		MemberBankCard memberBankCards =null;
+		for( OwnerDriver ownerDrivers :lists){
+			MemberBankCard memberBankCard = new MemberBankCard();
+			memberBankCard.setCreater(ownerDrivers.getVehicleownerid());
+			memberBankCard.setBankstatus("1");
+			memberBankCards  = memberBankCardMapper.selectOwnerCard(memberBankCard);
+			if(memberBankCards!=null){
+				list.add(memberBankCards);
+			}
+		}
+//		List<MemberBankCardResp> list = new ArrayList<MemberBankCardResp>();
+//		copyProperties_2(list);
+//		list.add(memberBankCards);
+		return (copyProperties_2(list));
 	}
 }

@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.IOwnerDriverService;
+import com.tianrui.api.req.front.vehicle.AddVehicleBankCardReq;
 import com.tianrui.api.req.front.vehicle.OwnerDriverReq;
 import com.tianrui.api.req.front.vehicle.VehicleAndDriverReq;
 import com.tianrui.api.resp.front.vehicle.OwnerDriverResp;
@@ -18,9 +20,13 @@ import com.tianrui.api.resp.front.vehicle.VehicleAndDriverResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.AddVehicleBankCard;
+import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.OwnerDriver;
 import com.tianrui.service.bean.VehicleAndDriver;
 import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.mapper.AddVehicleBankCardMapper;
+import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.OwnerDriverMapper;
 
 /**
@@ -38,6 +44,10 @@ public class OwnerDriverService implements IOwnerDriverService {
 	CacheClient cache;
 	@Autowired
 	IMemberVoService memberService;
+	@Autowired
+	MemberBankCardMapper memberBankCardMapper;
+	@Autowired
+	AddVehicleBankCardMapper addVehicleBankCardMapper;
 	
 	/**
 	 * 父类方法重写，根据条件进行我的未绑定车辆的司机信息查询
@@ -386,5 +396,51 @@ public class OwnerDriverService implements IOwnerDriverService {
 		conver2OwnerDriverResp(ownerDriver);
 		return conver2OwnerDriverResp(ownerDriver);
 	}
+	
+	/**
+	 * 添加车主银行卡方法
+	 * 
+	 */
+	@Override
+	public Result addVehicleownerBankcard(AddVehicleBankCardReq addVehicle) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		AddVehicleBankCard addVehicleBankCard = new AddVehicleBankCard();
+		addVehicleBankCard.setId(addVehicle.getId());
+		addVehicleBankCard.setDriverid(addVehicle.getDriverid());
+		addVehicleBankCard.setVehicleownerid(addVehicle.getVehicleownerid());
+		List<AddVehicleBankCard> list =addVehicleBankCardMapper.selectAddVehicleBankCard(addVehicleBankCard);
+		if(list.size()>=1){
+			rs.setCode("111111");
+			rs.setError("已经添加过该卡，请勿重复添加！");
+		}else{
+			int a =addVehicleBankCardMapper.insert(addVehicleBankCard);
+			if(a!=1){
+				rs.setCode("222222");
+				rs.setError("添加失败！");
+			}
+		}
+		return rs;
+	}
+
+	/**
+	 * 根据司机id查询车主信息
+	 */
+//	@Override
+//	public List<OwnerDriverResp> findOwnerById(String memberId) throws Exception {
+//		OwnerDriver  ownerDriver = new OwnerDriver();
+//		ownerDriver.setDriverid(memberId);
+//		List<OwnerDriver> list = ownerDriverMapper.selectOwnerDriver(ownerDriver);
+//		MemberBankCard memberBankCards=null;
+//		for( OwnerDriver ownerDrivers :list){
+//			MemberBankCard memberBankCard = new MemberBankCard();
+//			memberBankCard.setCreater(ownerDrivers.getVehicleownerid());
+//			memberBankCard.setBankstatus("1");
+//			memberBankCards  = memberBankCardMapper.selectOwnerCard(memberBankCard);
+//		}
+//		List<MemberBankCard> lists = new ArrayList<MemberBankCard>();
+//		lists.add(memberBankCards);
+//		
+//	}
 	
 }

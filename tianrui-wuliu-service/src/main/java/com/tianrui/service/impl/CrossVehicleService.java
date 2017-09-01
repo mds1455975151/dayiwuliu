@@ -150,13 +150,13 @@ public class CrossVehicleService implements ICrossVehicleService{
 					 memberVehicle.setCellphone(member.getCellphone());
 					 memberVehicle.setAuditname(member.getRemarkname());
 				 }
-				 String token = DemoMain.getToken();
-				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
-				 rs.setCode("000000");
-				 memberVehicle.setZjxStatus(bean.getStatus());
-				 if(bean.getResult() != null){
-					 memberVehicle.setZjxResult(bean.getResult().toString());
-				 }
+//				 String token = DemoMain.getToken();
+//				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
+//				 rs.setCode("000000");
+//				 memberVehicle.setZjxStatus(bean.getStatus());
+//				 if(bean.getResult() != null){
+//					 memberVehicle.setZjxResult(bean.getResult().toString());
+//				 }
 				 rs.setData(memberVehicle);
 			 }else{
 				 rs.setCode("333333");
