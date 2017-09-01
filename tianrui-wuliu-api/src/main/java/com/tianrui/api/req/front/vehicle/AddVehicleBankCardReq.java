@@ -17,6 +17,9 @@ public class AddVehicleBankCardReq extends BaseReq{
 	public void setId(String id) {
 		this.id = id;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public String getDriverid() {
 		return driverid;
 	}
