@@ -24,8 +24,8 @@ public class CountIndexServiceTest {
 //			countIndexService.everyDay("2017-05-"+i);
 //		}
 		
-		for( int i=1;i<=14;i++){
-			countIndexService.everyDay("2017-06-"+i);
+		for( int i=24;i<=31;i++){
+			countIndexService.everyDay("2017-08-"+i);
 		}
 	}
 	

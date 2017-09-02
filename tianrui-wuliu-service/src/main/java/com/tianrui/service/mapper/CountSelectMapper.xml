@@ -95,7 +95,7 @@
   <select id="selectVehicleAct" resultType="com.tianrui.service.bean.CountSelect" parameterType="com.tianrui.service.bean.CountSelect" >
     SELECT
 		vehicleid id,
-		vehicleno remark,
+		
 		COUNT(0) count
 	FROM
 		wuliu_bill

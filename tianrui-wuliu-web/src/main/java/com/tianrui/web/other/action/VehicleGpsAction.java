@@ -1,7 +1,10 @@
 package com.tianrui.web.other.action;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -19,6 +22,7 @@ import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
 import com.tianrui.common.constants.ApiErrorCode;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.Md5Utils;
 import com.tianrui.common.vo.Result;
@@ -46,10 +50,10 @@ public class VehicleGpsAction {
 	@ResponseBody
 	public Result queryTrack(@RequestBody VehicleGpsReq req) throws Exception{
 		Result rs =new Result();
-		ApiErrorCode error =validParam(req);
+		ApiErrorCode error =ApiErrorCode.API_SYSTEM_ERROR;
 		try{
+			error=validParam(req);
 			if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
-				
 				long begin = DateUtil.parse(req.getBeginTime(), "yyyy-MM-dd HH:mm:ss");
 				long end = DateUtil.parse(req.getEndTime(), "yyyy-MM-dd HH:mm:ss");
 				List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(req.getVehicleNO(), begin, end);
@@ -59,12 +63,16 @@ public class VehicleGpsAction {
 				rs.setCode(error.getCode());
 				rs.setError(error.getMsg());
 			}
-		}catch(RuntimeException e){
+		}catch(ParseException e){
 			logger.debug("queryTrack 调用失败.异常:{}",e.getMessage(),e);
 			rs.setCode(ErrorCode.PARAM_ERROR.getCode());
 			rs.setError(ErrorCode.PARAM_ERROR.getMsg());
-		}catch(Exception e){
-			logger.warn("queryTrack 调用失败.异常:{}",e.getMessage(),e);
+		}catch(ApplicationExectpion e2){
+			logger.debug("queryTrack 调用失败.异常:{}",e2.getMessage(),e2);
+			rs.setCode(ErrorCode.PARAM_ERROR.getCode());
+			rs.setError(e2.getMessage());
+		}catch(Exception e1){
+			logger.warn("queryTrack 调用失败.异常:{}",e1.getMessage(),e1);
 			rs.setCode(ErrorCode.SYSTEM_ERROR.getCode());
 			rs.setError(ErrorCode.SYSTEM_ERROR.getMsg());
 		}
@@ -72,7 +80,7 @@ public class VehicleGpsAction {
 		return rs;
 	}
 	
-	private ApiErrorCode validParam(VehicleGpsReq req){
+	private ApiErrorCode validParam(VehicleGpsReq req) throws ParseException{
 		ApiErrorCode errorCode = ApiErrorCode.API_SYSTEM_ERROR;
 		if( req!=null ){
 			//参数为空的验证
@@ -116,10 +124,16 @@ public class VehicleGpsAction {
 		return rs;
 	}
 	//开始时间结束时间验证.
-	private boolean checkTimeParam(String beginTime,String endTime){
+	private boolean checkTimeParam(String beginTime,String endTime) throws ParseException{
 		boolean rs =false;
 		if( StringUtils.isNotBlank(beginTime)   ){
-			rs=true;
+			long t1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(beginTime).getTime();
+			long t2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endTime).getTime();
+			if( t1>=t2){
+				throw new ApplicationExectpion("结束时间必须大于开始时间.");
+			}else{
+				rs =true;
+			}
 		}
 		return rs;
 	}
@@ -136,5 +150,10 @@ public class VehicleGpsAction {
 		return resp;
 	}
 	
+	
+	public static void main(String[] args) {
+		Calendar c = Calendar.getInstance();
+		//c.s
+	}
 }
 	
