@@ -5,7 +5,8 @@ import java.util.Date;
 
 public class MemberBankCardResp {
     private String id;
-    
+    //0、车主
+    private String type;
     //联行号
     private String bankLineNumber;
     
@@ -268,4 +269,13 @@ public class MemberBankCardResp {
 	public void setBankLineCode(String bankLineCode) {
 		this.bankLineCode = bankLineCode;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

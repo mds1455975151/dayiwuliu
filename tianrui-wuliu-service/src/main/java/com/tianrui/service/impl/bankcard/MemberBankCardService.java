@@ -551,6 +551,17 @@ public class MemberBankCardService implements IMemberBankCardService{
 //		List<MemberBankCardResp> list = new ArrayList<MemberBankCardResp>();
 //		copyProperties_2(list);
 //		list.add(memberBankCards);
-		return (copyProperties_2(list));
+		return (copyProperties_3(list));
+	}
+	
+	protected List<MemberBankCardResp> copyProperties_3(List<MemberBankCard> list) throws Exception {
+		List<MemberBankCardResp> resp = new ArrayList<MemberBankCardResp>();
+		for(MemberBankCard card : list){
+			MemberBankCardResp bank = new MemberBankCardResp();
+			PropertyUtils.copyProperties(bank, card);
+			bank.setType("0");
+			resp.add(bank);
+		}
+		return resp;
 	}
 }
