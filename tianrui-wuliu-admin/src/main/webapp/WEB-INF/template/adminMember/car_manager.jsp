@@ -19,9 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
     <link href="${trRoot}/css/cropper.css" rel="stylesheet">
 	<link href="${trRoot}/css/cycss.css" rel="stylesheet">
-    <link href="${trRoot}/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-    <!--这个日历控件js必须放头部-->
-    <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
 </head>
 <body>
@@ -399,47 +396,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--启用end-->
 <%@include file="../common/footer.jsp" %>
-<script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript">
-    $('.form_date').datetimepicker({
-        language: 'zh-CN',
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-</script>
 <script type="text/javascript">
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="${trRoot}/js/bootstrap.js"></script>
-<script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
-<script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
 <script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.02" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">
-    //upImg();
-     $(function(){
-      $(document).ready(function () {
-          // 表格列宽度手动调整
-      //    $("table").resizableColumns({});
-          $(".rz_persontab").off("click").on("click",function(){
-        	  $('#updateDeatil').css("z-index",1200);
-              $('#againPice').css("z-index",1201);
-              $('.modal-backdrop').css("z-index",200);
-              $('.cropperBox').css("z-index",1500);
-          });
-          upImg();
-      });
-  })
-
+    upImg();
 </script>
 
 </body>
