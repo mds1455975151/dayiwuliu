@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 
 <!--新增车辆begin-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="addModal" role="dialog" aria-labelledby="myModalLabel">
     <form id="saveMerchant">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

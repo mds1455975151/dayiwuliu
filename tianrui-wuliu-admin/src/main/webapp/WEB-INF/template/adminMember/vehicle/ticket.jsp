@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--侧边栏end-->
 </div>
 <!--查看详情begin-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -126,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--查看详情end-->
 <!--审核begin-->
-<div class="modal fade" id="shenhe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="shenhe" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">

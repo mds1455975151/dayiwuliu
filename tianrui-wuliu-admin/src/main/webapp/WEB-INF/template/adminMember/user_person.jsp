@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--侧边栏end-->
 </div>
 <!--查看详情begin-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--查看详情end-->
 
 <!--失败原因begin-->
-<div class="modal fade yy" id="yuanyin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade yy" id="yuanyin" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--失败原因end-->
 <!--修改照片begin-->
-<div class="modal fade" id="againPice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="againPice" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -217,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--修改照片end-->
 <!--停用begin-->
-<div class="modal fade" id="qiyong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="qiyong" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -238,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--停用end-->
 <!--删除begin-->
-<div class="modal fade" id="dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="dele" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

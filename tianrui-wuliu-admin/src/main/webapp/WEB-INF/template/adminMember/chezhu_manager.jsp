@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--侧边栏end-->
     </div>
 <!--查看详情begin-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width: 700px">
         <div class="modal-content">
             <div class="modal-header">
@@ -164,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--查看详情end-->
 
 <!--承运商详情begin-->
-<div class="modal fade" id="chengyun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="chengyun" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width: 700px">
         <div class="modal-content">
             <div class="modal-header">
@@ -210,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--承运商详情end-->
 <!--银行查看详情begin-->
-<div class="modal fade" id="credit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="credit" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -248,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--查看详情end-->
 <!--删除begin-->
-<div class="modal fade" id="dele" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="dele" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -269,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--删除end-->
 <!--停用begin-->
-<div class="modal fade" id="tingyong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="tingyong" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
@@ -290,7 +290,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--停用end-->
 <!--启用begin-->
-<div class="modal fade" id="qiyong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="qiyong" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
