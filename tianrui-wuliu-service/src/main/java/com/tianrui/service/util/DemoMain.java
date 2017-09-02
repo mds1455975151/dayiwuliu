@@ -35,16 +35,16 @@ public class DemoMain {
 
 	public static String getToken() {
 		//TODO
-		String tokens = "";
+		String token = "";
 		if(Constant.ZJXL_STATIC.equals("1")){
 			WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 			CacheClient cacheClient =wac.getBean(CacheClient.class);
 			String key=CacheHelper.buildKey(CacheModule.ZJXL_TOKEN, "");
-			tokens = cacheClient.getObj(key, String.class);
+			token = cacheClient.getObj(key, String.class);
 			if(StringUtils.isBlank(token)){
 				DemoReturnBean bean = DemoMain.login();
 				if(bean.getStatus().equals("1001")){
-					tokens = bean.getResult().toString();
+					token = bean.getResult().toString();
 					cacheClient.saveObject(key, token, 2*24*60*60);
 				}
 				System.out.println("token为空请求token--"+token);
@@ -52,7 +52,7 @@ public class DemoMain {
 				System.out.println("token不为空--"+token);
 			}
 		}
-		return tokens;
+		return token;
 	}
 	
 	/** 调用示例 **/

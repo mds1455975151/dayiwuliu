@@ -60,4 +60,9 @@ public interface ICrossVehicleService {
 	 * @throws
 	 */
 	Result deletes(String id)throws Exception;
+	/**校验所有车辆中交兴路状态
+	 * 
+	 * @return
+	 */
+	public Result allVehicleconf();
 }

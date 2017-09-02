@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tianrui.api.intf.ICrossVehicleService;
@@ -25,6 +27,8 @@ import com.tianrui.service.util.DemoReturnBean;
 @Service
 public class CrossVehicleService implements ICrossVehicleService{
 
+	private static Logger loger =LoggerFactory.getLogger(CrossVehicleService.class);
+	
 	@Autowired
 	ZJXLVehicleMapper zjxlVehicleMapper;
 	@Autowired
@@ -150,13 +154,12 @@ public class CrossVehicleService implements ICrossVehicleService{
 					 memberVehicle.setCellphone(member.getCellphone());
 					 memberVehicle.setAuditname(member.getRemarkname());
 				 }
-//				 String token = DemoMain.getToken();
-//				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
-//				 rs.setCode("000000");
-//				 memberVehicle.setZjxStatus(bean.getStatus());
-//				 if(bean.getResult() != null){
-//					 memberVehicle.setZjxResult(bean.getResult().toString());
-//				 }
+				 String token = DemoMain.getToken();
+				 DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
+				 memberVehicle.setZjxStatus(bean.getStatus());
+				 if(bean.getResult() != null){
+					 memberVehicle.setZjxResult(bean.getResult().toString());
+				 }
 				 rs.setData(memberVehicle);
 			 }else{
 				 rs.setCode("333333");
@@ -178,6 +181,24 @@ public class CrossVehicleService implements ICrossVehicleService{
 			rs.setError("删除失败！");
 		}else{
 			rs.setError("删除成功！");
+		}
+		return rs;
+	}
+
+	@Override
+	public Result allVehicleconf() {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		MemberVehicle veh = new MemberVehicle();
+		veh.setDesc2("2");
+		veh.setStatus("1");
+		List<MemberVehicle> list = memberVehicleMapper.selectMyVehicleByCondition(veh);
+		loger.info("车辆总数="+list.size());
+		String token = DemoMain.getToken();
+		for (int i = 0; i < list.size(); i++) {
+			MemberVehicle vhe = list.get(i);
+			DemoReturnBean bean = DemoMain.checkTruckExist(token,vhe.getVehicleprefix()+vhe.getVehicleno());
+			loger.info("查询车牌号"+(i+1)+","+vhe.getVehicleprefix()+vhe.getVehicleno()+","+bean.toString());
 		}
 		return rs;
 	} 
