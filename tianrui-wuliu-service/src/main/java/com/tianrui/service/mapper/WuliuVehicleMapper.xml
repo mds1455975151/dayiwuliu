@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianrui.service.mapper.WuliuVehicleMapper">
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.WuliuVehicle">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="vehicleNo" jdbcType="VARCHAR" property="vehicleno" />
+    <result column="desc1" jdbcType="VARCHAR" property="desc1" />
+    <result column="desc2" jdbcType="VARCHAR" property="desc2" />
+    <result column="desc3" jdbcType="VARCHAR" property="desc3" />
+    <result column="desc4" jdbcType="VARCHAR" property="desc4" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, vehicleNo, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_db_vehicle
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wuliu_db_vehicle
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.WuliuVehicle">
+    insert into wuliu_db_vehicle (id, vehicleNo, desc1, 
+      desc2, desc3, desc4
+      )
+    values (#{id,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, 
+      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.WuliuVehicle">
+    insert into wuliu_db_vehicle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vehicleno != null">
+        vehicleNo,
+      </if>
+      <if test="desc1 != null">
+        desc1,
+      </if>
+      <if test="desc2 != null">
+        desc2,
+      </if>
+      <if test="desc3 != null">
+        desc3,
+      </if>
+      <if test="desc4 != null">
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleno != null">
+        #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null">
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null">
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null">
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null">
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.WuliuVehicle">
+    update wuliu_db_vehicle
+    <set>
+      <if test="vehicleno != null">
+        vehicleNo = #{vehicleno,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null">
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null">
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null">
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null">
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.WuliuVehicle">
+    update wuliu_db_vehicle
+    set vehicleNo = #{vehicleno,jdbcType=VARCHAR},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="listVehicle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_db_vehicle
+    <if test="start != null and start != '0'">
+        <if test="limit !=null">
+            limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+        </if>
+    </if>
+  </select>
+</mapper>
