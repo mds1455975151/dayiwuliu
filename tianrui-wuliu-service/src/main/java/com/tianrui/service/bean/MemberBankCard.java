@@ -60,8 +60,18 @@ public class MemberBankCard {
     //审核不通过返回信息
     private String auditMassage;
     
+    private String type;
     
-    public Long getBeginTime() {
+    
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Long getBeginTime() {
 		return beginTime;
 	}
 

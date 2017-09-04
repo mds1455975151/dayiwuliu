@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
@@ -28,12 +29,14 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.AddVehicleBankCard;
 import com.tianrui.service.bean.BankSubbranch;
 import com.tianrui.service.bean.BankType;
 import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.OwnerDriver;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.SystemMemberInfo;
+import com.tianrui.service.mapper.AddVehicleBankCardMapper;
 import com.tianrui.service.mapper.BankSubbranchMapper;
 import com.tianrui.service.mapper.BankTypeMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
@@ -62,6 +65,8 @@ public class MemberBankCardService implements IMemberBankCardService{
 	IMessageService messageService;
 	@Autowired
 	OwnerDriverMapper ownerDriverMapper;
+	@Autowired
+	AddVehicleBankCardMapper addVehicleBankCardMapper;
 	
 	@Override
 	public Result insertBankCard(MemberBankCardReq req) throws Exception {
@@ -397,9 +402,25 @@ public class MemberBankCardService implements IMemberBankCardService{
 			page.setPageSize(req.getPageSize());
 		}
 		List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
+		AddVehicleBankCard addVehicleBankCard = new AddVehicleBankCard();
+		addVehicleBankCard.setDriverid(record.getCreater());
+		List<AddVehicleBankCard> lisyt =addVehicleBankCardMapper.selectByCondition(addVehicleBankCard);
+		List<MemberBankCard> lists = null;
+		long b = 0;
+		for(AddVehicleBankCard addVehicle:lisyt){
+			String vehicleownerid =addVehicle.getVehicleownerid();//司机所对应的车主id
+			record.setCreater(vehicleownerid);
+			lists =memberBankCardMapper.selectByCondition(record);
+			for( MemberBankCard memberBankCard:lists){
+				memberBankCard.setType("0");
+				list.add(memberBankCard);
+			}
+			b=memberBankCardMapper.selectBycount(record);
+			b++;
+		}
 		long a = memberBankCardMapper.selectBycount(record);
 		page.setList(copyProperties_2(list));
-		page.setTotal(a);
+		page.setTotal(a+b);
 		return page;
 	}
 	
@@ -551,17 +572,17 @@ public class MemberBankCardService implements IMemberBankCardService{
 //		List<MemberBankCardResp> list = new ArrayList<MemberBankCardResp>();
 //		copyProperties_2(list);
 //		list.add(memberBankCards);
-		return (copyProperties_3(list));
+		return (copyProperties_2(list));
 	}
 	
-	protected List<MemberBankCardResp> copyProperties_3(List<MemberBankCard> list) throws Exception {
-		List<MemberBankCardResp> resp = new ArrayList<MemberBankCardResp>();
-		for(MemberBankCard card : list){
-			MemberBankCardResp bank = new MemberBankCardResp();
-			PropertyUtils.copyProperties(bank, card);
-			bank.setType("0");
-			resp.add(bank);
-		}
-		return resp;
-	}
+//	protected List<MemberBankCardResp> copyProperties_3(List<MemberBankCard> list) throws Exception {
+//		List<MemberBankCardResp> resp = new ArrayList<MemberBankCardResp>();
+//		for(MemberBankCard card : list){
+//			MemberBankCardResp bank = new MemberBankCardResp();
+//			PropertyUtils.copyProperties(bank, card);
+//			bank.setType("0");
+//			resp.add(bank);
+//		}
+//		return resp;
+//	}
 }

@@ -11,4 +11,5 @@ public interface AddVehicleBankCardMapper {
 	 AddVehicleBankCard selectByPrimaryKey(String id);
 	 int updateByPrimaryKeySelective(AddVehicleBankCard record);
 	 List<AddVehicleBankCard> selectAddVehicleBankCard(AddVehicleBankCard addVehicleBankCard);
+	 List<AddVehicleBankCard>selectByCondition(AddVehicleBankCard addVehicleBankCard);
 }
