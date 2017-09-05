@@ -107,6 +107,7 @@
     select 
     <include refid="Base_Column_List" />
     from wuliu_db_vehicle
+    where desc1 IS NULL
     <if test="start != null and start != '0'">
         <if test="limit !=null">
             limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}

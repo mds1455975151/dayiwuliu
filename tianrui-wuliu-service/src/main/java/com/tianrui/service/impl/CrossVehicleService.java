@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.MemberVehicles;
 import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.WuliuVehicle;
 import com.tianrui.service.bean.ZJXLVehicle;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
+import com.tianrui.service.mapper.WuliuVehicleMapper;
 import com.tianrui.service.mapper.ZJXLVehicleMapper;
 import com.tianrui.service.util.DemoMain;
 import com.tianrui.service.util.DemoReturnBean;
@@ -35,6 +38,8 @@ public class CrossVehicleService implements ICrossVehicleService{
 	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
 	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	WuliuVehicleMapper wuliuVehicleMapper;
 	/**
 	 * 查询车辆列表信息
 	 */
@@ -189,16 +194,28 @@ public class CrossVehicleService implements ICrossVehicleService{
 	public Result allVehicleconf() {
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
-		MemberVehicle veh = new MemberVehicle();
-		veh.setDesc2("2");
-		veh.setStatus("1");
-		List<MemberVehicle> list = memberVehicleMapper.selectMyVehicleByCondition(veh);
+		List<WuliuVehicle> list = wuliuVehicleMapper.listVehicle(0, 1800);
 		loger.info("车辆总数="+list.size());
-		String token = DemoMain.getToken();
+		String token = "bebcfe2e-b954-4769-9ab1-5a83736c3a2a";
+		//0
+		//4831642d-c8d7-4431-b48b-5dc0ae6a8ac8
+//		String token = DemoMain.getToken();
 		for (int i = 0; i < list.size(); i++) {
-			MemberVehicle vhe = list.get(i);
-			DemoReturnBean bean = DemoMain.checkTruckExist(token,vhe.getVehicleprefix()+vhe.getVehicleno());
-			loger.info("查询车牌号"+(i+1)+","+vhe.getVehicleprefix()+vhe.getVehicleno()+","+bean.toString());
+			WuliuVehicle vhe = list.get(i);
+			DemoReturnBean bean = DemoMain.checkTruckExist(token,vhe.getVehicleno());
+			vhe.setDesc4("已查询");
+			if(bean.getStatus().equals("1001")){
+				//查询成功
+				vhe.setDesc1("成功");
+				if(StringUtils.isNotBlank(bean.getStatus())){
+					vhe.setDesc2(bean.getStatus());
+				}
+				if(bean.getResult() != null){
+					vhe.setDesc3(bean.getResult().toString());
+				}
+			}
+			wuliuVehicleMapper.updateByPrimaryKeySelective(vhe);
+			loger.info("查询车牌号"+(i+1)+","+vhe.getVehicleno()+","+bean.toString());
 		}
 		return rs;
 	} 
