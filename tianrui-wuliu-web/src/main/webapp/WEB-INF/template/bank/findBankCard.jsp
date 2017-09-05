@@ -168,17 +168,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var hml = "";
 			hml = "<div class='head_background' onclick=\"moreng('"+list[a].id+"','"+list[a].bankstatus+"','"+list[a].bankautid+"','"+list[a].bankcard+"')\">"+
 			"<div class='inline'><div class='display_3 inline'>"+
-			"<div style='margin-top: -10px'>"+
-			bankstatus+"</div><div>"+bankautid+"</div></div>"+
-			"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>";
+			"<div style='margin-top: -10px'>";
 			if(list[a].type=="0"){
-				hml +="</div><div class='display_2 inline'>"+
-					  "<div class='font_size_1'>"+idname+"   "+telphone+"</div>"+
-					  "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
+				hml +="引用"+"</div><div>"+bankautid+"</div></div>"+
+						"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>"+
+						"</div><div class='display_2 inline'>"+
+					    "<div class='font_size_1'>"+idname+"   "+telphone+"</div>"+
+					    "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
 			}else{
-				hml +="</div><div class='display_2 inline'>"+
-				      "<div class='font_size_1'>"+list[a].bankname+"</div>"+
-				      "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
+				  hml +=bankstatus+"</div><div>"+bankautid+"</div></div>"+
+						"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>"+
+						"</div><div class='display_2 inline'>"+
+				        "<div class='font_size_1'>"+list[a].bankname+"</div>"+
+				        "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
 			}
 			hml+="<div></div>"+
 			"</div></div>";
