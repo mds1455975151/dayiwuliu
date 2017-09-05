@@ -499,6 +499,9 @@
     	<if test="creater != null and creater != ''">
     		and creater = #{creater,jdbcType=VARCHAR}
     	</if>
+    	<if test="bankautid != null and bankautid != ''">
+    		and bankautid = #{bankautid,jdbcType=VARCHAR}
+    	</if>
     </where>
   </select>
 </mapper>

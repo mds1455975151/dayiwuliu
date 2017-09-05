@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 							<a href="/trwuliu/bank/card/savePage"><span>添加银行卡</span></a>
 							
-							<!-- <a href="/trwuliu/bank/card/saveOwnerPage"><span>引用别人银行卡</span></a> -->
+							<a href="/trwuliu/bank/card/saveOwnerPage"><span>引用别人银行卡</span></a>
 						</div>
 						<div class="head_body" id="innerHml">
 							<!-- 循环开始 
@@ -155,15 +155,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(list[a].bankautid == "3"){
 				bankautid = "认证失败";
 			}
+			
+			var type = "";
+			if(list[a].type == undefined){
+				type = "";
+			}
+			if(list[a].type == "0"){
+				type = "车主";
+			}
+			var idname =list[a].idname == undefined ? "":list[a].idname;
+			var telphone =list[a].telphone == undefined ? "":list[a].telphone;
 			var hml = "";
 			hml = "<div class='head_background' onclick=\"moreng('"+list[a].id+"','"+list[a].bankstatus+"','"+list[a].bankautid+"','"+list[a].bankcard+"')\">"+
 			"<div class='inline'><div class='display_3 inline'>"+
 			"<div style='margin-top: -10px'>"+
 			bankstatus+"</div><div>"+bankautid+"</div></div>"+
-			"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>"+
-			"</div><div class='display_2 inline'>"+
-			"<div class='font_size_1'>"+list[a].bankname+"</div>"+
-			"<div class='font_size_2'>"+list[a].bankcard+"</div></div></div></div>";
+			"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>";
+			if(list[a].type=="0"){
+				hml +="</div><div class='display_2 inline'>"+
+					  "<div class='font_size_1'>"+idname+"   "+telphone+"</div>"+
+					  "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
+			}else{
+				hml +="</div><div class='display_2 inline'>"+
+				      "<div class='font_size_1'>"+list[a].bankname+"</div>"+
+				      "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
+			}
+			hml+="<div></div>"+
+			"</div></div>";
 			$("#innerHml").append(hml);
 		}
 	}

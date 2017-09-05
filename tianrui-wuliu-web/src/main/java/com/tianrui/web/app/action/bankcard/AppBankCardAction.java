@@ -13,24 +13,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianrui.api.intf.bankcard.IMemberBankCardService;
 import com.tianrui.api.req.bankcard.MemberBankCardReq;
-import com.tianrui.api.req.front.capa.CapaReq;
 import com.tianrui.api.req.front.vehicle.AddVehicleBankCardReq;
 import com.tianrui.api.resp.bankcard.MemberBankCardResp;
-import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
-import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.impl.OwnerDriverService;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
-import com.tianrui.web.util.SessionManager;
 
 @Controller
-@RequestMapping("/trwuliu/bankcard")
+@RequestMapping("/app/bankcard")
 public class AppBankCardAction {
 	
 	public Logger logger = LoggerFactory.getLogger(AppBankCardAction.class);
@@ -87,7 +83,7 @@ public class AppBankCardAction {
 	
 	/** 查询*/
 	@RequestMapping(value="/find",method=RequestMethod.POST)
-	@ApiParamRawType(AddVehicleBankCardReq.class)
+	@ApiParamRawType(MemberBankCardReq.class)
 	@ApiTokenValidation
 	@ResponseBody
 	public AppResult find(AppParam<MemberBankCardReq> appParam) throws Exception{

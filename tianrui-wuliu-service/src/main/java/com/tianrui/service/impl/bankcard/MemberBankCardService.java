@@ -564,6 +564,7 @@ public class MemberBankCardService implements IMemberBankCardService{
 			MemberBankCard memberBankCard = new MemberBankCard();
 			memberBankCard.setCreater(ownerDrivers.getVehicleownerid());
 			memberBankCard.setBankstatus("1");
+			memberBankCard.setBankautid("1");
 			memberBankCards  = memberBankCardMapper.selectOwnerCard(memberBankCard);
 			if(memberBankCards!=null){
 				list.add(memberBankCards);
