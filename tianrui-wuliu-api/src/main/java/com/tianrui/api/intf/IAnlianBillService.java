@@ -3,9 +3,11 @@ package com.tianrui.api.intf;
 import java.util.List;
 
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
+import com.tianrui.api.req.front.bill.AnReportReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
+import com.tianrui.api.resp.admin.AnlianBillReportResp;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
