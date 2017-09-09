@@ -41,7 +41,7 @@ public class VehicleGpsZjxlSchedule {
 	
 	Logger logger = LoggerFactory.getLogger(VehicleGpsZjxlSchedule.class);
 	
-	@Scheduled(cron="0 0/15 * * * ?")
+	@Scheduled(cron="0 0/2 * * * ?")
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
 		logger.info("查询车辆位置开始"+begin);
@@ -50,16 +50,16 @@ public class VehicleGpsZjxlSchedule {
 			ZJXLVehicleReq req = new ZJXLVehicleReq();
 			req.setVehiclelogo("1");
 			req.setCrossloge("1");
-			PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
-			List<ZJXLVehicleResp> list = page.getList();
+			List<ZJXLVehicleResp> list = crossVehicleService.findList(req);
 			String token = DemoMain.getToken();
+			int a = 0;
 			for(ZJXLVehicleResp vehNo : list){
+				a = a+1;
+				logger.info("本次查询总数[{}],查询到第[{}]条",list.size(),a);
 				ZjxlResult bean = DemoMain.vLastLocation(vehNo.getVehicleno(),token);
 				try {
 					if(StringUtils.equals("1001", bean.getStatus())){
-						logger.debug("查询车辆位置成功---"+vehNo.getVehicleno());
 						JSONObject obj =  (JSONObject) bean.getResult();
-						logger.debug("请求返回值code="+bean.getResult());
 						VehicleGpsZjxl zjxl = vehicleGpsZjxlDao.getVehiclePosition(vehNo.getVehicleno());
 						if(zjxl == null || zjxl.getUtc()!=Long.valueOf(obj.getString("utc"))){
 							VehicleGpsZjxl t = new VehicleGpsZjxl();

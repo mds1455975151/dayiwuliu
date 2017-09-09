@@ -66,7 +66,11 @@ $(".pageMore").on("click",function(){
 });
 
 function billdetail(id){
-	window.location.href="/trwuliu/billAnlian/detail?id="+id;
+	if(type == "driver"){
+		window.location.href="/trwuliu/billAnlian/detail_driver?id="+id;
+	}else{
+		window.location.href="/trwuliu/billAnlian/detail?id="+id;
+	}
 }
 function billPosition(id){
 	window.open("/trwuliu/billAppoint/tarckAnlian?id="+id);

@@ -153,6 +153,25 @@
 											</td>
 										</tr>
 									</tbody>
+									<c:if test="${bill.payment eq '1' }">
+									<thead>
+										<tr>
+											<th>收款人</th>
+											<th>收款账号</th>
+											<th>银行卡</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>${bill.bankOwnerName }</td>
+											<td>${bill.bankOwnerPhone }</td>
+											<td>${bill.bankCard }<br>
+		                                	<a onclick="findMyBank();">更换银行卡</a></td>
+											
+										</tr>
+									</tbody>
+									</c:if>
+									
 									<thead>
 										<tr>
 											<th>总运费</th>

@@ -59,7 +59,18 @@ function displayData(pageNo){
 						var payName = "";
 						if(data[a].billType == "1"){
 							bytpe = "司机";
-							payName = data[a].driverPhone +"-"+data[a].driverName;
+							if(data[a].remark == "al"){
+								if(data[a].albankOwnerName != undefined){
+									payName = data[a].albankOwnerPhone +"-"+data[a].albankOwnerName;
+								}
+							}else if(data[a].remark == "dy"){
+								if(data[a].dybankOwnerName != undefined){
+									payName = data[a].dybankOwnerPhone +"-"+data[a].dybankOwnerName;
+								}
+							}
+							if(payName == ""){
+								payName = data[a].driverPhone +"-"+data[a].driverName;
+							}
 						}
 						if(data[a].billType == "2"){
 							bytpe = "车主";

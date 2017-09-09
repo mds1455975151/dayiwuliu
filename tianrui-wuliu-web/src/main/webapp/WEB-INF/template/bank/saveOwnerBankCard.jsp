@@ -39,7 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<h2>添加车主银行卡</h2>
 						</div>
 						<!-- 个人车辆begin -->
-						<form id="member_bank">
 						<div class="car_box">
 						<c:forEach items="${list}" var="user" varStatus="vs">
 							 <tr class="mescard border_gray">  
@@ -55,7 +54,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					         </tr><br/>  
 						 </c:forEach> 
 						 </div> 
-						</form>
 					</div>
 		            <!--个人中心右侧end-->
 		        </div>

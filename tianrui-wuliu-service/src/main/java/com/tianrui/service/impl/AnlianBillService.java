@@ -30,6 +30,7 @@ import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
+import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.admin.PageResp;
@@ -51,16 +52,21 @@ import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
+import com.tianrui.service.bean.AddVehicleBankCard;
 import com.tianrui.service.bean.AnlianDict;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillAnlianPosition;
+import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.MemberVehicle;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.bean.anlian.AnlianBill;
+import com.tianrui.service.mapper.AddVehicleBankCardMapper;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.AnlianDictMapper;
+import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
@@ -113,6 +119,70 @@ public class AnlianBillService implements IAnlianBillService{
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	@Autowired
 	ICrossVehicleService crossVehicleService;
+	@Autowired
+	MemberBankCardMapper memberBankCardMapper;
+	@Autowired
+	AddVehicleBankCardMapper addVehicleBankCardMapper;
+	
+	@Override
+	public Result uptBankCard(BillBankReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getBillId());
+		MemberBankCard bank = memberBankCardMapper.selectByPrimaryKey(req.getBankId());
+		if(bill==null||bank==null){
+			rs.setCode("1");
+			rs.setError("运单id或银行卡id有误");
+			return rs;
+		}
+		if("1".equals(bill.getConfirmPriceA())){
+			rs.setCode("1");
+			rs.setError("已运价确认运单，不能更换银行卡");
+			return rs;
+		}
+		if(bill.getPayment().equals("2")){
+			//支付对象车主
+			rs.setCode("1");
+			rs.setError("支付对象为车主，不能更换银行卡");
+			return rs;
+		}
+		if(!bill.getDriverid().equals(req.getDriverId())){
+			rs.setCode("1");
+			rs.setError("非该司机运单，不能更换银行卡");
+			return rs;
+		}
+		String bankType = "1";//1-默认银行卡，2-引用银行卡
+		if(req.getBankType().equals("0")){
+			//引用银行卡
+			bankType = "2";
+			AddVehicleBankCard add = new AddVehicleBankCard();
+			add.setDriverid(req.getDriverId());
+			add.setVehicleownerid(bank.getCreater());
+			List<AddVehicleBankCard> adlist = addVehicleBankCardMapper.selectByCondition(add);
+			if(adlist.size()!=1){
+				rs.setCode("2");
+				rs.setError("司机暂未引用该银行卡");
+				return rs;
+			}
+		}else{
+			bankType = "1";
+			//添加银行卡
+			if(!bank.getCreater().equals(req.getDriverId())){
+				rs.setCode("3");
+				rs.setError("非该司机银行卡");
+				return rs;
+			}
+		}
+		AnlianBill upt = new AnlianBill();
+		upt.setId(req.getBillId());
+		upt.setBankId(bank.getId());
+		upt.setBankType(bankType);
+		upt.setBankCard(bank.getBankcard());
+		upt.setBankOwnerName(bank.getIdname());
+		upt.setBankOwnerPhone(bank.getTelphone());
+		anlianBillMapper.updateByPrimaryKeySelective(upt);
+		return rs;
+	}
 	
 	@Override
 	public Result alBillSave(AnlianBillSaveReq req) throws Exception {
@@ -238,6 +308,11 @@ public class AnlianBillService implements IAnlianBillService{
 				PropertyUtils.copyProperties(bill, v);
 			}
 		}
+		bill.setBankCard(req.getBankCard());
+		bill.setBankId(req.getBankId());
+		bill.setBankOwnerName(req.getBankOwnerName());
+		bill.setBankOwnerPhone(req.getBankOwnerPhone());
+		bill.setBankType(req.getBankType());
 		bill.setCreatetime(System.currentTimeMillis());
 		anlianBillMapper.insert(bill);
 	}

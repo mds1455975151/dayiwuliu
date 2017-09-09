@@ -58,6 +58,12 @@
 	
 	<result column="ptBegintime" property="ptBegintime" jdbcType="BIGINT" />
 	<result column="ptEndtime" property="ptEndtime" jdbcType="BIGINT" />
+	
+	 <result column="bankId" property="bankId" jdbcType="VARCHAR" />
+	 <result column="bankCard" property="bankCard" jdbcType="VARCHAR" />
+	 <result column="bankOwnerName" property="bankOwnerName" jdbcType="VARCHAR" />
+	 <result column="bankOwnerPhone" property="bankOwnerPhone" jdbcType="VARCHAR" />
+	 <result column="bankType" property="bankType" jdbcType="VARCHAR" />
     
   </resultMap>
   <sql id="Base_Column_List" >
@@ -66,7 +72,8 @@
     creater, createtime, modifier, modifytime, desc1, desc2, desc3, desc4, 
     payment, receive_memberid,
     pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
-    confirm_Price_A,confirm_Price_B,JTBPushTime,ptBegintime,ptEndtime
+    confirm_Price_A,confirm_Price_B,JTBPushTime,ptBegintime,ptEndtime,
+    bankId,bankCard,bankOwnerName,bankOwnerPhone,bankType
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -185,7 +192,8 @@
       modifytime, desc1, desc2, 
       desc3, desc4,payment, receive_memberid,
       pickupweight,pickupimgurl,signweight,signimgurl,signtime,trueweight,
-      confirm_Price_A,confirm_Price_B,JTBPushTime,ptBegintime,ptEndtime)
+      confirm_Price_A,confirm_Price_B,JTBPushTime,ptBegintime,ptEndtime,
+      bankId,bankCard,bankOwnerName,bankOwnerPhone,bankType)
     values (#{id,jdbcType=VARCHAR}, #{billno,jdbcType=VARCHAR}, #{ownerid,jdbcType=VARCHAR}, 
       #{driverid,jdbcType=VARCHAR}, #{venderid,jdbcType=VARCHAR}, #{ddh,jdbcType=VARCHAR}, 
       #{dwzl,jdbcType=VARCHAR}, #{sj,jdbcType=VARCHAR}, #{cph,jdbcType=VARCHAR}, #{zzl,jdbcType=VARCHAR}, 
@@ -205,7 +213,12 @@
       #{signtime,jdbcType=BIGINT},
       #{trueweight,jdbcType=DOUBLE},
       #{confirmPriceA,jdbcType=VARCHAR},#{confirmPriceB,jdbcType=VARCHAR},#{JTBPushTime,jdbcType=BIGINT},
-      #{ptBegintime,jdbcType=VARCHAR},#{ptEndtime,jdbcType=BIGINT})
+      #{ptBegintime,jdbcType=VARCHAR},#{ptEndtime,jdbcType=BIGINT},
+      #{bankId,jdbcType=VARCHAR},
+      #{bankCard,jdbcType=VARCHAR},
+      #{bankOwnerName,jdbcType=VARCHAR},
+      #{bankOwnerPhone,jdbcType=VARCHAR},
+      #{bankType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     insert into anlian_bill
@@ -362,6 +375,22 @@
       <if test="ptEndtime != null">
         ptEndtime,
       </if>
+      
+      <if test="bankId != null">
+      	bankId,
+      </if>
+      <if test="bankCard != null">
+     	bankCard,
+      </if>
+      <if test="bankOwnerName != null">
+      	bankOwnerName,
+      </if>
+      <if test="bankOwnerPhone != null">
+    	bankOwnerPhone,
+      </if>
+      <if test="bankType != null">
+     	bankType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -517,11 +546,43 @@
       <if test="ptEndtime != null">
         #{ptEndtime,jdbcType=BIGINT},
       </if>
+      
+      <if test="bankId != null">
+      	#{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null">
+     	#{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOwnerName != null">
+      	#{bankOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOwnerPhone != null">
+    	#{bankOwnerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null">
+     	#{bankType,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     <set >
+    	<if test="bankId != null">
+      	bankId = #{bankId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null">
+     	bankCard = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOwnerName != null">
+      	bankOwnerName = #{bankOwnerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOwnerPhone != null">
+    	bankOwnerPhone = #{bankOwnerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null">
+     	bankType = #{bankType,jdbcType=VARCHAR},
+      </if>
+    
     	<if test="ptBegintime != null">
       	ptBegintime = #{ptBegintime,jdbcType=VARCHAR},
       </if>
@@ -674,6 +735,12 @@
   <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.anlian.AnlianBill" >
     update anlian_bill
     set billno = #{billno,jdbcType=VARCHAR},
+   		bankId = #{bankId,jdbcType=VARCHAR},
+     	bankCard = #{bankCard,jdbcType=VARCHAR},
+      	bankOwnerName = #{bankOwnerName,jdbcType=VARCHAR},
+    	bankOwnerPhone = #{bankOwnerPhone,jdbcType=VARCHAR},
+     	bankType = #{bankType,jdbcType=VARCHAR},
+    
       	ptBegintime = #{ptBegintime,jdbcType=VARCHAR},
        ptEndtime = #{ptEndtime,jdbcType=BIGINT},
         JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},

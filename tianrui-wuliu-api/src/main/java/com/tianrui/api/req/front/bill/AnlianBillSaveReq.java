@@ -5,6 +5,16 @@ public class AnlianBillSaveReq {
 	private String planid;
 	private String weight;
 	
+	private String bankId;
+	    
+    private String bankCard;
+    
+    private String bankOwnerName;
+    
+    private String bankOwnerPhone;
+    
+    private String bankType;
+	
 	private String billStartTime;
 	private String billEndTime;
 	/** 车辆司机关系表主键id*/
@@ -111,5 +121,35 @@ public class AnlianBillSaveReq {
 	}
 	public void setReceive_memberid(String receive_memberid) {
 		this.receive_memberid = receive_memberid;
+	}
+	public String getBankId() {
+		return bankId;
+	}
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+	public String getBankCard() {
+		return bankCard;
+	}
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+	public String getBankOwnerName() {
+		return bankOwnerName;
+	}
+	public void setBankOwnerName(String bankOwnerName) {
+		this.bankOwnerName = bankOwnerName;
+	}
+	public String getBankOwnerPhone() {
+		return bankOwnerPhone;
+	}
+	public void setBankOwnerPhone(String bankOwnerPhone) {
+		this.bankOwnerPhone = bankOwnerPhone;
+	}
+	public String getBankType() {
+		return bankType;
+	}
+	public void setBankType(String bankType) {
+		this.bankType = bankType;
 	}
 }

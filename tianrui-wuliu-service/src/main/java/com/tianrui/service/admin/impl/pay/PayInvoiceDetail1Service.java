@@ -351,24 +351,31 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 								rs.setError("未找到支付对象");
 								return rs;
 							}
-							//查询收款人银行卡
-							MemberBankCard bank = new MemberBankCard();
-							bank.setBankautid("1");//认证状态 1-认证成功
-							bank.setBankstatus("1");//1-默认银行卡
-							bank.setCreater(payeeid);
-							List<MemberBankCard> banklist = memberBankCardMapper.selectByCondition(bank);
-							if(banklist.size()!=1){
+//							//查询收款人银行卡
+//							MemberBankCard bank = new MemberBankCard();
+//							bank.setBankautid("1");//认证状态 1-认证成功
+//							bank.setBankstatus("1");//1-默认银行卡
+//							bank.setCreater(payeeid);
+//							List<MemberBankCard> banklist = memberBankCardMapper.selectByCondition(bank);
+//							if(banklist.size()!=1){
+//								rs.setCode("1");
+//								rs.setError("支付对象未找到银行卡");
+//								return rs;
+//							}
+//							SystemMember member = systemMemberMapper.selectByPrimaryKey(payeeid);
+//							MemberBankCard bcard = banklist.get(0);
+							//获取支付对象银行卡
+							MemberBankCard bcard =getMemberBank(list.get(0));
+							if(bcard == null){
 								rs.setCode("1");
 								rs.setError("支付对象未找到银行卡");
 								return rs;
 							}
-							SystemMember member = systemMemberMapper.selectByPrimaryKey(payeeid);
-							MemberBankCard bcard = banklist.get(0);
-							invoice.setPayeeId(payeeid);
+							invoice.setPayeeId(bcard.getCreater());
 							//收款人名称
 							invoice.setPayeeName(bcard.getIdname());
 							//收款人账号
-							invoice.setPayeeAccount(member.getCellphone());
+							invoice.setPayeeAccount(bcard.getTelphone());
 							//收款人银行卡id
 							invoice.setPayeeBankCardId(bcard.getId());
 							//收款人银行卡号
@@ -412,10 +419,58 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		
 		return rs;
 	}
+	/**获取支付对象银行卡*/
+	protected MemberBankCard getMemberBank(PayInvoiceDetail pay){
+		MemberBankCard bcard = null;
+		if(pay.getBillType()==2){
+			//车主
+			MemberBankCard bank = new MemberBankCard();
+			bank.setBankautid("1");//认证状态 1-认证成功
+			bank.setBankstatus("1");//1-默认银行卡
+			bank.setCreater(pay.getVenderId());
+			List<MemberBankCard> banklist = memberBankCardMapper.selectByCondition(bank);
+			if(banklist.size()==1){
+				bcard = new MemberBankCard();
+				bcard = banklist.get(0);
+			}
+		}else if(pay.getBillType()==1){
+			//司机
+			String bankId = "";
+			if(pay.getRemark().equals("al")){
+				//安联运单
+				AnlianBill bill = anlianBillMapper.selectByPrimaryKey(pay.getBillId());
+				if(StringUtils.isNotBlank(bill.getBankId())){
+					bankId = bill.getBankId();
+				}
+			}else if(pay.getRemark().equals("dy")){
+				//大易运单
+				Bill bill = billMapper.selectByPrimaryKey(pay.getBillId());
+				if(StringUtils.isNotBlank(bill.getBankId())){
+					bankId = bill.getBankId();
+				}
+			}
+			if(StringUtils.isNotBlank(bankId)){
+				//运单中银行卡id不为空
+				bcard = new MemberBankCard();
+				bcard = memberBankCardMapper.selectByPrimaryKey(bankId);
+			}else{
+				//取司机默认银行卡
+				MemberBankCard bank = new MemberBankCard();
+				bank.setBankautid("1");//认证状态 1-认证成功
+				bank.setBankstatus("1");//1-默认银行卡
+				bank.setCreater(pay.getDriverId());
+				List<MemberBankCard> banklist = memberBankCardMapper.selectByCondition(bank);
+				if(banklist.size()==1){
+					bcard = new MemberBankCard();
+					bcard = banklist.get(0);
+				}
+			}
+		}
+		return bcard;
+	}
 	
 	/**验证是否未合单*/
 	protected boolean checkInvoiceStatus(List<PayInvoiceDetail> list) {
-		//TODO
 		for(PayInvoiceDetail pay : list){
 			//运单已合单
 			if(pay.getWhetherClose()){
@@ -486,9 +541,11 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		//运单详情
 		if(pay.getRemark().equals("al")){
 			AnlianBill albill = anlianBillMapper.selectByPrimaryKey(pay.getBillId());
+			resp.setBankId(albill.getBankId());
 			resp = changeAlBillPayDetail(resp,albill);
 		}else if(pay.getRemark().equals("dy")){
 			Bill bill = billMapper.selectByPrimaryKey(pay.getBillId());
+			resp.setBankId(bill.getBankId());
 			resp = changeDyBillPayDetail(resp,bill);
 		}
 		//银行卡详情
@@ -496,17 +553,30 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		if(pay.getBillType()==1){
 			//支付到司机
 			bank.setCreater(pay.getDriverId());
+			if(StringUtils.isNotBlank(resp.getBankId())){
+				MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(resp.getBankId());
+				resp = changeBankDetail(resp,bankCard);
+			}else{
+				//默认银行卡
+				bank.setBankstatus("1");
+				//审核通过
+				bank.setBankautid("1");
+				List<MemberBankCard> list = memberBankCardMapper.selectByCondition(bank);
+				if(list.size()==1){
+					resp = changeBankDetail(resp,list.get(0));
+				}
+			}
 		}else if(pay.getBillType()==2){
 			//支付到车主
 			bank.setCreater(pay.getVenderId());
-		}
-		//默认银行卡
-		bank.setBankstatus("1");
-		//审核通过
-		bank.setBankautid("1");
-		List<MemberBankCard> list = memberBankCardMapper.selectByCondition(bank);
-		if(list.size()==1){
-			resp = changeBankDetail(resp,list.get(0));
+			//默认银行卡
+			bank.setBankstatus("1");
+			//审核通过
+			bank.setBankautid("1");
+			List<MemberBankCard> list = memberBankCardMapper.selectByCondition(bank);
+			if(list.size()==1){
+				resp = changeBankDetail(resp,list.get(0));
+			}
 		}
 		return resp;
 	}
@@ -515,6 +585,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		resp.setBankcard(bank.getBankcard());
 		resp.setBankname(bank.getBankname());
 		resp.setBankAdreess(bank.getDesc1());
+		resp.setBankCellPhone(bank.getTelphone());
+		resp.setBankMember(bank.getIdname());
 		return resp;
 	}
 	

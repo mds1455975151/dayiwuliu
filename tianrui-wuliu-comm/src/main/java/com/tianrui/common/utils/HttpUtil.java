@@ -18,7 +18,7 @@ public class HttpUtil {
 	private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 	
 	public static ApiResult post(Object object, String path){
-		logger.info("post url:{},params:{}",new Object[]{path,JSON.toJSONString(object)});
+		logger.debug("post url:{},params:{}",new Object[]{path,JSON.toJSONString(object)});
 		ApiResult apiResult = null;
 		HttpURLConnection connection = null;
 		OutputStream out = null;
@@ -70,7 +70,7 @@ public class HttpUtil {
 	}
 	
 	public static ApiResult post_longlong(Object object, String path){
-		logger.info("post url:{},params:{}",new Object[]{path,JSON.toJSONString(object)});
+		logger.debug("post url:{},params:{}",new Object[]{path,JSON.toJSONString(object)});
 		ApiResult apiResult = null;
 		HttpURLConnection connection = null;
 		OutputStream out = null;

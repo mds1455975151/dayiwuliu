@@ -17,6 +17,16 @@ public class WaybillResp extends BaseResp{
 	private String payType;
 	private String payDESC1;
 	
+	private String bankId;
+    
+    private String bankCard;
+    
+    private String bankOwnerName;
+    
+    private String bankOwnerPhone;
+    
+    private String bankType;
+	
 	private String payment;
 	private String receive_memberid;
 	
@@ -591,5 +601,35 @@ public class WaybillResp extends BaseResp{
 	}
 	public void setBegintime(Long begintime) {
 		this.begintime = begintime;
+	}
+	public String getBankId() {
+		return bankId;
+	}
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+	public String getBankCard() {
+		return bankCard;
+	}
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+	public String getBankOwnerName() {
+		return bankOwnerName;
+	}
+	public void setBankOwnerName(String bankOwnerName) {
+		this.bankOwnerName = bankOwnerName;
+	}
+	public String getBankOwnerPhone() {
+		return bankOwnerPhone;
+	}
+	public void setBankOwnerPhone(String bankOwnerPhone) {
+		this.bankOwnerPhone = bankOwnerPhone;
+	}
+	public String getBankType() {
+		return bankType;
+	}
+	public void setBankType(String bankType) {
+		this.bankType = bankType;
 	}
 }

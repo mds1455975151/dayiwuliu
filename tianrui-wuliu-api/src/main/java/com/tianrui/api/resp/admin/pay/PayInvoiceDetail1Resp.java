@@ -7,6 +7,10 @@ package com.tianrui.api.resp.admin.pay;
 public class PayInvoiceDetail1Resp {
 	
 	private String id;
+	private String albankOwnerName;
+	private String albankOwnerPhone;
+	private String dybankOwnerName;
+	private String dybankOwnerPhone;
     //单据编号
     private String code;
     //账单ID
@@ -273,7 +277,39 @@ public class PayInvoiceDetail1Resp {
         return backstageBillTotalPrice;
     }
 
-    public void setBackstageBillTotalPrice(Double backstageBillTotalPrice) {
+    public String getAlbankOwnerName() {
+		return albankOwnerName;
+	}
+
+	public void setAlbankOwnerName(String albankOwnerName) {
+		this.albankOwnerName = albankOwnerName;
+	}
+
+	public String getAlbankOwnerPhone() {
+		return albankOwnerPhone;
+	}
+
+	public void setAlbankOwnerPhone(String albankOwnerPhone) {
+		this.albankOwnerPhone = albankOwnerPhone;
+	}
+
+	public String getDybankOwnerName() {
+		return dybankOwnerName;
+	}
+
+	public void setDybankOwnerName(String dybankOwnerName) {
+		this.dybankOwnerName = dybankOwnerName;
+	}
+
+	public String getDybankOwnerPhone() {
+		return dybankOwnerPhone;
+	}
+
+	public void setDybankOwnerPhone(String dybankOwnerPhone) {
+		this.dybankOwnerPhone = dybankOwnerPhone;
+	}
+
+	public void setBackstageBillTotalPrice(Double backstageBillTotalPrice) {
         this.backstageBillTotalPrice = backstageBillTotalPrice;
     }
 

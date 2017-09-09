@@ -58,6 +58,13 @@
     
     <result column="planId" property="planId" jdbcType="VARCHAR" />
     
+    <result column="albankOwnerName" property="albankOwnerName" jdbcType="VARCHAR" />
+    <result column="albankOwnerPhone" property="albankOwnerPhone" jdbcType="VARCHAR" />
+    <result column="dybankOwnerName" property="dybankOwnerName" jdbcType="VARCHAR" />
+    <result column="dybankOwnerPhone" property="dybankOwnerPhone" jdbcType="VARCHAR" />
+    
+    
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, code, pay_invoice_id, driver_id, driver_id_no, vender_id, vender_id_no, owner_id, 
@@ -147,7 +154,11 @@
 		vm.remarkname venderName,
 	  	wp.shipperMerchant,
 		fm.`name` shipname,
-		afm.`name` consignee
+		afm.`name` consignee,
+		ab.bankOwnerName albankOwnerName,
+  		ab.bankOwnerPhone albankOwnerPhone,
+		wb.bankOwnerName dybankOwnerName,
+  		wb.bankOwnerPhone dybankOwnerPhone
     FROM
 		pay_invoice_detail_1 p
 		LEFT JOIN member dm ON dm.id = p.driver_id
@@ -155,6 +166,8 @@
 		LEFT JOIN wuliu_plan wp ON wp.ID = p.planId
 		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
 		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
+		LEFT JOIN anlian_bill ab ON ab.id = p.bill_id
+		LEFT JOIN wuliu_bill wb ON wb.ID = p.bill_id
 		<where>
 			<if test="creator != null and creator != ''">
 				and p.creator = #{creator,jdbcType=VARCHAR}

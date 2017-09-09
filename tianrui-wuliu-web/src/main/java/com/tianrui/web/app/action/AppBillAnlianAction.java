@@ -9,14 +9,18 @@ import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
+import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.impl.BillService;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
+import com.tianrui.web.util.SessionManager;
 @Controller
 @RequestMapping("/app/billAnlian")
 public class AppBillAnlianAction {
@@ -27,6 +31,35 @@ public class AppBillAnlianAction {
 	IAnlianService anlianService;
 	@Autowired
 	ISystemMemberService systemMemberService;
+	@Autowired
+	BillService billService;
+	
+	/**更换大易运单银行卡
+	 * @throws Exception */
+	@RequestMapping("uptDyBankCard")
+	@ApiParamRawType(BillBankReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult uptDyBankCard(AppParam<BillBankReq> appParam) throws Exception{
+		BillBankReq req = appParam.getBody();
+		Head vo = appParam.getHead();
+		req.setDriverId(vo.getId());
+		Result rs = billService.uptBankCard(req);
+		return AppResult.valueOf(rs);
+	}
+	/**更换安联运单银行卡
+	 * @throws Exception */
+	@RequestMapping("uptAlBankCard")
+	@ApiParamRawType(BillBankReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult uptAlBankCard(AppParam<BillBankReq> appParam) throws Exception{
+		BillBankReq req = appParam.getBody();
+		Head vo = appParam.getHead();
+		req.setDriverId(vo.getId());
+		Result rs = anlianBillService.uptBankCard(req);
+		return AppResult.valueOf(rs);
+	}
 	
 	@RequestMapping("detail")
 	@ApiParamRawType(AnlianBillFindReq.class)

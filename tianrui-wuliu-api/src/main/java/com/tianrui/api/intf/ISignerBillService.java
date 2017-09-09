@@ -10,7 +10,6 @@ import com.tianrui.common.vo.Result;
 public interface ISignerBillService {
 
 	public PaginationVO<SignerBillResp> select(SignerBillFindReq req) throws Exception;
-	
 	/** 前台运价确认*/
 	public Result BillConfirmPrice(BillConfirmPriceReq req)throws Exception;
 }

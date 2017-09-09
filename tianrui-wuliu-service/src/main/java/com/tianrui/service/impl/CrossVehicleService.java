@@ -40,6 +40,17 @@ public class CrossVehicleService implements ICrossVehicleService{
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	WuliuVehicleMapper wuliuVehicleMapper;
+	
+
+	@Override
+	public List<ZJXLVehicleResp> findList(ZJXLVehicleReq req) throws Exception {
+		ZJXLVehicle zjxlVehicle = new ZJXLVehicle();
+		zjxlVehicle.setCrossloge(req.getCrossloge());
+		zjxlVehicle.setVehiclelogo(req.getVehiclelogo());
+		List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(zjxlVehicle);
+		return copyProperties(list);
+	} 
+	
 	/**
 	 * 查询车辆列表信息
 	 */
@@ -196,8 +207,8 @@ public class CrossVehicleService implements ICrossVehicleService{
 		Result rs = Result.getSuccessResult();
 		List<WuliuVehicle> list = wuliuVehicleMapper.listVehicle(0, 1800);
 		loger.info("车辆总数="+list.size());
-		String token = "bebcfe2e-b954-4769-9ab1-5a83736c3a2a";
-		//0
+		String token = "13089562-b1db-4d06-93c4-8251784e364e";
+		//13089562-b1db-4d06-93c4-8251784e364e
 		//4831642d-c8d7-4431-b48b-5dc0ae6a8ac8
 //		String token = DemoMain.getToken();
 		for (int i = 0; i < list.size(); i++) {
@@ -218,5 +229,6 @@ public class CrossVehicleService implements ICrossVehicleService{
 			loger.info("查询车牌号"+(i+1)+","+vhe.getVehicleno()+","+bean.toString());
 		}
 		return rs;
-	} 
+	}
+
 }

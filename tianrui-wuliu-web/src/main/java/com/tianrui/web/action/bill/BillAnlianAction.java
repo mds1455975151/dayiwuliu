@@ -16,6 +16,7 @@ import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
+import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.vo.MemberVo;
@@ -57,15 +58,35 @@ public class BillAnlianAction {
 		return view;
 	}
 	
+	/** 更换银行卡
+	 * @throws Exception */
+	@RequestMapping("uptBankCard")
+	@ResponseBody
+	public Result uptBankCard(BillBankReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setDriverId(vo.getId());
+		rs = anlianBillService.uptBankCard(req);
+		return rs;
+	}
+	
 	@RequestMapping("detail")
 	public ModelAndView detail(AnlianBillFindReq req) throws Exception{
 		ModelAndView view = new ModelAndView();
 		Result rs = anlianBillService.findByid(req);
 		AnlianBillResp bill = (AnlianBillResp) rs.getData();
-//		MemberResp resp = systemMemberService.findById(bill.getDriverid());
-//		bill.setDrivertel(resp.getCellPhone());
 		view.addObject("bill", bill);
 		view.setViewName("bill/anlian/bill_detail");
+		return view;
+	}
+	
+	@RequestMapping("detail_driver")
+	public ModelAndView detail_driver(AnlianBillFindReq req) throws Exception{
+		ModelAndView view = new ModelAndView();
+		Result rs = anlianBillService.findByid(req);
+		AnlianBillResp bill = (AnlianBillResp) rs.getData();
+		view.addObject("bill", bill);
+		view.setViewName("bill/anlian/bill_detail_driver");
 		return view;
 	}
 	

@@ -11,6 +11,11 @@ public class PayInvoiceDetail {
 	
 	private String id;
 	
+	private String albankOwnerName;
+	private String albankOwnerPhone;
+	private String dybankOwnerName;
+	private String dybankOwnerPhone;
+	
 	private String planId;
 	//多条id
 	private List<String> ids;
@@ -499,6 +504,38 @@ public class PayInvoiceDetail {
 
 	public Double getBillpriceB() {
 		return billpriceB;
+	}
+
+	public String getAlbankOwnerName() {
+		return albankOwnerName;
+	}
+
+	public void setAlbankOwnerName(String albankOwnerName) {
+		this.albankOwnerName = albankOwnerName;
+	}
+
+	public String getAlbankOwnerPhone() {
+		return albankOwnerPhone;
+	}
+
+	public void setAlbankOwnerPhone(String albankOwnerPhone) {
+		this.albankOwnerPhone = albankOwnerPhone;
+	}
+
+	public String getDybankOwnerName() {
+		return dybankOwnerName;
+	}
+
+	public void setDybankOwnerName(String dybankOwnerName) {
+		this.dybankOwnerName = dybankOwnerName;
+	}
+
+	public String getDybankOwnerPhone() {
+		return dybankOwnerPhone;
+	}
+
+	public void setDybankOwnerPhone(String dybankOwnerPhone) {
+		this.dybankOwnerPhone = dybankOwnerPhone;
 	}
 
 	public void setBillpriceB(Double billpriceB) {

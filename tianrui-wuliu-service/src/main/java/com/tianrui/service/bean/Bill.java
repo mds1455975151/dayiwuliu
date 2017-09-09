@@ -5,6 +5,15 @@ public class Bill {
 	private String payType;
 	private String payDESC1;
 	
+	private String bankId;
+    
+    private String bankCard;
+    
+    private String bankOwnerName;
+    
+    private String bankOwnerPhone;
+    
+    private String bankType;
 	
 	private String jtb;
 	
@@ -1302,6 +1311,46 @@ public class Bill {
 
 	public void setConfirmPriceB(String confirmPriceB) {
 		this.confirmPriceB = confirmPriceB;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getBankCard() {
+		return bankCard;
+	}
+
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+
+	public String getBankOwnerName() {
+		return bankOwnerName;
+	}
+
+	public void setBankOwnerName(String bankOwnerName) {
+		this.bankOwnerName = bankOwnerName;
+	}
+
+	public String getBankOwnerPhone() {
+		return bankOwnerPhone;
+	}
+
+	public void setBankOwnerPhone(String bankOwnerPhone) {
+		this.bankOwnerPhone = bankOwnerPhone;
+	}
+
+	public String getBankType() {
+		return bankType;
+	}
+
+	public void setBankType(String bankType) {
+		this.bankType = bankType;
 	}
 
 }

@@ -80,6 +80,12 @@
 		<result column="confirm_Price_B" property="confirmPriceB" jdbcType="VARCHAR" />
 		
 		<result column="JTBPushTime" property="JTBPushTime" jdbcType="BIGINT" />
+		
+		 <result column="bankId" property="bankId" jdbcType="VARCHAR" />
+		 <result column="bankCard" property="bankCard" jdbcType="VARCHAR" />
+		 <result column="bankOwnerName" property="bankOwnerName" jdbcType="VARCHAR" />
+		 <result column="bankOwnerPhone" property="bankOwnerPhone" jdbcType="VARCHAR" />
+		 <result column="bankType" property="bankType" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		ID, planid, vehicleid, driverid, routeid, drivername,
@@ -98,7 +104,8 @@
 		signimgurl,overnumber,totalnumber,tallage,unloadtime,pathID,
 		pickupweight, signweight, isAssess, DESC1, DESC2, DESC3, DESC4,
 		jtb,q_deviation,d_deviation,interDistance,interTime,begintime,
-		acctepttime,ownerSigntime,payment,receive_memberid,confirm_Price_A,confirm_Price_B,JTBPushTime
+		acctepttime,ownerSigntime,payment,receive_memberid,confirm_Price_A,confirm_Price_B,JTBPushTime,
+		bankId,bankCard,bankOwnerName,bankOwnerPhone,bankType
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -433,7 +440,8 @@
 		signweight,isAssess,q_deviation,d_deviation,
 		interDistance,interTime,begintime,
 		acctepttime,ownerSigntime,payment,receive_memberid,
-		confirm_Price_A,confirm_Price_B,JTBPushTime
+		confirm_Price_A,confirm_Price_B,JTBPushTime,
+		bankId,bankCard,bankOwnerName,bankOwnerPhone,bankType
 		)
 		values
 		(#{id,jdbcType=VARCHAR},
@@ -483,11 +491,16 @@
 		#{interTime,jdbcType=BIGINT},
 		#{begintime,jdbcType=BIGINT},#{acctepttime,jdbcType=BIGINT},
 		#{ownerSigntime,jdbcType=BIGINT},
-		 #{payment,jdbcType=VARCHAR}, 
-		  #{receive_memberid,jdbcType=VARCHAR},
-		  #{confirmPriceA,jdbcType=VARCHAR},
-		   #{confirmPriceB,jdbcType=VARCHAR},
-		   #{JTBPushTime,jdbcType=BIGINT}
+		#{payment,jdbcType=VARCHAR}, 
+		#{receive_memberid,jdbcType=VARCHAR},
+		#{confirmPriceA,jdbcType=VARCHAR},
+		#{confirmPriceB,jdbcType=VARCHAR},
+		#{JTBPushTime,jdbcType=BIGINT},
+		#{bankId,jdbcType=VARCHAR},
+     	#{bankCard,jdbcType=VARCHAR},
+      	#{bankOwnerName,jdbcType=VARCHAR},
+      	#{bankOwnerPhone,jdbcType=VARCHAR},
+      	#{bankType,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.tianrui.service.bean.Bill">
@@ -682,6 +695,22 @@
 			<if test="JTBPushTime != null">
 				JTBPushTime,
 			</if>
+			
+			<if test="bankId != null">
+		      	bankId,
+		    </if>
+		    <if test="bankCard != null">
+		     	bankCard,
+		    </if>
+		    <if test="bankOwnerName != null">
+		      	bankOwnerName,
+		    </if>
+		    <if test="bankOwnerPhone != null">
+		    	bankOwnerPhone,
+		    </if>
+		    <if test="bankType != null">
+		     	bankType,
+		    </if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -872,6 +901,22 @@
 			<if test="JTBPushTime != null">
 				#{JTBPushTime,jdbcType=BIGINT},
 			</if>
+			
+			<if test="bankId != null">
+		      	#{bankId,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankCard != null">
+		     	#{bankCard,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankOwnerName != null">
+		      	#{bankOwnerName,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankOwnerPhone != null">
+		    	#{bankOwnerPhone,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankType != null">
+		     	#{bankType,jdbcType=VARCHAR},
+		    </if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.Bill">
@@ -879,6 +924,21 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		<set>
+			<if test="bankId != null">
+		      	bankId = #{bankId,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankCard != null">
+		     	bankCard = #{bankCard,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankOwnerName != null">
+		      	bankOwnerName = #{bankOwnerName,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankOwnerPhone != null">
+		    	bankOwnerPhone = #{bankOwnerPhone,jdbcType=VARCHAR},
+		    </if>
+		    <if test="bankType != null">
+		     	bankType = #{bankType,jdbcType=VARCHAR},
+		    </if>
 			<if test="JTBPushTime != null">
 				JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
 			</if>
@@ -1081,6 +1141,11 @@
 			MyBatis Generator, do not modify. -->
 		update wuliu_bill
 		set planid = #{planid,jdbcType=VARCHAR},
+		bankId = #{bankId,jdbcType=VARCHAR},
+     	bankCard = #{bankCard,jdbcType=VARCHAR},
+      	bankOwnerName = #{bankOwnerName,jdbcType=VARCHAR},
+    	bankOwnerPhone = #{bankOwnerPhone,jdbcType=VARCHAR},
+     	bankType = #{bankType,jdbcType=VARCHAR},
 		JTBPushTime = #{JTBPushTime,jdbcType=BIGINT},
 		confirm_Price_A = #{confirmPriceA,jdbcType=VARCHAR},
 		confirm_Price_B = #{confirmPriceB,jdbcType=VARCHAR},

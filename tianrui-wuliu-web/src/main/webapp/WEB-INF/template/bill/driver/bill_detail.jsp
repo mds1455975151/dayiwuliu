@@ -155,19 +155,33 @@
 											<td>共${bill.totalnumber }趟</td>
 										</tr>
 									</tbody>
+									<c:if test="${bill.payment eq '1' }">
 									<thead>
-										<tr>
-											<th>税率</th>
-										</tr>
+									<tr>
+										<th>税率</th>
+										<th>收款人</th>
+										<th>银行卡</th>
+									</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td><c:if test="${not empty bill.tallage }">
+											<td>
+											<c:if test="${not empty bill.tallage }">
 													<fmt:formatNumber type="number" value="${bill.tallage }"
 														maxFractionDigits="0"></fmt:formatNumber>%
-                                	</c:if></td>
+		                                	</c:if>
+		                                	</td>
+		                                	<td>
+											${bill.bankOwnerName }<br>
+											${bill.bankOwnerPhone }
+											</td>
+		                                	<td>
+		                                	${bill.bankCard }<br>
+		                                	<a onclick="findMyBank();">更换银行卡</a>
+		                                	</td>
 										</tr>
 									</tbody>
+									</c:if>
 									<!-- 磅单图片 -->
 									<c:if test="${bill.status==2 || bill.status==3 || bill.status==4 || bill.status==5 || bill.status==6}">
 										<thead>
@@ -227,8 +241,32 @@
 		</div>
 	</div>
 	<!--内容部分end-->
+	<!-- 更换银行卡 -->
+	<div class="modal fade" id="bank_card" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+	                        aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title">更换银行卡</h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class="bill_rcont">
+		                <div class="car_scroll">
+		                    <ul id="bank_list">
+	
+		                    </ul> 
+		                </div>
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- 更换银行卡 -->
 	<!-- 拒绝modal -->
-
 	<div class="modal fade" id="refuseModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -376,7 +414,7 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-	<script type="text/javascript" src="/resources/js/bill/driver_detail.js?0105"></script>
+	<script type="text/javascript" src="/resources/js/bill/driver_detail.js?09062"></script>
 	<script type="text/javascript">
 		var trRoot = "${trRoot}";
 		//弹出框样式更改

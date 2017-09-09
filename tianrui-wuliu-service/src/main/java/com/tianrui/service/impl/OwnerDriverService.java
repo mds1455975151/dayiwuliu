@@ -410,16 +410,21 @@ public class OwnerDriverService implements IOwnerDriverService {
 		addVehicleBankCard.setDriverid(addVehicle.getDriverid());
 		addVehicleBankCard.setVehicleownerid(addVehicle.getVehicleownerid());
 		List<AddVehicleBankCard> list =addVehicleBankCardMapper.selectAddVehicleBankCard(addVehicleBankCard);
-		if(list.size()>=1){
-			rs.setCode("111111");
-			rs.setError("已经添加过该卡，请勿重复添加！");
-		}else{
-			int a =addVehicleBankCardMapper.insert(addVehicleBankCard);
-			if(a!=1){
-				rs.setCode("222222");
-				rs.setError("添加失败！");
-			}
+		
+		AddVehicleBankCard query = new AddVehicleBankCard();
+		query.setDriverid(addVehicle.getDriverid());
+		List<AddVehicleBankCard> queryList =addVehicleBankCardMapper.selectAddVehicleBankCard(query);
+		for(AddVehicleBankCard del : queryList){
+			addVehicleBankCardMapper.deleteByPrimaryKey(del.getId());
 		}
+		addVehicleBankCardMapper.insert(addVehicleBankCard);
+		
+//		if(list.size()>=1){
+//			rs.setCode("111111");
+//			rs.setError("已经添加过该卡，请勿重复添加！");
+//		}else{
+//			
+//		}
 		return rs;
 	}
 

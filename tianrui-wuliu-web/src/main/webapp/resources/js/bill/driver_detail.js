@@ -285,3 +285,72 @@ $(function(){
 	});
 	
 });
+/** 查询银行卡*/
+function findMyBank(){
+	$('#bank_card').modal();
+	$("#bank_list").empty();
+	$.ajax({
+		url:"/trwuliu/bank/card/find",
+		type:"post",
+		data:{bankautid:"1"},
+		success:function(ret){
+			var data = ret.data.list;
+			for (var a = 0; a < data.length; a++) {
+				var bankType = "我的银行卡";
+				if(data[a].type=="0"){
+					bankType = "引用银行卡";
+				}
+				var hml = "<li>" +
+						"<label style='width: 60px;'>"+data[a].idname+"</label>" +
+						"<label style='width: 120px;'>"+data[a].telphone+"</label>" +
+						"<label style='width: 160px;'>"+data[a].bankcard+"</label>" +
+						"<label style='width: 120px;'>"+bankType+"</label>" +
+						"<label style='width: 60px;'>" +
+						"<button class='btn btnyello' onclick=\"uptBillBank('"+data[a].id+"','"+data[a].type+"','"+data[a].bankcard+"')\" style='width: 56px;height: 36px'>更换</button>" +
+						"</label>" +
+						"</li>";
+				$("#bank_list").append(hml);
+			}
+		}
+	});
+}
+function uptBillBank(id,type,bankcard){
+	if(type == "0"){
+		confirm("更换银行卡确认","该银行卡为引用车主银行卡，确定设置"+bankcard+"为支付银行卡吗？",function(){
+			$.ajax({
+				url:"/trwuliu/billdriver/uptBankCard",
+				data:{"bankId":id,
+					"bankType":"0",
+					"billId":$("#billId").val()},
+					type:"POST",
+					success:function(ret){
+						if(ret.code==000000){
+							window.location.href=location;
+						}else{
+							alert(ret.error);
+						}
+					}
+			});
+		});
+	}else{
+		confirm("更换银行卡确认","确定设置"+bankcard+"为支付银行卡吗？",function(){
+			$.ajax({
+				url:"/trwuliu/billdriver/uptBankCard",
+				data:{"bankId":id,
+					"bankType":"1",
+					"billId":$("#billId").val()},
+					type:"POST",
+					success:function(ret){
+						if(ret.code==000000){
+							window.location.href=location;
+						}else{
+							alert(ret.error);
+						}
+					}
+			});
+		});
+		
+	}
+}
+
+

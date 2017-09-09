@@ -46,6 +46,12 @@ public class PayAndBillDateilResp {
 	private String receiveName;
 	//支付对象
 	private String payMent;
+	//银行卡id
+	private String bankId;
+	
+	private String bankCellPhone;
+	
+	private String bankMember;
 	//银行卡号
 	private String bankcard;
 	//银行名称
@@ -367,5 +373,23 @@ public class PayAndBillDateilResp {
 	}
 	public void setRemarkImg(String remarkImg) {
 		this.remarkImg = remarkImg;
+	}
+	public String getBankId() {
+		return bankId;
+	}
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+	public String getBankCellPhone() {
+		return bankCellPhone;
+	}
+	public void setBankCellPhone(String bankCellPhone) {
+		this.bankCellPhone = bankCellPhone;
+	}
+	public String getBankMember() {
+		return bankMember;
+	}
+	public void setBankMember(String bankMember) {
+		this.bankMember = bankMember;
 	}
 }

@@ -14,7 +14,7 @@ public class AutherMainAction {
 	@Autowired
 	ICrossVehicleService crossVehicleService;
 	
-	@RequestMapping("main")
+	//@RequestMapping("main")
 	public Result main(){
 		Result rs = Result.getSuccessResult();
 		rs = crossVehicleService.allVehicleconf();

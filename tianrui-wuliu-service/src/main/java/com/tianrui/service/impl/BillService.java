@@ -27,6 +27,7 @@ import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
+import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
@@ -72,10 +73,12 @@ import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
+import com.tianrui.service.bean.AddVehicleBankCard;
 import com.tianrui.service.bean.AnlianDict;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillPosition;
 import com.tianrui.service.bean.BillTrack;
+import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.MemberCapa;
 import com.tianrui.service.bean.MemberCapaList;
 import com.tianrui.service.bean.MemberPositionRecord;
@@ -90,9 +93,11 @@ import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.bean.anlian.PositionCounty;
 import com.tianrui.service.jtb.BillMassageReq;
 import com.tianrui.service.jtb.JtbHttpRequset;
+import com.tianrui.service.mapper.AddVehicleBankCardMapper;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.AnlianDictMapper;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.MemberCapaMapper;
 import com.tianrui.service.mapper.MemberVehicleMapper;
 import com.tianrui.service.mapper.OrgSignerMapper;
@@ -188,6 +193,70 @@ public class BillService implements IBillService{
 	MemberPositionRecordDao memberPositionRecordDao;
 	@Autowired
 	ICrossVehicleService crossVehicleService;
+	@Autowired
+	MemberBankCardMapper memberBankCardMapper;
+	@Autowired
+	AddVehicleBankCardMapper addVehicleBankCardMapper;
+	
+	@Override
+	public Result uptBankCard(BillBankReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		Bill bill = billMapper.selectByPrimaryKey(req.getBillId());
+		MemberBankCard bank = memberBankCardMapper.selectByPrimaryKey(req.getBankId());
+		if(bill==null||bank==null){
+			rs.setCode("1");
+			rs.setError("运单id或银行卡id有误");
+			return rs;
+		}
+		if("1".equals(bill.getConfirmPriceA())){
+			rs.setCode("1");
+			rs.setError("已运价确认运单，不能更换银行卡");
+			return rs;
+		}
+		if(bill.getPayment().equals("2")){
+			//支付对象车主
+			rs.setCode("1");
+			rs.setError("支付对象为车主，不能更换银行卡");
+			return rs;
+		}
+		if(!bill.getDriverid().equals(req.getDriverId())){
+			rs.setCode("1");
+			rs.setError("非该司机运单，不能更换银行卡");
+			return rs;
+		}
+		String bankType = "1";//1-默认银行卡，2-引用银行卡
+		if(req.getBankType().equals("0")){
+			//引用银行卡
+			bankType = "2";
+			AddVehicleBankCard add = new AddVehicleBankCard();
+			add.setDriverid(req.getDriverId());
+			add.setVehicleownerid(bank.getCreater());
+			List<AddVehicleBankCard> adlist = addVehicleBankCardMapper.selectByCondition(add);
+			if(adlist.size()!=1){
+				rs.setCode("2");
+				rs.setError("司机暂未引用该银行卡");
+				return rs;
+			}
+		}else{
+			bankType = "1";
+			//添加银行卡
+			if(!bank.getCreater().equals(req.getDriverId())){
+				rs.setCode("3");
+				rs.setError("非该司机银行卡");
+				return rs;
+			}
+		}
+		Bill upt = new Bill();
+		upt.setId(req.getBillId());
+		upt.setBankId(bank.getId());
+		upt.setBankType(bankType);
+		upt.setBankCard(bank.getBankcard());
+		upt.setBankOwnerName(bank.getIdname());
+		upt.setBankOwnerPhone(bank.getTelphone());
+		billMapper.updateByPrimaryKeySelective(upt);
+		return rs;
+	}
 	
 	@Override
 	public Result saveWayBill(WaybillSaveReq req) throws Exception {
@@ -293,6 +362,31 @@ public class BillService implements IBillService{
 							bill.setIsClearing("0");
 							//支付对象
 							bill.setPayment(payment);
+							//支付对象银行卡信息
+							if(payment.equals("1")){
+								//司机
+								String driver = bill.getDriverid();
+								MemberBankCard bank = getBankCard(driver);
+								if(bank!=null){
+									bill.setBankId(bank.getId());
+									bill.setBankCard(bank.getBankcard());
+									bill.setBankOwnerName(bank.getIdname());
+									bill.setBankOwnerPhone(bank.getTelphone());
+									bill.setBankType("1");//默认银行卡
+								}
+							}else if(payment.equals("2")){
+								//车主
+								String vender = bill.getVenderid();
+//								MemberBankCard bank = getBankCard(vender);
+//								if(bank!=null){
+//									bill.setBankId(bank.getId());
+//									bill.setBankCard(bank.getBankcard());
+//									bill.setBankOwnerName(bank.getIdname());
+//									bill.setBankOwnerPhone(bank.getTelphone());
+//									bill.setBankType("1");//默认银行卡
+//								}
+							}
+							
 							//收货人
 							if (orgsigner != null) {
 								bill.setReceive_memberid(orgsigner.getMemberid());
@@ -331,9 +425,34 @@ public class BillService implements IBillService{
 					alreq.setVenderid(item.getVenderid());
 					// 货主信息
 					alreq.setOwnerid(item.getOwnerid());
-					
 					//支付对象
+					String payment = item.getPayment();
 					alreq.setPayment(item.getPayment());
+					//支付对象银行卡信息
+					if(payment.equals("1")){
+						//司机
+						String driver = item.getDriverid();
+						MemberBankCard bank = getBankCard(driver);
+						if(bank!=null){
+							alreq.setBankId(bank.getId());
+							alreq.setBankCard(bank.getBankcard());
+							alreq.setBankOwnerName(bank.getIdname());
+							alreq.setBankOwnerPhone(bank.getTelphone());
+							alreq.setBankType("1");//默认银行卡
+						}
+					}else if(payment.equals("2")){
+						//车主
+						String vender = item.getVenderid();
+//						MemberBankCard bank = getBankCard(vender);
+//						if(bank!=null){
+//							alreq.setBankId(bank.getId());
+//							alreq.setBankCard(bank.getBankcard());
+//							alreq.setBankOwnerName(bank.getIdname());
+//							alreq.setBankOwnerPhone(bank.getTelphone());
+//							alreq.setBankType("1");//默认银行卡
+//						}
+					}
+					
 					//收货人
 					alreq.setReceive_memberid(item.getReceive_memberid());
 					item.getOvernumber();
@@ -354,6 +473,21 @@ public class BillService implements IBillService{
 		}
 		return rs;
 	}
+	/** 获取用户默认银行卡*/
+	protected MemberBankCard getBankCard(String creater) {
+		MemberBankCard card = null;
+		MemberBankCard bank = new MemberBankCard();
+		bank.setCreater(creater);
+		bank.setBankstatus("1");
+		bank.setBankautid("1");
+		List<MemberBankCard> bankList = memberBankCardMapper.selectByCondition(bank);
+		if(bankList.size()==1){
+			card = new MemberBankCard();
+			card = bankList.get(0);
+		}
+		return card;
+	}
+	
 
 	@Override
 	public Result editWayBill(WaybillEditReq req) throws Exception {

@@ -3,6 +3,7 @@ package com.tianrui.api.intf;
 import java.util.List;
 
 import com.tianrui.api.req.front.adminReport.StatReportReq;
+import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillEditReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
@@ -63,7 +64,8 @@ public interface IBillService {
 	public Result dischargeConfirm(WaybillConfirmReq req)throws Exception;
 	/**司机删除*/
 	public Result driverdelete(WaybillConfirmReq req)throws Exception;
-	
+	/** 更换银行卡*/
+	public Result uptBankCard(BillBankReq req)throws Exception;
 	
 	
 	/**查询详情*/

@@ -138,8 +138,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function innerHtml(list){
 		$("#innerHml").empty();
 		for (var a = 0; a < list.length; a++) {
+			var idname =list[a].idname == undefined ? "":list[a].idname;
+			var telphone =list[a].telphone == undefined ? "":list[a].telphone;
 			var bankstatus = "";
-			if(list[a].bankstatus=="1"){
+			var bankName = list[a].bankname;
+			if(list[a].type=="0"){
+				bankstatus = "引用";
+				bankName =idname;
+			}else if(list[a].bankstatus=="1"){
 				bankstatus = "默认";
 			}
 			if(list[a].bankstatus=="0"){
@@ -163,26 +169,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(list[a].type == "0"){
 				type = "车主";
 			}
-			var idname =list[a].idname == undefined ? "":list[a].idname;
-			var telphone =list[a].telphone == undefined ? "":list[a].telphone;
 			var hml = "";
 			hml = "<div class='head_background' onclick=\"moreng('"+list[a].id+"','"+list[a].bankstatus+"','"+list[a].bankautid+"','"+list[a].bankcard+"')\">"+
 			"<div class='inline'><div class='display_3 inline'>"+
-			"<div style='margin-top: -10px'>";
-			if(list[a].type=="0"){
-				hml +="引用"+"</div><div>"+bankautid+"</div></div>"+
-						"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>"+
-						"</div><div class='display_2 inline'>"+
-					    "<div class='font_size_1'>"+idname+"   "+telphone+"</div>"+
-					    "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
-			}else{
-				  hml +=bankstatus+"</div><div>"+bankautid+"</div></div>"+
-						"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>"+
-						"</div><div class='display_2 inline'>"+
-				        "<div class='font_size_1'>"+list[a].bankname+"</div>"+
-				        "<div class='font_size_2'>"+list[a].bankcard+"</div></div>";
-			}
-			hml+="<div></div>"+
+			"<div style='margin-top: -10px'>"+bankstatus+"</div><div>"+bankautid+"</div></div>"+
+			"<div class='display_1 inline'><img class='bank_img' src='${trRoot}/tianrui/images/fangzi.png'>"+
+			"</div><div class='display_2 inline'>"+
+	        "<div class='font_size_1'>"+bankName+"</div>"+
+	        "<div class='font_size_2'>"+list[a].bankcard+"</div></div>"+
+			"<div></div>"+
 			"</div></div>";
 			$("#innerHml").append(hml);
 		}

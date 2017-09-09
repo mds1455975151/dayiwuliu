@@ -1,6 +1,5 @@
 package com.tianrui.api.resp.front.bill;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,6 +11,16 @@ public class AnlianBillResp {
     private String systemShipper = Constant.SYSTEM_SHIPPER;
     
     private String status;
+    
+    private String bankId;
+    
+    private String bankCard;
+    
+    private String bankOwnerName;
+    
+    private String bankOwnerPhone;
+    
+    private String bankType;
     
     private Long ptBegintime;
     
@@ -591,5 +600,45 @@ public class AnlianBillResp {
 
 	public void setPtEndtime(Long ptEndtime) {
 		this.ptEndtime = ptEndtime;
+	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	public String getBankCard() {
+		return bankCard;
+	}
+
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
+	}
+
+	public String getBankOwnerName() {
+		return bankOwnerName;
+	}
+
+	public void setBankOwnerName(String bankOwnerName) {
+		this.bankOwnerName = bankOwnerName;
+	}
+
+	public String getBankOwnerPhone() {
+		return bankOwnerPhone;
+	}
+
+	public void setBankOwnerPhone(String bankOwnerPhone) {
+		this.bankOwnerPhone = bankOwnerPhone;
+	}
+
+	public String getBankType() {
+		return bankType;
+	}
+
+	public void setBankType(String bankType) {
+		this.bankType = bankType;
 	}
 }

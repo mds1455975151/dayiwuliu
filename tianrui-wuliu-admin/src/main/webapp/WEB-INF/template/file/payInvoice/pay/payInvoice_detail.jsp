@@ -135,14 +135,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    <div class="row ">
 	                         <div class="col-md-12">
 	                            <div class="person_cont">
-	                                <c:if test="${pay.payMent eq '1'}">
-										   <label>支付账号：</label><span>${pay.driverCellphone }</span><br>
-			                               <label>收款名称：</label><span>${pay.driverName }</span><br>
-									</c:if>
-			                        <c:if test="${pay.payMent eq '2'}">
-			                        	<label>支付账号：</label><span>${pay.venderCellphone }</span><br>
-			                            <label>收款名称：</label><span>${pay.venderName }</span><br>
-			                        </c:if>
+								    <label>支付账号：</label><span>${pay.bankCellPhone }</span><br>
+	                                <label>收款名称：</label><span>${pay.bankMember }</span><br>
 			                        <label>银行卡号：</label><span>${pay.bankcard }</span><br>
 			                        <label>银行卡名称：</label><span>${pay.bankname }</span><br>
 			                        <label>开户行名称：</label><span>${pay.bankAdreess }</span><br>

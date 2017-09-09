@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IFileService;
+import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.transfer.TransferReq;
@@ -89,6 +90,18 @@ public class BillDriverAction {
 			req.setQueryType(3);
 			rs.setData(billService.page(req));
 		}
+		return rs;
+	}
+
+	/** 更换银行卡
+	 * @throws Exception */
+	@RequestMapping("uptBankCard")
+	@ResponseBody
+	public Result uptBankCard(BillBankReq req,HttpServletRequest request) throws Exception{
+		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		req.setDriverId(vo.getId());
+		rs = billService.uptBankCard(req);
 		return rs;
 	}
 

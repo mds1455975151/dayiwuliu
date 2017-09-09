@@ -1,5 +1,7 @@
 package com.tianrui.api.intf;
 
+import java.util.List;
+
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
@@ -17,6 +19,8 @@ public interface ICrossVehicleService {
 	 * @throws
 	 */
 	PageResp<ZJXLVehicleResp> find(ZJXLVehicleReq req)throws Exception;
+	
+	List<ZJXLVehicleResp> findList(ZJXLVehicleReq req)throws Exception;
 	
 	/**
 	 * @Title: insert 
