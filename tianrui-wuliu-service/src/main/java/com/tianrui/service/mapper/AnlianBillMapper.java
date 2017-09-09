@@ -1,10 +1,8 @@
 package com.tianrui.service.mapper;
 
 import java.util.List;
-
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.bean.anlian.JtbPushCount;
-
 public interface AnlianBillMapper {
     int deleteByPrimaryKey(String id);
 
@@ -30,5 +28,7 @@ public interface AnlianBillMapper {
     long selectAlJTBPushCount(JtbPushCount record);
     /** 大易送统计*/
     long selectDYJTBPushCount(JtbPushCount record);
+    
+   
 
 }

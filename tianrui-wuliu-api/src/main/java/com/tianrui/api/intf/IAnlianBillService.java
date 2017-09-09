@@ -26,7 +26,6 @@ public interface IAnlianBillService {
 	public Result update(AnlianBillUpdateReq req)throws Exception;
 	/** 安联运单签收*/
 	public Result billSigner(AnlianBillSignerReq req)throws Exception;
-	/** 安联运单更换银行卡*/
-	public Result uptBankCard(BillBankReq req)throws Exception;
 	
+	public Result uptBankCard(BillBankReq req) throws Exception;
 }
