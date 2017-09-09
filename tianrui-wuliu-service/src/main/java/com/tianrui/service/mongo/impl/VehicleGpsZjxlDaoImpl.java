@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.mongo.VehicleGpsZjxlDao;
+import com.tianrui.service.util.GpsTranUtils;
 
 
 @Repository("vehicleGpsZjxlDao")
@@ -38,6 +39,8 @@ public class VehicleGpsZjxlDaoImpl extends BaseDaoImpl<VehicleGpsZjxl, String>  
 			
 			query.with(new Sort(Direction.ASC,"utc"));
 			rs = mongoTemplate.find(query, VehicleGpsZjxl.class);
+			//批量转换坐标系
+			converGpss(rs);
 		}
 		
 		return rs;
@@ -55,9 +58,35 @@ public class VehicleGpsZjxlDaoImpl extends BaseDaoImpl<VehicleGpsZjxl, String>  
 			List<VehicleGpsZjxl> rs=mongoTemplate.find(query, VehicleGpsZjxl.class);
 			if( CollectionUtils.isNotEmpty(rs)){
 				bean=rs.get(0);
+				//坐标转换
+				converGps(bean);
 			}
 		}
 		return bean;
 	}
 
+	
+	
+	//原始坐标系转换为
+	private void   converGps(VehicleGpsZjxl bean){
+		if( bean !=null && bean.getLat()!=null && bean.getLon() !=null){
+			//wgs2bd();
+			double[] _gps =GpsTranUtils.wgs2bd(bean.getLat(),bean.getLon());
+			bean.setLat(_gps[0]);
+			bean.setLon(_gps[1]);
+		}
+	}
+	//原始坐标系转换为
+	private void   converGpss(List<VehicleGpsZjxl> items){
+		if( CollectionUtils.isNotEmpty(items) ){
+			for( VehicleGpsZjxl bean: items){
+				if( bean !=null && bean.getLat()!=null && bean.getLon() !=null){
+					//wgs2bd();
+					double[] _gps =GpsTranUtils.wgs2bd(bean.getLat(),bean.getLon());
+					bean.setLat(_gps[0]);
+					bean.setLon(_gps[1]);
+				}
+			}
+		}
+	}
 }
