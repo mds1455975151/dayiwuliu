@@ -58,6 +58,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">认证成功</option>
                                         </select>
                                     </div>
+                                    <div class="ht_div">
+                                        <label>持卡人电话：</label>
+                                        <input type="text" maxlength="20" id="find_telphone" placeholder=" ">
+                                    </div>
                                 </div>
                                 <div class="contuser_search">
                                     <div class="ht_divbtn">
@@ -197,6 +201,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bank/bank_card.js?07038" ></script>
+<script type="text/javascript" src="/resources/js/bank/bank_card.js?0708" ></script>
 </body>
 </html>

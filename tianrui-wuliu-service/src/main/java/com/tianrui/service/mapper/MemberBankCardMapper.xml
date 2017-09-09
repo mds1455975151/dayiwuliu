@@ -86,6 +86,9 @@
 		wuliu_member_bankcard mb
 	LEFT JOIN wuliu_NC_bank_subbranch nc ON nc.id = mb.desc2
     <where>
+    	<if test="telphone != null and telphone != ''">
+    		and mb.telphone = #{telphone,jdbcType=VARCHAR}
+    	</if>
     	<if test="bankstatus != null and bankstatus != ''">
     		and mb.bankstatus = #{bankstatus,jdbcType=VARCHAR}
     	</if>
@@ -126,6 +129,9 @@
     	count(0)
     from wuliu_member_bankcard
     <where>
+    	<if test="telphone != null and telphone != ''">
+    		and telphone = #{telphone,jdbcType=VARCHAR}
+    	</if>
     	<if test="bankstatus != null and bankstatus != ''">
     		and bankstatus = #{bankstatus,jdbcType=VARCHAR}
     	</if>

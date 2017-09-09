@@ -21,18 +21,22 @@ function clearSearch(){
 	$("#find_bankcard").val("");
 	$("#find_idname").val("");
 	$("#find_bankautid").val("");
+	$("#find_telphone").val("");
+	displayRect(0);
 }
 
 function displayRect(pageNo){
 	var find_bankcard = $("#find_bankcard").val();
 	var find_idname = $("#find_idname").val();
 	var find_bankautid = $("#find_bankautid").val();
+	var find_telphone = $("#find_telphone").val();
 	$.ajax({
 		url:'/admin/bank/card/find',
 		data:{
 			"bankcard":$.trim(find_bankcard),
 			"idname":$.trim(find_idname),
 			"bankautid":$.trim(find_bankautid),
+			"telphone":$.trim(find_telphone),
 			"pageNo":pageNo,
 			"pageSize":pageSize
 		},
