@@ -403,25 +403,30 @@ public class MemberBankCardService implements IMemberBankCardService{
 		}
 		List<MemberBankCard> list = memberBankCardMapper.selectByCondition(record);
 		long a = memberBankCardMapper.selectBycount(record);
-		
-		AddVehicleBankCard addVehicleBankCard = new AddVehicleBankCard();
-		addVehicleBankCard.setDriverid(req.getCreater());
-		List<AddVehicleBankCard> lisyt =addVehicleBankCardMapper.selectByCondition(addVehicleBankCard);
-		long b = 0;
-		for(AddVehicleBankCard addVehicle:lisyt){
-			String vehicleownerid =addVehicle.getVehicleownerid();//司机所对应的车主id
-			MemberBankCard vender = new MemberBankCard();
-			vender.setBankstatus("1");
-			vender.setCreater(vehicleownerid);
-			List<MemberBankCard> lists =memberBankCardMapper.selectByCondition(vender);
-			for( MemberBankCard memberBankCard : lists){
-				memberBankCard.setType("0");
-				list.add(memberBankCard);
+		if(StringUtils.isNotBlank(req.getCreater())){
+			
+			AddVehicleBankCard addVehicleBankCard = new AddVehicleBankCard();
+			addVehicleBankCard.setDriverid(req.getCreater());
+			List<AddVehicleBankCard> lisyt =addVehicleBankCardMapper.selectByCondition(addVehicleBankCard);
+			long b = 0;
+			for(AddVehicleBankCard addVehicle:lisyt){
+				String vehicleownerid =addVehicle.getVehicleownerid();//司机所对应的车主id
+				MemberBankCard vender = new MemberBankCard();
+				vender.setBankstatus("1");
+				vender.setCreater(vehicleownerid);
+				List<MemberBankCard> lists =memberBankCardMapper.selectByCondition(vender);
+				for( MemberBankCard memberBankCard : lists){
+					memberBankCard.setType("0");
+					list.add(memberBankCard);
+				}
+				b=memberBankCardMapper.selectBycount(vender);
 			}
-			b=memberBankCardMapper.selectBycount(vender);
+			page.setList(copyProperties_2(list));
+			page.setTotal(a+b);
+		}else{
+			page.setList(copyProperties_2(list));
+			page.setTotal(a);
 		}
-		page.setList(copyProperties_2(list));
-		page.setTotal(a+b);
 		return page;
 	}
 	
