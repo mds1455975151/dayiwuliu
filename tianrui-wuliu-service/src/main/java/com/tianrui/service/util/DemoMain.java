@@ -133,7 +133,7 @@ public class DemoMain {
 			p = TransCode.encode(p);//DES加密
 			String url = apiUrl+"/vLastLocation/" + p+"?client_id="+client_id;
 			DataExchangeService des = new DataExchangeService(5000, 5000);// 请求访问超时时间,读取数据超时时间
-			System.out.println("请求地址:"+url);
+		//	System.out.println("请求地址:"+url);
 			String res = des.accessHttps(url, "POST");
 			res = TransCode.decode(res);//DES解密
 			JSONObject obj = JSONObject.parseObject(res);
@@ -141,10 +141,10 @@ public class DemoMain {
 			JSONObject rest = (JSONObject) obj.get("result");
 			zjxl.setStatus(sta.toString());
 			zjxl.setResult(rest);
-			System.out.println("返回:"+obj);
+		//	System.out.println("返回:"+obj);
 			DemoReturnBean bean = JSON.parseObject(res, DemoReturnBean.class);
 			analysisStatus(bean);//解析接口返回状态
-			System.out.println("------------------------------------------------------");
+		//	System.out.println("------------------------------------------------------");
 			return zjxl;
 		} catch (Exception e) {
 			System.out.println("e:" + e.getMessage());

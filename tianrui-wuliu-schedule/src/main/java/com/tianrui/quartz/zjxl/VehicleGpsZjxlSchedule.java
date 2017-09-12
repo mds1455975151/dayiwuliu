@@ -41,10 +41,14 @@ public class VehicleGpsZjxlSchedule {
 	
 	Logger logger = LoggerFactory.getLogger(VehicleGpsZjxlSchedule.class);
 	
-	@Scheduled(cron="0 0/2 * * * ?")
+	@Scheduled(cron="0 0/9 * * * ?")
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
-		logger.info("查询车辆位置开始"+begin);
+		
+		int successFlag =0;
+		int noChangeFlag=0;
+		int falseFlag=0;
+		int index = 0;
 		if(Constant.ZJXL_STATIC.equals("1")){
 			//中交兴路状态为 1  查询中交兴路位置
 			ZJXLVehicleReq req = new ZJXLVehicleReq();
@@ -52,10 +56,10 @@ public class VehicleGpsZjxlSchedule {
 			req.setCrossloge("1");
 			List<ZJXLVehicleResp> list = crossVehicleService.findList(req);
 			String token = DemoMain.getToken();
-			int a = 0;
+			
 			for(ZJXLVehicleResp vehNo : list){
-				a = a+1;
-				logger.info("本次查询总数[{}],查询到第[{}]条",list.size(),a);
+				logger.info("本次查询总数[{}],查询到第[{}]条",list.size(),index);
+				index ++;
 				ZjxlResult bean = DemoMain.vLastLocation(vehNo.getVehicleno(),token);
 				try {
 					if(StringUtils.equals("1001", bean.getStatus())){
@@ -80,22 +84,25 @@ public class VehicleGpsZjxlSchedule {
 							t.setVehicleNo(vehNo.getVehicleno());
 							t.setTimeStamp(System.currentTimeMillis());
 							vehicleGpsZjxlDao.save(t);
-							logger.info("本次查询保存车辆位置lat[{}],lon[{}]",f1lat,f1lon);
+							logger.debug("本次查询保存车辆位置lat[{}],lon[{}]",f1lat,f1lon);
+							successFlag++;
 						}else{
-							logger.info("车辆位置无变化-old_lat="+zjxl.getLat()+"-old_lon="+zjxl.getLon());
-							logger.info("车辆位置无变化-new_lat="+obj.getString("lat")+"-new_lon="+obj.getString("lon"));
+							logger.debug("车辆位置无变化-old_lat={} -old_lon={}",zjxl.getLat(),zjxl.getLon());
+							noChangeFlag++;
 						}
 					}else{
-						logger.info("查询车辆位置失败---"+vehNo.getVehicleno());
+						logger.info("查询车辆位置失败{}",vehNo.getVehicleno());
+						falseFlag++;
 					}
 				} catch (Exception e) {
-					logger.info("数据解析异常---"+e.getMessage());
+					logger.error("中交兴路",e.getMessage(),e);
 				}
 			}
 		}else{
 			logger.info("未开启中交兴路查询功能");
 		}
-		logger.info("查询车辆位置结束"+(System.currentTimeMillis()-begin));
+		logger.info("中交兴路查询车辆位置结束,耗时{}ms;{}条成功更改位置;{}条无更新;{}条调用失败;"
+				,new Object[]{(System.currentTimeMillis()-begin),successFlag,noChangeFlag,falseFlag});
 	}
 	
 }
