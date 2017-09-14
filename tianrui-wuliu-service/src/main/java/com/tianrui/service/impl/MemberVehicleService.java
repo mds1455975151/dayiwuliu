@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.intf.IMemberVehicleService;
 import com.tianrui.api.intf.IMessageService;
 import com.tianrui.api.req.front.message.SendMsgReq;
@@ -61,6 +62,8 @@ public class MemberVehicleService implements IMemberVehicleService {
 	BillMapper billMapper;
 	@Autowired
 	SystemMemberMapper  memberMapper;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	/**
 	 * 父类方法重写，根据主键进行我的车辆信息查询
@@ -242,6 +245,11 @@ public class MemberVehicleService implements IMemberVehicleService {
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_VEHICLE_PASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_VEHICLE_PASS.getType());
 			messageService.sendMessageInside(mreq);
+			try {
+				crossVehicleService.systemInsertVehicle(req.getId());
+			} catch (Exception e) {
+			
+			}
 		}else if("-1".equals(mass.getStatus())){//没通过审核
 			mreq.setCodeEnum(MessageCodeEnum.ADMIN_VEHICLE_NOTPASS);
 			mreq.setRecType(MessageCodeEnum.ADMIN_VEHICLE_NOTPASS.getType());

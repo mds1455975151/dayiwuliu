@@ -69,4 +69,6 @@ public interface ICrossVehicleService {
 	 * @return
 	 */
 	public Result allVehicleconf();
+	/** 后台车辆审核成功，添加车辆至该表*/
+	public Result systemInsertVehicle(String vehicle);
 }

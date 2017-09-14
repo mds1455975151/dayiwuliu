@@ -189,6 +189,43 @@ public class CrossVehicleService implements ICrossVehicleService{
 	}
 
 	@Override
+	public Result systemInsertVehicle(String vehicleId) {
+		Result rs = Result.getSuccessResult();
+		MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(vehicleId);
+		String vehicleno = vehicle.getVehicleprefix()+vehicle.getVehicleno();
+		//查询车辆是否被添加过
+		ZJXLVehicle  zjxlVehicle = new ZJXLVehicle();
+		zjxlVehicle.setVehicleno(vehicleno);
+		List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(zjxlVehicle);
+		if(list.size()==0){
+			String token = DemoMain.getToken();
+			DemoReturnBean bean = DemoMain.checkTruckExist(token,vehicleno);
+			ZJXLVehicle zjxl = new ZJXLVehicle();
+			zjxl.setId(UUIDUtil.getId());
+			zjxl.setCreator("系统自动");
+			zjxl.setCreatetime(System.currentTimeMillis());
+			zjxl.setVehicleid(vehicleId);
+			zjxl.setVehiclelogo("1");
+			zjxl.setVehicleno(vehicleno);
+			if(bean.getStatus().equals("1001")){
+				//查询成功
+				if("yes".equals(bean.getResult().toString())){
+					zjxl.setCrossloge("1");
+				}else if("no".equals(bean.getResult().toString())){
+					zjxl.setCrossloge("0");
+				}
+			}else{
+				zjxl.setCrossloge("2");
+			}
+			zjxlVehicleMapper.insertSelective(zjxl);
+		}else{
+			rs.setCode("1");
+			rs.setError("车辆已经添加过");
+		}
+		return null;
+	}
+	
+	@Override
 	public Result deletes(String id) throws Exception {
 		Result rs = Result.getSuccessResult();
 		int re =zjxlVehicleMapper.deleteByPrimaryKey(id);
@@ -230,5 +267,4 @@ public class CrossVehicleService implements ICrossVehicleService{
 		}
 		return rs;
 	}
-
 }
