@@ -13,9 +13,12 @@
 		<result column="pay_status" property="payStatus" jdbcType="INTEGER" />
 		<result column="planCode" property="planCode" jdbcType="VARCHAR" />
 		<result column="cargoname" property="cargoname" jdbcType="VARCHAR" />
+
+		<result column="startcity" property="startcity" jdbcType="VARCHAR" />
+		<result column="endcity" property="endcity" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="selectAnReportCondition" resultMap="BaseResultMapAn"
-	
+
 		parameterType="com.tianrui.api.req.front.bill.AnReportReq">
 		SELECT
 		ab.`billno`,
@@ -26,17 +29,24 @@
 		pi.`amount_payable`,
 		wp.`planCode`,
 		wp.`cargoname`,
+		wp.`startcity`,
+		wp.`endcity`,
 		fr.`routename`
 		FROM
 		`anlian_bill` ab
-		LEFT JOIN `pay_invoice_detail_1` pid ON ab.`id` = pid.`bill_id`
-		LEFT JOIN `pay_invoice_1` pi ON pid.`pay_invoice_id` = pi.`id`
-		LEFT JOIN `wuliu_plan` wp ON ab.desc1 = wp.`ID`
+		LEFT
+		JOIN `pay_invoice_detail_1` pid ON ab.`id` = pid.`bill_id`
+		LEFT JOIN
+		`pay_invoice_1` pi ON pid.`pay_invoice_id` = pi.`id`
+		LEFT JOIN
+		`wuliu_plan` wp ON ab.desc1 = wp.`ID`
 		LEFT JOIN `file_route` fr
-		ON wp.routeid = fr.id
+		ON
+		wp.routeid = fr.id
 		<where>
 			<if test="receiveMemberid != null and receiveMemberid != ''">
-				and ab.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
+				and ab.receive_memberid =
+				#{receiveMemberid,jdbcType=VARCHAR}
 			</if>
 			<if test="driverid != null and driverid != ''">
 				and ab.driverid = #{driverid,jdbcType=VARCHAR}
@@ -60,8 +70,11 @@
 			<if test="signtime != null and signtime != ''">
 				and ab.signtime = #{signtime,jdbcType=VARCHAR}
 			</if>
-			<if test="payStatus != null and payStatus != ''">
+			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
+			</if>
+			<if test="payStatus == 0 and payStatus != '' ">
+				and (pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
 				and wp.planCode = #{planCode,jdbcType=VARCHAR}
@@ -80,13 +93,16 @@
 		FROM `anlian_bill` ab
 		LEFT JOIN `pay_invoice_detail_1`
 		pid ON ab.`id` = pid.`bill_id`
-		LEFT JOIN `pay_invoice_1` pi ON pid.`pay_invoice_id` = pi.`id`
-		LEFT JOIN `wuliu_plan` wp ON ab.desc1 = wp.`ID`
+		LEFT JOIN `pay_invoice_1` pi ON
+		pid.`pay_invoice_id` = pi.`id`
+		LEFT JOIN `wuliu_plan` wp ON ab.desc1 =
+		wp.`ID`
 		LEFT JOIN `file_route` fr
 		ON wp.routeid = fr.id
 		<where>
 			<if test="receiveMemberid != null and receiveMemberid != ''">
-				and ab.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
+				and ab.receive_memberid =
+				#{receiveMemberid,jdbcType=VARCHAR}
 			</if>
 			<if test="driverid != null and driverid != ''">
 				and ab.driverid = #{driverid,jdbcType=VARCHAR}
@@ -109,8 +125,11 @@
 			<if test="signtime != null and signtime != ''">
 				and ab.signtime = #{signtime,jdbcType=VARCHAR}
 			</if>
-			<if test="payStatus != null and payStatus != ''">
+			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
+			</if>
+			<if test="payStatus == 0 and payStatus != '' ">
+				and (pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
 				and wp.planCode = #{planCode,jdbcType=VARCHAR}
@@ -133,9 +152,12 @@
 		<result column="pay_status" property="payStatus" jdbcType="INTEGER" />
 		<result column="planCode" property="planCode" jdbcType="VARCHAR" />
 		<result column="cargoname" property="cargoname" jdbcType="VARCHAR" />
+
+		<result column="startcity" property="startcity" jdbcType="VARCHAR" />
+		<result column="endcity" property="endcity" jdbcType="VARCHAR" />
 	</resultMap>
 	<select id="selectWuReportCondition" resultMap="BaseResultMapWu"
-		parameterType="com.tianrui.api.req.front.bill.WuReportReq">
+		parameterType="com.tianrui.api.req.front.bill.AnReportReq">
 		SELECT
 		ab.`waybillno`,
 		ab.`vehicleno`,
@@ -145,17 +167,23 @@
 		pi.`amount_payable`,
 		wp.`planCode`,
 		wp.`cargoname`,
+		wp.`startcity`,
+		wp.`endcity`,
 		fr.`routename`
 		FROM
 		`wuliu_bill` ab
-		LEFT JOIN `pay_invoice_detail_1` pid ON ab.`id` = pid.`bill_id`
-		LEFT JOIN `pay_invoice_1` pi ON pid.`pay_invoice_id` = pi.`id`
-		LEFT JOIN `wuliu_plan` wp ON ab.desc1 = wp.`ID`
-		LEFT JOIN `file_route` fr
+		LEFT JOIN `pay_invoice_detail_1` pid ON ab.`id` =
+		pid.`bill_id`
+		LEFT JOIN `pay_invoice_1` pi ON pid.`pay_invoice_id` =
+		pi.`id`
+		LEFT JOIN `wuliu_plan` wp ON ab.planid = wp.`ID`
+		LEFT JOIN
+		`file_route` fr
 		ON wp.routeid = fr.id
 		<where>
 			<if test="receiveMemberid != null and receiveMemberid != ''">
-				and ab.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
+				and ab.receive_memberid =
+				#{receiveMemberid,jdbcType=VARCHAR}
 			</if>
 			<if test="driverid != null and driverid != ''">
 				and ab.driverid = #{driverid,jdbcType=VARCHAR}
@@ -167,8 +195,8 @@
 				and ab.venderid = #{venderid,jdbcType=VARCHAR}
 			</if>
 
-			<if test="waybillno != null and waybillno != ''">
-				and ab.waybillno = #{waybillno,jdbcType=VARCHAR}
+			<if test="billno != null and billno != ''">
+				and ab.waybillno = #{billno,jdbcType=VARCHAR}
 			</if>
 			<if test="vehicleno != null and vehicleno != ''">
 				and ab.vehicleno = #{vehicleno,jdbcType=VARCHAR}
@@ -176,11 +204,14 @@
 			<if test="routename != null and routename != ''">
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
-			<if test="ownerSigntime != null and ownerSigntime != ''">
-				and ab.ownerSigntime = #{ownerSigntime,jdbcType=VARCHAR}
+			<if test="signtime != null and signtime != ''">
+				and ab.ownerSigntime = #{signtime,jdbcType=VARCHAR}
 			</if>
-			<if test="payStatus != null and payStatus != ''">
+			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
+			</if>
+			<if test="payStatus == 0 and payStatus != '' ">
+				and( pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
 				and wp.planCode = #{planCode,jdbcType=VARCHAR}
@@ -193,19 +224,23 @@
 			</if>
 		</if>
 	</select>
-	<select id="queryWuReportCount" parameterType="com.tianrui.api.req.front.bill.WuReportReq"
+	<select id="queryWuReportCount" parameterType="com.tianrui.api.req.front.bill.AnReportReq"
 		resultType="long">
 		select count(0)
 		FROM `wuliu_bill` ab
-		LEFT JOIN `pay_invoice_detail_1` pid ON ab.`id` =
+		LEFT JOIN `pay_invoice_detail_1`
+		pid ON ab.`id` =
 		pid.`bill_id`
-		LEFT JOIN `pay_invoice_1` pi ON pid.`pay_invoice_id` = pi.`id`
-		LEFT JOIN `wuliu_plan` wp ON ab.desc1 = wp.`ID`
+		LEFT JOIN `pay_invoice_1` pi ON
+		pid.`pay_invoice_id` = pi.`id`
+		LEFT JOIN `wuliu_plan` wp ON ab.planid =
+		wp.`ID`
 		LEFT JOIN `file_route` fr
 		ON wp.routeid = fr.id
 		<where>
 			<if test="receiveMemberid != null and receiveMemberid != ''">
-				and ab.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
+				and ab.receive_memberid =
+				#{receiveMemberid,jdbcType=VARCHAR}
 			</if>
 			<if test="driverid != null and driverid != ''">
 				and ab.driverid = #{driverid,jdbcType=VARCHAR}
@@ -216,8 +251,8 @@
 			<if test="venderid != null and venderid != ''">
 				and ab.venderid = #{venderid,jdbcType=VARCHAR}
 			</if>
-			<if test="waybillno != null and waybillno != ''">
-				and ab.waybillno = #{waybillno,jdbcType=VARCHAR}
+			<if test="billno != null and billno != ''">
+				and ab.waybillno = #{billno,jdbcType=VARCHAR}
 			</if>
 			<if test="vehicleno != null and vehicleno != ''">
 				and ab.vehicleno = #{vehicleno,jdbcType=VARCHAR}
@@ -225,11 +260,14 @@
 			<if test="routename != null and routename != ''">
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
-			<if test="ownerSigntime != null and ownerSigntime != ''">
-				and ab.ownerSigntime = #{ownerSigntime,jdbcType=VARCHAR}
+			<if test="signtime != null and signtime != ''">
+				and ab.ownerSigntime = #{signtime,jdbcType=VARCHAR}
 			</if>
-			<if test="payStatus != null and payStatus != ''">
+			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
+			</if>
+			<if test="payStatus == 0 and payStatus != '' ">
+				and (pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
 				and wp.planCode = #{planCode,jdbcType=VARCHAR}
@@ -237,4 +275,56 @@
 		</where>
 	</select>
 
+
+	<select id="findAnRoutename" resultMap="BaseResultMapWu"
+		parameterType="com.tianrui.api.req.front.bill.AnReportReq">
+		SELECT
+		plan.routeid,route.routename FROM anlian_bill bill
+		LEFT JOIN wuliu_plan plan ON plan.ID= bill.desc1
+		LEFT JOIN file_route
+		route ON route.ID= plan.routeid
+		<where>
+			<if test="receiveMemberid != null and receiveMemberid != ''">
+				and bill.receive_memberid =
+				#{receiveMemberid,jdbcType=VARCHAR}
+			</if>
+			<if test="driverid != null and driverid != ''">
+				and bill.driverid = #{driverid,jdbcType=VARCHAR}
+			</if>
+			<if test="ownerid != null and ownerid != ''">
+				and bill.ownerid = #{ownerid,jdbcType=VARCHAR}
+			</if>
+			<if test="venderid != null and venderid != ''">
+				and bill.venderid = #{venderid,jdbcType=VARCHAR}
+			</if>
+		</where>
+		GROUP BY route.routename
+
+	</select>
+	<select id="findWuRoutename" resultMap="BaseResultMapWu"
+		parameterType="com.tianrui.api.req.front.bill.AnReportReq">
+
+		SELECT
+		plan.routeid,route.routename
+		FROM wuliu_bill bill
+		LEFT JOIN wuliu_plan plan ON plan.ID = bill.planid
+		LEFT JOIN file_route route ON route.ID = plan.routeid
+		<where>
+			<if test="receiveMemberid != null and receiveMemberid != ''">
+				and bill.receive_memberid =
+				#{receiveMemberid,jdbcType=VARCHAR}
+			</if>
+			<if test="driverid != null and driverid != ''">
+				and bill.driverid = #{driverid,jdbcType=VARCHAR}
+			</if>
+			<if test="ownerid != null and ownerid != ''">
+				and bill.ownerid = #{ownerid,jdbcType=VARCHAR}
+			</if>
+			<if test="venderid != null and venderid != ''">
+				and bill.venderid = #{venderid,jdbcType=VARCHAR}
+			</if>
+		</where>
+		GROUP BY route.routename
+
+	</select>
 </mapper>

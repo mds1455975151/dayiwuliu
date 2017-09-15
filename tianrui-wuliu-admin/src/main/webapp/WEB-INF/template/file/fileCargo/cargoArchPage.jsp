@@ -427,6 +427,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	
 	            </div>
 	            <div class="modal-footer">
+	            	<input type="hidden" id="pageNo">
 	                <button type="button" class="btn btn-primary" id="modal_edit_save">保存</button>
 	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 	            </div>
@@ -507,6 +508,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 	                        aria-hidden="true">&times;</span></button>
 	                <h4 class="modal-title">提示</h4>
+	                <input type="hidden" id="pageNo">
 	                <input type="hidden" id="modal_endisable_id">
 	                <input type="hidden" id="modal_endisable_state">
 	                <input type="hidden" id="modal_endisable_rowIndex">
@@ -576,7 +578,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var orgName = "<%= user.getDesc2() %>";
 	    var imagesRoot="${imagesRoot }";
 	</script>
-	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?07.23"></script>
+	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?07.26"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

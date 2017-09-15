@@ -49,7 +49,7 @@ $(function(){
 				if( result && result.code=="000000"  ){
 					rederPage(pageNo,result);
 				    if( result.data && result.data.total > 0 ){
-						initTable(result.data.list || []);
+						initTable(result.data.list || [],pageNo);
 					}else{
 						$("#org_tbody").empty();
 				    	var html;
@@ -114,7 +114,7 @@ $(function(){
 	}
 	
 	//table数据填充
-	var initTable=function(data){
+	var initTable=function(data,pageNo){
 		//清空
 		$("#org_tbody").empty();
 		if(data && data.length>0){
@@ -152,9 +152,9 @@ $(function(){
 				}
 				*/
 				if(item.count == 0){
-					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","delPosotion").attr("status",0).attr("dataId",item.id).html("【删除】")[0].outerHTML);
+					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","delPosotion").attr("status",0).attr("dataId",item.id).attr("pageNo",pageNo).html("【删除】")[0].outerHTML);
 					dataArr.push("  ")
-					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","editbtn").attr("dataId",item.id).html("【修改】")[0].outerHTML)
+					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","editbtn").attr("dataId",item.id).attr("pageNo",pageNo).html("【修改】")[0].outerHTML)
 				}
 				dataArr.push("</td>");
 				dataArr.push("</tr>");
@@ -211,6 +211,7 @@ $(function(){
 		//lat:32.115495
 		//lon:118.287136
 		//province:"安徽省"
+//		alert(data.address);
 		$("#addModal .op").val(data.province ||"");
 		$("#addModal .oc").val(data.city ||"");
 		$("#addModal .oa").val(data.district ||"");
@@ -309,6 +310,7 @@ $(function(){
 	//修改按钮绑定事件
 	$(".table").on("click",".editbtn",function(e){
 		var id=$(this).attr("dataId");
+		var pageNo=$(this).attr("pageNo");
 		$.ajax({
 			url:URL.detailUrl,
 			data:{"id":id},
@@ -364,6 +366,7 @@ $(function(){
 	$(".table").on("click",".delPosotion",function(e){
 		var id=$(this).attr("dataId");
 		var status=$(this).attr("status");
+		var pageNo = $(this).attr("pageNo");
 		if(window.confirm('确定要删除该位置？')){
 			$.ajax({
 				url:URL.deleteUrl,
@@ -372,7 +375,8 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
-						$(".searchbtn").trigger("click");
+						//$(".searchbtn").trigger("click");
+						displayData(parseInt(pageNo));
 					}else{
 						alert(rs.error);
 					}

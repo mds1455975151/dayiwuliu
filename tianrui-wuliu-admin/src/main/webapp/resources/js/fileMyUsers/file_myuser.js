@@ -7,11 +7,13 @@ function searchMember(){
 }
 function displayData(pageNo){
 	var cellPhone = $("#cellPhone").val();
+	var membername = $("#membername").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+"/file/filemyuser/findOrgMember",
 		data:{
 			"membertel":cellPhone,
+			"membername":membername,
 			"pageNo":(pageNo + 1),
 			"pageSize":pageSize
 		},
@@ -191,6 +193,8 @@ function resetvalue(){
 	$("#error").html("");
 	$("#memberName").val("");
 	$("#massage").val("");
+	$("#membername").val("");
+	displayData(0);
 }
 function searchPhone(){
 	var phone = $("#addcellphone").val();

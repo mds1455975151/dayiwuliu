@@ -178,6 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             </div>
             <div class="modal-footer">
+              	<input type="hidden" id="pageNo">
                 <button type="button" class="btn btn-primary" onclick="OrgUpdate();">修改</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
@@ -186,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!--修改组织end-->
 <%@include file="../../common/footer.jsp" %>
-<script type="text/javascript" src="<%=basePath%>/resources/js/organization/organization.js" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/organization/organization.js?01.21" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

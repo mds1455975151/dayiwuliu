@@ -3,7 +3,6 @@ package com.tianrui.service.mapper;
 import java.util.List;
 
 import com.tianrui.api.req.front.bill.AnReportReq;
-import com.tianrui.api.req.front.bill.WuReportReq;
 import com.tianrui.service.bean.anlian.AnReport;
 import com.tianrui.service.bean.anlian.WuReport;
 
@@ -14,7 +13,13 @@ public interface AnWuReportMapper {
     long queryAnReportCount(AnReportReq req);
     
     //根据收货人id查找普通运单信息
-    List<WuReport> selectWuReportCondition(WuReportReq req);
+    List<WuReport> selectWuReportCondition(AnReportReq req);
     //普通运单信息数量查询
-    long queryWuReportCount(WuReportReq req);
+    long queryWuReportCount(AnReportReq req);
+    
+    //查询安联运单路线名称
+    List<AnReport> findAnRoutename(AnReportReq req);
+    //查询大易运单路线名称
+    List<WuReport> findWuRoutename(AnReportReq req);
+    
 }

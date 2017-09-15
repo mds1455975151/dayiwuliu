@@ -37,6 +37,9 @@
     <include refid="Base_Column_List" />
     from file_merchant
     <where>
+    	<if test="address != null and address != ''">
+    		and address like "%" #{address,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="code != null and code != ''">
     		and code like "%" #{code,jdbcType=VARCHAR} "%"
     	</if>
@@ -63,6 +66,9 @@
     count(0)
     from file_merchant
     <where>
+    	<if test="address != null and address != ''">
+    		and address like "%" #{address,jdbcType=VARCHAR} "%"
+    	</if>
     	<if test="code != null and code != ''">
     		and code like "%" #{code,jdbcType=VARCHAR} "%"
     	</if>

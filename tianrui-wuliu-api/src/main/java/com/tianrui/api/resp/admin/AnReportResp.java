@@ -1,5 +1,7 @@
 package com.tianrui.api.resp.admin;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AnReportResp {
 	
@@ -12,8 +14,32 @@ public class AnReportResp {
 	private Integer payStatus;//支付状态
 	private String  planCode;//计划编号
 	private String  cargoname;//货物名称
+	private String startcity;//始发地
+	private String endcity;//目的地
+	private String signtimeStr;//签收日期(字符串格式)
+	private String billType;//(1、开票运单 2、普通运单)
+	private String routeid;//
 	
 	
+	
+	public String getRouteid() {
+		return routeid;
+	}
+	public void setRouteid(String routeid) {
+		this.routeid = routeid;
+	}
+	public String getBillType() {
+		return billType;
+	}
+	public void setBillType(String billType) {
+		this.billType = billType;
+	}
+	public String getSigntimeStr() {
+		if(signtime != null){
+			signtimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(signtime));
+		}
+		return signtimeStr;
+	}
 	public String getPlanCode() {
 		return planCode;
 	}
@@ -68,6 +94,18 @@ public class AnReportResp {
 	}
 	public void setPayStatus(Integer payStatus) {
 		this.payStatus = payStatus;
+	}
+	public String getStartcity() {
+		return startcity;
+	}
+	public void setStartcity(String startcity) {
+		this.startcity = startcity;
+	}
+	public String getEndcity() {
+		return endcity;
+	}
+	public void setEndcity(String endcity) {
+		this.endcity = endcity;
 	}
 	
 	

@@ -370,7 +370,7 @@ ul, li {
 <script type="text/javascript" src="/resources/js/utils/baidumap/mapSetPoint.js"></script>
 <script type="text/javascript" src="/resources/js/jqueryvalid/Validform_v5.3.2.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
-<script type="text/javascript" src="/resources/js/fileposition/main.js?33"></script>
+<script type="text/javascript" src="/resources/js/fileposition/main.js?38.10"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         // 表格列宽度手动调整

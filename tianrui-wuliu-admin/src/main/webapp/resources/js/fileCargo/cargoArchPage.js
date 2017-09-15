@@ -181,7 +181,7 @@ function displayData(pageNo){
 				    	$("#cargo_tbody").html(html);
 				    }else {
 				    	$("#totalPages").html(parseInt((result.data.total-1)/pageSize+1));  
-				    	appendContentToBody(data, 0);
+				    	appendContentToBody(data, 0,pageNo);
 				    }   
 					$("#pagination").pagination(result.data.total, {   
 					    callback: pageCallback,   
@@ -208,7 +208,7 @@ function displayData(pageNo){
  * @author kowuka
  * @time 2016.04.24
  */
-function appendContentToBody(data, flag) {
+function appendContentToBody(data, flag,pageNo) {
 	
 	// 搜索查询时清空表体，防止表体重复附加数据
 	if (flag == 0) {
@@ -294,7 +294,7 @@ function appendContentToBody(data, flag) {
 			var href2 = $("<a id='rowIndex" + rowIndex + "_enDisable'" + "></a>")
 							.attr("href", "javascript:cargoEnDisable('" + data[i].id + "','"
 																	     + data[i].state + "','rowIndex"
-																	      + rowIndex + "')")
+																	      + rowIndex + "','" +pageNo + "')")
 										.html("【" + enDisable+"】");
 			var href3 = $("<a></a>")
 			               .attr("href", "javascript:void(0);")
@@ -306,7 +306,7 @@ function appendContentToBody(data, flag) {
 						                                        + data[i].model + "','" 
 						                                         + data[i].materMNCode + "','" 
 						                                          + data[i].measUnit + "','rowIndex"
-						                                           + rowIndex + "')")
+						                                           + rowIndex + "','" +pageNo + "')")
 						                .html("【修改】 ");
 
 			var href4 = $("<a></a>")
@@ -535,11 +535,12 @@ function detailDisplay(id, orgName, orgType, state,
  * @author kowuka
  * @time 2016.05.23
  */
-function cargoEnDisable(id, state, vRowIndex) {
+function cargoEnDisable(id, state, vRowIndex,pageNo) {
 	
 	// id、状态、行号
 	$("#modal_endisable_id").val(id);
 	$("#modal_endisable_rowIndex").val(vRowIndex);
+	$("#pageNo").val(pageNo);
 	if (state == "1") {
 		$("#modal_endisable_content").html("停用后关联的下游单据将无法使用！你确定要停用选择的物料？");
 		$("#modal_endisable_state").val("0");
@@ -559,7 +560,7 @@ $("#modal_endisable_button").click(function() {
 	var id = $("#modal_endisable_id").val();
 	var state = $("#modal_endisable_state").val();
 	//var vRowIndex = $("#modal_endisable_rowIndex").val();
-	
+	var pageNo =$("#pageNo").val();
 	// 隐藏模态框
 	$("#enDisableModal").modal('hide');
 	
@@ -573,7 +574,8 @@ $("#modal_endisable_button").click(function() {
 		type : "post",
 		success : function(result) {
 			if (result && result.code == "000000") {
-				$("#cargo_search").trigger("click");
+				//$("#cargo_search").trigger("click");
+				displayData(parseInt(pageNo));
 			} else {
 				$("#modal_common_content").html(getStatusByCode(state) + "失败！"+result.error);
 				$("#commonModal").modal();
@@ -591,7 +593,7 @@ $("#modal_endisable_button").click(function() {
  * @time 2016.04.13
  */
 function cargoEdit(id, materCode, materName, materClass,
-				         spec, model, materMNCode, mainMeasUnit) {
+				         spec, model, materMNCode, mainMeasUnit,pageNo) {
 	// 主键
 	$("#modal_edit_id").val(id);
 	// 物料编码
@@ -620,7 +622,7 @@ function cargoEdit(id, materCode, materName, materClass,
 			$(this).attr('selected', true);
 		}
 	});
-	
+	$("#pageNo").val(pageNo);
 	$("#edit_mate").modal();
 }
 
@@ -678,6 +680,7 @@ $('#edit_mate').on('shown.bs.modal', function (e) {
 $("#modal_edit_save").click(function() {
 	// 主键
 	var id = $("#modal_edit_id").val();
+	var pageNo = $("#pageNo").val();
 	// 物料编码
 	var cargo_materCode = $("#modal_edit_materCode").val();
 	// 物料名称
@@ -747,9 +750,10 @@ $("#modal_edit_save").click(function() {
 		type : "post",
 		success : function(result) {
 			if (result && result.code=="000000" ) {
-				$("#cargo_search").trigger("click");
+				//$("#cargo_search").trigger("click");
 				// 隐藏模态框
 				$("#edit_mate").modal('hide');
+				displayData(parseInt(pageNo));
 			} else {
 				$("#modal_common_content").html(result.error);
 				$("#commonModal").modal();
@@ -766,17 +770,15 @@ $("#modal_edit_save").click(function() {
  * @author kowuka
  * @time 2016.05.25
  */
-function cargoDelete(id, rowIndex) {
+function cargoDelete(id, rowIndex,pageNo) {
 	$("#modal_del_id").val(id);
 	$("#modal_del_rowIndex").val(rowIndex);
-	
 	$("#dele_mate").modal('show');
 	
 }
 
 // 表体行『删除』功能的『确定』按钮事件
 $("#modal_del_button").click(function() {
-	
 	var id = $("#modal_del_id").val();
 	var rowIndex = $("#modal_del_rowIndex").val();
 	

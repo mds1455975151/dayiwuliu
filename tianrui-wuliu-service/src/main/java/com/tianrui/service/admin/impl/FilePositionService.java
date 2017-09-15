@@ -59,7 +59,7 @@ public class FilePositionService implements IFilePositionService {
 			if( StringUtils.isNotBlank(req.getStatus()) ){
 				query.setStatus(Short.valueOf(req.getStatus()));
 			}
-			query.setOrgid(req.getCurrOrgId());
+//			query.setOrgid(req.getCurrOrgId());
 			
 			long total =filePositoinMapper.countByCondition(query);
 			if( total >0 ){

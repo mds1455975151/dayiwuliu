@@ -50,6 +50,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>客商名称：</label>
                             <input type="text" id="sname" maxlength="16" placeholder=" ">
                         </div>
+                        <div class="ht_div">
+                            <label>地址：</label>
+                            <input type="text" id="address" maxlength="16" placeholder=" ">
+                        </div>
                         <div class="ht_divbtn">
                             <button onclick="displayData(0);" class="btn btnblue" type="submit">搜索</button>
                             <button onclick="clearSearch();" class="btn btngreen" type="submit">重置</button>
@@ -276,6 +280,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/merchant/file_merchant.js?02.21"></script>
+<script type="text/javascript" src="/resources/js/merchant/file_merchant.js?09.09"></script>
 </body>
 </html>

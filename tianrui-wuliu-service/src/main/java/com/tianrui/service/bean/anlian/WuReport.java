@@ -16,8 +16,18 @@ public class WuReport {
 	private Integer payStatus;//支付状态
 	private String  planCode;//计划编号
 	private String  cargoname;//货物名称
+	private String startcity;//始发地
+	private String endcity;//目的地
+	private String routeid;//策略id
 	
 	
+	
+	public String getRouteid() {
+		return routeid;
+	}
+	public void setRouteid(String routeid) {
+		this.routeid = routeid;
+	}
 	public String getReceiveMemberid() {
 		return receiveMemberid;
 	}
@@ -101,6 +111,18 @@ public class WuReport {
 	}
 	public void setCargoname(String cargoname) {
 		this.cargoname = cargoname;
+	}
+	public String getStartcity() {
+		return startcity;
+	}
+	public void setStartcity(String startcity) {
+		this.startcity = startcity;
+	}
+	public String getEndcity() {
+		return endcity;
+	}
+	public void setEndcity(String endcity) {
+		this.endcity = endcity;
 	}
 	
 	

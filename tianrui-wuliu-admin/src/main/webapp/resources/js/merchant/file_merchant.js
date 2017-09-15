@@ -6,6 +6,7 @@ function displayData(pageNo){
 		url:"/merchant/page",
 		data:{
 			"code":$.trim($("#scode").val()),
+			"address":$.trim($("#address").val()),
 			"onlycode":$.trim($("#sonlycode").val()),
 			"name":$.trim($("#sname").val()),
 			"pageNo":pageNo*pageSize,
@@ -264,4 +265,6 @@ function clearSearch(){
 	$("#scode").val("");
 	$("#sonlycode").val("");
 	$("#sname").val("");
+	$("#address").val("");
+	displayData(0);
 }

@@ -42,6 +42,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>手机号：</label>
                             <input type="text" id="cellPhone" maxlength="11" placeholder=" ">
                         </div>
+                         <div class="ht_div">
+                            <label>姓名：</label>
+                            <input type="text" id="membername"  placeholder=" ">
+                        </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue " onclick="searchMember();" type="submit">搜索</button>
                             <button class="btn btngreen" onclick="resetvalue();" type="submit">重置</button>
@@ -202,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/fileMyUsers/file_orgSigner.js?11.3" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/fileMyUsers/file_orgSigner.js?09.09" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

@@ -23,11 +23,21 @@ public class AnReportReq  extends BaseReq{
 	private double trueweight;//签收重量
 	private String  planCode;//计划编号
 	private String  cargoname;//货物名称
+	private String  billType;//运单类型
 	
 	private Integer start;
 	
     private Integer limit;
 	
+    
+    
+    
+	public String getBillType() {
+		return billType;
+	}
+	public void setBillType(String billType) {
+		this.billType = billType;
+	}
 	public String getType() {
 		return type;
 	}

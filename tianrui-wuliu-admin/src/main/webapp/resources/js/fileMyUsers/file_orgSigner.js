@@ -6,12 +6,14 @@ function searchMember(){
 	displayData(0);
 }
 function displayData(pageNo){
+	var membername =$("#membername").val();
 	var cellPhone = $("#cellPhone").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:"/file/fileOrgSigner/find",
 		data:{
 			"cellphone":cellPhone,
+			"membername":membername,
 			"pageNo":(pageNo),
 			"pageSize":pageSize
 		},
@@ -181,6 +183,8 @@ function resetvalue(){
 	$("#error").html("");
 	$("#memberName").val("");
 	$("#massage").val("");
+	$("#membername").val("");
+	displayData(0);
 }
 function searchPhone(){
 	var phone = $("#addcellphone").val();

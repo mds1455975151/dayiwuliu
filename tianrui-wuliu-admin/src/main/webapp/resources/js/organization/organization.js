@@ -43,7 +43,7 @@ $("#add_save").click(function() {
 /**
  * 修改档案启用状态
  */
-function changeOrgStatus(id){
+function changeOrgStatus(id,pageNo){
 	var str = "	是否确认要修改？";
 	if(confirm(str)){
 		$.ajax({
@@ -53,6 +53,7 @@ function changeOrgStatus(id){
 			success: function(result) {
 				if( result && result.code =="000000" ){
 					$("#org_search").trigger("click");
+					displayData(parseInt(pageNo));
 				}else{
 					alert(result.error);
 				}
@@ -63,7 +64,7 @@ function changeOrgStatus(id){
 /**
  * 删除组织
  */
-function deleteById(id){
+function deleteById(id,pageNo){
 	var str = "	是否确认要删除该组织？";
 	if(confirm(str)){
 		$.ajax({
@@ -73,6 +74,7 @@ function deleteById(id){
 			success: function(result) {
 				if( result && result.code =="000000" ){
 					$("#org_search").trigger("click");
+					displayData(parseInt(pageNo));
 				}else{
 					alert(result.error);
 				}
@@ -90,6 +92,7 @@ function OrgUpdate(){
 	var organizationtype = $("#organizationtype_edit").val();
 	var organizationno = $("#organizationno_edit").val();
 	var status = $("#status_edit").val();
+	var pageNo =$("#pageNo").val();
 	if(organizationname==""){
 		alert("组织名称不能为空");
 		return
@@ -119,9 +122,10 @@ function OrgUpdate(){
 				alert(result.error);
 			}else{
 				//$("#org_reset").trigger("click");
-				$("#org_search").trigger("click");
+//				$("#org_search").trigger("click");
 				// 关闭模态框
 				$('#edit_org').modal('hide');
+				displayData(parseInt(pageNo));
 			}
 		}
 	});
@@ -130,7 +134,7 @@ function OrgUpdate(){
  * 根据ID查询
  * @param id
  */
-function selectById(id){
+function selectById(id,pageNo){
 	$.ajax({
 		url : CONTEXTPATH + '/Organization/findById',// 跳转到 action
 		data : {"id":id},
@@ -145,6 +149,7 @@ function selectById(id){
 				document.getElementById("organizationtype_edit").value = data.organizationtype;
 				document.getElementById("organizationno_edit").value = data.organizationno;
 				document.getElementById("status_edit").value = data.status;
+				$("#pageNo").val(pageNo);
 			}
 		}
 	});
@@ -237,11 +242,11 @@ function displayData(pageNo){
 								hml +="<td ></td></tr>";
 							}else {
 								
-								hml += "<td ><span><a data-toggle='modal' onclick=\"changeOrgStatus('"+data[i].id+"')\" data-target='#tingyong' >【"+stat+"】</a></span>";
+								hml += "<td ><span><a data-toggle='modal' onclick=\"changeOrgStatus('"+data[i].id+"','"+(pageNo)+"')\" data-target='#tingyong' >【"+stat+"】</a></span>";
 								if(data[i].count == 0){
-									hml +="<span onclick=\"selectById('"+data[i].id+"')\"><a data-toggle='modal' "+
+									hml +="<span onclick=\"selectById('"+data[i].id+"','"+(pageNo)+"')\"><a data-toggle='modal' "+
 									" data-target='#edit_org'>【修改】</a></span>"+
-									"<span onclick=\"deleteById('"+data[i].id+"')\"> <a>【删除】</a></span>";
+									"<span onclick=\"deleteById('"+data[i].id+"','"+(pageNo)+"')\"> <a>【删除】</a></span>";
 
 								}
 								hml +="</td></tr>";

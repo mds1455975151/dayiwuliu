@@ -1,5 +1,7 @@
 package com.tianrui.web.app.action.report;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.IReportService;
 import com.tianrui.api.req.front.bill.AnReportReq;
-import com.tianrui.api.req.front.bill.WuReportReq;
 import com.tianrui.api.resp.admin.AnReportResp;
 import com.tianrui.api.resp.admin.WuReportResp;
 import com.tianrui.common.vo.AppParam;
@@ -56,28 +57,42 @@ public class AppReportAction {
 			// 司机id
 			req.setDriverid(id);
 		}
-		PaginationVO<AnReportResp> page = reportService.selectAnReceiver(req);
 		AppResult app = new AppResult();
-		app.setCode("000000");
-		app.setTotal(page.getTotalInt());
-		app.setReturnData(page.getList());
+		if(req.getBillType().equals("al")){
+			PaginationVO<AnReportResp> page = reportService.selectAnReceiver(req);
+			app.setCode("000000");
+			app.setTotal(page.getTotalInt());
+			app.setReturnData(page.getList());
+		}
+		if(req.getBillType().equals("dy")){
+			PaginationVO<WuReportResp> page = reportService.selectWuReceiver(req);
+			app.setCode("000000");
+			app.setTotal(page.getTotalInt());
+			app.setReturnData(page.getList());
+		}
 		return app;
 	}
-
+	
+	
+	
 	/**
-	 * 
-	 * @Title: selectReceiver @Description: 收货人普通运单查询 @param @param
-	 * appParam @param @return @param @throws Exception @return
-	 * AppResult @throws
+	 * 查询路线名称
+	 * @Title: selectRoutename 
+	 * @Description: TODO
+	 * @param @param appParam
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return AppResult    
+	 * @throws
 	 */
-	@RequestMapping(value = "/selectWuReceiver", method = RequestMethod.POST)
-	@ApiParamRawType(WuReportReq.class)
+	@RequestMapping(value = "/selectRoutename", method = RequestMethod.POST)
+	@ApiParamRawType(AnReportReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult selectWuReceiver(AppParam<WuReportReq> appParam) throws Exception {
+	public AppResult selectRoutename(AppParam<AnReportReq> appParam) throws Exception {
 		AppResult app = new AppResult();
 		String id = appParam.getHead().getId();
-		WuReportReq req = appParam.getBody();
+		AnReportReq req = appParam.getBody();
 		if (req.getType().equals("1")) {
 			// 收货人id
 			req.setReceiveMemberid(id);
@@ -94,10 +109,55 @@ public class AppReportAction {
 			// 司机id
 			req.setDriverid(id);
 		}
-		PaginationVO<WuReportResp> page = reportService.selectWuReceiver(req);
-		app.setCode("000000");
-		app.setTotal(page.getTotalInt());
-		app.setReturnData(page.getList());
+		//判断运单类型
+		if(req.getBillType().equals("al")){
+			List <AnReportResp> list =reportService.findAnRoutename(req);
+			app.setCode("000000");
+			app.setReturnData(list);
+		}
+		if(req.getBillType().equals("dy")){
+			List <WuReportResp> list =reportService.findWuRoutename(req);
+			app.setCode("000000");
+			app.setReturnData(list);
+		}
 		return app;
 	}
+	
+
+//	/**
+//	 * 
+//	 * @Title: selectReceiver @Description: 收货人普通运单查询 @param @param
+//	 * appParam @param @return @param @throws Exception @return
+//	 * AppResult @throws
+//	 */
+//	@RequestMapping(value = "/selectWuReceiver", method = RequestMethod.POST)
+//	@ApiParamRawType(WuReportReq.class)
+//	@ApiTokenValidation
+//	@ResponseBody
+//	public AppResult selectWuReceiver(AppParam<WuReportReq> appParam) throws Exception {
+//		AppResult app = new AppResult();
+//		String id = appParam.getHead().getId();
+//		WuReportReq req = appParam.getBody();
+//		if (req.getType().equals("1")) {
+//			// 收货人id
+//			req.setReceiveMemberid(id);
+//		}
+//		if (req.getType().equals("2")) {
+//			// 货主id
+//			req.setOwnerid(id);
+//		}
+//		if (req.getType().equals("3")) {
+//			// 车主id
+//			req.setVenderid(id);
+//		}
+//		if (req.getType().equals("4")) {
+//			// 司机id
+//			req.setDriverid(id);
+//		}
+//		PaginationVO<WuReportResp> page = reportService.selectWuReceiver(req);
+//		app.setCode("000000");
+//		app.setTotal(page.getTotalInt());
+//		app.setReturnData(page.getList());
+//		return app;
+//	}
 }
