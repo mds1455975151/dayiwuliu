@@ -255,6 +255,7 @@ $("#vehicle_addBtn").click(function() {
 		return;
 	}
 	var formData = new FormData();
+	formData.append("drivingTime",$("#drivingTime").val());
 	formData.append("memberId",member_id);
 	formData.append("vehiWholeNo",vehiNo);
 	formData.append("vehicleType",vehiType);

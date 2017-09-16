@@ -260,8 +260,13 @@ $("#vehicle_addBtn").click(function() {
 		alert("请选择有效期");	
 		return;
 	}
+	if($("#drivingTime").val()==""){
+		alert("请选择行驶证有效期");
+		return;
+	}
 	var formData = new FormData();
 	formData.append("id",id);
+	formData.append("drivingTime",$("#drivingTime").val());
 	formData.append("memberId",member_id);
 	formData.append("vehiclePrefix",vehiNo.substring(0, 2));
 	formData.append("vehicleNo",vehiNo.substring(2, vehiNo.length));

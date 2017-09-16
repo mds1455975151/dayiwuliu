@@ -464,7 +464,7 @@ public class MemberVehicleService implements IMemberVehicleService {
 	 */
 	public MemberVehicle copyProperties( MemberVehicleReq argMemberVehicleReq) {
 		MemberVehicle argMemberVehicle = new MemberVehicle();
-		
+		argMemberVehicle.setDrivingTime(argMemberVehicleReq.getDrivingTime());
 		argMemberVehicle.setRegistcode(argMemberVehicleReq.getRegistcode());
 		argMemberVehicle.setRegistimage(argMemberVehicleReq.getRegistimage());
 		argMemberVehicle.setOpercode(argMemberVehicleReq.getOpercode());

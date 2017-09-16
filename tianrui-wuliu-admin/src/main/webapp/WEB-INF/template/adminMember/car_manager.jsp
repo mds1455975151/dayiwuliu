@@ -246,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" name="certificateno" id="anlian_certificateno">
 					</div>
 					<div class="model_width">
-						<label>检验有效期止：</label>
+						<label>道路运输证号检验有效期止：</label>
 						<input type="text" name="expirydata" placeholder="yyyy-MM-dd" id="anlian_expirydata">
 					</div>
 					<div class="model_width">
@@ -310,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" id="anlian_certificateno_detail" readonly="readonly">
 					</div>
 					<div class="model_width">
-						<label>检验有效期止：</label>
+						<label>道路运输证号检验有效期止：</label>
 						<input type="text" readonly="readonly" placeholder="yyyy-MM-dd" id="anlian_expirydata_detail">
 					</div>
 					<div class="model_width">

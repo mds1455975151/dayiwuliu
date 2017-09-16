@@ -22,6 +22,8 @@ public class MyVehicle{
 	//车主账号
 	private String cellphone;
 	
+	private String drivingTime;
+	
 	private String registcode;
 	private String registimage;
 	private String opercode;
@@ -393,7 +395,13 @@ public class MyVehicle{
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
 	}
-	
-	
+
+	public String getDrivingTime() {
+		return drivingTime;
+	}
+
+	public void setDrivingTime(String drivingTime) {
+		this.drivingTime = drivingTime;
+	}
 
 }

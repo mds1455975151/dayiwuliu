@@ -282,6 +282,7 @@ function details(id){
 				"<div class='file_detail'><label>高度：</label><span>"+vehiheight+"米</span></div>"+
 				"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 				"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
+				"<div class='file_detail'><label>行驶证有效期：</label><span>"+(d.drivingTime||"")+"</span></div>"+
 				"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"</div>"+
 				"<div class='file_detail2'><label>经营许可证号：</label>"+opercode+"</div>"+
 				"<div class='file_detail2'><label>经营许可证有效期：</label>"+desc3+"</div>"+
@@ -358,6 +359,7 @@ function details(id){
 					"<div class='file_detail'><label>高度：</label><span>"+vehiheight+"米</span></div>"+
 					"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 					"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
+					"<div class='file_detail'><label>行驶证有效期：</label><span>"+(d.drivingTime||"")+"</span></div>"+
 					"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"3\")' data-target='#againPice'>【重新上传】</a></div>" +
 					"<div class='file_detail2'><label>经营许可证号：</label>"+opercode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></div>"+
 					"<div class='file_detail2'><label>经营许可证有效期：</label>"+desc3+"</div>"+
@@ -465,7 +467,7 @@ function details(id){
 		
 		var anlian_expirydata = $("#anlian_expirydata").val();
 		if(!regexp.test(anlian_expirydata)){
-			alert("检验有效期止时间格式有误");
+			alert("道路运输证号检验有效期止时间格式有误");
 			return;
 		}
 		var anlian_identification = $("#anlian_identification").val();

@@ -21,6 +21,8 @@ public class MemberVehicleReq extends BaseReq{
 	private String opercode;
 	private String operimage;
 	
+	private String drivingTime;
+	
 	private String identitycode;
 	private String identieyimage;
 	private String agreeimage;
@@ -482,6 +484,14 @@ public class MemberVehicleReq extends BaseReq{
 
 	public void setDesc3(String desc3) {
 		this.desc3 = desc3;
+	}
+
+	public String getDrivingTime() {
+		return drivingTime;
+	}
+
+	public void setDrivingTime(String drivingTime) {
+		this.drivingTime = drivingTime;
 	}
 
 }

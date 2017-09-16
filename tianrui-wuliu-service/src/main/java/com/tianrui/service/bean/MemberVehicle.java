@@ -12,6 +12,8 @@ public class MemberVehicle implements IModel {
      */
     private String id;
     
+    private String drivingTime;
+    
     /** 车辆运单状态*/
 	private String billstatus;
 	/**添加账户*/
@@ -1051,6 +1053,14 @@ public class MemberVehicle implements IModel {
 
 	public void setCellphone(String cellphone) {
 		this.cellphone = cellphone;
+	}
+
+	public String getDrivingTime() {
+		return drivingTime;
+	}
+
+	public void setDrivingTime(String drivingTime) {
+		this.drivingTime = drivingTime;
 	}
 	
 }

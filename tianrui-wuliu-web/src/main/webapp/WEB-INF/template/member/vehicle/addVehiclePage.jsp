@@ -67,7 +67,14 @@
 					<div class="reg_tel">
 						<label><span style="color: red">*</span>经营许可证有效期：</label> 
 						<input id="vehicle_add_desc3" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttimeStr\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
+					</div>
+					
+					<div class="reg_tel">
+						<label><span style="color: red">*</span>行驶证有效期：</label> 
+						<input id="drivingTime" type="text"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 					</div>
 					
@@ -199,7 +206,7 @@
 	src="/resources/js/common/member/header_busi.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript"
-	src="/resources/js/member/vehicle/addVehiclePage.js?04.26"></script>
+	src="/resources/js/member/vehicle/addVehiclePage.js?09.15"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 <script type="text/javascript"

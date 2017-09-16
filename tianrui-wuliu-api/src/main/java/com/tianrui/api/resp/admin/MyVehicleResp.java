@@ -28,6 +28,7 @@ public class MyVehicleResp extends BaseResp{
 	private String memberid;
 	
 	private String cellphone;
+	private String drivingTime;
 	
 	private String ownername;
 	private String ownerphone;
@@ -320,5 +321,11 @@ public class MyVehicleResp extends BaseResp{
 	}
 	public void setCellphone(String cellphone) {
 		this.cellphone = cellphone;
+	}
+	public String getDrivingTime() {
+		return drivingTime;
+	}
+	public void setDrivingTime(String drivingTime) {
+		this.drivingTime = drivingTime;
 	}
 }

@@ -150,7 +150,8 @@
 		mv.desc3 desc3,
 		mv.desc4 desc4,
 		mv.vehiwidth vehiwidth,
-		mv.vehiheight vehiheight
+		mv.vehiheight vehiheight,
+		mv.drivingTime drivingTime
 	FROM
 		wuliu_member_vehicle mv
     <where> 

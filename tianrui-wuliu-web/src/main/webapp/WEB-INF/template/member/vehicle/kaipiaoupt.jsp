@@ -69,7 +69,7 @@
 						<p id=""></p>
 					</div>
 					<div class="reg_tel">
-						<label> <span style="color: red">*</span>检验有效期止：</label> 
+						<label> <span style="color: red">*</span>道路运输证号检验有效期止：</label> 
 						<input type="text" value="${ticket.expirydata }" id="veh_expirydata" placeholder="日期格式：yyyy-MM-dd" name="expirydata">
 						<p id=""></p>
 					</div>

@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <label>证件号码：${vehicle.idcardno }</label>
 	                       </div>
 	                       <div class="mycar_dtsolo">
-	                            <label>检验有效期止：${vehicle.expirydata }</label>
+	                            <label>道路运输证号检验有效期止：${vehicle.expirydata }</label>
 	                       </div>
 	                       <div class="mycar_dtsolo">
 	                            <label>车辆识别码：${vehicle.identification }</label>
