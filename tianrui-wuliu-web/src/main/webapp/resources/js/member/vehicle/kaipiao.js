@@ -29,7 +29,7 @@ $("#vehicle_ticket_add").on("click",function(){
 	
 	var veh_expirydata = $("#veh_expirydata").val();
 	if(!regexp.test(veh_expirydata)){
-		alert("检验有效期止时间格式有误");
+		alert("道路运输证号检验有效期止时间格式有误");
 		return;
 	}
 	var veh_identification = $("#veh_identification").val();

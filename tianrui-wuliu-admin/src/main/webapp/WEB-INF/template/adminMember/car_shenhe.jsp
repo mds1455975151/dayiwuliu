@@ -54,6 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <c:if test="${Vehicle.status eq 2 }">认证中</c:if>
                                 </span>
                                 <label>认证时间：</label><span>${Vehicle.createtimeStr }</span>
+                                <label>行驶证有效期：</label><span>${Vehicle.drivingTime }</span>
+                                
                                 <label>道路运输证号：</label><span>${Vehicle.roadtransportcode }</span>
                                  <label>经营许可证有效期：</label><span>${Vehicle.desc3 }</span>
                             </div>

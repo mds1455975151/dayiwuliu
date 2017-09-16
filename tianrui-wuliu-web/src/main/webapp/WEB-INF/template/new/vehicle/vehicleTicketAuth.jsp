@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<p id=""></p>
 							</div>
 							<div class="reg_tel">
-								<label> <span style="color: red">*</span>检验有效期止：</label> 
+								<label> <span style="color: red">*</span>道路运输证号检验有效期止：</label> 
 								<input id="veh_expirydata" type="text" name="expirydata"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 											class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			var veh_expirydata = $("#veh_expirydata").val();
 			if(!regexp.test(veh_expirydata)){
-				alert("检验有效期止时间格式有误");
+				alert("道路运输证号检验有效期止时间格式有误");
 				return;
 			}
 			var veh_identification = $("#veh_identification").val();

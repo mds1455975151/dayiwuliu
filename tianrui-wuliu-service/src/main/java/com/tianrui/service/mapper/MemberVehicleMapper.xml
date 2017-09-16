@@ -46,6 +46,9 @@
     <result column="agreeimage" property="agreeimage" jdbcType="VARCHAR" />
     <result column="roadtransportcode" property="roadtransportcode" jdbcType="VARCHAR" />
     <result column="roadtransportimage" property="roadtransportimage" jdbcType="VARCHAR" />
+    
+    <result column="drivingTime" property="drivingTime" jdbcType="VARCHAR" />
+    
   </resultMap>
   
   <resultMap id="BaseResultMaps" type="com.tianrui.service.bean.MemberVehicles" >
@@ -149,7 +152,7 @@
     vehileftimgpath, vehirightimgpath, vehiandownerimgpath, status,billstatus, memo, desc1, desc2, 
     desc3, desc4, creator, createtime, modifier, modifytime, audittime,
     registcode, registimage, opercode, operimage,
-    identitycode, identieyimage, agreeimage, roadtransportcode, roadtransportimage
+    identitycode, identieyimage, agreeimage, roadtransportcode, roadtransportimage,drivingTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -195,7 +198,7 @@
       desc4, creator, createtime, 
       modifier, modifytime,vehiOwnerTel,vehiOwnerName,audittime,billstatus,
       registcode, registimage, opercode, operimage,
-      identitycode, identieyimage, agreeimage, roadtransportcode, roadtransportimage)
+      identitycode, identieyimage, agreeimage, roadtransportcode, roadtransportimage,drivingTime)
     values (#{id,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{vehicleid,jdbcType=VARCHAR}, 
       #{vehicleprefix,jdbcType=VARCHAR}, #{vehicleno,jdbcType=VARCHAR}, #{vehicletype,jdbcType=VARCHAR}, 
       #{vehicletypename,jdbcType=VARCHAR}, #{vehilength,jdbcType=DOUBLE}, #{vehiwidth,jdbcType=DOUBLE}, 
@@ -215,7 +218,8 @@
       #{identieyimage,jdbcType=VARCHAR},
       #{agreeimage,jdbcType=VARCHAR},
       #{roadtransportcode,jdbcType=VARCHAR},
-      #{roadtransportimage,jdbcType=VARCHAR}
+      #{roadtransportimage,jdbcType=VARCHAR},
+      #{drivingTime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.MemberVehicle" >
@@ -342,6 +346,9 @@
       <if test="roadtransportimage != null" >
         roadtransportimage,
       </if>
+      <if test="drivingTime != null">
+      	drivingTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -461,6 +468,9 @@
       <if test="roadtransportimage != null" >
         #{roadtransportimage,jdbcType=VARCHAR},
       </if>
+      <if test="drivingTime != null">
+      	#{drivingTime,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MemberVehicle" >
@@ -470,6 +480,9 @@
     -->
     update wuliu_member_vehicle
     <set >
+    	<if test="drivingTime != null">
+      	drivingTime = #{drivingTime,jdbcType=VARCHAR},
+      </if>
       <if test="identitycode != null and identitycode != ''" >
         identitycode = #{identitycode,jdbcType=VARCHAR},
       </if>
@@ -596,6 +609,7 @@
     -->
     update wuliu_member_vehicle
     set 
+      drivingTime = #{drivingTime,jdbcType=VARCHAR},
    	  identitycode = #{identitycode,jdbcType=VARCHAR},
    	  identieyimage = #{identieyimage,jdbcType=VARCHAR},
    	  agreeimage = #{agreeimage,jdbcType=VARCHAR},
