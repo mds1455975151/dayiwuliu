@@ -41,6 +41,7 @@ public class AppReportAction {
 	@ApiTokenValidation
 	@ResponseBody
 	public AppResult selectAnReceiver(AppParam<AnReportReq> appParam) throws Exception {
+		AppResult app = new AppResult();
 		String id = appParam.getHead().getId();
 		AnReportReq req = appParam.getBody();
 		if (req.getType().equals("1")) {
@@ -59,19 +60,21 @@ public class AppReportAction {
 			// 司机id
 			req.setDriverid(id);
 		}
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String dstr=req.getSigntime();
-		Date date = sdf.parse(dstr); 
-		AppResult app = new AppResult();
-		if(req.getBillType().equals("al")){
+		if(req.getSigntime()!=null&&req.getSigntime().length()!=0){
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			String dstr=req.getSigntime();
+			Date date = sdf.parse(dstr); 
 			req.setSigntimes(date.getTime());
+			req.setEndSignTime(date.getTime()+24*60*60*1000);
+			
+		}
+		if(req.getBillType().equals("al")){
 			PaginationVO<AnReportResp> page = reportService.selectAnReceiver(req);
 			app.setCode("000000");
 			app.setTotal(page.getTotalInt());
 			app.setReturnData(page.getList());
 		}
 		if(req.getBillType().equals("dy")){
-			req.setSigntimes(date.getTime());
 			PaginationVO<WuReportResp> page = reportService.selectWuReceiver(req);
 			app.setCode("000000");
 			app.setTotal(page.getTotalInt());

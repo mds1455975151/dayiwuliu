@@ -68,7 +68,8 @@
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
 			<if test="signtimes != null and signtimes != ''">
-				and ab.signtime = #{signtimes,jdbcType=VARCHAR}
+				and ab.signtime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
+				and ab.signtime <![CDATA[<=]]> #{endSignTime,jdbcType=BIGINT}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
@@ -123,7 +124,8 @@
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
 			<if test="signtimes != null and signtimes != ''">
-				and ab.signtime = #{signtimes,jdbcType=VARCHAR}
+				and ab.signtime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
+				and ab.signtime <![CDATA[<=]]> #{endSignTime,jdbcType=BIGINT}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
@@ -205,7 +207,8 @@
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
 			<if test="signtimes != null and signtimes != ''">
-				and ab.ownerSigntime = #{signtimes,jdbcType=VARCHAR}
+				and ab.ownerSigntime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
+				and ab.ownerSigntime <![CDATA[<=]]> #{endSignTime,jdbcType=BIGINT}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
@@ -261,7 +264,8 @@
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
 			<if test="signtimes != null and signtimes != ''">
-				and ab.ownerSigntime = #{signtimes,jdbcType=VARCHAR}
+				and ab.ownerSigntime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
+				and ab.ownerSigntime <![CDATA[<=]]> #{endSignTime,jdbcType=BIGINT}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}

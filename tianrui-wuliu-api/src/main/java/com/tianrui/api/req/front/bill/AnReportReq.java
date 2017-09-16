@@ -19,6 +19,7 @@ public class AnReportReq  extends BaseReq{
 	private String routename;//路线名称
 	private String signtime;//签收日期
 	private Long signtimes;
+	private Long endSignTime;
 	private String payStatus;//支付状态
 	private double amountPayable;//支付金额
 	private double trueweight;//签收重量
@@ -28,11 +29,13 @@ public class AnReportReq  extends BaseReq{
 	private String routeid;//策略id
 	private Integer start;
 	
-    private Integer limit;
-	
-    
-    
-    
+    public Long getEndSignTime() {
+		return endSignTime;
+	}
+	public void setEndSignTime(Long endSignTime) {
+		this.endSignTime = endSignTime;
+	}
+	private Integer limit;
 	public String getRouteid() {
 		return routeid;
 	}
