@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <!-- body内容 -->
               	<div class="usermodal userlabel4">
                     <label>名称：</label>
-                    <input class="routename formV" name="routename" type="text"   dataType="s2-18" >
+                    <input class="routename formV" name="routename" type="text" readonly="readonly"   dataType="s2-18" >
                     <input type="hidden" class="formV id" name="id"/>
                 </div>
               	<div class="usermodal userlabel4">
@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%@include file="../../common/footer.jsp" %>
 <script type="text/javascript" src="/resources/js/jqueryvalid/Validform_v5.3.2.js"></script>
-<script type="text/javascript" src="/resources/js/fileroute/main.js?0930"></script>
+<script type="text/javascript" src="/resources/js/fileroute/main.js?0950"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

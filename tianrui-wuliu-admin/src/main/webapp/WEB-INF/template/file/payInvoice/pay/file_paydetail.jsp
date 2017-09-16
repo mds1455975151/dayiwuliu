@@ -191,6 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="modal-footer">
+					<input type="hidden" id="pageNo">
 					<button type="button" class="btn btn-primary" id="auditCommit">确定</button>
 					<button type="button" class="btn btn-default closeAudit" data-dismiss="modal">取消</button>
 				</div>

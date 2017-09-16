@@ -191,6 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <div class="modal-footer">
+             	<input type="text" id="pageNo">
                 <button type="button" id="signerWeight" class="btn btn-primary signsubmitbtn">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
@@ -249,6 +250,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <div class="modal-footer">
+            	<input type="text" id="pageNos">
                 <button type="button" class="btn btn-primary signsubmitbtn_al">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>

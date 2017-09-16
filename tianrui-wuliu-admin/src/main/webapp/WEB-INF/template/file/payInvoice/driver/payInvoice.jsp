@@ -78,6 +78,7 @@
 	 								<option value="3">未支付</option>
 	 								<option value="5">支付中</option>
 	 								<option value="6">已支付</option>
+	 								<option value="7">支付失败</option>
 	                            </select>
 	                        </div>
 							<div class="ht_divbtn">
@@ -169,6 +170,7 @@
 				
 				</div>
 				<div class="modal-footer">
+					<input type="hidden"  id="pageNo"/>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				</div>
@@ -220,6 +222,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+				 	<input type="hidden"  id="pageNo"/>
 					<button type="button" class="btn btn-primary" id="auditCommit">确定</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				</div>
@@ -251,6 +254,6 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.pagination.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/payInvoice/driver/payInvoice.js?0721"></script>
+		src="/resources/js/payInvoice/driver/payInvoice.js?0731"></script>
 </body>
 </html>

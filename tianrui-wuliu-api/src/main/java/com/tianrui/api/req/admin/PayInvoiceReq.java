@@ -77,6 +77,11 @@ public class PayInvoiceReq extends BasePage {
 				auditStatus=2;
 				pushStatus=2;
 				payStatus=2;
+			}else if(pay==7){
+				//支付失败
+				auditStatus=2;
+				pushStatus=2;
+				payStatus=3;
 			}
 		}
 		this.pay = pay;

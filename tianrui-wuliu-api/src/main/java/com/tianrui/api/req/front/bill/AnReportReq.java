@@ -18,6 +18,7 @@ public class AnReportReq  extends BaseReq{
 	private String vehicleno;//车牌号
 	private String routename;//路线名称
 	private String signtime;//签收日期
+	private Long signtimes;
 	private String payStatus;//支付状态
 	private double amountPayable;//支付金额
 	private double trueweight;//签收重量
@@ -122,11 +123,19 @@ public class AnReportReq  extends BaseReq{
 	public void setRoutename(String routename) {
 		this.routename = routename;
 	}
+	
+
 	public String getSigntime() {
 		return signtime;
 	}
 	public void setSigntime(String signtime) {
 		this.signtime = signtime;
+	}
+	public Long getSigntimes() {
+		return signtimes;
+	}
+	public void setSigntimes(Long signtimes) {
+		this.signtimes = signtimes;
 	}
 	public String getPayStatus() {
 		return payStatus;

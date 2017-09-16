@@ -73,7 +73,7 @@
 			type:'post',
 			success:function(result){
 				if(result.code == '000000'){
-					renderHtml(result.data);
+					renderHtml(result.data,pageNo);
 					var total = result.data.total;
 					var pageNo = result.data.pageNo;
 					var pageSize = result.data.pageSize;
@@ -99,7 +99,7 @@
 		});
 	}
 	//解析请求结果并渲染页面
-	function renderHtml(data){
+	function renderHtml(data,pageNo){
 		$('#dataBody').empty();
 		var list = data.list;
 		if(list && list.length>0){
@@ -118,17 +118,17 @@
 			$('#dataBody').find('a.audit').off('click').on('click', function(e){
 				e.stopPropagation();
 				var id = $(this).closest('tr').data('option-data-id');
-				loadAuditData(id);
+				loadAuditData(id,pageNo);
 			});
 			$('#dataBody').find('a.update').off('click').on('click', function(e){
 				e.stopPropagation();
 				var id = $(this).closest('tr').data('option-data-id');
-				loadUpdateData(id);
+				loadUpdateData(id,pageNo);
 			});
 			$('#dataBody').find('a.push').off('click').on('click', function(e){
 				e.stopPropagation();
 				var id = $(this).closest('tr').data('option-data-id');
-				pushPayInvoice(id);
+				pushPayInvoice(id,pageNo);
 			});
 		}
 	}	
@@ -148,7 +148,7 @@
 		return _btn;
 	}
 	//加载审核数据
-	function loadAuditData(id){
+	function loadAuditData(id,pageNo){
 		removeAuditData('审核信息');
 		$.ajax({
 			url:URL.auditData,
@@ -159,7 +159,7 @@
 			type:'post',
 			success:function(result){
 				if(result.code == '000000'){
-					setAuditData(result.data);
+					setAuditData(result.data,pageNo);
 					$('#audit').modal();
 				}else{
 					alert('系统异常，请稍候再试！');
@@ -168,7 +168,7 @@
 		});
 	}
 	//加载修改数据
-	function loadUpdateData(id){
+	function loadUpdateData(id,pageNo){
 		removeAuditData('修改信息');
 		$.ajax({
 			url:URL.updateData,
@@ -179,7 +179,7 @@
 			type:'post',
 			success:function(result){
 				if(result.code == '000000'){
-					setAuditData(result.data);
+					setAuditData(result.data,pageNo);
 					$('#audit').modal();
 				}else{
 					alert('系统异常，请稍候再试！');
@@ -188,7 +188,7 @@
 		});
 	}
 	//SET审核dialog默认数据
-	function setAuditData(data){
+	function setAuditData(data,pageNo){
 		if(data){
 			for(var key in data){
 				var _input = $('.payMoney input[data-name="'+key+'"]');
@@ -202,7 +202,7 @@
 			}
 			$('#auditCommit').off('click').on('click', function(){
 				this.disabled = true;
-				auditForAjax(data.id, this);
+				auditForAjax(data.id, this,pageNo);
 			});
 		}
 	}
@@ -244,7 +244,7 @@
 		return params;
 	}
 	//审核提交
-	function auditForAjax(id, _commitBtn){
+	function auditForAjax(id, _commitBtn ,pageNo){
 		var params = getAuditParams();
 		params.id = id;
 		if(validate(params)){
@@ -258,7 +258,7 @@
 				success:function(result){
 					if(result.code == '000000'){
 						$('#audit').modal('hide');
-						$('.search').click();
+						getDataForAjax(parseInt(pageNo));
 					}else{
 						alert('系统异常，请稍候再试！');
 					}
@@ -268,7 +268,7 @@
 		}
 	}
 	//提交
-	function pushPayInvoice(id){
+	function pushPayInvoice(id,pageNo){
 		var flag = window.confirm('是否确认提交？');
 		if(flag){
 			var index = layer.load(2, {
@@ -284,7 +284,7 @@
 				type:'post',
 				success:function(result){
 					if(result.code == '000000'){
-						$('.search').click();
+						getDataForAjax(parseInt(pageNo));
 					}else{
 						alert(result.error);
 					}

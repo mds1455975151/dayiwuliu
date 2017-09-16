@@ -91,9 +91,9 @@ function displayData(pageNo){
 						hml +="<span><a onclick=\"detail_pay('"+data[a].id+"')\">【运单详情】</a></span>";
 						if(data[a].whetherClose == false){
 							if(data[a].backstageBillTotalPrice==0){
-								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价确认】</a></span>";
+								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"','"+pageNo+"')\" data-target='#audit'>【运价确认】</a></span>";
 							}else {
-								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"')\" data-target='#audit'>【运价修改】</a></span>";
+								hml +="<span><a data-toggle='modal' onclick=\"selectBill('"+data[a].id+"','"+pageNo+"')\" data-target='#audit'>【运价修改】</a></span>";
 							}
 						}
 						hml +="</td></tr>";
@@ -144,7 +144,7 @@ $("#memoCommit").on("click",function(){
 	});
 });
 
-function selectBill(id){
+function selectBill(id,pageNo){
 	$("#billTotalPrice").val("");
 	//应付金额
 	$("#amountPayable").val("");
@@ -199,6 +199,7 @@ function selectBill(id){
 					$("#billPrice").val(data.billpriceB);
 					//签收重量
 					$("#billWeight").val(data.billweightB);
+					$("#pageNo").val(pageNo);
 				}else {
 					//后台未运价确认
 					price = data.receptionBillTotalPrice 
@@ -220,6 +221,7 @@ function selectBill(id){
 						$("#billPrice").val(data.billPrice);
 						//签收重量
 						$("#billWeight").val(data.billWeight);
+						$("#pageNo").val(pageNo);
 				}
 				//应付金额
 				$("#amountPayable").val(price.toFixed(2));
@@ -300,7 +302,7 @@ $("#auditCommit").on("click",function(){
 			success:function(ret){
 				if(ret.code=="000000"){
 					$(".closeAudit").click();
-					searchMember();
+					displayData(parseInt(pageNo));
 				}else {
 					alert(ret.error);
 				}

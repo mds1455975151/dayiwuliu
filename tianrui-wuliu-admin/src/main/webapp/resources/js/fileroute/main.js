@@ -189,9 +189,13 @@ $(function(){
 		$("#addModal .routename").val(a+"至"+b);
 	})
 	$("#addModal").on("change",".dpositionid",function(){
+		if(a!=''){
 		$("#addModal .daddr").val($(this).find("option:checked").text());
 		b=$(this).find("option:checked").text();
-		$("#addModal .routename").val(a+"至"+b);
+			$("#addModal .routename").val(a+"至"+b);
+		}else{
+			alert("请选择发货地点！");
+		}
 	})
 	
 	

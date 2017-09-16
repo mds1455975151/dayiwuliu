@@ -67,8 +67,8 @@
 			<if test="routename != null and routename != ''">
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
-			<if test="signtime != null and signtime != ''">
-				and ab.signtime = #{signtime,jdbcType=VARCHAR}
+			<if test="signtimes != null and signtimes != ''">
+				and ab.signtime = #{signtimes,jdbcType=VARCHAR}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
@@ -122,8 +122,8 @@
 			<if test="routename != null and routename != ''">
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
-			<if test="signtime != null and signtime != ''">
-				and ab.signtime = #{signtime,jdbcType=VARCHAR}
+			<if test="signtimes != null and signtimes != ''">
+				and ab.signtime = #{signtimes,jdbcType=VARCHAR}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
@@ -204,8 +204,8 @@
 			<if test="routename != null and routename != ''">
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
-			<if test="signtime != null and signtime != ''">
-				and ab.ownerSigntime = #{signtime,jdbcType=VARCHAR}
+			<if test="signtimes != null and signtimes != ''">
+				and ab.ownerSigntime = #{signtimes,jdbcType=VARCHAR}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
@@ -260,8 +260,8 @@
 			<if test="routename != null and routename != ''">
 				and fr.routename = #{routename,jdbcType=VARCHAR}
 			</if>
-			<if test="signtime != null and signtime != ''">
-				and ab.ownerSigntime = #{signtime,jdbcType=VARCHAR}
+			<if test="signtimes != null and signtimes != ''">
+				and ab.ownerSigntime = #{signtimes,jdbcType=VARCHAR}
 			</if>
 			<if test="payStatus != null and payStatus !=0 and payStatus != ''">
 				and pi.pay_status = #{payStatus,jdbcType=INTEGER}
