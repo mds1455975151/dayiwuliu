@@ -397,7 +397,7 @@ function vehiBind(vrowIndex_td, vehiDriverId, vehiId, vehiNo,alstatus, vehiTypeN
 	} else {
 		for (var i=0; i<driverList.length; i++) {
 			var data = driverList[i];
-			appendContentToUl(data, i, vehiDriverId, vehiId, vehiNo, vehiTypeName);
+			appendContentToUl(data, i);
 		}
 		
 		// 司机信息列表某一项选中
@@ -423,18 +423,17 @@ function vehiBind(vrowIndex_td, vehiDriverId, vehiId, vehiNo,alstatus, vehiTypeN
  * @author guyuke
  * @time 2016.06.07
  */
-function appendContentToUl(data, varI, vehiDriverId, vehiId, vehiNo, vehiTypeName) {
+function appendContentToUl(data, varI) {
 	
 	/** =======================此处坑爹，隐藏项不能及时更新 =======================*/
-	/** 隐藏项：车辆司机表主键 *//*
+	/** 隐藏项：车辆司机表主键 */
 	var vehiDriverId = $("#car_bdbox_vehiDriverId").val();
-	*//** 隐藏项：车辆主键 *//*
+	//** 隐藏项：车辆主键 */
 	var vehiId = $("#car_bdbox_vehiId").val();
-	*//** 隐藏项：车牌号 *//*
+	//** 隐藏项：车牌号 *//*
 	var vehiNo = $("#car_bdbox_vehiNo").val();
-	*//** 隐藏项：车辆类型名 *//*
-	var vehiTypeName = $("#car_bdbox_vehiTypeName").val();*/
-	
+	//** 隐藏项：车辆类型名 */
+	var vehiTypeName = $("#car_bdbox_vehiTypeName").val();
 	/** <li> */	
 	var li1 = $("<li></li>");
 		/** <input> *//*	

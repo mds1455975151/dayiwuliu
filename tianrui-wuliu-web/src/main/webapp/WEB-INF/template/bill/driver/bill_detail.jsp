@@ -61,7 +61,7 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>${bill.waybillno}</td>
+											<td id="waybillno">${bill.waybillno}</td>
 											<td>${bill.venderName}</td>
 											<td>${bill.venderTel}</td>
 										</tr>
@@ -76,8 +76,8 @@
 									<tbody>
 										<tr>
 											<td>${bill.cargoname}</td>
-											<td>${bill.startcity }</td>
-											<td>${bill.endcity }</td>
+											<td><span id="startcity">${bill.startcity }</span></td>
+											<td><span id="endcity">${bill.endcity }</span></td>
 										</tr>
 									</tbody>
 									<thead>
@@ -414,7 +414,7 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-	<script type="text/javascript" src="/resources/js/bill/driver_detail.js?09062"></script>
+	<script type="text/javascript" src="/resources/js/bill/driver_detail.js?0916"></script>
 	<script type="text/javascript">
 		var trRoot = "${trRoot}";
 		//弹出框样式更改

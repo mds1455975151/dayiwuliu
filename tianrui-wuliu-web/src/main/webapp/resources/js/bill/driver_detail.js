@@ -53,18 +53,22 @@ $(function(){
 	//接受按钮点击
 	$(".detailDiv").on("click",".acceptBtn",function(){
 		var type = $('#billType').val();
-		$.ajax({
-			url:URL.acceptConfirmUrl,
-			data:{"id":$("#billId").val(),"type":type},
-			type : "post",
-			dataType:"json",
-			success:function(rs){
-				if( rs && rs.code =="000000" ){
-					window.location.reload();
-				}else{
-					alert(rs.error);
+		var star = $("#startcity").html();
+		var end = $("#endcity").html();
+		confirm("确认","确认接受承运运单["+$("#waybillno").html()+"]吗,确认/取消?<br>始发地-["+star+"],<br>目的地-["+end+"]",function(){
+			$.ajax({
+				url:URL.acceptConfirmUrl,
+				data:{"id":$("#billId").val(),"type":type},
+				type : "post",
+				dataType:"json",
+				success:function(rs){
+					if( rs && rs.code =="000000" ){
+						window.location.reload();
+					}else{
+						alert(rs.error);
+					}
 				}
-			}
+			})
 		})
 	});
 	//删除按钮点击

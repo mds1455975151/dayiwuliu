@@ -104,17 +104,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--查询框end-->
                     <div class="row mt15">
                          <div class="col-md-12">
-                             <div class="content-user">
-                                <!-- 
-                                 <div class="content-tou">
-                                     <a href=" ">
-                                         <button><i class="iconfont icon-daoru06"></i>导入</button>
-                                     </a>
-                                     <button><i class="iconfont icon-daochu1"></i><span>导出</span></button>
-                                 </div>
-                                 -->
+                             <div class="content-user" style="overflow-x:scroll;">
                                  <!--用户表格begin-->
-                                 <table id="sample2" class="table table-bordered"   data-options="">
+                                 <table id="sample2" class="table table-bordered" style="white-space: nowrap;"  data-options="">
                                      <thead>
                                      <tr>
                                          <th>序号</th>
@@ -137,12 +129,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      </tbody>
                                  </table>
                                  <!--用户表格end-->
+                             </div>
                                  <!-- 分页部分  开始-->
 						            <div class="row pr20 fr">
 										<%@include file="../common/pagination.jsp" %>
 						            </div>
 						         <!-- 分页部分 结束 -->
-                             </div>
                          </div>
                     </div>
                 </div>

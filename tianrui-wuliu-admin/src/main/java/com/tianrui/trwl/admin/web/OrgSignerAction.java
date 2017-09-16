@@ -91,9 +91,9 @@ public class OrgSignerAction {
 	/** 查询账号*/
 	@RequestMapping("/findPhone")
 	@ResponseBody
-	public Result findPhone(String phone) throws Exception{
+	public Result findPhone(String phone,HttpServletRequest request) throws Exception{
+		Users user = SessionManager.getSessionMember(request);
 		Result rs = Result.getSuccessResult();
-		
 		MemberReq req = new MemberReq();
 		req.setTelnum(phone);
 		MemberResp resp = systemMemberService.findMemberByTelnum(req);
@@ -104,6 +104,7 @@ public class OrgSignerAction {
 		}
 		
 		OrgSignerFindReq om = new OrgSignerFindReq();
+		om.setOrgid(user.getOrgid());
 		om.setCellphone(phone);
 		List<OrgSignerResp> list = orgSignerService.findlist(om);
 		if(list.size()==1){

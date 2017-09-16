@@ -54,8 +54,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">认证成功</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="contuser_search">
                                     <div class="ht_divbtn">
                                         <button class="btn btnblue " onclick="ticketSearch();" type="button">搜索</button>
                                         <button class="btn btngreen" onclick="clearSearch();" type="submit">重置</button>
@@ -66,9 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--查询框end-->
                     <div class="row mt15">
                          <div class="col-md-12">
-                             <div class="content-user">
+                             <div class="content-user" style="overflow-x:scroll;">
                                  <!--用户表格begin-->
-                                 <table id="sample2" class="table table-bordered"   data-options="">
+                                 <table id="sample2" class="table table-bordered" style="white-space: nowrap"  data-options="">
                                      <thead>
                                      <tr>
                                          <th>序号</th>
@@ -90,12 +88,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      </tbody>
                                  </table>
                                  <!--用户表格end-->
+                             </div>
                                  <!-- 分页部分  开始-->
 						            <div class="row pr20 fr">
 										<%@include file="../../common/pagination.jsp" %>
 						            </div>
 						         <!-- 分页部分 结束 -->
-                             </div>
                          </div>
                     </div>
                 </div>

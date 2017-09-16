@@ -42,7 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    	<input type="hidden" name="menuId" value="${menuId }">
                    	<input type="hidden" name="pageNo" value="1">
                    	<input type="hidden" name="pageSize" value="10">
-                    <div class="row">
                             <div class="col-md-12">
                                 <div class="contuser_search">
                                     <div class="ht_div">
@@ -103,9 +102,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--查询框end-->
                     <div class="row mt15">
                          <div class="col-md-12">
-                             <div class="content-user">
+                             <div class="content-user" style="overflow-x:scroll;">
                                  <!--用户表格begin-->
-                                 <table id="sample2" class="table table-bordered"   data-options="">
+                                 <table id="sample2" class="table table-bordered" style="white-space: nowrap;" data-options="">
                                      <thead>
                                      <tr>
                                          <th>会员名 </th>
@@ -128,22 +127,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      </tbody>
                                  </table>
                                  <!--用户表格end-->
+                             </div>
                                   <!-- 分页部分  开始-->
 						            <div class="row pr20 fr">
 										<%@include file="../common/pagination.jsp" %>
 						            </div>
 						         <!-- 分页部分 结束 -->
-                             </div>
                          </div>
+                    </div>
                     </div>
                 </div>
             </div>
                 <!--后台右侧布局end-->
-            </div>
             <!--后台整体布局end-->
-    </div>
     <!--侧边栏end-->
-</div>
 <!--查看详情begin-->
 <div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >

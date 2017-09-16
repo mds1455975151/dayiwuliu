@@ -75,9 +75,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--查询框end-->
                     <div class="row mt15">
                         <div class="col-md-12">
-                            <div class="content-user">
+                            <div class="content-user" style="overflow-x:scroll;">
                                 <!--用户表格begin-->
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" style="white-space: nowrap;">
                                     <thead>
                                     <tr>
                                         <th>序号</th>
@@ -108,9 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--后台右侧布局end-->
            </div>
             <!--后台整体布局end-->
-         </div>
     <!--侧边栏end-->
-    </div>
 <!--查看详情begin-->
 <div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width: 700px">

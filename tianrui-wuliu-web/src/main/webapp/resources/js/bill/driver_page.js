@@ -86,7 +86,7 @@ $(function(){
 				if(item.totalnumber == item.overnumber){
 					dataArr.push('<a ><button class="btn btnyello refuseBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >拒绝</button></a>');
 				}
-				dataArr.push('<a ><button class="btn btnyello acceptBtn" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >接受</button></a>');
+				dataArr.push('<a ><button class="btn btnyello acceptBtn" sRoot="'+item.startcity+'" eRoot="'+item.endcity+'" dataId="'+item.id+'"  dataCode="'+item.waybillno+'" >接受</button></a>');
 			}else if(item.status ==7 ||item.status ==8){
 				dataArr.push('<a ><button class="btn btnyello delBtn"  dataId="'+item.id+'"   dataCode="'+item.waybillno+'">删除</button></a>');
 			}else if(item.status ==1){
@@ -234,7 +234,9 @@ $(function(){
 	$(".table").on("click",".acceptBtn",function(){
 		var dId= $(this).attr("dataId");
 		var type = $(this).closest('tr').attr('item');
-		confirm("确认","确认接受承运运单["+$(this).attr("dataCode")+"]吗,确认/取消?",function(){
+		var star = $(this).attr('sRoot');
+		var end = $(this).attr('eRoot');
+		confirm("确认","确认接受承运运单["+$(this).attr("dataCode")+"]吗,确认/取消?<br>始发地-["+star+"],<br>目的地-["+end+"]",function(){
 			$.ajax({
 				url:URL.acceptConfirmUrl,
 				data:{"id":dId,"type":type},

@@ -79,8 +79,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="2">完全认证</option>
                                         </select>
                                 </div>
-                            </div>
-                            <div class="contuser_search">
                                 <div class="ht_divbtn">
                                     <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
                                     <button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>
@@ -91,10 +89,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!--查询框end-->
                     <div class="row mt15">
                         <div class="col-md-12">
-                            <div class="content-user">
+                            <div class="content-user" style="overflow-x:scroll;">
 
                                 <!--用户表格begin-->
-                                <table class="table table-bordered">
+                                <table class="table table-bordered" style="white-space: nowrap">
                                     <thead>
                                     <tr>
                                         <th>序号</th>
