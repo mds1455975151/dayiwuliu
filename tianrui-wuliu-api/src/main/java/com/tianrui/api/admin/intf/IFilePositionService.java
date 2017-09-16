@@ -76,6 +76,16 @@ public interface IFilePositionService {
 	  *
 	 */
 	List<FilePositionResp> findWithCondition(FilePositionReq req)throws Exception;
-	
+	/**
+	 * 查看详细地点
+	 * @Title: selectRountename 
+	 * @Description: TODO
+	 * @param @param req
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	Result selectRountename(FilePositionReq req)throws Exception;
 }
 

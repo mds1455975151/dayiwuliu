@@ -274,4 +274,11 @@
       createtime = #{createtime,jdbcType=BIGINT}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectRountename" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.FilePositoin" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_position
+    where id = #{orgid,jdbcType=VARCHAR}
+  </select>
 </mapper>

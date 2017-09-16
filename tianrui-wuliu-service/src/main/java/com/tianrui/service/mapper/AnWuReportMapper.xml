@@ -276,7 +276,7 @@
 	</select>
 
 
-	<select id="findAnRoutename" resultMap="BaseResultMapWu"
+	<select id="findAnRoutename" resultMap="BaseResultMapAn"
 		parameterType="com.tianrui.api.req.front.bill.AnReportReq">
 		SELECT
 		plan.routeid,route.routename FROM anlian_bill bill

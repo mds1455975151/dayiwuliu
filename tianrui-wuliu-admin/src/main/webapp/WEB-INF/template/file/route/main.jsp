@@ -175,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%@include file="../../common/footer.jsp" %>
 <script type="text/javascript" src="/resources/js/jqueryvalid/Validform_v5.3.2.js"></script>
-<script type="text/javascript" src="/resources/js/fileroute/main.js"></script>
+<script type="text/javascript" src="/resources/js/fileroute/main.js?0930"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

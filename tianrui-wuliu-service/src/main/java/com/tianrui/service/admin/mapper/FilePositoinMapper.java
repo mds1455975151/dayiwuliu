@@ -64,4 +64,6 @@ public interface FilePositoinMapper {
      */
     List<FilePositoin> selectByCondition(FilePositoin record);
     long countByCondition(FilePositoin record);
+    
+    FilePositoin selectRountename(FilePositoin record);
 }

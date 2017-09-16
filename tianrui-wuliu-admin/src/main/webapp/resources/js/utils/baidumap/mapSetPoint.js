@@ -275,7 +275,8 @@ function searchMapAddressBack(pois, html) {
     $(html).append("<br/><br/><input type='button' onclick='useAddressClick();' class='btn btn-white btn-pink btn-sm' style='position:absolute;right:0;bottom:0;' value='使用此地址'>");
     //pois.marker.enableDragging();
     var point = pois.marker.getPosition();                           //获取该点的经纬度对象
-    rObj.address = pois.title;
+ //   rObj.address = pois.title;
+    rObj.address = pois.address;
     getAddress(point,0);                                      //解析地理位置
 };
 

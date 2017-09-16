@@ -215,5 +215,20 @@ public class FilePositionService implements IFilePositionService {
 		}
 		return false;
 	}
+
+	@Override
+	public Result selectRountename(FilePositionReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		FilePositoin record = new FilePositoin();
+		record.setOrgid(req.getCurrOrgId());
+		FilePositoin  filePositoin =filePositoinMapper.selectRountename(record);
+		if(filePositoin.equals(null)){
+			rs.setError("无法查询该具体地址！");
+		}else{
+			rs.setData(filePositoin);
+		}
+		return rs;
+	}
 }
 

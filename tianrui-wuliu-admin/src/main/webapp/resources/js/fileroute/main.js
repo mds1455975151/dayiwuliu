@@ -143,9 +143,9 @@ $(function(){
 				//<th>路径名称</th>
 				dataArr.push( "<td>"+item.routename+"</td>");
 				//<th>始发地</th>
-				dataArr.push( "<td>"+ item.oaddr+"</td>");
+				dataArr.push( "<td onclick= \"rountename('"+item.opositionid+"')\">"+"<font  color='blue'>"+ item.oaddr+"</font>"+"</td>");
 				//<th>目的地</th>
-				dataArr.push( "<td>"+ item.daddr+"</td>");
+				dataArr.push( "<td onclick= \"rountename('"+item.dpositionid+"')\">"+"<font  color='blue'>"+ item.daddr+"</font>"+"</td>");
 				//<th>距离</th>	
 				dataArr.push("<td>"+ item.distanceStr+"</td>" );
 				//<th>收货人</th>	
@@ -181,13 +181,20 @@ $(function(){
 	}
 	
 	//绑定下拉框change时间
+	var a= '';
+	var b ='';
 	$("#addModal").on("change",".opositionid",function(){
 		$("#addModal .oaddr").val($(this).find("option:checked").text());
+		a=$(this).find("option:checked").text();
+		$("#addModal .routename").val(a+"至"+b);
 	})
 	$("#addModal").on("change",".dpositionid",function(){
 		$("#addModal .daddr").val($(this).find("option:checked").text());
+		b=$(this).find("option:checked").text();
+		$("#addModal .routename").val(a+"至"+b);
 	})
-
+	
+	
 	var validFrom=$("#addForm").Validform({
 		tiptype:3,
 		showAllError:true
@@ -288,6 +295,7 @@ $(function(){
 		}
 		
 	});
+	
 	//删除按钮
 	$(".table").on("click",".deleRoutebtn",function(){
 		var id=$(this).attr("dataId");
@@ -390,3 +398,24 @@ $("#batchDisable").click(function() {
         return false;
     }
 });
+
+function rountename (id){
+	alert(id);
+	$.ajax({
+		url:"/file/fileroute/selectRountename",
+		data:{"id":id},
+		type : "post",
+		dataType:"json",
+		success:function(rs){
+			if(rs.code =="000000" ){
+				var op = rs.data.op == undefined ? "":rs.data.op;
+				var oc = rs.data.oc == undefined ? "":rs.data.oc;
+				var oa = rs.data.oa == undefined ? "":rs.data.oa;
+				var addr = rs.data.addr == undefined ? "":rs.data.addr;
+				alert(op+oc+oa+addr);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}

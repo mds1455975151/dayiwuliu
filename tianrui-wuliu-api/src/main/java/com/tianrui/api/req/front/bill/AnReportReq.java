@@ -24,7 +24,7 @@ public class AnReportReq  extends BaseReq{
 	private String  planCode;//计划编号
 	private String  cargoname;//货物名称
 	private String  billType;//运单类型
-	
+	private String routeid;//策略id
 	private Integer start;
 	
     private Integer limit;
@@ -32,6 +32,12 @@ public class AnReportReq  extends BaseReq{
     
     
     
+	public String getRouteid() {
+		return routeid;
+	}
+	public void setRouteid(String routeid) {
+		this.routeid = routeid;
+	}
 	public String getBillType() {
 		return billType;
 	}

@@ -160,4 +160,23 @@ public class FileRouteAction {
 		return rs;
 	}
 	
+	/**
+	 * 查询具体地址
+	 * @Title: selectRountename 
+	 * @Description: TODO
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/selectRountename")
+	@ResponseBody
+	public Result selectRountename(String id)throws Exception{
+		FilePositionReq req = new FilePositionReq();
+		req.setCurrOrgId(id);
+		Result rs=filePositionService.selectRountename(req);
+		return rs;
+		
+	}
+	
 }
