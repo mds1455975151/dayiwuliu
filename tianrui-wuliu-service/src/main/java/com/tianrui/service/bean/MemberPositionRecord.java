@@ -27,6 +27,8 @@ public class MemberPositionRecord implements Serializable{
 
     private Long createtime;
     private String proxygps;
+    
+    private String createTimeStr;
 
     public String getId() {
         return id;
@@ -83,5 +85,15 @@ public class MemberPositionRecord implements Serializable{
 	public void setProxygps(String proxygps) {
 		this.proxygps = proxygps;
 	}
+
+	public String getCreateTimeStr() {
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+	
+	
 
 }

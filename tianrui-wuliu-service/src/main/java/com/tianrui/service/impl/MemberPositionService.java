@@ -15,6 +15,7 @@ import com.tianrui.api.req.front.position.PositionQueryReq;
 import com.tianrui.api.req.front.position.PositionSaveReq;
 import com.tianrui.api.resp.front.position.PositionResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberPosition;
@@ -36,10 +37,10 @@ public class MemberPositionService implements IMemberPositionService{
 		if( req !=null && StringUtils.isNotBlank(req.getCurrId()) ){
 			if(req.getLat()<0||req.getLon()<0){
 				rs.setErrorCode(ErrorCode.PARAM_FU_ERROR);
-				LoggerFactory.getLogger("position").info("用户[{}],位置信息异常：lat [{}],lon[{}]", req.getCurrId(),req.getLat(),req.getLon());
+				LoggerFactory.getLogger("external").info("用户[{}],位置信息异常：lat [{}],lon[{}]", req.getCurrId(),req.getLat(),req.getLon());
 				return rs;
 			}
-			LoggerFactory.getLogger("position").info("用户[{}],位置信息：lat [{}],lon[{}]",req.getCurrId(), req.getLat(),req.getLon());
+			LoggerFactory.getLogger("external").info("用户[{}],位置信息：lat [{}],lon[{}]",req.getCurrId(), req.getLat(),req.getLon());
 			//查找是否有次记录
 			MemberPosition  posiotionDB =memberPositionMapper.findWithMid(req.getCurrId());
 			//存在就修改
@@ -65,6 +66,7 @@ public class MemberPositionService implements IMemberPositionService{
 		record.setId(UUIDUtil.getId());
 		record.setMemberid(req.getCurrId());
 		record.setCreatetime(System.currentTimeMillis());
+		record.setCreateTimeStr(DateUtil.getDateString());
 		record.setCreator(req.getCurrId());
 		memberPositionRecordDao.save(record);
 	}

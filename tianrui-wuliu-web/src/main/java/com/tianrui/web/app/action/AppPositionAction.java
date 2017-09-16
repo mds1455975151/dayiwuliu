@@ -47,6 +47,7 @@ public class AppPositionAction {
 		saveBean.setCurrId(uId);
 		Result rs =positionService.savePosition(saveBean);
 		
+		
 		return AppResult.valueOf(rs);
 	}
 	
