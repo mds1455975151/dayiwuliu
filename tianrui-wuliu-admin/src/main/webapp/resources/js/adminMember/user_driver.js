@@ -308,7 +308,7 @@ function details(id){
 			"<div class='file_detail'><label>初次领证日期：</label><span>"+firstlicens+"</span></div>"+
 			"<div class='file_detail'><label>发证机关：</label><span>"+licenceorg+"</span></div>"+
 			"<div class='file_detail'><label>有效年限：</label><span>"+usefullife+"</span></div>"+
-			"<div class='file_detail3'><label>驾驶证注册日期：</label><span>"+starttime+"</span></div>"+
+			"<div class='file_detail3'><label>驾驶证初始日期：</label><span>"+starttime+"</span></div>"+
 			
 			"<div class='file_detail'><label>联系方式：</label><span>"+telphone+"</span></div>"+
 			"<div class='file_detail'><label>驾驶证号：</label><span>"+identityCard+"</span></div>"+
@@ -582,7 +582,7 @@ $(".anlian_renzheng").on("click",function(){
 	}
 	var anlian_starttime = $("#anlian_starttime").val();
 	if(!regexp.test(anlian_starttime)){
-		alert("驾驶证注册日期格式不正确");
+		alert("驾驶证初始日期格式不正确");
 		return;
 	}
 	var anlian_licenseType = $("#anlian_licenseType").val();

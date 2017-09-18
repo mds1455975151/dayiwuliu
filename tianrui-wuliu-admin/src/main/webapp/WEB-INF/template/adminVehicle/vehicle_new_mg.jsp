@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>出生日期：</label><span id="driverBirthDate_mg">证00</span>
                         </div>
                         <div class="car_yhline">
-                            <label>驾驶证注册日期：</label><span id="driverCardRegDate_mg">证00</span>
+                            <label>驾驶证初始日期：</label><span id="driverCardRegDate_mg">证00</span>
                         </div>
                         <div class="car_yhline">
                             <label>联系电话：</label><span id="driverLinkTel_mg">证00</span>

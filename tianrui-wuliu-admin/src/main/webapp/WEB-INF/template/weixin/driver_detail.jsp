@@ -56,7 +56,7 @@
 	        <span>${memberInfo.licenceorg }</span>
 	    </div>
 	    <div class="carda_line">
-	        <label>驾驶证注册日期：</label>
+	        <label>驾驶证初始日期：</label>
 	        <span>${memberInfo.starttime }</span>
 	    </div>
 	    <div class="carda_line">
