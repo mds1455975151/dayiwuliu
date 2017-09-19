@@ -88,7 +88,7 @@
 					</div>
 					
 					<div class="reg_tel">
-						<label><i style="color: red">*</i>驾驶证注册日期:</label> 
+						<label><i style="color: red">*</i>驾驶证初始日期:</label> 
 						<input id="per_starttime" type="text"
 									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>

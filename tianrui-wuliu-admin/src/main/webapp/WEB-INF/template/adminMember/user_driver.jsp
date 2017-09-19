@@ -295,7 +295,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" name="usefullife" id="anlian_usefullife">
 					</div>
 					<div class="model_width">
-						<label>驾驶证注册日期：</label>
+						<label>驾驶证初始日期：</label>
 						<input type="text" placeholder="yyyy-MM-dd" name="starttime" id="anlian_starttime">
 					</div>
 					<div class="model_width">

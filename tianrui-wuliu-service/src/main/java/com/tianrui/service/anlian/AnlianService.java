@@ -276,8 +276,10 @@ public class AnlianService implements IAnlianService{
 		AnlianTruck truck = new AnlianTruck();
 		//车牌号码
 		truck.setCphm(vehicle.getVehicleprefix()+vehicle.getVehicleno());
-		//检验有效日期
-		truck.setJyyxqz(ticket.getExpirydata());
+//		//检验有效日期
+//		truck.setJyyxqz(ticket.getExpirydata());
+		//道路运输证号检验有效期
+		truck.setDlysjyxkzyxqz(ticket.getExpirydata());
 		//核定在质量
 		Double we = vehicle.getVehiweight()*1000;
 		String hdzz = we.toString();
@@ -321,13 +323,17 @@ public class AnlianService implements IAnlianService{
 //		if(StringUtils.isNotBlank(vehicle.getRoadtransportcode())){
 //			truck.setDlysjyxkzbh(vehicle.getRoadtransportcode());
 //		}
+		//行驶证有效期/检验有效期止
+		if(StringUtils.isNotBlank(vehicle.getDrivingTime())){
+			truck.setJyyxqz(vehicle.getDrivingTime());
+		}
 		//营运证
 		if(StringUtils.isNotBlank(vehicle.getOpercode())){
 			truck.setDlysjyxkzbh(vehicle.getOpercode());
 		}
-		if(StringUtils.isNotBlank(vehicle.getDesc3())){
-			truck.setDlysjyxkzyxqz(vehicle.getDesc3());
-		}
+//		if(StringUtils.isNotBlank(vehicle.getDesc3())){
+//			truck.setDlysjyxkzyxqz(vehicle.getDesc3());
+//		}
 		//使用性质
 		truck.setSyxz(ticket.getNature());
 		//车辆识别代码
