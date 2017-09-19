@@ -2,7 +2,7 @@ package com.tianrui.api.req.front.bill;
 
 import com.tianrui.api.req.BaseReq;
 
-public class AnReportReq  extends BaseReq{
+public class AnReportReq{
 	
 	/**
 	 * @Fields serialVersionUID : TODO
@@ -28,6 +28,10 @@ public class AnReportReq  extends BaseReq{
 	private String  billType;//运单类型
 	private String routeid;//策略id
 	private Integer start;
+	
+	private Integer pageNo;
+	
+	private Integer pageSize=10;
 	
     public Long getEndSignTime() {
 		return endSignTime;
@@ -157,6 +161,18 @@ public class AnReportReq  extends BaseReq{
 	}
 	public void setLimit(Integer limit) {
 		this.limit = limit;
+	}
+	public Integer getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 	

@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.ReportPayAllMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.ReportPayAll" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pay_owner_id" property="payOwnerId" jdbcType="VARCHAR" />
+    <result column="pay_vender_id" property="payVenderId" jdbcType="VARCHAR" />
+    <result column="pay_driver_id" property="payDriverId" jdbcType="VARCHAR" />
+    <result column="pay_receive_id" property="payReceiveId" jdbcType="VARCHAR" />
+    <result column="pay_ment_id" property="payMentId" jdbcType="VARCHAR" />
+    <result column="pay_create_time" property="payCreateTime" jdbcType="BIGINT" />
+    <result column="pay_code" property="payCode" jdbcType="VARCHAR" />
+    <result column="pay_ment" property="payMent" jdbcType="VARCHAR" />
+    <result column="plan_code" property="planCode" jdbcType="VARCHAR" />
+    <result column="route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="send_man" property="sendMan" jdbcType="VARCHAR" />
+    <result column="send_persian" property="sendPersian" jdbcType="VARCHAR" />
+    <result column="vender_name" property="venderName" jdbcType="VARCHAR" />
+    <result column="receipt_man" property="receiptMan" jdbcType="VARCHAR" />
+    <result column="receipt_person" property="receiptPerson" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="bill_time" property="billTime" jdbcType="BIGINT" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
+    <result column="true_weight" property="trueWeight" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="oil_card" property="oilCard" jdbcType="VARCHAR" />
+    <result column="weight_misc" property="weightMisc" jdbcType="VARCHAR" />
+    <result column="deduct_money" property="deductMoney" jdbcType="VARCHAR" />
+    <result column="deduct_other" property="deductOther" jdbcType="VARCHAR" />
+    <result column="amount_payable" property="amountPayable" jdbcType="VARCHAR" />
+    <result column="paid_amount" property="paidAmount" jdbcType="VARCHAR" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_person" property="payPerson" jdbcType="VARCHAR" />
+    <result column="pay_bank_name" property="payBankName" jdbcType="VARCHAR" />
+    <result column="pay_bank_code" property="payBankCode" jdbcType="VARCHAR" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pay_owner_id, pay_vender_id, pay_driver_id, pay_receive_id, pay_ment_id, pay_create_time, 
+    pay_code, pay_ment, plan_code, route_name, send_man, send_persian, vender_name, receipt_man, 
+    receipt_person, vehicle_no, bill_time, bill_no, cargo_name, true_weight, price, total_price, 
+    oil_card, weight_misc, deduct_money, deduct_other, amount_payable, paid_amount, pay_status, 
+    pay_type, pay_person, pay_bank_name, pay_bank_code, desc1, desc2, desc3, desc4
+  </sql>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_pay_all
+    <where>
+    	<if test="payOwnerId != null and payOwnerId != ''">
+    		and pay_owner_id = #{payOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payVenderId != null and payVenderId != ''">
+    		and pay_vender_id = #{payVenderId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payDriverId != null and payDriverId != ''">
+    		and pay_driver_id = #{payDriverId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payReceiveId != null and payReceiveId != ''">
+    		and pay_receive_id = #{payReceiveId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payMentId != null and payMentId != ''">
+    		and pay_ment_id = #{payMentId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by pay_create_time desc
+    <if test="pageNo != null and pageNo pageNo != ''">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    select 
+    count(0)
+    from report_pay_all
+    <where>
+    	<if test="payOwnerId != null and payOwnerId != ''">
+    		and pay_owner_id = #{payOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payVenderId != null and payVenderId != ''">
+    		and pay_vender_id = #{payVenderId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payDriverId != null and payDriverId != ''">
+    		and pay_driver_id = #{payDriverId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payReceiveId != null and payReceiveId != ''">
+    		and pay_receive_id = #{payReceiveId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payMentId != null and payMentId != ''">
+    		and pay_ment_id = #{payMentId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_pay_all
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from report_pay_all
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    insert into report_pay_all (id, pay_owner_id, pay_vender_id, 
+      pay_driver_id, pay_receive_id, pay_ment_id, 
+      pay_create_time, pay_code, pay_ment, 
+      plan_code, route_name, send_man, 
+      send_persian, vender_name, receipt_man, 
+      receipt_person, vehicle_no, bill_time, 
+      bill_no, cargo_name, true_weight, 
+      price, total_price, oil_card, 
+      weight_misc, deduct_money, deduct_other, 
+      amount_payable, paid_amount, pay_status, 
+      pay_type, pay_person, pay_bank_name, 
+      pay_bank_code, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=VARCHAR}, #{payOwnerId,jdbcType=VARCHAR}, #{payVenderId,jdbcType=VARCHAR}, 
+      #{payDriverId,jdbcType=VARCHAR}, #{payReceiveId,jdbcType=VARCHAR}, #{payMentId,jdbcType=VARCHAR}, 
+      #{payCreateTime,jdbcType=BIGINT}, #{payCode,jdbcType=VARCHAR}, #{payMent,jdbcType=VARCHAR}, 
+      #{planCode,jdbcType=VARCHAR}, #{routeName,jdbcType=VARCHAR}, #{sendMan,jdbcType=VARCHAR}, 
+      #{sendPersian,jdbcType=VARCHAR}, #{venderName,jdbcType=VARCHAR}, #{receiptMan,jdbcType=VARCHAR}, 
+      #{receiptPerson,jdbcType=VARCHAR}, #{vehicleNo,jdbcType=VARCHAR}, #{billTime,jdbcType=BIGINT}, 
+      #{billNo,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, #{trueWeight,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{totalPrice,jdbcType=VARCHAR}, #{oilCard,jdbcType=VARCHAR}, 
+      #{weightMisc,jdbcType=VARCHAR}, #{deductMoney,jdbcType=VARCHAR}, #{deductOther,jdbcType=VARCHAR}, 
+      #{amountPayable,jdbcType=VARCHAR}, #{paidAmount,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, 
+      #{payType,jdbcType=VARCHAR}, #{payPerson,jdbcType=VARCHAR}, #{payBankName,jdbcType=VARCHAR}, 
+      #{payBankCode,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    insert into report_pay_all
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="payOwnerId != null" >
+        pay_owner_id,
+      </if>
+      <if test="payVenderId != null" >
+        pay_vender_id,
+      </if>
+      <if test="payDriverId != null" >
+        pay_driver_id,
+      </if>
+      <if test="payReceiveId != null" >
+        pay_receive_id,
+      </if>
+      <if test="payMentId != null" >
+        pay_ment_id,
+      </if>
+      <if test="payCreateTime != null" >
+        pay_create_time,
+      </if>
+      <if test="payCode != null" >
+        pay_code,
+      </if>
+      <if test="payMent != null" >
+        pay_ment,
+      </if>
+      <if test="planCode != null" >
+        plan_code,
+      </if>
+      <if test="routeName != null" >
+        route_name,
+      </if>
+      <if test="sendMan != null" >
+        send_man,
+      </if>
+      <if test="sendPersian != null" >
+        send_persian,
+      </if>
+      <if test="venderName != null" >
+        vender_name,
+      </if>
+      <if test="receiptMan != null" >
+        receipt_man,
+      </if>
+      <if test="receiptPerson != null" >
+        receipt_person,
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no,
+      </if>
+      <if test="billTime != null" >
+        bill_time,
+      </if>
+      <if test="billNo != null" >
+        bill_no,
+      </if>
+      <if test="cargoName != null" >
+        cargo_name,
+      </if>
+      <if test="trueWeight != null" >
+        true_weight,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="oilCard != null" >
+        oil_card,
+      </if>
+      <if test="weightMisc != null" >
+        weight_misc,
+      </if>
+      <if test="deductMoney != null" >
+        deduct_money,
+      </if>
+      <if test="deductOther != null" >
+        deduct_other,
+      </if>
+      <if test="amountPayable != null" >
+        amount_payable,
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payPerson != null" >
+        pay_person,
+      </if>
+      <if test="payBankName != null" >
+        pay_bank_name,
+      </if>
+      <if test="payBankCode != null" >
+        pay_bank_code,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="payOwnerId != null" >
+        #{payOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="payVenderId != null" >
+        #{payVenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payDriverId != null" >
+        #{payDriverId,jdbcType=VARCHAR},
+      </if>
+      <if test="payReceiveId != null" >
+        #{payReceiveId,jdbcType=VARCHAR},
+      </if>
+      <if test="payMentId != null" >
+        #{payMentId,jdbcType=VARCHAR},
+      </if>
+      <if test="payCreateTime != null" >
+        #{payCreateTime,jdbcType=BIGINT},
+      </if>
+      <if test="payCode != null" >
+        #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payMent != null" >
+        #{payMent,jdbcType=VARCHAR},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMan != null" >
+        #{sendMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPersian != null" >
+        #{sendPersian,jdbcType=VARCHAR},
+      </if>
+      <if test="venderName != null" >
+        #{venderName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMan != null" >
+        #{receiptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPerson != null" >
+        #{receiptPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null" >
+        #{billTime,jdbcType=BIGINT},
+      </if>
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="trueWeight != null" >
+        #{trueWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCard != null" >
+        #{oilCard,jdbcType=VARCHAR},
+      </if>
+      <if test="weightMisc != null" >
+        #{weightMisc,jdbcType=VARCHAR},
+      </if>
+      <if test="deductMoney != null" >
+        #{deductMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="deductOther != null" >
+        #{deductOther,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPayable != null" >
+        #{amountPayable,jdbcType=VARCHAR},
+      </if>
+      <if test="paidAmount != null" >
+        #{paidAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payPerson != null" >
+        #{payPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankName != null" >
+        #{payBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankCode != null" >
+        #{payBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    update report_pay_all
+    <set >
+      <if test="payOwnerId != null" >
+        pay_owner_id = #{payOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="payVenderId != null" >
+        pay_vender_id = #{payVenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payDriverId != null" >
+        pay_driver_id = #{payDriverId,jdbcType=VARCHAR},
+      </if>
+      <if test="payReceiveId != null" >
+        pay_receive_id = #{payReceiveId,jdbcType=VARCHAR},
+      </if>
+      <if test="payMentId != null" >
+        pay_ment_id = #{payMentId,jdbcType=VARCHAR},
+      </if>
+      <if test="payCreateTime != null" >
+        pay_create_time = #{payCreateTime,jdbcType=BIGINT},
+      </if>
+      <if test="payCode != null" >
+        pay_code = #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payMent != null" >
+        pay_ment = #{payMent,jdbcType=VARCHAR},
+      </if>
+      <if test="planCode != null" >
+        plan_code = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        route_name = #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMan != null" >
+        send_man = #{sendMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPersian != null" >
+        send_persian = #{sendPersian,jdbcType=VARCHAR},
+      </if>
+      <if test="venderName != null" >
+        vender_name = #{venderName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMan != null" >
+        receipt_man = #{receiptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPerson != null" >
+        receipt_person = #{receiptPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null" >
+        bill_time = #{billTime,jdbcType=BIGINT},
+      </if>
+      <if test="billNo != null" >
+        bill_no = #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="trueWeight != null" >
+        true_weight = #{trueWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="oilCard != null" >
+        oil_card = #{oilCard,jdbcType=VARCHAR},
+      </if>
+      <if test="weightMisc != null" >
+        weight_misc = #{weightMisc,jdbcType=VARCHAR},
+      </if>
+      <if test="deductMoney != null" >
+        deduct_money = #{deductMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="deductOther != null" >
+        deduct_other = #{deductOther,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPayable != null" >
+        amount_payable = #{amountPayable,jdbcType=VARCHAR},
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount = #{paidAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payPerson != null" >
+        pay_person = #{payPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankName != null" >
+        pay_bank_name = #{payBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payBankCode != null" >
+        pay_bank_code = #{payBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    update report_pay_all
+    set pay_owner_id = #{payOwnerId,jdbcType=VARCHAR},
+      pay_vender_id = #{payVenderId,jdbcType=VARCHAR},
+      pay_driver_id = #{payDriverId,jdbcType=VARCHAR},
+      pay_receive_id = #{payReceiveId,jdbcType=VARCHAR},
+      pay_ment_id = #{payMentId,jdbcType=VARCHAR},
+      pay_create_time = #{payCreateTime,jdbcType=BIGINT},
+      pay_code = #{payCode,jdbcType=VARCHAR},
+      pay_ment = #{payMent,jdbcType=VARCHAR},
+      plan_code = #{planCode,jdbcType=VARCHAR},
+      route_name = #{routeName,jdbcType=VARCHAR},
+      send_man = #{sendMan,jdbcType=VARCHAR},
+      send_persian = #{sendPersian,jdbcType=VARCHAR},
+      vender_name = #{venderName,jdbcType=VARCHAR},
+      receipt_man = #{receiptMan,jdbcType=VARCHAR},
+      receipt_person = #{receiptPerson,jdbcType=VARCHAR},
+      vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      bill_time = #{billTime,jdbcType=BIGINT},
+      bill_no = #{billNo,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR},
+      true_weight = #{trueWeight,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=VARCHAR},
+      oil_card = #{oilCard,jdbcType=VARCHAR},
+      weight_misc = #{weightMisc,jdbcType=VARCHAR},
+      deduct_money = #{deductMoney,jdbcType=VARCHAR},
+      deduct_other = #{deductOther,jdbcType=VARCHAR},
+      amount_payable = #{amountPayable,jdbcType=VARCHAR},
+      paid_amount = #{paidAmount,jdbcType=VARCHAR},
+      pay_status = #{payStatus,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_person = #{payPerson,jdbcType=VARCHAR},
+      pay_bank_name = #{payBankName,jdbcType=VARCHAR},
+      pay_bank_code = #{payBankCode,jdbcType=VARCHAR},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

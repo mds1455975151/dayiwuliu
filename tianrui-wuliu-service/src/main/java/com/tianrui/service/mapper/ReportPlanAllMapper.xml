@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.ReportPlanAllMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.ReportPlanAll" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="plan_owner_id" property="planOwnerId" jdbcType="VARCHAR" />
+    <result column="plan_vender_id" property="planVenderId" jdbcType="VARCHAR" />
+    <result column="plan_create_time" property="planCreateTime" jdbcType="BIGINT" />
+    <result column="plan_code" property="planCode" jdbcType="VARCHAR" />
+    <result column="plan_begin_time" property="planBeginTime" jdbcType="BIGINT" />
+    <result column="plan_end_time" property="planEndTime" jdbcType="BIGINT" />
+    <result column="plan_weight" property="planWeight" jdbcType="VARCHAR" />
+    <result column="complit_weight" property="complitWeight" jdbcType="VARCHAR" />
+    <result column="tempo" property="tempo" jdbcType="VARCHAR" />
+    <result column="plan_status" property="planStatus" jdbcType="VARCHAR" />
+    <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
+    <result column="route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="send_man" property="sendMan" jdbcType="VARCHAR" />
+    <result column="send_persion" property="sendPersion" jdbcType="VARCHAR" />
+    <result column="vender_name" property="venderName" jdbcType="VARCHAR" />
+    <result column="receipt_man" property="receiptMan" jdbcType="VARCHAR" />
+    <result column="receipt_persion" property="receiptPersion" jdbcType="VARCHAR" />
+    <result column="distant" property="distant" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="VARCHAR" />
+    <result column="pay_ment" property="payMent" jdbcType="VARCHAR" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, plan_owner_id, plan_vender_id, plan_create_time, plan_code, plan_begin_time, 
+    plan_end_time, plan_weight, complit_weight, tempo, plan_status, cargo_name, route_name, 
+    send_man, send_persion, vender_name, receipt_man, receipt_persion, distant, price, 
+    tax, pay_ment, desc1, desc2, desc3, desc4
+  </sql>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_plan_all
+    <where>
+    	<if test="planOwnerId != null and planOwnerId != ''">
+    		and plan_owner_id = #{planOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="planVenderId != null and planVenderId != ''">
+    		and plan_vender_id = #{planVenderId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by plan_create_time desc
+    <if test="pageNo != null and pageNo pageNo != ''">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByCount" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    select 
+    count(0)
+    from report_plan_all
+    <where>
+    	<if test="planOwnerId != null and planOwnerId != ''">
+    		and plan_owner_id = #{planOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="planVenderId != null and planVenderId != ''">
+    		and plan_vender_id = #{planVenderId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_plan_all
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from report_plan_all
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    insert into report_plan_all (id, plan_owner_id, plan_vender_id, 
+      plan_create_time, plan_code, plan_begin_time, 
+      plan_end_time, plan_weight, complit_weight, 
+      tempo, plan_status, cargo_name, 
+      route_name, send_man, send_persion, 
+      vender_name, receipt_man, receipt_persion, 
+      distant, price, tax, 
+      pay_ment, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=VARCHAR}, #{planOwnerId,jdbcType=VARCHAR}, #{planVenderId,jdbcType=VARCHAR}, 
+      #{planCreateTime,jdbcType=BIGINT}, #{planCode,jdbcType=VARCHAR}, #{planBeginTime,jdbcType=BIGINT}, 
+      #{planEndTime,jdbcType=BIGINT}, #{planWeight,jdbcType=VARCHAR}, #{complitWeight,jdbcType=VARCHAR}, 
+      #{tempo,jdbcType=VARCHAR}, #{planStatus,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, 
+      #{routeName,jdbcType=VARCHAR}, #{sendMan,jdbcType=VARCHAR}, #{sendPersion,jdbcType=VARCHAR}, 
+      #{venderName,jdbcType=VARCHAR}, #{receiptMan,jdbcType=VARCHAR}, #{receiptPersion,jdbcType=VARCHAR}, 
+      #{distant,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{tax,jdbcType=VARCHAR}, 
+      #{payMent,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    insert into report_plan_all
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planOwnerId != null" >
+        plan_owner_id,
+      </if>
+      <if test="planVenderId != null" >
+        plan_vender_id,
+      </if>
+      <if test="planCreateTime != null" >
+        plan_create_time,
+      </if>
+      <if test="planCode != null" >
+        plan_code,
+      </if>
+      <if test="planBeginTime != null" >
+        plan_begin_time,
+      </if>
+      <if test="planEndTime != null" >
+        plan_end_time,
+      </if>
+      <if test="planWeight != null" >
+        plan_weight,
+      </if>
+      <if test="complitWeight != null" >
+        complit_weight,
+      </if>
+      <if test="tempo != null" >
+        tempo,
+      </if>
+      <if test="planStatus != null" >
+        plan_status,
+      </if>
+      <if test="cargoName != null" >
+        cargo_name,
+      </if>
+      <if test="routeName != null" >
+        route_name,
+      </if>
+      <if test="sendMan != null" >
+        send_man,
+      </if>
+      <if test="sendPersion != null" >
+        send_persion,
+      </if>
+      <if test="venderName != null" >
+        vender_name,
+      </if>
+      <if test="receiptMan != null" >
+        receipt_man,
+      </if>
+      <if test="receiptPersion != null" >
+        receipt_persion,
+      </if>
+      <if test="distant != null" >
+        distant,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="payMent != null" >
+        pay_ment,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="planOwnerId != null" >
+        #{planOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="planVenderId != null" >
+        #{planVenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="planCreateTime != null" >
+        #{planCreateTime,jdbcType=BIGINT},
+      </if>
+      <if test="planCode != null" >
+        #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planBeginTime != null" >
+        #{planBeginTime,jdbcType=BIGINT},
+      </if>
+      <if test="planEndTime != null" >
+        #{planEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="planWeight != null" >
+        #{planWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="complitWeight != null" >
+        #{complitWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="tempo != null" >
+        #{tempo,jdbcType=VARCHAR},
+      </if>
+      <if test="planStatus != null" >
+        #{planStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMan != null" >
+        #{sendMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPersion != null" >
+        #{sendPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="venderName != null" >
+        #{venderName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMan != null" >
+        #{receiptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPersion != null" >
+        #{receiptPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="distant != null" >
+        #{distant,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=VARCHAR},
+      </if>
+      <if test="payMent != null" >
+        #{payMent,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    update report_plan_all
+    <set >
+      <if test="planOwnerId != null" >
+        plan_owner_id = #{planOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="planVenderId != null" >
+        plan_vender_id = #{planVenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="planCreateTime != null" >
+        plan_create_time = #{planCreateTime,jdbcType=BIGINT},
+      </if>
+      <if test="planCode != null" >
+        plan_code = #{planCode,jdbcType=VARCHAR},
+      </if>
+      <if test="planBeginTime != null" >
+        plan_begin_time = #{planBeginTime,jdbcType=BIGINT},
+      </if>
+      <if test="planEndTime != null" >
+        plan_end_time = #{planEndTime,jdbcType=BIGINT},
+      </if>
+      <if test="planWeight != null" >
+        plan_weight = #{planWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="complitWeight != null" >
+        complit_weight = #{complitWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="tempo != null" >
+        tempo = #{tempo,jdbcType=VARCHAR},
+      </if>
+      <if test="planStatus != null" >
+        plan_status = #{planStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        route_name = #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMan != null" >
+        send_man = #{sendMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPersion != null" >
+        send_persion = #{sendPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="venderName != null" >
+        vender_name = #{venderName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMan != null" >
+        receipt_man = #{receiptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPersion != null" >
+        receipt_persion = #{receiptPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="distant != null" >
+        distant = #{distant,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=VARCHAR},
+      </if>
+      <if test="payMent != null" >
+        pay_ment = #{payMent,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    update report_plan_all
+    set plan_owner_id = #{planOwnerId,jdbcType=VARCHAR},
+      plan_vender_id = #{planVenderId,jdbcType=VARCHAR},
+      plan_create_time = #{planCreateTime,jdbcType=BIGINT},
+      plan_code = #{planCode,jdbcType=VARCHAR},
+      plan_begin_time = #{planBeginTime,jdbcType=BIGINT},
+      plan_end_time = #{planEndTime,jdbcType=BIGINT},
+      plan_weight = #{planWeight,jdbcType=VARCHAR},
+      complit_weight = #{complitWeight,jdbcType=VARCHAR},
+      tempo = #{tempo,jdbcType=VARCHAR},
+      plan_status = #{planStatus,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR},
+      route_name = #{routeName,jdbcType=VARCHAR},
+      send_man = #{sendMan,jdbcType=VARCHAR},
+      send_persion = #{sendPersion,jdbcType=VARCHAR},
+      vender_name = #{venderName,jdbcType=VARCHAR},
+      receipt_man = #{receiptMan,jdbcType=VARCHAR},
+      receipt_persion = #{receiptPersion,jdbcType=VARCHAR},
+      distant = #{distant,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      tax = #{tax,jdbcType=VARCHAR},
+      pay_ment = #{payMent,jdbcType=VARCHAR},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

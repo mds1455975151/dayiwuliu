@@ -85,9 +85,11 @@ public class ReportService implements IReportService {
 			page = new PaginationVO<WuReportResp>();
 			long count = anWuReportMapper.queryWuReportCount(req);
 			if (count > 0) {
-				Integer start = (req.getPageNo() - 1) * req.getPageSize();
-				req.setStart(start);
-				req.setLimit(req.getPageSize());
+				if(req.getPageNo() != null){
+					Integer start = (req.getPageNo() - 1) * req.getPageSize();
+					req.setStart(start);
+					req.setLimit(req.getPageSize());
+				}
 				// 根据收货人id查询运单信息
 				List<WuReport> list = anWuReportMapper.selectWuReportCondition(req);
 				List<WuReportResp> listWu = new ArrayList<WuReportResp>();
@@ -114,8 +116,6 @@ public class ReportService implements IReportService {
 		}
 		return page;
 	}
-
-
 
 	@Override
 	public List<AnReportResp> findAnRoutename(AnReportReq req) throws Exception {

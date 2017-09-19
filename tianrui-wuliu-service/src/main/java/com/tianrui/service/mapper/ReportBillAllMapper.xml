@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.ReportBillAllMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.ReportBillAll" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="bill_owner_id" property="billOwnerId" jdbcType="VARCHAR" />
+    <result column="bill_vender_id" property="billVenderId" jdbcType="VARCHAR" />
+    <result column="bill_driver_id" property="billDriverId" jdbcType="VARCHAR" />
+    <result column="bill_receive_id" property="billReceiveId" jdbcType="VARCHAR" />
+    <result column="bill_type" property="billType" jdbcType="VARCHAR" />
+    <result column="business_time" property="businessTime" jdbcType="VARCHAR" />
+    <result column="plan_no" property="planNo" jdbcType="VARCHAR" />
+    <result column="bill_no" property="billNo" jdbcType="VARCHAR" />
+    <result column="send_man" property="sendMan" jdbcType="VARCHAR" />
+    <result column="send_persion" property="sendPersion" jdbcType="VARCHAR" />
+    <result column="receipt_man" property="receiptMan" jdbcType="VARCHAR" />
+    <result column="receipt_persion" property="receiptPersion" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
+    <result column="route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="distinct" property="distinct" jdbcType="VARCHAR" />
+    <result column="vender_weight" property="venderWeight" jdbcType="VARCHAR" />
+    <result column="pickup_weight" property="pickupWeight" jdbcType="VARCHAR" />
+    <result column="unload_weight" property="unloadWeight" jdbcType="VARCHAR" />
+    <result column="true_weight" property="trueWeight" jdbcType="VARCHAR" />
+    <result column="bill_status" property="billStatus" jdbcType="VARCHAR" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="pay_ment" property="payMent" jdbcType="VARCHAR" />
+    <result column="bill_creater_time" property="billCreaterTime" jdbcType="BIGINT" />
+    <result column="accept_time" property="acceptTime" jdbcType="BIGINT" />
+    <result column="pickup_time" property="pickupTime" jdbcType="BIGINT" />
+    <result column="unload_time" property="unloadTime" jdbcType="BIGINT" />
+    <result column="sign_time" property="signTime" jdbcType="BIGINT" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bill_owner_id, bill_vender_id, bill_driver_id, bill_receive_id, bill_type, business_time, 
+    plan_no, bill_no, send_man, send_persion, receipt_man, receipt_persion, vehicle_no, 
+    cargo_name, route_name, distinct, vender_weight, pickup_weight, unload_weight, true_weight, 
+    bill_status, driver_name, pay_ment, bill_creater_time, accept_time, pickup_time, 
+    unload_time, sign_time, desc1, desc2, desc3, desc4
+  </sql>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_bill_all
+    <where>
+    	<if test="billOwnerId != null and billOwnerId != ''">
+    		and bill_owner_id = #{bill_owner_id,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billVenderId != null and billVenderId != ''">
+    		and bill_vender_id = #{billVenderId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billDriverId != null and billDriverId != ''">
+    		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    order by bill_creater_time desc
+    <if test="pageNo != null and pageNo pageNo != ''">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    select 
+    count(0)
+    from report_bill_all
+    <where>
+    	<if test="billOwnerId != null and billOwnerId != ''">
+    		and bill_owner_id = #{bill_owner_id,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billVenderId != null and billVenderId != ''">
+    		and bill_vender_id = #{billVenderId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billDriverId != null and billDriverId != ''">
+    		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from report_bill_all
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from report_bill_all
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    insert into report_bill_all (id, bill_owner_id, bill_vender_id, 
+      bill_driver_id, bill_receive_id, bill_type, 
+      business_time, plan_no, bill_no, 
+      send_man, send_persion, receipt_man, 
+      receipt_persion, vehicle_no, cargo_name, 
+      route_name, distinct, vender_weight, 
+      pickup_weight, unload_weight, true_weight, 
+      bill_status, driver_name, pay_ment, 
+      bill_creater_time, accept_time, pickup_time, 
+      unload_time, sign_time, desc1, 
+      desc2, desc3, desc4
+      )
+    values (#{id,jdbcType=VARCHAR}, #{billOwnerId,jdbcType=VARCHAR}, #{billVenderId,jdbcType=VARCHAR}, 
+      #{billDriverId,jdbcType=VARCHAR}, #{billReceiveId,jdbcType=VARCHAR}, #{billType,jdbcType=VARCHAR}, 
+      #{businessTime,jdbcType=VARCHAR}, #{planNo,jdbcType=VARCHAR}, #{billNo,jdbcType=VARCHAR}, 
+      #{sendMan,jdbcType=VARCHAR}, #{sendPersion,jdbcType=VARCHAR}, #{receiptMan,jdbcType=VARCHAR}, 
+      #{receiptPersion,jdbcType=VARCHAR}, #{vehicleNo,jdbcType=VARCHAR}, #{cargoName,jdbcType=VARCHAR}, 
+      #{routeName,jdbcType=VARCHAR}, #{distinct,jdbcType=VARCHAR}, #{venderWeight,jdbcType=VARCHAR}, 
+      #{pickupWeight,jdbcType=VARCHAR}, #{unloadWeight,jdbcType=VARCHAR}, #{trueWeight,jdbcType=VARCHAR}, 
+      #{billStatus,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, #{payMent,jdbcType=VARCHAR}, 
+      #{billCreaterTime,jdbcType=BIGINT}, #{acceptTime,jdbcType=BIGINT}, #{pickupTime,jdbcType=BIGINT}, 
+      #{unloadTime,jdbcType=BIGINT}, #{signTime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, 
+      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    insert into report_bill_all
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billOwnerId != null" >
+        bill_owner_id,
+      </if>
+      <if test="billVenderId != null" >
+        bill_vender_id,
+      </if>
+      <if test="billDriverId != null" >
+        bill_driver_id,
+      </if>
+      <if test="billReceiveId != null" >
+        bill_receive_id,
+      </if>
+      <if test="billType != null" >
+        bill_type,
+      </if>
+      <if test="businessTime != null" >
+        business_time,
+      </if>
+      <if test="planNo != null" >
+        plan_no,
+      </if>
+      <if test="billNo != null" >
+        bill_no,
+      </if>
+      <if test="sendMan != null" >
+        send_man,
+      </if>
+      <if test="sendPersion != null" >
+        send_persion,
+      </if>
+      <if test="receiptMan != null" >
+        receipt_man,
+      </if>
+      <if test="receiptPersion != null" >
+        receipt_persion,
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no,
+      </if>
+      <if test="cargoName != null" >
+        cargo_name,
+      </if>
+      <if test="routeName != null" >
+        route_name,
+      </if>
+      <if test="distinct != null" >
+        distinct,
+      </if>
+      <if test="venderWeight != null" >
+        vender_weight,
+      </if>
+      <if test="pickupWeight != null" >
+        pickup_weight,
+      </if>
+      <if test="unloadWeight != null" >
+        unload_weight,
+      </if>
+      <if test="trueWeight != null" >
+        true_weight,
+      </if>
+      <if test="billStatus != null" >
+        bill_status,
+      </if>
+      <if test="driverName != null" >
+        driver_name,
+      </if>
+      <if test="payMent != null" >
+        pay_ment,
+      </if>
+      <if test="billCreaterTime != null" >
+        bill_creater_time,
+      </if>
+      <if test="acceptTime != null" >
+        accept_time,
+      </if>
+      <if test="pickupTime != null" >
+        pickup_time,
+      </if>
+      <if test="unloadTime != null" >
+        unload_time,
+      </if>
+      <if test="signTime != null" >
+        sign_time,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="billOwnerId != null" >
+        #{billOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="billVenderId != null" >
+        #{billVenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="billDriverId != null" >
+        #{billDriverId,jdbcType=VARCHAR},
+      </if>
+      <if test="billReceiveId != null" >
+        #{billReceiveId,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null" >
+        #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTime != null" >
+        #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="planNo != null" >
+        #{planNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billNo != null" >
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMan != null" >
+        #{sendMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPersion != null" >
+        #{sendPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMan != null" >
+        #{receiptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPersion != null" >
+        #{receiptPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="distinct != null" >
+        #{distinct,jdbcType=VARCHAR},
+      </if>
+      <if test="venderWeight != null" >
+        #{venderWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupWeight != null" >
+        #{pickupWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="unloadWeight != null" >
+        #{unloadWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="trueWeight != null" >
+        #{trueWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null" >
+        #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="payMent != null" >
+        #{payMent,jdbcType=VARCHAR},
+      </if>
+      <if test="billCreaterTime != null" >
+        #{billCreaterTime,jdbcType=BIGINT},
+      </if>
+      <if test="acceptTime != null" >
+        #{acceptTime,jdbcType=BIGINT},
+      </if>
+      <if test="pickupTime != null" >
+        #{pickupTime,jdbcType=BIGINT},
+      </if>
+      <if test="unloadTime != null" >
+        #{unloadTime,jdbcType=BIGINT},
+      </if>
+      <if test="signTime != null" >
+        #{signTime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    update report_bill_all
+    <set >
+      <if test="billOwnerId != null" >
+        bill_owner_id = #{billOwnerId,jdbcType=VARCHAR},
+      </if>
+      <if test="billVenderId != null" >
+        bill_vender_id = #{billVenderId,jdbcType=VARCHAR},
+      </if>
+      <if test="billDriverId != null" >
+        bill_driver_id = #{billDriverId,jdbcType=VARCHAR},
+      </if>
+      <if test="billReceiveId != null" >
+        bill_receive_id = #{billReceiveId,jdbcType=VARCHAR},
+      </if>
+      <if test="billType != null" >
+        bill_type = #{billType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTime != null" >
+        business_time = #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="planNo != null" >
+        plan_no = #{planNo,jdbcType=VARCHAR},
+      </if>
+      <if test="billNo != null" >
+        bill_no = #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendMan != null" >
+        send_man = #{sendMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sendPersion != null" >
+        send_persion = #{sendPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptMan != null" >
+        receipt_man = #{receiptMan,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptPersion != null" >
+        receipt_persion = #{receiptPersion,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoName != null" >
+        cargo_name = #{cargoName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeName != null" >
+        route_name = #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="distinct != null" >
+        distinct = #{distinct,jdbcType=VARCHAR},
+      </if>
+      <if test="venderWeight != null" >
+        vender_weight = #{venderWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupWeight != null" >
+        pickup_weight = #{pickupWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="unloadWeight != null" >
+        unload_weight = #{unloadWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="trueWeight != null" >
+        true_weight = #{trueWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="billStatus != null" >
+        bill_status = #{billStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="driverName != null" >
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="payMent != null" >
+        pay_ment = #{payMent,jdbcType=VARCHAR},
+      </if>
+      <if test="billCreaterTime != null" >
+        bill_creater_time = #{billCreaterTime,jdbcType=BIGINT},
+      </if>
+      <if test="acceptTime != null" >
+        accept_time = #{acceptTime,jdbcType=BIGINT},
+      </if>
+      <if test="pickupTime != null" >
+        pickup_time = #{pickupTime,jdbcType=BIGINT},
+      </if>
+      <if test="unloadTime != null" >
+        unload_time = #{unloadTime,jdbcType=BIGINT},
+      </if>
+      <if test="signTime != null" >
+        sign_time = #{signTime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    update report_bill_all
+    set bill_owner_id = #{billOwnerId,jdbcType=VARCHAR},
+      bill_vender_id = #{billVenderId,jdbcType=VARCHAR},
+      bill_driver_id = #{billDriverId,jdbcType=VARCHAR},
+      bill_receive_id = #{billReceiveId,jdbcType=VARCHAR},
+      bill_type = #{billType,jdbcType=VARCHAR},
+      business_time = #{businessTime,jdbcType=VARCHAR},
+      plan_no = #{planNo,jdbcType=VARCHAR},
+      bill_no = #{billNo,jdbcType=VARCHAR},
+      send_man = #{sendMan,jdbcType=VARCHAR},
+      send_persion = #{sendPersion,jdbcType=VARCHAR},
+      receipt_man = #{receiptMan,jdbcType=VARCHAR},
+      receipt_persion = #{receiptPersion,jdbcType=VARCHAR},
+      vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      cargo_name = #{cargoName,jdbcType=VARCHAR},
+      route_name = #{routeName,jdbcType=VARCHAR},
+      distinct = #{distinct,jdbcType=VARCHAR},
+      vender_weight = #{venderWeight,jdbcType=VARCHAR},
+      pickup_weight = #{pickupWeight,jdbcType=VARCHAR},
+      unload_weight = #{unloadWeight,jdbcType=VARCHAR},
+      true_weight = #{trueWeight,jdbcType=VARCHAR},
+      bill_status = #{billStatus,jdbcType=VARCHAR},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      pay_ment = #{payMent,jdbcType=VARCHAR},
+      bill_creater_time = #{billCreaterTime,jdbcType=BIGINT},
+      accept_time = #{acceptTime,jdbcType=BIGINT},
+      pickup_time = #{pickupTime,jdbcType=BIGINT},
+      unload_time = #{unloadTime,jdbcType=BIGINT},
+      sign_time = #{signTime,jdbcType=BIGINT},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
