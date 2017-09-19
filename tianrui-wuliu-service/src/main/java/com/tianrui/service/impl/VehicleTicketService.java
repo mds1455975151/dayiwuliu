@@ -84,6 +84,7 @@ public class VehicleTicketService implements IVehicleTicketService{
 		VehicleTicket vt = new VehicleTicket();
 		vt.setDesc1(req.getVehicleNo());
 		vt.setStatus(req.getStatus());
+		vt.setOwner(req.getOwner());
 		if(req.getPageNo()!=null){
 			vt.setPageNo(req.getPageNo()*req.getPageSize());
 			vt.setPageSize(req.getPageSize());

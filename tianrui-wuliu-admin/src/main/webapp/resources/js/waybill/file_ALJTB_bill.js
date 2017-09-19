@@ -4,11 +4,17 @@ function searchFile(){
 }
 function displayData(pageNo){
 	var searchKey = $("#searchKey").val();
+	var vehicleno =$("#vehicleno").val();
+	var jtb =$("#jtb").val();
+	var createtime = $("#createtime").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+"/admin/waybill/findALJTBBill",
 		data:{
 			"billNo":searchKey,
+			"vehicleno":vehicleno,
+			"jtb":jtb,
+			"createtime":createtime,
 			"no":(pageNo*10),
 			"size":pageSize
 		},
@@ -151,4 +157,11 @@ $("#putJtb").on("click",function(){
 	
 });
 
+function clearSearch(){
+	$("#searchKey").val("");
+	$("#vehicleno").val("");
+	$("#jtb").val("");
+	$("#createtime").val("");
+	displayData(0);
+}
 

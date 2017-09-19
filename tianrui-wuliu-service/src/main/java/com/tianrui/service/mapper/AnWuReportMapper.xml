@@ -59,13 +59,13 @@
 			</if>
 
 			<if test="billno != null and billno != ''">
-				and ab.billno = #{billno,jdbcType=VARCHAR}
+				and ab.billno like "%" #{billno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="vehicleno != null and vehicleno != ''">
-				and ab.cph = #{vehicleno,jdbcType=VARCHAR}
+				and ab.cph like "%" #{vehicleno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="routename != null and routename != ''">
-				and fr.routename = #{routename,jdbcType=VARCHAR}
+				and fr.routename "%" #{routename,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="signtimes != null and signtimes != ''">
 				and ab.signtime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
@@ -78,7 +78,7 @@
 				and (pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
-				and wp.planCode = #{planCode,jdbcType=VARCHAR}
+				and wp.planCode like "%" #{planCode,jdbcType=VARCHAR} "%"
 			</if>
 		</where>
 		order by signtime desc
@@ -113,13 +113,13 @@
 				and ab.venderid = #{venderid,jdbcType=VARCHAR}
 			</if>
 			<if test="billno != null and billno != ''">
-				and ab.billno = #{billno,jdbcType=VARCHAR}
+				and ab.billno like "%" #{billno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="vehicleno != null and vehicleno != ''">
-				and ab.cph = #{vehicleno,jdbcType=VARCHAR}
+				and ab.cph like "%" #{vehicleno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="routename != null and routename != ''">
-				and fr.routename = #{routename,jdbcType=VARCHAR}
+				and fr.routename like "%" #{routename,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="signtimes != null and signtimes != ''">
 				and ab.signtime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
@@ -132,7 +132,7 @@
 				and (pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
-				and wp.planCode = #{planCode,jdbcType=VARCHAR}
+				and wp.planCode like "%" #{planCode,jdbcType=VARCHAR} "%"
 			</if>
 		</where>
 
@@ -196,13 +196,13 @@
 			</if>
 
 			<if test="billno != null and billno != ''">
-				and ab.waybillno = #{billno,jdbcType=VARCHAR}
+				and ab.waybillno like "%" #{billno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="vehicleno != null and vehicleno != ''">
-				and ab.vehicleno = #{vehicleno,jdbcType=VARCHAR}
+				and ab.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="routename != null and routename != ''">
-				and fr.routename = #{routename,jdbcType=VARCHAR}
+				and fr.routename like "%" #{routename,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="signtimes != null and signtimes != ''">
 				and ab.ownerSigntime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
@@ -215,7 +215,7 @@
 				and( pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
-				and wp.planCode = #{planCode,jdbcType=VARCHAR}
+				and wp.planCode like "%" #{planCode,jdbcType=VARCHAR} "%"
 			</if>
 		</where>
 		order by ownerSigntime desc
@@ -253,13 +253,13 @@
 				and ab.venderid = #{venderid,jdbcType=VARCHAR}
 			</if>
 			<if test="billno != null and billno != ''">
-				and ab.waybillno = #{billno,jdbcType=VARCHAR}
+				and ab.waybillno like "%" #{billno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="vehicleno != null and vehicleno != ''">
-				and ab.vehicleno = #{vehicleno,jdbcType=VARCHAR}
+				and ab.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="routename != null and routename != ''">
-				and fr.routename = #{routename,jdbcType=VARCHAR}
+				and fr.routename like "%" #{routename,jdbcType=VARCHAR} "%"
 			</if>
 			<if test="signtimes != null and signtimes != ''">
 				and ab.ownerSigntime <![CDATA[>=]]> #{signtimes,jdbcType=BIGINT}
@@ -272,7 +272,7 @@
 				and (pi.pay_status = #{payStatus,jdbcType=VARCHAR} or pi.pay_status is null)
 			</if>
 			<if test="planCode != null and planCode != ''">
-				and wp.planCode = #{planCode,jdbcType=VARCHAR}
+				and wp.planCode like "%" #{planCode,jdbcType=VARCHAR} "%"
 			</if>
 		</where>
 	</select>

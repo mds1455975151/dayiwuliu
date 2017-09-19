@@ -718,6 +718,9 @@
 		<if test="payeeId != null and payeeId != ''">
 			and p1.payee_id = #{payeeId, jdbcType=VARCHAR}
 		</if>
+		<if test="payeeName != null and payeeName != ''">
+			and p1.payee_name like "%" #{payeeName, jdbcType=VARCHAR} "%"
+		</if>
 	</where>
 	<if test="orderColumn != null and orderColumn != ''">
   		order by ${orderColumn} 
@@ -787,6 +790,9 @@
 		</if>
 		<if test="payeeId != null and payeeId != ''">
 			and p1.payee_id = #{payeeId, jdbcType=VARCHAR}
+		</if>
+		<if test="payeeName != null and payeeName != ''">
+			and p1.payee_name like "%" #{payeeName, jdbcType=VARCHAR} "%"
 		</if>
 	</where>
   </select>

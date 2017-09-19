@@ -74,6 +74,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         
                     </div>
                      <div class="contuser_search">
+                      <div class="ht_div">
+                            <label>货物名称：</label>
+                            <input type="text" id="cargoName" placeholder=" ">
+                        </div>
+                         <div class="ht_div">
+                            <label>收款人：</label>
+                            <input type="text" id="venderName" placeholder=" ">
+                        </div>
+                        <div class="ht_div">
+                            <label>收款人电话：</label>
+                            <input type="text" id="venderPhone" placeholder=" ">
+                        </div>
                      	<div class="ht_div">
                             <label>创建时间：</label>
                             <input type="text" id="createfor"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00',maxDate:'#F{$dp.$D(\'createend\')}'})" class="Wdate" style="width:160px"/>
@@ -231,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0908" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0909" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>

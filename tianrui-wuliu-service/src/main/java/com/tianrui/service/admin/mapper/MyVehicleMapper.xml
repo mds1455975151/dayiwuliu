@@ -23,7 +23,9 @@
 		i.telphone ownerphone,
 		i.companyname companyname,
 		i.companytel companytel,
-		m.cellphone cellphone
+		m.cellphone cellphone,
+		m.auditname auditname,
+		m.audittime audittime
 	FROM
 		wuliu_member_vehicle mv
 		LEFT JOIN member_info i ON mv.memberid = i.id
@@ -54,6 +56,9 @@
       </if>
       <if test="status != null" >
         and mv.status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="auditname != null and auditname !='' " >
+        and m.auditname like "%" #{auditname,jdbcType=VARCHAR} "%"
       </if>
       order by mv.createtime desc
     </where>
@@ -90,6 +95,7 @@
 	FROM
 		wuliu_member_vehicle mv
 		LEFT JOIN member_info i ON mv.memberid = i.id
+		LEFT JOIN member m on mv.memberid = m.id
     <where> 1=1
  	  <if test="ownername != null  and ownername !='' " >
        and (i.username like "%" #{ownername,jdbcType=VARCHAR} "%"
@@ -116,6 +122,9 @@
       </if>
       <if test="desc2 != null  and desc2 !='' " >
        and mv.desc2 = #{desc2,jdbcType=VARCHAR}
+      </if>
+       <if test="auditname != null and auditname !='' " >
+        and m.auditname like "%" #{auditname,jdbcType=VARCHAR} "%"
       </if>
     </where>
   </select>

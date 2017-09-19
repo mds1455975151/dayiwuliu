@@ -37,6 +37,7 @@ public class PayInvoiceReq extends BasePage {
 	private Integer payeeIdentity;
 	//收款人id
 	private String payeeId;
+	private String payeeName;//收款人姓名
 	//是否有效数据
 	private Integer state = Constant.DATA_VALID;
 	//创建人/签收人
@@ -177,6 +178,12 @@ public class PayInvoiceReq extends BasePage {
 	public String toString() {
 		return "PayInvoiceReq [likeBillCode=" + likeBillCode + ", likeCargoName=" + likeCargoName + ", payeeIdentity="
 				+ payeeIdentity + ", state=" + state + "]";
+	}
+	public String getPayeeName() {
+		return payeeName;
+	}
+	public void setPayeeName(String payeeName) {
+		this.payeeName = payeeName;
 	}
 	
 }

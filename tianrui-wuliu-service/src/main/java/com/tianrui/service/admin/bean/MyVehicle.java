@@ -51,6 +51,7 @@ public class MyVehicle{
 	 
 	private Double vehiheight;
 	private Long audittime;
+	private String auditname;//审核人
 	/**
 	 * 车牌号前缀
 	 */
@@ -404,4 +405,12 @@ public class MyVehicle{
 		this.drivingTime = drivingTime;
 	}
 
+	public String getAuditname() {
+		return auditname;
+	}
+
+	public void setAuditname(String auditname) {
+		this.auditname = auditname;
+	}
+	
 }

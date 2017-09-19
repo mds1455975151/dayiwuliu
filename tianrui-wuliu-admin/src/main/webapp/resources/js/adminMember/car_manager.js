@@ -12,6 +12,7 @@ function displayData(d){
 	}
 }
 function displayRec(pageNo){
+	var auditname =$("#auditname").val();
 	var prefix = $("#prefix").val();
 	var vehicleno = $("#vehicleno").val();
 	var userName = $("#userName").val();
@@ -24,6 +25,7 @@ function displayRec(pageNo){
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCarManager',
 		data:{"vehicleprefix":$.trim(prefix),
+			"auditname":$.trim(auditname),
 			"vehicleno":$.trim(vehicleno),
 			"userName":$.trim(userName),
 			"telphone":$.trim(telphone),
@@ -76,7 +78,7 @@ function displayRec(pageNo){
 							type = d[a].vehicletypename;
 						}
 						
-						var userName = d[a].userName;
+						var auditname = d[a].userName;
 						if(d[a].userName == undefined){
 							userName = "";
 						}
@@ -116,7 +118,14 @@ function displayRec(pageNo){
 						}else if(d[a].desc2==2){
 							linType = "完全";
 						}
-						
+						var auditname = d[a].auditname;
+						if(d[a].auditname == undefined){
+							auditname = "";
+						}
+						var audittime = d[a].audittimeStr;
+						if(d[a].audittimeStr == undefined){
+							audittime = "";
+						}
 						hml += "<tr><td>"+c+"</td>"+
 							"<td>"+d[a].vehicleprefix+d[a].vehicleno+"</td>"+
 							"<td>"+userName+"</td>"+
@@ -129,6 +138,8 @@ function displayRec(pageNo){
 							"<td>"+anlian+"</td>"+
 							"<td>"+sta+"</td>"+
 							"<td>"+d[a].createtimeStr+"</td>"+
+							"<td>"+auditname+"</td>"+
+							"<td>"+audittime+"</td>"+
 							"<td><span><a data-toggle='modal' onclick=\"details('"+d[a].id+"')\" data-target='#detail'>【详情】</a></span>";
 							if(d[a].status=="2"){
 								hml += "<span><a  onclick=\"shenhe('"+d[a].id+"','"+(pageNo+1)+"')\">【审核】</a></span>";
@@ -169,6 +180,8 @@ function clearSearch(){
 	$("#telphone").val("");
 	$("#ownername").val("");
 	$("#ownerphone").val("");
+	$("#auditname").val("");
+	displayRec(0);
 }
 /** 安联认证信息补全*/
 function anLianDetails(id,vehicleNo){

@@ -94,11 +94,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <i>-</i>
                                         <input type="text" id="subtimeend" onchange="firstPage();" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:00:00'})" class="Wdate" style="width:160px"/>
                                     </div>
+                                    <div class="ht_div">
+                                        <label>联系方式：</label>
+                                        <input type="text" onchange="firstPage();" id="telphone" placeholder=" ">
+                                    </div>
+                                </div>
+                                 <div class="contuser_search">
+                                 	<div class="ht_div">
+                                        <label>审核人：</label>
+                                        <input type="text" onchange="firstPage();" id="auditName" placeholder=" ">
+                                    </div>
+                                    <div class="ht_div">
+                                         <label>安联账号：</label>
+                                         <input type="text" onchange="firstPage();" id="aldriverid" placeholder=" ">
+                                    </div>
                                     <div class="ht_divbtn">
                                         <button class="btn btnblue " onclick="driverSearch();" type="button">搜索</button>
                                         <button class="btn btngreen" onclick="clearSearch();" type="submit">重置</button>
                                     </div>
-                                </div>
+                                 </div>
                         </div>
                     </div>
                     <!--查询框end-->
@@ -372,7 +386,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0342" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0354" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

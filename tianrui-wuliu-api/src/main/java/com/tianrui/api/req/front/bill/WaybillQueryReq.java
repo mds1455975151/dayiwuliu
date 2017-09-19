@@ -34,6 +34,10 @@ public class WaybillQueryReq extends BaseReq{
 	private String planId;
 	private String currOrgId;
 	
+	private String vehicleno;//车辆信息
+	private String jtb;//推送状态
+	private String createtime;//创建时间
+	
 	private Integer no;
 	
 	private Integer size;
@@ -175,4 +179,28 @@ public class WaybillQueryReq extends BaseReq{
 		this.payDesc1 = payDesc1;
 	}
 
+	public String getVehicleno() {
+		return vehicleno;
+	}
+
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
+	}
+
+	public String getJtb() {
+		return jtb;
+	}
+
+	public void setJtb(String jtb) {
+		this.jtb = jtb;
+	}
+
+	public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
+	
 }

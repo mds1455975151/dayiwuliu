@@ -65,6 +65,8 @@ public class MyVehicleReq extends BaseReq{
 	 * 认证时间
 	 */
 	private Long createtime;
+	private Long audittime;//审核时间
+	private String auditname;//审核人
 	
 	private Integer limit;
 	public String getId() {
@@ -177,4 +179,18 @@ public class MyVehicleReq extends BaseReq{
 	public void setDesc2(String desc2) {
 		this.desc2 = desc2;
 	}
+	public String getAuditname() {
+		return auditname;
+	}
+	public void setAuditname(String auditname) {
+		this.auditname = auditname;
+	}
+	public Long getAudittime() {
+		return audittime;
+	}
+	public void setAudittime(Long audittime) {
+		this.audittime = audittime;
+	}
+	
+	
 }

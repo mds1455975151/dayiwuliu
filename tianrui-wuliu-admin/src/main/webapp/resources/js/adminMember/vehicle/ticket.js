@@ -20,12 +20,14 @@ function displayData(pageNo){
 function displayRect(pageNo){
 	var vehicleNo = $("#find_vehicleNo").val();
 	var status = $("#find_status").val();
+	var owner =$("#owner").val();
 	$.ajax({
 		url:CONTEXTPATH+'/admin/ticket/page',
 		data:{
 			"vehicleNo":$.trim(vehicleNo),
 			"status":$.trim(status),
 			"pageNo":pageNo,
+			"owner":owner,
 			"pageSize":pageSize
 		},
 		type:"post",
@@ -111,6 +113,8 @@ function displayRect(pageNo){
 function clearSearch(){
 	$("#find_vehicleNo").val("");
 	$("#find_status").val("");
+	$("#owner").val("");
+	displayRect(0);
 }
 
 function Ticketdetails(id){

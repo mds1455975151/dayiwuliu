@@ -52,6 +52,9 @@ public class PayInvoiceDetail1FindReq {
     private Integer billType;
     //创建人
     private String creator;
+    
+    private String venderName;//收款人名称
+    private String venderPhone;//收款人电话
 	
     public String getBeginTimeStr() {
     	return beginTimeStr;
@@ -173,4 +176,18 @@ public class PayInvoiceDetail1FindReq {
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
+	public String getVenderName() {
+		return venderName;
+	}
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+	public String getVenderPhone() {
+		return venderPhone;
+	}
+	public void setVenderPhone(String venderPhone) {
+		this.venderPhone = venderPhone;
+	}
+	
+	
 }
