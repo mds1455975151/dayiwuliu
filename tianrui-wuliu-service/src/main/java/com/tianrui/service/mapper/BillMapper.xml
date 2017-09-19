@@ -134,6 +134,19 @@
 		<if test="waybillno != null and waybillno != ''">
 			AND wb.waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
 		</if>
+		<if test="vehicleno != null and vehicleno != ''">
+			AND wb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+		</if>
+		<if test="jtb != null and jtb != '' and jtb ==1 ">
+			AND wb.jtb = #{jtb,jdbcType=VARCHAR}
+		</if>
+		<if test=" jtb != '' and jtb ==0 ">
+			and (jtb != '1' OR jtb IS NULL)
+		</if>
+		<if test="createTimeBegin != null and createTimeBegin != ''">
+			and wb.createtime <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}
+			and wb.createtime <![CDATA[<=]]> #{createTimeEnd,jdbcType=BIGINT}
+		</if>
 		order by wb.createtime desc
 		<if test="start !=null">
 				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
@@ -154,6 +167,19 @@
 		AND wb.trueweight IS NOT NULL
 		<if test="waybillno != null and waybillno != ''">
 			AND wb.waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
+		</if>
+		<if test="vehicleno != null and vehicleno != ''">
+			AND wb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
+		</if>
+		<if test="jtb != null and jtb != '' and jtb ==1 ">
+			AND wb.jtb = #{jtb,jdbcType=VARCHAR}
+		</if>
+		<if test=" jtb != '' and jtb ==0 ">
+			and (jtb != '1' OR jtb IS NULL)
+		</if>
+		<if test="createTimeBegin != null and createTimeBegin != ''">
+			and wb.createtime <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}
+			and wb.createtime <![CDATA[<=]]> #{createTimeEnd,jdbcType=BIGINT}
 		</if>
 	</select>
 	<select id="selectByCondition" resultMap="BaseResultMap"

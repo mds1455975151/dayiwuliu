@@ -2234,6 +2234,15 @@ public class BillService implements IBillService{
 			bill.setLimit(req.getSize());
 		}
 		bill.setWaybillno(req.getBillNo());
+		bill.setJtb(req.getJtb());
+		bill.setVehicleno(req.getVehicleno());
+		if(req.getCreatetime().length()>0){
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			String dstr=req.getCreatetime();
+			Date date = sdf.parse(dstr); 
+			bill.setCreateTimeBegin(date.getTime());
+			bill.setCreateTimeEnd(date.getTime()+24*60*60*1000);
+		}
 		Long a = billMapper.countSelectJtbBill(bill);
 		List<Bill> list = billMapper.selectJtbBill(bill);
 		
@@ -2436,6 +2445,16 @@ public class BillService implements IBillService{
 		ab.setBillno(req.getBillNo());
 		ab.setStart(req.getNo());
 		ab.setLimit(req.getSize());
+		
+		ab.setDesc2(req.getJtb());
+		ab.setCph(req.getVehicleno());
+		if(req.getCreatetime()!=""&& req.getCreatetime()!=null){
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			String dstr=req.getCreatetime();
+			Date date = sdf.parse(dstr); 
+			ab.setPtBegintime(date.getTime());
+			ab.setPtEndtime(date.getTime()+24*60*60*1000);
+		}
 		List<AnlianBill> list = anlianBillMapper.selectByJTB(ab);
 		Long a = anlianBillMapper.selectByJTBCount(ab);
 		PaginationVO<JTBBillResp> page = new PaginationVO<JTBBillResp>();

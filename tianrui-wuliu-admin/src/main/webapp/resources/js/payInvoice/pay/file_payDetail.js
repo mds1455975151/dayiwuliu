@@ -12,8 +12,15 @@ function registMember(){
 	$("#createend").val("");
 	$("#billPayStatus").val("");
 	$("#consignee").val("");
+	$("#cargoName").val("");
+	$("#venderName").val("");
+	$("#venderPhone").val("");
+	displayData(0);
 }
 function displayData(pageNo){
+	var cargoName= $("#cargoName").val();
+	var venderName=$("#venderName").val();
+	var venderPhone=$("#venderPhone").val();
 	var code = $("#code").val();
 	var invoiceName =  $("#invoiceName").val();
 	var ship = $("#shipName").val();
@@ -23,6 +30,9 @@ function displayData(pageNo){
 	$.ajax({
 		url:"/pay/InviceDetail1/find",
 		data:{
+			"cargoName":cargoName,
+			"venderName":venderName,
+			"venderPhone":venderPhone,
 			"invoiceName":invoiceName,
 			"code":code,
 			"beginTimeStr":timefor,

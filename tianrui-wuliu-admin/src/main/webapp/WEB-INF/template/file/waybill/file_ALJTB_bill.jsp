@@ -70,8 +70,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>运单编码：</label>
                             <input type="text" id="searchKey" placeholder=" ">
                         </div>
+                         <div class="ht_div">
+                            <label>车辆信息：</label>
+                            <input type="text" id="vehicleno" placeholder=" ">
+                        </div>
+                        <div class="ht_div">
+                            <label>推送状态：</label>
+                            <select id="jtb"  class="form-control">
+                                 <option value="">请选择</option>
+                                 <option value="1">已推送</option>
+                                 <option value="0">未推送</option>
+                            </select>
+                        </div>
+                         <div class="ht_div">
+                             <label>创建时间：</label>
+                             <input type="text" id="createtime"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width:160px"/>
+                         </div>
                     <div class="ht_divbtn">
                         <button class="btn btnblue " onclick="searchFile();" type="button">搜索</button>
+                        <button class="btn btngreen" onclick="clearSearch();" type="submit">重置</button>
                     </div>
                 </div>
             </div>
@@ -169,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_ALJTB_bill.js?04.13" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_ALJTB_bill.js?04.14" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

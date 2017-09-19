@@ -50,6 +50,10 @@ public class MyVehicleResp extends BaseResp{
 	private String desc1;
 	private String desc2;
 	private String desc3;
+	
+	private String auditname;//审核人
+	private Long audittime;//审核时间
+	private String audittimeStr;//时间戳转换日期格式
 	/**
 	 * 车牌号前缀
 	 */
@@ -328,4 +332,24 @@ public class MyVehicleResp extends BaseResp{
 	public void setDrivingTime(String drivingTime) {
 		this.drivingTime = drivingTime;
 	}
+	public String getAuditname() {
+		return auditname;
+	}
+	public void setAuditname(String auditname) {
+		this.auditname = auditname;
+	}
+	public Long getAudittime() {
+		return audittime;
+	}
+	public void setAudittime(Long audittime) {
+		this.audittime = audittime;
+	}
+	public String getAudittimeStr() {
+		if(audittime!=null){
+			audittimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(audittime));
+		}
+		return audittimeStr;
+	}
+	
+	
 }

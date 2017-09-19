@@ -79,6 +79,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="2">完全认证</option>
                                         </select>
                                 </div>
+                                <div class="ht_div">
+                                    <label>审核人：</label>
+                                    <input type="text" id="auditname" placeholder=" ">
+                                </div>
                                 <div class="ht_divbtn">
                                     <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
                                     <button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>
@@ -107,6 +111,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <th>安联认证</th>
                                         <th>认证状态</th>
                                         <th>认证时间</th>
+                                        <th>审核人</th>
+                                        <th>审核时间</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -399,7 +405,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var imagesRoot="${imagesRoot }";
 </script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.02" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.05" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

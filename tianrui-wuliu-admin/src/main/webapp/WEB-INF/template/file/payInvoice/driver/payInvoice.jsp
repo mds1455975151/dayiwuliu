@@ -72,6 +72,10 @@
 									placeholder="请输入货物名称">
 							</div>
 							<div class="ht_div">
+								<label>收款人名称：</label> <input id="payeeName" type="text"
+									placeholder="请输入收款人名称">
+							</div>
+							<div class="ht_div">
 	                        	<label>支付状态：</label>
 	                            <select id="payStatus" class="form-control">
 	                            	<option value="">请选择</option>
@@ -254,6 +258,6 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.pagination.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/payInvoice/driver/payInvoice.js?0731"></script>
+		src="/resources/js/payInvoice/driver/payInvoice.js?0732"></script>
 </body>
 </html>

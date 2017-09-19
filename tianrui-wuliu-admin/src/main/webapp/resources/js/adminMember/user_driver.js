@@ -17,6 +17,9 @@ function displayData(pageNo){
 	}
 }
 function displayRect(pageNo){
+	var telphone =$("#telphone").val();
+	var auditName =$("#auditName").val();
+	var aldriverid =$("#aldriverid").val();
 	var userName = $("#username").val();
 	var cellPhone = $("#cellphone").val();
 	var status = $("#status").val();
@@ -51,6 +54,9 @@ function displayRect(pageNo){
 			"driverpercheck":perCheckStatus,
 			"submitdateEndStr":submitdateEnd,
 			"ncStatus":ncStatus,
+			"auditName":auditName,
+			"aldriverid":aldriverid,
+			"telphone":telphone,
 			"pageNo":(pageNo+1),
 			"pageSize":pageSize
 		},
@@ -250,6 +256,9 @@ function clearSearch(){
 	$("#subtimeend").val("");
 	$("#perCheckStatus").val("");
 	$("#ncStatus").val("");
+	$("#telphone").val("");
+	$("#auditName").val("");
+	$("#aldriverid").val("");
 	driverSearch();
 }
 /**

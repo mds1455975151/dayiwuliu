@@ -89,9 +89,32 @@ public class MemberFindReq extends BaseReq{
 	private Integer ncStatus;
 	private Integer limit;
 	
-
+	private String telphone;//联系方式
+	private String auditName;//审核人
+	private String aldriverid;//安联账号
+	
+	
+	
+	public String getAldriverid() {
+		return aldriverid;
+	}
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
 	public Integer getNcStatus() {
 		return ncStatus;
+	}
+	public String getTelphone() {
+		return telphone;
+	}
+	public void setTelphone(String telphone) {
+		this.telphone = telphone;
+	}
+	public String getAuditName() {
+		return auditName;
+	}
+	public void setAuditName(String auditName) {
+		this.auditName = auditName;
 	}
 	public void setNcStatus(Integer ncStatus) {
 		this.ncStatus = ncStatus;

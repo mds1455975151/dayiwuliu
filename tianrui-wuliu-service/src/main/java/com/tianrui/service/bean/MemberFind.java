@@ -93,13 +93,33 @@ public class MemberFind implements IModel{
 	 */
 	private Long audittime;
 	
-	
+	private String telphone;//联系方式
+	private String auditName;//审核人
+	private String aldriverid;//安联账号
 	//查询开始时间
 	private Long beginTime;
 	//查询结束时间
 	private Long endTime;
 	
 	
+	public String getAldriverid() {
+		return aldriverid;
+	}
+	public void setAldriverid(String aldriverid) {
+		this.aldriverid = aldriverid;
+	}
+	public String getTelphone() {
+		return telphone;
+	}
+	public void setTelphone(String telphone) {
+		this.telphone = telphone;
+	}
+	public String getAuditName() {
+		return auditName;
+	}
+	public void setAuditName(String auditName) {
+		this.auditName = auditName;
+	}
 	public Long getBeginTime() {
 		return beginTime;
 	}

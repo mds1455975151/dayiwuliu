@@ -44,9 +44,11 @@
 		$('#cargoName').val('');
 		$('#payCode').val('');
 		$('#payStatus').val('');
+		$('#payeeName').val('');
 	}
 	//获取搜索条件
 	function getSearchParams(){
+		var payeeName = $('#payeeName').val(); payeeName = $.trim(payeeName);
 		var billCode = $('#billCode').val(); billCode = $.trim(billCode);
 		var cargoName = $('#cargoName').val(); cargoName = $.trim(cargoName);
 		var payStatus = $('#payStatus').val(); payStatus = $.trim(payStatus);
@@ -54,6 +56,7 @@
 		var pageSize = $('#pageSize').val() || ''; pageSize = $.trim(pageSize);
 		return {
 			likeBillCode: billCode,
+			payeeName: payeeName,
 			likeCargoName: cargoName,
 			pageSize: pageSize,
 			pay:payStatus,

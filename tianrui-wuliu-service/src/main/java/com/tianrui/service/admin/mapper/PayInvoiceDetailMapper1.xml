@@ -211,6 +211,12 @@
    		  <if test="cargoName != null and cargoName != ''">
    		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
    		  </if>
+   		  <if test="venderName != null and venderName != ''">
+   		  	and vm.remarkname like "%" #{venderName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="venderPhone != null and venderPhone != ''">
+   		  	and vm.cellphone like "%" #{venderPhone,jdbcType=VARCHAR} "%"
+   		  </if>
    		  <if test="remark != null and remark != ''">
    		  	and p.remark = #{remark,jdbcType=VARCHAR}
    		  </if>
@@ -292,6 +298,12 @@
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
    		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="venderName != null and venderName != ''">
+   		  	and vm.remarkname like "%" #{venderName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="venderPhone != null and venderPhone != ''">
+   		  	and vm.cellphone like "%" #{venderPhone,jdbcType=VARCHAR} "%"
    		  </if>
    		  <if test="remark != null and remark != ''">
    		  	and p.remark = #{remark,jdbcType=VARCHAR}
