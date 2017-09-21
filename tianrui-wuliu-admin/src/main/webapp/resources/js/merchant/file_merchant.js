@@ -28,7 +28,7 @@ function displayData(pageNo){
 				    maxentries: result.data.total, 
 				    link_to:"javascript:void(0)"
 				}); 
-				innerHtml(result.data);
+				innerHtml(result.data,pageNo);
 			}else{
 				alert(result.error);
 			}
@@ -36,7 +36,7 @@ function displayData(pageNo){
 	});
 }
 
-function innerHtml(ret){
+function innerHtml(ret,pageNo){
 	var hml = ""
 	var total = ret.total;
 	if(total != 0){
@@ -78,14 +78,14 @@ function innerHtml(ret){
 			"<td>"+desStr+"</td>" +
 			"<td>"+remark+"</td>" +
 			"<td>" +
-			"<span><a data-toggle='modal' onclick=\"findByIndex('"+a+"')\" data-target='#edit_merchant'>【修改】</a></span>" +
-			"<span><a onclick=\"deleteId('"+datalist[a].id+"','"+datalist[a].desc1+"')\">【"+desc1+"】<a></span></td></tr>";
+			"<span><a data-toggle='modal' onclick=\"findByIndex('"+a+"','"+pageNo+"')\" data-target='#edit_merchant'>【修改】</a></span>" +
+			"<span><a onclick=\"deleteId('"+datalist[a].id+"','"+datalist[a].desc1+"','"+pageNo+"')\">【"+desc1+"】<a></span></td></tr>";
 		}
 	}
 	$("#innerHtml").html(hml);
 }
 
-function deleteId(id,status){
+function deleteId(id,status,pageNo){
 	if(window.confirm('确定执行本次操作吗？')){
 		var desc1 ;
 		if(status == 0){
@@ -101,7 +101,7 @@ function deleteId(id,status){
 			success:function(ret){
 				var code = ret.code;
 				if(code == "000000"){
-					displayData(0);
+					displayData(parseInt(pageNo));
 				}else{
 					alert(ret.error);
 				}
@@ -110,7 +110,7 @@ function deleteId(id,status){
 	}
 }
 
-function findByIndex(a){
+function findByIndex(a,pageNo){
 	var data = datalist[a];
 	$("#merchantid").val(data.id);
 	$("#uptcode").val(data.code);
@@ -122,6 +122,7 @@ function findByIndex(a){
 	$("#uptlinknumber").val(data.linknumber);
 	$("#uptaddress").val(data.address);
 	$("#uptremark").val(data.remark);
+	$("#pageNo").val(pageNo);
 }
 
 $(".save_Merchant").on("click",function(){
@@ -199,6 +200,7 @@ function updateMerchart(){
 	var savelinkman = $("#uptlinkman").val();
 	var savelinknumber = $("#uptlinknumber").val();
 	var saveaddress = $("#uptaddress").val();
+	var pageNo =$("#pageNo").val();
 	if(!$.trim(savecode)){
 		alert("客商编码不能为空");
 		return;
@@ -242,7 +244,7 @@ function updateMerchart(){
 			if(code == "000000"){
 				alert("修改成功");
 				$("#updateclick").click();
-				displayData(0);
+				displayData(parseInt(pageNo));
 			}else{
 				alert(ret.error);
 			}

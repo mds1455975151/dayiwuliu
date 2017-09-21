@@ -151,7 +151,7 @@ function displayRect(pageNo){
 							if((data[a].companypercheck=='1'||data[a].userpercheck=='1') && data[a].pushStatus == 0 && (data[a].ncStatus == '0' || data[a].ncStatus == '1' || data[a].ncStatus == '3')){
 								hml += "<span><a onclick=\"push('"+data[a].id+"','"+(pageNo)+"')\">【推送】</a></span>";
 							}
-							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"')\" data-target='#qiyong'>【"+staus+"】</a></span>"+
+							hml += "<span><a data-toggle='modal' onclick=\"getType('"+data[a].id+"','"+data[a].status+"','"+(pageNo)+"')\" data-target='#qiyong'>【"+staus+"】</a></span>"+
 							//去除删除功能
 							//"<span><a data-toggle='modal' onclick=\"deletebyid('"+data[a].id+"')\" data-target='#dele'>删除</a></span></td>" +
 							"<td >"+auditName+"</td>" +
@@ -228,7 +228,7 @@ function deletebyid(id){
 	document.getElementById("memberid").value=id;
 }
 //获取会员状态
-function getType(id,status){
+function getType(id,status,pageNo){
 	var mas="";
 	if(status==1){
   		mas="确定要停用吗";
@@ -238,11 +238,13 @@ function getType(id,status){
   	document.getElementById("satus").innerHTML=mas;
   	document.getElementById("memid").value=id;
   	document.getElementById("statustype").value=status;
+  	var pageNo = $("#pageNo").val(pageNo);
 }
   //修改会员状态
   function changeType(){
   	 var memid = document.getElementById("memid").value;
 	 var statesType = document.getElementById("statustype").value;
+	 var pageNo = $("#pageNo").val();
 	 $.ajax({
 			url:CONTEXTPATH+'/AdminMember/userprohibition',
 	data:{"id":memid ,"status":statesType},
@@ -253,7 +255,7 @@ function getType(id,status){
 		if(retVal.code!="000000"){
 						alert(retVal.error);
 					}else{
-						window.location=location;
+						displayRect(parseInt(pageNo));
 					}
 				}
 		});

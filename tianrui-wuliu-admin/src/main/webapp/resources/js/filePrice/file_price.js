@@ -59,7 +59,7 @@ function displayData(pageNo){
 			    	$("#tablelist").html(html);
 			    }else {
 			    	$("#totalPages").html(parseInt((result.data.count-1)/pageSize+1));
-			    	interHTML(data);
+			    	interHTML(data,pageNo);
 			    }  
 				$("#pagination").pagination(result.data.count, {   
 				    callback: pageCallback,   
@@ -91,7 +91,7 @@ function clearSearch(){
  * 查询结果写在页面
  * @param data
  */
-function interHTML(data){
+function interHTML(data,pageNo){
 	var hml = "";
 	for (var a = 0; a < data.length; a++) {
 		var s = a+1;
@@ -189,12 +189,12 @@ function interHTML(data){
 			"</td>" +
 					"<td>";
 		if(flag){
-			hml +="<span><a data-toggle='modal' onclick=\"tyPrice('"+data[a].id+"','"+data[a].status+"')\" data-target='#tingyong'>【"+status+"】</a></span>";
+			hml +="<span><a data-toggle='modal' onclick=\"tyPrice('"+data[a].id+"','"+data[a].status+"','"+pageNo+"')\" data-target='#tingyong'>【"+status+"】</a></span>";
 		}
-		hml +="<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"')\" data-target='#edit_price'>【修改】</a></span>"; 
+		hml +="<span><a data-toggle='modal' onclick=\"findById('"+data[a].id+"','"+pageNo+"')\" data-target='#edit_price'>【修改】</a></span>"; 
 		if(data[a].auditstatus!="0"){
 			hml +="" +
-			"<span><a data-toggle='modal' onclick=\"delectPrice1('"+data[a].id+"')\" data-target='#dele_price'>【删除】</a></span>";
+			"<span><a data-toggle='modal' onclick=\"delectPrice1('"+data[a].id+"','"+pageNo+"')\" data-target='#dele_price'>【删除】</a></span>";
 		}
 		hml +="</td></tr>";
 	}
@@ -269,20 +269,22 @@ function savePrice(){
  * 删除提示
  * @param id
  */
-function delectPrice1(id){
+function delectPrice1(id,pageNo){
 	document.getElementById("deleteid").value = id;
+	$("#pageNo").val(pageNo);
 }
 /**
  * 删除记录
  */
 function deletePrice(){
 	var id = $("#deleteid").val();
+	var pageNo =$("#pageNo").val();
 	$.ajax({
 		type: "POST",
 		url:CONTEXTPATH + '/frieght/delectFreight',// 跳转到 action
 		data:{"id":id},// 你的formid
 		success: function(rs) {
-			SearchPrice();
+			displayData(parseInt(pageNo));
 		}
 	});
 }
@@ -290,9 +292,10 @@ function deletePrice(){
  * 停用提示
  * @param id
  */
-function tyPrice(id,statue){
+function tyPrice(id,statue,pageNo){
 	document.getElementById("tyId").value = id;
 	document.getElementById("tystatue").value = statue;
+	$("#pageNo").val(pageNo);
 }
 /**
  * 停用
@@ -300,6 +303,7 @@ function tyPrice(id,statue){
 function tingyongPrice(){
 	var id = $("#tyId").val();
 	var status = $("#tystatue").val();
+	var pageNo= $("#pageNo").val();
 	var sta = "";
 	if(status == 0){
 		sta = "1";
@@ -317,7 +321,7 @@ function tingyongPrice(){
 			if(rs.code=="000000"){
 				document.getElementById("tyId").value = "";
 				document.getElementById("tystatue").value = "";
-				SearchPrice();
+				displayData(parseInt(pageNo));
 			}else{
 				alert(rs.error);
 			}
@@ -328,7 +332,7 @@ function tingyongPrice(){
  * 通过id查询
  * @param id
  */
-function findById(id){
+function findById(id,pageNo){
 	$.ajax({
 		type: "POST",
 		url:CONTEXTPATH + '/frieght/findByFreightId',// 跳转到 action
@@ -352,6 +356,7 @@ function findById(id){
 				document.getElementById("uptfrebilltype").value = data.frebilltype;
 				document.getElementById("taketime").value = "";
 				document.getElementById("oldtaketime").value = data.taketimeStr;
+				$("#pageNo").val(pageNo);
 			}
 		}
 	});
@@ -370,6 +375,7 @@ function updatePrice(){
 	var taketimeStr = $("#taketime").val();
 	var uptreason = $("#uptreason").val();
 	var oldtaketime = $("#oldtaketime").val();
+	var pageNo = $("#pageNo").val();
 	if(taketimeStr < oldtaketime&&taketimeStr != ''){
 		if(window.confirm('本次生效时间早于原生效时间，确定修改将会覆盖掉原生效时间')){
 			
@@ -428,7 +434,7 @@ function updatePrice(){
 		async: false,
 		success: function(rs) {
 			if(rs.code=="000000"){
-				SearchPrice();
+				displayData(parseInt(pageNo))
 				document.getElementById("updateclick").click();
 			}else{
 				alert(rs.error);
@@ -496,4 +502,9 @@ function linkChart(id){
 }
 function showreason(massage){
 	alert(massage);
+}
+
+function change(){
+	var addrouteid = $("#addrouteid option:selected").text();
+	$("#adddesc1").val(addrouteid+"运价");
 }

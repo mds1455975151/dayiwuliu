@@ -225,6 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4><span id="satus">确定要启用吗</span></h4>
                 <input type="hidden" id="statustype" value="">
                 <input type="hidden" id="memid" value="">
+                <input type="hidden" id="pageNo" value="">
             </div>
             <div class="modal-footer">
                 <button type="button" onclick="changeType()" class="btn btn-primary" data-dismiss="modal">确定</button>
@@ -271,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0174" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0175" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

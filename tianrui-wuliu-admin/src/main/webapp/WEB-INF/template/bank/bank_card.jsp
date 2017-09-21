@@ -185,6 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span style="color: red" id="error_massage"></span>
 			</div>           
             <div class="modal-footer">
+             	<input type="hidden" id="pageNo">
                 <button type="button" class="btn btn-primary bank_shenhe" >确定</button>
                 <button type="button" class="btn btn-default bank_hide" data-dismiss="modal">取消</button>
             </div>
@@ -201,6 +202,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bank/bank_card.js?0708" ></script>
+<script type="text/javascript" src="/resources/js/bank/bank_card.js?0709" ></script>
 </body>
 </html>

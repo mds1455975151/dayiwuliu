@@ -296,6 +296,7 @@ function test_number(number){
 
 //后台运价确认
 $("#auditCommit").on("click",function(){
+	var pageNo= $("#pageNo").val();
 	setTimeout(function(){
 		$.ajax({
 			url:"/pay/InviceDetail1/uptPrice",

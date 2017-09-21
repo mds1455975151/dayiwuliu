@@ -147,6 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
             <div class="modal-footer">
+            	 <input type="hidden" id="pageNo">
                 <button type="button" onclick="updateOrgMember();" class="btn btn-primary">保存</button>
                 <button type="button" id="updateclick" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
@@ -194,6 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4>确定要删除此条信息吗?</h4>
             </div>
             <div class="modal-footer">
+            	<input type="hidden" id="pageNo" >
                 <button type="button" onclick="deleteOrgMember();" class="btn btn-primary" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
@@ -206,7 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/fileMyUsers/file_orgSigner.js?09.09" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/fileMyUsers/file_orgSigner.js?09.10" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

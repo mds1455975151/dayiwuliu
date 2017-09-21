@@ -11,16 +11,18 @@ function SearchPrice(){
 	displayData(0);
 }
 
-function copyid(id,infoid,modifytime){
+function copyid(id,infoid,modifytime,pageNo){
 	$("#freightid").val(id);
 	$("#freightInfoid").val(infoid);
 	$("#modifytime").val(modifytime);
+	$("#pageNo").val(pageNo);
 }
 
 /**
  * 
  */
 function shenhe(){
+	var pageNo = $("#pageNo").val();
 	$.ajax({
 		url : CONTEXTPATH + '/freightinfo/update',
 		data : $('#updateform').serialize(),
@@ -30,7 +32,7 @@ function shenhe(){
 				alert(result.error);
 			}else{
 				$("#hiden").click();
-				SearchPrice();
+				displayData(parseInt(pageNo));
 			}
 		}
 	});
@@ -95,7 +97,7 @@ function displayData(pageNo){
 			    	$("#tablelist").html(html);
 			    }else {
 			    	$("#totalPages").html(parseInt((result.data.count-1)/pageSize+1));
-			    	interHTML(data);
+			    	interHTML(data,pageNo);
 			    }  
 				$("#pagination").pagination(result.data.count, {   
 				    callback: pageCallback,   
@@ -118,7 +120,7 @@ function displayData(pageNo){
  * 查询结果写在页面
  * @param data
  */
-function interHTML(data){
+function interHTML(data,pageNo){
 	var hml = "";
 	for (var a = 0; a < data.length; a++) {
 		var s = a+1;
@@ -208,7 +210,7 @@ function interHTML(data){
 			"<span><a data-toggle='modal' onclick=\"linkChart('"+data[a].id+"')\" >【查看】</a></span></td><td>" ;
 			
 		if(data[a].auditstatus=="0"){
-				hml += "<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"','"+modifytime+"')\" data-target='#tingyong'>【审核】</a></span>";
+				hml += "<span><a data-toggle='modal' onclick=\"copyid('"+data[a].id+"','"+data[a].infoid+"','"+modifytime+"','"+pageNo+"')\" data-target='#tingyong'>【审核】</a></span>";
 			}
 		hml += "</td>" +
 			"</tr>";

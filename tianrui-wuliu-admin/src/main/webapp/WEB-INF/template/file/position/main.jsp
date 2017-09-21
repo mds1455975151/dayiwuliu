@@ -327,7 +327,7 @@ ul, li {
             <div class="modal-body">
               	<!-- body内容 -->
               	<div class="usermodal userlabel4">
-                    <label>名称：</label><input class="nameInput formV" name="name" type="text" dataType="s2-18" >
+                    <label>名称：</label><input class="nameInput formV" name="name" type="text" dataType="" >
                      <input type="hidden" class="formV id" name="id"/>
                 </div>
               	<div class="usermodal userlabel4">

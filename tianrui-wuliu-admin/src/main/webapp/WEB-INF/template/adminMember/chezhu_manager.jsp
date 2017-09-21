@@ -278,9 +278,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	<input type="hidden" id="memid" value="">
             	<input type="hidden" id="statustype" value="">
                 <h4><span id="satus"></span></h4>
+            	<input type="hidden" id="pageNo" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="changeType();" class="btn btn-primary">确定</button>
+                <button type="button" onclick="changeType();" data-dismiss="modal" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -329,7 +330,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/adminMember/chezhu_manager.js?11.2" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/chezhu_manager.js?11.85" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

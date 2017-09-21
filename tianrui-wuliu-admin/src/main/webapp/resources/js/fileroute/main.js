@@ -62,7 +62,7 @@ $(function(){
 				if( result && result.code=="000000"  ){
 					rederPage(pageNo,result);
 				    if( result.data && result.data.total > 0){
-						initTable(result.data.list || []);
+						initTable(result.data.list || [],pageNo);
 					}else{
 						$("#org_tbody").empty();
 						var html;
@@ -126,7 +126,7 @@ $(function(){
 		    }); 
 	}
 	//table数据填充
-	var initTable=function(data){
+	var initTable=function(data,pageNo){
 		//清空
 		$("#org_tbody").empty();
 		if(data && data.length>0){
@@ -164,14 +164,14 @@ $(function(){
 				//<th>操作</th>
 				dataArr.push("<td>");
 				if( item.status =="1" ){
-					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","delbtn").attr("status",0).attr("dataId",item.id).html("【禁用】")[0].outerHTML);
+					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","delbtn").attr("status",0).attr("dataId",item.id).attr("pageNo",pageNo).html("【禁用】")[0].outerHTML);
 				}else{
-					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","delbtn").attr("status",1).attr("dataId",item.id).html("【启用】")[0].outerHTML);
+					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","delbtn").attr("status",1).attr("dataId",item.id).attr("pageNo",pageNo).html("【启用】")[0].outerHTML);
 				}
 				dataArr.push("  ")
 				if(item.count == 0){
-					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","editbtn").attr("dataId",item.id).html("【修改】")[0].outerHTML);
-					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","deleRoutebtn").attr("dataId",item.id).html("【删除】")[0].outerHTML)
+					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","editbtn").attr("dataId",item.id).attr("pageNo",pageNo).html("【修改】")[0].outerHTML);
+					dataArr.push( $("<a></a>").attr("href","javascript:void(0)").attr("class","deleRoutebtn").attr("dataId",item.id).attr("pageNo",pageNo).html("【删除】")[0].outerHTML)
 				}
 				dataArr.push("</td>");
 				dataArr.push("</tr>");
@@ -214,7 +214,7 @@ $(function(){
 			alert("发货地与收获地不能一致!");
 			return;
 		}
-		
+		var pageNo = $("#pageNo").val();
 		$(".submutBtn").attr("disabled",true);
 		//表单验证通过
 		if(validFrom.check()){
@@ -226,7 +226,7 @@ $(function(){
 				success:function(rs){
 					if( rs && rs.code=="000000" ){
 						alert("操作成功");
-						$(".searchbtn").trigger("click");
+						displayData(parseInt(pageNo))
 						$(".submutBtn").attr("disabled",false);
 					}else{
 						alert(rs.error);
@@ -266,6 +266,7 @@ $(function(){
 	$(".table").on("click",".delbtn",function(){
 		var id=$(this).attr("dataId");
 		var status=$(this).attr("status");
+		var pageNo = $(this).attr("pageNo");
 		if (status == "0") {
 			if(window.confirm('停用后关联的下游单据将无法使用！你确定要停用选择的路线？')){
 				$.ajax({
@@ -275,7 +276,8 @@ $(function(){
 					dataType:"json",
 					success:function(rs){
 						if( rs && rs.code =="000000" ){
-							$(".searchbtn").trigger("click");
+						//	$(".searchbtn").trigger("click");
+							displayData(parseInt(pageNo));
 						}else{
 							alert(rs.error);
 						}
@@ -303,6 +305,7 @@ $(function(){
 	//删除按钮
 	$(".table").on("click",".deleRoutebtn",function(){
 		var id=$(this).attr("dataId");
+		var pageNo = $(this).attr("pageNo");
 			if(window.confirm('你确定要删除该路线？')){
 				$.ajax({
 					url:"/file/fileroute/deleteRoute",
@@ -311,7 +314,7 @@ $(function(){
 					dataType:"json",
 					success:function(rs){
 						if( rs && rs.code =="000000" ){
-							$(".searchbtn").trigger("click");
+							displayData(parseInt(pageNo));
 						}else{
 							alert(rs.error);
 						}
@@ -323,6 +326,7 @@ $(function(){
 	//修改按钮
 	$(".table").on("click",".editbtn",function(){
 		var id=$(this).attr("dataId");
+		var pageNo=$(this).attr("pageNo");
 		$.ajax({
 			url:URL.detailUrl,
 			data:{"id":id},
@@ -348,7 +352,7 @@ $(function(){
 					$("#addModal .distanceStr").val(data.distance);
 					
 					$("#receiveid_req").val(data.receiveid);
-					
+					$("#pageNo").val(pageNo);
 					$("#addModal .titleSpan").text("修改");
 					$("#addModal").modal("show");
 				}

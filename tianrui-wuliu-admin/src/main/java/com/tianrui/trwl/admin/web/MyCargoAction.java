@@ -91,8 +91,8 @@ public class MyCargoAction {
 			                                        String materState,
 			                                         String mainMeasUnit,
 			                                          String state,
-			          @RequestParam(defaultValue = "0")String pageNo,
-			         @RequestParam(defaultValue = "10")String pageSize) throws Exception{
+			          @RequestParam(defaultValue = "0")Integer pageNo,
+			         @RequestParam(defaultValue = "10")Integer pageSize) throws Exception{
 		Result rs = Result.getSuccessResult();
 		FileOrgCargoReq orgCargoReq = new FileOrgCargoReq();
 		// 主键
@@ -114,8 +114,8 @@ public class MyCargoAction {
 		// 主计量单位
 		orgCargoReq.setMeasUnit(mainMeasUnit);
 		// 页码
-		orgCargoReq.setPageNo(Integer.parseInt(pageNo));
-		orgCargoReq.setPageSize(Integer.parseInt(pageSize));
+		orgCargoReq.setPageNo(pageNo);
+		orgCargoReq.setPageSize(pageSize);
 		PaginationVO<FileOrgCargoResp> pageVo = fileOrgCargoService.queryMyCargoInfoByCondition(orgCargoReq);
 		rs.setData(pageVo);
 		return rs;

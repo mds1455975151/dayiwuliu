@@ -236,7 +236,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="clear"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="updateMerchart();" class="btn btn-primary">修改</button>
+            	<input type="hidden" id="pageNo" >
+                <button type="button" onclick="updateMerchart();" data-dismiss="modal" class="btn btn-primary">修改</button>
                 <button type="button" id="updateclick" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -280,6 +281,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/merchant/file_merchant.js?09.09"></script>
+<script type="text/javascript" src="/resources/js/merchant/file_merchant.js?09.10"></script>
 </body>
 </html>

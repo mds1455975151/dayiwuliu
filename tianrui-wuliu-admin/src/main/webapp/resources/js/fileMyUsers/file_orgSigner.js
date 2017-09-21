@@ -47,8 +47,8 @@ function displayData(pageNo){
 							"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>"+
 							"<td>"+data[a].creater+"</td>"+
 							"<td>" +
-							"<span><a data-toggle='modal' onclick=\"update('"+a+"')\" data-target='#edit'>【修改】</a></span>"+
-							"<span><a data-toggle='modal' onclick=\"delect('"+data[a].id+"')\" data-target='#dele'>【删除】</a></span></td></tr>";
+							"<span><a data-toggle='modal' onclick=\"update('"+a+"','"+pageNo+"')\" data-target='#edit'>【修改】</a></span>"+
+							"<span><a data-toggle='modal' onclick=\"delect('"+data[a].id+"','"+pageNo+"')\" data-target='#dele'>【删除】</a></span></td></tr>";
 					}
 			    }   
 				document.getElementById("innerHml").innerHTML=hml;
@@ -74,12 +74,14 @@ function displayData(pageNo){
  * 获取删除id
  * @param id
  */
-function delect(id){
+function delect(id,pageNo){
 	document.getElementById("detid").value = id;
+	$("#pageNo").val(pageNo);
 }
 
 function deleteOrgMember(){
 	var id = $("#detid").val();
+	var pageNo = $("#pageNo").val();
 	$.ajax({
 		url:"/file/fileOrgSigner/delete",
 		data:{"id":id
@@ -91,7 +93,7 @@ function deleteOrgMember(){
 				alert(ret.error);
 			}else{
 				document.getElementById("detid").value = "";
-				searchMember();
+				displayData(parseInt(pageNo));
 			}
 		}
 	});
@@ -111,7 +113,7 @@ function detalt(a){
  * 修改
  * @param a
  */
-function update(a){
+function update(a,pageNo){
 	var id = data[a].id;
 	var membertel = data[a].cellphone;
 	var memberdesc = data[a].remark;
@@ -122,9 +124,11 @@ function update(a){
 	document.getElementById("uptmembername").value=data[a].membername;
 	document.getElementById("uptmemberDesc").value=memberdesc;
 	document.getElementById("uptid").value=id;
+	$("#pageNo").val(pageNo);
 }
 function updateOrgMember(){
 	var id = $("#uptid").val();
+	var pageNo= $("#pageNo").val();
 	var memberdesc = $("#uptmemberDesc").val();
 	$.ajax({
 		url:"/file/fileOrgSigner/upt",
@@ -137,7 +141,7 @@ function updateOrgMember(){
 			if(ret.code!="000000"){
 				alert(ret.error);
 			}else{
-				searchMember();
+				displayData(parseInt(pageNo));
 				document.getElementById("updateclick").click();
 			}
 		}

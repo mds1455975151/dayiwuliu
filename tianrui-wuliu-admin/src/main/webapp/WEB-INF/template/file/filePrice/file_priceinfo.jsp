@@ -147,6 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          </div>
             </form>
             <div class="modal-footer">
+            	<input type="hidden" id="pageNo" >
             	<span id="hiden" data-dismiss="modal"></span>
                 <button type="button" onclick="shenhe();" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -162,7 +163,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/filePrice/file_priceinfo.js?08.07" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_priceinfo.js?08.08" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

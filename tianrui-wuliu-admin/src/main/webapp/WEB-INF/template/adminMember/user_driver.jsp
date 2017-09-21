@@ -172,9 +172,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4><span id="satus"></span></h4>
                 <input type="hidden" id="memid" value="">
                 <input type="hidden" id="statustype" value="">
+                <input type="hidden" id="pageNo" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="changeType();" class="btn btn-primary">确定</button>
+                <button type="button" onclick="changeType();" data-dismiss="modal" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -386,7 +387,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0354" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0385" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

@@ -113,8 +113,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <!-- body内容 -->
               	<div class="usermodal userlabel4">
                     <label>名称：</label>
-                    <input class="routename formV" name="routename" type="text" readonly="readonly"   dataType="s2-18" >
+                    <input class="routename formV" name="routename" type="text" readonly="readonly"   dataType="" >
                     <input type="hidden" class="formV id" name="id"/>
+                    <input type="hidden"  id="pageNo"/>
                 </div>
               	<div class="usermodal userlabel4">
                     <label>发货地点：</label>

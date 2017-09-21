@@ -86,7 +86,7 @@ function displayRect(pageNo){
 						    		"<td>";
 							hml += "<span><a data-toggle='modal' onclick=\"bankdetails('"+data[a].id+"')\" data-target='#detail'>【详情】</a></span>";
 							if(data[a].bankautid == "2"){
-								hml += "<span><a data-toggle='modal' onclick=\"Bankshenhe('"+data[a].id+"')\" data-target='#shenhe'>【审核】</a></span>";
+								hml += "<span><a data-toggle='modal' onclick=\"Bankshenhe('"+data[a].id+"','"+pageNo+"')\" data-target='#shenhe'>【审核】</a></span>";
 							}
 								hml += "</td></tr>";
 					}
@@ -159,9 +159,10 @@ function detailClear(){
 	$("#bankLineNumber_mg").html("");
 }
 
-function Bankshenhe(id){
+function Bankshenhe(id,pageNo){
 	$("#bank_id").val(id);
 	$("#bank_status").val("");
+	$("#pageNo").val(pageNo);
 	$(".butongguo").css('background','');
 	$(".tongguo").css('background','');
 	$("#auditMassage").hide();
@@ -188,6 +189,7 @@ $(".bank_shenhe").on("click",function(){
 		return;
 	}
 	$(this).attr("disabled",true);
+	var pageNo = $("#pageNo").val();
 	$.ajax({
 		url:'/admin/bank/card/autid',
 		data:{"id":$("#bank_id").val(),
@@ -198,11 +200,12 @@ $(".bank_shenhe").on("click",function(){
 		success: function(ret) {
 			if(ret.code!="000000"){
 				$(".bank_shenhe").attr("disabled",false);
+				$(".bank_hide").click();
 				alert("审核失败. " + ret.error);
 			}else{
 				$(".bank_shenhe").attr("disabled",false);
 				$(".bank_hide").click();
-				banktSearch();
+				displayRect(parseInt(pageNo));
 			}
 		}
 	});

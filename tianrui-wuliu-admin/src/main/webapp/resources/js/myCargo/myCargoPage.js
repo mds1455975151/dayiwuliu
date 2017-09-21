@@ -76,7 +76,7 @@ function displayData(pageNo){
 			    	$("#myCargo_tbody").html(html);
 			    }else {
 			    	$("#totalPages").html(parseInt((result.data.total-1)/pageSize+1));  
-			    	appendContentToBody(data, 0);
+			    	appendContentToBody(data, 0,pageNo);
 			    }   
 				$("#pagination").pagination(result.data.total, {   
 				    callback: pageCallback,   
@@ -104,7 +104,7 @@ function displayData(pageNo){
  * @author kowuka
  * @time 2016.04.24
  */
-function appendContentToBody(data, flag) {
+function appendContentToBody(data, flag,pageNo) {
 	
 	// 搜索查询时清空表体，防止表体重复附加数据
 	if (flag == 0) {
@@ -145,7 +145,7 @@ function appendContentToBody(data, flag) {
 			
 			var href1 = $("<a></a>")
 							.attr("href", "javascript:void(0);")
-							 .attr("onclick", "detailDisplay('" + data[i].id + "','" 
+							 .attr("onclick", "detailDisplay('" + data[i].id + "','" + pageNo + "','" 
 										                         + data[i].orgName + "','" 
 										                          + data[i].orgType + "','" 
 										                           + data[i].state + "','" 
@@ -164,9 +164,9 @@ function appendContentToBody(data, flag) {
 				enDisable = "启用";
 			}
 			var href2 = $("<a id='rowIndex" + rowIndex + "_enDisable'" + "></a>")
-							.attr("href", "javascript:cargoEnDisable('" + data[i].id + "','"
-																	     + data[i].state + "','rowIndex"
-																	      + rowIndex + "')")
+							.attr("href", "javascript:cargoEnDisable('" + data[i].id + "','" + pageNo + "','"+ data[i].state + "','rowIndex"+ rowIndex + "')")
+																	     
+																	      
 										.html("【" + enDisable+"】");
 			var href3 = $("<a></a>")
 			               .attr("href", "javascript:void(0);")
@@ -182,7 +182,7 @@ function appendContentToBody(data, flag) {
 						                .html("【修改 】");
 
 			var href4 = $("<a></a>")
-			                .attr("href", "javascript:cargoDelete('" + data[i].id + "','rowIndex"
+			                .attr("href", "javascript:cargoDelete('" + data[i].id + "','" + pageNo + "','rowIndex"
 																	  + rowIndex + "')")
 						                .html("【删除】");
 
@@ -343,7 +343,7 @@ $("#modal_add_save").click(function() {
  * @author kowuka
  * @time 2016.05.23
  */
-function detailDisplay(id, orgName, orgType, state,
+function detailDisplay(id, orgName, orgType, state,pageNo,
 		                materCode, materName, materClass,
 		                 spec, model, materMNCode, mainMeasUnit) {
 	// var data = eval('(' + paramObj + ')'); 
@@ -372,7 +372,7 @@ function detailDisplay(id, orgName, orgType, state,
 	}
 	// 主计量单位
 	$("#modal_detail_mainMeasUnit").html(mainMeasUnit);
-	
+	$("#pageNo").val(pageNo);
 	$("#detail").modal();
 	
 	return false;
@@ -386,11 +386,12 @@ function detailDisplay(id, orgName, orgType, state,
  * @author kowuka
  * @time 2016.05.23
  */
-function cargoEnDisable(id, state, vRowIndex) {
+function cargoEnDisable(id,pageNo, state, vRowIndex) {
 	
 	// id、状态、行号
 	$("#modal_endisable_id").val(id);
 	$("#modal_endisable_rowIndex").val(vRowIndex);
+	$("#pageNo").val(pageNo);
 	if (state == "1") {
 		$("#modal_endisable_content").html("停用后关联的下游单据将无法使用！你确定要停用选择的物料？");
 		$("#modal_endisable_state").val("0");
@@ -409,6 +410,7 @@ $("#modal_endisable_button").click(function() {
 	// id、状态、行号
 	var id = $("#modal_endisable_id").val();
 	var state = $("#modal_endisable_state").val();
+	var pageNo =$("#pageNo").val();
 	//var vRowIndex = $("#modal_endisable_rowIndex").val();
 	
 	// 隐藏模态框
@@ -429,14 +431,14 @@ $("#modal_endisable_button").click(function() {
 				$("#modal_common_content").html(getStatusByCode(state) + "失败！"+result.error);
 			}
 			$("#commonModal").modal();
-			
+			displayData(parseInt(pageNo));
 			/*if (state == "停用") {
 				$("#" + vRowIndex + "_enDisable").html("启用");
 			} else {
 				$("#" + vRowIndex + "_enDisable").html("停用");
 			}
 			$("#" + vRowIndex + "_state").html(state);*/
-			$("#myCargo_search").trigger("click");
+			
 		}
 	});
 });
@@ -479,7 +481,6 @@ function cargoEdit(id, materCode, materName, materClass,
 			$(this).attr('selected', true);
 		}
 	});
-	
 	$("#edit_mate").modal();
 }
 
@@ -604,10 +605,10 @@ $("#modal_edit_save").click(function() {
  * @author kowuka
  * @time 2016.05.25
  */
-function cargoDelete(id, rowIndex) {
+function cargoDelete(id,pageNo, rowIndex) {
 	$("#modal_del_id").val(id);
 	$("#modal_del_rowIndex").val(rowIndex);
-	
+	$("#pageNo").val(pageNo);
 	$("#dele_mate").modal('show');
 	
 }
@@ -617,7 +618,7 @@ $("#modal_del_button").click(function() {
 	
 	var id = $("#modal_del_id").val();
 	var rowIndex = $("#modal_del_rowIndex").val();
-	
+	var pageNo =$("#pageNo").val();
 	// 模态框隐藏
 	$("#dele_mate").modal('hide');
 	$.ajax({
@@ -630,10 +631,12 @@ $("#modal_del_button").click(function() {
 			if (result.data > 0) {
 				$("#modal_common_content").html("删除完成！");
 				$("#" + rowIndex).remove();
+				
 			} else {
 				$("#modal_common_content").html("删除失败！");
 			}
 			$("#commonModal").modal();
+			displayData(parseInt(pageNo));
 		}
 	});
 });

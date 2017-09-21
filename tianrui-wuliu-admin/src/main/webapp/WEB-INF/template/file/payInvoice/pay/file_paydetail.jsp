@@ -243,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0909" ></script>
+<script type="text/javascript" src="<%=basePath%>/resources/js/payInvoice/pay/file_payDetail.js?0919" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>

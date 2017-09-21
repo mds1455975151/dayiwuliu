@@ -128,9 +128,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body" style=" ">
                 <div class="usermodal userlabel3">
+                	<div class="model_width" id="blurroute">
+                        <label><i style="color: #ff2f00;">*</i>路线：</label>
+                        <select class="form-control" id="addrouteid" onchange="change();" name="routeid">
+                        	<option value="">请选择</option>
+                            <c:forEach items="${route }" var="aa">
+                            	<option value="${aa.id }">${aa.routename }</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>策略名称：</label>
-                        <input id="adddesc1" name="freightName" type="text">
+                        <input id="adddesc1" name="freightName" type="text" readonly="readonly">
                     </div>
                     <div class="model_width" id="blurcargo">
                         <label><i style="color: #ff2f00;">*</i>货物：</label>
@@ -138,15 +147,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         	<option value="">请选择</option>
                             <c:forEach items="${cargo }" var="aa">
                             	<option value="${aa.id }">${aa.materName }</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="model_width" id="blurroute">
-                        <label><i style="color: #ff2f00;">*</i>路线：</label>
-                        <select class="form-control" id="addrouteid" name="routeid">
-                        	<option value="">请选择</option>
-                            <c:forEach items="${route }" var="aa">
-                            	<option value="${aa.id }">${aa.routename }</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -278,6 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="clear"></div>
             </div>
             <div class="modal-footer">
+            	<input type="hidden" id="pageNo">
                 <button type="button" onclick="updatePrice();" class="btn btn-primary">修改</button>
                 <button type="button" id="updateclick" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
@@ -299,6 +300,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-body">
 				<input type="hidden" value="" id="tyId">
 				<input type="hidden" value="" id="tystatue">
+				<input type="hidden" value="" id="pageNo">
                 <h4>只有启用后的策略才能被下游单据使用！请确定操作？</h4>
             </div>
             <div class="modal-footer">
@@ -323,6 +325,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <h4>确定要删除此运价策略吗?</h4>
             </div>
             <div class="modal-footer">
+           	    <input type="hidden" value="" id="pageNo">
                 <button type="button" onclick="deletePrice();" data-dismiss="modal" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
@@ -342,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/filePrice/file_price.js?08.07s" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_price.js?08.10" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

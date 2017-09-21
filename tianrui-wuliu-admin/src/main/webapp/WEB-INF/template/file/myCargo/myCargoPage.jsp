@@ -236,7 +236,8 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <h4 id="modal_endisable_content">确定要停用吗</h4>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-primary" id="modal_endisable_button">确定</button>
+	            	 <input type="hidden" id="pageNo">
+	                <button type="button" class="btn btn-primary"  id="modal_endisable_button">确定</button>
 	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 	            </div>
 	        </div>
@@ -258,7 +259,8 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <h4>确定要删除此条信息吗?</h4>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-primary" id="modal_del_button">确定</button>
+	            	 <input type="hidden" id="pageNo">
+	                <button type="button" class="btn btn-primary"  id="modal_del_button">确定</button>
 	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 	            </div>
 	        </div>
@@ -275,7 +277,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var imagesRoot="${imagesRoot }";
 	</script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/resources/js/myCargo/myCargoPage.js?0811"></script>
+	<script type="text/javascript" src="/resources/js/myCargo/myCargoPage.js?0923"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
