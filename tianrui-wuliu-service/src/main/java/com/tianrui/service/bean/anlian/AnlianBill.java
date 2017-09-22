@@ -114,6 +114,7 @@ public class AnlianBill {
     private Integer limit;
     
 
+
     public String getId() {
         return id;
     }
@@ -574,4 +575,7 @@ public class AnlianBill {
 	public void setBankType(String bankType) {
 		this.bankType = bankType;
 	}
+
+	
+	
 }

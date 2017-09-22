@@ -163,8 +163,6 @@ public class FileMyUserAction {
 			) throws Exception{
 		Result rs = Result.getSuccessResult();
 		Users user = SessionManager.getSessionMember(request);
-		Date date = new Date();
-		req.setCreatetime(date.getTime());
 		req.setCreator(user.getAccount());
 		if(!orgMemberService.updateEntity(req)){
 			rs.setCode("1");

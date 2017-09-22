@@ -60,6 +60,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>运单编码/车牌号：</label>
                             <input type="text" id="searchKey" placeholder=" ">
                         </div>
+                      <!--   <div class="ht_div">
+                            <label>收货人：</label>
+                            <input type="text" id="shr" placeholder=" ">
+                        </div>
+                       <div class="ht_div">
+                             <label>创建时间：</label>
+                             <input type="text" id="createtimeStr"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" style="width:160px"/>
+                         </div> -->
                     <div class="ht_divbtn">
                         <button class="btn btnblue " onclick="searchFile();" type="button">搜索</button>
                     </div>
@@ -131,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_anlian_bill.js?03.14" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_anlian_bill.js?03.15" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

@@ -128,6 +128,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body" style=" ">
                 <div class="usermodal userlabel3">
+                	<div class="model_width" id="blurcargo">
+                        <label><i style="color: #ff2f00;">*</i>货物：</label>
+                        <select class="form-control" onchange="cargoChange('add')" id="addcargoid" name="cargoid">
+                        	<option value="">请选择</option>
+                            <c:forEach items="${cargo }" var="aa">
+                            	<option value="${aa.id }">${aa.materName }</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                 	<div class="model_width" id="blurroute">
                         <label><i style="color: #ff2f00;">*</i>路线：</label>
                         <select class="form-control" id="addrouteid" onchange="change();" name="routeid">
@@ -140,15 +149,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>策略名称：</label>
                         <input id="adddesc1" name="freightName" type="text" readonly="readonly">
-                    </div>
-                    <div class="model_width" id="blurcargo">
-                        <label><i style="color: #ff2f00;">*</i>货物：</label>
-                        <select class="form-control" onchange="cargoChange('add')" id="addcargoid" name="cargoid">
-                        	<option value="">请选择</option>
-                            <c:forEach items="${cargo }" var="aa">
-                            	<option value="${aa.id }">${aa.materName }</option>
-                            </c:forEach>
-                        </select>
                     </div>
                     <div class="model_width">
                         <label><i style="color: #ff2f00;">*</i>价格类型：</label>
@@ -345,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/filePrice/file_price.js?08.10" ></script>
+<script type="text/javascript" src="/resources/js/filePrice/file_price.js?08.13" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>

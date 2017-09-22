@@ -3,6 +3,8 @@ function searchFile(){
 	displayData(0);
 }
 function displayData(pageNo){
+	//var shr =$("#shr").val();
+	//var createtimeStr = $("#createtimeStr").val();
 	var searchKey = $("#searchKey").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({

@@ -506,5 +506,13 @@ function showreason(massage){
 
 function change(){
 	var addrouteid = $("#addrouteid option:selected").text();
-	$("#adddesc1").val(addrouteid+"运价");
+	var addcargoid =$("#addcargoid option:selected").text();
+	if(addrouteid=="请选择"){
+		alert("请选择路线");
+	}else if(addcargoid=="请选择"){
+		$("#addrouteid").val("");
+		alert("请选择货物");
+	}else{
+		$("#adddesc1").val(addrouteid+addcargoid+"运价");
+	}
 }

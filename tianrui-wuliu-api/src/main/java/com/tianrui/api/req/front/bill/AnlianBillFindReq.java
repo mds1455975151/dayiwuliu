@@ -23,6 +23,10 @@ public class AnlianBillFindReq {
     private Integer pageNo;
     
     private Integer pageSize;
+    
+   // private String shr;//收货人
+    
+   // private String createtimeStr;//创建时间
 
 	public String getBillno() {
 		return billno;
@@ -110,4 +114,7 @@ public class AnlianBillFindReq {
 	public void setCreatetime(Long createtime) {
 		this.createtime = createtime;
 	}
+
+	
+	
 }

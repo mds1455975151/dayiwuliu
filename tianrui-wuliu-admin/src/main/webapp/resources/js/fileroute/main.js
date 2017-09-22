@@ -292,7 +292,7 @@ $(function(){
 				dataType:"json",
 				success:function(rs){
 					if( rs && rs.code =="000000" ){
-						$(".searchbtn").trigger("click");
+						displayData(parseInt(pageNo));
 					}else{
 						alert(rs.error);
 					}
