@@ -2283,7 +2283,7 @@ public class BillService implements IBillService{
 			rs.setError("推送单价必须大于0");
 			return rs;
 		}
-		if(db.getTrueweight() == null || db.getTrueweight() >= 99*1000 || db.getTrueweight() <= 0){
+		if(db.getTrueweight() == null || db.getTrueweight() >= 99 || db.getTrueweight() <= 0){
 			rs.setCode("1");
 			rs.setError("推送重量必须大于0且小于99吨");
 			return rs;

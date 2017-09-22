@@ -19,13 +19,14 @@ public interface IReportAllService {
 	/** 查询计划*/
 	public PaginationVO<ReportPlanAllResp> selectPlan(ReportPlanAllReq req)throws Exception;
 	/** 添加计划*/
-	public Result savePlan(ReportPlanAllReq req)throws Exception;
+	public Result savePlan()throws Exception;
 	/** 查询运单*/
 	public PaginationVO<ReportBillAllResp> selectBill(ReportBillAllReq req)throws Exception;
 	/** 添加运单*/
-	public Result saveBill(ReportBillAllReq req)throws Exception;
+	public Result saveBill()throws Exception;
 	/** 查询账单*/
 	public PaginationVO<ReportPayAllResp> selectPay(ReportPayAllReq req)throws Exception;
 	/** 添加账单*/
-	public Result savePay(ReportPayAllReq req)throws Exception;
+	public Result savePay()throws Exception;
+	
 }

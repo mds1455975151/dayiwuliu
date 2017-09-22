@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,10 @@ import com.tianrui.service.mapper.ReportBillAllMapper;
 import com.tianrui.service.mapper.ReportPayAllMapper;
 import com.tianrui.service.mapper.ReportPlanAllMapper;
 @Service
-public class ReportPlanAllService implements IReportAllService{
+public class ReportAllService implements IReportAllService{
 
+	Logger logger = LoggerFactory.getLogger(ReportAllService.class);
+	
 	@Autowired
 	ReportBillAllMapper reportBillAllMapper;
 	@Autowired
@@ -57,8 +61,11 @@ public class ReportPlanAllService implements IReportAllService{
 	}
 
 	@Override
-	public Result savePlan(ReportPlanAllReq req) throws Exception {
+	public Result savePlan() throws Exception {
 		// TODO Auto-generated method stub
+		logger.info("查询计划开始");
+		ReportPlanAll record = new ReportPlanAll();
+		reportPlanAllMapper.selectByAllPlan(record);
 		return null;
 	}
 
@@ -88,7 +95,7 @@ public class ReportPlanAllService implements IReportAllService{
 	}
 
 	@Override
-	public Result saveBill(ReportBillAllReq req) throws Exception {
+	public Result saveBill() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -118,7 +125,7 @@ public class ReportPlanAllService implements IReportAllService{
 	}
 
 	@Override
-	public Result savePay(ReportPayAllReq req) throws Exception {
+	public Result savePay() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

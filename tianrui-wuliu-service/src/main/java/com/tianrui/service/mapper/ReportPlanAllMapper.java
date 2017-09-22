@@ -20,4 +20,6 @@ public interface ReportPlanAllMapper {
     List<ReportPlanAll> selectByCondition(ReportPlanAll record);
     
     long selectByCount(ReportPlanAll record);
+    
+    List<ReportPlanAll> selectByAllPlan(ReportPlanAll record);
 }
