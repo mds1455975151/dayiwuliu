@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <div class="tab-content">
 		                    <div class="tab-pane fade in active" id="single">
 		                        <div class="bdimg">
-				                    <a target="_blank"><img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl"></a>
+				                    <a target="_blank" id="hrefqhbdImgUrl"><img src="${trRoot}/tianrui/images/bd.png" id="qhbdImgUrl"></a>
 				                    <label></label>
 				                    <div id="notImg" class="bd_note" hidden>
 	                        			<label>司机未上传磅单</label>
@@ -177,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </div>
 		                    <div class="tab-pane fade" id="multiple">
 		                        <div class="bdimg">
-				                    <a target="_blank"><img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl"></a>
+				                    <a target="_blank" id="hrefbdimgurl"><img src="${trRoot}/tianrui/images/bd.png" id="bdimgurl"></a>
 		                        </div>
 		                    </div>
 		                </div>
@@ -351,7 +351,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?08.09" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?0922" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

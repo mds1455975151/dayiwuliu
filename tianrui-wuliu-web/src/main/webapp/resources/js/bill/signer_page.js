@@ -255,6 +255,8 @@ function billSign_(id,type,pageNo){
 				var data = ret.data;
 				$("#qhbdImgUrl").attr("src",data.pickupimgurl);
 				$("#bdimgurl").attr("src",data.signimgurl);
+				$("#hrefqhbdImgUrl").attr("href","/imageView/index?imageUrl="+data.pickupimgurl);
+				$("#hrefbdimgurl").attr("href","/imageView/index?imageUrl="+data.signimgurl);
 				$("#pickupweight").val(data.pickupweight);
 				$("#signweight").val(data.signweight);
 				$("#bill_id").val(id);
