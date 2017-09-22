@@ -15,6 +15,7 @@ function index(no){
 	var billstatus =$('#billstatus').val();
 	var paystatus = $('#paystatus').val();
 	$(".searchBtn").attr("disabled",true);
+	console.log("---"+no);
 	$.ajax({
 		url:"/trwuliu/billSigner/find",
 		data:{"billtype":billtype,"cargoname":cargoname,"vehicleno":vehicleno,"billno":billno,
@@ -24,6 +25,7 @@ function index(no){
 		},
 		type : "post",
 		dataType:"json",
+		async:false,
 		success:function(rs){
 			if(rs.code=="000000"){
 				var total = rs.data.total;
@@ -45,10 +47,17 @@ function index(no){
 }
 
 $(".searchBtn").on("click",function(){
+	pageNo = 0;
 	hml = "";
 	index(0);
 });
 
+function refushPage(){
+	hml = "";
+	for (var a = 0; a <= pageNo; a++) {
+		index(a);
+	}
+}
 
 function innerHTML(data){
 	for (var a = 0; a < data.length; a++) {
@@ -89,10 +98,10 @@ function innerHTML(data){
 			"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 			"<td>";
 		if(data[a].billstatus ==5&&data[a].billtype == "dy"){//普通运单签收
-			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"','"+pageNo+"')\">签收</button></a>";
+			hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 		}else if(data[a].billtype == "al"){//安联运单签收
 			if(data[a].billstatus == undefined && data[a].signedStr == '1'){//前台未运价确认
-				hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"','"+pageNo+"')\">签收</button></a>";
+				hml +="<a ><button class='btn btnyello delBtn' onclick=\"billSign_('"+data[a].id+"','"+data[a].billtype+"')\">签收</button></a>";
 			}
 		}
 		if(data[a].confirmPriceB == "1"){
@@ -225,7 +234,8 @@ $(".confirmPrice").on("click",function(){
 		},
 		success:function(ret){
 			if(ret.code=="000000"){
-				$(".searchBtn").trigger("click");
+				//$(".searchBtn").trigger("click");
+				refushPage();
 				$("#yj_queren").modal("hide");
 			}else{
 				alert(ret.error);
@@ -234,7 +244,7 @@ $(".confirmPrice").on("click",function(){
 	});
 });
 
-function billSign_(id,type,pageNo){
+function billSign_(id,type){
 	$("#qhbdImgUrl").attr("src","");
 	$("#bdimgurl").attr("src","");
 	$("#bill_id").val("");
@@ -263,19 +273,16 @@ function billSign_(id,type,pageNo){
 				$("#pickupweight_li").click();
 			}
 		});
-		$("#pageNo").val(pageNo);
 		$("#signModal").modal();
 	}else if(type=="al"){
 		//安联运单签收
 		$("#al_signBill_id").val(id)
-		$("#pageNo").val(pageNo);
 		$("#anlian_signModal").modal();
 	}
 }
 
 $("#signerWeight").on("click",function(){
 	var weighttext = $("#weighttext").val();
-	var pageNo = $("#pageNo").val();
 	if(weighttext == ""){
 		alert("请输入签收量");
 		return;
@@ -288,7 +295,8 @@ $("#signerWeight").on("click",function(){
 		success:function(ret){
 			if(ret.code=="000000"){
 			//	$(".searchBtn").trigger("click");
-				index(parseInt(pageNo));
+				refushPage();
+			//  index(parseInt(pageNo));
 				$("#signModal").modal("hide");
 			}else{
 				alert(ret.error);
@@ -320,7 +328,8 @@ $(".signsubmitbtn_al").on("click",function(){
 		success:function(ret){
 			if(ret.code=="000000"){
 				//$(".searchBtn").trigger("click");
-				index(parseInt(pageNo));
+				refushPage();
+				//index(parseInt(pageNo));
 				$("#anlian_signModal").modal("hide");
 			}else{
 				alert(ret.error);

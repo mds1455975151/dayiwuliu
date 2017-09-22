@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="usermodal userlabel3">
                 	<div class="model_width" id="blurcargo">
                         <label><i style="color: #ff2f00;">*</i>货物：</label>
-                        <select class="form-control" onchange="cargoChange('add')" id="addcargoid" name="cargoid">
+                        <select class="form-control" onchange="cargoChange('add');change();" id="addcargoid" name="cargoid">
                         	<option value="">请选择</option>
                             <c:forEach items="${cargo }" var="aa">
                             	<option value="${aa.id }">${aa.materName }</option>
