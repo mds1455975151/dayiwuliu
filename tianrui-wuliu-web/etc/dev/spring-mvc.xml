@@ -38,10 +38,10 @@
    <bean id="resourcePathExposer" class="com.tianrui.web.util.ResourcePathExposer"
 		init-method="init" >
 		<property name="localScripts" value="/resources/js" />
-		<property name="imagesRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/images" />
-		<property name="scriptsRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/js" />
-		<property name="stylesRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/css" />
-		<property name="trRoot" value="http://www.appb2b.com/trwlWebStatic" />
+		<property name="imagesRoot" value="http://47.89.54.114/trwlWebStatic/tianrui/images" />
+		<property name="scriptsRoot" value="http://47.89.54.114/trwlWebStatic/tianrui/js" />
+		<property name="stylesRoot" value="http://47.89.54.114/trwlWebStatic/tianrui/css" />
+		<property name="trRoot" value="http://47.89.54.114/trwlWebStatic" />
 	</bean>
 	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  

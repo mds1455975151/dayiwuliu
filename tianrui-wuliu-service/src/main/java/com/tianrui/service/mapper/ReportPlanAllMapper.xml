@@ -49,12 +49,12 @@
     	</if>
     </where>
     order by plan_create_time desc
-    <if test="pageNo != null and pageNo pageNo != ''">
+    <if test="pageNo != null and pageNo != ''">
     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
   
-  <select id="selectByCount" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.ReportPlanAll" >
     select 
     count(0)
     from report_plan_all

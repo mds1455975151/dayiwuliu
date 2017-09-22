@@ -18,7 +18,7 @@
     <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
     <result column="cargo_name" property="cargoName" jdbcType="VARCHAR" />
     <result column="route_name" property="routeName" jdbcType="VARCHAR" />
-    <result column="distinct" property="distinct" jdbcType="VARCHAR" />
+    <result column="bill_distinct" property="distinct" jdbcType="VARCHAR" />
     <result column="vender_weight" property="venderWeight" jdbcType="VARCHAR" />
     <result column="pickup_weight" property="pickupWeight" jdbcType="VARCHAR" />
     <result column="unload_weight" property="unloadWeight" jdbcType="VARCHAR" />
@@ -39,8 +39,8 @@
   <sql id="Base_Column_List" >
     id, bill_owner_id, bill_vender_id, bill_driver_id, bill_receive_id, bill_type, business_time, 
     plan_no, bill_no, send_man, send_persion, receipt_man, receipt_persion, vehicle_no, 
-    cargo_name, route_name, distinct, vender_weight, pickup_weight, unload_weight, true_weight, 
-    bill_status, driver_name, pay_ment, bill_creater_time, accept_time, pickup_time, 
+    cargo_name, route_name, bill_distinct, vender_weight, pickup_weight, unload_weight, 
+    true_weight, bill_status, driver_name, pay_ment, bill_creater_time, accept_time, pickup_time, 
     unload_time, sign_time, desc1, desc2, desc3, desc4
   </sql>
   
@@ -60,7 +60,7 @@
     	</if>
     </where>
     order by bill_creater_time desc
-    <if test="pageNo != null and pageNo pageNo != ''">
+    <if test="pageNo != null and pageNo != ''">
     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
@@ -98,7 +98,7 @@
       business_time, plan_no, bill_no, 
       send_man, send_persion, receipt_man, 
       receipt_persion, vehicle_no, cargo_name, 
-      route_name, distinct, vender_weight, 
+      route_name, bill_distinct, vender_weight, 
       pickup_weight, unload_weight, true_weight, 
       bill_status, driver_name, pay_ment, 
       bill_creater_time, accept_time, pickup_time, 
@@ -170,7 +170,7 @@
         route_name,
       </if>
       <if test="distinct != null" >
-        distinct,
+        bill_distinct,
       </if>
       <if test="venderWeight != null" >
         vender_weight,
@@ -372,7 +372,7 @@
         route_name = #{routeName,jdbcType=VARCHAR},
       </if>
       <if test="distinct != null" >
-        distinct = #{distinct,jdbcType=VARCHAR},
+        bill_distinct = #{distinct,jdbcType=VARCHAR},
       </if>
       <if test="venderWeight != null" >
         vender_weight = #{venderWeight,jdbcType=VARCHAR},
@@ -442,7 +442,7 @@
       vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
       cargo_name = #{cargoName,jdbcType=VARCHAR},
       route_name = #{routeName,jdbcType=VARCHAR},
-      distinct = #{distinct,jdbcType=VARCHAR},
+      bill_distinct = #{distinct,jdbcType=VARCHAR},
       vender_weight = #{venderWeight,jdbcType=VARCHAR},
       pickup_weight = #{pickupWeight,jdbcType=VARCHAR},
       unload_weight = #{unloadWeight,jdbcType=VARCHAR},

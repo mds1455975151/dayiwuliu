@@ -6,6 +6,10 @@ public class ReportPlanAllReq {
     private Integer pageNo;
     
     private Integer pageSize;
+    
+    private String planOwnerId;
+
+    private String planVenderId;
 
     private Long planCreateTime;
 
@@ -259,5 +263,21 @@ public class ReportPlanAllReq {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getPlanOwnerId() {
+		return planOwnerId;
+	}
+
+	public void setPlanOwnerId(String planOwnerId) {
+		this.planOwnerId = planOwnerId;
+	}
+
+	public String getPlanVenderId() {
+		return planVenderId;
+	}
+
+	public void setPlanVenderId(String planVenderId) {
+		this.planVenderId = planVenderId;
 	}
 }

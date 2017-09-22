@@ -26,7 +26,7 @@ public class CodeGenDaoImpl extends BaseDaoImpl<CodeGen,String> implements CodeG
 	protected MongoTemplate mongoTemplate;
 
 	@Override
-	public String codeGen(int type) {
+	public synchronized String codeGen(int type) {
 		String rs =null;
 		Query query =new Query();
 		Criteria criteria =Criteria.where("currdata").is(getCurrDate()).and("type").is(type);

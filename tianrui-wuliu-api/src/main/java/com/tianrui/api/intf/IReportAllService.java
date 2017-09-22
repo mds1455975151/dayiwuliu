@@ -14,7 +14,7 @@ import com.tianrui.common.vo.Result;
  * @author jh
  *
  */
-public interface IReportPlanAllService {
+public interface IReportAllService {
 
 	/** 查询计划*/
 	public PaginationVO<ReportPlanAllResp> selectPlan(ReportPlanAllReq req)throws Exception;
