@@ -58,6 +58,84 @@
     	<if test="billDriverId != null and billDriverId != ''">
     		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
     	</if>
+    	
+    	
+    	<if test="billType != null and billType != ''">
+    		and bill_type like "%" #{billType,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="planNo != null and planNo != ''">
+    		and plan_no like "%" #{planNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billNo != null and billNo != ''">
+    		and bill_no like "%" #{billNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billStatus != null and billStatus != ''">
+    		and bill_status like "%" #{billStatus,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="driverName != null and driverName != ''">
+    		and driver_name like "%" #{driverName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="payMent != null and payMent != ''">
+    		and pay_ment like "%" #{payMent,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendPersion != null and sendPersion != ''">
+    		and send_persion like "%" #{sendPersion,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptPersion != null and receiptPersion != ''">
+    		and receipt_persion like "%" #{receiptPersion,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="businessTimeStarts != null and businessTimeStarts != ''">
+	   		and business_time <![CDATA[>=]]> #{businessTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="businessTimeEnds != null and businessTimeEnds != '' ">
+			and business_time <![CDATA[<=]]> #{businessTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="billCreaterTimeStarts != null and billCreaterTimeStarts != ''">
+	   		and bill_creater_time <![CDATA[>=]]> #{billCreaterTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="billCreaterTimeEnds != null and billCreaterTimeEnds != '' ">
+			and bill_creater_time <![CDATA[<=]]> #{billCreaterTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="acceptTimeStarts != null and acceptTimeStarts != ''">
+	   		and accept_time <![CDATA[>=]]> #{acceptTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="acceptTimeEnds != null and acceptTimeEnds != '' ">
+			and accept_time <![CDATA[<=]]> #{acceptTimeEnds,jdbcType=BIGINT}
+		</if>
+		
+		<if test="pickupTimeStarts != null and pickupTimeStarts != ''">
+	   		and pickup_time <![CDATA[>=]]> #{pickupTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="pickupTimeEnds != null and pickupTimeEnds != '' ">
+			and pickup_time <![CDATA[<=]]> #{pickupTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="unloadTimeStarts != null and unloadTimeStarts != ''">
+	   		and unload_time <![CDATA[>=]]> #{unloadTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="unloadTimeEndtimes != null and unloadTimeEndtimes != '' ">
+			and unload_time <![CDATA[<=]]> #{unloadTimeEndtimes,jdbcType=BIGINT}
+		</if>
+    	<if test="signTimeStarts != null and signTimeStarts != ''">
+	   		and sign_time <![CDATA[>=]]> #{signTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="signTimeEnds != null and signTimeEnds != '' ">
+			and sign_time <![CDATA[<=]]> #{signTimeEnds,jdbcType=BIGINT}
+		</if>
     </where>
     order by bill_creater_time desc
     <if test="pageNo != null and pageNo != ''">
@@ -78,6 +156,83 @@
     	<if test="billDriverId != null and billDriverId != ''">
     		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
     	</if>
+    	
+    	
+    	<if test="billType != null and billType != ''">
+    		and bill_type like "%" #{billType,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="planNo != null and planNo != ''">
+    		and plan_no like "%" #{planNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billNo != null and billNo != ''">
+    		and bill_no like "%" #{billNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billStatus != null and billStatus != ''">
+    		and bill_status like "%" #{billStatus,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="driverName != null and driverName != ''">
+    		and driver_name like "%" #{driverName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="payMent != null and payMent != ''">
+    		and pay_ment like "%" #{payMent,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendPersion != null and sendPersion != ''">
+    		and send_persion like "%" #{sendPersion,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptPersion != null and receiptPersion != ''">
+    		and receipt_persion like "%" #{receiptPersion,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="businessTimeStarts != null and businessTimeStarts != ''">
+	   		and business_time <![CDATA[>=]]> #{businessTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="businessTimeEnds != null and businessTimeEnds != '' ">
+			and business_time <![CDATA[<=]]> #{businessTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="billCreaterTimeStarts != null and billCreaterTimeStarts != ''">
+	   		and bill_creater_time <![CDATA[>=]]> #{billCreaterTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="billCreaterTimeEnds != null and billCreaterTimeEnds != '' ">
+			and bill_creater_time <![CDATA[<=]]> #{billCreaterTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="acceptTimeStarts != null and acceptTimeStarts != ''">
+	   		and accept_time <![CDATA[>=]]> #{acceptTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="acceptTimeEnds != null and acceptTimeEnds != '' ">
+			and accept_time <![CDATA[<=]]> #{acceptTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="pickupTimeStarts != null and pickupTimeStarts != ''">
+	   		and pickup_time <![CDATA[>=]]> #{pickupTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="pickupTimeEnds != null and pickupTimeEnds != '' ">
+			and pickup_time <![CDATA[<=]]> #{pickupTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="unloadTimeStarts != null and unloadTimeStarts != ''">
+	   		and unload_time <![CDATA[>=]]> #{unloadTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="unloadTimeEndtimes != null and unloadTimeEndtimes != '' ">
+			and unload_time <![CDATA[<=]]> #{unloadTimeEndtimes,jdbcType=BIGINT}
+		</if>
+    	<if test="signTimeStarts != null and signTimeStarts != ''">
+	   		and sign_time <![CDATA[>=]]> #{signTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="signTimeEnds != null and signTimeEnds != '' ">
+			and sign_time <![CDATA[<=]]> #{signTimeEnds,jdbcType=BIGINT}
+		</if>
     </where>
   </select>
   

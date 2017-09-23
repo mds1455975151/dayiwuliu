@@ -91,6 +91,7 @@ public class ReportBillAll {
     private Long businessTimeEnds;
     private Long billCreaterTimeStarts;
     private Long billCreaterTimeEnds;
+    
     private Long acceptTimeStarts;
     private Long acceptTimeEnds;
     private Long pickupTimeStarts;

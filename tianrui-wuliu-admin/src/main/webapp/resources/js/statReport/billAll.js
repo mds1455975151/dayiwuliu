@@ -43,6 +43,7 @@ function getParams(pageNo){
 	var sendPersion =$("#sendPersion").val();
 	var receiptMan =$("#receiptMan").val();
 	var receiptPersion =$("#receiptPersion").val();
+	
 	var businessTimeStart =$("#businessTimeStart").val();
 	var businessTimeEnd =$("#businessTimeEnd").val();
 	var billCreaterTimeStart =$("#billCreaterTimeStart").val();
@@ -55,6 +56,7 @@ function getParams(pageNo){
 	var unloadTimeEndtime =$("#unloadTimeEndtime").val();
 	var signTimeStart =$("#signTimeStart").val();
 	var signTimeEnd =$("#signTimeEnd").val();
+	
 	var params = {
 			billType:$.trim(billType),
 			planNo:$.trim(planNo),
@@ -141,11 +143,11 @@ function innerHml(data){
 				"<td>"+data[a].billStatus+"</td>" +
 				"<td>"+data[a].driverName+"</td>" +
 				"<td>"+data[a].payMent+"</td>" +
-				"<td>"+data[a].billCreaterTime+"</td>" +
-				"<td>"+data[a].acceptTime+"</td>" +
-				"<td>"+data[a].pickupTime+"</td>" +
-				"<td>"+data[a].unloadTime+"</td>" +
-				"<td>"+data[a].signTime+"</td>" +
+				"<td>"+data[a].billCreaterTimeStr+"</td>" +
+				"<td>"+data[a].acceptTimeStr+"</td>" +
+				"<td>"+data[a].pickupTimeStr+"</td>" +
+				"<td>"+data[a].unloadTimeStr+"</td>" +
+				"<td>"+data[a].signTimeStr+"</td>" +
 				"</tr>";
 		$("#innerHtml").append(hml);
 	}
