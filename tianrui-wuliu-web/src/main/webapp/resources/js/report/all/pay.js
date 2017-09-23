@@ -20,6 +20,7 @@ function getParment(pageNo){
 	return {
 		pageNo:pageNo,
 		pageSize:10,
+		reportType:$("#reportType").val(),
 		paystarttime:$("#paystarttime").val(),
 		payendtime:$("#payendtime").val(),
 		payCode:$("#payCode").val(),

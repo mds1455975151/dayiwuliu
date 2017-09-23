@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>司机账单报表</title>
+<title>车主账单报表</title>
 <meta name="keywords" content="天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
@@ -41,16 +41,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="rz_line">
-					<label>当前位置：运单</label><span>></span> <label>司机账单报表</label>
+					<label>当前位置：运单</label><span>></span> <label>车主账单报表</label>
 				</div>
 			</div>
 			<div class="row">
 				<jsp:include page="../../../common/member/left_busi.jsp"></jsp:include>
 				<div class="car_right">
 					<div class="car_title bgblue">
-						<h2>司机账单报表</h2>
+						<h2>车主账单报表</h2>
 						<!-- 1-司机，2-车主，3-货主 -->
-						<input type="hidden" id="reportType" value="1">
+						<input type="hidden" id="reportType" value="2">
 						<span class="exportReport">导出报表</span>
 					</div>
 					<!--个人中心右侧搜索框begin-->

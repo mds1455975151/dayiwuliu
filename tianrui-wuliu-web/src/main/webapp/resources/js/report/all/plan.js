@@ -20,6 +20,7 @@ function getParment(pageNo){
 	return {
 		pageNo:pageNo,
 		pageSize:10,
+		reportType:$("#reportType").val(),
 		planStarttime:$("#planStarttime").val(),
 		planEndtime:$("#planEndtime").val(),
 		planStatus:$("#planStatus").val(),
