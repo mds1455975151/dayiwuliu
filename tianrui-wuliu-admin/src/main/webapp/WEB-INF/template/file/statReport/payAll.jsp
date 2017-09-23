@@ -49,18 +49,24 @@
 								<label>计划单号：</label> <input id="planCode" type="text" placeholder="请输入计划单号">
 							</div>
 							<div class="ht_div">
-								<label>账单日期：</label> <input id="starttime" type="text"
+								<label>发货方：</label> <input id="sendMan" type="text" placeholder="请输入发货方">
+							</div>
+							<div class="ht_div">
+								<label>发货人：</label> <input id="sendPersian" type="text" placeholder="请输入发货人">
+							</div>
+							<div class="ht_div">
+								<label>账单日期：</label> <input id="paystarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
-									id="endtime" type="text"
+									id="payendtime" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
 							<div class="ht_div">
-								<label>运单日期：</label> <input id="starttime" type="text"
+								<label>运单日期：</label> <input id="billstarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
-									id="endtime" type="text"
+									id="billendtime" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
@@ -68,19 +74,13 @@
 								<label>运输路线：</label> <input id="routeName" type="text" placeholder="请输入运单路线">
 							</div>
 							<div class="ht_div">
-								<label>发货方：</label> <input id="sendMan" type="text" placeholder="">
+								<label>车主：</label> <input id="venderName" type="text" placeholder="请输入车主">
 							</div>
 							<div class="ht_div">
-								<label>发货人：</label> <input id="sendPersian" type="text" placeholder="">
+								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入收货方">
 							</div>
 							<div class="ht_div">
-								<label>车主：</label> <input id="venderName" type="text" placeholder="">
-							</div>
-							<div class="ht_div">
-								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="">
-							</div>
-							<div class="ht_div">
-								<label>签收人：</label> <input id="receiptPerson" type="text" placeholder="">
+								<label>签收人：</label> <input id="receiptPerson" type="text" placeholder="请输入签收人">
 							</div>
 							 <div class="ht_div">
                                  <label>支付状态：</label>
@@ -95,8 +95,8 @@
 						</div>
 						<div class="contuser_search">
 							<div class="ht_divbtn">
-								<button class="btn btnblue search" type="submit">搜索</button>
-								<button class="btn btngreen reset" type="submit">重置</button>
+								<button class="btn btnblue search"  onclick="init(0)" type="submit">搜索</button>
+								<button class="btn btngreen reset"  onclick ="reset()"type="submit">重置</button>
 							</div>
 						</div>
 					</div>
@@ -173,6 +173,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/payAll.js?0921"></script>
+	<script type="text/javascript" src="/resources/js/statReport/payAll.js?09.22"></script>
 </body>
 </html>

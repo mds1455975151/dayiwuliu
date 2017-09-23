@@ -1,10 +1,13 @@
 package com.tianrui.api.resp.report;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ReportPayAllResp {
     private String id;
 
     private Long payCreateTime;
-
+    private String  payCreateTimeStr;
     private String payCode;
 
     private String payMent;
@@ -26,7 +29,8 @@ public class ReportPayAllResp {
     private String vehicleNo;
 
     private Long billTime;
-
+    
+    private String billTimeStr;
     private String billNo;
 
     private String cargoName;
@@ -330,4 +334,22 @@ public class ReportPayAllResp {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+	public String getPayCreateTimeStr() {
+		if(payCreateTime != null){
+			payCreateTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(payCreateTime));
+		}
+		return payCreateTimeStr;
+	}
+
+
+	public String getBillTimeStr() {
+		if(billTime!= null){
+			billTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(billTime));
+		}
+		return billTimeStr;
+	}
+
+    
+    
 }

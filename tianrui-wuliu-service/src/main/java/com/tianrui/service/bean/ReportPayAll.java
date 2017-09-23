@@ -1,5 +1,8 @@
 package com.tianrui.service.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class ReportPayAll {
     private String id;
     
@@ -80,7 +83,16 @@ public class ReportPayAll {
     private String desc3;
 
     private String desc4;
-
+    
+    private String paystarttime;
+    private String payendtime;
+    private String billstarttime;
+    private String billendtime;
+    
+    private Long paystarttimes;
+    private Long payendtimes;
+    private Long billstarttimes;
+    private Long billendtimes;
     public String getId() {
         return id;
     }
@@ -400,4 +412,74 @@ public class ReportPayAll {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public String getPaystarttime() {
+		return paystarttime;
+	}
+
+	public void setPaystarttime(String paystarttime) {
+		this.paystarttime = paystarttime;
+	}
+
+	public String getPayendtime() {
+		return payendtime;
+	}
+
+	public void setPayendtime(String payendtime) {
+		this.payendtime = payendtime;
+	}
+
+	public String getBillstarttime() {
+		return billstarttime;
+	}
+
+	public void setBillstarttime(String billstarttime) {
+		this.billstarttime = billstarttime;
+	}
+
+	public String getBillendtime() {
+		return billendtime;
+	}
+
+	public void setBillendtime(String billendtime) {
+		this.billendtime = billendtime;
+	}
+	public Long getPaystarttimes() throws ParseException {
+		if(paystarttime!=null&&paystarttime!=""){
+			paystarttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(paystarttime)).getTime();
+			return paystarttimes;
+		}
+		return paystarttimes;
+	}
+
+	public Long getPayendtimes() throws ParseException {
+		if(payendtime!=null&&payendtime!=""){
+			payendtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(payendtime)).getTime();
+			return payendtimes;
+		}
+		return payendtimes;
+	}
+
+	public Long getBillstarttimes() throws ParseException {
+		if(billstarttime!=null&&billstarttime!=""){
+			billstarttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(billstarttime)).getTime();
+			return billstarttimes;
+		}
+		return billstarttimes;
+	}
+
+	public Long getBillendtimes() throws ParseException {
+		if(billendtime!=null&&billendtime!=""){
+			billendtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(billendtime)).getTime();
+			return billendtimes;
+		}
+		return billendtimes;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

@@ -71,35 +71,47 @@
     	</if>
     	
     	<if test="cargoName != null and cargoName != ''">
-    		and cargo_name like '%' #{cargoName,jdbcType=VARCHAR}'%'
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="payCode != null and payCode != ''">
-    		and pay_code  like '%' #{payCode,jdbcType=VARCHAR}'%'
+    		and pay_code  like "%" #{payCode,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="planCode != null and planCode != ''">
-    		and plan_code  like '%' #{planCode,jdbcType=VARCHAR}'%'
+    		and plan_code  like "%" #{planCode,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="routeName != null and routeName != ''">
-    		and route_name like '%' #{routeName,jdbcType=VARCHAR}'%'
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="sendMan != null and sendMan != ''">
-    		and send_man like '%' #{sendMan,jdbcType=VARCHAR}'%'
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="sendPersian != null and sendPersian != ''">
-    		and send_persian like '%' #{sendPersian,jdbcType=VARCHAR}'%'
+    		and send_persian like "%" #{sendPersian,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="venderName != null and venderName != ''">
-    		and vender_name like '%' #{venderName,jdbcType=VARCHAR}'%'
+    		and vender_name like "%" #{venderName,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="receiptMan != null and receiptMan != ''">
-    		and receipt_man like '%' #{receiptMan,jdbcType=VARCHAR}'%'
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="receiptPerson != null and receiptPerson != ''">
-    		and receipt_person like '%' #{receiptPerson,jdbcType=VARCHAR}'%'
+    		and receipt_person like "%" #{receiptPerson,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="payStatus != null and payStatus != ''">
     		and pay_status = #{payStatus,jdbcType=VARCHAR}
     	</if>
+    	<if test="paystarttimes != null and paystarttimes != ''">
+    		and pay_create_time <![CDATA[>=]]> #{paystarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="payendtimes != null and payendtimes != ''">
+			and pay_create_time <![CDATA[<=]]> #{payendtimes,jdbcType=BIGINT}
+    	</if>
+   		<if test="billstarttimes != null and billstarttimes != ''">
+	   		and bill_time <![CDATA[>=]]> #{billstarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="billendtimes != null and billendtimes != '' ">
+			and bill_time <![CDATA[<=]]> #{billendtimes,jdbcType=BIGINT}
+		</if>
     </where>
     order by pay_create_time desc
     <if test="pageNo != null and pageNo != ''">
@@ -129,34 +141,46 @@
     	</if>
     	
     	<if test="cargoName != null and cargoName != ''">
-    		and cargo_name like '%' #{cargoName,jdbcType=VARCHAR}'%'
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="payCode != null and payCode != ''">
-    		and pay_code  like '%' #{payCode,jdbcType=VARCHAR}'%'
+    		and pay_code  like "%" #{payCode,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="planCode != null and planCode != ''">
-    		and plan_code  like '%' #{planCode,jdbcType=VARCHAR}'%'
+    		and plan_code  like "%" #{planCode,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="routeName != null and routeName != ''">
-    		and route_name like '%' #{routeName,jdbcType=VARCHAR}'%'
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="sendMan != null and sendMan != ''">
-    		and send_man like '%' #{sendMan,jdbcType=VARCHAR}'%'
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="sendPersian != null and sendPersian != ''">
-    		and send_persian like '%' #{sendPersian,jdbcType=VARCHAR}'%'
+    		and send_persian like "%" #{sendPersian,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="venderName != null and venderName != ''">
-    		and vender_name like '%' #{venderName,jdbcType=VARCHAR}'%'
+    		and vender_name like "%" #{venderName,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="receiptMan != null and receiptMan != ''">
-    		and receipt_man like '%' #{receiptMan,jdbcType=VARCHAR}'%'
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="receiptPerson != null and receiptPerson != ''">
-    		and receipt_person like '%' #{receiptPerson,jdbcType=VARCHAR}'%'
+    		and receipt_person like "%" #{receiptPerson,jdbcType=VARCHAR}"%"
     	</if>
     	<if test="payStatus != null and payStatus != ''">
     		and pay_status = #{payStatus,jdbcType=VARCHAR}
+    	</if>
+    	<if test="paystarttimes != null and paystarttimes != ''">
+    		and pay_create_time <![CDATA[>=]]> #{paystarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="payendtimes != null and payendtimes != ''">
+			and pay_create_time <![CDATA[<=]]> #{payendtimes,jdbcType=BIGINT}
+    	</if>
+   		<if test="billstarttimes != null and billstarttimes != ''">
+	   		and bill_time <![CDATA[>=]]> #{billstarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="billendtimes != null and billendtimes != '' ">
+			and bill_time <![CDATA[<=]]> #{billendtimes,jdbcType=BIGINT}
     	</if>
     </where>
   </select>
