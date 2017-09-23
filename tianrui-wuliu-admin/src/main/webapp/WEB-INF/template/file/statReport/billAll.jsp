@@ -40,32 +40,102 @@
 					<div class="col-md-12">
 						<div class="contuser_search">
 							<div class="ht_div">
-								<label>货物名称：</label> <input id="cargoname" type="text" placeholder="请输入货物名称">
-							</div>
-							<c:if test="${empty orgCode or orgCode eq '0000' }">
-								<div class="ht_div">
-									<label>组织名称：</label> <input id="orgid" type="text" placeholder="请选择组织名称">
-								</div>
-							</c:if>
+                                 <label>运单类型：</label>
+                                 <select id="billType"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="dy">大易运单</option>
+                                     <option value="al">安联运单</option>
+                                 </select>
+                             </div>
 							<div class="ht_div">
-								<label>日期：</label> <input id="starttime" type="text"
+								<label>计划单号：</label> <input id="planNo" type="text" placeholder="请输入运单路线">
+							</div>
+							<div class="ht_div">
+								<label>运单号：</label> <input id="billNo" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>货物名称：</label> <input id="cargoName" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>车牌号：</label> <input id="vehicleNo" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>路线：</label> <input id=routeName type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>运单状态：</label> <input id="billStatus" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>司机姓名：</label> <input id="driverName" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>支付对象：</label> <input id="payMent" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>发货方：</label> <input id="sendMan" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>发货人：</label> <input id="sendPersion" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>签收人：</label> <input id="receiptPersion" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>业务日期：</label> <input id="businessTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
-									id="endtime" type="text"
+									id="businessTimeEnd" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
-							<div class="ht_divbtn">
-								<button class="btn btnblue search" type="submit">搜索</button>
-								<button class="btn btngreen reset" type="submit">重置</button>
+							<div class="ht_div">
+								<label>运单创建时间：</label> <input id="billCreaterTimeStart" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="billCreaterTimeEnd" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+							</div>
+							<div class="ht_div">
+								<label>接受运单时间：</label> <input id="acceptTimeStart" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="acceptTimeEnd" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+							</div>
+							<div class="ht_div">
+								<label>提货确认时间：</label> <input id="pickupTimeStart" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="pickupTimeEnd" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+							</div>
+							<div class="ht_div">
+								<label>卸货确认时间：</label> <input id="unloadTimeStart" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="unloadTimeEndtime" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+							</div>
+							<div class="ht_div">
+								<label>签收运单时间：</label> <input id="signTimeStart" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="signTimeEnd" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
 						</div>
 						<div class="contuser_search">
-							<div class="ht_div">
-								<label>运输路线：</label> <input id="routename" type="text" placeholder="请输入运单路线">
-							</div>
-							<div class="ht_div">
-								<label>计划单号：</label> <input id="plancode" type="text" placeholder="请输入计划单号">
+							<div class="ht_divbtn">
+								<button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>
+								<button class="btn btngreen reset" onclick="reset()" type="submit">重置</button>
 							</div>
 						</div>
 					</div>

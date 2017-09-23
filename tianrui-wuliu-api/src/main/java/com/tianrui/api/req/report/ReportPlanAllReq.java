@@ -56,7 +56,9 @@ public class ReportPlanAllReq {
     private String desc3;
 
     private String desc4;
-
+    
+    private String planStarttime;
+    private String planEndtime;
     public String getId() {
         return id;
     }
@@ -280,4 +282,22 @@ public class ReportPlanAllReq {
 	public void setPlanVenderId(String planVenderId) {
 		this.planVenderId = planVenderId;
 	}
+
+	public String getPlanStarttime() {
+		return planStarttime;
+	}
+
+	public void setPlanStarttime(String planStarttime) {
+		this.planStarttime = planStarttime;
+	}
+
+	public String getPlanEndtime() {
+		return planEndtime;
+	}
+
+	public void setPlanEndtime(String planEndtime) {
+		this.planEndtime = planEndtime;
+	}
+	
+	
 }

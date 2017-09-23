@@ -3,13 +3,51 @@ function displayData(pageNo){
 }
 
 function getParams(pageNo){
+	var planStarttime =$("#planStarttime").val();
+	var planEndtime =$("#planEndtime").val();
+	var planCode =$("#planCode").val();
+	var planStatus =$("#planStatus").val();
+	var routeName =$("#routeName").val();
+	var cargoName =$("#cargoName").val();
+	var sendMan =$("#sendMan").val();
+	var sendPersion =$("#sendPersion").val();
+	var venderName =$("#venderName").val();
+	var receiptMan =$("#receiptMan").val();
+	var receiptPersion =$("#receiptPersion").val();
+	var payMent =$("#payMent").val();
 	var params = {
+			planStarttime:$.trim(planStarttime),
+			planEndtime:$.trim(planEndtime),
+			planCode:$.trim(planCode),
+			planStatus:$.trim(planStatus),
+			routeName:$.trim(routeName),
+			cargoName:$.trim(cargoName),
+			sendMan:$.trim(sendMan),
+			sendPersion:$.trim(sendPersion),
+			venderName:$.trim(venderName),
+			receiptMan:$.trim(receiptMan),
+			receiptPersion:$.trim(receiptPersion),
+			payMent:$.trim(payMent),
 			pageNo:pageNo,
 			pageSize:10
 		};
 	return params;
 }
-
+function reset(){
+	$("#planStarttime").val("");
+	$("#planEndtime").val("");
+	$("#planCode").val("");
+	$("#planStatus").val("");
+	$("#routeName").val("");
+	$("#cargoName").val("");
+	$("#sendMan").val("");
+	$("#sendPersion").val("");
+	$("#venderName").val("");
+	$("#receiptMan").val("");
+	$("#receiptPersion").val("");
+	$("#payMent").val("");
+	init(0);
+}
 function init(pageNo){
 	$.ajax({
 		url:"/reportAll/plan",
@@ -44,10 +82,10 @@ function innerHml(data){
 	$("#innerHtml").empty();
 	for (var a = 0; a < data.length; a++) {
 		var hml = "<tr>" +
-				"<td>"+data[a].planCreateTime+"</td>" +
+				"<td>"+data[a].planCreateTimeStr+"</td>" +
 				"<td>"+data[a].planCode+"</td>" +
-				"<td>"+data[a].planBeginTime+"</td>" +
-				"<td>"+data[a].planEndTime+"</td>" +
+				"<td>"+data[a].planBeginTimeStr+"</td>" +
+				"<td>"+data[a].planEndTimeStr+"</td>" +
 				"<td>"+data[a].planWeight+"</td>" +
 				"<td>"+data[a].complitWeight+"</td>" +
 				"<td>"+data[a].tempo+"</td>" +

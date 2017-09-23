@@ -62,7 +62,19 @@ public class ReportBillAllReq {
     private String desc3;
 
     private String desc4;
-
+    
+    private String businessTimeStart;
+    private String businessTimeEnd;
+    private String billCreaterTimeStart;
+    private String billCreaterTimeEnd;
+    private String acceptTimeStart;
+    private String acceptTimeEnd;
+    private String pickupTimeStart;
+    private String pickupTimeEnd;
+    private String unloadTimeStart;
+    private String unloadTimeEndtime;
+    private String signTimeStart;
+    private String signTimeEnd;
     public String getId() {
         return id;
     }
@@ -310,4 +322,102 @@ public class ReportBillAllReq {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public String getBusinessTimeStart() {
+		return businessTimeStart;
+	}
+
+	public void setBusinessTimeStart(String businessTimeStart) {
+		this.businessTimeStart = businessTimeStart;
+	}
+
+	public String getBusinessTimeEnd() {
+		return businessTimeEnd;
+	}
+
+	public void setBusinessTimeEnd(String businessTimeEnd) {
+		this.businessTimeEnd = businessTimeEnd;
+	}
+
+	public String getBillCreaterTimeStart() {
+		return billCreaterTimeStart;
+	}
+
+	public void setBillCreaterTimeStart(String billCreaterTimeStart) {
+		this.billCreaterTimeStart = billCreaterTimeStart;
+	}
+
+	public String getBillCreaterTimeEnd() {
+		return billCreaterTimeEnd;
+	}
+
+	public void setBillCreaterTimeEnd(String billCreaterTimeEnd) {
+		this.billCreaterTimeEnd = billCreaterTimeEnd;
+	}
+
+	public String getAcceptTimeStart() {
+		return acceptTimeStart;
+	}
+
+	public void setAcceptTimeStart(String acceptTimeStart) {
+		this.acceptTimeStart = acceptTimeStart;
+	}
+
+	public String getAcceptTimeEnd() {
+		return acceptTimeEnd;
+	}
+
+	public void setAcceptTimeEnd(String acceptTimeEnd) {
+		this.acceptTimeEnd = acceptTimeEnd;
+	}
+
+	public String getPickupTimeStart() {
+		return pickupTimeStart;
+	}
+
+	public void setPickupTimeStart(String pickupTimeStart) {
+		this.pickupTimeStart = pickupTimeStart;
+	}
+
+	public String getPickupTimeEnd() {
+		return pickupTimeEnd;
+	}
+
+	public void setPickupTimeEnd(String pickupTimeEnd) {
+		this.pickupTimeEnd = pickupTimeEnd;
+	}
+
+	public String getUnloadTimeStart() {
+		return unloadTimeStart;
+	}
+
+	public void setUnloadTimeStart(String unloadTimeStart) {
+		this.unloadTimeStart = unloadTimeStart;
+	}
+
+	public String getUnloadTimeEndtime() {
+		return unloadTimeEndtime;
+	}
+
+	public void setUnloadTimeEndtime(String unloadTimeEndtime) {
+		this.unloadTimeEndtime = unloadTimeEndtime;
+	}
+
+	public String getSignTimeStart() {
+		return signTimeStart;
+	}
+
+	public void setSignTimeStart(String signTimeStart) {
+		this.signTimeStart = signTimeStart;
+	}
+
+	public String getSignTimeEnd() {
+		return signTimeEnd;
+	}
+
+	public void setSignTimeEnd(String signTimeEnd) {
+		this.signTimeEnd = signTimeEnd;
+	}
+	
+	
 }

@@ -1,16 +1,20 @@
 package com.tianrui.api.resp.report;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ReportPlanAllResp {
     private String id;
 
     private Long planCreateTime;
-
+    
+    private String  planCreateTimeStr;
     private String planCode;
 
     private Long planBeginTime;
-
+    private String  planBeginTimeStr;
     private Long planEndTime;
-
+    private String  planEndTimeStr;
     private String planWeight;
 
     private String complitWeight;
@@ -240,4 +244,30 @@ public class ReportPlanAllResp {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+    
+	public String getPlanCreateTimeStr() {
+		if(planCreateTime != null){
+			planCreateTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(planCreateTime));
+		}
+		return planCreateTimeStr;
+	}
+	public String getPlanBeginTimeStr() {
+		if(planBeginTime != null){
+			planBeginTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(planBeginTime));
+		}
+		return planBeginTimeStr;
+	}
+	public String getPlanEndTimeStr() {
+		if(planEndTime != null){
+			planEndTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(planEndTime));
+		}
+		return planEndTimeStr;
+	}
+
+    
+    
+    
+    
+    
 }

@@ -91,6 +91,44 @@
     	<if test="planVenderId != null and planVenderId != ''">
     		and plan_vender_id = #{planVenderId,jdbcType=VARCHAR}
     	</if>
+    	
+    	<if test="planStarttimes != null and planStarttimes != ''">
+    		and plan_create_time <![CDATA[>=]]> #{planStarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="planEndtimes != null and planEndtimes != ''">
+			and plan_create_time <![CDATA[<=]]> #{planEndtimes,jdbcType=BIGINT}
+    	</if>
+    	
+    	<if test="planCode != null and planCode != ''">
+    		and plan_code like "%" #{planCode,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="planStatus != null and planStatus != ''">
+    		and plan_status like "%" #{planStatus,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="sendPersion != null and sendPersion != ''">
+    		and send_persion like "%" #{sendPersion,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="venderName != null and venderName != ''">
+    		and vender_name like "%" #{venderName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiptPersion != null and receiptPersion != ''">
+    		and receipt_persion like "%" #{receiptPersion,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="payMent != null and payMent != ''">
+    		and pay_ment like "%" #{payMent,jdbcType=VARCHAR} "%"
+    	</if>
     </where>
     order by plan_create_time desc
     <if test="pageNo != null and pageNo != ''">
@@ -108,6 +146,44 @@
     	</if>
     	<if test="planVenderId != null and planVenderId != ''">
     		and plan_vender_id = #{planVenderId,jdbcType=VARCHAR}
+    	</if>
+    	
+    	<if test="planStarttimes != null and planStarttimes != ''">
+    		and plan_create_time <![CDATA[>=]]> #{planStarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="planEndtimes != null and planEndtimes != ''">
+			and plan_create_time <![CDATA[<=]]> #{planEndtimes,jdbcType=BIGINT}
+    	</if>
+    	
+    	<if test="planCode != null and planCode != ''">
+    		and plan_code like "%" #{planCode,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="planStatus != null and planStatus != ''">
+    		and plan_status like "%" #{planStatus,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="sendPersion != null and sendPersion != ''">
+    		and send_persion like "%" #{sendPersion,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="venderName != null and venderName != ''">
+    		and vender_name like "%" #{venderName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiptPersion != null and receiptPersion != ''">
+    		and receipt_persion like "%" #{receiptPersion,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="payMent != null and payMent != ''">
+    		and pay_ment like "%" #{payMent,jdbcType=VARCHAR} "%"
     	</if>
     </where>
   </select>

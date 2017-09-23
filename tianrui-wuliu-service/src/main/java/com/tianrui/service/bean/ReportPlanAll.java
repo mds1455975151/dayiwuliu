@@ -1,5 +1,8 @@
 package com.tianrui.service.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class ReportPlanAll {
     private String id;
     
@@ -56,7 +59,11 @@ public class ReportPlanAll {
     private String desc3;
 
     private String desc4;
-
+    
+    private String planStarttime;
+    private String planEndtime;
+    private Long planStarttimes;
+    private Long planEndtimes;
     public String getId() {
         return id;
     }
@@ -280,4 +287,41 @@ public class ReportPlanAll {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public String getPlanStarttime() {
+		return planStarttime;
+	}
+
+	public void setPlanStarttime(String planStarttime) {
+		this.planStarttime = planStarttime;
+	}
+
+	public String getPlanEndtime() {
+		return planEndtime;
+	}
+
+	public void setPlanEndtime(String planEndtime) {
+		this.planEndtime = planEndtime;
+	}
+
+	
+	
+	public Long getPlanStarttimes() throws ParseException {
+		if(planStarttime!=null&&planStarttime!=""){
+			planStarttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(planStarttime)).getTime();
+			return planStarttimes;
+		}
+		return planStarttimes;
+	}
+
+	public Long getPlanEndtimes() throws ParseException {
+		if(planEndtime!=null&&planEndtime!=""){
+			planEndtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(planEndtime)).getTime();
+			return planEndtimes;
+		}
+		return planEndtimes;
+	}
+
+	
+	
 }
