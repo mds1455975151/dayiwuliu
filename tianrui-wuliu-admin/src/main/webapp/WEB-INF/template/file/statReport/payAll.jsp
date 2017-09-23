@@ -40,32 +40,63 @@
 					<div class="col-md-12">
 						<div class="contuser_search">
 							<div class="ht_div">
-								<label>货物名称：</label> <input id="cargoname" type="text" placeholder="请输入货物名称">
+								<label>货物名称：</label> <input id="cargoName" type="text" placeholder="请输入货物名称">
 							</div>
-							<c:if test="${empty orgCode or orgCode eq '0000' }">
-								<div class="ht_div">
-									<label>组织名称：</label> <input id="orgid" type="text" placeholder="请选择组织名称">
-								</div>
-							</c:if>
 							<div class="ht_div">
-								<label>日期：</label> <input id="starttime" type="text"
+								<label>账单编号：</label> <input id="payCode" type="text" placeholder="请输入账单编号">
+							</div>
+							<div class="ht_div">
+								<label>计划单号：</label> <input id="planCode" type="text" placeholder="请输入计划单号">
+							</div>
+							<div class="ht_div">
+								<label>账单日期：</label> <input id="starttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
 									id="endtime" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
+							<div class="ht_div">
+								<label>运单日期：</label> <input id="starttime" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="endtime" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+							</div>
+							<div class="ht_div">
+								<label>运输路线：</label> <input id="routeName" type="text" placeholder="请输入运单路线">
+							</div>
+							<div class="ht_div">
+								<label>发货方：</label> <input id="sendMan" type="text" placeholder="">
+							</div>
+							<div class="ht_div">
+								<label>发货人：</label> <input id="sendPersian" type="text" placeholder="">
+							</div>
+							<div class="ht_div">
+								<label>车主：</label> <input id="venderName" type="text" placeholder="">
+							</div>
+							<div class="ht_div">
+								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="">
+							</div>
+							<div class="ht_div">
+								<label>签收人：</label> <input id="receiptPerson" type="text" placeholder="">
+							</div>
+							 <div class="ht_div">
+                                 <label>支付状态：</label>
+                                 <select id="payStatus"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="0">未支付</option>
+                                     <option value="1">支付中</option>
+                                     <option value="2">已支付</option>
+                                     <option value="3">支付失败</option>
+                                 </select>
+                             </div>
+						</div>
+						<div class="contuser_search">
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" type="submit">搜索</button>
 								<button class="btn btngreen reset" type="submit">重置</button>
-							</div>
-						</div>
-						<div class="contuser_search">
-							<div class="ht_div">
-								<label>运输路线：</label> <input id="routename" type="text" placeholder="请输入运单路线">
-							</div>
-							<div class="ht_div">
-								<label>计划单号：</label> <input id="plancode" type="text" placeholder="请输入计划单号">
 							</div>
 						</div>
 					</div>

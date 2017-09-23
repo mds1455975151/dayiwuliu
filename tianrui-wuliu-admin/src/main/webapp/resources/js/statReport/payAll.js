@@ -3,6 +3,17 @@ function displayData(pageNo){
 }
 
 function getParams(pageNo){
+	var cargoName =$("#cargoName").val();
+	var payCode =$("#payCode").val();
+	var planCode =$("#planCode").val();
+	var routeName =$("#routeName").val();
+	var sendMan =$("#sendMan").val();
+	var sendPersian =$("#sendPersian").val();
+	var venderName =$("#venderName").val();
+	var receiptMan =$("#receiptMan").val();
+	var receiptPerson =$("#receiptPerson").val();
+	var payStatus =$("#payStatus").val();
+	
 	var params = {
 			pageNo:pageNo,
 			pageSize:10
