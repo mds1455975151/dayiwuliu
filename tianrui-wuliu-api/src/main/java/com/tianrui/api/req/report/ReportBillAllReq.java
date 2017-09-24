@@ -2,6 +2,16 @@ package com.tianrui.api.req.report;
 
 public class ReportBillAllReq {
     private String id;
+    // 1-司机，2-车主，3-货主
+    private String reportType;
+    
+    private String billOwnerId;
+
+    private String billVenderId;
+
+    private String billDriverId;
+
+    private String billReceiveId;
     
     private Integer pageNo;
     
@@ -417,6 +427,46 @@ public class ReportBillAllReq {
 
 	public void setSignTimeEnd(String signTimeEnd) {
 		this.signTimeEnd = signTimeEnd;
+	}
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+
+	public String getBillOwnerId() {
+		return billOwnerId;
+	}
+
+	public void setBillOwnerId(String billOwnerId) {
+		this.billOwnerId = billOwnerId;
+	}
+
+	public String getBillVenderId() {
+		return billVenderId;
+	}
+
+	public void setBillVenderId(String billVenderId) {
+		this.billVenderId = billVenderId;
+	}
+
+	public String getBillDriverId() {
+		return billDriverId;
+	}
+
+	public void setBillDriverId(String billDriverId) {
+		this.billDriverId = billDriverId;
+	}
+
+	public String getBillReceiveId() {
+		return billReceiveId;
+	}
+
+	public void setBillReceiveId(String billReceiveId) {
+		this.billReceiveId = billReceiveId;
 	}
 	
 	

@@ -51,7 +51,7 @@
 						<h2>货主计划报表</h2>
 						<!-- 1-司机，2-车主，3-货主 -->
 						<input type="hidden" id="reportType" value="3">
-						<a href=""><span>导出报表</span></a>
+						<span class="exportReport">导出报表</span>
 					</div>
 					<!--个人中心右侧搜索框begin-->
            	 <!--个人中心右侧搜索框begin-->
@@ -73,6 +73,7 @@
                         <select id="planStatus">
                         	<option value="">请选择</option>
                         	<option value="0">新建</option>
+                        	<option value="-1">已删除</option>
                         	<option value="1">待接</option>
                         	<option value="2">执行中</option>
                         	<option value="3">已完成</option>

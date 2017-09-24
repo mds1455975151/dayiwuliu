@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -64,7 +65,7 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 			ReportPayAllResp data = list.get(i);
 			Integer cellNum = i + 1;
 			//账单日期
-			String no = data.getPayCreateTime().toString();
+			String no = data.getPayCreateTimeStr();
 			cell = getCell(sheet, cellNum, 0);
 			cell.setCellStyle(contentStyle);
 			setText(cell, no);
@@ -75,6 +76,11 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 			setText(cell, type);
 			//支付对象
 			String planNo = data.getPayMent();
+			if(StringUtils.equals("1", data.getPayMent())){
+				planNo = "司机";
+			}else if(StringUtils.equals("2", data.getPayMent())){
+				planNo = "车主";
+			}
 			cell = getCell(sheet, cellNum, 2);
 			cell.setCellStyle(contentStyle);
 			setText(cell, planNo);
@@ -119,7 +125,7 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 			cell.setCellStyle(contentStyle);
 			setText(cell, routeName);
 			//运单日期
-			String distinct = data.getBillTime().toString();
+			String distinct = data.getBillTimeStr();
 			cell = getCell(sheet, cellNum, 11);
 			cell.setCellStyle(contentStyle);
 			setText(cell, distinct);
@@ -188,6 +194,15 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 			
 			//支付状态
 			String signTime = data.getPayStatus();
+			if(StringUtils.equals("0", data.getPayStatus())){
+				signTime = "未支付";
+			}else if(StringUtils.equals("1", data.getPayStatus())){
+				signTime = "支付中";
+			}else if(StringUtils.equals("2", data.getPayStatus())){
+				signTime = "已支付";
+			}else if(StringUtils.equals("3", data.getPayStatus())){
+				signTime = "支付失败";
+			}
 			cell = getCell(sheet, cellNum, 23);
 			cell.setCellStyle(contentStyle);
 			setText(cell, signTime);

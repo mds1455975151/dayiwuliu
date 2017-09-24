@@ -24,6 +24,26 @@ function init(pageNo,type){
 	});
 }
 
+$('.exportReport').off('click').on('click',function(){
+	$.ajax({
+		url : '/trwuliu/ReportAll/pay',
+		data : getParment(null),
+		type : 'post',
+		success : function(result) {
+			if(result.code == '000000'){
+				if(result.data.total == 0){
+					alert("没有要导出的数据！");
+				}else if(result.data.total > 2000){
+					alert("数据超过2000条，请联系管理员导出！");
+				}else{
+					var path = '/trwuliu/ReportAll/payReport?'+$.param(getParment(1));
+					$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
+				}
+			}
+		}
+	});
+});
+
 $(".pageMore").on("click",function(){
 	init(noPage+1,1);
 });
@@ -128,22 +148,3 @@ function appendHtml(data){
 	$("#innerHml").append(hml);
 }
 
-$('.exportReport').off('click').on('click',function(){
-	$.ajax({
-		url : '/reportAll/pay',
-		data : getParment(null),
-		type : 'post',
-		success : function(result) {
-			if(result.code == '000000'){
-				if(result.data.total == 0){
-					alert("没有要导出的数据！");
-				}else if(result.data.total > 2000){
-					alert("数据超过2000条，请联系管理员导出！");
-				}else{
-					var path = '/reportAll/payReport?'+$.param(getParams(1));
-					$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
-				}
-			}
-		}
-	});
-});

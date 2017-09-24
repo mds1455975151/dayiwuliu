@@ -1,4 +1,4 @@
-package com.tianrui.trwl.admin.report;
+package com.tianrui.web.report;
 
 import java.util.List;
 import java.util.Map;
