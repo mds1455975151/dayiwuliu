@@ -54,7 +54,7 @@
 							<div class="ht_div">
 								<label>发货人：</label> <input id="sendPersian" type="text" placeholder="请输入发货人">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>账单日期：</label> <input id="paystarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'payendtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
@@ -62,7 +62,7 @@
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'paystarttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
-							<div class="ht_div"  name="mytable">
+							<div class="ht_div"  name="mytable"  style="display:none">
 								<label>运单日期：</label> <input id="billstarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'billendtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
@@ -70,19 +70,19 @@
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'billstarttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>运输路线：</label> <input id="routeName" type="text" placeholder="请输入运单路线">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>车主：</label> <input id="venderName" type="text" placeholder="请输入车主">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入收货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>签收人：</label> <input id="receiptPerson" type="text" placeholder="请输入签收人">
 							</div>
-							 <div class="ht_div" name="mytable">
+							 <div class="ht_div" name="mytable"  style="display:none">
                                  <label>支付状态：</label>
                                  <select id="payStatus"  class="form-control">
                                      <option value="">请选择</option>

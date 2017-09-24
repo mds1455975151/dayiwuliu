@@ -62,19 +62,19 @@
 							<div class="ht_div">
 								<label>发货方：</label> <input id="sendMan" type="text" placeholder="请输入发货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>发货人：</label> <input id="sendPersion" type="text" placeholder="请输入发货人">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>车主：</label> <input id="venderName" type="text" placeholder="请输入车主">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入收货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>签收人：</label> <input id="receiptPersion" type="text" placeholder="请输入签收人">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
                                  <label>支付对象：</label>
                                  <select id="payMent"  class="form-control">
                                      <option value="">请选择</option>
@@ -82,7 +82,7 @@
                                      <option value="2">车主</option>
                                  </select>
                             </div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>计划日期：</label> <input id="planStarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'planEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input

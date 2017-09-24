@@ -43,7 +43,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="contuser_search">
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>业务日期：</label> <input id="businessTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'businessTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -52,7 +52,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>运单创建时间：</label> <input id="billCreaterTimeStart"
 									type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'billCreaterTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
@@ -63,7 +63,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>接受运单时间：</label> <input id="acceptTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'acceptTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -72,7 +72,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>提货确认时间：</label> <input id="pickupTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'pickupTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -81,7 +81,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>卸货确认时间：</label> <input id="unloadTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'unloadTimeEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -90,7 +90,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>签收运单时间：</label> <input id="signTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'signTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -120,23 +120,23 @@
 								<label>货物名称：</label> <input id="cargoName" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>车牌号：</label> <input id="vehicleNo" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>路线：</label> <input id=routeName type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>运单状态：</label> <input id="billStatus" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>司机姓名：</label> <input id="driverName" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
                                  <label>支付对象：</label>
                                  <select id="payMent"  class="form-control">
                                      <option value="">请选择</option>
@@ -144,19 +144,19 @@
                                      <option value="2">车主</option>
                                  </select>
                             </div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>发货方：</label> <input id="sendMan" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
 								<label>发货人：</label> <input id="sendPersion" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
 								<label>收货方：</label> <input id="receiptMan" type="text"
 									placeholder="请输入计划单号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
 								<label>签收人：</label> <input id="receiptPersion" type="text"
 									placeholder="请输入计划单号">
 							</div>
