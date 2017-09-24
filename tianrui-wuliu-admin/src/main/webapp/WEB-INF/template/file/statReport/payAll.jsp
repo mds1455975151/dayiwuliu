@@ -92,9 +92,7 @@
                                      <option value="3">支付失败</option>
                                  </select>
                              </div>
-						</div>
-						<div class="contuser_search">
-							<div class="ht_divbtn">
+                             <div class="ht_divbtn">
 								<button class="btn btnblue search"  onclick="init(0)" type="submit">搜索</button>
 								<button class="btn btngreen reset"  onclick ="reset()"type="submit">重置</button>
 							</div>

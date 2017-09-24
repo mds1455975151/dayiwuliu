@@ -85,8 +85,6 @@
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
-						</div>
-						<div class="contuser_search">
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>
 								<button class="btn btngreen reset" onclick="reset()" type="submit">重置</button>
