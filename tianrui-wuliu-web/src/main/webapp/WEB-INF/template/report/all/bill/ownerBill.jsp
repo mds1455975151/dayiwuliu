@@ -70,7 +70,11 @@
                     </div>
                     <div class="bb_czline">
                         <label>运单类型：</label>
-                        <input type="text" id="billType" placeholder="请输入运单类型">
+                        <select id="billType">
+                        	<option value="">请选择</option>
+                        	<option value="al">安联运单</option>
+                        	<option value="dy">大易运单</option>
+                        </select>
                     </div>
                 </div>
                 <div class="bb_line hidemore">
@@ -98,7 +102,18 @@
                     </div>
                     <div class="bb_czline">
                         <label>运单状态：</label>
-                        <input type="text" id="billStatus" placeholder="请输入运单状态">
+                        <select id="billStatus">
+                        	<option value="">请选择</option>
+                            <option value="-1">车主回收</option>
+                            <option value="0">司机未确认</option>
+                            <option value="1">司机已接受</option>
+                            <option value="2">司机已装货</option>
+                            <option value="3">司机运输中</option>
+                            <option value="4">司机已到达</option>
+                            <option value="5">司机已卸货</option>
+                            <option value="6">已签收</option>
+                            <option value="7">司机拒绝接单</option>
+                        </select>
                     </div>
                  </div> 
                  <div class="bb_line hidemore"> 
@@ -108,7 +123,11 @@
                     </div>
                  	<div class="bb_czline">
                         <label>支付对象：</label>
-                        <input type="text" id="payMent" placeholder="请输入支付对象">
+                        <select id="payMent">
+	                       	<option value="">请选择</option>
+	                        <option value="1">司机</option>
+	                        <option value="2">车主</option>
+                        </select>
                     </div>
                     <div class="bb_czline">
                         <label>发货方：</label>

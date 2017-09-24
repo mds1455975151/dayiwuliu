@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -64,11 +65,16 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 			Integer cellNum = i + 1;
 			//运单类型
 			String no = data.getBillType();
+			if(StringUtils.equals("al", data.getBillType())){
+				no = "安联运单";
+			}else if(StringUtils.equals("dy", data.getBillType())){
+				no = "大易运单";
+			}
 			cell = getCell(sheet, cellNum, 0);
 			cell.setCellStyle(contentStyle);
 			setText(cell, no);
 			//业务日期
-			String type = data.getBusinessTime();
+			String type = data.getBusinessTimeStr();
 			cell = getCell(sheet, cellNum, 1);
 			cell.setCellStyle(contentStyle);
 			setText(cell, type);
@@ -144,7 +150,7 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 			setText(cell, trueWeight);
 			
 			//运单状态
-			String billStatus = data.getBillStatus();
+			String billStatus = getBillStatus(data.getBillStatus());
 			cell = getCell(sheet, cellNum, 16);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billStatus);
@@ -157,40 +163,82 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 			
 			//支付对象
 			String payMent = data.getPayMent();
+			if(StringUtils.equals("1", data.getPayMent())){
+				payMent = "司机";
+			}else if(StringUtils.equals("2", data.getPayMent())){
+				payMent = "车主";
+			}
 			cell = getCell(sheet, cellNum, 18);
 			cell.setCellStyle(contentStyle);
 			setText(cell, payMent);
 			
 			//运单创建时间
-			String billCreaterTime = data.getBillCreaterTime().toString();
+			String billCreaterTime = data.getBillCreaterTimeStr();
 			cell = getCell(sheet, cellNum, 19);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billCreaterTime);
 			
 			//接受运单时间
-			String acceptTime = data.getAcceptTime().toString();
+			String acceptTime = data.getAcceptTimeStr();
 			cell = getCell(sheet, cellNum, 20);
 			cell.setCellStyle(contentStyle);
 			setText(cell, acceptTime);
 			
 			//提货确认时间
-			String pickupTime = data.getPickupTime().toString();
+			String pickupTime = data.getPickupTimeStr();
 			cell = getCell(sheet, cellNum, 21);
 			cell.setCellStyle(contentStyle);
 			setText(cell, pickupTime);
 			
 			//卸货确认时间
-			String unloadTime = data.getUnloadTime().toString();
+			String unloadTime = data.getUnloadTimeStr();
 			cell = getCell(sheet, cellNum, 22);
 			cell.setCellStyle(contentStyle);
 			setText(cell, unloadTime);
 			
 			//签收运单时间
-			String signTime = data.getSignTime().toString();
+			String signTime = data.getSignTimeStr();
 			cell = getCell(sheet, cellNum, 23);
 			cell.setCellStyle(contentStyle);
 			setText(cell, signTime);
 		}
+	}
+	
+	public String getBillStatus(String sta){
+		String status = "";
+		switch (sta) {
+		case "-1":
+			status = "车主回收";
+			break;
+		case "0":
+			status = "司机未确认";
+			break;
+		case "1":
+			status = "司机已接受";
+			break;	
+		case "2":
+			status = "司机已装货";
+			break;
+		case "3":
+			status = "司机运输中";
+			break;
+		case "4":
+			status = "司机已到达";
+			break;
+		case "5":
+			status = "司机已卸货";
+			break;	
+		case "6":
+			status = "已签收";
+			break;
+		case "7":
+			status = "司机拒绝接单";
+			break;	
+		default:
+			status = sta;
+			break;
+		}
+		return status;
 	}
 
 }

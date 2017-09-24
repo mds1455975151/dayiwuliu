@@ -3,12 +3,16 @@ package com.tianrui.api.resp.report;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ReportBillAllResp {
     private String id;
 
     private String billType;
 
     private String businessTime;
+    
+    private String businessTimeStr;
 
     private String planNo;
 
@@ -335,6 +339,13 @@ public class ReportBillAllResp {
 			signTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(signTime));
 		}
 		return signTimeStr;
+	}
+
+	public String getBusinessTimeStr() {
+		if(StringUtils.isNotBlank(businessTime)){
+			businessTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(businessTime)));
+		}
+		return businessTimeStr;
 	}
     
     

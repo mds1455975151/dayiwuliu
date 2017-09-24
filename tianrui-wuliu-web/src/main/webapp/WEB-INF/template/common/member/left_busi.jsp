@@ -102,12 +102,12 @@
                         <li><a>账号安全</a></li> -->
                         <li><a href="/trwuliu/Member/message/message?role=${role }" id="messagePage">消息中心<span id="messageCount"></span> </a></li> 
                     	<li><a href="/trwuliu/ReportAll/payPage?payType=1">司机账单报表</a></li>
-                    	<li><a href="/trwuliu/ReportAll/payPage?payType=2">车主账单报表</a></li>
-                    	<li><a href="/trwuliu/ReportAll/payPage?payType=3">货主账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/billPage?payType=1">司机运单报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/payPage?payType=2">车主账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/billPage?payType=2">车主运单报表</a></li>
-                    	<li><a href="/trwuliu/ReportAll/billPage?payType=3">货主运单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/planPage?payType=2">车主计划报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/payPage?payType=3">货主账单报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/billPage?payType=3">货主运单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/planPage?payType=3">货主计划报表</a></li>
                     </ul>
                 </div>

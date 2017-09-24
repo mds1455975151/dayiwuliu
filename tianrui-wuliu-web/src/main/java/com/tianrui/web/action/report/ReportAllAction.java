@@ -22,6 +22,7 @@ import com.tianrui.api.resp.report.ReportPlanAllResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.web.report.BillAllReportExcilUtil;
 import com.tianrui.web.report.PaylAllReportExcilUtil;
 import com.tianrui.web.report.PlanAllReportExcilUtil;
 import com.tianrui.web.util.SessionManager;
@@ -163,5 +164,24 @@ public class ReportAllAction {
 		PaginationVO<ReportBillAllResp> page = reportAllService.selectBill(req);
 		rs.setData(page);
 		return rs;
+	}
+	
+	@RequestMapping("billReport")
+	public ModelAndView billReport(ReportBillAllReq req,HttpServletRequest request) throws Exception{
+		req.setPageNo(null);
+		MemberVo vo = SessionManager.getSessionMember(request);
+		if(StringUtils.equals("1", req.getReportType())){
+			//1-司机 2-车主，3-货主
+			req.setBillDriverId(vo.getId());
+		}else if(StringUtils.equals("2", req.getReportType())){
+			req.setBillVenderId(vo.getId());
+		}else if(StringUtils.equals("3", req.getReportType())){
+			req.setBillOwnerId(vo.getId());
+		}
+		PaginationVO<ReportBillAllResp> page = reportAllService.selectBill(req);
+		Map map = new HashMap();
+    	map.put("list", page.getList());
+    	BillAllReportExcilUtil excilUtil = new BillAllReportExcilUtil(); 
+	    return new ModelAndView(excilUtil, map); 
 	}
 }
