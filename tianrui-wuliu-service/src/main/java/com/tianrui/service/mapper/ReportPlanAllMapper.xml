@@ -38,46 +38,8 @@
   
   <select id="selectByAllPlan" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPlanAll">
   	SELECT
-	  plan.ID id,
-	  plan.vehicleownerid venderId,
-	  plan.creator planOwnerId,
-	  plan.createtime  AS planCreaterTiem,
-	  plan.planCode planCode,
-	  plan.starttime  AS planStartTime,
-	  plan.endtime  AS planEndTime,
-	  plan.totalplanned totalplanned,
-	  plan.completed completed,
-	  plan.completed / plan.totalplanned temop,
-	CASE plan.`status`
-	WHEN '-1' THEN
-		'已删除'
-	WHEN '0' THEN
-		'新建'
-	WHEN '1' THEN
-		'待接单'
-	WHEN '2' THEN
-		'执行中'
-	WHEN '3' THEN
-		'已完成'
-	ELSE
-		''
-	END planStatus,
-	plan.cargoname cargoname,
-	route.routename routename,
-	fmer.`name` sendMan,
-	plan.sendPerson sendPerson,
-	plan.vehicleownername venderName,
-	smer.`name` receiveMan,
-	signer.membername receivePerson,
-	plan.distance planDistance,
-	plan.price planPrice,
-	plan.tallage planTallage
-	FROM
-		wuliu_plan plan
-	LEFT JOIN file_route route ON route.ID = plan.routeid
-	LEFT JOIN file_merchant fmer ON fmer.id = plan.shipperMerchant
-	LEFT JOIN file_merchant smer ON smer.id = plan.consigneeMerchant
-	LEFT JOIN file_org_signer signer ON signer.id = plan.receiveid
+	   <include refid="Base_Column_List" />
+    from report_plan_all
   </select>
   
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPlanAll" >
@@ -198,6 +160,9 @@
     delete from report_plan_all
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteAll"  >
+    delete from report_plan_all
+  </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.ReportPlanAll" >
     insert into report_plan_all (id, plan_owner_id, plan_vender_id, 
       plan_create_time, plan_code, plan_begin_time, 
@@ -217,6 +182,32 @@
       #{distant,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{tax,jdbcType=VARCHAR}, 
       #{payMent,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
       #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into report_plan_all (id, plan_owner_id, plan_vender_id, 
+      plan_create_time, plan_code, plan_begin_time, 
+      plan_end_time, plan_weight, complit_weight, 
+      tempo, plan_status, cargo_name, 
+      route_name, send_man, send_persion, 
+      vender_name, receipt_man, receipt_persion, 
+      distant, price, tax, 
+      pay_ment, desc1, desc2, 
+      desc3, desc4)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.id,jdbcType=VARCHAR}, #{item.planOwnerId,jdbcType=VARCHAR}, #{item.planVenderId,jdbcType=VARCHAR}, 
+      #{item.planCreateTime,jdbcType=BIGINT}, #{item.planCode,jdbcType=VARCHAR}, #{item.planBeginTime,jdbcType=BIGINT}, 
+      #{item.planEndTime,jdbcType=BIGINT}, #{item.planWeight,jdbcType=VARCHAR}, #{item.complitWeight,jdbcType=VARCHAR}, 
+      #{item.tempo,jdbcType=VARCHAR}, #{item.planStatus,jdbcType=VARCHAR}, #{item.cargoName,jdbcType=VARCHAR}, 
+      #{item.routeName,jdbcType=VARCHAR}, #{item.sendMan,jdbcType=VARCHAR}, #{item.sendPersion,jdbcType=VARCHAR}, 
+      #{item.venderName,jdbcType=VARCHAR}, #{item.receiptMan,jdbcType=VARCHAR}, #{item.receiptPersion,jdbcType=VARCHAR}, 
+      #{item.distant,jdbcType=VARCHAR}, #{item.price,jdbcType=VARCHAR}, #{item.tax,jdbcType=VARCHAR}, 
+      #{item.payMent,jdbcType=VARCHAR}, #{item.desc1,jdbcType=VARCHAR}, #{item.desc2,jdbcType=VARCHAR}, 
+      #{item.desc3,jdbcType=VARCHAR}, #{item.desc4,jdbcType=VARCHAR}
+     )
+     </foreach>
+      
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.ReportPlanAll" >
     insert into report_plan_all
