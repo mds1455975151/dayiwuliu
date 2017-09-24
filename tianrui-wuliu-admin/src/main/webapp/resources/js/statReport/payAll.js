@@ -112,6 +112,18 @@ function innerHml(data){
 		var amountPayable = data[a].amountPayable == undefined ? "":data[a].amountPayable;
 		var paidAmount = data[a].paidAmount == undefined ? "":data[a].paidAmount;
 		var payStatus = data[a].payStatus == undefined ? "":data[a].payStatus;
+		if(payStatus=="0"){
+			payStatus="未支付"
+		}
+		if(payStatus=="1"){
+			payStatus="支付中"
+		}
+		if(payStatus=="2"){
+			payStatus="已支付"
+		}
+		if(payStatus=="3"){
+			payStatus="支付失败"
+		}
 		var payType = data[a].payType == undefined ? "":data[a].payType;
 		var payPerson = data[a].payPerson == undefined ? "":data[a].payPerson;
 		var payBankName = data[a].payBankName == undefined ? "":data[a].payBankName;

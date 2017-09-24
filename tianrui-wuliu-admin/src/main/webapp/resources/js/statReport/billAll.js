@@ -124,6 +124,12 @@ function innerHml(data){
 	$("#innerHtml").empty();
 	for (var a = 0; a < data.length; a++) {
 		var billType = data[a].billType == undefined ? "":data[a].billType;
+		if(billType=="dy"){
+			billType="大易运单"
+		}
+		if(billType=="al"){
+			billType="安联运单"
+		}
 		var businessTime = data[a].businessTimeStr == undefined ? "":data[a].businessTimeStr;
 		var planNo = data[a].planNo == undefined ? "":data[a].planNo;
 		var billNo = data[a].billNo == undefined ? "":data[a].billNo;

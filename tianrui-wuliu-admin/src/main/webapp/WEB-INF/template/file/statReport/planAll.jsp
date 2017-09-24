@@ -62,22 +62,22 @@
 							<div class="ht_div">
 								<label>发货方：</label> <input id="sendMan" type="text" placeholder="请输入发货方">
 							</div>
-							<div class="ht_div">
+							<div class="ht_div" name="mytable">
 								<label>发货人：</label> <input id="sendPersion" type="text" placeholder="请输入发货人">
 							</div>
-							<div class="ht_div">
+							<div class="ht_div" name="mytable">
 								<label>车主：</label> <input id="venderName" type="text" placeholder="请输入车主">
 							</div>
-							<div class="ht_div">
+							<div class="ht_div" name="mytable">
 								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入收货方">
 							</div>
-							<div class="ht_div">
+							<div class="ht_div" name="mytable">
 								<label>签收人：</label> <input id="receiptPersion" type="text" placeholder="请输入签收人">
 							</div>
-							<div class="ht_div">
+							<div class="ht_div" name="mytable">
 								<label>支付对象：</label> <input id="payMent" type="text" placeholder="请输入支付对象">
 							</div>
-							<div class="ht_div">
+							<div class="ht_div" name="mytable">
 								<label>计划日期：</label> <input id="planStarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
@@ -92,6 +92,17 @@
 								<button class="btn btngreen reset" onclick="reset()" type="submit">重置</button>
 							</div>
 						</div>
+						<div class="row">
+                            <div class="col-md-12">
+                                <div class="position_more">
+                                    <div class="c_Screen">
+                                        <label>更多筛选条件</label>
+                                        <span><img src="images/more2.png" id="gengduo"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 					</div>
 				</div>
 				<!--查询框end-->
@@ -158,5 +169,29 @@
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript" src="/resources/js/statReport/planAll.js?0922"></script>
+	
+	<script type="text/javascript">
+    $(function () {
+        $(".c_Screen").on('click',function(){
+            var div_hs = $("div[name$='mytable']");
+            div_hs.toggle();
+            if(div_hs.css("display") == 'none') {
+                $("#gengduo").attr('src',"images/more2.png");
+            }
+            else {
+                $("#gengduo").attr('src',"images/more1.png");
+            }
+        });
+
+        function show_hidden(obj) {
+            if(obj.css("display") == 'block') {
+                obj.css("display",'none');
+
+            } else if(obj.css("display") == 'none'){
+                obj.css("display",'block');
+            }
+        }
+    });
+</script>
 </body>
 </html>
