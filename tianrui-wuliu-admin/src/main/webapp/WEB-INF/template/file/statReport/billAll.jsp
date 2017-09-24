@@ -45,57 +45,57 @@
 						<div class="contuser_search">
 							<div class="ht_div" name="mytable">
 								<label>业务日期：</label> <input id="businessTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'businessTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="businessTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'businessTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
 							<div class="ht_div" name="mytable">
 								<label>运单创建时间：</label> <input id="billCreaterTimeStart"
 									type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'billCreaterTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="billCreaterTimeEnd"
 									type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'billCreaterTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
 							<div class="ht_div" name="mytable">
 								<label>接受运单时间：</label> <input id="acceptTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'acceptTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="acceptTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'acceptTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
 							<div class="ht_div" name="mytable">
 								<label>提货确认时间：</label> <input id="pickupTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'pickupTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="pickupTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'pickupTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
 							<div class="ht_div" name="mytable">
 								<label>卸货确认时间：</label> <input id="unloadTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'unloadTimeEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="unloadTimeEndtime" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'unloadTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
 							<div class="ht_div" name="mytable">
 								<label>签收运单时间：</label> <input id="signTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'signTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="signTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'signTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
@@ -263,9 +263,9 @@
 				var div_hs = $("div[name$='mytable']");
 				div_hs.toggle();
 				if (div_hs.css("display") == 'none') {
-					$("#gengduo").attr('src', "images/more2.png");
+					$("#gengduo").attr('src', "${imagesRoot }/more2.png");
 				} else {
-					$("#gengduo").attr('src', "images/more1.png");
+					$("#gengduo").attr('src', "${imagesRoot }/more1.png");
 				}
 			});
 

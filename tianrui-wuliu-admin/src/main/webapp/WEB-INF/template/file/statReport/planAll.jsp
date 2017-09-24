@@ -84,10 +84,10 @@
                             </div>
 							<div class="ht_div" name="mytable">
 								<label>计划日期：</label> <input id="planStarttime" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'planEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
 									id="planEndtime" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'planStarttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
 							<div class="ht_divbtn">
@@ -179,10 +179,10 @@
             var div_hs = $("div[name$='mytable']");
             div_hs.toggle();
             if(div_hs.css("display") == 'none') {
-                $("#gengduo").attr('src',"images/more2.png");
+                $("#gengduo").attr('src',"${imagesRoot }/more2.png");
             }
             else {
-                $("#gengduo").attr('src',"images/more1.png");
+                $("#gengduo").attr('src',"${imagesRoot }/more1.png");
             }
         });
 
