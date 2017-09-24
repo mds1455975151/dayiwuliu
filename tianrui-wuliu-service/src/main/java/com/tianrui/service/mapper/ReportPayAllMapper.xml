@@ -49,6 +49,51 @@
     pay_type, pay_person, pay_bank_name, pay_bank_code, desc1, desc2, desc3, desc4
   </sql>
   
+  <select id="getReportPayAnlian" resultMap="BaseResultMap" >
+  	SELECT
+		pay.id id,
+		bill.ownerid pay_owner_id,
+		bill.driverid pay_driver_id,
+		bill.venderid pay_vender_id,
+		bill.receive_memberid pay_receive_id,
+		pay.payee_id pay_ment_id,
+		pay.create_time pay_create_time,
+		pay. CODE pay_code,
+		pay.payee_identity pay_ment,
+		plan.planCode plan_code,
+		plan.routeid routeId,
+		plan.shipperMerchant sendManId,
+		plan.sendPerson send_persian,
+		plan.vehicleownername vender_name,
+		plan.consigneeMerchant receiptManId,
+		bill.shr receipt_person,
+		bill.cph vehicle_no,
+		bill.createtime bill_time,
+		bill.billno bill_no,
+		plan.cargoname cargo_name,
+		detail.billweightB true_weight,
+		detail.billpriceB price,
+		pay.backstage_bill_total_price total_price,
+		pay.backstage_deduct_oil_card oil_card,
+		pay.backstage_deduct_weight_misc weight_misc,
+		pay.backstage_deduct_money deduct_money,
+		pay.backstage_deduct_other deduct_other,
+		pay.amount_payable amount_payable,
+		pay.paid_amount paid_amount,
+		pay.pay_status pay_status,
+		pay.payee_name pay_person,
+		pay.payee_bank_card_id payBankId,
+		pay.payee_bank_card_number pay_bank_code
+	FROM
+		pay_invoice_1 pay
+	LEFT JOIN pay_invoice_detail_1 detail ON detail.pay_invoice_id = pay.id
+	LEFT JOIN wuliu_plan plan ON plan.ID = detail.planId
+	LEFT JOIN anlian_bill bill ON bill.ID = detail.bill_id
+	WHERE
+		bill.ID IS NOT NULL
+	ORDER BY
+		pay.create_time 
+  </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPayAll" >
     select 
     <include refid="Base_Column_List" />
@@ -196,6 +241,10 @@
     delete from report_pay_all
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByType" parameterType="java.lang.String" >
+    delete from report_pay_all
+    where desc1 = #{type,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.ReportPayAll" >
     insert into report_pay_all (id, pay_owner_id, pay_vender_id, 
       pay_driver_id, pay_receive_id, pay_ment_id, 
@@ -223,6 +272,39 @@
       #{payType,jdbcType=VARCHAR}, #{payPerson,jdbcType=VARCHAR}, #{payBankName,jdbcType=VARCHAR}, 
       #{payBankCode,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
       #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List" >
+    insert into report_pay_all (id, pay_owner_id, pay_vender_id, 
+      pay_driver_id, pay_receive_id, pay_ment_id, 
+      pay_create_time, pay_code, pay_ment, 
+      plan_code, route_name, send_man, 
+      send_persian, vender_name, receipt_man, 
+      receipt_person, vehicle_no, bill_time, 
+      bill_no, cargo_name, true_weight, 
+      price, total_price, oil_card, 
+      weight_misc, deduct_money, deduct_other, 
+      amount_payable, paid_amount, pay_status, 
+      pay_type, pay_person, pay_bank_name, 
+      pay_bank_code, desc1, desc2, 
+      desc3, desc4)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.id,jdbcType=VARCHAR}, #{item.payOwnerId,jdbcType=VARCHAR}, #{item.payVenderId,jdbcType=VARCHAR}, 
+      #{item.payDriverId,jdbcType=VARCHAR}, #{item.payReceiveId,jdbcType=VARCHAR}, #{item.payMentId,jdbcType=VARCHAR}, 
+      #{item.payCreateTime,jdbcType=BIGINT}, #{item.payCode,jdbcType=VARCHAR}, #{item.payMent,jdbcType=VARCHAR}, 
+      #{item.planCode,jdbcType=VARCHAR}, #{item.routeName,jdbcType=VARCHAR}, #{item.sendMan,jdbcType=VARCHAR}, 
+      #{item.sendPersian,jdbcType=VARCHAR}, #{item.venderName,jdbcType=VARCHAR}, #{item.receiptMan,jdbcType=VARCHAR}, 
+      #{item.receiptPerson,jdbcType=VARCHAR}, #{item.vehicleNo,jdbcType=VARCHAR}, #{item.billTime,jdbcType=BIGINT}, 
+      #{item.billNo,jdbcType=VARCHAR}, #{item.cargoName,jdbcType=VARCHAR}, #{item.trueWeight,jdbcType=VARCHAR}, 
+      #{item.price,jdbcType=VARCHAR}, #{item.totalPrice,jdbcType=VARCHAR}, #{item.oilCard,jdbcType=VARCHAR}, 
+      #{item.weightMisc,jdbcType=VARCHAR}, #{item.deductMoney,jdbcType=VARCHAR}, #{item.deductOther,jdbcType=VARCHAR}, 
+      #{item.amountPayable,jdbcType=VARCHAR}, #{item.paidAmount,jdbcType=VARCHAR}, #{item.payStatus,jdbcType=VARCHAR}, 
+      #{item.payType,jdbcType=VARCHAR}, #{item.payPerson,jdbcType=VARCHAR}, #{item.payBankName,jdbcType=VARCHAR}, 
+      #{item.payBankCode,jdbcType=VARCHAR}, #{item.desc1,jdbcType=VARCHAR}, #{item.desc2,jdbcType=VARCHAR}, 
+      #{item.desc3,jdbcType=VARCHAR}, #{item.desc4,jdbcType=VARCHAR}
+     )
+     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.ReportPayAll" >
     insert into report_pay_all

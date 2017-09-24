@@ -93,6 +93,15 @@ public class ReportPayAll {
     private Long payendtimes;
     private Long billstarttimes;
     private Long billendtimes;
+    //线路
+    private String routeId;
+    //发货方
+    private String sendManId;
+    //收货方
+    private String receiptManId;
+    //银行卡id
+    private String payBankId;
+    
     public String getId() {
         return id;
     }
@@ -474,6 +483,38 @@ public class ReportPayAll {
 			return billendtimes;
 		}
 		return billendtimes;
+	}
+
+	public String getRouteId() {
+		return routeId;
+	}
+
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
+	}
+
+	public String getSendManId() {
+		return sendManId;
+	}
+
+	public void setSendManId(String sendManId) {
+		this.sendManId = sendManId;
+	}
+
+	public String getReceiptManId() {
+		return receiptManId;
+	}
+
+	public void setReceiptManId(String receiptManId) {
+		this.receiptManId = receiptManId;
+	}
+
+	public String getPayBankId() {
+		return payBankId;
+	}
+
+	public void setPayBankId(String payBankId) {
+		this.payBankId = payBankId;
 	}
 	
 	

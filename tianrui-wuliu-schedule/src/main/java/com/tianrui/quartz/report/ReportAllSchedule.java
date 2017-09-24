@@ -31,7 +31,7 @@ public class ReportAllSchedule {
 	 * 运单报表步骤:(开票运单和安联运单)
 	 *         
 	 */
-	@Scheduled(cron="0 58 15 * * ?")
+	@Scheduled(cron="0 06 09 * * ?")
 	public void reportSchedule() throws Exception{
 		//缓存更新
 		//reportAllInputService.cacheUpdate();
