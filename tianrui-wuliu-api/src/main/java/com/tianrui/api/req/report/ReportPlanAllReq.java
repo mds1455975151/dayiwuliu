@@ -2,6 +2,8 @@ package com.tianrui.api.req.report;
 
 public class ReportPlanAllReq {
     private String id;
+    // 1-司机，2-车主，3-货主
+    private String reportType;
     
     private Integer pageNo;
     
@@ -297,6 +299,14 @@ public class ReportPlanAllReq {
 
 	public void setPlanEndtime(String planEndtime) {
 		this.planEndtime = planEndtime;
+	}
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
 	}
 	
 	

@@ -105,7 +105,8 @@
                     	<li><a href="/trwuliu/ReportAll/payPage?payType=2">车主账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/payPage?payType=3">货主账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/billPage">运单报表</a></li>
-                    	<li><a href="/trwuliu/ReportAll/planPage">计划报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/planPage?payType=2">车主计划报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/planPage?payType=3">货主计划报表</a></li>
                     </ul>
                 </div>
             </div>

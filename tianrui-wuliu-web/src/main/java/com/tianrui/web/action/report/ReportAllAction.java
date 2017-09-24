@@ -66,15 +66,27 @@ public class ReportAllAction {
 	}
 	
 	@RequestMapping("planPage")
-	public ModelAndView planPage(){
+	public ModelAndView planPage(String payType){
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/report/all/plan/ownerPlan");
+		if(StringUtils.equals("2", payType)){
+			// 1-司机，2-车主，3-货主
+			view.setViewName("/report/all/plan/venderPlan");
+		}else if(StringUtils.equals("3", payType)){
+			view.setViewName("/report/all/plan/ownerPlan");
+		}
 		return view;
 	}
 	@RequestMapping("plan")
 	@ResponseBody
-	public Result plan(ReportPlanAllReq req) throws Exception{
+	public Result plan(ReportPlanAllReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
+		MemberVo vo = SessionManager.getSessionMember(request);
+		if(StringUtils.equals("2", req.getReportType())){
+			// 2-车主，3-货主
+			req.setPlanVenderId(vo.getId());
+		}else if(StringUtils.equals("3", req.getReportType())){
+			req.setPlanOwnerId(vo.getId());
+		}
 		PaginationVO<ReportPlanAllResp> page = reportAllService.selectPlan(req);
 		rs.setData(page);
 		return rs;

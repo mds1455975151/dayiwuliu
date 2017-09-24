@@ -93,7 +93,7 @@
     	</if>
     </where>
     order by plan_create_time desc
-    <if test="pageNo != null and pageNo != ''">
+    <if test="pageNo != null">
     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
