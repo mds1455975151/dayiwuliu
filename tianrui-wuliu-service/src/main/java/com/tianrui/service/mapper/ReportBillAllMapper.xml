@@ -251,7 +251,7 @@
     delete from report_bill_all
     where bill_type ='al' 
   </delete>
-  <delete id="deletePtlianBill" parameterType="java.lang.String" >
+  <delete id="deletePtBill" parameterType="java.lang.String" >
     delete from report_bill_all
     where bill_type ='dy' and bill_status !=6
   </delete>
@@ -671,6 +671,22 @@
 	LEFT JOIN 
 		wuliu_plan plan ON plan.ID = bill.desc1
   </select>
+  <select id="selectPtBillIds" resultType="string">
+  	select 
+  		id
+  	FROM
+		report_bill_all 
+	where 
+		bill_type ='dy' 
+  </select>
+  <select id="selectAnlianBillIds" resultType="string">
+  	select 
+  		id
+  	FROM
+		report_bill_all 
+	where 
+		bill_type ='al' 
+  </select>
   
   <select id="getAnlianBill" resultMap="BaseResultMap"  >
 	   SELECT
@@ -703,6 +719,44 @@
 		LEFT JOIN wuliu_plan plan ON plan.ID = bill.desc1
 		ORDER BY
 			bill.createtime
+		LIMIT #{start},#{limit}
+  </select>
+  <select id="getPtBill" resultMap="BaseResultMap"  >
+	   SELECT
+			bill.id id,
+			bill.ownerid bill_owner_id,
+			bill.venderid bill_vender_id,
+			bill.driverid bill_driver_id,
+			bill.receive_memberid bill_receive_id,
+			bill.createtime business_time,
+			bill.planCode plan_no,
+			bill.waybillno bill_no,
+			plan.shipperMerchant sendManId,
+			plan.sendPerson send_persion,
+			plan.consigneeMerchant receiptManId,
+			bill.receivername receipt_persion,
+			bill.vehicleno vehicle_no,
+			plan.cargoname cargo_name,
+			plan.routeid routeId,
+			plan.distance bill_distinct,
+			bill.weight vender_weight,
+			bill.pickupweight pickup_weight,
+			bill.signweight unload_weight,
+			bill.trueweight true_weight,
+			bill.status bill_status,
+			bill.payment pay_ment,
+			bill.acctepttime business_time,
+			bill.ownerSigntime sign_time,
+			bill.acctepttime accept_time,
+			bill.begintime pickup_time,
+			bill.unloadtime unload_time,
+			bill.drivername driver_name
+		FROM
+			wuliu_bill bill
+		LEFT JOIN wuliu_plan plan ON plan.id = bill.planid
+		where bill.waybillno != '批量运单'
+		ORDER BY
+			bill.createtime desc
 		LIMIT #{start},#{limit}
   </select>
 </mapper>

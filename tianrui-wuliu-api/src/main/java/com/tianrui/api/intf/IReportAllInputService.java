@@ -14,8 +14,12 @@ public interface IReportAllInputService {
 	
 	/** 添加运单*/
 	public Result billAlianUpdate()throws Exception;
-	
-	public Result billCommonUpdate()throws Exception;
+	/**
+	 * 大易运单更新
+	 * @return
+	 * @throws Exception
+	 */
+	public Result billPtUpdate()throws Exception;
 	
 	/** 添加账单*/
 	public Result payAlianUpdate()throws Exception;

@@ -29,7 +29,7 @@ public class GetPlanAndCompletedTrigger {
 	protected ICargoPlanService cargoPlanService;
 
 	
-	//@Scheduled(cron="0 0/30 *  * * ? ")
+	@Scheduled(cron="0 0/30 *  * * ? ")
     public void getPlanAndCompleted() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[GetPlanAndCompletedTrigger]启动.时间是 :" + DateUtil.getDateString());  

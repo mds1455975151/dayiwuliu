@@ -29,18 +29,27 @@ public class ReportAllSchedule {
 	 *  3 分页查询账单,并插入
 	 *  
 	 * 运单报表步骤:(开票运单和安联运单)
-	 *         
+	 * 	#开票运单
+	 *  1  删除报表开票运单
+	 *  2  获取db的开票运单总数
+	 *  3 分页获取并批量数据插入 
+	 *  #大易运单
+	 *  1  删除未完成的大易运单报表
+	 *  2  获取当前报表中的运单id
+	 *  3 分页获取db的大于运单,比对是否在报表中存在,不存在则批量插入             
 	 */
-	@Scheduled(cron="0 56 11 * * ?")
+	@Scheduled(cron="2 22 02 * * ?")
 	public void reportSchedule() throws Exception{
 		//缓存更新
-		//reportAllInputService.cacheUpdate();
+		reportAllInputService.cacheUpdate();
 		//计划更新
-		//reportAllInputService.planUpdate();
+		reportAllInputService.planUpdate();
 		//账单更新
-		//reportAllInputService.payAlianUpdate();
-		//运单更新
+		reportAllInputService.payAlianUpdate();
+		//安联运单更新
 		reportAllInputService.billAlianUpdate();
+		//平台运单更新
+		reportAllInputService.billPtUpdate();
 	}
 
 }
