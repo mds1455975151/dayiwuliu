@@ -41,7 +41,7 @@ public class VehicleGpsZjxlSchedule {
 	
 	Logger logger = LoggerFactory.getLogger(VehicleGpsZjxlSchedule.class);
 	
-	@Scheduled(cron="0 0/9 * * * ?")
+	//@Scheduled(cron="0 0/9 * * * ?")
 	public  void auditReport()throws Exception{
 		long begin = System.currentTimeMillis();
 		
