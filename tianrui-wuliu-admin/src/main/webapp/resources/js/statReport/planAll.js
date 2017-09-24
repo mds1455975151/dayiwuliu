@@ -81,26 +81,45 @@ function init(pageNo){
 function innerHml(data){
 	$("#innerHtml").empty();
 	for (var a = 0; a < data.length; a++) {
+		var planCreateTimeStr = data[a].planCreateTimeStr == undefined ? "":data[a].planCreateTimeStr;
+		var planCode = data[a].planCode == undefined ? "":data[a].planCode;
+		var planBeginTimeStr = data[a].planBeginTimeStr == undefined ? "":data[a].planBeginTimeStr;
+		var planEndTimeStr = data[a].planEndTimeStr == undefined ? "":data[a].planEndTimeStr;
+		var planWeight = data[a].planWeight == undefined ? "":data[a].planWeight;
+		var complitWeight = data[a].complitWeight == undefined ? "":data[a].complitWeight;
+		var tempo = data[a].tempo == undefined ? "":data[a].tempo;
+		var planStatus = data[a].planStatus == undefined ? "":data[a].planStatus;
+		var cargoName = data[a].cargoName == undefined ? "":data[a].cargoName;
+		var routeName = data[a].routeName == undefined ? "":data[a].routeName;
+		var sendMan = data[a].sendMan == undefined ? "":data[a].sendMan;
+		var sendPersion = data[a].sendPersion == undefined ? "":data[a].sendPersion;
+		var venderName = data[a].venderName == undefined ? "":data[a].venderName;
+		var receiptMan = data[a].receiptMan == undefined ? "":data[a].receiptMan;
+		var receiptPersion = data[a].receiptPersion == undefined ? "":data[a].receiptPersion;
+		var distant = data[a].distant == undefined ? "":data[a].distant;
+		var price = data[a].price == undefined ? "":data[a].price;
+		var tax = data[a].tax == undefined ? "":data[a].tax;
+		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
 		var hml = "<tr>" +
-				"<td>"+data[a].planCreateTimeStr+"</td>" +
-				"<td>"+data[a].planCode+"</td>" +
-				"<td>"+data[a].planBeginTimeStr+"</td>" +
-				"<td>"+data[a].planEndTimeStr+"</td>" +
-				"<td>"+data[a].planWeight+"</td>" +
-				"<td>"+data[a].complitWeight+"</td>" +
-				"<td>"+data[a].tempo+"</td>" +
-				"<td>"+data[a].planStatus+"</td>" +
-				"<td>"+data[a].cargoName+"</td>" +
-				"<td>"+data[a].routeName+"</td>" +
-				"<td>"+data[a].sendMan+"</td>" +
-				"<td>"+data[a].sendPersion+"</td>" +
-				"<td>"+data[a].venderName+"</td>" +
-				"<td>"+data[a].receiptMan+"</td>" +
-				"<td>"+data[a].receiptPersion+"</td>" +
-				"<td>"+data[a].distant+"</td>" +
-				"<td>"+data[a].price+"</td>" +
-				"<td>"+data[a].tax+"</td>" +
-				"<td>"+data[a].payMent+"</td>" +
+				"<td>"+planCreateTimeStr+"</td>" +
+				"<td>"+planCode+"</td>" +
+				"<td>"+planBeginTimeStr+"</td>" +
+				"<td>"+planEndTimeStr+"</td>" +
+				"<td>"+planWeight+"</td>" +
+				"<td>"+complitWeight+"</td>" +
+				"<td>"+tempo+"</td>" +
+				"<td>"+planStatus+"</td>" +
+				"<td>"+cargoName+"</td>" +
+				"<td>"+routeName+"</td>" +
+				"<td>"+sendMan+"</td>" +
+				"<td>"+sendPersion+"</td>" +
+				"<td>"+venderName+"</td>" +
+				"<td>"+receiptMan+"</td>" +
+				"<td>"+receiptPersion+"</td>" +
+				"<td>"+distant+"</td>" +
+				"<td>"+price+"</td>" +
+				"<td>"+tax+"</td>" +
+				"<td>"+payMent+"</td>" +
 				"</tr>";
 		$("#innerHtml").append(hml);
 	}

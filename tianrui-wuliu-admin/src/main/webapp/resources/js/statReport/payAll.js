@@ -88,35 +88,63 @@ function init(pageNo){
 function innerHml(data){
 	$("#innerHtml").empty();
 	for (var a = 0; a < data.length; a++) {
+		var payCreateTime = data[a].payCreateTimeStr == undefined ? "":data[a].payCreateTimeStr;
+		var payCode = data[a].payCode == undefined ? "":data[a].payCode;
+		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
+		var planCode = data[a].planCode == undefined ? "":data[a].planCode;
+		var routeName = data[a].routeName == undefined ? "":data[a].routeName;
+		var sendMan = data[a].sendMan == undefined ? "":data[a].sendMan;
+		var sendPersian = data[a].sendPersian == undefined ? "":data[a].sendPersian;
+		var venderName = data[a].venderName == undefined ? "":data[a].venderName;
+		var receiptMan = data[a].receiptMan == undefined ? "":data[a].receiptMan;
+		var receiptPerson = data[a].receiptPerson == undefined ? "":data[a].receiptPerson;
+		var vehicleNo = data[a].vehicleNo == undefined ? "":data[a].vehicleNo;
+		var billTime = data[a].billTimeStr == undefined ? "":data[a].billTimeStr;
+		var billNo = data[a].billNo == undefined ? "":data[a].billNo;
+		var cargoName = data[a].cargoName == undefined ? "":data[a].cargoName;
+		var trueWeight = data[a].trueWeight == undefined ? "":data[a].trueWeight;
+		var price = data[a].price == undefined ? "":data[a].price;
+		var totalPrice = data[a].totalPrice == undefined ? "":data[a].totalPrice;
+		var oilCard = data[a].oilCard == undefined ? "":data[a].oilCard;
+		var weightMisc = data[a].weightMisc == undefined ? "":data[a].weightMisc;
+		var deductMoney = data[a].deductMoney == undefined ? "":data[a].deductMoney;
+		var deductOther = data[a].deductOther == undefined ? "":data[a].deductOther;
+		var amountPayable = data[a].amountPayable == undefined ? "":data[a].amountPayable;
+		var paidAmount = data[a].paidAmount == undefined ? "":data[a].paidAmount;
+		var payStatus = data[a].payStatus == undefined ? "":data[a].payStatus;
+		var payType = data[a].payType == undefined ? "":data[a].payType;
+		var payPerson = data[a].payPerson == undefined ? "":data[a].payPerson;
+		var payBankName = data[a].payBankName == undefined ? "":data[a].payBankName;
+		var payBankCode = data[a].payBankCode == undefined ? "":data[a].payBankCode;
 		var hml = "<tr>" +
-				"<td>"+data[a].payCreateTime+"</td>" +
-				"<td>"+data[a].payCode+"</td>" +
-				"<td>"+data[a].payMent+"</td>" +
-				"<td>"+data[a].planCode+"</td>" +
-				"<td>"+data[a].routeName+"</td>" +
-				"<td>"+data[a].sendMan+"</td>" +
-				"<td>"+data[a].sendPersian+"</td>" +
-				"<td>"+data[a].venderName+"</td>" +
-				"<td>"+data[a].receiptMan+"</td>" +
-				"<td>"+data[a].receiptPerson+"</td>" +
-				"<td>"+data[a].vehicleNo+"</td>" +
-				"<td>"+data[a].billTime+"</td>" +
-				"<td>"+data[a].billNo+"</td>" +
-				"<td>"+data[a].cargoName+"</td>" +
-				"<td>"+data[a].trueWeight+"</td>" +
-				"<td>"+data[a].price+"</td>" +
-				"<td>"+data[a].totalPrice+"</td>" +
-				"<td>"+data[a].oilCard+"</td>" +
-				"<td>"+data[a].weightMisc+"</td>" +
-				"<td>"+data[a].deductMoney+"</td>" +
-				"<td>"+data[a].deductOther+"</td>" +
-				"<td>"+data[a].amountPayable+"</td>" +
-				"<td>"+data[a].paidAmount+"</td>" +
-				"<td>"+data[a].payStatus+"</td>" +
-				"<td>"+data[a].payType+"</td>" +
-				"<td>"+data[a].payPerson+"</td>" +
-				"<td>"+data[a].payBankName+"</td>" +
-				"<td>"+data[a].payBankCode+"</td>" +
+				"<td>"+payCreateTime+"</td>" +
+				"<td>"+payCode+"</td>" +
+				"<td>"+payMent+"</td>" +
+				"<td>"+planCode+"</td>" +
+				"<td>"+routeName+"</td>" +
+				"<td>"+sendMan+"</td>" +
+				"<td>"+sendPersian+"</td>" +
+				"<td>"+venderName+"</td>" +
+				"<td>"+receiptMan+"</td>" +
+				"<td>"+receiptPerson+"</td>" +
+				"<td>"+vehicleNo+"</td>" +
+				"<td>"+billTime+"</td>" +
+				"<td>"+billNo+"</td>" +
+				"<td>"+cargoName+"</td>" +
+				"<td>"+trueWeight+"</td>" +
+				"<td>"+price+"</td>" +
+				"<td>"+totalPrice+"</td>" +
+				"<td>"+oilCard+"</td>" +
+				"<td>"+weightMisc+"</td>" +
+				"<td>"+deductMoney+"</td>" +
+				"<td>"+deductOther+"</td>" +
+				"<td>"+amountPayable+"</td>" +
+				"<td>"+paidAmount+"</td>" +
+				"<td>"+payStatus+"</td>" +
+				"<td>"+payType+"</td>" +
+				"<td>"+payPerson+"</td>" +
+				"<td>"+payBankName+"</td>" +
+				"<td>"+payBankCode+"</td>" +
 				"</tr>";
 		$("#innerHtml").append(hml);
 	}

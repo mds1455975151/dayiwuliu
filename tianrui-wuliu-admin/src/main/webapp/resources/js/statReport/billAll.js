@@ -123,31 +123,55 @@ function init(pageNo){
 function innerHml(data){
 	$("#innerHtml").empty();
 	for (var a = 0; a < data.length; a++) {
+		var billType = data[a].billType == undefined ? "":data[a].billType;
+		var businessTime = data[a].businessTimeStr == undefined ? "":data[a].businessTimeStr;
+		var planNo = data[a].planNo == undefined ? "":data[a].planNo;
+		var billNo = data[a].billNo == undefined ? "":data[a].billNo;
+		var sendMan = data[a].sendMan == undefined ? "":data[a].sendMan;
+		var sendPersion = data[a].sendPersion == undefined ? "":data[a].sendPersion;
+		var receiptMan = data[a].receiptMan == undefined ? "":data[a].receiptMan;
+		var receiptPersion = data[a].receiptPersion == undefined ? "":data[a].receiptPersion;
+		var vehicleNo = data[a].vehicleNo == undefined ? "":data[a].vehicleNo;
+		var cargoName = data[a].cargoName == undefined ? "":data[a].cargoName;
+		var routeName = data[a].routeName == undefined ? "":data[a].routeName;
+		var distinct = data[a].distinct == undefined ? "":data[a].distinct;
+		var venderWeight = data[a].venderWeight == undefined ? "":data[a].venderWeight;
+		var pickupWeight = data[a].pickupWeight == undefined ? "":data[a].pickupWeight;
+		var unloadWeight = data[a].unloadWeight == undefined ? "":data[a].unloadWeight;
+		var trueWeight = data[a].trueWeight == undefined ? "":data[a].trueWeight;
+		var billStatus = data[a].billStatus == undefined ? "":data[a].billStatus;
+		var driverName = data[a].driverName == undefined ? "":data[a].driverName;
+		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
+		var billCreaterTimeStr = data[a].billCreaterTimeStr == undefined ? "":data[a].billCreaterTimeStr;
+		var acceptTimeStr = data[a].acceptTimeStr == undefined ? "":data[a].acceptTimeStr;
+		var pickupTimeStr = data[a].pickupTimeStr == undefined ? "":data[a].pickupTimeStr;
+		var unloadTimeStr = data[a].unloadTimeStr == undefined ? "":data[a].unloadTimeStr;
+		var signTimeStr = data[a].signTimeStr == undefined ? "":data[a].signTimeStr;
 		var hml = "<tr>" +
-				"<td>"+data[a].billType+"</td>" +
-				"<td>"+data[a].businessTime+"</td>" +
-				"<td>"+data[a].planNo+"</td>" +
-				"<td>"+data[a].billNo+"</td>" +
-				"<td>"+data[a].sendMan+"</td>" +
-				"<td>"+data[a].sendPersion+"</td>" +
-				"<td>"+data[a].receiptMan+"</td>" +
-				"<td>"+data[a].receiptPersion+"</td>" +
-				"<td>"+data[a].vehicleNo+"</td>" +
-				"<td>"+data[a].cargoName+"</td>" +
-				"<td>"+data[a].routeName+"</td>" +
-				"<td>"+data[a].distinct+"</td>" +
-				"<td>"+data[a].venderWeight+"</td>" +
-				"<td>"+data[a].pickupWeight+"</td>" +
-				"<td>"+data[a].unloadWeight+"</td>" +
-				"<td>"+data[a].trueWeight+"</td>" +
-				"<td>"+data[a].billStatus+"</td>" +
-				"<td>"+data[a].driverName+"</td>" +
-				"<td>"+data[a].payMent+"</td>" +
-				"<td>"+data[a].billCreaterTimeStr+"</td>" +
-				"<td>"+data[a].acceptTimeStr+"</td>" +
-				"<td>"+data[a].pickupTimeStr+"</td>" +
-				"<td>"+data[a].unloadTimeStr+"</td>" +
-				"<td>"+data[a].signTimeStr+"</td>" +
+				"<td>"+billType+"</td>" +
+				"<td>"+businessTime+"</td>" +
+				"<td>"+planNo+"</td>" +
+				"<td>"+billNo+"</td>" +
+				"<td>"+sendMan+"</td>" +
+				"<td>"+sendPersion+"</td>" +
+				"<td>"+receiptMan+"</td>" +
+				"<td>"+receiptPersion+"</td>" +
+				"<td>"+vehicleNo+"</td>" +
+				"<td>"+cargoName+"</td>" +
+				"<td>"+routeName+"</td>" +
+				"<td>"+distinct+"</td>" +
+				"<td>"+venderWeight+"</td>" +
+				"<td>"+pickupWeight+"</td>" +
+				"<td>"+unloadWeight+"</td>" +
+				"<td>"+trueWeight+"</td>" +
+				"<td>"+billStatus+"</td>" +
+				"<td>"+driverName+"</td>" +
+				"<td>"+payMent+"</td>" +
+				"<td>"+billCreaterTimeStr+"</td>" +
+				"<td>"+acceptTimeStr+"</td>" +
+				"<td>"+pickupTimeStr+"</td>" +
+				"<td>"+unloadTimeStr+"</td>" +
+				"<td>"+signTimeStr+"</td>" +
 				"</tr>";
 		$("#innerHtml").append(hml);
 	}
