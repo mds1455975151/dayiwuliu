@@ -91,6 +91,12 @@ function innerHml(data){
 		var payCreateTime = data[a].payCreateTimeStr == undefined ? "":data[a].payCreateTimeStr;
 		var payCode = data[a].payCode == undefined ? "":data[a].payCode;
 		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
+		if(payMent=="1"){
+			payMent="司机"
+		}
+		if(payMent=="2"){
+			payMent="车主"
+		}
 		var planCode = data[a].planCode == undefined ? "":data[a].planCode;
 		var routeName = data[a].routeName == undefined ? "":data[a].routeName;
 		var sendMan = data[a].sendMan == undefined ? "":data[a].sendMan;

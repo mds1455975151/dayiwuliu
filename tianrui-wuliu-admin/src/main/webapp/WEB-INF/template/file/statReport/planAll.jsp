@@ -75,8 +75,13 @@
 								<label>签收人：</label> <input id="receiptPersion" type="text" placeholder="请输入签收人">
 							</div>
 							<div class="ht_div" name="mytable">
-								<label>支付对象：</label> <input id="payMent" type="text" placeholder="请输入支付对象">
-							</div>
+                                 <label>支付对象：</label>
+                                 <select id="payMent"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="1">司机</option>
+                                     <option value="2">车主</option>
+                                 </select>
+                            </div>
 							<div class="ht_div" name="mytable">
 								<label>计划日期：</label> <input id="planStarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
@@ -166,7 +171,7 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/planAll.js?0922"></script>
+	<script type="text/javascript" src="/resources/js/statReport/planAll.js?0923"></script>
 	
 	<script type="text/javascript">
     $(function () {

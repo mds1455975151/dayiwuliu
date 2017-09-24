@@ -148,6 +148,12 @@ function innerHml(data){
 		var billStatus = data[a].billStatus == undefined ? "":data[a].billStatus;
 		var driverName = data[a].driverName == undefined ? "":data[a].driverName;
 		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
+		if(payMent=="1"){
+			payMent="司机"
+		}
+		if(payMent=="2"){
+			payMent="车主"
+		}
 		var billCreaterTimeStr = data[a].billCreaterTimeStr == undefined ? "":data[a].billCreaterTimeStr;
 		var acceptTimeStr = data[a].acceptTimeStr == undefined ? "":data[a].acceptTimeStr;
 		var pickupTimeStr = data[a].pickupTimeStr == undefined ? "":data[a].pickupTimeStr;

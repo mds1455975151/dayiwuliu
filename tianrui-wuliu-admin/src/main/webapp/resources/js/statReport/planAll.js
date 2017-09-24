@@ -115,6 +115,12 @@ function innerHml(data){
 		var price = data[a].price == undefined ? "":data[a].price;
 		var tax = data[a].tax == undefined ? "":data[a].tax;
 		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
+		if(payMent=="1"){
+			payMent="司机"
+		}
+		if(payMent=="2"){
+			payMent="车主"
+		}
 		var hml = "<tr>" +
 				"<td>"+planCreateTimeStr+"</td>" +
 				"<td>"+planCode+"</td>" +

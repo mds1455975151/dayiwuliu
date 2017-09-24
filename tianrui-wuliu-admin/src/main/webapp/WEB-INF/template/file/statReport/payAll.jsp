@@ -182,7 +182,7 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/payAll.js?09.22"></script>
+	<script type="text/javascript" src="/resources/js/statReport/payAll.js?09.23"></script>
 	<script type="text/javascript">
     $(function () {
 

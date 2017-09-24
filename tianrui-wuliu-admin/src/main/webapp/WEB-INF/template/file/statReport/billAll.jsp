@@ -137,9 +137,13 @@
 									placeholder="请输入计划单号">
 							</div>
 							<div class="ht_div" name="mytable">
-								<label>支付对象：</label> <input id="payMent" type="text"
-									placeholder="请输入计划单号">
-							</div>
+                                 <label>支付对象：</label>
+                                 <select id="payMent"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="1">司机</option>
+                                     <option value="2">车主</option>
+                                 </select>
+                            </div>
 							<div class="ht_div" name="mytable">
 								<label>发货方：</label> <input id="sendMan" type="text"
 									placeholder="请输入计划单号">
