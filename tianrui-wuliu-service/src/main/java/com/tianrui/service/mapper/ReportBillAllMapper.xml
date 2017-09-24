@@ -247,6 +247,14 @@
     delete from report_bill_all
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteAnlianBill"  >
+    delete from report_bill_all
+    where bill_type ='al' 
+  </delete>
+  <delete id="deletePtlianBill" parameterType="java.lang.String" >
+    delete from report_bill_all
+    where bill_type ='dy' and bill_status !=6
+  </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.ReportBillAll" >
     insert into report_bill_all (id, bill_owner_id, bill_vender_id, 
       bill_driver_id, bill_receive_id, bill_type, 
@@ -272,6 +280,36 @@
       #{unloadTime,jdbcType=BIGINT}, #{signTime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, 
       #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
       )
+  </insert>
+ 	<insert id="insertBatch" parameterType="java.util.List" >
+    insert into report_bill_all (id, bill_owner_id, bill_vender_id, 
+      bill_driver_id, bill_receive_id, bill_type, 
+      business_time, plan_no, bill_no, 
+      send_man, send_persion, receipt_man, 
+      receipt_persion, vehicle_no, cargo_name, 
+      route_name, bill_distinct, vender_weight, 
+      pickup_weight, unload_weight, true_weight, 
+      bill_status, driver_name, pay_ment, 
+      bill_creater_time, accept_time, pickup_time, 
+      unload_time, sign_time, desc1, 
+      desc2, desc3, desc4
+      )
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.id,jdbcType=VARCHAR}, #{item.billOwnerId,jdbcType=VARCHAR}, #{item.billVenderId,jdbcType=VARCHAR}, 
+      #{item.billDriverId,jdbcType=VARCHAR}, #{item.billReceiveId,jdbcType=VARCHAR}, #{item.billType,jdbcType=VARCHAR}, 
+      #{item.businessTime,jdbcType=VARCHAR}, #{item.planNo,jdbcType=VARCHAR}, #{item.billNo,jdbcType=VARCHAR}, 
+      #{item.sendMan,jdbcType=VARCHAR}, #{item.sendPersion,jdbcType=VARCHAR}, #{item.receiptMan,jdbcType=VARCHAR}, 
+      #{item.receiptPersion,jdbcType=VARCHAR}, #{item.vehicleNo,jdbcType=VARCHAR}, #{item.cargoName,jdbcType=VARCHAR}, 
+      #{item.routeName,jdbcType=VARCHAR}, #{item.distinct,jdbcType=VARCHAR}, #{item.venderWeight,jdbcType=VARCHAR}, 
+      #{item.pickupWeight,jdbcType=VARCHAR}, #{item.unloadWeight,jdbcType=VARCHAR}, #{item.trueWeight,jdbcType=VARCHAR}, 
+      #{item.billStatus,jdbcType=VARCHAR}, #{item.driverName,jdbcType=VARCHAR}, #{item.payMent,jdbcType=VARCHAR}, 
+      #{item.billCreaterTime,jdbcType=BIGINT}, #{item.acceptTime,jdbcType=BIGINT}, #{item.pickupTime,jdbcType=BIGINT}, 
+      #{item.unloadTime,jdbcType=BIGINT}, #{item.signTime,jdbcType=BIGINT}, #{item.desc1,jdbcType=VARCHAR}, 
+      #{item.desc2,jdbcType=VARCHAR}, #{item.desc3,jdbcType=VARCHAR}, #{item.desc4,jdbcType=VARCHAR}
+    )
+    </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.tianrui.service.bean.ReportBillAll" >
     insert into report_bill_all
@@ -616,4 +654,55 @@
       desc4 = #{desc4,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getAnlianBillCount" resultType="long">
+  	select 
+  		count(*)  
+  	FROM
+		anlian_bill bill
+	LEFT JOIN 
+		wuliu_plan plan ON plan.ID = bill.desc1
+  </select>
+  <select id="getPtBillCount" resultType="long">
+  	select 
+  		count(*)  
+  	FROM
+		wuliu_bill bill
+	LEFT JOIN 
+		wuliu_plan plan ON plan.ID = bill.desc1
+  </select>
+  
+  <select id="getAnlianBill" resultMap="BaseResultMap"  >
+	   SELECT
+			bill.id id,
+			bill.ownerid bill_owner_id,
+			bill.venderid bill_vender_id,
+			bill.driverid bill_driver_id,
+			bill.receive_memberid bill_receive_id,
+			bill.createtime business_time,
+			plan.planCode plan_no,
+			bill.billno bill_no,
+			plan.shipperMerchant sendManId,
+			plan.sendPerson send_persion,
+			plan.consigneeMerchant receiptManId,
+			bill.shr receipt_persion,
+			bill.cph vehicle_no,
+			plan.cargoname cargo_name,
+			plan.routeid routeId,
+			plan.distance bill_distinct,
+			bill.zzl vender_weight,
+			bill.pickupweight pickup_weight,
+			bill.signweight unload_weight,
+			bill.trueweight true_weight,
+			bill.desc4 bill_status,
+			bill.payment pay_ment,
+			bill.createtime business_time,
+			bill.signtime sign_time
+		FROM
+			anlian_bill bill
+		LEFT JOIN wuliu_plan plan ON plan.ID = bill.desc1
+		ORDER BY
+			bill.createtime
+		LIMIT #{start},#{limit}
+  </select>
 </mapper>

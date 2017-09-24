@@ -100,6 +100,10 @@ public class ReportBillAll {
     private Long unloadTimeEndtimes;
     private Long signTimeStarts;
     private Long signTimeEnds;
+    
+    private String sendManId;
+    private String receiptManId;
+    private String routeId;
 
     public String getId() {
         return id;
@@ -574,8 +578,28 @@ public class ReportBillAll {
 		return billCreaterTimeStarts;
 	}
 
+	public String getSendManId() {
+		return sendManId;
+	}
 
-	
-	
+	public void setSendManId(String sendManId) {
+		this.sendManId = sendManId;
+	}
+
+	public String getReceiptManId() {
+		return receiptManId;
+	}
+
+	public void setReceiptManId(String receiptManId) {
+		this.receiptManId = receiptManId;
+	}
+
+	public String getRouteId() {
+		return routeId;
+	}
+
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
+	}
 	
 }

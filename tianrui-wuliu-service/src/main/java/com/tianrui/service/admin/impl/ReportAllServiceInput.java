@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.quartz.utils.StringKeyDirtyFlagMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.OrgSigner;
 import com.tianrui.service.bean.Plan;
+import com.tianrui.service.bean.ReportBillAll;
 import com.tianrui.service.bean.ReportPayAll;
 import com.tianrui.service.bean.ReportPlanAll;
 import com.tianrui.service.bean.SystemMember;
@@ -91,13 +91,27 @@ public class ReportAllServiceInput implements IReportAllInputService{
 				logger.info("批量插入计划完成,条数为{}条",planList.size());
 			}
 		}
-		return null;
+		return Result.getSuccessResult();
 	}
 
 	@Override
 	public Result billAlianUpdate() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		//删除报表历史数据
+		reportBillAllMapper.deleteAnlianBill();
+		logger.info("删除开票运单报表历史数据");
+		//获取安联运单数据总数
+		long size=reportBillAllMapper.getAnlianBillCount();
+		logger.info("获取db的开票运单完成,总数为{}条",size);
+		//批量获取和更新
+		int count =(int)size%2000+1;
+		for( int i=0;i<count;i++ ){
+			List<ReportBillAll> anlianBillList =mkReportBillAnlian(i*2000, 2000);
+			if( CollectionUtils.isNotEmpty(anlianBillList) ){
+				reportBillAllMapper.insertBatch(anlianBillList);
+				logger.info("批量插入运单完成,条数为{}条",anlianBillList.size());
+			}
+		}
+		return Result.getSuccessResult();
 	}
 
 	@Override
@@ -109,7 +123,6 @@ public class ReportAllServiceInput implements IReportAllInputService{
 	@Override
 	public Result payAlianUpdate() throws Exception {
 		//获取当前所有的账单数据
-		
 		List<ReportPayAll> payList =mkReportPayAnlian();
 		logger.info("获取db的计划完成,总数为{}条",payList.size());
 		//删除当前安联账单报表
@@ -270,6 +283,41 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		return list;
 	}
 	
+	//分页获取开票运单数据
+	private List<ReportBillAll> mkReportBillAnlian(int start,int limit){
+		List<ReportBillAll> list =reportBillAllMapper.getAnlianBill(limit, start);
+		String dateStr =DateUtil.getDateString();
+		if( CollectionUtils.isNotEmpty(list) ){
+			for(ReportBillAll item :list ){
+				item.setDesc4(dateStr);
+				item.setBillType("al");
+				//线路名称
+				if( StringUtils.isNotBlank(item.getRouteId()) ){
+					FileRoute route=cacheClient.getObj(CacheModule.FILE_XL+item.getRouteId(),FileRoute.class );
+					if(route!=null){
+						item.setRouteName(route.getRoutename());
+					}
+				}
+				//发货方获取
+				if( StringUtils.isNotBlank(item.getSendManId()) ){
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+item.getSendManId(),Merchant.class );
+					if(merchant!=null){
+						item.setSendMan(merchant.getName());
+					}
+				}
+				//收货方获取
+				if( StringUtils.isNotBlank(item.getReceiptMan()) ){
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+item.getReceiptMan(),Merchant.class );
+					if(merchant!=null){
+						item.setReceiptMan(merchant.getName());
+					}
+				}
+			}
+		}
+		
+		return list ;
+	}
+	
 	
 	//客户档案缓存更新  缓存时间3天
 	//数量级为1000.
@@ -340,6 +388,5 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		logger.info("银行卡档案缓存更新完成,耗时:{}ms,更新数量为:{}.",(System.currentTimeMillis()-begin),(list==null?0:list.size()));
 	}
 	
-
 
 }

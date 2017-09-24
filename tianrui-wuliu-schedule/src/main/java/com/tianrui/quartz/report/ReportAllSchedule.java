@@ -31,16 +31,16 @@ public class ReportAllSchedule {
 	 * 运单报表步骤:(开票运单和安联运单)
 	 *         
 	 */
-	@Scheduled(cron="0 06 09 * * ?")
+	@Scheduled(cron="0 56 11 * * ?")
 	public void reportSchedule() throws Exception{
 		//缓存更新
 		//reportAllInputService.cacheUpdate();
 		//计划更新
-		reportAllInputService.planUpdate();
+		//reportAllInputService.planUpdate();
 		//账单更新
-		reportAllInputService.payAlianUpdate();
+		//reportAllInputService.payAlianUpdate();
 		//运单更新
-		
+		reportAllInputService.billAlianUpdate();
 	}
 
 }
