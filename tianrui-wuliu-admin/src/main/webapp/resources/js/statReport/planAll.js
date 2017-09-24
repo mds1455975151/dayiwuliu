@@ -89,6 +89,21 @@ function innerHml(data){
 		var complitWeight = data[a].complitWeight == undefined ? "":data[a].complitWeight;
 		var tempo = data[a].tempo == undefined ? "":data[a].tempo;
 		var planStatus = data[a].planStatus == undefined ? "":data[a].planStatus;
+		if(planStatus=="-1"){
+			planStatus="已删除"
+		}
+		if(planStatus=="0"){
+			planStatus="新建"
+		}
+		if(planStatus=="1"){
+			planStatus="待接单"
+		}
+		if(planStatus=="2"){
+			planStatus="执行中"
+		}
+		if(planStatus=="3"){
+			planStatus="已完成"
+		}
 		var cargoName = data[a].cargoName == undefined ? "":data[a].cargoName;
 		var routeName = data[a].routeName == undefined ? "":data[a].routeName;
 		var sendMan = data[a].sendMan == undefined ? "":data[a].sendMan;

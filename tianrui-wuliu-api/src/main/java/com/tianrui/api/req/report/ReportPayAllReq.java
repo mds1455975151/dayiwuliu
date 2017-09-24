@@ -2,6 +2,16 @@ package com.tianrui.api.req.report;
 
 public class ReportPayAllReq {
     private String id;
+    // 1-司机，2-车主，3-货主
+    private String reportType;
+    
+    private String payOwnerId;
+
+    private String payVenderId;
+
+    private String payDriverId;
+
+    private String payReceiveId;
     
     private Integer pageNo;
     
@@ -386,6 +396,44 @@ public class ReportPayAllReq {
 	public void setBillendtime(String billendtime) {
 		this.billendtime = billendtime;
 	}
-	
-	
+
+	public String getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(String reportType) {
+		this.reportType = reportType;
+	}
+
+	public String getPayOwnerId() {
+		return payOwnerId;
+	}
+
+	public void setPayOwnerId(String payOwnerId) {
+		this.payOwnerId = payOwnerId;
+	}
+
+	public String getPayVenderId() {
+		return payVenderId;
+	}
+
+	public void setPayVenderId(String payVenderId) {
+		this.payVenderId = payVenderId;
+	}
+
+	public String getPayDriverId() {
+		return payDriverId;
+	}
+
+	public void setPayDriverId(String payDriverId) {
+		this.payDriverId = payDriverId;
+	}
+
+	public String getPayReceiveId() {
+		return payReceiveId;
+	}
+
+	public void setPayReceiveId(String payReceiveId) {
+		this.payReceiveId = payReceiveId;
+	}
 }

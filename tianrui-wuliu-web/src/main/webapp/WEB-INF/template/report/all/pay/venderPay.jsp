@@ -104,7 +104,13 @@
                  <div class="bb_line hidemore"> 
                  	<div class="bb_czline">
                         <label>支付状态：</label>
-                        <input type="text" id="payStatus" placeholder="请输入车主">
+                        <select id="payStatus">
+                        	<option value="">请选择</option>
+                        	<option value="0">未支付</option>
+                        	<option value="1">支付中</option>
+                        	<option value="2">已支付</option>
+                        	<option value="3">支付失败</option>
+                        </select>
                     </div>
                  	<div class="bb_czline">
                         <label>计划单号：</label>

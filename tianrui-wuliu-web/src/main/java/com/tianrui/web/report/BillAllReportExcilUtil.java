@@ -1,4 +1,4 @@
-package com.tianrui.trwl.admin.report;
+package com.tianrui.web.report;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -14,14 +13,14 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
-import com.tianrui.api.resp.report.ReportPlanAllResp;
+import com.tianrui.api.resp.report.ReportBillAllResp;
 import com.tianrui.common.utils.UUIDUtil;
 
-public class PlanAllReportExcilUtil extends AbstractExcelView {
+public class BillAllReportExcilUtil extends AbstractExcelView {
 
-	private static String[] titles = new String[] {"计划日期", "计划单号","计划开始时间","计划结束时间","计划总量",
-			"计划已完成量","完成进度","计划状态","货物名称","路线","发货方","发货人","车主","收货方","签收人","运距","单价","税率",
-			"支付对象"};
+	private static String[] titles = new String[] { "运单类型", "业务日期","计划单号","运单号","发货方",
+			"发货人","收货方","签收人","车牌号","货物名称","路线","运距","车主派单量","提货榜单净重","卸货榜单净重","签收量","运单状态","司机姓名",
+			"支付对象","运单创建时间","接受运单时间","提货确认时间","卸货确认时间","签收运单时间"};
 	
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request,
@@ -35,7 +34,7 @@ public class PlanAllReportExcilUtil extends AbstractExcelView {
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename="+ filename + ".xls");
 		// 命名页名
-		sheet = workbook.createSheet("计划报表");
+		sheet = workbook.createSheet("运单报表");
 
 		// Excel 样式
 		HSSFCellStyle headerStyle = workbook.createCellStyle(); // 标题样式
@@ -58,126 +57,139 @@ public class PlanAllReportExcilUtil extends AbstractExcelView {
 
 		HSSFCellStyle contentStyle = workbook.createCellStyle(); // 内容样式
 		contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-		List<ReportPlanAllResp> list =  (List<ReportPlanAllResp>) model.get("list");
+		List<ReportBillAllResp> list =  (List<ReportBillAllResp>) model.get("list");
 		int userCount = list.size();
 		for (int i = 0; i < userCount; i++) {
-			ReportPlanAllResp data = list.get(i);
+			ReportBillAllResp data = list.get(i);
 			Integer cellNum = i + 1;
-			//计划日期
-			String no = data.getPlanCreateTimeStr();
+			//运单类型
+			String no = data.getBillType();
 			cell = getCell(sheet, cellNum, 0);
 			cell.setCellStyle(contentStyle);
 			setText(cell, no);
-			//计划单号
-			String type = data.getPlanCode();
+			//业务日期
+			String type = data.getBusinessTime();
 			cell = getCell(sheet, cellNum, 1);
 			cell.setCellStyle(contentStyle);
 			setText(cell, type);
-			//计划开始时间
-			String planNo = data.getPlanBeginTimeStr();
+			//计划单号
+			String planNo = data.getPlanNo();
 			cell = getCell(sheet, cellNum, 2);
 			cell.setCellStyle(contentStyle);
 			setText(cell, planNo);
-			//计划结束时间
-			String billNo = data.getPlanEndTimeStr();
+			//运单号
+			String billNo = data.getBillNo();
 			cell = getCell(sheet, cellNum, 3);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billNo);
-			//计划总量
-			String sendMan = data.getPlanWeight();
+			//发货方
+			String sendMan = data.getSendMan();
 			cell = getCell(sheet, cellNum, 4);
 			cell.setCellStyle(contentStyle);
 			setText(cell, sendMan);
-			//计划已完成量
-			String sendPersion = data.getComplitWeight();
+			//发货人
+			String sendPersion = data.getSendPersion();
 			cell = getCell(sheet, cellNum, 5);
 			cell.setCellStyle(contentStyle);
 			setText(cell, sendPersion);
-			//完成进度
-			String receiptMan = data.getTempo();
+			//收货方
+			String receiptMan = data.getReceiptMan();
 			cell = getCell(sheet, cellNum, 6);
 			cell.setCellStyle(contentStyle);
 			setText(cell, receiptMan);
-			//计划状态
-			String receiptPersion = data.getPlanStatus();
-			if(StringUtils.equals("0", data.getPlanStatus())){
-				receiptPersion = "新建";
-			}else if(StringUtils.equals("1", data.getPlanStatus())){
-				receiptPersion = "待接";
-			}else if(StringUtils.equals("2", data.getPlanStatus())){
-				receiptPersion = "执行中";
-			}else if(StringUtils.equals("3", data.getPlanStatus())){
-				receiptPersion = "已完成";
-			}else if(StringUtils.equals("-1", data.getPlanStatus())){
-				receiptPersion = "已删除";
-			}
+			//签收人
+			String receiptPersion = data.getReceiptPersion();
 			cell = getCell(sheet, cellNum, 7);
 			cell.setCellStyle(contentStyle);
 			setText(cell, receiptPersion);
-			//货物名称
-			String vehicleno = data.getCargoName();
+			//车牌号
+			String vehicleno = data.getVehicleNo();
 			cell = getCell(sheet, cellNum, 8);
 			cell.setCellStyle(contentStyle);
 			setText(cell, vehicleno);
-			//路线
-			String cargoName = data.getRouteName();
+			//货物名称
+			String cargoName = data.getCargoName();
 			cell = getCell(sheet, cellNum, 9);
 			cell.setCellStyle(contentStyle);
 			setText(cell, cargoName);
-			//发货方
-			String routeName = data.getSendMan();
+			//路线
+			String routeName = data.getRouteName();
 			cell = getCell(sheet, cellNum, 10);
 			cell.setCellStyle(contentStyle);
 			setText(cell, routeName);
-			//发货人
-			String distinct = data.getSendPersion();
+			//运距
+			String distinct = data.getDistinct();
 			cell = getCell(sheet, cellNum, 11);
 			cell.setCellStyle(contentStyle);
 			setText(cell, distinct);
-			//车主
-			String venderWeight = data.getVenderName();
+			//车主派单量
+			String venderWeight = data.getVenderWeight();
 			cell = getCell(sheet, cellNum, 12);
 			cell.setCellStyle(contentStyle);
 			setText(cell, venderWeight);
-			//收货方
-			String pickupWeight = data.getReceiptMan();
+			//提货榜单净重
+			String pickupWeight = data.getPickupWeight();
 			cell = getCell(sheet, cellNum, 13);
 			cell.setCellStyle(contentStyle);
 			setText(cell, pickupWeight);
-			//签收人
-			String unloadWeight = data.getReceiptPersion();
+			//卸货榜单净重
+			String unloadWeight = data.getUnloadWeight();
 			cell = getCell(sheet, cellNum, 14);
 			cell.setCellStyle(contentStyle);
 			setText(cell, unloadWeight);
-			//运距
-			String trueWeight = data.getDistant();
+			//签收量
+			String trueWeight = data.getTrueWeight();
 			cell = getCell(sheet, cellNum, 15);
 			cell.setCellStyle(contentStyle);
 			setText(cell, trueWeight);
 			
-			//单价
-			String billStatus = data.getPrice();
+			//运单状态
+			String billStatus = data.getBillStatus();
 			cell = getCell(sheet, cellNum, 16);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billStatus);
 			
-			//税率
-			String driverName = data.getTax();
+			//司机姓名
+			String driverName = data.getDriverName();
 			cell = getCell(sheet, cellNum, 17);
 			cell.setCellStyle(contentStyle);
 			setText(cell, driverName);
 			
 			//支付对象
 			String payMent = data.getPayMent();
-			if(StringUtils.equals("1", data.getPayMent())){
-				payMent = "司机";
-			}else if(StringUtils.equals("2", data.getPayMent())){
-				payMent = "车主";
-			}
 			cell = getCell(sheet, cellNum, 18);
 			cell.setCellStyle(contentStyle);
 			setText(cell, payMent);
 			
+			//运单创建时间
+			String billCreaterTime = data.getBillCreaterTime().toString();
+			cell = getCell(sheet, cellNum, 19);
+			cell.setCellStyle(contentStyle);
+			setText(cell, billCreaterTime);
+			
+			//接受运单时间
+			String acceptTime = data.getAcceptTime().toString();
+			cell = getCell(sheet, cellNum, 20);
+			cell.setCellStyle(contentStyle);
+			setText(cell, acceptTime);
+			
+			//提货确认时间
+			String pickupTime = data.getPickupTime().toString();
+			cell = getCell(sheet, cellNum, 21);
+			cell.setCellStyle(contentStyle);
+			setText(cell, pickupTime);
+			
+			//卸货确认时间
+			String unloadTime = data.getUnloadTime().toString();
+			cell = getCell(sheet, cellNum, 22);
+			cell.setCellStyle(contentStyle);
+			setText(cell, unloadTime);
+			
+			//签收运单时间
+			String signTime = data.getSignTime().toString();
+			cell = getCell(sheet, cellNum, 23);
+			cell.setCellStyle(contentStyle);
+			setText(cell, signTime);
 		}
 	}
 

@@ -51,7 +51,7 @@
 						<h2>车主计划报表</h2>
 						<!-- 1-司机，2-车主，3-货主 -->
 						<input type="hidden" id="reportType" value="2">
-						<a href=""><span>导出报表</span></a>
+						<span class="exportReport">导出报表</span>
 					</div>
 					<!--个人中心右侧搜索框begin-->
            	 <!--个人中心右侧搜索框begin-->
@@ -70,7 +70,14 @@
                     </div>
                     <div class="bb_czline">
                         <label>计划状态：</label>
-                        <input type="text" id="planStatus" placeholder="请输入计划状态">
+                        <select id="planStatus">
+                        	<option value="">请选择</option>
+                        	<option value="0">新建</option>
+                        	<option value="-1">已删除</option>
+                        	<option value="1">待接</option>
+                        	<option value="2">执行中</option>
+                        	<option value="3">已完成</option>
+                        </select>
                     </div>
                 </div>
                 <div class="bb_line hidemore">
@@ -108,7 +115,11 @@
                     </div>
                  	<div class="bb_czline">
                         <label>支付对象：</label>
-                        <input type="text" id="payMent" placeholder="请输入计划单号">
+                        <select id="payMent">
+                        	<option value="">请选择</option>
+                        	<option value="1">司机</option>
+                        	<option value="2">车主</option>
+                        </select>
                     </div>
                     <div class="bb_czline">
                         <button type="submit" onclick="regist()" class="btn btnyello">重置</button>

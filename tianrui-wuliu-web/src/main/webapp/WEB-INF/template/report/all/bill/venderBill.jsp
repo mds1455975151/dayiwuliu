@@ -51,7 +51,7 @@
 						<h2>车主运单报表</h2>
 						<!-- 1-司机，2-车主，3-货主 -->
 						<input type="hidden" id="reportType" value="2">
-						<a href=""><span>导出报表</span></a>
+						<span class="exportReport">导出报表</span>
 					</div>
 					<!--个人中心右侧搜索框begin-->
             <!--个人中心右侧搜索框begin-->

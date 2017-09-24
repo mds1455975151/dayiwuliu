@@ -50,7 +50,7 @@
     from report_bill_all
     <where>
     	<if test="billOwnerId != null and billOwnerId != ''">
-    		and bill_owner_id = #{bill_owner_id,jdbcType=VARCHAR}
+    		and bill_owner_id = #{billOwnerId,jdbcType=VARCHAR}
     	</if>
     	<if test="billVenderId != null and billVenderId != ''">
     		and bill_vender_id = #{billVenderId,jdbcType=VARCHAR}
@@ -138,7 +138,7 @@
 		</if>
     </where>
     order by bill_creater_time desc
-    <if test="pageNo != null and pageNo != ''">
+    <if test="pageNo != null">
     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
@@ -148,7 +148,7 @@
     from report_bill_all
     <where>
     	<if test="billOwnerId != null and billOwnerId != ''">
-    		and bill_owner_id = #{bill_owner_id,jdbcType=VARCHAR}
+    		and bill_owner_id = #{billOwnerId,jdbcType=VARCHAR}
     	</if>
     	<if test="billVenderId != null and billVenderId != ''">
     		and bill_vender_id = #{billVenderId,jdbcType=VARCHAR}
