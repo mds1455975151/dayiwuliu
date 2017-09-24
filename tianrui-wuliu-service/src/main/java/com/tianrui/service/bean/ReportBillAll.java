@@ -1,5 +1,8 @@
 package com.tianrui.service.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class ReportBillAll {
     private String id;
     
@@ -70,6 +73,33 @@ public class ReportBillAll {
     private String desc3;
 
     private String desc4;
+    
+    private String businessTimeStart;
+    private String businessTimeEnd;
+    private String billCreaterTimeStart;
+    private String billCreaterTimeEnd;
+    private String acceptTimeStart;
+    private String acceptTimeEnd;
+    private String pickupTimeStart;
+    private String pickupTimeEnd;
+    private String unloadTimeStart;
+    private String unloadTimeEndtime;
+    private String signTimeStart;
+    private String signTimeEnd;
+    
+    private Long businessTimeStarts;
+    private Long businessTimeEnds;
+    private Long billCreaterTimeStarts;
+    private Long billCreaterTimeEnds;
+    
+    private Long acceptTimeStarts;
+    private Long acceptTimeEnds;
+    private Long pickupTimeStarts;
+    private Long pickupTimeEnds;
+    private Long unloadTimeStarts;
+    private Long unloadTimeEndtimes;
+    private Long signTimeStarts;
+    private Long signTimeEnds;
 
     public String getId() {
         return id;
@@ -350,4 +380,202 @@ public class ReportBillAll {
 	public void setPageSize(Integer pageSize) {
 		PageSize = pageSize;
 	}
+
+	public String getBusinessTimeStart() {
+		return businessTimeStart;
+	}
+
+	public void setBusinessTimeStart(String businessTimeStart) {
+		this.businessTimeStart = businessTimeStart;
+	}
+
+	public String getBusinessTimeEnd() {
+		return businessTimeEnd;
+	}
+
+	public void setBusinessTimeEnd(String businessTimeEnd) {
+		this.businessTimeEnd = businessTimeEnd;
+	}
+
+	public String getBillCreaterTimeStart() {
+		return billCreaterTimeStart;
+	}
+
+	public void setBillCreaterTimeStart(String billCreaterTimeStart) {
+		this.billCreaterTimeStart = billCreaterTimeStart;
+	}
+
+	public String getBillCreaterTimeEnd() {
+		return billCreaterTimeEnd;
+	}
+
+	public void setBillCreaterTimeEnd(String billCreaterTimeEnd) {
+		this.billCreaterTimeEnd = billCreaterTimeEnd;
+	}
+
+	public String getAcceptTimeStart() {
+		return acceptTimeStart;
+	}
+
+	public void setAcceptTimeStart(String acceptTimeStart) {
+		this.acceptTimeStart = acceptTimeStart;
+	}
+
+	public String getAcceptTimeEnd() {
+		return acceptTimeEnd;
+	}
+
+	public void setAcceptTimeEnd(String acceptTimeEnd) {
+		this.acceptTimeEnd = acceptTimeEnd;
+	}
+
+	public String getPickupTimeStart() {
+		return pickupTimeStart;
+	}
+
+	public void setPickupTimeStart(String pickupTimeStart) {
+		this.pickupTimeStart = pickupTimeStart;
+	}
+
+	public String getPickupTimeEnd() {
+		return pickupTimeEnd;
+	}
+
+	public void setPickupTimeEnd(String pickupTimeEnd) {
+		this.pickupTimeEnd = pickupTimeEnd;
+	}
+
+	public String getUnloadTimeStart() {
+		return unloadTimeStart;
+	}
+
+	public void setUnloadTimeStart(String unloadTimeStart) {
+		this.unloadTimeStart = unloadTimeStart;
+	}
+
+	public String getUnloadTimeEndtime() {
+		return unloadTimeEndtime;
+	}
+
+	public void setUnloadTimeEndtime(String unloadTimeEndtime) {
+		this.unloadTimeEndtime = unloadTimeEndtime;
+	}
+
+	public String getSignTimeStart() {
+		return signTimeStart;
+	}
+
+	public void setSignTimeStart(String signTimeStart) {
+		this.signTimeStart = signTimeStart;
+	}
+
+	public String getSignTimeEnd() {
+		return signTimeEnd;
+	}
+
+	public void setSignTimeEnd(String signTimeEnd) {
+		this.signTimeEnd = signTimeEnd;
+	}
+
+	
+	public Long getBusinessTimeStarts() throws ParseException {
+		if(businessTimeStart!=null&&businessTimeStart!=""){
+			businessTimeStarts =(new SimpleDateFormat("yyyy-MM-dd").parse(businessTimeStart)).getTime();
+			return businessTimeStarts;
+		}
+		return businessTimeStarts;
+	}
+
+	public Long getBusinessTimeEnds() throws ParseException {
+		if(businessTimeEnd!=null&&businessTimeEnd!=""){
+			businessTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(businessTimeEnd)).getTime();
+			return businessTimeEnds;
+		}
+		return businessTimeEnds;
+	}
+
+	public Long getBillCreaterTimeEnds() throws ParseException {
+		if(billCreaterTimeEnd!=null&&billCreaterTimeEnd!=""){
+			billCreaterTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(billCreaterTimeEnd)).getTime();
+			return billCreaterTimeEnds;
+		}
+		return billCreaterTimeEnds;
+	}
+
+	public Long getAcceptTimeStarts() throws ParseException {
+		if(acceptTimeStart!=null&&acceptTimeStart!=""){
+			acceptTimeStarts =(new SimpleDateFormat("yyyy-MM-dd").parse(acceptTimeStart)).getTime();
+			return acceptTimeStarts;
+		}
+		return acceptTimeStarts;
+	}
+
+	public Long getAcceptTimeEnds() throws ParseException {
+		if(acceptTimeEnd!=null&&acceptTimeEnd!=""){
+			acceptTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(acceptTimeEnd)).getTime();
+			return acceptTimeEnds;
+		}
+		return acceptTimeEnds;
+	}
+
+	public Long getPickupTimeStarts() throws ParseException {
+		if(pickupTimeStart!=null&&pickupTimeStart!=""){
+			pickupTimeStarts =(new SimpleDateFormat("yyyy-MM-dd").parse(pickupTimeStart)).getTime();
+			return pickupTimeStarts;
+		}
+		return pickupTimeStarts;
+	}
+
+	public Long getPickupTimeEnds() throws ParseException {
+		if(pickupTimeEnd!=null&&pickupTimeEnd!=""){
+			pickupTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(pickupTimeEnd)).getTime();
+			return pickupTimeEnds;
+		}
+		return pickupTimeEnds;
+	}
+
+	public Long getUnloadTimeStarts() throws ParseException {
+		if(unloadTimeStart!=null&&unloadTimeStart!=""){
+			unloadTimeStarts =(new SimpleDateFormat("yyyy-MM-dd").parse(unloadTimeStart)).getTime();
+			return unloadTimeStarts;
+		}
+		return unloadTimeStarts;
+	}
+
+	public Long getUnloadTimeEndtimes() throws ParseException {
+		if(unloadTimeEndtime!=null&&unloadTimeEndtime!=""){
+			unloadTimeEndtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(unloadTimeEndtime)).getTime();
+			return unloadTimeEndtimes;
+		}
+		return unloadTimeEndtimes;
+	}
+
+	public Long getSignTimeStarts() throws ParseException {
+		if(signTimeStart!=null&&signTimeStart!=""){
+			signTimeStarts =(new SimpleDateFormat("yyyy-MM-dd").parse(signTimeStart)).getTime();
+			return signTimeStarts;
+		}
+		return signTimeStarts;
+	}
+
+	public Long getSignTimeEnds() throws ParseException {
+		if(signTimeEnd!=null&&signTimeEnd!=""){
+			signTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(signTimeEnd)).getTime();
+			return signTimeEnds;
+		}
+		return signTimeEnds;
+	}
+
+	public Long getBillCreaterTimeStarts() throws ParseException {
+		if(billCreaterTimeStart!=null&&billCreaterTimeStart!=""){
+			billCreaterTimeStarts =(new SimpleDateFormat("yyyy-MM-dd").parse(billCreaterTimeStart)).getTime();
+			return billCreaterTimeStarts;
+		}
+		return billCreaterTimeStarts;
+	}
+
+
+	
+	
+	
 }

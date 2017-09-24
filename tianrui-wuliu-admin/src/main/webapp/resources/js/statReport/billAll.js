@@ -1,9 +1,89 @@
 function displayData(pageNo){
 	init(pageNo);
 }
-
+function reset(){
+	$("#billType").val("");
+	$("#planNo").val("");
+	$("#billNo").val("");
+	$("#cargoName").val("");
+	$("#vehicleNo").val("");
+	$("#routeName").val("");
+	$("#billStatus").val("");
+	$("#driverName").val("");
+	$("#payMent").val("");
+	$("#sendMan").val("");
+	$("#sendPersion").val("");
+	$("#receiptMan").val("");
+	$("#receiptPersion").val("");
+	$("#businessTimeStart").val("");
+	$("#businessTimeEnd").val("");
+	$("#billCreaterTimeStart").val("");
+	$("#billCreaterTimeEnd").val("");
+	$("#acceptTimeStart").val("");
+	$("#acceptTimeEnd").val("");
+	$("#pickupTimeStart").val("");
+	$("#pickupTimeEnd").val("");
+	$("#unloadTimeStart").val("");
+	$("#unloadTimeEndtime").val("");
+	$("#signTimeStart").val("");
+	$("#signTimeEnd").val("");
+	init(0);
+}
 function getParams(pageNo){
+	var billType =$("#billType").val();
+	var planNo =$("#planNo").val();
+	var billNo =$("#billNo").val();
+	var cargoName =$("#cargoName").val();
+	var vehicleNo =$("#vehicleNo").val();
+	var routeName =$("#routeName").val();
+	var billStatus =$("#billStatus").val();
+	var driverName =$("#driverName").val();
+	var payMent =$("#payMent").val();
+	var sendMan =$("#sendMan").val();
+	var sendPersion =$("#sendPersion").val();
+	var receiptMan =$("#receiptMan").val();
+	var receiptPersion =$("#receiptPersion").val();
+	
+	var businessTimeStart =$("#businessTimeStart").val();
+	var businessTimeEnd =$("#businessTimeEnd").val();
+	var billCreaterTimeStart =$("#billCreaterTimeStart").val();
+	var billCreaterTimeEnd =$("#billCreaterTimeEnd").val();
+	var acceptTimeStart =$("#acceptTimeStart").val();
+	var acceptTimeEnd =$("#acceptTimeEnd").val();
+	var pickupTimeStart =$("#pickupTimeStart").val();
+	var pickupTimeEnd =$("#pickupTimeEnd").val();
+	var unloadTimeStart =$("#unloadTimeStart").val();
+	var unloadTimeEndtime =$("#unloadTimeEndtime").val();
+	var signTimeStart =$("#signTimeStart").val();
+	var signTimeEnd =$("#signTimeEnd").val();
+	
 	var params = {
+			billType:$.trim(billType),
+			planNo:$.trim(planNo),
+			billNo:$.trim(billNo),
+			cargoName:$.trim(cargoName),
+			vehicleNo:$.trim(vehicleNo),
+			routeName:$.trim(routeName),
+			billStatus:$.trim(billStatus),
+			driverName:$.trim(driverName),
+			payMent:$.trim(payMent),
+			sendMan:$.trim(sendMan),
+			sendPersion:$.trim(sendPersion),
+			receiptMan:$.trim(receiptMan),
+			receiptPersion:$.trim(receiptPersion),
+			businessTimeStart:$.trim(businessTimeStart),
+			businessTimeEnd:$.trim(businessTimeEnd),
+			billCreaterTimeStart:$.trim(billCreaterTimeStart),
+			billCreaterTimeEnd:$.trim(billCreaterTimeEnd),
+			acceptTimeStart:$.trim(acceptTimeStart),
+			acceptTimeEnd:$.trim(acceptTimeEnd),
+			pickupTimeStart:$.trim(pickupTimeStart),
+			pickupTimeEnd:$.trim(pickupTimeEnd),
+			unloadTimeStart:$.trim(unloadTimeStart),
+			unloadTimeEndtime:$.trim(unloadTimeEndtime),
+			signTimeStart:$.trim(signTimeStart),
+			signTimeEnd:$.trim(signTimeEnd),
+			
 			pageNo:pageNo,
 			pageSize:10
 		};
@@ -63,11 +143,11 @@ function innerHml(data){
 				"<td>"+data[a].billStatus+"</td>" +
 				"<td>"+data[a].driverName+"</td>" +
 				"<td>"+data[a].payMent+"</td>" +
-				"<td>"+data[a].billCreaterTime+"</td>" +
-				"<td>"+data[a].acceptTime+"</td>" +
-				"<td>"+data[a].pickupTime+"</td>" +
-				"<td>"+data[a].unloadTime+"</td>" +
-				"<td>"+data[a].signTime+"</td>" +
+				"<td>"+data[a].billCreaterTimeStr+"</td>" +
+				"<td>"+data[a].acceptTimeStr+"</td>" +
+				"<td>"+data[a].pickupTimeStr+"</td>" +
+				"<td>"+data[a].unloadTimeStr+"</td>" +
+				"<td>"+data[a].signTimeStr+"</td>" +
 				"</tr>";
 		$("#innerHtml").append(hml);
 	}

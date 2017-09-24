@@ -71,6 +71,10 @@ public class ReportPayAllReq {
 
     private String desc4;
 
+    private String paystarttime;
+    private String payendtime;
+    private String billstarttime;
+    private String billendtime;
     public String getId() {
         return id;
     }
@@ -350,4 +354,38 @@ public class ReportPayAllReq {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public String getPaystarttime() {
+		return paystarttime;
+	}
+
+	public void setPaystarttime(String paystarttime) {
+		this.paystarttime = paystarttime;
+	}
+
+	public String getPayendtime() {
+		return payendtime;
+	}
+
+	public void setPayendtime(String payendtime) {
+		this.payendtime = payendtime;
+	}
+
+	public String getBillstarttime() {
+		return billstarttime;
+	}
+
+	public void setBillstarttime(String billstarttime) {
+		this.billstarttime = billstarttime;
+	}
+
+	public String getBillendtime() {
+		return billendtime;
+	}
+
+	public void setBillendtime(String billendtime) {
+		this.billendtime = billendtime;
+	}
+	
+	
 }

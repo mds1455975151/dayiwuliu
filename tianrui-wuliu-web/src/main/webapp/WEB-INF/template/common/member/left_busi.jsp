@@ -101,6 +101,9 @@
 <!--                        	<li><a>我的账单</a></li>
                         <li><a>账号安全</a></li> -->
                         <li><a href="/trwuliu/Member/message/message?role=${role }" id="messagePage">消息中心<span id="messageCount"></span> </a></li> 
+                    	<li><a href="/trwuliu/ReportAll/payPage">账单报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/billPage">运单报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/planPage">计划报表</a></li>
                     </ul>
                 </div>
             </div>

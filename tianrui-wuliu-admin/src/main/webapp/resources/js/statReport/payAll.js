@@ -3,13 +3,58 @@ function displayData(pageNo){
 }
 
 function getParams(pageNo){
+	var cargoName =$("#cargoName").val();
+	var payCode =$("#payCode").val();
+	var planCode =$("#planCode").val();
+	var routeName =$("#routeName").val();
+	var sendMan =$("#sendMan").val();
+	var sendPersian =$("#sendPersian").val();
+	var venderName =$("#venderName").val();
+	var receiptMan =$("#receiptMan").val();
+	var receiptPerson =$("#receiptPerson").val();
+	var payStatus =$("#payStatus").val();
+	var paystarttime =$("#paystarttime").val();
+	var payendtime =$("#payendtime").val();
+	var billstarttime =$("#billstarttime").val();
+	var billendtime =$("#billendtime").val();
+	
 	var params = {
+			cargoName:$.trim(cargoName),
+			payCode:$.trim(payCode),
+			planCode:$.trim(planCode),
+			routeName:$.trim(routeName),
+			sendMan:$.trim(sendMan),
+			sendPersian:$.trim(sendPersian),
+			venderName:$.trim(venderName),
+			receiptMan:$.trim(receiptMan),
+			receiptPerson:$.trim(receiptPerson),
+			payStatus:$.trim(payStatus),
+			paystarttime:$.trim(paystarttime),
+			payendtime:$.trim(payendtime),
+			billstarttime:$.trim(billstarttime),
+			billendtime:$.trim(billendtime),
 			pageNo:pageNo,
 			pageSize:10
 		};
 	return params;
 }
-
+function reset(){
+	$("#cargoName").val("");
+	$("#payCode").val("");
+	$("#planCode").val("");
+	$("#routeName").val("");
+	$("#sendMan").val("");
+	$("#sendPersian").val("");
+	$("#venderName").val("");
+	$("#receiptMan").val("");
+	$("#receiptPerson").val("");
+	$("#payStatus").val("");
+	$("#paystarttime").val("");
+	$("#payendtime").val("");
+	$("#billstarttime").val("");
+	$("#billendtime").val("");
+	init(0);
+}
 function init(pageNo){
 	$.ajax({
 		url:"/reportAll/pay",

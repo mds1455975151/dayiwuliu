@@ -40,32 +40,56 @@
 					<div class="col-md-12">
 						<div class="contuser_search">
 							<div class="ht_div">
-								<label>货物名称：</label> <input id="cargoname" type="text" placeholder="请输入货物名称">
+								<label>计划单号：</label> <input id="planCode" type="text" placeholder="请输入计划单号">
 							</div>
-							<c:if test="${empty orgCode or orgCode eq '0000' }">
-								<div class="ht_div">
-									<label>组织名称：</label> <input id="orgid" type="text" placeholder="请选择组织名称">
-								</div>
-							</c:if>
 							<div class="ht_div">
-								<label>日期：</label> <input id="starttime" type="text"
+                                 <label>计划状态：</label>
+                                 <select id="planStatus"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="-1">已删除</option>
+                                     <option value="0">新建</option>
+                                     <option value="1">待接单</option>
+                                     <option value="2">执行中</option>
+                                     <option value="3">已完成</option>
+                                 </select>
+                            </div>
+							<div class="ht_div">
+								<label>路线：</label> <input id="routeName" type="text" placeholder="请输入路线">
+							</div>
+							<div class="ht_div">
+								<label>货物名称：</label> <input id="cargoName" type="text" placeholder="请输入货物名称">
+							</div>
+							<div class="ht_div">
+								<label>发货方：</label> <input id="sendMan" type="text" placeholder="请输入发货方">
+							</div>
+							<div class="ht_div">
+								<label>发货人：</label> <input id="sendPersion" type="text" placeholder="请输入发货人">
+							</div>
+							<div class="ht_div">
+								<label>车主：</label> <input id="venderName" type="text" placeholder="请输入车主">
+							</div>
+							<div class="ht_div">
+								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入收货方">
+							</div>
+							<div class="ht_div">
+								<label>签收人：</label> <input id="receiptPersion" type="text" placeholder="请输入签收人">
+							</div>
+							<div class="ht_div">
+								<label>支付对象：</label> <input id="payMent" type="text" placeholder="请输入支付对象">
+							</div>
+							<div class="ht_div">
+								<label>计划日期：</label> <input id="planStarttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
-									id="endtime" type="text"
+									id="planEndtime" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
-							<div class="ht_divbtn">
-								<button class="btn btnblue search" type="submit">搜索</button>
-								<button class="btn btngreen reset" type="submit">重置</button>
-							</div>
 						</div>
 						<div class="contuser_search">
-							<div class="ht_div">
-								<label>运输路线：</label> <input id="routename" type="text" placeholder="请输入运单路线">
-							</div>
-							<div class="ht_div">
-								<label>计划单号：</label> <input id="plancode" type="text" placeholder="请输入计划单号">
+							<div class="ht_divbtn">
+								<button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>
+								<button class="btn btngreen reset" onclick="reset()" type="submit">重置</button>
 							</div>
 						</div>
 					</div>
@@ -133,6 +157,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/planAll.js"></script>
+	<script type="text/javascript" src="/resources/js/statReport/planAll.js?0922"></script>
 </body>
 </html>

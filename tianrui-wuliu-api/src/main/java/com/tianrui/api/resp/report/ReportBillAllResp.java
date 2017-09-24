@@ -1,5 +1,8 @@
 package com.tianrui.api.resp.report;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ReportBillAllResp {
     private String id;
 
@@ -50,7 +53,14 @@ public class ReportBillAllResp {
     private Long unloadTime;
 
     private Long signTime;
-
+    
+    
+    private String billCreaterTimeStr;
+    private String acceptTimeStr;
+    private String pickupTimeStr;
+    private String unloadTimeStr;
+    private String signTimeStr;
+    
     private String desc1;
 
     private String desc2;
@@ -290,4 +300,43 @@ public class ReportBillAllResp {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+    
+	public String getBillCreaterTimeStr() {
+		if(billCreaterTime!= null){
+			billCreaterTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(billCreaterTime));
+		}
+		return billCreaterTimeStr;
+	}
+
+	public String getAcceptTimeStr() {
+		if(acceptTime!= null){
+			acceptTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(acceptTime));
+		}
+		return acceptTimeStr;
+	}
+
+	public String getPickupTimeStr() {
+		if(pickupTime!= null){
+			pickupTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(pickupTime));
+		}
+		return pickupTimeStr;
+	}
+
+	public String getUnloadTimeStr() {
+		if(unloadTime!= null){
+			unloadTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(unloadTime));
+		}
+		return unloadTimeStr;
+	}
+
+	public String getSignTimeStr() {
+		if(signTime!= null){
+			signTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(signTime));
+		}
+		return signTimeStr;
+	}
+    
+    
+    
 }
