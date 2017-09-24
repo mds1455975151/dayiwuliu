@@ -110,31 +110,31 @@
 							</div>
 							<div class="ht_div">
 								<label>计划单号：</label> <input id="planNo" type="text"
-									placeholder="请输入运单路线">
+									placeholder="请输入计划单号">
 							</div>
 							<div class="ht_div">
 								<label>运单号：</label> <input id="billNo" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入运单号">
 							</div>
 							<div class="ht_div">
 								<label>货物名称：</label> <input id="cargoName" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入货物名称">
 							</div>
 							<div class="ht_div" name="mytable"  style="display:none">
 								<label>车牌号：</label> <input id="vehicleNo" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入车牌号">
 							</div>
 							<div class="ht_div" name="mytable"  style="display:none">
 								<label>路线：</label> <input id=routeName type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入路线">
 							</div>
 							<div class="ht_div" name="mytable"  style="display:none">
 								<label>运单状态：</label> <input id="billStatus" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入运单状态">
 							</div>
 							<div class="ht_div" name="mytable"  style="display:none">
 								<label>司机姓名：</label> <input id="driverName" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入司机姓名">
 							</div>
 							<div class="ht_div" name="mytable"   style="display:none">
                                  <label>支付对象：</label>
@@ -146,19 +146,19 @@
                             </div>
 							<div class="ht_div" name="mytable"  style="display:none">
 								<label>发货方：</label> <input id="sendMan" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入发货方">
 							</div>
 							<div class="ht_div" name="mytable"   style="display:none">
 								<label>发货人：</label> <input id="sendPersion" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入发货人">
 							</div>
 							<div class="ht_div" name="mytable"   style="display:none">
 								<label>收货方：</label> <input id="receiptMan" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入收货方">
 							</div>
 							<div class="ht_div" name="mytable"   style="display:none">
 								<label>签收人：</label> <input id="receiptPersion" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入签收人">
 							</div>
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" onclick="init(0)"
