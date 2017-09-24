@@ -364,17 +364,9 @@ var type = "owner";
 			allowedFileExtensions : [ 'jpg', 'png', 'jpeg' ]// 支持的图片类型
 		}).on('fileuploaderror',function(event, data, previewId, index) {
 			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-			console.log(data);
-			console.log('File upload error');
 		}).on('fileerror', function(event, data) {
-			console.log(data.id);
-			console.log(data.index);
-			console.log(data.file);
-			console.log(data.reader);
-			console.log(data.files);
 		}).on('fileuploaded',function(event, data, previewId, index) {
 			var form = data.form, files = data.files, extra = data.extra, response = data.response, reader = data.reader;
-			console.log('File uploaded triggered');
 		});
 </script>
 </body>

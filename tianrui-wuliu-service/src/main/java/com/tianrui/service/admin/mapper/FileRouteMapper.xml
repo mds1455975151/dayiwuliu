@@ -40,6 +40,13 @@
     from file_route
     where ID = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from file_route
+  </select>
+  
   <select id="selectByPlanIds" resultMap="PlanRouteMap" parameterType="java.util.List" >
 	SELECT
 		p.id AS planId,

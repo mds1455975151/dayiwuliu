@@ -1,6 +1,5 @@
 package com.tianrui.service.cache;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 

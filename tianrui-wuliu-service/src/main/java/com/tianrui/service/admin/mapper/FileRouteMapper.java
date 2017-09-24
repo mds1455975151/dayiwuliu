@@ -58,6 +58,8 @@ public interface FileRouteMapper {
     
     List<FileRoute> selectByCondition(FileRoute record);
     
+    List<FileRoute> selectAll();
+    
     long countByCondition(FileRoute record);
     
     List<PlanRouteResp> selectByPlanIds(@Param("ids")List<String> ids);

@@ -55,6 +55,11 @@
     from wuliu_member_bankcard
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_member_bankcard
+  </select>
    <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.MemberBankCard" >
     SELECT
 		mb.id,

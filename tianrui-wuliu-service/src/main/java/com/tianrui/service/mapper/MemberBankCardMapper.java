@@ -19,6 +19,8 @@ public interface MemberBankCardMapper {
     
     List<MemberBankCard> selectByCondition(MemberBankCard record);
     
+    List<MemberBankCard> selectAll();
+    
     long selectBycount(MemberBankCard record);
     
     List<MemberBankCard> selectSelective(MemberBankCard record);

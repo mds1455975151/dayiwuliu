@@ -32,6 +32,12 @@ public enum CacheModule {
 	RESETPASS_APP("resetPass1-","APP端重置密码验证码"),
 	ZJXL_TOKEN("zjxl_token","中交兴路token"),
 	
+	FILE_KS("ks-","客商信息档案"),
+	FILE_XL("xl-","线路信息档案"),
+	FILE_QSL("qsl-","签收人信息档案"),
+	FILE_MEMBER("m-","签收人信息档案"),
+	FILE_YHK("yhk-","银行卡信息档案"),
+	
 	LOGIN_APP_AUTHCODE("loginAppCode-","APP端登录验证码"),
 	MEMBERLOGIN_APP("logincodeApp-","APP登录标识"),
 	ADMINLOGIN("loginAdmin-","后台管理用户登录");

@@ -6,8 +6,12 @@ import com.tianrui.service.bean.ReportPlanAll;
 
 public interface ReportPlanAllMapper {
     int deleteByPrimaryKey(String id);
+    
+    int deleteAll();
 
     int insert(ReportPlanAll record);
+    
+    int insertBatch(List<ReportPlanAll> list);
 
     int insertSelective(ReportPlanAll record);
 
