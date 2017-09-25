@@ -274,7 +274,7 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/report/all/bill.js?0923"></script>
+	<script type="text/javascript" src="/resources/js/report/all/bill.js?0924"></script>
 	<script type="text/javascript">
     $(function () {
         $(".c_Screen").on('click',function(){
