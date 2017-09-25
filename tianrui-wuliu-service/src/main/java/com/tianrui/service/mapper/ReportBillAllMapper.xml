@@ -248,12 +248,16 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteAnlianBill"  >
+  	<![CDATA[
     delete from report_bill_all
-    where bill_type ='al' 
+    where bill_type ='al' and bill_creater_time >1501516800000 and sign_time is null
+    ]]> 
   </delete>
   <delete id="deletePtBill" parameterType="java.lang.String" >
+  	<![CDATA[
     delete from report_bill_all
-    where bill_type ='dy' and bill_status !=6
+    where bill_type ='dy' and bill_status !=6 and bill_creater_time >1501516800000
+    ]]>  
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.ReportBillAll" >
     insert into report_bill_all (id, bill_owner_id, bill_vender_id, 
@@ -669,7 +673,9 @@
   	FROM
 		wuliu_bill bill
 	LEFT JOIN 
-		wuliu_plan plan ON plan.ID = bill.desc1
+		wuliu_plan plan ON plan.ID=bill.planid
+	where 
+		bill.waybillno != '批量运单'
   </select>
   <select id="selectPtBillIds" resultType="string">
   	select 
@@ -712,7 +718,7 @@
 			bill.trueweight true_weight,
 			bill.desc4 bill_status,
 			bill.payment pay_ment,
-			bill.createtime business_time,
+			bill.createtime bill_creater_time,
 			bill.signtime sign_time
 		FROM
 			anlian_bill bill
@@ -728,7 +734,7 @@
 			bill.venderid bill_vender_id,
 			bill.driverid bill_driver_id,
 			bill.receive_memberid bill_receive_id,
-			bill.createtime business_time,
+			bill.createtime bill_creater_time,
 			bill.planCode plan_no,
 			bill.waybillno bill_no,
 			plan.shipperMerchant sendManId,
