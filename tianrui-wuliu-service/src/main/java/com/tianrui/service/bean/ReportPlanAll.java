@@ -316,7 +316,7 @@ public class ReportPlanAll {
 
 	public Long getPlanEndtimes() throws ParseException {
 		if(planEndtime!=null&&planEndtime!=""){
-			planEndtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(planEndtime)).getTime();
+			planEndtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(planEndtime)).getTime()+24*60*60*1000;
 			return planEndtimes;
 		}
 		return planEndtimes;

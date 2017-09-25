@@ -27,9 +27,10 @@
 </head>
 <body>
 	<div class="container-fluid">
+		<input type="hidden" id="recPageNo" value="${pageNo }">
 		<jsp:include page="../../common/header.jsp" flush="false"></jsp:include>
 		<!--后台右侧布局begin-->
-		<input type="hidden" id="pageNo" value="${empty pageNo?1:pageNo }">
+		<!-- <input type="hidden" id="pageNo" value="${empty pageNo?0:pageNo }"> -->
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
@@ -182,7 +183,7 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/payAll.js?09.23"></script>
+	<script type="text/javascript" src="/resources/js/statReport/payAll.js?09.28"></script>
 	<script type="text/javascript">
     $(function () {
 

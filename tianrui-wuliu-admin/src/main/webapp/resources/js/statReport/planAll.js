@@ -1,7 +1,15 @@
-function displayData(pageNo){
-	init(pageNo);
+function displayData(){
+	init(0);
 }
-
+function displayData(pageNo){
+	var page = $("#recPageNo").val();
+	if(page != ""){
+		init(page-1);
+		$("#recPageNo").val("");
+	}else{
+		init(pageNo);
+	}
+}
 function getParams(pageNo){
 	var planStarttime =$("#planStarttime").val();
 	var planEndtime =$("#planEndtime").val();
@@ -28,7 +36,7 @@ function getParams(pageNo){
 			receiptMan:$.trim(receiptMan),
 			receiptPersion:$.trim(receiptPersion),
 			payMent:$.trim(payMent),
-			pageNo:pageNo,
+			pageNo:(pageNo),
 			pageSize:10
 		};
 	return params;
@@ -61,6 +69,8 @@ function init(pageNo){
 				var pageSize = ret.data.pageSize;
 				innerHml(data);
 				$('#totalRecords').html(total);
+				document.getElementById("goPage").value = pageNo+1;
+				$("#totalPages").html(parseInt((total-1)/pageSize+1));
 				$('#totalPages').attr('maxPageNo',parseInt((total+pageSize-1)/pageSize));
 				$("#pagination").pagination(total, {
 				    callback: pageCallback,
@@ -68,7 +78,7 @@ function init(pageNo){
 				    next_text: '下一页',
 				    items_per_page:pageSize,
 				    num_display_entries:4,
-				    current_page:pageNo-1,
+				    current_page:pageNo,
 				    num_edge_entries:1,
 				    maxentries:total,
 				    link_to:"javascript:void(0)"
@@ -158,8 +168,8 @@ $('.exportReport').off('click').on('click',function(){
 			if(result.code == '000000'){
 				if(result.data.total == 0){
 					alert("没有要导出的数据！");
-				}else if(result.data.total > 2000){
-					alert("数据超过2000条，请联系管理员导出！");
+				}else if(result.data.total > 20000){
+					alert("数据超过20000条，请联系管理员导出！");
 				}else{
 					var path = '/reportAll/planReport?'+$.param(getParams(1));
 					$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();

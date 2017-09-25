@@ -31,9 +31,10 @@
 </head>
 <body>
 	<div class="container-fluid">
+		 <input type="hidden" id="recPageNo" value="${pageNo }">
 		<jsp:include page="../../common/header.jsp" flush="false"></jsp:include>
 		<!--后台右侧布局begin-->
-		<input type="hidden" id="pageNo" value="${empty pageNo?1:pageNo }">
+		<!--  <input type="hidden" id="pageNo" value="${empty pageNo?0:pageNo }">-->
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
@@ -128,10 +129,21 @@
 								<label>路线：</label> <input id=routeName type="text"
 									placeholder="请输入路线">
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
-								<label>运单状态：</label> <input id="billStatus" type="text"
-									placeholder="请输入运单状态">
-							</div>
+							<div class="ht_div" name="mytable"   style="display:none">
+                                 <label>运单状态：</label>
+                                 <select id="billStatus"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="-1">车主回收</option>
+                                     <option value="0">司机未确认</option>
+                                     <option value="1">司机已接受</option>
+                                     <option value="2">司机已装货</option>
+                                     <option value="3">司机运输中</option>
+                                     <option value="4">司机已到达</option>
+                                     <option value="5">司机已卸货</option>
+                                     <option value="6">已签收</option>
+                                     <option value="7">司机拒绝接单</option>
+                                 </select>
+                            </div>
 							<div class="ht_div" name="mytable"  style="display:none">
 								<label>司机姓名：</label> <input id="driverName" type="text"
 									placeholder="请输入司机姓名">
@@ -256,7 +268,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js"></script>
+		src="/resources/js/statReport/billAll.js?09.32"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {

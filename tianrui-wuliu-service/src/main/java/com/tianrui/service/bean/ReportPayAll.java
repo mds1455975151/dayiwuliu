@@ -463,7 +463,7 @@ public class ReportPayAll {
 
 	public Long getPayendtimes() throws ParseException {
 		if(payendtime!=null&&payendtime!=""){
-			payendtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(payendtime)).getTime();
+			payendtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(payendtime)).getTime()+24*60*60*1000;
 			return payendtimes;
 		}
 		return payendtimes;
@@ -479,7 +479,7 @@ public class ReportPayAll {
 
 	public Long getBillendtimes() throws ParseException {
 		if(billendtime!=null&&billendtime!=""){
-			billendtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(billendtime)).getTime();
+			billendtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(billendtime)).getTime()+24*60*60*1000;
 			return billendtimes;
 		}
 		return billendtimes;
