@@ -724,7 +724,7 @@
 			anlian_bill bill
 		LEFT JOIN wuliu_plan plan ON plan.ID = bill.desc1
 		ORDER BY
-			bill.createtime
+			bill.createtime desc
 		LIMIT #{start},#{limit}
   </select>
   <select id="getPtBill" resultMap="BaseResultMap"  >
