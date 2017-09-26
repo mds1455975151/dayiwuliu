@@ -728,12 +728,15 @@
 			plan.routeid routeId,
 			plan.distance bill_distinct,
 			bill.zzl vender_weight,
-			bill.pickupweight pickup_weight,
-			bill.signweight unload_weight,
+			bill.trueweight pickup_weight,
+			bill.trueweight unload_weight,
 			bill.trueweight true_weight,
 			bill.desc4 bill_status,
 			bill.payment pay_ment,
 			bill.createtime bill_creater_time,
+			bill.createtime accept_time,
+			bill.createtime pickup_time,
+			bill.signtime  unload_time,
 			bill.signtime sign_time
 		FROM
 			anlian_bill bill

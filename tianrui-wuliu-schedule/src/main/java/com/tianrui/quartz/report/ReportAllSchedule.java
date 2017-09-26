@@ -45,9 +45,9 @@ public class ReportAllSchedule {
 		//缓存更新
 		reportAllInputService.cacheUpdate();
 		//计划更新
-		reportAllInputService.planUpdate();
+		//reportAllInputService.planUpdate();
 		//账单更新
-		reportAllInputService.payAlianUpdate();
+		//reportAllInputService.payAlianUpdate();
 		//安联运单更新
 		reportAllInputService.billAlianUpdate();
 		//平台运单更新

@@ -356,6 +356,13 @@ public class ReportAllServiceInput implements IReportAllInputService{
 						item.setDriverName(driver.getRemarkname());
 					}
 				}
+				//车主名称
+				if( StringUtils.isNotBlank(item.getBillVenderId()) ){
+					SystemMember vender=cacheClient.getObj(CacheModule.FILE_MEMBER.getCode()+item.getBillVenderId(),SystemMember.class );
+					if(vender!=null){
+						item.setOwnerName(vender.getRemarkname());
+					}
+				}
 				rs.add(item);
 			}
 		}
@@ -393,6 +400,13 @@ public class ReportAllServiceInput implements IReportAllInputService{
 					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getReceiptManId(),Merchant.class );
 					if(merchant!=null){
 						item.setReceiptMan(merchant.getName());
+					}
+				}
+				//车主名称
+				if( StringUtils.isNotBlank(item.getBillVenderId()) ){
+					SystemMember vender=cacheClient.getObj(CacheModule.FILE_MEMBER.getCode()+item.getBillVenderId(),SystemMember.class );
+					if(vender!=null){
+						item.setOwnerName(vender.getRemarkname());
 					}
 				}
 				rs.add(item);
