@@ -36,6 +36,7 @@ function reset(){
 	$("#unloadTimeEndtime").val("");
 	$("#signTimeStart").val("");
 	$("#signTimeEnd").val("");
+	$("#ownerName").val("");
 	init(0);
 }
 function getParams(pageNo){
@@ -52,7 +53,7 @@ function getParams(pageNo){
 	var sendPersion =$("#sendPersion").val();
 	var receiptMan =$("#receiptMan").val();
 	var receiptPersion =$("#receiptPersion").val();
-	
+	var ownerName = $("#ownerName").val();
 	var businessTimeStart =$("#businessTimeStart").val();
 	var businessTimeEnd =$("#businessTimeEnd").val();
 	var billCreaterTimeStart =$("#billCreaterTimeStart").val();
@@ -92,7 +93,7 @@ function getParams(pageNo){
 			unloadTimeEndtime:$.trim(unloadTimeEndtime),
 			signTimeStart:$.trim(signTimeStart),
 			signTimeEnd:$.trim(signTimeEnd),
-			
+			ownerName:$.trim(ownerName),
 			pageNo:(pageNo),
 			pageSize:10
 		};
@@ -158,6 +159,7 @@ function innerHml(data){
 		var unloadWeight = data[a].unloadWeight == undefined ? "":data[a].unloadWeight;
 		var trueWeight = data[a].trueWeight == undefined ? "":data[a].trueWeight;
 		var driverName = data[a].driverName == undefined ? "":data[a].driverName;
+		var ownerName = data[a].ownerName == undefined ? "":data[a].ownerName;
 		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
 		if(payMent=="1"){
 			payMent="司机"
@@ -189,6 +191,7 @@ function innerHml(data){
 				"<td>"+trueWeight+"</td>" +
 				"<td>"+(getBillStatus(data[a].billStatus)||"")+"</td>" +
 				"<td>"+driverName+"</td>" +
+				"<td>"+ownerName+"</td>" +
 				"<td>"+payMent+"</td>" +
 				"<td>"+billCreaterTimeStr+"</td>" +
 				"<td>"+acceptTimeStr+"</td>" +

@@ -74,6 +74,8 @@ public class ReportBillAll {
 
     private String desc4;
     
+    private String ownerName;
+    
     private String businessTimeStart;
     private String businessTimeEnd;
     private String billCreaterTimeStart;
@@ -600,6 +602,14 @@ public class ReportBillAll {
 
 	public void setRouteId(String routeId) {
 		this.routeId = routeId;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 	
 }

@@ -148,6 +148,10 @@
 								<label>司机姓名：</label> <input id="driverName" type="text"
 									placeholder="请输入司机姓名">
 							</div>
+							<div class="ht_div" name="mytable"  style="display:none">
+								<label>车主姓名：</label> <input id="ownerName" type="text"
+									placeholder="请输入车主姓名">
+							</div>
 							<div class="ht_div" name="mytable"   style="display:none">
                                  <label>支付对象：</label>
                                  <select id="payMent"  class="form-control">
@@ -224,6 +228,7 @@
 										<th>签收量</th>
 										<th>运单状态</th>
 										<th>司机姓名</th>
+										<th>车主姓名</th>
 										<th>支付对象</th>
 										<th>运单创建时间</th>
 										<th>接受运单时间</th>
@@ -268,7 +273,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js?09.32"></script>
+		src="/resources/js/statReport/billAll.js?09.33"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {

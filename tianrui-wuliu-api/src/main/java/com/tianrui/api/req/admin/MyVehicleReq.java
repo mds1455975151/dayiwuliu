@@ -67,7 +67,7 @@ public class MyVehicleReq extends BaseReq{
 	private Long createtime;
 	private Long audittime;//审核时间
 	private String auditname;//审核人
-	
+	private String drivingTime;//车辆行驶证有效期
 	private Integer limit;
 	public String getId() {
 		return id;
@@ -191,6 +191,12 @@ public class MyVehicleReq extends BaseReq{
 	public void setAudittime(Long audittime) {
 		this.audittime = audittime;
 	}
-	
+	public String getDrivingTime() {
+		return drivingTime;
+	}
+	public void setDrivingTime(String drivingTime) {
+		this.drivingTime = drivingTime;
+	}
+
 	
 }

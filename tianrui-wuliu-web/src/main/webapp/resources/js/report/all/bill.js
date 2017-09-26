@@ -75,7 +75,8 @@ function getParment(pageNo){
 		signTimeStart:$("#signTimeStart").val(),
 		signTimeEnd:$("#signTimeEnd").val(),
 		billCreaterTimeStart:$("#billCreaterTimeStart").val(),
-		billCreaterTimeEnd:$("#billCreaterTimeEnd").val()
+		billCreaterTimeEnd:$("#billCreaterTimeEnd").val(),
+		ownerName:$("#ownerName").val()
 	}
 }
 
@@ -105,6 +106,7 @@ function regist(){
 	$("#signTimeEnd").val("");
 	$("#billCreaterTimeStart").val(""),
 	$("#billCreaterTimeEnd").val(""),
+	$("#ownerName").val(""),
 	init(0,0);
 }
 
@@ -148,6 +150,7 @@ function appendHtml(data){
 				"<td>"+(data.trueWeight||"")+"</td>" +
 				"<td>"+(getBillStatus(data.billStatus)||"")+"</td>" +
 				"<td>"+(data.driverName||"")+"</td>" +
+				"<td>"+(data.ownerName||"")+"</td>" +
 				"<td>"+(payMent||"")+"</td>" +
 				"<td>"+(data.billCreaterTimeStr||"")+"</td>" +
 				"<td>"+(data.acceptTimeStr||"")+"</td>" +
