@@ -74,6 +74,8 @@ function getParment(pageNo){
 		unloadTimeEndtime:$("#unloadTimeEndtime").val(),
 		signTimeStart:$("#signTimeStart").val(),
 		signTimeEnd:$("#signTimeEnd").val(),
+		billCreaterTimeStart:$("#billCreaterTimeStart").val(),
+		billCreaterTimeEnd:$("#billCreaterTimeEnd").val()
 	}
 }
 
@@ -101,6 +103,8 @@ function regist(){
 	$("#unloadTimeEndtime").val("");
 	$("#signTimeStart").val("");
 	$("#signTimeEnd").val("");
+	$("#billCreaterTimeStart").val(""),
+	$("#billCreaterTimeEnd").val(""),
 	init(0,0);
 }
 
