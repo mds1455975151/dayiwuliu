@@ -348,7 +348,7 @@ function details(id){
 				var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看照片</a></span>");
 				var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
 				var roadtransportcode = "<input type='text' id='vehicleSportid' value='"+d.roadtransportcode+"'><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>"
-				var drivingTime =d.drivingTime==undefined?"<input type='text' name='drivingTime' value='' placeholder='例：2017-01-01'/>":("<input type='text' name='drivingTime'  value='"+d.drivingTime+"' placeholder='例：(2017-01-01)' /><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>");
+				var drivingTime =d.drivingTime==undefined?"<input type='text' name='drivingTime' value='' placeholder='例：2017-01-01'/><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>":("<input type='text' name='drivingTime'  value='"+d.drivingTime+"' placeholder='例：(2017-01-01)' /><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>");
 				var desc3 = "";
 				if(d.desc3 != undefined){
 					desc3 = d.desc3;
