@@ -251,7 +251,6 @@ $(function(){
 	})
 	//新增提交按钮
 	$("#addModal").on("click",".addSubBtn",function(e){
-		
 		var submitUrl =URL.saveUrl;
 		if(  $("#addModal .id").val()){
 			submitUrl =URL.updateUrl;
