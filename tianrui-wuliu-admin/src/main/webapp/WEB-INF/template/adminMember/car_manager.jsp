@@ -19,6 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
     <link href="${trRoot}/css/cropper.css" rel="stylesheet">
 	<link href="${trRoot}/css/cycss.css" rel="stylesheet">
+	 <!--这个日历控件js必须放头部-->
+    <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
 </head>
 <body>
@@ -405,7 +407,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var imagesRoot="${imagesRoot }";
 </script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.05" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.19" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

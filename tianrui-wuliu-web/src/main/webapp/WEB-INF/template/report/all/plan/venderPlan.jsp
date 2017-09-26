@@ -87,7 +87,7 @@
                     </div>
                     <div class="bb_czline">
                         <label>货物名称：</label>
-                        <input type="text" id="cargoName" placeholder="请输入发货方">
+                        <input type="text" id="cargoName" placeholder="请输货物名称">
                     </div>
                     <div class="bb_czline">
                         <label>发货方：</label>
@@ -97,21 +97,21 @@
                  <div class="bb_line hidemore">      
                     <div class="bb_czline">
                         <label>发货人：</label>
-                        <input type="text" id="sendPersion" placeholder="请输入收货方">
+                        <input type="text" id="sendPersion" placeholder="请输入发货方">
                     </div>
                     <div class="bb_czline">
                         <label>车主：</label>
-                        <input type="text" id="venderName" placeholder="请输入签收人">
+                        <input type="text" id="venderName" placeholder="请输入车主">
                     </div>
                     <div class="bb_czline">
                         <label>收货方：</label>
-                        <input type="text" id="receiptMan" placeholder="请输入货物名称">
+                        <input type="text" id="receiptMan" placeholder="请输入收货方">
                     </div>
                  </div> 
                 <div class="bb_line">
                 	<div class="bb_czline">
                         <label>签收人：</label>
-                        <input type="text" id="receiptPersion" placeholder="请输入车主">
+                        <input type="text" id="receiptPersion" placeholder="请输入签收人">
                     </div>
                  	<div class="bb_czline">
                         <label>支付对象：</label>

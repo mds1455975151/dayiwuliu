@@ -101,7 +101,7 @@
                     </div>
                     <div class="bb_czline">
                         <label>车主：</label>
-                        <input type="text" id="venderName" placeholder="请输入签收人">
+                        <input type="text" id="venderName" placeholder="请输入车主">
                     </div>
                     <div class="bb_czline">
                         <label>收货方：</label>

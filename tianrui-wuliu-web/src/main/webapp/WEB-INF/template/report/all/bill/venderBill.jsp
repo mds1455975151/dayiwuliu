@@ -193,6 +193,10 @@
                         <input type="text" id="unloadTimeEndtime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_cz"
                                style="width:140px"/>
                     </div>
+                    <div class="bb_czline">
+                        <label>车主姓名：</label>
+                        <input type="text" id="ownerName" placeholder="请输入车主姓名">
+                    </div>
                 </div>
                 <div class="bb_line">
                     <div class="bb_czline">
@@ -250,6 +254,7 @@
                                     <th>签收量</th>
                                     <th>运单状态</th>
                                     <th>司机姓名</th>
+                                    <th>车主姓名</th>
                                     <th>支付对象</th>
                                     <th>运单创建时间</th>
                                     <th>接受运单时间</th>
