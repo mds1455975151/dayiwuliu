@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.intf.IAnlianBillService;
+import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.IReportAllService;
+import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.report.ReportBillAllReq;
 import com.tianrui.api.req.report.ReportPayAllReq;
 import com.tianrui.api.req.report.ReportPlanAllReq;
+import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.report.ReportBillAllResp;
 import com.tianrui.api.resp.report.ReportPayAllResp;
 import com.tianrui.api.resp.report.ReportPlanAllResp;
@@ -39,6 +43,17 @@ public class ReportAllAction {
 
 	@Autowired
 	IReportAllService reportAllService;
+	@Autowired
+	IAnlianBillService anlianBillService;
+	@Autowired
+	IBillService billService;
+	
+	@RequestMapping("planId")
+	@ResponseBody
+	public Result planId(String id,String type) throws Exception{
+		Result rs = Result.getSuccessResult();
+		return rs;
+	}
 	
 	@RequestMapping("payPage")
 	public ModelAndView payPage(String payType){

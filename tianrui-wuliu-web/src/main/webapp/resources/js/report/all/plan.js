@@ -109,7 +109,7 @@ function appendHtml(data){
 	}
 	var hml = "<tr>" +
 				"<td>"+(data.planCreateTimeStr||"")+"</td>" +
-				"<td>"+(data.planCode||"")+"</td>" +
+				"<td><a href='/trwuliu/planvender/detail?id="+data.id+"'>"+(data.planCode||"")+"</a></td>" +
 				"<td>"+(data.planBeginTimeStr||"")+"</td>" +
 				"<td>"+(data.planEndTimeStr||"")+"</td>" +
 				"<td>"+(data.planWeight||"")+"</td>" +

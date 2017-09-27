@@ -198,6 +198,21 @@ public class BillService implements IBillService{
 	@Autowired
 	AddVehicleBankCardMapper addVehicleBankCardMapper;
 	
+
+	@Override
+	public Result findPlanId(String id,String type) {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		if("al".equals(type)){
+			AnlianBill bill = anlianBillMapper.selectByPrimaryKey(id);
+			rs.setData(bill.getDesc1());
+		}else if("dy".equals(type)){
+			Bill bill = billMapper.selectByPrimaryKey(id);
+			rs.setData(bill.getPlanid());
+		}
+		return rs;
+	}
+	
 	@Override
 	public Result uptBankCard(BillBankReq req) throws Exception {
 		// TODO Auto-generated method stub
@@ -2472,4 +2487,5 @@ public class BillService implements IBillService{
 		page.setTotal(a);
 		return page;
 	}
+
 }

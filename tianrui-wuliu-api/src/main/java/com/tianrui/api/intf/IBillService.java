@@ -27,6 +27,10 @@ import com.tianrui.common.vo.Result;
   *
   */
 public interface IBillService {
+	
+	/** 查询基本详情*/
+	public Result findPlanId(String id,String type);
+	
 	/**
 	 * 车主操作
 	 */
