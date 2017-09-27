@@ -78,6 +78,7 @@ public class MyVehicleService implements IMyVehicleService{
 		MemberVehicle record = new MemberVehicle();
 		record.setId(req.getId());
 		record.setRoadtransportcode(req.getRoadtransportcode());
+		record.setDrivingTime(req.getDrivingTime());
 		memberVehicleMapper.updateByPrimaryKeySelective(record);
 		return rs;
 		

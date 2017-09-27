@@ -19,7 +19,7 @@ public interface ReportBillAllMapper {
      * 删除平台运单
      * @return
      */
-    int deletePtlianBill();
+    int deletePtBill();
 
     int insert(ReportBillAll record);
     
@@ -40,6 +40,17 @@ public interface ReportBillAllMapper {
     long getAnlianBillCount();
     
     long getPtBillCount();
+    /**
+     * 获取所有的大易运单ids
+     * @return
+     */
+    List<String> selectPtBillIds();
+    /**
+     * 获取所有的开票运单ids
+     * @return
+     */
+    List<String> selectAnlianBillIds();
     
     List<ReportBillAll> getAnlianBill(@Param("limit")int limit,@Param("start")int start);
+    List<ReportBillAll> getPtBill(@Param("limit")int limit,@Param("start")int start);
 }

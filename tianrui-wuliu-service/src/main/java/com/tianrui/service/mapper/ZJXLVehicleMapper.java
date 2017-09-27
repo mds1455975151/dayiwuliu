@@ -1,6 +1,9 @@
 package com.tianrui.service.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.tianrui.service.bean.ZJXLVehicle;
 
 public interface ZJXLVehicleMapper {
@@ -15,6 +18,8 @@ public interface ZJXLVehicleMapper {
     int updateByPrimaryKeySelective(ZJXLVehicle record);
 
     int updateByPrimaryKey(ZJXLVehicle record);
+    
+    int updateVehicleLogo(@Param("vehicleno") String vehicleno);
     
     List<ZJXLVehicle> selectByCondition(ZJXLVehicle zjxlVehicle);
     /**

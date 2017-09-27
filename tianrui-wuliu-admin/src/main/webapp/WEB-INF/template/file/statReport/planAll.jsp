@@ -27,9 +27,10 @@
 </head>
 <body>
 	<div class="container-fluid">
+		<input type="hidden" id="recPageNo" value="${pageNo }">
 		<jsp:include page="../../common/header.jsp" flush="false"></jsp:include>
 		<!--后台右侧布局begin-->
-		<input type="hidden" id="pageNo" value="${empty pageNo?1:pageNo }">
+		<!--  <input type="hidden" id="pageNo" value="${empty pageNo?0:pageNo }">-->
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
@@ -62,19 +63,19 @@
 							<div class="ht_div">
 								<label>发货方：</label> <input id="sendMan" type="text" placeholder="请输入发货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>发货人：</label> <input id="sendPersion" type="text" placeholder="请输入发货人">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>车主：</label> <input id="venderName" type="text" placeholder="请输入车主">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>收货方：</label> <input id="receiptMan" type="text" placeholder="请输入收货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>签收人：</label> <input id="receiptPersion" type="text" placeholder="请输入签收人">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
                                  <label>支付对象：</label>
                                  <select id="payMent"  class="form-control">
                                      <option value="">请选择</option>
@@ -82,12 +83,12 @@
                                      <option value="2">车主</option>
                                  </select>
                             </div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>计划日期：</label> <input id="planStarttime" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'planEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
 									id="planEndtime" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'planStarttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
 							<div class="ht_divbtn">
@@ -171,7 +172,7 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/statReport/planAll.js?0923"></script>
+	<script type="text/javascript" src="/resources/js/statReport/planAll.js?0929"></script>
 	
 	<script type="text/javascript">
     $(function () {
@@ -179,10 +180,10 @@
             var div_hs = $("div[name$='mytable']");
             div_hs.toggle();
             if(div_hs.css("display") == 'none') {
-                $("#gengduo").attr('src',"images/more2.png");
+                $("#gengduo").attr('src',"${imagesRoot }/more2.png");
             }
             else {
-                $("#gengduo").attr('src',"images/more1.png");
+                $("#gengduo").attr('src',"${imagesRoot }/more1.png");
             }
         });
 

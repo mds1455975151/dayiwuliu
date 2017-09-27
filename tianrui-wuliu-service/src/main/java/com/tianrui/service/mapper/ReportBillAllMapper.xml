@@ -35,13 +35,14 @@
     <result column="desc2" property="desc2" jdbcType="VARCHAR" />
     <result column="desc3" property="desc3" jdbcType="VARCHAR" />
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, bill_owner_id, bill_vender_id, bill_driver_id, bill_receive_id, bill_type, business_time, 
     plan_no, bill_no, send_man, send_persion, receipt_man, receipt_persion, vehicle_no, 
     cargo_name, route_name, bill_distinct, vender_weight, pickup_weight, unload_weight, 
     true_weight, bill_status, driver_name, pay_ment, bill_creater_time, accept_time, pickup_time, 
-    unload_time, sign_time, desc1, desc2, desc3, desc4
+    unload_time, sign_time, desc1, desc2, desc3, desc4,owner_name
   </sql>
   
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportBillAll" >
@@ -59,7 +60,9 @@
     		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
     	</if>
     	
-    	
+    	<if test="ownerName != null and ownerName != ''">
+    		and owner_name like "%" #{ownerName,jdbcType=VARCHAR}"%"
+    	</if>
     	<if test="billType != null and billType != ''">
     		and bill_type like "%" #{billType,jdbcType=VARCHAR}"%"
     	</if>
@@ -157,7 +160,9 @@
     		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
     	</if>
     	
-    	
+    	<if test="ownerName != null and ownerName != ''">
+    		and owner_name like "%" #{ownerName,jdbcType=VARCHAR}"%"
+    	</if>
     	<if test="billType != null and billType != ''">
     		and bill_type like "%" #{billType,jdbcType=VARCHAR}"%"
     	</if>
@@ -248,12 +253,16 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteAnlianBill"  >
+  	<![CDATA[
     delete from report_bill_all
-    where bill_type ='al' 
+    where bill_type ='al' and bill_creater_time >1501516800000 and sign_time is null
+    ]]> 
   </delete>
-  <delete id="deletePtlianBill" parameterType="java.lang.String" >
+  <delete id="deletePtBill" parameterType="java.lang.String" >
+  	<![CDATA[
     delete from report_bill_all
-    where bill_type ='dy' and bill_status !=6
+    where bill_type ='dy' and bill_status !=6 and bill_creater_time >1501516800000
+    ]]>  
   </delete>
   <insert id="insert" parameterType="com.tianrui.service.bean.ReportBillAll" >
     insert into report_bill_all (id, bill_owner_id, bill_vender_id, 
@@ -266,7 +275,7 @@
       bill_status, driver_name, pay_ment, 
       bill_creater_time, accept_time, pickup_time, 
       unload_time, sign_time, desc1, 
-      desc2, desc3, desc4
+      desc2, desc3, desc4,owner_name
       )
     values (#{id,jdbcType=VARCHAR}, #{billOwnerId,jdbcType=VARCHAR}, #{billVenderId,jdbcType=VARCHAR}, 
       #{billDriverId,jdbcType=VARCHAR}, #{billReceiveId,jdbcType=VARCHAR}, #{billType,jdbcType=VARCHAR}, 
@@ -278,7 +287,7 @@
       #{billStatus,jdbcType=VARCHAR}, #{driverName,jdbcType=VARCHAR}, #{payMent,jdbcType=VARCHAR}, 
       #{billCreaterTime,jdbcType=BIGINT}, #{acceptTime,jdbcType=BIGINT}, #{pickupTime,jdbcType=BIGINT}, 
       #{unloadTime,jdbcType=BIGINT}, #{signTime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, 
-      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}, #{ownerName,jdbcType=VARCHAR}
       )
   </insert>
  	<insert id="insertBatch" parameterType="java.util.List" >
@@ -292,7 +301,7 @@
       bill_status, driver_name, pay_ment, 
       bill_creater_time, accept_time, pickup_time, 
       unload_time, sign_time, desc1, 
-      desc2, desc3, desc4
+      desc2, desc3, desc4,owner_name
       )
     values 
     <foreach collection="list" item="item" index="index" separator=",">
@@ -307,7 +316,7 @@
       #{item.billStatus,jdbcType=VARCHAR}, #{item.driverName,jdbcType=VARCHAR}, #{item.payMent,jdbcType=VARCHAR}, 
       #{item.billCreaterTime,jdbcType=BIGINT}, #{item.acceptTime,jdbcType=BIGINT}, #{item.pickupTime,jdbcType=BIGINT}, 
       #{item.unloadTime,jdbcType=BIGINT}, #{item.signTime,jdbcType=BIGINT}, #{item.desc1,jdbcType=VARCHAR}, 
-      #{item.desc2,jdbcType=VARCHAR}, #{item.desc3,jdbcType=VARCHAR}, #{item.desc4,jdbcType=VARCHAR}
+      #{item.desc2,jdbcType=VARCHAR}, #{item.desc3,jdbcType=VARCHAR}, #{item.desc4,jdbcType=VARCHAR}, #{item.ownerName,jdbcType=VARCHAR}
     )
     </foreach>
   </insert>
@@ -331,6 +340,9 @@
       </if>
       <if test="billType != null" >
         bill_type,
+      </if>
+      <if test="ownerName != null" >
+        owner_name,
       </if>
       <if test="businessTime != null" >
         business_time,
@@ -433,6 +445,9 @@
       <if test="billType != null" >
         #{billType,jdbcType=VARCHAR},
       </if>
+       <if test="ownerName != null" >
+        #{ownerName,jdbcType=VARCHAR},
+      </if>
       <if test="businessTime != null" >
         #{businessTime,jdbcType=VARCHAR},
       </if>
@@ -534,6 +549,9 @@
       <if test="billType != null" >
         bill_type = #{billType,jdbcType=VARCHAR},
       </if>
+      <if test="ownerName != null" >
+        owner_name = #{ownerName,jdbcType=VARCHAR},
+      </if>
       <if test="businessTime != null" >
         business_time = #{businessTime,jdbcType=VARCHAR},
       </if>
@@ -625,6 +643,7 @@
       bill_driver_id = #{billDriverId,jdbcType=VARCHAR},
       bill_receive_id = #{billReceiveId,jdbcType=VARCHAR},
       bill_type = #{billType,jdbcType=VARCHAR},
+      owner_name = #{ownerName,jdbcType=VARCHAR},
       business_time = #{businessTime,jdbcType=VARCHAR},
       plan_no = #{planNo,jdbcType=VARCHAR},
       bill_no = #{billNo,jdbcType=VARCHAR},
@@ -669,7 +688,25 @@
   	FROM
 		wuliu_bill bill
 	LEFT JOIN 
-		wuliu_plan plan ON plan.ID = bill.desc1
+		wuliu_plan plan ON plan.ID=bill.planid
+	where 
+		bill.waybillno != '批量运单'
+  </select>
+  <select id="selectPtBillIds" resultType="string">
+  	select 
+  		id
+  	FROM
+		report_bill_all 
+	where 
+		bill_type ='dy' 
+  </select>
+  <select id="selectAnlianBillIds" resultType="string">
+  	select 
+  		id
+  	FROM
+		report_bill_all 
+	where 
+		bill_type ='al' 
   </select>
   
   <select id="getAnlianBill" resultMap="BaseResultMap"  >
@@ -691,18 +728,59 @@
 			plan.routeid routeId,
 			plan.distance bill_distinct,
 			bill.zzl vender_weight,
-			bill.pickupweight pickup_weight,
-			bill.signweight unload_weight,
+			bill.trueweight pickup_weight,
+			bill.trueweight unload_weight,
 			bill.trueweight true_weight,
 			bill.desc4 bill_status,
 			bill.payment pay_ment,
-			bill.createtime business_time,
+			bill.createtime bill_creater_time,
+			bill.createtime accept_time,
+			bill.createtime pickup_time,
+			bill.signtime  unload_time,
 			bill.signtime sign_time
 		FROM
 			anlian_bill bill
 		LEFT JOIN wuliu_plan plan ON plan.ID = bill.desc1
 		ORDER BY
-			bill.createtime
+			bill.createtime desc
+		LIMIT #{start},#{limit}
+  </select>
+  <select id="getPtBill" resultMap="BaseResultMap"  >
+	   SELECT
+			bill.id id,
+			bill.ownerid bill_owner_id,
+			bill.venderid bill_vender_id,
+			bill.driverid bill_driver_id,
+			bill.receive_memberid bill_receive_id,
+			bill.createtime bill_creater_time,
+			bill.planCode plan_no,
+			bill.waybillno bill_no,
+			plan.shipperMerchant sendManId,
+			plan.sendPerson send_persion,
+			plan.consigneeMerchant receiptManId,
+			bill.receivername receipt_persion,
+			bill.vehicleno vehicle_no,
+			plan.cargoname cargo_name,
+			plan.routeid routeId,
+			plan.distance bill_distinct,
+			bill.weight vender_weight,
+			bill.pickupweight pickup_weight,
+			bill.signweight unload_weight,
+			bill.trueweight true_weight,
+			bill.status bill_status,
+			bill.payment pay_ment,
+			bill.acctepttime business_time,
+			bill.ownerSigntime sign_time,
+			bill.acctepttime accept_time,
+			bill.begintime pickup_time,
+			bill.unloadtime unload_time,
+			bill.drivername driver_name
+		FROM
+			wuliu_bill bill
+		LEFT JOIN wuliu_plan plan ON plan.id = bill.planid
+		where bill.waybillno != '批量运单'
+		ORDER BY
+			bill.createtime desc
 		LIMIT #{start},#{limit}
   </select>
 </mapper>

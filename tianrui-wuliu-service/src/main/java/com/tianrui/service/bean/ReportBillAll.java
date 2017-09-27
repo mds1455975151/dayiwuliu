@@ -74,6 +74,8 @@ public class ReportBillAll {
 
     private String desc4;
     
+    private String ownerName;
+    
     private String businessTimeStart;
     private String businessTimeEnd;
     private String billCreaterTimeStart;
@@ -492,7 +494,7 @@ public class ReportBillAll {
 
 	public Long getBusinessTimeEnds() throws ParseException {
 		if(businessTimeEnd!=null&&businessTimeEnd!=""){
-			businessTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(businessTimeEnd)).getTime();
+			businessTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(businessTimeEnd)).getTime()+24*60*60*1000;
 			return businessTimeEnds;
 		}
 		return businessTimeEnds;
@@ -500,7 +502,7 @@ public class ReportBillAll {
 
 	public Long getBillCreaterTimeEnds() throws ParseException {
 		if(billCreaterTimeEnd!=null&&billCreaterTimeEnd!=""){
-			billCreaterTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(billCreaterTimeEnd)).getTime();
+			billCreaterTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(billCreaterTimeEnd)).getTime()+24*60*60*1000;
 			return billCreaterTimeEnds;
 		}
 		return billCreaterTimeEnds;
@@ -516,7 +518,7 @@ public class ReportBillAll {
 
 	public Long getAcceptTimeEnds() throws ParseException {
 		if(acceptTimeEnd!=null&&acceptTimeEnd!=""){
-			acceptTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(acceptTimeEnd)).getTime();
+			acceptTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(acceptTimeEnd)).getTime()+24*60*60*1000;
 			return acceptTimeEnds;
 		}
 		return acceptTimeEnds;
@@ -532,7 +534,7 @@ public class ReportBillAll {
 
 	public Long getPickupTimeEnds() throws ParseException {
 		if(pickupTimeEnd!=null&&pickupTimeEnd!=""){
-			pickupTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(pickupTimeEnd)).getTime();
+			pickupTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(pickupTimeEnd)).getTime()+24*60*60*1000;
 			return pickupTimeEnds;
 		}
 		return pickupTimeEnds;
@@ -548,7 +550,7 @@ public class ReportBillAll {
 
 	public Long getUnloadTimeEndtimes() throws ParseException {
 		if(unloadTimeEndtime!=null&&unloadTimeEndtime!=""){
-			unloadTimeEndtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(unloadTimeEndtime)).getTime();
+			unloadTimeEndtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(unloadTimeEndtime)).getTime()+24*60*60*1000;
 			return unloadTimeEndtimes;
 		}
 		return unloadTimeEndtimes;
@@ -564,7 +566,7 @@ public class ReportBillAll {
 
 	public Long getSignTimeEnds() throws ParseException {
 		if(signTimeEnd!=null&&signTimeEnd!=""){
-			signTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(signTimeEnd)).getTime();
+			signTimeEnds =(new SimpleDateFormat("yyyy-MM-dd").parse(signTimeEnd)).getTime()+24*60*60*1000;
 			return signTimeEnds;
 		}
 		return signTimeEnds;
@@ -600,6 +602,14 @@ public class ReportBillAll {
 
 	public void setRouteId(String routeId) {
 		this.routeId = routeId;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 	
 }

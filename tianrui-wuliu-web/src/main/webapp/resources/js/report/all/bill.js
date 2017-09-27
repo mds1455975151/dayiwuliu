@@ -32,7 +32,7 @@ $('.exportReport').off('click').on('click',function(){
 				if(result.data.total == 0){
 					alert("没有要导出的数据！");
 				}else if(result.data.total > 2000){
-					alert("数据超过2000条，请联系管理员导出！");
+					alert("数据超过50000条，请联系管理员导出！");
 				}else{
 					var path = '/trwuliu/ReportAll/billReport?'+$.param(getParment(1));
 					$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
@@ -74,6 +74,9 @@ function getParment(pageNo){
 		unloadTimeEndtime:$("#unloadTimeEndtime").val(),
 		signTimeStart:$("#signTimeStart").val(),
 		signTimeEnd:$("#signTimeEnd").val(),
+		billCreaterTimeStart:$("#billCreaterTimeStart").val(),
+		billCreaterTimeEnd:$("#billCreaterTimeEnd").val(),
+		ownerName:$("#ownerName").val()
 	}
 }
 
@@ -101,6 +104,9 @@ function regist(){
 	$("#unloadTimeEndtime").val("");
 	$("#signTimeStart").val("");
 	$("#signTimeEnd").val("");
+	$("#billCreaterTimeStart").val(""),
+	$("#billCreaterTimeEnd").val(""),
+	$("#ownerName").val(""),
 	init(0,0);
 }
 
@@ -144,6 +150,7 @@ function appendHtml(data){
 				"<td>"+(data.trueWeight||"")+"</td>" +
 				"<td>"+(getBillStatus(data.billStatus)||"")+"</td>" +
 				"<td>"+(data.driverName||"")+"</td>" +
+				"<td>"+(data.ownerName||"")+"</td>" +
 				"<td>"+(payMent||"")+"</td>" +
 				"<td>"+(data.billCreaterTimeStr||"")+"</td>" +
 				"<td>"+(data.acceptTimeStr||"")+"</td>" +

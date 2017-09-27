@@ -1,5 +1,14 @@
+function driverSearch(){
+	init(0);
+}
 function displayData(pageNo){
-	init(pageNo);
+	var page = $("#recPageNo").val();
+	if(page != ""){
+		init(page-1);
+		$("#recPageNo").val("");
+	}else{
+		init(pageNo);
+	}
 }
 function reset(){
 	$("#billType").val("");
@@ -27,6 +36,7 @@ function reset(){
 	$("#unloadTimeEndtime").val("");
 	$("#signTimeStart").val("");
 	$("#signTimeEnd").val("");
+	$("#ownerName").val("");
 	init(0);
 }
 function getParams(pageNo){
@@ -43,7 +53,7 @@ function getParams(pageNo){
 	var sendPersion =$("#sendPersion").val();
 	var receiptMan =$("#receiptMan").val();
 	var receiptPersion =$("#receiptPersion").val();
-	
+	var ownerName = $("#ownerName").val();
 	var businessTimeStart =$("#businessTimeStart").val();
 	var businessTimeEnd =$("#businessTimeEnd").val();
 	var billCreaterTimeStart =$("#billCreaterTimeStart").val();
@@ -83,8 +93,8 @@ function getParams(pageNo){
 			unloadTimeEndtime:$.trim(unloadTimeEndtime),
 			signTimeStart:$.trim(signTimeStart),
 			signTimeEnd:$.trim(signTimeEnd),
-			
-			pageNo:pageNo,
+			ownerName:$.trim(ownerName),
+			pageNo:(pageNo),
 			pageSize:10
 		};
 	return params;
@@ -103,6 +113,8 @@ function init(pageNo){
 				var pageSize = ret.data.pageSize;
 				innerHml(data);
 				$('#totalRecords').html(total);
+				document.getElementById("goPage").value = pageNo+1;
+				$("#totalPages").html(parseInt((total-1)/pageSize+1));
 				$('#totalPages').attr('maxPageNo',parseInt((total+pageSize-1)/pageSize));
 				$("#pagination").pagination(total, {
 				    callback: pageCallback,
@@ -110,7 +122,7 @@ function init(pageNo){
 				    next_text: '下一页',
 				    items_per_page:pageSize,
 				    num_display_entries:4,
-				    current_page:pageNo-1,
+				    current_page:pageNo,
 				    num_edge_entries:1,
 				    maxentries:total,
 				    link_to:"javascript:void(0)"
@@ -124,6 +136,7 @@ function innerHml(data){
 	$("#innerHtml").empty();
 	for (var a = 0; a < data.length; a++) {
 		var billType = data[a].billType == undefined ? "":data[a].billType;
+		var billStatus = data[a].billStatus == undefined ? "":data[a].billStatus;
 		if(billType=="dy"){
 			billType="大易运单"
 		}
@@ -145,8 +158,8 @@ function innerHml(data){
 		var pickupWeight = data[a].pickupWeight == undefined ? "":data[a].pickupWeight;
 		var unloadWeight = data[a].unloadWeight == undefined ? "":data[a].unloadWeight;
 		var trueWeight = data[a].trueWeight == undefined ? "":data[a].trueWeight;
-		var billStatus = data[a].billStatus == undefined ? "":data[a].billStatus;
 		var driverName = data[a].driverName == undefined ? "":data[a].driverName;
+		var ownerName = data[a].ownerName == undefined ? "":data[a].ownerName;
 		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
 		if(payMent=="1"){
 			payMent="司机"
@@ -176,8 +189,9 @@ function innerHml(data){
 				"<td>"+pickupWeight+"</td>" +
 				"<td>"+unloadWeight+"</td>" +
 				"<td>"+trueWeight+"</td>" +
-				"<td>"+billStatus+"</td>" +
+				"<td>"+(getBillStatus(data[a].billStatus)||"")+"</td>" +
 				"<td>"+driverName+"</td>" +
+				"<td>"+ownerName+"</td>" +
 				"<td>"+payMent+"</td>" +
 				"<td>"+billCreaterTimeStr+"</td>" +
 				"<td>"+acceptTimeStr+"</td>" +
@@ -199,11 +213,11 @@ $('.exportReport').off('click').on('click',function(){
 		type : 'post',
 		success : function(result) {
 			if(result.code == '000000'){
-				alert(result.data.total);
+				//alert(result.data.total);
 				if(result.data.total == 0){
 					alert("没有要导出的数据！");
-				}else if(result.data.total > 2000){
-					alert("数据超过2000条，请联系管理员导出！");
+				}else if(result.data.total > 20000){
+					alert("数据超过20000条，请联系管理员导出！");
 				}else{
 					var path = '/reportAll/billReport?'+$.param(getParams(1));
 					$('<form method="post" action="' + path + '"></form>').appendTo('body').submit().remove();
@@ -212,3 +226,40 @@ $('.exportReport').off('click').on('click',function(){
 		}
 	});
 });
+
+function getBillStatus(sta){
+	var status = "";
+	switch (sta) {
+	case "-1":
+		status = "车主回收";
+		break;
+	case "0":
+		status = "司机未确认";
+		break;
+	case "1":
+		status = "司机已接受";
+		break;	
+	case "2":
+		status = "司机已装货";
+		break;
+	case "3":
+		status = "司机运输中";
+		break;
+	case "4":
+		status = "司机已到达";
+		break;
+	case "5":
+		status = "司机已卸货";
+		break;	
+	case "6":
+		status = "已签收";
+		break;
+	case "7":
+		status = "司机拒绝接单";
+		break;	
+	default:
+		status = sta;
+		break;
+	}
+	return status;
+}

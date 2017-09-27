@@ -225,6 +225,17 @@ public class CrossVehicleService implements ICrossVehicleService{
 		return null;
 	}
 	
+	
+	
+	@Override
+	public Result updateVehicleLogo(String vehicleNo) {
+		Result rs = Result.getSuccessResult();
+		if( StringUtils.isNotBlank(vehicleNo) ){
+			zjxlVehicleMapper.updateVehicleLogo(vehicleNo);
+		}
+		return rs;
+	}
+
 	@Override
 	public Result deletes(String id) throws Exception {
 		Result rs = Result.getSuccessResult();

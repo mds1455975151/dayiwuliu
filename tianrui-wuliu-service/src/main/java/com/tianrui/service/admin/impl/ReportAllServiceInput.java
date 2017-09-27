@@ -66,13 +66,14 @@ public class ReportAllServiceInput implements IReportAllInputService{
 
 	@Override
 	public Result planUpdate() throws Exception {
+		long begin =System.currentTimeMillis();
 		//获取当前的所有计划
 		List<ReportPlanAll> planList =mkReportPlanAll();
 		logger.info("获取db的计划完成,总数为{}条",planList.size());
 		//删除计划报表
 		reportPlanAllMapper.deleteAll();
 		logger.info("清空计划统计表完成");
-		//添加计划数据
+		//批量添加计划数据
 		if( CollectionUtils.isNotEmpty(planList)  ){
 			int size=planList.size();
 			if( size>2000 ){
@@ -91,40 +92,67 @@ public class ReportAllServiceInput implements IReportAllInputService{
 				logger.info("批量插入计划完成,条数为{}条",planList.size());
 			}
 		}
+		logger.info("计划报表导入完成,耗时:{}ms",(System.currentTimeMillis()-begin));
+		logger.info("--------------------------");
 		return Result.getSuccessResult();
 	}
 
 	@Override
 	public Result billAlianUpdate() throws Exception {
+		long begin =System.currentTimeMillis();
 		//删除报表历史数据
 		reportBillAllMapper.deleteAnlianBill();
-		logger.info("删除开票运单报表历史数据");
+		List<String> ids =reportBillAllMapper.selectAnlianBillIds();
+		logger.info("删除开票运单(2017-07-01之后没有签收时间的运单)报表历史数据,已经完成的运单数数量为{}条",(ids==null?"0":ids.size()));
 		//获取安联运单数据总数
 		long size=reportBillAllMapper.getAnlianBillCount();
 		logger.info("获取db的开票运单完成,总数为{}条",size);
 		//批量获取和更新
 		int count =(int)size%2000+1;
 		for( int i=0;i<count;i++ ){
-			List<ReportBillAll> anlianBillList =mkReportBillAnlian(i*2000, 2000);
+			List<ReportBillAll> anlianBillList =mkReportBillAnlian(i*2000, 2000,ids);
 			if( CollectionUtils.isNotEmpty(anlianBillList) ){
 				reportBillAllMapper.insertBatch(anlianBillList);
 				logger.info("批量插入运单完成,条数为{}条",anlianBillList.size());
 			}
 		}
+		logger.info("安联运单报表导入完成,耗时:{}ms",(System.currentTimeMillis()-begin));
+		logger.info("--------------------------");
 		return Result.getSuccessResult();
 	}
 
 	@Override
-	public Result billCommonUpdate() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Result billPtUpdate() throws Exception {
+		long begin =System.currentTimeMillis();
+		//删除报表历史数据
+		reportBillAllMapper.deletePtBill();
+		List<String> ids =reportBillAllMapper.selectPtBillIds();
+		logger.info("删除大易运单报表历史数据.已经完成的运单数数量为{}条",(ids==null?"0":ids.size()));
+		//获取安联运单数据总数
+		long size=reportBillAllMapper.getPtBillCount();
+		logger.info("获取db的大易运单完成,总数为{}条",size);
+		//批量获取和更新
+		int count =(int)size%2000+1;
+		int totalCount =0;
+		for( int i=0;i<count;i++ ){
+			List<ReportBillAll> anlianBillList =mkReportBillPt(i*2000, 2000,ids);
+			if( CollectionUtils.isNotEmpty(anlianBillList) ){
+				reportBillAllMapper.insertBatch(anlianBillList);
+				totalCount=totalCount+anlianBillList.size();
+				logger.info("批量插入运单完成,条数为{}/{}条",anlianBillList.size(),totalCount);
+			}
+		}
+		logger.info("大易运单报表导入完成,耗时:{}ms",(System.currentTimeMillis()-begin));
+		logger.info("--------------------------");
+		return Result.getSuccessResult();
 	}
 
 	@Override
 	public Result payAlianUpdate() throws Exception {
+		long begin =System.currentTimeMillis();
 		//获取当前所有的账单数据
 		List<ReportPayAll> payList =mkReportPayAnlian();
-		logger.info("获取db的计划完成,总数为{}条",payList.size());
+		logger.info("获取db的安联账单完成,总数为{}条",payList.size());
 		//删除当前安联账单报表
 		reportPayAllMapper.deleteByType("1");
 		//批量插入安联账单
@@ -146,6 +174,8 @@ public class ReportAllServiceInput implements IReportAllInputService{
 				logger.info("批量插入安联账单完成,条数为{}条",payList.size());
 			}
 		}
+		logger.info("安联账单报表导入完成,耗时:{}ms",(System.currentTimeMillis()-begin));
+		logger.info("--------------------------");
 		return Result.getSuccessResult();
 	}
 
@@ -161,6 +191,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		memberCacheUpdate();
 		//银行卡档案
 		yhkCacheUpdate();
+		logger.info("--------------------------");
 		return Result.getSuccessResult();
 	}
 	
@@ -198,14 +229,14 @@ public class ReportAllServiceInput implements IReportAllInputService{
 				item.setPlanStatus(String.valueOf(plan.getStatus()));
 				item.setCargoName(plan.getCargoname());
 				if( StringUtils.isNotBlank(plan.getRouteid()) ){
-					FileRoute route=cacheClient.getObj(CacheModule.FILE_XL+plan.getRouteid(),FileRoute.class );
+					FileRoute route=cacheClient.getObj(CacheModule.FILE_XL.getCode()+plan.getRouteid(),FileRoute.class );
 					if(route!=null){
 						item.setRouteName(route.getRoutename());
 					}
 				}
 				
 				if( StringUtils.isNotBlank(plan.getShipperMerchant()) ){
-					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+plan.getShipperMerchant(),Merchant.class );
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+plan.getShipperMerchant(),Merchant.class );
 					if(merchant!=null){
 						item.setSendMan(merchant.getName());
 					}
@@ -214,7 +245,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 				
 				item.setVenderName(plan.getVehicleownername());
 				if( StringUtils.isNotBlank(plan.getConsigneeMerchant()) ){
-					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+plan.getConsigneeMerchant(),Merchant.class );
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+plan.getConsigneeMerchant(),Merchant.class );
 					if(merchant!=null){
 						item.setReceiptMan(merchant.getName());
 					}
@@ -226,7 +257,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 				item.setTax(String.valueOf(plan.getTallage()));
 				item.setPayMent(plan.getPayment());
 				if(StringUtils.isNotBlank(plan.getReceiveid())){
-					OrgSigner orgSigner=cacheClient.getObj(CacheModule.FILE_QSL+plan.getReceiveid(),OrgSigner.class );
+					OrgSigner orgSigner=cacheClient.getObj(CacheModule.FILE_QSL.getCode()+plan.getReceiveid(),OrgSigner.class );
 					if(orgSigner!=null){
 						item.setReceiptPersion(orgSigner.getMembername());
 					}
@@ -247,31 +278,32 @@ public class ReportAllServiceInput implements IReportAllInputService{
 			String dateStr= DateUtil.getDateString();
 			for( ReportPayAll item :list){
 				if( item !=null ){
+					item.setDesc1("1");
 					//线路信息获取
 					item.setDesc4(dateStr);
 					if( StringUtils.isNotBlank(item.getRouteId()) ){
-						FileRoute route=cacheClient.getObj(CacheModule.FILE_XL+item.getRouteId(),FileRoute.class );
+						FileRoute route=cacheClient.getObj(CacheModule.FILE_XL.getCode()+item.getRouteId(),FileRoute.class );
 						if(route!=null){
 							item.setRouteName(route.getRoutename());
 						}
 					}
 					//发货方获取
 					if( StringUtils.isNotBlank(item.getSendManId()) ){
-						Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+item.getSendManId(),Merchant.class );
+						Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getSendManId(),Merchant.class );
 						if(merchant!=null){
 							item.setSendMan(merchant.getName());
 						}
 					}
 					//收货方获取
-					if( StringUtils.isNotBlank(item.getReceiptMan()) ){
-						Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+item.getReceiptMan(),Merchant.class );
+					if( StringUtils.isNotBlank(item.getReceiptManId()) ){
+						Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getReceiptManId(),Merchant.class );
 						if(merchant!=null){
 							item.setReceiptMan(merchant.getName());
 						}
 					}
 					//银行名称
 					if( StringUtils.isNotBlank(item.getPayBankId()) ){
-						MemberBankCard memberBankCard=cacheClient.getObj(CacheModule.FILE_YHK+item.getPayBankId(),MemberBankCard.class );
+						MemberBankCard memberBankCard=cacheClient.getObj(CacheModule.FILE_YHK.getCode()+item.getPayBankId(),MemberBankCard.class );
 						if(memberBankCard!=null){
 							item.setPayBankName(memberBankCard.getBankname());
 						}
@@ -284,38 +316,104 @@ public class ReportAllServiceInput implements IReportAllInputService{
 	}
 	
 	//分页获取开票运单数据
-	private List<ReportBillAll> mkReportBillAnlian(int start,int limit){
+	private List<ReportBillAll> mkReportBillAnlian(int start,int limit,List<String> ids){
+		List<ReportBillAll> rs =new ArrayList<ReportBillAll>();
 		List<ReportBillAll> list =reportBillAllMapper.getAnlianBill(limit, start);
 		String dateStr =DateUtil.getDateString();
 		if( CollectionUtils.isNotEmpty(list) ){
 			for(ReportBillAll item :list ){
+				if( ids.contains(item.getId()) ){
+					continue;
+				}
 				item.setDesc4(dateStr);
 				item.setBillType("al");
 				//线路名称
 				if( StringUtils.isNotBlank(item.getRouteId()) ){
-					FileRoute route=cacheClient.getObj(CacheModule.FILE_XL+item.getRouteId(),FileRoute.class );
+					FileRoute route=cacheClient.getObj(CacheModule.FILE_XL.getCode()+item.getRouteId(),FileRoute.class );
 					if(route!=null){
 						item.setRouteName(route.getRoutename());
 					}
 				}
 				//发货方获取
 				if( StringUtils.isNotBlank(item.getSendManId()) ){
-					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+item.getSendManId(),Merchant.class );
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getSendManId(),Merchant.class );
 					if(merchant!=null){
 						item.setSendMan(merchant.getName());
 					}
 				}
 				//收货方获取
-				if( StringUtils.isNotBlank(item.getReceiptMan()) ){
-					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS+item.getReceiptMan(),Merchant.class );
+				if( StringUtils.isNotBlank(item.getReceiptManId()) ){
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getReceiptManId(),Merchant.class );
 					if(merchant!=null){
 						item.setReceiptMan(merchant.getName());
 					}
 				}
+				
+				//司机名称
+				if( StringUtils.isNotBlank(item.getBillDriverId()) ){
+					SystemMember driver=cacheClient.getObj(CacheModule.FILE_MEMBER.getCode()+item.getBillDriverId(),SystemMember.class );
+					if(driver!=null){
+						item.setDriverName(driver.getRemarkname());
+					}
+				}
+				//车主名称
+				if( StringUtils.isNotBlank(item.getBillVenderId()) ){
+					SystemMember vender=cacheClient.getObj(CacheModule.FILE_MEMBER.getCode()+item.getBillVenderId(),SystemMember.class );
+					if(vender!=null){
+						item.setOwnerName(vender.getRemarkname());
+					}
+				}
+				rs.add(item);
 			}
 		}
 		
-		return list ;
+		return rs ;
+	}
+	//分页获取普通运单数据
+	private List<ReportBillAll> mkReportBillPt(int start,int limit,List<String> ids){
+		List<ReportBillAll> rs  =new ArrayList<ReportBillAll>();
+		List<ReportBillAll> list =reportBillAllMapper.getPtBill(limit, start);
+		String dateStr =DateUtil.getDateString();
+		if( CollectionUtils.isNotEmpty(list) ){
+			for(ReportBillAll item :list ){
+				if( ids.contains(item.getId()) ){
+					continue;
+				}
+				item.setDesc4(dateStr);
+				item.setBillType("dy");
+				//线路名称
+				if( StringUtils.isNotBlank(item.getRouteId()) ){
+					FileRoute route=cacheClient.getObj(CacheModule.FILE_XL.getCode()+item.getRouteId(),FileRoute.class );
+					if(route!=null){
+						item.setRouteName(route.getRoutename());
+					}
+				}
+				//发货方获取
+				if( StringUtils.isNotBlank(item.getSendManId()) ){
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getSendManId(),Merchant.class );
+					if(merchant!=null){
+						item.setSendMan(merchant.getName());
+					}
+				}
+				//收货方获取
+				if( StringUtils.isNotBlank(item.getReceiptManId()) ){
+					Merchant merchant=cacheClient.getObj(CacheModule.FILE_KS.getCode()+item.getReceiptManId(),Merchant.class );
+					if(merchant!=null){
+						item.setReceiptMan(merchant.getName());
+					}
+				}
+				//车主名称
+				if( StringUtils.isNotBlank(item.getBillVenderId()) ){
+					SystemMember vender=cacheClient.getObj(CacheModule.FILE_MEMBER.getCode()+item.getBillVenderId(),SystemMember.class );
+					if(vender!=null){
+						item.setOwnerName(vender.getRemarkname());
+					}
+				}
+				rs.add(item);
+			}
+		}
+		
+		return rs ;
 	}
 	
 	
@@ -327,7 +425,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		 List<Merchant> list =merchantMapper.selectByCondition(null);
 		 for( Merchant merchant :list){
 			 if(merchant !=null && StringUtils.isNotBlank(merchant.getId())  ){
-				 cacheClient.saveObject(CacheModule.FILE_KS+merchant.getId(),72*60*60);
+				 cacheClient.saveObject(CacheModule.FILE_KS.getCode()+merchant.getId(),merchant,72*60*60);
 			 }
 		 }
 		 logger.info("客商档案缓存更新完成,耗时:{}ms,更新数量为:{}.",(System.currentTimeMillis()-begin),(list==null?0:list.size()));
@@ -341,7 +439,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		List<FileRoute> list =FileRouteMapper.selectAll();
 		for( FileRoute bean :list){
 			if(bean !=null && StringUtils.isNotBlank(bean.getId())  ){
-				cacheClient.saveObject(CacheModule.FILE_XL+bean.getId(),72*60*60);
+				cacheClient.saveObject(CacheModule.FILE_XL.getCode()+bean.getId(),bean,72*60*60);
 			}
 		}
 		logger.info("线路档案缓存更新完成,耗时:{}ms,更新数量为:{}.",(System.currentTimeMillis()-begin),(list==null?0:list.size()));
@@ -355,7 +453,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		List<OrgSigner> list =orgSignerMapper.selectByCondition(null);
 		for( OrgSigner bean :list){
 			if(bean !=null && StringUtils.isNotBlank(bean.getId())  ){
-				cacheClient.saveObject(CacheModule.FILE_QSL+bean.getId(),72*60*60);
+				cacheClient.saveObject(CacheModule.FILE_QSL.getCode()+bean.getId(),bean,72*60*60);
 			}
 		}
 		logger.info("签收人档案缓存更新完成,耗时:{}ms,更新数量为:{}.",(System.currentTimeMillis()-begin),(list==null?0:list.size()));
@@ -369,7 +467,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		List<SystemMember> list =memberMapeer.selectByCondition(null);
 		for( SystemMember bean :list){
 			if(bean !=null && StringUtils.isNotBlank(bean.getId())  ){
-				cacheClient.saveObject(CacheModule.FILE_MEMBER+bean.getId(),72*60*60);
+				cacheClient.saveObject(CacheModule.FILE_MEMBER.getCode()+bean.getId(),bean,72*60*60);
 			}
 		}
 		logger.info("用户档案缓存更新完成,耗时:{}ms,更新数量为:{}.",(System.currentTimeMillis()-begin),(list==null?0:list.size()));
@@ -382,7 +480,7 @@ public class ReportAllServiceInput implements IReportAllInputService{
 		List<MemberBankCard> list =memberBankCardMapper.selectAll();
 		for( MemberBankCard bean :list){
 			if(bean !=null && StringUtils.isNotBlank(bean.getId())  ){
-				cacheClient.saveObject(CacheModule.FILE_YHK+bean.getId(),72*60*60);
+				cacheClient.saveObject(CacheModule.FILE_YHK.getCode()+bean.getId(),bean,72*60*60);
 			}
 		}
 		logger.info("银行卡档案缓存更新完成,耗时:{}ms,更新数量为:{}.",(System.currentTimeMillis()-begin),(list==null?0:list.size()));

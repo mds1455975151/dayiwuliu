@@ -58,6 +58,7 @@ public class ReportBillAllResp {
 
     private Long signTime;
     
+    private String ownerName;
     
     private String billCreaterTimeStr;
     private String acceptTimeStr;
@@ -346,6 +347,14 @@ public class ReportBillAllResp {
 			businessTimeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(businessTime)));
 		}
 		return businessTimeStr;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
     
     

@@ -348,6 +348,7 @@ function details(id){
 				var identitycode = d.identieyimage==""?"<span>未上传</span>":("<span>证书编号："+d.identitycode+"--<a href='/imageView/index?imageUrl="+d.identieyimage+"' target='_blank'>查看照片</a></span>");
 				var roadtransport = d.roadtransportimage==""?"<span>未上传</span>":("<span>证书编号："+d.roadtransportcode+"--<a href='/imageView/index?imageUrl="+d.roadtransportimage+"' target='_blank'>查看照片</a></span>");
 				var roadtransportcode = "<input type='text' id='vehicleSportid' value='"+d.roadtransportcode+"'><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>"
+				var drivingTime =d.drivingTime==undefined?"<input type='text' name='drivingTime' value='' placeholder='例：2017-01-01'/><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>":("<input type='text' name='drivingTime'  value='"+d.drivingTime+"' placeholder='例：(2017-01-01)' /><a onclick='updateVehicleSoprtcode(\""+d.id+"\")'>【修改】</a>");
 				var desc3 = "";
 				if(d.desc3 != undefined){
 					desc3 = d.desc3;
@@ -372,11 +373,11 @@ function details(id){
 					"<div class='file_detail'><label>高度：</label><span>"+vehiheight+"米</span></div>"+
 					"<div class='file_detail'><label>认证状态：</label><span>"+sta+"</span></div>"+
 					"<div class='file_detail'><label>认证时间：</label><span>"+d.createtimeStr+"</span></div>"+
-					"<div class='file_detail'><label>行驶证有效期：</label><span>"+(d.drivingTime||"")+"</span></div>"+
 					"<div class='file_detail2'><label>车辆登记证：</label>"+registcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"3\")' data-target='#againPice'>【重新上传】</a></div>" +
 					"<div class='file_detail2'><label>经营许可证号：</label>"+opercode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"4\")' data-target='#againPice'>【重新上传】</a></div>"+
 					"<div class='file_detail2'><label>经营许可证有效期：</label>"+desc3+"</div>"+
 					"<div class='file_detail2'><label>道路运输证号：</label>"+roadtransportcode+"</div>"+
+					"<div class='file_detail2'><label>行驶证有效期：</label>"+drivingTime+"</div>"+
 //					"<div class='file_detail2'><label>道路运输证：</label>"+roadtransportcode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"5\")' data-target='#againPice'>【重新上传】</a></div>"+
 //					"<div class='file_detail2'><label>所有人身份证：</label>"+identitycode+"<a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"6\")' data-target='#againPice'>【重新上传】</a></div>"+
 					"<div class='file_detail2'><label>车辆照片：</label><span><a href='/imageView/index?imageUrl="+d.vehiheadimgpath+"' target='_blank'>查看照片</a><a data-toggle='modal' class='hidemodel' onclick='hideWindow(\""+d.id+"\",\"1\")' data-target='#againPice'>【重新上传】</a></span></div>" +
@@ -387,14 +388,25 @@ function details(id){
 }
 	
 	function updateVehicleSoprtcode(id){
+		var DATE_FORMAT = /^[0-9]{4}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1}$/;
 		var vehicleSportid = $("#vehicleSportid").val();
 		if(vehicleSportid==""){
 			alert("道路运输证不能为空");
 			return;
 		}
+		var drivingTime =$("input[name='drivingTime']").val();
+		if(drivingTime==""){
+			alert("行驶证有效期不能为空");
+			return;
+		}else if(DATE_FORMAT.test(drivingTime)){
+			
+		}else{
+			 alert("抱歉，您输入的日期格式有误，正确格式应为'2017-01-01'");
+			 return;
+		}
 		$.ajax({
 			url:CONTEXTPATH+"/AdminMember/updateCarMamage",
-			data:{"id":id,"roadtransportcode":vehicleSportid},
+			data:{"id":id,"roadtransportcode":vehicleSportid,"drivingTime":drivingTime},
 			type:"post",
 			success: function(retVal) {
 				if(retVal.code=="000000"){

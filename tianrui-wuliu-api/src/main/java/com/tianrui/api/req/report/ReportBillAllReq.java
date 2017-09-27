@@ -73,6 +73,8 @@ public class ReportBillAllReq {
 
     private String desc4;
     
+    private String ownerName;
+    
     private String businessTimeStart;
     private String businessTimeEnd;
     private String billCreaterTimeStart;
@@ -467,6 +469,14 @@ public class ReportBillAllReq {
 
 	public void setBillReceiveId(String billReceiveId) {
 		this.billReceiveId = billReceiveId;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 	
 	

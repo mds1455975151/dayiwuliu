@@ -20,9 +20,12 @@
 	 					    <li><a href="/trwuliu/payInvoiceItem_1/main" id="yunfei">运费结算单</a></li>
 	                        <li><a href="/trwuliu/payInvoice_1/main" id="paymain">支付发票账单</a></li>
 	 					     -->
-	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> -->
-	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>
+	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> 
+	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>-->
 	                        <li><a href="/trwuliu/billAnlian/owner" id="ownerAnlian">开票运单</a></li>
+		                    <li><a href="/trwuliu/ReportAll/payPage?payType=3">货主账单报表</a></li>
+	                    	<li><a href="/trwuliu/ReportAll/billPage?payType=3">货主运单报表</a></li>
+	                    	<li><a href="/trwuliu/ReportAll/planPage?payType=3">货主计划报表</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -48,10 +51,13 @@
 	 					    <!-- 
 	 					    <li><a href="/trwuliu/payInvoiceItem_1/main" id="yunfei">运费结算单</a></li>
 	                        <li><a href="/trwuliu/payInvoice_1/main" id="paymain">支付发票账单</a></li>
-	 					     -->
 	                        <li><a href="/trwuliu/venderreport/main" id="venderreport">我的报表</a></li>
+	 					     -->
 	                        <li><a href="/trwuliu/billAnlian/vender" id="venderAnlian">开票运单</a></li>
 	                        <li><a href="/trwuliu/bank/card/vender/page?desc4=2" id="venderBank">我的银行卡</a></li>
+		                    <li><a href="/trwuliu/ReportAll/payPage?payType=2">车主账单报表</a></li>
+	                    	<li><a href="/trwuliu/ReportAll/billPage?payType=2">车主运单报表</a></li>
+	                    	<li><a href="/trwuliu/ReportAll/planPage?payType=2">车主计划报表</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -65,11 +71,12 @@
 	                    <ul>
 	                    	<li><a href="/trwuliu/billdriver/main"  id="billdriver">我运输的运单</a></li>
 	                        <li><a href="/trwuliu/billdriver/handView" id="handdriver">司机交班</a></li>
-	                        <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li>
+	                       <!--  <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li> -->
 	                        <li><a href="/trwuliu/billAnlian/driver" id="driverAnlian">开票运单</a></li>
 	                        <li><a href="/trwuliu/payInvoice_1/mainDriver" id="paymainDriver">司机账单</a></li>
 	                        <li><a href="/trwuliu/bank/card/page" id="driverBank">我的银行卡</a></li>
-
+							<li><a href="/trwuliu/ReportAll/payPage?payType=1">司机账单报表</a></li>
+                    		<li><a href="/trwuliu/ReportAll/billPage?payType=1">司机运单报表</a></li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -84,7 +91,7 @@
 	                    	<li><a href="/trwuliu/vehicle/new/driverpage"  id="billdriver">我的驾驶员</a></li>
 	                        <li><a href="/trwuliu/vehicle/new//vehicledetail" id="handdriver">我的车辆</a></li>
 	                        <li><a href="/trwuliu/billdriver/main"  id="billdriver">我运输的运单</a></li>
-	                        <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li>
+	                       <!--  <li><a href="/trwuliu/driverreport/main" id="driverreport">我的报表</a></li> -->
 	                        <li><a href="/trwuliu/payInvoiceDriver/main" id="driverpay">运费结算单</a></li>
 	                        <li><a href="/trwuliu/billAnlian/driver" id="driverAnlian">开票运单</a></li>
 	                    </ul>
@@ -98,19 +105,20 @@
                     <ul>
                         <li><a href="/trwuliu/Member/personalDataPage?role=${role }" id="personalDataPage" >个人资料</a></li>
                         <li ><a href="/trwuliu/Member/authenPage?role=${role }" id="authenPage"> 实名认证</a></li>
-<!--                        	<li><a>我的账单</a></li>
-                        <li><a>账号安全</a></li> -->
+                       	<!-- <li><a>我的账单</a></li>
+                        <li><a>账号安全</a></li>  -->
                         <li><a href="/trwuliu/Member/message/message?role=${role }" id="messagePage">消息中心<span id="messageCount"></span> </a></li> 
-                    	<li><a href="/trwuliu/ReportAll/payPage?payType=1">司机账单报表</a></li>
+                    	<!-- <li><a href="/trwuliu/ReportAll/payPage?payType=1">司机账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/billPage?payType=1">司机运单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/payPage?payType=2">车主账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/billPage?payType=2">车主运单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/planPage?payType=2">车主计划报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/payPage?payType=3">货主账单报表</a></li>
                     	<li><a href="/trwuliu/ReportAll/billPage?payType=3">货主运单报表</a></li>
-                    	<li><a href="/trwuliu/ReportAll/planPage?payType=3">货主计划报表</a></li>
+                    	<li><a href="/trwuliu/ReportAll/planPage?payType=3">货主计划报表</a></li> -->
                     </ul>
                 </div>
-            </div>
+            </div> 
+         
         </div>
         <!--个人中心左侧end-->

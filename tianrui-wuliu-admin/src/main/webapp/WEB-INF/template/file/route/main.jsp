@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <!-- body内容 -->
               	<div class="usermodal userlabel4">
                     <label>名称：</label>
-                    <input class="routename formV" name="routename" type="text" readonly="readonly"   dataType="" >
+                    <input class="routename formV" name="routename" type="text" readonly="readonly"     >
                     <input type="hidden" class="formV id" name="id"/>
                     <input type="hidden"  id="pageNo"/>
                 </div>
@@ -151,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    			<option value="${item.id}">${item.cellphone}</option>
                    		</c:forEach>
                     </select>
-                    <input class="receivepersionphone formV" id="receivepersionphone_req" name="receivepersionphone"  type="hidden" dataType="m" >
+                    <input class="receivepersionphone formV" id="receivepersionphone_req" name="receivepersionphone"  type="hidden"  >
                 </div>
               	<div class="usermodal userlabel4">
                     <label>收货人：</label>
