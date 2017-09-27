@@ -257,7 +257,66 @@
 	<!--侧边栏end-->
 	</div>
 
-
+		<!--查看详情begin-->
+	<div class="modal fade" id="vehicledetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+	                        aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title">车辆详情</h4>
+	            </div>
+	            <div class="modal-body" style=" " id="vehicledetailhml">
+	               
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!--查看详情end-->
+		
+		<!--查看详情begin-->
+	<div class="modal fade" id="Billdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+	                        aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title">运单详情</h4>
+	            </div>
+	            <div class="modal-body" style=" " id="Billdetailhml">
+	               
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!--查看详情end-->
+		
+	<!--查看详情begin-->
+	<div class="modal fade" id="Plandetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+	                        aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title">计划详情</h4>
+	            </div>
+	            <div class="modal-body" style=" " id="Plandetailhml">
+	               
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!--查看详情end-->
+	
 	<!--修改密码end-->
 	<%@include file="../../common/footer.jsp"%>
 	<script type="text/javascript"
@@ -273,7 +332,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js?09.33"></script>
+		src="/resources/js/statReport/billAll.js?09.39"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {

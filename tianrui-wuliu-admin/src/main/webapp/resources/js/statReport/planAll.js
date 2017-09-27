@@ -133,7 +133,7 @@ function innerHml(data){
 		}
 		var hml = "<tr>" +
 				"<td>"+planCreateTimeStr+"</td>" +
-				"<td>"+planCode+"</td>" +
+				"<td><span><a data-toggle='modal' onclick=\"plan_datails('"+data[a].id+"')\" data-target='#Plandetail'>"+planCode+"</a></span></td>" +
 				"<td>"+planBeginTimeStr+"</td>" +
 				"<td>"+planEndTimeStr+"</td>" +
 				"<td>"+planWeight+"</td>" +
@@ -178,3 +178,45 @@ $('.exportReport').off('click').on('click',function(){
 		}
 	});
 });
+
+//计划详情
+function plan_datails(id){
+	$.ajax({
+		type:"post",
+		data:{"id":id},
+		url:"/admin/waybill/findPlanByid",
+		success:function(ret){
+			if(ret.code=="000000"){
+				var d = ret.data;
+				var hml = "<div class='file_detail'><label>计划编码：</label><span>"+trimVal(d.plancode)+"</span></div>"+
+					"<div class='file_detail'><label>组织名称：</label><span>"+trimVal(d.orgname)+"</span></div>"+
+					"<div class='file_detail'><label>创建人：</label><span>"+trimVal(d.ownerName)+"</span></div>"+
+					"<div class='file_detail'><label>货物名称：</label><span>"+trimVal(d.cargoname)+"</span></div>"+
+					"<div class='file_detail'><label>车主：</label><span>"+trimVal(d.vehicleownername)+"</span></div>"+
+					"<div class='file_detail'><label>运价策略：</label><span>"+trimVal(d.freightname)+"</span></div>"+
+					"<div class='file_detail'><label>计量单位：</label><span></span>"+trimVal(d.measure)+"</div>"+
+					"<div class='file_detail'><label>计价单位：</label><span>"+trimVal(d.priceUnits)+"</span></div>"+
+					"<div class='file_detail'><label>单价：</label><span></span>"+trimVal(d.price)+"</div>"+
+					"<div class='file_detail'><label>起运地：</label><span>"+trimVal(d.startcity)+"</span></div>"+
+					"<div class='file_detail'><label>目的地：</label><span>"+trimVal(d.endcity)+" </span></div>"+
+					"<div class='file_detail'><label>结算里程数：</label><span>"+trimVal(d.distance)+"</span></div>"+
+					"<div class='file_detail'><label>计划总量：</label><span>"+trimVal(d.totalplanned)+"</span></div>"+
+					"<div class='file_detail'><label>计划费用：</label><span>"+trimVal(d.planprice)+"元</span></div>"+
+					"<div class='file_detail'><label>联系人：</label><span>"+trimVal(d.linkman)+"</span></div>"+
+					"<div class='file_detail'><label>联系电话：</label><span>"+trimVal(d.telephone)+"</span></div>"+
+					"<div class='file_detail'><label>开始时间：</label><span>"+trimVal(d.starttimeStr)+"</span></div>"+
+					"<div class='file_detail'><label>结束时间：</label><span>"+trimVal(d.endtimeStr)+"</span></div>"+
+					"<div class='file_detail'><label>创建时间：</label><span>"+trimVal(d.createtimeStr)+"</span></div>"+
+					"<div class='clear'></div>";	
+				$("#Plandetailhml").html(hml);
+			}
+		}
+	});
+}
+function  trimVal(a){
+	if(a ){
+		return a;
+	}else{
+		return "";
+	}
+}

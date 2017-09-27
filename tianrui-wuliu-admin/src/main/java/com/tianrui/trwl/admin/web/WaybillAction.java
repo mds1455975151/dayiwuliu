@@ -23,6 +23,7 @@ import com.tianrui.api.req.front.bill.BillAssessReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.pay.PayInvoiceDetailSaveReq;
+import com.tianrui.api.req.report.ReportBillAllReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillAssessResp;
 import com.tianrui.api.resp.front.bill.JTBBillResp;
@@ -34,6 +35,7 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
+import com.tianrui.service.impl.BillService;
 import com.tianrui.trwl.admin.util.SessionManager;
 
 @Controller
@@ -185,6 +187,24 @@ public class WaybillAction {
 		Result rs = Result.getSuccessResult();
 		PlanResp resp = cargoPlanService.detail(req);
 		rs.setData(resp);
+		return rs;
+	}
+	
+	/**
+	 * 查询计划id
+	 * @Title: findPlanId 
+	 * @Description: TODO
+	 * @param @param req
+	 * @param @param request
+	 * @param @return
+	 * @param @throws Exception   
+	 * @return Result    
+	 * @throws
+	 */
+	@RequestMapping("/findPlanId")
+	@ResponseBody
+	public Result findPlanId(ReportBillAllReq req,HttpServletRequest request) throws Exception{
+		Result rs=billService.findPlanId(req.getId(), req.getBillType());
 		return rs;
 	}
 	/**
