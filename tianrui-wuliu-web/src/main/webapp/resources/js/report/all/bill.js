@@ -132,10 +132,10 @@ function appendHtml(data){
 		payMent = "车主";
 	}
 	var hml = "<tr>" +
-				"<td>"+(billType||"")+"</td>" +
+				"<td><a onclick=\"getMapDetail('"+data.id+"','"+data.billType+"')\">"+(billType||"")+"</a></td>" +
 				"<td>"+(data.businessTimeStr||"")+"</td>" +
-				"<td>"+(data.planNo||"")+"</td>" +
-				"<td>"+(data.billNo||"")+"</td>" +
+				"<td><a onclick=\"getPlanDatail('"+data.id+"','"+data.billType+"')\">"+(data.planNo||"")+"</a></td>" +
+				"<td><a onclick=\"getBillDetail('"+data.id+"','"+data.billType+"')\">"+(data.billNo||"")+"</a></td>" +
 				"<td>"+(data.sendMan||"")+"</td>" +
 				"<td>"+(data.sendPersion||"")+"</td>" +
 				"<td>"+(data.receiptMan||"")+"</td>" +
@@ -159,6 +159,37 @@ function appendHtml(data){
 				"<td>"+(data.signTimeStr||"")+"</td>" +
 			"</tr>";
 	$("#innerHml").append(hml);
+}
+
+function getMapDetail (id,type){
+	if(type=="dy"){
+		window.location.href="/trwuliu/billAppoint/track?id="+id;
+	}else if(type=="al"){
+		window.location.href="/trwuliu/billAppoint/tarckAnlian?id="+id;
+	}
+}
+
+function getBillDetail(id,type){
+	if(type=="dy"){
+		window.location.href="/trwuliu/ReportAll/billDatailPage?id="+id;
+	}else if(type=="al"){
+		window.location.href="/trwuliu/billAnlian/detail?id="+id;
+	}
+}
+function getPlanDatail(id,type){
+	$.ajax({
+		url:"/trwuliu/ReportAll/planId",
+		type:"POST",
+		data:{id:id,type:type},
+		success:function(ret){
+			var planid = ret.data;
+			if(ret.data!=null){
+				window.location.href="/trwuliu/planvender/detail?id="+planid;
+			}else{
+				alert("网络异常");
+			}
+		}
+	});
 }
 
 function getBillStatus(sta){

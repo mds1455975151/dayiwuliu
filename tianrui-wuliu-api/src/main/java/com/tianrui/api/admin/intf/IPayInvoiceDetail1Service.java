@@ -32,4 +32,8 @@ public interface IPayInvoiceDetail1Service {
 	public Result payMemo(String id,String memo)throws Exception;
 	/** 获取车主列表*/
 	public List<PayVenderGroupResp> groupByVender(PayInvoiceDetail1FindReq req)throws Exception;
+	
+	public Result getPayBillId(String id)throws Exception;
+	
+	public Result getPayPlanlId(String id)throws Exception;
 }

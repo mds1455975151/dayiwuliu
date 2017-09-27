@@ -74,6 +74,19 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	FileRouteMapper fileRouteMapper;
 	@Autowired
 	IMemberVoService memberVoService;
+	
+	@Override
+	public Result getPayBillId(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result getPayPlanlId(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public Result billSelectPrice(PayInvoiceDetail1Req req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -712,5 +725,5 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		}
 		return resp;
 	}
-	
+
 }

@@ -44,14 +44,34 @@ public class ReportAllAction {
 	@Autowired
 	IReportAllService reportAllService;
 	@Autowired
-	IAnlianBillService anlianBillService;
-	@Autowired
 	IBillService billService;
+	
+	@RequestMapping("getPayBillId")
+	public Result getPayBillId(String id){
+		Result rs = Result.getSuccessResult();
+		return rs;
+	}
+	@RequestMapping("getPayPlanId")
+	public Result getPayPlanId(String id){
+		Result rs = Result.getSuccessResult();
+		return rs;
+	}
+	
+	@RequestMapping("billDatailPage")
+	public ModelAndView billDatailPage(String id) throws Exception{
+		ModelAndView view = new ModelAndView();
+		WaybillQueryReq req = new WaybillQueryReq();
+		req.setId(id);
+		view.addObject("bill",billService.queryWayBill(req));
+		view.setViewName("/bill/bill_detail");
+		return view;
+	}
 	
 	@RequestMapping("planId")
 	@ResponseBody
 	public Result planId(String id,String type) throws Exception{
 		Result rs = Result.getSuccessResult();
+		rs = billService.findPlanId(id, type);
 		return rs;
 	}
 	
