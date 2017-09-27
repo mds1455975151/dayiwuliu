@@ -71,4 +71,8 @@ public interface ICrossVehicleService {
 	public Result allVehicleconf();
 	/** 后台车辆审核成功，添加车辆至该表*/
 	public Result systemInsertVehicle(String vehicle);
+	/**
+	 * 中交无位置,需要禁用
+	 */
+	public Result updateVehicleLogo(String vehicleNo);
 }

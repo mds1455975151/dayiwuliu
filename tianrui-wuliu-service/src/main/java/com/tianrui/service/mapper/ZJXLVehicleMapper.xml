@@ -139,6 +139,12 @@
       modifytime = #{modifytime,jdbcType=BIGINT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateVehicleLogo" parameterType="java.lang.String" >
+    update zhongjiao_vehicle
+    set 
+      vehicleLogo = '0'
+    where vehicleno = #{vehicleno,jdbcType=VARCHAR}
+  </update>
   
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ZJXLVehicle" >
     select 
