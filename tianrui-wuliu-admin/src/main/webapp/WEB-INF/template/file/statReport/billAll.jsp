@@ -31,9 +31,10 @@
 </head>
 <body>
 	<div class="container-fluid">
+		 <input type="hidden" id="recPageNo" value="${pageNo }">
 		<jsp:include page="../../common/header.jsp" flush="false"></jsp:include>
 		<!--后台右侧布局begin-->
-		<input type="hidden" id="pageNo" value="${empty pageNo?1:pageNo }">
+		<!--  <input type="hidden" id="pageNo" value="${empty pageNo?0:pageNo }">-->
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
@@ -43,59 +44,59 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="contuser_search">
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>业务日期：</label> <input id="businessTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'businessTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="businessTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'businessTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>运单创建时间：</label> <input id="billCreaterTimeStart"
 									type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'billCreaterTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="billCreaterTimeEnd"
 									type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'billCreaterTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>接受运单时间：</label> <input id="acceptTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'acceptTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="acceptTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'acceptTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>提货确认时间：</label> <input id="pickupTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'pickupTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="pickupTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'pickupTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>卸货确认时间：</label> <input id="unloadTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'unloadTimeEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="unloadTimeEndtime" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'unloadTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>签收运单时间：</label> <input id="signTimeStart" type="text"
-									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'signTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
 									readonly /> <i>-</i> <input id="signTimeEnd" type="text"
-									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'signTimeStart\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
@@ -110,33 +111,48 @@
 							</div>
 							<div class="ht_div">
 								<label>计划单号：</label> <input id="planNo" type="text"
-									placeholder="请输入运单路线">
+									placeholder="请输入计划单号">
 							</div>
 							<div class="ht_div">
 								<label>运单号：</label> <input id="billNo" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入运单号">
 							</div>
 							<div class="ht_div">
 								<label>货物名称：</label> <input id="cargoName" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入货物名称">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>车牌号：</label> <input id="vehicleNo" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入车牌号">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>路线：</label> <input id=routeName type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入路线">
 							</div>
-							<div class="ht_div" name="mytable">
-								<label>运单状态：</label> <input id="billStatus" type="text"
-									placeholder="请输入计划单号">
-							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
+                                 <label>运单状态：</label>
+                                 <select id="billStatus"  class="form-control">
+                                     <option value="">请选择</option>
+                                     <option value="-1">车主回收</option>
+                                     <option value="0">司机未确认</option>
+                                     <option value="1">司机已接受</option>
+                                     <option value="2">司机已装货</option>
+                                     <option value="3">司机运输中</option>
+                                     <option value="4">司机已到达</option>
+                                     <option value="5">司机已卸货</option>
+                                     <option value="6">已签收</option>
+                                     <option value="7">司机拒绝接单</option>
+                                 </select>
+                            </div>
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>司机姓名：</label> <input id="driverName" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入司机姓名">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
+								<label>车主姓名：</label> <input id="ownerName" type="text"
+									placeholder="请输入车主姓名">
+							</div>
+							<div class="ht_div" name="mytable"   style="display:none">
                                  <label>支付对象：</label>
                                  <select id="payMent"  class="form-control">
                                      <option value="">请选择</option>
@@ -144,21 +160,21 @@
                                      <option value="2">车主</option>
                                  </select>
                             </div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"  style="display:none">
 								<label>发货方：</label> <input id="sendMan" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入发货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
 								<label>发货人：</label> <input id="sendPersion" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入发货人">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
 								<label>收货方：</label> <input id="receiptMan" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入收货方">
 							</div>
-							<div class="ht_div" name="mytable">
+							<div class="ht_div" name="mytable"   style="display:none">
 								<label>签收人：</label> <input id="receiptPersion" type="text"
-									placeholder="请输入计划单号">
+									placeholder="请输入签收人">
 							</div>
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" onclick="init(0)"
@@ -212,6 +228,7 @@
 										<th>签收量</th>
 										<th>运单状态</th>
 										<th>司机姓名</th>
+										<th>车主姓名</th>
 										<th>支付对象</th>
 										<th>运单创建时间</th>
 										<th>接受运单时间</th>
@@ -256,16 +273,16 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js"></script>
+		src="/resources/js/statReport/billAll.js?09.33"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {
 				var div_hs = $("div[name$='mytable']");
 				div_hs.toggle();
 				if (div_hs.css("display") == 'none') {
-					$("#gengduo").attr('src', "images/more2.png");
+					$("#gengduo").attr('src', "${imagesRoot }/more2.png");
 				} else {
-					$("#gengduo").attr('src', "images/more1.png");
+					$("#gengduo").attr('src', "${imagesRoot }/more1.png");
 				}
 			});
 
