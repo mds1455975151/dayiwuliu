@@ -117,9 +117,9 @@ function appendHtml(data){
 	}
 	var hml = "<tr>" +
 				"<td>"+(data.payCreateTimeStr||"")+"</td>" +
-				"<td>"+(data.payCode||"")+"</td>" +
+				"<td data-toggle='modal' onclick=\"showdetail('"+data.id+"')\" data-target='#fp_dtail'><a>"+(data.payCode||"")+"</a></td>" +
 				"<td>"+(payMent||"")+"</td>" +
-				"<td>"+(data.planCode||"")+"</td>" +
+				"<td><a onclick=\"getPlanDatail('"+data.planCode+"')\">"+(data.planCode||"")+"</a></td>" +
 				"<td>"+(data.routeName||"")+"</td>" +
 				"<td>"+(data.sendMan||"")+"</td>" +
 				"<td>"+(data.sendPersian||"")+"</td>" +
@@ -148,3 +148,75 @@ function appendHtml(data){
 	$("#innerHml").append(hml);
 }
 
+function getPlanDatail(planCode){
+	$.ajax({
+		url:"/trwuliu/ReportAll/getPayPlanCode",
+		type:"POST",
+		data:{planCode:planCode},
+		success:function(ret){
+			var planid = ret.data;
+			if(ret.data!=null){
+				window.location.href="/trwuliu/planvender/detail?id="+planid;
+			}else{
+				alert("网络异常");
+			}
+		}
+	});
+}
+
+//查看账单详情
+function showdetail(id){
+	$.ajax({
+		url : "/trwuliu/payInvoiceItem_1/findAll",//
+		data : {
+				"payInvoiceId":id},
+		type : "post",
+		success : function(rs){
+			if(rs.code=="000000"){
+				innerDetail(rs.data);
+			}else{
+				alert(rs.error);
+			}
+		}
+	});
+}
+//账单详情页面展示
+function innerDetail(ret){
+	$("#paydetails").empty();
+	var data = ret.list;
+	var hml ;
+	for (var a = 0; a < data.length; a++) {
+		var price = 0;
+		if(data[a].backstageBillTotalPrice != 0){
+			//后台已运价确认
+			price = data[a].backstageBillTotalPrice
+				-data[a].backstageDeductMoney
+				-data[a].backstageDeductOilCard
+				-data[a].backstageDeductOther
+				-data[a].backstageDeductWeightMisc;
+			
+		}else {
+			//后台未运价确认
+			price = data[a].receptionBillTotalPrice 
+				-data[a].receptionDeductMoney
+				-data[a].receptionDeductOther
+				-data[a].receptionDeductWeightMisc
+				-data[a].receptionDeductOilCard;
+		}
+		hml += "<tr><td ><a onclick=\"getBillDetail('"+data[a].billId+"','"+data[a].remark+"')\">"+data[a].billCode+"</a></td>" +
+			"<td >"+data[a].cargoName+"</td>" +
+			"<td >"+data[a].invoiceName+"</td>" +
+			"<td >"+data[a].billWeight+"吨</td>" +
+			"<td >"+new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+			"<td >"+price+"元</td></tr>";
+	}
+	$("#paydetails").append(hml);
+}
+
+function getBillDetail(id,type){
+	if(type=="dy"){
+		window.location.href="/trwuliu/ReportAll/billDatailPage?id="+id;
+	}else if(type=="al"){
+		window.location.href="/trwuliu/billAnlian/detail?id="+id;
+	}
+}

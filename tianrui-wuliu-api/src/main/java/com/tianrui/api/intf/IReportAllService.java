@@ -29,4 +29,6 @@ public interface IReportAllService {
 	/** 添加账单*/
 	public Result savePay()throws Exception;
 	
+	public Result findPlanCode(String planCode)throws Exception;
+	
 }

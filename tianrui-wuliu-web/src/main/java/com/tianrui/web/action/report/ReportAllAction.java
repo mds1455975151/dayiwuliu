@@ -51,9 +51,11 @@ public class ReportAllAction {
 		Result rs = Result.getSuccessResult();
 		return rs;
 	}
-	@RequestMapping("getPayPlanId")
-	public Result getPayPlanId(String id){
+	@RequestMapping("getPayPlanCode")
+	@ResponseBody
+	public Result getPayPlanId(String planCode) throws Exception{
 		Result rs = Result.getSuccessResult();
+		rs = reportAllService.findPlanCode(planCode);
 		return rs;
 	}
 	

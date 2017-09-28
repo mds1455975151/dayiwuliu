@@ -56,7 +56,7 @@ public class NCPushSchedule {
 	/**
      * @annotation 定时推送银行卡并回写推送状态
      */
-	//@Scheduled(cron="0 0/3 *  * * ? ")
+	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void pushBankCardAndCallBackPushStatus(){
 		Long st = new Date().getTime();
 		logger.info("定时器推送银行卡[pushBankCardAndCallBackPushStatus]启动.时间是 :" + DateUtil.getDateString());  

@@ -88,6 +88,14 @@ public class PayInvoiceDetail_1Action {
 		}
 		return rs;
 	}
+	@RequestMapping(value="/findAll",method = RequestMethod.POST)
+	@ResponseBody
+	public Result findAll(PayInvoiceDetail1FindReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<PayInvoiceDetail1Resp> page = payInvoiceDetail1Service.select(req);
+		rs.setData(page);
+		return rs;
+	}
 	
 	/** 生成发票单
 	 * @throws Exception */

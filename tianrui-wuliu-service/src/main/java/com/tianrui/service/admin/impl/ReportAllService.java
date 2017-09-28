@@ -18,9 +18,11 @@ import com.tianrui.api.resp.report.ReportPayAllResp;
 import com.tianrui.api.resp.report.ReportPlanAllResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.ReportBillAll;
 import com.tianrui.service.bean.ReportPayAll;
 import com.tianrui.service.bean.ReportPlanAll;
+import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.ReportBillAllMapper;
 import com.tianrui.service.mapper.ReportPayAllMapper;
 import com.tianrui.service.mapper.ReportPlanAllMapper;
@@ -35,6 +37,8 @@ public class ReportAllService implements IReportAllService{
 	ReportPayAllMapper reportPayAllMapper;
 	@Autowired
 	ReportPlanAllMapper reportPlanAllMapper;
+	@Autowired
+	private PlanMapper planMapper;
 	
 	@Override
 	public PaginationVO<ReportPlanAllResp> selectPlan(ReportPlanAllReq req) throws Exception {
@@ -128,6 +132,16 @@ public class ReportAllService implements IReportAllService{
 	public Result savePay() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Result findPlanCode(String planCode) throws Exception {
+		Result rs = Result.getSuccessResult();
+		Plan plan = new Plan();
+		plan.setPlancode(planCode);
+		List<Plan> list = planMapper.selectByCondition(plan);
+		rs.setData(list.get(0).getId());
+		return rs;
 	}
 
 }
