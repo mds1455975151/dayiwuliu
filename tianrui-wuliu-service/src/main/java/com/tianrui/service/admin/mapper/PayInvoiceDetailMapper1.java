@@ -24,4 +24,6 @@ public interface PayInvoiceDetailMapper1 {
     List<PayInvoiceDetail> selectByPrimary(String payInvoiceId);
     /** 获取当前数据所有车主id列表*/
     List<PayInvoiceDetail> groupByVender(PayInvoiceDetail record);
+    
+    List<PayInvoiceDetail> selectByfindPlanId(PayInvoiceDetail record);
 }

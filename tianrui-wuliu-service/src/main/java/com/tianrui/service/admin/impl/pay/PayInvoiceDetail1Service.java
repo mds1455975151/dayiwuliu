@@ -1,6 +1,5 @@
 package com.tianrui.service.admin.impl.pay;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
+import com.tianrui.api.req.report.ReportPayAllReq;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.api.resp.pay.PayAndBillDateilResp;
 import com.tianrui.api.resp.pay.PayVenderGroupResp;
@@ -31,7 +31,6 @@ import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.bean.Merchant;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
-import com.tianrui.service.admin.bean.PayPriceSave;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
@@ -41,7 +40,6 @@ import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.bean.anlian.AnlianBill;
-import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
@@ -724,6 +722,19 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			}
 		}
 		return resp;
+	}
+	
+	@Override
+	public Result findPlanId(ReportPayAllReq req) throws Exception {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		PayInvoiceDetail record = new PayInvoiceDetail();
+		record.setPayInvoiceId(req.getId());
+		List<PayInvoiceDetail>  list= payInvoiceDetailMapper1.selectByfindPlanId(record); 
+		if(list!=null&&list.size()>0){
+			rs.setData(list.get(0));
+		}
+		return rs;
 	}
 
 }

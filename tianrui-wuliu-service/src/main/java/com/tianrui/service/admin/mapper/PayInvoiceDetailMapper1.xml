@@ -817,4 +817,19 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectByfindPlanId" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail">
+  	SELECT
+		bill_id,planId,remark
+	FROM
+		pay_invoice_detail_1
+	<where>
+		<if test="payInvoiceId != null and payInvoiceId != ''">
+			AND pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+		</if>
+		<if test="code != null and code != ''">
+			AND code = #{code,jdbcType=VARCHAR}
+		</if>
+	</where>
+  </select>
 </mapper>
