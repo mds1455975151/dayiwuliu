@@ -78,7 +78,7 @@ function displayRec(pageNo){
 							type = d[a].vehicletypename;
 						}
 						
-						var auditname = d[a].userName;
+						var userName = d[a].userName;
 						if(d[a].userName == undefined){
 							userName = "";
 						}
