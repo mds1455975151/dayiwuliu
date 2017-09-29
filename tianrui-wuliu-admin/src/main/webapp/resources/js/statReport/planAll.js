@@ -195,7 +195,7 @@ function plan_datails(id){
 					"<div class='file_detail'><label>车主：</label><span>"+trimVal(d.vehicleownername)+"</span></div>"+
 					"<div class='file_detail'><label>运价策略：</label><span>"+trimVal(d.freightname)+"</span></div>"+
 					"<div class='file_detail'><label>计量单位：</label><span></span>"+trimVal(d.measure)+"</div>"+
-					"<div class='file_detail'><label>计价单位：</label><span>"+trimVal(d.priceUnits)+"</span></div>"+
+					"<div class='file_detail'><label>计价单位：</label><span>"+trimVal(d.priceunits)+"</span></div>"+
 					"<div class='file_detail'><label>单价：</label><span></span>"+trimVal(d.price)+"</div>"+
 					"<div class='file_detail'><label>起运地：</label><span>"+trimVal(d.startcity)+"</span></div>"+
 					"<div class='file_detail'><label>目的地：</label><span>"+trimVal(d.endcity)+" </span></div>"+

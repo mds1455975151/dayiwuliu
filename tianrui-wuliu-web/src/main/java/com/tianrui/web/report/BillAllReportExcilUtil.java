@@ -20,7 +20,7 @@ import com.tianrui.common.utils.UUIDUtil;
 public class BillAllReportExcilUtil extends AbstractExcelView {
 
 	private static String[] titles = new String[] { "运单类型", "业务日期","计划单号","运单号","发货方",
-			"发货人","收货方","签收人","车牌号","货物名称","路线","运距","车主派单量","提货榜单净重","卸货榜单净重","签收量","运单状态","司机姓名",
+			"发货人","收货方","签收人","车牌号","货物名称","路线","运距","车主派单量","提货榜单净重","卸货榜单净重","签收量","运单状态","司机姓名","车主姓名",
 			"支付对象","运单创建时间","接受运单时间","提货确认时间","卸货确认时间","签收运单时间"};
 	
 	@Override
@@ -161,6 +161,11 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 			cell.setCellStyle(contentStyle);
 			setText(cell, driverName);
 			
+			//司机姓名
+			String ownerName = data.getOwnerName();
+			cell = getCell(sheet, cellNum, 18);
+			cell.setCellStyle(contentStyle);
+			setText(cell, ownerName);
 			//支付对象
 			String payMent = data.getPayMent();
 			if(StringUtils.equals("1", data.getPayMent())){
@@ -168,37 +173,37 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 			}else if(StringUtils.equals("2", data.getPayMent())){
 				payMent = "车主";
 			}
-			cell = getCell(sheet, cellNum, 18);
+			cell = getCell(sheet, cellNum, 19);
 			cell.setCellStyle(contentStyle);
 			setText(cell, payMent);
 			
 			//运单创建时间
 			String billCreaterTime = data.getBillCreaterTimeStr();
-			cell = getCell(sheet, cellNum, 19);
+			cell = getCell(sheet, cellNum, 20);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billCreaterTime);
 			
 			//接受运单时间
 			String acceptTime = data.getAcceptTimeStr();
-			cell = getCell(sheet, cellNum, 20);
+			cell = getCell(sheet, cellNum, 21);
 			cell.setCellStyle(contentStyle);
 			setText(cell, acceptTime);
 			
 			//提货确认时间
 			String pickupTime = data.getPickupTimeStr();
-			cell = getCell(sheet, cellNum, 21);
+			cell = getCell(sheet, cellNum, 22);
 			cell.setCellStyle(contentStyle);
 			setText(cell, pickupTime);
 			
 			//卸货确认时间
 			String unloadTime = data.getUnloadTimeStr();
-			cell = getCell(sheet, cellNum, 22);
+			cell = getCell(sheet, cellNum, 23);
 			cell.setCellStyle(contentStyle);
 			setText(cell, unloadTime);
 			
 			//签收运单时间
 			String signTime = data.getSignTimeStr();
-			cell = getCell(sheet, cellNum, 23);
+			cell = getCell(sheet, cellNum, 24);
 			cell.setCellStyle(contentStyle);
 			setText(cell, signTime);
 		}
