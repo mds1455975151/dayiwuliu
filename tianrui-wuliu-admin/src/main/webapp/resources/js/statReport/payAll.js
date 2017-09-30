@@ -101,11 +101,16 @@ function innerHml(data){
 		var payCreateTime = data[a].payCreateTimeStr == undefined ? "":data[a].payCreateTimeStr;
 		var payCode = data[a].payCode == undefined ? "":data[a].payCode;
 		var payMent = data[a].payMent == undefined ? "":data[a].payMent;
+		var payType = data[a].payType == undefined ? "":data[a].payType;
+		var payDriverId = data[a].payDriverId == undefined ? "":data[a].payDriverId;
+		var payMentId = data[a].payMentId == undefined ? "":data[a].payMentId;
 		if(payMent=="1"){
 			payMent="司机"
+			payType=payDriverId==payMentId?"司机支付":"委托支付";
 		}
 		if(payMent=="2"){
 			payMent="车主"
+			payType="车主支付"	
 		}
 		var planCode = data[a].planCode == undefined ? "":data[a].planCode;
 		var routeName = data[a].routeName == undefined ? "":data[a].routeName;
@@ -140,7 +145,6 @@ function innerHml(data){
 		if(payStatus=="3"){
 			payStatus="支付失败"
 		}
-		var payType = data[a].payType == undefined ? "":data[a].payType;
 		var payPerson = data[a].payPerson == undefined ? "":data[a].payPerson;
 		var payBankName = data[a].payBankName == undefined ? "":data[a].payBankName;
 		var payBankCode = data[a].payBankCode == undefined ? "":data[a].payBankCode;

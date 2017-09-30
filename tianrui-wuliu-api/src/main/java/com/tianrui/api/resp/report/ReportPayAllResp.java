@@ -71,6 +71,11 @@ public class ReportPayAllResp {
 
     private String desc4;
 
+    private String payMentId;
+    
+    private String payDriverId;
+    
+    
     public String getId() {
         return id;
     }
@@ -348,6 +353,22 @@ public class ReportPayAllResp {
 			billTimeStr =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(billTime));
 		}
 		return billTimeStr;
+	}
+
+	public String getPayMentId() {
+		return payMentId;
+	}
+
+	public void setPayMentId(String payMentId) {
+		this.payMentId = payMentId;
+	}
+
+	public String getPayDriverId() {
+		return payDriverId;
+	}
+
+	public void setPayDriverId(String payDriverId) {
+		this.payDriverId = payDriverId;
 	}
 
     
