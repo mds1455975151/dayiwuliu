@@ -33,7 +33,7 @@ public class ReadExcel {
 	}
 	
 	public static JSONArray readXls() throws IOException {
-		InputStream is = new FileInputStream("H:/bank_type.xls");
+		InputStream is = new FileInputStream("H:/vehicle.xls");
 		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
 		JSONArray array = new JSONArray();
 		for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -45,24 +45,9 @@ public class ReadExcel {
 				HSSFRow hssfRow = hssfSheet.getRow(rowNum);
 				if (hssfRow != null) {
 					HSSFCell no = null;
-					
 					JSONObject json = new JSONObject();
-					
-					no = hssfRow.getCell((short) 2);
-					try {
-						BigDecimal db = new BigDecimal(getValue(no));
-						System.out.println("普通计数：" + db.toPlainString());
-						json.put("code", db.toPlainString());
-					} catch (Exception e) {
-						json.put("code", getValue(no));
-					}
-					
-					no = hssfRow.getCell((short) 3);
+					no = hssfRow.getCell((short) 0);
 					json.put("name", getValue(no));
-					
-					no = hssfRow.getCell((short) 4);
-					json.put("bank_key", getValue(no));
-					
 					array.add(json);
 				}
 			}

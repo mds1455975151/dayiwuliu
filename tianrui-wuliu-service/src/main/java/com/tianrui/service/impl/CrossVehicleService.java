@@ -222,7 +222,7 @@ public class CrossVehicleService implements ICrossVehicleService{
 			rs.setCode("1");
 			rs.setError("车辆已经添加过");
 		}
-		return null;
+		return rs;
 	}
 	
 	

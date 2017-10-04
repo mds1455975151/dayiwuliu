@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tianrui.api.intf.IAccessLogService;
+import com.tianrui.api.req.accessLog.AccessLogReq;
 import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
 import com.tianrui.common.constants.ApiErrorCode;
@@ -44,6 +46,8 @@ public class VehicleGpsAction {
 	
 	@Autowired
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
+	@Autowired
+	IAccessLogService accessLogService;
 	
 	//获取承运计划列表
 	@RequestMapping(value="/queryTrack",method=RequestMethod.POST)
@@ -76,8 +80,41 @@ public class VehicleGpsAction {
 			rs.setCode(ErrorCode.SYSTEM_ERROR.getCode());
 			rs.setError(ErrorCode.SYSTEM_ERROR.getMsg());
 		}
+		accessLog(rs,req);
 		logger.info("queryTrack 参数:{},返回值:{}",JSONObject.toJSON(req),rs.getCode());
 		return rs;
+	}
+	
+	protected void accessLog(Result rs,VehicleGpsReq req) {
+		try {
+			AccessLogReq save = new AccessLogReq();
+			if(StringUtils.isNotBlank(req.getVehicleNO())){
+				save.setVehicleNo(req.getVehicleNO());
+			}
+			if(StringUtils.isNotBlank(req.getBeginTime())){
+				save.setBeginTime(req.getBeginTime());
+			}
+			if(StringUtils.isNotBlank(req.getEndTime())){
+				save.setEndTime(req.getEndTime());
+			}
+			if(StringUtils.isNotBlank(req.getToken())){
+				save.setSystemToken(req.getToken());
+			}
+			save.setSystemUrl("/otherApi/vehicle/queryTrack");
+			save.setRespCode(rs.getCode());
+			if(StringUtils.isNotBlank(rs.getError())){
+				save.setRespError(rs.getError());
+			}
+			if(rs.getData()!=null){
+				save.setRespData(rs.getData().toString());
+				List<APIVehicleGpsResp> list = (List<APIVehicleGpsResp>) rs.getData();
+				save.setRespTotal(String.valueOf(list.size()));
+			}
+			accessLogService.save(save);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private ApiErrorCode validParam(VehicleGpsReq req) throws ParseException{

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.AccessLogMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.AccessLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="system_url" property="systemUrl" jdbcType="VARCHAR" />
+    <result column="system_token" property="systemToken" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="resp_total" property="respTotal" jdbcType="VARCHAR" />
+    <result column="resp_code" property="respCode" jdbcType="VARCHAR" />
+    <result column="resp_error" property="respError" jdbcType="VARCHAR" />
+    <result column="resp_data" property="respData" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="updater" property="updater" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, system_url, system_token, vehicle_no, begin_time, end_time, resp_total, resp_code, 
+    resp_error, resp_data, creater, createtime, updater, updatetime
+  </sql>
+  
+   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.AccessLog" >
+    select 
+    <include refid="Base_Column_List" />
+    from access_log
+    <where>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+    order by createtime desc
+    <if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.AccessLog" >
+    select 
+    count(0)
+    from access_log
+    <where>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from access_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from access_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.AccessLog" >
+    insert into access_log (id, system_url, system_token, 
+      vehicle_no, begin_time, end_time, 
+      resp_total, resp_code, resp_error, 
+      resp_data, creater, createtime, 
+      updater, updatetime)
+    values (#{id,jdbcType=VARCHAR}, #{systemUrl,jdbcType=VARCHAR}, #{systemToken,jdbcType=VARCHAR}, 
+      #{vehicleNo,jdbcType=VARCHAR}, #{beginTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{respTotal,jdbcType=VARCHAR}, #{respCode,jdbcType=VARCHAR}, #{respError,jdbcType=VARCHAR}, 
+      #{respData,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, 
+      #{updater,jdbcType=VARCHAR}, #{updatetime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.AccessLog" >
+    insert into access_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="systemUrl != null" >
+        system_url,
+      </if>
+      <if test="systemToken != null" >
+        system_token,
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="respTotal != null" >
+        resp_total,
+      </if>
+      <if test="respCode != null" >
+        resp_code,
+      </if>
+      <if test="respError != null" >
+        resp_error,
+      </if>
+      <if test="respData != null" >
+        resp_data,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updater != null" >
+        updater,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="systemUrl != null" >
+        #{systemUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="systemToken != null" >
+        #{systemToken,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="respTotal != null" >
+        #{respTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="respCode != null" >
+        #{respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="respError != null" >
+        #{respError,jdbcType=VARCHAR},
+      </if>
+      <if test="respData != null" >
+        #{respData,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.AccessLog" >
+    update access_log
+    <set >
+      <if test="systemUrl != null" >
+        system_url = #{systemUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="systemToken != null" >
+        system_token = #{systemToken,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="respTotal != null" >
+        resp_total = #{respTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="respCode != null" >
+        resp_code = #{respCode,jdbcType=VARCHAR},
+      </if>
+      <if test="respError != null" >
+        resp_error = #{respError,jdbcType=VARCHAR},
+      </if>
+      <if test="respData != null" >
+        resp_data = #{respData,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        updater = #{updater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.AccessLog" >
+    update access_log
+    set system_url = #{systemUrl,jdbcType=VARCHAR},
+      system_token = #{systemToken,jdbcType=VARCHAR},
+      vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      resp_total = #{respTotal,jdbcType=VARCHAR},
+      resp_code = #{respCode,jdbcType=VARCHAR},
+      resp_error = #{respError,jdbcType=VARCHAR},
+      resp_data = #{respData,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      updater = #{updater,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.admin.intf.IAnlianService;
+import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.intf.IVehicleTicketService;
 import com.tianrui.api.req.admin.anlian.AnlianTruckReq;
 import com.tianrui.api.req.front.vehicle.TicketFindReq;
@@ -41,6 +42,8 @@ public class VehicleTicketService implements IVehicleTicketService{
 	IAnlianService anlianService;
 	@Autowired
 	VehicleDriverMapper vehicleDriverMapper;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	@Override
 	public Result insert(VehicleTicketReq req) throws Exception {
@@ -172,6 +175,12 @@ public class VehicleTicketService implements IVehicleTicketService{
 				rs = anlianService.truck(alreq);
 				if(!rs.getCode().equals("000000")){
 					return rs;
+				}else{
+					try {
+						crossVehicleService.systemInsertVehicle(req.getVehicleid());
+					} catch (Exception e) {
+						
+					}
 				}
 			}
 			VehicleTicket vt = new VehicleTicket();
