@@ -13,6 +13,9 @@ public enum ApiErrorCode {
 	API_POSITION_PARAM_ERROR7("E000107","参数vehicleNo不正确."),
 	API_POSITION_PARAM_ERROR8("E000108","参数token不正确."),
 	API_POSITION_PARAM_ERROR9("E000109","参数beginTime或者endTime不正确."),
+	API_POSITION_PARAM_ERROR10("E000110","车辆未加入中交兴路查询表"),
+	API_POSITION_PARAM_ERROR11("E000111","车辆未入网"),
+	API_POSITION_PARAM_ERROR12("E000112","车辆中交查询状态已关闭"),
 	
 	API_SYSTEM_SUCCESS("000000","操作成功.");
 

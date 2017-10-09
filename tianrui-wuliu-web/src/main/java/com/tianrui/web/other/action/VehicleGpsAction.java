@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.intf.IAccessLogService;
+import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.req.accessLog.AccessLogReq;
+import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.front.api.VehicleGpsReq;
+import com.tianrui.api.resp.admin.ZJXLVehicleResp;
 import com.tianrui.api.resp.front.api.APIVehicleGpsResp;
 import com.tianrui.common.constants.ApiErrorCode;
 import com.tianrui.common.constants.ErrorCode;
@@ -48,21 +51,31 @@ public class VehicleGpsAction {
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	@Autowired
 	IAccessLogService accessLogService;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	//获取承运计划列表
 	@RequestMapping(value="/queryTrack",method=RequestMethod.POST)
 	@ResponseBody
 	public Result queryTrack(@RequestBody VehicleGpsReq req) throws Exception{
 		Result rs =new Result();
+		
 		ApiErrorCode error =ApiErrorCode.API_SYSTEM_ERROR;
 		try{
 			error=validParam(req);
 			if( StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode()) ){
-				long begin = DateUtil.parse(req.getBeginTime(), "yyyy-MM-dd HH:mm:ss");
-				long end = DateUtil.parse(req.getEndTime(), "yyyy-MM-dd HH:mm:ss");
-				List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(req.getVehicleNO(), begin, end);
-				rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-				rs.setData(getData(list));
+				//校验车牌号是否添加中交
+				error = checkZjxlVehicle(req.getVehicleNO());
+				if(StringUtils.equals(error.getCode(),ApiErrorCode.API_SYSTEM_SUCCESS.getCode())){
+					long begin = DateUtil.parse(req.getBeginTime(), "yyyy-MM-dd HH:mm:ss");
+					long end = DateUtil.parse(req.getEndTime(), "yyyy-MM-dd HH:mm:ss");
+					List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(req.getVehicleNO(), begin, end);
+					rs.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+					rs.setData(getData(list));
+				}else{
+					rs.setCode(error.getCode());
+					rs.setError(error.getMsg());
+				}
 			}else{
 				rs.setCode(error.getCode());
 				rs.setError(error.getMsg());
@@ -80,44 +93,45 @@ public class VehicleGpsAction {
 			rs.setCode(ErrorCode.SYSTEM_ERROR.getCode());
 			rs.setError(ErrorCode.SYSTEM_ERROR.getMsg());
 		}
-		accessLog(rs,req);
+		//保存日志记录
+		accessLogService.saveLog(rs, req, "/otherApi/vehicle/queryTrack");
+//		accessLog(rs,req,"/otherApi/vehicle/queryTrack");
 		logger.info("queryTrack 参数:{},返回值:{}",JSONObject.toJSON(req),rs.getCode());
 		return rs;
 	}
 	
-	protected void accessLog(Result rs,VehicleGpsReq req) {
-		try {
-			AccessLogReq save = new AccessLogReq();
-			if(StringUtils.isNotBlank(req.getVehicleNO())){
-				save.setVehicleNo(req.getVehicleNO());
-			}
-			if(StringUtils.isNotBlank(req.getBeginTime())){
-				save.setBeginTime(req.getBeginTime());
-			}
-			if(StringUtils.isNotBlank(req.getEndTime())){
-				save.setEndTime(req.getEndTime());
-			}
-			if(StringUtils.isNotBlank(req.getToken())){
-				save.setSystemToken(req.getToken());
-			}
-			save.setSystemUrl("/otherApi/vehicle/queryTrack");
-			save.setRespCode(rs.getCode());
-			if(StringUtils.isNotBlank(rs.getError())){
-				save.setRespError(rs.getError());
-			}
-			if(rs.getData()!=null){
-				save.setRespData(rs.getData().toString());
-				List<APIVehicleGpsResp> list = (List<APIVehicleGpsResp>) rs.getData();
-				save.setRespTotal(String.valueOf(list.size()));
-			}
-			accessLogService.save(save);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	protected void accessLog(Result rs,VehicleGpsReq req,String url) {
+//		try {
+//			AccessLogReq save = new AccessLogReq();
+//			if(StringUtils.isNotBlank(req.getVehicleNO())){
+//				save.setVehicleNo(req.getVehicleNO());
+//			}
+//			if(StringUtils.isNotBlank(req.getBeginTime())){
+//				save.setBeginTime(req.getBeginTime());
+//			}
+//			if(StringUtils.isNotBlank(req.getEndTime())){
+//				save.setEndTime(req.getEndTime());
+//			}
+//			if(StringUtils.isNotBlank(req.getToken())){
+//				save.setSystemToken(req.getToken());
+//			}
+//			save.setSystemUrl(url);
+//			save.setRespCode(rs.getCode());
+//			if(StringUtils.isNotBlank(rs.getError())){
+//				save.setRespError(rs.getError());
+//			}
+//			if(rs.getData()!=null){
+//				save.setRespData(rs.getData().toString());
+//				List<APIVehicleGpsResp> list = (List<APIVehicleGpsResp>) rs.getData();
+//				save.setRespTotal(String.valueOf(list.size()));
+//			}
+//			accessLogService.save(save);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
-	private ApiErrorCode validParam(VehicleGpsReq req) throws ParseException{
+	private ApiErrorCode validParam(VehicleGpsReq req) throws Exception{
 		ApiErrorCode errorCode = ApiErrorCode.API_SYSTEM_ERROR;
 		if( req!=null ){
 			//参数为空的验证
@@ -136,6 +150,30 @@ public class VehicleGpsAction {
 					errorCode=ApiErrorCode.API_SYSTEM_SUCCESS;
 				}
 			}
+		}
+		return errorCode;
+	}
+	
+	protected ApiErrorCode checkZjxlVehicle(String vehicleNo) throws Exception{
+		ApiErrorCode errorCode = ApiErrorCode.API_SYSTEM_ERROR;
+		ZJXLVehicleReq req = new ZJXLVehicleReq();
+		req.setVehicleno(vehicleNo);
+		List<ZJXLVehicleResp> list = crossVehicleService.findList(req);
+		if(list.size()==1){
+			ZJXLVehicleResp resp = list.get(0);
+			if(!StringUtils.equals("1", resp.getCrossloge())){
+				//车辆未入网
+				errorCode=ApiErrorCode.API_POSITION_PARAM_ERROR11;
+			}else if(!StringUtils.equals("1", resp.getVehiclelogo())){
+				//车辆未开启
+				errorCode=ApiErrorCode.API_POSITION_PARAM_ERROR12;
+			}else{
+				//验证通过
+				errorCode=ApiErrorCode.API_SYSTEM_SUCCESS;
+			}
+		}else{
+			//车辆未添加
+			errorCode=ApiErrorCode.API_POSITION_PARAM_ERROR10;
 		}
 		return errorCode;
 	}
