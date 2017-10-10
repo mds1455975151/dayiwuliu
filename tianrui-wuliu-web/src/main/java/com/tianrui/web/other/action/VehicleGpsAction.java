@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.intf.IAccessLogService;
 import com.tianrui.api.intf.ICrossVehicleService;
-import com.tianrui.api.req.accessLog.AccessLogReq;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.front.api.VehicleGpsReq;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;

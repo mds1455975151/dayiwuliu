@@ -13,15 +13,15 @@ import com.tianrui.common.utils.Md5Utils;
 
 public class ApiTest2 {
 
-	private static String url="http://www.appb2b.com/otherApi/vehicle/queryTrack";
+//	private static String url="http://www.appb2b.com/otherApi/vehicle/queryTrack";
 
-	//private static String url="http://127.0.0.1/other/anlianApi/uploadPosition";
+	private static String url="http://localhost:8080/otherApi/vehicle/queryTrack";
 	
 	
 	static VehicleGpsReq getParam2(){
 		VehicleGpsReq req =new VehicleGpsReq();
 		try {
-			req.setVehicleNO(new String("豫DR0868".getBytes("utf-8"),"iso8859-1"));
+			req.setVehicleNO(new String("豫Ayggvg".getBytes("utf-8"),"iso8859-1"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,11 +76,12 @@ public class ApiTest2 {
                 lines = new String(lines.getBytes(), "utf-8");
                 sb.append(lines);
             }
+            System.out.println(sb);
             reader.close();
             // 断开连接
             conn.disconnect();
 	    }catch(Exception e){
-	    	System.out.println(e.getMessage());
+	    	System.out.println("异常信息"+e.getMessage());
 	    }
 	    return sb.toString();
 	}

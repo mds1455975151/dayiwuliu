@@ -65,7 +65,6 @@ function innerHml(data){
 				"<td>"+(data[a].endTime||"")+"</td>" +
 				"<td>"+(data[a].respCode||"")+"</td>" +
 				"<td>"+(data[a].respError||"")+"</td>" +
-				"<td>"+(data[a].respData||"")+"</td>" +
 				"<td>"+(data[a].respTotal||"")+"</td>" +
 				"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
 				"</tr>";

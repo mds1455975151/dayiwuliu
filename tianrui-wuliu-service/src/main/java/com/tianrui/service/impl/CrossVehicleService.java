@@ -45,6 +45,7 @@ public class CrossVehicleService implements ICrossVehicleService{
 	@Override
 	public List<ZJXLVehicleResp> findList(ZJXLVehicleReq req) throws Exception {
 		ZJXLVehicle zjxlVehicle = new ZJXLVehicle();
+		zjxlVehicle.setVehicleno(req.getVehicleno());
 		zjxlVehicle.setCrossloge(req.getCrossloge());
 		zjxlVehicle.setVehiclelogo(req.getVehiclelogo());
 		List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(zjxlVehicle);

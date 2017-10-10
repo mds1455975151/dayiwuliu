@@ -185,6 +185,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                    <label><i style="color: #ff2f00;">*</i>物料类别：</label>
 		                    <select class="form-control" id="modal_add_materClass">
 		                        <option>请选择</option>
+		                        		<option>混凝土制品</option>
 		                                <option>水泥熟料</option>
 		                                <option>煤炭及产品</option>
 		                                <option>普通硅酸盐水泥</option>
@@ -323,19 +324,20 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                    <label><i style="color: #ff2f00;">*</i>物料类别：</label>
 		                    <select class="form-control" disabled id="modal_edit_materClass">
 		                       <option>请选择</option>
-		                                <option>水泥熟料</option>
-		                                <option>煤炭及产品</option>
-		                                <option>普通硅酸盐水泥</option>
-		                                <option>矿渣硅酸盐水泥</option>
-		                                <option>粉煤灰硅酸盐水泥</option>
-		                                <option>火山灰质硅酸盐水泥</option>
-		                                <option>特种水泥</option>
-		                                <option>复合硅酸盐水泥</option>
-										<option>金属矿产及冶炼制成品</option>
-										<option>黑色金属冶炼产品</option>
-										<option>非金属矿产类</option>
-										<option>石膏、石膏粉</option>
-										<option>水泥助磨剂</option>
+		                       <option>混凝土制品</option>
+                                <option>水泥熟料</option>
+                                <option>煤炭及产品</option>
+                                <option>普通硅酸盐水泥</option>
+                                <option>矿渣硅酸盐水泥</option>
+                                <option>粉煤灰硅酸盐水泥</option>
+                                <option>火山灰质硅酸盐水泥</option>
+                                <option>特种水泥</option>
+                                <option>复合硅酸盐水泥</option>
+								<option>金属矿产及冶炼制成品</option>
+								<option>黑色金属冶炼产品</option>
+								<option>非金属矿产类</option>
+								<option>石膏、石膏粉</option>
+								<option>水泥助磨剂</option>
 		                    </select>
 		                </div>
 		                <div class="model_width">

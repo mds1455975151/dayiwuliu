@@ -74,7 +74,6 @@
 										<th>结束时间</th>
 										<th>code</th>
 										<th>error</th>
-										<th>data</th>
 										<th>数据条数</th>
 										<th>请求时间</th>
 									</tr>
@@ -107,7 +106,7 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/accessLog/accessLog.js"></script>
+	<script type="text/javascript" src="/resources/js/accessLog/accessLog.js?1010"></script>
 	
 </body>
 </html>
