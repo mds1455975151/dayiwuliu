@@ -1,5 +1,8 @@
 package com.tianrui.api.req.front.bill;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class SignerBillFindReq {
     private String id;
     private String billtype;
@@ -16,10 +19,28 @@ public class SignerBillFindReq {
     private String receiveMemberid;
     
     private String paystatus;
-
+    
+    private String starttime;
+    private String endtime;
+    private Long starttimes;
+    private Long endtimes;
     
     
+	public Long getStarttimes() throws ParseException {
+		if(starttime!=null&&starttime!=""){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime()+24*60*60*1000;
+			return starttimes;
+		}
+		return starttimes;
+	}
 
+	public Long getEndtimes() throws ParseException {
+		if(endtime!=null&&endtime!=""){
+			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
+			return endtimes;
+		}
+		return endtimes;
+	}
 	public String getPaystatus() {
 		return paystatus;
 	}
@@ -106,6 +127,22 @@ public class SignerBillFindReq {
 
 	public void setBillstatus(String billstatus) {
 		this.billstatus = billstatus;
+	}
+
+	public String getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
     
 }

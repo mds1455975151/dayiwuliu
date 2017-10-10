@@ -20,6 +20,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/imgcut.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/tr-media.css"  rel="stylesheet">
     <link href="${trRoot}/tianrui/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <!--这个日历控件js必须放头部-->
+<script language="javascript" type="text/javascript" src="${scriptsRoot}/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <!-- 引用公共header部分 -->
@@ -98,6 +100,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<option value="1">已付款</option>
 								</select>
 	                        </div>
+	                        <div class="ht_div">
+								<label>创建日期：</label> <input id="starttime" type="text"
+									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+									id="endtime" type="text"
+									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+							</div>
 	                        <div class="bb_czline">
 	                            <button type="submit" class="btn btnblue resetBtn">重置</button>
 								<button type="submit" class="btn btnyello searchBtn">搜索</button>
@@ -351,7 +361,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?0922" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?0923" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

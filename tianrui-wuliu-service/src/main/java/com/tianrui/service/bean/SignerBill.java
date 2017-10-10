@@ -1,5 +1,4 @@
 package com.tianrui.service.bean;
-
 public class SignerBill {
     private String id;
     
@@ -44,8 +43,10 @@ public class SignerBill {
     private Integer pageSize;
     
     private String paystatus;
-    
-    
+//    private String starttime;
+//    private String endtime;
+    private Long starttimes;
+    private Long endtimes;
 
     public String getPaystatus() {
 		return paystatus;
@@ -218,4 +219,31 @@ public class SignerBill {
 	public void setEndcity(String endcity) {
 		this.endcity = endcity;
 	}
+
+	public Long getStarttimes() {
+		return starttimes;
+	}
+
+	public void setStarttimes(Long starttimes) {
+		this.starttimes = starttimes;
+	}
+
+	public Long getEndtimes() {
+		return endtimes;
+	}
+
+	public void setEndtimes(Long endtimes) {
+		this.endtimes = endtimes;
+	}
+
+
+
+	
+
+	
+	
+
+
+	
+	
 }

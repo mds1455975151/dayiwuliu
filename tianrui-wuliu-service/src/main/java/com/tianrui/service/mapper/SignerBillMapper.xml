@@ -44,6 +44,12 @@
    	<if test="billstatus != null and billstatus != '' and billstatus=='7'">
    		and vb.billstatus in ('7','8')
    	</if>
+   	<if test="starttimes != null and starttimes != ''">
+    		and createtime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+    </if>
+   	<if test="endtimes != null and endtimes != ''">
+		and createtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+   	</if>
    	<if test="paystatus != null and paystatus != '' and paystatus == 1">
     	and	EXISTS (
 				SELECT
