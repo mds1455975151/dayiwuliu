@@ -70,7 +70,6 @@
                     </div>
                     <div class="bb_czline">
                         <label>运单类型：</label>
-
                         <select id="billType" class="form-control">
                         	<option value="">请选择</option>
                         	<option value="al">安联运单</option>
@@ -103,9 +102,7 @@
                     </div>
                     <div class="bb_czline">
                         <label>运单状态：</label>
-
                         <select id="billStatus" class="form-control">
-
                         	<option class="dystatus bill_status" value="">请选择</option>
                             <option class="dystatus bill_status" value="-1">车主回收</option>
                             <option class="dystatus bill_status" value="0">司机未确认</option>
@@ -130,7 +127,6 @@
                     </div>
                  	<div class="bb_czline">
                         <label>支付对象：</label>
-
                         <select id="payMent" class="form-control">
 	                       	<option value="">请选择</option>
 	                        <option value="1">司机</option>
