@@ -15,7 +15,7 @@ public class ApiTest2 {
 
 //	private static String url="http://www.appb2b.com/otherApi/vehicle/queryTrack";
 
-	private static String url="http://localhost:8080/otherApi/vehicle/queryTrack";
+	private static String url="http://172.19.4.74:8091/otherApi/vehicle/queryTrack";
 	
 	
 	static VehicleGpsReq getParam2(){
