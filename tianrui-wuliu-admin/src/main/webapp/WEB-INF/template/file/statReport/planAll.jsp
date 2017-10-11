@@ -109,17 +109,17 @@
 								<button class="btn btngreen reset" onclick="reset()"
 									type="submit">重置</button>
 							</div>
-						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="position_more">
 									<div class="c_Screen">
-										<label>更多筛选条件</label> <span><img src="images/more2.png"
+										<label>更多筛选条件</label> <span><img src="${imagesRoot }/more2.png"
 											id="gengduo"></span>
 									</div>
 								</div>
 
 							</div>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -127,7 +127,7 @@
 				<div class="row mt15">
 					<div class="col-md-12">
 						<div class="content-user"
-							style="overflow-x: scroll; width: 1544px;">
+							style="overflow-x: scroll;">
 							<div class="pro_opra">
 								<button class="btn btnblue exportReport">导出</button>
 								<button class="btn btnorange printReport">打印</button>

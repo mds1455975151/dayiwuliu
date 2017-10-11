@@ -70,7 +70,7 @@
                     </div>
                     <div class="bb_czline">
                         <label>计划状态：</label>
-                        <select id="planStatus">
+                        <select id="planStatus" class="form-control">
                         	<option value="">请选择</option>
                         	<option value="0">新建</option>
                         	<option value="-1">已删除</option>
@@ -115,7 +115,7 @@
                     </div>
                  	<div class="bb_czline">
                         <label>支付对象：</label>
-                        <select id="payMent">
+                        <select id="payMent" class="form-control">
                         	<option value="">请选择</option>
                         	<option value="1">司机</option>
                         	<option value="2">车主</option>
@@ -125,16 +125,17 @@
                         <button type="submit" onclick="regist()" class="btn btnyello">重置</button>
                         <button type="submit" onclick="init(0,0)" class="btn btnblue">搜索</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="position_more">
-                            <div class="c_Screen">
-                                <label>更多筛选条件</label>
-                                <span><img src="${trRoot}/tianrui/images/more2.png" id="gengduo"></span>
-                            </div>
-                        </div>
-                    </div>
+	                <div class="row">
+	                    <div class="col-md-12">
+	                        <div class="position_more">
+	                            <div class="c_Screen">
+	                                <label>更多筛选条件</label>
+	                                <span><img src="${trRoot}/tianrui/images/more2.png" id="gengduo"></span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="plan_fege"> </div>
                 </div>
             </div>
             </div>
