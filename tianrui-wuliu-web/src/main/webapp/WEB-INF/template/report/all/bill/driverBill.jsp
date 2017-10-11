@@ -70,6 +70,7 @@
                     </div>
                     <div class="bb_czline">
                         <label>运单类型：</label>
+
                         <select id="billType" class="form-control">
                         	<option value="">请选择</option>
                         	<option value="al">安联运单</option>
@@ -102,17 +103,23 @@
                     </div>
                     <div class="bb_czline">
                         <label>运单状态：</label>
+
                         <select id="billStatus" class="form-control">
-                        	<option value="">请选择</option>
-                            <option value="-1">车主回收</option>
-                            <option value="0">司机未确认</option>
-                            <option value="1">司机已接受</option>
-                            <option value="2">司机已装货</option>
-                            <option value="3">司机运输中</option>
-                            <option value="4">司机已到达</option>
-                            <option value="5">司机已卸货</option>
-                            <option value="6">已签收</option>
-                            <option value="7">司机拒绝接单</option>
+
+                        	<option class="dystatus bill_status" value="">请选择</option>
+                            <option class="dystatus bill_status" value="-1">车主回收</option>
+                            <option class="dystatus bill_status" value="0">司机未确认</option>
+                            <option class="dystatus bill_status" value="1">司机已接受</option>
+                            <option class="dystatus bill_status" value="2">司机已装货</option>
+                            <option class="dystatus bill_status" value="3">司机运输中</option>
+                            <option class="dystatus bill_status" value="4">司机已到达</option>
+                            <option class="dystatus bill_status" value="5">司机已卸货</option>
+                            <option class="dystatus bill_status" value="6">已签收</option>
+                            <option class="dystatus bill_status" value="7">司机拒绝接单</option>
+                            <option class="alstatus bill_status" value="配载单还未提货!">配载单还未提货!</option>
+                            <option class="alstatus bill_status" value="运输中">运输中</option>
+                            <option class="alstatus bill_status" value="配载单已到货!">配载单已到货!</option>
+                            <option class="alstatus bill_status" value="该配载单暂无跟踪记录!">该配载单暂无跟踪记录!</option>
                         </select>
                     </div>
                  </div> 
@@ -123,6 +130,7 @@
                     </div>
                  	<div class="bb_czline">
                         <label>支付对象：</label>
+
                         <select id="payMent" class="form-control">
 	                       	<option value="">请选择</option>
 	                        <option value="1">司机</option>

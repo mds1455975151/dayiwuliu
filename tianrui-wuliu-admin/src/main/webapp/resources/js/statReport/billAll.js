@@ -504,3 +504,14 @@ function bill_map(type,id){
 	}
 	window.open("/report/map?type="+type+"&id="+id+"&menuId=7");
 }
+
+$("#billType").on("change",function(){
+	$(".bill_status").show();
+	$("#billStatus").val("");
+	var type = $("#billType").val();
+	if(type == "dy"){
+		$(".alstatus").hide();
+	}else if(type == "al"){
+		$(".dystatus").hide();
+	}
+})

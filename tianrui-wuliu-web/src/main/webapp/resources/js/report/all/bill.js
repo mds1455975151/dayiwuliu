@@ -192,6 +192,17 @@ function getPlanDatail(id,type){
 	});
 }
 
+$("#billType").on("change",function(){
+	$(".bill_status").show();
+	$("#billStatus").val("");
+	var type = $("#billType").val();
+	if(type == "dy"){
+		$(".alstatus").hide();
+	}else if(type == "al"){
+		$(".dystatus").hide();
+	}
+})
+
 function getBillStatus(sta){
 	var status = "";
 	switch (sta) {
