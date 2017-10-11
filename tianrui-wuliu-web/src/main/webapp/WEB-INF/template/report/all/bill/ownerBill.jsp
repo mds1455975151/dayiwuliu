@@ -103,16 +103,20 @@
                     <div class="bb_czline">
                         <label>运单状态：</label>
                         <select id="billStatus">
-                        	<option value="">请选择</option>
-                            <option value="-1">车主回收</option>
-                            <option value="0">司机未确认</option>
-                            <option value="1">司机已接受</option>
-                            <option value="2">司机已装货</option>
-                            <option value="3">司机运输中</option>
-                            <option value="4">司机已到达</option>
-                            <option value="5">司机已卸货</option>
-                            <option value="6">已签收</option>
-                            <option value="7">司机拒绝接单</option>
+                        	<option class="dystatus bill_status" value="">请选择</option>
+                            <option class="dystatus bill_status" value="-1">车主回收</option>
+                            <option class="dystatus bill_status" value="0">司机未确认</option>
+                            <option class="dystatus bill_status" value="1">司机已接受</option>
+                            <option class="dystatus bill_status" value="2">司机已装货</option>
+                            <option class="dystatus bill_status" value="3">司机运输中</option>
+                            <option class="dystatus bill_status" value="4">司机已到达</option>
+                            <option class="dystatus bill_status" value="5">司机已卸货</option>
+                            <option class="dystatus bill_status" value="6">已签收</option>
+                            <option class="dystatus bill_status" value="7">司机拒绝接单</option>
+                            <option class="alstatus bill_status" value="配载单还未提货!">配载单还未提货!</option>
+                            <option class="alstatus bill_status" value="运输中">运输中</option>
+                            <option class="alstatus bill_status" value="配载单已到货!">配载单已到货!</option>
+                            <option class="alstatus bill_status" value="该配载单暂无跟踪记录!">该配载单暂无跟踪记录!</option>
                         </select>
                     </div>
                  </div> 
@@ -279,7 +283,7 @@
 	<script type="text/javascript" src="${trRoot}/tianrui/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/report/all/bill.js?0924"></script>
+	<script type="text/javascript" src="/resources/js/report/all/bill.js?1011"></script>
 	<script type="text/javascript">
     $(function () {
         $(".c_Screen").on('click',function(){
