@@ -132,16 +132,20 @@
 							<div class="ht_div" name="mytable"   style="display:none">
                                  <label>运单状态：</label>
                                  <select id="billStatus"  class="form-control">
-                                     <option value="">请选择</option>
-                                     <option value="-1">车主回收</option>
-                                     <option value="0">司机未确认</option>
-                                     <option value="1">司机已接受</option>
-                                     <option value="2">司机已装货</option>
-                                     <option value="3">司机运输中</option>
-                                     <option value="4">司机已到达</option>
-                                     <option value="5">司机已卸货</option>
-                                     <option value="6">已签收</option>
-                                     <option value="7">司机拒绝接单</option>
+                                     <option class="dystatus bill_status" value="">请选择</option>
+                                     <option class="dystatus bill_status" value="-1">车主回收</option>
+                                     <option class="dystatus bill_status" value="0">司机未确认</option>
+                                     <option class="dystatus bill_status" value="1">司机已接受</option>
+                                     <option class="dystatus bill_status" value="2">司机已装货</option>
+                                     <option class="dystatus bill_status" value="3">司机运输中</option>
+                                     <option class="dystatus bill_status" value="4">司机已到达</option>
+                                     <option class="dystatus bill_status" value="5">司机已卸货</option>
+                                     <option class="dystatus bill_status" value="6">已签收</option>
+                                     <option class="dystatus bill_status" value="7">司机拒绝接单</option>
+                                     <option class="alstatus bill_status" value="配载单还未提货!">配载单还未提货!</option>
+                                     <option class="alstatus bill_status" value="运输中">运输中</option>
+                                     <option class="alstatus bill_status" value="配载单已到货!">配载单已到货!</option>
+                                     <option class="alstatus bill_status" value="该配载单暂无跟踪记录!">该配载单暂无跟踪记录!</option>
                                  </select>
                             </div>
 							<div class="ht_div" name="mytable"  style="display:none">
@@ -182,17 +186,17 @@
 								<button class="btn btngreen reset" onclick="reset()"
 									type="submit">重置</button>
 							</div>
-						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="position_more">
 									<div class="c_Screen">
-										<label>更多筛选条件</label> <span><img src="images/more2.png"
+										<label>更多筛选条件</label> <span><img src="${imagesRoot }/more2.png"
 											id="gengduo"></span>
 									</div>
 								</div>
 
 							</div>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -200,7 +204,7 @@
 				<div class="row mt15">
 					<div class="col-md-12">
 						<div class="content-user"
-							style="overflow-x: scroll; width: 1544px;">
+							style="overflow-x: scroll; ">
 							<div class="pro_opra">
 								<button class="btn btnblue exportReport">导出</button>
 								<button class="btn btnorange printReport">打印</button>
@@ -332,7 +336,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js?09.39"></script>
+		src="/resources/js/statReport/billAll.js?09.11"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {

@@ -104,7 +104,7 @@
                  <div class="bb_line hidemore"> 
                  	<div class="bb_czline">
                         <label>支付状态：</label>
-                        <select id="payStatus">
+                        <select id="payStatus" class="form-control">
                         	<option value="">请选择</option>
                         	<option value="0">未支付</option>
                         	<option value="1">支付中</option>
@@ -142,16 +142,17 @@
                         <button type="submit" onclick="regist()" class="btn btnyello">重置</button>
                         <button type="submit" onclick="init(0,0)" class="btn btnblue">搜索</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="position_more">
-                            <div class="c_Screen">
-                                <label>更多筛选条件</label>
-                                <span><img src="${trRoot}/tianrui/images/more2.png" id="gengduo"></span>
-                            </div>
-                        </div>
-                    </div>
+	                <div class="row">
+	                    <div class="col-md-12">
+	                        <div class="position_more">
+	                            <div class="c_Screen">
+	                                <label>更多筛选条件</label>
+	                                <span><img src="${trRoot}/tianrui/images/more2.png" id="gengduo"></span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="plan_fege"> </div>
                 </div>
             </div>
             </div>

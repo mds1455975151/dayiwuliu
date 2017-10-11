@@ -93,6 +93,10 @@ function getDetail(id){
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data;
+				//提货磅单
+				var pickupimgurl = data.pickupimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.pickupimgurl+"' target='_blank'>查看图片</a></span>");
+				//卸货榜单
+				var signimgurl = data.signimgurl==undefined?"<span>未上传</span>":("<span><a href='/imageView/index?imageUrl="+data.signimgurl+"' target='_blank'>查看图片</a></span>");
 				var hml = "<div class='file_detail'><label>运单号：</label><span>"+data.billno+"</span></div>"+
 				"<div class='file_detail'><label>货物名称：</label><span>"+data.hpmc+"</span></div>"+
 				"<div class='file_detail'><label>承运方：</label><span>"+data.systemShipper+"</span></div>"+
@@ -109,6 +113,8 @@ function getDetail(id){
 				"<div class='file_detail'><label>总运费：</label><span>"+data.yf+"元</span></div>"+
 				"<div class='file_detail'><label>车辆：</label><span>"+data.cph+"</span></div>"+
 				"<div class='file_detail'><label>司机(安联)：</label><span>"+data.sj+"</span></div>"+
+				"<div class='file_detail'><label>提货榜单：</label><span>"+pickupimgurl+"</span></div>"+
+				"<div class='file_detail'><label>卸货榜单：</label><span>"+signimgurl+"</span></div>"+
 				"<div class='file_detail'><label>联系方式：</label><span>"+data.drivertel+"</span></div>"+
 				"<div class='file_detail2'><label>运单状态：</label><span>"+data.status+"</span>" +
 				"<div class='clear'></div>";
