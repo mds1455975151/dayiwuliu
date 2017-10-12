@@ -12,7 +12,9 @@ function displayData(d){
 	}
 }
 function displayRec(pageNo){
-	var auditname =$("#auditname").val();
+	var auditName =$("#auditName").val();
+	var starttime =$("#starttime").val();
+	var endtime = $("#endtime").val();
 	var prefix = $("#prefix").val();
 	var vehicleno = $("#vehicleno").val();
 	var userName = $("#userName").val();
@@ -25,7 +27,9 @@ function displayRec(pageNo){
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCarManager',
 		data:{"vehicleprefix":$.trim(prefix),
-			"auditname":$.trim(auditname),
+			"auditname":$.trim(auditName),
+			"starttime":$.trim(starttime),
+			"endtime":$.trim(endtime),
 			"vehicleno":$.trim(vehicleno),
 			"userName":$.trim(userName),
 			"telphone":$.trim(telphone),

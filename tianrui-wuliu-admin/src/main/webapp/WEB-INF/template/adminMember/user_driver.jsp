@@ -68,6 +68,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">认证成功</option>
                                         </select>
                                     </div>
+                                    <div class="contuser_search">
+                                     <div class="ht_div">
+                                        <label>审核人:</label>
+                                        <input type="text"  id="auditName" placeholder=" ">
+                                    </div>
+                                    <div class="ht_div">
+										<label>审核日期：</label> <input id="starttime" type="text"
+											onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+											class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+											id="endtime" type="text"
+											onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+											class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+									</div>
                                     <div class="ht_div">
                                         <label>NC审核状态 :</label>
                                         <select class="form-control" onchange="firstPage();" id="ncStatus">
@@ -387,7 +400,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0385" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0311" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

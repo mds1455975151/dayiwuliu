@@ -14,6 +14,9 @@ function displayData(pageNo){
 }
 
 function displayRect(pageNo){
+	var starttime = $("#starttime").val();
+	var endtime = $("#endtime").val();
+	var auditName = $("#auditName").val();
 	var menuId = $("#menuId").val();
 	var userName = $("#userName").val();//用户名称
 	var cellPhone = $("#cellPhone").val();//登陆账号
@@ -25,6 +28,9 @@ function displayRect(pageNo){
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findMemberList',
 		data:{"userName":$.trim(userName),
+			"starttime":$.trim(starttime),
+			"endtime":$.trim(endtime),
+			"auditName":$.trim(auditName),
 			"companyName":$.trim(userName),
 			"cellPhone":$.trim(cellPhone),
 			"status":$.trim(status),
@@ -277,6 +283,9 @@ function getType(id,status,pageNo){
 	document.getElementById("personalType").value="";
 	document.getElementById("perCheckStatus").value="";
 	document.getElementById("ncStatus").value="";
+	document.getElementById("starttime").value="";
+	document.getElementById("endtime").value="";
+	document.getElementById("auditName").value="";
 	displayRect(0);
   }
   /**
@@ -540,8 +549,8 @@ function yuanyin(id,per,submitDate){
 	
 }
 function empty(){
-	$("#submitDate").val("");
 	$("#auditname").val("");
+	$("#submitDate").val("");
 	$("#userType").val("");
 	$("#birthday").val("");
 	$("#sex").val("");

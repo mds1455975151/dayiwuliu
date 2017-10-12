@@ -60,7 +60,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">企业用户</option>
                                         </select>
                                     </div>
-                                   	
                                    	<div class="ht_div">
                                         <label>认证状态:</label>
                                         <select class="form-control" id="perCheckStatus">
@@ -70,6 +69,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="1">认证通过</option>
                                         </select>
                                     </div>
+                             </div>       
+                             <div class="contuser_search">         
+                                     <div class="ht_div">
+                                        <label>审核人:</label>
+                                        <input type="text"  id="auditName" placeholder=" ">
+                                    </div>
+                                    <div class="ht_div">
+										<label>审核日期：</label> <input id="starttime" type="text"
+											onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+											class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
+											id="endtime" type="text"
+											onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+											class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+									</div>
                                     <div class="ht_div">
                                         <label>NC审核状态 :</label>
                                         <select class="form-control"  id="ncStatus">
@@ -272,7 +285,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
 <script type="text/javascript" src="/resources/js/adminMember/navigation.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_person.js?0175" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_person.js?10.11" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

@@ -97,9 +97,9 @@ public class MemberFind implements IModel{
 	private String auditName;//审核人
 	private String aldriverid;//安联账号
 	//查询开始时间
-	private Long beginTime;
+	private Long starttimes;
 	//查询结束时间
-	private Long endTime;
+	private Long endtimes;
 	
 	
 	public String getAldriverid() {
@@ -120,17 +120,18 @@ public class MemberFind implements IModel{
 	public void setAuditName(String auditName) {
 		this.auditName = auditName;
 	}
-	public Long getBeginTime() {
-		return beginTime;
+
+	public Long getStarttimes() {
+		return starttimes;
 	}
-	public void setBeginTime(Long beginTime) {
-		this.beginTime = beginTime;
+	public void setStarttimes(Long starttimes) {
+		this.starttimes = starttimes;
 	}
-	public Long getEndTime() {
-		return endTime;
+	public Long getEndtimes() {
+		return endtimes;
 	}
-	public void setEndTime(Long endTime) {
-		this.endTime = endTime;
+	public void setEndtimes(Long endtimes) {
+		this.endtimes = endtimes;
 	}
 	public int getPageNo() {
 		return pageNo;
