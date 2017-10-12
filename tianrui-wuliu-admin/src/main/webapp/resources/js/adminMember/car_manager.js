@@ -184,7 +184,9 @@ function clearSearch(){
 	$("#telphone").val("");
 	$("#ownername").val("");
 	$("#ownerphone").val("");
-	$("#auditname").val("");
+	$("#auditName").val("");
+	$("#starttime").val("");
+	$("#endtime").val("");
 	displayRec(0);
 }
 /** 安联认证信息补全*/

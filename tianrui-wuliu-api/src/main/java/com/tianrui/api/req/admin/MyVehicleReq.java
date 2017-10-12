@@ -1,5 +1,8 @@
 package com.tianrui.api.req.admin;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import com.tianrui.api.req.BaseReq;
 
 /**
@@ -69,6 +72,10 @@ public class MyVehicleReq extends BaseReq{
 	private String auditname;//审核人
 	private String drivingTime;//车辆行驶证有效期
 	private Integer limit;
+	private String starttime;
+	private String endtime;
+	private Long starttimes;
+	private Long endtimes;
 	public String getId() {
 		return id;
 	}
@@ -198,5 +205,32 @@ public class MyVehicleReq extends BaseReq{
 		this.drivingTime = drivingTime;
 	}
 
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	
+	
+	public Long getStarttimes() throws ParseException {
+		if(starttime!=null&&starttime!=""){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime();
+			return starttimes;
+		}
+		return starttimes;
+	}
+	public Long getEndtimes() throws ParseException {
+		if(endtime!=null&&endtime!=""){
+			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
+			return endtimes;
+		}
+		return endtimes;
+	}
 }
