@@ -1,7 +1,12 @@
 package com.tianrui.service.bean.anlian;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class AnlianBill {
     private String id;
+    
+    private String shhr;
     
     private String bankId;
     
@@ -112,9 +117,40 @@ public class AnlianBill {
     private Integer start;
     
     private Integer limit;
-    
+	private String starttime;
+	private String endtime;
+	private Long starttimes;
+	private Long endtimes;
 
 
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	
+	
+	public Long getStarttimes() throws ParseException {
+		if(starttime!=null&&starttime!=""){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime();
+			return starttimes;
+		}
+		return starttimes;
+	}
+	public Long getEndtimes() throws ParseException {
+		if(endtime!=null&&endtime!=""){
+			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
+			return endtimes;
+		}
+		return endtimes;
+	}
     public String getId() {
         return id;
     }
@@ -575,7 +611,10 @@ public class AnlianBill {
 	public void setBankType(String bankType) {
 		this.bankType = bankType;
 	}
-
-	
-	
+	public String getShhr() {
+		return shhr;
+	}
+	public void setShhr(String shhr) {
+		this.shhr = shhr;
+	}
 }

@@ -321,6 +321,7 @@ public class AnlianBillService implements IAnlianBillService{
 		PaginationVO<AnlianBillResp> pv = new PaginationVO<AnlianBillResp>();
 		AnlianBill bill = new AnlianBill();
 		PropertyUtils.copyProperties(bill, req);
+		bill.setShhr(req.getShr());
 		if(req.getPageNo()!=null){
 			bill.setStart(req.getPageNo()*req.getPageSize());
 			bill.setLimit(req.getPageSize());
