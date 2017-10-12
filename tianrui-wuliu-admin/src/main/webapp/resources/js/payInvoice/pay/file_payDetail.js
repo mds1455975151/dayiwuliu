@@ -19,20 +19,37 @@ function registMember(){
 }
 function displayData(pageNo){
 	var cargoName= $("#cargoName").val();
-	var venderName=$("#venderName").val();
-	var venderPhone=$("#venderPhone").val();
 	var code = $("#code").val();
 	var invoiceName =  $("#invoiceName").val();
 	var ship = $("#shipName").val();
 	var timefor = $("#createfor").val();
 	var timeend = $("#createend").val();
 	var pageSize=$("#pageSize").val();
+	var payMent = $("#payMent").val();
+	var venderName=$("#venderName").val();
+	var venderPhone=$("#venderPhone").val();
+	var driverName = $("#venderName").val();
+	var driverPhone = $("#venderPhone").val();
+	if(payMent == 1){
+		//司机
+		venderName = "";
+		venderPhone = "";
+	}
+	if(payMent == 2){
+		//车主
+		driverName = "";
+		driverPhone = "";
+	}
+	
 	$.ajax({
 		url:"/pay/InviceDetail1/find",
 		data:{
-			"cargoName":cargoName,
+			"billType":payMent,
+			"driverName":driverName,
+			"driverPhone":driverPhone,
 			"venderName":venderName,
 			"venderPhone":venderPhone,
+			"cargoName":cargoName,
 			"invoiceName":invoiceName,
 			"code":code,
 			"beginTimeStr":timefor,

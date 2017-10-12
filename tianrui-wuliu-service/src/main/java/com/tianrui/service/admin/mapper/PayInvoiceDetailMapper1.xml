@@ -211,6 +211,16 @@
    		  <if test="cargoName != null and cargoName != ''">
    		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
    		  </if>
+   		  <if test="driverName != null and driverName != ''">
+   		  	and (dm.remarkname like "%" #{driverName,jdbcType=VARCHAR} "%"
+   		  	or ab.bankOwnerName like "%" #{driverName,jdbcType=VARCHAR} "%"
+   		  	or wb.bankOwnerName like "%" #{driverName,jdbcType=VARCHAR} "%")
+   		  </if>
+   		  <if test="driverPhone != null and driverPhone != ''">
+   		  	and (dm.cellphone like "%" #{driverPhone,jdbcType=VARCHAR} "%"
+   		  	or wb.bankOwnerPhone like "%" #{driverPhone,jdbcType=VARCHAR} "%"
+   		  	or ab.bankOwnerPhone like "%" #{driverPhone,jdbcType=VARCHAR} "%")
+   		  </if>
    		  <if test="venderName != null and venderName != ''">
    		  	and vm.remarkname like "%" #{venderName,jdbcType=VARCHAR} "%"
    		  </if>
@@ -256,6 +266,8 @@
 		LEFT JOIN wuliu_plan wp ON wp.ID = p.planId
 		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
 		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
+		LEFT JOIN anlian_bill ab ON ab.id = p.bill_id
+		LEFT JOIN wuliu_bill wb ON wb.ID = p.bill_id
 		<where>
 			<if test="creator != null and creator != ''">
 				and p.creator = #{creator,jdbcType=VARCHAR}
@@ -298,6 +310,16 @@
    		  </if> 
    		  <if test="cargoName != null and cargoName != ''">
    		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="driverName != null and driverName != ''">
+   		  	and (dm.remarkname like "%" #{driverName,jdbcType=VARCHAR} "%"
+   		  	or ab.bankOwnerName like "%" #{driverName,jdbcType=VARCHAR} "%"
+   		  	or wb.bankOwnerName like "%" #{driverName,jdbcType=VARCHAR} "%")
+   		  </if>
+   		  <if test="driverPhone != null and driverPhone != ''">
+   		  	and (dm.cellphone like "%" #{driverPhone,jdbcType=VARCHAR} "%"
+   		  	or wb.bankOwnerPhone like "%" #{driverPhone,jdbcType=VARCHAR} "%"
+   		  	or ab.bankOwnerPhone like "%" #{driverPhone,jdbcType=VARCHAR} "%")
    		  </if>
    		  <if test="venderName != null and venderName != ''">
    		  	and vm.remarkname like "%" #{venderName,jdbcType=VARCHAR} "%"
