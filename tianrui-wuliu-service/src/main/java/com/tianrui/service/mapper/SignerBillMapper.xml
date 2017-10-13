@@ -20,6 +20,7 @@
     <result column="trueweight" property="trueweight" jdbcType="DOUBLE" />
     <result column="startcity" property="startcity" jdbcType="VARCHAR" />
     <result column="endcity" property="endcity" jdbcType="VARCHAR" />
+    <result column="signtime" property="signtime" jdbcType="BIGINT" />
   </resultMap>
  	
   <sql id="Query_Column_List" >
@@ -45,10 +46,10 @@
    		and vb.billstatus in ('7','8')
    	</if>
    	<if test="starttimes != null and starttimes != ''">
-    		and createtime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+   		and signtime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
     </if>
    	<if test="endtimes != null and endtimes != ''">
-		and createtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+		and signtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
    	</if>
    	<if test="paystatus != null and paystatus != '' and paystatus == 1">
     	and	EXISTS (
