@@ -2,7 +2,7 @@ package com.tianrui.common.constants;
 
 public class HttpUrl {
 
-	//NC url ip+端口好
+	//NC url ip+端口好  http://172.20.10.230:80/
 	public final static String NC_URL_IP_PORT = Constant.NC_PAY_URL;
 	//支付申请单保存接口--司机
 	public final static String PAY_INVOICE_DRIVER_PUSH = "/tcp/paySupplier/querySupplier";
