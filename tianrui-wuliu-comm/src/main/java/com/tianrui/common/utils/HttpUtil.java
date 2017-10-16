@@ -24,10 +24,10 @@ public class HttpUtil {
 	public static void main(String[] args) {
 		List<JSONObject> list = new ArrayList<>();
 		JSONObject obj = new JSONObject();
-		obj.put("billIds", "09be104462eb45aab0292c1b9abebbd7");
+		obj.put("billIds", "746bba8d9e1940bba6bf5466c0f7a344");
 		obj.put("payMent", "2");
 		list.add(obj);
-		System.out.println(post(list,"http://172.20.10.230:80/service/TrPayStatusQryServlet"));
+		System.out.println(post(list,"http://172.19.4.69:9082/service/TrPayStatusQryServlet"));
 	}
 	
 	public static ApiResult post(Object object, String path){

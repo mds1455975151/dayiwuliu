@@ -254,7 +254,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(id);
 			if (payInvoice != null) {
 				//修改验证条件——原（Constant.NOT_PUSH-未推送） -改（Constant.PUSH_ING -前台用户推单中）
-				if (payInvoice.getPushStatus() == Constant.PUSH_ING) {
+				if (payInvoice.getPushStatus() == Constant.PUSH_ING || (payInvoice.getPushStatus() == Constant.YES_PUSH && payInvoice.getPayStatus() == Constant.THREE)) {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
 						if (validatePayInvoiceMsg(id)) {
 							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
