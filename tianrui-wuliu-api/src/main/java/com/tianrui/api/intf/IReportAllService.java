@@ -31,4 +31,10 @@ public interface IReportAllService {
 	
 	public Result findPlanCode(String planCode)throws Exception;
 	
+	public Result payCount(ReportPayAllReq req)throws Exception;
+	
+	public Result planCount(ReportPlanAllReq req)throws Exception;
+	
+	public Result billCount(ReportBillAllReq req)throws Exception;
+	
 }

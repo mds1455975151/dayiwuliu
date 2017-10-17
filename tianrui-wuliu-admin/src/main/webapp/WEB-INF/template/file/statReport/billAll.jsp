@@ -208,6 +208,29 @@
 							<div class="pro_opra">
 								<button class="btn btnblue exportReport">导出</button>
 								<button class="btn btnorange printReport">打印</button>
+								<div class="pro_opra_r">
+									<label>总计：</label>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>运距</p>
+										<p id=distinctCount>0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>车主派单量</p>
+										<p id="venderWeightCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>提货榜单净重</p>
+										<p id="pickupWeightCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>卸货榜单净重</p>
+										<p id="unloadWeightCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>签收量</p>
+										<p id="trueWeightCount">0.00</p>
+									</div>
+								</div>
 							</div>
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
@@ -336,7 +359,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js?09.11"></script>
+		src="/resources/js/statReport/billAll.js?09.13"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {

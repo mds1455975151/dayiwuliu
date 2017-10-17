@@ -2,6 +2,7 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
+import com.tianrui.service.bean.PayCount;
 import com.tianrui.service.bean.ReportPayAll;
 
 public interface ReportPayAllMapper {
@@ -29,4 +30,7 @@ public interface ReportPayAllMapper {
     List<ReportPayAll> selectByCondition(ReportPayAll record);
     
     long selectByCount(ReportPayAll record);
+    
+    PayCount selectByPayCount(ReportPayAll record);
+    
 }

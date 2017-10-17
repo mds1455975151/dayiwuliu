@@ -44,6 +44,13 @@ public class ReportAllAction {
 		rs.setData(page);
 		return rs;
 	}
+	@RequestMapping("planCount")
+	@ResponseBody
+	public Result planCount(ReportPlanAllReq req) throws Exception{
+		Result rs = reportAllService.planCount(req);
+		return rs;
+	}
+	
 	@RequestMapping("planReport")
 	public ModelAndView planReport(ReportPlanAllReq req) throws Exception{
 		req.setPageNo(null);
@@ -69,6 +76,13 @@ public class ReportAllAction {
 		rs.setData(page);
 		return rs;
 	}
+	
+	@RequestMapping("billCount")
+	@ResponseBody
+	public Result billCount(ReportBillAllReq req) throws Exception{
+		Result rs = reportAllService.billCount(req);
+		return rs;
+	}
 	@RequestMapping("billReport")
 	public ModelAndView billReport(ReportBillAllReq req) throws Exception{
 		req.setPageNo(null);
@@ -91,6 +105,12 @@ public class ReportAllAction {
 		Result rs = Result.getSuccessResult();
 		PaginationVO<ReportPayAllResp> page = reportAllService.selectPay(req);
 		rs.setData(page);
+		return rs;
+	}
+	@RequestMapping("payCount")
+	@ResponseBody
+	public Result payCount(ReportPayAllReq req) throws Exception{
+		Result rs = reportAllService.payCount(req);
 		return rs;
 	}
 	

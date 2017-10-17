@@ -18,7 +18,10 @@ import com.tianrui.api.resp.report.ReportPayAllResp;
 import com.tianrui.api.resp.report.ReportPlanAllResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.BillCount;
+import com.tianrui.service.bean.PayCount;
 import com.tianrui.service.bean.Plan;
+import com.tianrui.service.bean.PlanCount;
 import com.tianrui.service.bean.ReportBillAll;
 import com.tianrui.service.bean.ReportPayAll;
 import com.tianrui.service.bean.ReportPlanAll;
@@ -141,6 +144,36 @@ public class ReportAllService implements IReportAllService{
 		plan.setPlancode(planCode);
 		List<Plan> list = planMapper.selectByCondition(plan);
 		rs.setData(list.get(0).getId());
+		return rs;
+	}
+
+	@Override
+	public Result payCount(ReportPayAllReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		ReportPayAll pay = new ReportPayAll();
+		PropertyUtils.copyProperties(pay, req);
+		PayCount count = reportPayAllMapper.selectByPayCount(pay);
+		rs.setData(count);
+		return rs;
+	}
+
+	@Override
+	public Result planCount(ReportPlanAllReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		ReportPlanAll record = new ReportPlanAll();
+		PropertyUtils.copyProperties(record, req);
+		PlanCount count =  reportPlanAllMapper.selectByPlanCount(record);
+		rs.setData(count);
+		return rs;
+	}
+
+	@Override
+	public Result billCount(ReportBillAllReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		ReportBillAll bill = new ReportBillAll();
+		PropertyUtils.copyProperties(bill, req);
+		BillCount count =reportBillAllMapper.selectByBillCount(bill);
+		rs.setData(count);
 		return rs;
 	}
 

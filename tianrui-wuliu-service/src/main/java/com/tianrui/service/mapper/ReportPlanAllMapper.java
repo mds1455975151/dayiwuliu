@@ -2,6 +2,7 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
+import com.tianrui.service.bean.PlanCount;
 import com.tianrui.service.bean.ReportPlanAll;
 
 public interface ReportPlanAllMapper {
@@ -26,4 +27,6 @@ public interface ReportPlanAllMapper {
     long selectByCount(ReportPlanAll record);
     
     List<ReportPlanAll> selectByAllPlan(ReportPlanAll record);
+    
+    PlanCount selectByPlanCount(ReportPlanAll record);
 }

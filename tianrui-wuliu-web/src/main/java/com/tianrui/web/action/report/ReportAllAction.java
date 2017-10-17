@@ -108,6 +108,22 @@ public class ReportAllAction {
 		return rs;
 	}
 	
+	@RequestMapping("payCount")
+	@ResponseBody
+	public Result payCount(ReportPayAllReq req,HttpServletRequest request) throws Exception{
+		MemberVo vo = SessionManager.getSessionMember(request);
+		if(StringUtils.equals("1", req.getReportType())){
+			// 1-司机，2-车主，3-货主
+			req.setPayDriverId(vo.getId());
+		}else if(StringUtils.equals("2", req.getReportType())){
+			req.setPayVenderId(vo.getId());
+		}else if(StringUtils.equals("3", req.getReportType())){
+			req.setPayOwnerId(vo.getId());
+		}
+		Result rs = reportAllService.payCount(req);
+		return rs;
+	}
+	
 	@RequestMapping("payReport")
 	public ModelAndView payReport(ReportPayAllReq req,HttpServletRequest request) throws Exception{
 		req.setPageNo(null);
@@ -151,6 +167,19 @@ public class ReportAllAction {
 		}
 		PaginationVO<ReportPlanAllResp> page = reportAllService.selectPlan(req);
 		rs.setData(page);
+		return rs;
+	}
+	@RequestMapping("planCount")
+	@ResponseBody
+	public Result planCount(ReportPlanAllReq req,HttpServletRequest request) throws Exception{
+		MemberVo vo = SessionManager.getSessionMember(request);
+		if(StringUtils.equals("2", req.getReportType())){
+			// 2-车主，3-货主
+			req.setPlanVenderId(vo.getId());
+		}else if(StringUtils.equals("3", req.getReportType())){
+			req.setPlanOwnerId(vo.getId());
+		}
+		Result rs = reportAllService.planCount(req);
 		return rs;
 	}
 	@RequestMapping("planReport")
@@ -202,7 +231,22 @@ public class ReportAllAction {
 		rs.setData(page);
 		return rs;
 	}
-	
+	@RequestMapping("billCount")
+	@ResponseBody
+	public Result billCount(ReportBillAllReq req,HttpServletRequest request) throws Exception{
+		MemberVo vo = SessionManager.getSessionMember(request);
+		if(StringUtils.equals("1", req.getReportType())){
+			//1-司机 2-车主，3-货主
+			req.setBillDriverId(vo.getId());
+		}else if(StringUtils.equals("2", req.getReportType())){
+			// 2-车主，3-货主
+			req.setBillVenderId(vo.getId());
+		}else if(StringUtils.equals("3", req.getReportType())){
+			req.setBillOwnerId(vo.getId());
+		}
+		Result rs = reportAllService.billCount(req);
+		return rs;
+	}
 	@RequestMapping("billReport")
 	public ModelAndView billReport(ReportBillAllReq req,HttpServletRequest request) throws Exception{
 		req.setPageNo(null);
