@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 import com.tianrui.api.resp.report.ReportPlanAllResp;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.service.bean.PlanCount;
 
 public class PlanAllReportExcilUtil extends AbstractExcelView {
 
@@ -59,6 +60,7 @@ public class PlanAllReportExcilUtil extends AbstractExcelView {
 		HSSFCellStyle contentStyle = workbook.createCellStyle(); // 内容样式
 		contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		List<ReportPlanAllResp> list =  (List<ReportPlanAllResp>) model.get("list");
+		PlanCount count = (PlanCount) model.get("count");
 		int userCount = list.size();
 		for (int i = 0; i < userCount; i++) {
 			ReportPlanAllResp data = list.get(i);
@@ -179,6 +181,40 @@ public class PlanAllReportExcilUtil extends AbstractExcelView {
 			setText(cell, payMent);
 			
 		}
+		if(count != null){
+			String sendMan = count.getPlanWeightCount();
+			cell = getCell(sheet, userCount+1, 4);
+			cell.setCellStyle(contentStyle);
+			setText(cell, sendMan);
+			
+			String sendPersion = count.getComplitWeightCount();
+			cell = getCell(sheet, userCount+1, 5);
+			cell.setCellStyle(contentStyle);
+			setText(cell, sendPersion);
+			
+			String receiptMan = count.getTempoCount();
+			cell = getCell(sheet, userCount+1, 6);
+			cell.setCellStyle(contentStyle);
+			setText(cell, receiptMan);
+			
+			String trueWeight = count.getDistantCount();
+			cell = getCell(sheet, userCount+1, 15);
+			cell.setCellStyle(contentStyle);
+			setText(cell, trueWeight);
+			
+			String billStatus = count.getPriceCount();
+			cell = getCell(sheet, userCount+1, 16);
+			cell.setCellStyle(contentStyle);
+			setText(cell, billStatus);
+			
+			String driverName = count.getTaxCount();
+			cell = getCell(sheet, userCount+1, 17);
+			cell.setCellStyle(contentStyle);
+			setText(cell, driverName);
+			
+		}
+		
+		
 	}
 
 }

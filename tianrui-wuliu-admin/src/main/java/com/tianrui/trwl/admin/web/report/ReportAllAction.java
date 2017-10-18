@@ -55,8 +55,10 @@ public class ReportAllAction {
 	public ModelAndView planReport(ReportPlanAllReq req) throws Exception{
 		req.setPageNo(null);
 		PaginationVO<ReportPlanAllResp> page = reportAllService.selectPlan(req);
+		Result rs = reportAllService.planCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	PlanAllReportExcilUtil excilUtil = new PlanAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}
@@ -87,8 +89,10 @@ public class ReportAllAction {
 	public ModelAndView billReport(ReportBillAllReq req) throws Exception{
 		req.setPageNo(null);
 		PaginationVO<ReportBillAllResp> page = reportAllService.selectBill(req);
+		Result rs = reportAllService.billCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	BillAllReportExcilUtil excilUtil = new BillAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}
@@ -118,8 +122,10 @@ public class ReportAllAction {
 	public ModelAndView payReport(ReportPayAllReq req) throws Exception{
 		req.setPageNo(null);
 		PaginationVO<ReportPayAllResp> page = reportAllService.selectPay(req);
+		Result rs = reportAllService.payCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	PaylAllReportExcilUtil excilUtil = new PaylAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}

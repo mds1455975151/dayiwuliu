@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
 import com.tianrui.api.resp.report.ReportBillAllResp;
 import com.tianrui.api.resp.report.ReportPayAllResp;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.service.bean.PayCount;
 
 public class PaylAllReportExcilUtil extends AbstractExcelView {
 
@@ -60,6 +61,7 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 		HSSFCellStyle contentStyle = workbook.createCellStyle(); // 内容样式
 		contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		List<ReportPayAllResp> list =  (List<ReportPayAllResp>) model.get("list");
+		PayCount count =(PayCount) model.get("count");
 		int userCount = list.size();
 		for (int i = 0; i < userCount; i++) {
 			ReportPayAllResp data = list.get(i);
@@ -230,6 +232,52 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 			cell = getCell(sheet, cellNum, 27);
 			cell.setCellStyle(contentStyle);
 			setText(cell, payBankCode);
+		}
+		if(count != null){
+			String unloadWeight = count.getTrueWeightCount();
+			cell = getCell(sheet, userCount+1, 14);
+			cell.setCellStyle(contentStyle);
+			setText(cell, unloadWeight);
+			
+			String trueWeight = count.getPriceCount();
+			cell = getCell(sheet, userCount+1, 15);
+			cell.setCellStyle(contentStyle);
+			setText(cell, trueWeight);
+			
+			String billStatus = count.getTotalPriceCount();
+			cell = getCell(sheet, userCount+1, 16);
+			cell.setCellStyle(contentStyle);
+			setText(cell, billStatus);
+			
+			String driverName = count.getOilCardCount();
+			cell = getCell(sheet, userCount+1, 17);
+			cell.setCellStyle(contentStyle);
+			setText(cell, driverName);
+			
+			String payMent = count.getWeightMiscCount();
+			cell = getCell(sheet, userCount+1, 18);
+			cell.setCellStyle(contentStyle);
+			setText(cell, payMent);
+			
+			String billCreaterTime = count.getDeductMoneyCount();
+			cell = getCell(sheet, userCount+1, 19);
+			cell.setCellStyle(contentStyle);
+			setText(cell, billCreaterTime);
+			
+			String acceptTime = count.getDeductOtherCount();
+			cell = getCell(sheet, userCount+1, 20);
+			cell.setCellStyle(contentStyle);
+			setText(cell, acceptTime);
+			
+			String pickupTime = count.getAmountPayableCount();
+			cell = getCell(sheet, userCount+1, 21);
+			cell.setCellStyle(contentStyle);
+			setText(cell, pickupTime);
+			
+			String unloadTime = count.getPaidAmountCount();
+			cell = getCell(sheet, userCount+1, 22);
+			cell.setCellStyle(contentStyle);
+			setText(cell, unloadTime);
 		}
 	}
 

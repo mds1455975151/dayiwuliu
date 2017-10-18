@@ -137,8 +137,10 @@ public class ReportAllAction {
 			req.setPayOwnerId(vo.getId());
 		}
 		PaginationVO<ReportPayAllResp> page = reportAllService.selectPay(req);
+		Result rs = reportAllService.payCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	PaylAllReportExcilUtil excilUtil = new PaylAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}
@@ -193,8 +195,10 @@ public class ReportAllAction {
 			req.setPlanOwnerId(vo.getId());
 		}
 		PaginationVO<ReportPlanAllResp> page = reportAllService.selectPlan(req);
+		Result rs = reportAllService.planCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	PlanAllReportExcilUtil excilUtil = new PlanAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}
@@ -260,8 +264,10 @@ public class ReportAllAction {
 			req.setBillOwnerId(vo.getId());
 		}
 		PaginationVO<ReportBillAllResp> page = reportAllService.selectBill(req);
+		Result rs = reportAllService.billCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	BillAllReportExcilUtil excilUtil = new BillAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}

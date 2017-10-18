@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
 
 import com.tianrui.api.resp.report.ReportBillAllResp;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.service.bean.BillCount;
 
 public class BillAllReportExcilUtil extends AbstractExcelView {
 
@@ -59,6 +60,7 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 		HSSFCellStyle contentStyle = workbook.createCellStyle(); // 内容样式
 		contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		List<ReportBillAllResp> list =  (List<ReportBillAllResp>) model.get("list");
+		BillCount count =(BillCount) model.get("count");
 		int userCount = list.size();
 		for (int i = 0; i < userCount; i++) {
 			ReportBillAllResp data = list.get(i);
@@ -207,6 +209,33 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 			cell.setCellStyle(contentStyle);
 			setText(cell, signTime);
 		}
+		if(count != null){
+			String distinct = count.getDistinctCount();
+			cell = getCell(sheet, userCount+1, 11);
+			cell.setCellStyle(contentStyle);
+			setText(cell, distinct);
+			
+			String venderWeight = count.getVenderWeightCount();
+			cell = getCell(sheet, userCount+1, 12);
+			cell.setCellStyle(contentStyle);
+			setText(cell, venderWeight);
+			
+			String pickupWeight = count.getPickupWeightCount();
+			cell = getCell(sheet, userCount+1, 13);
+			cell.setCellStyle(contentStyle);
+			setText(cell, pickupWeight);
+			
+			String unloadWeight = count.getUnloadWeightCount();
+			cell = getCell(sheet, userCount+1, 14);
+			cell.setCellStyle(contentStyle);
+			setText(cell, unloadWeight);
+			
+			String trueWeight = count.getTrueWeightCount();
+			cell = getCell(sheet, userCount+1, 15);
+			cell.setCellStyle(contentStyle);
+			setText(cell, trueWeight);
+		}
+		
 	}
 	
 	public String getBillStatus(String sta){
