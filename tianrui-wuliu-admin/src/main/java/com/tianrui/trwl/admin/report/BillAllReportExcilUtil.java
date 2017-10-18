@@ -1,5 +1,6 @@
 package com.tianrui.trwl.admin.report;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -210,32 +211,43 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 		}
 		if(count != null){
 			String distinct = count.getDistinctCount();
+			String distincts= big2(Double.parseDouble(distinct));
 			cell = getCell(sheet, userCount+1, 11);
 			cell.setCellStyle(contentStyle);
-			setText(cell, distinct);
+			setText(cell, distincts);
 			
 			String venderWeight = count.getVenderWeightCount();
+			String venderWeights= big2(Double.parseDouble(venderWeight));
 			cell = getCell(sheet, userCount+1, 12);
 			cell.setCellStyle(contentStyle);
-			setText(cell, venderWeight);
+			setText(cell, venderWeights);
 			
 			String pickupWeight = count.getPickupWeightCount();
+			String pickupWeights= big2(Double.parseDouble(pickupWeight));
 			cell = getCell(sheet, userCount+1, 13);
 			cell.setCellStyle(contentStyle);
-			setText(cell, pickupWeight);
+			setText(cell, pickupWeights);
 			
 			String unloadWeight = count.getUnloadWeightCount();
+			String unloadWeights= big2(Double.parseDouble(unloadWeight));
 			cell = getCell(sheet, userCount+1, 14);
 			cell.setCellStyle(contentStyle);
-			setText(cell, unloadWeight);
+			setText(cell, unloadWeights);
 			
 			String trueWeight = count.getTrueWeightCount();
+			String trueWeights= big2(Double.parseDouble(trueWeight));
 			cell = getCell(sheet, userCount+1, 15);
 			cell.setCellStyle(contentStyle);
-			setText(cell, trueWeight);
+			setText(cell, trueWeights);
 		}
 	}
-	
+	private static String big2(double d) {
+        BigDecimal d1 = new BigDecimal(Double.toString(d));
+        BigDecimal d2 = new BigDecimal(Integer.toString(1));
+        // 四舍五入,保留2位小数
+        return d1.divide(d2,2,BigDecimal.ROUND_HALF_UP).toString();
+    }
+
 	public String getBillStatus(String sta){
 		String status = "";
 		switch (sta) {

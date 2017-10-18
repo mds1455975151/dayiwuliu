@@ -1,5 +1,6 @@
 package com.tianrui.trwl.admin.report;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -183,37 +184,55 @@ public class PlanAllReportExcilUtil extends AbstractExcelView {
 		}
 		if(count != null){
 			String sendMan = count.getPlanWeightCount();
+			String sendMans= big2(Double.parseDouble(sendMan));
+//			double sendMans = new BigDecimal (Double.parseDouble(sendMan)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			cell = getCell(sheet, userCount+1, 4);
 			cell.setCellStyle(contentStyle);
-			setText(cell, sendMan);
+			setText(cell, sendMans);
 			
 			String sendPersion = count.getComplitWeightCount();
+			String sendPersions= big2(Double.parseDouble(sendPersion));
+//			double sendPersions = new BigDecimal (Double.parseDouble(sendPersion)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			cell = getCell(sheet, userCount+1, 5);
 			cell.setCellStyle(contentStyle);
-			setText(cell, sendPersion);
+			setText(cell, sendPersions);
 			
 			String receiptMan = count.getTempoCount();
+			String receiptMans= big2(Double.parseDouble(receiptMan));
+//			double receiptMans = new BigDecimal (Double.parseDouble(receiptMan)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			cell = getCell(sheet, userCount+1, 6);
 			cell.setCellStyle(contentStyle);
-			setText(cell, receiptMan);
+			setText(cell, receiptMans);
 			
 			String trueWeight = count.getDistantCount();
+			String trueWeights= big2(Double.parseDouble(trueWeight));
+//			double trueWeights = new BigDecimal (Double.parseDouble(trueWeight)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			cell = getCell(sheet, userCount+1, 15);
 			cell.setCellStyle(contentStyle);
-			setText(cell, trueWeight);
+			setText(cell, trueWeights);
 			
 			String billStatus = count.getPriceCount();
+			String billStatuss= big2(Double.parseDouble(billStatus));
+//			double billStatuss = new BigDecimal (Double.parseDouble(billStatus)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			cell = getCell(sheet, userCount+1, 16);
 			cell.setCellStyle(contentStyle);
-			setText(cell, billStatus);
+			setText(cell, billStatuss);
 			
 			String driverName = count.getTaxCount();
+			String driverNames= big2(Double.parseDouble(driverName));
+//			double driverNames = new BigDecimal (Double.parseDouble(driverName)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
 			cell = getCell(sheet, userCount+1, 17);
 			cell.setCellStyle(contentStyle);
-			setText(cell, driverName);
+			setText(cell, driverNames);
 			
 		}
 		
 	}
+	private static String big2(double d) {
+        BigDecimal d1 = new BigDecimal(Double.toString(d));
+        BigDecimal d2 = new BigDecimal(Integer.toString(1));
+        // 四舍五入,保留2位小数
+        return d1.divide(d2,2,BigDecimal.ROUND_HALF_UP).toString();
+    }
 
 }
