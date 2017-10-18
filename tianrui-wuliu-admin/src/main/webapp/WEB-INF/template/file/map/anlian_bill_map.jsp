@@ -24,10 +24,19 @@
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
-					<h3>运单轨迹</h3>
-					<input type="hidden" id="bid" value="${id }">
+					<h3 style="float: left;">运单轨迹</h3>
+					<div style="float: right;width: 200px" class="contuser_search">
+						<div class="ht_div">
+							<select id="postType" onchange="setPosition()">
+								<option value="0">全部轨迹</option>
+								<option value="1">中交轨迹</option>
+								<option value="2">大易轨迹</option>
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>	
+					<input type="hidden" id="bid" value="${id }">
 			<div id="_bmap" style="height:700px;width:100%;margin-top:10px">
 					</div>
 			<!--后台右侧布局end-->
@@ -44,7 +53,8 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7wG9zl9ryQt25NHfHxMECnbScLmSSkKj"></script>
 <script type="text/javascript">
 //百度地图API功能
-	var map;
+var map;
+var polyline;
 $(function () {
   // 百度地图API功能
   map = new BMap.Map("_bmap");
@@ -54,46 +64,88 @@ $(function () {
   map.enableScrollWheelZoom();                            //启用滚轮放大缩小
   map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
   map.centerAndZoom(new BMap.Point(114.309531, 30.59619),50);
-  showToolAutoDef(map);
+  dyshowToolAutoDef();
+  zjshowToolAutoDef();
 });
 
-function showToolAutoDef(map) { 
+function setPosition(){
+	polyline.hide();
+	var allOverlay = map.getOverlays();
+	for (var i = 0; i < allOverlay.length -1; i++){
+		map.removeOverlay(allOverlay[i]);
+	}
+	var type = $("#postType").val();
+	if(type == 0 ){
+		//全部轨迹
+		zjshowToolAutoDef();
+		dyshowToolAutoDef();
+	}else if(type == 1 ){
+		//中交轨迹
+		zjshowToolAutoDef();
+	}else if(type == 2 ){
+		//大易轨迹
+		dyshowToolAutoDef();
+	}
+}
+
+function dyshowToolAutoDef() { 
 	$.ajax({
-		url:"/report/billPositiondataAnlian",
+		url:"/report/dyPositiondataAnlian",
 		data:{id:$("#bid").val()},
 		type : "post",
 		dataType:"json",
 		success:function(rs){
 			if( rs && rs.code =="000000" ){
-				var list = rs.data;
-				var points = new Array();
-				var lon;
-				var lat;
-				var nlon;
-				var nlat
-				//位置长度
-				var length = list.length;
-				for (var a = 0; a < list.length; a++) {
-					lon = list[a].lng;
-					lat = list[a].lat;
-					addMarker(lon,lat);
-						var thePoint1 = new BMap.Point(lon,lat);
-						nlon = lon;
-						nlat = lat
-						points.push(thePoint1);
-				}
-				if(list.length==0){
-					map.centerAndZoom(new BMap.Point(113.663221, 34.7568711),8);
-				}else{
-					map.centerAndZoom(new BMap.Point(nlon, nlat),8);
-				}
-				drawPolyline(map, points);
+				position(rs.data,"red");
 			}else{
 				alert(rs.error);
 			}
 		}
 	})
 			
+}
+
+function zjshowToolAutoDef(colour) { 
+	$.ajax({
+		url:"/report/zjPositiondataAnlian",
+		data:{id:$("#bid").val()},
+		type : "post",
+		dataType:"json",
+		success:function(rs){
+			if( rs && rs.code =="000000" ){
+				position(rs.data,"blue");
+			}else{
+				alert(rs.error);
+			}
+		}
+	})
+			
+}
+
+function position(data,colour){
+	var list = data;
+	var points = new Array();
+	var lon;
+	var lat;
+	var nlon;
+	var nlat
+	//位置长度
+	var length = list.length;
+	for (var a = 0; a < list.length; a++) {
+		lon = list[a].lng;
+		lat = list[a].lat;
+		addMarker(lon,lat);
+			var thePoint1 = new BMap.Point(lon,lat);
+			nlon = lon;
+			nlat = lat
+			points.push(thePoint1);
+	}
+	if(list.length==0){
+		map.centerAndZoom(new BMap.Point(113.663221, 34.7568711),13);
+	}else{
+		map.centerAndZoom(new BMap.Point(nlon, nlat),13);
+	}
+	drawPolyline(map, points,colour);
 }
 
 //创建marker
@@ -115,15 +167,16 @@ function addMarker(lng, lat){
  * @param bMap
  * @param points
  */
-function drawPolyline(bMap, points) {
+function drawPolyline(bMap, points,colour) {
 	if (points==null || points.length<=1) {
 		return;
 	}
-	bMap.addOverlay(new BMap.Polyline(points, {
-		strokeColor : "blue",
+	polyline = new BMap.Polyline(points, {
+		strokeColor : colour,
 		strokeWeight : 3,
 		strokeOpacity : 0.6
-	})); // 画线
+	});
+	bMap.addOverlay(polyline); // 画线
 }
 
 //创建一个Icon

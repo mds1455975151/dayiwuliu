@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>平台运单报表</title>
+<title>接口访问记录</title>
 <meta name="keywords" content=" 天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
@@ -37,7 +37,7 @@
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
-					<h3>平台运单报表</h3>
+					<h3>接口访问记录</h3>
 				</div>
 				<!--查询框begin-->
 				<div class="row">

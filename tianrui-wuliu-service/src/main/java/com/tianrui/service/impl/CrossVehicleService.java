@@ -43,6 +43,24 @@ public class CrossVehicleService implements ICrossVehicleService{
 	
 
 	@Override
+	public Result updateLogoStatus(String vehicleNo, String type) {
+		Result rs = Result.getSuccessResult();
+		ZJXLVehicle query = new ZJXLVehicle();
+		query.setVehicleno(vehicleNo);
+		List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(query);
+		if(list.size()==1){
+			ZJXLVehicle upt = new ZJXLVehicle();
+			upt.setId(list.get(0).getId());
+			upt.setVehiclelogo(type);
+			zjxlVehicleMapper.updateByPrimaryKeySelective(upt);
+		}else {
+			rs.setCode("1");
+			rs.setError("车辆未添加");
+		}
+		return rs;
+	}
+
+	@Override
 	public List<ZJXLVehicleResp> findList(ZJXLVehicleReq req) throws Exception {
 		ZJXLVehicle zjxlVehicle = new ZJXLVehicle();
 		zjxlVehicle.setVehicleno(req.getVehicleno());
@@ -279,4 +297,5 @@ public class CrossVehicleService implements ICrossVehicleService{
 		}
 		return rs;
 	}
+
 }

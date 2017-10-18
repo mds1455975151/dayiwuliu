@@ -114,7 +114,7 @@ public class AppBillAnlianAction {
 	@ResponseBody
 	public AppResult position(AppParam<AnlianBillFindReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = anlianBillService.findPosition(appParam.getBody());
+		rs = anlianBillService.zjfindPosition(appParam.getBody());
 		return AppResult.valueOf(rs);
 	}
 	

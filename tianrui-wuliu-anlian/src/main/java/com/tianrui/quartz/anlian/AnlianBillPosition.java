@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
+import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
@@ -32,6 +33,8 @@ public class AnlianBillPosition {
 	protected IAnlianBillService anlianBillService;
 	@Autowired
 	protected IAnlianService anlianService;
+	@Autowired
+	ICrossVehicleService crossVehicleService;
 	
 	/** 每天一点执行定时 查询近90天订单*/
 	@Scheduled(cron="0 0 1 * * ?")
@@ -115,6 +118,11 @@ public class AnlianBillPosition {
         					//第一次查询到位置 保存时间 开始时间 结束时间 均为当前时间
         					upt.setPtBegintime(System.currentTimeMillis());
         					upt.setPtEndtime(System.currentTimeMillis());
+        					try {
+								crossVehicleService.updateLogoStatus(resp.getCph(), "1");
+							} catch (Exception e) {
+								logger.info("开启中交车辆状态失败"); 
+							}
         				}else{
         					//有开始时间 结束时间保存为当前时间
         					upt.setPtEndtime(System.currentTimeMillis());
@@ -122,6 +130,13 @@ public class AnlianBillPosition {
         				upt.setDesc4("运输中");
         			}else{
         				upt.setDesc4(rs.getError());
+        				if(StringUtils.equals("配载单已到货!", rs.getError())){
+        					try {
+								crossVehicleService.updateLogoStatus(resp.getCph(), "0");
+							} catch (Exception e) {
+								logger.info("关闭中交车辆状态失败"); 
+							}
+        				}
         			}
         			anlianBillService.update(upt);
         		}

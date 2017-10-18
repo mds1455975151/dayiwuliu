@@ -26,7 +26,7 @@
 			<!--网站位置-->
 			<div class="row">
 				<div class="rz_line">
-					<label>当前位置：运单</label><span>></span> <label>我运输的运单</label>
+					<label>当前位置：运单</label><span>></span> <label>运单跟踪</label>
 				</div>
 			</div>
 			<div class="row">
@@ -34,10 +34,17 @@
 				<jsp:include page="../../common/member/left_busi.jsp"></jsp:include>
 				<!--个人中心右侧begin-->
 				<div class="rz_right detailDiv">
-					<div class="bgblue">
+					<div class="car_title bgblue">
 						<h2>运单跟踪</h2>
-						<input type="hidden" id="bid" value="${bid}"/>
+						<span>
+							<select id="postType" style="width: 90px;float: right;font-size:16px;border: 0;color:#ffffff" class="bgblue" onchange="setPosition()">
+								<option value="0">全部轨迹</option>
+								<option value="1">中交轨迹</option>
+								<option value="2">大易轨迹</option>
+							</select>
+						</span>
 					</div>
+					<input type="hidden" id="bid" value="${bid}"/>
 					<div id="_bmap" style="height:700px;width:100%;margin-top:10px">
 					</div>
 				</div>
@@ -60,6 +67,7 @@
 <script type="text/javascript">
 	// 百度地图API功能
    	var map;
+	var polyline;
 	$(function () {
 	  // 百度地图API功能
 	  map = new BMap.Map("_bmap");
@@ -69,54 +77,94 @@
 	  map.enableScrollWheelZoom();                            //启用滚轮放大缩小
 	  map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
 	  
-	  showToolAutoDef(map);
+	  zjshowToolAutoDef();
+	  dyshowToolAutoDef();
 	});
 	
+	function setPosition(){
+		polyline.hide();
+		var allOverlay = map.getOverlays();
+		for (var i = 0; i < allOverlay.length -1; i++){
+			map.removeOverlay(allOverlay[i]);
+		}
+		var type = $("#postType").val();
+		if(type == 0 ){
+			//全部轨迹
+			zjshowToolAutoDef();
+			dyshowToolAutoDef();
+		}else if(type == 1 ){
+			//中交轨迹
+			zjshowToolAutoDef();
+		}else if(type == 2 ){
+			//大易轨迹
+			dyshowToolAutoDef();
+		}
+	}
 	
-	function showToolAutoDef(map) { 
+	function zjshowToolAutoDef() { 
 		$.ajax({
-    		url:"/trwuliu/billAppoint/billPositiondata",
+    		url:"/trwuliu/billAppoint/zjPositiondata",
 			data:{id:$("#bid").val()},
 			type : "post",
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					var list = rs.data;
-					var points = new Array();
-					var lon;
-					var lat;
-					var nlon;
-					var nlat
-					//位置长度
-					var length = list.length;
-					//运单状态
-					var billStatus = list[0].billStatus;
-					console.log("billStatus="+billStatus);
-					for (var a = 0; a < list.length; a++) {
-						lon = list[a].lon/1000000;
-						lat = list[a].lat/1000000;
-						addMarker(lon,lat,list[a].status);
-							var thePoint1 = new BMap.Point(lon,lat);
-							if(2<=billStatus<5){
-								if(a<(length-1)){
-									nlon = lon;
-									nlat = lat
-									points.push(thePoint1);
-								}
-							}if(billStatus>=5){
-								nlon = lon;
-								nlat = lat
-								points.push(thePoint1);
-							}
-					}
-					map.centerAndZoom(new BMap.Point(nlon, nlat),8);
-					drawPolyline(map, points);
+					position(rs.data,"blue");
 				}else{
 					alert(rs.error);
 				}
 			}
     	})
 				
+	}
+	function dyshowToolAutoDef() { 
+		$.ajax({
+    		url:"/trwuliu/billAppoint/dyPositiondata",
+			data:{id:$("#bid").val()},
+			type : "post",
+			dataType:"json",
+			success:function(rs){
+				if( rs && rs.code =="000000" ){
+					position(rs.data,"red");
+				}else{
+					alert(rs.error);
+				}
+			}
+    	})
+				
+	}
+	
+	function position(data,colour){
+		var list = data;
+		var points = new Array();
+		var lon;
+		var lat;
+		var nlon;
+		var nlat
+		//位置长度
+		var length = list.length;
+		//运单状态
+		var billStatus = list[0].billStatus;
+		console.log("billStatus="+billStatus);
+		for (var a = 0; a < list.length; a++) {
+			lon = list[a].lon/1000000;
+			lat = list[a].lat/1000000;
+			addMarker(lon,lat,list[a].status);
+				var thePoint1 = new BMap.Point(lon,lat);
+				if(2<=billStatus<5){
+					if(a<(length-1)){
+						nlon = lon;
+						nlat = lat
+						points.push(thePoint1);
+					}
+				}if(billStatus>=5){
+					nlon = lon;
+					nlat = lat
+					points.push(thePoint1);
+				}
+		}
+		map.centerAndZoom(new BMap.Point(nlon, nlat),14);
+		drawPolyline(map, points,colour);
 	}
 	
 	//创建marker
@@ -138,15 +186,16 @@
 	 * @param bMap
 	 * @param points
 	 */
-	function drawPolyline(bMap, points) {
+	function drawPolyline(bMap, points,colour) {
 		if (points==null || points.length<=1) {
 			return;
 		}
-		bMap.addOverlay(new BMap.Polyline(points, {
-			strokeColor : "blue",
+		polyline = new BMap.Polyline(points, {
+			strokeColor : colour,
 			strokeWeight : 3,
 			strokeOpacity : 0.6
-		})); // 画线
+		});
+		bMap.addOverlay(polyline); // 画线
 	}
 	
 	//创建一个Icon
@@ -166,7 +215,6 @@
 		}
 		return icon;
 	}
-   	
 </script>
 </body>
 </html>

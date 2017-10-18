@@ -99,12 +99,14 @@ public interface IBillService {
 	/**包含运单始发点目的点  且运单途经点只获取三个*/
 	public List<PositionResp> getBIllTrackAll(WaybillQueryReq req) throws Exception;
 	/**
-	 * 查询运单轨迹
+	 * 查询平台运单轨迹
 	 * @param bid 运单id
 	 * @return
 	 * @throws Exception
 	 */
 	public List<BillPositionResp> getBillPosition(String bid) throws Exception;
+	/** 查询中交运单轨迹*/
+	public Result getPosition(String bid) throws Exception;
 	/**查询委派运单*/
 	public PaginationVO<WaybillResp> queryAppointBillPage(WaybillQueryReq req) throws Exception;
 
