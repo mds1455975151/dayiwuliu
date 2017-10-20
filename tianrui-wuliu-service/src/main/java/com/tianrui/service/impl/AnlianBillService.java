@@ -387,8 +387,44 @@ public class AnlianBillService implements IAnlianBillService{
 		}
 		return r;
 	}
+	
 	@Override
-	public Result zjfindPosition(AnlianBillFindReq req) throws Exception {
+	public Result findPositionOld(AnlianBillFindReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+		if(bill != null){
+			//TODO
+			//查询车辆是否有中交兴路地址
+			ZJXLVehicleReq zjreq = new ZJXLVehicleReq();
+			zjreq.setVehicleno(bill.getCph());
+			zjreq.setVehiclelogo("1");
+			zjreq.setCrossloge("1");
+			PageResp<ZJXLVehicleResp> page = crossVehicleService.find(zjreq);
+			List<ZJXLVehicleResp> zjlist = page.getList();
+			List<BillAnlianPosition> resp = new ArrayList<BillAnlianPosition>();
+			if(zjlist.size()==1){
+				List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(bill.getCph(), bill.getPtBegintime(), bill.getPtEndtime());
+				for(VehicleGpsZjxl zjxl : list){
+					BillAnlianPosition post = new BillAnlianPosition();
+					post.setCreatetime(zjxl.getUtc());
+					post.setLat(zjxl.getLat().toString());
+					post.setLng(zjxl.getLon().toString());
+					post.setShipmentno(bill.getBillno());
+					resp.add(post);
+				}
+			}else{
+				resp = billAnlianPositionDao.findPosition(bill.getBillno());
+			}
+			rs.setData(resp);
+		}else{
+			rs.setCode("1");
+			rs.setError("请输入正确id");
+		}
+		return rs;
+	}
+	
+	@Override
+	public Result zjfindPosition (AnlianBillFindReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
 		if(bill != null){

@@ -24,10 +24,13 @@ public interface IAnlianBillService {
 	public Result zjfindPosition(AnlianBillFindReq req)throws Exception;
 	/** 查询大易安联运单轨迹*/
 	public Result dyfindPosition(AnlianBillFindReq req)throws Exception;
+	/** 获取运单轨迹*/
+	public Result findPositionOld(AnlianBillFindReq req) throws Exception;
 	
 	public Result update(AnlianBillUpdateReq req)throws Exception;
 	/** 安联运单签收*/
 	public Result billSigner(AnlianBillSignerReq req)throws Exception;
 	
 	public Result uptBankCard(BillBankReq req) throws Exception;
+	
 }

@@ -2225,9 +2225,86 @@ public class BillService implements IBillService{
 		return rs;
 	}
 
+	@Override
+	public List<BillPositionResp> getBillPositionOld(String bid) throws Exception {
+		List<BillPositionResp> list= null;
+		
+		Bill db =billMapper.selectByPrimaryKey(bid);
+		if(db!=null){
+			list = new ArrayList<BillPositionResp>();
+			String billStatus = db.getStatus().toString();
+			//获取路线信息
+			FileRoute route=routeMapper.selectByPrimaryKey(db.getRouteid());
+			//获取始发地
+			FilePositoin start = positionMapper.selectByPrimaryKey(route.getOpositionid());			
+			list.add(copyBillPosition(start,"1", bid,billStatus));
+			//获取提货地 到货地
+			List<BillPosition> p = billPositionDao.findwithBillId(bid);
+			//获取用户位置查询的开始时间和结束时间
+			Long beginTime = null;
+			Long endTime = null;
+			for (int i = 0; i < p.size(); i++) {
+				if(p.get(i).getStatus().equals("2")){
+					BillPositionResp r = new BillPositionResp();
+					PropertyUtils.copyProperties(r, p.get(i));
+					list.add(r);
+					beginTime = p.get(i).getCreatetime();
+				}else if(p.get(i).getStatus().equals("3")){
+					endTime = p.get(i).getCreatetime();
+				}
+			}
+			endTime = endTime==null?System.currentTimeMillis():endTime;
+			if(beginTime!=null){
+				//查询车辆是否有中交兴路地址
+				ZJXLVehicleReq req = new ZJXLVehicleReq();
+				req.setVehicleno(db.getVehicleno());
+				req.setVehiclelogo("1");
+				req.setCrossloge("1");
+				PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
+				List<ZJXLVehicleResp> zjxl = page.getList();
+				if(zjxl.size()==1){
+					List<VehicleGpsZjxl> m = vehicleGpsZjxlDao.getVehicleTrack(db.getVehicleno(),beginTime,endTime );
+					for (int i = 0; i < m.size(); i++) {
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(Integer.valueOf((int) (m.get(i).getLat()*1000000)));
+						r.setLon(Integer.valueOf((int) (m.get(i).getLon()*1000000)));
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getUtc());
+						list.add(r);
+					}
+				}else{
+					List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
+					for (int i = 0; i < m.size(); i++) {
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(m.get(i).getLat());
+						r.setLon(m.get(i).getLon());
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getCreatetime());
+						list.add(r);
+					}
+				}
+			}
+			for (int i = 0; i < p.size(); i++) {
+				if(p.get(i).getStatus().equals("3")){
+					endTime = p.get(i).getCreatetime();
+					BillPositionResp r = new BillPositionResp();
+					PropertyUtils.copyProperties(r, p.get(i));
+					list.add(r);
+				}
+			}
+			//获取目的地
+			FilePositoin end = positionMapper.selectByPrimaryKey(route.getDpositionid());	
+			list.add(copyBillPosition(end,"4",bid,billStatus));
+		}
+		return list;
+	}
 
 	@Override
-	public List<BillPositionResp> getBillPosition(String bid) throws Exception {
+	public List<BillPositionResp> getBillPosition (String bid) throws Exception {
 		List<BillPositionResp> list= null;
 		
 		Bill db =billMapper.selectByPrimaryKey(bid);
@@ -2257,7 +2334,6 @@ public class BillService implements IBillService{
 			endTime = endTime==null?System.currentTimeMillis():endTime;
 			if(beginTime!=null){
 				List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
-				System.out.println("m.size()="+m.size());
 				for (int i = 0; i < m.size(); i++) {
 					BillPositionResp r = new BillPositionResp();
 					r.setBillid(bid);

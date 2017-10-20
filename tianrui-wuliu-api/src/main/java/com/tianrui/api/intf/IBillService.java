@@ -104,7 +104,9 @@ public interface IBillService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<BillPositionResp> getBillPosition(String bid) throws Exception;
+	public List<BillPositionResp> getBillPosition (String bid) throws Exception;
+	/** 获取运单轨迹*/
+	public List<BillPositionResp> getBillPositionOld(String bid) throws Exception;
 	/** 查询中交运单轨迹*/
 	public Result getPosition(String bid) throws Exception;
 	/**查询委派运单*/
@@ -126,5 +128,5 @@ public interface IBillService {
 	public Result putAnlianJtbBill(String id)throws Exception;
 	
 	public Result findJtbBillDetail(WaybillQueryReq req) throws Exception;
-	
+
 }
