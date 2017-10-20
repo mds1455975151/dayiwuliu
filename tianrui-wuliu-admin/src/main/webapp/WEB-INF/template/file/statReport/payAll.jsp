@@ -127,15 +127,55 @@
 					</div>
 					</div>
 				</div>
+				<div class="pro_opra">
+								<button class="btn btnblue exportReport">导出</button>
+								<button class="btn btnorange printReport">打印</button>
+								<div class="pro_opra_r">
+									<label>总计：</label>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>签收量</p>
+										<p id="trueWeightCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>含税单价</p>
+										<p id="priceCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>总价</p>
+										<p id="totalPriceCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>油卡</p>
+										<p id="oilCardCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>扣重扣杂</p>
+										<p id="weightMiscCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>扣款</p>
+										<p id="deductMoneyCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>其他款项</p>
+										<p id="deductOtherCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>应付金额</p>
+										<p id="amountPayableCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>付款金额</p>
+										<p id="paidAmountCount">0.00</p>
+									</div>
+								</div>
+							</div>
 				<!--查询框end-->
 				<div class="row mt15">
 					<div class="col-md-12">
 						<div class="content-user"
 							style="overflow-x: scroll;">
-							<div class="pro_opra">
-								<button class="btn btnblue exportReport">导出</button>
-								<button class="btn btnorange printReport">打印</button>
-							</div>
+							
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">
@@ -306,7 +346,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/payAll.js?09.40"></script>
+		src="/resources/js/statReport/payAll.js?09.43"></script>
 	<script type="text/javascript">
 		$(function() {
 

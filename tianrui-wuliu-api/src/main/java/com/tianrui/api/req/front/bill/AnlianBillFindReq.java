@@ -1,5 +1,8 @@
 package com.tianrui.api.req.front.bill;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class AnlianBillFindReq {
 
 	private String id;
@@ -24,8 +27,11 @@ public class AnlianBillFindReq {
     
     private Integer pageSize;
     
-   // private String shr;//收货人
-    
+    private String shr;//收货人
+    private String starttime;
+	private String endtime;
+	private Long starttimes;
+	private Long endtimes;
    // private String createtimeStr;//创建时间
 
 	public String getBillno() {
@@ -115,6 +121,41 @@ public class AnlianBillFindReq {
 		this.createtime = createtime;
 	}
 
+	public String getShr() {
+		return shr;
+	}
+
+	public void setShr(String shr) {
+		this.shr = shr;
+	}
+
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	
+	
+	public Long getStarttimes() throws ParseException {
+		if(starttime!=null&&starttime!=""){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime();
+			return starttimes;
+		}
+		return starttimes;
+	}
+	public Long getEndtimes() throws ParseException {
+		if(endtime!=null&&endtime!=""){
+			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
+			return endtimes;
+		}
+		return endtimes;
+	}
 	
 }

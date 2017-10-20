@@ -3,13 +3,17 @@ function searchFile(){
 	displayData(0);
 }
 function displayData(pageNo){
-	//var shr =$("#shr").val();
-	//var createtimeStr = $("#createtimeStr").val();
+	var shr =$("#shr").val();
+	var starttime =$("#starttime").val();
+	var endtime =$("#endtime").val();
 	var searchKey = $("#searchKey").val();
 	var pageSize=$("#pageSize").val();
 	$.ajax({
 		url:CONTEXTPATH+"/admin/waybill/findAnlianBill",
 		data:{
+			"shr":shr,
+			"starttime":starttime,
+			"endtime":endtime,
 			"searchKey":searchKey,
 			"pageNo":(pageNo),
 			"pageSize":pageSize

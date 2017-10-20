@@ -24,6 +24,8 @@ public class PayInvoiceDetail1FindReq {
 	private String beginTimeStr;
 	//结束时间
 	private String endTiemStr;
+	//支付对象
+	private String payMent;
 	
 	private String searchKey;
 	//运价确认状态 1-未确认  2-已确认  3-已合单
@@ -53,8 +55,12 @@ public class PayInvoiceDetail1FindReq {
     //创建人
     private String creator;
     
-    private String venderName;//收款人名称
-    private String venderPhone;//收款人电话
+    private String venderName;//收款人名称-车主
+    private String venderPhone;//收款人电话-车主
+    
+    private String driverName;//收款人名称-司机
+    
+    private String driverPhone;//收款人电话-司机
 	
     public String getBeginTimeStr() {
     	return beginTimeStr;
@@ -187,6 +193,24 @@ public class PayInvoiceDetail1FindReq {
 	}
 	public void setVenderPhone(String venderPhone) {
 		this.venderPhone = venderPhone;
+	}
+	public String getDriverName() {
+		return driverName;
+	}
+	public void setDriverName(String driverName) {
+		this.driverName = driverName;
+	}
+	public String getDriverPhone() {
+		return driverPhone;
+	}
+	public void setDriverPhone(String driverPhone) {
+		this.driverPhone = driverPhone;
+	}
+	public String getPayMent() {
+		return payMent;
+	}
+	public void setPayMent(String payMent) {
+		this.payMent = payMent;
 	}
 	
 	

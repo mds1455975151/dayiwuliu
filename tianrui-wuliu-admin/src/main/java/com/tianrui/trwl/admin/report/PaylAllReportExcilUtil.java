@@ -1,5 +1,6 @@
 package com.tianrui.trwl.admin.report;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.document.AbstractExcelView;
 import com.tianrui.api.resp.report.ReportBillAllResp;
 import com.tianrui.api.resp.report.ReportPayAllResp;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.service.bean.PayCount;
 
 public class PaylAllReportExcilUtil extends AbstractExcelView {
 
@@ -60,6 +62,7 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 		HSSFCellStyle contentStyle = workbook.createCellStyle(); // 内容样式
 		contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		List<ReportPayAllResp> list =  (List<ReportPayAllResp>) model.get("list");
+		PayCount count =(PayCount) model.get("count");
 		int userCount = list.size();
 		for (int i = 0; i < userCount; i++) {
 			ReportPayAllResp data = list.get(i);
@@ -231,6 +234,67 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 			cell.setCellStyle(contentStyle);
 			setText(cell, payBankCode);
 		}
+		if(count != null){
+			String unloadWeight = count.getTrueWeightCount();
+			String unloadWeights= big2(Double.parseDouble(unloadWeight));
+			cell = getCell(sheet, userCount+1, 14);
+			cell.setCellStyle(contentStyle);
+			setText(cell, unloadWeights);
+			
+			String trueWeight = count.getPriceCount();
+			String trueWeights= big2(Double.parseDouble(trueWeight));
+			cell = getCell(sheet, userCount+1, 15);
+			cell.setCellStyle(contentStyle);
+			setText(cell, trueWeights);
+			
+			String billStatus = count.getTotalPriceCount();
+			String billStatuss= big2(Double.parseDouble(billStatus));
+			cell = getCell(sheet, userCount+1, 16);
+			cell.setCellStyle(contentStyle);
+			setText(cell, billStatuss);
+			
+			String driverName = count.getOilCardCount();
+			String driverNames= big2(Double.parseDouble(driverName));
+			cell = getCell(sheet, userCount+1, 17);
+			cell.setCellStyle(contentStyle);
+			setText(cell, driverNames);
+			
+			String payMent = count.getWeightMiscCount();
+			String payMents= big2(Double.parseDouble(payMent));
+			cell = getCell(sheet, userCount+1, 18);
+			cell.setCellStyle(contentStyle);
+			setText(cell, payMents);
+			
+			String billCreaterTime = count.getDeductMoneyCount();
+			String billCreaterTimes= big2(Double.parseDouble(billCreaterTime));
+			cell = getCell(sheet, userCount+1, 19);
+			cell.setCellStyle(contentStyle);
+			setText(cell, billCreaterTimes);
+			
+			String acceptTime = count.getDeductOtherCount();
+			String acceptTimes= big2(Double.parseDouble(acceptTime));
+			cell = getCell(sheet, userCount+1, 20);
+			cell.setCellStyle(contentStyle);
+			setText(cell, acceptTimes);
+			
+			String pickupTime = count.getAmountPayableCount();
+			String pickupTimes= big2(Double.parseDouble(pickupTime));
+			cell = getCell(sheet, userCount+1, 21);
+			cell.setCellStyle(contentStyle);
+			setText(cell, pickupTimes);
+			
+			String unloadTime = count.getPaidAmountCount();
+			String unloadTimes= big2(Double.parseDouble(unloadTime));
+			cell = getCell(sheet, userCount+1, 22);
+			cell.setCellStyle(contentStyle);
+			setText(cell, unloadTimes);
+		}
 	}
+	private static String big2(double d) {
+        BigDecimal d1 = new BigDecimal(Double.toString(d));
+        BigDecimal d2 = new BigDecimal(Integer.toString(1));
+        // 四舍五入,保留2位小数
+        return d1.divide(d2,2,BigDecimal.ROUND_HALF_UP).toString();
+    }
 
 }

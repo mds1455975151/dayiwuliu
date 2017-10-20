@@ -60,6 +60,12 @@
       <if test="auditname != null and auditname !='' " >
         and m.auditname like "%" #{auditname,jdbcType=VARCHAR} "%"
       </if>
+      <if test="starttimes != null and starttimes != ''">
+	   		and m.audittime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="endtimes != null and endtimes != '' ">
+			and m.audittime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+		</if>
       order by mv.createtime desc
     </where>
      <if test="pageNo != null and pageSize != null">
@@ -126,6 +132,12 @@
        <if test="auditname != null and auditname !='' " >
         and m.auditname like "%" #{auditname,jdbcType=VARCHAR} "%"
       </if>
+       <if test="starttimes != null and starttimes != ''">
+	   		and m.audittime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="endtimes != null and endtimes != '' ">
+			and m.audittime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+		</if>
     </where>
   </select>
   

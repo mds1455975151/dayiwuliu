@@ -44,7 +44,109 @@
     true_weight, bill_status, driver_name, pay_ment, bill_creater_time, accept_time, pickup_time, 
     unload_time, sign_time, desc1, desc2, desc3, desc4,owner_name
   </sql>
-  
+   <resultMap id="BaseResultMaps" type="com.tianrui.service.bean.BillCount" >
+    <result column="bill_distinct" property="distinct" jdbcType="VARCHAR" />
+    <result column="vender_weight" property="venderWeight" jdbcType="VARCHAR" />
+    <result column="pickup_weight" property="pickupWeight" jdbcType="VARCHAR" />
+    <result column="unload_weight" property="unloadWeight" jdbcType="VARCHAR" />
+    <result column="true_weight" property="trueWeight" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByBillCount" resultMap="BaseResultMaps" parameterType="com.tianrui.service.bean.ReportBillAll" >
+    select 
+   SUM(bill_distinct)AS distinctCount, SUM(vender_weight)AS venderWeightCount, SUM(pickup_weight)AS pickupWeightCount,
+    SUM(unload_weight)AS unloadWeightCount, SUM(true_weight)AS trueWeightCount
+    from report_bill_all
+    <where>
+    	<if test="billOwnerId != null and billOwnerId != ''">
+    		and bill_owner_id = #{billOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billVenderId != null and billVenderId != ''">
+    		and bill_vender_id = #{billVenderId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billDriverId != null and billDriverId != ''">
+    		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
+    	</if>
+    	
+    	<if test="ownerName != null and ownerName != ''">
+    		and owner_name like "%" #{ownerName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billType != null and billType != ''">
+    		and bill_type like "%" #{billType,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="planNo != null and planNo != ''">
+    		and plan_no like "%" #{planNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billNo != null and billNo != ''">
+    		and bill_no like "%" #{billNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="billStatus != null and billStatus != ''">
+    		and bill_status like "%" #{billStatus,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="driverName != null and driverName != ''">
+    		and driver_name like "%" #{driverName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="payMent != null and payMent != ''">
+    		and pay_ment like "%" #{payMent,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendPersion != null and sendPersion != ''">
+    		and send_persion like "%" #{sendPersion,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptPersion != null and receiptPersion != ''">
+    		and receipt_persion like "%" #{receiptPersion,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="businessTimeStarts != null and businessTimeStarts != ''">
+	   		and business_time <![CDATA[>=]]> #{businessTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="businessTimeEnds != null and businessTimeEnds != '' ">
+			and business_time <![CDATA[<=]]> #{businessTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="billCreaterTimeStarts != null and billCreaterTimeStarts != ''">
+	   		and bill_creater_time <![CDATA[>=]]> #{billCreaterTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="billCreaterTimeEnds != null and billCreaterTimeEnds != '' ">
+			and bill_creater_time <![CDATA[<=]]> #{billCreaterTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="acceptTimeStarts != null and acceptTimeStarts != ''">
+	   		and accept_time <![CDATA[>=]]> #{acceptTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="acceptTimeEnds != null and acceptTimeEnds != '' ">
+			and accept_time <![CDATA[<=]]> #{acceptTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="pickupTimeStarts != null and pickupTimeStarts != ''">
+	   		and pickup_time <![CDATA[>=]]> #{pickupTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="pickupTimeEnds != null and pickupTimeEnds != '' ">
+			and pickup_time <![CDATA[<=]]> #{pickupTimeEnds,jdbcType=BIGINT}
+		</if>
+		<if test="unloadTimeStarts != null and unloadTimeStarts != ''">
+	   		and unload_time <![CDATA[>=]]> #{unloadTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="unloadTimeEndtimes != null and unloadTimeEndtimes != '' ">
+			and unload_time <![CDATA[<=]]> #{unloadTimeEndtimes,jdbcType=BIGINT}
+		</if>
+    	<if test="signTimeStarts != null and signTimeStarts != ''">
+	   		and sign_time <![CDATA[>=]]> #{signTimeStarts,jdbcType=BIGINT}
+    	</if>
+    	<if test="signTimeEnds != null and signTimeEnds != '' ">
+			and sign_time <![CDATA[<=]]> #{signTimeEnds,jdbcType=BIGINT}
+		</if>
+    </where>
+  </select>
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportBillAll" >
     select 
     <include refid="Base_Column_List" />

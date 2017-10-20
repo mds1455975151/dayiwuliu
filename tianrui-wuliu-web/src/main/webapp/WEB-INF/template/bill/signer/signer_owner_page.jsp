@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</select>
 	                        </div>
 	                        <div class="ht_div">
-								<label>创建日期：</label> <input id="starttime" type="text"
+								<label>到货日期：</label> <input id="starttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
 									id="endtime" type="text"

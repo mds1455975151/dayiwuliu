@@ -75,4 +75,7 @@ public interface ICrossVehicleService {
 	 * 中交无位置,需要禁用
 	 */
 	public Result updateVehicleLogo(String vehicleNo);
+	
+	/** 修改中交车辆状态  type 1-开启 2-关闭*/
+	public Result updateLogoStatus(String vehicleNo,String type);
 }

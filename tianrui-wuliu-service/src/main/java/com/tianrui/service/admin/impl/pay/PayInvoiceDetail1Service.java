@@ -122,6 +122,10 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		pay.setCargoName(req.getCargoName());
 		pay.setVenderName(req.getVenderName());
 		pay.setVenderPhone(req.getVenderPhone());
+		
+		pay.setDriverPhone(req.getDriverPhone());
+		pay.setDriverName(req.getDriverName());
+		
 		if(StringUtils.isNotBlank(req.getIdStr())){
 			String[] idArr = req.getIdStr().split(";");
 			pay.setIds(Arrays.asList(idArr));

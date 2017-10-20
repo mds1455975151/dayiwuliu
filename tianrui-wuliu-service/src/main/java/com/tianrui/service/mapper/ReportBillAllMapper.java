@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tianrui.service.bean.BillCount;
 import com.tianrui.service.bean.ReportBillAll;
 
 public interface ReportBillAllMapper {
@@ -26,7 +27,7 @@ public interface ReportBillAllMapper {
     int insertBatch(List<ReportBillAll> list);
 
     int insertSelective(ReportBillAll record);
-
+    
     ReportBillAll selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(ReportBillAll record);
@@ -34,6 +35,8 @@ public interface ReportBillAllMapper {
     int updateByPrimaryKey(ReportBillAll record);
     
     List<ReportBillAll> selectByCondition(ReportBillAll record);
+    
+    BillCount selectByBillCount(ReportBillAll record);
     
     long selectByCount(ReportBillAll record);
     

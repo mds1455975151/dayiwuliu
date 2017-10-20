@@ -321,6 +321,7 @@ public class AnlianBillService implements IAnlianBillService{
 		PaginationVO<AnlianBillResp> pv = new PaginationVO<AnlianBillResp>();
 		AnlianBill bill = new AnlianBill();
 		PropertyUtils.copyProperties(bill, req);
+		bill.setShhr(req.getShr());
 		if(req.getPageNo()!=null){
 			bill.setStart(req.getPageNo()*req.getPageSize());
 			bill.setLimit(req.getPageSize());
@@ -387,7 +388,7 @@ public class AnlianBillService implements IAnlianBillService{
 		return r;
 	}
 	@Override
-	public Result findPosition(AnlianBillFindReq req) throws Exception {
+	public Result zjfindPosition(AnlianBillFindReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
 		if(bill != null){
@@ -395,7 +396,7 @@ public class AnlianBillService implements IAnlianBillService{
 			//查询车辆是否有中交兴路地址
 			ZJXLVehicleReq zjreq = new ZJXLVehicleReq();
 			zjreq.setVehicleno(bill.getCph());
-			zjreq.setVehiclelogo("1");
+//			zjreq.setVehiclelogo("1");
 			zjreq.setCrossloge("1");
 			PageResp<ZJXLVehicleResp> page = crossVehicleService.find(zjreq);
 			List<ZJXLVehicleResp> zjlist = page.getList();
@@ -410,9 +411,21 @@ public class AnlianBillService implements IAnlianBillService{
 					post.setShipmentno(bill.getBillno());
 					resp.add(post);
 				}
-			}else{
-				resp = billAnlianPositionDao.findPosition(bill.getBillno());
 			}
+			rs.setData(resp);
+		}else{
+			rs.setCode("1");
+			rs.setError("请输入正确id");
+		}
+		return rs;
+	}
+	@Override
+	public Result dyfindPosition(AnlianBillFindReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+		if(bill != null){
+			List<BillAnlianPosition> resp = new ArrayList<BillAnlianPosition>();
+			resp = billAnlianPositionDao.findPosition(bill.getBillno());
 			rs.setData(resp);
 		}else{
 			rs.setCode("1");

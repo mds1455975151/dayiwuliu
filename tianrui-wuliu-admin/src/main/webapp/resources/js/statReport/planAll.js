@@ -1,13 +1,16 @@
 function displayData(){
 	init(0);
+	planCount();
 }
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
 		init(page-1);
+		planCount();
 		$("#recPageNo").val("");
 	}else{
 		init(pageNo);
+		planCount();
 	}
 }
 function getParams(pageNo){
@@ -55,6 +58,37 @@ function reset(){
 	$("#receiptPersion").val("");
 	$("#payMent").val("");
 	init(0);
+}
+function planCount(){
+	$.ajax({
+		url:"/reportAll/planCount",
+		type:"POST",
+		data:getParams(),
+		success:function(ret){
+			var data = ret.data;
+			if(ret.code=='000000'){
+				var planWeightCount = parseFloat(data.planWeightCount) == undefined ? "0.00":parseFloat(data.planWeightCount);
+				var complitWeightCount = parseFloat(data.complitWeightCount) == undefined ? "0.00":parseFloat(data.complitWeightCount);
+				var tempoCount = parseFloat(data.tempoCount) == undefined ? "0.00":parseFloat(data.tempoCount);
+				var distantCount = parseFloat(data.distantCount) == undefined ? "0.00":parseFloat(data.distantCount);
+				var priceCount = parseFloat(data.priceCount) == undefined ? "0.00":parseFloat(data.priceCount);
+				var taxCount = parseFloat(data.taxCount) == undefined ? "0.00":parseFloat(data.taxCount);
+				$('#planWeightCount').html(planWeightCount.toFixed(2));
+				$('#complitWeightCount').html(complitWeightCount.toFixed(2));
+				$('#tempoCount').html(tempoCount.toFixed(2));
+				$('#distantCount').html(distantCount.toFixed(2));
+				$('#priceCount').html(priceCount.toFixed(2));
+				$('#taxCount').html(taxCount.toFixed(2));
+			}else{
+				$('#planWeightCount').html('0.00');
+				$('#complitWeightCount').html('0.00');
+				$('#tempoCount').html('0.00');
+				$('#distantCount').html('0.00');
+				$('#priceCount').html('0.00');
+				$('#taxCount').html('0.00');
+			}
+		}
+	})
 }
 function init(pageNo){
 	$.ajax({

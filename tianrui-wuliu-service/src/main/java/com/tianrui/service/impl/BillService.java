@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -197,11 +199,9 @@ public class BillService implements IBillService{
 	MemberBankCardMapper memberBankCardMapper;
 	@Autowired
 	AddVehicleBankCardMapper addVehicleBankCardMapper;
-	
 
 	@Override
 	public Result findPlanId(String id,String type) {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		if("al".equals(type)){
 			AnlianBill bill = anlianBillMapper.selectByPrimaryKey(id);
@@ -215,7 +215,6 @@ public class BillService implements IBillService{
 	
 	@Override
 	public Result uptBankCard(BillBankReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		Bill bill = billMapper.selectByPrimaryKey(req.getBillId());
 		MemberBankCard bank = memberBankCardMapper.selectByPrimaryKey(req.getBankId());
@@ -1166,6 +1165,11 @@ public class BillService implements IBillService{
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
 							rs.setCode("000000");
 							rs.setData("操作成功");
+							try {
+								crossVehicleService.updateLogoStatus(db.getVehicleno(), "0");
+							} catch (Exception e) {
+								System.out.println("关闭中交车辆状态失败");
+							}
 						}else{
 							//磅单图片上传失败
 							rs.setErrorCode(ErrorCode.BILL_STATUS_IMG_UPLOAD);
@@ -1256,6 +1260,11 @@ public class BillService implements IBillService{
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DEPARTURE, "vender");
 							rs.setCode("000000");
 							rs.setData("操作成功");
+							try {
+								crossVehicleService.updateLogoStatus(db.getVehicleno(), "1");
+							} catch (Exception e) {
+								System.out.println("开启中交车辆状态失败");
+							}
 						}else{
 							rs.setErrorCode(ErrorCode.BILL_STATUS_VEHICLE_ONLYONE);
 						}
@@ -2146,6 +2155,76 @@ public class BillService implements IBillService{
 		}
 		return resp;
 	}
+	
+	@Override
+	public Result getPosition(String bid) throws Exception {
+		Result rs = Result.getSuccessResult();
+		List<BillPositionResp> zjlist= null;
+		Bill db =billMapper.selectByPrimaryKey(bid);
+		if(db!=null){
+			zjlist = new ArrayList<BillPositionResp>();
+			String billStatus = db.getStatus().toString();
+			//获取路线信息
+			FileRoute route=routeMapper.selectByPrimaryKey(db.getRouteid());
+			//获取始发地
+			FilePositoin start = positionMapper.selectByPrimaryKey(route.getOpositionid());			
+			zjlist.add(copyBillPosition(start,"1", bid,billStatus));
+			//获取提货地 到货地
+			List<BillPosition> p = billPositionDao.findwithBillId(bid);
+			//获取用户位置查询的开始时间和结束时间
+			Long beginTime = null;
+			Long endTime = null;
+			for (int i = 0; i < p.size(); i++) {
+				if(p.get(i).getStatus().equals("2")){
+					BillPositionResp r = new BillPositionResp();
+					PropertyUtils.copyProperties(r, p.get(i));
+					zjlist.add(r);
+					beginTime = p.get(i).getCreatetime();
+				}else if(p.get(i).getStatus().equals("3")){
+					endTime = p.get(i).getCreatetime();
+				}
+			}
+			endTime = endTime==null?System.currentTimeMillis():endTime;
+			if(beginTime!=null){
+				//查询车辆是否有中交兴路地址
+				ZJXLVehicleReq req = new ZJXLVehicleReq();
+				req.setVehicleno(db.getVehicleno());
+//				req.setVehiclelogo("1");
+				req.setCrossloge("1");
+				PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
+				List<ZJXLVehicleResp> zjxl = page.getList();
+				if(zjxl.size()==1){
+					List<VehicleGpsZjxl> m = vehicleGpsZjxlDao.getVehicleTrack(db.getVehicleno(),beginTime,endTime );
+					System.out.println("m.size()="+m.size());
+					for (int i = 0; i < m.size(); i++) {
+						BillPositionResp r = new BillPositionResp();
+						r.setBillid(bid);
+						r.setLat(Integer.valueOf((int) (m.get(i).getLat()*1000000)));
+						r.setLon(Integer.valueOf((int) (m.get(i).getLon()*1000000)));
+						r.setStatus("");
+						r.setRemark("");
+						r.setCreatetime(m.get(i).getUtc());
+						zjlist.add(r);
+					}
+				}
+			}
+			for (int i = 0; i < p.size(); i++) {
+				if(p.get(i).getStatus().equals("3")){
+					endTime = p.get(i).getCreatetime();
+					BillPositionResp r = new BillPositionResp();
+					PropertyUtils.copyProperties(r, p.get(i));
+					zjlist.add(r);
+				}
+			}
+			
+			//获取目的地
+			FilePositoin end = positionMapper.selectByPrimaryKey(route.getDpositionid());	
+			zjlist.add(copyBillPosition(end,"4",bid,billStatus));
+		}
+		rs.setData(zjlist);
+		return rs;
+	}
+
 
 	@Override
 	public List<BillPositionResp> getBillPosition(String bid) throws Exception {
@@ -2177,42 +2256,18 @@ public class BillService implements IBillService{
 			}
 			endTime = endTime==null?System.currentTimeMillis():endTime;
 			if(beginTime!=null){
-				//查询车辆是否有中交兴路地址
-				ZJXLVehicleReq req = new ZJXLVehicleReq();
-				req.setVehicleno(db.getVehicleno());
-				req.setVehiclelogo("1");
-				req.setCrossloge("1");
-				PageResp<ZJXLVehicleResp> page = crossVehicleService.find(req);
-				List<ZJXLVehicleResp> zjxl = page.getList();
-				if(zjxl.size()==1){
-					List<VehicleGpsZjxl> m = vehicleGpsZjxlDao.getVehicleTrack(db.getVehicleno(),beginTime,endTime );
-					System.out.println("m.size()="+m.size());
-					for (int i = 0; i < m.size(); i++) {
-						BillPositionResp r = new BillPositionResp();
-						r.setBillid(bid);
-						r.setLat(Integer.valueOf((int) (m.get(i).getLat()*1000000)));
-						r.setLon(Integer.valueOf((int) (m.get(i).getLon()*1000000)));
-						r.setStatus("");
-						r.setRemark("");
-						r.setCreatetime(m.get(i).getUtc());
-						list.add(r);
-					}
-				}else{
-					List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
-					System.out.println("m.size()="+m.size());
-					for (int i = 0; i < m.size(); i++) {
-						BillPositionResp r = new BillPositionResp();
-						r.setBillid(bid);
-						r.setLat(m.get(i).getLat());
-						r.setLon(m.get(i).getLon());
-						r.setStatus("");
-						r.setRemark("");
-						r.setCreatetime(m.get(i).getCreatetime());
-						list.add(r);
-					}
+				List<MemberPositionRecord> m = memberPositionRecordDao.findWithBid(db.getDriverid(), beginTime, endTime);
+				System.out.println("m.size()="+m.size());
+				for (int i = 0; i < m.size(); i++) {
+					BillPositionResp r = new BillPositionResp();
+					r.setBillid(bid);
+					r.setLat(m.get(i).getLat());
+					r.setLon(m.get(i).getLon());
+					r.setStatus("");
+					r.setRemark("");
+					r.setCreatetime(m.get(i).getCreatetime());
+					list.add(r);
 				}
-				
-				
 			}
 			for (int i = 0; i < p.size(); i++) {
 				if(p.get(i).getStatus().equals("3")){
@@ -2222,7 +2277,6 @@ public class BillService implements IBillService{
 					list.add(r);
 				}
 			}
-			
 			//获取目的地
 			FilePositoin end = positionMapper.selectByPrimaryKey(route.getDpositionid());	
 			list.add(copyBillPosition(end,"4",bid,billStatus));
@@ -2487,5 +2541,4 @@ public class BillService implements IBillService{
 		page.setTotal(a);
 		return page;
 	}
-
 }

@@ -47,6 +47,7 @@ public class SignerBill {
 //    private String endtime;
     private Long starttimes;
     private Long endtimes;
+    private Long signtime;
 
     public String getPaystatus() {
 		return paystatus;
@@ -236,14 +237,12 @@ public class SignerBill {
 		this.endtimes = endtimes;
 	}
 
+	public Long getSigntime() {
+		return signtime;
+	}
 
-
-	
-
-	
-	
-
-
-	
+	public void setSigntime(Long signtime) {
+		this.signtime = signtime;
+	}
 	
 }

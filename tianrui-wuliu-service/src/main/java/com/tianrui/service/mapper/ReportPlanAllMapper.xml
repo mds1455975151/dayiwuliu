@@ -35,6 +35,66 @@
     send_man, send_persion, vender_name, receipt_man, receipt_persion, distant, price, 
     tax, pay_ment, desc1, desc2, desc3, desc4
   </sql>
+   <resultMap id="BaseResultMaps" type="com.tianrui.service.bean.PlanCount" >
+    <result column="plan_weight" property="planWeight" jdbcType="VARCHAR" />
+    <result column="complit_weight" property="complitWeight" jdbcType="VARCHAR" />
+    <result column="tempo" property="tempo" jdbcType="VARCHAR" />
+    <result column="distant" property="distant" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPlanCount" resultMap="BaseResultMaps" parameterType="com.tianrui.service.bean.ReportPlanAll" >
+    select 
+    SUM(plan_weight)as planWeightCount, SUM(complit_weight)as complitWeightCount, SUM(tempo)as tempoCount,
+     SUM(distant)as distantCount, SUM(price)as priceCount, SUM(tax)as taxCount
+    from report_plan_all
+    <where>
+    	<if test="planOwnerId != null and planOwnerId != ''">
+    		and plan_owner_id = #{planOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="planVenderId != null and planVenderId != ''">
+    		and plan_vender_id = #{planVenderId,jdbcType=VARCHAR}
+    	</if>
+    	
+    	<if test="planStarttimes != null and planStarttimes != ''">
+    		and plan_create_time <![CDATA[>=]]> #{planStarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="planEndtimes != null and planEndtimes != ''">
+			and plan_create_time <![CDATA[<=]]> #{planEndtimes,jdbcType=BIGINT}
+    	</if>
+    	
+    	<if test="planCode != null and planCode != ''">
+    		and plan_code like "%" #{planCode,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="planStatus != null and planStatus != ''">
+    		and plan_status like "%" #{planStatus,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="sendPersion != null and sendPersion != ''">
+    		and send_persion like "%" #{sendPersion,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="venderName != null and venderName != ''">
+    		and vender_name like "%" #{venderName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiptPersion != null and receiptPersion != ''">
+    		and receipt_persion like "%" #{receiptPersion,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="payMent != null and payMent != ''">
+    		and pay_ment like "%" #{payMent,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+  </select>
   
   <select id="selectByAllPlan" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.ReportPlanAll">
   	SELECT

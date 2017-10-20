@@ -117,7 +117,7 @@ public class BillAnlianAction {
 	@ResponseBody
 	public Result position(AnlianBillFindReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		rs = anlianBillService.findPosition(req);
+		rs = anlianBillService.zjfindPosition(req);
 		return rs;
 	}
 	

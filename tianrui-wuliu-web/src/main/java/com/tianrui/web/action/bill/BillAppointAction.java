@@ -117,12 +117,26 @@ public class BillAppointAction {
 		return rs;
 	}
 	
-	@RequestMapping("billPositiondata")
+	@RequestMapping("zjPositiondata")
 	@ResponseBody
 	public Result billPositiondata(WaybillQueryReq req,HttpServletRequest request){
 		Result rs = Result.getSuccessResult();
 		try {
-			List<BillPositionResp> list=billService.getBillPosition(req.getId());
+			rs = billService.getPosition(req.getId());
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage(), e);
+		}
+		return rs;
+	}
+	
+	@RequestMapping("dyPositiondata")
+	@ResponseBody
+	public Result dyPositiondata(WaybillQueryReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			List<BillPositionResp> list =billService.getBillPosition(req.getId());
 			rs.setData(list);
 		} catch (Exception e) {
 			rs.setCode("000001");
@@ -132,12 +146,26 @@ public class BillAppointAction {
 		return rs;
 	}
 	
-	@RequestMapping("billPositiondataAnlian")
+	@RequestMapping("zjPositiondataAnlian")
 	@ResponseBody
 	public Result billPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
 		Result rs = Result.getSuccessResult();
 		try {
-			rs = anlianBillService.findPosition(req);
+			rs = anlianBillService.zjfindPosition(req);
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage(), e);
+		}
+		return rs;
+	}
+	
+	@RequestMapping("dyPositiondataAnlian")
+	@ResponseBody
+	public Result dyPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			rs = anlianBillService.dyfindPosition(req);
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");

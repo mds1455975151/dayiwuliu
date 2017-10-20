@@ -44,12 +44,21 @@ public class ReportAllAction {
 		rs.setData(page);
 		return rs;
 	}
+	@RequestMapping("planCount")
+	@ResponseBody
+	public Result planCount(ReportPlanAllReq req) throws Exception{
+		Result rs = reportAllService.planCount(req);
+		return rs;
+	}
+	
 	@RequestMapping("planReport")
 	public ModelAndView planReport(ReportPlanAllReq req) throws Exception{
 		req.setPageNo(null);
 		PaginationVO<ReportPlanAllResp> page = reportAllService.selectPlan(req);
+		Result rs = reportAllService.planCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	PlanAllReportExcilUtil excilUtil = new PlanAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}
@@ -69,12 +78,21 @@ public class ReportAllAction {
 		rs.setData(page);
 		return rs;
 	}
+	
+	@RequestMapping("billCount")
+	@ResponseBody
+	public Result billCount(ReportBillAllReq req) throws Exception{
+		Result rs = reportAllService.billCount(req);
+		return rs;
+	}
 	@RequestMapping("billReport")
 	public ModelAndView billReport(ReportBillAllReq req) throws Exception{
 		req.setPageNo(null);
 		PaginationVO<ReportBillAllResp> page = reportAllService.selectBill(req);
+		Result rs = reportAllService.billCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	BillAllReportExcilUtil excilUtil = new BillAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}
@@ -93,13 +111,21 @@ public class ReportAllAction {
 		rs.setData(page);
 		return rs;
 	}
+	@RequestMapping("payCount")
+	@ResponseBody
+	public Result payCount(ReportPayAllReq req) throws Exception{
+		Result rs = reportAllService.payCount(req);
+		return rs;
+	}
 	
 	@RequestMapping("payReport")
 	public ModelAndView payReport(ReportPayAllReq req) throws Exception{
 		req.setPageNo(null);
 		PaginationVO<ReportPayAllResp> page = reportAllService.selectPay(req);
+		Result rs = reportAllService.payCount(req);
 		Map map = new HashMap();
     	map.put("list", page.getList());
+    	map.put("count", rs.getData());
     	PaylAllReportExcilUtil excilUtil = new PaylAllReportExcilUtil(); 
 	    return new ModelAndView(excilUtil, map); 
 	}

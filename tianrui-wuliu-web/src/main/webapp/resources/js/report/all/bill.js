@@ -1,5 +1,6 @@
 $(function(){
 	init(0,0);
+	billCount();
 });
 
 var noPage = 0;
@@ -21,7 +22,34 @@ function init(pageNo,type){
 		}
 	});
 }
-
+function billCount(){
+	$.ajax({
+		url:"/trwuliu/ReportAll/billCount",
+		type:"POST",
+		data:getParment(),
+		success:function(ret){
+			if(ret.code=='000000'){
+				var data = ret.data;
+				var distinctCount = parseFloat(data.distinctCount) == undefined ? "0.00":parseFloat(data.distinctCount);
+				var venderWeightCount = parseFloat(data.venderWeightCount) == undefined ? "0.00":parseFloat(data.venderWeightCount);
+				var pickupWeightCount = parseFloat(data.pickupWeightCount) == undefined ? "0.00":parseFloat(data.pickupWeightCount);
+				var unloadWeightCount = parseFloat(data.unloadWeightCount) == undefined ? "0.00":parseFloat(data.unloadWeightCount);
+				var trueWeightCount = parseFloat(data.trueWeightCount) == undefined ? "0.00":parseFloat(data.trueWeightCount);
+				$('#distinctCount').html(distinctCount.toFixed(2));
+				$('#venderWeightCount').html(venderWeightCount.toFixed(2));
+				$('#pickupWeightCount').html(pickupWeightCount.toFixed(2));
+				$('#unloadWeightCount').html(unloadWeightCount.toFixed(2));
+				$('#trueWeightCount').html(trueWeightCount.toFixed(2));
+			}else{
+				$('#distinctCount').html('0.00');
+				$('#venderWeightCount').html('0.00');
+				$('#pickupWeightCount').html('0.00');
+				$('#unloadWeightCount').html('0.00');
+				$('#trueWeightCount').html('0.00');
+			}
+		}
+	});
+}
 $('.exportReport').off('click').on('click',function(){
 	$.ajax({
 		url : '/trwuliu/ReportAll/bill',

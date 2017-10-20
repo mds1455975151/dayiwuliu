@@ -5,17 +5,30 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tianrui.common.vo.ApiResult;
 
 
 public class HttpUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+	
+	
+	public static void main(String[] args) {
+		List<JSONObject> list = new ArrayList<>();
+		JSONObject obj = new JSONObject();
+		obj.put("billIds", "746bba8d9e1940bba6bf5466c0f7a344");
+		obj.put("payMent", "2");
+		list.add(obj);
+		System.out.println(post(list,"http://172.19.4.69:9082/service/TrPayStatusQryServlet"));
+	}
 	
 	public static ApiResult post(Object object, String path){
 		logger.debug("post url:{},params:{}",new Object[]{path,JSON.toJSONString(object)});

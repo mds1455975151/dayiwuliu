@@ -1,5 +1,7 @@
 package com.tianrui.service.admin.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * 
@@ -107,6 +109,10 @@ public class MyVehicle{
 	 */
 	private Integer pageSize;
 	private Integer limit;
+	private String starttime;
+	private String endtime;
+	private Long starttimes;
+	private Long endtimes;
 	public String getId() {
 		return id;
 	}
@@ -412,5 +418,32 @@ public class MyVehicle{
 	public void setAuditname(String auditname) {
 		this.auditname = auditname;
 	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	
+	
+	public Long getStarttimes() throws ParseException {
+		if(starttime!=null&&starttime!=""){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime();
+			return starttimes;
+		}
+		return starttimes;
+	}
+	public Long getEndtimes() throws ParseException {
+		if(endtime!=null&&endtime!=""){
+			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
+			return endtimes;
+		}
+		return endtimes;
+	}
 }

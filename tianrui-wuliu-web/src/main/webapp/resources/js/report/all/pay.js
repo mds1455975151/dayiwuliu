@@ -1,5 +1,6 @@
 $(function(){
 	init(0,0);
+	count();
 });
 
 var noPage = 0;
@@ -23,7 +24,47 @@ function init(pageNo,type){
 		}
 	});
 }
-
+function count(){
+	$.ajax({
+		url:"/trwuliu/ReportAll/payCount",
+		type:"POST",
+		data:getParment(),
+		success:function(ret){
+			if(ret.code=='000000'){
+				var data = ret.data;
+				var trueWeightCount = parseFloat(data.trueWeightCount) == undefined ? "0.00":parseFloat(data.trueWeightCount);
+				var priceCount = parseFloat(data.priceCount) == undefined ? "0.00":parseFloat(data.priceCount);
+				var totalPriceCount = parseFloat(data.totalPriceCount) == undefined ? "0.00":parseFloat(data.totalPriceCount);
+				var oilCardCount = parseFloat(data.oilCardCount) == undefined ? "0.00":parseFloat(data.oilCardCount);
+				var weightMiscCount = parseFloat(data.weightMiscCount) == undefined ? "0.00":parseFloat(data.weightMiscCount);
+				var deductMoneyCount = parseFloat(data.deductMoneyCount) == undefined ? "0.00":parseFloat(data.deductMoneyCount);
+				var deductOtherCount = parseFloat(data.deductOtherCount) == undefined ? "0.00":parseFloat(data.deductOtherCount);
+				var amountPayableCount = parseFloat(data.amountPayableCount) == undefined ? "0.00":parseFloat(data.amountPayableCount);
+				var paidAmountCount = parseFloat(data.paidAmountCount) == undefined ? "0.00":parseFloat(data.paidAmountCount);
+				$('#trueWeightCount').html(trueWeightCount.toFixed(2));
+				$('#priceCount').html(priceCount.toFixed(2));
+				$('#totalPriceCount').html(totalPriceCount.toFixed(2));
+				$('#oilCardCount').html(oilCardCount.toFixed(2));
+				$('#weightMiscCount').html(weightMiscCount.toFixed(2));
+				$('#deductMoneyCount').html(deductMoneyCount.toFixed(2));
+				$('#deductOtherCount').html(deductOtherCount.toFixed(2));
+				$('#amountPayableCount').html(amountPayableCount.toFixed(2));
+				$('#paidAmountCount').html(paidAmountCount.toFixed(2));
+			}else{
+				$('#trueWeightCount').html('0.00');
+				$('#priceCount').html('0.00');
+				$('#totalPriceCount').html('0.00');
+				$('#oilCardCount').html('0.00');
+				$('#weightMiscCount').html('0.00');
+				$('#deductMoneyCount').html('0.00');
+				$('#deductOtherCount').html('0.00');
+				$('#amountPayableCount').html('0.00');
+				$('#paidAmountCount').html('0.00');
+			}
+			
+		}
+	});
+}
 $('.exportReport').off('click').on('click',function(){
 	$.ajax({
 		url : '/trwuliu/ReportAll/pay',

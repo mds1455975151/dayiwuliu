@@ -19,6 +19,8 @@ function displayData(pageNo){
 function displayRect(pageNo){
 	var telphone =$("#telphone").val();
 	var auditName =$("#auditName").val();
+	var starttime =$("#starttime").val();
+	var endtime =$("#endtime").val();
 	var aldriverid =$("#aldriverid").val();
 	var userName = $("#username").val();
 	var cellPhone = $("#cellphone").val();
@@ -55,6 +57,8 @@ function displayRect(pageNo){
 			"submitdateEndStr":submitdateEnd,
 			"ncStatus":ncStatus,
 			"auditName":auditName,
+			"starttime":starttime,
+			"endtime":endtime,
 			"aldriverid":aldriverid,
 			"telphone":telphone,
 			"pageNo":(pageNo+1),
@@ -259,6 +263,8 @@ function clearSearch(){
 	$("#telphone").val("");
 	$("#auditName").val("");
 	$("#aldriverid").val("");
+	$("#starttime").val("");
+	$("#endtime").val("");
 	driverSearch();
 }
 /**

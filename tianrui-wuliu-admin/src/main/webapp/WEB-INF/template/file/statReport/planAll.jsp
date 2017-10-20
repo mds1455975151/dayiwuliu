@@ -123,15 +123,43 @@
 						</div>
 					</div>
 				</div>
+											<div class="pro_opra">
+								<button class="btn btnblue exportReport">导出</button>
+								<button class="btn btnorange printReport">打印</button>
+								<div class="pro_opra_r">
+									<label>总计：</label>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>计划总量</p>
+										<p id="planWeightCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>计划已完成量</p>
+										<p id="complitWeightCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>完成进度</p>
+										<p id="tempoCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>距离</p>
+										<p id="distantCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>单价</p>
+										<p id="priceCount">0.00</p>
+									</div>
+									<div class="pro_opra_rstl pro_opra_rstl3">
+										<p>税率</p>
+										<p id="taxCount">0.00</p>
+									</div>
+								</div>
+							</div>
 				<!--查询框end-->
 				<div class="row mt15">
 					<div class="col-md-12">
 						<div class="content-user"
 							style="overflow-x: scroll;">
-							<div class="pro_opra">
-								<button class="btn btnblue exportReport">导出</button>
-								<button class="btn btnorange printReport">打印</button>
-							</div>
+
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">
@@ -213,7 +241,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/planAll.js?0930"></script>
+		src="/resources/js/statReport/planAll.js?0935"></script>
 
 	<script type="text/javascript">
 		$(function() {

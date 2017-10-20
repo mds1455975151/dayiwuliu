@@ -92,6 +92,10 @@ public class MemberFindReq extends BaseReq{
 	private String telphone;//联系方式
 	private String auditName;//审核人
 	private String aldriverid;//安联账号
+	private String starttime;
+	private String endtime;
+	private Long starttimes;
+	private Long endtimes;
 	
 	
 	
@@ -265,4 +269,35 @@ public class MemberFindReq extends BaseReq{
 	public void setSourcetype(String sourcetype) {
 		this.sourcetype = sourcetype;
 	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	
+	
+	public Long getStarttimes() throws ParseException {
+		if(starttime!=null&&starttime!=""){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime();
+			return starttimes;
+		}
+		return starttimes;
+	}
+	public Long getEndtimes() throws ParseException {
+		if(endtime!=null&&endtime!=""){
+			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
+			return endtimes;
+		}
+		return endtimes;
+	}
+
+	
+	
 }

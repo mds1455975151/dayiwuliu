@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 import com.tianrui.api.admin.intf.IOrganizationService;
 import com.tianrui.api.intf.IAnlianBillReportService;
 import com.tianrui.api.intf.IAnlianBillService;
@@ -99,12 +98,13 @@ public class ReportAction {
 		return view;
 	}
 	
-	@RequestMapping("billPositiondata")
+	/** 查询大易轨迹*/
+	@RequestMapping("dyPositiondata")
 	@ResponseBody
-	public Result billPositiondata(WaybillQueryReq req,HttpServletRequest request){
+	public Result dyPositiondata(WaybillQueryReq req,HttpServletRequest request){
 		Result rs = Result.getSuccessResult();
 		try {
-			List<BillPositionResp> list=billService.getBillPosition(req.getId());
+			List<BillPositionResp> list =billService.getBillPosition(req.getId());
 			rs.setData(list);
 		} catch (Exception e) {
 			rs.setCode("000001");
@@ -112,18 +112,46 @@ public class ReportAction {
 		}
 		return rs;
 	}
-	@RequestMapping("billPositiondataAnlian")
+	
+	/** 查询中交轨迹*/
+	@RequestMapping("zjPositiondata")
 	@ResponseBody
-	public Result billPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
+	public Result billPositiondata(WaybillQueryReq req,HttpServletRequest request){
 		Result rs = Result.getSuccessResult();
 		try {
-			rs = anlianBillService.findPosition(req);
+			rs=billService.getPosition(req.getId());
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
 		}
 		return rs;
 	}
+	@RequestMapping("dyPositiondataAnlian")
+	@ResponseBody
+	public Result dyPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			rs = anlianBillService.dyfindPosition(req);
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+		}
+		return rs;
+	}
+	
+	@RequestMapping("zjPositiondataAnlian")
+	@ResponseBody
+	public Result zjPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
+		Result rs = Result.getSuccessResult();
+		try {
+			rs = anlianBillService.zjfindPosition(req);
+		} catch (Exception e) {
+			rs.setCode("000001");
+			rs.setError("页面初始化失败，请稍后重试！");
+		}
+		return rs;
+	}
+	
 	@RequestMapping("vehicleMapPage")
 	public ModelAndView vehicleMapPage(ServletRequest request,String vehicleNo ) throws UnsupportedEncodingException{
 		ModelAndView view = new ModelAndView();

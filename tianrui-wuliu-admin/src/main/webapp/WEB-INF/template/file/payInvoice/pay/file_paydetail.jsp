@@ -62,7 +62,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <label>收货方：</label>
                             <input type="text" id="consignee" placeholder=" ">
                         </div>
-                        <div class="ht_div">
+                        
+                        
+                    </div>
+                    <div class="contuser_search">
+                    	<div class="ht_div">
                         	<label>运单状态：</label>
                             <select id="billPayStatus" class="form-control">
                             	<option value="">请选择</option>
@@ -71,12 +75,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  								<option value="3">已合单</option>
                             </select>
                         </div>
-                        
-                    </div>
-                     <div class="contuser_search">
-                      <div class="ht_div">
-                            <label>货物名称：</label>
-                            <input type="text" id="cargoName" placeholder=" ">
+                        <div class="ht_div">
+                        	<label>支付对象：</label>
+                            <select id="payMent" class="form-control">
+ 								<option value="1">司机</option>
+ 								<option value="2">车主</option>
+                            </select>
                         </div>
                          <div class="ht_div">
                             <label>收款人：</label>
@@ -85,6 +89,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="ht_div">
                             <label>收款人电话：</label>
                             <input type="text" id="venderPhone" placeholder=" ">
+                        </div>
+                    </div>
+                     <div class="contuser_search">
+                      <div class="ht_div">
+                            <label>货物名称：</label>
+                            <input type="text" id="cargoName" placeholder=" ">
                         </div>
                      	<div class="ht_div">
                             <label>创建时间：</label>

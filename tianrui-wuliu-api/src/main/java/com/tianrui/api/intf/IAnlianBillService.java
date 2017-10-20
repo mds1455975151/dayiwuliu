@@ -20,8 +20,10 @@ public interface IAnlianBillService {
 	public Result findByid(AnlianBillFindReq req)throws Exception;
 	/** 查询所有*/
 	public List<AnlianBillResp> findAll(AnlianBillFindReq req)throws Exception;
-	/** 查询安联运单轨迹*/
-	public Result findPosition(AnlianBillFindReq req)throws Exception;
+	/** 查询中交安联运单轨迹*/
+	public Result zjfindPosition(AnlianBillFindReq req)throws Exception;
+	/** 查询大易安联运单轨迹*/
+	public Result dyfindPosition(AnlianBillFindReq req)throws Exception;
 	
 	public Result update(AnlianBillUpdateReq req)throws Exception;
 	/** 安联运单签收*/

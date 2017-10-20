@@ -41,6 +41,17 @@
     <result column="desc3" property="desc3" jdbcType="VARCHAR" />
     <result column="desc4" property="desc4" jdbcType="VARCHAR" />
   </resultMap>
+   <resultMap id="BaseResultMaps" type="com.tianrui.service.bean.PayCount" >
+    <result column="true_weight" property="trueWeight" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="oil_card" property="oilCard" jdbcType="VARCHAR" />
+    <result column="weight_misc" property="weightMisc" jdbcType="VARCHAR" />
+    <result column="deduct_money" property="deductMoney" jdbcType="VARCHAR" />
+    <result column="deduct_other" property="deductOther" jdbcType="VARCHAR" />
+    <result column="amount_payable" property="amountPayable" jdbcType="VARCHAR" />
+    <result column="paid_amount" property="paidAmount" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, pay_owner_id, pay_vender_id, pay_driver_id, pay_receive_id, pay_ment_id, pay_create_time, 
     pay_code, pay_ment, plan_code, route_name, send_man, send_persian, vender_name, receipt_man, 
@@ -167,6 +178,73 @@
   <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.ReportPayAll" >
     select 
     count(0)
+    from report_pay_all
+    <where>
+    	<if test="payOwnerId != null and payOwnerId != ''">
+    		and pay_owner_id = #{payOwnerId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payVenderId != null and payVenderId != ''">
+    		and pay_vender_id = #{payVenderId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payDriverId != null and payDriverId != ''">
+    		and pay_driver_id = #{payDriverId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payReceiveId != null and payReceiveId != ''">
+    		and pay_receive_id = #{payReceiveId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="payMentId != null and payMentId != ''">
+    		and pay_ment_id = #{payMentId,jdbcType=VARCHAR}
+    	</if>
+    	
+    	<if test="cargoName != null and cargoName != ''">
+    		and cargo_name like "%" #{cargoName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="payCode != null and payCode != ''">
+    		and pay_code  like "%" #{payCode,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="planCode != null and planCode != ''">
+    		and plan_code  like "%" #{planCode,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="routeName != null and routeName != ''">
+    		and route_name like "%" #{routeName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendMan != null and sendMan != ''">
+    		and send_man like "%" #{sendMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="sendPersian != null and sendPersian != ''">
+    		and send_persian like "%" #{sendPersian,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="venderName != null and venderName != ''">
+    		and vender_name like "%" #{venderName,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptMan != null and receiptMan != ''">
+    		and receipt_man like "%" #{receiptMan,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="receiptPerson != null and receiptPerson != ''">
+    		and receipt_person like "%" #{receiptPerson,jdbcType=VARCHAR}"%"
+    	</if>
+    	<if test="payStatus != null and payStatus != ''">
+    		and pay_status = #{payStatus,jdbcType=VARCHAR}
+    	</if>
+    	<if test="paystarttimes != null and paystarttimes != ''">
+    		and pay_create_time <![CDATA[>=]]> #{paystarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="payendtimes != null and payendtimes != ''">
+			and pay_create_time <![CDATA[<=]]> #{payendtimes,jdbcType=BIGINT}
+    	</if>
+   		<if test="billstarttimes != null and billstarttimes != ''">
+	   		and bill_time <![CDATA[>=]]> #{billstarttimes,jdbcType=BIGINT}
+    	</if>
+    	<if test="billendtimes != null and billendtimes != '' ">
+			and bill_time <![CDATA[<=]]> #{billendtimes,jdbcType=BIGINT}
+    	</if>
+    </where>
+  </select>
+   <select id="selectByPayCount" resultMap="BaseResultMaps" parameterType="com.tianrui.service.bean.ReportPayAll" >
+    select 
+    SUM(true_weight) as trueWeightCount, SUM(price) as priceCount, SUM(total_price) as totalPriceCount, SUM(oil_card) as oilCardCount,
+     SUM(weight_misc) as weightMiscCount, SUM(deduct_money) as deductMoneyCount, SUM(deduct_other) as deductOtherCount, SUM(amount_payable) as amountPayableCount,
+      SUM(paid_amount) as paidAmountCount
     from report_pay_all
     <where>
     	<if test="payOwnerId != null and payOwnerId != ''">
