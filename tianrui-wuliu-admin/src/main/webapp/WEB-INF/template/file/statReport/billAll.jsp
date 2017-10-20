@@ -31,7 +31,7 @@
 </head>
 <body>
 	<div class="container-fluid">
-		 <input type="hidden" id="recPageNo" value="${pageNo }">
+		<input type="hidden" id="recPageNo" value="${pageNo }">
 		<jsp:include page="../../common/header.jsp" flush="false"></jsp:include>
 		<!--后台右侧布局begin-->
 		<!--  <input type="hidden" id="pageNo" value="${empty pageNo?0:pageNo }">-->
@@ -44,7 +44,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="contuser_search">
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>业务日期：</label> <input id="businessTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'businessTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -53,7 +53,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>运单创建时间：</label> <input id="billCreaterTimeStart"
 									type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'billCreaterTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
@@ -64,7 +64,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>接受运单时间：</label> <input id="acceptTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'acceptTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -73,7 +73,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>提货确认时间：</label> <input id="pickupTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'pickupTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -82,7 +82,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>卸货确认时间：</label> <input id="unloadTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'unloadTimeEndtime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -91,7 +91,7 @@
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期"
 									readonly />
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>签收运单时间：</label> <input id="signTimeStart" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'signTimeEnd\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择开始日期"
@@ -121,62 +121,61 @@
 								<label>货物名称：</label> <input id="cargoName" type="text"
 									placeholder="请输入货物名称">
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>车牌号：</label> <input id="vehicleNo" type="text"
 									placeholder="请输入车牌号">
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>路线：</label> <input id=routeName type="text"
 									placeholder="请输入路线">
 							</div>
-							<div class="ht_div" name="mytable"   style="display:none">
-                                 <label>运单状态：</label>
-                                 <select id="billStatus"  class="form-control">
-                                     <option class="dystatus bill_status" value="">请选择</option>
-                                     <option class="dystatus bill_status" value="-1">车主回收</option>
-                                     <option class="dystatus bill_status" value="0">司机未确认</option>
-                                     <option class="dystatus bill_status" value="1">司机已接受</option>
-                                     <option class="dystatus bill_status" value="2">司机已装货</option>
-                                     <option class="dystatus bill_status" value="3">司机运输中</option>
-                                     <option class="dystatus bill_status" value="4">司机已到达</option>
-                                     <option class="dystatus bill_status" value="5">司机已卸货</option>
-                                     <option class="dystatus bill_status" value="6">已签收</option>
-                                     <option class="dystatus bill_status" value="7">司机拒绝接单</option>
-                                     <option class="alstatus bill_status" value="配载单还未提货!">配载单还未提货!</option>
-                                     <option class="alstatus bill_status" value="运输中">运输中</option>
-                                     <option class="alstatus bill_status" value="配载单已到货!">配载单已到货!</option>
-                                     <option class="alstatus bill_status" value="该配载单暂无跟踪记录!">该配载单暂无跟踪记录!</option>
-                                 </select>
-                            </div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
+								<label>运单状态：</label> <select id="billStatus"
+									class="form-control">
+									<option class="dystatus bill_status" value="">请选择</option>
+									<option class="dystatus bill_status" value="-1">车主回收</option>
+									<option class="dystatus bill_status" value="0">司机未确认</option>
+									<option class="dystatus bill_status" value="1">司机已接受</option>
+									<option class="dystatus bill_status" value="2">司机已装货</option>
+									<option class="dystatus bill_status" value="3">司机运输中</option>
+									<option class="dystatus bill_status" value="4">司机已到达</option>
+									<option class="dystatus bill_status" value="5">司机已卸货</option>
+									<option class="dystatus bill_status" value="6">已签收</option>
+									<option class="dystatus bill_status" value="7">司机拒绝接单</option>
+									<option class="alstatus bill_status" value="配载单还未提货!">配载单还未提货!</option>
+									<option class="alstatus bill_status" value="运输中">运输中</option>
+									<option class="alstatus bill_status" value="配载单已到货!">配载单已到货!</option>
+									<option class="alstatus bill_status" value="该配载单暂无跟踪记录!">该配载单暂无跟踪记录!</option>
+								</select>
+							</div>
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>司机姓名：</label> <input id="driverName" type="text"
 									placeholder="请输入司机姓名">
 							</div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>车主姓名：</label> <input id="ownerName" type="text"
 									placeholder="请输入车主姓名">
 							</div>
-							<div class="ht_div" name="mytable"   style="display:none">
-                                 <label>支付对象：</label>
-                                 <select id="payMent"  class="form-control">
-                                     <option value="">请选择</option>
-                                     <option value="1">司机</option>
-                                     <option value="2">车主</option>
-                                 </select>
-                            </div>
-							<div class="ht_div" name="mytable"  style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
+								<label>支付对象：</label> <select id="payMent" class="form-control">
+									<option value="">请选择</option>
+									<option value="1">司机</option>
+									<option value="2">车主</option>
+								</select>
+							</div>
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>发货方：</label> <input id="sendMan" type="text"
 									placeholder="请输入发货方">
 							</div>
-							<div class="ht_div" name="mytable"   style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>发货人：</label> <input id="sendPersion" type="text"
 									placeholder="请输入发货人">
 							</div>
-							<div class="ht_div" name="mytable"   style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>收货方：</label> <input id="receiptMan" type="text"
 									placeholder="请输入收货方">
 							</div>
-							<div class="ht_div" name="mytable"   style="display:none">
+							<div class="ht_div" name="mytable" style="display: none">
 								<label>签收人：</label> <input id="receiptPersion" type="text"
 									placeholder="请输入签收人">
 							</div>
@@ -186,52 +185,51 @@
 								<button class="btn btngreen reset" onclick="reset()"
 									type="submit">重置</button>
 							</div>
-						<div class="row">
-							<div class="col-md-12">
-								<div class="position_more">
-									<div class="c_Screen">
-										<label>更多筛选条件</label> <span><img src="${imagesRoot }/more2.png"
-											id="gengduo"></span>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="position_more">
+										<div class="c_Screen">
+											<label>更多筛选条件</label> <span><img
+												src="${imagesRoot }/more2.png" id="gengduo"></span>
+										</div>
 									</div>
-								</div>
 
+								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="pro_opra">
+					<button class="btn btnblue exportReport">导出</button>
+					<button class="btn btnorange printReport">打印</button>
+					<div class="pro_opra_r">
+						<label>总计：</label>
+						<div class="pro_opra_rstl pro_opra_rstl3">
+							<p>运距</p>
+							<p id=distinctCount>0.00</p>
+						</div>
+						<div class="pro_opra_rstl pro_opra_rstl3">
+							<p>车主派单量</p>
+							<p id="venderWeightCount">0.00</p>
+						</div>
+						<div class="pro_opra_rstl pro_opra_rstl3">
+							<p>提货榜单净重</p>
+							<p id="pickupWeightCount">0.00</p>
+						</div>
+						<div class="pro_opra_rstl pro_opra_rstl3">
+							<p>卸货榜单净重</p>
+							<p id="unloadWeightCount">0.00</p>
+						</div>
+						<div class="pro_opra_rstl pro_opra_rstl3">
+							<p>签收量</p>
+							<p id="trueWeightCount">0.00</p>
 						</div>
 					</div>
 				</div>
 				<!--查询框end-->
 				<div class="row mt15">
 					<div class="col-md-12">
-						<div class="content-user"
-							style="overflow-x: scroll; ">
-							<div class="pro_opra">
-								<button class="btn btnblue exportReport">导出</button>
-								<button class="btn btnorange printReport">打印</button>
-								<div class="pro_opra_r">
-									<label>总计：</label>
-									<div class="pro_opra_rstl pro_opra_rstl3">
-										<p>运距</p>
-										<p id=distinctCount>0.00</p>
-									</div>
-									<div class="pro_opra_rstl pro_opra_rstl3">
-										<p>车主派单量</p>
-										<p id="venderWeightCount">0.00</p>
-									</div>
-									<div class="pro_opra_rstl pro_opra_rstl3">
-										<p>提货榜单净重</p>
-										<p id="pickupWeightCount">0.00</p>
-									</div>
-									<div class="pro_opra_rstl pro_opra_rstl3">
-										<p>卸货榜单净重</p>
-										<p id="unloadWeightCount">0.00</p>
-									</div>
-									<div class="pro_opra_rstl pro_opra_rstl3">
-										<p>签收量</p>
-										<p id="trueWeightCount">0.00</p>
-									</div>
-								</div>
-							</div>
+						<div class="content-user" style="overflow-x: scroll;">
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">
@@ -284,66 +282,69 @@
 	<!--侧边栏end-->
 	</div>
 
-		<!--查看详情begin-->
-	<div class="modal fade" id="vehicledetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-	                        aria-hidden="true">&times;</span></button>
-	                <h4 class="modal-title">车辆详情</h4>
-	            </div>
-	            <div class="modal-body" style=" " id="vehicledetailhml">
-	               
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!--查看详情end-->
-		
-		<!--查看详情begin-->
-	<div class="modal fade" id="Billdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-	                        aria-hidden="true">&times;</span></button>
-	                <h4 class="modal-title">运单详情</h4>
-	            </div>
-	            <div class="modal-body" style=" " id="Billdetailhml">
-	               
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!--查看详情end-->
-		
 	<!--查看详情begin-->
-	<div class="modal fade" id="Plandetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-	                        aria-hidden="true">&times;</span></button>
-	                <h4 class="modal-title">计划详情</h4>
-	            </div>
-	            <div class="modal-body" style=" " id="Plandetailhml">
-	               
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	            </div>
-	        </div>
-	    </div>
+	<div class="modal fade" id="vehicledetail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">车辆详情</h4>
+				</div>
+				<div class="modal-body" style="" id="vehicledetailhml"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!--查看详情end-->
-	
+
+	<!--查看详情begin-->
+	<div class="modal fade" id="Billdetail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">运单详情</h4>
+				</div>
+				<div class="modal-body" style="" id="Billdetailhml"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--查看详情end-->
+
+	<!--查看详情begin-->
+	<div class="modal fade" id="Plandetail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">计划详情</h4>
+				</div>
+				<div class="modal-body" style="" id="Plandetailhml"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--查看详情end-->
+
 	<!--修改密码end-->
 	<%@include file="../../common/footer.jsp"%>
 	<script type="text/javascript"

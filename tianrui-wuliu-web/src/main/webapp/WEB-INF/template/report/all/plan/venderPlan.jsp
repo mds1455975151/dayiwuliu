@@ -140,35 +140,35 @@
 										</div>
 									</div>
 								</div>
-								<div class="tj_data">
-									<div class="pro_opra">
-										<label>总计：</label>
-										<div class="pro_opra_rstl">
-											<p>计划总量</p>
-											<p id="planWeightCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>计划已完成量</p>
-											<p id="complitWeightCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>完成进度</p>
-											<p id="tempoCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>距离</p>
-											<p id="distantCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>单价</p>
-											<p id="priceCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>税率</p>
-											<p id="taxCount">0.00</p>
-										</div>
-									</div>
-								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tj_data">
+						<div class="pro_opra">
+							<label>总计：</label>
+							<div class="pro_opra_rstl">
+								<p>计划总量</p>
+								<p id="planWeightCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>计划已完成量</p>
+								<p id="complitWeightCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>完成进度</p>
+								<p id="tempoCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>距离</p>
+								<p id="distantCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>单价</p>
+								<p id="priceCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>税率</p>
+								<p id="taxCount">0.00</p>
 							</div>
 						</div>
 					</div>

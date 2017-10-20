@@ -159,47 +159,47 @@
 									</div>
 								</div>
 							</div>
-								<div class="tj_data">
-									<div class="pro_opra">
-										<label>总计：</label>
-										<div class="pro_opra_rstl">
-											<p>签收量</p>
-											<p id="trueWeightCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>含税单价</p>
-											<p id="priceCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>总价</p>
-											<p id="totalPriceCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>油卡</p>
-											<p id="oilCardCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>扣重扣杂</p>
-											<p id="weightMiscCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>扣款</p>
-											<p id="deductMoneyCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>其他款项</p>
-											<p id="deductOtherCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>应付金额</p>
-											<p id="amountPayableCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>付款金额</p>
-											<p id="paidAmountCount">0.00</p>
-										</div>
-									</div>
-								</div>
+						</div>
+					</div>
+					<div class="tj_data">
+						<div class="pro_opra">
+							<label>总计：</label>
+							<div class="pro_opra_rstl">
+								<p>签收量</p>
+								<p id="trueWeightCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>含税单价</p>
+								<p id="priceCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>总价</p>
+								<p id="totalPriceCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>油卡</p>
+								<p id="oilCardCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>扣重扣杂</p>
+								<p id="weightMiscCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>扣款</p>
+								<p id="deductMoneyCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>其他款项</p>
+								<p id="deductOtherCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>应付金额</p>
+								<p id="amountPayableCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>付款金额</p>
+								<p id="paidAmountCount">0.00</p>
+							</div>
 						</div>
 					</div>
 					<!--个人中心右侧搜索框end-->

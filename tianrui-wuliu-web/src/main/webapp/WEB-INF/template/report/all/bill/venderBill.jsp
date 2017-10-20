@@ -235,31 +235,31 @@
 										</div>
 									</div>
 								</div>
-								<div class="tj_data">
-									<div class="pro_opra">
-										<label>总计：</label>
-										<div class="pro_opra_rstl">
-											<p>运距</p>
-											<p id=distinctCount>0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>车主派单量</p>
-											<p id="venderWeightCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>提货榜单净重</p>
-											<p id="pickupWeightCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>卸货榜单净重</p>
-											<p id="unloadWeightCount">0.00</p>
-										</div>
-										<div class="pro_opra_rstl">
-											<p>签收量</p>
-											<p id="trueWeightCount">0.00</p>
-										</div>
-									</div>
-								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tj_data">
+						<div class="pro_opra">
+							<label>总计：</label>
+							<div class="pro_opra_rstl">
+								<p>运距</p>
+								<p id=distinctCount>0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>车主派单量</p>
+								<p id="venderWeightCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>提货榜单净重</p>
+								<p id="pickupWeightCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>卸货榜单净重</p>
+								<p id="unloadWeightCount">0.00</p>
+							</div>
+							<div class="pro_opra_rstl">
+								<p>签收量</p>
+								<p id="trueWeightCount">0.00</p>
 							</div>
 						</div>
 					</div>

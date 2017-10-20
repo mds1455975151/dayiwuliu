@@ -123,12 +123,7 @@
 						</div>
 					</div>
 				</div>
-				<!--查询框end-->
-				<div class="row mt15">
-					<div class="col-md-12">
-						<div class="content-user"
-							style="overflow-x: scroll;">
-							<div class="pro_opra">
+											<div class="pro_opra">
 								<button class="btn btnblue exportReport">导出</button>
 								<button class="btn btnorange printReport">打印</button>
 								<div class="pro_opra_r">
@@ -159,6 +154,12 @@
 									</div>
 								</div>
 							</div>
+				<!--查询框end-->
+				<div class="row mt15">
+					<div class="col-md-12">
+						<div class="content-user"
+							style="overflow-x: scroll;">
+
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">
