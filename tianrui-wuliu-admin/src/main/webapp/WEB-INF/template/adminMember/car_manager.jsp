@@ -86,7 +86,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <label>审核人:</label>
                                         <input type="text"  id="auditName" placeholder=" ">
                                     </div>
-                                    <div class="ht_div">
+								<div class="ht_div">
+									<label>车辆类型:</label> <select class="form-control"
+										id="vehicletypename">
+										<option value="">请选择</option>
+										<c:forEach items="${vType }" var="vt">
+											<option value="${vt.wlname }">${vt.wlname }</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="ht_div">
+                                        <label>安联认证:</label>
+                                        <select class="form-control" id="desc1">
+                                            <option value="">请选择</option>
+                                            <option value="-1">认证失败</option>
+                                            <option value="0">未认证</option>
+                                            <option value="1">认证成功</option>
+                                            <option value="2">认证中</option>
+                                        </select>
+                                </div>
+								<div class="ht_div">
 										<label>审核日期:</label> <input id="starttime" type="text"
 											onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
 											class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i> <input
@@ -417,7 +436,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var imagesRoot="${imagesRoot }";
 </script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?06.22" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/car_manager.js?10.21" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript">

@@ -48,6 +48,7 @@ import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
 import com.tianrui.api.resp.admin.MyVehicleResp;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.common.DataDictResp;
+import com.tianrui.api.resp.data.WebDictResp;
 import com.tianrui.api.resp.front.capa.MemberCapaListResp;
 import com.tianrui.api.resp.front.member.MemberInfoRecordResp;
 import com.tianrui.api.resp.front.member.MemberResp;
@@ -169,6 +170,10 @@ public class AdminMemberAction {
 	@RequestMapping("/carManager")
 	public ModelAndView carManager(String pageNo) throws Exception{
 		ModelAndView view = new ModelAndView();
+		WebDictReq req = new WebDictReq();
+		req.setType("vehicle");
+		List<WebDictResp> list = dataService.find(req);
+		view.addObject("vType", list);
 		view.setViewName("/adminMember/car_manager");
 		view.addObject("pageNo", pageNo);
 		return view;

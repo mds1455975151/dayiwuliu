@@ -12,6 +12,8 @@ function displayData(d){
 	}
 }
 function displayRec(pageNo){
+	var vehicletypename=$("#vehicletypename").val();
+	var desc1 =$("#desc1").val();
 	var auditName =$("#auditName").val();
 	var starttime =$("#starttime").val();
 	var endtime = $("#endtime").val();
@@ -27,6 +29,8 @@ function displayRec(pageNo){
 	$.ajax({
 		url:CONTEXTPATH+'/AdminMember/findCarManager',
 		data:{"vehicleprefix":$.trim(prefix),
+			"vehicletypename":$.trim(vehicletypename),
+			"desc1":$.trim(desc1),
 			"auditname":$.trim(auditName),
 			"starttime":$.trim(starttime),
 			"endtime":$.trim(endtime),
@@ -187,6 +191,10 @@ function clearSearch(){
 	$("#auditName").val("");
 	$("#starttime").val("");
 	$("#endtime").val("");
+	$("#vehiclestatus").val("");
+	$("#vehicletypename").val("");
+	$("#vehiclestatusType").val("");
+	$("#desc1").val("");
 	displayRec(0);
 }
 /** 安联认证信息补全*/

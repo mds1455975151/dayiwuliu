@@ -166,11 +166,13 @@ Date.prototype.toString = function() {
 }
 
 function submit(obj){
+	var price = parseFloat(obj.price);
+	var trueweight = parseFloat(obj.trueweight);
 	$("#billId").val(obj.id);
 	$("#billNo").html(obj.waybillno);
-	$("#dj").html(obj.price || '').append('元');
+	$("#dj").html(price.toFixed(2) || '').append('元');
 	$("#ysjl").html(obj.interDistance || '').append('km');
-	$("#qszl").html(obj.trueweight || '').append('吨');
+	$("#qszl").html(trueweight.toFixed(2) || '').append('吨');
 	$("#thsj").html(new Date(obj.begintime).toString() || '');
 	$("#dhsj").html(new Date(obj.unloadtime).toString() || '');
 	$("#zj").html(obj.price * obj.trueweight || '').append('元');

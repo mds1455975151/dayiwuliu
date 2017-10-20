@@ -8,6 +8,8 @@ function driverSearch(){
 	displayData(0);
 }
 function displayData(pageNo){
+	var drivername = $("#drivername").val();
+	var vehicleno = $("#vehicleno").val();
 	var userName = $("#username").val();
 	var cellPhone = $("#cellphone").val();
 	var submitdateFor = $("#subtimefor").val();
@@ -25,6 +27,8 @@ function displayData(pageNo){
 		url:CONTEXTPATH+'/AdminMember/findDriverOwner',
 		data:{"userName":$.trim(userName),
 			"cellPhone":$.trim(cellPhone),
+			"drivername":$.trim(drivername),
+			"vehicleno":$.trim(vehicleno),
 			"submitdateForStr":submitdateFor,
 			"submitdateEndStr":submitdateEnd,
 			"capaType":$.trim(personalType),
@@ -185,6 +189,8 @@ function clearSearch(){
 	$("#subtimeend").val("");
 	$("#personalType").val("");
 	$("#perCheckStatus").val("");
+	$("#drivername").val("");
+	$("#vehicleno").val("");
 	driverSearch();
 }
 

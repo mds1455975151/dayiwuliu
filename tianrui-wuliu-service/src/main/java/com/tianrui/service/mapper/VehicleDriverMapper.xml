@@ -74,6 +74,12 @@
 	      <if test="vehicleid != null and vehicleid != ''">
 	      	and vehicleid = #{vehicleid,jdbcType=VARCHAR}
 	      </if>
+	      <if test="vehicleno != null and vehicleno != ''">
+	      	and vehicleno like "%" #{vehicleno,jdbcType=VARCHAR}"%"
+	      </if>
+	      <if test="drivername != null and drivername != ''">
+	      	and drivername like "%" #{drivername,jdbcType=VARCHAR}"%"
+	      </if>
     	</where>
   </select>
   <select id="findList" resultMap="BaseResultMaps" parameterType="com.tianrui.service.bean.VehicleDriverMember" >
