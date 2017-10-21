@@ -32,6 +32,7 @@ public class MyVehicleReq extends BaseReq{
 	private String roadtransportcode;
 	
 	private String desc2;
+	private String desc1;
 	/**
 	 * 车牌号
 	 */
@@ -48,6 +49,8 @@ public class MyVehicleReq extends BaseReq{
 	 * 车辆类型(1:箱式,2:车板,3:冷藏,4:散装罐车,5:半挂车)
 	 */
 	private String vehicletype;
+	
+	private String vehicletypename;
 	/**
 	 * 可用长度
 	 */
@@ -233,4 +236,18 @@ public class MyVehicleReq extends BaseReq{
 		}
 		return endtimes;
 	}
+	public String getVehicletypename() {
+		return vehicletypename;
+	}
+	public void setVehicletypename(String vehicletypename) {
+		this.vehicletypename = vehicletypename;
+	}
+	public String getDesc1() {
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
+	
+	
 }

@@ -1,6 +1,5 @@
 $(function(){
 	init(0,0);
-	billCount();
 });
 
 var noPage = 0;
@@ -21,8 +20,14 @@ function init(pageNo,type){
 			}
 		}
 	});
+	billCount();
 }
 function billCount(){
+	$('#distinctCount').html('0.00');
+	$('#venderWeightCount').html('0.00');
+	$('#pickupWeightCount').html('0.00');
+	$('#unloadWeightCount').html('0.00');
+	$('#trueWeightCount').html('0.00');
 	$.ajax({
 		url:"/trwuliu/ReportAll/billCount",
 		type:"POST",
@@ -40,12 +45,6 @@ function billCount(){
 				$('#pickupWeightCount').html(pickupWeightCount.toFixed(2));
 				$('#unloadWeightCount').html(unloadWeightCount.toFixed(2));
 				$('#trueWeightCount').html(trueWeightCount.toFixed(2));
-			}else{
-				$('#distinctCount').html('0.00');
-				$('#venderWeightCount').html('0.00');
-				$('#pickupWeightCount').html('0.00');
-				$('#unloadWeightCount').html('0.00');
-				$('#trueWeightCount').html('0.00');
 			}
 		}
 	});

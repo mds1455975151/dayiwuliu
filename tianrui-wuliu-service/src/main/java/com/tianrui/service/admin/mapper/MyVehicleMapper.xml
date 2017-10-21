@@ -51,6 +51,12 @@
  	  <if test="telphone != null  and telphone !='' " >
        and mv.vehiOwnerTel like "%" #{telphone,jdbcType=VARCHAR} "%"
       </if>
+       <if test="vehicletypename != null  and vehicletypename !='' " >
+       and mv.vehicletypename like "%" #{vehicletypename,jdbcType=VARCHAR} "%"
+      </if>
+      <if test="desc1 != null  and desc1 !='' " >
+       and mv.desc1 = #{desc1,jdbcType=VARCHAR}
+      </if>
       <if test="desc2 != null  and desc2 !='' " >
        and mv.desc2 = #{desc2,jdbcType=VARCHAR}
       </if>
@@ -122,6 +128,12 @@
       </if>
  	  <if test="telphone != null  and telphone !='' " >
        and mv.vehiOwnerTel like "%" #{telphone,jdbcType=VARCHAR} "%"
+      </if>
+       <if test="vehicletypename != null  and vehicletypename !='' " >
+       and mv.vehicletypename like "%" #{vehicletypename,jdbcType=VARCHAR} "%"
+      </if>
+      <if test="desc1 != null  and desc1 !='' " >
+       and mv.desc1 = #{desc1,jdbcType=VARCHAR}
       </if>
       <if test="status != null" >
         and mv.status = #{status,jdbcType=VARCHAR}

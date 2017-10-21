@@ -1,9 +1,14 @@
 $(function(){
 	init(0,0);
-	planCount();
 });
 var noPage = 0;
 function planCount(){
+	$('#planWeightCount').html('0.00');
+	$('#complitWeightCount').html('0.00');
+	$('#tempoCount').html('0.00');
+	$('#distantCount').html('0.00');
+	$('#priceCount').html('0.00');
+	$('#taxCount').html('0.00');
 	$.ajax({
 		url:"/trwuliu/ReportAll/planCount",
 		type:"POST",
@@ -23,13 +28,6 @@ function planCount(){
 				$('#distantCount').html(distantCount.toFixed(2));
 				$('#priceCount').html(priceCount.toFixed(2));
 				$('#taxCount').html(taxCount.toFixed(2));
-			}else{
-				$('#planWeightCount').html('0.00');
-				$('#complitWeightCount').html('0.00');
-				$('#tempoCount').html('0.00');
-				$('#distantCount').html('0.00');
-				$('#priceCount').html('0.00');
-				$('#taxCount').html('0.00');
 			}
 		}
 	});
@@ -51,6 +49,7 @@ function init(pageNo,type){
 			}
 		}
 	});
+	planCount();
 }
 
 $('.exportReport').off('click').on('click',function(){

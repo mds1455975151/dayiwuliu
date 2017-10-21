@@ -97,8 +97,23 @@ public class MemberFindReq extends BaseReq{
 	private Long starttimes;
 	private Long endtimes;
 	
+	private String drivername;//司机姓名
+	private String vehicleno;//车票号码
 	
 	
+	
+	public String getDrivername() {
+		return drivername;
+	}
+	public void setDrivername(String drivername) {
+		this.drivername = drivername;
+	}
+	public String getVehicleno() {
+		return vehicleno;
+	}
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
+	}
 	public String getAldriverid() {
 		return aldriverid;
 	}

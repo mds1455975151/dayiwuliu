@@ -1,16 +1,16 @@
 function displayData(){
 	init(0);
-	planCount();
+//	planCount();
 }
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
 		init(page-1);
-		planCount();
+//		planCount();
 		$("#recPageNo").val("");
 	}else{
 		init(pageNo);
-		planCount();
+//		planCount();
 	}
 }
 function getParams(pageNo){
@@ -60,6 +60,12 @@ function reset(){
 	init(0);
 }
 function planCount(){
+	$('#planWeightCount').html('0.00');
+	$('#complitWeightCount').html('0.00');
+	$('#tempoCount').html('0.00');
+	$('#distantCount').html('0.00');
+	$('#priceCount').html('0.00');
+	$('#taxCount').html('0.00');
 	$.ajax({
 		url:"/reportAll/planCount",
 		type:"POST",
@@ -79,13 +85,6 @@ function planCount(){
 				$('#distantCount').html(distantCount.toFixed(2));
 				$('#priceCount').html(priceCount.toFixed(2));
 				$('#taxCount').html(taxCount.toFixed(2));
-			}else{
-				$('#planWeightCount').html('0.00');
-				$('#complitWeightCount').html('0.00');
-				$('#tempoCount').html('0.00');
-				$('#distantCount').html('0.00');
-				$('#priceCount').html('0.00');
-				$('#taxCount').html('0.00');
 			}
 		}
 	})
@@ -120,6 +119,7 @@ function init(pageNo){
 			}
 		}
 	});
+	planCount();
 }
 
 function innerHml(data){

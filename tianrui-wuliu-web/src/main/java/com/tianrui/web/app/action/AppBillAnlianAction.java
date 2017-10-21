@@ -114,7 +114,31 @@ public class AppBillAnlianAction {
 	@ResponseBody
 	public AppResult position(AppParam<AnlianBillFindReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
+		rs = anlianBillService.findPositionOld(appParam.getBody());
+		return AppResult.valueOf(rs);
+	}
+	
+	/** 查询运单轨迹
+	 * @throws Exception */
+	@RequestMapping("zjposition")
+	@ApiParamRawType(AnlianBillFindReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult zjposition(AppParam<AnlianBillFindReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
 		rs = anlianBillService.zjfindPosition(appParam.getBody());
+		return AppResult.valueOf(rs);
+	}
+	
+	/** 查询运单轨迹
+	 * @throws Exception */
+	@RequestMapping("dyposition")
+	@ApiParamRawType(AnlianBillFindReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult dyposition(AppParam<AnlianBillFindReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = anlianBillService.dyfindPosition(appParam.getBody());
 		return AppResult.valueOf(rs);
 	}
 	

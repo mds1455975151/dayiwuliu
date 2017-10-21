@@ -12,7 +12,8 @@ package com.tianrui.service.bean;
  *
  */
 public class MemberFind implements IModel{
-
+	
+	 private String id;
 	/**
 	 * 会员名
 	 */
@@ -103,8 +104,29 @@ public class MemberFind implements IModel{
 	
 	private Long beginTime;
 	private Long endTime;
+	private String drivername;//司机姓名
+	private String vehicleno;//车票号码
 	
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getDrivername() {
+		return drivername;
+	}
+	public void setDrivername(String drivername) {
+		this.drivername = drivername;
+	}
+	public String getVehicleno() {
+		return vehicleno;
+	}
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
+	}
 	public Long getBeginTime() {
 		return beginTime;
 	}

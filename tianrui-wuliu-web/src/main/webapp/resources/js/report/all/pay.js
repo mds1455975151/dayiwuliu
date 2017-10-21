@@ -1,6 +1,5 @@
 $(function(){
 	init(0,0);
-	count();
 });
 
 var noPage = 0;
@@ -23,8 +22,18 @@ function init(pageNo,type){
 			}
 		}
 	});
+	count();
 }
 function count(){
+	$('#trueWeightCount').html('0.00');
+	$('#priceCount').html('0.00');
+	$('#totalPriceCount').html('0.00');
+	$('#oilCardCount').html('0.00');
+	$('#weightMiscCount').html('0.00');
+	$('#deductMoneyCount').html('0.00');
+	$('#deductOtherCount').html('0.00');
+	$('#amountPayableCount').html('0.00');
+	$('#paidAmountCount').html('0.00');
 	$.ajax({
 		url:"/trwuliu/ReportAll/payCount",
 		type:"POST",
@@ -50,18 +59,7 @@ function count(){
 				$('#deductOtherCount').html(deductOtherCount.toFixed(2));
 				$('#amountPayableCount').html(amountPayableCount.toFixed(2));
 				$('#paidAmountCount').html(paidAmountCount.toFixed(2));
-			}else{
-				$('#trueWeightCount').html('0.00');
-				$('#priceCount').html('0.00');
-				$('#totalPriceCount').html('0.00');
-				$('#oilCardCount').html('0.00');
-				$('#weightMiscCount').html('0.00');
-				$('#deductMoneyCount').html('0.00');
-				$('#deductOtherCount').html('0.00');
-				$('#amountPayableCount').html('0.00');
-				$('#paidAmountCount').html('0.00');
 			}
-			
 		}
 	});
 }

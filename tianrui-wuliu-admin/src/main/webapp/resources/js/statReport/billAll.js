@@ -1,16 +1,16 @@
 function driverSearch(){
 	init(0);
-	 billCount();
+//	 billCount();
 }
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
 		init(page-1);
-		 billCount();
+//		 billCount();
 		$("#recPageNo").val("");
 	}else{
 		init(pageNo);
-		 billCount();
+//		 billCount();
 	}
 }
 function reset(){
@@ -103,6 +103,11 @@ function getParams(pageNo){
 	return params;
 }
 function billCount(){
+	$('#distinctCount').html('0.00');
+	$('#venderWeightCount').html('0.00');
+	$('#pickupWeightCount').html('0.00');
+	$('#unloadWeightCount').html('0.00');
+	$('#trueWeightCount').html('0.00');
 	$.ajax({
 		url:"/reportAll/billCount",
 		type:"POST",
@@ -120,12 +125,6 @@ function billCount(){
 				$('#pickupWeightCount').html(pickupWeightCount.toFixed(2));
 				$('#unloadWeightCount').html(unloadWeightCount.toFixed(2));
 				$('#trueWeightCount').html(trueWeightCount.toFixed(2));
-			}else{
-				$('#distinctCount').html('0.00');
-				$('#venderWeightCount').html('0.00');
-				$('#pickupWeightCount').html('0.00');
-				$('#unloadWeightCount').html('0.00');
-				$('#trueWeightCount').html('0.00');
 			}
 		}
 	})
@@ -160,6 +159,7 @@ function init(pageNo){
 			}
 		}
 	});
+	 billCount();
 }
 
 function innerHml(data){
