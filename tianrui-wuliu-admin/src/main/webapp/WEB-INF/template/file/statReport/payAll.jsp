@@ -346,7 +346,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/payAll.js?09.43"></script>
+		src="/resources/js/statReport/payAll.js?1021"></script>
 	<script type="text/javascript">
 		$(function() {
 

@@ -1,16 +1,16 @@
 function displayData(){
 	init(0);
-	count();
+//	count();
 }
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
 		init(page-1);
-		count();
+//		count();
 		$("#recPageNo").val("");
 	}else{
 		init(pageNo);
-		count();
+//		count();
 	}
 }
 function getParams(pageNo){
@@ -65,9 +65,18 @@ function reset(){
 	$("#billstarttime").val("");
 	$("#billendtime").val("");
 	init(0);
-	count();
+//	count();
 }
 function count(){
+	$('#trueWeightCount').html('0.00');
+	$('#priceCount').html('0.00');
+	$('#totalPriceCount').html('0.00');
+	$('#oilCardCount').html('0.00');
+	$('#weightMiscCount').html('0.00');
+	$('#deductMoneyCount').html('0.00');
+	$('#deductOtherCount').html('0.00');
+	$('#amountPayableCount').html('0.00');
+	$('#paidAmountCount').html('0.00');
 	$.ajax({
 		url:"/reportAll/payCount",
 		type:"POST",
@@ -93,18 +102,7 @@ function count(){
 				$('#deductOtherCount').html(deductOtherCount.toFixed(2));
 				$('#amountPayableCount').html(amountPayableCount.toFixed(2));
 				$('#paidAmountCount').html(paidAmountCount.toFixed(2));
-			}else{
-				$('#trueWeightCount').html('0.00');
-				$('#priceCount').html('0.00');
-				$('#totalPriceCount').html('0.00');
-				$('#oilCardCount').html('0.00');
-				$('#weightMiscCount').html('0.00');
-				$('#deductMoneyCount').html('0.00');
-				$('#deductOtherCount').html('0.00');
-				$('#amountPayableCount').html('0.00');
-				$('#paidAmountCount').html('0.00');
-			}
-			
+			}			
 		}
 	})
 }
