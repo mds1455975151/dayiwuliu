@@ -35,7 +35,7 @@
         </div>
         <div class="tj_right">
             <div class="tj_data">
-                <label>当前车辆总数</label><span id="vehiclesum">2000</span><label>辆</label>
+                <label>活跃车辆总数</label><span id="vehiclesum">2000</span><label>辆</label>
                 <label class="ml150">运输线路</label><span id="routesum">200</span><label>条</label>
             </div>
             <div class="fenbu_map">

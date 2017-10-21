@@ -3,7 +3,6 @@ package com.tianrui.web.action.new_;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,6 @@ import com.tianrui.api.req.front.vehicle.VechicleRegVehicleTicketAuthReq;
 import com.tianrui.api.resp.front.vehicle.VehicleRegVehicleDetailResp;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.admin.bean.Users;
 import com.tianrui.web.util.SessionManager;
 
 /***
