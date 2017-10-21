@@ -120,6 +120,7 @@ function init(pageNo){
 			}
 		}
 	});
+	planCount();
 }
 
 function innerHml(data){

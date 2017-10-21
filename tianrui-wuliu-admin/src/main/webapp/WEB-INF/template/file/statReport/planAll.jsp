@@ -241,7 +241,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/planAll.js?0935"></script>
+		src="/resources/js/statReport/planAll.js?0936"></script>
 
 	<script type="text/javascript">
 		$(function() {

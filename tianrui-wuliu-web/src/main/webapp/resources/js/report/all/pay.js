@@ -23,6 +23,7 @@ function init(pageNo,type){
 			}
 		}
 	});
+	count();
 }
 function count(){
 	$.ajax({

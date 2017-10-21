@@ -160,6 +160,7 @@ function init(pageNo){
 			}
 		}
 	});
+	 billCount();
 }
 
 function innerHml(data){

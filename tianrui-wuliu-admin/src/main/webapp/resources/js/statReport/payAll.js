@@ -138,6 +138,7 @@ function init(pageNo){
 			}
 		}
 	});
+	count();
 }
 
 function innerHml(data){

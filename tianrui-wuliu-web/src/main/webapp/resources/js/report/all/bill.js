@@ -21,6 +21,7 @@ function init(pageNo,type){
 			}
 		}
 	});
+	billCount();
 }
 function billCount(){
 	$.ajax({

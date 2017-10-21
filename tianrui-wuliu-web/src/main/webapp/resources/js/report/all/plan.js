@@ -51,6 +51,7 @@ function init(pageNo,type){
 			}
 		}
 	});
+	planCount();
 }
 
 $('.exportReport').off('click').on('click',function(){
