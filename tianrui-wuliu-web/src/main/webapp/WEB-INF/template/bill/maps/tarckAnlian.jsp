@@ -109,7 +109,7 @@
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					position(rs.data,"blue");
+					position(rs.data,"blue","卫星获取");
 				}else{
 					alert(rs.error);
 				}
@@ -126,7 +126,7 @@
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					position(rs.data,"red");
+					position(rs.data,"red","手机获取");
 				}else{
 					alert(rs.error);
 				}
@@ -135,7 +135,7 @@
 				
 	}
 	
-	function position(data,colour){
+	function position(data,colour,ltype){
 		var list = data;
 		var points = new Array();
 		var lon;
@@ -147,7 +147,7 @@
 		for (var a = 0; a < list.length; a++) {
 			lon = list[a].lng;
 			lat = list[a].lat;
-			addMarker(lon,lat);
+			addMarker(lon,lat,list[a].createtime,ltype);
 				var thePoint1 = new BMap.Point(lon,lat);
 				nlon = lon;
 				nlat = lat
@@ -162,19 +162,33 @@
 	}
 	
 	//创建marker
-	function addMarker(lng, lat){
+	function addMarker(lng, lat, time, ptype){
 		    var point = new BMap.Point(lng,lat);
-		    var iconImg = createIcon();
+		    var iconImg = createIcon(ptype);
 		    var marker = new BMap.Marker(point,{icon:iconImg});
-		    
+		    var ltime = "<br>";
+		    if(time){
+			    ltime = "<br>跟踪时间："+ new Date(time).format("yyyy-MM-dd hh:mm:ss")
+			    }
 		    var _marker = marker;
 					_marker.addEventListener("click",function(){
-					    alert(lng+" |  "+lat);
+						 openInfo(lng,lat, ptype +"<br>车牌号：${vehicle}<br>司机：${driver}<br>司机电话：${drivertel}<br>经度："+lng+"<br>纬度："+lat+ltime);
 				    });
 		    
 		    map.addOverlay(marker);
 	}
-	
+
+	var opts = {
+			width : 250,     // 信息窗口宽度
+			height: 120,     // 信息窗口高度
+			title : "轨迹信息" , // 信息窗口标题
+			enableMessage:true//设置允许信息窗发送短息
+		   };
+	function openInfo(lng,lat,addr){
+		var point = new BMap.Point(lng, lat);
+		var infoWindow = new BMap.InfoWindow(addr,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	}
 	/**
 	 * 画线
 	 * @param bMap
@@ -193,8 +207,11 @@
 	}
 	
 	//创建一个Icon
-	function createIcon(){
+	function createIcon(ptype){
 		var m = "bposition.png";
+		if(ptype == "手机获取"){
+			m = "bposition_r.png";
+		}
 		var icon ;
 			icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
 		        	new BMap.Size(100, 80), 

@@ -109,7 +109,7 @@
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					position(rs.data,"blue");
+					position(rs.data,"blue","卫星获取");
 				}else{
 					alert(rs.error);
 				}
@@ -125,7 +125,7 @@
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					position(rs.data,"red");
+					position(rs.data,"red","手机获取");
 				}else{
 					alert(rs.error);
 				}
@@ -134,7 +134,7 @@
 				
 	}
 	
-	function position(data,colour){
+	function position(data,colour,ptype){
 		var list = data;
 		var points = new Array();
 		var lon;
@@ -149,36 +149,45 @@
 		for (var a = 0; a < list.length; a++) {
 			lon = list[a].lon/1000000;
 			lat = list[a].lat/1000000;
-			addMarker(lon,lat,list[a].status);
-				var thePoint1 = new BMap.Point(lon,lat);
-				if(2<=billStatus<5){
-					if(a<(length-1)){
-						nlon = lon;
-						nlat = lat
-						points.push(thePoint1);
-					}
-				}if(billStatus>=5){
-					nlon = lon;
-					nlat = lat
-					points.push(thePoint1);
-				}
+			addMarker(lon,lat,list[a].status,list[a].createtime,ptype);
+			var thePoint1 = new BMap.Point(lon,lat);
+			if(list[a].status != "1" && list[a].status != "4"){
+				nlon = lon;
+				nlat = lat;
+				points.push(thePoint1);
+			}
 		}
 		map.centerAndZoom(new BMap.Point(nlon, nlat),14);
 		drawPolyline(map, points,colour);
 	}
 	
 	//创建marker
-	function addMarker(lng, lat, status){
+	function addMarker(lng, lat, status, time ,ptype){
 		    var point = new BMap.Point(lng,lat);
-		    var iconImg = createIcon(status);
+		    var iconImg = createIcon(status,ptype);
 		    var marker = new BMap.Marker(point,{icon:iconImg});
-		    
+		    var ltime = "<br>";
+		    if(time){
+		    ltime = "<br>跟踪时间："+ new Date(time).format("yyyy-MM-dd hh:mm:ss")
+		    }
 		    var _marker = marker;
 					_marker.addEventListener("click",function(){
-					    alert(lng+" |  "+lat);
+						 openInfo(lng,lat, ptype +"<br>车牌号：${vehicle}<br>司机：${driver}<br>司机电话：${drivertel}<br>经度："+lng+"<br>纬度："+lat+ltime);
 				    });
 		    
 		    map.addOverlay(marker);
+	}
+	
+	var opts = {
+			width : 250,     // 信息窗口宽度
+			height: 120,     // 信息窗口高度
+			title : "轨迹信息" , // 信息窗口标题
+			enableMessage:true//设置允许信息窗发送短息
+		   };
+	function openInfo(lng,lat,addr){
+		var point = new BMap.Point(lng, lat);
+		var infoWindow = new BMap.InfoWindow(addr,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
 	}
 	
 	/**
@@ -199,7 +208,7 @@
 	}
 	
 	//创建一个Icon
-	function createIcon(status){
+	function createIcon(status,ptype){
 		var m = "bposition"+status+".png";
 		var icon ;
 		if(status!=""){
@@ -208,6 +217,9 @@
 		        	{anchor: new BMap.Size(40, 40),
 	        		 imageOffset: new BMap.Size(20, -3)});
 		}else{
+			if(ptype == "手机获取"){
+				m = "bposition_r.png";
+			}
 			icon = new BMap.Icon("${trRoot}/tianrui/images/"+m, 
 		        	new BMap.Size(100, 80), 
 		        	{anchor: new BMap.Size(40, 40),

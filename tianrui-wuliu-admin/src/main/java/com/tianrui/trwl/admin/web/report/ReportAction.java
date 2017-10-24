@@ -27,7 +27,9 @@ import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
 import com.tianrui.api.resp.admin.AnlianBillReportResp;
 import com.tianrui.api.resp.admin.OrganizationResp;
+import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
+import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.VehicleGpsZjxl;
@@ -87,12 +89,25 @@ public class ReportAction {
 	   return new ModelAndView(excilUtil, map); 
 	}
 	@RequestMapping("map")
-	public ModelAndView map(String id,String type){
+	public ModelAndView map(String id,String type) throws Exception{
 		ModelAndView view = new ModelAndView();
 		view.addObject("id", id);
 		if(StringUtils.equals("w", type)){
+			WaybillQueryReq billId = new WaybillQueryReq();
+			billId.setId(id);
+			WaybillResp resp = billService.queryWayBill(billId);
 			view.setViewName("/file/map/bill_map");
+			view.addObject("vehicle", resp.getVehicleno());
+			view.addObject("driver", resp.getDrivername());
+			view.addObject("drivertel", resp.getDrivertel());
 		}else{
+			AnlianBillFindReq bill = new AnlianBillFindReq();
+			bill.setId(id);
+			Result rs = anlianBillService.findByid(bill);
+			AnlianBillResp resp = (AnlianBillResp) rs.getData();
+			view.addObject("vehicle", resp.getCph());
+			view.addObject("driver", resp.getDrivername());
+			view.addObject("drivertel", resp.getDrivertel());
 			view.setViewName("/file/map/anlian_bill_map");
 		}
 		return view;

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.WaybillQueryReq;
+import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
 import com.tianrui.api.resp.front.position.PositionResp;
@@ -68,9 +69,15 @@ public class BillAppointAction {
 	}
 	
 	@RequestMapping("track")
-	public ModelAndView track(HttpServletRequest request,String id){
+	public ModelAndView track(HttpServletRequest request,String id) throws Exception{
 		ModelAndView model = new ModelAndView("bill/maps/tarck");
 		model.addObject("bid", id);
+		WaybillQueryReq billId = new WaybillQueryReq();
+		billId.setId(id);
+		WaybillResp resp = billService.queryWayBill(billId);
+		model.addObject("vehicle", resp.getVehicleno());
+		model.addObject("driver", resp.getDrivername());
+		model.addObject("drivertel", resp.getDrivertel());
 		if( StringUtils.isBlank(id) ){
 			model.setViewName("/error/msg");
 		}
@@ -78,9 +85,16 @@ public class BillAppointAction {
 	}
 	
 	@RequestMapping("tarckAnlian")
-	public ModelAndView mainAnlian(HttpServletRequest request,String id){
+	public ModelAndView mainAnlian(HttpServletRequest request,String id) throws Exception{
 		ModelAndView model = new ModelAndView("bill/maps/tarckAnlian");
 		model.addObject("bid", id);
+		AnlianBillFindReq bill = new AnlianBillFindReq();
+		bill.setId(id);
+		Result rs = anlianBillService.findByid(bill);
+		AnlianBillResp resp = (AnlianBillResp) rs.getData();
+		model.addObject("vehicle", resp.getCph());
+		model.addObject("driver", resp.getDrivername());
+		model.addObject("drivertel", resp.getDrivertel());
 		if( StringUtils.isBlank(id) ){
 			model.setViewName("/error/msg");
 		}
