@@ -32,7 +32,7 @@ $("#personal_button").on("click",function(){
 		return;
 	}
 	if($("#driverCardRegDate_req").val()==""){
-		alert("请选择驾驶证初始日期");
+		alert("请选择有效起始日期");
 		return;
 	}
 	if($("#driverCardUsefullife_req").val()==""){

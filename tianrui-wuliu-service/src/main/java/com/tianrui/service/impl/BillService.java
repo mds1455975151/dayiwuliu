@@ -330,7 +330,7 @@ public class BillService implements IBillService{
 								bill.setType(Byte.valueOf("2"));
 							}else{
 								//计划编码
-								bill.setWaybillno(codeGenDao.codeGen(2));
+								//bill.setWaybillno(codeGenDao.codeGen(2));
 								bill.setType(Byte.valueOf("0"));
 							}
 							//车主 货主信息
@@ -431,6 +431,8 @@ public class BillService implements IBillService{
 					alreq.setSize(req.getWeight());
 					alreq.setWeight(req.getWeight());
 					alreq.setVolume("10");
+					//计量单位
+					alreq.setDesc1(item.getDesc1());
 					//车辆信息
 					alreq.setVehicleid(item.getVehicleid());
 					//司机信息

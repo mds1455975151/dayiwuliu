@@ -712,7 +712,8 @@ public class AdminMemberAction {
 			String vehiclePrefix,
 			String vehicleNo,
 			String massage,
-			String memberid) throws Exception{
+			String memberid,
+			HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
 		if(id==null||"".equals(id)){
 			rs.setCode("1");
@@ -729,12 +730,14 @@ public class AdminMemberAction {
 			rs.setError("数据不能为空");
 			return rs;
 		}
-		
+		Users user = SessionManager.getSessionMember(request);
 		MemberVehicleReq req = new MemberVehicleReq();
 		req.setId(id);
 		req.setStatus(type);
 		req.setMemo(massage);
 		req.setAudittime(new Date().getTime());
+		req.setModifier(user.getAccount());
+		req.setModifyTime(System.currentTimeMillis());
 		//修改车辆认证状态
 		rs = memberVehicleService.updateByPrimaryKeySelective(req);
 		return rs;

@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                <label>出生日期：</label><span>${memberInfo.birthday }</span><br>
                                <label>初次领证日期：</label><span>${memberInfo.firstlicens }</span><br>
                                <label>发证机关：</label><span>${memberInfo.licenceorg }</span><br>
-                               <label>驾驶证初始日期：</label><span>${memberInfo.starttime }</span><br>
+                               <label>有效起始日期：</label><span>${memberInfo.starttime }</span><br>
                                <label>有效年限：</label><span>${memberInfo.usefullife }</span><br>
                                <label>身份证地址：</label><span>${memberInfo.idcardaddress }</span><br>
                                

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.IBillService;
 import com.tianrui.api.intf.ISignerBillService;
+import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillSignerReq;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.req.front.bill.SignerBillFindReq;
@@ -60,6 +61,17 @@ public class BillSignerAction {
 		req.setId(id);
 		WaybillResp resp = billService.queryWayBill(req);
 		rs.setData(resp);
+		return rs;
+	}
+	
+	//查询安联运单详情
+	@RequestMapping("findAlbillDetail")
+	@ResponseBody
+	public Result findAlbillDetail(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		AnlianBillFindReq req = new AnlianBillFindReq();
+		req.setId(id);
+		rs = anlianBillService.findByid(req);
 		return rs;
 	}
 	

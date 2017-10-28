@@ -74,7 +74,7 @@
 					</div>
 					
 					<div class="mycar_dtsolo">
-						<label>驾驶证初始日期:${member.starttime }</label>
+						<label>有效起始日期:${member.starttime }</label>
 						
 					</div>
 					

@@ -206,7 +206,7 @@ function driver_test(){
 		return false;
 	}
 	if($("#driverCardRegDate_req").val()==""){
-		alert("驾驶证初始日期不能为空");
+		alert("有效起始日期不能为空");
 		return false;
 	}
 	if($("#driverCardUsefullife_req").val()==""){

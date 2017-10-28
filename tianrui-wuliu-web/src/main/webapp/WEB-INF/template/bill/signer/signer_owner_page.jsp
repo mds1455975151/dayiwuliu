@@ -192,11 +192,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                    </div>
 		                </div>
 		            </div>
-                    <p><label>签收重量：</label>
+                    <p><label>签收量：</label>
                     <input type="text" id="weighttext">
                     <input type="hidden" id="bill_id">
                     <input type="hidden" id="pickupweight">
                     <input type="hidden" id="signweight">
+                    <input type="hidden" id="bill_desc1">
                     <label id="stateWeightLabel" style="padding-left: 50px;"></label></p>
                 </div>
             </div>
@@ -248,13 +249,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                </div>
 		            </div>
                     <p>
-                    <label>提货重量：</label>
+                    <label>提货量：</label>
                     <input type="text" id="al_pickupweight">
-                    <label>卸货重量：</label>
+                    <label>卸货量：</label>
                     <input type="text" id="al_signweight">
                     </p>
-                    <p><label>签收重量：</label>
+                    <p><label>签收量：</label>
                     <input type="text" id="al_trueweight">
+                    <span id="alBill_dw"></span>
                     <input type="hidden" id="al_signBill_id">
                     </p>
                 </div>

@@ -153,8 +153,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
                 </div>
                 <div>
-                    <label class="mr20"> 实际运输量：${complete }吨</label>
-                    <label> 实际剩余量：${remain }吨</label><br>
+                    <label class="mr20"> 实际运输量：${complete }${plan.measure}</label>
+                    <label> 实际剩余量：${remain }${plan.measure}</label><br>
                    <label> 本次发货总量：<span id="sum_weight"></span>${plan.measure}</label>
                 </div>
                 <div class="bill_fabu">

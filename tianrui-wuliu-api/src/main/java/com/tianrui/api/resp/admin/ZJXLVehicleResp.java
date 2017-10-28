@@ -105,7 +105,7 @@ public class ZJXLVehicleResp extends BaseResp{
 
 		 public String getCreatetimes() {
 				if(createtime != null){
-					SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					createtimes = fmt.format(new Date(createtime));
 				}
 		    	return createtimes;

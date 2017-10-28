@@ -35,9 +35,17 @@ public class AnlianBillSaveReq {
 	
 	private String ownerid;
 	private String venderid;
+	/** 计量单位*/
+	private String desc1;
 	
 	
 	
+	public String getDesc1() {
+		return desc1;
+	}
+	public void setDesc1(String desc1) {
+		this.desc1 = desc1;
+	}
 	public String getPlanid() {
 		return planid;
 	}

@@ -257,6 +257,7 @@ function billSign_(id,type){
 	$("#al_signweight").val("");
 	$("#signimgurlReq_str").val("");
 	$("#al_trueweight").val("");
+	$("#bill_desc1").val("");
 	if(type=="dy"){
 		//大易运单签收
 		$.ajax({
@@ -272,12 +273,22 @@ function billSign_(id,type){
 				$("#pickupweight").val(data.pickupweight);
 				$("#signweight").val(data.signweight);
 				$("#bill_id").val(id);
+				$("#bill_desc1").val(data.desc1);
 				$("#pickupweight_li").click();
 			}
 		});
 		$("#signModal").modal();
 	}else if(type=="al"){
 		//安联运单签收
+		$.ajax({
+			url:"/trwuliu/billSigner/findAlbillDetail",
+			type:"POST",
+			data:{"id":id},
+			success:function(ret){
+				var data = ret.data;
+				$("#alBill_dw").html(data.dw);
+			}
+		});
 		$("#al_signBill_id").val(id)
 		$("#anlian_signModal").modal();
 	}
@@ -345,14 +356,14 @@ $("#pickupweight_li").on("click",function(){
 	$("#stateWeightLabel").html("");
     var pick =	$("#pickupweight").val();
 	if($("#pickupweight").val() != ""){
-		$("#stateWeightLabel").html("提货量："+parseFloat(pick).toFixed(2)+"吨");
+		$("#stateWeightLabel").html("提货量："+parseFloat(pick).toFixed(2)+$("#bill_desc1").val());
 	}
 });
 $("#signweight_li").on("click",function(){
 	$("#stateWeightLabel").html("");
 	var sign = $("#signweight").val();
 	if($("#signweight").val() != ""){
-		$("#stateWeightLabel").html("卸货量："+parseFloat(sign).toFixed(2)+"吨");
+		$("#stateWeightLabel").html("卸货量："+parseFloat(sign).toFixed(2)+$("#bill_desc1").val());
 	}
 });
 

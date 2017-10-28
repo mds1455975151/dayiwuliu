@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			                    <input type="text" name="driverCardLicenceorg" id="driverCardLicenceorg_req" placeholder="请输入驾驶证发证机关">
 			                </div>
 			                <div class="reg_tel">
-			                    <label><i style="color: red">*</i>驾驶证初始日期</label>
+			                    <label><i style="color: red">*</i>有效起始日期</label>
 			                    <input type="text" name="driverCardRegDate" id="driverCardRegDate_req"
 			                    	onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择日期"/>

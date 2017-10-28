@@ -108,7 +108,7 @@ $("#perAuthen_button").click(function() {
 		return;
 	}
 	if(starttime==""){
-		$("#massage_starttime").html("驾驶证初始日期不能为空");
+		$("#massage_starttime").html("有效起始日期不能为空");
 		$('#per_starttime').focus();
 		return;
 	}
@@ -155,7 +155,7 @@ $("#perAuthen_button").click(function() {
 		return;
 	}
 	if(!regexp.test(starttime)){
-		$("#massage_starttime").html("驾驶证初始日期格式有误");
+		$("#massage_starttime").html("有效起始日期格式有误");
 		$('#per_starttime').focus();
 		return;
 	}

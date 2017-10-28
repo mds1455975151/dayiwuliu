@@ -110,9 +110,9 @@
 												<h4>${bill.receivertel }</h4>
 											</td>
 											<td>
-											<h4>计划重量:${bill.weight }${bill.desc1}</h4>
+											<h4>计划量:${bill.weight }${bill.desc1}</h4>
 											<c:if test="${bill.status==6 }">
-											<h4>实际重量:${bill.trueweight }${bill.desc1}</h4>
+											<h4>实际量:${bill.trueweight }${bill.desc1}</h4>
 											</c:if>
 											</td>
 										</tr>

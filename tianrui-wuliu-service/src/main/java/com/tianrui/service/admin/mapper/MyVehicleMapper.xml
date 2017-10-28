@@ -24,8 +24,8 @@
 		i.companyname companyname,
 		i.companytel companytel,
 		m.cellphone cellphone,
-		m.auditname auditname,
-		m.audittime audittime
+		mv.modifier auditname,
+		mv.modifytime audittime
 	FROM
 		wuliu_member_vehicle mv
 		LEFT JOIN member_info i ON mv.memberid = i.id
@@ -67,10 +67,10 @@
         and m.auditname like "%" #{auditname,jdbcType=VARCHAR} "%"
       </if>
       <if test="starttimes != null and starttimes != ''">
-	   		and m.audittime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+	   		and mv.modifytime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
     	</if>
     	<if test="endtimes != null and endtimes != '' ">
-			and m.audittime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+			and mv.modifytime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
 		</if>
       order by mv.createtime desc
     </where>
@@ -145,10 +145,10 @@
         and m.auditname like "%" #{auditname,jdbcType=VARCHAR} "%"
       </if>
        <if test="starttimes != null and starttimes != ''">
-	   		and m.audittime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+	   		and mv.modifytime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
     	</if>
     	<if test="endtimes != null and endtimes != '' ">
-			and m.audittime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+			and mv.modifytime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
 		</if>
     </where>
   </select>

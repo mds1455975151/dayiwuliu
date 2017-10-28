@@ -220,7 +220,11 @@ public class AnlianBillService implements IAnlianBillService{
 		//运费
 		shipment.setYf(String.valueOf(yf));
 		//计费方式 10-重量 20-体积 默认按重量计算
-		shipment.setJffs("10");
+		if(StringUtils.equals("吨", req.getDesc1())){
+			shipment.setJffs("10");
+		}else if(StringUtils.equals("立方米", req.getDesc1())){
+			shipment.setJffs("20");
+		}
 		//始发地
 		shipment.setQycs(sfd.getOc());
 		//目的城市
@@ -259,7 +263,7 @@ public class AnlianBillService implements IAnlianBillService{
 		//数量
 		lines.setSl(req.getWeight());
 		//单位
-		lines.setDw("吨");
+		lines.setDw(req.getDesc1());
 		
 		FileOrgCargo orgcargo = fileOrgCargoMapper.selectByPrimaryKey(plan.getCargoid());
 		FileCargo cargo = fileCargoMapper.selectByPrimaryKey(orgcargo.getCargoid());
