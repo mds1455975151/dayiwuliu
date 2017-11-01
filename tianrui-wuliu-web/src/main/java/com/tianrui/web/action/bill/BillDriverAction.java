@@ -141,7 +141,7 @@ public class BillDriverAction {
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setStatus("2");
 			req.setCurruId(currUser.getId());
-			rs=billService.pickupConfirm(req);
+			rs=billService.pickupConfirm(req,request);
 		}
 		return rs;
 	}
@@ -171,7 +171,7 @@ public class BillDriverAction {
 			MemberVo currUser =SessionManager.getSessionMember(request);
 			req.setStatus("3");
 			req.setCurruId(currUser.getId());
-			rs=billService.dischargeConfirm(req);
+			rs=billService.dischargeConfirm(req,request);
 		}
 		return rs;
 	}

@@ -69,6 +69,7 @@ public class NCPushSchedule {
 	/**
      * @annotation 定时查询支付状态和金额并回写
      */
+//	@Scheduled(cron="0/5 * *  * * ? ")
 	@Scheduled(cron="0 0/3 *  * * ? ")
 	public void callBackPayInvoicePayStatus(){
 		Long st = new Date().getTime();

@@ -57,14 +57,10 @@
 		<property name="SYSTEM_PUSH_STATUS" value="${system.push.status}"></property>
 		<property name="SYSTEM_SHIPPER" value="${system.shipper}"></property>
 		<property name="JTB_PUT_URL" value="${jtb.put.url}"></property>
-		
 		<property name="WEIXIN_APPID" value="${weixin.appid}"></property>
 		<property name="WEIXIN_SECRET" value="${weixin.secret}"></property>
-		
 		<property name="ANLIAN_TIME" value="${anlian.time}"></property>
-		
 		<property name="ZJXL_STATIC" value="${zjxl.static}"></property>
-		
 	</bean>
      
      <import resource="applicationContext-db.xml"/>

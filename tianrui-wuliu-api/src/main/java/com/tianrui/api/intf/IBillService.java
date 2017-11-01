@@ -2,6 +2,8 @@ package com.tianrui.api.intf;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.bill.BillBankReq;
 import com.tianrui.api.req.front.bill.WaybillConfirmReq;
@@ -59,13 +61,13 @@ public interface IBillService {
 	/**司机拒绝确认*/
 	public Result refuseConfirm(WaybillConfirmReq req)throws Exception;
 	/**司机待装货*/
-	public Result pickupConfirm(WaybillConfirmReq req) throws Exception;
+	public Result pickupConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception;
 	/**司机发车确认*/
 	public Result departureConfirm(WaybillConfirmReq req)throws Exception;
 	/**司机到达确认*/
 	public Result arrivedConfirm(WaybillConfirmReq req)throws Exception;
 	/**司机卸货完成确认*/
-	public Result dischargeConfirm(WaybillConfirmReq req)throws Exception;
+	public Result dischargeConfirm(WaybillConfirmReq req,HttpServletRequest request)throws Exception;
 	/**司机删除*/
 	public Result driverdelete(WaybillConfirmReq req)throws Exception;
 	/** 更换银行卡*/

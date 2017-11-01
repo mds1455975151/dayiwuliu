@@ -3,6 +3,8 @@ package com.tianrui.quartz.anlian;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -86,9 +88,11 @@ public class AnlianBillPosition {
     }
 	
 	/** 每五分钟执行定时*/
-	@Scheduled(cron="0 0/5 *  * * ? ")
+//	@Scheduled(cron="0 0/5 *  * * ? ")
+	@Scheduled(cron="0/5 * *  * * ? ")
     public void getncPay() {  
-    	Long st = new Date().getTime();
+		HttpServletRequest request = null ;
+		Long st = new Date().getTime();
     	logger.info("定时器[AnlianBillPosition]启动.时间是 :" + DateUtil.getDateString());  
         try {
         	AnlianBillFindReq req = new AnlianBillFindReq();
@@ -98,6 +102,11 @@ public class AnlianBillPosition {
         	List<AnlianBillResp> list = anlianBillService.findAll(req);
         	int a = 0;
         	for(AnlianBillResp resp : list){
+        		try {
+					crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
+				} catch (Exception e) {
+					logger.info("开启中交车辆状态失败"); 
+				}
         		a = a+1;
         		logger.info("执行数据总量[{}],执行到第[{}]条:",list.size(),a); 
         		if(!StringUtils.contains(resp.getDesc4(),"已到货")){
@@ -119,7 +128,7 @@ public class AnlianBillPosition {
         					upt.setPtBegintime(System.currentTimeMillis());
         					upt.setPtEndtime(System.currentTimeMillis());
         					try {
-								crossVehicleService.updateLogoStatus(resp.getCph(), "1");
+								crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
 							} catch (Exception e) {
 								logger.info("开启中交车辆状态失败"); 
 							}
@@ -132,7 +141,7 @@ public class AnlianBillPosition {
         				upt.setDesc4(rs.getError());
         				if(StringUtils.equals("配载单已到货!", rs.getError())){
         					try {
-								crossVehicleService.updateLogoStatus(resp.getCph(), "0");
+								crossVehicleService.updateLogoStatus(request,resp.getCph(), "0",resp.getHpmc());
 							} catch (Exception e) {
 								logger.info("关闭中交车辆状态失败"); 
 							}

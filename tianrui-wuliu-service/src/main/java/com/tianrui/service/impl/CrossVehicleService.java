@@ -3,6 +3,9 @@ package com.tianrui.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -26,6 +29,7 @@ import com.tianrui.service.mapper.WuliuVehicleMapper;
 import com.tianrui.service.mapper.ZJXLVehicleMapper;
 import com.tianrui.service.util.DemoMain;
 import com.tianrui.service.util.DemoReturnBean;
+import com.tianrui.service.util.VehicleXmlSetUtil;
 
 @Service
 public class CrossVehicleService implements ICrossVehicleService{
@@ -40,23 +44,33 @@ public class CrossVehicleService implements ICrossVehicleService{
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	WuliuVehicleMapper wuliuVehicleMapper;
-	
-
+	@SuppressWarnings("unused")
 	@Override
-	public Result updateLogoStatus(String vehicleNo, String type) {
+	public Result updateLogoStatus(HttpServletRequest request,String vehicleNo, String type, String cargo) {
 		Result rs = Result.getSuccessResult();
-		ZJXLVehicle query = new ZJXLVehicle();
-		query.setVehicleno(vehicleNo);
-		List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(query);
-		if(list.size()==1){
-			ZJXLVehicle upt = new ZJXLVehicle();
-			upt.setId(list.get(0).getId());
-			upt.setVehiclelogo(type);
-			zjxlVehicleMapper.updateByPrimaryKeySelective(upt);
-		}else {
-			rs.setCode("1");
-			rs.setError("车辆未添加");
+		String path = "";
+		if(request == null){
+			path = "veh_cargo_set.xml";
+		}else{
+			String temp = request.getSession().getServletContext().getRealPath("/");
+			path = temp+"veh_cargo_set.xml";
 		}
+		if(VehicleXmlSetUtil.confirmType(path, "vehicle", vehicleNo)&&VehicleXmlSetUtil.confirmType(path, "cargo", cargo)){
+			ZJXLVehicle query = new ZJXLVehicle();
+			query.setVehicleno(vehicleNo);
+			List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(query);
+			if(list.size()==1){
+				ZJXLVehicle upt = new ZJXLVehicle();
+				upt.setId(list.get(0).getId());
+				upt.setVehiclelogo(type);
+				zjxlVehicleMapper.updateByPrimaryKeySelective(upt);
+			}else {
+				rs.setCode("1");
+				rs.setError("车辆未添加");
+			}
+		}else{
+			System.out.println("白名单校验未通过");
+		};
 		return rs;
 	}
 

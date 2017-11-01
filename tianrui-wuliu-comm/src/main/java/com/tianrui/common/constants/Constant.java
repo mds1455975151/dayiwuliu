@@ -62,7 +62,7 @@ public class Constant {
     public static String WEIXIN_APPID;
     //微信secret
     public static String WEIXIN_SECRET;
-   
+    
     //请求短信接口的频率 5分钟
     public static Integer GET_VCODE_FREE;
     //规定时间内最多请求次数 20次
@@ -345,4 +345,5 @@ public class Constant {
 	public static void setZJXL_STATIC(String zJXL_STATIC) {
 		ZJXL_STATIC = zJXL_STATIC;
 	}
+
 }

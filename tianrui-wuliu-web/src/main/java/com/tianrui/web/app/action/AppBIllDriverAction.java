@@ -1,6 +1,8 @@
 package com.tianrui.web.app.action;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,14 +142,14 @@ public class AppBIllDriverAction {
 	@ApiParamRawType(WaybillConfirmReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult pickupConfirm(AppParam<WaybillConfirmReq> appParam) throws Exception{
+	public AppResult pickupConfirm(AppParam<WaybillConfirmReq> appParam,HttpServletRequest request) throws Exception{
 		//获取当前用户
 		String uId =appParam.getHead().getId();
 		//拼装查询条件
 		WaybillConfirmReq req =appParam.getBody();
 		req.setStatus("2");
 		req.setCurruId(uId);
-		Result rs=billService.pickupConfirm(req);
+		Result rs=billService.pickupConfirm(req,request);
 		return AppResult.valueOf(rs);
 	}
 	
@@ -186,7 +188,7 @@ public class AppBIllDriverAction {
 	@ApiParamRawType(WaybillConfirmReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult dischargeConfirm(AppParam<WaybillConfirmReq> appParam) throws Exception{
+	public AppResult dischargeConfirm(AppParam<WaybillConfirmReq> appParam,HttpServletRequest request) throws Exception{
 		//获取当前用户
 		String uId =appParam.getHead().getId();
 		
@@ -194,7 +196,7 @@ public class AppBIllDriverAction {
 		WaybillConfirmReq req =appParam.getBody();
 		req.setCurruId(uId);
 		req.setStatus("3");
-		Result rs=billService.dischargeConfirm(req);
+		Result rs=billService.dischargeConfirm(req,request);
 		return AppResult.valueOf(rs);
 	}
 	//修改磅单

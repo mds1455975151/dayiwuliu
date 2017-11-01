@@ -2,6 +2,8 @@ package com.tianrui.api.intf;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
@@ -77,5 +79,5 @@ public interface ICrossVehicleService {
 	public Result updateVehicleLogo(String vehicleNo);
 	
 	/** 修改中交车辆状态  type 1-开启 2-关闭*/
-	public Result updateLogoStatus(String vehicleNo,String type);
+	public Result updateLogoStatus(HttpServletRequest request,String vehicleNo,String type,String cargo);
 }

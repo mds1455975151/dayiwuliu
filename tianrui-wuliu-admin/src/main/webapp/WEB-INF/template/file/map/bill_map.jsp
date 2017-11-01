@@ -136,6 +136,8 @@
 			lat = list[a].lat/1000000;
 			addMarker(lon,lat,list[a].status,list[a].createtime,ptype);
 			var thePoint1 = new BMap.Point(lon,lat);
+			nlon = lon;
+			nlat = lat;
 			if(list[a].status == ""){
 				nlon = lon;
 				nlat = lat;

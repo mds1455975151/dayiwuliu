@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1102,7 +1104,7 @@ public class BillService implements IBillService{
 	}
 
 	@Override
-	public Result dischargeConfirm(WaybillConfirmReq req) throws Exception {
+	public Result dischargeConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
@@ -1119,10 +1121,11 @@ public class BillService implements IBillService{
 							rs =fileUploadService.uploadImg(uploadreq);
 						}else if(req.getFile() != null){
 							rs = iFileService.uploadByteImg(req.getFile(),req.getCurruId());
-						}else{
-							rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
-							return rs;
 						}
+//						else{
+//							rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
+//							return rs;
+//						}
 						if(rs!=null &&StringUtils.equals(rs.getCode(), "000000") && StringUtils.isNotBlank(rs.getData().toString())){
 							Long timestape = System.currentTimeMillis();
 							Bill update =new Bill();
@@ -1168,7 +1171,7 @@ public class BillService implements IBillService{
 							rs.setCode("000000");
 							rs.setData("操作成功");
 							try {
-								crossVehicleService.updateLogoStatus(db.getVehicleno(), "0");
+								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "0",db.getCargoname());
 							} catch (Exception e) {
 								System.out.println("关闭中交车辆状态失败");
 							}
@@ -1206,7 +1209,7 @@ public class BillService implements IBillService{
 	}
 	
 	@Override
-	public Result pickupConfirm(WaybillConfirmReq req) throws Exception {
+	public Result pickupConfirm(WaybillConfirmReq req,HttpServletRequest request) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
@@ -1263,7 +1266,7 @@ public class BillService implements IBillService{
 							rs.setCode("000000");
 							rs.setData("操作成功");
 							try {
-								crossVehicleService.updateLogoStatus(db.getVehicleno(), "1");
+								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "1",db.getCargoname());
 							} catch (Exception e) {
 								System.out.println("开启中交车辆状态失败");
 							}

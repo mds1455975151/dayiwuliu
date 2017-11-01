@@ -655,6 +655,11 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					obj.put("billIds", payInvoiceMsg.getId());
 					obj.put("payMent", "1");
 					postData.add(obj);
+					if(postData.size()>=20){
+						//超过20条数据
+						postDataPush(postData);
+						postData.clear();
+					}
 				}
 			}
 			//查询车主
@@ -665,9 +670,18 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 					obj.put("billIds", payInvoiceMsg.getId());
 					obj.put("payMent", "2");
 					postData.add(obj);
+					if(postData.size()>=20){
+						//超过20条数据
+						postDataPush(postData);
+						postData.clear();
+					}
 				}
 			}
 		}
+		postDataPush(postData);
+	}
+	
+	protected void postDataPush(List<JSONObject> postData) {
 		if (CollectionUtils.isNotEmpty(postData)) {
 			//回写支付状态
 			logger.info("NC请求数据："+postData.toString());
