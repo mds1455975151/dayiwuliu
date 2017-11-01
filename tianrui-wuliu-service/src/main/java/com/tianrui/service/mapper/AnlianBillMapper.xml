@@ -115,6 +115,9 @@
     	<if test="endtimes != null and endtimes != '' ">
 			and createtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
 		</if>
+		<if test="createtime != null and createtime != ''">
+			and createtime <![CDATA[>=]]> #{createtime,jdbcType=BIGINT}
+		</if>
     </where>
   </select>
   
@@ -154,6 +157,9 @@
     	</if>
     	<if test="endtimes != null and endtimes != '' ">
 			and createtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+		</if>
+		<if test="createtime != null and createtime != ''">
+			and createtime <![CDATA[>=]]> #{createtime,jdbcType=BIGINT}
 		</if>
     </where>
     order by createtime desc

@@ -88,8 +88,7 @@ public class AnlianBillPosition {
     }
 	
 	/** 每五分钟执行定时*/
-//	@Scheduled(cron="0 0/5 *  * * ? ")
-	@Scheduled(cron="0/5 * *  * * ? ")
+	@Scheduled(cron="0 0/5 *  * * ? ")
     public void getncPay() {  
 		HttpServletRequest request = null ;
 		Long st = new Date().getTime();
