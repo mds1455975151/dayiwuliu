@@ -30,6 +30,10 @@ public class PayInvoiceVenderPush {
 	private String bankCardId;
 	//银行类别ID
 	private String bankTypeId;
+	//收货方组织编码
+	private String consigneeNO;
+	//收货方组织名称
+	private String consigneeName;
 	
 	public String getId() {
 		return id;
@@ -102,6 +106,19 @@ public class PayInvoiceVenderPush {
 	}
 	public void setBankCardId(String bankCardId) {
 		this.bankCardId = bankCardId;
+	}
+	
+	public String getConsigneeNO() {
+		return consigneeNO;
+	}
+	public void setConsigneeNO(String consigneeNO) {
+		this.consigneeNO = consigneeNO;
+	}
+	public String getConsigneeName() {
+		return consigneeName;
+	}
+	public void setConsigneeName(String consigneeName) {
+		this.consigneeName = consigneeName;
 	}
 	@Override
 	public String toString() {

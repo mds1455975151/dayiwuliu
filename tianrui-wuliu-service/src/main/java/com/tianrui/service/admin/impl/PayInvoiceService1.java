@@ -1,6 +1,7 @@
 package com.tianrui.service.admin.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,16 +18,25 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tianrui.api.admin.intf.IMerchantService;
+import com.tianrui.api.admin.intf.IOrganizationService;
+import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.intf.IMessageService;
+import com.tianrui.api.req.admin.OrganizationReq;
 import com.tianrui.api.req.admin.PayInvoiceAuditUpdate;
 import com.tianrui.api.req.admin.PayInvoiceDriverPush;
 import com.tianrui.api.req.admin.PayInvoiceNcCheckParams;
 import com.tianrui.api.req.admin.PayInvoiceReq;
 import com.tianrui.api.req.admin.PayInvoiceVenderPush;
+import com.tianrui.api.req.admin.merchant.MerchantReq;
+import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.admin.PayInvoiceAuditVo;
 import com.tianrui.api.resp.admin.PayInvoiceVo;
+import com.tianrui.api.resp.admin.merchant.MerchantResp;
+import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.constants.HttpUrl;
@@ -38,7 +48,6 @@ import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.ApiResult;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.admin.bean.Members;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
 import com.tianrui.service.admin.bean.PayInvoiceMsg;
@@ -73,7 +82,10 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	private  SystemMemberMapper systemMemberMapper;
 	@Autowired
 	IMessageService messageService;
-	
+	@Autowired
+	IPayInvoiceDetail1Service payInvoiceDetail1Service;
+	@Autowired
+	IMerchantService merchantService;
 	@Override
 	public PaginationVO<PayInvoiceVo> page(PayInvoiceReq req) {
 		logger.info("into service: driver pay invoice page.");
@@ -358,11 +370,49 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		push.setInvoiceType(payInvoice.getMaterialCode());
 		push.setBillTotalPrice(String.valueOf(payInvoice.getAmountPayable()));
 		push.setSignTime(DateUtil.getDateString(payInvoice.getApplicationTime(), DateUtil.Y_M_D_H_M_S));
+		addConsignee(payInvoice, push);
 		MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(payInvoice.getPayeeBankCardId());
 		if (bankCard != null) {
 			push.setBankTypeId(bankCard.getDesc3());
 		}
 		return push;
+	}
+
+	/**
+	 * 添加收货方名称和编码
+	 * @param payInvoice
+	 * @param push
+	 */
+	private void addConsignee(PayInvoice payInvoice, PayInvoiceDriverPush push) {
+		PayInvoiceDetail1FindReq req = new PayInvoiceDetail1FindReq();
+		req.setPayInvoiceId(payInvoice.getId());
+		try {
+			//根据账单ID获取运价单明细
+			PaginationVO<PayInvoiceDetail1Resp> page = payInvoiceDetail1Service.select(req);
+			StringBuffer nameStr = new StringBuffer();
+			StringBuffer noStr = new StringBuffer();
+			for(PayInvoiceDetail1Resp p : page.getList()){
+				String [] names = nameStr.toString().split("-");
+				List<String> stringlist=Arrays.asList(names);
+				if(stringlist.contains(p.getConsignee())){
+					continue;
+				}
+				nameStr.append(p.getConsignee());
+				nameStr.append("-");
+				MerchantReq oreq = new MerchantReq();
+				oreq.setName(p.getConsignee());
+				PaginationVO<MerchantResp> lso = merchantService.find(oreq);
+				if(null !=  lso.getList() && lso.getList().size() > 0 ){
+					noStr.append(lso.getList().get(0).getCode());
+					noStr.append("-");
+				}
+				
+			}
+			push.setConsigneeNO(nameStr.substring(0, nameStr.length() -1));
+			push.setConsigneeName(noStr.substring(0, noStr.length() -1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * @annotation 赋值待推送NC司机支付账单
@@ -383,11 +433,45 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		push.setBankCardId(payInvoice.getPayeeBankCardId());
 		push.setName(payInvoice.getPayeeName());
 		push.setVbusinlicense(payInvoice.getPayeeIdNo());
+		addConsignee(payInvoice, push);
 		MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(payInvoice.getPayeeBankCardId());
 		if (bankCard != null) {
 			push.setBankTypeId(bankCard.getDesc3());
 		}
 		return push;
+	}
+
+	private void addConsignee(PayInvoice payInvoice, PayInvoiceVenderPush push) {
+		PayInvoiceDetail1FindReq req = new PayInvoiceDetail1FindReq();
+		req.setPayInvoiceId(payInvoice.getId());
+		try {
+			//根据账单ID获取运价单明细
+			PaginationVO<PayInvoiceDetail1Resp> page = payInvoiceDetail1Service.select(req);
+			StringBuffer nameStr = new StringBuffer();
+			StringBuffer noStr = new StringBuffer();
+			for(PayInvoiceDetail1Resp p : page.getList()){
+				String [] names = nameStr.toString().split("-");
+				List<String> stringlist=Arrays.asList(names);
+				if(stringlist.contains(p.getConsignee())){
+					continue;
+				}
+				nameStr.append(p.getConsignee());
+				nameStr.append("-");
+				MerchantReq oreq = new MerchantReq();
+				oreq.setName(p.getConsignee());
+				PaginationVO<MerchantResp> lso = merchantService.find(oreq);
+				if(null !=  lso.getList() && lso.getList().size() > 0 ){
+					noStr.append(lso.getList().get(0).getCode());
+					noStr.append("-");
+				}
+				
+			}
+			push.setConsigneeNO(nameStr.substring(0, nameStr.length() -1));
+			push.setConsigneeName(noStr.substring(0, noStr.length() -1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
