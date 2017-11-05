@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.LEDCountMapper" >
+  
+  <select id="selectByVehcileAct" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount" >
+   SELECT
+		count(0)
+	FROM
+		wuliu_member_vehicle
+	WHERE
+		ID IN (
+			SELECT
+				vehicleid
+			FROM
+				wuliu_bill
+			<if test="timeBegin != null">
+			  where	createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+			</if>	
+		)
+	OR ID IN (
+		SELECT
+			vd.vehicleid
+		FROM
+			anlian_bill abl
+		LEFT JOIN wuliu_vehicle_driver vd ON vd.vehicleno = abl.cph
+		<if test="timeBegin != null">
+		  where	abl.createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+		</if>
+	)
+  </select>
+  
+  <select id="selectByPayAmount" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount" >
+   SELECT
+		SUM(paid_amount)
+	FROM
+		pay_invoice_1
+	<where>
+		pay_status = '2'
+		<if test="timeBegin != null and timeBegin != ''">
+			AND	create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+		</if>
+		<if test="timeEnd != null and timeEnd != ''">
+			AND create_time <![CDATA[<]]> #{timeEnd,jdbcType=BIGINT}
+		</if>
+	</where>
+  </select>
+  
+  <select id="selectByBillDy" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount" >
+    SELECT
+		sum(trueweight) AS countNum
+	FROM
+		wuliu_bill
+	<where>
+		<if test="timeBegin != null and timeBegin != ''">
+			AND	ownerSigntime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+		</if>
+		<if test="timeEnd != null and timeEnd != ''">
+			AND ownerSigntime <![CDATA[<]]> #{timeEnd,jdbcType=BIGINT}
+		</if>
+	</where>
+
+  </select>
+  <select id="selectByBillAl" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount" >
+   SELECT
+		SUM(trueweight) AS countNum
+	FROM
+		anlian_bill
+	<where>
+		<if test="timeBegin != null and timeBegin != ''">
+		    AND	signtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+		</if>
+		<if test="timeEnd != null and timeEnd != ''">
+			AND signtime <![CDATA[<]]> #{timeEnd,jdbcType=BIGINT}
+		</if>
+	</where>
+  </select>
+  <select id="selectByCountAl" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		count(0)
+	FROM
+		anlian_bill
+  </select>
+  
+  <select id="selectByCountDy" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		count(0)
+	FROM
+		wuliu_bill
+  </select>
+  
+  <select id="selectByCargoAl" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		hpmc as countName,
+		count(hpmc) as countNum
+	FROM
+		anlian_bill
+	GROUP BY
+		hpmc
+	ORDER BY
+		count(hpmc) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByCargoDy" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+	cargoname as countName,
+	count(cargoname) as countNum
+	FROM
+		wuliu_bill
+	GROUP BY
+		cargoname
+	ORDER BY
+		count(cargoname) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByVehicleType" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		vehicletypename as countName,
+		count(vehicletypename) as countNum
+	FROM
+		wuliu_member_vehicle
+	GROUP BY
+		vehicletypename
+	ORDER BY
+		count(vehicletypename) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByVehicleAddress" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		vehicleprefix as countName,
+		count(vehicleprefix) as countNum
+	FROM
+		wuliu_member_vehicle
+	GROUP BY
+		vehicleprefix
+	ORDER BY
+		count(vehicleprefix) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByVehicleRateAl" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT * FROM (SELECT
+		cph as countName,
+		count(cph) as countNum
+	FROM
+		anlian_bill
+	GROUP BY
+		cph
+	ORDER BY
+		count(cph) DESC) a 
+	<where>
+		<if test="min != null and min != ''">
+			and a.countNum <![CDATA[>=]]> #{min,jdbcType=INTEGER}
+		</if>
+		<if test="max != null and max != ''">
+			and a.countNum <![CDATA[<]]> #{max,jdbcType=INTEGER}
+		</if>
+	</where>	
+  </select>
+  <select id="selectByVehicleRateDy" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT * FROM (SELECT
+		vehicleno as countName,
+		count(vehicleno) as countNum
+	FROM
+		wuliu_bill
+	GROUP BY
+		vehicleno
+	ORDER BY
+		count(vehicleno) DESC) a 
+	<where>
+		<if test="min != null and min != ''">
+			and a.countNum <![CDATA[>=]]> #{min,jdbcType=INTEGER}
+		</if>
+		<if test="max != null and max != ''">
+			and a.countNum <![CDATA[<]]> #{max,jdbcType=INTEGER}
+		</if>
+	</where>	
+  </select>
+  <select id="selectByCountVehicle" resultType="Double" parameterType="com.tianrui.service.bean.LEDCount">
+  	SELECT
+		count(0)
+	FROM
+		wuliu_member_vehicle
+  </select>
+  
+  <select id="selectByVenderDy" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		venderid as countName,
+		count(venderid) as countNum
+	FROM
+		wuliu_bill
+	GROUP BY
+		venderid
+	ORDER BY
+		count(venderid) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByVenderAl" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		venderid as countName,
+		count(venderid) as countNum
+	FROM
+		anlian_bill
+	GROUP BY
+		venderid
+	ORDER BY
+		count(venderid) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByOwnerDy" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		ownerid as countName,
+		count(ownerid) as countNum
+	FROM
+		wuliu_bill 
+	GROUP BY
+		ownerid
+	ORDER BY
+		count(ownerid) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByOwnerAl" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		ownerid as countName,
+		count(ownerid) as countNum
+	FROM
+		anlian_bill
+	GROUP BY
+		ownerid
+	ORDER BY
+		count(ownerid) DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

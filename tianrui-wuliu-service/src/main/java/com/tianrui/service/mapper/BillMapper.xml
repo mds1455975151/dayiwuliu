@@ -107,6 +107,22 @@
 		acctepttime,ownerSigntime,payment,receive_memberid,confirm_Price_A,confirm_Price_B,JTBPushTime,
 		bankId,bankCard,bankOwnerName,bankOwnerPhone,bankType
 	</sql>
+	
+	<select id="selectByUptBillImg" resultMap="BaseResultMap"
+		parameterType="com.tianrui.service.bean.Bill">
+		select
+		<include refid="Base_Column_List" />
+		from wuliu_bill
+		<where>
+			<if test="createTimeBegin != null">
+				and createtime <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}
+			</if>
+			<if test="createTimeEnd != null">
+				and createtime <![CDATA[<=]]> #{createTimeEnd,jdbcType=BIGINT}
+			</if>
+		</where>
+	</select>
+	
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select
@@ -1643,4 +1659,5 @@
 			and createtime <![CDATA[>=]]> #{starttime,jdbcType=BIGINT} 
   			and createtime <![CDATA[<]]> #{endtime,jdbcType=BIGINT}
 	</select>
+	
 </mapper>

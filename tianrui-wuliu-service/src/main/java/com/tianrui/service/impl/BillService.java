@@ -332,7 +332,7 @@ public class BillService implements IBillService{
 								bill.setType(Byte.valueOf("2"));
 							}else{
 								//计划编码
-								//bill.setWaybillno(codeGenDao.codeGen(2));
+								bill.setWaybillno(codeGenDao.codeGen(2));
 								bill.setType(Byte.valueOf("0"));
 							}
 							//车主 货主信息

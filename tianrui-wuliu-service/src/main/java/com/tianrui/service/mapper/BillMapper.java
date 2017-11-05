@@ -101,4 +101,6 @@ public interface BillMapper {
 	List<StatReportOfBillResp> queryAdminAllStatReport(StatReportReq req);
 
 	int queryCountByVenderId(Map<String, Object> params);
+	
+	List<Bill> selectByUptBillImg(Bill record);
 }

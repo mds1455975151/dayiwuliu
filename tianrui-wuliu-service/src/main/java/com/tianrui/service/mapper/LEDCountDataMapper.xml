@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.LEDCountDataMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.LEDCountData" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="led_type" property="ledType" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="countData" property="countdata" jdbcType="DOUBLE" />
+    <result column="stimeStr" property="stimestr" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, led_type, data_type, remark, countData, stimeStr, create_time, modify_time
+  </sql>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.LEDCountData" >
+    select 
+   	 <include refid="Base_Column_List" />
+    from LED_count_data
+    <where>
+    	<if test="ledType != null and ledType != ''">
+    		and led_type = #{ledType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="dataType != null and dataType != ''">
+    		and data_type = #{dataType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="stimestr != null and stimestr != ''">
+    		and stimeStr = #{stimestr,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    <if test="ledType == 1 or ledType == 6">
+    	order by remark desc
+    </if>
+    <if test="ledType == 3 or ledType == 2 or ledType == 4 or ledType == 5 or ledType == 7 or ledType == 8">
+    	order by countData desc
+    </if>
+     <if test="pageNO != null">
+     limit #{pageNO,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.LEDCountData" >
+    select 
+  	  count(0)
+    from LED_count_data
+    <where>
+    	<if test="ledType != null and ledType != ''">
+    		and led_type = #{ledType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="dataType != null and dataType != ''">
+    		and data_type = #{dataType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="stimestr != null and stimestr != ''">
+    		and stimeStr = #{stimestr,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from LED_count_data
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from LED_count_data
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.LEDCountData" >
+    insert into LED_count_data (id, led_type, data_type, 
+      remark, countData, stimeStr, 
+      create_time, modify_time)
+    values (#{id,jdbcType=VARCHAR}, #{ledType,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{countdata,jdbcType=DOUBLE}, #{stimestr,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{modifyTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.LEDCountData" >
+    insert into LED_count_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ledType != null" >
+        led_type,
+      </if>
+      <if test="dataType != null" >
+        data_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="countdata != null" >
+        countData,
+      </if>
+      <if test="stimestr != null" >
+        stimeStr,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ledType != null" >
+        #{ledType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="countdata != null" >
+        #{countdata,jdbcType=DOUBLE},
+      </if>
+      <if test="stimestr != null" >
+        #{stimestr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.LEDCountData" >
+    update LED_count_data
+    <set >
+      <if test="ledType != null" >
+        led_type = #{ledType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        data_type = #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="countdata != null" >
+        countData = #{countdata,jdbcType=DOUBLE},
+      </if>
+      <if test="stimestr != null" >
+        stimeStr = #{stimestr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.LEDCountData" >
+    update LED_count_data
+    set led_type = #{ledType,jdbcType=VARCHAR},
+      data_type = #{dataType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      countData = #{countdata,jdbcType=DOUBLE},
+      stimeStr = #{stimestr,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

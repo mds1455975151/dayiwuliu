@@ -31,7 +31,7 @@ public class ImageUtils {
 			fis.close();
 			bos.close();
 			buffer = bos.toByteArray();
-			deleteFile(filePath);
+//			deleteFile(filePath);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -34,23 +34,23 @@
             <ul>
                 <li>
                     <p>累计总运费</p>
-                    <h4>370,000万吨</h4>
+                    <h4 id="zyf">370,000万吨</h4>
                 </li>
                 <li>
                     <p>累计总运量</p>
-                    <h4>370,000万吨</h4>
+                    <h4 id="qsl">370,000万吨</h4>
                 </li>
                 <li>
                     <p>合作车辆总数</p>
-                    <h4>3万吨</h4>
+                    <h4 id="clzs">3万吨</h4>
                 </li>
                 <li>
                     <p>活跃车辆总数</p>
-                    <h4>370,000万吨</h4>
+                    <h4 id="hycl">370,000万吨</h4>
                 </li>
                 <li>
                     <p>交易总量</p>
-                    <h4>370,000万吨</h4>
+                    <h4 id="ydzs">370,000万吨</h4>
                 </li>
             </ul>
         </div>
@@ -154,7 +154,7 @@
                 <div class="tj_btomid">
                     <div class="btleft fl">
                         <h4>货主</h4>
-                        <ul>
+                        <ul id="ownerThml">
                             <li>
                                 <label>天瑞集团信息公司</label>
                             </li>
@@ -195,7 +195,7 @@
                     </div>
                     <div class="btleft fr">
                         <h4>车主</h4>
-                        <ul>
+                        <ul id="venderHtml">
                             <li>
                                 <label>半挂车</label>
                             </li>
@@ -259,7 +259,7 @@
 <script src="${trRoot}/tianrui/tjled/js/china.js"></script>
 <script src="${trRoot}/tianrui/tjled/js/indexditu.js"></script>
 
-<script src="/resources/js/LED/LED_index.js"></script>
+<script src="/resources/js/LED/LED_index.js?11502"></script>
 
 </body>
 </html>

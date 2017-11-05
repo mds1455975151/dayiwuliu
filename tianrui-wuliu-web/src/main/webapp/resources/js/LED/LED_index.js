@@ -1,6 +1,9 @@
 $(function () {
+	getVehicleAddress();
 	shwoPageClass();
-   
+	showVender();
+	showOwner();
+	showHead();
 	goodsTypeShow();//已完成
     //车辆归属地
     cargsShow();
@@ -15,6 +18,22 @@ setInterval(frequencyShow,14000);
 setInterval(carShow,13000);
 setInterval(billShow,15000);
 setInterval(payShow,16000);
+var vaData ;
+function getVehicleAddress(){
+	$.getJSON("/resources/js/LED/vehicleAddress.json",function(ret){
+		vaData = ret;
+	});
+}
+
+function getVehFix(fix){
+	for (var a = 0; a < vaData.length; a++) {
+		if(fix==vaData[a].code){
+			return vaData[a].province+vaData[a].city;
+		}
+	}
+	return fix;
+}
+
 /**设置页面样式*/
 function shwoPageClass(){
 	var screenwid = $(document).width();
@@ -47,25 +66,112 @@ function shwoPageClass(){
         id_goods.css({"height":"220px","width":"264px"});
     }
 }
+
+function showHead(){
+	$.ajax({
+		url:"/LEDCount/queryData",
+		type:"POST",
+		data:{"dataType":"1",
+			"ledType":"9",
+			"pageNO":0,
+			"pageSize":12
+		},
+		success:function(ret){
+			if(ret.code == 000000){
+				var data = ret.data.list;
+				for (var a = 0; a < data.length; a++) {
+					switch (data[a].remark) {
+					case "zyf":
+						$("#zyf").html((data[a].countdata/10000).toFixed(2)+"万元");
+						break;
+					case "qsl":
+						$("#qsl").html((data[a].countdata/10000).toFixed(2)+"万吨");
+						break;
+					case "clzs":
+						$("#clzs").html(data[a].countdata+"辆");
+						break;
+					case "ydzs":
+						$("#ydzs").html(data[a].countdata+"单");
+						break;
+					case "hycl":
+						$("#hycl").html(data[a].countdata+"辆");
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+	});
+}
+
+function showOwner(){
+	$.ajax({
+		url:"/LEDCount/queryData",
+		type:"POST",
+		data:{"dataType":"1",
+			"ledType":"8",
+			"pageNO":0,
+			"pageSize":12
+		},
+		success:function(ret){
+			if(ret.code == 000000){
+				var data = ret.data.list;
+				$("#ownerThml").empty();
+				for (var a = 0; a < data.length; a++) {
+					var hml = "<li><label>"+data[a].remark+"</label></li>";
+					$("#ownerThml").append(hml);
+				}
+			}
+		}
+	});
+}
+
+function showVender(){
+	$.ajax({
+		url:"/LEDCount/queryData",
+		type:"POST",
+		data:{"dataType":"1",
+			"ledType":"7",
+			"pageNO":0,
+			"pageSize":12
+		},
+		success:function(ret){
+			if(ret.code == 000000){
+				var data = ret.data.list;
+				$("#venderHtml").empty();
+				for (var a = 0; a < data.length; a++) {
+					var hml = "<li><label>"+data[a].remark+"</label></li>";
+					$("#venderHtml").append(hml);
+				}
+			}
+		}
+	});
+}
+
 /** 运费柱状图*/
 function payShow(){
 	var pu_x = [];
 	var pu_y = [];
 	$.ajax({
-		url:"/27count/detail",
+		url:"/LEDCount/queryData",
 		type:"POST",
-		data:{"type":"3"},
+		data:{"dataType":"1",
+			"ledType":"6",
+			"pageNO":0,
+			"pageSize":5
+		},
 		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
-				var data = ret.data;
+				var data = ret.data.list;
 				var carHml = "";
 				$.each(data,function(index,item){
 					pu_x.push(
 						item.remark
 					);
 					pu_y.push(
-						Number(item.data)
+						Number(item.countdata)
 					);
 				});
 			}
@@ -139,22 +245,26 @@ function billShow(){
 	var pu_x = [];
 	var pu_y = [];
 	$.ajax({
-		url:"/27count/detail",
+		url:"/LEDCount/queryData",
 		type:"POST",
-		data:{"type":"3"},
+		data:{"dataType":"1",
+			"ledType":"1",
+			"pageNO":0,
+			"pageSize":5
+		},
 		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
-				var data = ret.data;
+				var data = ret.data.list;
 				var carHml = "";
-				$.each(data,function(index,item){
+				for (var a = 0; a < data.length; a++) {
 					pu_x.push(
-						item.remark
-					);
-					pu_y.push(
-						Number(item.data)
-					);
-				});
+							data[a].remark
+						);
+						pu_y.push(
+							Number(data[a].countdata)
+						);
+				}
 			}
 		}
 	});
@@ -238,21 +348,25 @@ function carShow(){
 	//1-各省车辆 2-车型分布 3-货物分布 4-车辆总数 5-线路总数 7-运单
 	var pu = [];
 	$.ajax({
-		url:"/27count/detail",
+		url:"/LEDCount/queryData",
 		type:"POST",
-		data:{"type":"2"},
+		data:{"dataType":"1",
+			"ledType":"3",
+			"pageNO":0,
+			"pageSize":5
+		},
 		success:function(ret){
 			if(ret.code=="000000"){
-				var data = ret.data;
+				var data = ret.data.list;
 				var carHml = "";
 				$("#cat_type_html").empty();
 				$.each(data,function(index,item){
 					pu.push({
-						name: item.remark,
-						y: Number(item.data),
+						name: item.remark.substring(0,3),
+						y: Number(item.countdata),
 				        z: 118.7
 					});
-					$("#cat_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark+"</label></li>")
+					$("#cat_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark.substring(0,4)+"</label></li>")
 				});
 				
 				Highcharts.chart('car', {
@@ -274,7 +388,8 @@ function carShow(){
 				                '#27c37b',
 				                '#37adca',
 				                '#bb3e7b',
-				                '#f7941d'
+				                '#f7941d',
+				                '#ea7620'
 				            ],
 				            format: '{point.percentage:.0f}%',
 				            allowPointSelect: true,
@@ -311,19 +426,23 @@ function frequencyShow(){
 	var color = ["#d920ea","#20d0ea","#ea2076","#ea7620"];
 	var pu = [];
 	$.ajax({
-		url:"/27count/detail",
+		url:"/LEDCount/queryData",
 		type:"POST",
-		data:{"type":"3"},
+		data:{"dataType":"1",
+			"ledType":"5",
+			"pageNO":0,
+			"pageSize":5
+		},
 		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
-				var data = ret.data;
+				var data = ret.data.list;
 				var carHml = "";
 //				$("#goods_type_html").empty();
 				$.each(data,function(index,item){
 					pu.push({
 						name: item.remark,
-						y: Number(item.data),
+						y: Number(item.countdata),
 						color: color[index]
 					});
 //					$("#goods_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark+"</label></li>")
@@ -384,20 +503,23 @@ function cargsShow(){
 	var color = ["#d920ea","#20d0ea","#ea2076","#ea7620"];
 	var pu = [];
 	$.ajax({
-		url:"/27count/detail",
+		url:"/LEDCount/queryData",
 		type:"POST",
-		data:{"type":"3"},
+		data:{"dataType":"1",
+			"ledType":"4",
+			"pageNO":0,
+			"pageSize":5
+		},
 		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
-				var data = ret.data;
+				var data = ret.data.list;
 				var carHml = "";
-				
 //				$("#goods_type_html").empty();
 				$.each(data,function(index,item){
 					pu.push({
-						name: item.remark,
-						y: Number(item.data),
+						name: getVehFix(item.remark),
+						y: Number(item.countdata),
 						color: color[index]
 					});
 //					$("#goods_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark+"</label></li>")
@@ -445,25 +567,28 @@ function cargsShow(){
 
 /** 货物类别饼图*/
 function goodsTypeShow(){
-	//1-各省车辆 2-车型分布 3-货物分布 4-车辆总数 5-线路总数 7-运单
 	var color = ["#c0ca33","#43a047","#1e88e5","#f4511e","#00acc1","#3949ab"];
 	$.ajax({
-		url:"/27count/detail",
+		url:"/LEDCount/queryData",
 		type:"POST",
-		data:{"type":"3"},
+		data:{"dataType":"1",
+			"ledType":"2",
+			"pageNO":0,
+			"pageSize":5
+		},
 		success:function(ret){
 			if(ret.code=="000000"){
-				var data = ret.data;
+				var data = ret.data.list;
 				var carHml = "";
 				var pu = [];
 				$("#goods_type_html").empty();
 				$.each(data,function(index,item){
 					pu.push({
 						name: item.remark,
-						y: Number(item.data),
+						y: Number(item.countdata),
 						color: color[index]
 					});
-					$("#goods_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark+"</label></li>")
+					$("#goods_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark.substring(0,4)+"</label></li>")
 				});
 				
 				Highcharts.chart('goodstype', {
@@ -500,5 +625,5 @@ function goodsTypeShow(){
 			}
 		}
 	});
-	
 }
+

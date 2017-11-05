@@ -42,8 +42,12 @@ public class FileUploadService implements IFileService{
 			//验证图片格式
 			if( fileUploadReq.getImgStr().startsWith("data:image/png;base64,")  ){
 				try {
+					String base64Img = fileUploadReq.getImgStr().substring(22);
+					if(fileUploadReq.getImgStr().startsWith("data:image/png;base64,data:image/png;base64,")){
+						base64Img = fileUploadReq.getImgStr().substring(44);
+					}
 					String imgURI = UUIDUtil.getId()+".png";
-					byte[] out = Base64.decodeFast(fileUploadReq.getImgStr().substring(22));
+					byte[] out = Base64.decodeFast(base64Img);
 					
 					InputStream input = new ByteArrayInputStream(out);
 					gridFsTemplate.store(input, imgURI);
@@ -62,6 +66,30 @@ public class FileUploadService implements IFileService{
 			}
 		}else{
 			result =new Result("error","上传图片为空" );
+		}
+		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
+		return result;
+	}
+	
+	public Result uploadBillImg(FileUploadReq fileUploadReq) throws Exception {
+		Result result=Result.getSuccessResult();
+		if( fileUploadReq !=null && StringUtils.isNotBlank(fileUploadReq.getImgStr()) ){
+			try {
+				String imgURI = UUIDUtil.getId()+".png";
+				byte[] out = Base64.decodeFast(fileUploadReq.getImgStr());
+				InputStream input = new ByteArrayInputStream(out);
+				gridFsTemplate.store(input, imgURI);
+				String imgURL = Constant.FILE_URL_PRE+imgURI;
+				result.setCode("000000");
+				result.setData(imgURL);
+				//TODO 上传文件路径 时间
+				saveFileReg(imgURL,imgURI,fileUploadReq.getuId());
+			} catch (Exception e) {
+				logger.error("{}",e.getMessage(),e);
+				result =new Result("error","上传图片服务异常" );
+			}
+		}else{
+			result =new Result("error","上传图片格式有问题" );
 		}
 		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
 		return result;
