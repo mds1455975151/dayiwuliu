@@ -40,6 +40,8 @@ function reset(){
 	$("#signTimeStart").val("");
 	$("#signTimeEnd").val("");
 	$("#ownerName").val("");
+	$("#hyDistance").val("");
+	$("#hyTime").val("");
 	init(0);
 }
 function getParams(pageNo){
@@ -69,9 +71,13 @@ function getParams(pageNo){
 	var unloadTimeEndtime =$("#unloadTimeEndtime").val();
 	var signTimeStart =$("#signTimeStart").val();
 	var signTimeEnd =$("#signTimeEnd").val();
+	var hyDistance =$("#hyDistance").val();
+	var hyTime =$("#hyTime").val();
 	
 	var params = {
 			billType:$.trim(billType),
+			hyDistance:$.trim(hyDistance),
+			hyTime:$.trim(hyTime),
 			planNo:$.trim(planNo),
 			billNo:$.trim(billNo),
 			cargoName:$.trim(cargoName),

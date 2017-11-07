@@ -21,9 +21,32 @@
     <result column="startcity" property="startcity" jdbcType="VARCHAR" />
     <result column="endcity" property="endcity" jdbcType="VARCHAR" />
     <result column="signtime" property="signtime" jdbcType="BIGINT" />
+    <result column="venderid" property="venderid" jdbcType="VARCHAR" />
+    <result column="driverid" property="driverid" jdbcType="VARCHAR" />
+    <result column="ownerid" property="ownerid" jdbcType="VARCHAR" />
   </resultMap>
  	
   <sql id="Query_Column_List" >
+  	<if test="searchKey != null and searchKey != ''">
+  		and (vb.venderid in (SELECT id FROM member where
+	  			 remarkname like "%" #{searchKey,jdbcType=VARCHAR} "%"
+	  			AND cellphone like "%" #{searchKey,jdbcType=VARCHAR} "%")
+	  		or vb.vehicleno like "%" #{searchKey,jdbcType=VARCHAR} "%"
+	  		or vb.billno like "%" #{searchKey,jdbcType=VARCHAR} "%"
+	  		)
+  	</if>
+  	<if test="venderName != null or venderPhone != null">
+  		and vb.venderid in (SELECT id FROM member 
+  		<where>
+	  		<if test="venderName != null and venderName != ''">
+	  			AND remarkname like "%" #{venderName,jdbcType=VARCHAR} "%"
+	  		</if>
+	  		<if test="venderPhone != null and venderPhone != ''">
+	  			AND cellphone like "%" #{venderPhone,jdbcType=VARCHAR} "%"
+	  		</if>
+  		</where>
+  		)
+  	</if>
   	<if test="receiveMemberid != null and receiveMemberid != ''">
    		and vb.receive_memberid = #{receiveMemberid,jdbcType=VARCHAR}
    	</if>
@@ -95,7 +118,7 @@
     select 
    	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
       vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,
-      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
+      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity,vb.venderid,vb.driverid,vb.ownerid
     from v_signer_bill vb
     <where>
     	<include refid="Query_Column_List" />
@@ -120,7 +143,7 @@
     select 
    	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
       vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,
-      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
+      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity,vb.venderid,vb.driverid,vb.ownerid
     from v_signer_bill_al vb
     <where>
     	<include refid="Query_Column_List" />
@@ -145,7 +168,7 @@
     select 
    	vb.ID,vb.billtype, vb.billno,vb.vehicleno, vb.cargoname, vb.billstatus, vb.payment, vb.receive_memberid, vb.createtime, 
       vb.modifytime, vb.recive_cellphone, vb.totalprice,vb.confirmPriceA,
-      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity
+      vb.confirmPriceB,vb.signed,vb.trueweight,vb.startcity,vb.endcity,vb.venderid,vb.driverid,vb.ownerid
     from v_signer_bill_dy vb
     <where>
     	<include refid="Query_Column_List" />

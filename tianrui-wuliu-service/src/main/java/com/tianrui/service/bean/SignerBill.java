@@ -2,6 +2,16 @@ package com.tianrui.service.bean;
 public class SignerBill {
     private String id;
     
+    private String venderid;
+    
+    private String venderName;
+    
+    private String venderPhone;
+    
+    private String driverid;
+    
+    private String ownerid;
+    
     private String searchKey;
     
     private String startcity;
@@ -243,6 +253,46 @@ public class SignerBill {
 
 	public void setSigntime(Long signtime) {
 		this.signtime = signtime;
+	}
+
+	public String getVenderid() {
+		return venderid;
+	}
+
+	public void setVenderid(String venderid) {
+		this.venderid = venderid;
+	}
+
+	public String getDriverid() {
+		return driverid;
+	}
+
+	public void setDriverid(String driverid) {
+		this.driverid = driverid;
+	}
+
+	public String getOwnerid() {
+		return ownerid;
+	}
+
+	public void setOwnerid(String ownerid) {
+		this.ownerid = ownerid;
+	}
+
+	public String getVenderName() {
+		return venderName;
+	}
+
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+
+	public String getVenderPhone() {
+		return venderPhone;
+	}
+
+	public void setVenderPhone(String venderPhone) {
+		this.venderPhone = venderPhone;
 	}
 	
 }

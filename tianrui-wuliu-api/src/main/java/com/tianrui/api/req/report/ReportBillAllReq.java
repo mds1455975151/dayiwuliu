@@ -5,6 +5,10 @@ public class ReportBillAllReq {
     // 1-司机，2-车主，3-货主
     private String reportType;
     
+    private Long hyTime;
+    
+    private Double hyDistance;
+    
     private String billOwnerId;
 
     private String billVenderId;
@@ -478,6 +482,20 @@ public class ReportBillAllReq {
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
-	
-	
+
+	public Double getHyDistance() {
+		return hyDistance;
+	}
+
+	public void setHyDistance(Double hyDistance) {
+		this.hyDistance = hyDistance;
+	}
+
+	public Long getHyTime() {
+		return hyTime;
+	}
+
+	public void setHyTime(Long hyTime) {
+		this.hyTime = hyTime;
+	}
 }

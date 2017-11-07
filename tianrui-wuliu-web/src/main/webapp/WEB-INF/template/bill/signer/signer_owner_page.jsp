@@ -70,23 +70,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        </div>
 	                    </div>
 	                    <div class="bb_line">
-	                           	<!-- 
-	                        <div class="bb_czline dybill">
-	                            <label>运单状态：</label>
-	                            <select class="form-control">
-									<option value="">全部</option>
-									<option value="-1">已收回</option>
-									<option value="1">已接受</option>
-									<option value="2">已提货</option>
-									<option value="3">运输中</option>
-									<option value="4">已到达</option>
-									<option value="5">已卸货</option>
-									<option value="6">已完成</option>
-									<option value="7">已拒绝</option>
-									<option value="0">新建</option>
-								</select>
-	                        </div> 
-	                           	 -->
+		                    <div class="bb_czline">
+	                            <label>车主姓名：</label>
+	                            <input id="venderName" type="text" placeholder="请输入车主姓名">
+	                        </div>
+	                        <div class="bb_czline">
+	                            <label>车主账号：</label>
+	                            <input id="venderPhone" type="text" placeholder="请输入车主账号">
+	                        </div>
 	                        <div class="bb_czline">
 	                            <label>运单状态：</label>
 	                            <select id=paystatus class="form-control">
@@ -100,6 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<option value="1">已付款</option>
 								</select>
 	                        </div>
+	                        
+	                    </div>
+	                    <div class="bb_line">
 	                        <div class="ht_div">
 								<label>到货日期：</label> <input id="starttime" type="text"
 									onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
@@ -107,14 +101,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									id="endtime" type="text"
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
-							</div>
-	                        <div class="bb_czline">
 	                            <button type="submit" class="btn btnblue resetBtn">重置</button>
 								<button type="submit" class="btn btnyello searchBtn">搜索</button>
+							</div>
+	                        <div class="bb_czline">
 	                        </div>
-	                    </div>
-	                    <div class="bb_line">
-	                        
 	                    </div>
 					</div>
                <!--  <div class="plan_search">
@@ -363,7 +354,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 var type = "owner";
 </script>
-<script type="text/javascript" src="/resources/js/bill/signer_page.js?0923" ></script>
+<script type="text/javascript" src="/resources/js/bill/signer_page.js?1107" ></script>
 <script type="text/javascript">
 		$(".file").fileinput({
 			language : 'zh',

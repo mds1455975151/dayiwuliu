@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 
 public class SignerBillFindReq {
     private String id;
+    private String venderName;
+    private String venderPhone;
     private String billtype;
     private String cargoname;
     private String vehicleno;
@@ -143,6 +145,30 @@ public class SignerBillFindReq {
 
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
+	}
+
+	public String getVenderName() {
+		return venderName;
+	}
+
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+
+	public String getVenderPhone() {
+		return venderPhone;
+	}
+
+	public void setVenderPhone(String venderPhone) {
+		this.venderPhone = venderPhone;
+	}
+
+	public void setStarttimes(Long starttimes) {
+		this.starttimes = starttimes;
+	}
+
+	public void setEndtimes(Long endtimes) {
+		this.endtimes = endtimes;
 	}
     
 }

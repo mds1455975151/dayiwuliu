@@ -134,11 +134,9 @@
 		<level value="INFO" />
 		<appender-ref ref="externalAppender" />
 	</logger>
-
-	
 	<root>
 		<!-- <level value="DEBUG" />  -->
-		 <level value="info" /> 
+		 <level value="DEBUG" /> 
 		<appender-ref ref="infoAppender" />
 		<appender-ref ref="errorAppender" />
 		<appender-ref ref="consoleAppender" />

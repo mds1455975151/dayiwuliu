@@ -9,6 +9,10 @@ public class ReportBillAll {
     private Integer pageNo;
     
     private Integer PageSize;
+    
+    private Long hyTime;
+    
+    private Double hyDistance;
 
     private String billOwnerId;
 
@@ -611,5 +615,20 @@ public class ReportBillAll {
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
-	
+
+	public Long getHyTime() {
+		return hyTime;
+	}
+
+	public void setHyTime(Long hyTime) {
+		this.hyTime = hyTime;
+	}
+
+	public Double getHyDistance() {
+		return hyDistance;
+	}
+
+	public void setHyDistance(Double hyDistance) {
+		this.hyDistance = hyDistance;
+	}
 }

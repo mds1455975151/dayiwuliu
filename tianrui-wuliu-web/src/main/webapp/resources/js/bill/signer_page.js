@@ -16,12 +16,15 @@ function index(no){
 	var paystatus = $('#paystatus').val();
 	var starttime =$('#starttime').val();
 	var endtime = $('#endtime').val();
+	var venderName = $("#venderName").val();
+	var venderPhone = $("#venderPhone").val();
 	$(".searchBtn").attr("disabled",true);
 	console.log("---"+no);
 	$.ajax({
 		url:"/trwuliu/billSigner/find",
 		data:{"billtype":billtype,"cargoname":cargoname,"vehicleno":vehicleno,"billno":billno,
 			"billstatus":billstatus,"paystatus":paystatus,"starttime":starttime,"endtime":endtime,
+			"venderName":venderName,"venderPhone":venderPhone,
 			"pageNo":no,
 			"pageSize":pageSize
 		},
@@ -414,7 +417,7 @@ function fileupload(id){
 
 //重置搜索条件
 $('.resetBtn').off('click').on('click',function(){
-	$('#billtype').val('');
+//	$('#billtype').val('');
 	$('#cargoname').val('');
 	$('#vehicleno').val('');
 	$('#billno').val('');
@@ -422,4 +425,6 @@ $('.resetBtn').off('click').on('click',function(){
 	$('#paystatus').val('');
 	$('#starttime').val('');
 	$('#endtime').val('');
+	$("#venderName").val('');
+	$("#venderPhone").val('');
 });

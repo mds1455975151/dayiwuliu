@@ -57,6 +57,12 @@
     SUM(unload_weight)AS unloadWeightCount, SUM(true_weight)AS trueWeightCount
     from report_bill_all
     <where>
+    	<if test="hyDistance != null and hyDistance != ''">
+    		and bill_distinct <![CDATA[>=]]> #{hyDistance,jdbcType=DOUBLE}
+    	</if>
+    	<if test="hyTime != null and hyTime != ''">
+    		and (unload_time - pickup_time) <![CDATA[>=]]> #{hyTime,jdbcType=BIGINT}
+    	</if>
     	<if test="billOwnerId != null and billOwnerId != ''">
     		and bill_owner_id = #{billOwnerId,jdbcType=VARCHAR}
     	</if>
@@ -152,6 +158,12 @@
     <include refid="Base_Column_List" />
     from report_bill_all
     <where>
+    	<if test="hyDistance != null and hyDistance != ''">
+    		and bill_distinct <![CDATA[>=]]> #{hyDistance,jdbcType=DOUBLE}
+    	</if>
+    	<if test="hyTime != null and hyTime != ''">
+    		and (unload_time - pickup_time) <![CDATA[>=]]> #{hyTime,jdbcType=BIGINT}
+    	</if>
     	<if test="billOwnerId != null and billOwnerId != ''">
     		and bill_owner_id = #{billOwnerId,jdbcType=VARCHAR}
     	</if>
@@ -252,6 +264,12 @@
     count(0)
     from report_bill_all
     <where>
+    	<if test="hyDistance != null and hyDistance != ''">
+    		and bill_distinct <![CDATA[>=]]> #{hyDistance,jdbcType=DOUBLE}
+    	</if>
+    	<if test="hyTime != null and hyTime != ''">
+    		and (unload_time - pickup_time) <![CDATA[>=]]> #{hyTime,jdbcType=BIGINT}
+    	</if>
     	<if test="billOwnerId != null and billOwnerId != ''">
     		and bill_owner_id = #{billOwnerId,jdbcType=VARCHAR}
     	</if>

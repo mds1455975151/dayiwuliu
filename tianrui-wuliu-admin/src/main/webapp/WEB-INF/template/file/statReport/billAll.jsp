@@ -179,6 +179,20 @@
 								<label>签收人：</label> <input id="receiptPersion" type="text"
 									placeholder="请输入签收人">
 							</div>
+							<div class="ht_div" name="mytable" style="display: none">
+								<label>货运时间：</label> 
+								<select id="hyTime" class="form-control">
+									<option value="">请选择</option>
+									<option value="1800000">30分钟以上</option>
+								</select>
+							</div>
+							<div class="ht_div" name="mytable" style="display: none">
+								<label>货运距离：</label> 
+								<select id="hyDistance" class="form-control">
+									<option value="">请选择</option>
+									<option value="5000">5km以上</option>
+								</select>
+							</div>
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" onclick="init(0)"
 									type="submit">搜索</button>
@@ -360,7 +374,7 @@
 	<script type="text/javascript"
 		src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript"
-		src="/resources/js/statReport/billAll.js?09.13"></script>
+		src="/resources/js/statReport/billAll.js?1107"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".c_Screen").on('click', function() {
