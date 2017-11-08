@@ -16,9 +16,9 @@
 	                        <li><a href="/trwuliu/plantemplate/main" id="plantemplate">我的计划模板</a></li>
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>
 	                         <li><a href="/trwuliu/billSigner/main" id="billsigner">我签收的运单</a></li>
-	                         <!-- 
 	 					    <li><a href="/trwuliu/payInvoiceItem_1/main" id="yunfei">运费结算单</a></li>
 	                        <li><a href="/trwuliu/payInvoice_1/main" id="paymain">支付发票账单</a></li>
+	                         <!-- 
 	 					     -->
 	                        <!-- <li><a href="/trwuliu/reportdemo/main" id="billreport">我的报表</a></li> 
 	                        <li><a href="/trwuliu/ownerreport/main" id="ownerreport">我的报表</a></li>-->

@@ -42,13 +42,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form id="member_bank">
 						<div class="car_box">
 							<div class="reg_tel">
-								<label> <span style="color: red">*</span>企业银行卡号:</label> 
+								<label> <span style="color: red">*</span>企业银行账户:</label> 
 								<input id="bankId" type="hidden" name="id" value="${bankid }"> 
 								<input type="text" id="bankcard_req" value="${bankcard }" name="bankcard"> 
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>银行名称:</label> 
+								<!-- 
 								<input type="text" id="bankname_req" name="bankname" readonly="readonly"> 
+								 -->
+								<div class="select_classs">
+									<select style="width: 350px" class="form-control select2" id="selectBankName">
+									
+									</select>
+								</div>
 							</div>
 							<div class="reg_tel">
 								<label> <span style="color: red">*</span>企业账户名:</label> 
@@ -77,12 +84,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 							</div>
 							<div class="reg_tel">
-								<label> <span style="color: red">*</span>银行卡照片:</label> 
+								<label> <span style="color: red">*</span>银行开户许可证:</label> 
 								<div class="rz_persontab">
 										<input type="hidden" name="bankimg" id="bankimg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img class="clzp" style="width: 350px" src="${trRoot}/tianrui/images/timg.jpg">
+											<img class="clzp" style="width: 350px" src="${trRoot}/tianrui/images/bank_khxkz.jpg">
 										</div>
 										<div class="img_upload mt10">
 												<input id="bankimg_req" onchange="fileupload('bankimg_req','clzp')" class="file" type="file">
@@ -131,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 		<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>
-		<script type="text/javascript" src="/resources/js/bank/company/uptBankCard.js?6141"></script>
+		<script type="text/javascript" src="/resources/js/bank/company/uptBankCard.js?1108"></script>
 		<script type="text/javascript">
 		$('#venderBank').addClass("selected");
 		$("#bankimg_req")

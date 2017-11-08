@@ -121,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-body" id="detailid" style="">
             	<div class="file_detail">
-					<label>银行卡账户 ：</label>
+					<label id="typeBankCode">银行卡账户 ：</label>
 					<span id="bankcard_mg">二二</span>
 				</div>
 				<div class="file_detail">
@@ -153,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span id="bankautid_mg">二二</span>
 				</div>
 				<div class="file_detail">
-					<label>银行卡照片：</label>
+					<label id="typeBankImg">银行卡照片：</label>
 					<span id="bankautidImg_mg">二二</span>
 				</div>
 				<div class="clear"></div>
@@ -202,6 +202,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
-<script type="text/javascript" src="/resources/js/bank/bank_card.js?0709" ></script>
+<script type="text/javascript" src="/resources/js/bank/bank_card.js?1108" ></script>
 </body>
 </html>

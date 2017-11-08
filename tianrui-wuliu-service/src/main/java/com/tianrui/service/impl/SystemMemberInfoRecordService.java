@@ -47,12 +47,12 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 	public Result personalAuthentication(MemberInfoReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getMemberId());
-		short d = 1;
-		if(member.getCompanypercheck()==d){
-			rs.setCode("1");
-			rs.setError("企业认证后不能进行个人认证");
-			return rs;
-		}
+//		short d = 1;
+//		if(member.getCompanypercheck()==d){
+//			rs.setCode("1");
+//			rs.setError("企业认证后不能进行个人认证");
+//			return rs;
+//		}
 		short s = 2;
 		if(member.getDriverpercheck()==s||member.getUserpercheck()==s
 				||member.getCompanypercheck()==s){
@@ -130,12 +130,12 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 	public Result enterpriseAuthentication(MemberInfoReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getMemberId());
-		short d = 1;
-		if(member.getDriverpercheck()==d||member.getUserpercheck()==d){
-			rs.setCode("1");
-			rs.setError("司机认证或者个人认证成功后不可以进行企业认证");
-			return rs;
-		}
+//		short d = 1;
+//		if(member.getDriverpercheck()==d||member.getUserpercheck()==d){
+//			rs.setCode("1");
+//			rs.setError("司机认证或者个人认证成功后不可以进行企业认证");
+//			return rs;
+//		}
 		short s = 2;
 		if(member.getDriverpercheck()==s||member.getUserpercheck()==s
 				||member.getCompanypercheck()==s){
@@ -180,12 +180,12 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 	public Result driverAuthentication(MemberInfoReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getMemberId());
-		short d = 1;
-		if(member.getCompanypercheck()==d){
-			rs.setCode("1");
-			rs.setError("企业认证后不能进行司机认证");
-			return rs;
-		}
+//		short d = 1;
+//		if(member.getCompanypercheck()==d){
+//			rs.setCode("1");
+//			rs.setError("企业认证后不能进行司机认证");
+//			return rs;
+//		}
 		short s = 2;
 		if(member.getDriverpercheck()==s||member.getUserpercheck()==s
 				||member.getCompanypercheck()==s){

@@ -132,6 +132,17 @@ function bankdetails(id){
 				}else if(data.bankautid == "3"){
 					bankautid = "认证失败";
 				}
+				if(data.desc4 == "1"){
+					//个人
+					$("#typeBankCode").html("银行卡账户 ：");
+					$("#typeBankImg").html("银行卡照片：");
+				}else if(data.desc4 == "2"){
+					//公司
+					$("#typeBankCode").html("企业银行账户：");
+					$("#typeBankImg").html("开户许可证：");
+				}
+				//企业银行账户
+				//银行开户许可证
 				$("#bankcard_mg").html(data.bankcard);
 				$("#idname_mg").html(data.idname);
 				$("#bankname_mg").html(data.bankname);

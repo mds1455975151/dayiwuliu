@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form id="member_bank">
 						<div class="car_box">
 							<div class="reg_tel">
-								<label> <span style="color: red">*</span>企业银行卡号:</label> 
+								<label> <span style="color: red">*</span>企业银行账户:</label> 
 								<input type="text" id="bankcard_req" name="bankcard"> 
 							</div>
 							<div class="reg_tel">
@@ -84,12 +84,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<input type="text" id="bankLineNumber" name="bankLineNumber" readonly="readonly"> 
 							</div>
 							<div class="reg_tel">
-								<label> <span style="color: red">*</span>银行卡照片:</label> 
+								<label> <span style="color: red">*</span>银行开户许可证:</label> 
 								<div class="rz_persontab">
 										<input type="hidden" name="bankimg" id="bankimg_req_str">
 										<!--身份证默认图片-->
 										<div class="car_showimg">
-											<img class="clzp" style="width: 350px" src="${trRoot}/tianrui/images/timg.jpg">
+											<img class="clzp" style="width: 350px" src="${trRoot}/tianrui/images/bank_khxkz.jpg">
 										</div>
 										<div class="img_upload mt10">
 												<input id="bankimg_req" onchange="fileupload('bankimg_req','clzp')" class="file" type="file">
