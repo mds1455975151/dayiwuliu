@@ -1,4 +1,5 @@
 $(function () {
+	tadayShow();
 	getVehicleAddress();
 	shwoPageClass();
 	showVender();
@@ -10,7 +11,7 @@ $(function () {
     frequencyShow();
     carShow();//已完成
     billShow();
-    payShow();   
+    payShow();  
 });
 setInterval(goodsTypeShow,12000);
 setInterval(cargsShow,10000);
@@ -18,6 +19,37 @@ setInterval(frequencyShow,14000);
 setInterval(carShow,13000);
 setInterval(billShow,15000);
 setInterval(payShow,16000);
+function tadayShow(){
+	$.ajax({
+		url:"/LEDCount/queryData",
+		type:"POST",
+		data:{"dataType":"1",
+			"ledType":"10",
+			"pageNO":0,
+			"pageSize":12
+		},
+		success:function(ret){
+			if(ret.code==000000){
+				var data = ret.data.list;
+				for (var a = 0; a < data.length; a++) {
+					switch (data[a].remark) {
+					case "dtyf":
+						$("#dtyf").html(data[a].countdata.toFixed(2)+"元");
+						break;
+					case "dtyl":
+						$("#dtyl").html(data[a].countdata.toFixed(2)+"吨");
+						break;
+					default:
+						break;
+					}
+				}
+			}else{
+				return;
+			}
+		}
+	});
+}
+
 var vaData ;
 function getVehicleAddress(){
 	$.getJSON("/resources/js/LED/vehicleAddress.json",function(ret){
@@ -100,6 +132,8 @@ function showHead(){
 						break;
 					}
 				}
+			}else{
+				return;
 			}
 		}
 	});
@@ -111,7 +145,7 @@ function showOwner(){
 		type:"POST",
 		data:{"dataType":"1",
 			"ledType":"8",
-			"pageNO":0,
+//			"pageNO":0,
 			"pageSize":12
 		},
 		success:function(ret){
@@ -122,6 +156,8 @@ function showOwner(){
 					var hml = "<li><label>"+data[a].remark+"</label></li>";
 					$("#ownerThml").append(hml);
 				}
+			}else{
+				return;
 			}
 		}
 	});
@@ -133,7 +169,7 @@ function showVender(){
 		type:"POST",
 		data:{"dataType":"1",
 			"ledType":"7",
-			"pageNO":0,
+//			"pageNO":0,
 			"pageSize":12
 		},
 		success:function(ret){
@@ -144,6 +180,8 @@ function showVender(){
 					var hml = "<li><label>"+data[a].remark+"</label></li>";
 					$("#venderHtml").append(hml);
 				}
+			}else{
+				return;
 			}
 		}
 	});
@@ -161,83 +199,86 @@ function payShow(){
 			"pageNO":0,
 			"pageSize":5
 		},
-		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data.list;
-				var carHml = "";
-				$.each(data,function(index,item){
+				var i = data.length-1;
+				for (var a = 0; a < data.length; a++) {
+					var inx = i-a;
 					pu_x.push(
-						item.remark
-					);
-					pu_y.push(
-						Number(item.countdata)
-					);
+							data[inx].remark
+						);
+						pu_y.push(
+							Number(data[inx].countdata)
+						);
+				}
+				$('#pay').highcharts({
+				    chart: {
+				        type: 'column'
+				    },
+				    title: {
+				        text: ' ' //置空
+				    },
+				    xAxis: {
+				        categories: pu_x,
+				        tickWidth: 0,
+				        //X轴下面的直线
+				        lineWidth:0,
+				        labels: {
+				            y: 20, //x轴刻度往下移动20px
+				            style: {
+				                color: '#ffffff',//颜色
+				                fontSize:'14px'  //字体
+				            }
+				        },
+				    },
+				    yAxis: {
+				        title: {
+				            text: ' ' //置空
+				        },
+				        gridLineWidth: 0,
+				        labels: {
+				            x: -10, //x轴刻度往下移动20px
+				            style: {
+				                color: '#ffffff',//颜色
+				                fontSize:'14px'  //字体
+				            }
+				        },
+				    },
+				    tooltip: {
+				        enabled: false
+				    },
+				    credits: {
+				        enabled: false
+				    },
+				    legend: {
+				        enabled:false
+				    },
+				    plotOptions: {
+				        column: {
+				            //设置柱状图宽度
+				            pointWidth:30,
+				            borderWidth: 0,
+				            dataLabels:{
+				                enabled:true, // dataLabels设为true
+				                style:{
+				                    color:'#D7DEE9'
+				                }
+				            }
+				        }
+				    },
+				    series: [{
+				        name: '运费',
+				        data: pu_y,
+				    }],
+				
 				});
+			}else{
+				return;
 			}
 		}
 	});
-	$('#pay').highcharts({
-	    chart: {
-	        type: 'column'
-	    },
-	    title: {
-	        text: ' ' //置空
-	    },
-	    xAxis: {
-	        categories: pu_x,
-	        tickWidth: 0,
-	        //X轴下面的直线
-	        lineWidth:0,
-	        labels: {
-	            y: 20, //x轴刻度往下移动20px
-	            style: {
-	                color: '#ffffff',//颜色
-	                fontSize:'14px'  //字体
-	            }
-	        },
-	    },
-	    yAxis: {
-	        title: {
-	            text: ' ' //置空
-	        },
-	        gridLineWidth: 0,
-	        labels: {
-	            x: -10, //x轴刻度往下移动20px
-	            style: {
-	                color: '#ffffff',//颜色
-	                fontSize:'14px'  //字体
-	            }
-	        },
-	    },
-	    tooltip: {
-	        enabled: false
-	    },
-	    credits: {
-	        enabled: false
-	    },
-	    legend: {
-	        enabled:false
-	    },
-	    plotOptions: {
-	        column: {
-	            //设置柱状图宽度
-	            pointWidth:30,
-	            borderWidth: 0,
-	            dataLabels:{
-	                enabled:true, // dataLabels设为true
-	                style:{
-	                    color:'#D7DEE9'
-	                }
-	            }
-	        }
-	    },
-	    series: [{
-	        name: '运费',
-	        data: pu_y,
-	    }],
 	
-	});
 }
 
 /** 运量图*/
@@ -252,95 +293,99 @@ function billShow(){
 			"pageNO":0,
 			"pageSize":5
 		},
-		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data.list;
 				var carHml = "";
+				var i = data.length-1;
 				for (var a = 0; a < data.length; a++) {
+					var inx = i-a;
 					pu_x.push(
-							data[a].remark
+							data[inx].remark
 						);
 						pu_y.push(
-							Number(data[a].countdata)
+							Number(data[inx].countdata)
 						);
 				}
+				$('#bill').highcharts({
+				    chart: {
+				        type: 'areaspline'
+				    },
+				    title: {
+				        text: ' '
+				    },
+				    legend: {
+				        layout: 'vertical',
+				        align: 'left',
+				        verticalAlign: 'top',
+				        x: 0,
+				        y: 0,
+				        floating: true,
+				        borderWidth: 1,
+				
+				    },
+				    xAxis: {
+				        categories: pu_x,
+				        lineColor: '#197F07',
+				        //X轴下面每个数据之间的分割线
+				        tickWidth: 0,
+				        //X轴下面的直线
+				        lineWidth:0,
+				        labels: {
+				            y: 25, //x轴刻度往下移动20px
+				            style: {
+				                color: '#ffffff',//颜色
+				                fontSize:'14px'  //字体
+				            }
+				        },
+				
+				
+				    },
+				    yAxis: {
+				        title: {
+				            text: ''
+				        },
+				        //X轴横线的颜色
+				        //gridLineColor: '#197F07',
+				        //X轴横线的宽度，0是不显示
+				        gridLineWidth: 0,
+				        labels: {
+				            x: 10, //x轴刻度往下移动20px
+				            style: {
+				                color: '#ffffff',//颜色
+				                fontSize:'14px'  //字体
+				            }
+				        },
+				    },
+				    tooltip: {
+				        shared: false,
+				        valueSuffix: ''
+				    },
+				    credits: {
+				        enabled: false
+				    },
+				    plotOptions: {
+				        areaspline: {
+				            fillOpacity: 0.4,
+				            color:'#ffffff',
+				        },
+				
+				    },
+				
+				    series: [{
+				        name: '总量',
+				        data: pu_y,
+				        color: "rgba(255,82,78,1)",
+				//            fillColor:'white'  填充区域的颜色
+				
+				    }]
+				});
+			}else{
+				return;
 			}
 		}
 	});
-	$('#bill').highcharts({
-	    chart: {
-	        type: 'areaspline'
-	    },
-	    title: {
-	        text: ' '
-	    },
-	    legend: {
-	        layout: 'vertical',
-	        align: 'left',
-	        verticalAlign: 'top',
-	        x: 0,
-	        y: 0,
-	        floating: true,
-	        borderWidth: 1,
 	
-	    },
-	    xAxis: {
-	        categories: pu_x,
-	        lineColor: '#197F07',
-	        //X轴下面每个数据之间的分割线
-	        tickWidth: 0,
-	        //X轴下面的直线
-	        lineWidth:0,
-	        labels: {
-	            y: 25, //x轴刻度往下移动20px
-	            style: {
-	                color: '#ffffff',//颜色
-	                fontSize:'14px'  //字体
-	            }
-	        },
-	
-	
-	    },
-	    yAxis: {
-	        title: {
-	            text: ''
-	        },
-	        //X轴横线的颜色
-	        //gridLineColor: '#197F07',
-	        //X轴横线的宽度，0是不显示
-	        gridLineWidth: 0,
-	        labels: {
-	            x: 10, //x轴刻度往下移动20px
-	            style: {
-	                color: '#ffffff',//颜色
-	                fontSize:'14px'  //字体
-	            }
-	        },
-	    },
-	    tooltip: {
-	        shared: false,
-	        valueSuffix: ''
-	    },
-	    credits: {
-	        enabled: false
-	    },
-	    plotOptions: {
-	        areaspline: {
-	            fillOpacity: 0.4,
-	            color:'#ffffff',
-	        },
-	
-	    },
-	
-	    series: [{
-	        name: '总量',
-	        data: pu_y,
-	        color: "rgba(255,82,78,1)",
-	//            fillColor:'white'  填充区域的颜色
-	
-	    }]
-	});
 }
 
 /** 车辆类型环图*/
@@ -414,6 +459,8 @@ function carShow(){
 				        }
 				    }]
 				});
+			}else{
+				return;
 			}
 		}
 	});
@@ -433,68 +480,67 @@ function frequencyShow(){
 			"pageNO":0,
 			"pageSize":5
 		},
-		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data.list;
 				var carHml = "";
-//				$("#goods_type_html").empty();
 				$.each(data,function(index,item){
 					pu.push({
 						name: item.remark,
 						y: Number(item.countdata),
 						color: color[index]
 					});
-//					$("#goods_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark+"</label></li>")
 				});
+				$('#frequency').highcharts({
+			        chart: {
+			            type: 'pie',
+			            options3d: {
+			                enabled: false,
+			                alpha: 1
+			            }
+
+			        },
+			        title: {
+			            text: '',
+			        },
+			        subtitle: {
+			            text: ' '
+			        },
+			        plotOptions: {
+			            pie: {
+			                size:105,
+			                innerSize: 50,
+			                colors:[
+			                    '#81d612',
+			                    '#b02290',
+			                    '#20d5ea',
+			                    '#ea7620'
+			                ],
+			                dataLabels: {
+			                    enabled: true,
+			                    format: '<b>{point.name}</b>: ({point.percentage:.0f}%)',
+			                    style : {color:'#ffffff'}
+			                }
+
+			            }
+			        },
+			        series: [{
+			            name: '车型分布',
+			            data: pu
+			        }],
+			        tooltip: {
+			            enabled: false
+			        },
+			        credits: {
+			            enabled: false
+			        }
+			    });
+			}else{
+				return;
 			}
 		}
 	});
 	
-	$('#frequency').highcharts({
-        chart: {
-            type: 'pie',
-            options3d: {
-                enabled: false,
-                alpha: 1
-            }
-
-        },
-        title: {
-            text: '',
-        },
-        subtitle: {
-            text: ' '
-        },
-        plotOptions: {
-            pie: {
-                size:105,
-                innerSize: 50,
-                colors:[
-                    '#81d612',
-                    '#b02290',
-                    '#20d5ea',
-                    '#ea7620'
-                ],
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: ({point.percentage:.0f}%)',
-                    style : {color:'#ffffff'}
-                }
-
-            }
-        },
-        series: [{
-            name: '车型分布',
-            data: pu
-        }],
-        tooltip: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        }
-    });
 }
 
 /** 车辆归属地饼图*/
@@ -510,59 +556,56 @@ function cargsShow(){
 			"pageNO":0,
 			"pageSize":5
 		},
-		async: false,
 		success:function(ret){
 			if(ret.code=="000000"){
 				var data = ret.data.list;
 				var carHml = "";
-//				$("#goods_type_html").empty();
 				$.each(data,function(index,item){
 					pu.push({
 						name: getVehFix(item.remark),
 						y: Number(item.countdata),
 						color: color[index]
 					});
-//					$("#goods_type_html").append("<li><i class='i"+(index+1)+"'></i><label>"+item.remark+"</label></li>")
 				});
+				$('#cargs').highcharts({
+			        chart: {
+			            plotBackgroundColor: null,
+			            plotBorderWidth: null,
+			            plotShadow: false,
+			            type: 'pie'
+			        },
+			        title: {
+			            text: ' '
+			        },
+			        credits: {
+			            enabled: false
+			        },
+			        plotOptions: {
+			            pie: {
+			                allowPointSelect: true,
+			                cursor: 'pointer',
+			                size:105,
+			                dataLabels: {
+			                    enabled: true,
+			                    format: '<b>{point.name}</b>: ({point.percentage:.0f}%)',
+			                    style: {
+			                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
+			                    }
+			                }
+			            }
+			        },
+			        tooltip: {
+			            enabled: false
+			        },
+			        series: [{
+			            name: 'Brands',
+			            colorByPoint: true,
+			            data: pu
+			        }]
+			    });
 			}
 		}
 	});
-	$('#cargs').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: ' '
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                size:105,
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: ({point.percentage:.0f}%)',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
-                    }
-                }
-            }
-        },
-        tooltip: {
-            enabled: false
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: pu
-        }]
-    });
 }
 
 /** 货物类别饼图*/
@@ -574,7 +617,7 @@ function goodsTypeShow(){
 		data:{"dataType":"1",
 			"ledType":"2",
 			"pageNO":0,
-			"pageSize":5
+			"pageSize":6
 		},
 		success:function(ret){
 			if(ret.code=="000000"){
@@ -622,6 +665,8 @@ function goodsTypeShow(){
 			            data: pu
 			        }]
 			    });
+			}else{
+				return;
 			}
 		}
 	});

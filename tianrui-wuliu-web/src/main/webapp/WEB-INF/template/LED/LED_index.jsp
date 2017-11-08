@@ -61,7 +61,7 @@
                 <div class="tj_left">
                     <div class="bill">
                         <p class="titlebg">运量 </p>
-                        <h4>当日运量：128吨</h4>
+                        <h4>当日运量：<span id="dtyl"></span></h4>
                         <div id="bill" class="billbg" style="width: 100%;"></div>
                     </div>
                     <div class="car">
@@ -101,7 +101,7 @@
                         <div class="tj_rtt">
                             <p class="titlebg">运费</p>
                         </div>
-                        <h4>当日运费：128500万元 </h4>
+                        <h4>当日运费：<span id="dtyf"></span> </h4>
                         <div id="pay" class="yfbg" style="width:95%; "></div>
                     </div>
                     <div class="goods">
@@ -152,86 +152,15 @@
                 </div>
                 <!-- 中间货主、车主-->
                 <div class="tj_btomid">
-                    <div class="btleft fl">
+                    <div class="btleft fl" id="myscroll1">
                         <h4>货主</h4>
                         <ul id="ownerThml">
-                            <li>
-                                <label>天瑞集团信息公司</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>15425874111</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>天瑞集团信息科技</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>汝州水泥长</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
                         </ul>
                     </div>
-                    <div class="btleft fr">
+                    <div class="btleft fr" id="myscroll2">
                         <h4>车主</h4>
                         <ul id="venderHtml">
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>天瑞集团信息科技</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>天瑞集团信息科技</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>半挂车</label>
-                            </li>
-                            <li>
-                                <label>天瑞集团信息科技</label>
-                            </li>
+                        
                         </ul>
                     </div>
                 </div>
@@ -259,7 +188,44 @@
 <script src="${trRoot}/tianrui/tjled/js/china.js"></script>
 <script src="${trRoot}/tianrui/tjled/js/indexditu.js"></script>
 
-<script src="/resources/js/LED/LED_index.js?11502"></script>
-
+<script src="/resources/js/LED/LED_index.js?11085"></script>
+<script type="text/javascript">
+$.fn.extend({
+    Scroll:function(opt,callback){
+        //参数初始化
+        var timerId;
+        if(!opt) var opt={};
+        var _this=this.eq(0).find("ul:first");
+        var lineH=_this.find("li:first").height(), //获取行高
+                line=opt.line?parseInt(opt.line,10):parseInt(this.height()/lineH,10), //每次滚动的行数，默认为一屏，即父容器高度
+                speed=opt.speed?parseInt(opt.speed,10):500, //卷动速度，数值越大，速度越慢（毫秒）
+                timer=opt.timer?parseInt(opt.timer,10):3000; //滚动的时间间隔（毫秒）
+        if(line==0) line=1;
+        var upHeight=0;
+        //滚动函数
+        var scrollUp=function(){
+            _this.animate({marginTop:upHeight},speed,function(){
+                var i =1;
+                for(i=1;i <= line;i++){
+                    _this.find("li:first").appendTo(_this);
+                }
+                _this.css({marginTop:0});
+            });
+        }
+        //鼠标事件绑定
+        _this.hover(function(){
+            if (timerId) {
+                clearInterval(timerId);
+            }
+        },function(){
+            timerId=setInterval(function() {
+                scrollUp();
+            },timer);
+        }).mouseout();
+    }
+});
+$("#myscroll1").Scroll({line:4,speed:3000,timer:3000});
+$("#myscroll2").Scroll({line:4,speed:3000,timer:3000});
+</script>
 </body>
 </html>
