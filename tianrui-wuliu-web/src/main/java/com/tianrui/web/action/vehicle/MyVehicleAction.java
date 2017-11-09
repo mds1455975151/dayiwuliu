@@ -444,16 +444,14 @@ public class MyVehicleAction {
 	public Result updateMyVehicle(MemberVehicleReq vehiReq) throws Exception{
 		Result rs = Result.getSuccessResult();
 		
-		MemberVehicleReq rreq = new MemberVehicleReq();
-		rreq.setVehicleNo(vehiReq.getVehicleNo());
-		rreq.setVehiclePrefix(vehiReq.getVehiclePrefix());
-		List<MemberVehicleResp> list = memberVehicleService.queryMyVehicleInfoByCondition(rreq);
-		if(list.size()!=0){
-			if(!vehiReq.getId().equals(list.get(0).getId())){
-				rs.setCode("1");
-				rs.setError("该车牌号已被认证");
-				return rs;
-			}
+		VehicleOnlyReq req = new VehicleOnlyReq();
+		req.setVehicleNo(vehiReq.getVehicleNo());
+		req.setVheicleFix(vehiReq.getVehiclePrefix());
+		rs = memberVehicleService.vehicleNOByOnly(req);
+		if(!rs.getCode().equals("000000")){
+			rs.setCode("1");
+			rs.setError("该车牌号已被认证");
+			return rs;
 		}
 		//修改车辆信息，车辆再次进入认证状态，后台认证时间为createtime
 		vehiReq.setCreateTime(new Date().getTime());

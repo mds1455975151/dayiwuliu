@@ -189,6 +189,7 @@ public class MemberVehicleService implements IMemberVehicleService {
 		MemberVehicle vehic = new MemberVehicle();
 		vehic.setVehicleprefix(req.getVehiclePrefix());
 		vehic.setVehicleno(req.getVehicleNo());
+		vehic.setOnlyCheck("1");
 		long f = memberVehicleMapper.selectCountByCondition(vehic);
 		long x = 0;
 		if(f != x){
@@ -724,6 +725,7 @@ public class MemberVehicleService implements IMemberVehicleService {
 		MemberVehicle vehicle = new MemberVehicle();
 		vehicle.setVehicleno(req.getVehicleNo());
 		vehicle.setVehicleprefix(req.getVheicleFix());
+		vehicle.setOnlyCheck("1");
 		List<MemberVehicle> list = memberVehicleMapper.selectMyVehicleByCondition(vehicle);
 		if(list.size()!=0){
 			rs.setCode("1");

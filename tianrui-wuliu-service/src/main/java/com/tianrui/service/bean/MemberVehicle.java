@@ -13,6 +13,8 @@ public class MemberVehicle implements IModel {
     private String id;
     
     private String drivingTime;
+    /** 车牌号唯一校验*/
+    private String onlyCheck;
     
     /** 车辆运单状态*/
 	private String billstatus;
@@ -46,6 +48,14 @@ public class MemberVehicle implements IModel {
 
 	public void setBeginTime(Long beginTime) {
 		this.beginTime = beginTime;
+	}
+
+	public String getOnlyCheck() {
+		return onlyCheck;
+	}
+
+	public void setOnlyCheck(String onlyCheck) {
+		this.onlyCheck = onlyCheck;
 	}
 
 	public Long getEndTime() {
