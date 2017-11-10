@@ -6,9 +6,9 @@ public class HttpUrl {
 //	public final static String NC_URL_IP_PORT = "http://172.20.10.230:80/";
 	public final static String NC_URL_IP_PORT = Constant.NC_PAY_URL;
 	//支付申请单保存接口--司机
-	public final static String PAY_INVOICE_DRIVER_PUSH = "/tcp/paySupplier/querySupplier";
+	public final static String PAY_INVOICE_DRIVER_PUSH = "/service/TrPaymentAddServlet";
 	//支付申请单保存接口--车主
-	public final static String PAY_INVOICE_VENDER_PUSH = "/tcp/payinvoice/savePay";
+	public final static String PAY_INVOICE_VENDER_PUSH = "/service/TrPayInvoiceAddServlet";
 	//查询司机账单并回写已付金额
 	public final static String PAY_INVOICE_DRIVER_CALLBACK_PAIDAMOUNT = "/tcp/paySupplier/queryPayStatus";
 	//查询车主账单并回写已付金额

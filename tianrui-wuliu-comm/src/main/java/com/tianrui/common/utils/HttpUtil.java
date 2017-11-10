@@ -104,6 +104,7 @@ public class HttpUtil {
 
 			//拼接参数
 			String params = JSON.toJSONString(object).toString();
+			System.out.println(params);
 			StringBuffer sb = new StringBuffer("payInvoiceDetail=");
 			sb.append(params);
 			byte[] bytes = sb.toString().getBytes();

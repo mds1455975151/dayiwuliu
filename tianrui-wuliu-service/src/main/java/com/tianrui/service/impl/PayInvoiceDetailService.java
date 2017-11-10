@@ -454,7 +454,8 @@ public class PayInvoiceDetailService implements IPayInvoiceDetailService {
 	protected String httpNcurl(PayInvoiceDetail payInvoiceDetail) throws IOException{
 		try {
 //			URL url = new URL("http://172.20.10.20/tcp/paySupplier/querySupplier");
-			URL url = new URL(Constant.NC_PAY_URL+"/tcp/paySupplier/querySupplier");
+			//URL url = new URL(Constant.NC_PAY_URL+"/tcp/paySupplier/querySupplier");
+			URL url = new URL(Constant.NC_PAY_URL+"/service/TrPayInvoiceAddServlet");
 			// 打开url连接
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			// 设置url请求方式 ‘get’ 或者 ‘post’

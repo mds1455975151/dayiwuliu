@@ -230,7 +230,8 @@ public class PayInvoiceService implements IPayInvoiceService {
 			invoice.setOrgid(org.getOrganizationno());
 //			invoice.setVenderCode("410482569829868");
 			String dataString = "payInvoice=" + JSON.toJSON(invoice).toString();
-			String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
+			//String dateStr = httpNcurl(dataString,"/tcp/payinvoice/savePay");
+			String dateStr = httpNcurl(dataString,"/service/TrPaymentAddServlet");
 			if(dateStr.equals("000000")){
 				PayInvoice upt = new PayInvoice();
 				upt.setId(invoice.getId());

@@ -1,5 +1,6 @@
 package com.tianrui.service.admin.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -212,7 +213,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				//修改原（Constant.NOT_PUSH 未推单） 改（Constant.PUSH_ING 推单中）
 				if (payInvoice.getPushStatus() == Constant.PUSH_ING || (payInvoice.getPushStatus() == Constant.YES_PUSH && payInvoice.getPayStatus() == Constant.THREE)) {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
-						if (validatePayInvoiceMsg(id)) {
+						//if (validatePayInvoiceMsg(id)) {
+						if(1==1){
 							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
 							logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
 							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice, payInvoiceMsg);
@@ -408,8 +410,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				}
 				
 			}
-			push.setConsigneeNO(nameStr.substring(0, nameStr.length() -1));
-			push.setConsigneeName(noStr.substring(0, noStr.length() -1));
+			push.setConsigneeName(nameStr.substring(0, nameStr.length() -1));
+			push.setConsigneeNO(noStr.substring(0, noStr.length() -1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -466,8 +468,8 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				}
 				
 			}
-			push.setConsigneeNO(nameStr.substring(0, nameStr.length() -1));
-			push.setConsigneeName(noStr.substring(0, noStr.length() -1));
+			push.setConsigneeName(nameStr.substring(0, nameStr.length() -1));
+			push.setConsigneeNO(noStr.substring(0, noStr.length() -1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
