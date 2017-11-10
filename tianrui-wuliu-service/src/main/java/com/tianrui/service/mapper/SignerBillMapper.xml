@@ -24,13 +24,14 @@
     <result column="venderid" property="venderid" jdbcType="VARCHAR" />
     <result column="driverid" property="driverid" jdbcType="VARCHAR" />
     <result column="ownerid" property="ownerid" jdbcType="VARCHAR" />
+    <result column="unloadtime" property="unloadtime" jdbcType="BIGINT" />
   </resultMap>
  	
   <sql id="Query_Column_List" >
   	<if test="searchKey != null and searchKey != ''">
   		and (vb.venderid in (SELECT id FROM member where
 	  			 remarkname like "%" #{searchKey,jdbcType=VARCHAR} "%"
-	  			AND cellphone like "%" #{searchKey,jdbcType=VARCHAR} "%")
+	  			or cellphone like "%" #{searchKey,jdbcType=VARCHAR} "%")
 	  		or vb.vehicleno like "%" #{searchKey,jdbcType=VARCHAR} "%"
 	  		or vb.billno like "%" #{searchKey,jdbcType=VARCHAR} "%"
 	  		)
@@ -69,10 +70,10 @@
    		and vb.billstatus in ('7','8')
    	</if>
    	<if test="starttimes != null and starttimes != ''">
-   		and signtime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
+   		and vb.unloadtime <![CDATA[>=]]> #{starttimes,jdbcType=BIGINT}
     </if>
    	<if test="endtimes != null and endtimes != ''">
-		and signtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
+		and vb.unloadtime <![CDATA[<=]]> #{endtimes,jdbcType=BIGINT}
    	</if>
    	<if test="paystatus != null and paystatus != '' and paystatus == 1">
     	and	EXISTS (

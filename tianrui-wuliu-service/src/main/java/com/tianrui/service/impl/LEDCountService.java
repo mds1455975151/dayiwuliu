@@ -33,7 +33,20 @@ public class LEDCountService implements ILEDCountService{
 	LEDCountDataMapper lEDCountDataMapper;
 	@Autowired
 	IMemberVoService memberVoService;
-	
+	@Override
+	public Result allCountToday(Long data) {
+		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
+		LEDCountData query = new LEDCountData();
+		query.setLedType("10");
+		query.setDataType("1");
+		List<LEDCountData> list = lEDCountDataMapper.selectByCondition(query);
+		countToday(data);
+		for(LEDCountData del: list){
+			lEDCountDataMapper.deleteByPrimaryKey(del.getId());
+		}
+		return rs;
+	}
 	@Override
 	public Result allCountData() {
 		// TODO Auto-generated method stub
@@ -47,6 +60,33 @@ public class LEDCountService implements ILEDCountService{
 			lEDCountDataMapper.deleteByPrimaryKey(del.getId());
 		}
 		return rs;
+	}
+	/**当天数据统计*/
+	protected void countToday(Long data){
+		//当天运费
+		LEDCount cou = new LEDCount();
+		cou.setTimeBegin(data);
+		LEDCountData save = new LEDCountData();
+		save.setCreateTime(System.currentTimeMillis());
+		Double amount = lEDCountMapper.selectByPayAmount(cou);
+		save.setId(UUIDUtil.getId());
+		save.setDataType("1");
+		save.setLedType("10");
+		save.setCountdata(amount);
+		save.setRemark("dtyf");
+		savecountHend(save);
+		//当天运量
+		Double dyTrueweight = lEDCountMapper.selectByBillDy(cou);
+		Double alTrueweight = lEDCountMapper.selectByBillAl(cou);
+		if(alTrueweight!=null){
+			dyTrueweight = dyTrueweight + alTrueweight;
+		}
+		save.setId(UUIDUtil.getId());
+		save.setDataType("1");
+		save.setLedType("10");
+		save.setCountdata(dyTrueweight);
+		save.setRemark("dtyl");
+		savecountHend(save);
 	}
 	
 	protected void countHend() {
@@ -248,7 +288,7 @@ public class LEDCountService implements ILEDCountService{
 		int max = 0;
 		Double other = billcount;
 		//分次去除最大数据
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			Double maxNum = 0.00;
 			for (int j = 0; j < list.size(); j++) {
 				if(list.get(j).getCountNum()>maxNum){
@@ -296,7 +336,7 @@ public class LEDCountService implements ILEDCountService{
 	protected void countVehicleType() {
 		LEDCount query = new LEDCount();
 		query.setPageNo(0);
-		query.setPageSize(4);
+		query.setPageSize(3);
 		List<LEDCount> list = lEDCountMapper.selectByVehicleType(query);
 		Double a = lEDCountMapper.selectByCountVehicle(null);
 		for(LEDCount db : list){
@@ -543,4 +583,5 @@ public class LEDCountService implements ILEDCountService{
 		}
 		return remark;
 	}
+	
 }

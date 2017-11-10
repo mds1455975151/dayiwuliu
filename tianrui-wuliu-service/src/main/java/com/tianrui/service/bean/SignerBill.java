@@ -58,6 +58,7 @@ public class SignerBill {
     private Long starttimes;
     private Long endtimes;
     private Long signtime;
+    private Long unloadtime;
 
     public String getPaystatus() {
 		return paystatus;
@@ -293,6 +294,14 @@ public class SignerBill {
 
 	public void setVenderPhone(String venderPhone) {
 		this.venderPhone = venderPhone;
+	}
+
+	public Long getUnloadtime() {
+		return unloadtime;
+	}
+
+	public void setUnloadtime(Long unloadtime) {
+		this.unloadtime = unloadtime;
 	}
 	
 }

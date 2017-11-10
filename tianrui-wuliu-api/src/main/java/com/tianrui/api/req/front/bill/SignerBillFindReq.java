@@ -3,6 +3,8 @@ package com.tianrui.api.req.front.bill;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import org.apache.commons.lang.StringUtils;
+
 public class SignerBillFindReq {
     private String id;
     private String venderName;
@@ -29,15 +31,15 @@ public class SignerBillFindReq {
     
     
 	public Long getStarttimes() throws ParseException {
-		if(starttime!=null&&starttime!=""){
-			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime()+24*60*60*1000;
+		if(StringUtils.isNotBlank(starttime)){
+			starttimes =(new SimpleDateFormat("yyyy-MM-dd").parse(starttime)).getTime();
 			return starttimes;
 		}
 		return starttimes;
 	}
 
 	public Long getEndtimes() throws ParseException {
-		if(endtime!=null&&endtime!=""){
+		if(StringUtils.isNotBlank(endtime)){
 			endtimes =(new SimpleDateFormat("yyyy-MM-dd").parse(endtime)).getTime()+24*60*60*1000;
 			return endtimes;
 		}

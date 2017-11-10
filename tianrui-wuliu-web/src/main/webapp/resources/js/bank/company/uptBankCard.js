@@ -16,7 +16,39 @@ $(".text_but").on("click",function(){
 	$(".text_class").hide();
 	$(".select_class").show();
 });
-
+window.onload=selectBankName;
+function selectBankName(){
+	$.ajax({
+		url:"/trwuliu/bank/card/bankCardType",
+		type:"post",
+		success:function(ret){
+				var data = ret.data;
+				$("#selectBankName").empty();
+				$("#selectBankName").append("<option value=''>请选择</option>");
+				for (var a = 0; a < data.length; a++) {
+					$("#selectBankName").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
+				}
+			}
+		});
+}
+//开户行名称
+$("#selectBankName").change(function(){
+	var id=$("#selectBankName option:selected").val();
+	$.ajax({
+		url:"/trwuliu/bank/card/findAddress",
+		type:"post",
+		data:{"id":id},
+		success:function(ret){
+			var data = ret.data;
+			$("#desc1_select").empty();
+			$("#desc1_select").append("<option value=''>请选择</option>");
+			for (var a = 0; a < data.length; a++) {
+				$("#desc1_select").append("<option value='"+data[a].id+"'>"+data[a].name+"</option>");
+				$("#bankLineNumber").val(data[a].bankLineNumber );
+			}
+		}
+	});
+});
 function validate(params){
 	if(!params.bankcard){
 		alert("银行卡账户不能为空");

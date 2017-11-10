@@ -10,7 +10,6 @@
 $(function() { 
     // 左侧导航选中效果
 	$('#authenPage').addClass('selected');
-
 	// 界面根据认证状态变动
 	setPageByStatus();
 });
@@ -68,12 +67,12 @@ function setPageByStatus() {
 		$("#todrivAuthen_button").html("申请认证");
 	}
 	
-	if(0 != userpercheck || 0 != driverpercheck){
-		$("#corpAuthen_div").remove();
-	}else if(0 != companypercheck){
-		$("#perAuthen_div").remove();
-		$("#drivAuthen_div").remove();
-	}
+//	if(0 != userpercheck || 0 != driverpercheck){
+//		$("#corpAuthen_div").remove();
+//	}else if(0 != companypercheck){
+//		$("#perAuthen_div").remove();
+//		$("#drivAuthen_div").remove();
+//	}
 	
 	if(1 == companypercheck){
 		$("#perAuthen_div").remove();

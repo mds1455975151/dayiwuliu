@@ -228,7 +228,16 @@
 				and plancode in (${plancode}) and ownerdelflag=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like '%${queryKey}%' or waybillno like '%${queryKey}%')
+				and (
+					cargoname like '%${queryKey}%' 
+					or waybillno like '%${queryKey}%'
+					or vehicleno like '%${queryKey}%'
+					or venderid IN (SELECT ID FROM member
+								WHERE
+									cellphone like '%${queryKey}%'
+								OR remarkname like '%${queryKey}%'
+							)
+					)
 			</if>
 			<if test="statusStrs != null">
 				and status in
@@ -351,7 +360,16 @@
 				ownerdelflag=0
 			</if>
 			<if test="queryKey != null and queryKey!=''">
-				and (cargoname like '%${queryKey}%' or waybillno like '%${queryKey}%')
+				and (
+					cargoname like '%${queryKey}%' 
+					or waybillno like '%${queryKey}%'
+					or vehicleno like '%${queryKey}%'
+					or venderid IN (SELECT ID FROM member
+								WHERE
+									cellphone like '%${queryKey}%'
+								OR remarkname like '%${queryKey}%'
+							)
+					)
 			</if>
 			<if test="statusStrs != null">
 				and status in

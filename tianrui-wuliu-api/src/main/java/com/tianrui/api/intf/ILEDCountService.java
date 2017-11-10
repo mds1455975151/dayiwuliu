@@ -8,7 +8,9 @@ import com.tianrui.common.vo.Result;
 public interface ILEDCountService {
 
 	PaginationVO<LEDCountResp> findCount(LEDCountReq req) throws Exception;
-	
+	/**当天数据统计*/
+	Result allCountToday(Long data);
+	/** 头部数据统计*/
 	Result allCountData();
 	/** 运单运量统计*/
 	Result billCouAl(Long begin,Long end,String timeStr);

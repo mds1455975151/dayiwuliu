@@ -682,6 +682,10 @@
       <if test="vehicleprefix != null and vehicleprefix != ''" >
         and vehicleprefix = #{vehicleprefix,jdbcType=VARCHAR}
       </if>
+      <if test="onlyCheck == 1">
+      	AND `status` IN (1, 2)
+		AND desc2 = '2'
+      </if>
       <if test="vehicleno != null and vehicleno != ''" >
         and vehicleno = #{vehicleno,jdbcType=VARCHAR}
       </if>
@@ -703,52 +707,12 @@
       <if test="vehiweight != null and vehiweight != ''" >
         and vehiweight = #{vehiweight,jdbcType=DOUBLE}
       </if>
-      <!-- <if test="vehilicenseimgpath != null and vehilicenseimgpath != ''" >
-        and vehilicenseimgpath = #{vehilicenseimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehiheadimgpath != null and vehiheadimgpath != ''" >
-        and vehiheadimgpath = #{vehiheadimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehileftimgpath != null and vehileftimgpath != ''" >
-        and vehileftimgpath = #{vehileftimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehirightimgpath != null and vehirightimgpath != ''" >
-        and vehirightimgpath = #{vehirightimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehiandownerimgpath != null and vehiandownerimgpath != ''" >
-        and vehiandownerimgpath = #{vehiandownerimgpath,jdbcType=VARCHAR}
-      </if> -->
       <if test="status != null and status != ''" >
         and status = #{status,jdbcType=VARCHAR}
       </if>
        <if test="desc2 != null and desc2 != ''" >
         and desc2 = #{desc2,jdbcType=VARCHAR}
       </if>
-      <!-- <if test="memo != null and memo != ''" >
-        and memo = #{memo,jdbcType=VARCHAR}
-      </if>
-      <if test="desc1 != null and desc1 != ''" >
-        and desc1 = #{desc1,jdbcType=VARCHAR}
-      </if>
-     
-      <if test="desc3 != null and desc3 != ''" >
-        and desc3 = #{desc3,jdbcType=VARCHAR}
-      </if>
-      <if test="desc4 != null and desc4 != ''" >
-        and desc4 = #{desc4,jdbcType=VARCHAR}
-      </if>
-      <if test="creator != null and creator != ''" >
-        and creator = #{creator,jdbcType=VARCHAR}
-      </if>
-      <if test="createtime != null and createtime != ''" >
-        and createtime = #{createtime,jdbcType=BIGINT}
-      </if>
-      <if test="modifier != null and modifier != ''" >
-        and modifier = #{modifier,jdbcType=VARCHAR}
-      </if>
-      <if test="modifytime != null and modifytime != ''" >
-        and modifytime = #{modifytime,jdbcType=BIGINT} 
-      </if>-->
    	</where>
    	  <if test="start != null and start != 0 and limit != null">
 	    limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
@@ -776,6 +740,10 @@
       <if test="vehicleprefix != null and vehicleprefix != ''" >
         and vehicleprefix = #{vehicleprefix,jdbcType=VARCHAR}
       </if>
+      <if test="onlyCheck == 1">
+      	AND `status` IN (1, 2)
+		AND desc2 = '2'
+      </if>
       <if test="vehicleno != null and vehicleno != ''" >
         and vehicleno = #{vehicleno,jdbcType=VARCHAR}
       </if>
@@ -797,52 +765,12 @@
       <if test="vehiweight != null and vehiweight != ''" >
         and vehiweight = #{vehiweight,jdbcType=DOUBLE}
       </if>
-      <!-- <if test="vehilicenseimgpath != null and vehilicenseimgpath != ''" >
-        and vehilicenseimgpath = #{vehilicenseimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehiheadimgpath != null and vehiheadimgpath != ''" >
-        and vehiheadimgpath = #{vehiheadimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehileftimgpath != null and vehileftimgpath != ''" >
-        and vehileftimgpath = #{vehileftimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehirightimgpath != null and vehirightimgpath != ''" >
-        and vehirightimgpath = #{vehirightimgpath,jdbcType=VARCHAR}
-      </if>
-      <if test="vehiandownerimgpath != null and vehiandownerimgpath != ''" >
-        and vehiandownerimgpath = #{vehiandownerimgpath,jdbcType=VARCHAR}
-      </if> -->
       <if test="status != null and status != ''" >
         and status = #{status,jdbcType=VARCHAR}
       </if>
       <if test="desc2 != null and desc2 != ''" >
         and desc2 = #{desc2,jdbcType=VARCHAR}
       </if>
-      <!-- <if test="memo != null and memo != ''" >
-        and memo = #{memo,jdbcType=VARCHAR}
-      </if>
-      <if test="desc1 != null and desc1 != ''" >
-        and desc1 = #{desc1,jdbcType=VARCHAR}
-      </if>
-      
-      <if test="desc3 != null and desc3 != ''" >
-        and desc3 = #{desc3,jdbcType=VARCHAR}
-      </if>
-      <if test="desc4 != null and desc4 != ''" >
-        and desc4 = #{desc4,jdbcType=VARCHAR}
-      </if>
-      <if test="creator != null and creator != ''" >
-        and creator = #{creator,jdbcType=VARCHAR}
-      </if>
-      <if test="createtime != null and createtime != ''" >
-        and createtime = #{createtime,jdbcType=BIGINT}
-      </if>
-      <if test="modifier != null and modifier != ''" >
-        and modifier = #{modifier,jdbcType=VARCHAR}
-      </if>
-      <if test="modifytime != null and modifytime != ''" >
-        and modifytime = #{modifytime,jdbcType=BIGINT} 
-      </if>-->
    	</where>
   </select>
   
