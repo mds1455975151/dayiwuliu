@@ -33,7 +33,7 @@
             </div>
             <div class="header_right">
                 <label id="header_welcome">欢迎来到天瑞物流 </label>
-                <label id="header_loginHref"> <a href="/publicMember/loginPage">请登录</a></label>
+                <label id="header_loginHref"> <a href="/">请登录</a></label>
                 <label id="header_registerHref"> <a href="/publicMember/registerPage">免费注册</a></label>
                 <label id="header_logout"><a href="/trwuliu/Member/logout">注销</a></label>
                 <label id="header_uptpassword"><a href="/trwuliu/Member/uptPassPage">修改密码</a></label>

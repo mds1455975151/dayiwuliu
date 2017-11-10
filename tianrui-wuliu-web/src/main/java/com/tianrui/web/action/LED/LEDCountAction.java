@@ -1,7 +1,5 @@
 package com.tianrui.web.action.LED;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import com.tianrui.api.req.LED.LEDCountReq;
 import com.tianrui.api.resp.LED.LEDCountResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.LEDCountData;
 
 @Controller
 @RequestMapping("LEDCount")
@@ -34,8 +33,14 @@ public class LEDCountAction {
 	@ResponseBody
 	public Result queryData(LEDCountReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		PaginationVO<LEDCountResp> page = lEDCountService.findCount(req);
-		rs.setData(page);
+		rs = lEDCountService.selectConfig();
+		if(rs.getCode().equals("000000")){
+			rs = lEDCountService.selectByKey("0000000_data_upt");
+			LEDCountData data = (LEDCountData) rs.getData();
+			req.setDataType(data.getStimestr());
+			PaginationVO<LEDCountResp> page = lEDCountService.findCount(req);
+			rs.setData(page);
+		}
 		return rs;
 	}
 }

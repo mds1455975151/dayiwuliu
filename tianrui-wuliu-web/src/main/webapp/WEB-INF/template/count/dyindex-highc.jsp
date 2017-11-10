@@ -34,9 +34,10 @@
             </div>
         </div>
         <div class="tj_right">
-            <div class="tj_data">
-                <label>活跃车辆总数</label><span id="vehiclesum">2000</span><label>辆</label>
-                <label class="ml150">运输线路</label><span id="routesum">200</span><label>条</label>
+            <div class="tj_data" style="width:1080px;">
+            	 <label style="font-size:28px;">注册车辆总数</label><span style="font-size:45px;">99659</span><label>辆</label>&nbsp;
+                <label style="margin-left:15px;font-size:28px;">活跃车辆总数</label><span style="font-size:45px;" id="vehiclesum">2000</span><label>辆</label>&nbsp;
+                <label style="margin-left:15px;font-size:28px;">运输线路</label><span style="font-size:45px;" id="routesum">200</span><label>条</label>
             </div>
             <div class="fenbu_map">
                 <div id="test" style="width: 980px;height:780px;">

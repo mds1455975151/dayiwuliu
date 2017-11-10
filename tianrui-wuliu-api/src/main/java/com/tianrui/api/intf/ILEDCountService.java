@@ -8,6 +8,16 @@ import com.tianrui.common.vo.Result;
 public interface ILEDCountService {
 
 	PaginationVO<LEDCountResp> findCount(LEDCountReq req) throws Exception;
+	
+	Result selectByKey(String key)throws Exception;
+	/** 修改查询状态*/
+	void utpConfig(String type)throws Exception;
+	/** 修改数据*/
+	Result uptData(LEDCountReq req)throws Exception;
+	/** 设置状态*/
+	Result setConfig()throws Exception;
+	/** 查询当前数据状态*/
+	Result selectConfig()throws Exception;
 	/**当天数据统计*/
 	Result allCountToday(Long data);
 	/** 头部数据统计*/

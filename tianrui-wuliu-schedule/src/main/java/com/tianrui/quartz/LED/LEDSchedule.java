@@ -28,10 +28,12 @@ public class LEDSchedule {
 	@Autowired
 	ILEDCountService lEDCountService;
 	
-	@Scheduled(cron="0/20 * * * * ?")
-	public void LEDCountAll() throws ParseException{
+	/** 每两个小时执行*/
+	@Scheduled(cron="0 0 0/2 * * ?")
+	public void LEDCountAll() throws Exception{
 		Long timeBegin = System.currentTimeMillis();
 		logger.info("LED定时任务开始"+TimeUtils.LongZoString(timeBegin));
+		lEDCountService.utpConfig("upt");
 		String dataStr = new SimpleDateFormat("yyyy-MM").format(new Date());
 		//当月开始时间
 		Long date = new SimpleDateFormat("yyyy-MM").parse(dataStr).getTime();
@@ -58,6 +60,7 @@ public class LEDSchedule {
 		lEDCountService.vehicleAddress();
 		//车辆使用频率
 		lEDCountService.vehicleRate();
+		lEDCountService.utpConfig("conf");
 		logger.info("LED定时任务结束"+TimeUtils.LongZoString(System.currentTimeMillis())+"耗时/毫秒"+(System.currentTimeMillis()-timeBegin));
 	}
 	

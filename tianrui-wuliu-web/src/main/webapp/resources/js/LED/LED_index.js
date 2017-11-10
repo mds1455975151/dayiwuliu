@@ -1,6 +1,6 @@
 $(function () {
-	tadayShow();
 	getVehicleAddress();
+	tadayShow();
 	shwoPageClass();
 	showVender();
 	showOwner();
@@ -13,6 +13,10 @@ $(function () {
     billShow();
     payShow();  
 });
+setInterval(tadayShow,35000);
+setInterval(showVender,40000);
+setInterval(showOwner,40000);
+setInterval(showHead,30000);
 setInterval(goodsTypeShow,12000);
 setInterval(cargsShow,10000);
 setInterval(frequencyShow,14000);
