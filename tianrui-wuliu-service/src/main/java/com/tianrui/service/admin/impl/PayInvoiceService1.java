@@ -213,8 +213,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				//修改原（Constant.NOT_PUSH 未推单） 改（Constant.PUSH_ING 推单中）
 				if (payInvoice.getPushStatus() == Constant.PUSH_ING || (payInvoice.getPushStatus() == Constant.YES_PUSH && payInvoice.getPayStatus() == Constant.THREE)) {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
-						//if (validatePayInvoiceMsg(id)) {
-						if(1==1){
+						if (validatePayInvoiceMsg(id)) {
 							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
 							logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
 							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice, payInvoiceMsg);
