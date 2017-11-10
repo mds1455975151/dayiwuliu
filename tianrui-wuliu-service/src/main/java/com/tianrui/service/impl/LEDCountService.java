@@ -33,6 +33,84 @@ public class LEDCountService implements ILEDCountService{
 	LEDCountDataMapper lEDCountDataMapper;
 	@Autowired
 	IMemberVoService memberVoService;
+	
+
+	@Override
+	public Result uptData(LEDCountReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		LEDCountData data = lEDCountDataMapper.selectByPrimaryKey(req.getId());
+		if(data.getDataType().equals("2")){
+			data.setCountdata(req.getCountdata());
+			data.setRemark(req.getRemark());
+			lEDCountDataMapper.updateByPrimaryKeySelective(data);
+		}else{
+			rs.setCode("1");
+			rs.setError("正式数据不能修改");
+		}
+		return rs;
+	}
+	@Override
+	public Result setConfig() throws Exception {
+		Result rs = Result.getSuccessResult();
+		LEDCountData query = new LEDCountData();
+		query.setDataType("1");
+		List<LEDCountData> list = lEDCountDataMapper.selectByCondition(query);
+		query.setDataType("2");
+		List<LEDCountData> del = lEDCountDataMapper.selectByCondition(query);
+		LEDCountData data = lEDCountDataMapper.selectByPrimaryKey("0000000_data_upt");
+		if(data.getLedType().equals("upt")){
+			rs.setCode("1");
+			rs.setError("数据更新中...");
+			return rs;
+		}
+		data.setLedType("upt");
+		lEDCountDataMapper.updateByPrimaryKeySelective(data);
+		if(data.getStimestr().equals("1")){
+			//正式 改 测试
+			for(LEDCountData save : list){
+				save.setId(UUIDUtil.getId());
+				save.setDataType("2");
+				save.setCreateTime(System.currentTimeMillis());
+				lEDCountDataMapper.insertSelective(save);
+			}
+			data.setStimestr("2");
+		}else if(data.getStimestr().equals("2")){
+			for(LEDCountData d : del){
+				lEDCountDataMapper.deleteByPrimaryKey(d.getId());
+			}
+			data.setStimestr("1");
+		}
+		data.setLedType("conf");
+		lEDCountDataMapper.updateByPrimaryKeySelective(data);
+		return rs;
+	}
+	
+	@Override
+	public Result selectByKey(String key) throws Exception {
+		Result rs = Result.getSuccessResult();
+		LEDCountData data = lEDCountDataMapper.selectByPrimaryKey(key);
+		rs.setData(data);
+		return rs;
+	}
+	
+	@Override
+	public void utpConfig(String type) throws Exception {
+		LEDCountData upt = new LEDCountData();
+		upt.setId("0000000_data_upt");
+		upt.setLedType(type);
+		lEDCountDataMapper.updateByPrimaryKeySelective(upt);
+	}
+	@Override
+	public Result selectConfig() throws Exception {
+		Result rs = Result.getSuccessResult();
+		LEDCountData data = lEDCountDataMapper.selectByPrimaryKey("0000000_data_upt");
+		if(data.getLedType().equals("upt")){
+			rs.setCode("1");
+			rs.setError("数据更新中...");
+		}
+		return rs;
+	}
+	
 	@Override
 	public Result allCountToday(Long data) {
 		// TODO Auto-generated method stub
@@ -518,7 +596,6 @@ public class LEDCountService implements ILEDCountService{
 
 	@Override
 	public Result ownerCount() {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		//7-车主
 		LEDCountData query = new LEDCountData();
@@ -583,5 +660,5 @@ public class LEDCountService implements ILEDCountService{
 		}
 		return remark;
 	}
-	
+
 }

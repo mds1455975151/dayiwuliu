@@ -122,7 +122,7 @@
 	
 	<root>
 		<!--  <level value="debug" />  -->
-		 <level value="debug" /> 
+		 <level value="info" /> 
 		<appender-ref ref="infoAppender" />
 		<appender-ref ref="errorAppender" />
 		<appender-ref ref="consoleAppender" />
