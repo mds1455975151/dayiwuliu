@@ -65,8 +65,9 @@ public class LEDSchedule {
 	}
 	
 	/** 运费统计*/
-//	@Scheduled(cron="0/5 * * * * ?")
+//	@Scheduled(cron="0/10 * * * * ?")
 	public void payAmountCount() throws Exception{
+		System.out.println("-----------------运费统计开始---------------------");
 		List<Long> list = new ArrayList<Long>();
 		list.add(1506787200000l);
 		list.add(1504195200000l);
@@ -82,6 +83,7 @@ public class LEDSchedule {
 			//运费统计
 			lEDCountService.payAmountCount(date, indexLong(date),dataStr);
 		}
+		System.out.println("-----------------运费统计结束---------------------");
 	}
 	/** 头部统计数据
 	 * @throws ParseException */
@@ -100,8 +102,9 @@ public class LEDSchedule {
 	}
 	
 	/** 运量统计*/
-//	@Scheduled(cron="0/5 * * * * ?")
+//	@Scheduled(cron="0/10 * * * * ?")
 	public void ledIndex() throws Exception{
+		System.out.println("--------------运量统计开始---");
 		List<Long> list = new ArrayList<Long>();
 		list.add(1506787200000l);
 		list.add(1504195200000l);
@@ -117,6 +120,7 @@ public class LEDSchedule {
 			//运量统计
 			lEDCountService.billCouAl(date, indexLong(date),dataStr);
 		}
+		System.out.println("--------------运量统计结束---");
 	}
 	
 	/** 车主*/

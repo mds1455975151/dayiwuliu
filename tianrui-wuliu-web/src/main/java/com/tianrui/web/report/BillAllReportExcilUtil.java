@@ -212,31 +212,46 @@ public class BillAllReportExcilUtil extends AbstractExcelView {
 		}
 		if(count != null){
 			String distinct = count.getDistinctCount();
-			String distincts= big2(Double.parseDouble(distinct));
+			String distincts= "";
+			if(StringUtils.isNotBlank(distinct)){
+				distincts= big2(Double.parseDouble(distinct));
+			}
 			cell = getCell(sheet, userCount+1, 11);
 			cell.setCellStyle(contentStyle);
 			setText(cell, distincts);
 			
 			String venderWeight = count.getVenderWeightCount();
-			String venderWeights= big2(Double.parseDouble(venderWeight));
+			String venderWeights= "";
+			if(StringUtils.isNotBlank(venderWeight)){
+				venderWeights= big2(Double.parseDouble(venderWeight));
+			}
 			cell = getCell(sheet, userCount+1, 12);
 			cell.setCellStyle(contentStyle);
 			setText(cell, venderWeights);
 			
 			String pickupWeight = count.getPickupWeightCount();
-			String pickupWeights= big2(Double.parseDouble(pickupWeight));
+			String pickupWeights= "";
+			if(StringUtils.isNotBlank(pickupWeight)){
+				pickupWeights= big2(Double.parseDouble(pickupWeight));
+			}
 			cell = getCell(sheet, userCount+1, 13);
 			cell.setCellStyle(contentStyle);
 			setText(cell, pickupWeights);
 			
 			String unloadWeight = count.getUnloadWeightCount();
-			String unloadWeights= big2(Double.parseDouble(unloadWeight));
+			String unloadWeights= "";
+			if(StringUtils.isNotBlank(unloadWeight)){
+				unloadWeights= big2(Double.parseDouble(unloadWeight));
+			}
 			cell = getCell(sheet, userCount+1, 14);
 			cell.setCellStyle(contentStyle);
 			setText(cell, unloadWeights);
 			
 			String trueWeight = count.getTrueWeightCount();
-			String trueWeights= big2(Double.parseDouble(trueWeight));
+			String trueWeights= "";
+			if(StringUtils.isNotBlank(trueWeight)){
+				trueWeights= big2(Double.parseDouble(trueWeight));
+			}
 			cell = getCell(sheet, userCount+1, 15);
 			cell.setCellStyle(contentStyle);
 			setText(cell, trueWeights);

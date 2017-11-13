@@ -69,6 +69,7 @@
 								<select id="interTimeStr">
 									<option value="">请选择</option>
 									<option value="interTime < 30*60*1000">30分钟以内</option>
+									<option value="interTime >= 30*60*1000">30分钟以上</option>
 									<option value="interTime < 60*60*1000 and interTime >= 30*60*1000">30~60分钟</option>
 									<option value="interTime < 1.5*60*60*1000 and interTime >= 1*60*60*1000">1~1.5小时</option>
 									<option value="interTime < 2*60*60*1000 and interTime >= 1.5*60*60*1000">1.5~2小时</option>
@@ -89,6 +90,7 @@
 								<select id="interDistanceStr">
 									<option value="">请选择</option>
 									<option value="interDistance < 5000">5km以内</option>
+									<option value="interDistance >= 5000">5km以上</option>
 									<option value="interDistance >= 5000 and interDistance < 10000">5~10km</option>
 									<option value="interDistance >= 10000 and interDistance < 15000">10~15km</option>
 									<option value="interDistance >= 15000 and interDistance < 20000">15~20km</option>

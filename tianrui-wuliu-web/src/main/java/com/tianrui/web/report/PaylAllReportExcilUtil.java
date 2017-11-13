@@ -236,55 +236,82 @@ public class PaylAllReportExcilUtil extends AbstractExcelView {
 		}
 		if(count != null){
 			String unloadWeight = count.getTrueWeightCount();
-			String unloadWeights= big2(Double.parseDouble(unloadWeight));
+			String unloadWeights= "";
+			if(StringUtils.isNotBlank(unloadWeight)){
+				unloadWeights= big2(Double.parseDouble(unloadWeight));
+			}
 			cell = getCell(sheet, userCount+1, 14);
 			cell.setCellStyle(contentStyle);
 			setText(cell, unloadWeights);
 			
 			String trueWeight = count.getPriceCount();
-			String trueWeights= big2(Double.parseDouble(trueWeight));
+			String trueWeights= "";
+			if(StringUtils.isNotBlank(trueWeight)){
+				trueWeights= big2(Double.parseDouble(trueWeight));
+			}
 			cell = getCell(sheet, userCount+1, 15);
 			cell.setCellStyle(contentStyle);
 			setText(cell, trueWeights);
 			
 			String billStatus = count.getTotalPriceCount();
-			String billStatuss= big2(Double.parseDouble(billStatus));
+			String billStatuss= "";
+			if(StringUtils.isNotBlank(billStatus)){
+				billStatuss= big2(Double.parseDouble(billStatus));
+			}
 			cell = getCell(sheet, userCount+1, 16);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billStatuss);
 			
 			String driverName = count.getOilCardCount();
-			String driverNames= big2(Double.parseDouble(driverName));
+			String driverNames= "";
+			if(StringUtils.isNotBlank(driverName)){
+				driverNames= big2(Double.parseDouble(driverName));
+			}
 			cell = getCell(sheet, userCount+1, 17);
 			cell.setCellStyle(contentStyle);
 			setText(cell, driverNames);
 			
 			String payMent = count.getWeightMiscCount();
-			String payMents= big2(Double.parseDouble(payMent));
+			String payMents= "";
+			if(StringUtils.isNotBlank(payMent)){
+				payMents= big2(Double.parseDouble(payMent));
+			}
 			cell = getCell(sheet, userCount+1, 18);
 			cell.setCellStyle(contentStyle);
 			setText(cell, payMents);
 			
 			String billCreaterTime = count.getDeductMoneyCount();
-			String billCreaterTimes= big2(Double.parseDouble(billCreaterTime));
+			String billCreaterTimes="";
+			if(StringUtils.isNotBlank(billCreaterTime)){
+				billCreaterTimes= big2(Double.parseDouble(billCreaterTime));
+			}
 			cell = getCell(sheet, userCount+1, 19);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billCreaterTimes);
 			
 			String acceptTime = count.getDeductOtherCount();
-			String acceptTimes= big2(Double.parseDouble(acceptTime));
+			String acceptTimes= "";
+			if(StringUtils.isNotBlank(acceptTime)){
+				acceptTimes= big2(Double.parseDouble(acceptTime));
+			}
 			cell = getCell(sheet, userCount+1, 20);
 			cell.setCellStyle(contentStyle);
 			setText(cell, acceptTimes);
 			
 			String pickupTime = count.getAmountPayableCount();
-			String pickupTimes= big2(Double.parseDouble(pickupTime));
+			String pickupTimes= "";
+			if(StringUtils.isNotBlank(pickupTime)){
+				pickupTimes= big2(Double.parseDouble(pickupTime));
+			}
 			cell = getCell(sheet, userCount+1, 21);
 			cell.setCellStyle(contentStyle);
 			setText(cell, pickupTimes);
 			
 			String unloadTime = count.getPaidAmountCount();
-			String unloadTimes= big2(Double.parseDouble(unloadTime));
+			String unloadTimes= "";
+			if(StringUtils.isNotBlank(unloadTime)){
+				unloadTimes= big2(Double.parseDouble(unloadTime));
+			}
 			cell = getCell(sheet, userCount+1, 22);
 			cell.setCellStyle(contentStyle);
 			setText(cell, unloadTimes);

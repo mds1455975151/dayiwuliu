@@ -184,43 +184,55 @@ public class PlanAllReportExcilUtil extends AbstractExcelView {
 		}
 		if(count != null){
 			String sendMan = count.getPlanWeightCount();
-			String sendMans= big2(Double.parseDouble(sendMan));
-//			double sendMans = new BigDecimal (Double.parseDouble(sendMan)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+			String sendMans= "";
+			if(StringUtils.isNotBlank(sendMan)){
+				sendMans= big2(Double.parseDouble(sendMan));
+			}
 			cell = getCell(sheet, userCount+1, 4);
 			cell.setCellStyle(contentStyle);
 			setText(cell, sendMans);
 			
 			String sendPersion = count.getComplitWeightCount();
-			String sendPersions= big2(Double.parseDouble(sendPersion));
-//			double sendPersions = new BigDecimal (Double.parseDouble(sendPersion)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+			String sendPersions= "";
+			if(StringUtils.isNotBlank(sendPersion)){
+				sendPersions= big2(Double.parseDouble(sendPersion));
+			}
 			cell = getCell(sheet, userCount+1, 5);
 			cell.setCellStyle(contentStyle);
 			setText(cell, sendPersions);
 			
 			String receiptMan = count.getTempoCount();
-			String receiptMans= big2(Double.parseDouble(receiptMan));
-//			double receiptMans = new BigDecimal (Double.parseDouble(receiptMan)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+			String receiptMans= "";
+			if(StringUtils.isNotBlank(receiptMan)){
+				receiptMans= big2(Double.parseDouble(receiptMan));
+			}
 			cell = getCell(sheet, userCount+1, 6);
 			cell.setCellStyle(contentStyle);
 			setText(cell, receiptMans);
 			
 			String trueWeight = count.getDistantCount();
-			String trueWeights= big2(Double.parseDouble(trueWeight));
-//			double trueWeights = new BigDecimal (Double.parseDouble(trueWeight)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+			String trueWeights= "";
+			if(StringUtils.isNotBlank(trueWeight)){
+				trueWeights= big2(Double.parseDouble(trueWeight));
+			}
 			cell = getCell(sheet, userCount+1, 15);
 			cell.setCellStyle(contentStyle);
 			setText(cell, trueWeights);
 			
 			String billStatus = count.getPriceCount();
-			String billStatuss= big2(Double.parseDouble(billStatus));
-//			double billStatuss = new BigDecimal (Double.parseDouble(billStatus)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+			String billStatuss= "";
+			if(StringUtils.isNotBlank(billStatus)){
+				billStatuss= big2(Double.parseDouble(billStatus));
+			}
 			cell = getCell(sheet, userCount+1, 16);
 			cell.setCellStyle(contentStyle);
 			setText(cell, billStatuss);
 			
 			String driverName = count.getTaxCount();
-			String driverNames= big2(Double.parseDouble(driverName));
-//			double driverNames = new BigDecimal (Double.parseDouble(driverName)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+			String driverNames= "";
+			if(StringUtils.isNotBlank(driverName)){
+				driverNames= big2(Double.parseDouble(driverName));
+			}
 			cell = getCell(sheet, userCount+1, 17);
 			cell.setCellStyle(contentStyle);
 			setText(cell, driverNames);
