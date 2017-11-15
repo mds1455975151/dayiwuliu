@@ -60,8 +60,17 @@ public class LEDSchedule {
 		lEDCountService.vehicleAddress();
 		//车辆使用频率
 		lEDCountService.vehicleRate();
+		//路线
+		lEDCountService.routeCount();
 		lEDCountService.utpConfig("conf");
 		logger.info("LED定时任务结束"+TimeUtils.LongZoString(System.currentTimeMillis())+"耗时/毫秒"+(System.currentTimeMillis()-timeBegin));
+	}
+	/** 线路*/
+	@Scheduled(cron="0/10 * * * * ?")
+	public void routeCount(){
+		System.out.println("-----------------线路统计开始---------------------");
+		lEDCountService.routeCount();
+		System.out.println("-----------------线路统计end---------------------");
 	}
 	
 	/** 运费统计*/

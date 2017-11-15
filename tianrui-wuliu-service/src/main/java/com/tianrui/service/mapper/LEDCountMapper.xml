@@ -251,4 +251,30 @@
      limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
   </select>
+  <select id="selectByNewAlBill" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		desc1 as countName,
+		billno as remark,
+		ptBegintime as timeBegin
+	FROM
+		anlian_bill
+	ORDER BY
+		ptBegintime DESC
+	<if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByNewDYBill" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
+  SELECT
+		routeid as countName,
+		waybillno as remark,
+		begintime as timeBegin
+	FROM
+		wuliu_bill
+	ORDER BY
+		begintime DESC
+	<if test="pageNo != null">
+	    limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   	</if>
+  </select>
 </mapper>

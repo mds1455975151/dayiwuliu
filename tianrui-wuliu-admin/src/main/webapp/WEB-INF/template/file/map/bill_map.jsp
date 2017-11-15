@@ -131,10 +131,16 @@
 		//运单状态
 		var billStatus = list[0].billStatus;
 		console.log("billStatus="+billStatus);
+		var fla = 0;
 		for (var a = 0; a < list.length; a++) {
 			lon = list[a].lon/1000000;
 			lat = list[a].lat/1000000;
-			addMarker(lon,lat,list[a].status,list[a].createtime,ptype);
+			if(list[a].status != 2){
+				addMarker(lon,lat,list[a].status,list[a].createtime,ptype);
+			}else if(list[a].status == 2 && fla == 0){
+				fla = fla + 1;
+				addMarker(lon,lat,list[a].status,list[a].createtime,ptype);
+			}
 			var thePoint1 = new BMap.Point(lon,lat);
 			nlon = lon;
 			nlat = lat;

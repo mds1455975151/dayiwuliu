@@ -1109,10 +1109,10 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
-				//保存卸货地位置信息
-				saveBillPosition(req);
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"transit") ){
+						//保存卸货地位置信息
+						saveBillPosition(req);
 						//移动端图片保存
 						if(StringUtils.isNotBlank(req.getImgdata())){
 							FileUploadReq uploadreq = new FileUploadReq();
@@ -1214,10 +1214,10 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
-				//保存发货地位置信息
-				saveBillPosition(req);
 				if( checkBillauthForCuser(db,req.getCurruId(),"driver")){
 					if( checkBillauthForstatus(db,"pickup") ){
+						//保存发货地位置信息
+						saveBillPosition(req);
 						// 如果有已经确认装货的话 就不能操作 就不能
 						Bill query = new Bill();
 						query.setVehicleid(db.getVehicleid());

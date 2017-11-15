@@ -186,8 +186,7 @@
 <!--地图-->
 <script src="${trRoot}/tianrui/tjled/js/echarts.js"></script>
 <script src="${trRoot}/tianrui/tjled/js/china.js"></script>
-<script src="${trRoot}/tianrui/tjled/js/indexditu.js"></script>
-
+<script src="/resources/js/LED/indexditu.js?111522"></script>
 <script src="/resources/js/LED/LED_index.js?11085"></script>
 <script type="text/javascript">
 $.fn.extend({

@@ -11,13 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.ILEDCountService;
 import com.tianrui.api.req.LED.LEDCountReq;
 import com.tianrui.api.resp.LED.LEDCountResp;
+import com.tianrui.api.resp.LED.LEDRouteResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.LEDCountData;
 
 @Controller
 @RequestMapping("LEDCount")
-public class LEDCountAction {
+public class LEDWebAction {
 	
 	@Autowired
 	ILEDCountService lEDCountService;
@@ -39,6 +40,18 @@ public class LEDCountAction {
 			LEDCountData data = (LEDCountData) rs.getData();
 			req.setDataType(data.getStimestr());
 			PaginationVO<LEDCountResp> page = lEDCountService.findCount(req);
+			rs.setData(page);
+		}
+		return rs;
+	}
+	/** 查询路线信息*/
+	@RequestMapping("queryRouteData")
+	@ResponseBody
+	public Result queryRouteData(LEDCountReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = lEDCountService.selectConfig();
+		if(rs.getCode().equals("000000")){
+			LEDRouteResp page = lEDCountService.findRoute(req);
 			rs.setData(page);
 		}
 		return rs;

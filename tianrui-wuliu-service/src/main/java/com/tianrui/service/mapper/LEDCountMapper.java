@@ -41,5 +41,9 @@ public interface LEDCountMapper {
 	Double selectByCountDy(LEDCount record);
 	/** 活跃车辆*/
 	Double selectByVehcileAct(LEDCount record);
+	/** 查询安联最新提货运单*/
+	List<LEDCount> selectByNewAlBill(LEDCount record);
+	/** 查询大易最新提货运单*/
+	List<LEDCount> selectByNewDYBill(LEDCount record);
 	
 }

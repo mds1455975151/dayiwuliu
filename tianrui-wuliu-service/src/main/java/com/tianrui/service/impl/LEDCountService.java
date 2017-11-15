@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,14 +17,21 @@ import com.tianrui.api.intf.ILEDCountService;
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.req.LED.LEDCountReq;
 import com.tianrui.api.resp.LED.LEDCountResp;
+import com.tianrui.api.resp.LED.LEDRouteResp;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FilePositoin;
+import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.mapper.FilePositoinMapper;
+import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.LEDCount;
 import com.tianrui.service.bean.LEDCountData;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.mapper.LEDCountDataMapper;
 import com.tianrui.service.mapper.LEDCountMapper;
+import com.tianrui.service.mapper.PlanMapper;
 
 @Service
 public class LEDCountService implements ILEDCountService{
@@ -33,8 +42,68 @@ public class LEDCountService implements ILEDCountService{
 	LEDCountDataMapper lEDCountDataMapper;
 	@Autowired
 	IMemberVoService memberVoService;
+	@Autowired
+	FileRouteMapper fileRouteMapper;
+	@Autowired
+	FilePositoinMapper filePositoinMapper;
+	@Autowired
+	PlanMapper planMapper;
 	
-
+	
+	@Override
+	public LEDRouteResp findRoute(LEDCountReq req) throws Exception {
+		// TODO Auto-generated method stub
+		LEDCountData query = new LEDCountData();
+		if(req.getPageNO()!=null){
+			query.setPageNO(req.getPageNO()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+		}
+		query.setLedType(req.getLedType());
+		query.setDataType(req.getDataType());
+		List<LEDCountData> list = lEDCountDataMapper.selectByCondition(query);
+		
+		LEDRouteResp resp = new LEDRouteResp();
+		Map<String,Object>  geoCoordMap = new HashMap<String,Object>();
+		List<List<Map<String,Object>>>  flyData = new ArrayList<List<Map<String,Object>>>();
+		for (LEDCountData led : list) {
+			if(StringUtils.isNotBlank(led.getStimestr())&&StringUtils.isNotBlank(led.getRemark())){
+				//到货位置&&提货位置不为空
+				if(StringUtils.isNotBlank(led.getStimestr())){
+					String[] all = led.getStimestr().split(":");
+					String[] pos = all[0].split(",");
+					String name = all[1];
+					geoCoordMap.put(name, pos);
+				}
+				if(StringUtils.isNotBlank(led.getRemark())){
+					String[] all = led.getRemark().split(":");
+					String[] pos = all[0].split(",");
+					String name = all[1];
+					geoCoordMap.put(name, pos);
+				}
+				//连线
+				flyData.add(routeMap(led.getRemark(),led.getStimestr()));
+			}
+		}
+		resp.setFlyData(flyData);
+		resp.setGeoCoordMap(geoCoordMap);
+		return resp;
+	}
+	/** 解析坐标信息  '115434980,35216581|菏泽'*/
+	protected List<Map<String,Object>> routeMap(String beg ,String end) {
+		List<Map<String,Object>> list = new ArrayList<>();
+		String[] b = beg.split(":");
+		String[] n = end.split(":");
+		Map<String,Object> bg = new HashMap<String,Object>();
+		bg.put("name", b[1]);
+		bg.put("value", b[2]);
+		list.add(bg);
+		Map<String,Object> ed = new HashMap<String,Object>();
+		ed.put("name", n[1]);
+		ed.put("value", 80);
+		list.add(ed);
+		return list;
+	}
+	
 	@Override
 	public Result uptData(LEDCountReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -113,7 +182,6 @@ public class LEDCountService implements ILEDCountService{
 	
 	@Override
 	public Result allCountToday(Long data) {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		LEDCountData query = new LEDCountData();
 		query.setLedType("10");
@@ -127,7 +195,6 @@ public class LEDCountService implements ILEDCountService{
 	}
 	@Override
 	public Result allCountData() {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		LEDCountData query = new LEDCountData();
 		query.setLedType("9");
@@ -480,6 +547,79 @@ public class LEDCountService implements ILEDCountService{
 	}
 
 	@Override
+	public Result routeCount() {
+		Result rs = Result.getSuccessResult();
+		LEDCountData query = new LEDCountData();
+		query.setLedType("11");//路线统计
+		query.setDataType("1");
+		List<LEDCountData> list = lEDCountDataMapper.selectByCondition(query);
+		for(LEDCountData del: list){
+			lEDCountDataMapper.deleteByPrimaryKey(del.getId());
+		}
+		saveRouteCount();
+		return rs;
+	}
+	
+	protected void saveRouteCount() {
+		//TODO
+		LEDCount query = new LEDCount();
+		query.setPageNo(0);
+		query.setPageSize(20);
+		List<LEDCount> al = lEDCountMapper.selectByNewAlBill(query);
+		List<LEDCount> dy = lEDCountMapper.selectByNewDYBill(query);
+		List<LEDCount> sum = new ArrayList<LEDCount>();
+		for(LEDCount alr : al){
+			Plan plan = planMapper.selectByPrimaryKey(alr.getCountName());
+			alr.setCountName(plan.getRouteid());
+//			saveRouteData(plan.getRouteid(),alr.getRemark(),alr.getTimeBegin());
+			sum.add(alr);
+		}
+		for(LEDCount dyr : dy){
+			sum.add(dyr);
+//			saveRouteData(dyr.getCountName(),dyr.getRemark(),dyr.getTimeBegin());
+		}
+		for(LEDCount sv : quChong(sum)){
+			saveRouteData(sv.getCountName(),sv.getRemark(),sv.getTimeBegin());
+		}
+	}
+
+	protected List<LEDCount> quChong(List<LEDCount> list) {
+		List<LEDCount> sp = new ArrayList<LEDCount>();
+		for (int i = 0; i < list.size(); i++) {
+			LEDCount cc = list.get(i);
+			for (int b = 0; b < list.size(); b++) {
+				if(cc.getCountName().equals(list.get(b).getCountName())&&!cc.getRemark().equals(list.get(b).getRemark())){
+					cc.setRemark(cc.getRemark()+"<br>"+list.get(b).getRemark());
+					list.remove(b);
+				}
+			}
+			sp.add(cc);
+		}
+		return sp;
+	}
+	
+	protected void saveRouteData(String routeId,String billNo,Long createTime) {
+		FileRoute route = fileRouteMapper.selectByPrimaryKey(routeId);
+		
+		if(route != null){
+			//始发地
+			FilePositoin op = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
+			//目的地
+			FilePositoin dp = filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
+			if(op != null && dp != null){
+				LEDCountData save = new LEDCountData();
+				save.setId(UUIDUtil.getId());
+				save.setLedType("11");
+				save.setDataType("1");
+				save.setCreateTime(createTime);
+				save.setRemark((op.getLng()/1000000d)+","+(op.getLat()/1000000d)+":"+op.getName()+":"+billNo);//起运地
+				save.setStimestr((dp.getLng()/1000000d)+","+(op.getLat()/1000000d)+":"+dp.getName()+":"+billNo);//目的地
+				lEDCountDataMapper.insertSelective(save);
+			}
+		}
+	}
+	
+	@Override
 	public Result vehicleRate() {
 		Result rs = Result.getSuccessResult();
 		LEDCountData query = new LEDCountData();
@@ -660,5 +800,4 @@ public class LEDCountService implements ILEDCountService{
 		}
 		return remark;
 	}
-
 }

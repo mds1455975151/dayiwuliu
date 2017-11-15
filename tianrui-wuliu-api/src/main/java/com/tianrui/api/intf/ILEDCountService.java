@@ -2,12 +2,15 @@ package com.tianrui.api.intf;
 
 import com.tianrui.api.req.LED.LEDCountReq;
 import com.tianrui.api.resp.LED.LEDCountResp;
+import com.tianrui.api.resp.LED.LEDRouteResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
 public interface ILEDCountService {
 
 	PaginationVO<LEDCountResp> findCount(LEDCountReq req) throws Exception;
+	
+	LEDRouteResp findRoute(LEDCountReq req) throws Exception;
 	
 	Result selectByKey(String key)throws Exception;
 	/** 修改查询状态*/
@@ -38,4 +41,6 @@ public interface ILEDCountService {
 	Result venderCount();
 	/** 货主统计*/
 	Result ownerCount();
+	/** 地图路线统计*/
+	Result routeCount();
 }
