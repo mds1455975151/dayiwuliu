@@ -186,9 +186,50 @@
 <!--地图-->
 <script src="${trRoot}/tianrui/tjled/js/echarts.js"></script>
 <script src="${trRoot}/tianrui/tjled/js/china.js"></script>
-<script src="/resources/js/LED/indexditu.js?111522"></script>
-<script src="/resources/js/LED/LED_index.js?11085"></script>
+<script src="/resources/js/LED/indexditu.js?1117"></script>
+<script src="/resources/js/LED/LED_index.js?111722"></script>
+<!-- 
+ -->
 <script type="text/javascript">
+$.fn.extend({
+    Scroli:function(opt,wid){
+        var num = 0;
+        function goLeft() {
+            //num是单个li尺寸，可变
+            var screenwid = $(document).width();
+            if(screenwid > 1 && screenwid <1500){
+                if (num == -wid) {
+                    num = 0;
+                }
+                num -= 1;
+                opt.css({
+                    left: num
+                })
+            }
+            else if(screenwid > 1500){
+                if (num == -wid){
+                    num = 0;
+                }
+                num -= 1;
+                opt.css({
+                    left: num
+                })
+            }
+        }
+        //设置滚动速度
+        var timer = setInterval(goLeft, 20);
+        //设置鼠标经过时滚动停止
+        this.hover(function() {
+                    clearInterval(timer);
+                },
+                function() {
+                    timer = setInterval(goLeft, 20);
+                })
+    }
+});
+
+
+
 $.fn.extend({
     Scroll:function(opt,callback){
         //参数初始化
@@ -206,7 +247,7 @@ $.fn.extend({
             _this.animate({marginTop:upHeight},speed,function(){
                 var i =1;
                 for(i=1;i <= line;i++){
-                    _this.find("li:first").appendTo(_this);
+                    _this.find(".winBox:first").appendTo(_this);
                 }
                 _this.css({marginTop:0});
             });
@@ -223,8 +264,8 @@ $.fn.extend({
         }).mouseout();
     }
 });
-$("#myscroll1").Scroll({line:4,speed:3000,timer:3000});
-$("#myscroll2").Scroll({line:4,speed:3000,timer:3000});
+$("#myscroll1").Scroll({line:4,speed:5000,timer:5000});
+$("#myscroll2").Scroll({line:4,speed:5000,timer:5000});
 </script>
 </body>
 </html>

@@ -226,13 +226,13 @@
   <select id="selectByOwnerDy" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
   SELECT
 		ownerid as countName,
-		count(ownerid) as countNum
+		SUM(trueweight) as countNum
 	FROM
 		wuliu_bill 
 	GROUP BY
 		ownerid
 	ORDER BY
-		count(ownerid) DESC
+		SUM(trueweight) DESC
 	<if test="pageNo != null">
      limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
@@ -240,13 +240,13 @@
   <select id="selectByOwnerAl" resultType="com.tianrui.service.bean.LEDCount" parameterType="com.tianrui.service.bean.LEDCount">
   SELECT
 		ownerid as countName,
-		count(ownerid) as countNum
+		SUM(trueweight) as countNum
 	FROM
 		anlian_bill
 	GROUP BY
 		ownerid
 	ORDER BY
-		count(ownerid) DESC
+		SUM(trueweight) DESC
 	<if test="pageNo != null">
      limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>

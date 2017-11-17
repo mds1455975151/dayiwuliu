@@ -12,6 +12,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +43,7 @@ import com.tianrui.trwl.admin.util.BillReportExcilUtil;
 @RequestMapping("report")
 public class ReportAction {
 
+	private Logger logger = LoggerFactory.getLogger(ReportAction.class);
 	@Autowired
 	private BillService billService;
 	@Autowired
@@ -124,6 +127,7 @@ public class ReportAction {
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage());
 		}
 		return rs;
 	}
@@ -138,6 +142,7 @@ public class ReportAction {
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage());
 		}
 		return rs;
 	}
@@ -150,6 +155,7 @@ public class ReportAction {
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage());
 		}
 		return rs;
 	}
@@ -163,6 +169,7 @@ public class ReportAction {
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
+			logger.error(e.getMessage());
 		}
 		return rs;
 	}
