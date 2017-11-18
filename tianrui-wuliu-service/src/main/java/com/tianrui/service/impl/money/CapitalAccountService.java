@@ -1,0 +1,120 @@
+package com.tianrui.service.impl.money;
+
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.tianrui.api.money.intf.ICapitalAccountService;
+import com.tianrui.api.req.money.CapitalAccountReq;
+import com.tianrui.common.enums.TransactionType;
+import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.MoneyCapitalAccount;
+import com.tianrui.service.mapper.MoneyCapitalAccountMapper;
+
+@Service
+public class CapitalAccountService implements ICapitalAccountService {
+
+	Logger logger=LoggerFactory.getLogger(CapitalAccountService.class);
+	@Autowired 
+	private MoneyCapitalAccountMapper moneyAccountMapper;
+	 
+	@Override
+	public Result saveOrUpdate(CapitalAccountReq req,TransactionType type) {
+		Result rs = Result.getSuccessResult();
+		MoneyCapitalAccount mAccount = null;
+		if(null != req.getUseryhno() && !"".equals(req.getUseryhno())){
+			mAccount = moneyAccountMapper.selectByUseryhno(req.getUseryhno());
+		}else if (null != req.getCellphone() && !"".equals(req.getCellphone())) {
+			mAccount = moneyAccountMapper.selectByCellphone(req.getCellphone());
+		}else {
+			rs.setCode("01");
+			rs.setError("用户登录账号和银行唯一标识不能为空");
+			return rs;
+		}
+		if(null == mAccount){
+			if(type.getType() == 1){
+				saveCapitalAccount(req, type, rs);
+			}else {
+				rs.setCode("1006");
+				rs.setError("业务异常，未发现前置资金操作，无法进行此操作");
+			}
+		}else {
+			updateCapitalAccount(req, type, rs, mAccount);
+		}
+		return rs;
+	}
+	/**
+	 * 修改资金账户
+	 * @param req
+	 * @param type
+	 * @param rs
+	 * @param mAccount
+	 */
+	private void updateCapitalAccount(CapitalAccountReq req, TransactionType type, Result rs,
+			MoneyCapitalAccount mAccount) {
+		if(type.getType() == 1){//待收入运费增加
+			if(req.getPendingmoney() > 0){
+				mAccount.setPendingbill(mAccount.getPendingbill() + 1);//待收入运单 +1
+				mAccount.setTotalbill(mAccount.getTotalbill() + 1);//总运输运单+1
+				mAccount.setPendingmoney(mAccount.getPendingmoney() + req.getPendingmoney());//待收入运费增加
+				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
+			}else {
+				rs.setCode("011");
+				rs.setError("待收入运费金额必须大于0");
+			}
+		}else if (type.getType() == 11) {//收入运费
+			if(req.getPendingmoney() > 0 && req.getAvailablemoney() > 0){
+				mAccount.setPendingbill(mAccount.getPendingbill() - 1);//待收入运单 -1
+				mAccount.setPaidbill(mAccount.getPaidbill() + 1);//已到账运单+1
+				mAccount.setPendingmoney(mAccount.getPendingmoney() - req.getPendingmoney());//未到账金额减少
+				mAccount.setAvailablemoney(mAccount.getAvailablemoney() + req.getAvailablemoney());//账户可用余额增加
+				mAccount.setPaidmoney(mAccount.getPaidmoney() + req.getAvailablemoney());//已到账金额增加
+				mAccount.setTotalmoney(mAccount.getTotalmoney() + req.getAvailablemoney());//账户总金额增加
+				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
+			}else {
+				rs.setCode("011");
+				rs.setError("待收入运费金额必须大于0");
+			}
+		}
+	}
+	/**
+	 * 没有资金账户时，开一个资金账户
+	 * @param req
+	 * @param type
+	 * @param rs
+	 */
+	private void saveCapitalAccount(CapitalAccountReq req, TransactionType type, Result rs) {
+		MoneyCapitalAccount account = new MoneyCapitalAccount();
+		try {
+			PropertyUtils.copyProperties(account,req);
+			int r = 0;
+			account.setTotalmoney(req.getAvailablemoney() + req.getLockmoney());
+			if(type.getType() == 1){//待收入运费增加
+				account.setPendingbill(1);
+				account.setTotalbill(1);
+			}
+			r = moneyAccountMapper.insert(account);
+			if(r == 0){
+				rs.setCode("2");
+				rs.setError("数据保存失败");
+			}
+		} catch (IllegalAccessException e) {
+			rs.setCode("1");
+			rs.setError(e.getMessage());
+			logger.error(e.getMessage());
+		} catch (InvocationTargetException e) {
+			rs.setCode("1");
+			rs.setError(e.getMessage());
+			logger.error(e.getMessage());
+		} catch (NoSuchMethodException e) {
+			rs.setCode("1");
+			rs.setError(e.getMessage());
+			logger.error(e.getMessage());
+		}
+	}
+
+}

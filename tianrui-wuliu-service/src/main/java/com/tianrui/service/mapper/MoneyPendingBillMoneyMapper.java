@@ -14,4 +14,11 @@ public interface MoneyPendingBillMoneyMapper {
     int updateByPrimaryKeySelective(MoneyPendingBillMoney record);
 
     int updateByPrimaryKey(MoneyPendingBillMoney record);
+    
+    /**
+     * 根据运单编号获取运费收入记录
+     * @param waybillno
+     * @return
+     */
+    MoneyPendingBillMoney selectByWaybillno(String waybillno);
 }

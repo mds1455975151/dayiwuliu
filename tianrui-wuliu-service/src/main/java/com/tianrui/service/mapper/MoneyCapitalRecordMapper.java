@@ -14,4 +14,17 @@ public interface MoneyCapitalRecordMapper {
     int updateByPrimaryKeySelective(MoneyCapitalRecord record);
 
     int updateByPrimaryKey(MoneyCapitalRecord record);
+    
+    /**
+     * 根据用户银行唯一标识获取用户最新的资金流水
+     * @param useryhNO
+     * @return
+     */
+    MoneyCapitalRecord selectByUseryhno(String useryhNO);
+    /**
+     * 根据用户银行唯一标识获取用户最新的资金流水
+     * @param cellphone
+     * @return
+     */
+    MoneyCapitalRecord selectByCellphone(String cellphone);
 }

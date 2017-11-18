@@ -24,6 +24,13 @@
     id, cellphone, username, useryhNO, waybillno, pendingMoney, createtime, ifPaid, paidMoney, 
     deductionMoney, paidTime, lastTime, capitalNO, desc1, desc2, desc3, desc4
   </sql>
+  <select id="selectByWaybillno" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_pendingBillMoney
+    where waybillno = #{waybillno,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
