@@ -52,7 +52,6 @@ public class LEDCountService implements ILEDCountService{
 	
 	@Override
 	public LEDRouteResp findRoute(LEDCountReq req) throws Exception {
-		// TODO Auto-generated method stub
 		LEDCountData query = new LEDCountData();
 		if(req.getPageNO()!=null){
 			query.setPageNO(req.getPageNO()*req.getPageSize());

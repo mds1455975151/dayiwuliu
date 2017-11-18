@@ -9,7 +9,7 @@ var app = {};
 var option = null;
 
 getRoute();
-setInterval(getRoute,5000);
+setInterval(getRoute,600000);
 function getRoute(){
 	$.ajax({
 		url:"/LEDCount/queryRouteData",
