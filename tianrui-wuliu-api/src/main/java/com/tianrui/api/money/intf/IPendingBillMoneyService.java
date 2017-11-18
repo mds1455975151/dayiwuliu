@@ -1,6 +1,6 @@
 package com.tianrui.api.money.intf;
 
-import com.tianrui.api.req.money.BillMoneyReq;
+import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.common.vo.Result;
 
 public interface IPendingBillMoneyService {
@@ -10,5 +10,5 @@ public interface IPendingBillMoneyService {
 	 * @param req
 	 * @return
 	 */
-	Result save(BillMoneyReq req);
+	Result save(SaveBillMoneyReq req);
 }

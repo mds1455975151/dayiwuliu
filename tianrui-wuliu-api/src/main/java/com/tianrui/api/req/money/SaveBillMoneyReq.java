@@ -1,6 +1,6 @@
 package com.tianrui.api.req.money;
 
-public class BillMoneyReq {
+public class SaveBillMoneyReq {
 
 	private String cellphone;//登录账号
 
