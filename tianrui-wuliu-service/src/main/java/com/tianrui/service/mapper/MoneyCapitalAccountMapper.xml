@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.MoneyCapitalAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.MoneyCapitalAccount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="useryhNO" property="useryhno" jdbcType="VARCHAR" />
+    <result column="availableMoney" property="availablemoney" jdbcType="BIGINT" />
+    <result column="lockMoney" property="lockmoney" jdbcType="BIGINT" />
+    <result column="totalMoney" property="totalmoney" jdbcType="BIGINT" />
+    <result column="pendingMoney" property="pendingmoney" jdbcType="BIGINT" />
+    <result column="totalBill" property="totalbill" jdbcType="INTEGER" />
+    <result column="paidBill" property="paidbill" jdbcType="INTEGER" />
+    <result column="pendingBill" property="pendingbill" jdbcType="INTEGER" />
+    <result column="paidMoney" property="paidmoney" jdbcType="BIGINT" />
+    <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cellphone, username, useryhNO, availableMoney, lockMoney, totalMoney, pendingMoney, 
+    totalBill, paidBill, pendingBill, paidMoney, lastTime, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_capitalAccount
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from money_capitalAccount
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.MoneyCapitalAccount" >
+    insert into money_capitalAccount (id, cellphone, username, 
+      useryhNO, availableMoney, lockMoney, 
+      totalMoney, pendingMoney, totalBill, 
+      paidBill, pendingBill, paidMoney, 
+      lastTime, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=BIGINT}, #{cellphone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{useryhno,jdbcType=VARCHAR}, #{availablemoney,jdbcType=BIGINT}, #{lockmoney,jdbcType=BIGINT}, 
+      #{totalmoney,jdbcType=BIGINT}, #{pendingmoney,jdbcType=BIGINT}, #{totalbill,jdbcType=INTEGER}, 
+      #{paidbill,jdbcType=INTEGER}, #{pendingbill,jdbcType=INTEGER}, #{paidmoney,jdbcType=BIGINT}, 
+      #{lasttime,jdbcType=TIMESTAMP}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.MoneyCapitalAccount" >
+    insert into money_capitalAccount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="useryhno != null" >
+        useryhNO,
+      </if>
+      <if test="availablemoney != null" >
+        availableMoney,
+      </if>
+      <if test="lockmoney != null" >
+        lockMoney,
+      </if>
+      <if test="totalmoney != null" >
+        totalMoney,
+      </if>
+      <if test="pendingmoney != null" >
+        pendingMoney,
+      </if>
+      <if test="totalbill != null" >
+        totalBill,
+      </if>
+      <if test="paidbill != null" >
+        paidBill,
+      </if>
+      <if test="pendingbill != null" >
+        pendingBill,
+      </if>
+      <if test="paidmoney != null" >
+        paidMoney,
+      </if>
+      <if test="lasttime != null" >
+        lastTime,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useryhno != null" >
+        #{useryhno,jdbcType=VARCHAR},
+      </if>
+      <if test="availablemoney != null" >
+        #{availablemoney,jdbcType=BIGINT},
+      </if>
+      <if test="lockmoney != null" >
+        #{lockmoney,jdbcType=BIGINT},
+      </if>
+      <if test="totalmoney != null" >
+        #{totalmoney,jdbcType=BIGINT},
+      </if>
+      <if test="pendingmoney != null" >
+        #{pendingmoney,jdbcType=BIGINT},
+      </if>
+      <if test="totalbill != null" >
+        #{totalbill,jdbcType=INTEGER},
+      </if>
+      <if test="paidbill != null" >
+        #{paidbill,jdbcType=INTEGER},
+      </if>
+      <if test="pendingbill != null" >
+        #{pendingbill,jdbcType=INTEGER},
+      </if>
+      <if test="paidmoney != null" >
+        #{paidmoney,jdbcType=BIGINT},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MoneyCapitalAccount" >
+    update money_capitalAccount
+    <set >
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useryhno != null" >
+        useryhNO = #{useryhno,jdbcType=VARCHAR},
+      </if>
+      <if test="availablemoney != null" >
+        availableMoney = #{availablemoney,jdbcType=BIGINT},
+      </if>
+      <if test="lockmoney != null" >
+        lockMoney = #{lockmoney,jdbcType=BIGINT},
+      </if>
+      <if test="totalmoney != null" >
+        totalMoney = #{totalmoney,jdbcType=BIGINT},
+      </if>
+      <if test="pendingmoney != null" >
+        pendingMoney = #{pendingmoney,jdbcType=BIGINT},
+      </if>
+      <if test="totalbill != null" >
+        totalBill = #{totalbill,jdbcType=INTEGER},
+      </if>
+      <if test="paidbill != null" >
+        paidBill = #{paidbill,jdbcType=INTEGER},
+      </if>
+      <if test="pendingbill != null" >
+        pendingBill = #{pendingbill,jdbcType=INTEGER},
+      </if>
+      <if test="paidmoney != null" >
+        paidMoney = #{paidmoney,jdbcType=BIGINT},
+      </if>
+      <if test="lasttime != null" >
+        lastTime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.MoneyCapitalAccount" >
+    update money_capitalAccount
+    set cellphone = #{cellphone,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      useryhNO = #{useryhno,jdbcType=VARCHAR},
+      availableMoney = #{availablemoney,jdbcType=BIGINT},
+      lockMoney = #{lockmoney,jdbcType=BIGINT},
+      totalMoney = #{totalmoney,jdbcType=BIGINT},
+      pendingMoney = #{pendingmoney,jdbcType=BIGINT},
+      totalBill = #{totalbill,jdbcType=INTEGER},
+      paidBill = #{paidbill,jdbcType=INTEGER},
+      pendingBill = #{pendingbill,jdbcType=INTEGER},
+      paidMoney = #{paidmoney,jdbcType=BIGINT},
+      lastTime = #{lasttime,jdbcType=TIMESTAMP},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

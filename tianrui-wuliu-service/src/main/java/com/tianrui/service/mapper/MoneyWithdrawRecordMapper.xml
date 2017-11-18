@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.MoneyWithdrawRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.MoneyWithdrawRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="useryhNO" property="useryhno" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="BIGINT" />
+    <result column="expectPayCompany" property="expectpaycompany" jdbcType="VARCHAR" />
+    <result column="bankName" property="bankname" jdbcType="VARCHAR" />
+    <result column="bankCode" property="bankcode" jdbcType="VARCHAR" />
+    <result column="bankCodeNo" property="bankcodeno" jdbcType="VARCHAR" />
+    <result column="transactionState" property="transactionstate" jdbcType="SMALLINT" />
+    <result column="availableMoney" property="availablemoney" jdbcType="BIGINT" />
+    <result column="beginTime" property="begintime" jdbcType="BIGINT" />
+    <result column="endTime" property="endtime" jdbcType="BIGINT" />
+    <result column="errorCode" property="errorcode" jdbcType="VARCHAR" />
+    <result column="errorMessage" property="errormessage" jdbcType="VARCHAR" />
+    <result column="actualAmount" property="actualamount" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="capitalNO" property="capitalno" jdbcType="VARCHAR" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cellphone, username, useryhNO, money, expectPayCompany, bankName, bankCode, bankCodeNo, 
+    transactionState, availableMoney, beginTime, endTime, errorCode, errorMessage, actualAmount, 
+    remark, lastTime, capitalNO, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_withdrawRecord
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from money_withdrawRecord
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.MoneyWithdrawRecord" >
+    insert into money_withdrawRecord (id, cellphone, username, 
+      useryhNO, money, expectPayCompany, 
+      bankName, bankCode, bankCodeNo, 
+      transactionState, availableMoney, beginTime, 
+      endTime, errorCode, errorMessage, 
+      actualAmount, remark, lastTime, 
+      capitalNO, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=BIGINT}, #{cellphone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{useryhno,jdbcType=VARCHAR}, #{money,jdbcType=BIGINT}, #{expectpaycompany,jdbcType=VARCHAR}, 
+      #{bankname,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, #{bankcodeno,jdbcType=VARCHAR}, 
+      #{transactionstate,jdbcType=SMALLINT}, #{availablemoney,jdbcType=BIGINT}, #{begintime,jdbcType=BIGINT}, 
+      #{endtime,jdbcType=BIGINT}, #{errorcode,jdbcType=VARCHAR}, #{errormessage,jdbcType=VARCHAR}, 
+      #{actualamount,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{lasttime,jdbcType=TIMESTAMP}, 
+      #{capitalno,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.MoneyWithdrawRecord" >
+    insert into money_withdrawRecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="useryhno != null" >
+        useryhNO,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="expectpaycompany != null" >
+        expectPayCompany,
+      </if>
+      <if test="bankname != null" >
+        bankName,
+      </if>
+      <if test="bankcode != null" >
+        bankCode,
+      </if>
+      <if test="bankcodeno != null" >
+        bankCodeNo,
+      </if>
+      <if test="transactionstate != null" >
+        transactionState,
+      </if>
+      <if test="availablemoney != null" >
+        availableMoney,
+      </if>
+      <if test="begintime != null" >
+        beginTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="errorcode != null" >
+        errorCode,
+      </if>
+      <if test="errormessage != null" >
+        errorMessage,
+      </if>
+      <if test="actualamount != null" >
+        actualAmount,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="lasttime != null" >
+        lastTime,
+      </if>
+      <if test="capitalno != null" >
+        capitalNO,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useryhno != null" >
+        #{useryhno,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=BIGINT},
+      </if>
+      <if test="expectpaycompany != null" >
+        #{expectpaycompany,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null" >
+        #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcodeno != null" >
+        #{bankcodeno,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionstate != null" >
+        #{transactionstate,jdbcType=SMALLINT},
+      </if>
+      <if test="availablemoney != null" >
+        #{availablemoney,jdbcType=BIGINT},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="errorcode != null" >
+        #{errorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errormessage != null" >
+        #{errormessage,jdbcType=VARCHAR},
+      </if>
+      <if test="actualamount != null" >
+        #{actualamount,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="capitalno != null" >
+        #{capitalno,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MoneyWithdrawRecord" >
+    update money_withdrawRecord
+    <set >
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useryhno != null" >
+        useryhNO = #{useryhno,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=BIGINT},
+      </if>
+      <if test="expectpaycompany != null" >
+        expectPayCompany = #{expectpaycompany,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        bankName = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null" >
+        bankCode = #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcodeno != null" >
+        bankCodeNo = #{bankcodeno,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionstate != null" >
+        transactionState = #{transactionstate,jdbcType=SMALLINT},
+      </if>
+      <if test="availablemoney != null" >
+        availableMoney = #{availablemoney,jdbcType=BIGINT},
+      </if>
+      <if test="begintime != null" >
+        beginTime = #{begintime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="errorcode != null" >
+        errorCode = #{errorcode,jdbcType=VARCHAR},
+      </if>
+      <if test="errormessage != null" >
+        errorMessage = #{errormessage,jdbcType=VARCHAR},
+      </if>
+      <if test="actualamount != null" >
+        actualAmount = #{actualamount,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        lastTime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="capitalno != null" >
+        capitalNO = #{capitalno,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.MoneyWithdrawRecord" >
+    update money_withdrawRecord
+    set cellphone = #{cellphone,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      useryhNO = #{useryhno,jdbcType=VARCHAR},
+      money = #{money,jdbcType=BIGINT},
+      expectPayCompany = #{expectpaycompany,jdbcType=VARCHAR},
+      bankName = #{bankname,jdbcType=VARCHAR},
+      bankCode = #{bankcode,jdbcType=VARCHAR},
+      bankCodeNo = #{bankcodeno,jdbcType=VARCHAR},
+      transactionState = #{transactionstate,jdbcType=SMALLINT},
+      availableMoney = #{availablemoney,jdbcType=BIGINT},
+      beginTime = #{begintime,jdbcType=BIGINT},
+      endTime = #{endtime,jdbcType=BIGINT},
+      errorCode = #{errorcode,jdbcType=VARCHAR},
+      errorMessage = #{errormessage,jdbcType=VARCHAR},
+      actualAmount = #{actualamount,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      lastTime = #{lasttime,jdbcType=TIMESTAMP},
+      capitalNO = #{capitalno,jdbcType=VARCHAR},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

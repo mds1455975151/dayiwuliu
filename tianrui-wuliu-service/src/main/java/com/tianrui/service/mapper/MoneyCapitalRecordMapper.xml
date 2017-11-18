@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.MoneyCapitalRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.MoneyCapitalRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="useryhNO" property="useryhno" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="BIGINT" />
+    <result column="transactionType" property="transactiontype" jdbcType="BIGINT" />
+    <result column="income" property="income" jdbcType="BIGINT" />
+    <result column="expenditure" property="expenditure" jdbcType="BIGINT" />
+    <result column="totalMoney" property="totalmoney" jdbcType="BIGINT" />
+    <result column="availableMoney" property="availablemoney" jdbcType="BIGINT" />
+    <result column="withdrawalsLockMoney" property="withdrawalslockmoney" jdbcType="BIGINT" />
+    <result column="otherLockMoney" property="otherlockmoney" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="lastTime" property="lasttime" jdbcType="TIMESTAMP" />
+    <result column="capitalNO" property="capitalno" jdbcType="VARCHAR" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cellphone, username, useryhNO, money, transactionType, income, expenditure, totalMoney, 
+    availableMoney, withdrawalsLockMoney, otherLockMoney, createtime, remark, lastTime, 
+    capitalNO, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_capitalRecord
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from money_capitalRecord
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.MoneyCapitalRecord" >
+    insert into money_capitalRecord (id, cellphone, username, 
+      useryhNO, money, transactionType, 
+      income, expenditure, totalMoney, 
+      availableMoney, withdrawalsLockMoney, otherLockMoney, 
+      createtime, remark, lastTime, 
+      capitalNO, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=BIGINT}, #{cellphone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{useryhno,jdbcType=VARCHAR}, #{money,jdbcType=BIGINT}, #{transactiontype,jdbcType=BIGINT}, 
+      #{income,jdbcType=BIGINT}, #{expenditure,jdbcType=BIGINT}, #{totalmoney,jdbcType=BIGINT}, 
+      #{availablemoney,jdbcType=BIGINT}, #{withdrawalslockmoney,jdbcType=BIGINT}, #{otherlockmoney,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR}, #{lasttime,jdbcType=TIMESTAMP}, 
+      #{capitalno,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.MoneyCapitalRecord" >
+    insert into money_capitalRecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="useryhno != null" >
+        useryhNO,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="transactiontype != null" >
+        transactionType,
+      </if>
+      <if test="income != null" >
+        income,
+      </if>
+      <if test="expenditure != null" >
+        expenditure,
+      </if>
+      <if test="totalmoney != null" >
+        totalMoney,
+      </if>
+      <if test="availablemoney != null" >
+        availableMoney,
+      </if>
+      <if test="withdrawalslockmoney != null" >
+        withdrawalsLockMoney,
+      </if>
+      <if test="otherlockmoney != null" >
+        otherLockMoney,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="lasttime != null" >
+        lastTime,
+      </if>
+      <if test="capitalno != null" >
+        capitalNO,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useryhno != null" >
+        #{useryhno,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=BIGINT},
+      </if>
+      <if test="transactiontype != null" >
+        #{transactiontype,jdbcType=BIGINT},
+      </if>
+      <if test="income != null" >
+        #{income,jdbcType=BIGINT},
+      </if>
+      <if test="expenditure != null" >
+        #{expenditure,jdbcType=BIGINT},
+      </if>
+      <if test="totalmoney != null" >
+        #{totalmoney,jdbcType=BIGINT},
+      </if>
+      <if test="availablemoney != null" >
+        #{availablemoney,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawalslockmoney != null" >
+        #{withdrawalslockmoney,jdbcType=BIGINT},
+      </if>
+      <if test="otherlockmoney != null" >
+        #{otherlockmoney,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="capitalno != null" >
+        #{capitalno,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MoneyCapitalRecord" >
+    update money_capitalRecord
+    <set >
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="useryhno != null" >
+        useryhNO = #{useryhno,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=BIGINT},
+      </if>
+      <if test="transactiontype != null" >
+        transactionType = #{transactiontype,jdbcType=BIGINT},
+      </if>
+      <if test="income != null" >
+        income = #{income,jdbcType=BIGINT},
+      </if>
+      <if test="expenditure != null" >
+        expenditure = #{expenditure,jdbcType=BIGINT},
+      </if>
+      <if test="totalmoney != null" >
+        totalMoney = #{totalmoney,jdbcType=BIGINT},
+      </if>
+      <if test="availablemoney != null" >
+        availableMoney = #{availablemoney,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawalslockmoney != null" >
+        withdrawalsLockMoney = #{withdrawalslockmoney,jdbcType=BIGINT},
+      </if>
+      <if test="otherlockmoney != null" >
+        otherLockMoney = #{otherlockmoney,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="lasttime != null" >
+        lastTime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="capitalno != null" >
+        capitalNO = #{capitalno,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.MoneyCapitalRecord" >
+    update money_capitalRecord
+    set cellphone = #{cellphone,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      useryhNO = #{useryhno,jdbcType=VARCHAR},
+      money = #{money,jdbcType=BIGINT},
+      transactionType = #{transactiontype,jdbcType=BIGINT},
+      income = #{income,jdbcType=BIGINT},
+      expenditure = #{expenditure,jdbcType=BIGINT},
+      totalMoney = #{totalmoney,jdbcType=BIGINT},
+      availableMoney = #{availablemoney,jdbcType=BIGINT},
+      withdrawalsLockMoney = #{withdrawalslockmoney,jdbcType=BIGINT},
+      otherLockMoney = #{otherlockmoney,jdbcType=BIGINT},
+      createtime = #{createtime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      lastTime = #{lasttime,jdbcType=TIMESTAMP},
+      capitalNO = #{capitalno,jdbcType=VARCHAR},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
