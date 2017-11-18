@@ -17,11 +17,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IAnlianService;
 import com.tianrui.api.intf.IAnlianBillService;
 import com.tianrui.api.intf.ICrossVehicleService;
+import com.tianrui.api.intf.IMoenyDisposeService;
 import com.tianrui.api.req.front.bill.AnlianBillFindReq;
 import com.tianrui.api.req.front.bill.AnlianBillUpdateReq;
+import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.BillAnlianPosition;
 import com.tianrui.service.mongo.BillAnlianPositionDao;
@@ -37,6 +40,8 @@ public class AnlianBillPosition {
 	protected IAnlianService anlianService;
 	@Autowired
 	ICrossVehicleService crossVehicleService;
+	@Autowired
+	IMoenyDisposeService moenyDisposeService;
 	
 	/** 每天一点执行定时 查询近90天订单*/
 	@Scheduled(cron="0 0 1 * * ?")
@@ -124,8 +129,9 @@ public class AnlianBillPosition {
         				}
         				if(resp.getPtBegintime()==null){
         					//第一次查询到位置 保存时间 开始时间 结束时间 均为当前时间
-        					upt.setPtBegintime(System.currentTimeMillis());
-        					upt.setPtEndtime(System.currentTimeMillis());
+        					Long times = System.currentTimeMillis();
+        					upt.setPtBegintime(times);
+        					upt.setPtEndtime(times);
         					try {
 								crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
 							} catch (Exception e) {
@@ -139,6 +145,16 @@ public class AnlianBillPosition {
         			}else{
         				upt.setDesc4(rs.getError());
         				if(StringUtils.equals("配载单已到货!", rs.getError())){
+        					SaveBillMoneyReq bm = new SaveBillMoneyReq();
+							bm.setCapitalno(UUIDUtil.getId());//流水号
+							bm.setWaybillno(resp.getBillno());
+							bm.setCreatetime(System.currentTimeMillis());
+							bm.setPendingmoney((long) (Double.valueOf(resp.getYf())*100));
+							bm.setUseryhno(resp.getDriverid());//司机id
+							rs = moenyDisposeService.billSaveMoney(bm);
+							if(!rs.getCode().equals("000000")){
+								upt.setDesc4(rs.getError());
+							}
         					try {
 								crossVehicleService.updateLogoStatus(request,resp.getCph(), "0",resp.getHpmc());
 							} catch (Exception e) {
@@ -154,4 +170,5 @@ public class AnlianBillPosition {
 		}
 		logger.info("定时任务[AnlianBillPosition]完成.耗时：{}",new Object[]{(new Date().getTime()-st)});
     }
+	
 }

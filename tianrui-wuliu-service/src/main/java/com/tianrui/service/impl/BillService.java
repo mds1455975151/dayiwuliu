@@ -27,7 +27,9 @@ import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.ICrossVehicleService;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVoService;
+import com.tianrui.api.intf.IMoenyDisposeService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.bill.AnlianBillSaveReq;
@@ -42,6 +44,7 @@ import com.tianrui.api.req.front.position.PositionQueryReq;
 import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
@@ -201,6 +204,8 @@ public class BillService implements IBillService{
 	MemberBankCardMapper memberBankCardMapper;
 	@Autowired
 	AddVehicleBankCardMapper addVehicleBankCardMapper;
+	@Autowired
+	IMoenyDisposeService moenyDisposeService;
 
 	@Override
 	public Result findPlanId(String id,String type) {
@@ -1122,12 +1127,20 @@ public class BillService implements IBillService{
 						}else if(req.getFile() != null){
 							rs = iFileService.uploadByteImg(req.getFile(),req.getCurruId());
 						}
-//						else{
-//							rs.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
-//							return rs;
-//						}
 						if(rs!=null &&StringUtils.equals(rs.getCode(), "000000") && StringUtils.isNotBlank(rs.getData().toString())){
 							Long timestape = System.currentTimeMillis();
+							
+							Long money = (long) (db.getPrice()*db.getWeight()*100l);
+							SaveBillMoneyReq bm = new SaveBillMoneyReq();
+							bm.setCapitalno(UUIDUtil.getId());//流水号
+							bm.setWaybillno(db.getWaybillno());
+							bm.setCreatetime(timestape);
+							bm.setPendingmoney(money);
+							bm.setUseryhno(db.getDriverid());//身份证号
+							rs = moenyDisposeService.billSaveMoney(bm);
+							if(!rs.getCode().equals("000000")){
+								return rs;
+							}
 							Bill update =new Bill();
 							update.setId(req.getId());
 							update.setSignweight(req.getPsweight());
@@ -1142,17 +1155,13 @@ public class BillService implements IBillService{
 							//提货位置
 							BillPosition bp = billPositionDao.findBillIdAndStatus(req.getId(), "2");
 							if(bp!=null){
-								//提货位置
-//								bp.getLat();//坐标点
-//								bp.getLon();//坐标点
-//								bp.getCreatetime();//坐标点
 								//提货-到货，时间间隔
 								update.setInterTime(timestape-bp.getCreatetime());
 								//提货-到货，距离间隔
 								update.setInterDistance(MapDistanceUtil.getDistance(bp.getLon()*Math.pow(10,-6), bp.getLat()*Math.pow(10,-6), req.getLon()*Math.pow(10,-6),req.getLat()*Math.pow(10,-6)));
 							}
-							
 							billMapper.updateByPrimaryKeySelective(update);
+							
 							saveBillTrack(db.getId(),1,BIllTrackMsg.STEP11,req.getCurruId(),BillStatusEnum.SIGN.getStatus());
 							//修改运力车辆 状态信息
 							MemberVehicleReq req2 =new MemberVehicleReq();
