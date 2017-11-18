@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
-import com.tianrui.api.req.money.BillMoneyReq;
+import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyPendingBillMoney;
 import com.tianrui.service.mapper.MoneyPendingBillMoneyMapper;
@@ -21,7 +21,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	@Autowired
 	private MoneyPendingBillMoneyMapper billMoney;
 	@Override
-	public Result save(BillMoneyReq req) {
+	public Result save(SaveBillMoneyReq req) {
 		
 		Result rs = Result.getSuccessResult();
 		MoneyPendingBillMoney mbm = new MoneyPendingBillMoney();
