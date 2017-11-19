@@ -1,5 +1,7 @@
 package com.tianrui.api.money.intf;
 
+import java.lang.reflect.InvocationTargetException;
+
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.common.vo.Result;
@@ -10,14 +12,20 @@ public interface IPendingBillMoneyService {
 	 * 司机卸货完成增加待收入运费记录
 	 * @param req
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	Result save(SaveBillMoneyReq req);
+	Result save(SaveBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	
 	/**
 	 * 财务确认运费后修改收入运费记录
 	 * @param req
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	Result update(UpdateBillMoneyReq req);
+	Result update(UpdateBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	
 }

@@ -31,6 +31,13 @@
     transactionState, availableMoney, beginTime, endTime, errorCode, errorMessage, actualAmount, 
     remark, lastTime, capitalNO, desc1, desc2, desc3, desc4
   </sql>
+  
+  <select id="selectByCapitalno" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_withdrawRecord
+    where capitalNO = #{capitalNO,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

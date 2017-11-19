@@ -32,7 +32,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	private ICapitalRecordService capitalRecordService;
 	
 	@Override
-	public Result save(SaveBillMoneyReq req) {
+	public Result save(SaveBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		
 		Result rs = Result.getSuccessResult();
 		if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
@@ -54,10 +54,12 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	 * 保存待收入运费
 	 * @param req
 	 * @param rs
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	private void savePendingBillMoney(SaveBillMoneyReq req, Result rs) {
+	private void savePendingBillMoney(SaveBillMoneyReq req, Result rs) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		MoneyPendingBillMoney mbm = new MoneyPendingBillMoney();
-		try {
 			PropertyUtils.copyProperties(mbm, req);
 			int r = 0;
 			r = billMoneyMapper.insertSelective(mbm);
@@ -71,22 +73,9 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 				rs.setCode("2");
 				rs.setError("数据保存失败");
 			}
-		} catch (IllegalAccessException e) {
-			rs.setCode("1");
-			rs.setError(e.getMessage());
-			logger.error(e.getMessage());
-		} catch (InvocationTargetException e) {
-			rs.setCode("1");
-			rs.setError(e.getMessage());
-			logger.error(e.getMessage());
-		} catch (NoSuchMethodException e) {
-			rs.setCode("1");
-			rs.setError(e.getMessage());
-			logger.error(e.getMessage());
-		}
 	}
 	@Override
-	public Result update(UpdateBillMoneyReq req) {
+	public Result update(UpdateBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
 		if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
 			rs.setCode("0");
@@ -110,7 +99,6 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
     			recordReq.setUseryhno(pendingBill.getUseryhno());
     			recordReq.setUsername(pendingBill.getUsername());
     			recordReq.setCapitalno(req.getCapitalno());
-    			recordReq.setLockmoney(0L);
     			Result rrs = capitalRecordService.save(recordReq, TransactionType.PAID);
     			CapitalAccountReq accountReq = new CapitalAccountReq();
     			accountReq.setCellphone(pendingBill.getCellphone());

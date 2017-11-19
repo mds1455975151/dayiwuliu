@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.req.money.CapitalAccountReq;
+import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyCapitalAccount;
@@ -23,7 +24,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 	private MoneyCapitalAccountMapper moneyAccountMapper;
 	 
 	@Override
-	public Result saveOrUpdate(CapitalAccountReq req,TransactionType type) {
+	public Result saveOrUpdate(CapitalAccountReq req,TransactionType type) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
 		MoneyCapitalAccount mAccount = null;
 		if(null != req.getUseryhno() && !"".equals(req.getUseryhno())){
@@ -56,7 +57,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 	 */
 	private void updateCapitalAccount(CapitalAccountReq req, TransactionType type, Result rs,
 			MoneyCapitalAccount mAccount) {
-		if(type.getType() == 1){//待收入运费增加
+		if(type == TransactionType.PENDING ){//待收入运费增加
 			if(req.getPendingmoney() > 0){
 				mAccount.setPendingbill(mAccount.getPendingbill() + 1);//待收入运单 +1
 				mAccount.setTotalbill(mAccount.getTotalbill() + 1);//总运输运单+1
@@ -66,7 +67,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 				rs.setCode("011");
 				rs.setError("待收入运费金额必须大于0");
 			}
-		}else if (type.getType() == 11) {//收入运费
+		}else if (type == TransactionType.PAID) {//收入运费
 			if(req.getPendingmoney() > 0 && req.getAvailablemoney() > 0){
 				mAccount.setPendingbill(mAccount.getPendingbill() - 1);//待收入运单 -1
 				mAccount.setPaidbill(mAccount.getPaidbill() + 1);//已到账运单+1
@@ -74,6 +75,33 @@ public class CapitalAccountService implements ICapitalAccountService {
 				mAccount.setAvailablemoney(mAccount.getAvailablemoney() + req.getAvailablemoney());//账户可用余额增加
 				mAccount.setPaidmoney(mAccount.getPaidmoney() + req.getAvailablemoney());//已到账金额增加
 				mAccount.setTotalmoney(mAccount.getTotalmoney() + req.getAvailablemoney());//账户总金额增加
+				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
+			}else {
+				rs.setCode("011");
+				rs.setError("收入运费金额必须大于0");
+			}
+		}else if (type == TransactionType.TXSQ) {//提现申请
+			if( req.getAvailablemoney() > 0 && req.getLockmoney() > 0){
+				mAccount.setAvailablemoney(mAccount.getAvailablemoney() - req.getAvailablemoney());//可用余额减少
+				mAccount.setLockmoney(mAccount.getLockmoney() +req.getLockmoney() );//冻结金额增加
+				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
+			}else {
+				rs.setCode("011");
+				rs.setError("提现金额必须大于0");
+			}
+		}else if (type == TransactionType.TXSUCESS) {//提现成功
+			if( req.getAvailablemoney() > 0 && req.getLockmoney() > 0){
+				mAccount.setLockmoney(mAccount.getLockmoney() - req.getLockmoney() );//冻结金额减少
+				mAccount.setTotalmoney(mAccount.getTotalmoney() - req.getAvailablemoney());//账户总金额减少
+				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
+			}else {
+				rs.setCode("011");
+				rs.setError("待收入运费金额必须大于0");
+			}
+		}else if (type == TransactionType.TXFAIL) {//提现失败
+			if( req.getAvailablemoney() > 0 && req.getLockmoney() > 0){
+				mAccount.setLockmoney(mAccount.getLockmoney() - req.getLockmoney() );//冻结金额减少
+				mAccount.setAvailablemoney(mAccount.getAvailablemoney() + req.getAvailablemoney());//账户可用余额增加
 				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
 			}else {
 				rs.setCode("011");
@@ -86,10 +114,12 @@ public class CapitalAccountService implements ICapitalAccountService {
 	 * @param req
 	 * @param type
 	 * @param rs
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
 	 */
-	private void saveCapitalAccount(CapitalAccountReq req, TransactionType type, Result rs) {
+	private void saveCapitalAccount(CapitalAccountReq req, TransactionType type, Result rs) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		MoneyCapitalAccount account = new MoneyCapitalAccount();
-		try {
 			PropertyUtils.copyProperties(account,req);
 			int r = 0;
 			account.setTotalmoney(req.getAvailablemoney() + req.getLockmoney());
@@ -102,19 +132,42 @@ public class CapitalAccountService implements ICapitalAccountService {
 				rs.setCode("2");
 				rs.setError("数据保存失败");
 			}
-		} catch (IllegalAccessException e) {
-			rs.setCode("1");
-			rs.setError(e.getMessage());
-			logger.error(e.getMessage());
-		} catch (InvocationTargetException e) {
-			rs.setCode("1");
-			rs.setError(e.getMessage());
-			logger.error(e.getMessage());
-		} catch (NoSuchMethodException e) {
-			rs.setCode("1");
-			rs.setError(e.getMessage());
-			logger.error(e.getMessage());
+	}
+	@Override
+	public CapitalAccountResp getByCellphone(String cellphone) {
+		MoneyCapitalAccount mAccount = moneyAccountMapper.selectByCellphone(cellphone);
+		if(null != mAccount){
+			CapitalAccountResp  resp = new CapitalAccountResp();
+			try {
+				PropertyUtils.copyProperties(resp,mAccount);
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			}
+			return resp;
 		}
+		return null;
+	}
+	@Override
+	public CapitalAccountResp getByUseryhno(String useryhno) {
+		MoneyCapitalAccount mAccount = moneyAccountMapper.selectByUseryhno(useryhno);
+		if(null != mAccount){
+			CapitalAccountResp  resp = new CapitalAccountResp();
+			try {
+				PropertyUtils.copyProperties(resp,mAccount);
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			}
+			return resp;
+		}
+		return null;
 	}
 
 }

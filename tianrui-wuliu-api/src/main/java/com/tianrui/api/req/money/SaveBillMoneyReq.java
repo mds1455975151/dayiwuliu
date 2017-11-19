@@ -14,8 +14,6 @@ public class SaveBillMoneyReq {
 
     private Long createtime;//创建时间（卸货完成时间）
 
-    private String capitalno;//流水号
-
 	public String getCellphone() {
 		return cellphone;
 	}
@@ -64,12 +62,5 @@ public class SaveBillMoneyReq {
 		this.createtime = createtime;
 	}
 
-	public String getCapitalno() {
-		return capitalno;
-	}
-
-	public void setCapitalno(String capitalno) {
-		this.capitalno = capitalno;
-	}
     
 }

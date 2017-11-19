@@ -8,9 +8,7 @@ public class CapitalRecordReq {
 
     private String useryhno;//银行（NC）唯一编号，身份证号
 
-    private Long availablemoney;//可用余额变化量(单位：分),不变传0
-
-    private Long lockmoney;//冻结金额变化量,不变传0
+    private Long availablemoney;//交易金额(单位：分)
 
     private String capitalno;//交易流水号
     
@@ -53,13 +51,4 @@ public class CapitalRecordReq {
 	public void setAvailablemoney(Long availablemoney) {
 		this.availablemoney = availablemoney;
 	}
-
-	public Long getLockmoney() {
-		return lockmoney;
-	}
-
-	public void setLockmoney(Long lockmoney) {
-		this.lockmoney = lockmoney;
-	}
-    
 }
