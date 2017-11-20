@@ -81,58 +81,82 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			rs.setError("未发现的提现流水号！");
 		}else {
 			wred.setEndtime(req.getEndtime());
-			Result rrs = Result.getSuccessResult();
-			Result qrs = Result.getSuccessResult();
 			if(req.isFlag()){
-				wred.setTransactionstate((short)2);
-				wred.setActualamount(req.getActualamount());
-				CapitalRecordReq recordReq = new CapitalRecordReq();
-				recordReq.setUseryhno(wred.getUseryhno());
-				recordReq.setAvailablemoney(wred.getMoney());
-				recordReq.setCapitalno(req.getCapitalno());
-				rrs = capitalRecordService.save(recordReq, TransactionType.TXSUCESS);
-				CapitalAccountReq accountReq = new CapitalAccountReq();
-				accountReq.setUseryhno(wred.getUseryhno());
-				accountReq.setAvailablemoney(wred.getMoney());
-				accountReq.setLockmoney(wred.getMoney());
-				try {
-					qrs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXSUCESS);
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				}
+				rs = withdrawSuccess(req, wred);
 			}else {
-				wred.setTransactionstate((short)3);
-				wred.setErrorcode(req.getErrorcode());
-				wred.setErrormessage(req.getErrormessage());
-				CapitalRecordReq recordReq = new CapitalRecordReq();
-				recordReq.setUseryhno(wred.getUseryhno());
-				recordReq.setAvailablemoney(wred.getMoney());
-				recordReq.setCapitalno(req.getCapitalno());
-				rrs = capitalRecordService.save(recordReq, TransactionType.TXFAIL);
-				CapitalAccountReq accountReq = new CapitalAccountReq();
-				accountReq.setUseryhno(wred.getUseryhno());
-				accountReq.setAvailablemoney(wred.getMoney());
-				accountReq.setLockmoney(wred.getMoney());
-				try {
-					qrs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXFAIL);
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				}
+				rs = wiehdrawFail(req, wred);
 			}
 			int r = 0;
 			r = withdrawRecordMapper.updateByPrimaryKeySelective(wred);
-			if(r == 0 || !"000000".equals(rrs)|| !"000000".equals(qrs)){
+			if(r == 0 ){
 				rs.setCode("2");
 				rs.setError("数据保存失败");
 			}
+		}
+		return rs;
+	}
+	/**
+	 * 提现失败
+	 * @param req
+	 * @param wred
+	 * @return
+	 */
+	private Result wiehdrawFail(updateWithdrawReq req, MoneyWithdrawRecord wred) {
+		Result rs;
+		wred.setTransactionstate((short)3);
+		wred.setErrorcode(req.getErrorcode());
+		wred.setErrormessage(req.getErrormessage());
+		CapitalRecordReq recordReq = new CapitalRecordReq();
+		recordReq.setUseryhno(wred.getUseryhno());
+		recordReq.setAvailablemoney(wred.getMoney());
+		recordReq.setCapitalno(req.getCapitalno());
+		rs = capitalRecordService.save(recordReq, TransactionType.TXFAIL);
+		CapitalAccountReq accountReq = new CapitalAccountReq();
+		accountReq.setUseryhno(wred.getUseryhno());
+		accountReq.setAvailablemoney(wred.getMoney());
+		accountReq.setLockmoney(wred.getMoney());
+		try {
+			if("000000".equals(rs.getCode())){
+				rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXFAIL);
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	/**
+	 * 提现成功
+	 * @param req
+	 * @param wred
+	 * @return
+	 */
+	private Result withdrawSuccess(updateWithdrawReq req, MoneyWithdrawRecord wred) {
+		Result rs;
+		wred.setTransactionstate((short)2);
+		wred.setActualamount(req.getActualamount());
+		CapitalRecordReq recordReq = new CapitalRecordReq();
+		recordReq.setUseryhno(wred.getUseryhno());
+		recordReq.setAvailablemoney(wred.getMoney());
+		recordReq.setCapitalno(req.getCapitalno());
+		rs = capitalRecordService.save(recordReq, TransactionType.TXSUCESS);
+		CapitalAccountReq accountReq = new CapitalAccountReq();
+		accountReq.setUseryhno(wred.getUseryhno());
+		accountReq.setAvailablemoney(wred.getMoney());
+		accountReq.setLockmoney(wred.getMoney());
+		try {
+			if("000000".equals(rs.getCode())){
+				rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXSUCESS);
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
 		}
 		return rs;
 	}
