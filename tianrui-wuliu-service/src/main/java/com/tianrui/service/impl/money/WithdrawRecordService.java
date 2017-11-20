@@ -1,6 +1,7 @@
 package com.tianrui.service.impl.money;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -19,6 +20,9 @@ import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyWithdrawRecord;
+import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 import com.tianrui.service.mapper.MoneyWithdrawRecordMapper;
 @Service
 public class WithdrawRecordService implements IWithdrawRecordService {
@@ -30,11 +34,40 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 	private ICapitalAccountService capitalAccountService;
 	@Autowired
 	private ICapitalRecordService capitalRecordService;
-	
+	@Autowired
+	private CacheClient cache ;
 	
 	@Override
 	public Result save(SaveWithdrawReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
+		//TODO  参数校验
+		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
+		if(CacheHelper.capitalLock(cache, key)){
+			try {
+				rs = withdraw(req, rs);
+			} catch (Exception e) {
+				rs.setCode("02");
+				rs.setError("数据保存失败！");
+			}finally{
+				cache.remove(key);
+			}
+		}else {
+			rs.setCode("666111");
+			rs.setError("资金账户正在处理中，请稍后。");
+		}
+		return rs;
+	}
+	/**
+	 * 提现申请保存
+	 * @param req
+	 * @param rs
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private Result withdraw(SaveWithdrawReq req, Result rs)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		CapitalAccountResp accountResp = null;
 		if(null != req.getCellphone() && !"".equals(req.getCellphone())){
 			accountResp = capitalAccountService.getByCellphone(req.getCellphone());
@@ -59,16 +92,18 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			accountReq.setLockmoney(req.getMoney());
 			if("000000".equals(rs.getCode())){
 				rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXSQ);
-			}
-			MoneyWithdrawRecord mwr = new MoneyWithdrawRecord();
-			PropertyUtils.copyProperties(mwr, req);
-			mwr.setTransactionstate((short)1);
-			mwr.setAvailablemoney(accountResp.getAvailablemoney() -req.getMoney() );
-			int r = 0;
-			r = withdrawRecordMapper.insert(mwr);
-			if(r == 0 ){
-				rs.setCode("2");
-				rs.setError("数据保存失败");
+				if("000000".equals(rs.getCode())){
+					MoneyWithdrawRecord mwr = new MoneyWithdrawRecord();
+					PropertyUtils.copyProperties(mwr, req);
+					mwr.setTransactionstate((short)1);
+					mwr.setAvailablemoney(accountResp.getAvailablemoney() -req.getMoney() );
+					int r = 0;
+					r = withdrawRecordMapper.insert(mwr);
+					if(r == 0 ){
+						rs.setCode("2");
+						rs.setError("数据保存失败");
+					}
+				}
 			}
 		}
 		return rs;
@@ -77,23 +112,36 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 	@Override
 	public Result update(updateWithdrawReq req) {
 		Result rs = Result.getSuccessResult();
-		MoneyWithdrawRecord wred = withdrawRecordMapper.selectByCapitalno(req.getCapitalno());
-		if(null == wred ){
-			rs.setCode("01");
-			rs.setError("未发现的提现流水号！");
+		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
+		if(CacheHelper.capitalLock(cache, key)){
+			try {
+				MoneyWithdrawRecord wred = withdrawRecordMapper.selectByCapitalno(req.getCapitalno());
+				if(null == wred ){
+					rs.setCode("01");
+					rs.setError("未发现的提现流水号！");
+				}else {
+					wred.setEndtime(req.getEndtime());
+					if(req.isFlag()){
+						rs = withdrawSuccess(req, wred);
+					}else {
+						rs = wiehdrawFail(req, wred);
+					}
+					int r = 0;
+					r = withdrawRecordMapper.updateByPrimaryKeySelective(wred);
+					if(r == 0 ){
+						rs.setCode("2");
+						rs.setError("数据保存失败");
+					}
+				}
+			} catch (Exception e) {
+				rs.setCode("02");
+				rs.setError("数据保存失败！");
+			}finally{
+				cache.remove(key);
+			}
 		}else {
-			wred.setEndtime(req.getEndtime());
-			if(req.isFlag()){
-				rs = withdrawSuccess(req, wred);
-			}else {
-				rs = wiehdrawFail(req, wred);
-			}
-			int r = 0;
-			r = withdrawRecordMapper.updateByPrimaryKeySelective(wred);
-			if(r == 0 ){
-				rs.setCode("2");
-				rs.setError("数据保存失败");
-			}
+			rs.setCode("666111");
+			rs.setError("资金账户正在处理中，请稍后。");
 		}
 		return rs;
 	}

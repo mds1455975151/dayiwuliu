@@ -13,6 +13,8 @@ package com.tianrui.service.cache;
  */
 public enum CacheModule {
 	
+	CAPITALACCOUNT("capital-","用户资金账户"),
+	
 	MEMBERVO("mvo-","用户实体"),
 	ORG("org-","组织档案"),
 	

@@ -1,5 +1,7 @@
 package com.tianrui.service.cache;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.tianrui.common.constants.Constant;
 
 /**
@@ -30,5 +32,30 @@ public class CacheHelper {
 		}
 		return sb.toString();
 	}
-	
+	/**
+	 * 判定资金账户是否被锁定
+	 * @param cache
+	 * @param key
+	 * @return
+	 */
+	public static boolean capitalLock(CacheClient cache,String key) {
+		boolean flag = false;
+		String capitalLock = cache.getString(key);
+		if(null == capitalLock || "".equals(capitalLock)){
+			capitalLock = cache.getString(key);
+			if(null == capitalLock || "".equals(capitalLock)){
+				String lock = (int)(1+Math.random()*1000000) +"";
+				flag = cache.saveString(key, lock, 60*3);
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				if(!lock.equals(cache.getString(key))){
+					flag = false;
+				}
+			}
+		}
+		return flag;
+	}
 }

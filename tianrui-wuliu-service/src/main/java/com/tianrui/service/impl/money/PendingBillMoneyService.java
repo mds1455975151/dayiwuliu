@@ -18,6 +18,9 @@ import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyPendingBillMoney;
+import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 import com.tianrui.service.mapper.MoneyPendingBillMoneyMapper;
 
 @Service
@@ -30,24 +33,37 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	private ICapitalAccountService capitalAccountService;
 	@Autowired
 	private ICapitalRecordService capitalRecordService;
-	
+	@Autowired
+	private CacheClient cache ;
 	@Override
 	public Result save(SaveBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		
 		Result rs = Result.getSuccessResult();
-		if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
-			rs.setCode("0");
-			rs.setError("运单编号不能为空");
-		}else {
-            MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
-            if(null != pendingBill){
-            	rs.setCode("1");
-    			rs.setError("运单编号对应的运费记录已存在，请勿重复操作");
-            }else {
-            	savePendingBillMoney(req, rs);
+		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
+		if(CacheHelper.capitalLock(cache, key)){
+			try {
+				if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
+					rs.setCode("0");
+					rs.setError("运单编号不能为空");
+				}else {
+		            MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
+		            if(null != pendingBill){
+		            	rs.setCode("1");
+		    			rs.setError("运单编号对应的运费记录已存在，请勿重复操作");
+		            }else {
+		            	savePendingBillMoney(req, rs);
+					}
+				}
+			} catch (Exception e) {
+				rs.setCode("02");
+				rs.setError("数据保存失败！");
+			}finally{
+				cache.remove(key);
 			}
+		}else {
+			rs.setCode("666111");
+			rs.setError("资金账户正在处理中，请稍后。");
 		}
-		
 		return rs;
 	}
 	/**
@@ -77,43 +93,71 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	@Override
 	public Result update(UpdateBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
-		if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
-			rs.setCode("0");
-			rs.setError("运单编号不能为空");
-		}else {
-            MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
-            if(null == pendingBill){
-            	rs.setCode("1");
-    			rs.setError("运单编号对应的运费记录不存在，请确认参数正确");
-            }else {
-            	pendingBill.setCapitalno(req.getCapitalno());
-            	pendingBill.setIfpaid((short)1);
-            	pendingBill.setPaidtime(req.getPaidtime());
-            	pendingBill.setPaidmoney(req.getPaidmoney());
-            	pendingBill.setDeductionmoney(req.getDeductionmoney());
-            	int r = 0;
-    			r = billMoneyMapper.updateByPrimaryKeySelective(pendingBill);
-    			CapitalRecordReq recordReq = new CapitalRecordReq();
-    			recordReq.setAvailablemoney(req.getPaidmoney());
-    			recordReq.setCellphone(pendingBill.getCellphone());
-    			recordReq.setUseryhno(pendingBill.getUseryhno());
-    			recordReq.setUsername(pendingBill.getUsername());
-    			recordReq.setCapitalno(req.getCapitalno());
-    			rs = capitalRecordService.save(recordReq, TransactionType.PAID);
-    			CapitalAccountReq accountReq = new CapitalAccountReq();
-    			accountReq.setCellphone(pendingBill.getCellphone());
-    			accountReq.setUsername(pendingBill.getUsername());
-    			accountReq.setUseryhno(pendingBill.getUseryhno());
-    			accountReq.setAvailablemoney(req.getPaidmoney());
-    			accountReq.setPendingmoney(pendingBill.getPendingmoney());
-    			if("000000".equals(rs.getCode())){
-    				rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PAID);
-    			}
-    			if(r == 0 ){
-    				rs.setCode("2");
-    				rs.setError("数据保存失败");
-    			}
+		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
+		if(CacheHelper.capitalLock(cache, key)){
+			try {
+				if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
+					rs.setCode("0");
+					rs.setError("运单编号不能为空");
+				}else {
+		            MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
+		            if(null == pendingBill){
+		            	rs.setCode("1");
+		    			rs.setError("运单编号对应的运费记录不存在，请确认参数正确");
+		            }else {
+		            	rs = paidBillMoney(req, pendingBill);
+					}
+				}
+			} catch (Exception e) {
+				rs.setCode("02");
+				rs.setError("数据保存失败！");
+			}finally{
+				cache.remove(key);
 			}
+		}else {
+			rs.setCode("666111");
+			rs.setError("资金账户正在处理中，请稍后。");
+		}
+		return rs;
+	}
+	/**
+	 * 运费入账
+	 * @param req
+	 * @param pendingBill
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private Result paidBillMoney(UpdateBillMoneyReq req, MoneyPendingBillMoney pendingBill)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		Result rs;
+		pendingBill.setCapitalno(req.getCapitalno());
+		pendingBill.setIfpaid((short)1);
+		pendingBill.setPaidtime(req.getPaidtime());
+		pendingBill.setPaidmoney(req.getPaidmoney());
+		pendingBill.setDeductionmoney(req.getDeductionmoney());
+		int r = 0;
+		r = billMoneyMapper.updateByPrimaryKeySelective(pendingBill);
+		CapitalRecordReq recordReq = new CapitalRecordReq();
+		recordReq.setAvailablemoney(req.getPaidmoney());
+		recordReq.setCellphone(pendingBill.getCellphone());
+		recordReq.setUseryhno(pendingBill.getUseryhno());
+		recordReq.setUsername(pendingBill.getUsername());
+		recordReq.setCapitalno(req.getCapitalno());
+		rs = capitalRecordService.save(recordReq, TransactionType.PAID);
+		CapitalAccountReq accountReq = new CapitalAccountReq();
+		accountReq.setCellphone(pendingBill.getCellphone());
+		accountReq.setUsername(pendingBill.getUsername());
+		accountReq.setUseryhno(pendingBill.getUseryhno());
+		accountReq.setAvailablemoney(req.getPaidmoney());
+		accountReq.setPendingmoney(pendingBill.getPendingmoney());
+		if("000000".equals(rs.getCode())){
+			rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PAID);
+		}
+		if(r == 0 ){
+			rs.setCode("2");
+			rs.setError("数据保存失败");
 		}
 		return rs;
 	}
