@@ -2,9 +2,9 @@ package com.tianrui.api.req.money;
 
 public class SaveWithdrawReq {
 
-	private String cellphone;//登录账号
+	private String cellphone;//登录账号---必传
 
-    private String useryhno;//银行（NC）唯一编号，身份证号    2选1 即可
+    private String useryhno;//银行（NC）唯一编号
 
     private Long money;//提现金额
 

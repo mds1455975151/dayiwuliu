@@ -2,6 +2,8 @@ package com.tianrui.api.req.money;
 
 public class UpdateBillMoneyReq {
 
+	private String cellphone;//登录账号---必传
+	
 	private String waybillno;//运单编号
 
     private Long paidmoney;//实际收入金额
@@ -50,6 +52,14 @@ public class UpdateBillMoneyReq {
 
 	public void setCapitalno(String capitalno) {
 		this.capitalno = capitalno;
+	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
     
 }

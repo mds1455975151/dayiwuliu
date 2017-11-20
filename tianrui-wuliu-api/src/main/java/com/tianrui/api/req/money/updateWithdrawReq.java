@@ -2,6 +2,8 @@ package com.tianrui.api.req.money;
 
 public class updateWithdrawReq {
 	
+	private String cellphone;//登录账号---必传
+	
 	private String capitalno;//交易流水号
 
     private Long endtime;//提现完成时间
@@ -61,4 +63,14 @@ public class updateWithdrawReq {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+	
+	
 }
