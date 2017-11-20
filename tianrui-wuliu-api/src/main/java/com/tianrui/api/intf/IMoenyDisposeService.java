@@ -5,6 +5,7 @@ import com.tianrui.common.vo.Result;
 
 /** 资金交互处理接口*/
 public interface IMoenyDisposeService {
-	/**卸货完成添加资金流水*/
-	Result billSaveMoney(SaveBillMoneyReq req);
+	/**卸货完成添加资金流水
+	 * @throws Exception */
+	Result billSaveMoney(SaveBillMoneyReq req) throws Exception;
 }

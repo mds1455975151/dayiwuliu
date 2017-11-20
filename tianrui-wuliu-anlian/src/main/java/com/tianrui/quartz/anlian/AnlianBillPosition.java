@@ -146,7 +146,6 @@ public class AnlianBillPosition {
         				upt.setDesc4(rs.getError());
         				if(StringUtils.equals("配载单已到货!", rs.getError())){
         					SaveBillMoneyReq bm = new SaveBillMoneyReq();
-							bm.setCapitalno(UUIDUtil.getId());//流水号
 							bm.setWaybillno(resp.getBillno());
 							bm.setCreatetime(System.currentTimeMillis());
 							bm.setPendingmoney((long) (Double.valueOf(resp.getYf())*100));

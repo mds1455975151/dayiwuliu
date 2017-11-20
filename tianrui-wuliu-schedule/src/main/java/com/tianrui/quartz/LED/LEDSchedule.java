@@ -66,7 +66,7 @@ public class LEDSchedule {
 		logger.info("LED定时任务结束"+TimeUtils.LongZoString(System.currentTimeMillis())+"耗时/毫秒"+(System.currentTimeMillis()-timeBegin));
 	}
 	/** 线路*/
-	@Scheduled(cron="0/10 * * * * ?")
+//	@Scheduled(cron="0/10 * * * * ?")
 	public void routeCount(){
 		System.out.println("-----------------线路统计开始---------------------");
 		lEDCountService.routeCount();
@@ -140,7 +140,7 @@ public class LEDSchedule {
 	}
 	
 	/** 货主*/
-//	@Scheduled(cron="0/20 * * * * ?")
+//	@Scheduled(cron="0/10 * * * * ?")
 	public void ownerCount() throws Exception{
 		System.out.println("开始");
 		//货主

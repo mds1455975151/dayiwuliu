@@ -28,13 +28,13 @@
     availableMoney, withdrawalsLockMoney, otherLockMoney, createtime, remark, 
     capitalNO, desc1, desc2, desc3, desc4
   </sql>
-   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   <select id="selectByCellphone" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from money_capitalRecord 
     where cellphone = #{cellphone,jdbcType=VARCHAR} order by id desc limit 1
   </select>
-   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   <select id="selectByUseryhno" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from money_capitalRecord

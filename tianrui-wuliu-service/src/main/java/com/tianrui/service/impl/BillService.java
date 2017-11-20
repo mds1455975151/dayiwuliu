@@ -1132,7 +1132,6 @@ public class BillService implements IBillService{
 							
 							Long money = (long) (db.getPrice()*db.getWeight()*100l);
 							SaveBillMoneyReq bm = new SaveBillMoneyReq();
-							bm.setCapitalno(UUIDUtil.getId());//流水号
 							bm.setWaybillno(db.getWaybillno());
 							bm.setCreatetime(timestape);
 							bm.setPendingmoney(money);

@@ -1,5 +1,6 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -27,7 +28,7 @@ public class MoenyDisposeService implements IMoenyDisposeService{
 	@Autowired
 	SystemMemberMapper systemMemberMapper;
 	@Override
-	public Result billSaveMoney(SaveBillMoneyReq req) {
+	public Result billSaveMoney(SaveBillMoneyReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getUseryhno());
 		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getUseryhno());
