@@ -68,8 +68,8 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 			accountReq.setUsername(req.getUsername());
 			accountReq.setUseryhno(req.getUseryhno());
 			accountReq.setPendingmoney(req.getPendingmoney());
-			Result qrs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PENDING);
-			if(r == 0 || !"000000".equals(qrs.getCode())){
+			rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PENDING);
+			if(r == 0 ){
 				rs.setCode("2");
 				rs.setError("数据保存失败");
 			}
@@ -99,15 +99,17 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
     			recordReq.setUseryhno(pendingBill.getUseryhno());
     			recordReq.setUsername(pendingBill.getUsername());
     			recordReq.setCapitalno(req.getCapitalno());
-    			Result rrs = capitalRecordService.save(recordReq, TransactionType.PAID);
+    			rs = capitalRecordService.save(recordReq, TransactionType.PAID);
     			CapitalAccountReq accountReq = new CapitalAccountReq();
     			accountReq.setCellphone(pendingBill.getCellphone());
     			accountReq.setUsername(pendingBill.getUsername());
     			accountReq.setUseryhno(pendingBill.getUseryhno());
     			accountReq.setAvailablemoney(req.getPaidmoney());
     			accountReq.setPendingmoney(pendingBill.getPendingmoney());
-    			Result qrs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PAID);
-    			if(r == 0 || !"000000".equals(rrs)|| !"000000".equals(qrs)){
+    			if("000000".equals(rs.getCode())){
+    				rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PAID);
+    			}
+    			if(r == 0 ){
     				rs.setCode("2");
     				rs.setError("数据保存失败");
     			}

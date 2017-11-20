@@ -52,19 +52,21 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			recordReq.setUseryhno(accountResp.getUseryhno());
 			recordReq.setAvailablemoney(req.getMoney());
 			recordReq.setCapitalno(req.getCapitalno());
-			Result rrs = capitalRecordService.save(recordReq, TransactionType.TXSQ);
+			rs = capitalRecordService.save(recordReq, TransactionType.TXSQ);
 			CapitalAccountReq accountReq = new CapitalAccountReq();
 			accountReq.setUseryhno(accountResp.getUseryhno());
 			accountReq.setAvailablemoney(req.getMoney());
 			accountReq.setLockmoney(req.getMoney());
-			Result qrs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXSQ);
+			if("000000".equals(rs.getCode())){
+				rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.TXSQ);
+			}
 			MoneyWithdrawRecord mwr = new MoneyWithdrawRecord();
 			PropertyUtils.copyProperties(mwr, req);
 			mwr.setTransactionstate((short)1);
 			mwr.setAvailablemoney(accountResp.getAvailablemoney() -req.getMoney() );
 			int r = 0;
 			r = withdrawRecordMapper.insert(mwr);
-			if(r == 0 || !"000000".equals(rrs)|| !"000000".equals(qrs)){
+			if(r == 0 ){
 				rs.setCode("2");
 				rs.setError("数据保存失败");
 			}
