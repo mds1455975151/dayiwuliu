@@ -1,6 +1,6 @@
 package com.tianrui.service.admin.impl;
 
-import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,11 +20,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tianrui.api.admin.intf.IMerchantService;
-import com.tianrui.api.admin.intf.IOrganizationService;
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.intf.IMessageService;
-import com.tianrui.api.req.admin.OrganizationReq;
+import com.tianrui.api.money.intf.IPendingBillMoneyService;
+import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.admin.PayInvoiceAuditUpdate;
 import com.tianrui.api.req.admin.PayInvoiceDriverPush;
 import com.tianrui.api.req.admin.PayInvoiceNcCheckParams;
@@ -33,7 +33,9 @@ import com.tianrui.api.req.admin.PayInvoiceVenderPush;
 import com.tianrui.api.req.admin.merchant.MerchantReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
-import com.tianrui.api.resp.admin.OrganizationResp;
+import com.tianrui.api.req.money.SaveWithdrawReq;
+import com.tianrui.api.req.money.UpdateBillMoneyReq;
+import com.tianrui.api.req.money.updateWithdrawReq;
 import com.tianrui.api.resp.admin.PayInvoiceAuditVo;
 import com.tianrui.api.resp.admin.PayInvoiceVo;
 import com.tianrui.api.resp.admin.merchant.MerchantResp;
@@ -87,6 +89,11 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	IPayInvoiceDetail1Service payInvoiceDetail1Service;
 	@Autowired
 	IMerchantService merchantService;
+	@Autowired
+	IPendingBillMoneyService pendingBillMoneyService;
+	@Autowired
+	IWithdrawRecordService withdrawRecordService;
+	
 	@Override
 	public PaginationVO<PayInvoiceVo> page(PayInvoiceReq req) {
 		logger.info("into service: driver pay invoice page.");
@@ -204,7 +211,6 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	@Transactional
 	@Override
 	public synchronized Result driverPush(String id) {
-		logger.info("into service: driver pay invoice push.");
 		Result result = Result.getErrorResult();
 		if (StringUtils.isNotBlank(id)) {
 			logger.info("into service: driver pay invoice push params: id=" + id);
@@ -214,14 +220,24 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				if (payInvoice.getPushStatus() == Constant.PUSH_ING || (payInvoice.getPushStatus() == Constant.YES_PUSH && payInvoice.getPayStatus() == Constant.THREE)) {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
 						 if (validatePayInvoiceMsg(id)) {
-							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
-							logger.info("into service: driver pay invoice selectByPrimaryKey. bean: =" + payInvoice.toString());
+							//财务确认运费后修改收入运费记录
+							MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(payInvoice.getPayeeBankCardId());
+							result = uptPandMoney(result, payInvoice ,bankCard);
+							if(!"000000".equals(result.getCode())){
+								return result;
+							}
+							String capitalno = UUIDUtil.getId();//流水号
+							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice,capitalno);
 							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice, payInvoiceMsg);
-							logger.info("into service: driver pay invoice push NC param bean: =" + push.toString());
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
 							if (apiResult != null) {
 								logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
 								if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
+									//提现申请
+									result =  saveWithDraw(payInvoice,bankCard,capitalno);
+									if(!"000000".equals(result.getCode())){
+										return result;
+									}
 									PayInvoice bean = callBackPushStatus(payInvoice);
 									logger.info("into service: driver pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
 									if (payInvoiceMapper.updateByPrimaryKeySelective(bean) == 1) {
@@ -229,10 +245,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 									} else {
 										result.setErrorCode(ErrorCode.SYSTEM_ERROR);
 									}
-									logger.info("into service: driver pay invoice insert payInvoiceMsg");
 									logger.info("into service: driver pay invoice insert payInvoiceMsg{}: " + payInvoiceMsg.toString());
 									payInvoiceMsgMapper.insertSelective(payInvoiceMsg);
-									logger.info("into service: driver pay invoice insert payInvoiceMsg true");
+									
 								} else {
 									result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
 									result.setError(result.getError() + ": "+ apiResult.getMessage());
@@ -257,6 +272,63 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 		return result;
 	}
 
+	private Result uptPandMoney(Result result, PayInvoice payInvoice ,MemberBankCard bank) {
+		try {
+			if(bank == null){
+				result.setCode("11");
+				result.setError("银行卡信息有误");
+				return result;
+			}
+			PayInvoiceDetail pay = new PayInvoiceDetail();
+			pay.setPayInvoiceId(payInvoice.getId());
+			List<PayInvoiceDetail> list = payInvoiceDetailMapper.selectByCondition(pay);
+			String waybillno = "";
+			for(PayInvoiceDetail bill : list){
+				waybillno = waybillno+bill.getBillCode();
+			}
+			UpdateBillMoneyReq req = new UpdateBillMoneyReq();
+			req.setCellphone(bank.getTelphone());
+			req.setWaybillno(waybillno);
+			//支付总额
+			req.setPaidmoney(payInvoice.getAmountPayable().longValue() * 100);
+			//计算扣款总额
+			Double doc = payInvoice.getBackstageDeductMoney()+payInvoice.getBackstageDeductOilCard()+payInvoice.getBackstageDeductOther()+payInvoice.getBackstageDeductWeightMisc();
+			req.setDeductionmoney(doc.longValue()*100);
+			req.setPaidtime(System.currentTimeMillis());
+			req.setCapitalno(UUIDUtil.getId());
+			result = pendingBillMoneyService.update(req);
+			
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+			e.printStackTrace();
+			result.setCode("1");
+			result.setError(e.getMessage());
+		}
+		return result;
+	}
+
+	private Result saveWithDraw(PayInvoice payInvoice, MemberBankCard bank, String capitalno){
+		Result result = Result.getSuccessResult();
+		SaveWithdrawReq sd = new SaveWithdrawReq();
+		sd.setCellphone(bank.getTelphone());
+		sd.setUseryhno(bank.getIdcard());
+		sd.setMoney(payInvoice.getAmountPayable().longValue() * 100);
+		sd.setExpectpaycompany("NC");
+		sd.setBankname(bank.getBankname());
+		sd.setBankcode(bank.getBankcode());
+		sd.setBankcodeno(bank.getBankcard());
+		sd.setBegintime(System.currentTimeMillis());
+		sd.setCapitalno(capitalno);
+		try {
+			result = withdrawRecordService.save(sd);
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			result.setCode("1");
+			result.setError(e.getMessage());
+		}
+		return result;
+	}
+
 	@Transactional
 	@Override
 	public synchronized Result venderPush(String id) {
@@ -270,7 +342,14 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				if (payInvoice.getPushStatus() == Constant.PUSH_ING || (payInvoice.getPushStatus() == Constant.YES_PUSH && payInvoice.getPayStatus() == Constant.THREE)) {
 					if (validate(payInvoice.getPayeeId(), payInvoice.getPayeeBankCardId(), result)) {
 						if (validatePayInvoiceMsg(id)) {
-							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice);
+							MemberBankCard bankCard = memberBankCardMapper.selectByPrimaryKey(payInvoice.getPayeeBankCardId());
+							//财务确认运费后修改收入运费记录
+							result = uptPandMoney(result, payInvoice ,bankCard);
+							if(!"000000".equals(result.getCode())){
+								return result;
+							}
+							String capitalno = UUIDUtil.getId();
+							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice,capitalno);
 							PayInvoiceVenderPush push = setPayInvoiceVender(payInvoice, payInvoiceMsg);
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_VENDER_PUSH);
 							if (apiResult != null) {
@@ -280,6 +359,11 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 										result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 									} else {
 										result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+									}
+									//提现申请
+									result =  saveWithDraw(payInvoice,bankCard,capitalno);
+									if(!"000000".equals(result.getCode())){
+										return result;
 									}
 									payInvoiceMsgMapper.insertSelective(payInvoiceMsg);
 								} else {
@@ -493,9 +577,9 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	 * @param payInvoice
 	 * @return 
 	 */
-	private PayInvoiceMsg loggerPayInvoiceMsg(PayInvoice payInvoice) {
+	private PayInvoiceMsg loggerPayInvoiceMsg(PayInvoice payInvoice,String capitalno) {
 		PayInvoiceMsg payInvoiceMsg = new PayInvoiceMsg();
-		payInvoiceMsg.setId(UUIDUtil.getId());
+		payInvoiceMsg.setId(capitalno);
 		payInvoiceMsg.setPayInvoiceId(payInvoice.getId());
 		payInvoiceMsg.setPayeeId(payInvoice.getPayeeId());
 		payInvoiceMsg.setPayeeBankCardId(payInvoice.getPayeeBankCardId());
@@ -787,22 +871,34 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			String id = jsonObject.getString("billId");
 			String payStatus = jsonObject.getString("payStatus");
 			PayInvoiceMsg bean = payInvoiceMsgMapper.selectByPrimaryKey(id);
+			SystemMember member = systemMemberMapper.selectByPrimaryKey(bean.getPayeeId());
 			if (bean != null) {
 				PayInvoiceMsg payInvoiceMsg = new PayInvoiceMsg();
 				PayInvoice payInvoice = new PayInvoice();
 				//支付成功
 				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_11.getCode())) {
-					payInvoiceMsg.setId(id);
-					payInvoiceMsg.setPaidAmount(bean.getAmountPayable());
-					payInvoiceMsg.setPayStatus(Constant.TWO);
-					payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
-
-					payInvoice.setId(bean.getPayInvoiceId());
-					payInvoice.setPaidAmount(bean.getAmountPayable());
-					payInvoice.setPayStatus(Constant.TWO);
-					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
-					payPassMessage(payInvoice);
-					payPassMessages(payInvoice);
+					updateWithdrawReq req = new updateWithdrawReq();
+					req.setCellphone(member.getCellphone());
+					req.setCapitalno(id);
+					req.setEndtime(System.currentTimeMillis());
+					req.setFlag(true);
+					req.setActualamount(bean.getPaidAmount().longValue()*100);
+					req.setErrorcode(payStatus);
+					req.setErrormessage(NCResultEnum.getMessage(payStatus));
+					Result rs = withdrawRecordService.update(req);
+					if("000000".equals(rs.getCode())){
+						payInvoiceMsg.setId(id);
+						payInvoiceMsg.setPaidAmount(bean.getAmountPayable());
+						payInvoiceMsg.setPayStatus(Constant.TWO);
+						payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
+						
+						payInvoice.setId(bean.getPayInvoiceId());
+						payInvoice.setPaidAmount(bean.getAmountPayable());
+						payInvoice.setPayStatus(Constant.TWO);
+						payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
+						payPassMessage(payInvoice);
+						payPassMessages(payInvoice);
+					}
 				}
 				//支付中
 				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_12.getCode())) {
@@ -816,14 +912,25 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 				}
 				//支付失败
 				if (StringUtils.equals(payStatus, NCResultEnum.NC_RESULT_ENUM_13.getCode())) {
-					payInvoiceMsg.setId(id);
-					payInvoiceMsg.setPayStatus(Constant.ZERO);
-					payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
-					payInvoice.setId(bean.getPayInvoiceId());
-					payInvoice.setPayStatus(Constant.THREE);
-					payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
-					payNotPassMessage(payInvoice);
-					payNotPassMessages(payInvoice);
+					updateWithdrawReq req = new updateWithdrawReq();
+					req.setCellphone(member.getCellphone());
+					req.setCapitalno(id);
+					req.setEndtime(System.currentTimeMillis());
+					req.setFlag(false);
+					req.setActualamount(0l);
+					req.setErrorcode(payStatus);
+					req.setErrormessage(NCResultEnum.getMessage(payStatus));
+					Result rs = withdrawRecordService.update(req);
+					if("000000".equals(rs.getCode())){
+						payInvoiceMsg.setId(id);
+						payInvoiceMsg.setPayStatus(Constant.ZERO);
+						payInvoiceMsgMapper.updateByPrimaryKeySelective(payInvoiceMsg);
+						payInvoice.setId(bean.getPayInvoiceId());
+						payInvoice.setPayStatus(Constant.THREE);
+						payInvoiceMapper.updateByPrimaryKeySelective(payInvoice);
+						payNotPassMessage(payInvoice);
+						payNotPassMessages(payInvoice);
+					}
 				} 
 			} else {
 				LoggerFactory.getLogger("callbackPayInvoice").info("账单回写状态和金额错误信息: 该帐单流水查不到！");
