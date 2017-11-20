@@ -1,8 +1,6 @@
 package com.tianrui.service.impl.money;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
