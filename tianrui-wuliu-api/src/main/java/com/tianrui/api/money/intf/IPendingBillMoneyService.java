@@ -12,11 +12,9 @@ public interface IPendingBillMoneyService {
 	 * 司机卸货完成增加待收入运费记录
 	 * @param req
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
+	 * @throws Exception 
 	 */
-	Result save(SaveBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	Result save(SaveBillMoneyReq req) throws Exception;
 	
 	/**
 	 * 财务确认运费后修改收入运费记录

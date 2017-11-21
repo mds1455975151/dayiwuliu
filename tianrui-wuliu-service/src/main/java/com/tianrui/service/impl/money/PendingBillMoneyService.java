@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.money.intf.ICapitalRecordService;
@@ -36,7 +37,8 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	@Autowired
 	private CacheClient cache ;
 	@Override
-	public Result save(SaveBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	@Transactional
+	public Result save(SaveBillMoneyReq req) {
 		
 		Result rs = Result.getSuccessResult();
 		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
@@ -55,6 +57,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				rs.setCode("02");
 				rs.setError("数据保存失败！");
 			}finally{
@@ -78,6 +81,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		MoneyPendingBillMoney mbm = new MoneyPendingBillMoney();
 			PropertyUtils.copyProperties(mbm, req);
 			int r = 0;
+			mbm.setCapitalno("888888");
 			r = billMoneyMapper.insertSelective(mbm);
 			CapitalAccountReq accountReq = new CapitalAccountReq();
 			accountReq.setCellphone(req.getCellphone());

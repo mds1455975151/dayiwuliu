@@ -1,5 +1,6 @@
 package com.tianrui.test.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -12,8 +13,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IDataDictService;
+import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.req.front.system.DataDictReq;
+import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.resp.common.DataDictResp;
+import com.tianrui.common.vo.Result;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/appliactionContext-service.xml" })
@@ -21,13 +25,20 @@ public class DataDictServiceTest {
 	public static Logger logger =LoggerFactory.getLogger(DataDictServiceTest.class);
 	@Autowired
 	private  IDataDictService  dataDictService;
+	@Autowired
+	private IPendingBillMoneyService billMoneyService;
 	
 	@Test
-	public void findDictListTest()throws Exception{
-		DataDictReq bean = new  DataDictReq();
-
-		bean.setSubCode("subCode");
-		List<DataDictResp> rs =dataDictService.findDictList(bean);
+	public void saveBill()throws Exception{
+		SaveBillMoneyReq req = new SaveBillMoneyReq();
+		req.setCellphone("18039330360");
+		req.setCreatetime(new Date().getTime());;
+		req.setPendingmoney(1800000L);
+		req.setUsername("谭明克");
+		req.setUseryhno("410482198702206011");
+		req.setWaybillno("78520874511200");
+		Result rs = billMoneyService.save(req);
+		System.out.println(JSON.toJSON(rs));
 		logger.info("{}",JSON.toJSON(rs));
 	}
 	
