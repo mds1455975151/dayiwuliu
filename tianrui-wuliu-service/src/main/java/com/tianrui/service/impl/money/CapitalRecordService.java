@@ -37,9 +37,15 @@ public class CapitalRecordService implements ICapitalRecordService {
 		newRecord.setTransactiontype((long) type.getType());//交易类型
 		newRecord.setCreatetime(new Date().getTime());//记录时间
 		newRecord.setCapitalno(req.getCapitalno());//交易流水号
-		newRecord.setUsername(req.getUsername());//用户姓名
-		newRecord.setUseryhno(req.getUseryhno());//用户银行唯一标识
-		newRecord.setCellphone(req.getCellphone());//登录账号
+		if(null != mRecord){
+			newRecord.setUsername(mRecord.getUsername());//用户姓名
+			newRecord.setUseryhno(mRecord.getUseryhno());//用户银行唯一标识
+			newRecord.setCellphone(mRecord.getCellphone());//登录账号
+		}else {
+			newRecord.setUsername(req.getUsername());//用户姓名
+			newRecord.setUseryhno(req.getUseryhno());//用户银行唯一标识
+			newRecord.setCellphone(req.getCellphone());//登录账号
+		}
 		newRecord.setMoney(req.getAvailablemoney());//交易金额
 		if(type == TransactionType.PAID){//收入运费
 			incomeFreight(req, mRecord, newRecord);

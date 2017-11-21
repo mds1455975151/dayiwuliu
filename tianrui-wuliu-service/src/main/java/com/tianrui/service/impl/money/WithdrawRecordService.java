@@ -44,6 +44,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			try {
 				rs = withdraw(req, rs);
 			} catch (Exception e) {
+				e.printStackTrace();
 				rs.setCode("02");
 				rs.setError("数据保存失败！");
 			}finally{
@@ -93,6 +94,8 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 				if("000000".equals(rs.getCode())){
 					MoneyWithdrawRecord mwr = new MoneyWithdrawRecord();
 					PropertyUtils.copyProperties(mwr, req);
+					mwr.setUsername(accountResp.getUsername());
+					mwr.setUseryhno(accountResp.getUsername());
 					mwr.setTransactionstate((short)1);
 					mwr.setAvailablemoney(accountResp.getAvailablemoney() -req.getMoney() );
 					int r = 0;
@@ -117,6 +120,9 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 				if(null == wred ){
 					rs.setCode("01");
 					rs.setError("未发现的提现流水号！");
+				}else if (wred.getEndtime() > 0) {
+					rs.setCode("02");
+					rs.setError("提现流水号已经处理完成！");
 				}else {
 					wred.setEndtime(req.getEndtime());
 					if(req.isFlag()){
@@ -132,6 +138,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				rs.setCode("02");
 				rs.setError("数据保存失败！");
 			}finally{
