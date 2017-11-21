@@ -59,12 +59,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 			rs.setCode("111111");
 			rs.setError("不支持的交易类型");
 		}
-		int r = 0;
-		r = recordMapper.insert(newRecord);
-		if(r == 0){
-			rs.setCode("2");
-			rs.setError("数据保存失败");
-		}
+		recordMapper.insert(newRecord);
 		return rs;
 	}
 	/**

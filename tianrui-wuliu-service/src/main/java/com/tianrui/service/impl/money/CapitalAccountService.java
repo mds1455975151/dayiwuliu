@@ -132,8 +132,6 @@ public class CapitalAccountService implements ICapitalAccountService {
 		MoneyCapitalAccount account = new MoneyCapitalAccount();
 			try {
 				PropertyUtils.copyProperties(account,req);
-				int r = 0;
-				//TODO
 				if(req.getAvailablemoney()!=null&&req.getLockmoney()!=null){
 					account.setTotalmoney(req.getAvailablemoney() + req.getLockmoney());
 				}else if(req.getAvailablemoney()!=null){
@@ -146,14 +144,9 @@ public class CapitalAccountService implements ICapitalAccountService {
 					account.setTotalbill(1);
 				}
 				logger.info(account.toString());
-				r = moneyAccountMapper.insertSelective(account);
-				if(r == 0){
-					rs.setCode("2");
-					rs.setError("数据保存失败");
-				}
+				moneyAccountMapper.insertSelective(account);
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 				logger.info(e.getMessage());
-				e.printStackTrace();
 				rs.setCode("2");
 				rs.setError("数据转换失败");
 			}
