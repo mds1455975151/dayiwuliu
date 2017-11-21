@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.money.intf.ICapitalRecordService;
@@ -16,6 +17,7 @@ import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.common.enums.TransactionType;
+import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyWithdrawRecord;
 import com.tianrui.service.cache.CacheClient;
@@ -36,17 +38,16 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 	private CacheClient cache ;
 	
 	@Override
+	@Transactional
 	public Result save(SaveWithdrawReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
-		//TODO  参数校验
 		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
 				rs = withdraw(req, rs);
 			} catch (Exception e) {
-				e.printStackTrace();
-				rs.setCode("02");
-				rs.setError("数据保存失败！");
+				logger.error(e.getMessage());
+				throw new ApplicationExectpion("数据保存失败！");
 			}finally{
 				cache.remove(key);
 			}
@@ -95,15 +96,10 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 					MoneyWithdrawRecord mwr = new MoneyWithdrawRecord();
 					PropertyUtils.copyProperties(mwr, req);
 					mwr.setUsername(accountResp.getUsername());
-					mwr.setUseryhno(accountResp.getUsername());
+					mwr.setUseryhno(accountResp.getUseryhno());
 					mwr.setTransactionstate((short)1);
 					mwr.setAvailablemoney(accountResp.getAvailablemoney() -req.getMoney() );
-					int r = 0;
-					r = withdrawRecordMapper.insert(mwr);
-					if(r == 0 ){
-						rs.setCode("2");
-						rs.setError("数据保存失败");
-					}
+					withdrawRecordMapper.insert(mwr);
 				}
 			}
 		}
@@ -111,6 +107,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 	}
 
 	@Override
+	@Transactional
 	public Result update(updateWithdrawReq req) {
 		Result rs = Result.getSuccessResult();
 		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
@@ -130,17 +127,11 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 					}else {
 						rs = wiehdrawFail(req, wred);
 					}
-					int r = 0;
-					r = withdrawRecordMapper.updateByPrimaryKeySelective(wred);
-					if(r == 0 ){
-						rs.setCode("2");
-						rs.setError("数据保存失败");
-					}
+					withdrawRecordMapper.updateByPrimaryKeySelective(wred);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
-				rs.setCode("02");
-				rs.setError("数据保存失败！");
+				logger.error(e.getMessage());
+				throw new ApplicationExectpion("数据保存失败！");
 			}finally{
 				cache.remove(key);
 			}

@@ -30,17 +30,18 @@ public class DataDictServiceTest {
 	@Autowired
 	private  IDataDictService  dataDictService;
 	@Autowired
-	private IWithdrawRecordService billMoneyService;
+	private IPendingBillMoneyService billMoneyService;
 	
 	@Test
 	public void saveBill()throws Exception{
-		updateWithdrawReq req = new updateWithdrawReq();
+		SaveBillMoneyReq req = new SaveBillMoneyReq();
 		req.setCellphone("18039330360");
-		req.setEndtime(new Date().getTime());
-		req.setCapitalno("TX7852114511200");
-		req.setActualamount(6000L);
-		req.setFlag(true);
-		Result rs = billMoneyService.update(req);
+		req.setCreatetime(new Date().getTime());
+		req.setPendingmoney(900000000L);
+		req.setUsername("谭明克");
+		req.setUseryhno("410482198702206011");
+		req.setWaybillno("4155556666666544144");
+		Result rs = billMoneyService.save(req);
 		System.out.println(JSON.toJSON(rs));
 		logger.info("{}",JSON.toJSON(rs));
 	}

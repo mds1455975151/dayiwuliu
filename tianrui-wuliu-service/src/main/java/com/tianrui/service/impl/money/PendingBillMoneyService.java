@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.money.intf.ICapitalRecordService;
@@ -16,6 +17,7 @@ import com.tianrui.api.req.money.CapitalRecordReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.common.enums.TransactionType;
+import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyPendingBillMoney;
 import com.tianrui.service.cache.CacheClient;
@@ -35,7 +37,9 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	private ICapitalRecordService capitalRecordService;
 	@Autowired
 	private CacheClient cache ;
+	
 	@Override
+	@Transactional
 	public Result save(SaveBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		
 		Result rs = Result.getSuccessResult();
@@ -43,13 +47,11 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
 				if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
-					logger.error("运单编号不能为空");
 					rs.setCode("0");
 					rs.setError("运单编号不能为空");
 				}else {
 					MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
 					if(null != pendingBill){
-						logger.error("运单编号对应的运费记录已存在，请勿重复操作");
 						rs.setCode("1");
 						rs.setError("运单编号对应的运费记录已存在，请勿重复操作");
 					}else {
@@ -58,8 +60,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 				}
 			} catch (Exception e) {
 				logger.error(e.getMessage());
-				rs.setCode("02");
-				rs.setError("数据保存失败！");
+				throw new ApplicationExectpion("数据保存失败！");
 			}finally{
 				cache.remove(key);
 			}
@@ -82,20 +83,16 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		MoneyPendingBillMoney mbm = new MoneyPendingBillMoney();
 			PropertyUtils.copyProperties(mbm, req);
 			mbm.setCapitalno(req.getWaybillno());
-			int r = 0;
-			r = billMoneyMapper.insertSelective(mbm);
+			billMoneyMapper.insertSelective(mbm);
 			CapitalAccountReq accountReq = new CapitalAccountReq();
 			accountReq.setCellphone(req.getCellphone());
 			accountReq.setUsername(req.getUsername());
 			accountReq.setUseryhno(req.getUseryhno());
 			accountReq.setPendingmoney(req.getPendingmoney());
 			rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PENDING);
-			if(r == 0 ){
-				rs.setCode("2");
-				rs.setError("数据保存失败");
-			}
 	}
 	@Override
+	@Transactional
 	public Result update(UpdateBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
 		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
@@ -117,8 +114,8 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 					}
 				}
 			} catch (Exception e) {
-				rs.setCode("02");
-				rs.setError("数据保存失败！");
+				logger.error(e.getMessage());
+				throw new ApplicationExectpion("数据保存失败！");
 			}finally{
 				cache.remove(key);
 			}
@@ -145,8 +142,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		pendingBill.setPaidtime(req.getPaidtime());
 		pendingBill.setPaidmoney(req.getPaidmoney());
 		pendingBill.setDeductionmoney(req.getDeductionmoney());
-		int r = 0;
-		r = billMoneyMapper.updateByPrimaryKeySelective(pendingBill);
+		billMoneyMapper.updateByPrimaryKeySelective(pendingBill);
 		CapitalRecordReq recordReq = new CapitalRecordReq();
 		recordReq.setAvailablemoney(req.getPaidmoney());
 		recordReq.setCellphone(pendingBill.getCellphone());
@@ -162,10 +158,6 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		accountReq.setPendingmoney(pendingBill.getPendingmoney());
 		if("000000".equals(rs.getCode())){
 			rs = capitalAccountService.saveOrUpdate(accountReq, TransactionType.PAID);
-		}
-		if(r == 0 ){
-			rs.setCode("2");
-			rs.setError("数据保存失败");
 		}
 		return rs;
 	}
