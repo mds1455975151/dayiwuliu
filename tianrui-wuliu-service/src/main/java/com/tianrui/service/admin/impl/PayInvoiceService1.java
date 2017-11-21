@@ -798,6 +798,7 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 	}
 
 	@Override
+	@Transactional
 	public void callBackPayInvoicePayStatus() {
 		PayInvoice record = new PayInvoice();
 		record.setPushStatus(Constant.YES_PUSH);
@@ -870,9 +871,12 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 			JSONObject jsonObject = (JSONObject) object;
 			String id = jsonObject.getString("billId");
 			String payStatus = jsonObject.getString("payStatus");
-			PayInvoiceMsg bean = payInvoiceMsgMapper.selectByPrimaryKey(id);
-			SystemMember member = systemMemberMapper.selectByPrimaryKey(bean.getPayeeId());
+			PayInvoiceMsg bean = null;
+			if(StringUtils.isNotBlank(id)){
+				bean = payInvoiceMsgMapper.selectByPrimaryKey(id);
+			}
 			if (bean != null) {
+				SystemMember member = systemMemberMapper.selectByPrimaryKey(bean.getPayeeId());
 				PayInvoiceMsg payInvoiceMsg = new PayInvoiceMsg();
 				PayInvoice payInvoice = new PayInvoice();
 				//支付成功

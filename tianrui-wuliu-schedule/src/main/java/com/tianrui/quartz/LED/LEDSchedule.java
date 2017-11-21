@@ -140,7 +140,7 @@ public class LEDSchedule {
 	}
 	
 	/** 货主*/
-	@Scheduled(cron="0/10 * * * * ?")
+//	@Scheduled(cron="0/10 * * * * ?")
 	public void ownerCount() throws Exception{
 		System.out.println("开始");
 		//货主

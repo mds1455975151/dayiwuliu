@@ -120,7 +120,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 				if(null == wred ){
 					rs.setCode("01");
 					rs.setError("未发现的提现流水号！");
-				}else if (wred.getEndtime() > 0) {
+				}else if (null != wred.getEndtime()) {
 					rs.setCode("02");
 					rs.setError("提现流水号已经处理完成！");
 				}else {
