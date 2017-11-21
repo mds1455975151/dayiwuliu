@@ -43,24 +43,28 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
 				if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
+					logger.error("运单编号不能为空");
 					rs.setCode("0");
 					rs.setError("运单编号不能为空");
 				}else {
-		            MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
-		            if(null != pendingBill){
-		            	rs.setCode("1");
-		    			rs.setError("运单编号对应的运费记录已存在，请勿重复操作");
-		            }else {
-		            	savePendingBillMoney(req, rs);
+					MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
+					if(null != pendingBill){
+						logger.error("运单编号对应的运费记录已存在，请勿重复操作");
+						rs.setCode("1");
+						rs.setError("运单编号对应的运费记录已存在，请勿重复操作");
+					}else {
+						savePendingBillMoney(req, rs);
 					}
 				}
 			} catch (Exception e) {
+				logger.error(e.getMessage());
 				rs.setCode("02");
 				rs.setError("数据保存失败！");
 			}finally{
 				cache.remove(key);
 			}
 		}else {
+			logger.error("资金账户正在处理中，请稍后。");
 			rs.setCode("666111");
 			rs.setError("资金账户正在处理中，请稍后。");
 		}
@@ -77,6 +81,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	private void savePendingBillMoney(SaveBillMoneyReq req, Result rs) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		MoneyPendingBillMoney mbm = new MoneyPendingBillMoney();
 			PropertyUtils.copyProperties(mbm, req);
+			mbm.setCapitalno(req.getWaybillno());
 			int r = 0;
 			r = billMoneyMapper.insertSelective(mbm);
 			CapitalAccountReq accountReq = new CapitalAccountReq();
