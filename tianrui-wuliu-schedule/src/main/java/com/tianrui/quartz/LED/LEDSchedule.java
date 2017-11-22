@@ -34,34 +34,38 @@ public class LEDSchedule {
 		Long timeBegin = System.currentTimeMillis();
 		logger.info("LED定时任务开始"+TimeUtils.LongZoString(timeBegin));
 		lEDCountService.utpConfig("upt");
-		String dataStr = new SimpleDateFormat("yyyy-MM").format(new Date());
-		//当月开始时间
-		Long date = new SimpleDateFormat("yyyy-MM").parse(dataStr).getTime();
-		//运费统计
-		lEDCountService.payAmountCount(date, indexLong(date),dataStr);
-		//头部统计数据
-		lEDCountService.allCountData();
-		//////////////
-		String tdStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-		Long tdate = new SimpleDateFormat("yyyy-MM-dd").parse(tdStr).getTime();
-		//统计当天数据
-		lEDCountService.allCountToday(tdate);
-		//运量统计
-		lEDCountService.billCouAl(date, indexLong(date),dataStr);
-		//车主
-		lEDCountService.venderCount();
-		//货主
-		lEDCountService.ownerCount();
-		//货物类别统计
-		lEDCountService.billCargo();
-		//车型统计
-		lEDCountService.vehicleType();
-		//车辆归属地
-		lEDCountService.vehicleAddress();
-		//车辆使用频率
-		lEDCountService.vehicleRate();
-		//路线
-		lEDCountService.routeCount();
+		try {
+			String dataStr = new SimpleDateFormat("yyyy-MM").format(new Date());
+			//当月开始时间
+			Long date = new SimpleDateFormat("yyyy-MM").parse(dataStr).getTime();
+			//运费统计
+			lEDCountService.payAmountCount(date, indexLong(date),dataStr);
+			//头部统计数据
+			lEDCountService.allCountData();
+			//////////////
+			String tdStr = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			Long tdate = new SimpleDateFormat("yyyy-MM-dd").parse(tdStr).getTime();
+			//统计当天数据
+			lEDCountService.allCountToday(tdate);
+			//运量统计
+			lEDCountService.billCouAl(date, indexLong(date),dataStr);
+			//车主
+			lEDCountService.venderCount();
+			//货主
+			lEDCountService.ownerCount();
+			//货物类别统计
+			lEDCountService.billCargo();
+			//车型统计
+			lEDCountService.vehicleType();
+			//车辆归属地
+			lEDCountService.vehicleAddress();
+			//车辆使用频率
+			lEDCountService.vehicleRate();
+			//路线
+			lEDCountService.routeCount();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		lEDCountService.utpConfig("conf");
 		logger.info("LED定时任务结束"+TimeUtils.LongZoString(System.currentTimeMillis())+"耗时/毫秒"+(System.currentTimeMillis()-timeBegin));
 	}
