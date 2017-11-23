@@ -2,8 +2,11 @@ package com.tianrui.api.money.intf;
 
 import java.lang.reflect.InvocationTargetException;
 
+import com.tianrui.api.req.money.FindPendingBillMoneyReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
+import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
 public interface IPendingBillMoneyService {
@@ -26,4 +29,5 @@ public interface IPendingBillMoneyService {
 	 */
 	Result update(UpdateBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	
+	PaginationVO<FindPendingBillMoneyResp> select(FindPendingBillMoneyReq req)throws Exception;
 }

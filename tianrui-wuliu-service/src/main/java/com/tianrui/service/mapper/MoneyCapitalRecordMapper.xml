@@ -28,6 +28,44 @@
     availableMoney, withdrawalsLockMoney, otherLockMoney, createtime, remark, 
     capitalNO, desc1, desc2, desc3, desc4
   </sql>
+   
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.MoneyCapitalRecord" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_capitalRecord 
+    <where>
+    	<if test="cellphone != null and cellphone != ''">
+    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    	</if>
+    	<if test="username != null and username != ''">
+    		and username = #{username,jdbcType=VARCHAR}
+    	</if>
+    	<if test="useryhno != null and useryhno != ''">
+    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    	</if>
+    </where>
+     order by createtime desc
+    <if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.MoneyCapitalRecord" >
+    select 
+    count(0)
+    from money_capitalRecord 
+    <where>
+    	<if test="cellphone != null and cellphone != ''">
+    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    	</if>
+    	<if test="username != null and username != ''">
+    		and username = #{username,jdbcType=VARCHAR}
+    	</if>
+    	<if test="useryhno != null and useryhno != ''">
+    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+   
    <select id="selectByCellphone" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />

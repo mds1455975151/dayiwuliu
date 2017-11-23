@@ -2,8 +2,13 @@ package com.tianrui.api.money.intf;
 
 import java.lang.reflect.InvocationTargetException;
 
+import com.tianrui.api.req.money.FindCapitalRecordReq;
+import com.tianrui.api.req.money.FindWithdrawRecordReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
+import com.tianrui.api.resp.money.FindCapitalRecordResp;
+import com.tianrui.api.resp.money.FindWithdrawRecordResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
 public interface IWithdrawRecordService {
@@ -23,5 +28,7 @@ public interface IWithdrawRecordService {
 	 * @return
 	 */
 	Result update(updateWithdrawReq req);
+	
+	PaginationVO<FindWithdrawRecordResp> select(FindWithdrawRecordReq req)throws Exception;
 
 }

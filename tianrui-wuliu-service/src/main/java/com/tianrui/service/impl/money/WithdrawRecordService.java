@@ -1,6 +1,9 @@
 package com.tianrui.service.impl.money;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +16,14 @@ import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.money.CapitalAccountReq;
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.FindWithdrawRecordReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
+import com.tianrui.api.resp.money.FindWithdrawRecordResp;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.exception.ApplicationExectpion;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyWithdrawRecord;
 import com.tianrui.service.cache.CacheClient;
@@ -36,6 +42,42 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 	private ICapitalRecordService capitalRecordService;
 	@Autowired
 	private CacheClient cache ;
+	
+	@Override
+	public PaginationVO<FindWithdrawRecordResp> select(FindWithdrawRecordReq req) throws Exception {
+		PaginationVO<FindWithdrawRecordResp> page = new PaginationVO<FindWithdrawRecordResp>();
+		//查询类型转化
+		MoneyWithdrawRecord query = new MoneyWithdrawRecord();
+		if(req.getPageNo()!=null){
+			//pageNo == null 全部查询  pageNo != null 分页查询
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		query.setCellphone(req.getCellPhone());
+		query.setUseryhno(req.getUseryhno());
+		//查询总条数
+		long a = withdrawRecordMapper.selectByCount(query);
+		page.setTotal(a);
+		if(a != 0l){
+			List<MoneyWithdrawRecord> list = withdrawRecordMapper.selectByCondition(query);
+			//转换返回值类型
+			page.setList(copyProperties2(list));
+		}
+		return page;
+	}
+	/** 转换返回值类型*/
+	private List<FindWithdrawRecordResp> copyProperties2(List<MoneyWithdrawRecord> list)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<FindWithdrawRecordResp> rpList = new ArrayList<FindWithdrawRecordResp>();
+		for(MoneyWithdrawRecord rec : list){
+			FindWithdrawRecordResp resp = new FindWithdrawRecordResp();
+			PropertyUtils.copyProperties(resp, rec);
+			rpList.add(resp);
+		}
+		return rpList;
+	}
 	
 	@Override
 	@Transactional
@@ -206,5 +248,4 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 		}
 		return rs;
 	}
-
 }

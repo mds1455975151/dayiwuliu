@@ -1,7 +1,11 @@
 package com.tianrui.service.impl.money;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +13,10 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.FindCapitalRecordReq;
+import com.tianrui.api.resp.money.FindCapitalRecordResp;
 import com.tianrui.common.enums.TransactionType;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyCapitalRecord;
 import com.tianrui.service.mapper.MoneyCapitalRecordMapper;
@@ -20,6 +27,41 @@ public class CapitalRecordService implements ICapitalRecordService {
 	Logger logger=LoggerFactory.getLogger(CapitalRecordService.class);
 	@Autowired 
 	private MoneyCapitalRecordMapper recordMapper;
+	
+	@Override
+	public PaginationVO<FindCapitalRecordResp> select(FindCapitalRecordReq req) throws Exception {
+		// TODO Auto-generated method stub
+		PaginationVO<FindCapitalRecordResp> page = new PaginationVO<FindCapitalRecordResp>();
+		MoneyCapitalRecord query = new MoneyCapitalRecord();
+		if(req.getPageNo()!=null){
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		query.setCellphone(req.getCellphone());
+		query.setUsername(req.getUsername());
+		query.setUseryhno(req.getUseryhno());
+		long a = recordMapper.selectByCount(query);
+		page.setTotal(a);
+		if(a != 0l){
+			List<MoneyCapitalRecord> list = recordMapper.selectByCondition(query);
+			page.setList(copyProperties2(list));
+		}
+		return page;
+	}
+	/** 返回数据类型转换*/
+	private List<FindCapitalRecordResp> copyProperties2(List<MoneyCapitalRecord> list)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<FindCapitalRecordResp> resp = new ArrayList<FindCapitalRecordResp>();
+		for(MoneyCapitalRecord rec : list){
+			FindCapitalRecordResp sp = new FindCapitalRecordResp();
+			PropertyUtils.copyProperties(sp, rec);
+			resp.add(sp);
+		}
+		return resp;
+	}
+	
 	@Override
 	public Result save(CapitalRecordReq req,TransactionType type) {
 		Result rs = Result.getSuccessResult();
@@ -153,5 +195,4 @@ public class CapitalRecordService implements ICapitalRecordService {
 			newRecord.setWithdrawalslockmoney(mRecord.getWithdrawalslockmoney());//提现冻结金额不变
 		}
 	}
-
 }

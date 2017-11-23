@@ -1,6 +1,8 @@
 package com.tianrui.service.impl.money;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
@@ -14,10 +16,13 @@ import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.req.money.CapitalAccountReq;
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.FindPendingBillMoneyReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
+import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.exception.ApplicationExectpion;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyPendingBillMoney;
 import com.tianrui.service.cache.CacheClient;
@@ -37,6 +42,42 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	private ICapitalRecordService capitalRecordService;
 	@Autowired
 	private CacheClient cache ;
+	
+	@Override
+	public PaginationVO<FindPendingBillMoneyResp> select(FindPendingBillMoneyReq req) throws Exception {
+		PaginationVO<FindPendingBillMoneyResp> page = new PaginationVO<FindPendingBillMoneyResp>();
+		MoneyPendingBillMoney query = new MoneyPendingBillMoney();
+		//查询类型转换
+		if(req.getPageNo()!=null){
+			//pageNo != null 分页查  pageNo == null 不分页
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		query.setCellphone(req.getCellphone());
+		query.setWaybillno(req.getWaybillno());
+		query.setUseryhno(req.getUseryhno());
+		long a = billMoneyMapper.selectByCount(query);
+		page.setTotal(a);
+		if(a!=0l){
+			List<MoneyPendingBillMoney> list = billMoneyMapper.selectByCondition(query);
+			//返回类型转换
+			page.setList(copyProperties2(list));
+		}
+		return page;
+	}
+	/** 返回类型转换*/
+	private List<FindPendingBillMoneyResp> copyProperties2(List<MoneyPendingBillMoney> list)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<FindPendingBillMoneyResp> resp = new ArrayList<FindPendingBillMoneyResp>();
+		for(MoneyPendingBillMoney mone : list){
+			FindPendingBillMoneyResp sp = new FindPendingBillMoneyResp();
+			PropertyUtils.copyProperties(sp, mone);
+			resp.add(sp);
+		}
+		return resp;
+	}
 	
 	@Override
 	@Transactional
@@ -161,5 +202,4 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		}
 		return rs;
 	}
-
 }
