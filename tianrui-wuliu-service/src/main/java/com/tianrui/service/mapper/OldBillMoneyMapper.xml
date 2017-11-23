@@ -40,4 +40,34 @@
 		pay_status IN (1, 2, 3)
   </select>
   
+  <select id="selectByOldWithDraw" resultType="com.tianrui.service.bean.OldBillMoney" parameterType="com.tianrui.service.bean.OldBillMoney">
+  SELECT
+		id payid,
+		payee_bank_card_id bankid
+	FROM
+		pay_invoice_1
+	WHERE
+		pay_status IN (1, 2, 3)
+  </select>
+  
+  <select id="selectByOldWithDrawSuccess" resultType="com.tianrui.service.bean.OldBillMoney" parameterType="com.tianrui.service.bean.OldBillMoney">
+  SELECT
+		id payid,
+		payee_bank_card_id bankid
+	FROM
+		pay_invoice_1
+	WHERE
+		pay_status IN (2)
+  </select>
+  
+  <select id="selectByOldWithDrawFail" resultType="com.tianrui.service.bean.OldBillMoney" parameterType="com.tianrui.service.bean.OldBillMoney">
+  SELECT
+		id payid,
+		payee_bank_card_id bankid
+	FROM
+		pay_invoice_1
+	WHERE
+		pay_status IN (3)
+  </select>
+  
 </mapper>

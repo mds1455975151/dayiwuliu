@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IMoenyDisposeService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
+import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
+import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
+import com.tianrui.api.req.money.updateWithdrawReq;
+import com.tianrui.common.constants.NCResultEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.PayInvoice;
@@ -45,6 +49,8 @@ public class MoenyDisposeService implements IMoenyDisposeService{
 	private MemberBankCardMapper memberBankCardMapper;
 	@Autowired
 	private PayInvoiceMapper1 payInvoiceMapper;
+	@Autowired
+	IWithdrawRecordService withdrawRecordService;
 	@Override
 	public Result billSaveMoney(SaveBillMoneyReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -138,6 +144,79 @@ public class MoenyDisposeService implements IMoenyDisposeService{
 		}
 			
 		return result;
+	}
+	
+	private Result saveWithDrawList(PayInvoice payInvoice, MemberBankCard bank, String capitalno){
+		Result result = Result.getSuccessResult();
+		SaveWithdrawReq sd = new SaveWithdrawReq();
+		sd.setCellphone(bank.getTelphone());
+		sd.setUseryhno(bank.getIdcard());
+		sd.setMoney(payInvoice.getAmountPayable().longValue() * 100);
+		sd.setExpectpaycompany("NC");
+		sd.setBankname(bank.getBankname());
+		sd.setBankcode(bank.getBankcode());
+		sd.setBankcodeno(bank.getBankcard());
+		sd.setBegintime(System.currentTimeMillis());
+		sd.setCapitalno(capitalno);
+		try {
+			result = withdrawRecordService.save(sd);
+		} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			result.setCode("1");
+			result.setError(e.getMessage());
+		}
+		System.out.println(result.getCode()+result.getError());
+		return result;
+	}
+	@Override
+	public Result saveWithDraw() throws Exception {
+		List<OldBillMoney> om = oldBillMoneyMapper.selectByOldWithDraw(null);
+		for(OldBillMoney mon : om){
+			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(mon.getPayid());
+			MemberBankCard bank = memberBankCardMapper.selectByPrimaryKey(mon.getBankid());
+			saveWithDrawList(payInvoice,bank,mon.getPayid());
+		}
+		return null;
+	}
+	@Override
+	public Result saveWithDrawSuccess() throws Exception {
+		List<OldBillMoney> om = oldBillMoneyMapper.selectByOldWithDrawSuccess(null);
+		for(OldBillMoney mon : om){
+			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(mon.getPayid());
+			SystemMember member = systemMemberMapper.selectByPrimaryKey(payInvoice.getPayeeId());
+			updateWithdrawReq req = new updateWithdrawReq();
+			req.setCellphone(member.getCellphone());
+			req.setCapitalno(payInvoice.getId());
+			req.setEndtime(System.currentTimeMillis());
+			req.setFlag(true);
+			req.setActualamount(payInvoice.getPaidAmount().longValue()*100);
+			req.setErrorcode("");
+			req.setErrormessage(NCResultEnum.getMessage("历史数据处理"));
+			Result rs = withdrawRecordService.update(req);
+			System.out.println(rs.getCode()+rs.getError());
+		}
+		return null;
+	}
+	@Override
+	public Result saveWithDrawFail() throws Exception {
+		// TODO Auto-generated method stub
+		List<OldBillMoney> om = oldBillMoneyMapper.selectByOldWithDrawFail(null);
+		for(OldBillMoney mon : om){
+			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(mon.getPayid());
+			SystemMember member = systemMemberMapper.selectByPrimaryKey(payInvoice.getPayeeId());
+			updateWithdrawReq req = new updateWithdrawReq();
+			req.setCellphone(member.getCellphone());
+			req.setCapitalno(payInvoice.getId());
+			req.setEndtime(System.currentTimeMillis());
+			req.setFlag(false);
+			req.setActualamount(0l);
+			req.setErrorcode("");
+			req.setErrormessage(NCResultEnum.getMessage("历史数据处理"));
+			Result rs = withdrawRecordService.update(req);
+			System.out.println(rs.getCode()+rs.getError());
+		}
+		return null;
 	}
 
 }

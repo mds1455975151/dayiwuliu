@@ -16,7 +16,32 @@ public class OldMoneyBillTest {
 	public static Logger logger =LoggerFactory.getLogger(OldMoneyBillTest.class);
 	@Autowired
 	IMoenyDisposeService moenyDisposeService;
+	
 	@Test
+	public void saveWithDrawFail() throws Exception{
+		logger.info("执行开始");
+		System.out.println("开始");
+		moenyDisposeService.saveWithDrawFail();
+		logger.info("执行结束");
+		System.out.println("执行结束");
+	}
+	
+	public void saveWithDrawSuccess() throws Exception{
+		logger.info("执行开始");
+		System.out.println("开始");
+		moenyDisposeService.saveWithDrawSuccess();
+		logger.info("执行结束");
+		System.out.println("执行结束");
+	}
+	
+	public void saveWithDraw() throws Exception{
+		logger.info("执行开始");
+		System.out.println("开始");
+		moenyDisposeService.saveWithDraw();
+		logger.info("执行结束");
+		System.out.println("执行结束");
+	}
+	
 	public void uptBillMoney() throws Exception{
 		System.out.println("开始");
 		moenyDisposeService.uptPandMoney();
