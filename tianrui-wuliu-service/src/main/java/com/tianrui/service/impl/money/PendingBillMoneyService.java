@@ -17,6 +17,7 @@ import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.req.money.CapitalAccountReq;
 import com.tianrui.api.req.money.CapitalRecordReq;
 import com.tianrui.api.req.money.FindPendingBillMoneyReq;
+import com.tianrui.api.req.money.FindPendingMoneyByIdReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
@@ -43,6 +44,15 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	@Autowired
 	private CacheClient cache ;
 	
+	@Override
+	public Result selectPendingBillMoneyById(FindPendingMoneyByIdReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		MoneyPendingBillMoney bean = billMoneyMapper.selectByPrimaryKey(req.getId());
+		FindPendingBillMoneyResp resp = new FindPendingBillMoneyResp();
+		PropertyUtils.copyProperties(resp, bean);
+		rs.setData(resp);
+		return rs;
+	}
 	@Override
 	public PaginationVO<FindPendingBillMoneyResp> select(FindPendingBillMoneyReq req) throws Exception {
 		PaginationVO<FindPendingBillMoneyResp> page = new PaginationVO<FindPendingBillMoneyResp>();

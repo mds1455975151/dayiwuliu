@@ -16,6 +16,7 @@ import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.money.CapitalAccountReq;
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.FindWithdrawByIdReq;
 import com.tianrui.api.req.money.FindWithdrawRecordReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
@@ -42,6 +43,16 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 	private ICapitalRecordService capitalRecordService;
 	@Autowired
 	private CacheClient cache ;
+	
+	@Override
+	public Result selectByWithdrawId(FindWithdrawByIdReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		MoneyWithdrawRecord bean = withdrawRecordMapper.selectByPrimaryKey(req.getId());
+		FindWithdrawRecordResp resp = new FindWithdrawRecordResp();
+		PropertyUtils.copyProperties(resp, bean);
+		rs.setData(resp);
+		return rs;
+	}
 	
 	@Override
 	public PaginationVO<FindWithdrawRecordResp> select(FindWithdrawRecordReq req) throws Exception {

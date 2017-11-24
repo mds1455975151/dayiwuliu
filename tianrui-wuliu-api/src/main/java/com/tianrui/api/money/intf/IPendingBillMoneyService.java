@@ -3,6 +3,7 @@ package com.tianrui.api.money.intf;
 import java.lang.reflect.InvocationTargetException;
 
 import com.tianrui.api.req.money.FindPendingBillMoneyReq;
+import com.tianrui.api.req.money.FindPendingMoneyByIdReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
@@ -28,6 +29,8 @@ public interface IPendingBillMoneyService {
 	 * @throws IllegalAccessException 
 	 */
 	Result update(UpdateBillMoneyReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
-	
+	/** 司机运费记录*/
 	PaginationVO<FindPendingBillMoneyResp> select(FindPendingBillMoneyReq req)throws Exception;
+	/** 司机运费详情*/
+	Result selectPendingBillMoneyById(FindPendingMoneyByIdReq req)throws Exception;
 }

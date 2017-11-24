@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.FindCapitalRecordByIdReq;
 import com.tianrui.api.req.money.FindCapitalRecordReq;
 import com.tianrui.api.resp.money.FindCapitalRecordResp;
 import com.tianrui.common.enums.TransactionType;
@@ -27,6 +28,16 @@ public class CapitalRecordService implements ICapitalRecordService {
 	Logger logger=LoggerFactory.getLogger(CapitalRecordService.class);
 	@Autowired 
 	private MoneyCapitalRecordMapper recordMapper;
+	
+	@Override
+	public Result selectCapitalRecordById(FindCapitalRecordByIdReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		MoneyCapitalRecord bean = recordMapper.selectByPrimaryKey(req.getId());
+		FindCapitalRecordResp resp = new FindCapitalRecordResp();
+		PropertyUtils.copyProperties(resp, bean);
+		rs.setData(resp);
+		return rs;
+	}
 	
 	@Override
 	public PaginationVO<FindCapitalRecordResp> select(FindCapitalRecordReq req) throws Exception {

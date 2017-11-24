@@ -3,6 +3,7 @@ package com.tianrui.api.money.intf;
 import java.lang.reflect.InvocationTargetException;
 
 import com.tianrui.api.req.money.FindCapitalRecordReq;
+import com.tianrui.api.req.money.FindWithdrawByIdReq;
 import com.tianrui.api.req.money.FindWithdrawRecordReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
@@ -28,7 +29,8 @@ public interface IWithdrawRecordService {
 	 * @return
 	 */
 	Result update(updateWithdrawReq req);
-	
+	/** 用户提现记录*/
 	PaginationVO<FindWithdrawRecordResp> select(FindWithdrawRecordReq req)throws Exception;
-
+	/** 查询id*/
+	Result selectByWithdrawId(FindWithdrawByIdReq req)throws Exception;
 }

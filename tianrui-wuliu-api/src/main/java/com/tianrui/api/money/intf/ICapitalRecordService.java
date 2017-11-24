@@ -1,6 +1,7 @@
 package com.tianrui.api.money.intf;
 
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.FindCapitalRecordByIdReq;
 import com.tianrui.api.req.money.FindCapitalRecordReq;
 import com.tianrui.api.resp.money.FindCapitalRecordResp;
 import com.tianrui.common.enums.TransactionType;
@@ -27,4 +28,6 @@ public interface ICapitalRecordService {
 	 * @throws Exception
 	 */
 	PaginationVO<FindCapitalRecordResp> select(FindCapitalRecordReq req)throws Exception;
+	/** 查询详情*/
+	Result selectCapitalRecordById(FindCapitalRecordByIdReq req)throws Exception;
 }

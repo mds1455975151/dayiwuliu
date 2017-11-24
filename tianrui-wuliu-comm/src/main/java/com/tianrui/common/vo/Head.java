@@ -3,7 +3,7 @@ package com.tianrui.common.vo;
 public class Head {
 
 	private String tokenId;
-	private String account;
+	private String account;//登录账号
 	private String callType;
 	private String callTypeNo;
 	private String mobileType;
