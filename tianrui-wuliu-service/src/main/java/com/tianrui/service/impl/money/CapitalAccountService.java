@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.req.money.CapitalAccountReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
+import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyCapitalAccount;
@@ -32,19 +33,16 @@ public class CapitalAccountService implements ICapitalAccountService {
 		}else if (null != req.getCellphone() && !"".equals(req.getCellphone())) {
 			mAccount = moneyAccountMapper.selectByCellphone(req.getCellphone());
 		}else {
-			logger.error("用户登录账号和银行唯一标识不能为空");
-			rs.setCode("01");
-			rs.setError("用户登录账号和银行唯一标识不能为空");
+			rs.setErrorCode(ErrorCode.CAPITAL_NOT_CELLPHONE_OR_USERYHNO);
 			return rs;
 		}
 		if(null == mAccount){
-			if(type.getType() == 1){
+			if(type == TransactionType.PENDING ){
 				logger.info("没有资金账户时，开一个资金账户");
 				rs = saveCapitalAccount(req, type, rs);
 			}else {
 				logger.error("业务异常，未发现前置资金操作，无法进行此操作");
-				rs.setCode("1006");
-				rs.setError("业务异常，未发现前置资金操作，无法进行此操作");
+				rs.setErrorCode(ErrorCode.CAPITAL_ACCOUNT_NULL);
 			}
 		}else {
 			logger.info("修改资金账户");
@@ -69,8 +67,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
 			}else {
 				logger.error("待收入运费金额必须大于0");
-				rs.setCode("011");
-				rs.setError("待收入运费金额必须大于0");
+				rs.setErrorCode(ErrorCode.CAPITAL_PENDINGMONEY_ZERO);
 			}
 		}else if (type == TransactionType.PAID) {//收入运费
 			if(req.getPendingmoney() > 0 && req.getAvailablemoney() > 0){
@@ -83,8 +80,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
 			}else {
 				logger.error("收入运费金额必须大于0");
-				rs.setCode("011");
-				rs.setError("收入运费金额必须大于0");
+				rs.setErrorCode(ErrorCode.CAPITAL_PENDMONEY_ZERO);
 			}
 		}else if (type == TransactionType.TXSQ) {//提现申请
 			if( req.getAvailablemoney() > 0 && req.getLockmoney() > 0){
@@ -93,8 +89,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
 			}else {
 				logger.error("提现金额必须大于0");
-				rs.setCode("011");
-				rs.setError("提现金额必须大于0");
+				rs.setErrorCode(ErrorCode.CAPITAL_WITHDROW_ZERO);
 			}
 		}else if (type == TransactionType.TXSUCESS) {//提现成功
 			if( req.getAvailablemoney() > 0 && req.getLockmoney() > 0){
@@ -102,9 +97,8 @@ public class CapitalAccountService implements ICapitalAccountService {
 				mAccount.setTotalmoney(mAccount.getTotalmoney() - req.getAvailablemoney());//账户总金额减少
 				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
 			}else {
-				logger.error("待收入运费金额必须大于0");
-				rs.setCode("011");
-				rs.setError("待收入运费金额必须大于0");
+				logger.error("提现金额必须大于0");
+				rs.setErrorCode(ErrorCode.CAPITAL_WITHDROW_ZERO);
 			}
 		}else if (type == TransactionType.TXFAIL) {//提现失败
 			if( req.getAvailablemoney() > 0 && req.getLockmoney() > 0){
@@ -112,9 +106,8 @@ public class CapitalAccountService implements ICapitalAccountService {
 				mAccount.setAvailablemoney(mAccount.getAvailablemoney() + req.getAvailablemoney());//账户可用余额增加
 				moneyAccountMapper.updateByPrimaryKeySelective(mAccount);
 			}else {
-				logger.error("待收入运费金额必须大于0");
-				rs.setCode("011");
-				rs.setError("待收入运费金额必须大于0");
+				logger.error("提现金额必须大于0");
+				rs.setErrorCode(ErrorCode.CAPITAL_WITHDROW_ZERO);
 			}
 		}
 		return rs;
@@ -147,8 +140,7 @@ public class CapitalAccountService implements ICapitalAccountService {
 				moneyAccountMapper.insertSelective(account);
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 				logger.info(e.getMessage());
-				rs.setCode("2");
-				rs.setError("数据转换失败");
+				rs.setErrorCode(ErrorCode.PARAM_ERROR);
 			}
 		return rs;
 	}

@@ -36,9 +36,9 @@ public enum ErrorCode {
 	BILL_STATUS_IMG_UPLOAD("E301005","磅单图片上传失败"),
 	BILL_VEHICLE_BILLSTATUS("E301006","非空闲车辆不能接单"),
 	
-	BILL_DRIVER_DEL("E301007","改运单司机已删除"),
-	BILL_VENDER_DEL("E301008","改运单车主已删除"),
-	BILL_OWNER_DEL("E301009","改运单货主已删除"),
+	BILL_DRIVER_DEL("E301007","该运单司机已删除"),
+	BILL_VENDER_DEL("E301008","该运单车主已删除"),
+	BILL_OWNER_DEL("E301009","该运单货主已删除"),
 	
 	//运价策略审核
 	FILE_FREIGHT_NULL("E401000","请选择是否通过审核"),
@@ -80,10 +80,24 @@ public enum ErrorCode {
 	VEHICLE_DRIVER_NOTONLY("E502004","非空闲车辆不能进行开票认证"),
 	VEHICLE_DRIVER1_NOTONLY("E502004","绑定车辆司机不能进行开票认证"),
 	
+	//资金账户
+	CAPITAL_IN_PROCESS("E880000","资金账户正在处理中，请稍后。"),
+	CAPITAL_ACCOUNT_NULL("E880001","用户资金账户不存在，无法操作！"),
+	CAPITAL_NOT_ENOUGH("E880002","用户资金账户金额不足，无法提现！"),
+	CAPITALNO_NOT_FIND("E880003","未发现的提现流水号！"),
+	CAPITALNO_DISPOSED("E880004","提现流水号已经处理完成！"),
+	CAPITAL_WAYBILLNO_NULL("E880005","运单编号不能为空！"),
+	CAPITAL_WAYBILLNO_DISPOSED("E880006","运单编号对应的运费记录已存在，请勿重复操作！"),
+	CAPITAL_WAYBILLNO_NOT_PENDING("E880007","运单编号对应的运费记录不存在，请确认参数正确！"),
+	CAPITAL_WAYBILLNO_PAYMENT("E880008","运单编号对应的运费已支付，请确认参数正确！"),
+	CAPITAL_NOT_CELLPHONE_OR_USERYHNO("E880009","用户登录账号和银行唯一标识不能为空！"),
+	CAPITAL_NOT_TRANSACTIONTYPE("E880010","不支持的交易类型！"),
+	CAPITAL_RECORD_NULL("E880011","资金流水异常，系统未发现前置正常资金流水，无法操作！"),
+	CAPITAL_PENDINGMONEY_ZERO("E880012","待收入运费金额必须大于0！"),
+	CAPITAL_PENDMONEY_ZERO("E880013","收入运费金额必须大于0！"),
+	CAPITAL_WITHDROW_ZERO("E880014","提现金额必须大于0！"),
 	
-	/**
-	 * 银行卡
-	 */
+	//银行卡
 	NOT_FIND_BANK("E600000","没有找到匹配的银行."),
 	NOT_PUSH_BANK("E600001","银行未推送到NC."),
 	BANK_CARD_NOT_EXIST("E600002","该银行卡不存在"),

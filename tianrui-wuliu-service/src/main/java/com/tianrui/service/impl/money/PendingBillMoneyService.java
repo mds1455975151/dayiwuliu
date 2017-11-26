@@ -21,6 +21,7 @@ import com.tianrui.api.req.money.FindPendingMoneyByIdReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
+import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.vo.PaginationVO;
@@ -98,13 +99,11 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
 				if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
-					rs.setCode("0");
-					rs.setError("运单编号不能为空");
+					rs.setErrorCode(ErrorCode.CAPITAL_WAYBILLNO_NULL);
 				}else {
 					MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
 					if(null != pendingBill){
-						rs.setCode("1");
-						rs.setError("运单编号对应的运费记录已存在，请勿重复操作");
+						rs.setErrorCode(ErrorCode.CAPITAL_WAYBILLNO_DISPOSED);
 					}else {
 						savePendingBillMoney(req, rs);
 					}
@@ -116,9 +115,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 				cache.remove(key);
 			}
 		}else {
-			logger.error("资金账户正在处理中，请稍后。");
-			rs.setCode("666111");
-			rs.setError("资金账户正在处理中，请稍后。");
+			rs.setErrorCode(ErrorCode.CAPITAL_IN_PROCESS);
 		}
 		return rs;
 	}
@@ -150,16 +147,13 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
 				if(null == req.getWaybillno() || "".equals(req.getWaybillno())){
-					rs.setCode("0");
-					rs.setError("运单编号不能为空");
+					rs.setErrorCode(ErrorCode.CAPITAL_WAYBILLNO_NULL);
 				}else {
 		            MoneyPendingBillMoney pendingBill =  billMoneyMapper.selectByWaybillno(req.getWaybillno());
 		            if(null == pendingBill){
-		            	rs.setCode("1");
-		    			rs.setError("运单编号对应的运费记录不存在，请确认参数正确");
+		            	rs.setErrorCode(ErrorCode.CAPITAL_WAYBILLNO_NOT_PENDING);
 		            }else if (pendingBill.getIfpaid() == 1) {
-		            	rs.setCode("2");
-		    			rs.setError("运单编号对应的运费已支付，请确认参数正确");
+		            	rs.setErrorCode(ErrorCode.CAPITAL_WAYBILLNO_PAYMENT);
 					}else{
 		            	rs = paidBillMoney(req, pendingBill);
 					}
@@ -171,8 +165,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 				cache.remove(key);
 			}
 		}else {
-			rs.setCode("666111");
-			rs.setError("资金账户正在处理中，请稍后。");
+			rs.setErrorCode(ErrorCode.CAPITAL_IN_PROCESS);
 		}
 		return rs;
 	}

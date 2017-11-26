@@ -16,6 +16,7 @@ import com.tianrui.api.req.money.CapitalRecordReq;
 import com.tianrui.api.req.money.FindCapitalRecordByIdReq;
 import com.tianrui.api.req.money.FindCapitalRecordReq;
 import com.tianrui.api.resp.money.FindCapitalRecordResp;
+import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -82,8 +83,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 		}else if (null != req.getCellphone() && !"".equals(req.getCellphone())) {
 			mRecord = recordMapper.selectByCellphone(req.getCellphone());
 		}else {
-			rs.setCode("01");
-			rs.setError("用户登录账号和银行唯一标识不能为空");
+			rs.setErrorCode(ErrorCode.CAPITAL_NOT_CELLPHONE_OR_USERYHNO);
 			return rs;
 		}
 		MoneyCapitalRecord newRecord = new MoneyCapitalRecord();
@@ -109,8 +109,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 		}else if (type == TransactionType.TXFAIL) {//提现失败
 			withdrawCashFail(req, rs, mRecord, newRecord);
 		}else {
-			rs.setCode("111111");
-			rs.setError("不支持的交易类型");
+			rs.setErrorCode(ErrorCode.CAPITAL_NOT_TRANSACTIONTYPE);
 		}
 		recordMapper.insert(newRecord);
 		return rs;
@@ -125,8 +124,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 	private void withdrawCashFail(CapitalRecordReq req, Result rs, MoneyCapitalRecord mRecord,
 			MoneyCapitalRecord newRecord) {
 		if(null == mRecord){
-			rs.setCode("21001");
-			rs.setError("资金流水异常，系统未发现正常资金流水，无法提现！");
+			rs.setErrorCode(ErrorCode.CAPITAL_RECORD_NULL);
 		}else{
 			//在原有资金流水基础上 新增资金流水
 			newRecord.setAvailablemoney(mRecord.getAvailablemoney()+req.getAvailablemoney());//可用余额增加
@@ -147,8 +145,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 	private void withdrawCashSuccess(CapitalRecordReq req, Result rs, MoneyCapitalRecord mRecord,
 			MoneyCapitalRecord newRecord) {
 		if(null == mRecord){
-			rs.setCode("21001");
-			rs.setError("资金流水异常，系统未发现正常资金流水，无法提现！");
+			rs.setErrorCode(ErrorCode.CAPITAL_RECORD_NULL);
 		}else{
 			//在原有资金流水基础上 新增资金流水
 			newRecord.setAvailablemoney(mRecord.getAvailablemoney());//可用余额不变
@@ -169,8 +166,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 	private void withdrawCash(CapitalRecordReq req, Result rs, MoneyCapitalRecord mRecord,
 			MoneyCapitalRecord newRecord) {
 		if(null == mRecord){
-			rs.setCode("21001");
-			rs.setError("资金流水异常，系统未发现正常资金流水，无法提现！");
+			rs.setErrorCode(ErrorCode.CAPITAL_RECORD_NULL);
 		}else{
 			//在原有资金流水基础上 新增资金流水
 			newRecord.setAvailablemoney(mRecord.getAvailablemoney()-req.getAvailablemoney());//可用余额减少

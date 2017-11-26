@@ -22,6 +22,7 @@ import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.api.resp.money.FindWithdrawRecordResp;
+import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.vo.PaginationVO;
@@ -105,8 +106,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 				cache.remove(key);
 			}
 		}else {
-			rs.setCode("666111");
-			rs.setError("资金账户正在处理中，请稍后。");
+			rs.setErrorCode(ErrorCode.CAPITAL_IN_PROCESS);
 		}
 		return rs;
 	}
@@ -128,11 +128,9 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			accountResp = capitalAccountService.getByUseryhno(req.getUseryhno());
 		}
 		if(null == accountResp){
-			rs.setCode("01");
-			rs.setError("用户资金账户异常，无法提现！");
+			rs.setErrorCode(ErrorCode.CAPITAL_ACCOUNT_NULL);
 		}else if(accountResp.getAvailablemoney() < req.getMoney()){
-			rs.setCode("02");
-			rs.setError("用户资金账户金额不足，无法提现！");
+			rs.setErrorCode(ErrorCode.CAPITAL_NOT_ENOUGH);
 		}else {
 			CapitalRecordReq recordReq = new CapitalRecordReq();
 			recordReq.setUseryhno(accountResp.getUseryhno());
@@ -168,11 +166,9 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			try {
 				MoneyWithdrawRecord wred = withdrawRecordMapper.selectByCapitalno(req.getCapitalno());
 				if(null == wred ){
-					rs.setCode("01");
-					rs.setError("未发现的提现流水号！");
+					rs.setErrorCode(ErrorCode.CAPITALNO_NOT_FIND);
 				}else if (null != wred.getEndtime()) {
-					rs.setCode("02");
-					rs.setError("提现流水号已经处理完成！");
+					rs.setErrorCode(ErrorCode.CAPITALNO_DISPOSED);
 				}else {
 					wred.setEndtime(req.getEndtime());
 					if(req.isFlag()){
@@ -189,8 +185,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 				cache.remove(key);
 			}
 		}else {
-			rs.setCode("666111");
-			rs.setError("资金账户正在处理中，请稍后。");
+			rs.setErrorCode(ErrorCode.CAPITAL_IN_PROCESS);
 		}
 		return rs;
 	}
