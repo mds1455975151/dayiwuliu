@@ -153,6 +153,17 @@ function getNodeList(menu) {
 		}else if(nodesList[i].nodename == "我的收货员"){
 			_i.removeAttr("class");
 			_i.addClass("iconfontt").html('&#xe63f;');
+		}else if(nodesList[i].nodename == "待付运费"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe63f;');
+		}
+		else if(nodesList[i].nodename == "提现管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe63f;');
+		}
+		else if(nodesList[i].nodename == "账户管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe63f;');
 		}
 		href.append(_i).append(span);
 		

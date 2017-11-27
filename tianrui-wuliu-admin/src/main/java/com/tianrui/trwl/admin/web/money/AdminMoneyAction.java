@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.money.intf.ICapitalRecordService;
@@ -37,6 +38,25 @@ public class AdminMoneyAction {
 	@Autowired
 	IWithdrawRecordService withdrawRecordService;
 	
+	@RequestMapping("dfIndex")
+	public ModelAndView dfIndex(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/money/dfindex");
+		return view;
+	}
+	
+	@RequestMapping("tixian")
+	public ModelAndView tixian(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/money/tixian");
+		return view;
+	}
+	@RequestMapping("zhmanage")
+	public ModelAndView zhmanage(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/money/zhmanage");
+		return view;
+	}
 	/**
 	 * 查询用户资金账户
 	 * */

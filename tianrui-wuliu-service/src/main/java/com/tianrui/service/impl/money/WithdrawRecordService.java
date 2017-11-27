@@ -69,6 +69,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 		}
 		query.setCellphone(req.getCellPhone());
 		query.setUseryhno(req.getUseryhno());
+		query.setTransactionstate(req.getTransactionstate());
 		//查询总条数
 		long a = withdrawRecordMapper.selectByCount(query);
 		page.setTotal(a);

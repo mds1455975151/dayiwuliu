@@ -37,6 +37,9 @@
     <include refid="Base_Column_List" />
     from money_withdrawRecord
     <where>
+    	<if test="transactionstate != null and transactionstate != ''">
+    		and transactionstate = #{transactionstate,jdbcType=SMALLINT}
+    	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone = #{cellphone,jdbcType=VARCHAR}
     	</if>
@@ -55,6 +58,9 @@
     count(0)
     from money_withdrawRecord
     <where>
+    	<if test="transactionstate != null and transactionstate != ''">
+    		and transactionstate = #{transactionstate,jdbcType=SMALLINT}
+    	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone = #{cellphone,jdbcType=VARCHAR}
     	</if>

@@ -9,6 +9,8 @@ public class FindWithdrawRecordReq {
 	private String cellPhone;
 	//身份证号
 	private String useryhno;
+	
+	private Short transactionstate;//交易状态 1-处理中 2-成功 3-失败 4-未知
 
 	public Integer getPageNo() {
 		return pageNo;
@@ -40,6 +42,14 @@ public class FindWithdrawRecordReq {
 
 	public void setUseryhno(String useryhno) {
 		this.useryhno = useryhno;
+	}
+
+	public Short getTransactionstate() {
+		return transactionstate;
+	}
+
+	public void setTransactionstate(Short transactionstate) {
+		this.transactionstate = transactionstate;
 	}
 	
 	
