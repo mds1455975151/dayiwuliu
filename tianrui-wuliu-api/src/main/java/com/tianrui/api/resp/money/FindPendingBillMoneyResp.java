@@ -21,6 +21,8 @@ public class FindPendingBillMoneyResp {
     private Long pendingmoney;//预计收入金额
 
     private Long createtime;//创建时间（卸货完成时间）
+    
+    private Long ownerSignTime;//货主签收时间
 
     private Short ifpaid;//是否到账(0-未到账，1-已到账)
 
@@ -138,5 +140,13 @@ public class FindPendingBillMoneyResp {
     public void setCapitalno(String capitalno) {
         this.capitalno = capitalno == null ? null : capitalno.trim();
     }
+
+	public Long getOwnerSignTime() {
+		return ownerSignTime;
+	}
+
+	public void setOwnerSignTime(Long ownerSignTime) {
+		this.ownerSignTime = ownerSignTime;
+	}
 
 }

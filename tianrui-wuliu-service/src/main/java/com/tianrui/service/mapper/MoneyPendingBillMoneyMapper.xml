@@ -30,6 +30,9 @@
     <include refid="Base_Column_List" />
     from money_pendingBillMoney
     <where>
+    	<if test="ifpaid != null and ifpaid != ''">
+    	 and ifPaid = #{ifpaid,jdbcType=SMALLINT}
+    	</if>
     	<if test="waybillno != null and waybillno != ''">
     		and waybillno = #{waybillno,jdbcType=VARCHAR}
     	</if>
@@ -50,6 +53,9 @@
     count(0)
     from money_pendingBillMoney
     <where>
+    	<if test="ifpaid != null and ifpaid != ''">
+    	    and ifPaid = #{ifpaid,jdbcType=SMALLINT}
+    	</if>
     	<if test="waybillno != null and waybillno != ''">
     		and waybillno = #{waybillno,jdbcType=VARCHAR}
     	</if>

@@ -11,6 +11,8 @@ public class FindCapitalRecordReq {
     private String username;//用户姓名
 
     private String useryhno;//银行（NC）唯一编号，身份证号
+    
+    private Long transactiontype;//交易类型11-收入运费，19-资金回流；  21-提现申请，22-提现成功
 
 	public Integer getPageNo() {
 		return pageNo;
@@ -50,5 +52,13 @@ public class FindCapitalRecordReq {
 
 	public void setUseryhno(String useryhno) {
 		this.useryhno = useryhno;
+	}
+
+	public Long getTransactiontype() {
+		return transactiontype;
+	}
+
+	public void setTransactiontype(Long transactiontype) {
+		this.transactiontype = transactiontype;
 	}
 }

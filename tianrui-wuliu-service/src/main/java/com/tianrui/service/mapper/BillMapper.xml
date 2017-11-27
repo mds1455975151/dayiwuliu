@@ -207,6 +207,9 @@
 			<if test="planid != null and planid!=''">
 				and planid =#{planid,jdbcType=VARCHAR}
 			</if>
+			<if test="waybillno != null and waybillno != ''">
+				and waybillno = #{waybillno,jdbcType=VARCHAR}
+			</if>
 			<if test="venderid != null and venderid!=''">
 				and venderid=#{venderid,jdbcType=VARCHAR} and
 				venderdelflag=0
@@ -337,6 +340,9 @@
 		<where>
 			<if test="planid != null and planid!=''">
 				and planid =#{planid,jdbcType=VARCHAR}
+			</if>
+			<if test="waybillno != null and waybillno != ''">
+				and waybillno = #{waybillno,jdbcType=VARCHAR}
 			</if>
 			<if test="venderid != null and venderid!=''">
 				and venderid=#{venderid,jdbcType=VARCHAR} and

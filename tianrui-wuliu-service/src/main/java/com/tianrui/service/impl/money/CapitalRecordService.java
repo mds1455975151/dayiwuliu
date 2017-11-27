@@ -54,6 +54,7 @@ public class CapitalRecordService implements ICapitalRecordService {
 		query.setCellphone(req.getCellphone());
 		query.setUsername(req.getUsername());
 		query.setUseryhno(req.getUseryhno());
+		query.setTransactiontype(req.getTransactiontype());
 		long a = recordMapper.selectByCount(query);
 		page.setTotal(a);
 		if(a != 0l){

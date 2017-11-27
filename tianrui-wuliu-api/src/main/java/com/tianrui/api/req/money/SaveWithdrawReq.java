@@ -2,6 +2,8 @@ package com.tianrui.api.req.money;
 
 public class SaveWithdrawReq {
 
+	private String psword;//支付密码
+	
 	private String cellphone;//登录账号---必传
 
     private String useryhno;//银行（NC）唯一编号
@@ -90,6 +92,14 @@ public class SaveWithdrawReq {
 
 	public void setCapitalno(String capitalno) {
 		this.capitalno = capitalno;
+	}
+
+	public String getPsword() {
+		return psword;
+	}
+
+	public void setPsword(String psword) {
+		this.psword = psword;
 	}
     
 }

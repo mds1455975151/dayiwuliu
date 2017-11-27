@@ -17,10 +17,12 @@ import com.tianrui.api.req.money.FindPendingBillMoneyReq;
 import com.tianrui.api.req.money.FindPendingMoneyByIdReq;
 import com.tianrui.api.req.money.FindWithdrawByIdReq;
 import com.tianrui.api.req.money.FindWithdrawRecordReq;
+import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.api.resp.money.FindCapitalRecordResp;
 import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
 import com.tianrui.api.resp.money.FindWithdrawRecordResp;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
@@ -43,8 +45,23 @@ public class AppMoneyAction {
 	IWithdrawRecordService withdrawRecordService;
 	
 	/**
-	 * 查询用户资金账户
+	 * 用户提现申请
 	 * */
+	@RequestMapping(value="/withdrawSave",method=RequestMethod.POST)
+	@ApiParamRawType(SaveWithdrawReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult withdrawSave(AppParam<SaveWithdrawReq> appParam) throws Exception{
+		Head head = appParam.getHead();
+		//TODO
+		SaveWithdrawReq req = appParam.getBody();
+		req.setCellphone(head.getAccount());
+		req.setBegintime(System.currentTimeMillis());
+		req.setCapitalno(UUIDUtil.getId());
+		Result rs = withdrawRecordService.save(req);
+		return AppResult.valueOf(rs);
+	}
+	
 	@RequestMapping(value="/getCapitalAccount",method=RequestMethod.POST)
 	@ApiParamRawType(CapitalAccountByIdReq.class)
 	@ApiTokenValidation

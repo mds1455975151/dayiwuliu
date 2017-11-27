@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:flex="http://www.springframework.org/schema/flex"
@@ -12,7 +12,7 @@
 		http://www.springframework.org/schema/mvc 
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     
-	<context:component-scan base-package="com.tianrui.web.action,com.tianrui.web.app.action,com.tianrui.web.other.action" />
+	<context:component-scan base-package="com.tianrui.web.action,com.tianrui.web.app.action" />
     
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -38,15 +38,15 @@
    <bean id="resourcePathExposer" class="com.tianrui.web.util.ResourcePathExposer"
 		init-method="init" >
 		<property name="localScripts" value="/resources/js" />
-		<property name="imagesRoot" value="http://47.89.54.114/trwlWebStatic/tianrui/images" />
-		<property name="scriptsRoot" value="http://47.89.54.114/trwlWebStatic/tianrui/js" />
-		<property name="stylesRoot" value="http://47.89.54.114/trwlWebStatic/tianrui/css" />
-		<property name="trRoot" value="http://47.89.54.114/trwlWebStatic" />
+		<property name="imagesRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/images" />
+		<property name="scriptsRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/js" />
+		<property name="stylesRoot" value="http://www.appb2b.com/trwlWebStatic/tianrui/css" />
+		<property name="trRoot" value="http://www.appb2b.com/trwlWebStatic" />
 	</bean>
 	
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
         <property name="defaultEncoding" value="UTF-8" />  
-        <property name="maxUploadSize" value="10240000" />  
+        <property name="maxUploadSize" value="102400000" />  
         <!-- 设置在文件上传时允许写到内存中的最大值，以字节为单位计算，默认是10240 -->  
         <!-- 但是经实验，上传文件大小若小于此参数，则不会生成临时文件，故改为2048
         <property name="maxInMemorySize" value="2048" />    

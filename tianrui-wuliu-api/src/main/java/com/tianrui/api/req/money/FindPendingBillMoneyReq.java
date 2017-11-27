@@ -11,6 +11,8 @@ public class FindPendingBillMoneyReq {
 	private String useryhno;
 	//登录账号
 	private String cellphone;
+	
+	private Short ifpaid;//是否到账(0-未到账，1-已到账)
 
 	public Integer getPageNo() {
 		return pageNo;
@@ -50,6 +52,14 @@ public class FindPendingBillMoneyReq {
 
 	public void setCellphone(String cellphone) {
 		this.cellphone = cellphone;
+	}
+
+	public Short getIfpaid() {
+		return ifpaid;
+	}
+
+	public void setIfpaid(Short ifpaid) {
+		this.ifpaid = ifpaid;
 	}
 
 }

@@ -34,6 +34,9 @@
     <include refid="Base_Column_List" />
     from money_capitalRecord 
     <where>
+    	<if test="transactiontype != null and transactiontype != ''">
+    		and transactionType = #{transactiontype,jdbcType=BIGINT}
+    	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone = #{cellphone,jdbcType=VARCHAR}
     	</if>
@@ -54,6 +57,9 @@
     count(0)
     from money_capitalRecord 
     <where>
+    	<if test="transactiontype != null and transactiontype != ''">
+    		and transactionType = #{transactiontype,jdbcType=BIGINT}
+    	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone = #{cellphone,jdbcType=VARCHAR}
     	</if>

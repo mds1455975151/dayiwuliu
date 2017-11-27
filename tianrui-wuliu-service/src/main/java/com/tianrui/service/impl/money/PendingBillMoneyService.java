@@ -26,10 +26,14 @@ import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.exception.ApplicationExectpion;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MoneyPendingBillMoney;
+import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
+import com.tianrui.service.mapper.AnlianBillMapper;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MoneyPendingBillMoneyMapper;
 
 @Service
@@ -43,16 +47,46 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 	@Autowired
 	private ICapitalRecordService capitalRecordService;
 	@Autowired
+	AnlianBillMapper anlianBillMapper;
+	@Autowired
+	BillMapper billMapper;
+	@Autowired
 	private CacheClient cache ;
 	
 	@Override
 	public Result selectPendingBillMoneyById(FindPendingMoneyByIdReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		MoneyPendingBillMoney bean = billMoneyMapper.selectByPrimaryKey(req.getId());
+		Long signtime = null;
+		if(bean!=null){
+			String billNo = bean.getWaybillno();
+			//获取运单签收时间
+			signtime = getBillSignTime(signtime, billNo);
+		}
 		FindPendingBillMoneyResp resp = new FindPendingBillMoneyResp();
 		PropertyUtils.copyProperties(resp, bean);
+		resp.setOwnerSignTime(signtime);
 		rs.setData(resp);
 		return rs;
+	}
+	/** 获取运单签收时间*/
+	private Long getBillSignTime(Long signtime, String billNo) {
+		Bill ab = new Bill();
+		ab.setWaybillno(billNo);
+		//通过运单号查询大易运单
+		List<Bill> abb = billMapper.selectByCondition(ab);
+		if(abb.size() == 1){
+			signtime = abb.get(0).getOwnerSigntime();
+		}else {
+			AnlianBill bill = new AnlianBill();
+			bill.setBillno(billNo);
+			List<AnlianBill> list = anlianBillMapper.selectByCondition(bill);
+			//通过运单号查询安联运单
+			if(list.size() == 1){
+				signtime = list.get(0).getSigntime();
+			}
+		}
+		return signtime;
 	}
 	@Override
 	public PaginationVO<FindPendingBillMoneyResp> select(FindPendingBillMoneyReq req) throws Exception {
@@ -69,6 +103,7 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		query.setCellphone(req.getCellphone());
 		query.setWaybillno(req.getWaybillno());
 		query.setUseryhno(req.getUseryhno());
+		query.setIfpaid(req.getIfpaid());
 		long a = billMoneyMapper.selectByCount(query);
 		page.setTotal(a);
 		if(a!=0l){
