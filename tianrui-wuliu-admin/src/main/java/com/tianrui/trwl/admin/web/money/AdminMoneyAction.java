@@ -27,6 +27,7 @@ import com.tianrui.common.vo.Result;
 @RequestMapping("/admin/money")
 public class AdminMoneyAction {
 
+	
 	@Autowired
 	ICapitalAccountService capitalAccountService;
 	@Autowired
