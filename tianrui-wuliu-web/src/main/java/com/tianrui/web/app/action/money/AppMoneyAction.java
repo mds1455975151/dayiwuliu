@@ -17,6 +17,7 @@ import com.tianrui.api.req.money.FindPendingBillMoneyReq;
 import com.tianrui.api.req.money.FindPendingMoneyByIdReq;
 import com.tianrui.api.req.money.FindWithdrawByIdReq;
 import com.tianrui.api.req.money.FindWithdrawRecordReq;
+import com.tianrui.api.req.money.SavePasswordReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.api.resp.money.FindCapitalRecordResp;
@@ -43,6 +44,22 @@ public class AppMoneyAction {
 	IPendingBillMoneyService pendingBillMoneyService;
 	@Autowired
 	IWithdrawRecordService withdrawRecordService;
+	
+	/**
+	 * 设置密码
+	 * */
+	@RequestMapping(value="/saveOrUptAcountPassord",method=RequestMethod.POST)
+	@ApiParamRawType(SavePasswordReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult saveOrUptAcountPassord(AppParam<SavePasswordReq> appParam) throws Exception{
+		Head head = appParam.getHead();
+		//TODO
+		SavePasswordReq req = appParam.getBody();
+		req.setCellphone(head.getAccount());
+		Result rs = capitalAccountService.saveOrUptAcountPassord(req);
+		return AppResult.valueOf(rs);
+	}
 	
 	/**
 	 * 用户提现申请

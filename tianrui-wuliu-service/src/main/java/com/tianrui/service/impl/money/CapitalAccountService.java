@@ -3,6 +3,7 @@ package com.tianrui.service.impl.money;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.req.money.CapitalAccountReq;
+import com.tianrui.api.req.money.CheckPasswordReq;
+import com.tianrui.api.req.money.SavePasswordReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.bean.MoneyAccountPassword;
 import com.tianrui.service.bean.MoneyCapitalAccount;
+import com.tianrui.service.mapper.MoneyAccountPasswordMapper;
 import com.tianrui.service.mapper.MoneyCapitalAccountMapper;
 
 @Service
@@ -23,7 +28,49 @@ public class CapitalAccountService implements ICapitalAccountService {
 	Logger logger=LoggerFactory.getLogger(CapitalAccountService.class);
 	@Autowired 
 	private MoneyCapitalAccountMapper moneyAccountMapper;
-	 
+	@Autowired
+	MoneyAccountPasswordMapper moneyAccountPasswordMapper;
+	
+	@Override
+	public Result saveOrUptAcountPassord(SavePasswordReq req) {
+		// TODO Auto-generated method stub
+		MoneyAccountPassword pass = moneyAccountPasswordMapper.selectByPrimaryKey(req.getId());
+		if(pass == null){
+			//用户第一次设置密码
+			MoneyAccountPassword save = new MoneyAccountPassword();
+			save.setId(req.getId());
+			save.setCellphone(req.getCellphone());
+			save.setCreatertime(System.currentTimeMillis());
+			if("1".equals(req.getCheckType())){
+				//支付密码 -手势密码未开启
+				save.setGestureStatus("0");
+				save.setPassword(req.getPassword());
+			}else if("2".equals(req.getCheckType())){
+				//手势密码- 手势密码开启
+				save.setGestureStatus("1");
+				save.setGesturepass(req.getGesturepass());
+			}
+			moneyAccountPasswordMapper.insertSelective(save);
+		}else {
+			//旧密码不为空
+			if("1".equals(req.getCheckType())&&(StringUtils.isBlank(pass.getPassword())||StringUtils.equals(req.getOldPassword(), pass.getPassword()))){
+				//支付密码
+			}
+			MoneyAccountPassword upt = new MoneyAccountPassword();
+			upt.setId(pass.getId());
+			upt.setPassword(req.getPassword());
+			
+			moneyAccountPasswordMapper.insertSelective(upt);
+		}
+		return null;
+	}
+	@Override
+	public Result checkPassword(CheckPasswordReq req) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	@Override
 	public Result saveOrUpdate(CapitalAccountReq req,TransactionType type) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
@@ -180,5 +227,4 @@ public class CapitalAccountService implements ICapitalAccountService {
 		}
 		return null;
 	}
-
 }

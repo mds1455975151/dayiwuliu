@@ -3,11 +3,17 @@ package com.tianrui.api.money.intf;
 import java.lang.reflect.InvocationTargetException;
 
 import com.tianrui.api.req.money.CapitalAccountReq;
+import com.tianrui.api.req.money.CheckPasswordReq;
+import com.tianrui.api.req.money.SavePasswordReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 
 public interface ICapitalAccountService {
+	/** 设置账户密码*/
+	Result saveOrUptAcountPassord(SavePasswordReq req);
+	/** 校验用户密码*/
+	Result checkPassword(CheckPasswordReq req);
 	/**
 	 * 根据不同交易类型 修改或新增用户资金账户
 	 * @param req
