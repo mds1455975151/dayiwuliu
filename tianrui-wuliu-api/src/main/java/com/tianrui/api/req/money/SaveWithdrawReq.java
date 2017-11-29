@@ -1,8 +1,14 @@
 package com.tianrui.api.req.money;
 
 public class SaveWithdrawReq {
+	
+	private String userId;
 
-	private String psword;//支付密码
+	private String checkType;
+	
+	private String passWord;//支付密码
+	
+	private String gesturepass;//手势密码
 	
 	private String cellphone;//登录账号---必传
 
@@ -94,12 +100,35 @@ public class SaveWithdrawReq {
 		this.capitalno = capitalno;
 	}
 
-	public String getPsword() {
-		return psword;
+	public String getCheckType() {
+		return checkType;
 	}
 
-	public void setPsword(String psword) {
-		this.psword = psword;
+	public void setCheckType(String checkType) {
+		this.checkType = checkType;
 	}
-    
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getGesturepass() {
+		return gesturepass;
+	}
+
+	public void setGesturepass(String gesturepass) {
+		this.gesturepass = gesturepass;
+	}
 }

@@ -11,7 +11,7 @@ import com.tianrui.common.vo.Result;
 
 public interface ICapitalAccountService {
 	/** 设置账户密码*/
-	Result saveOrUptAcountPassord(SavePasswordReq req);
+	Result saveOrUptAcountPassword(SavePasswordReq req);
 	/** 校验用户密码*/
 	Result checkPassword(CheckPasswordReq req);
 	/**

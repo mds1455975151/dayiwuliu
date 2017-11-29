@@ -11,6 +11,7 @@ import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.money.CapitalAccountByIdReq;
+import com.tianrui.api.req.money.CheckPasswordReq;
 import com.tianrui.api.req.money.FindCapitalRecordByIdReq;
 import com.tianrui.api.req.money.FindCapitalRecordReq;
 import com.tianrui.api.req.money.FindPendingBillMoneyReq;
@@ -48,16 +49,30 @@ public class AppMoneyAction {
 	/**
 	 * 设置密码
 	 * */
-	@RequestMapping(value="/saveOrUptAcountPassord",method=RequestMethod.POST)
+	@RequestMapping(value="/saveOrUptAcountPassword",method=RequestMethod.POST)
 	@ApiParamRawType(SavePasswordReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult saveOrUptAcountPassord(AppParam<SavePasswordReq> appParam) throws Exception{
+	public AppResult saveOrUptAcountPassword(AppParam<SavePasswordReq> appParam) throws Exception{
 		Head head = appParam.getHead();
-		//TODO
 		SavePasswordReq req = appParam.getBody();
 		req.setCellphone(head.getAccount());
-		Result rs = capitalAccountService.saveOrUptAcountPassord(req);
+		Result rs = capitalAccountService.saveOrUptAcountPassword(req);
+		return AppResult.valueOf(rs);
+	}
+	
+	/**
+	 * 校验密码
+	 * */
+	@RequestMapping(value="/checkPassword",method=RequestMethod.POST)
+	@ApiParamRawType(CheckPasswordReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult checkPassword(AppParam<CheckPasswordReq> appParam) throws Exception{
+		Head head = appParam.getHead();
+		CheckPasswordReq req = appParam.getBody();
+		req.setCellphone(head.getAccount());
+		Result rs = capitalAccountService.checkPassword(req);
 		return AppResult.valueOf(rs);
 	}
 	
@@ -73,6 +88,7 @@ public class AppMoneyAction {
 		//TODO
 		SaveWithdrawReq req = appParam.getBody();
 		req.setCellphone(head.getAccount());
+		req.setUserId(head.getId());
 		req.setBegintime(System.currentTimeMillis());
 		req.setCapitalno(UUIDUtil.getId());
 		Result rs = withdrawRecordService.save(req);

@@ -101,7 +101,13 @@ public enum ErrorCode {
 	NOT_FIND_BANK("E600000","没有找到匹配的银行."),
 	NOT_PUSH_BANK("E600001","银行未推送到NC."),
 	BANK_CARD_NOT_EXIST("E600002","该银行卡不存在"),
-	BANK_CARD_NOT_AUDIT("E600003","银行卡未通过审核.");
+	BANK_CARD_NOT_AUDIT("E600003","银行卡未通过审核."),
+	
+	MONEY_CHECK_PW_NULL("E700001","用户未设置支付密码"),
+	MONEY_CHECK_PW_TYPE("E700002","未选择密码校验类型"),
+	MONEY_CHECK_PW_TP1("E700003","支付密码校验未通过"),
+	MONEY_CHECK_PW_TP2("E700004","手势密码校验未通过或未开启手势密码"),
+	MONEY_CHECK_PW_FALL("E700005","密码校验失败")
 	;
 	
 	private String code;

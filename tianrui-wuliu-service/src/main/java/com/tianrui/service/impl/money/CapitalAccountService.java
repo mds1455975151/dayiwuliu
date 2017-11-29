@@ -15,6 +15,7 @@ import com.tianrui.api.req.money.CheckPasswordReq;
 import com.tianrui.api.req.money.SavePasswordReq;
 import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.enums.MoenyPWCheckEnum;
 import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MoneyAccountPassword;
@@ -32,42 +33,98 @@ public class CapitalAccountService implements ICapitalAccountService {
 	MoneyAccountPasswordMapper moneyAccountPasswordMapper;
 	
 	@Override
-	public Result saveOrUptAcountPassord(SavePasswordReq req) {
-		// TODO Auto-generated method stub
+	public Result saveOrUptAcountPassword(SavePasswordReq req) {
+		Result rs = Result.getSuccessResult();
 		MoneyAccountPassword pass = moneyAccountPasswordMapper.selectByPrimaryKey(req.getId());
 		if(pass == null){
 			//用户第一次设置密码
-			MoneyAccountPassword save = new MoneyAccountPassword();
-			save.setId(req.getId());
-			save.setCellphone(req.getCellphone());
-			save.setCreatertime(System.currentTimeMillis());
-			if("1".equals(req.getCheckType())){
-				//支付密码 -手势密码未开启
-				save.setGestureStatus("0");
-				save.setPassword(req.getPassword());
-			}else if("2".equals(req.getCheckType())){
-				//手势密码- 手势密码开启
-				save.setGestureStatus("1");
-				save.setGesturepass(req.getGesturepass());
-			}
-			moneyAccountPasswordMapper.insertSelective(save);
+			savePassWord(req);
 		}else {
-			//旧密码不为空
-			if("1".equals(req.getCheckType())&&(StringUtils.isBlank(pass.getPassword())||StringUtils.equals(req.getOldPassword(), pass.getPassword()))){
-				//支付密码
+			//修改密码
+			if(MoenyPWCheckEnum.checkType1.getStatus().equals(req.getCheckType())){
+				//密码支付-修改
+				uptPassword(req, rs, pass);
+			}else if(MoenyPWCheckEnum.checkType2.getStatus().equals(req.getCheckType())){
+				//手势密码-修改
+				uptGesPassword(req, rs, pass);
+			}else{
+				logger.error(ErrorCode.MONEY_CHECK_PW_TYPE+"未选择密码校验类型");
+				rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_TYPE);
 			}
+		}
+		return rs;
+	}
+	private void uptGesPassword(SavePasswordReq req, Result rs, MoneyAccountPassword pass) {
+		if(StringUtils.isNotBlank(req.getGesturepass())&&(StringUtils.isBlank(pass.getGesturepass())||StringUtils.equals(req.getOldGesturepass(), pass.getGesturepass()))){
+			MoneyAccountPassword upt = new MoneyAccountPassword();
+			upt.setId(pass.getId());
+			upt.setGestureStatus(MoenyPWCheckEnum.gestureStatus1.getStatus());
+			upt.setGesturepass(req.getGesturepass());
+			moneyAccountPasswordMapper.updateByPrimaryKeySelective(upt);
+		}else{
+			logger.error(ErrorCode.MONEY_CHECK_PW_FALL+"密码校验失败");
+			rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_FALL);
+		}
+	}
+	private void uptPassword(SavePasswordReq req, Result rs, MoneyAccountPassword pass) {
+		if(StringUtils.isNotBlank(req.getPassword())&&(StringUtils.isBlank(pass.getPassword())||StringUtils.equals(req.getOldPassword(), pass.getPassword()))){
+			//旧密码不为空(密码支付)且 (原支付密码为空 或 新旧密码相同)
 			MoneyAccountPassword upt = new MoneyAccountPassword();
 			upt.setId(pass.getId());
 			upt.setPassword(req.getPassword());
-			
-			moneyAccountPasswordMapper.insertSelective(upt);
+			moneyAccountPasswordMapper.updateByPrimaryKeySelective(upt);
+		}else{
+			logger.error(ErrorCode.MONEY_CHECK_PW_FALL+"密码校验失败");
+			rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_FALL);
 		}
-		return null;
+	}
+	private void savePassWord(SavePasswordReq req) {
+		MoneyAccountPassword save = new MoneyAccountPassword();
+		save.setId(req.getId());
+		save.setCellphone(req.getCellphone());
+		save.setCreatertime(System.currentTimeMillis());
+		if(MoenyPWCheckEnum.checkType1.getStatus().equals(req.getCheckType())){
+			//支付密码 -手势密码未开启
+			save.setGestureStatus(MoenyPWCheckEnum.gestureStatus0.getStatus());
+			save.setPassword(req.getPassword());
+		}else if(MoenyPWCheckEnum.checkType2.getStatus().equals(req.getCheckType())){
+			//手势密码- 手势密码开启
+			save.setGestureStatus(MoenyPWCheckEnum.gestureStatus1.getStatus());
+			save.setGesturepass(req.getGesturepass());
+		}
+		moneyAccountPasswordMapper.insertSelective(save);
 	}
 	@Override
 	public Result checkPassword(CheckPasswordReq req) {
-		// TODO Auto-generated method stub
-		return null;
+		Result rs = Result.getSuccessResult();
+		MoneyAccountPassword pass = moneyAccountPasswordMapper.selectByPrimaryKey(req.getId());
+		if(pass!=null){
+			if("1".equals(req.getCheckType())){
+				//密码支付
+				if(!(StringUtils.isNotBlank(pass.getPassword())&&//支付密码不为空 
+						StringUtils.equals(pass.getPassword(), req.getPassword())//支付密码和输入密码相同
+						)){
+					logger.error(ErrorCode.MONEY_CHECK_PW_TP1+"支付密码校验未通过");
+					rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_TP1);
+				}
+			}else if("2".equals(req.getCheckType())){
+				//手势支付
+				if(!(StringUtils.equals("1", pass.getGestureStatus())&& //开启手势支付
+						StringUtils.isNotBlank(pass.getGesturepass())&& //手势支付密码不为空
+							StringUtils.equals(pass.getGesturepass(), req.getGesturepass())//支付密码 和输入密码相同
+							)){
+					logger.error(ErrorCode.MONEY_CHECK_PW_TP2+"手势密码校验未通过或未开启手势密码");
+					rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_TP2);
+				}
+			}else{
+				logger.error(ErrorCode.MONEY_CHECK_PW_TYPE+"未选择密码校验类型");
+				rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_TYPE);
+			}
+		}else{
+			logger.error(ErrorCode.MONEY_CHECK_PW_NULL+"用户未设置支付密码");
+			rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_NULL);
+		}
+		return rs;
 	}
 
 	

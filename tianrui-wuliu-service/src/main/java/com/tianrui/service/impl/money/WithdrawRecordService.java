@@ -16,6 +16,7 @@ import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.money.CapitalAccountReq;
 import com.tianrui.api.req.money.CapitalRecordReq;
+import com.tianrui.api.req.money.CheckPasswordReq;
 import com.tianrui.api.req.money.FindWithdrawByIdReq;
 import com.tianrui.api.req.money.FindWithdrawRecordReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
@@ -99,7 +100,17 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
-				rs = withdraw(req, rs);
+				//校验支付密码
+				String userId = req.getUserId();
+				CheckPasswordReq check = new CheckPasswordReq();
+				check.setId(userId);
+				check.setCheckType(req.getCheckType());
+				check.setGesturepass(req.getGesturepass());
+				check.setPassword(req.getPassWord());
+				rs = capitalAccountService.checkPassword(check);
+				if(rs.getCode().equals("000000")){
+					rs = withdraw(req, rs);
+				}
 			} catch (Exception e) {
 				logger.error(e.getMessage());
 				throw new ApplicationExectpion("数据保存失败！");
