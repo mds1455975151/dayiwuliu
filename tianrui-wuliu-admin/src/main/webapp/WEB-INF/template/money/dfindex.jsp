@@ -71,8 +71,7 @@
 				<!--查询框end-->
 				<div class="row mt15">
 					<div class="col-md-12">
-						<div class="content-user"
-							style="overflow-x: scroll; width: 1544px;">
+						<div class="content-user">
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">

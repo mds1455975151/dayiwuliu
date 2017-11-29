@@ -23,7 +23,7 @@ function getParams(pageNo){
 }
 function init(pageNo){
 	$.ajax({
-		url:"/admin/money/getCapitalAccount",
+		url:"/admin/money/capitalRecordSelect",
 		type:"POST",
 		data:getParams(pageNo),
 		success:function(ret){
@@ -55,27 +55,55 @@ function init(pageNo){
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	$(".tbshow").hide();
 	var type = $(".bag_tab").find(".select").attr("type");
-	
-	if(type == 2){
-		$(".type_2").show();
-	}else if(type == 3){
-		$(".type_3").show();
+	if(type == 1){
+		$(".bag_tj").empty();
+		var dongjie1 = "<div class=" + "bag_tjline" + ">" + "<label>今日支出金额：</label>" 
+		+ "<span>"+ 845712+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>今日收入金额：</label>" 
+		+ "<span>"+ 845712+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>昨日可用余额：</label>" 
+		+ "<span>"+ 845712+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>今日可用余额：</label>" 
+		+ "<span>"+ 845712+"元</span></div>"
+		$(".bag_tj").append(dongjie1);
 	}
+	else if(type == 2){
+		$(".bag_tj").empty();
+		var dongjie2 = "<div class=" + "bag_tjline" + ">" + "<label>今日解冻金额：</label>" 
+		+ "<span>"+ 845712.01+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>昨日冻结金额：</label>" 
+		+ "<span>"+ 845712.01+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>今日冻结金额：</label>" 
+		+ "<span>"+ 845712.01+"元</span></div>"
+		$(".bag_tj").append(dongjie2);
+		
+	 }else if(type == 3){
+			$(".bag_tj").empty();
+		var dongjie3 = "<div class=" + "bag_tjline" + ">" + "<label>提现冻结：</label>" 
+		+ "<span>"+ 845712.01+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>用户可用余额：</label>" 
+		+ "<span>"+ 845712.01+"元</span></div>"+
+		"<div class=" + "bag_tjline" + ">" + "<label>账户金额总额：</label>" 
+		+ "<span>"+ 845712.01+"元</span></div>"
+		$(".bag_tj").append(dongjie3);
+	 }
 	for (var a = 0; a < data.length; a++) {
 		var hml = "<tr>" +
 			"<td>"+(a+1)+"</td>" +
 			"<td>"+(data[a].username||"")+"</td>" +
 			"<td>"+(data[a].cellphone||"")+"</td>" +
 			"<td>"+(data[a].useryhno||"")+"</td>" +
-			"<td>"+new Date(data[a].begintime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+			"<td>"+(data[a].transactiontype||"")+"</td>" +
 			"<td>"+(data[a].capitalno||"")+"</td>" +
 			"<td>"+((data[a].money/100).toFixed(2)||"")+"</td>" +
-			"<td>"+(data[a].expectpaycompany||"")+"</td>" +
-			"<td>"+(data[a].bankname||"")+"</td>" +
-			"<td>"+(data[a].bankcodeno||"")+"</td>" +
-			"<td>"+((data[a].availablemoney/100).toFixed(2)||"")+"</td>" +
+			"<td>"+((data[a].income/100).toFixed(2) ||"")+"</td>" +
+			"<td>"+((data[a].expenditure/100).toFixed(2) ||"")+"</td>" +
+			"<td>"+((data[a].totalmoney/100).toFixed(2) ||"")+"</td>" +
+			"<td>"+((data[a].availablemoney/100).toFixed(2) ||"")+"</td>" +
+			"<td>"+new Date(data[a].createtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+			"<td>"+((data[a].withdrawalslockmoney/100).toFixed(2)||"")+"</td>" +
+			"<td>"+((data[a].otherlockmoney/100).toFixed(2)||"")+"</td>" +
 			"</tr>";
 			$("#innerHtml").append(hml);
 	}

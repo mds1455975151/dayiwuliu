@@ -33,8 +33,6 @@ function init(pageNo){
 				var pageNo = ret.data.pageNo;
 				var pageSize = ret.data.pageSize;
 				innerHml(data);
-//				txsuccssHml(data);
-//				txfailHml(data);
 				$('#totalRecords').html(total);
 				document.getElementById("goPage").value = pageNo+1;
 				$("#totalPages").html(parseInt((total-1)/pageSize+1));

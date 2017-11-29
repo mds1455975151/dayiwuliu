@@ -39,8 +39,8 @@
 				<div class="bag_tab">
                     <ul>
                         <li class="withdrawststus select" type="1">提现中</li>
-                        <li class="withdrawststus" type="2">提现成功</li>
-                        <li class="withdrawststus" type="3">提现失败</li>
+                        <li class="withdrawststus " type="2">提现成功</li>
+                        <li class="withdrawststus " type="3">提现失败</li>
                     </ul>
                 </div>
                        <div class="bag_tabbox">
@@ -90,8 +90,7 @@
                             <!--查询框end-->
                             				<div class="row mt15">
 					<div class="col-md-12">
-						<div class="content-user"
-							style="overflow-x: scroll; width: 1544px;">
+						<div class="content-user">
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">

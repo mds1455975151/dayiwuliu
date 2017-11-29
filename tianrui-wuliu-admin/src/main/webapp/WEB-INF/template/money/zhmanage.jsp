@@ -96,24 +96,8 @@
                               <button class="btn btnblue">导出</button>
                               <button class="btn btnorange">打印</button>
                               <div class="bag_tj">
-                                  <div class="bag_tjline">
-                                      <label>今日支出金额：</label>
-                                      <span>845712.01元</span>
-                                  </div>
-                                  <div class="bag_tjline">
-                                      <label>今日收入金额：</label>
-                                      <span>845712.01元</span>
-                                  </div>
-                                  <div class="bag_tjline">
-                                      <label>昨日可用余额：</label>
-                                      <span>845712.01元</span>
-                                  </div>
-                                  <div class="bag_tjline">
-                                      <label>今日可用余额：</label>
-                                      <span>845712.01元</span>
-                                  </div>
                               </div>
-                          	</div>
+                       	</div> 	
 							<!--用户表格begin-->
 							<table class="table table-bordered">
 								<thead>
