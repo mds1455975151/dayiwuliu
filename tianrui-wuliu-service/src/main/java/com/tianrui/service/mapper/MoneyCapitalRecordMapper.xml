@@ -35,16 +35,19 @@
     from money_capitalRecord 
     <where>
     	<if test="transactiontype != null and transactiontype != ''">
-    		and transactionType = #{transactiontype,jdbcType=BIGINT}
+    		and transactionType like "%" #{transactiontype,jdbcType=BIGINT} "%"
     	</if>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="username != null and username != ''">
-    		and username = #{username,jdbcType=VARCHAR}
+    		and username like "%" #{username,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="useryhno != null and useryhno != ''">
-    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    		and useryhNO like "%" #{useryhno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="capitalno != null and capitalno != ''">
+    		and capitalNO like "%" #{capitalno,jdbcType=VARCHAR} "%"
     	</if>
     </where>
      order by createtime desc
@@ -58,16 +61,19 @@
     from money_capitalRecord 
     <where>
     	<if test="transactiontype != null and transactiontype != ''">
-    		and transactionType = #{transactiontype,jdbcType=BIGINT}
+    		and transactionType like "%" #{transactiontype,jdbcType=BIGINT} "%"
     	</if>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="username != null and username != ''">
-    		and username = #{username,jdbcType=VARCHAR}
+    		and username like "%" #{username,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="useryhno != null and useryhno != ''">
-    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    		and useryhNO like "%" #{useryhno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="capitalno != null and capitalno != ''">
+    		and capitalNO like "%" #{capitalno,jdbcType=VARCHAR} "%"
     	</if>
     </where>
   </select>

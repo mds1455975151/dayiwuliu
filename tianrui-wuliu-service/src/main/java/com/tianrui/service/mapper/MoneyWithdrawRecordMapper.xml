@@ -38,13 +38,22 @@
     from money_withdrawRecord
     <where>
     	<if test="transactionstate != null and transactionstate != ''">
-    		and transactionstate = #{transactionstate,jdbcType=SMALLINT}
+    		and transactionState = #{transactionstate,jdbcType=SMALLINT}
     	</if>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="useryhno != null and useryhno != ''">
-    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    		and useryhNO like "%" #{useryhno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="bankcodeno != null and bankcodeno != ''">
+    		and bankCodeNo like "%" #{bankcodeno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="capitalno != null and capitalno != ''">
+    		and capitalNO like "%" #{capitalno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="expectpaycompany != null and expectpaycompany != ''">
+    		and expectPayCompany like "%" #{expectpaycompany,jdbcType=VARCHAR} "%"
     	</if>
     </where>
     order by lastTime desc
@@ -59,13 +68,22 @@
     from money_withdrawRecord
     <where>
     	<if test="transactionstate != null and transactionstate != ''">
-    		and transactionstate = #{transactionstate,jdbcType=SMALLINT}
+    		and transactionState = #{transactionstate,jdbcType=SMALLINT}
     	</if>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="useryhno != null and useryhno != ''">
-    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    		and useryhNO like "%" #{useryhno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="bankcodeno != null and bankcodeno != ''">
+    		and bankCodeNo like "%" #{bankcodeno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="capitalno != null and capitalno != ''">
+    		and capitalNO like "%" #{capitalno,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="expectpaycompany != null and expectpaycompany != ''">
+    		and expectPayCompany like "%" #{expectpaycompany,jdbcType=VARCHAR} "%"
     	</if>
     </where>
   </select>

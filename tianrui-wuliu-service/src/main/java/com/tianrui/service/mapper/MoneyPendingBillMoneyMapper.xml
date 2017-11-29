@@ -34,13 +34,13 @@
     	 and ifPaid = #{ifpaid,jdbcType=SMALLINT}
     	</if>
     	<if test="waybillno != null and waybillno != ''">
-    		and waybillno = #{waybillno,jdbcType=VARCHAR}
+    		and waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="useryhno != null and useryhno != ''">
-    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    		and useryhNO like "%" #{useryhno,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
     </where>
    	order by lastTime desc
@@ -54,16 +54,16 @@
     from money_pendingBillMoney
     <where>
     	<if test="ifpaid != null and ifpaid != ''">
-    	    and ifPaid = #{ifpaid,jdbcType=SMALLINT}
+    	 and ifPaid = #{ifpaid,jdbcType=SMALLINT}
     	</if>
     	<if test="waybillno != null and waybillno != ''">
-    		and waybillno = #{waybillno,jdbcType=VARCHAR}
+    		and waybillno like "%" #{waybillno,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="useryhno != null and useryhno != ''">
-    		and useryhNO = #{useryhno,jdbcType=VARCHAR}
+    		and useryhNO like "%" #{useryhno,jdbcType=VARCHAR} "%"
     	</if>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
     </where>
   </select>

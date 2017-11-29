@@ -68,9 +68,13 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
-		query.setCellphone(req.getCellPhone());
-		query.setUseryhno(req.getUseryhno());
-		query.setTransactionstate(req.getTransactionstate());
+		query.setCellphone(req.getCellPhone());//登录账号
+		query.setUseryhno(req.getUseryhno());//身份证号
+		query.setTransactionstate(req.getTransactionstate());//交易状态
+		
+		query.setBankcodeno(req.getBankcodeno());//银行卡
+		query.setCapitalno(req.getCapitalno());//流水号
+		query.setExpectpaycompany(req.getExpectpaycompany());//支付渠道
 		//查询总条数
 		long a = withdrawRecordMapper.selectByCount(query);
 		page.setTotal(a);

@@ -56,6 +56,7 @@ public class AppMoneyAction {
 	public AppResult saveOrUptAcountPassword(AppParam<SavePasswordReq> appParam) throws Exception{
 		Head head = appParam.getHead();
 		SavePasswordReq req = appParam.getBody();
+		req.setId(head.getId());
 		req.setCellphone(head.getAccount());
 		Result rs = capitalAccountService.saveOrUptAcountPassword(req);
 		return AppResult.valueOf(rs);
@@ -71,6 +72,7 @@ public class AppMoneyAction {
 	public AppResult checkPassword(AppParam<CheckPasswordReq> appParam) throws Exception{
 		Head head = appParam.getHead();
 		CheckPasswordReq req = appParam.getBody();
+		req.setId(head.getId());
 		req.setCellphone(head.getAccount());
 		Result rs = capitalAccountService.checkPassword(req);
 		return AppResult.valueOf(rs);
