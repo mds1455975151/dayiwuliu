@@ -247,6 +247,17 @@ public class SystemMemberService implements ISystemMemberService{
 		}
 		return false;
 	}
+	
+	@Override
+	public List<MemberResp> findAllVender() throws Exception {
+		// TODO Auto-generated method stub
+		MemberFind find = new MemberFind();
+		find.setUserType("2");
+		find.setCapaType("0");
+		List<Members> list = systemMemberMapper.findsMemberList(find);
+		return copyProperties(list);
+	}
+	
 	@Override
 	public PageResp<MemberResp> findMemberlist(MemberFindReq req) throws Exception {
 		MemberFind find = new MemberFind();
@@ -586,6 +597,4 @@ public class SystemMemberService implements ISystemMemberService{
 		return resp;
 		
 	}
-	
-	
 }

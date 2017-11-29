@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanService;
+import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
@@ -26,11 +27,14 @@ import com.tianrui.api.req.front.cargoplan.PlanConfirmReq;
 import com.tianrui.api.req.front.cargoplan.PlanEditReq;
 import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
+import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
+import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.front.cargoplan.PlanStatResp;
+import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.enums.PlanStatusEnum;
@@ -85,6 +89,8 @@ public class CargoPlanService implements ICargoPlanService{
 	private IMerchantService merchantService;
 	@Autowired
 	CacheClient cacheClient;
+	@Autowired
+	private ISystemMemberService systemMemberService;
 	
 
 	@Override
@@ -439,13 +445,14 @@ public class CargoPlanService implements ICargoPlanService{
 				plan.setPayment(req.getPayment());
 				
 				planMapper.insert(plan);
-				
+				//TODO
 				//发送消息
 				if( plan.getIsfamily()==0 ){
 					MemberVo owner = new MemberVo();
 					owner.setUserName(req.getOrganizationname());
 					owner.setId(req.getCurruId());
 					sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
+//					sendMsgAllVender(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, MessageCodeEnum.PLAN_2VENDER_CREATE);
 				}
 
 				//保存模版
@@ -460,6 +467,37 @@ public class CargoPlanService implements ICargoPlanService{
 		}
 		return rs;
 	}
+	
+	//发送站内信
+	private void sendMsgAllVender(List<String> params,String keyId,MemberVo sender,MessageCodeEnum codeEnum) throws Exception{
+		SendMsgReq req = new SendMsgReq();
+		List<MemberResp> list = systemMemberService.findAllVender();
+		if(sender != null && codeEnum != null){
+			for(MemberResp sp : list){
+				req.setParams(params);
+				req.setKeyid(keyId);
+				//发送人
+				req.setSendid(sender.getId());
+				req.setSendname(sender.getRealName());
+				//接受人
+				req.setRecid(sp.getId());
+				req.setRecname(sp.getRemarkname());
+				req.setCodeEnum(codeEnum);
+				req.setRecType(codeEnum.getType());
+				//消息类别  系统 还是会员
+				req.setType("2");
+				//详情URI
+				String uri ="/trwuliu/planvender/detail?id="+keyId;
+				req.setURI(uri);
+				try {
+					messageService.sendMessageInside(req);
+				} catch (Exception e) {
+					loger.warn("站内信发送失败,发送信息:{}",JSON.toJSON(req),e);
+				}
+			}
+		}
+	}
+	
 
 	private void setPlanData( FileFreight fileFreight, FileRoute fileRoute, FileOrgCargo cargo,
 			Plan plan) {

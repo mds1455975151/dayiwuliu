@@ -72,6 +72,7 @@ public class MessageService implements IMessageService {
 		if( StringUtils.isNotBlank(content) ){
 			message.setContent(content);
 			//发送站内信
+
 			messagemapper.insert(message);
 			//发送推送消息
 			if(req.getCodeEnum().getType()==3 ){

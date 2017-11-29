@@ -155,7 +155,7 @@
       </if>
       order by m.submittime desc
    	</where>
-      <if test="pageNo != null and pageSize != null">
+      <if test="pageNo != null and pageSize != null and limit != null">
        	limit #{limit,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
       </if>
   </select>

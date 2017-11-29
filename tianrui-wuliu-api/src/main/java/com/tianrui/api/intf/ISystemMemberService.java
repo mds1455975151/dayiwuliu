@@ -171,6 +171,8 @@ public interface ISystemMemberService {
 	 * @创建时间 2016年6月21日下午1:44:22
 	 */
 	PageResp<MemberResp> findMemberlist(MemberFindReq req)throws Exception;
+	/** 查询所有车主  用于发送计划 推送消息*/
+	List<MemberResp> findAllVender()throws Exception;
 	/**
 	 * 
 	 * @描述:查询会员信息列表
