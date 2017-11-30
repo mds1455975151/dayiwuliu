@@ -101,7 +101,20 @@ function getNodeList(menu) {
 		} else if (nodesList[i].nodename == "车辆档案管理") {
 			_i.removeAttr("class");
 			_i.addClass("iconfont icon-trunk");
-		} else if (nodesList[i].nodename == "车主档案管理") {
+		} 
+		else if (nodesList[i].nodename == "车辆运力管理") {
+			_i.removeAttr("class");
+			_i.addClass("iconfont icon-trunk");
+		} 
+		else if (nodesList[i].nodename == "待审车辆管理") {
+			_i.removeAttr("class");
+			_i.addClass("iconfont icon-trunk");
+		} 
+		else if (nodesList[i].nodename == "中交兴路车辆管理") {
+			_i.removeAttr("class");
+			_i.addClass("iconfont icon-trunk");
+		} 
+		else if (nodesList[i].nodename == "车主档案管理") {
 			_i.removeAttr("class");
 			_i.addClass("iconfont icon-jiaoseguanli");
 			/** 计划运单管理二级菜单样式 */
@@ -152,18 +165,37 @@ function getNodeList(menu) {
 			_i.addClass("iconfontt").html('&#xe63f;');
 		}else if(nodesList[i].nodename == "我的收货员"){
 			_i.removeAttr("class");
-			_i.addClass("iconfontt").html('&#xe63f;');
+			_i.addClass("iconfontt").html('&#xe628;');
 		}else if(nodesList[i].nodename == "待付运费"){
 			_i.removeAttr("class");
-			_i.addClass("iconfontt").html('&#xe63f;');
+			_i.addClass("iconfontt").html('&#xe646;');
 		}
 		else if(nodesList[i].nodename == "提现管理"){
 			_i.removeAttr("class");
-			_i.addClass("iconfontt").html('&#xe63f;');
+			_i.addClass("iconfontt").html('&#xe64a;');
 		}
 		else if(nodesList[i].nodename == "账户管理"){
 			_i.removeAttr("class");
-			_i.addClass("iconfontt").html('&#xe63f;');
+			_i.addClass("iconfontt").html('&#xe622;');
+		}else if(nodesList[i].nodename == "审核统计管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe775;');
+		}
+		else if(nodesList[i].nodename == "接口访问记录"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe6ff;');
+		}
+		else if(nodesList[i].nodename == "LED展示管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe648;');
+		}
+		else if(nodesList[i].nodename == "接口访问记录"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe6ff;');
+		}
+		else if(nodesList[i].nodename == "银行卡管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe65c;');
 		}
 		href.append(_i).append(span);
 		

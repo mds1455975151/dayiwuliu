@@ -46,12 +46,12 @@
                             <label>运单号：</label> <input id="billNo" type="text" placeholder="请输入运单号">
                         </div>
                         <div class="ht_div">
-                            <label>登录手机号：</label> <input id="cargoName" type="text" placeholder="请输入货物名称">
+                            <label>登录手机号：</label> <input id="cellphone" type="text" placeholder="请输入货物名称">
                         </div>
-                        <div class="ht_div" name="mytable" style="">
+                        <div class="ht_div" style="">
                             <label>身份证号：</label> <input id="vehicleNo" type="text" placeholder="请输入车牌号">
                         </div>
-                        <div class="ht_div" name="mytable" style="">
+                        <div class="ht_div" style="">
                             <label>卸货时间：</label>
                             <select id="billStatus" class="form-control">
                                 <option value="">请选择</option>
@@ -114,6 +114,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/money/dfindex.js?1127"></script>
+	<script type="text/javascript" src="/resources/js/money/dfindex.js?1129"></script>
 </body>
 </html>

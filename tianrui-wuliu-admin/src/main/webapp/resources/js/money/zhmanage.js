@@ -1,6 +1,4 @@
-function driverSearch(){
-	init(0);
-}
+
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
@@ -11,14 +9,22 @@ function displayData(pageNo){
 	}
 }
 function reset(){
-	$("#vehicleNo").val("");
+	$("#name").val("");
+	$("#cellphone").val("");
+	$("#zhno").val("");
+	$("#zhliushui").val("");
 	init(0);
 }
 function getParams(pageNo){
 	var type = $(".bag_tab").find(".select").attr("type");
 	var params = {pageNo:pageNo,
 			pageSize:10,
-			transactionstate:type}
+			transactionstate:type,
+			username:$("#name").val(),
+			cellphone:$("#cellphone").val(),
+			useryhno:$("#zhno").val(),
+			capitalno:$("#zhliushui").val(),
+			}
 	return params;
 }
 function init(pageNo){
@@ -55,39 +61,6 @@ function init(pageNo){
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	var type = $(".bag_tab").find(".select").attr("type");
-	if(type == 1){
-		$(".bag_tj").empty();
-		var dongjie1 = "<div class=" + "bag_tjline" + ">" + "<label>今日支出金额：</label>" 
-		+ "<span>"+ 845712+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>今日收入金额：</label>" 
-		+ "<span>"+ 845712+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>昨日可用余额：</label>" 
-		+ "<span>"+ 845712+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>今日可用余额：</label>" 
-		+ "<span>"+ 845712+"元</span></div>"
-		$(".bag_tj").append(dongjie1);
-	}
-	else if(type == 2){
-		$(".bag_tj").empty();
-		var dongjie2 = "<div class=" + "bag_tjline" + ">" + "<label>今日解冻金额：</label>" 
-		+ "<span>"+ 845712.01+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>昨日冻结金额：</label>" 
-		+ "<span>"+ 845712.01+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>今日冻结金额：</label>" 
-		+ "<span>"+ 845712.01+"元</span></div>"
-		$(".bag_tj").append(dongjie2);
-		
-	 }else if(type == 3){
-			$(".bag_tj").empty();
-		var dongjie3 = "<div class=" + "bag_tjline" + ">" + "<label>提现冻结：</label>" 
-		+ "<span>"+ 845712.01+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>用户可用余额：</label>" 
-		+ "<span>"+ 845712.01+"元</span></div>"+
-		"<div class=" + "bag_tjline" + ">" + "<label>账户金额总额：</label>" 
-		+ "<span>"+ 845712.01+"元</span></div>"
-		$(".bag_tj").append(dongjie3);
-	 }
 	for (var a = 0; a < data.length; a++) {
 		var hml = "<tr>" +
 			"<td>"+(a+1)+"</td>" +
@@ -108,7 +81,6 @@ function innerHml(data){
 			$("#innerHtml").append(hml);
 	}
 }
-
 $(".withdrawststus").on("click",function(){
 	$(".withdrawststus").removeClass("select");
 	$(this).addClass("select");

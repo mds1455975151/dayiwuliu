@@ -1,6 +1,3 @@
-function driverSearch(){
-	init(0);
-}
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
@@ -11,11 +8,16 @@ function displayData(pageNo){
 	}
 }
 function reset(){
-	$("#vehicleNo").val("");
 	init(0);
+	$("#billNo").val(""),
+	$("#cellphone").val(""),
+	$("#vehicleNo").val("")
 }
 function getParams(pageNo){
 	var params = {pageNo:pageNo,
+			waybillno:$("#billNo").val(),
+			cellphone:$("#cellphone").val(),
+			useryhno:$("#vehicleNo").val(),
 			pageSize:10}
 	return params;
 }

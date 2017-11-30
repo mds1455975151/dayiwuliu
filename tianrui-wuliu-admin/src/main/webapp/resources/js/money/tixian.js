@@ -1,6 +1,4 @@
-function driverSearch(){
-	init(0);
-}
+
 function displayData(pageNo){
 	var page = $("#recPageNo").val();
 	if(page != ""){
@@ -11,14 +9,22 @@ function displayData(pageNo){
 	}
 }
 function reset(){
-	$("#vehicleNo").val("");
+	$("#txbank").val("");
+	$("#txcell").val("");
+	$("#txno").val("");
+	$("#txliushui").val("");
 	init(0);
 }
 function getParams(pageNo){
 	var type = $(".bag_tab").find(".select").attr("type");
 	var params = {pageNo:pageNo,
 			pageSize:10,
-			transactionstate:type}
+			transactionstate:type,
+			bankcodeno:$("#txbank").val(),
+			cellphone:$("#txcell").val(),
+			useryhno:$("#txno").val(),
+			capitalno:$("#txliushui").val(),
+	}
 	return params;
 }
 function init(pageNo){

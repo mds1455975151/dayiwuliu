@@ -47,18 +47,18 @@
 				<div class="row">
                     <div class="col-md-12">
                        <div class="ht_div">
-                           <label>姓名：</label> <input type="text" placeholder="请输入运单号">
+                           <label>姓名：</label> <input type="text" placeholder="请输入运单号" id="name">
                        </div>
                        <div class="ht_div">
-                           <label>登录手机号：</label> <input type="text" placeholder="请输入货物名称">
+                           <label>登录手机号：</label> <input type="text" placeholder="请输入货物名称" id="cellphone">
                        </div>
-                       <div class="ht_div" name="mytable" style="">
-                           <label>身份证号：</label> <input type="text" placeholder="请输入车牌号">
+                       <div class="ht_div" style="">
+                           <label>身份证号：</label> <input type="text" placeholder="请输入车牌号" id="zhno">
                        </div>
-                       <div class="ht_div" name="mytable" style="">
-                           <label>流水号：</label> <input type="text" placeholder="请输入车牌号">
+                       <div class="ht_div" style="">
+                           <label>流水号：</label> <input type="text" placeholder="请输入车牌号" id="zhliushui">
                        </div>
-                       <div class="ht_div" name="mytable" style="">
+                       <div class="ht_div" style="">
                            <label>交易类型：</label>
                            <select class="form-control">
                                <option value="">请选择</option>
