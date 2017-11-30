@@ -27,7 +27,7 @@
                              targetProject="tianrui-wuliu-service\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="LED_count_data" domainObjectName="LEDCountData" enableCountByExample="false"
+        <table tableName="wuliu_plan_goods" domainObjectName="PlanGoods" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>
     </context>

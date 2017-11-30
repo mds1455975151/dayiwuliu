@@ -85,14 +85,6 @@ public class PlanSaveReq extends BaseReq{
 		this.cargoid = cargoid;
 	}
 
-	public String getVenderId() {
-		return venderId;
-	}
-
-	public void setVenderId(String venderId) {
-		this.venderId = venderId;
-	}
-
 	public String getIsFamily() {
 		return isFamily;
 	}
@@ -235,5 +227,13 @@ public class PlanSaveReq extends BaseReq{
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	public String getVenderId() {
+		return venderId;
+	}
+
+	public void setVenderId(String venderId) {
+		this.venderId = venderId;
 	}
 }

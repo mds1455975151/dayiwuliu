@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.PlanGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.PlanGoods" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="freightid" property="freightid" jdbcType="VARCHAR" />
+    <result column="routeid" property="routeid" jdbcType="VARCHAR" />
+    <result column="measure" property="measure" jdbcType="VARCHAR" />
+    <result column="cargoid" property="cargoid" jdbcType="VARCHAR" />
+    <result column="cargoname" property="cargoname" jdbcType="VARCHAR" />
+    <result column="priceUnits" property="priceunits" jdbcType="VARCHAR" />
+    <result column="startcity" property="startcity" jdbcType="VARCHAR" />
+    <result column="endcity" property="endcity" jdbcType="VARCHAR" />
+    <result column="distance" property="distance" jdbcType="DOUBLE" />
+    <result column="totalplanned" property="totalplanned" jdbcType="DOUBLE" />
+    <result column="planprice" property="planprice" jdbcType="DOUBLE" />
+    <result column="completed" property="completed" jdbcType="DOUBLE" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="istemplate" property="istemplate" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="starttime" property="starttime" jdbcType="BIGINT" />
+    <result column="endtime" property="endtime" jdbcType="BIGINT" />
+    <result column="acceptedtime" property="acceptedtime" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="vehicleownerid" property="vehicleownerid" jdbcType="VARCHAR" />
+    <result column="vehicleownername" property="vehicleownername" jdbcType="VARCHAR" />
+    <result column="vehicleownerphone" property="vehicleownerphone" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modifytime" property="modifytime" jdbcType="BIGINT" />
+    <result column="isFamily" property="isfamily" jdbcType="TINYINT" />
+    <result column="planCode" property="plancode" jdbcType="VARCHAR" />
+    <result column="ownerDelFlag" property="ownerdelflag" jdbcType="TINYINT" />
+    <result column="venderDelFlag" property="venderdelflag" jdbcType="TINYINT" />
+    <result column="refuseReson" property="refusereson" jdbcType="VARCHAR" />
+    <result column="refuseResonType" property="refuseresontype" jdbcType="VARCHAR" />
+    <result column="sendPerson" property="sendperson" jdbcType="VARCHAR" />
+    <result column="sendPersonPhone" property="sendpersonphone" jdbcType="VARCHAR" />
+    <result column="receivePerson" property="receiveperson" jdbcType="VARCHAR" />
+    <result column="receivePersonPhone" property="receivepersonphone" jdbcType="VARCHAR" />
+    <result column="cargocode" property="cargocode" jdbcType="VARCHAR" />
+    <result column="freightname" property="freightname" jdbcType="VARCHAR" />
+    <result column="orgid" property="orgid" jdbcType="VARCHAR" />
+    <result column="isAppoint" property="isappoint" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="tallage" property="tallage" jdbcType="DOUBLE" />
+    <result column="pathID" property="pathid" jdbcType="VARCHAR" />
+    <result column="DESC1" property="desc1" jdbcType="VARCHAR" />
+    <result column="DESC2" property="desc2" jdbcType="VARCHAR" />
+    <result column="DESC3" property="desc3" jdbcType="VARCHAR" />
+    <result column="DESC4" property="desc4" jdbcType="VARCHAR" />
+    <result column="shipperMerchant" property="shippermerchant" jdbcType="VARCHAR" />
+    <result column="consigneeMerchant" property="consigneemerchant" jdbcType="VARCHAR" />
+    <result column="receiveid" property="receiveid" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, freightid, routeid, measure, cargoid, cargoname, priceUnits, startcity, endcity, 
+    distance, totalplanned, planprice, completed, price, istemplate, type, starttime, 
+    endtime, acceptedtime, status, linkman, telephone, vehicleownerid, vehicleownername, 
+    vehicleownerphone, creator, createtime, modifier, modifytime, isFamily, planCode, 
+    ownerDelFlag, venderDelFlag, refuseReson, refuseResonType, sendPerson, sendPersonPhone, 
+    receivePerson, receivePersonPhone, cargocode, freightname, orgid, isAppoint, pid, 
+    tallage, pathID, DESC1, DESC2, DESC3, DESC4, shipperMerchant, consigneeMerchant, 
+    receiveid, payment
+  </sql>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.PlanGoods" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_plan_goods
+    <where>
+    	<if test="searchKey != null and searchKey != ''">
+    		and (cargoname like "%" #{searchKey,jdbcType=VARCHAR} "%"
+    			or planCode like "%" #{searchKey,jdbcType=VARCHAR} "%"
+    		)
+    	</if>
+    	<if test="creator != null and creator != ''">
+    		and creator = #{creator,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cargoname != null and cargoname != ''">
+    		and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="plancode != null and plancode != ''">
+    		and planCode like "%" #{plancode,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="freightname != null and freightname != ''">
+    		and freightname like "%" #{freightname,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+    <if test="pageNo != null">
+    	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.PlanGoods" >
+    select 
+    count(0)
+    from wuliu_plan_goods
+    <where>
+    	<if test="searchKey != null and searchKey != ''">
+    		and (cargoname like "%" #{searchKey,jdbcType=VARCHAR} "%"
+    			or planCode like "%" #{searchKey,jdbcType=VARCHAR} "%"
+    		)
+    	</if>
+    	<if test="creator != null and creator != ''">
+    		and creator = #{creator,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cargoname != null and cargoname != ''">
+    		and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="plancode != null and plancode != ''">
+    		and planCode like "%" #{plancode,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="freightname != null and freightname != ''">
+    		and freightname like "%" #{freightname,jdbcType=VARCHAR} "%"
+    	</if>
+    </where>
+  </select>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_plan_goods
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wuliu_plan_goods
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.PlanGoods" >
+    insert into wuliu_plan_goods (ID, freightid, routeid, 
+      measure, cargoid, cargoname, 
+      priceUnits, startcity, endcity, 
+      distance, totalplanned, planprice, 
+      completed, price, istemplate, 
+      type, starttime, endtime, 
+      acceptedtime, status, linkman, 
+      telephone, vehicleownerid, vehicleownername, 
+      vehicleownerphone, creator, createtime, 
+      modifier, modifytime, isFamily, 
+      planCode, ownerDelFlag, venderDelFlag, 
+      refuseReson, refuseResonType, sendPerson, 
+      sendPersonPhone, receivePerson, receivePersonPhone, 
+      cargocode, freightname, orgid, 
+      isAppoint, pid, tallage, 
+      pathID, DESC1, DESC2, 
+      DESC3, DESC4, shipperMerchant, 
+      consigneeMerchant, receiveid, payment
+      )
+    values (#{id,jdbcType=VARCHAR}, #{freightid,jdbcType=VARCHAR}, #{routeid,jdbcType=VARCHAR}, 
+      #{measure,jdbcType=VARCHAR}, #{cargoid,jdbcType=VARCHAR}, #{cargoname,jdbcType=VARCHAR}, 
+      #{priceunits,jdbcType=VARCHAR}, #{startcity,jdbcType=VARCHAR}, #{endcity,jdbcType=VARCHAR}, 
+      #{distance,jdbcType=DOUBLE}, #{totalplanned,jdbcType=DOUBLE}, #{planprice,jdbcType=DOUBLE}, 
+      #{completed,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{istemplate,jdbcType=TINYINT}, 
+      #{type,jdbcType=TINYINT}, #{starttime,jdbcType=BIGINT}, #{endtime,jdbcType=BIGINT}, 
+      #{acceptedtime,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{linkman,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{vehicleownerid,jdbcType=VARCHAR}, #{vehicleownername,jdbcType=VARCHAR}, 
+      #{vehicleownerphone,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createtime,jdbcType=BIGINT}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifytime,jdbcType=BIGINT}, #{isfamily,jdbcType=TINYINT}, 
+      #{plancode,jdbcType=VARCHAR}, #{ownerdelflag,jdbcType=TINYINT}, #{venderdelflag,jdbcType=TINYINT}, 
+      #{refusereson,jdbcType=VARCHAR}, #{refuseresontype,jdbcType=VARCHAR}, #{sendperson,jdbcType=VARCHAR}, 
+      #{sendpersonphone,jdbcType=VARCHAR}, #{receiveperson,jdbcType=VARCHAR}, #{receivepersonphone,jdbcType=VARCHAR}, 
+      #{cargocode,jdbcType=VARCHAR}, #{freightname,jdbcType=VARCHAR}, #{orgid,jdbcType=VARCHAR}, 
+      #{isappoint,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{tallage,jdbcType=DOUBLE}, 
+      #{pathid,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}, #{shippermerchant,jdbcType=VARCHAR}, 
+      #{consigneemerchant,jdbcType=VARCHAR}, #{receiveid,jdbcType=VARCHAR}, #{payment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.PlanGoods" >
+    insert into wuliu_plan_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="freightid != null" >
+        freightid,
+      </if>
+      <if test="routeid != null" >
+        routeid,
+      </if>
+      <if test="measure != null" >
+        measure,
+      </if>
+      <if test="cargoid != null" >
+        cargoid,
+      </if>
+      <if test="cargoname != null" >
+        cargoname,
+      </if>
+      <if test="priceunits != null" >
+        priceUnits,
+      </if>
+      <if test="startcity != null" >
+        startcity,
+      </if>
+      <if test="endcity != null" >
+        endcity,
+      </if>
+      <if test="distance != null" >
+        distance,
+      </if>
+      <if test="totalplanned != null" >
+        totalplanned,
+      </if>
+      <if test="planprice != null" >
+        planprice,
+      </if>
+      <if test="completed != null" >
+        completed,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="istemplate != null" >
+        istemplate,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="acceptedtime != null" >
+        acceptedtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="vehicleownerid != null" >
+        vehicleownerid,
+      </if>
+      <if test="vehicleownername != null" >
+        vehicleownername,
+      </if>
+      <if test="vehicleownerphone != null" >
+        vehicleownerphone,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifytime != null" >
+        modifytime,
+      </if>
+      <if test="isfamily != null" >
+        isFamily,
+      </if>
+      <if test="plancode != null" >
+        planCode,
+      </if>
+      <if test="ownerdelflag != null" >
+        ownerDelFlag,
+      </if>
+      <if test="venderdelflag != null" >
+        venderDelFlag,
+      </if>
+      <if test="refusereson != null" >
+        refuseReson,
+      </if>
+      <if test="refuseresontype != null" >
+        refuseResonType,
+      </if>
+      <if test="sendperson != null" >
+        sendPerson,
+      </if>
+      <if test="sendpersonphone != null" >
+        sendPersonPhone,
+      </if>
+      <if test="receiveperson != null" >
+        receivePerson,
+      </if>
+      <if test="receivepersonphone != null" >
+        receivePersonPhone,
+      </if>
+      <if test="cargocode != null" >
+        cargocode,
+      </if>
+      <if test="freightname != null" >
+        freightname,
+      </if>
+      <if test="orgid != null" >
+        orgid,
+      </if>
+      <if test="isappoint != null" >
+        isAppoint,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="tallage != null" >
+        tallage,
+      </if>
+      <if test="pathid != null" >
+        pathID,
+      </if>
+      <if test="desc1 != null" >
+        DESC1,
+      </if>
+      <if test="desc2 != null" >
+        DESC2,
+      </if>
+      <if test="desc3 != null" >
+        DESC3,
+      </if>
+      <if test="desc4 != null" >
+        DESC4,
+      </if>
+      <if test="shippermerchant != null" >
+        shipperMerchant,
+      </if>
+      <if test="consigneemerchant != null" >
+        consigneeMerchant,
+      </if>
+      <if test="receiveid != null" >
+        receiveid,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="freightid != null" >
+        #{freightid,jdbcType=VARCHAR},
+      </if>
+      <if test="routeid != null" >
+        #{routeid,jdbcType=VARCHAR},
+      </if>
+      <if test="measure != null" >
+        #{measure,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoid != null" >
+        #{cargoid,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="priceunits != null" >
+        #{priceunits,jdbcType=VARCHAR},
+      </if>
+      <if test="startcity != null" >
+        #{startcity,jdbcType=VARCHAR},
+      </if>
+      <if test="endcity != null" >
+        #{endcity,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=DOUBLE},
+      </if>
+      <if test="totalplanned != null" >
+        #{totalplanned,jdbcType=DOUBLE},
+      </if>
+      <if test="planprice != null" >
+        #{planprice,jdbcType=DOUBLE},
+      </if>
+      <if test="completed != null" >
+        #{completed,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="istemplate != null" >
+        #{istemplate,jdbcType=TINYINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="acceptedtime != null" >
+        #{acceptedtime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownerid != null" >
+        #{vehicleownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownername != null" >
+        #{vehicleownername,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownerphone != null" >
+        #{vehicleownerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="isfamily != null" >
+        #{isfamily,jdbcType=TINYINT},
+      </if>
+      <if test="plancode != null" >
+        #{plancode,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerdelflag != null" >
+        #{ownerdelflag,jdbcType=TINYINT},
+      </if>
+      <if test="venderdelflag != null" >
+        #{venderdelflag,jdbcType=TINYINT},
+      </if>
+      <if test="refusereson != null" >
+        #{refusereson,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseresontype != null" >
+        #{refuseresontype,jdbcType=VARCHAR},
+      </if>
+      <if test="sendperson != null" >
+        #{sendperson,jdbcType=VARCHAR},
+      </if>
+      <if test="sendpersonphone != null" >
+        #{sendpersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveperson != null" >
+        #{receiveperson,jdbcType=VARCHAR},
+      </if>
+      <if test="receivepersonphone != null" >
+        #{receivepersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cargocode != null" >
+        #{cargocode,jdbcType=VARCHAR},
+      </if>
+      <if test="freightname != null" >
+        #{freightname,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null" >
+        #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="isappoint != null" >
+        #{isappoint,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="tallage != null" >
+        #{tallage,jdbcType=DOUBLE},
+      </if>
+      <if test="pathid != null" >
+        #{pathid,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+      <if test="shippermerchant != null" >
+        #{shippermerchant,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneemerchant != null" >
+        #{consigneemerchant,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveid != null" >
+        #{receiveid,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.PlanGoods" >
+    update wuliu_plan_goods
+    <set >
+      <if test="freightid != null" >
+        freightid = #{freightid,jdbcType=VARCHAR},
+      </if>
+      <if test="routeid != null" >
+        routeid = #{routeid,jdbcType=VARCHAR},
+      </if>
+      <if test="measure != null" >
+        measure = #{measure,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoid != null" >
+        cargoid = #{cargoid,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        cargoname = #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="priceunits != null" >
+        priceUnits = #{priceunits,jdbcType=VARCHAR},
+      </if>
+      <if test="startcity != null" >
+        startcity = #{startcity,jdbcType=VARCHAR},
+      </if>
+      <if test="endcity != null" >
+        endcity = #{endcity,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null" >
+        distance = #{distance,jdbcType=DOUBLE},
+      </if>
+      <if test="totalplanned != null" >
+        totalplanned = #{totalplanned,jdbcType=DOUBLE},
+      </if>
+      <if test="planprice != null" >
+        planprice = #{planprice,jdbcType=DOUBLE},
+      </if>
+      <if test="completed != null" >
+        completed = #{completed,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="istemplate != null" >
+        istemplate = #{istemplate,jdbcType=TINYINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="acceptedtime != null" >
+        acceptedtime = #{acceptedtime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownerid != null" >
+        vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownername != null" >
+        vehicleownername = #{vehicleownername,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleownerphone != null" >
+        vehicleownerphone = #{vehicleownerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        modifytime = #{modifytime,jdbcType=BIGINT},
+      </if>
+      <if test="isfamily != null" >
+        isFamily = #{isfamily,jdbcType=TINYINT},
+      </if>
+      <if test="plancode != null" >
+        planCode = #{plancode,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerdelflag != null" >
+        ownerDelFlag = #{ownerdelflag,jdbcType=TINYINT},
+      </if>
+      <if test="venderdelflag != null" >
+        venderDelFlag = #{venderdelflag,jdbcType=TINYINT},
+      </if>
+      <if test="refusereson != null" >
+        refuseReson = #{refusereson,jdbcType=VARCHAR},
+      </if>
+      <if test="refuseresontype != null" >
+        refuseResonType = #{refuseresontype,jdbcType=VARCHAR},
+      </if>
+      <if test="sendperson != null" >
+        sendPerson = #{sendperson,jdbcType=VARCHAR},
+      </if>
+      <if test="sendpersonphone != null" >
+        sendPersonPhone = #{sendpersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveperson != null" >
+        receivePerson = #{receiveperson,jdbcType=VARCHAR},
+      </if>
+      <if test="receivepersonphone != null" >
+        receivePersonPhone = #{receivepersonphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cargocode != null" >
+        cargocode = #{cargocode,jdbcType=VARCHAR},
+      </if>
+      <if test="freightname != null" >
+        freightname = #{freightname,jdbcType=VARCHAR},
+      </if>
+      <if test="orgid != null" >
+        orgid = #{orgid,jdbcType=VARCHAR},
+      </if>
+      <if test="isappoint != null" >
+        isAppoint = #{isappoint,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="tallage != null" >
+        tallage = #{tallage,jdbcType=DOUBLE},
+      </if>
+      <if test="pathid != null" >
+        pathID = #{pathid,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        DESC1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        DESC2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        DESC3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        DESC4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+      <if test="shippermerchant != null" >
+        shipperMerchant = #{shippermerchant,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneemerchant != null" >
+        consigneeMerchant = #{consigneemerchant,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveid != null" >
+        receiveid = #{receiveid,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.PlanGoods" >
+    update wuliu_plan_goods
+    set freightid = #{freightid,jdbcType=VARCHAR},
+      routeid = #{routeid,jdbcType=VARCHAR},
+      measure = #{measure,jdbcType=VARCHAR},
+      cargoid = #{cargoid,jdbcType=VARCHAR},
+      cargoname = #{cargoname,jdbcType=VARCHAR},
+      priceUnits = #{priceunits,jdbcType=VARCHAR},
+      startcity = #{startcity,jdbcType=VARCHAR},
+      endcity = #{endcity,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=DOUBLE},
+      totalplanned = #{totalplanned,jdbcType=DOUBLE},
+      planprice = #{planprice,jdbcType=DOUBLE},
+      completed = #{completed,jdbcType=DOUBLE},
+      price = #{price,jdbcType=DOUBLE},
+      istemplate = #{istemplate,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      starttime = #{starttime,jdbcType=BIGINT},
+      endtime = #{endtime,jdbcType=BIGINT},
+      acceptedtime = #{acceptedtime,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      vehicleownerid = #{vehicleownerid,jdbcType=VARCHAR},
+      vehicleownername = #{vehicleownername,jdbcType=VARCHAR},
+      vehicleownerphone = #{vehicleownerphone,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=BIGINT},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifytime = #{modifytime,jdbcType=BIGINT},
+      isFamily = #{isfamily,jdbcType=TINYINT},
+      planCode = #{plancode,jdbcType=VARCHAR},
+      ownerDelFlag = #{ownerdelflag,jdbcType=TINYINT},
+      venderDelFlag = #{venderdelflag,jdbcType=TINYINT},
+      refuseReson = #{refusereson,jdbcType=VARCHAR},
+      refuseResonType = #{refuseresontype,jdbcType=VARCHAR},
+      sendPerson = #{sendperson,jdbcType=VARCHAR},
+      sendPersonPhone = #{sendpersonphone,jdbcType=VARCHAR},
+      receivePerson = #{receiveperson,jdbcType=VARCHAR},
+      receivePersonPhone = #{receivepersonphone,jdbcType=VARCHAR},
+      cargocode = #{cargocode,jdbcType=VARCHAR},
+      freightname = #{freightname,jdbcType=VARCHAR},
+      orgid = #{orgid,jdbcType=VARCHAR},
+      isAppoint = #{isappoint,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      tallage = #{tallage,jdbcType=DOUBLE},
+      pathID = #{pathid,jdbcType=VARCHAR},
+      DESC1 = #{desc1,jdbcType=VARCHAR},
+      DESC2 = #{desc2,jdbcType=VARCHAR},
+      DESC3 = #{desc3,jdbcType=VARCHAR},
+      DESC4 = #{desc4,jdbcType=VARCHAR},
+      shipperMerchant = #{shippermerchant,jdbcType=VARCHAR},
+      consigneeMerchant = #{consigneemerchant,jdbcType=VARCHAR},
+      receiveid = #{receiveid,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
