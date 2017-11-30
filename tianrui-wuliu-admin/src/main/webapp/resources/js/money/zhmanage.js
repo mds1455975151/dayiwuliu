@@ -19,7 +19,7 @@ function getParams(pageNo){
 	var type = $(".bag_tab").find(".select").attr("type");
 	var params = {pageNo:pageNo,
 			pageSize:10,
-			transactionstate:type,
+			transactiontype:type,
 			username:$("#name").val(),
 			cellphone:$("#cellphone").val(),
 			useryhno:$("#zhno").val(),
