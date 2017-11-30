@@ -35,7 +35,7 @@
     from money_capitalRecord 
     <where>
     	<if test="transactiontype != null and transactiontype != ''">
-    		and transactionType like "%" #{transactiontype,jdbcType=BIGINT} "%"
+    		and transactionType = #{transactiontype,jdbcType=BIGINT}
     	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
@@ -61,7 +61,7 @@
     from money_capitalRecord 
     <where>
     	<if test="transactiontype != null and transactiontype != ''">
-    		and transactionType like "%" #{transactiontype,jdbcType=BIGINT} "%"
+    		and transactionType = #{transactiontype,jdbcType=BIGINT}
     	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
