@@ -5,7 +5,7 @@ import com.tianrui.api.req.BaseReq;
 public class AppGetCodeReq extends BaseReq{
 	//手机号
 	private String account;
-	// 0-注册；1-密码找回;2-登录验证码
+	// 0-注册；1-密码找回;2-登录验证码;3-钱包修改密码
 	private String type;
 	public String getAccount() {
 		return account;

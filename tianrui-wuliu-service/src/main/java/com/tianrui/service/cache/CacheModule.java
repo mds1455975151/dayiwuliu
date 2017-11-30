@@ -42,6 +42,7 @@ public enum CacheModule {
 	
 	LOGIN_APP_AUTHCODE("loginAppCode-","APP端登录验证码"),
 	MEMBERLOGIN_APP("logincodeApp-","APP登录标识"),
+	MOENY_APP_UPT_PASSWORD("moneyUptPassword-","钱包修改密码"),
 	ADMINLOGIN("loginAdmin-","后台管理用户登录");
 	
 	private String code;

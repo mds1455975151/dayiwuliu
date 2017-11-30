@@ -318,7 +318,10 @@ public class SystemMemberService implements ISystemMemberService{
 			}else if ("2".equals(type)  && m == null) {
 				rs.setCode("3"); 
 				rs.setError("登录手机号未注册，请先注册 ");
-			}else {
+			}else if("3".equals(type)  && m == null){
+				rs.setCode("4"); 
+				rs.setError("登录手机号未注册，请先注册 ");
+			}else{
 				CacheModule module = null;
 				if("app".equals(resource)){
 					if("0".equals(type)){
@@ -328,6 +331,9 @@ public class SystemMemberService implements ISystemMemberService{
 					}
 					else if ("2".equals(type)) {
 						module = CacheModule.LOGIN_APP_AUTHCODE;
+					}
+					else if ("3".equals(type)) {
+						module = CacheModule.MOENY_APP_UPT_PASSWORD;
 					}
 				}else if ("pc".equals(resource)) {
 					if("0".equals(type)){

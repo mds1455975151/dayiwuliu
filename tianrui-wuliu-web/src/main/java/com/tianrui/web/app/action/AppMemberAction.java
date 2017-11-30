@@ -126,6 +126,7 @@ public class AppMemberAction {
 		}
 		return appResult;
 	}
+	
 	/**
 	 * 
 	 * @描述:新会员注册

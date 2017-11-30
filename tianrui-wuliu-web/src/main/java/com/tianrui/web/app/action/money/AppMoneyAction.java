@@ -1,5 +1,6 @@
 package com.tianrui.web.app.action.money;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
+import com.tianrui.api.req.app.AppMemberReq;
 import com.tianrui.api.req.money.CapitalAccountByIdReq;
 import com.tianrui.api.req.money.CheckPasswordReq;
 import com.tianrui.api.req.money.FindCapitalRecordByIdReq;
@@ -24,12 +26,17 @@ import com.tianrui.api.resp.money.CapitalAccountResp;
 import com.tianrui.api.resp.money.FindCapitalRecordResp;
 import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
 import com.tianrui.api.resp.money.FindWithdrawRecordResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Head;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.common.vo.UserLoginVo;
+import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 import com.tianrui.web.smvc.ApiParamRawType;
 import com.tianrui.web.smvc.ApiTokenValidation;
 
@@ -45,6 +52,8 @@ public class AppMoneyAction {
 	IPendingBillMoneyService pendingBillMoneyService;
 	@Autowired
 	IWithdrawRecordService withdrawRecordService;
+	@Autowired
+	private CacheClient cache ;
 	
 	/**
 	 * 设置密码
@@ -59,6 +68,34 @@ public class AppMoneyAction {
 		req.setId(head.getId());
 		req.setCellphone(head.getAccount());
 		Result rs = capitalAccountService.saveOrUptAcountPassword(req);
+		return AppResult.valueOf(rs);
+	}
+	
+	/***
+	 * 校验验证码
+	 * @param appParam
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/checkValCode",method=RequestMethod.POST)
+	@ApiParamRawType(AppMemberReq.class)
+	@ResponseBody
+	public AppResult checkValCode(AppParam<AppMemberReq> appParam) throws Exception{
+		Result rs = Result.getSuccessResult();
+		boolean codeValidate = false;//验证码认证
+		String key = CacheHelper.buildKey(CacheModule.MOENY_APP_UPT_PASSWORD, new String[]{"3",appParam.getBody().getAccount()});
+		UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
+		if(value!=null){
+			String validateCode=value.getUserCode()+"";
+			if(appParam.getBody().getAuthCode().equals(validateCode)){
+				codeValidate=true;
+				//cache.remove(key);
+			}
+		}
+		if(!(StringUtils.equals(Constant.authCodeValue, appParam.getBody().getAuthCode() )|| codeValidate)){
+			rs.setCode("123");
+			rs.setError("验证码校验失败");
+		}
 		return AppResult.valueOf(rs);
 	}
 	
