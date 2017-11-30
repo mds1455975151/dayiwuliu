@@ -21,7 +21,7 @@ function getParams(pageNo){
 			pageSize:10,
 			transactionstate:type,
 			bankcodeno:$("#txbank").val(),
-			cellphone:$("#txcell").val(),
+			cellPhone:$("#txcell").val(),
 			useryhno:$("#txno").val(),
 			capitalno:$("#txliushui").val(),
 	}

@@ -47,16 +47,16 @@
 				<div class="row">
                     <div class="col-md-12">
                        <div class="ht_div">
-                           <label>姓名：</label> <input type="text" placeholder="请输入运单号" id="name">
+                           <label>姓名：</label> <input type="text" placeholder="请输入姓名" id="name">
                        </div>
                        <div class="ht_div">
-                           <label>登录手机号：</label> <input type="text" placeholder="请输入货物名称" id="cellphone">
+                           <label>登录手机号：</label> <input type="text" placeholder="请输入手机号" id="cellphone">
                        </div>
                        <div class="ht_div" style="">
-                           <label>身份证号：</label> <input type="text" placeholder="请输入车牌号" id="zhno">
+                           <label>身份证号：</label> <input type="text" placeholder="请输入身份证号" id="zhno">
                        </div>
                        <div class="ht_div" style="">
-                           <label>流水号：</label> <input type="text" placeholder="请输入车牌号" id="zhliushui">
+                           <label>流水号：</label> <input type="text" placeholder="请输入流水号" id="zhliushui">
                        </div>
                        <div class="ht_div" style="">
                            <label>交易类型：</label>
@@ -147,5 +147,6 @@
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
 	<script type="text/javascript" src="/resources/js/money/zhmanage.js?1127"></script>
+		<script type="text/javascript" src="/resources/js/money/zhdata.js?1129"></script>
 </body>
 </html>

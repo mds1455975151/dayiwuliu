@@ -46,14 +46,14 @@
                             <label>运单号：</label> <input id="billNo" type="text" placeholder="请输入运单号">
                         </div>
                         <div class="ht_div">
-                            <label>登录手机号：</label> <input id="cellphone" type="text" placeholder="请输入货物名称">
+                            <label>登录手机号：</label> <input id="cellphone" type="text" placeholder="请输入手机号">
                         </div>
                         <div class="ht_div" style="">
-                            <label>身份证号：</label> <input id="vehicleNo" type="text" placeholder="请输入车牌号">
+                            <label>身份证号：</label> <input id="vehicleNo" type="text" placeholder="请输入身份证号">
                         </div>
                         <div class="ht_div" style="">
                             <label>卸货时间：</label>
-                            <select id="billStatus" class="form-control">
+                            <select id="timexh" class="form-control">
                                 <option value="">请选择</option>
                                 <option value="-1">今天</option>
                                 <option value="0">最近7天</option>

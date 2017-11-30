@@ -50,16 +50,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="ht_div">
-                                        <label>提现银行：</label> <input type="text" placeholder="请输入运单号" id="txbank">
+                                        <label>提现银行：</label> <input type="text" placeholder="请输入银行卡号" id="txbank">
                                     </div>
                                     <div class="ht_div">
-                                        <label>登录手机号：</label> <input type="text" placeholder="请输入货物名称" id="txcell">
+                                        <label>登录手机号：</label> <input type="text" placeholder="请输入手机号" id="txcell">
                                     </div>
                                     <div class="ht_div" style="">
-                                        <label>身份证号：</label> <input type="text" placeholder="请输入车牌号" id="txno"> 
+                                        <label>身份证号：</label> <input type="text" placeholder="请输入身份证号" id="txno"> 
                                     </div>
                                     <div class="ht_div"  style="">
-                                        <label>流水号：</label> <input type="text" placeholder="请输入车牌号" id="txliushui">
+                                        <label>流水号：</label> <input type="text" placeholder="请输入流水号" id="txliushui">
                                     </div>
                                     <div class="ht_div"  style="">
                                         <label>支付渠道：</label>

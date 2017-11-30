@@ -11,13 +11,15 @@ function reset(){
 	init(0);
 	$("#billNo").val(""),
 	$("#cellphone").val(""),
-	$("#vehicleNo").val("")
+	$("#vehicleNo").val(""),
+	$("#timexh").val("")
 }
 function getParams(pageNo){
 	var params = {pageNo:pageNo,
 			waybillno:$("#billNo").val(),
 			cellphone:$("#cellphone").val(),
 			useryhno:$("#vehicleNo").val(),
+			createtime:$("#timexh").val(),
 			pageSize:10}
 	return params;
 }
