@@ -63,24 +63,27 @@
                                     </div>
                                     <div class="ht_div"  style="">
                                         <label>支付渠道：</label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="txqudao">
                                             <option value="">请选择</option>
                                             <option value="-1">全部</option>
-                                            <option value="0">NC</option>
-                                            <option value="1">其他</option>
+                                            <option value="NC">NC</option>
+                                            <option value="其他">其他</option>
                                         </select>
                                     </div>
-                                    <div class="ht_div" name="mytable" style="">
-                                        <label>提现申请时间：</label>
-                                        <select class="form-control">
-                                            <option value="">请选择</option>
-                                            <option value="-1">今天</option>
-                                            <option value="0">最近7天</option>
-                                            <option value="1">最近30天</option>
-                                            <option value="2">开始时间</option>
-                                            <option value="3">结束时间</option>
-                                        </select>
-                                    </div>
+                        <div class="ht_div">
+							<label>提现申请时间:</label>
+						 <input id="starttime" type="text" 
+						 onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+								class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i>
+						<input id="endtime" type="text"
+								onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+								class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+						</div>
+						<div class="ht_bagbtn">
+                            <button class="btn btngreen" onclick="init(0)" type="submit">今天</button>
+                            <button class="btn btngreen" onclick="reset()" type="submit">最近7天</button>
+                            <button class="btn btngreen" onclick="init(0)" type="submit">最近30天</button>
+                        </div>
                                     <div class="ht_divbtn">
                                         <button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>
                                         <button class="btn btngreen reset" onclick="reset()" type="submit">重置</button>
@@ -141,6 +144,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/money/tixian.js?1127"></script>
+	<script type="text/javascript" src="/resources/js/money/tixian.js?1130"></script>
 </body>
 </html>

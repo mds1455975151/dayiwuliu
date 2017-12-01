@@ -2,7 +2,7 @@
 function bagHml(data){
 	var type = $(".bag_tab").find(".select").attr("type");
 		if(type == 1){
-			for (var a = 0; a < data.length; a++) {
+//			for (var a = 0; a < data.length; a++) {
 			$(".bag_tj").empty();
 			var dongjie1 = "<div class=" + "bag_tjline" + ">" + "<label>今日支出金额：</label>" 
 			+ "<span>"+ "44"+"元</span></div>"+
@@ -13,10 +13,10 @@ function bagHml(data){
 			"<div class=" + "bag_tjline" + ">" + "<label>今日可用余额：</label>" 
 			+ "<span>"+ 845712+"元</span></div>"
 			$(".bag_tj").append(dongjie1);
-			}
+//			}
 		}
 		else if(type == 2){
-			for (var a = 0; a < data.length; a++) {
+//			for (var a = 0; a < data.length; a++) {
 			$(".bag_tj").empty();
 			var dongjie2 = "<div class=" + "bag_tjline" + ">" + "<label>今日解冻金额：</label>" 
 			+ "<span>"+ 845712.01+"元</span></div>"+
@@ -25,10 +25,10 @@ function bagHml(data){
 			"<div class=" + "bag_tjline" + ">" + "<label>今日冻结金额：</label>" 
 			+ "<span>"+ 845712.01+"元</span></div>"
 			$(".bag_tj").append(dongjie2);
-			}
+//			}
 			
 		 }else if(type == 3){
-			for (var a = 0; a < data.length; a++) {
+//			for (var a = 0; a < data.length; a++) {
 			$(".bag_tj").empty();
 			var dongjie3 = "<div class=" + "bag_tjline" + ">" + "<label>提现冻结：</label>" 
 			+ "<span>"+ 845712.01+"元</span></div>"+
@@ -37,7 +37,7 @@ function bagHml(data){
 			"<div class=" + "bag_tjline" + ">" + "<label>账户金额总额：</label>" 
 			+ "<span>"+ 845712.01+"元</span></div>"
 			$(".bag_tj").append(dongjie3);
-				}
+//				}
 		 }
 }
 function getParams(){
@@ -61,9 +61,7 @@ function tjtoal(){
 	});
 }
 
-$(".withdrawststus").on("click",function(){
-	bagHml();
-});
+
 
 
 

@@ -17,6 +17,10 @@ function reset(){
 }
 function getParams(pageNo){
 	var type = $(".bag_tab").find(".select").attr("type");
+	var expectpaycompany = "";
+	if($("#txqudao").val() != -1){
+		expectpaycompany = $("#txqudao").val();
+	}
 	var params = {pageNo:pageNo,
 			pageSize:10,
 			transactionstate:type,
@@ -24,6 +28,7 @@ function getParams(pageNo){
 			cellPhone:$("#txcell").val(),
 			useryhno:$("#txno").val(),
 			capitalno:$("#txliushui").val(),
+			expectpaycompany:expectpaycompany
 	}
 	return params;
 }
@@ -69,31 +74,47 @@ function innerHml(data){
 	}else if(type == 3){
 		$(".type_3").show();
 	}
-	for (var a = 0; a < data.length; a++) {
-		var showTxt = "";
-		if(type == 2){
-			 showTxt = "<td>"+new Date(data[a].endtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
-				"<td>"+((data[a].availablemoney/100).toFixed(2)||"")+"</td>";
-		}else if(type == 3){
-			 showTxt = "<td>"+new Date(data[a].endtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
-				"<td>"+(data[a].errormessage||"")+"</td>";
+	
+	if(!data){
+		var hmlnull = "";
+		hmlnull +='<td colspan="12">';
+		hmlnull +='<div class="ht_none">';
+		hmlnull +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
+		hmlnull +='<div>';
+		hmlnull +='<h3>唉呀！查询不到您要找的内容</h3>';
+		hmlnull +='<p>换个查询条件试试吧？</p>';
+		hmlnull +='</div>';
+		hmlnull +='</div>';
+		hmlnull +='</td>';
+		$("#innerHtml").append(hmlnull);
+	}else {
+		for (var a = 0; a < data.length; a++) {
+			var showTxt = "";
+			if(type == 2){
+				 showTxt = "<td>"+new Date(data[a].endtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+					"<td>"+((data[a].availablemoney/100).toFixed(2)||"")+"</td>";
+			}else if(type == 3){
+				 showTxt = "<td>"+new Date(data[a].endtime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+					"<td>"+(data[a].errormessage||"")+"</td>";
+			}
+			var hml = "<tr>" +
+				"<td>"+(a+1)+"</td>" +
+				"<td>"+(data[a].username||"")+"</td>" +
+				"<td>"+(data[a].cellphone||"")+"</td>" +
+				"<td>"+(data[a].useryhno||"")+"</td>" +
+				"<td>"+new Date(data[a].begintime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
+				"<td>"+(data[a].capitalno||"")+"</td>" +
+				"<td>"+((data[a].money/100).toFixed(2)||"")+"</td>" +
+				"<td>"+(data[a].expectpaycompany||"")+"</td>" +
+				"<td>"+(data[a].bankname||"")+"</td>" +
+				"<td>"+(data[a].bankcodeno||"")+"</td>" +
+				"<td>"+((data[a].availablemoney/100).toFixed(2)||"")+"</td>" +
+				showTxt +
+				"</tr>";
+				$("#innerHtml").append(hml);
 		}
-		var hml = "<tr>" +
-			"<td>"+(a+1)+"</td>" +
-			"<td>"+(data[a].username||"")+"</td>" +
-			"<td>"+(data[a].cellphone||"")+"</td>" +
-			"<td>"+(data[a].useryhno||"")+"</td>" +
-			"<td>"+new Date(data[a].begintime).format("yyyy-MM-dd hh:mm:ss")+"</td>" +
-			"<td>"+(data[a].capitalno||"")+"</td>" +
-			"<td>"+((data[a].money/100).toFixed(2)||"")+"</td>" +
-			"<td>"+(data[a].expectpaycompany||"")+"</td>" +
-			"<td>"+(data[a].bankname||"")+"</td>" +
-			"<td>"+(data[a].bankcodeno||"")+"</td>" +
-			"<td>"+((data[a].availablemoney/100).toFixed(2)||"")+"</td>" +
-			showTxt +
-			"</tr>";
-			$("#innerHtml").append(hml);
 	}
+	
 }
 
 $(".withdrawststus").on("click",function(){
