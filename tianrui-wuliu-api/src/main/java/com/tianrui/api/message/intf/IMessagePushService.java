@@ -1,8 +1,10 @@
 package com.tianrui.api.message.intf;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import com.tianrui.api.req.money.MessagePushReq;
+import com.tianrui.api.resp.money.MessagePushResp;
 import com.tianrui.common.vo.Result;
 
 public interface IMessagePushService {
@@ -28,4 +30,6 @@ public interface IMessagePushService {
 	 * @return
 	 */
 	Result updateCalledNumber(Long id);
+	
+	List<MessagePushResp> findPendingMessage();
 }

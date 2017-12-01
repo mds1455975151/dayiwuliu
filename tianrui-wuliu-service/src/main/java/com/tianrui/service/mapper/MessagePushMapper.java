@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.MessagePush;
 
 public interface MessagePushMapper {
@@ -14,4 +16,6 @@ public interface MessagePushMapper {
     int updateByPrimaryKeySelective(MessagePush record);
 
     int updateByPrimaryKey(MessagePush record);
+
+	List<MessagePush> findPendingMessage();
 }
