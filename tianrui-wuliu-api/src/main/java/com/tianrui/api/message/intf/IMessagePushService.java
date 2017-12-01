@@ -32,4 +32,5 @@ public interface IMessagePushService {
 	Result updateCalledNumber(Long id);
 	
 	List<MessagePushResp> findPendingMessage();
+	void updatePushState(Long id, int sendCount, Long beginTime);
 }

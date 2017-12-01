@@ -2,6 +2,7 @@ package com.tianrui.service.impl.message;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -65,6 +66,16 @@ public class MessagePushService implements IMessagePushService {
 			return respList;
 		}
 		return null;
+	}
+
+	@Override
+	public void updatePushState(Long id, int sendCount,Long beginTime) {
+		MessagePush mp = messagePushMapper.selectByPrimaryKey(id);
+		mp.setPushState((byte)2);
+		mp.setConsultNumber(sendCount);
+		mp.setBeginTime(beginTime);
+		mp.setEndTime(new Date().getTime());
+		messagePushMapper.updateByPrimaryKeySelective(mp);
 	}
 
 }
