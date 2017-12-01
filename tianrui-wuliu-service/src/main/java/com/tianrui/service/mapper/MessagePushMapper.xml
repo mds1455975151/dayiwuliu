@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.MessagePushMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.MessagePush" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="message_type" property="messageType" jdbcType="TINYINT" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="TINYINT" />
+    <result column="push_state" property="pushState" jdbcType="TINYINT" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="begin_time" property="beginTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="consult_number" property="consultNumber" jdbcType="INTEGER" />
+    <result column="called_number" property="calledNumber" jdbcType="INTEGER" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, message_type, message_content, channel, push_state, number, create_time, begin_time, 
+    end_time, consult_number, called_number, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_push
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from message_push
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.MessagePush" >
+    insert into message_push (id, message_type, message_content, 
+      channel, push_state, number, 
+      create_time, begin_time, end_time, 
+      consult_number, called_number, desc1, 
+      desc2, desc3, desc4
+      )
+    values (#{id,jdbcType=BIGINT}, #{messageType,jdbcType=TINYINT}, #{messageContent,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=TINYINT}, #{pushState,jdbcType=TINYINT}, #{number,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT}, #{beginTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, 
+      #{consultNumber,jdbcType=INTEGER}, #{calledNumber,jdbcType=INTEGER}, #{desc1,jdbcType=VARCHAR}, 
+      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.MessagePush" >
+    insert into message_push
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="messageContent != null" >
+        message_content,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="pushState != null" >
+        push_state,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="consultNumber != null" >
+        consult_number,
+      </if>
+      <if test="calledNumber != null" >
+        called_number,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="pushState != null" >
+        #{pushState,jdbcType=TINYINT},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="consultNumber != null" >
+        #{consultNumber,jdbcType=INTEGER},
+      </if>
+      <if test="calledNumber != null" >
+        #{calledNumber,jdbcType=INTEGER},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MessagePush" >
+    update message_push
+    <set >
+      <if test="messageType != null" >
+        message_type = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="messageContent != null" >
+        message_content = #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=TINYINT},
+      </if>
+      <if test="pushState != null" >
+        push_state = #{pushState,jdbcType=TINYINT},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="consultNumber != null" >
+        consult_number = #{consultNumber,jdbcType=INTEGER},
+      </if>
+      <if test="calledNumber != null" >
+        called_number = #{calledNumber,jdbcType=INTEGER},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.MessagePush" >
+    update message_push
+    set message_type = #{messageType,jdbcType=TINYINT},
+      message_content = #{messageContent,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=TINYINT},
+      push_state = #{pushState,jdbcType=TINYINT},
+      number = #{number,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      begin_time = #{beginTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      consult_number = #{consultNumber,jdbcType=INTEGER},
+      called_number = #{calledNumber,jdbcType=INTEGER},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
