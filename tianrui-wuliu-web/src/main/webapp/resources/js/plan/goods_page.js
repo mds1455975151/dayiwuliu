@@ -103,8 +103,6 @@ function renderHtml(data){
 				"<td >"+new Date(item.createtime).format("yyyy-MM-dd hh:mm:ss")+" </td>"+
 				"<td class='planbtn'>"+hm+"</td>" +
 			 "</tr>";
-		
-		//数据渲染
 	}
 	$("#planlist").empty().append(hml);
 };

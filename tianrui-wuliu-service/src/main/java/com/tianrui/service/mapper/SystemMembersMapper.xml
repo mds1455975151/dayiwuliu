@@ -55,10 +55,10 @@
     from member m
    	LEFT JOIN member_info f ON f.memberId = m.ID 
    	<where> 1=1
-   	  <if test="vehicleno != null" >
+   	  <if test="vehicleno != null and vehicleno != ''" >
       	and   m.ID  in(SELECT creator FROM wuliu_vehicle_driver where  vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
       </if>
-      <if test="drivername != null" >
+      <if test="drivername != null and drivername != ''" >
       	and   m.ID  in(SELECT creator FROM wuliu_vehicle_driver where drivername like "%" #{drivername,jdbcType=VARCHAR} "%")
       </if>
    		<if test="starttimes != null and starttimes != ''">
@@ -189,10 +189,10 @@
     from member m
    	LEFT JOIN member_info f ON f.memberId = m.ID 
    <where> 1=1
-   		<if test="vehicleno != null" >
+   		<if test="vehicleno != null and vehicleno != ''" >
       	and   m.ID  in(SELECT creator FROM wuliu_vehicle_driver where  vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
       </if>
-      <if test="drivername != null" >
+      <if test="drivername != null and drivername != ''" >
       	and   m.ID  in(SELECT creator FROM wuliu_vehicle_driver where drivername like "%" #{drivername,jdbcType=VARCHAR} "%")
       </if>
    	   <if test="auditName != null  and auditName != '' " >

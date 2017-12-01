@@ -3,6 +3,8 @@ package com.tianrui.service.impl.planGoods;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -10,28 +12,37 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
+import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
+import com.tianrui.api.resp.admin.OrganizationResp;
+import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.goods.PlanGoodsResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.enums.PlanStatusEnum;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FileOrgCargo;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.PlanGoods;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.service.impl.MessageService;
 import com.tianrui.service.mapper.PlanGoodsMapper;
+import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mongo.CodeGenDao;
 import com.tianrui.service.mongo.PlanTemplateDao;
 
@@ -58,7 +69,154 @@ public class PlanGoodsService implements IPlanGoodsService {
 	CacheClient cacheClient;
 	@Autowired
 	PlanGoodsMapper planGoodsMapper;
+	@Autowired
+	private FreightInfoService freightInfoService;
+	@Autowired
+	private IMerchantService merchantService;
+	@Autowired
+	private PlanMapper planMapper;
 
+	@Override
+	public Result goodsToPlan(GoodsTOPlanReq goods) {
+		// TODO Auto-generated method stub
+		PlanGoods req = planGoodsMapper.selectByPrimaryKey(goods.getGoodsid());
+		FileFreight fileFreight = freightMapper.selectByPrimaryKey(req.getFreightid());
+		FileRoute fileRoute =routeMapper.selectByPrimaryKey(req.getRouteid());
+		FileOrgCargo cargo =orgCargoMapper.selectByPrimaryKey(req.getCargoid());
+		if( fileFreight !=null &&  fileRoute !=null && cargo!=null){
+			Plan plan =new Plan();
+			String id = UUIDUtil.getId();
+			plan.setId(id);
+			plan.setPlancode("adminppp");
+//			plan.setPlancode(codeGenDao.codeGen(1));
+			//通过策略以及路径形成的信息
+			setGoodsPlanData(fileFreight, fileRoute, cargo, plan);
+			//车主信息
+			plan.setVehicleownerid(goods.getVenderid());
+			MemberVo vender =memberVoService.get(goods.getVenderid());
+			plan.setVehicleownername(vender.getRealName());
+			plan.setVehicleownerphone(vender.getCellphone());
+			//初始化信息
+			plan.setVenderdelflag((byte)0);
+			plan.setOwnerdelflag((byte)0);
+			//自定义属性
+			plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
+			plan.setStarttime(req.getStarttime());
+			plan.setEndtime(req.getEndtime());
+			//合同 1:合同  0自由  价格信息
+			if( StringUtils.equals("1",fileFreight.getDesc2() ) ){
+				plan.setType((byte)1);
+			}else{
+				plan.setType((byte)0);
+			}
+			//联系人信息
+			plan.setTelephone(req.getTelephone());
+			plan.setLinkman(req.getLinkman());
+			//备注字段
+			plan.setCreator(goods.getUserId());
+			plan.setCreatetime(System.currentTimeMillis());
+			plan.setModifier(goods.getUserId());
+			plan.setModifytime(System.currentTimeMillis());
+			plan.setStatus(PlanStatusEnum.NEW.getStatus());
+			plan.setIsfamily((byte)0);
+			plan.setIsAppoint("0");
+			
+			plan.setPathID(goods.getUserId());
+			//发货方收货方
+			plan.setConsigneeMerchant(req.getConsigneemerchant());
+			plan.setShipperMerchant(req.getShippermerchant());
+			//发货人
+			plan.setSendperson(req.getSendperson());
+			plan.setSendpersonphone(req.getSendpersonphone());
+			//收货人
+			plan.setReceiveid(req.getReceiveid());
+			plan.setReceiveperson(req.getReceiveperson());
+			plan.setReceivepersonphone(req.getReceivepersonphone());
+			//支付对象 1-司机 2-车主
+			plan.setPayment(req.getPayment());
+			
+			planMapper.insert(plan);
+			//TODO
+			//发送消息
+//			if( plan.getIsfamily()==0 ){
+//				MemberVo owner = new MemberVo();
+//				owner.setUserName(req.getOrganizationname());
+//				owner.setId(req.getCurruId());
+//				sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
+////				sendMsgAllVender(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, MessageCodeEnum.PLAN_2VENDER_CREATE);
+//			}
+
+		}
+		return null;
+	}
+	
+	private void setGoodsPlanData( FileFreight fileFreight, FileRoute fileRoute, FileOrgCargo cargo,
+			Plan plan) {
+		//货物信息
+		plan.setCargoid(cargo.getId());
+		plan.setCargoname(cargo.getCargoname());
+		plan.setMeasure(cargo.getMeasure());
+		plan.setCargocode(cargo.getCargono());
+		//策略信息
+		plan.setFreightid(fileFreight.getId());
+		plan.setPriceunits(fileFreight.getPriceunits());
+		plan.setPrice(fileFreight.getPrice());
+		plan.setTallage(fileFreight.getTallage());
+		plan.setFreightname(fileFreight.getFreightName());
+		plan.setOrgid(fileFreight.getOrganizationid());
+		//路径信息
+		plan.setRouteid(fileRoute.getId());
+		plan.setSendperson(fileRoute.getSendpersion());
+		plan.setSendpersonphone(fileRoute.getSendpersionphone());
+		plan.setReceiveperson(fileRoute.getReceivepersion());
+		plan.setReceivepersonphone(fileRoute.getReceivepersionphone());
+		plan.setDistance(fileRoute.getDistance());
+		plan.setStartcity(fileRoute.getOaddr());
+		plan.setEndcity(fileRoute.getDaddr());
+	}
+
+	
+	@Override
+	public Result findPlanGoodsId(String id) throws Exception {
+		Result rs = Result.getSuccessResult();
+		PlanGoodsResp resp = null;
+		PlanGoods plan = planGoodsMapper.selectByPrimaryKey(id);
+//		if(plan.getCompleted() == null){
+//			plan.setCompleted((double) 0);
+//		}
+		resp =copyPropertie(plan);
+		FileFreight fileFreight = freightMapper.selectByPrimaryKey(resp.getFreightid());
+		resp.setOrgname(fileFreight.getOrganizationname());
+		if(StringUtils.isNotBlank(plan.getConsigneemerchant())){
+			resp.setConsignee(merchantService.findByid(plan.getConsigneemerchant()).getName());
+		}
+		if(StringUtils.isNotBlank(plan.getShippermerchant())){
+			resp.setShipper(merchantService.findByid(plan.getShippermerchant()).getName());
+		}
+		rs.setData(resp);
+		return rs;
+	}
+	private PlanGoodsResp copyPropertie(PlanGoods plan)throws Exception{
+		PlanGoodsResp resp =null;
+		if( plan !=null ){
+			resp = new PlanGoodsResp();
+			PropertyUtils.copyProperties(resp, plan);
+			if( StringUtils.isNotBlank(resp.getOrgid()) ){
+				OrganizationResp ss =orgService.findOne(resp.getOrgid());
+				if( ss !=null ){
+					resp.setOrgname(ss.getOrganizationname());
+				}
+			}
+			if( StringUtils.isNotBlank(resp.getCreator()) ){
+				MemberVo member =memberVoService.get(resp.getCreator());
+				if( member !=null ){
+					resp.setOwnerName(member.getRealName());
+					resp.setOwnerCellphone(member.getCellphone());
+				}
+			}
+		}
+		return resp;
+	}
 	@Override
 	public PaginationVO<PlanGoodsResp> select(PlanGoodsReq req) throws Exception {
 		PaginationVO<PlanGoodsResp> page = new PaginationVO<PlanGoodsResp>();
@@ -186,4 +344,5 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setStartcity(fileRoute.getOaddr());
 		plan.setEndcity(fileRoute.getDaddr());
 	}
+	
 }
