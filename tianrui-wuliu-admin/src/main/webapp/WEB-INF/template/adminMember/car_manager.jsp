@@ -81,7 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <option value="2">完全认证</option>
                                         </select>
                                 </div>
-                                <div class="contuser_search">
                                 <div class="ht_div">
                                         <label>审核人:</label>
                                         <input type="text"  id="auditName" placeholder=" ">
@@ -112,8 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											id="endtime" type="text"
 											onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 											class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
-									</div>
-									</div>
+								</div>
                                 <div class="ht_divbtn">
                                     <button class="btn btnblue " onclick="loadSearch()" type="button">搜索</button>
                                     <button class="btn btngreen" onclick="clearSearch()" type="button">重置</button>

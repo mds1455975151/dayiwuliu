@@ -48,19 +48,22 @@
                         <div class="ht_div">
                             <label>登录手机号：</label> <input id="cellphone" type="text" placeholder="请输入手机号">
                         </div>
-                        <div class="ht_div" style="">
+                        <div class="ht_div" >
                             <label>身份证号：</label> <input id="vehicleNo" type="text" placeholder="请输入身份证号">
                         </div>
-                        <div class="ht_div" style="">
-                            <label>卸货时间：</label>
-                            <select id="timexh" class="form-control">
-                                <option value="">请选择</option>
-                                <option value="-1">今天</option>
-                                <option value="0">最近7天</option>
-                                <option value="1">最近30天</option>
-                                <option value="2">开始时间</option>
-                                <option value="3">结束时间</option>
-                            </select>
+                        <div class="ht_div">
+							<label>卸货时间:</label>
+						 <input id="starttime" type="text" 
+						 onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
+								class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i>
+						<input id="endtime" type="text"
+								onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
+								class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
+						</div>
+						<div class="ht_bagbtn">
+                            <button class="btn btngreen" onclick="init(0)" type="submit">今天</button>
+                            <button class="btn btngreen" onclick="reset()" type="submit">最近7天</button>
+                            <button class="btn btngreen" onclick="init(0)" type="submit">最近30天</button>
                         </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>
