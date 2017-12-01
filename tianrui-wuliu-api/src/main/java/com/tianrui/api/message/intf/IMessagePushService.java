@@ -16,4 +16,16 @@ public interface IMessagePushService {
 	 * @throws IllegalAccessException 
 	 */
 	Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	/**
+	 * 消息浏览次数+1
+	 * @param id
+	 * @return
+	 */
+	Result updateConsultNumber(Long id);
+	/**
+	 * APP拨打电话次数+1
+	 * @param id
+	 * @return
+	 */
+	Result updateCalledNumber(Long id);
 }

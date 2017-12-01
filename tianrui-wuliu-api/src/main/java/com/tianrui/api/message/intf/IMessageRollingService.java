@@ -16,4 +16,10 @@ public interface IMessageRollingService {
 	 * @throws IllegalAccessException 
 	 */
 	Result save(MessageRollingReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	/**
+	 * 消息浏览次数+1
+	 * @param id
+	 * @return
+	 */
+	Result updateConsultNumber(Long id);
 }

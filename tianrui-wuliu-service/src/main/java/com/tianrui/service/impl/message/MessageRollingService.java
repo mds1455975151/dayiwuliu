@@ -27,5 +27,13 @@ public class MessageRollingService implements IMessageRollingService {
 		messageRollingMapper.insert(mr);
 		return rs;
 	}
+	@Override
+	public Result updateConsultNumber(Long id) {
+		Result rs = Result.getSuccessResult();
+		MessageRolling record = messageRollingMapper.selectByPrimaryKey(id);
+		record.setConsultNumber(record.getConsultNumber() +1 );
+		messageRollingMapper.updateByPrimaryKeySelective(record);
+		return rs;
+	}
 
 }

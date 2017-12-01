@@ -29,4 +29,22 @@ public class MessagePushService implements IMessagePushService {
 		return rs;
 	}
 
+	@Override
+	public Result updateConsultNumber(Long id) {
+		Result rs = Result.getSuccessResult();
+		MessagePush mp = messagePushMapper.selectByPrimaryKey(id);
+		mp.setConsultNumber(mp.getCalledNumber() + 1 );
+		messagePushMapper.updateByPrimaryKeySelective(mp);
+		return rs;
+	}
+
+	@Override
+	public Result updateCalledNumber(Long id) {
+		Result rs = Result.getSuccessResult();
+		MessagePush mp = messagePushMapper.selectByPrimaryKey(id);
+		mp.setCalledNumber(mp.getCalledNumber()+ 1);
+		messagePushMapper.updateByPrimaryKeySelective(mp);
+		return rs;
+	}
+
 }
