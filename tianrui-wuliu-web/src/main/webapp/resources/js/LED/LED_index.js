@@ -157,9 +157,28 @@ function showOwner(){
 				var data = ret.data.list;
 				$("#ownerThml").empty();
 				for (var a = 0; a < data.length; a++) {
-					var hml = "<li><label>"+data[a].remark+"</label></li>";
+					var hml =  "<div class='winBox'>"+
+				                    "<div class='scroll'>"+
+				                        "<li>"+
+				                            "<label>"+data[a].remark+"(货运量："+data[a].countdata+"吨)</label>"+
+				                        "</li>"+
+				                        "<li>"+
+				                            "<label>"+data[a].remark+"(货运量："+data[a].countdata+"吨)</label>"+
+				                        "</li>"+
+				                    "</div>"+
+				                "</div>";
 					$("#ownerThml").append(hml);
 				}
+				$('#ownerThml .winBox').each(function () {
+					var labelw = $(this).find('label').width();
+			        $(".scroll").css({
+			            "width":"160px"
+			        });
+			        var labelleng = $(this).find('label').html().length;
+			        if(labelleng > 5){
+			            $(this).Scroli($(this).find('.scroll'),labelw);
+			        }
+				});
 			}else{
 				return;
 			}
@@ -181,9 +200,29 @@ function showVender(){
 				var data = ret.data.list;
 				$("#venderHtml").empty();
 				for (var a = 0; a < data.length; a++) {
-					var hml = "<li><label>"+data[a].remark+"</label></li>";
+					var hml =  "<div class='winBox'>"+
+                                "<div class='scroll'>"+
+                                    "<li>"+
+                                        "<label>"+data[a].remark+"(运单量："+data[a].countdata+"单)</label>"+
+                                    "</li>"+
+                                    "<li>"+
+                                        "<label>"+data[a].remark+"(运单量："+data[a].countdata+"单)</label>"+
+                                    "</li>"+
+                                "</div>"+
+                            "</div>";
 					$("#venderHtml").append(hml);
 				}
+				$('#venderHtml .winBox').each(function () {
+					var labelw = $(this).find('label').width();
+			        $(".scroll").css({
+			            "width":"160px"
+			        });
+			        var labelleng = $(this).find('label').html().length;
+			        if(labelleng > 5){
+			            $(this).Scroli($(this).find('.scroll'),labelw);
+
+			        }
+				});
 			}else{
 				return;
 			}
@@ -213,7 +252,7 @@ function payShow(){
 							data[inx].remark
 						);
 						pu_y.push(
-							Number(data[inx].countdata)
+							Number((data[inx].countdata/10000).toFixed(2))
 						);
 				}
 				$('#pay').highcharts({

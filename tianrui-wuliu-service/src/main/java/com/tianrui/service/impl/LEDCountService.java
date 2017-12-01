@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,8 @@ import com.tianrui.service.mapper.PlanMapper;
 @Service
 public class LEDCountService implements ILEDCountService{
 
+	Logger loger =LoggerFactory.getLogger(LEDCountService.class);
+	
 	@Autowired
 	LEDCountMapper lEDCountMapper;
 	@Autowired
@@ -52,7 +56,6 @@ public class LEDCountService implements ILEDCountService{
 	
 	@Override
 	public LEDRouteResp findRoute(LEDCountReq req) throws Exception {
-		// TODO Auto-generated method stub
 		LEDCountData query = new LEDCountData();
 		if(req.getPageNO()!=null){
 			query.setPageNO(req.getPageNO()*req.getPageSize());
@@ -417,14 +420,16 @@ public class LEDCountService implements ILEDCountService{
 		List<LEDCount> list = new ArrayList<LEDCount>();
 		//循环整合两组数据
 		for(LEDCount a : al){
-			for (int i = 0; i < dy.size(); i++) {
-				if(a.getCountName().equals(dy.get(i).getCountName())){
-					//如果数据名称相同  统计数目相加
-					a.setCountNum(a.getCountNum()+dy.get(i).getCountNum());
-					dy.remove(i);
+			if(a!=null){
+				for (int i = 0; i < dy.size(); i++) {
+					if(a.getCountName().equals(dy.get(i).getCountName())){
+						//如果数据名称相同  统计数目相加
+						a.setCountNum(a.getCountNum()+dy.get(i).getCountNum());
+						dy.remove(i);
+					}
 				}
+				list.add(a);
 			}
-			list.add(a);
 		}
 		for(LEDCount b : dy){
 			list.add(b);
@@ -570,13 +575,13 @@ public class LEDCountService implements ILEDCountService{
 		List<LEDCount> sum = new ArrayList<LEDCount>();
 		for(LEDCount alr : al){
 			Plan plan = planMapper.selectByPrimaryKey(alr.getCountName());
-			alr.setCountName(plan.getRouteid());
-//			saveRouteData(plan.getRouteid(),alr.getRemark(),alr.getTimeBegin());
-			sum.add(alr);
+			if(plan!=null){
+				alr.setCountName(plan.getRouteid());
+				sum.add(alr);
+			}
 		}
 		for(LEDCount dyr : dy){
 			sum.add(dyr);
-//			saveRouteData(dyr.getCountName(),dyr.getRemark(),dyr.getTimeBegin());
 		}
 		for(LEDCount sv : quChong(sum)){
 			saveRouteData(sv.getCountName(),sv.getRemark(),sv.getTimeBegin());
@@ -700,23 +705,31 @@ public class LEDCountService implements ILEDCountService{
 		List<LEDCount> al = lEDCountMapper.selectByVenderAl(count);
 		List<LEDCount> dy = lEDCountMapper.selectByVenderDy(count);
 		for(LEDCount acou : al){
-			String remark = getMemberVo(acou.getCountName());
-			for (int i = 0; i < dy.size(); i++) {
-				String dyName = getMemberVo(dy.get(i).getCountName());
-				if(remark.equals(dyName)){
-					acou.setCountNum(acou.getCountNum()+dy.get(i).getCountNum());
-					dy.remove(i);
+			if(acou!=null){
+				String remark = getMemberVo(acou.getCountName());
+				for (int i = 0; i < dy.size(); i++) {
+					String dyName = getMemberVo(dy.get(i).getCountName());
+					if(remark.equals(dyName)){
+						if(null != acou.getCountNum() && null != dy.get(i).getCountNum() ){
+							acou.setCountNum(acou.getCountNum()+dy.get(i).getCountNum());
+						}else if(null != acou.getCountNum()){
+							acou.setCountNum(acou.getCountNum());
+						}else {
+							acou.setCountNum(dy.get(i).getCountNum());
+						}
+						dy.remove(i);
+					}
 				}
+				LEDCountData save = new LEDCountData();
+				save.setId(UUIDUtil.getId());
+				save.setDataType("1");
+				save.setLedType("7");
+				save.setCountdata(acou.getCountNum());
+				save.setRemark(remark);
+				save.setStimestr(acou.getCountName());
+				save.setCreateTime(System.currentTimeMillis());
+				lEDCountDataMapper.insertSelective(save);
 			}
-			LEDCountData save = new LEDCountData();
-			save.setId(UUIDUtil.getId());
-			save.setDataType("1");
-			save.setLedType("7");
-			save.setCountdata(acou.getCountNum());
-			save.setRemark(remark);
-			save.setStimestr(acou.getCountName());
-			save.setCreateTime(System.currentTimeMillis());
-			lEDCountDataMapper.insertSelective(save);
 		}
 		
 		for(LEDCount acou : dy){
@@ -757,19 +770,25 @@ public class LEDCountService implements ILEDCountService{
 		List<LEDCount> dy = lEDCountMapper.selectByOwnerDy(count);
 		List<LEDCount> all = new ArrayList<LEDCount>();
 		for(LEDCount acou : al){
-			String remark = getMemberVo(acou.getCountName());
-			acou.setRemark(remark);
-			for (int i = 0; i < dy.size(); i++) {
-				String fyName = getMemberVo(dy.get(i).getCountName());
-				dy.get(i).setRemark(fyName);
-				System.out.println(remark+",,"+fyName);
-				if(remark.equals(fyName)){
-					System.out.println(remark+"=="+fyName);
-					acou.setCountNum(acou.getCountNum()+dy.get(i).getCountNum());
-					dy.remove(i);
+			if(acou != null){
+				String remark = getMemberVo(acou.getCountName());
+				acou.setRemark(remark);
+				for (int i = 0; i < dy.size(); i++) {
+					String fyName = getMemberVo(dy.get(i).getCountName());
+					dy.get(i).setRemark(fyName);
+					if(remark.equals(fyName)){
+						if(null!=acou.getCountNum()&&null!=dy.get(i).getCountNum()){
+							acou.setCountNum(acou.getCountNum()+dy.get(i).getCountNum());
+						}else if(null!=acou.getCountNum()){
+							acou.setCountNum(acou.getCountNum());
+						}else {
+							acou.setCountNum(dy.get(i).getCountNum());
+						}
+						dy.remove(i);
+					}
 				}
+				all.add(acou);
 			}
-			all.add(acou);
 		}
 		for(LEDCount dyou : dy){
 			all.add(dyou);

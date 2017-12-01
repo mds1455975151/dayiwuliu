@@ -51,6 +51,23 @@ public class VehicleDriverService implements IVehicleDriverService {
 	@Autowired
 	OwnerDriverMapper ownerDriverMapper;
 	
+	@Override
+	public Result getDriverVehicleStatus(String driverId) {
+		Result rs = Result.getSuccessResult();
+		VehicleDriver query = new VehicleDriver();
+		query.setDriverid(driverId);
+		List<VehicleDriver> list = vehicleDriverMapper.selectMyVehiDriverByCondition(query);
+		String billStatus = "5";
+		for(VehicleDriver veh : list){
+			MemberVehicle vehicle = memberVehicleMapper.selectByPrimaryKey(veh.getVehicleid());
+			if(!vehicle.getBillstatus().equals("5")){
+				billStatus = vehicle.getBillstatus();
+			}
+		}
+		rs.setData(billStatus);
+		return rs;
+	
+	}
 	/**
 	 * 父类方法重写，根据条件进行车辆司机关联信息查询
 	 * 
@@ -545,7 +562,4 @@ public class VehicleDriverService implements IVehicleDriverService {
 		return resp;
 	}
 
-	
-
-	
 }

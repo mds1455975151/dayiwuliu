@@ -127,4 +127,6 @@ public interface IVehicleDriverService {
 	 * @创建时间 2016年7月10日下午4:26:29
 	 */
 	boolean getIFvehicleOwer(String id);
+	/** 获取车辆绑定司机的状态*/
+	public Result getDriverVehicleStatus(String driverId);
 }

@@ -51,6 +51,9 @@ public class LEDWebAction {
 		Result rs = Result.getSuccessResult();
 		rs = lEDCountService.selectConfig();
 		if(rs.getCode().equals("000000")){
+			rs = lEDCountService.selectByKey("0000000_data_upt");
+			LEDCountData data = (LEDCountData) rs.getData();
+			req.setDataType(data.getStimestr());
 			LEDRouteResp page = lEDCountService.findRoute(req);
 			rs.setData(page);
 		}

@@ -12,6 +12,10 @@
 	                    <ul>
 	                        <li><a href="/trwuliu/Member/myVehiOwner/myVehiOwnerPage" id="myVehiOwnerPage">我的车主</a></li>
 	                        <li><a href="/trwuliu/planowner/create" id="plancreate">新建计划</a></li>
+	                        
+	                        <li><a href="/trwuliu/goods/goodsSavePage" id="goodsSavePage">发布货源</a></li>
+	                        <li><a href="/trwuliu/goods/goodsPage" id="goodsPage">我的货源</a></li>
+	                       
 	                        <li><a href="/trwuliu/planowner/main" id="planowner">我发布的计划</a></li>
 	                        <li><a href="/trwuliu/plantemplate/main" id="plantemplate">我的计划模板</a></li>
 	                        <li><a href="/trwuliu/billowner/main" id="billowner">我发布的运单</a></li>

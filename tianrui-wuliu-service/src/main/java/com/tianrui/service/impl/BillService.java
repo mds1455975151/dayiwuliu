@@ -2182,6 +2182,7 @@ public class BillService implements IBillService{
 			zjlist.add(copyBillPosition(start,"1", bid,billStatus));
 			//获取提货地 到货地
 			List<BillPosition> p = billPositionDao.findwithBillId(bid);
+			p = ridEchoData(p);
 			//获取用户位置查询的开始时间和结束时间
 			Long beginTime = null;
 			Long endTime = null;
@@ -2236,6 +2237,20 @@ public class BillService implements IBillService{
 		return rs;
 	}
 
+	/** 关键点去重*/
+	protected List<BillPosition> ridEchoData(List<BillPosition> list) {
+		for (int i = 0; i < list.size(); i++) {
+			BillPosition post = list.get(i);
+			for (int b = 0; b < list.size(); b++) {
+				BillPosition st = list.get(b);
+				if(st.getStatus().equals(post.getStatus())&&!st.getCreatetime().equals(post.getCreatetime())){
+					list.remove(b);
+				}
+			}
+		}
+		return list;
+	}
+	
 	@Override
 	public List<BillPositionResp> getBillPositionOld(String bid) throws Exception {
 		List<BillPositionResp> list= null;
@@ -2329,6 +2344,7 @@ public class BillService implements IBillService{
 			list.add(copyBillPosition(start,"1", bid,billStatus));
 			//获取提货地 到货地
 			List<BillPosition> p = billPositionDao.findwithBillId(bid);
+			p = ridEchoData(p);
 			//获取用户位置查询的开始时间和结束时间
 			Long beginTime = null;
 			Long endTime = null;

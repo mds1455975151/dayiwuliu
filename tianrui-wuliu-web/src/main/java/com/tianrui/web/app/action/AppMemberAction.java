@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.ISystemMemberService;
+import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.app.AppGetCodeReq;
 import com.tianrui.api.req.app.AppMemberReq;
 import com.tianrui.api.req.app.AppMemberRoleReq;
@@ -47,6 +48,8 @@ public class AppMemberAction {
 	private ISystemMemberService systemMemberService;
 	@Autowired
 	private IFileService iFileService;
+	@Autowired
+	IVehicleDriverService vehicleDriverService;
 	/**
 	 * 
 	 * @描述:移动APP登录
@@ -86,6 +89,16 @@ public class AppMemberAction {
 		AppMemberRoleReq req =appParam.getBody();
 		req.setCurrId(appParam.getHead().getAccount());
 		Result  rs =systemMemberService.chooseRole(req);
+		return AppResult.valueOf(rs);
+	}
+	
+	/** 获取司机绑定的车辆状态*/
+	@RequestMapping(value="/carStatus",method=RequestMethod.POST)
+	@ApiParamRawType(AppMemberRoleReq.class)
+	@ResponseBody
+	@ApiTokenValidation
+	public AppResult carStatus(AppParam<AppMemberRoleReq> appParam) throws Exception{
+		Result rs = vehicleDriverService.getDriverVehicleStatus(appParam.getHead().getId());
 		return AppResult.valueOf(rs);
 	}
 	
