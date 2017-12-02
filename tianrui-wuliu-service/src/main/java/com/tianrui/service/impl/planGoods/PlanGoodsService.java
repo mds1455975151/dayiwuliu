@@ -11,10 +11,12 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
+import com.tianrui.api.req.goods.GoodsAuditReq;
 import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
@@ -75,6 +77,43 @@ public class PlanGoodsService implements IPlanGoodsService {
 	private PlanMapper planMapper;
 
 	@Override
+	public Result auditGoods(GoodsAuditReq req) {
+		Result rs = Result.getSuccessResult();
+		PlanGoods goods = planGoodsMapper.selectByPrimaryKey(req.getId());
+		if(goods != null){
+			//0 待审核；1-审核通过；2-发单中；3-已完成  4-已关闭 9-审核失败'
+			PlanGoods upt = new PlanGoods();
+			upt.setId(goods.getId());
+			byte sa = goods.getStatus();
+			byte ty = req.getAudType();
+			if(ty == 1 || ty == 9){
+				//运单审核通过 或审核不通过
+				if(sa==0){
+					upt.setStatus(ty);
+					planGoodsMapper.updateByPrimaryKeySelective(upt);
+				}else{
+					rs.setCode("1");
+					rs.setError("不合法的审核状态");
+				}
+			}else if(ty == 4){
+				//关闭
+				if(sa==2||sa==3){
+					upt.setStatus(ty);
+					planGoodsMapper.updateByPrimaryKeySelective(upt);
+				}else{
+					rs.setCode("1");
+					rs.setError("不合法的关闭状态");
+				}
+			}else{
+				rs.setCode("1");
+				rs.setError("不合法的申请状态");
+			}
+		}
+		return rs;
+	}
+	
+	@Override
+	@Transactional
 	public Result goodsToPlan(GoodsTOPlanReq goods) {
 		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();

@@ -11,13 +11,18 @@ function displayData(pageNo){
 	}
 }
 function reset(){
-	$("#vehicleNo").val("");
+	$("#plancode").val("");
+	$("#cargoname").val("");
+	$("#status").val("");
 	init(0);
 }
 function getParams(pageNo){
 	var params = {pageNo:pageNo,
 			pageSize:10,
-			vehicleNo:$("#vehicleNo").val()}
+			plancode:$("#plancode").val(),
+			cargoname:$("#cargoname").val(),
+			status:$("#status").val()
+			}
 	return params;
 }
 

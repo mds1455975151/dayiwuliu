@@ -12,6 +12,8 @@ public class PlanGoodsReq {
 	
 	private String plancode;
 	
+	private Byte status;
+	
 	private String freightname;
 	
 	private String creator;
@@ -70,5 +72,13 @@ public class PlanGoodsReq {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
 	}
 }

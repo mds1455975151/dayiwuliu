@@ -132,11 +132,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                                  </c:if>
                                     </span>
                                 </div>
+                                <div class="info_base_solo">
+                                </div>
+                                <div class="info_base_solo">
+                                </div>
+                                
+                                <div class="info_base_solo">
+                                    <span>
+		                                  <c:if test="${data.status eq 0}">
+		                                  	<button class="btn btnblue audit" type="1">审核通过</button>
+	                                    	<button class="btn btngreen audit" type="9">审核失败</button>
+		                                  </c:if>
+		                                  <c:if test="${data.status eq 1}">
+		                                  	<button class="btn btnblue audit" type="4">关闭</button>
+		                                  </c:if>
+		                                  <c:if test="${data.status eq 2}">
+		                                  	<button class="btn btnblue audit" type="4">关闭</button>
+		                                  </c:if>
+		                                  <c:if test="${data.status eq 3}">
+		                                  	<button class="btn btnblue audit" type="4">关闭</button>
+		                                  </c:if>
+                                    </span>
+                                </div>
+                                 
                             </div>
                         </div>
                     </div>
                     <div class="user_shtitle mt20">
-                        <h3>查询车主信息</h3>
+                        <h3>车主信息</h3>
                     </div>
                     <div class="row">
 	                    <div class="col-md-12">
@@ -202,7 +225,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                         <input type="hidden" id="goods_id" value="${data.id }">
 	                            <div class="info_base_solo">
 	                                    <button class="btn btnblue save_paln">保存</button>
+	                                    <!-- 
 	                                    <button class="btn btngreen reset">返回</button>
+	                                     -->
 	                            </div>
 	                        </div>
 	                    </div>
