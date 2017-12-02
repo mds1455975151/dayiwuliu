@@ -1,10 +1,7 @@
 /**
  * 我发布的计划页面初始化
  */
-$("#planowner").addClass("selected");
-var PlanUrl={
-		page:	"/trwuliu/goods/select"
-};
+$("#goodsPage").addClass("selected");
 function pageCallback(pageNo) {
 	displayData(pageNo);  
 } 
@@ -23,8 +20,8 @@ function displayData(pageNo){
 	$('.hasdata').show();
 	$('.nodata').hide();
 	loading.append();
-	if(pageNo && pageNo >= 0){
-		searchPlan(+pageNo+1);
+	if(pageNo >= 0){
+		searchPlan(pageNo+1);
 	}else{
 		searchPlan(1);
 	}
@@ -32,9 +29,9 @@ function displayData(pageNo){
 //请求数据
 function searchPlan(pageNo){
 	$.ajax({
-		url:PlanUrl.page,
-		data:{"pageNo":pageNo,
-			"searchParam":$("#search_v").val(),
+		url:"/trwuliu/goods/select",
+		data:{"pageNo":pageNo-1,
+			"searchKey":$("#search_v").val(),
 			"pageSize":10},
 		type:"post",
 		success: function(rs) {
@@ -54,14 +51,13 @@ function searchPlan(pageNo){
 				}
 				$("#totalPages").html(parseInt((total+pageSize-1)/pageSize));  
 				$('#totalRecords').html(total);
-				$('#pageNo').val(pageNo);
 				$("#pagination").pagination(total, {
 				    callback: pageCallback,
 				    prev_text: '上一页',
 				    next_text: '下一页',
 				    items_per_page:pageSize,
 				    num_display_entries:4,
-				    current_page:pageNo-1,
+				    current_page:pageNo,
 				    num_edge_entries:1,
 				    maxentries:total,
 				    link_to:"javascript:void(0)"
@@ -105,4 +101,9 @@ function renderHtml(data){
 			 "</tr>";
 	}
 	$("#planlist").empty().append(hml);
+	$(".detailBtn").on("click",function(){
+		var id = $(this).attr("dataId");
+		window.location.href="/trwuliu/goods/goodsDetail?id="+id;
+	});
 };
+

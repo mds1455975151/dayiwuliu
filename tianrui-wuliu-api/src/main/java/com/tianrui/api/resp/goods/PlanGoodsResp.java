@@ -1,8 +1,15 @@
 package com.tianrui.api.resp.goods;
 
+import java.util.Date;
+
+import com.tianrui.common.constants.Constant;
+import com.tianrui.common.utils.DateUtil;
+
 public class PlanGoodsResp {
 
 	private String id;
+	
+	private String systemShipper=Constant.SYSTEM_SHIPPER;
 	
 	private String orgname;
 	
@@ -590,6 +597,26 @@ public class PlanGoodsResp {
 
 	public void setOwnerCellphone(String ownerCellphone) {
 		this.ownerCellphone = ownerCellphone;
+	}
+
+	public String getSystemShipper() {
+		return systemShipper;
+	}
+
+	public void setSystemShipper(String systemShipper) {
+		this.systemShipper = systemShipper;
+	}
+	public String getStarttimeStr() {
+		if(starttime !=null  ){
+			return DateUtil.getDateString(new Date(starttime), "yyyy-MM-dd HH:mm:ss");
+		}
+		return "";
+	}
+	public String getEndtimeStr() {
+		if(endtime !=null  ){
+			return DateUtil.getDateString(new Date(endtime), "yyyy-MM-dd HH:mm:ss");
+		}
+		return "";
 	}
 
 }

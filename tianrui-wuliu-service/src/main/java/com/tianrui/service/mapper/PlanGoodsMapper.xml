@@ -93,6 +93,7 @@
     		and freightname like "%" #{freightname,jdbcType=VARCHAR} "%"
     	</if>
     </where>
+    order by createtime desc
     <if test="pageNo != null">
     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>

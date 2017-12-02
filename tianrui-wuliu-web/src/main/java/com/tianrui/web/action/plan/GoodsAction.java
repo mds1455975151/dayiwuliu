@@ -79,7 +79,8 @@ public class GoodsAction {
 	@ResponseBody
 	public Result select(PlanGoodsReq req,HttpServletRequest request) throws Exception{
 		Result rs = Result.getSuccessResult();
-		MemberVo currUser =SessionManager.getSessionMember(request);
+		MemberVo vo =SessionManager.getSessionMember(request);
+		req.setCreator(vo.getId());
 		PaginationVO<PlanGoodsResp> page = planGoodsService.select(req);
 		rs.setData(page);
 		return rs;
@@ -88,6 +89,16 @@ public class GoodsAction {
 	public ModelAndView goodsPage(){
 		ModelAndView view = new ModelAndView();
 		view.setViewName("plan/owner/goodsMain");
+		return view;
+	}
+	
+	@RequestMapping("goodsDetail")
+	public ModelAndView goodsDetail(String id) throws Exception{
+		ModelAndView view = new ModelAndView();
+//		view.addObject("plan",cargoPlanService.detail(req));
+		view.addObject("plan",planGoodsService.findPlanGoodsId(id).getData());
+		view.setViewName("/plan/owner/goods_detail");
+//		/tianrui-wuliu-web/src/main/webapp/WEB-INF/template/plan/owner/goodsDetail.jsp
 		return view;
 	}
 	
