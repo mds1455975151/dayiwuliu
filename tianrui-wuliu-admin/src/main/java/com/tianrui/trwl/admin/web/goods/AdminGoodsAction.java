@@ -2,7 +2,6 @@ package com.tianrui.trwl.admin.web.goods;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.req.admin.AdminPlanReq;
+import com.tianrui.api.req.goods.GoodsAuditReq;
 import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
@@ -40,6 +40,15 @@ public class AdminGoodsAction {
 		req.setPageSize(100);
 		PaginationVO<PlanResp> resp = cargoPlanService.pageForAdmin(req);
 		rs.setData(resp);
+		return rs;
+	}
+	
+	/** 货物审核*/
+	@RequestMapping("auditGoods")
+	@ResponseBody
+	public Result auditGoods(GoodsAuditReq req){
+		Result rs = Result.getSuccessResult();
+		planGoodsService.auditGoods(req);
 		return rs;
 	}
 	

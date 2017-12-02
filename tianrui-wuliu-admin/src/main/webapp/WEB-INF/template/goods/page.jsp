@@ -44,8 +44,24 @@
 					<div class="col-md-12">
 						<div class="contuser_search">
 							<div class="ht_div">
-								<label>车牌号：</label> <input id="vehicleNo" type="text"
-									placeholder="请输入车牌号">
+								<label>货源编号：</label> <input id="plancode" type="text"
+									placeholder="请输入货源编号">
+							</div>
+							<div class="ht_div">
+								<label>货物名称：</label> <input id="cargoname" type="text"
+									placeholder="请输入货物名称">
+							</div>
+							<div class="ht_div">
+								<label>货源状态：</label> 
+								<select id="status">
+									<option value="">请选择</option>
+									<option value="0">待审核</option>
+									<option value="1">审核通过</option>
+									<option value="2">发单中</option>
+									<option value="3">已完成</option>
+									<option value="4">已关闭</option>
+									<option value="9">审核失败</option>
+								</select>
 							</div>
 							<div class="ht_divbtn">
 								<button class="btn btnblue search" onclick="init(0)"
@@ -110,6 +126,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/goods/page.js?1010"></script>
+	<script type="text/javascript" src="/resources/js/goods/page.js?1202"></script>
 </body>
 </html>

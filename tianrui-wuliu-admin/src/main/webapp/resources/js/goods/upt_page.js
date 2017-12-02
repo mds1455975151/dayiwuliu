@@ -2,7 +2,7 @@ $(function(){
 	innerOption();
 	showGoodsList();
 });
-$("#venderCellphone").on("change",function(){
+$("#venderCellphone").on("input propertychange",function(){
 	innerOption();
 });
 function innerOption(){
@@ -19,7 +19,8 @@ function innerOption(){
 				if(ret.code==000000){
 					$("#venderList").empty();
 					var data = ret.data.list;
-					$(".vender_detail").hide();
+					$(".vender_detail").show();
+					celarVender();
 					if(data.length == 1){
 						innerVender(data[0]);
 					}
@@ -31,6 +32,16 @@ function innerOption(){
 			}
 	    });
 }
+
+function celarVender(){
+	$("#vender_cellphone").html("");
+	$("#vender_name").html("");
+	$("#vender_cp3").html("");
+	$("#vender_cp2").html("");
+	$("#vender_cp1").html("");
+	$("#vender_id").val("");
+}
+
 function innerVender(data){
 	$("#vender_cellphone").html(data.cellPhone);
 	$("#vender_name").html(data.remarkname);
@@ -42,10 +53,31 @@ function innerVender(data){
 }
 
 $(".save_paln").on("click",function(){
-	var price = $("#").val();
-	var weight = $("#").val();
+	var price = $("#plan_price").val();
+	var weight = $("#plan_weight").val();
 	var venderId = $("#vender_id").val();
 	var goodsId = $("#goods_id").val();
+	var f = true;
+	if(Number(price) <= 0){
+		f = false;
+	}
+	if(Number(weight) <= 0){
+		f = false;
+	}
+	if(isNaN(price)){
+		f = false;
+	}
+	if(isNaN(weight)){
+		f = false;
+	}
+	if(!f){
+		alert("请输入正确的单价或重量...");
+		return ;
+	}
+	if(venderId == ""){
+		alert("请选择车主...");
+		return ;
+	}
 	$.ajax({
 		url:"/adminGoods/save",
 		data:{goodsid:goodsId,
@@ -56,7 +88,7 @@ $(".save_paln").on("click",function(){
 		type:"POST",
 		success:function(ret){
 			if(ret.code==000000){
-				alert("添加成功");
+				window.location.href=location;
 			}else{
 				alert(ret.error);
 			}
@@ -125,3 +157,25 @@ function showGoodsDetail(data){
          }
      });
 }
+
+
+$(".audit").on("click",function(){
+	var type = $(this).attr("type");
+	$.ajax({
+		url:"/adminGoods/auditGoods",
+		type:"POST",
+		data:{id:$("#goods_id").val(),
+			audType:type},
+		success:function(ret){
+			if(ret.code==000000){
+				window.location.href=location;
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+});
+
+
+
+
