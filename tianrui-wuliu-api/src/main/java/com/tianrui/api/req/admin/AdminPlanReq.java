@@ -29,6 +29,8 @@ public class AdminPlanReq extends BaseReq{
 	
 	private String createtimeEndStr;
 	
+	private String goodsId;//货源id
+	
 	
 	private String orgId;
 	
@@ -97,6 +99,14 @@ public class AdminPlanReq extends BaseReq{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(String goodsId) {
+		this.goodsId = goodsId;
 	}
 
 	

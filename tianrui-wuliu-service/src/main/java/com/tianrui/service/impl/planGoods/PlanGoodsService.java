@@ -70,8 +70,6 @@ public class PlanGoodsService implements IPlanGoodsService {
 	@Autowired
 	PlanGoodsMapper planGoodsMapper;
 	@Autowired
-	private FreightInfoService freightInfoService;
-	@Autowired
 	private IMerchantService merchantService;
 	@Autowired
 	private PlanMapper planMapper;
@@ -79,102 +77,110 @@ public class PlanGoodsService implements IPlanGoodsService {
 	@Override
 	public Result goodsToPlan(GoodsTOPlanReq goods) {
 		// TODO Auto-generated method stub
+		Result rs = Result.getSuccessResult();
 		PlanGoods req = planGoodsMapper.selectByPrimaryKey(goods.getGoodsid());
-		FileFreight fileFreight = freightMapper.selectByPrimaryKey(req.getFreightid());
-		FileRoute fileRoute =routeMapper.selectByPrimaryKey(req.getRouteid());
-		FileOrgCargo cargo =orgCargoMapper.selectByPrimaryKey(req.getCargoid());
-		if( fileFreight !=null &&  fileRoute !=null && cargo!=null){
-			Plan plan =new Plan();
-			String id = UUIDUtil.getId();
-			plan.setId(id);
-			plan.setPlancode("adminppp");
-//			plan.setPlancode(codeGenDao.codeGen(1));
-			//通过策略以及路径形成的信息
-			setGoodsPlanData(fileFreight, fileRoute, cargo, plan);
-			//车主信息
-			plan.setVehicleownerid(goods.getVenderid());
-			MemberVo vender =memberVoService.get(goods.getVenderid());
-			plan.setVehicleownername(vender.getRealName());
-			plan.setVehicleownerphone(vender.getCellphone());
-			//初始化信息
-			plan.setVenderdelflag((byte)0);
-			plan.setOwnerdelflag((byte)0);
-			//自定义属性
-			plan.setTotalplanned(Double.valueOf(req.getTotalplanned()));
-			plan.setStarttime(req.getStarttime());
-			plan.setEndtime(req.getEndtime());
-			//合同 1:合同  0自由  价格信息
-			if( StringUtils.equals("1",fileFreight.getDesc2() ) ){
-				plan.setType((byte)1);
-			}else{
-				plan.setType((byte)0);
+		if(req.getStatus()!=(byte)-1 && 
+				req.getStatus()!=(byte)0 && 
+				 req.getStatus()!=(byte)4 && 
+				  req.getStatus()!=(byte)9){
+			//-1-已删除；0 待审核；1-审核通过；2-发单中；3-已完成  4-已关闭 9-审核失败',
+			if(req != null){
+				saveGoodsPlan(goods, req);
+				PlanGoods upt = new PlanGoods();
+				upt.setId(req.getId());
+				Double completed = goods.getWeight();
+				Double tot = req.getTotalplanned();//计划总量
+				if(null != req.getCompleted()){
+					completed = completed + req.getCompleted();
+				}
+				upt.setCompleted(completed);//计划完成量
+				if(completed >= tot){
+					upt.setStatus((byte)3);
+				}else{
+					upt.setStatus((byte)2);
+				}
+				planGoodsMapper.updateByPrimaryKeySelective(upt);
 			}
-			//联系人信息
-			plan.setTelephone(req.getTelephone());
-			plan.setLinkman(req.getLinkman());
-			//备注字段
-			plan.setCreator(goods.getUserId());
-			plan.setCreatetime(System.currentTimeMillis());
-			plan.setModifier(goods.getUserId());
-			plan.setModifytime(System.currentTimeMillis());
-			plan.setStatus(PlanStatusEnum.NEW.getStatus());
-			plan.setIsfamily((byte)0);
-			plan.setIsAppoint("0");
-			
-			plan.setPathID(goods.getUserId());
-			//发货方收货方
-			plan.setConsigneeMerchant(req.getConsigneemerchant());
-			plan.setShipperMerchant(req.getShippermerchant());
-			//发货人
-			plan.setSendperson(req.getSendperson());
-			plan.setSendpersonphone(req.getSendpersonphone());
-			//收货人
-			plan.setReceiveid(req.getReceiveid());
-			plan.setReceiveperson(req.getReceiveperson());
-			plan.setReceivepersonphone(req.getReceivepersonphone());
-			//支付对象 1-司机 2-车主
-			plan.setPayment(req.getPayment());
-			
-			planMapper.insert(plan);
-			//TODO
-			//发送消息
-//			if( plan.getIsfamily()==0 ){
-//				MemberVo owner = new MemberVo();
-//				owner.setUserName(req.getOrganizationname());
-//				owner.setId(req.getCurruId());
-//				sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE, "vender");
-////				sendMsgAllVender(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, MessageCodeEnum.PLAN_2VENDER_CREATE);
-//			}
-
+		}else{
+			rs.setCode("1");
+			rs.setError("错误的货物状态");
 		}
-		return null;
-	}
-	
-	private void setGoodsPlanData( FileFreight fileFreight, FileRoute fileRoute, FileOrgCargo cargo,
-			Plan plan) {
-		//货物信息
-		plan.setCargoid(cargo.getId());
-		plan.setCargoname(cargo.getCargoname());
-		plan.setMeasure(cargo.getMeasure());
-		plan.setCargocode(cargo.getCargono());
-		//策略信息
-		plan.setFreightid(fileFreight.getId());
-		plan.setPriceunits(fileFreight.getPriceunits());
-		plan.setPrice(fileFreight.getPrice());
-		plan.setTallage(fileFreight.getTallage());
-		plan.setFreightname(fileFreight.getFreightName());
-		plan.setOrgid(fileFreight.getOrganizationid());
-		//路径信息
-		plan.setRouteid(fileRoute.getId());
-		plan.setSendperson(fileRoute.getSendpersion());
-		plan.setSendpersonphone(fileRoute.getSendpersionphone());
-		plan.setReceiveperson(fileRoute.getReceivepersion());
-		plan.setReceivepersonphone(fileRoute.getReceivepersionphone());
-		plan.setDistance(fileRoute.getDistance());
-		plan.setStartcity(fileRoute.getOaddr());
-		plan.setEndcity(fileRoute.getDaddr());
+		return rs;
 	}
 
+	private void saveGoodsPlan(GoodsTOPlanReq goods, PlanGoods req) {
+		Plan plan =new Plan();
+		String id = UUIDUtil.getId();
+		//车主信息
+		plan.setTotalplanned(goods.getWeight());
+		plan.setVehicleownerid(goods.getVenderid());
+		plan.setPrice(goods.getPrice());
+		MemberVo vender =memberVoService.get(goods.getVenderid());
+		plan.setVehicleownername(vender.getRealName());
+		plan.setVehicleownerphone(vender.getCellphone());
+		
+		plan.setId(id);
+		plan.setDesc4(req.getId());
+		plan.setPlancode("adminppp");
+//			plan.setPlancode(codeGenDao.codeGen(1));
+		//货物信息
+		plan.setCargoid(req.getCargoid());
+		plan.setCargoname(req.getCargoname());
+		plan.setMeasure(req.getMeasure());
+		plan.setCargocode(req.getCargocode());
+		//策略信息
+		plan.setFreightid(req.getFreightid());
+		plan.setPriceunits(req.getPriceunits());
+		plan.setTallage(req.getTallage());
+		plan.setFreightname(req.getFreightname());
+		plan.setOrgid(req.getOrgid());
+		//路径信息
+		plan.setRouteid(req.getRouteid());
+		plan.setSendperson(req.getSendperson());
+		plan.setSendpersonphone(req.getSendpersonphone());
+		plan.setReceiveperson(req.getReceiveperson());
+		plan.setReceivepersonphone(req.getReceivepersonphone());
+		plan.setDistance(req.getDistance());
+		plan.setStartcity(req.getStartcity());
+		plan.setEndcity(req.getEndcity());
+		
+		//初始化信息
+		plan.setVenderdelflag((byte)0);
+		plan.setOwnerdelflag((byte)0);
+		//自定义属性
+		
+		plan.setStarttime(req.getStarttime());
+		plan.setEndtime(req.getEndtime());
+		//合同 1:合同  0自由  价格信息
+		plan.setType(req.getType());
+		//联系人信息
+		plan.setTelephone(req.getTelephone());
+		plan.setLinkman(req.getLinkman());
+		//备注字段
+		plan.setCreator(goods.getUserId());
+		plan.setCreatetime(System.currentTimeMillis());
+		plan.setModifier(goods.getUserId());
+		plan.setModifytime(System.currentTimeMillis());
+		plan.setStatus(PlanStatusEnum.NEW.getStatus());
+		plan.setIsfamily((byte)0);
+		plan.setIsAppoint("0");
+		
+		plan.setPathID(goods.getUserId());
+		//发货方收货方
+		plan.setConsigneeMerchant(req.getConsigneemerchant());
+		plan.setShipperMerchant(req.getShippermerchant());
+		//发货人
+		plan.setSendperson(req.getSendperson());
+		plan.setSendpersonphone(req.getSendpersonphone());
+		//收货人
+		plan.setReceiveid(req.getReceiveid());
+		plan.setReceiveperson(req.getReceiveperson());
+		plan.setReceivepersonphone(req.getReceivepersonphone());
+		//支付对象 1-司机 2-车主
+		plan.setPayment(req.getPayment());
+		
+		planMapper.insert(plan);
+	}
 	
 	@Override
 	public Result findPlanGoodsId(String id) throws Exception {
