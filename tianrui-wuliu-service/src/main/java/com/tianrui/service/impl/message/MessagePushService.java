@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IFileRouteService;
+import com.tianrui.api.admin.intf.IOrganizationService;
 import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.req.money.AppMessageReq;
@@ -20,8 +22,15 @@ import com.tianrui.api.resp.front.message.MessageAppResp;
 import com.tianrui.api.resp.money.MessagePushResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FilePositoin;
+import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.impl.OrganizationService;
+import com.tianrui.service.admin.mapper.FilePositoinMapper;
+import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.MessagePush;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.PlanGoods;
+import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.mapper.MessagePushMapper;
 @Service
 public class MessagePushService implements IMessagePushService {
@@ -31,20 +40,37 @@ public class MessagePushService implements IMessagePushService {
 	private MessagePushMapper messagePushMapper;
 	@Autowired 
 	private IMessageRollingService  messageRollingService;
+	@Autowired
+	FileRouteMapper fileRouteMapper;
+	@Autowired
+	FilePositoinMapper filePositoinMapper;
+	@Autowired
+	private CacheClient cache ;
 	@Override
 	public Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
-		PlanGoods goods = (PlanGoods) req.getGoods();
 		MessagePush mp = new MessagePush();
 		String messageContent = "";
-		String cyr="中原大易科技有限公司";
-		String tyr="天韵丝霞网络科技有限公司";
-		String qyd="河南省汝州市";
-		String mdd="河南省信阳市";
-		String hwmc="混凝土轨枕";
-		String shuliang="50000吨";
-		String cph="豫DEF999";
+		String cyr="";
+		FileRoute route = null;
+		String tyr = "中原大易物流科技有限公司";
+		FilePositoin o = null;
+		FilePositoin d =null;
+		String qyd="";
+		String mdd="";
+		String hwmc="";
+		String shuliang="";
+		String cph="发沙发斯蒂";
 		if(req.getMessageType() == 1){
+			PlanGoods goods = (PlanGoods) req.getGoods();
+			 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
+			tyr = route.getOrganizationname();
+			 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
+			 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
+			 qyd=o.getOp() + o.getOc();
+			 mdd=d.getOp() + d.getOc();
+			 hwmc=goods.getCargoname();
+			 shuliang=goods.getTotalplanned()+""+goods.getMeasure();
 			if(req.getChannel() == 1 ){
 				messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
 			}else if (req.getChannel() == 2) {
@@ -63,7 +89,27 @@ public class MessagePushService implements IMessagePushService {
 			roll.setMessageContent(MessageHelper.getDemandRollingMesage(tyr, qyd, mdd, hwmc, shuliang));
 			messageRollingService.save(roll);
 		}else if (req.getChannel() == 2) {
-			
+			Plan goods = (Plan) req.getGoods();
+			cyr=goods.getVehicleownername();
+			 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
+			tyr = route.getOrganizationname();
+			 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
+			 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
+			 qyd=o.getOp() + o.getOc();
+			 mdd=d.getOp() + d.getOc();
+			 hwmc=goods.getCargoname();
+			 shuliang=goods.getTotalplanned()+""+goods.getMeasure();
+			if(req.getChannel() == 1 ){
+				messageContent = MessageHelper.getPlanPushMesage(cyr, tyr, qyd, mdd, hwmc, shuliang);
+			}else {
+				rs.setCode("11");
+				rs.setError("不支持的推送方式");
+			}
+			MessageRollingReq roll =new MessageRollingReq();
+			roll.setMessageType(req.getMessageType());
+			roll.setCreateTime(new Date().getTime());
+			roll.setMessageContent(MessageHelper.getPlanRollingMesage(cyr, qyd, mdd, hwmc, shuliang));
+			messageRollingService.save(roll);
 		}
 		req.setChannel((byte)1);
 		req.setMessageContent(messageContent);
