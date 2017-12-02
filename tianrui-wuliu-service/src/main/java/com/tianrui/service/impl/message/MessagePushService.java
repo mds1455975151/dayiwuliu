@@ -33,8 +33,33 @@ public class MessagePushService implements IMessagePushService {
 		Result rs = Result.getSuccessResult();
 		PlanGoods goods = (PlanGoods) req.getGoods();
 		MessagePush mp = new MessagePush();
+		String messageContent = "";
+		String cyr="中原大易科技有限公司";
+		String tyr="天韵丝霞网络科技有限公司";
+		String qyd="河南省汝州市";
+		String mdd="河南省信阳市";
+		String hwmc="混凝土轨枕";
+		String shuliang="50000吨";
+		String cph="豫DEF999";
+		if(req.getMessageType() == 1){
+			if(req.getChannel() == 1 ){
+				messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
+			}else if (req.getChannel() == 2) {
+				messageContent = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
+			}else if (req.getChannel() == 3) {
+				messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
+				String messageContentSMS = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
+				req.setMessageContent(messageContentSMS);
+				PropertyUtils.copyProperties(mp,req);
+				messagePushMapper.insertSelective(mp);
+			}
+		}else if (req.getChannel() == 2) {
+			
+		}
+		
+		req.setMessageContent(messageContent);
 		PropertyUtils.copyProperties(mp,req);
-		messagePushMapper.insert(mp);
+		messagePushMapper.insertSelective(mp);
 		return rs;
 	}
 
