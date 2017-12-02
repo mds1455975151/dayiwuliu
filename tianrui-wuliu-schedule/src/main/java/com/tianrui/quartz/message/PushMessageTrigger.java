@@ -16,6 +16,7 @@ import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.req.common.SmsDetails;
 import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.money.MessagePushResp;
+import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.DateUtil;
 /**
  * 定时推送消息
@@ -56,7 +57,7 @@ public class PushMessageTrigger {
         				if(null != memberList && memberList.size() > 0){
         					for(MemberResp member : memberList){//循环车主列表
             					if(message.getChannel() == 1){//推送APP消息
-            						pushService.sendPsuhMesage(member.getId(), message.getMessageContent(), message.getId()+"");
+            						pushService.sendPsuhMesage(member.getId(), message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
             						count++;
             						sendCount++;
             					}else if (message.getChannel() == 2) {//发送短信通知
@@ -71,7 +72,7 @@ public class PushMessageTrigger {
             						sms.setTelephoneReceiver(member.getCellPhone());
             						sms.setSmsContent(message.getMessageContent());
             						sendMobileMessage.sendMobileMessage(sms);
-									pushService.sendPsuhMesage(member.getId(), message.getMessageContent(), message.getId()+"");
+            						pushService.sendPsuhMesage(member.getId(), message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
 									count+=2;
             						sendCount+=2;
 								}

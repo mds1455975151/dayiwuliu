@@ -4,7 +4,8 @@ public enum MessageCodeEnum {
 
 	
 	DEMO_1(1,"测试demo",0),
-	
+	//车主推送货运需求、计划(668)
+	MSG_ALL_OWNER(668,"货运速递（内容单独封装）。",2),
 	//计划相关(30-70)
 	//发送给车主
 	PLAN_2VENDER_CREATE(30,"货运计划[<_>]已被用户(<_>)指派给您，请查看详情",2),
