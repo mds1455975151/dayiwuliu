@@ -24,7 +24,7 @@ public class MessageRollingService implements IMessageRollingService {
 		Result rs = Result.getSuccessResult();
 		MessageRolling mr = new MessageRolling();
 		PropertyUtils.copyProperties(mr,req);
-		messageRollingMapper.insert(mr);
+		messageRollingMapper.insertSelective(mr);
 		return rs;
 	}
 	@Override

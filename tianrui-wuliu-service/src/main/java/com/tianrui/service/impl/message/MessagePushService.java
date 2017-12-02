@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.message.intf.IMessagePushService;
+import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.api.req.money.MessagePushReq;
+import com.tianrui.api.req.money.MessageRollingReq;
 import com.tianrui.api.resp.front.message.MessageAppResp;
 import com.tianrui.api.resp.money.MessagePushResp;
 import com.tianrui.common.vo.PaginationVO;
@@ -27,7 +29,8 @@ public class MessagePushService implements IMessagePushService {
 	Logger logger=LoggerFactory.getLogger(MessagePushService.class);
 	@Autowired 
 	private MessagePushMapper messagePushMapper;
-	
+	@Autowired 
+	private IMessageRollingService  messageRollingService;
 	@Override
 	public Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
@@ -48,15 +51,21 @@ public class MessagePushService implements IMessagePushService {
 				messageContent = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
 			}else if (req.getChannel() == 3) {
 				messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
-				String messageContentSMS = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
+				String messageContentSMS = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
 				req.setMessageContent(messageContentSMS);
+				req.setChannel((byte)2);
 				PropertyUtils.copyProperties(mp,req);
 				messagePushMapper.insertSelective(mp);
 			}
+			MessageRollingReq roll =new MessageRollingReq();
+			roll.setMessageType(req.getMessageType());
+			roll.setCreateTime(new Date().getTime());
+			roll.setMessageContent(MessageHelper.getDemandRollingMesage(tyr, qyd, mdd, hwmc, shuliang));
+			messageRollingService.save(roll);
 		}else if (req.getChannel() == 2) {
 			
 		}
-		
+		req.setChannel((byte)1);
 		req.setMessageContent(messageContent);
 		PropertyUtils.copyProperties(mp,req);
 		messagePushMapper.insertSelective(mp);
