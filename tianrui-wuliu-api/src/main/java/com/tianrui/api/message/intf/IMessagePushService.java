@@ -3,8 +3,11 @@ package com.tianrui.api.message.intf;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.api.req.money.MessagePushReq;
+import com.tianrui.api.resp.front.message.MessageAppResp;
 import com.tianrui.api.resp.money.MessagePushResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
 public interface IMessagePushService {
@@ -20,16 +23,23 @@ public interface IMessagePushService {
 	Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	/**
 	 * 消息浏览次数+1
-	 * @param id
+	 * @param id   浮动窗口点击  id  传 0
 	 * @return
 	 */
 	Result updateConsultNumber(Long id);
 	/**
 	 * APP拨打电话次数+1
+	 * @param id   无消息  id  传 0
 	 * @return
 	 */
-	Result updateCalledNumber();
+	Result updateCalledNumber(long id);
 	
 	List<MessagePushResp> findPendingMessage();
 	void updatePushState(Long id, int sendCount, Long beginTime);
+	/**
+	 * 获取群推消息列表
+	 * @param req
+	 * @return
+	 */
+	PaginationVO<MessageAppResp> findAppMessage(AppMessageReq req);
 }

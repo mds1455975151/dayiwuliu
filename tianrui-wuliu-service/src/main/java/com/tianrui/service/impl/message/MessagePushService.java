@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.message.intf.IMessagePushService;
+import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.api.req.money.MessagePushReq;
+import com.tianrui.api.resp.front.message.MessageAppResp;
 import com.tianrui.api.resp.money.MessagePushResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MessagePush;
 import com.tianrui.service.mapper.MessagePushMapper;
@@ -36,16 +39,26 @@ public class MessagePushService implements IMessagePushService {
 	@Override
 	public Result updateConsultNumber(Long id) {
 		Result rs = Result.getSuccessResult();
-		MessagePush mp = messagePushMapper.selectByPrimaryKey(id);
+		MessagePush mp = null;
+		if(id > 0){
+			mp = messagePushMapper.selectByPrimaryKey(id);
+		}else {
+			mp = messagePushMapper.selectLastMessagePush();
+		}
 		mp.setConsultNumber(mp.getCalledNumber() + 1 );
 		messagePushMapper.updateByPrimaryKeySelective(mp);
 		return rs;
 	}
 
 	@Override
-	public Result updateCalledNumber() {
+	public Result updateCalledNumber(long id) {
 		Result rs = Result.getSuccessResult();
-		MessagePush mp = messagePushMapper.selectLastMessagePush();
+		MessagePush mp = null;
+		if(id > 0){
+			mp = messagePushMapper.selectByPrimaryKey(id);
+		}else {
+			mp = messagePushMapper.selectLastMessagePush();
+		}
 		mp.setCalledNumber(mp.getCalledNumber()+ 1);
 		messagePushMapper.updateByPrimaryKeySelective(mp);
 		return rs;
@@ -76,6 +89,32 @@ public class MessagePushService implements IMessagePushService {
 		mp.setBeginTime(beginTime);
 		mp.setEndTime(new Date().getTime());
 		messagePushMapper.updateByPrimaryKeySelective(mp);
+	}
+
+	@Override
+	public PaginationVO<MessageAppResp> findAppMessage(AppMessageReq req) {
+		PaginationVO<MessageAppResp> vo = new PaginationVO<MessageAppResp>();
+		long total = messagePushMapper.selectCount(req) ;
+		total = total > 200 ?total:200;
+		List<MessagePush> ls = messagePushMapper.selectByCondition(req);
+		List<MessageAppResp> list = new ArrayList<MessageAppResp>();
+		for(MessagePush mp : ls){
+			MessageAppResp mr = new MessageAppResp();
+			mr.setId(mp.getId());
+			mr.setMessageContent(mp.getMessageContent());
+			if(mp.getMessageContent().length() > 18){
+				mr.setMessageHeader(mp.getMessageContent().substring(0, 17)+"......");
+			}else {
+				mr.setMessageHeader(mp.getMessageContent());
+			}
+			mr.setMessageType(mp.getMessageType());
+			list.add(mr);
+		}
+		vo.setList(list);
+		vo.setPageNo(req.getPageNo());
+		vo.setPageSize(req.getPageSize());
+		vo.setTotal(total);
+		return vo;
 	}
 
 }

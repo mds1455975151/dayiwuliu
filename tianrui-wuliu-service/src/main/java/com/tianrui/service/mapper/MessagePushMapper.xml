@@ -22,6 +22,29 @@
     id, message_type, message_content, channel, push_state, number, create_time, begin_time, 
     end_time, consult_number, called_number, desc1, desc2, desc3, desc4
   </sql>
+   <select id="selectCount" resultType="long" parameterType="com.tianrui.api.req.money.AppMessageReq" >
+    select COUNT(id) FROM message_push
+    <where>
+    	<if test="messageType != null and messageType != ''">
+    		and message_type =  #{messageType,jdbcType=VARCHAR} 
+    	</if>
+    </where>
+  </select>
+   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.api.req.money.AppMessageReq" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_push
+    <where>
+    	<if test="messageType != null and messageType != ''">
+    		and message_type =  #{messageType,jdbcType=VARCHAR} 
+    	</if>
+    </where>
+    order by id desc
+    <if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
   <select id="selectLastMessagePush" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />

@@ -2,6 +2,7 @@ package com.tianrui.service.mapper;
 
 import java.util.List;
 
+import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.service.bean.MessagePush;
 
 public interface MessagePushMapper {
@@ -20,4 +21,8 @@ public interface MessagePushMapper {
     int updateByPrimaryKey(MessagePush record);
 
 	List<MessagePush> findPendingMessage();
+	
+	List<MessagePush> selectByCondition(AppMessageReq req);
+
+	long selectCount(AppMessageReq req);
 }
