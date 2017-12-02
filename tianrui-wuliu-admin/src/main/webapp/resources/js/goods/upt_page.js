@@ -79,10 +79,10 @@ $(".save_paln").on("click",function(){
 		return ;
 	}
 	//TODO
-	var isfamily = "0";
+	var isfa = "0";
 	$('input[name="ts_1"]:checked').each(function(){ 
 		//平台推送
-		isfamily = $(this).val();
+		isfa = $(this).val();
 	}); 
 	var ptype_2 = "0";
 	$('input[name="ts_2"]:checked').each(function(){ 
@@ -96,7 +96,7 @@ $(".save_paln").on("click",function(){
 			venderid:venderId,
 			price:price,
 			weight:weight,
-			isfamily:isfamily,
+			isfamily:isfa,
 			messageType:ptype_2
 		},
 		type:"POST",

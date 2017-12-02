@@ -88,7 +88,7 @@ public class MessagePushService implements IMessagePushService {
 			roll.setCreateTime(new Date().getTime());
 			roll.setMessageContent(MessageHelper.getDemandRollingMesage(tyr, qyd, mdd, hwmc, shuliang));
 			messageRollingService.save(roll);
-		}else if (req.getChannel() == 2) {
+		}else if (req.getMessageType() == 2) {
 			Plan goods = (Plan) req.getGoods();
 			cyr=goods.getVehicleownername();
 			 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
