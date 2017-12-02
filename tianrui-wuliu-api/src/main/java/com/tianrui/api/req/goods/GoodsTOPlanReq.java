@@ -7,6 +7,10 @@ public class GoodsTOPlanReq {
 	private String venderid;//车主id
 	private Double price;//单价
 	private Double weight;//重量
+	
+	private byte isfamily;
+	private byte messageType;
+	
 	public String getGoodsid() {
 		return goodsid;
 	}
@@ -36,5 +40,17 @@ public class GoodsTOPlanReq {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public byte getIsfamily() {
+		return isfamily;
+	}
+	public void setIsfamily(byte isfamily) {
+		this.isfamily = isfamily;
+	}
+	public byte getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(byte messageType) {
+		this.messageType = messageType;
 	}
 }
