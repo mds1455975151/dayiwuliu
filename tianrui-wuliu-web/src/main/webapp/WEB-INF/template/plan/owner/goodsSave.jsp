@@ -216,7 +216,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 
                 <div class="clear"></div>
                 <div class="goods_foot">
-                   <input type="checkbox" name="istemplate" value="1"><label>是否存为模板</label><br>
+                   	<!-- 
+                   	<input type="checkbox" name="istemplate" value="1"><label>是否存为模板</label><br>
+                   	 -->
                     <button class="btn btnyello mr20 submitBtn"  type="button">发布</button>
                 </div>
             </div>
@@ -233,6 +235,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/select2.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/select_locale_zh-CN.js" ></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-<script type="text/javascript" src="/resources/js/plan/goodsSave.js?06.20" ></script>
+<script type="text/javascript" src="/resources/js/plan/goodsSave.js?1202" ></script>
 </body>
 </html>

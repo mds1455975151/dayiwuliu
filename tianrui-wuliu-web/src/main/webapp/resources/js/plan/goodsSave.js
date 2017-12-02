@@ -92,7 +92,7 @@ $(function(){
 				success: function(rs) {
 					$(this).attr("disabled",false);
 					if(rs.code=="000000"){
-						window.location.href = CONTEXTPATH + "/trwuliu/planowner/main";
+						window.location.href = "/trwuliu/goods/goodsPage";
 						$(".submitBtn").attr("disabled",false);
 					}else{
 						alert(rs.error);

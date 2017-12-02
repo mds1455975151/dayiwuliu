@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>计划详情</title>
+    <title>货源详情</title>
     <meta name="keywords" content=" 天瑞"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--网站位置-->
     <div class="row">
             <div class="rz_line">
-                <label>当前位置：计划管理-计划详情</label>
+                <label>当前位置：计划管理-货源详情</label>
             </div>
     </div>
     <div class="row">
@@ -36,11 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <!--个人中心右侧begin-->
         <div class="rz_right">
             <div class=" bgblue">
-                <h2>计划详情</h2>
+                <h2>货源详情</h2>
             </div>
             <!-- 货源计划内容begin -->
              <div class="goods_box">
-                <form id="saveplan">
                 <input type="hidden" name="id" value="${plan.id }" />
                 <div class="goods_line">
                     <div class="plan_table">
@@ -124,20 +123,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </table>
                     </div>
                 </div>
-                 <c:if test="${not empty plan.refuseresontype }">
-					<div class="goods_line">
-	                    <div class="good_time callback_dtl">
-	                        <label>拒绝原因</label>
-	                        <span>${plan.refuseresontype}</span>
-	                    </div>
-	                </div>
-	             	<div class="goods_line">
-	                    <div class="good_time callback_dtl">
-	                        <label>客户备注</label>
-	                        <span>${plan.refusereson}</span>
-	                    </div>
-	                </div>
-                </c:if>
                 <div class="goods_line">
                     <label> 发货单位：</label>
                     <input type="text" name="organizationname" id ="organizationname" value="${plan.orgname }" readonly>
@@ -188,36 +173,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    	</div>
                 </div>
                 <!--发布对象begin-->
-                <div class="plan_fabu">
-                    <label class="lineh40"> 发布对象：</label>
-                    <div class="plan_tab">
-                        <!--tab切换标题-->
-                        <ul class="plan_tabmenu">
-                        	<c:if test="${plan.isfamily ==0 }" >
-	                            <li class="allVender ${plan.isfamily=='0'?'select':''}">全部车主</li>
-                        	</c:if>
-                        	<c:if test="${plan.isfamily ==1 }" >
-	                            <%-- <li class="familayVender ${plan.isfamily=='1'?'select':''}">熟车车主</li> --%>
-                        	</c:if>
-                        </ul>
-                        <!--tab切换标题end-->
-
-                        <!--tab切换的内容-->
-                        <div class="plan_tabbox">
-                            <div class="plan_tabcont  ">
-                                <ul class="plan_line">
-                                	<li>
-                                       <input type="radio"  checked ><label>${plan.vehicleownername }</label><label>${plan.vehicleownerphone }</label>
-                                	</li>
-                                </ul>
-                            </div>
-                            
-                        </div>
-                        <!--tab切换的内容end-->
-                    </div>
-                </div>
-                <!--发布对象end-->
-
                 <div class="goods_foot">
                     <button class="btn btnyello mr20 submitBtn" pageNo="${pageNo }" type="button">返回</button>
                 </div>
@@ -236,10 +191,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 $(function(){
 	//左侧选中
-	$("#planowner").addClass("selected");
+	$("#goodsPage").addClass("selected");
 	$(".submitBtn").click(function(){
 		var pageNo = $(this).attr('pageNo');
-		window.location.href = "/trwuliu/planowner/main?pageNo="+pageNo;
+		window.location.href = "/trwuliu/goods/goodsPage?pageNo="+pageNo;
 	});
 });
 </script>
