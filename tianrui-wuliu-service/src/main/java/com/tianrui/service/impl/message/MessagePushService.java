@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tianrui.api.admin.intf.IFileRouteService;
-import com.tianrui.api.admin.intf.IOrganizationService;
 import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.req.money.AppMessageReq;
@@ -24,13 +22,11 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
-import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.MessagePush;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.PlanGoods;
-import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.mapper.MessagePushMapper;
 @Service
 public class MessagePushService implements IMessagePushService {
@@ -44,72 +40,15 @@ public class MessagePushService implements IMessagePushService {
 	FileRouteMapper fileRouteMapper;
 	@Autowired
 	FilePositoinMapper filePositoinMapper;
-	@Autowired
-	private CacheClient cache ;
 	@Override
 	public Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
 		MessagePush mp = new MessagePush();
 		String messageContent = "";
-		String cyr="";
-		FileRoute route = null;
-		String tyr = "中原大易物流科技有限公司";
-		FilePositoin o = null;
-		FilePositoin d =null;
-		String qyd="";
-		String mdd="";
-		String hwmc="";
-		String shuliang="";
-		String cph="发沙发斯蒂";
 		if(req.getMessageType() == 1){
-			PlanGoods goods = (PlanGoods) req.getGoods();
-			 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
-			tyr = route.getOrganizationname();
-			 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
-			 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
-			 qyd=o.getOp() + o.getOc();
-			 mdd=d.getOp() + d.getOc();
-			 hwmc=goods.getCargoname();
-			 shuliang=goods.getTotalplanned()+""+goods.getMeasure();
-			if(req.getChannel() == 1 ){
-				messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
-			}else if (req.getChannel() == 2) {
-				messageContent = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
-			}else if (req.getChannel() == 3) {
-				messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
-				String messageContentSMS = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
-				req.setMessageContent(messageContentSMS);
-				req.setChannel((byte)2);
-				PropertyUtils.copyProperties(mp,req);
-				messagePushMapper.insertSelective(mp);
-			}
-			MessageRollingReq roll =new MessageRollingReq();
-			roll.setMessageType(req.getMessageType());
-			roll.setCreateTime(new Date().getTime());
-			roll.setMessageContent(MessageHelper.getDemandRollingMesage(tyr, qyd, mdd, hwmc, shuliang));
-			messageRollingService.save(roll);
+			messageContent = demandMessage(req, mp, messageContent);
 		}else if (req.getMessageType() == 2) {
-			Plan goods = (Plan) req.getGoods();
-			cyr=goods.getVehicleownername();
-			 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
-			tyr = route.getOrganizationname();
-			 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
-			 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
-			 qyd=o.getOp() + o.getOc();
-			 mdd=d.getOp() + d.getOc();
-			 hwmc=goods.getCargoname();
-			 shuliang=goods.getTotalplanned()+""+goods.getMeasure();
-			if(req.getChannel() == 1 ){
-				messageContent = MessageHelper.getPlanPushMesage(cyr, tyr, qyd, mdd, hwmc, shuliang);
-			}else {
-				rs.setCode("11");
-				rs.setError("不支持的推送方式");
-			}
-			MessageRollingReq roll =new MessageRollingReq();
-			roll.setMessageType(req.getMessageType());
-			roll.setCreateTime(new Date().getTime());
-			roll.setMessageContent(MessageHelper.getPlanRollingMesage(cyr, qyd, mdd, hwmc, shuliang));
-			messageRollingService.save(roll);
+			messageContent = planMeaage(req, rs, messageContent);
 		}
 		req.setChannel((byte)1);
 		req.setMessageContent(messageContent);
@@ -117,9 +56,150 @@ public class MessagePushService implements IMessagePushService {
 		messagePushMapper.insertSelective(mp);
 		return rs;
 	}
+	/**
+	 * 货运计划消息处理
+	 * @param req
+	 * @param rs
+	 * @param messageContent
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private String planMeaage(MessagePushReq req, Result rs, String messageContent)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		String cyr;
+		FileRoute route;
+		String tyr;
+		FilePositoin o;
+		FilePositoin d;
+		String qyd;
+		String mdd;
+		String hwmc;
+		String shuliang;
+		Plan goods = (Plan) req.getGoods();
+		cyr=goods.getVehicleownername();
+		 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
+		tyr = route.getOrganizationname();
+		 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
+		 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
+		 qyd=o.getOp() + o.getOc();
+		 mdd=d.getOp() + d.getOc();
+		 hwmc=goods.getCargoname();
+		 shuliang=goods.getTotalplanned()+""+goods.getMeasure();
+		if(req.getChannel() == 1 ){
+			messageContent = MessageHelper.getPlanPushMesage(cyr, tyr, qyd, mdd, hwmc, shuliang);
+		}else {
+			rs.setCode("11");
+			rs.setError("不支持的推送方式");
+		}
+		savePlanRolling(req, cyr, qyd, mdd, hwmc, shuliang);
+		return messageContent;
+	}
+	/**
+	 * 保存货运计划滚动消息
+	 * @param req
+	 * @param cyr
+	 * @param qyd
+	 * @param mdd
+	 * @param hwmc
+	 * @param shuliang
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private void savePlanRolling(MessagePushReq req, String cyr, String qyd, String mdd, String hwmc, String shuliang)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		MessageRollingReq roll =new MessageRollingReq();
+		roll.setMessageType(req.getMessageType());
+		roll.setCreateTime(new Date().getTime());
+		roll.setMessageContent(MessageHelper.getPlanRollingMesage(cyr, qyd, mdd, hwmc, shuliang));
+		messageRollingService.save(roll);
+	}
+	/**
+	 * 货运需求消息处理
+	 * @param req
+	 * @param mp
+	 * @param messageContent
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private String demandMessage(MessagePushReq req, MessagePush mp, String messageContent)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		FileRoute route;
+		String tyr;
+		FilePositoin o;
+		FilePositoin d;
+		String qyd;
+		String mdd;
+		String hwmc;
+		String shuliang;
+		PlanGoods goods = (PlanGoods) req.getGoods();
+		 route = fileRouteMapper.selectByPrimaryKey(goods.getRouteid());
+		tyr = route.getOrganizationname();
+		 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
+		 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
+		 qyd=o.getOp() + o.getOc();
+		 mdd=d.getOp() + d.getOc();
+		 hwmc=goods.getCargoname();
+		 shuliang=goods.getTotalplanned()+""+goods.getMeasure();
+		if(req.getChannel() == 1 ){
+			messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
+		}else if (req.getChannel() == 2) {
+			messageContent = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
+		}else if (req.getChannel() == 3) {
+			messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
+			saveSMSMessage(req, mp, tyr, qyd, mdd, hwmc, shuliang);
+		}
+		saveRollingMessage(req, tyr, qyd, mdd, hwmc, shuliang);
+		return messageContent;
+	}
+	/**
+	 * 保存货运需求滚动消息
+	 * @param req
+	 * @param tyr
+	 * @param qyd
+	 * @param mdd
+	 * @param hwmc
+	 * @param shuliang
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private void saveRollingMessage(MessagePushReq req, String tyr, String qyd, String mdd, String hwmc,
+			String shuliang) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		MessageRollingReq roll =new MessageRollingReq();
+		roll.setMessageType(req.getMessageType());
+		roll.setCreateTime(new Date().getTime());
+		roll.setMessageContent(MessageHelper.getDemandRollingMesage(tyr, qyd, mdd, hwmc, shuliang));
+		messageRollingService.save(roll);
+	}
+	/**
+	 * 保存短信发送消息
+	 * @param req
+	 * @param mp
+	 * @param tyr
+	 * @param qyd
+	 * @param mdd
+	 * @param hwmc
+	 * @param shuliang
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private void saveSMSMessage(MessagePushReq req, MessagePush mp, String tyr, String qyd, String mdd, String hwmc,
+			String shuliang) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		String messageContentSMS = MessageHelper.getDemandSMSMesage(tyr, qyd, mdd, hwmc, shuliang);
+		req.setMessageContent(messageContentSMS);
+		req.setChannel((byte)2);
+		PropertyUtils.copyProperties(mp,req);
+		messagePushMapper.insertSelective(mp);
+	}
 
 	@Override
-	public Result updateConsultNumber(Long id) {
+	public Result updateConsultNumber(long id) {
 		Result rs = Result.getSuccessResult();
 		MessagePush mp = null;
 		if(id > 0){
@@ -127,8 +207,10 @@ public class MessagePushService implements IMessagePushService {
 		}else {
 			mp = messagePushMapper.selectLastMessagePush();
 		}
-		mp.setConsultNumber(mp.getCalledNumber() + 1 );
-		messagePushMapper.updateByPrimaryKeySelective(mp);
+		if(null != mp ){
+			mp.setConsultNumber(mp.getConsultNumber() + 1 );
+			messagePushMapper.updateByPrimaryKeySelective(mp);
+		}
 		return rs;
 	}
 
@@ -141,8 +223,10 @@ public class MessagePushService implements IMessagePushService {
 		}else {
 			mp = messagePushMapper.selectLastMessagePush();
 		}
-		mp.setCalledNumber(mp.getCalledNumber()+ 1);
-		messagePushMapper.updateByPrimaryKeySelective(mp);
+		if(null != mp ){
+			mp.setCalledNumber(mp.getCalledNumber()+ 1);
+			messagePushMapper.updateByPrimaryKeySelective(mp);
+		}
 		return rs;
 	}
 
@@ -177,7 +261,7 @@ public class MessagePushService implements IMessagePushService {
 	public PaginationVO<MessageAppResp> findAppMessage(AppMessageReq req) {
 		PaginationVO<MessageAppResp> vo = new PaginationVO<MessageAppResp>();
 		long total = messagePushMapper.selectCount(req) ;
-		total = total > 200 ?total:200;
+		total = total > 200 ?200:total;
 		List<MessagePush> ls = messagePushMapper.selectByCondition(req);
 		List<MessageAppResp> list = new ArrayList<MessageAppResp>();
 		for(MessagePush mp : ls){
@@ -193,8 +277,12 @@ public class MessagePushService implements IMessagePushService {
 			list.add(mr);
 		}
 		vo.setList(list);
-		vo.setPageNo(req.getPageNo());
-		vo.setPageSize(req.getPageSize());
+		if(null !=req.getPageNo()){
+			vo.setPageNo(req.getPageNo());
+		}
+		if(null != req.getPageSize()){
+			vo.setPageSize(req.getPageSize());
+		}
 		vo.setTotal(total);
 		return vo;
 	}

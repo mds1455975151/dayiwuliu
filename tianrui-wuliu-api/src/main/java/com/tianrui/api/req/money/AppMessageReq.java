@@ -6,6 +6,8 @@ public class AppMessageReq  {
 	
 	private String messageType;////消息类型1-货源需求，2-货运计划
 	
+	private String channel = "1";//推送渠道
+	
 	private Integer pageNo ;
 		
 	private Integer pageSize;
@@ -38,4 +40,12 @@ public class AppMessageReq  {
 		this.pageSize = pageSize;
 	}
 
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+	
 }

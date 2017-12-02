@@ -26,15 +26,24 @@ public interface IMessagePushService {
 	 * @param id   浮动窗口点击  id  传 0
 	 * @return
 	 */
-	Result updateConsultNumber(Long id);
+	Result updateConsultNumber(long id);
 	/**
 	 * APP拨打电话次数+1
 	 * @param id   无消息  id  传 0
 	 * @return
 	 */
 	Result updateCalledNumber(long id);
-	
+	/**
+	 * 获取待推送消息列表
+	 * @return
+	 */
 	List<MessagePushResp> findPendingMessage();
+	/**
+	 * 修改推送状态
+	 * @param id
+	 * @param sendCount
+	 * @param beginTime
+	 */
 	void updatePushState(Long id, int sendCount, Long beginTime);
 	/**
 	 * 获取群推消息列表

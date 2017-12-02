@@ -1,8 +1,11 @@
 package com.tianrui.api.message.intf;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import com.tianrui.api.req.money.MessageRollingReq;
+import com.tianrui.api.resp.money.MessagePushResp;
+import com.tianrui.api.resp.money.MessageRollingResp;
 import com.tianrui.common.vo.Result;
 
 public interface IMessageRollingService {
@@ -21,5 +24,11 @@ public interface IMessageRollingService {
 	 * @param id
 	 * @return
 	 */
-	Result updateConsultNumber(Long id);
+	Result updateConsultNumber(long id);
+	/**
+	 *  获取滚动消息列表
+	 * @param number
+	 * @return
+	 */
+	List<MessageRollingResp> findRollingMessage(int number );
 }

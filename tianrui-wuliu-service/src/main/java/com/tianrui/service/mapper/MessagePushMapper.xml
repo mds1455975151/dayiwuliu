@@ -25,6 +25,9 @@
    <select id="selectCount" resultType="long" parameterType="com.tianrui.api.req.money.AppMessageReq" >
     select COUNT(id) FROM message_push
     <where>
+    	<if test="channel != null and channel != ''">
+    		and channel =  #{channel,jdbcType=VARCHAR} 
+    	</if>
     	<if test="messageType != null and messageType != ''">
     		and message_type =  #{messageType,jdbcType=VARCHAR} 
     	</if>
@@ -35,6 +38,9 @@
     <include refid="Base_Column_List" />
     from message_push
     <where>
+    	<if test="channel != null and channel != ''">
+    		and channel =  #{channel,jdbcType=VARCHAR} 
+    	</if>
     	<if test="messageType != null and messageType != ''">
     		and message_type =  #{messageType,jdbcType=VARCHAR} 
     	</if>

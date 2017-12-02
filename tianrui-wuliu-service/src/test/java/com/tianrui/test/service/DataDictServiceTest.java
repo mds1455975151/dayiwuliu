@@ -13,15 +13,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.tianrui.api.intf.IDataDictService;
+import com.tianrui.api.message.intf.IMessagePushService;
+import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
 import com.tianrui.api.req.front.system.DataDictReq;
+import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.req.money.SaveWithdrawReq;
 import com.tianrui.api.req.money.UpdateBillMoneyReq;
 import com.tianrui.api.req.money.updateWithdrawReq;
 import com.tianrui.api.resp.common.DataDictResp;
+import com.tianrui.api.resp.front.message.MessageAppResp;
+import com.tianrui.api.resp.money.MessageRollingResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.mapper.MessageRollingMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/appliactionContext-service.xml" })
@@ -30,18 +37,17 @@ public class DataDictServiceTest {
 	@Autowired
 	private  IDataDictService  dataDictService;
 	@Autowired
-	private IPendingBillMoneyService billMoneyService;
-	
+	private IMessagePushService billMoneyService;
+	@Autowired 
+	private IMessageRollingService messageRollingMapper;
 	@Test
 	public void saveBill()throws Exception{
-		SaveBillMoneyReq req = new SaveBillMoneyReq();
-		req.setCellphone("18039330360");
-		req.setCreatetime(new Date().getTime());
-		req.setPendingmoney(900000000L);
-		req.setUsername("谭明克");
-		req.setUseryhno("410482198702206011");
-		req.setWaybillno("4155556666666544144");
-		Result rs = billMoneyService.save(req);
+		AppMessageReq req = new AppMessageReq();
+		req.setPageNo(0);
+		req.setPageSize(3);
+		List<MessageRollingResp>  ls = messageRollingMapper.findRollingMessage(1);
+		Result rs = Result.getSuccessResult();
+		rs.setData(ls);
 		System.out.println(JSON.toJSON(rs));
 		logger.info("{}",JSON.toJSON(rs));
 	}
