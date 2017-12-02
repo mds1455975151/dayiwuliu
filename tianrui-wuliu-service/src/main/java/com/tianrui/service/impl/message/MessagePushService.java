@@ -43,9 +43,9 @@ public class MessagePushService implements IMessagePushService {
 	}
 
 	@Override
-	public Result updateCalledNumber(Long id) {
+	public Result updateCalledNumber() {
 		Result rs = Result.getSuccessResult();
-		MessagePush mp = messagePushMapper.selectByPrimaryKey(id);
+		MessagePush mp = messagePushMapper.selectLastMessagePush();
 		mp.setCalledNumber(mp.getCalledNumber()+ 1);
 		messagePushMapper.updateByPrimaryKeySelective(mp);
 		return rs;

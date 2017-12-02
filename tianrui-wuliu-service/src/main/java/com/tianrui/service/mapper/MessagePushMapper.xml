@@ -22,7 +22,11 @@
     id, message_type, message_content, channel, push_state, number, create_time, begin_time, 
     end_time, consult_number, called_number, desc1, desc2, desc3, desc4
   </sql>
-  
+  <select id="selectLastMessagePush" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_push order by id desc LIMIT 1
+  </select>
   <select id="findPendingMessage" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />

@@ -26,10 +26,9 @@ public interface IMessagePushService {
 	Result updateConsultNumber(Long id);
 	/**
 	 * APP拨打电话次数+1
-	 * @param id
 	 * @return
 	 */
-	Result updateCalledNumber(Long id);
+	Result updateCalledNumber();
 	
 	List<MessagePushResp> findPendingMessage();
 	void updatePushState(Long id, int sendCount, Long beginTime);

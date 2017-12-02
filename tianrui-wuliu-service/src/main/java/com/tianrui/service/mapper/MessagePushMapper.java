@@ -12,6 +12,8 @@ public interface MessagePushMapper {
     int insertSelective(MessagePush record);
 
     MessagePush selectByPrimaryKey(Long id);
+    
+    MessagePush selectLastMessagePush();
 
     int updateByPrimaryKeySelective(MessagePush record);
 
