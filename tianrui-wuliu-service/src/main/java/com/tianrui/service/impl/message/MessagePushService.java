@@ -19,6 +19,7 @@ import com.tianrui.api.resp.money.MessagePushResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MessagePush;
+import com.tianrui.service.bean.PlanGoods;
 import com.tianrui.service.mapper.MessagePushMapper;
 @Service
 public class MessagePushService implements IMessagePushService {
@@ -30,6 +31,7 @@ public class MessagePushService implements IMessagePushService {
 	@Override
 	public Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
+		PlanGoods goods = (PlanGoods) req.getGoods();
 		MessagePush mp = new MessagePush();
 		PropertyUtils.copyProperties(mp,req);
 		messagePushMapper.insert(mp);

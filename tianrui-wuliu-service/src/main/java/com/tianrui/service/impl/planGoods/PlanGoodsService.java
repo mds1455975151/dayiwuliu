@@ -15,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
+import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
 import com.tianrui.api.req.goods.GoodsAuditReq;
 import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
+import com.tianrui.api.req.money.MessagePushReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.goods.PlanGoodsResp;
@@ -75,6 +77,8 @@ public class PlanGoodsService implements IPlanGoodsService {
 	private IMerchantService merchantService;
 	@Autowired
 	private PlanMapper planMapper;
+	@Autowired
+	IMessagePushService messagePushService;
 
 	@Override
 	public Result auditGoods(GoodsAuditReq req) {
@@ -90,6 +94,28 @@ public class PlanGoodsService implements IPlanGoodsService {
 				//运单审核通过 或审核不通过
 				if(sa==0){
 					upt.setStatus(ty);
+					upt.setIsfamily((byte) 0);
+					if(ty == 1 && req.getMessageType() != 0){
+						//审核通过
+						if(req.getMessageType() != 0 && req.getMessageType() != 9){
+							//选择消息推送 且不为平台推送
+							try {
+								MessagePushReq mess = new MessagePushReq();
+								mess.setMessageType((byte)1);
+								mess.setChannel(req.getMessageType());
+								mess.setCreateTime(System.currentTimeMillis());
+								mess.setGoods(goods);
+								messagePushService.save(mess);
+							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						
+						}else if(req.getMessageType() == 9){
+							//选择平台推送
+							upt.setIsfamily((byte) 1);
+						}
+					}
 					planGoodsMapper.updateByPrimaryKeySelective(upt);
 				}else{
 					rs.setCode("1");

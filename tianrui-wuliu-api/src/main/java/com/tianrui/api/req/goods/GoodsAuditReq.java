@@ -4,6 +4,8 @@ public class GoodsAuditReq {
 
 	private String id;//货源id
 	
+	private byte messageType;
+	
 	private byte audType;//审核类型 -1 删除；0 待审核；1-审核通过；2-发单中；3-已完成  4-已关闭 9-审核失败',
 	
 	private String audStatus;
@@ -25,5 +27,11 @@ public class GoodsAuditReq {
 	}
 	public void setAudType(byte audType) {
 		this.audType = audType;
+	}
+	public byte getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(byte messageType) {
+		this.messageType = messageType;
 	}
 }

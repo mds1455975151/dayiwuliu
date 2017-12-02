@@ -176,6 +176,67 @@ $(".audit").on("click",function(){
 	});
 });
 
+$(".audit_succe").on("click",function(){
+	var ptype_1 = "";
+	$('input[name="ptype_1"]:checked').each(function(){ 
+		//平台推送
+		ptype_1 = $(this).val();
+	}); 
+	var ptype_2 = "";
+	$('input[name="ptype_2"]:checked').each(function(){ 
+		//APP站内推送
+		ptype_2 = $(this).val();
+	}); 
+	var ptype_3 = "";
+	$('input[name="ptype_3"]:checked').each(function(){ 
+		//短信推送
+		ptype_3 = $(this).val();
+	}); 
+	
+	var type = "0";
+	if(ptype_1 + ptype_2 + ptype_3 == "111"){
+		type = "3";
+	}
+	if(ptype_1 + ptype_2 + ptype_3 == "11"){
+		if(ptype_2 == "1" && ptype_3 == "1"){
+			type = "3";
+		}else{
+			if(ptype_2 == 1){
+				type = "1";
+			}
+			if(ptype_3 == 1){
+				type = "2";
+			}
+		}
+	}
+	if(ptype_1 + ptype_2 + ptype_3 == "1"){
+		if(ptype_2 == 1){
+			type = "1";
+		}
+		if(ptype_3 == 1){
+			type = "2";
+		}
+		if(ptype_1 == 1){
+			type = "9";
+		}
+	}
+	$.ajax({
+		url:"/adminGoods/auditGoods",
+		type:"POST",
+		data:{id:$("#goods_id").val(),
+			messageType:type,
+			audType:"1"},//审核成功
+		success:function(ret){
+			if(ret.code==000000){
+				window.location.href=location;
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+	
+});
+
 
 
 

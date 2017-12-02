@@ -8,6 +8,8 @@ public class MessagePushReq {
 
     private Long createTime;//消息创建时间
     
+    private Object goods;
+    
     private String messageContent;//消息内容
 
 	public Byte getMessageType() {
@@ -40,6 +42,14 @@ public class MessagePushReq {
 
 	public void setMessageContent(String messageContent) {
 		this.messageContent = messageContent;
+	}
+
+	public Object getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Object goods) {
+		this.goods = goods;
 	}
     
 }

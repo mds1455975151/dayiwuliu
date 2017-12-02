@@ -140,17 +140,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <div class="info_base_solo">
                                     <span>
 		                                  <c:if test="${data.status eq 0}">
+		                                  <!-- 
 		                                  	<button class="btn btnblue audit" type="1">审核通过</button>
+		                                   -->
+		                                  	<button class="btn btnblue" data-toggle='modal'  data-target='#shenhe'>审核通过</button>
 	                                    	<button class="btn btngreen audit" type="9">审核失败</button>
 		                                  </c:if>
 		                                  <c:if test="${data.status eq 1}">
-		                                  	<button class="btn btnblue audit" type="4">关闭</button>
+		                                  	<button class="btn btnblue audit" type="4">关闭货源</button>
 		                                  </c:if>
 		                                  <c:if test="${data.status eq 2}">
-		                                  	<button class="btn btnblue audit" type="4">关闭</button>
+		                                  	<button class="btn btnblue audit" type="4">关闭货源</button>
 		                                  </c:if>
 		                                  <c:if test="${data.status eq 3}">
-		                                  	<button class="btn btnblue audit" type="4">关闭</button>
+		                                  	<button class="btn btnblue audit" type="4">关闭货源</button>
 		                                  </c:if>
                                     </span>
                                 </div>
@@ -224,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                         <input type="hidden" id="vender_id">
 		                         <input type="hidden" id="goods_id" value="${data.id }">
 	                            <div class="info_base_solo">
-	                                    <button class="btn btnblue save_paln">保存</button>
+	                                    <button class="btn btnblue save_paln">派发</button>
 	                                    <!-- 
 	                                    <button class="btn btngreen reset">返回</button>
 	                                     -->
@@ -239,117 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="track-rcol">
                     <div class="track-list">
                         <ul id="goods_list">
-                            <li>
-                                <i class="node-icon"></i>
-                                <span class="time">2016-03-10 18:07:15</span>
-                                <span class="txt">修改人：小花儿</span>
-                                <span class="zhedie"><img src="${trRoot}/images/infor.png"></span>
-                                <div class="info_econt" style="display:none">
-                                    <div class="info_eleft">
-                                        <h3>原有资料</h3>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>账号：</label>
-                                            <span>4512578时88</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <p>驾驶证照片：</p>
-                                            <div>
-                                                <img src="${trRoot}/images/sfz.png">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="node-icon"></i>
-                                <span class="time">2016-03-10 18:07:15</span>
-                                <span class="txt">修改人：小花儿</span>
-                                <span class="zhedie"><img src="${trRoot}/images/infor.png"></span>
-                                <div class="info_econt" style="display:none">
-                                    <div class="info_eleft">
-                                        <h3>原有资料</h3>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>账号：</label>
-                                            <span>4512578时88</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <p>驾驶证照片：</p>
-                                            <div>
-                                                <img src="${trRoot}/images/sfz.png">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="node-icon"></i>
-                                <span class="time">2016-03-10 18:07:15</span>
-                                <span class="txt">感谢您在京东购物，欢迎您再次光临！</span>
-                                <span class="zhedie"><img src="${trRoot}/images/infor.png"></span>
-                                <div class="info_econt" style="display:none">
-                                    <div class="info_eleft">
-                                        <h3>原有资料</h3>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>账号：</label>
-                                            <span>4512578时88</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <p>驾驶证照片：</p>
-                                            <div>
-                                                <img src="${trRoot}/images/sfz.png">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                       
                         </ul>
                     </div>
                 </div>
@@ -359,14 +252,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <!--后台整体布局end-->
     </div>
     <!--侧边栏end-->
+<!--审核begin-->
+<div class="modal fade" id="shenhe" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >推送选择</h4>
+            </div>
+            <div class="modal-body">
+           		<div class="file_detail">
+					<input name="ptype_1" type="checkbox" value="1">
+					平台推送
+				</div>
+				<div class="file_detail">
+					<input name="ptype_2" type="checkbox" value="1">
+					APP站内推送
+				</div>
+				<div class="file_detail">
+					<input name="ptype_3" type="checkbox" value="1">
+					短信推送
+				</div>
+           		<div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary audit_succe" >确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
 </div>
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript" src="/resources/js/goods/upt_page.js?1202"></script>
 <script type="text/javascript">
     var trRoot = "${trRoot}";
-    $(function () {
-       
-    });
 </script>
 </body>
 </html>
