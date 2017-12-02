@@ -3,8 +3,6 @@ package com.tianrui.service.impl.planGoods;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -81,6 +79,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 	IMessagePushService messagePushService;
 
 	@Override
+	@Transactional
 	public Result auditGoods(GoodsAuditReq req) {
 		Result rs = Result.getSuccessResult();
 		PlanGoods goods = planGoodsMapper.selectByPrimaryKey(req.getId());
@@ -94,10 +93,10 @@ public class PlanGoodsService implements IPlanGoodsService {
 				//运单审核通过 或审核不通过
 				if(sa==0){
 					upt.setStatus(ty);
-					upt.setIsfamily((byte) 0);
+					upt.setIsfamily(req.getIsfamily());
 					if(ty == 1 && req.getMessageType() != 0){
 						//审核通过
-						if(req.getMessageType() != 0 && req.getMessageType() != 9){
+						if(req.getMessageType() != 0){
 							//选择消息推送 且不为平台推送
 							try {
 								MessagePushReq mess = new MessagePushReq();
@@ -110,10 +109,6 @@ public class PlanGoodsService implements IPlanGoodsService {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-						
-						}else if(req.getMessageType() == 9){
-							//选择平台推送
-							upt.setIsfamily((byte) 1);
 						}
 					}
 					planGoodsMapper.updateByPrimaryKeySelective(upt);
@@ -150,7 +145,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 				  req.getStatus()!=(byte)9){
 			//-1-已删除；0 待审核；1-审核通过；2-发单中；3-已完成  4-已关闭 9-审核失败',
 			if(req != null){
-				saveGoodsPlan(goods, req);
+				Plan plan = saveGoodsPlan(goods, req);
 				PlanGoods upt = new PlanGoods();
 				upt.setId(req.getId());
 				Double completed = goods.getWeight();
@@ -165,6 +160,21 @@ public class PlanGoodsService implements IPlanGoodsService {
 					upt.setStatus((byte)2);
 				}
 				planGoodsMapper.updateByPrimaryKeySelective(upt);
+				if(goods.getMessageType() != 0){
+					//选择消息推送 且不为平台推送
+					try {
+						MessagePushReq mess = new MessagePushReq();
+						mess.setMessageType((byte)2);//货运计划
+						mess.setChannel(goods.getMessageType());
+						mess.setCreateTime(System.currentTimeMillis());
+						mess.setGoods(plan);
+						messagePushService.save(mess);
+					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
 			}
 		}else{
 			rs.setCode("1");
@@ -173,7 +183,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 		return rs;
 	}
 
-	private void saveGoodsPlan(GoodsTOPlanReq goods, PlanGoods req) {
+	private Plan saveGoodsPlan(GoodsTOPlanReq goods, PlanGoods req) {
 		Plan plan =new Plan();
 		String id = UUIDUtil.getId();
 		//车主信息
@@ -185,7 +195,8 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setVehicleownerphone(vender.getCellphone());
 		
 		plan.setId(id);
-		plan.setDesc4(req.getId());
+		plan.setDesc3(req.getIsfamily().toString());//是否公开
+		plan.setDesc4(req.getId());//货源id
 		plan.setPlancode("adminppp");
 //			plan.setPlancode(codeGenDao.codeGen(1));
 		//货物信息
@@ -245,6 +256,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setPayment(req.getPayment());
 		
 		planMapper.insert(plan);
+		return plan;
 	}
 	
 	@Override

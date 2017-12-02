@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                         <input type="hidden" id="vender_id">
 		                         <input type="hidden" id="goods_id" value="${data.id }">
 	                            <div class="info_base_solo">
-	                                    <button class="btn btnblue save_paln">派发</button>
+	                                    <button class="btn btnblue" data-toggle='modal'  data-target='#tuisong'>派发</button>
 	                                    <!-- 
 	                                    <button class="btn btngreen reset">返回</button>
 	                                     -->
@@ -258,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >推送选择</h4>
+                <h4 class="modal-title" >审核推送选择</h4>
             </div>
             <div class="modal-body">
            		<div class="file_detail">
@@ -277,6 +277,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary audit_succe" >确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--推送begin-->
+<div class="modal fade" id="tuisong" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >派单推送选择</h4>
+            </div>
+            <div class="modal-body">
+           		<div class="file_detail">
+					<input name="ts_1" type="checkbox" value="1">
+					平台推送
+				</div>
+				<div class="file_detail">
+					<input name="ts_2" type="checkbox" value="1">
+					APP站内推送
+				</div>
+           		<div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save_paln" >确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
