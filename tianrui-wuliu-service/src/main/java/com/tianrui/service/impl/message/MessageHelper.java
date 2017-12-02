@@ -136,10 +136,10 @@ public class MessageHelper {
 	};
 	/**
 	 * 封装司机提货首页滚动消息
-	 * @param qyd
-	 * @param mdd
-	 * @param hwmc
-	 * @param cph
+	 * @param qyd 起运地
+	 * @param mdd 目的地
+	 * @param hwmc 货物名称
+	 * @param cph 车牌号
 	 * @return
 	 */
 	public static String getPickUpRollingMesage(String qyd,String mdd,String hwmc,String cph){
@@ -150,16 +150,17 @@ public class MessageHelper {
 		sb.append("，");
 		sb.append(hwmc+"【");
 		sb.append(cph);
-		sb.append("】已经提货完成！");
+		sb.append("】已经装货完成！");
 		return sb.toString();
 		
 	};
 	/**
+	 * 
 	 * 封装司机卸货首页滚动消息
-	 * @param qyd
-	 * @param mdd
-	 * @param hwmc
-	 * @param cph
+	 * @param qyd 起运地
+	 * @param mdd 目的地
+	 * @param hwmc 货物名称
+	 * @param cph 车牌号
 	 * @return
 	 */
 	public static String getDischargeRollingMesage(String qyd,String mdd,String hwmc,String cph){
@@ -174,4 +175,20 @@ public class MessageHelper {
 		return sb.toString();
 		
 	};
+	public static void main(String[] args) {
+		String cyr="中原大易科技有限公司";
+		String tyr="天韵丝霞网络科技有限公司";
+		String qyd="河南省汝州市";
+		String mdd="河南省信阳市";
+		String hwmc="混凝土轨枕";
+		String shuliang="50000吨";
+		String cph="豫DEF999";
+		System.out.println(getPlanPushMesage(cyr, tyr, qyd, mdd, hwmc, shuliang));
+		System.out.println(getDemandPushMesage( tyr, qyd, mdd, hwmc, shuliang));
+		System.out.println(getDemandSMSMesage( tyr, qyd, mdd, hwmc, shuliang));
+		System.out.println(getDemandRollingMesage(tyr, qyd, mdd, hwmc,shuliang));
+		System.out.println(getPlanRollingMesage(cyr, qyd, mdd, hwmc, shuliang));
+		System.out.println(getPickUpRollingMesage( qyd, mdd, hwmc, cph));
+		System.out.println(getDischargeRollingMesage( qyd, mdd, hwmc, cph));
+	}
 }
