@@ -1,5 +1,6 @@
 $(function(){
 	innerOption();
+	showGoodsList();
 });
 $("#venderCellphone").on("change",function(){
 	innerOption();
@@ -62,3 +63,65 @@ $(".save_paln").on("click",function(){
 		}
 	});
 })
+/** 查询货物发送记录*/
+function showGoodsList(){
+	$.ajax({
+		url:"/adminGoods/findGoodsPlan",
+		data:{goodsId:$("#goods_id").val()},
+		type:"POST",
+		success:function(ret){
+			if(ret.code == 000000){
+				showGoodsDetail(ret.data.list);
+			}
+		}
+	});
+}
+
+function showGoodsDetail(data){
+	$("#goods_list").empty();
+	for (var a = 0; a < data.length; a++) {
+		var hml = "<li><i class='node-icon'></i>"+
+                    "<span class='time'>"+data[a].createtimeStr+"</span>"+
+                    "<span class='txt'>派发车主："+data[a].vehicleownername+"-"+data[a].vehicleownerphone+"</span>"+
+                    "<span class='zhedie'><img src='"+trRoot+"/images/infor.png'></span>"+
+                    "<div class='info_econt' style='display:none'>"+
+                        "<div class='info_eleft'>"+
+                            "<h3>计划详情</h3>"+
+                            "<div class='info_esolo'>"+
+                                "<label>计划编码：</label>"+
+                                "<span>"+data[a].plancode+"</span>"+
+                            "</div>"+
+                            "<div class='info_esolo'>"+
+                            "<label>货物名称：</label>"+
+                            "<span>"+data[a].cargoname+"</span>"+
+                            "</div>"+
+                            "<div class='info_esolo'>"+
+                                "<label>起运地：</label>"+
+                                "<span>"+data[a].startcity+"</span>"+
+                            "</div>"+
+                            "<div class='info_esolo'>"+
+                                "<label>目的地：</label>"+
+                                "<span>"+data[a].endcity+"</span>"+
+                            "</div>"+
+                            "<div class='info_esolo'>"+
+                                "<label>单价：</label>"+
+                                "<span>"+data[a].price+"</span>"+
+                            "</div>"+
+                            "<div class='info_esolo'>"+
+                                "<label>重量：</label>"+
+                                "<span>"+data[a].totalplanned+"</span>"+
+                            "</div>"+
+                        "</div></div></li>";
+		
+		$("#goods_list").append(hml);
+	}
+	 $(".zhedie").on('click',function(){
+         var div_hs = $(this).next();
+         div_hs.toggle();
+         if(div_hs.css("display") == 'none') {
+         	$(this).children("img").attr('src',trRoot+"/images/infor.png");
+         }else {
+         	$(this).children("img").attr('src',trRoot+"/images/infol.png");
+         }
+     });
+}

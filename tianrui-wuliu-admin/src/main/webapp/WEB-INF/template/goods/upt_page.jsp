@@ -213,7 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
                 <div class="track-rcol">
                     <div class="track-list">
-                        <ul>
+                        <ul id="goods_list">
                             <li>
                                 <i class="node-icon"></i>
                                 <span class="time">2016-03-10 18:07:15</span>
@@ -247,29 +247,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div>
                                                 <img src="${trRoot}/images/sfz.png">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="info_eleft">
-                                        <h3>修改后资料</h3>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>账号：</label>
-                                            <span>4512578时88</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
                                         </div>
                                     </div>
                                 </div>
@@ -307,29 +284,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div>
                                                 <img src="${trRoot}/images/sfz.png">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="info_eleft">
-                                        <h3>修改后资料</h3>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>账号：</label>
-                                            <span>4512578时88</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
                                         </div>
                                     </div>
                                 </div>
@@ -369,29 +323,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="info_eleft">
-                                        <h3>修改后资料</h3>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>账号：</label>
-                                            <span>4512578时88</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                        <div class="info_esolo">
-                                            <label>原来司机账号：</label>
-                                            <span>4512578时间的开关即可</span>
-                                        </div>
-                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -405,18 +336,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--侧边栏end-->
 </div>
 <%@include file="../common/footer.jsp" %>
-<script type="text/javascript" src="/resources/js/goods/upt_page.js?1010"></script>
+<script type="text/javascript" src="/resources/js/goods/upt_page.js?1202"></script>
 <script type="text/javascript">
+    var trRoot = "${trRoot}";
     $(function () {
-        $(".zhedie").on('click',function(){
-            var div_hs = $(this).next();
-            div_hs.toggle();
-            if(div_hs.css("display") == 'none') {
-            	$(this).children("img").attr('src',"${trRoot}/images/infor.png");
-            }else {
-            	$(this).children("img").attr('src',"${trRoot}/images/infol.png");
-            }
-        });
+       
     });
 </script>
 </body>

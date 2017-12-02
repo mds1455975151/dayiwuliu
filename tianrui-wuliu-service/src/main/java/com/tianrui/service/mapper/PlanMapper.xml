@@ -91,6 +91,9 @@
     <include refid="Base_Column_List" />
     from wuliu_plan
     <where>
+      <if test="desc4 != null and desc4 != ''">
+       and DESC4 = #{desc4,jdbcType=VARCHAR}
+      </if>
       <if test="freightid != null" >
        and freightid=#{freightid,jdbcType=VARCHAR}
       </if>
@@ -164,6 +167,9 @@
     	count(1)
     from wuliu_plan
     <where>
+   	  <if test="desc4 != null and desc4 != ''">
+       and DESC4 = #{desc4,jdbcType=VARCHAR}
+      </if>
       <if test="freightid != null" >
        and freightid=#{freightid,jdbcType=VARCHAR}
       </if>
