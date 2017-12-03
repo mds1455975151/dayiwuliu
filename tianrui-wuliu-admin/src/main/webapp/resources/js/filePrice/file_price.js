@@ -450,7 +450,7 @@ function cargoChange(type){
 		data:{"id":id},// 你的formid
 		success: function(rs) {
 			var d = rs.data.list[0].measUnit;
-			document.getElementById(type+"priceunits").value=d+"/元";
+			document.getElementById(type+"priceunits").value="元/"+d;
 			document.getElementById(type+"measure").value=d;
 		}
 	});

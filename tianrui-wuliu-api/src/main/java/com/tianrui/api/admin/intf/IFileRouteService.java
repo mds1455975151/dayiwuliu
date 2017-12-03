@@ -4,6 +4,7 @@ import com.tianrui.api.req.admin.FileRouteReq;
 import com.tianrui.api.req.admin.FileRouteSaveReq;
 import com.tianrui.api.req.admin.FileRouteUpdateReq;
 import com.tianrui.api.resp.admin.FileRouteResp;
+import com.tianrui.api.resp.admin.RoutePosition;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
@@ -29,7 +30,8 @@ public interface IFileRouteService {
 	 * @throws Exception
 	 */
 	Result saveFileRoute(FileRouteSaveReq req)throws Exception;
-	
+	/** 通过route id 获取起运地 目的地信息*/
+	RoutePosition getPositionByRouteId(String id)throws Exception;
 	
 	/**
 	 * 修改路径

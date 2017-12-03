@@ -25,7 +25,7 @@ function innerOption(){
 						innerVender(data[0]);
 					}
 					for (var a = 0; a < data.length; a++) {
-						var hml = "<option value='"+data[a].cellPhone+"'>"+data[a].remarkname+"</option>";
+						var hml = "<option value='"+data[a].cellPhone+"'>"+data[a].cellPhone+"-"+data[a].remarkname+"</option>";
 						$("#venderList").append(hml);
 					}
 				}

@@ -5,6 +5,8 @@ import com.tianrui.api.req.goods.GoodsAuditReq;
 import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.resp.goods.PlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectPlanGoodsResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
@@ -13,7 +15,10 @@ public interface IPlanGoodsService {
 	/** 新增货源计划*/
 	Result savePlanGoods(PlanSaveReq req);
 	/** 查询货源*/
-	public PaginationVO<PlanGoodsResp> select(PlanGoodsReq req)throws Exception;
+	public PaginationVO<SelectPlanGoodsResp> select(PlanGoodsReq req)throws Exception;
+	
+	/** 查询货源*/
+	public PaginationVO<SelectAppPlanGoodsResp> appSelect(PlanGoodsReq req)throws Exception;
 	/** id查询详情
 	 * @throws Exception */
 	Result findPlanGoodsId(String id) throws Exception;

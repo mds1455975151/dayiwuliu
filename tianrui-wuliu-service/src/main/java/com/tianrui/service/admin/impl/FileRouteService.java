@@ -25,11 +25,14 @@ import com.tianrui.api.req.admin.FileRouteReq;
 import com.tianrui.api.req.admin.FileRouteSaveReq;
 import com.tianrui.api.req.admin.FileRouteUpdateReq;
 import com.tianrui.api.resp.admin.FileRouteResp;
+import com.tianrui.api.resp.admin.RoutePosition;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 
 /**
@@ -47,6 +50,35 @@ public class FileRouteService implements IFileRouteService {
 	
 	@Autowired
 	FileRouteMapper fileRouteMapper;
+	@Autowired
+	FilePositoinMapper filePositoinMapper;
+
+	@Override
+	public RoutePosition getPositionByRouteId(String id) throws Exception {
+		RoutePosition pts = new RoutePosition();
+		FileRoute route = fileRouteMapper.selectByPrimaryKey(id);
+		if(route != null){
+			String sfd = route.getOpositionid();//始发地
+			String mdd = route.getDpositionid();//目的地
+			FilePositoin star = filePositoinMapper.selectByPrimaryKey(sfd);
+			if(star != null){
+				//起运地信息
+				pts.setStartCity(star.getOp()+star.getOc());
+				pts.setStartName(star.getName());
+				pts.setStartLat((star.getLat())+"");
+				pts.setStartLon((star.getLng())+"");
+			}
+			FilePositoin end = filePositoinMapper.selectByPrimaryKey(mdd);
+			if(end != null){
+				//目的地信息
+				pts.setEndCity(end.getOp()+end.getOc());
+				pts.setEndName(end.getName());
+				pts.setEndLat((end.getLat())+"");
+				pts.setEndLon((end.getLng())+"");
+			}
+		}
+		return pts;
+	}
 
 	@Override
 	public PaginationVO<FileRouteResp> findAllPage(FileRouteReq req) throws Exception {

@@ -9,11 +9,15 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tianrui.api.intf.ISystemMemberService;
+import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.money.intf.ICapitalAccountService;
 import com.tianrui.api.req.app.AppGetCodeReq;
 import com.tianrui.api.req.app.AppMemberReq;
+import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.req.money.CheckPasswordReq;
 import com.tianrui.api.req.money.SavePasswordReq;
+import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
 import com.tianrui.service.cache.CacheClient;
@@ -30,7 +34,18 @@ public class CheckMoenyTestTest {
 	private ISystemMemberService systemMemberService;
 	@Autowired
 	private CacheClient cache ;
+
+	@Autowired
+	IPlanGoodsService planGoodsService;
+	
 	@Test
+	public void app() throws Exception{
+		PlanGoodsReq req = new PlanGoodsReq();
+		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
+		System.out.println("...");
+	}
+	
+	
 	public void chcj(){
 		AppMemberReq req =new AppMemberReq();
 		req.setAccount("18337129805");

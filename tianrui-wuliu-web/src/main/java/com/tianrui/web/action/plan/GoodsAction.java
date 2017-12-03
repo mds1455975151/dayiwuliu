@@ -28,7 +28,7 @@ import com.tianrui.api.resp.admin.FileOrgCargoResp;
 import com.tianrui.api.resp.admin.OrgSignerResp;
 import com.tianrui.api.resp.admin.merchant.MerchantResp;
 import com.tianrui.api.resp.front.cargoplan.RouteResp;
-import com.tianrui.api.resp.goods.PlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectPlanGoodsResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.MemberVo;
@@ -81,7 +81,7 @@ public class GoodsAction {
 		Result rs = Result.getSuccessResult();
 		MemberVo vo =SessionManager.getSessionMember(request);
 		req.setCreator(vo.getId());
-		PaginationVO<PlanGoodsResp> page = planGoodsService.select(req);
+		PaginationVO<SelectPlanGoodsResp> page = planGoodsService.select(req);
 		rs.setData(page);
 		return rs;
 	}

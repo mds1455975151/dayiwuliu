@@ -93,6 +93,7 @@ function innerHml(data){
 				"<td>"+(data[a].totalplanned||"0")+data[a].measure+"</td>" +
 				"<td>"+(data[a].completed||"0")+data[a].measure+"</td>" +
 				"<td>"+(data[a].price||"")+data[a].priceunits+"</td>" +
+				"<td>"+(data[a].distance||"")+"km</td>" +
 				"<td>"+(data[a].sendperson+data[a].sendpersonphone||"")+"</td>" +
 				"<td>"+(data[a].receiveperson+data[a].receivepersonphone||"")+"</td>" +
 				"<td>"+pay+"</td>" +

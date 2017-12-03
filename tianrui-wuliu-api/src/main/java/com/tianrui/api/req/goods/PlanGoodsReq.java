@@ -14,6 +14,8 @@ public class PlanGoodsReq {
 	
 	private Byte status;
 	
+	private Byte isfamily;
+	
 	private String freightname;
 	
 	private String creator;
@@ -80,5 +82,13 @@ public class PlanGoodsReq {
 
 	public void setStatus(Byte status) {
 		this.status = status;
+	}
+
+	public Byte getIsfamily() {
+		return isfamily;
+	}
+
+	public void setIsfamily(Byte isfamily) {
+		this.isfamily = isfamily;
 	}
 }

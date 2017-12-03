@@ -77,6 +77,9 @@
     			or planCode like "%" #{searchKey,jdbcType=VARCHAR} "%"
     		)
     	</if>
+    	<if test="isfamily != null">
+    		and isFamily = #{isfamily,jdbcType=TINYINT}
+    	</if>
     	<if test="status != null">
     		and status = #{status,jdbcType=TINYINT}
     	</if>
@@ -107,6 +110,9 @@
     		and (cargoname like "%" #{searchKey,jdbcType=VARCHAR} "%"
     			or planCode like "%" #{searchKey,jdbcType=VARCHAR} "%"
     		)
+    	</if>
+    	<if test="isfamily != null">
+    		and isFamily = #{isfamily,jdbcType=TINYINT}
     	</if>
     	<if test="status != null">
     		and status = #{status,jdbcType=TINYINT}
