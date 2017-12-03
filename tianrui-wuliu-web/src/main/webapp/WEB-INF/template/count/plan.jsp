@@ -11,7 +11,7 @@
     <link href="${trRoot}/tianrui/css/bootstrap.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
-
+	<link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
 </head>
 <body>
 <!-- head -->

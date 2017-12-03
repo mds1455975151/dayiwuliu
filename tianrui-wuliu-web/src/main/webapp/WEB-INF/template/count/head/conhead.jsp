@@ -1,16 +1,29 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<div class="bghead">
+<div class="bghui">
     <div class="wrap">
         <!--登录头部行begin-->
-        <div class="header_tj">
-            <div class="header_left">
-                <label class="mr10">欢迎来到大易物流平台！</label>
-                <a href="/count/route"><label> 请[登录]</label></a>
-                <a href="/publicMember/registerPage" class="colorreg"><label> [免费注册]</label></a>
+        <head>
+            <div class="headerhy">
+                <div class="headhy_logo" >
+                    <img  src="${trRoot}/tianrui/images/hylogo.png">
+                </div>
+                <div class="headerhy_tit">
+                    <ul>
+                        <li class="withbg"><a href="/count/plan"><h4>首页</h4></a></li>
+                        <li><a href="/count/freightDemand"><h4>货运基地</h4></a></li>
+                        <li><a href="/count/freightPlan"><h4>货运计划</h4></a></li>
+                        <li><a href="/count/onWaybill"><h4>在途运单</h4></a></li>
+                    </ul>
+                </div>
+                <div class="headerhy_right">
+                    <label><a href="/publicMember/registerPage" class="colorreg"> [免费注册]</a></label>
+                    <label><a href="/count/route">请[登录]</a></label>
+                    <label>欢迎来到大易物流平台！</label>
+                </div>
             </div>
-        </div>
+        </head>
         <!--登录头部行end-->
     </div>
 </div>

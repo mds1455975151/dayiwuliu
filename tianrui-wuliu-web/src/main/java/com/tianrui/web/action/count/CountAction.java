@@ -93,6 +93,30 @@ public class CountAction {
 		view.setViewName("count/plan");
 		return view;
 	}
+	/** 货运基地
+	 * @throws Exception */
+	@RequestMapping("freightDemand")
+	public ModelAndView freightDemand() throws Exception{
+		ModelAndView view = index();
+		view.setViewName("count/freightDemand");
+		return view;
+	}
+	/** 货运计划
+	 * @throws Exception */
+	@RequestMapping("freightPlan")
+	public ModelAndView freightPlan() throws Exception{
+		ModelAndView view = index();
+		view.setViewName("count/freightPlan");
+		return view;
+	}
+	/** 在途运单
+	 * @throws Exception */
+	@RequestMapping("onWaybill")
+	public ModelAndView onWaybill() throws Exception{
+		ModelAndView view = index();
+		view.setViewName("count/onWaybill");
+		return view;
+	}
 	@RequestMapping("planLine")
 	@ResponseBody
 	public Result planLine(Integer pageNo,Integer pageSize) throws Exception{
