@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<div class="bghycont">
+<div class="bghycont" id="freightDemandlist" >
     <div class="hycontlist">
         <div class="divju"></div>
         <div class="w1200">
@@ -277,50 +277,25 @@
 </div>
 
 <jsp:include page="head/foot.jsp"></jsp:include>
-
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
-
 <script type="text/javascript">
-    $(function () {
-        //弹出地址层
-        $("#leftfont1").mouseover(function (){
-            $("#lefttip1").css("display","block");
-        }).mouseout(function (){
-            $("#lefttip1").css("display","none");
-        });
-        $("#rightfont1").mouseover(function (){
-            $("#righttip1").css("display","block");
-        }).mouseout(function (){
-            $("#righttip1").css("display","none");
-        });
-
+	var trRoot ="${trRoot}";
         //找货查询
-        $(".zhaohuo").on('click',function(){
-            var div1 = $(".searcont");
-            var div2 = $(".zhaohuoright");
-            div1.toggle();
-            div2.toggle();
-            if(div1.css("display") == 'none') {
-                $("#gengduo").attr('src',"${trRoot}/tianrui/images/hydown.png");
-            }
-            else {
-
-                $("#gengduo").attr('src',"${trRoot}/tianrui/images/hyup.png");
-            }
-        });
-
-        function show_hidden(obj) {
-            if(obj.css("display") == 'block') {
-                obj.css("display",'none');
-
-            } else if(obj.css("display") == 'none'){
-                obj.css("display",'block');
-            }
+    $(".zhaohuo").on('click',function(){
+        var div1 = $(".searcont");
+        var div2 = $(".zhaohuoright");
+        div1.toggle();
+        div2.toggle();
+        if(div1.css("display") == 'none') {
+            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hydown.png");
         }
+        else {
 
-
+            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hyup.png");
+        }
     });
 </script>
+<script type="text/javascript" src="/resources/js/count/freightDemand.js?12.3" ></script>
 </body>
 </html>

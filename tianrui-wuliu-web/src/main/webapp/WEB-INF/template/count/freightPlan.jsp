@@ -58,67 +58,8 @@
     </div>
 </div>
 
-<div class="bghycont">
-    <div class="hycontlist">
-        <div class="divju"></div>
-        <div class="w1200">
-            <div class="hyaddr">
-                <div class="hyaddrl fl">
-                    <img src="${trRoot}/tianrui/images/hybegin.png">
-                    <span>河南省汝州市</span>
-                </div>
-                <div class="hyaddrr fr">
-                    <img src="${trRoot}/tianrui/images/hyend.png">
-                    <span>河南省汝州市</span>
-                </div>
-            </div>
-            <div class="hyroad">
-                <div class="hyroad_solo fl">
-                    <div class="leftfont">
-                    </div>
-                    <div class="lefttip">
-                        <p>河南省郑州市郑东新区商务外环与九如路交叉口20号海联大厦11楼1101室</p>
-                    </div>
-                </div>
-                <div class="hyroadmid fl">
-                    <div class="line1">
-                        <div class="hyroad_add fl">
-                            <img src="${trRoot}/tianrui/images/hypeople.png">
-                            <span>承运人：中原大易物流有限公司</span>
-                        </div>
-                        <div class="fr">
-                            <img src="${trRoot}/tianrui/images/hytime.png">
-                            <span>2017-12-5 至 2017-12-30</span>
-                        </div>
-                    </div>
-                    <div class="line2">
-                        <img src="${trRoot}/tianrui/images/hyline.png">
-                    </div>
-                    <div class="line3">
-                        <div class="huo fl">
-                            <img src="${trRoot}/tianrui/images/hygoods.png">
-                            <span>熟料500000吨</span>
-                        </div>
-                        <div class="price fl">
-                            <label>60元/吨</label>
-                        </div>
-                        <div class="juli fr">
-                            <img src="${trRoot}/tianrui/images/hygps.png">
-                            <span>6000公里</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hyroad_solo fr">
-                    <div class="rightfont">
-                    </div>
-                    <div class="righttip">
-                        <p>河南省郑州市郑东新区商务外环与九如路交叉口20号海联大厦11楼1101室</p>
-                    </div>
-                </div>
+<div class="bghycont" id="freightPlanlist">
 
-            </div>
-        </div>
-    </div>
     <div class="hycontlist">
         <div class="divblue"></div>
         <div class="w1200">
@@ -242,49 +183,11 @@
 </div>
 
 <jsp:include page="head/foot.jsp"></jsp:include>
-
+<script type="text/javascript">
+var trRoot ="${trRoot}";
+</script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
-
-<script type="text/javascript">
-$(function () {
-
-    $(".leftfont").mouseover(function (){
-        $(".lefttip").css("display","block");
-    }).mouseout(function (){
-        $(".lefttip").css("display","none");
-    });
-    $(".rightfont").mouseover(function (){
-        $(".righttip").css("display","block");
-    }).mouseout(function (){
-        $(".righttip").css("display","none");
-    });
-
-    $(".zhaohuo").on('click',function(){
-        var div1 = $(".searcont");
-        var div2 = $(".zhaohuoright");
-        div1.toggle();
-        div2.toggle();
-        if(div1.css("display") == 'none') {
-            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hydown.png");
-        }
-        else {
-
-            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hyup.png");
-        }
-    });
-
-    function show_hidden(obj) {
-        if(obj.css("display") == 'block') {
-            obj.css("display",'none');
-
-        } else if(obj.css("display") == 'none'){
-            obj.css("display",'block');
-        }
-    }
-
-
-});
-</script>
+<script type="text/javascript" src="/resources/js/count/freightPlan.js?12.3" ></script>
 </body>
 </html>

@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<div class="bghycont">
+<div class="bghycont" id="onWaybilllist">
     <div class="hycontlist">
         <div class="divju"></div>
         <div class="w1200">
@@ -240,49 +240,11 @@
     </div>
 </div>
 <jsp:include page="head/foot.jsp"></jsp:include>
-
+<script type="text/javascript">
+var trRoot ="${trRoot}";
+</script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
-
-<script type="text/javascript">
-$(function () {
-
-    $(".leftfont").mouseover(function (){
-        $(".lefttip").css("display","block");
-    }).mouseout(function (){
-        $(".lefttip").css("display","none");
-    });
-    $(".rightfont").mouseover(function (){
-        $(".righttip").css("display","block");
-    }).mouseout(function (){
-        $(".righttip").css("display","none");
-    });
-
-    $(".zhaohuo").on('click',function(){
-        var div1 = $(".searcont");
-        var div2 = $(".zhaohuoright");
-        div1.toggle();
-        div2.toggle();
-        if(div1.css("display") == 'none') {
-            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hydown.png");
-        }
-        else {
-
-            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hyup.png");
-        }
-    });
-
-    function show_hidden(obj) {
-        if(obj.css("display") == 'block') {
-            obj.css("display",'none');
-
-        } else if(obj.css("display") == 'none'){
-            obj.css("display",'block');
-        }
-    }
-
-
-});
-</script>
+<script type="text/javascript" src="/resources/js/count/onWaybill.js?12.3" ></script>
 </body>
 </html>
