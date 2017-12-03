@@ -1,5 +1,6 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import com.alibaba.fastjson.JSON;
 import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.ICargoPlanService;
 import com.tianrui.api.intf.ISystemMemberService;
+import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.req.admin.AdminPlanReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
 import com.tianrui.api.req.front.cargoplan.PlanAppointReq;
@@ -29,6 +31,7 @@ import com.tianrui.api.req.front.cargoplan.PlanQueryReq;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
 import com.tianrui.api.req.front.member.MemberFindReq;
 import com.tianrui.api.req.front.message.SendMsgReq;
+import com.tianrui.api.req.money.MessagePushReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.adminReport.StatReportOfPlanResp;
@@ -91,6 +94,9 @@ public class CargoPlanService implements ICargoPlanService{
 	CacheClient cacheClient;
 	@Autowired
 	private ISystemMemberService systemMemberService;
+	@Autowired
+	IMessagePushService messagePushService;
+
 	
 
 	@Override
@@ -446,7 +452,19 @@ public class CargoPlanService implements ICargoPlanService{
 				plan.setPayment(req.getPayment());
 				
 				planMapper.insert(plan);
-				//TODO
+				
+				//消息广场消息推送
+				try {
+					MessagePushReq mess = new MessagePushReq();
+					mess.setMessageType((byte)2);//货运计划
+					mess.setChannel((byte)1);//app推送
+					mess.setCreateTime(System.currentTimeMillis());
+					mess.setGoods(plan);
+					messagePushService.save(mess);
+				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//发送消息
 				if( plan.getIsfamily()==0 ){
 					MemberVo owner = new MemberVo();

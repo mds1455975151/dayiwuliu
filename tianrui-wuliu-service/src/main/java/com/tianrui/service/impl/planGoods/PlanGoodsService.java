@@ -3,6 +3,7 @@ package com.tianrui.service.impl.planGoods;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -11,17 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tianrui.api.admin.intf.IFileRouteService;
 import com.tianrui.api.admin.intf.IMerchantService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.req.front.cargoplan.PlanSaveReq;
+import com.tianrui.api.req.front.message.SendMsgReq;
 import com.tianrui.api.req.goods.GoodsAuditReq;
 import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.req.money.MessagePushReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
-import com.tianrui.api.resp.front.cargoplan.PlanResp;
+import com.tianrui.api.resp.admin.RoutePosition;
 import com.tianrui.api.resp.goods.PlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppBillResp;
+import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppPlanResp;
+import com.tianrui.api.resp.goods.SelectPlanGoodsResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.enums.PlanStatusEnum;
@@ -33,16 +40,17 @@ import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FileOrgCargo;
 import com.tianrui.service.admin.bean.FileRoute;
-import com.tianrui.service.admin.impl.FreightInfoService;
 import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.PlanGoods;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.service.impl.MessageService;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.PlanGoodsMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -77,6 +85,10 @@ public class PlanGoodsService implements IPlanGoodsService {
 	private PlanMapper planMapper;
 	@Autowired
 	IMessagePushService messagePushService;
+	@Autowired
+	IFileRouteService fileRouteService;
+	@Autowired
+	BillMapper billMapper;
 
 	@Override
 	@Transactional
@@ -106,7 +118,6 @@ public class PlanGoodsService implements IPlanGoodsService {
 								mess.setGoods(goods);
 								messagePushService.save(mess);
 							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -135,23 +146,22 @@ public class PlanGoodsService implements IPlanGoodsService {
 	
 	@Override
 	@Transactional
-	public Result goodsToPlan(GoodsTOPlanReq goods) {
-		// TODO Auto-generated method stub
+	public Result goodsToPlan(GoodsTOPlanReq req) {
 		Result rs = Result.getSuccessResult();
-		PlanGoods req = planGoodsMapper.selectByPrimaryKey(goods.getGoodsid());
-		if(req.getStatus()!=(byte)-1 && 
-				req.getStatus()!=(byte)0 && 
-				 req.getStatus()!=(byte)4 && 
-				  req.getStatus()!=(byte)9){
+		PlanGoods goods = planGoodsMapper.selectByPrimaryKey(req.getGoodsid());
+		if(goods.getStatus()!=(byte)-1 && 
+				goods.getStatus()!=(byte)0 && 
+						goods.getStatus()!=(byte)4 && 
+								goods.getStatus()!=(byte)9){
 			//-1-已删除；0 待审核；1-审核通过；2-发单中；3-已完成  4-已关闭 9-审核失败',
 			if(req != null){
-				Plan plan = saveGoodsPlan(goods, req);
+				Plan plan = saveGoodsPlan(req, goods);
 				PlanGoods upt = new PlanGoods();
-				upt.setId(req.getId());
-				Double completed = goods.getWeight();
-				Double tot = req.getTotalplanned();//计划总量
-				if(null != req.getCompleted()){
-					completed = completed + req.getCompleted();
+				upt.setId(goods.getId());
+				Double completed = req.getWeight();
+				Double tot = goods.getTotalplanned();//计划总量
+				if(null != goods.getCompleted()){
+					completed = completed + goods.getCompleted();
 				}
 				upt.setCompleted(completed);//计划完成量
 				if(completed >= tot){
@@ -160,17 +170,16 @@ public class PlanGoodsService implements IPlanGoodsService {
 					upt.setStatus((byte)2);
 				}
 				planGoodsMapper.updateByPrimaryKeySelective(upt);
-				if(goods.getMessageType() != 0){
+				if(req.getMessageType() != 0){
 					//选择消息推送 且不为平台推送
 					try {
 						MessagePushReq mess = new MessagePushReq();
 						mess.setMessageType((byte)2);//货运计划
-						mess.setChannel(goods.getMessageType());
+						mess.setChannel(req.getMessageType());
 						mess.setCreateTime(System.currentTimeMillis());
 						mess.setGoods(plan);
 						messagePushService.save(mess);
 					} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -183,81 +192,112 @@ public class PlanGoodsService implements IPlanGoodsService {
 		return rs;
 	}
 
-	private Plan saveGoodsPlan(GoodsTOPlanReq goods, PlanGoods req) {
+	private Plan saveGoodsPlan(GoodsTOPlanReq req, PlanGoods goods) {
 		Plan plan =new Plan();
 		String id = UUIDUtil.getId();
 		//车主信息
-		plan.setTotalplanned(goods.getWeight());
-		plan.setVehicleownerid(goods.getVenderid());
-		plan.setPrice(goods.getPrice());
-		MemberVo vender =memberVoService.get(goods.getVenderid());
+		plan.setTotalplanned(req.getWeight());
+		plan.setVehicleownerid(req.getVenderid());
+		plan.setPrice(req.getPrice());
+		plan.setDesc3(req.getIsfamily());//是否公开
+		MemberVo vender =memberVoService.get(req.getVenderid());
 		plan.setVehicleownername(vender.getRealName());
 		plan.setVehicleownerphone(vender.getCellphone());
 		
 		plan.setId(id);
-		plan.setDesc3(req.getIsfamily().toString());//是否公开
-		plan.setDesc4(req.getId());//货源id
-		plan.setPlancode("adminppp");
-//			plan.setPlancode(codeGenDao.codeGen(1));
+		plan.setDesc4(goods.getId());//货源id
+		plan.setPlancode(codeGenDao.codeGen(1));
 		//货物信息
-		plan.setCargoid(req.getCargoid());
-		plan.setCargoname(req.getCargoname());
-		plan.setMeasure(req.getMeasure());
-		plan.setCargocode(req.getCargocode());
+		plan.setCargoid(goods.getCargoid());
+		plan.setCargoname(goods.getCargoname());
+		plan.setMeasure(goods.getMeasure());
+		plan.setCargocode(goods.getCargocode());
 		//策略信息
-		plan.setFreightid(req.getFreightid());
-		plan.setPriceunits(req.getPriceunits());
-		plan.setTallage(req.getTallage());
-		plan.setFreightname(req.getFreightname());
-		plan.setOrgid(req.getOrgid());
+		plan.setFreightid(goods.getFreightid());
+		plan.setPriceunits(goods.getPriceunits());
+		plan.setTallage(goods.getTallage());
+		plan.setFreightname(goods.getFreightname());
+		plan.setOrgid(goods.getOrgid());
 		//路径信息
-		plan.setRouteid(req.getRouteid());
-		plan.setSendperson(req.getSendperson());
-		plan.setSendpersonphone(req.getSendpersonphone());
-		plan.setReceiveperson(req.getReceiveperson());
-		plan.setReceivepersonphone(req.getReceivepersonphone());
-		plan.setDistance(req.getDistance());
-		plan.setStartcity(req.getStartcity());
-		plan.setEndcity(req.getEndcity());
+		plan.setRouteid(goods.getRouteid());
+		plan.setSendperson(goods.getSendperson());
+		plan.setSendpersonphone(goods.getSendpersonphone());
+		plan.setReceiveperson(goods.getReceiveperson());
+		plan.setReceivepersonphone(goods.getReceivepersonphone());
+		plan.setDistance(goods.getDistance());
+		plan.setStartcity(goods.getStartcity());
+		plan.setEndcity(goods.getEndcity());
 		
 		//初始化信息
 		plan.setVenderdelflag((byte)0);
 		plan.setOwnerdelflag((byte)0);
 		//自定义属性
 		
-		plan.setStarttime(req.getStarttime());
-		plan.setEndtime(req.getEndtime());
+		plan.setStarttime(goods.getStarttime());
+		plan.setEndtime(goods.getEndtime());
 		//合同 1:合同  0自由  价格信息
-		plan.setType(req.getType());
+		plan.setType(goods.getType());
 		//联系人信息
-		plan.setTelephone(req.getTelephone());
-		plan.setLinkman(req.getLinkman());
+		plan.setTelephone(goods.getTelephone());
+		plan.setLinkman(goods.getLinkman());
 		//备注字段
-		plan.setCreator(goods.getUserId());
 		plan.setCreatetime(System.currentTimeMillis());
-		plan.setModifier(goods.getUserId());
+		plan.setCreator(req.getUserId());
+		plan.setModifier(req.getUserId());
+		plan.setPathID(req.getUserId());
 		plan.setModifytime(System.currentTimeMillis());
 		plan.setStatus(PlanStatusEnum.NEW.getStatus());
 		plan.setIsfamily((byte)0);
 		plan.setIsAppoint("0");
-		
-		plan.setPathID(goods.getUserId());
 		//发货方收货方
-		plan.setConsigneeMerchant(req.getConsigneemerchant());
-		plan.setShipperMerchant(req.getShippermerchant());
+		plan.setConsigneeMerchant(goods.getConsigneemerchant());
+		plan.setShipperMerchant(goods.getShippermerchant());
 		//发货人
-		plan.setSendperson(req.getSendperson());
-		plan.setSendpersonphone(req.getSendpersonphone());
+		plan.setSendperson(goods.getSendperson());
+		plan.setSendpersonphone(goods.getSendpersonphone());
 		//收货人
-		plan.setReceiveid(req.getReceiveid());
-		plan.setReceiveperson(req.getReceiveperson());
-		plan.setReceivepersonphone(req.getReceivepersonphone());
+		plan.setReceiveid(goods.getReceiveid());
+		plan.setReceiveperson(goods.getReceiveperson());
+		plan.setReceivepersonphone(goods.getReceivepersonphone());
 		//支付对象 1-司机 2-车主
-		plan.setPayment(req.getPayment());
+		plan.setPayment(goods.getPayment());
 		
 		planMapper.insert(plan);
+		
+		MemberVo owner = new MemberVo();
+		owner.setUserName("调度中心管理员"+req.getUserId());
+		owner.setId(req.getUserId());
+		sendMsgInside(Arrays.asList(new String[]{plan.getPlancode(),owner.getRealName()}), plan.getId(), owner, vender, MessageCodeEnum.PLAN_2VENDER_CREATE);
+		
 		return plan;
 	}
+	
+	//发送站内信
+		private void sendMsgInside(List<String> params,String keyId,MemberVo sender,MemberVo receiver,MessageCodeEnum codeEnum){
+			SendMsgReq req = new SendMsgReq();
+			if(sender != null && receiver != null && codeEnum != null){
+				req.setParams(params);
+				req.setKeyid(keyId);
+				//发送人
+				req.setSendid(sender.getId());
+				req.setSendname(sender.getRealName());
+				//接受人
+				req.setRecid(receiver.getId());
+				req.setRecname(receiver.getRealName());
+				req.setCodeEnum(codeEnum);
+				req.setRecType(codeEnum.getType());
+				//消息类别  系统 还是会员
+				req.setType("2");
+				//详情URI
+				String uri ="/trwuliu/planvender/detail?id="+keyId;
+				req.setURI(uri);
+				try {
+					messageService.sendMessageInside(req);
+				} catch (Exception e) {
+				
+				}
+			}
+		}
 	
 	@Override
 	public Result findPlanGoodsId(String id) throws Exception {
@@ -301,8 +341,8 @@ public class PlanGoodsService implements IPlanGoodsService {
 		return resp;
 	}
 	@Override
-	public PaginationVO<PlanGoodsResp> select(PlanGoodsReq req) throws Exception {
-		PaginationVO<PlanGoodsResp> page = new PaginationVO<PlanGoodsResp>();
+	public PaginationVO<SelectPlanGoodsResp> select(PlanGoodsReq req) throws Exception {
+		PaginationVO<SelectPlanGoodsResp> page = new PaginationVO<SelectPlanGoodsResp>();
 		PlanGoods query = new PlanGoods();
 		PropertyUtils.copyProperties(query, req);
 		if(req.getPageNo()!=null){
@@ -317,12 +357,149 @@ public class PlanGoodsService implements IPlanGoodsService {
 		page.setList(copyProperties2(list));
 		return page;
 	}
+	
+	@Override
+	public PaginationVO<SelectAppBillResp> appBillSelect(PlanGoodsReq req) throws Exception {
+		// TODO Auto-generated method stub
+		PaginationVO<SelectAppBillResp> page = new PaginationVO<SelectAppBillResp>();
+		Bill bill = new Bill();
+		if(req.getPageNo()!=null){
+			bill.setStart(req.getPageNo()*req.getPageSize());
+			bill.setLimit(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		bill.setCargoname(req.getCargoname());
+		List<Bill> list = billMapper.selectPublic(bill);
+		long a = billMapper.countPublic(bill);
+		page.setList(billCopyProperties2(list));
+		page.setTotal(a);
+		return page;
+	}
+	
+	private List<SelectAppBillResp> billCopyProperties2(List<Bill> list)
+			throws Exception {
+		List<SelectAppBillResp> resp = new ArrayList<SelectAppBillResp>();
+		for(Bill bill : list){
+			SelectAppBillResp sp = new SelectAppBillResp();
+			String routeId = bill.getRouteid();
+			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
+			
+			sp.setId(bill.getId());
+			sp.setCargoname(bill.getCargoname());
+			sp.setCreatetime(bill.getCreatetime());
+			sp.setDistance(bill.getDistance());
+//			sp.setMeasure(bill.getme);
+			sp.setBillcode(bill.getWaybillno());
+			sp.setPrice(bill.getPrice());
+			sp.setPriceunits(bill.getPriceunits());
+			sp.setStarttime(bill.getStarttime());
+			sp.setEndtime(bill.getEndtime());
+			
+			sp.setStartCity(post.getStartCity());
+			sp.setStartLat(post.getStartLat());
+			sp.setStartLon(post.getStartLon());
+			sp.setStartName(post.getStartName());
+			
+			sp.setEndCity(post.getEndCity());
+			sp.setEndLat(post.getEndLat());
+			sp.setEndLon(post.getEndLon());
+			sp.setEndName(post.getEndName());
+			
+			resp.add(sp);
+		}
+		return resp;
+	}
 
-	private List<PlanGoodsResp> copyProperties2(List<PlanGoods> list)
-			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		List<PlanGoodsResp> resp = new ArrayList<PlanGoodsResp>();
+	@Override
+	public PaginationVO<SelectAppPlanResp> appPlanSelect(PlanGoodsReq req) throws Exception {
+		PaginationVO<SelectAppPlanResp> page = new PaginationVO<SelectAppPlanResp>();
+		Plan query = new Plan();
+		if(req.getPageNo()!=null){
+			query.setStart(req.getPageNo()*req.getPageSize());
+			query.setLimit(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		query.setCargoname(req.getCargoname());
+		query.setDesc3("1");
+		List<Plan> list = planMapper.selectByCondition(query);
+		long a = planMapper.countByCondition(query);
+		page.setList(planCopyProperties2(list));
+		page.setTotal(a);
+		return page;
+	}
+	
+	private List<SelectAppPlanResp> planCopyProperties2(List<Plan> list)
+			throws Exception {
+		List<SelectAppPlanResp> resp = new ArrayList<SelectAppPlanResp>();
+		for(Plan goods : list){
+			SelectAppPlanResp sp = new SelectAppPlanResp();
+			String routeId = goods.getRouteid();
+			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
+			PropertyUtils.copyProperties(sp, goods);
+			
+			sp.setStartCity(post.getStartCity());
+			sp.setStartLat(post.getStartLat());
+			sp.setStartLon(post.getStartLon());
+			sp.setStartName(post.getStartName());
+			
+			sp.setEndCity(post.getEndCity());
+			sp.setEndLat(post.getEndLat());
+			sp.setEndLon(post.getEndLon());
+			sp.setEndName(post.getEndName());
+			
+			resp.add(sp);
+		}
+		return resp;
+	}
+	
+	@Override
+	public PaginationVO<SelectAppPlanGoodsResp> appSelect(PlanGoodsReq req) throws Exception {
+		PaginationVO<SelectAppPlanGoodsResp> page = new PaginationVO<SelectAppPlanGoodsResp>();
+		PlanGoods query = new PlanGoods();
+		PropertyUtils.copyProperties(query, req);
+		if(req.getPageNo()!=null){
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		long total = planGoodsMapper.selectByCount(query);
+		List<PlanGoods> list = planGoodsMapper.selectByCondition(query);
+		page.setTotal(total);
+		page.setList(appCopyProperties2(list));
+		return page;
+	}
+	private List<SelectAppPlanGoodsResp> appCopyProperties2(List<PlanGoods> list)
+			throws Exception {
+		List<SelectAppPlanGoodsResp> resp = new ArrayList<SelectAppPlanGoodsResp>();
 		for(PlanGoods goods : list){
-			PlanGoodsResp sp = new PlanGoodsResp();
+			SelectAppPlanGoodsResp sp = new SelectAppPlanGoodsResp();
+			String routeId = goods.getRouteid();
+			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
+			PropertyUtils.copyProperties(sp, goods);
+			
+			sp.setStartCity(post.getStartCity());
+			sp.setStartLat(post.getStartLat());
+			sp.setStartLon(post.getStartLon());
+			sp.setStartName(post.getStartName());
+			
+			sp.setEndCity(post.getEndCity());
+			sp.setEndLat(post.getEndLat());
+			sp.setEndLon(post.getEndLon());
+			sp.setEndName(post.getEndName());
+			
+			resp.add(sp);
+		}
+		return resp;
+	}
+
+	private List<SelectPlanGoodsResp> copyProperties2(List<PlanGoods> list)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<SelectPlanGoodsResp> resp = new ArrayList<SelectPlanGoodsResp>();
+		for(PlanGoods goods : list){
+			SelectPlanGoodsResp sp = new SelectPlanGoodsResp();
 			PropertyUtils.copyProperties(sp, goods);
 			resp.add(sp);
 		}
@@ -356,7 +533,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 		PlanGoods plan =new PlanGoods();
 		String id = UUIDUtil.getId();
 		plan.setId(id);
-//				plan.setPlancode(codeGenDao.codeGen(1));
+		plan.setPlancode(codeGenDao.codeGen(1));
 		//通过策略以及路径形成的信息
 		setPlanData(fileFreight, fileRoute, cargo, plan);
 		//初始化信息
@@ -427,5 +604,5 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setStartcity(fileRoute.getOaddr());
 		plan.setEndcity(fileRoute.getDaddr());
 	}
-	
+
 }

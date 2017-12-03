@@ -28,45 +28,49 @@ public class CodeGenDaoImpl extends BaseDaoImpl<CodeGen,String> implements CodeG
 	@Override
 	public synchronized String codeGen(int type) {
 		String rs =null;
-		Query query =new Query();
-		Criteria criteria =Criteria.where("currdata").is(getCurrDate()).and("type").is(type);
-		query.addCriteria(criteria);
-		//排序条件
-		query.with(new Sort(Direction.ASC,"timestamp"));
-		
-		List<CodeGen> list =mongoTemplate.find(query,CodeGen.class);
-		
-		if( CollectionUtils.isNotEmpty(list) ){
-			CodeGen code =list.get(0);
-			long  newCoe=code.getCode()+1;
-			Update update =Update.update("code", newCoe);
-			mongoTemplate.updateFirst(new Query().addCriteria(Criteria.where("id").is(code.getId())), update, CodeGen.class);
-			rs = String.valueOf(newCoe);
-		}else{
-			rs = String.valueOf(getCurrDate()+"0001");
-			CodeGen code =new CodeGen();
-			code.setType(type);
-			code.setCurrdata(getCurrDate());
-			code.setTimestamp(System.currentTimeMillis());
-			code.setId(UUIDUtil.getId());
-			code.setCode(Long.parseLong(rs));
-			mongoTemplate.insert(code);
-		}
-		switch(type){
-		  case 1:
-			  rs="JH"+rs;
-			  break;
-		  case 2:
-			  rs="YD"+rs;
-			  break;
-		  case 3:
-			  rs="JM"+rs;
-			  break;
-		  case 4:
-			  rs="ZD"+rs;		  
-			  break;
-		  default:
-			  
+		try {
+			Query query =new Query();
+			Criteria criteria =Criteria.where("currdata").is(getCurrDate()).and("type").is(type);
+			query.addCriteria(criteria);
+			//排序条件
+			query.with(new Sort(Direction.ASC,"timestamp"));
+			
+			List<CodeGen> list =mongoTemplate.find(query,CodeGen.class);
+			
+			if( CollectionUtils.isNotEmpty(list) ){
+				CodeGen code =list.get(0);
+				long  newCoe=code.getCode()+1;
+				Update update =Update.update("code", newCoe);
+				mongoTemplate.updateFirst(new Query().addCriteria(Criteria.where("id").is(code.getId())), update, CodeGen.class);
+				rs = String.valueOf(newCoe);
+			}else{
+				rs = String.valueOf(getCurrDate()+"0001");
+				CodeGen code =new CodeGen();
+				code.setType(type);
+				code.setCurrdata(getCurrDate());
+				code.setTimestamp(System.currentTimeMillis());
+				code.setId(UUIDUtil.getId());
+				code.setCode(Long.parseLong(rs));
+				mongoTemplate.insert(code);
+			}
+			switch(type){
+			  case 1:
+				  rs="JH"+rs;
+				  break;
+			  case 2:
+				  rs="YD"+rs;
+				  break;
+			  case 3:
+				  rs="JM"+rs;
+				  break;
+			  case 4:
+				  rs="ZD"+rs;		  
+				  break;
+			  default:
+				  
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		return rs;
 	}

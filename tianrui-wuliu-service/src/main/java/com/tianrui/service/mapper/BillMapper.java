@@ -103,4 +103,10 @@ public interface BillMapper {
 	int queryCountByVenderId(Map<String, Object> params);
 	
 	List<Bill> selectByUptBillImg(Bill record);
+	/** 信息广场查询运单*/
+	List<Bill> selectPublic(Bill record);
+	
+	/** 信息广场查询运单*/
+	long countPublic(Bill record);
+	
 }

@@ -16,6 +16,7 @@ import com.tianrui.api.req.goods.GoodsTOPlanReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.resp.front.cargoplan.PlanResp;
 import com.tianrui.api.resp.goods.PlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectPlanGoodsResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.Users;
@@ -73,7 +74,7 @@ public class AdminGoodsAction {
 	@ResponseBody
 	public Result select(PlanGoodsReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
-		PaginationVO<PlanGoodsResp> page = planGoodsService.select(req);
+		PaginationVO<SelectPlanGoodsResp> page = planGoodsService.select(req);
 		rs.setData(page);
 		return rs;
 	}

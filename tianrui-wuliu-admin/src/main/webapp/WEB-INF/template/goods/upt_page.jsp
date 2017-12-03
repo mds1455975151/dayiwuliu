@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                    	 <div class="info_base">
 	                             <div class="info_base_solo">
 		                             <label>请输入车主账号：</label>
-		                             <span> <input id="venderCellphone" type="text" list="venderList">
+		                             <span> <input id="venderCellphone" style="width: 300px" type="text" list="venderList">
 				                        <datalist id="venderList">
 				                        </datalist>
 		                             </span>

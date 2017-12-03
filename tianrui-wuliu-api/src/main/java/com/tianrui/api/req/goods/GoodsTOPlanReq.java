@@ -8,7 +8,7 @@ public class GoodsTOPlanReq {
 	private Double price;//单价
 	private Double weight;//重量
 	
-	private byte isfamily;
+	private String isfamily;
 	private byte messageType;
 	
 	public String getGoodsid() {
@@ -41,16 +41,16 @@ public class GoodsTOPlanReq {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public byte getIsfamily() {
-		return isfamily;
-	}
-	public void setIsfamily(byte isfamily) {
-		this.isfamily = isfamily;
-	}
 	public byte getMessageType() {
 		return messageType;
 	}
 	public void setMessageType(byte messageType) {
 		this.messageType = messageType;
+	}
+	public String getIsfamily() {
+		return isfamily;
+	}
+	public void setIsfamily(String isfamily) {
+		this.isfamily = isfamily;
 	}
 }
