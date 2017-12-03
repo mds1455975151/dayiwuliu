@@ -25,7 +25,9 @@ import com.tianrui.api.req.money.MessagePushReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.admin.RoutePosition;
 import com.tianrui.api.resp.goods.PlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppBillResp;
 import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppPlanResp;
 import com.tianrui.api.resp.goods.SelectPlanGoodsResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MessageCodeEnum;
@@ -42,11 +44,13 @@ import com.tianrui.service.admin.impl.OrganizationService;
 import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.PlanGoods;
 import com.tianrui.service.cache.CacheClient;
 import com.tianrui.service.impl.MemberVoService;
 import com.tianrui.service.impl.MessageService;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.PlanGoodsMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mongo.CodeGenDao;
@@ -83,6 +87,8 @@ public class PlanGoodsService implements IPlanGoodsService {
 	IMessagePushService messagePushService;
 	@Autowired
 	IFileRouteService fileRouteService;
+	@Autowired
+	BillMapper billMapper;
 
 	@Override
 	@Transactional
@@ -200,7 +206,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 		
 		plan.setId(id);
 		plan.setDesc4(goods.getId());//货源id
-//		plan.setPlancode(codeGenDao.codeGen(1));
+		plan.setPlancode(codeGenDao.codeGen(1));
 		//货物信息
 		plan.setCargoid(goods.getCargoid());
 		plan.setCargoname(goods.getCargoname());
@@ -353,6 +359,102 @@ public class PlanGoodsService implements IPlanGoodsService {
 	}
 	
 	@Override
+	public PaginationVO<SelectAppBillResp> appBillSelect(PlanGoodsReq req) throws Exception {
+		// TODO Auto-generated method stub
+		PaginationVO<SelectAppBillResp> page = new PaginationVO<SelectAppBillResp>();
+		Bill bill = new Bill();
+		if(req.getPageNo()!=null){
+			bill.setStart(req.getPageNo()*req.getPageSize());
+			bill.setLimit(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		bill.setCargoname(req.getCargoname());
+		List<Bill> list = billMapper.selectPublic(bill);
+		long a = billMapper.countPublic(bill);
+		page.setList(billCopyProperties2(list));
+		page.setTotal(a);
+		return page;
+	}
+	
+	private List<SelectAppBillResp> billCopyProperties2(List<Bill> list)
+			throws Exception {
+		List<SelectAppBillResp> resp = new ArrayList<SelectAppBillResp>();
+		for(Bill bill : list){
+			SelectAppBillResp sp = new SelectAppBillResp();
+			String routeId = bill.getRouteid();
+			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
+			
+			sp.setId(bill.getId());
+			sp.setCargoname(bill.getCargoname());
+			sp.setCreatetime(bill.getCreatetime());
+			sp.setDistance(bill.getDistance());
+//			sp.setMeasure(bill.getme);
+			sp.setBillcode(bill.getWaybillno());
+			sp.setPrice(bill.getPrice());
+			sp.setPriceunits(bill.getPriceunits());
+			sp.setStarttime(bill.getStarttime());
+			sp.setEndtime(bill.getEndtime());
+			
+			sp.setStartCity(post.getStartCity());
+			sp.setStartLat(post.getStartLat());
+			sp.setStartLon(post.getStartLon());
+			sp.setStartName(post.getStartName());
+			
+			sp.setEndCity(post.getEndCity());
+			sp.setEndLat(post.getEndLat());
+			sp.setEndLon(post.getEndLon());
+			sp.setEndName(post.getEndName());
+			
+			resp.add(sp);
+		}
+		return resp;
+	}
+
+	@Override
+	public PaginationVO<SelectAppPlanResp> appPlanSelect(PlanGoodsReq req) throws Exception {
+		PaginationVO<SelectAppPlanResp> page = new PaginationVO<SelectAppPlanResp>();
+		Plan query = new Plan();
+		if(req.getPageNo()!=null){
+			query.setStart(req.getPageNo()*req.getPageSize());
+			query.setLimit(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		query.setCargoname(req.getCargoname());
+		query.setDesc3("1");
+		List<Plan> list = planMapper.selectByCondition(query);
+		long a = planMapper.countByCondition(query);
+		page.setList(planCopyProperties2(list));
+		page.setTotal(a);
+		return page;
+	}
+	
+	private List<SelectAppPlanResp> planCopyProperties2(List<Plan> list)
+			throws Exception {
+		List<SelectAppPlanResp> resp = new ArrayList<SelectAppPlanResp>();
+		for(Plan goods : list){
+			SelectAppPlanResp sp = new SelectAppPlanResp();
+			String routeId = goods.getRouteid();
+			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
+			PropertyUtils.copyProperties(sp, goods);
+			
+			sp.setStartCity(post.getStartCity());
+			sp.setStartLat(post.getStartLat());
+			sp.setStartLon(post.getStartLon());
+			sp.setStartName(post.getStartName());
+			
+			sp.setEndCity(post.getEndCity());
+			sp.setEndLat(post.getEndLat());
+			sp.setEndLon(post.getEndLon());
+			sp.setEndName(post.getEndName());
+			
+			resp.add(sp);
+		}
+		return resp;
+	}
+	
+	@Override
 	public PaginationVO<SelectAppPlanGoodsResp> appSelect(PlanGoodsReq req) throws Exception {
 		PaginationVO<SelectAppPlanGoodsResp> page = new PaginationVO<SelectAppPlanGoodsResp>();
 		PlanGoods query = new PlanGoods();
@@ -431,7 +533,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 		PlanGoods plan =new PlanGoods();
 		String id = UUIDUtil.getId();
 		plan.setId(id);
-//		plan.setPlancode(codeGenDao.codeGen(1));
+		plan.setPlancode(codeGenDao.codeGen(1));
 		//通过策略以及路径形成的信息
 		setPlanData(fileFreight, fileRoute, cargo, plan);
 		//初始化信息
@@ -503,5 +605,4 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setEndcity(fileRoute.getDaddr());
 	}
 
-	
 }

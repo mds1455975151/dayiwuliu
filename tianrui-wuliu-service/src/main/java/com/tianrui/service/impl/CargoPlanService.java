@@ -398,7 +398,7 @@ public class CargoPlanService implements ICargoPlanService{
 				Plan plan =new Plan();
 				String id = UUIDUtil.getId();
 				plan.setId(id);
-//				plan.setPlancode(codeGenDao.codeGen(1));
+				plan.setPlancode(codeGenDao.codeGen(1));
 				//通过策略以及路径形成的信息
 				setPlanData(fileFreight, fileRoute, cargo, plan);
 				//车主信息

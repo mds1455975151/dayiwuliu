@@ -16,7 +16,9 @@ import com.tianrui.api.req.app.AppMemberReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
 import com.tianrui.api.req.money.CheckPasswordReq;
 import com.tianrui.api.req.money.SavePasswordReq;
+import com.tianrui.api.resp.goods.SelectAppBillResp;
 import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppPlanResp;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.common.vo.UserLoginVo;
@@ -41,7 +43,11 @@ public class CheckMoenyTestTest {
 	@Test
 	public void app() throws Exception{
 		PlanGoodsReq req = new PlanGoodsReq();
-		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
+//		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
+		req.setPageNo(0);
+		req.setPageSize(5);
+//		PaginationVO<SelectAppPlanResp> page = planGoodsService.appPlanSelect(req);
+		PaginationVO<SelectAppBillResp> page = planGoodsService.appBillSelect(req);
 		System.out.println("...");
 	}
 	

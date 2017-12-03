@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.req.goods.PlanGoodsReq;
+import com.tianrui.api.resp.goods.SelectAppBillResp;
 import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
+import com.tianrui.api.resp.goods.SelectAppPlanResp;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.PaginationVO;
@@ -36,6 +38,40 @@ public class AppGoodsAction {
 		PlanGoodsReq req = appParam.getBody();
 		req.setIsfamily((byte)1);
 		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
+		appResult.setReturnData(page.getList());
+		appResult.setTotal(page.getTotalInt());
+		return appResult;
+	}
+	
+	/**
+	 * 查询计划列表
+	 * */
+	@RequestMapping(value="/planSelect",method=RequestMethod.POST)
+	@ApiParamRawType(PlanGoodsReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult planSelect(AppParam<PlanGoodsReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		appResult.setCode("000000");
+		PlanGoodsReq req = appParam.getBody();
+		PaginationVO<SelectAppPlanResp> page = planGoodsService.appPlanSelect(req);
+		appResult.setReturnData(page.getList());
+		appResult.setTotal(page.getTotalInt());
+		return appResult;
+	}
+	
+	/**
+	 * 查询运单列表
+	 * */
+	@RequestMapping(value="/billSelect",method=RequestMethod.POST)
+	@ApiParamRawType(PlanGoodsReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult billSelect(AppParam<PlanGoodsReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		appResult.setCode("000000");
+		PlanGoodsReq req = appParam.getBody();
+		PaginationVO<SelectAppBillResp> page = planGoodsService.appBillSelect(req);
 		appResult.setReturnData(page.getList());
 		appResult.setTotal(page.getTotalInt());
 		return appResult;

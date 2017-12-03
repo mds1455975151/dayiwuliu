@@ -198,6 +198,36 @@
 			and wb.createtime <![CDATA[<=]]> #{createTimeEnd,jdbcType=BIGINT}
 		</if>
 	</select>
+	<select id="selectPublic" resultMap="BaseResultMap"
+		parameterType="com.tianrui.service.bean.Bill">
+		select
+		<include refid="Base_Column_List" />
+		from wuliu_bill 
+		<where>
+			 status in (1,2,3,4) order by modifytime desc
+			<if test="cargoname != null and cargoname != ''">
+				and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
+			</if>
+		</where>
+		<if test="start != null">
+			<if test="limit !=null">
+				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+			</if>
+		</if>
+	</select>
+	
+	<select id="countPublic" resultType="long"
+		parameterType="com.tianrui.service.bean.Bill">
+		select
+		count(0)
+		from wuliu_bill 
+		<where>
+			 status in (1,2,3,4) order by modifytime desc
+			<if test="cargoname != null and cargoname != ''">
+				and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
+			</if>
+		</where>
+	</select>
 	<select id="selectByCondition" resultMap="BaseResultMap"
 		parameterType="com.tianrui.service.bean.Bill">
 		select
