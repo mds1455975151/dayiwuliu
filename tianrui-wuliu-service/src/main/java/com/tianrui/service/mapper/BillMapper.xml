@@ -204,11 +204,44 @@
 		<include refid="Base_Column_List" />
 		from wuliu_bill 
 		<where>
-			 status in (1,2,3,4) order by modifytime desc
+			 status in (1,2,3,4)
 			<if test="cargoname != null and cargoname != ''">
 				and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
 			</if>
+			<if test="(startOp != null and startOp != '') or
+	    	 (startOc != null and startOc != '') or 
+	    	 (endOp != null and endOp != '') or 
+	    	 (endOc != null and endOc != '')">
+	 			and routeid in(SELECT ID FROM file_route
+				<where>
+					<if test="(startOp != null and startOp != '') or (startOc != null and startOc != '')">
+						and oPositionId IN (SELECT ID FROM
+							file_position
+						<where>
+							<if test="startOp != null and startOp != ''">
+								and op like "%" #{startOp,jdbcType=VARCHAR} "%"
+							</if>
+							<if test="startOc != null and startOc != ''">
+								and oc like "%" #{startOc,jdbcType=VARCHAR} "%"
+							</if>
+						</where>)
+					</if>
+					<if test="(endOp != null and endOp != '') or (endOc != null and endOc != '')">
+						and dPositionId IN (SELECT ID FROM
+							file_position 
+						<where>
+							<if test="endOp != null and endOp != ''">
+								and op LIKE "%" #{endOp,jdbcType=VARCHAR} "%"
+							</if>
+							<if test="endOc != null and endOc != ''">
+								and oc LIKE "%" #{endOc,jdbcType=VARCHAR} "%"
+							</if>
+						</where>)
+					</if>
+				</where>)   	
+	    	</if>
 		</where>
+		order by modifytime desc
 		<if test="start != null">
 			<if test="limit !=null">
 				limit #{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
@@ -222,10 +255,42 @@
 		count(0)
 		from wuliu_bill 
 		<where>
-			 status in (1,2,3,4) order by modifytime desc
+			 status in (1,2,3,4)
 			<if test="cargoname != null and cargoname != ''">
 				and cargoname like "%" #{cargoname,jdbcType=VARCHAR} "%"
 			</if>
+			<if test="(startOp != null and startOp != '') or
+	    	 (startOc != null and startOc != '') or 
+	    	 (endOp != null and endOp != '') or 
+	    	 (endOc != null and endOc != '')">
+	 			and routeid in(SELECT ID FROM file_route
+				<where>
+					<if test="(startOp != null and startOp != '') or (startOc != null and startOc != '')">
+						and oPositionId IN (SELECT ID FROM
+							file_position
+						<where>
+							<if test="startOp != null and startOp != ''">
+								and op like "%" #{startOp,jdbcType=VARCHAR} "%"
+							</if>
+							<if test="startOc != null and startOc != ''">
+								and oc like "%" #{startOc,jdbcType=VARCHAR} "%"
+							</if>
+						</where>)
+					</if>
+					<if test="(endOp != null and endOp != '') or (endOc != null and endOc != '')">
+						and dPositionId IN (SELECT ID FROM
+							file_position 
+						<where>
+							<if test="endOp != null and endOp != ''">
+								and op LIKE "%" #{endOp,jdbcType=VARCHAR} "%"
+							</if>
+							<if test="endOc != null and endOc != ''">
+								and oc LIKE "%" #{endOc,jdbcType=VARCHAR} "%"
+							</if>
+						</where>)
+					</if>
+				</where>)   	
+	    	</if>
 		</where>
 	</select>
 	<select id="selectByCondition" resultMap="BaseResultMap"

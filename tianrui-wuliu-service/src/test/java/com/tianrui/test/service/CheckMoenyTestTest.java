@@ -43,9 +43,15 @@ public class CheckMoenyTestTest {
 	@Test
 	public void app() throws Exception{
 		PlanGoodsReq req = new PlanGoodsReq();
-//		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
 		req.setPageNo(0);
 		req.setPageSize(5);
+		req.setCargoname("12");
+//		req.setStartOc("郑州");//启运市
+//		req.setStartOp("河南");//省
+//		req.setEndOc("安庆");//
+//		req.setEndOp("安徽");
+//		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
+		
 //		PaginationVO<SelectAppPlanResp> page = planGoodsService.appPlanSelect(req);
 		PaginationVO<SelectAppBillResp> page = planGoodsService.appBillSelect(req);
 		System.out.println("...");

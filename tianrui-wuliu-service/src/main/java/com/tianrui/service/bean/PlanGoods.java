@@ -8,6 +8,14 @@ public class PlanGoods {
 	
 	private String searchKey;
 	
+	private String startOp;//启运省
+	
+	private String startOc;//启运市
+	
+	private String endOp;//到货省
+	
+	private String endOc;//到货市
+	
     private String id;
 
     private String freightid;
@@ -570,5 +578,37 @@ public class PlanGoods {
 
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
+	}
+
+	public String getStartOp() {
+		return startOp;
+	}
+
+	public void setStartOp(String startOp) {
+		this.startOp = startOp;
+	}
+
+	public String getStartOc() {
+		return startOc;
+	}
+
+	public void setStartOc(String startOc) {
+		this.startOc = startOc;
+	}
+
+	public String getEndOp() {
+		return endOp;
+	}
+
+	public void setEndOp(String endOp) {
+		this.endOp = endOp;
+	}
+
+	public String getEndOc() {
+		return endOc;
+	}
+
+	public void setEndOc(String endOc) {
+		this.endOc = endOc;
 	}
 }

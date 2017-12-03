@@ -77,6 +77,38 @@
     			or planCode like "%" #{searchKey,jdbcType=VARCHAR} "%"
     		)
     	</if>
+    	<if test="(startOp != null and startOp != '') or
+    	 (startOc != null and startOc != '') or 
+    	 (endOp != null and endOp != '') or 
+    	 (endOc != null and endOc != '')">
+ 			and routeid in(SELECT ID FROM file_route
+			<where>
+				<if test="(startOp != null and startOp != '') or (startOc != null and startOc != '')">
+					and oPositionId IN (SELECT ID FROM
+						file_position
+					<where>
+						<if test="startOp != null and startOp != ''">
+							and op like "%" #{startOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="startOc != null and startOc != ''">
+							and oc like "%" #{startOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+				<if test="(endOp != null and endOp != '') or (endOc != null and endOc != '')">
+					and dPositionId IN (SELECT ID FROM
+						file_position 
+					<where>
+						<if test="endOp != null and endOp != ''">
+							and op LIKE "%" #{endOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="endOc != null and endOc != ''">
+							and oc LIKE "%" #{endOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+			</where>)   	
+    	</if>
     	<if test="isfamily != null">
     		and isFamily = #{isfamily,jdbcType=TINYINT}
     	</if>
@@ -110,6 +142,38 @@
     		and (cargoname like "%" #{searchKey,jdbcType=VARCHAR} "%"
     			or planCode like "%" #{searchKey,jdbcType=VARCHAR} "%"
     		)
+    	</if>
+    	<if test="(startOp != null and startOp != '') or
+    	 (startOc != null and startOc != '') or 
+    	 (endOp != null and endOp != '') or 
+    	 (endOc != null and endOc != '')">
+ 			and routeid in(SELECT ID FROM file_route
+			<where>
+				<if test="(startOp != null and startOp != '') or (startOc != null and startOc != '')">
+					and oPositionId IN (SELECT ID FROM
+						file_position
+					<where>
+						<if test="startOp != null and startOp != ''">
+							and op like "%" #{startOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="startOc != null and startOc != ''">
+							and oc like "%" #{startOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+				<if test="(endOp != null and endOp != '') or (endOc != null and endOc != '')">
+					and dPositionId IN (SELECT ID FROM
+						file_position 
+					<where>
+						<if test="endOp != null and endOp != ''">
+							and op LIKE "%" #{endOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="endOc != null and endOc != ''">
+							and oc LIKE "%" #{endOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+			</where>)   	
     	</if>
     	<if test="isfamily != null">
     		and isFamily = #{isfamily,jdbcType=TINYINT}

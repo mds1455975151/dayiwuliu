@@ -91,6 +91,38 @@
     <include refid="Base_Column_List" />
     from wuliu_plan
     <where>
+    	<if test="(startOp != null and startOp != '') or
+    	 (startOc != null and startOc != '') or 
+    	 (endOp != null and endOp != '') or 
+    	 (endOc != null and endOc != '')">
+ 			and routeid in(SELECT ID FROM file_route
+			<where>
+				<if test="(startOp != null and startOp != '') or (startOc != null and startOc != '')">
+					and oPositionId IN (SELECT ID FROM
+						file_position
+					<where>
+						<if test="startOp != null and startOp != ''">
+							and op like "%" #{startOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="startOc != null and startOc != ''">
+							and oc like "%" #{startOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+				<if test="(endOp != null and endOp != '') or (endOc != null and endOc != '')">
+					and dPositionId IN (SELECT ID FROM
+						file_position 
+					<where>
+						<if test="endOp != null and endOp != ''">
+							and op LIKE "%" #{endOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="endOc != null and endOc != ''">
+							and oc LIKE "%" #{endOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+			</where>)   	
+    	</if>
       <if test="desc3 != null and desc3 != ''">
        and DESC3 = #{desc3,jdbcType=VARCHAR}
       </if>
@@ -170,6 +202,38 @@
     	count(1)
     from wuliu_plan
     <where>
+    	<if test="(startOp != null and startOp != '') or
+    	 (startOc != null and startOc != '') or 
+    	 (endOp != null and endOp != '') or 
+    	 (endOc != null and endOc != '')">
+ 			and routeid in(SELECT ID FROM file_route
+			<where>
+				<if test="(startOp != null and startOp != '') or (startOc != null and startOc != '')">
+					and oPositionId IN (SELECT ID FROM
+						file_position
+					<where>
+						<if test="startOp != null and startOp != ''">
+							and op like "%" #{startOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="startOc != null and startOc != ''">
+							and oc like "%" #{startOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+				<if test="(endOp != null and endOp != '') or (endOc != null and endOc != '')">
+					and dPositionId IN (SELECT ID FROM
+						file_position 
+					<where>
+						<if test="endOp != null and endOp != ''">
+							and op LIKE "%" #{endOp,jdbcType=VARCHAR} "%"
+						</if>
+						<if test="endOc != null and endOc != ''">
+							and oc LIKE "%" #{endOc,jdbcType=VARCHAR} "%"
+						</if>
+					</where>)
+				</if>
+			</where>)   	
+    	</if>
     	<if test="desc3 != null and desc3 != ''">
        and DESC3 = #{desc3,jdbcType=VARCHAR}
       </if>

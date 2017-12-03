@@ -364,11 +364,15 @@ public class PlanGoodsService implements IPlanGoodsService {
 		PaginationVO<SelectAppBillResp> page = new PaginationVO<SelectAppBillResp>();
 		Bill bill = new Bill();
 		if(req.getPageNo()!=null){
-			bill.setStart(req.getPageNo()*req.getPageSize());
+			bill.setStart((req.getPageNo()-1)*req.getPageSize());
 			bill.setLimit(req.getPageSize());
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
+		bill.setStartOc(req.getStartOc());
+		bill.setStartOp(req.getStartOp());
+		bill.setEndOc(req.getEndOc());
+		bill.setEndOp(req.getEndOp());
 		bill.setCargoname(req.getCargoname());
 		List<Bill> list = billMapper.selectPublic(bill);
 		long a = billMapper.countPublic(bill);
@@ -416,13 +420,17 @@ public class PlanGoodsService implements IPlanGoodsService {
 		PaginationVO<SelectAppPlanResp> page = new PaginationVO<SelectAppPlanResp>();
 		Plan query = new Plan();
 		if(req.getPageNo()!=null){
-			query.setStart(req.getPageNo()*req.getPageSize());
+			query.setStart((req.getPageNo()-1)*req.getPageSize());
 			query.setLimit(req.getPageSize());
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
 		query.setCargoname(req.getCargoname());
 		query.setDesc3("1");
+		query.setStartOc(req.getStartOc());
+		query.setStartOp(req.getStartOp());
+		query.setEndOc(req.getEndOc());
+		query.setEndOp(req.getEndOp());
 		List<Plan> list = planMapper.selectByCondition(query);
 		long a = planMapper.countByCondition(query);
 		page.setList(planCopyProperties2(list));
@@ -460,7 +468,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 		PlanGoods query = new PlanGoods();
 		PropertyUtils.copyProperties(query, req);
 		if(req.getPageNo()!=null){
-			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageNo((req.getPageNo()-1)*req.getPageSize());
 			query.setPageSize(req.getPageSize());
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());

@@ -5,6 +5,14 @@ public class Bill {
 	private String payType;
 	private String payDESC1;
 	
+	private String startOp;//启运省
+	
+	private String startOc;//启运市
+	
+	private String endOp;//到货省
+	
+	private String endOc;//到货市
+	
 	private String bankId;
     
     private String bankCard;
@@ -1351,6 +1359,38 @@ public class Bill {
 
 	public void setBankType(String bankType) {
 		this.bankType = bankType;
+	}
+
+	public String getStartOp() {
+		return startOp;
+	}
+
+	public void setStartOp(String startOp) {
+		this.startOp = startOp;
+	}
+
+	public String getStartOc() {
+		return startOc;
+	}
+
+	public void setStartOc(String startOc) {
+		this.startOc = startOc;
+	}
+
+	public String getEndOp() {
+		return endOp;
+	}
+
+	public void setEndOp(String endOp) {
+		this.endOp = endOp;
+	}
+
+	public String getEndOc() {
+		return endOc;
+	}
+
+	public void setEndOc(String endOc) {
+		this.endOc = endOc;
 	}
 
 }

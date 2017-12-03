@@ -9,6 +9,14 @@ public class Plan implements IModel{
      *  主键UUID
      */
     private String id;
+    
+    private String startOp;//启运省
+	
+	private String startOc;//启运市
+	
+	private String endOp;//到货省
+	
+	private String endOc;//到货市
 
     /**
      * 策略id
@@ -1183,6 +1191,38 @@ public class Plan implements IModel{
 
 	public void setPayment(String payment) {
 		this.payment = payment;
+	}
+
+	public String getStartOp() {
+		return startOp;
+	}
+
+	public void setStartOp(String startOp) {
+		this.startOp = startOp;
+	}
+
+	public String getStartOc() {
+		return startOc;
+	}
+
+	public void setStartOc(String startOc) {
+		this.startOc = startOc;
+	}
+
+	public String getEndOp() {
+		return endOp;
+	}
+
+	public void setEndOp(String endOp) {
+		this.endOp = endOp;
+	}
+
+	public String getEndOc() {
+		return endOc;
+	}
+
+	public void setEndOc(String endOc) {
+		this.endOc = endOc;
 	}
     
 }
