@@ -1,6 +1,7 @@
 package com.tianrui.service.impl.message;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,7 +94,10 @@ public class MessagePushService implements IMessagePushService {
 			rs.setCode("11");
 			rs.setError("不支持的推送方式");
 		}
-		savePlanRolling(req, cyr, qyd, mdd, hwmc, shuliang);
+		qyd = qyd + o.getAddr();
+		mdd = mdd + d.getAddr();
+		String time = new SimpleDateFormat("yyyy年M月d日").format(new Date(goods.getStarttime())) + "--"+new SimpleDateFormat("yyyy年M月d日").format(new Date(goods.getEndtime()));
+		savePlanRolling(req, cyr, qyd, mdd, hwmc, shuliang,time);
 		return messageContent;
 	}
 	/**
@@ -108,12 +112,15 @@ public class MessagePushService implements IMessagePushService {
 	 * @throws InvocationTargetException
 	 * @throws NoSuchMethodException
 	 */
-	private void savePlanRolling(MessagePushReq req, String cyr, String qyd, String mdd, String hwmc, String shuliang)
+	private void savePlanRolling(MessagePushReq req, String cyr, String qyd, String mdd, String hwmc, String shuliang,String time)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		MessageRollingReq roll =new MessageRollingReq();
 		roll.setMessageType(req.getMessageType());
 		roll.setCreateTime(new Date().getTime());
 		roll.setMessageContent(MessageHelper.getPlanRollingMesage(cyr, qyd, mdd, hwmc, shuliang));
+		roll.setDesc1(qyd);
+		roll.setDesc2(mdd);
+		roll.setDesc3(time);
 		messageRollingService.save(roll);
 	}
 	/**
@@ -153,7 +160,10 @@ public class MessagePushService implements IMessagePushService {
 			messageContent = MessageHelper.getDemandPushMesage(tyr, qyd, mdd, hwmc, shuliang);
 			saveSMSMessage(req, mp, tyr, qyd, mdd, hwmc, shuliang);
 		}
-		saveRollingMessage(req, tyr, qyd, mdd, hwmc, shuliang);
+		qyd = qyd + o.getAddr();
+		mdd = mdd + d.getAddr();
+		String time = new SimpleDateFormat("yyyy年M月d日").format(new Date(goods.getStarttime())) + "--"+new SimpleDateFormat("yyyy年M月d日").format(new Date(goods.getEndtime()));
+		saveRollingMessage(req, tyr, qyd, mdd, hwmc, shuliang,time);
 		return messageContent;
 	}
 	/**
@@ -169,11 +179,14 @@ public class MessagePushService implements IMessagePushService {
 	 * @throws NoSuchMethodException
 	 */
 	private void saveRollingMessage(MessagePushReq req, String tyr, String qyd, String mdd, String hwmc,
-			String shuliang) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+			String shuliang,String time) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		MessageRollingReq roll =new MessageRollingReq();
 		roll.setMessageType(req.getMessageType());
 		roll.setCreateTime(new Date().getTime());
 		roll.setMessageContent(MessageHelper.getDemandRollingMesage(tyr, qyd, mdd, hwmc, shuliang));
+		roll.setDesc1(qyd);
+		roll.setDesc2(mdd);
+		roll.setDesc3(time);
 		messageRollingService.save(roll);
 	}
 	/**
@@ -262,6 +275,9 @@ public class MessagePushService implements IMessagePushService {
 		PaginationVO<MessageAppResp> vo = new PaginationVO<MessageAppResp>();
 		long total = messagePushMapper.selectCount(req) ;
 		total = total > 200 ?200:total;
+		if(null !=req.getPageNo()){
+			req.setPageNo(req.getPageNo() - 1);
+		}
 		List<MessagePush> ls = messagePushMapper.selectByCondition(req);
 		List<MessageAppResp> list = new ArrayList<MessageAppResp>();
 		for(MessagePush mp : ls){
@@ -278,7 +294,7 @@ public class MessagePushService implements IMessagePushService {
 		}
 		vo.setList(list);
 		if(null !=req.getPageNo()){
-			vo.setPageNo(req.getPageNo() - 1);
+			vo.setPageNo(req.getPageNo() + 1);
 		}
 		if(null != req.getPageSize()){
 			vo.setPageSize(req.getPageSize());

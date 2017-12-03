@@ -96,17 +96,11 @@ public class MessageHelper {
 	 */
 	public static String getDemandRollingMesage(String tyr,String qyd,String mdd,String hwmc,String shuliang){
 		StringBuffer sb = new StringBuffer();
-		sb.append(qyd);
-		sb.append("至");
-		sb.append(mdd);
-		sb.append("，");
 		sb.append(hwmc);
-		sb.append("-");
 		sb.append("(");
 		sb.append(shuliang);
 		sb.append(")-");
 		sb.append(tyr);
-		sb.append("。");
 		return sb.toString();
 		
 	};
@@ -122,12 +116,7 @@ public class MessageHelper {
 	public static String getPlanRollingMesage(String cyr,String qyd,String mdd,String hwmc,String shuliang){
 		StringBuffer sb = new StringBuffer();
 		sb.append(cyr+"-");
-		sb.append(qyd);
-		sb.append("至");
-		sb.append(mdd);
-		sb.append("，");
 		sb.append(hwmc);
-		sb.append("-");
 		sb.append("(");
 		sb.append(shuliang);
 		sb.append(")");

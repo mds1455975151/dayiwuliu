@@ -11,11 +11,11 @@ public class MessageRolling {
 
     private Integer consultNumber;//查阅总次数
 
-    private String desc1;
+    private String desc1;//显示时间
 
-    private String desc2;
+    private String desc2;//起运地
 
-    private String desc3;
+    private String desc3;//目的地
 
     private String desc4;
 

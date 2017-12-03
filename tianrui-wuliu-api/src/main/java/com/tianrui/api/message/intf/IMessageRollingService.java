@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.tianrui.api.req.money.MessageRollingReq;
-import com.tianrui.api.resp.money.MessagePushResp;
 import com.tianrui.api.resp.money.MessageRollingResp;
 import com.tianrui.common.vo.Result;
 

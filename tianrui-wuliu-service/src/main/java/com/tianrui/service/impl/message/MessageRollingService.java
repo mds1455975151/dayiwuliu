@@ -1,6 +1,7 @@
 package com.tianrui.service.impl.message;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -45,7 +46,18 @@ public class MessageRollingService implements IMessageRollingService {
 		AppMessageReq req = new AppMessageReq();
 		req.setPageNo(0);;
 		req.setPageSize(number);
-		return messageRollingMapper.selectByCondition(req);
+		List<MessageRolling> list = messageRollingMapper.selectByCondition(req);
+		List<MessageRollingResp> respList =  new ArrayList<MessageRollingResp>();
+		for(MessageRolling mr : list){
+			MessageRollingResp resp =  new MessageRollingResp();
+			resp.setDeparture(mr.getDesc1());
+			resp.setId(mr.getId());
+			resp.setMessageContent(mr.getMessageContent());
+			resp.setTime(mr.getDesc3());
+			resp.setUnloading(mr.getDesc2());
+			respList.add(resp);
+		}
+		return respList;
 	}
 
 }

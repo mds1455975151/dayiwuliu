@@ -43,9 +43,9 @@ public class DataDictServiceTest {
 	@Test
 	public void saveBill()throws Exception{
 		AppMessageReq req = new AppMessageReq();
-		req.setPageNo(0);
+		req.setPageNo(1);
 		req.setPageSize(3);
-		List<MessageRollingResp>  ls = messageRollingMapper.findRollingMessage(1);
+		PaginationVO<MessageAppResp>  ls = billMoneyService.findAppMessage(req);
 		Result rs = Result.getSuccessResult();
 		rs.setData(ls);
 		System.out.println(JSON.toJSON(rs));
