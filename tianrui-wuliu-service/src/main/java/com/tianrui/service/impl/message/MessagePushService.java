@@ -278,7 +278,7 @@ public class MessagePushService implements IMessagePushService {
 		}
 		vo.setList(list);
 		if(null !=req.getPageNo()){
-			vo.setPageNo(req.getPageNo());
+			vo.setPageNo(req.getPageNo() - 1);
 		}
 		if(null != req.getPageSize()){
 			vo.setPageSize(req.getPageSize());

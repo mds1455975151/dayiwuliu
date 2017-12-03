@@ -19,7 +19,7 @@ import com.tianrui.web.smvc.ApiTokenValidation;
 
 @Controller
 @RequestMapping("/app/pushMessage")
-public class AppMessageAction {
+public class AppPushMessageAction {
 
 	
 	@Autowired
@@ -37,7 +37,7 @@ public class AppMessageAction {
 		return AppResult.valueOf(rs);
 	}
 	/**
-	 * 拨打客服电话次数+1
+	 * 浏览次数+1
 	 * */
 	@RequestMapping(value="/updateConsultNumber",method=RequestMethod.POST)
 	@ApiParamRawType(PullMessageReq.class)
