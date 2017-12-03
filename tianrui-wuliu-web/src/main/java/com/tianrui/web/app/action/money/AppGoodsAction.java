@@ -30,7 +30,7 @@ public class AppGoodsAction {
 	IFileOrgCargoService fileOrgCargoService;
 	
 	/**
-	 * 物料
+	 * 货物查询
 	 * */
 	@RequestMapping(value="/cargoSelect",method=RequestMethod.POST)
 	@ApiParamRawType(FileOrgCargoReq.class)

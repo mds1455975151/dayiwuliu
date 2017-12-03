@@ -398,7 +398,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 			sp.setCargoname(bill.getCargoname());
 			sp.setCreatetime(bill.getCreatetime());
 			sp.setDistance(bill.getDistance());
-//			sp.setMeasure(bill.getme);
+			sp.setMeasure(bill.getDesc1());
 			sp.setBillcode(bill.getWaybillno());
 			sp.setPrice(bill.getPrice());
 			sp.setPriceunits(bill.getPriceunits());
