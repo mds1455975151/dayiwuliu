@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianrui.api.admin.intf.IFileOrgCargoService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
+import com.tianrui.api.req.admin.FileOrgCargoReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
+import com.tianrui.api.resp.admin.FileOrgCargoResp;
 import com.tianrui.api.resp.goods.SelectAppBillResp;
 import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
 import com.tianrui.api.resp.goods.SelectAppPlanResp;
@@ -23,6 +26,25 @@ public class AppGoodsAction {
 
 	@Autowired
 	IPlanGoodsService planGoodsService;
+	@Autowired
+	IFileOrgCargoService fileOrgCargoService;
+	
+	/**
+	 * 物料
+	 * */
+	@RequestMapping(value="/cargoSelect",method=RequestMethod.POST)
+	@ApiParamRawType(FileOrgCargoReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult cargoSelect(AppParam<FileOrgCargoReq> appParam) throws Exception{
+		AppResult appResult = new AppResult();
+		appResult.setCode("000000");
+		FileOrgCargoReq req = appParam.getBody();
+		PaginationVO<FileOrgCargoResp> page = fileOrgCargoService.queryMyCargoInfoByCondition(req);
+		appResult.setReturnData(page.getList());
+		appResult.setTotal(page.getTotalInt());
+		return appResult;
+	}
 	
 	
 	/**

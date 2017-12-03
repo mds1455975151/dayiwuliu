@@ -217,17 +217,4 @@ public class SelectAppBillResp {
 		this.weight = weight;
 	}
 
-	public String getStarttimeStr() {
-		if(starttime !=null  ){
-			return DateUtil.getDateString(new Date(starttime), "yyyy-MM-dd HH:mm:ss");
-		}
-		return "";
-	}
-	public String getEndtimeStr() {
-		if(endtime !=null  ){
-			return DateUtil.getDateString(new Date(endtime), "yyyy-MM-dd HH:mm:ss");
-		}
-		return "";
-	}
-
 }
