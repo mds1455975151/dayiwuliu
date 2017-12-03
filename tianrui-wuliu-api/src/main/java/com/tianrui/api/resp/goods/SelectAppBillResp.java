@@ -10,6 +10,12 @@ public class SelectAppBillResp {
 	private String id;
 	
 	private String startCity;
+	
+	private String vehicleno;
+	
+    private String vehicletypename;
+    
+    private Double weight;
 
 	private String startName;
 	
@@ -185,6 +191,30 @@ public class SelectAppBillResp {
 
 	public void setEndLat(String endLat) {
 		this.endLat = endLat;
+	}
+
+	public String getVehicleno() {
+		return vehicleno;
+	}
+
+	public void setVehicleno(String vehicleno) {
+		this.vehicleno = vehicleno;
+	}
+
+	public String getVehicletypename() {
+		return vehicletypename;
+	}
+
+	public void setVehicletypename(String vehicletypename) {
+		this.vehicletypename = vehicletypename;
+	}
+
+	public Double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Double weight) {
+		this.weight = weight;
 	}
 
 	public String getStarttimeStr() {

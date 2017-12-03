@@ -390,6 +390,11 @@ public class PlanGoodsService implements IPlanGoodsService {
 			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
 			
 			sp.setId(bill.getId());
+			
+			sp.setVehicleno(bill.getVehicleno());
+			sp.setVehicletypename(bill.getVehicletypename());
+			sp.setWeight(bill.getWeight());
+			
 			sp.setCargoname(bill.getCargoname());
 			sp.setCreatetime(bill.getCreatetime());
 			sp.setDistance(bill.getDistance());
@@ -446,6 +451,9 @@ public class PlanGoodsService implements IPlanGoodsService {
 			String routeId = goods.getRouteid();
 			RoutePosition post = fileRouteService.getPositionByRouteId(routeId);
 			PropertyUtils.copyProperties(sp, goods);
+			
+			sp.setVender(goods.getVehicleownername());
+			sp.setVenderPhone(goods.getVehicleownerphone());
 			
 			sp.setStartCity(post.getStartCity());
 			sp.setStartLat(post.getStartLat());

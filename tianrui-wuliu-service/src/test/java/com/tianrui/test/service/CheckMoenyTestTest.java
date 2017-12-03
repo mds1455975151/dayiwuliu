@@ -50,10 +50,10 @@ public class CheckMoenyTestTest {
 //		req.setStartOp("河南");//省
 //		req.setEndOc("安庆");//
 //		req.setEndOp("安徽");
-//		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
+		PaginationVO<SelectAppPlanGoodsResp> page = planGoodsService.appSelect(req);
 		
 //		PaginationVO<SelectAppPlanResp> page = planGoodsService.appPlanSelect(req);
-		PaginationVO<SelectAppBillResp> page = planGoodsService.appBillSelect(req);
+//		PaginationVO<SelectAppBillResp> page = planGoodsService.appBillSelect(req);
 		System.out.println("...");
 	}
 	

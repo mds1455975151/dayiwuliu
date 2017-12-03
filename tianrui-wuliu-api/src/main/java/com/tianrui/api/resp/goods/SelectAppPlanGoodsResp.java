@@ -17,6 +17,8 @@ public class SelectAppPlanGoodsResp {
 	
 	private String startLat;
 	
+	private Double totalplanned;//计划量
+	
 	private String endCity;
 	
 	private String endName;
@@ -185,6 +187,14 @@ public class SelectAppPlanGoodsResp {
 
 	public void setEndLat(String endLat) {
 		this.endLat = endLat;
+	}
+
+	public Double getTotalplanned() {
+		return totalplanned;
+	}
+
+	public void setTotalplanned(Double totalplanned) {
+		this.totalplanned = totalplanned;
 	}
 
 	public String getStarttimeStr() {

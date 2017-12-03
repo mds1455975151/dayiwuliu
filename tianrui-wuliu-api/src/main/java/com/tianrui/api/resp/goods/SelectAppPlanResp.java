@@ -2,13 +2,20 @@ package com.tianrui.api.resp.goods;
 
 import java.util.Date;
 
-import com.tianrui.api.resp.admin.RoutePosition;
 import com.tianrui.common.utils.DateUtil;
 
 public class SelectAppPlanResp {
 
 	private String id;
-	
+	/**
+     *  计划总量
+     */
+    private Double totalplanned;
+    
+    private String vender;//承运人
+    
+    private String venderPhone;//承运人
+
 	private String startCity;
 
 	private String startName;
@@ -185,6 +192,30 @@ public class SelectAppPlanResp {
 
 	public void setEndLat(String endLat) {
 		this.endLat = endLat;
+	}
+
+	public Double getTotalplanned() {
+		return totalplanned;
+	}
+
+	public void setTotalplanned(Double totalplanned) {
+		this.totalplanned = totalplanned;
+	}
+
+	public String getVender() {
+		return vender;
+	}
+
+	public void setVender(String vender) {
+		this.vender = vender;
+	}
+
+	public String getVenderPhone() {
+		return venderPhone;
+	}
+
+	public void setVenderPhone(String venderPhone) {
+		this.venderPhone = venderPhone;
 	}
 
 	public String getStarttimeStr() {
