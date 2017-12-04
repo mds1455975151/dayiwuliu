@@ -85,6 +85,14 @@ public class RollingMessageAction {
 	@ResponseBody
 	public Result freightDemand(PlanGoodsReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
+		if(null != req.getStartOp() && !"".equals(req.getStartOp())){
+			req.setStartOc(req.getStartOp().split(" ")[1]);
+			req.setStartOp(req.getStartOp().split(" ")[0]);
+		}
+		if(null != req.getEndOp() && !"".equals(req.getEndOp())){
+			req.setEndOc(req.getEndOp().split(" ")[1]);
+			req.setEndOp(req.getEndOp().split(" ")[0]);
+		}
 		PaginationVO<SelectAppPlanGoodsResp> pv = planGoodsService.appSelect(req);
 		rs.setData(pv);
 		return rs;

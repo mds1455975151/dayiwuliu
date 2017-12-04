@@ -9,6 +9,9 @@ function index(No,flag){
 	$.ajax({
 		url : "/publicMember/rollingMessage/freightDemand",//
 		data : {
+			"startOp":$("#zhuanghuo").val(),
+			"endOp":$("#xiehuo").val(),
+			"cargoname":$("#modal_add_materName" ).val(),
 			"pageNo":No,
 			"pageSize":pageSize},
 		type : "post",
@@ -104,6 +107,14 @@ function innerHTML(ret,flag){
             hml += '</div>';
 	}
 	$("#freightDemandlist").append(hml);
+	//弹出层
+	$(".chengyun .btn").on('click', function () {
+	    $(".hy_alert").show(300);
+	});
+	//隐藏层
+	$(".hy_alert button").on('click', function () {
+	    $(".hy_alert").hide(300);
+	});
 	$(function () {
 	    $(".leftfont").mouseover(function (){
 	    	$(this).next(".lefttip").css("display","block");
@@ -150,7 +161,32 @@ $(".zhaohuo").on('click', function () {
     }
     getAndMakeCargoList();
 });
-
+$(".zhaohuoleft label").on('click', function () {
+	var div1 = $(".searcont");
+    var div2 = $(".zhaohuoright");
+    div1.toggle();
+    div2.toggle();
+    if (div1.css("display") == 'none') {
+        $("#gengduo").attr('src', trRoot+"/tianrui/images/hydown.png");
+    }
+    else {
+        $("#gengduo").attr('src', trRoot+"/tianrui/images/hyup.png");
+    }
+    getAndMakeCargoList();
+});
+$(".zhaohuoleft span").on('click', function () {
+	var div1 = $(".searcont");
+    var div2 = $(".zhaohuoright");
+    div1.toggle();
+    div2.toggle();
+    if (div1.css("display") == 'none') {
+        $("#gengduo").attr('src', trRoot+"/tianrui/images/hydown.png");
+    }
+    else {
+        $("#gengduo").attr('src', trRoot+"/tianrui/images/hyup.png");
+    }
+    getAndMakeCargoList();
+});
 //找货功能点击
  function getAndMakeCargoList() {
    if(i > 0){
@@ -217,3 +253,14 @@ $("#ps2").pickArea({
         $("#xiehuo").val(($(".pick-area-hidden").val()));
     }
 });
+function zhuanghuo() {
+	index(1,0);
+}
+function reset() {
+	$("#modal_add_materName").val("");
+	$("span.pick-province").text("请选择省");
+    $("span.pick-city").text("请选择市");
+	$("#zhuanghuo").val("");
+	$("#xiehuo").val("");
+	index(1,0);
+}

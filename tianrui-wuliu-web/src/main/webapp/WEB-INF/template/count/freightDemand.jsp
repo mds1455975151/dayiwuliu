@@ -86,15 +86,7 @@
                 <input type="hidden" id="modal_add_materId">
             </div>
             <div class="sline">
-                <label>时间：</label>
-                <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_cz"
-                       style="width:140px"/>
-                <em>-</em>
-                <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate_cz"
-                       style="width:140px"/>
-            </div>
-            <div class="sline">
-                <button type="submit" class="btn btnblue" onclick="init()">搜索</button>
+                <button type="submit" class="btn btnblue" onclick="zhuanghuo()">搜索</button>
                 <button type="submit" class="btn btnyello" onclick="reset()">重置</button>
 
             </div>
@@ -282,32 +274,24 @@
     </div>
 </div>
 <!--电话弹出begin-->
-<div class="modal" id="edit" role="dialog" aria-labelledby="myModalLabel">
-    <div class="hymodal_close">
-        <div class="modal-dialog" role="document" style="width: 600px;">
+<div class="hy_alert">
+    <div class="hy_alertcont">
+        <div class="hy_alertheader">
+            <button type="button" class="close">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span
-                            aria-hidden="true"><img src="${trRoot}/tianrui/images/hyclose.png"></span></button>
-                    <div class="hyalert_tel">
-                        <h4 class="modal-title">承运</h4>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="hytel_tip">
-                        <p>请致电垂询</p>
-                        <div class="hytel_conf">
-                            <img src="${trRoot}/tianrui/images/hytel.png">
-                            <label>400-056-1156</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </button>
+            <div class="hyalert_tel">
+                <h4 class="modal-title">承运</h4>
+            </div>
+        </div>
+        <div class="hy_alertbody">
+            <div class="hytel_tip">
+                <p>请致电垂询</p>
+                <div class="hytel_conf">
+                    <img src="${trRoot}/tianrui/images/hytel.png">
+                    <label>400-056-1156</label>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
