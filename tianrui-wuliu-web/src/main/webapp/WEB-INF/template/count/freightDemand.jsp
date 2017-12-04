@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>大易物流</title>
+    <title>货源基地</title>
     <meta name="keywords" content="大易物流"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -275,7 +275,36 @@
         </div>
     </div>
 </div>
+<!--电话弹出begin-->
+<div class="modal" id="edit" role="dialog" aria-labelledby="myModalLabel">
+    <div class="hymodal_close">
+        <div class="modal-dialog" role="document" style="width: 600px;">
 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true"><img src="${trRoot}/tianrui/images/hyclose.png"></span></button>
+                    <div class="hyalert_tel">
+                        <h4 class="modal-title">承运</h4>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="hytel_tip">
+                        <p>请致电垂询</p>
+                        <div class="hytel_conf">
+                            <img src="${trRoot}/tianrui/images/hytel.png">
+                            <label>400-056-1156</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 <jsp:include page="head/foot.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>

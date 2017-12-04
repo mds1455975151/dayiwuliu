@@ -30,4 +30,9 @@ public interface IMessageRollingService {
 	 * @return
 	 */
 	List<MessageRollingResp> findRollingMessage(int number );
+	/**
+	 * 获取APP货源基地统计信息
+	 * @return
+	 */
+	Result getAppPlatformMessage();
 }

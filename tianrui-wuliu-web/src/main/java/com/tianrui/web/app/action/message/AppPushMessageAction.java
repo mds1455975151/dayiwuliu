@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tianrui.api.message.intf.IMessagePushService;
+import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.req.app.message.PullMessageReq;
 import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.api.resp.front.message.MessageAppResp;
@@ -24,6 +25,8 @@ public class AppPushMessageAction {
 	
 	@Autowired
 	IMessagePushService messagePushService;
+	@Autowired
+	IMessageRollingService messageRollingService;
 	/**
 	 * 拨打客服电话次数+1
 	 * */
@@ -60,6 +63,18 @@ public class AppPushMessageAction {
 		PaginationVO<MessageAppResp> pv = messagePushService.findAppMessage(req);
 		Result rs = Result.getSuccessResult();
 		rs.setData(pv);
+		return AppResult.valueOf(rs);
+	}
+	
+	/**
+	 * 平台动态数据统计
+	 * */
+	@RequestMapping(value="/platformMessage",method=RequestMethod.POST)
+	@ApiParamRawType(PullMessageReq.class)
+	@ApiTokenValidation
+	@ResponseBody
+	public AppResult platformMessage(AppParam<PullMessageReq> appParam) throws Exception{
+		Result rs = messageRollingService.getAppPlatformMessage();
 		return AppResult.valueOf(rs);
 	}
 }

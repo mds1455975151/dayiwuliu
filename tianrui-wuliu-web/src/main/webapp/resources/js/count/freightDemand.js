@@ -86,7 +86,9 @@ function innerHTML(ret,flag){
 			hml += '<label>'+data[a].price+data[a].priceunits+'</label>';
 			hml += '</div>';
 			hml += '<div class="chengyun fr">';
-			hml += '<a href=""><button type="submit" class="btn">承运</button></a>';
+			hml += '<a data-toggle="modal" data-target="#edit">';
+			hml += '<button type="submit" class="btn" >承运</button>';
+			hml += '</a>';
             hml += '</div>';
             hml += '</div>';
             hml += '</div>';

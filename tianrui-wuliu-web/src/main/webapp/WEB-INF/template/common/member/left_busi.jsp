@@ -38,6 +38,12 @@
         		<div class="rz_lhead bgblue">
 	                <i class="iconfont icon-user"></i><span>我是车主</span>
 	            </div>
+	            <!--去接单按钮-->
+				<div class="hy_jiedan">
+				    <a href="/count/freightDemand">
+				        <h4>去接单</h4>
+				    </a>
+				</div>
 	            <div class="rz_list">
 	                <div class="rz_listb bgwhite">
 	                    <ul>

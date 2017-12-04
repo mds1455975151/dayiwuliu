@@ -76,7 +76,7 @@ function innerHTML(ret,flag){
 			hml += '</div>';
 			hml += '<div class="fr">';
 			hml += '<img src="'+trRoot+'/tianrui/images/hytime.png">';
-			hml += '<span>'+new Date(data[a].starttime).format("yyyy-M-d")+ "至" +new Date(data[a].endtime).format("yyyy-M-d")+'</span>';
+			hml += '<span>'+data[a].starttime.substring(0,10) + "至" +data[a].endtime.substring(0,10)+'</span>';
 			hml += '</div>';
 			hml += '</div>';
 			hml += '<div class="line2">';

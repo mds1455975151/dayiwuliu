@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>大易物流</title>
+    <title>在途运单</title>
     <meta name="keywords" content="大易物流"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -239,6 +239,13 @@
         </div>
     </div>
 </div>
+<!--去接单按钮-->
+<div class="hy_jiedan">
+    <a href="/count/freightDemand">
+        <h4>去接单</h4>
+    </a>
+</div>
+
 <jsp:include page="head/foot.jsp"></jsp:include>
 <script type="text/javascript">
 var trRoot ="${trRoot}";
