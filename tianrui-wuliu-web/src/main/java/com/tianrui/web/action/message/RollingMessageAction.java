@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tianrui.api.admin.intf.IFileCargoService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
 import com.tianrui.api.message.intf.IMessageRollingService;
+import com.tianrui.api.req.admin.FileCargoReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
+import com.tianrui.api.resp.admin.FileCargoResp;
 import com.tianrui.api.resp.goods.SelectAppBillResp;
 import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
 import com.tianrui.api.resp.goods.SelectAppPlanResp;
@@ -26,7 +29,20 @@ public class RollingMessageAction {
 	protected IMessageRollingService messageService;
 	@Autowired
 	protected IPlanGoodsService planGoodsService;
-	
+	@Autowired
+	IFileCargoService fileCargoService;
+	/**
+	 * 找货功能--货物查询条件列表
+	 * */
+	@RequestMapping("/getCargo")
+	@ResponseBody
+	public Result getCargo(FileCargoReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		req.setState("1");
+		PaginationVO<FileCargoResp> page = fileCargoService.queryCargoInfoByCondition(req);
+		rs.setData(page.getList());
+		return rs;
+	}
 	/**
 	 * 获取在途运单列表
 	 * @param request

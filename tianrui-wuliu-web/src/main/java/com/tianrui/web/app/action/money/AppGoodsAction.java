@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tianrui.api.admin.intf.IFileOrgCargoService;
+import com.tianrui.api.admin.intf.IFileCargoService;
 import com.tianrui.api.intf.planGoods.IPlanGoodsService;
+import com.tianrui.api.req.admin.FileCargoReq;
 import com.tianrui.api.req.admin.FileOrgCargoReq;
 import com.tianrui.api.req.goods.PlanGoodsReq;
-import com.tianrui.api.resp.admin.FileOrgCargoResp;
+import com.tianrui.api.resp.admin.FileCargoResp;
 import com.tianrui.api.resp.goods.SelectAppBillResp;
 import com.tianrui.api.resp.goods.SelectAppPlanGoodsResp;
 import com.tianrui.api.resp.goods.SelectAppPlanResp;
@@ -27,8 +28,7 @@ public class AppGoodsAction {
 	@Autowired
 	IPlanGoodsService planGoodsService;
 	@Autowired
-	IFileOrgCargoService fileOrgCargoService;
-	
+	IFileCargoService fileCargoService;
 	/**
 	 * 货物查询
 	 * */
@@ -36,11 +36,11 @@ public class AppGoodsAction {
 	@ApiParamRawType(FileOrgCargoReq.class)
 	@ApiTokenValidation
 	@ResponseBody
-	public AppResult cargoSelect(AppParam<FileOrgCargoReq> appParam) throws Exception{
+	public AppResult cargoSelect(AppParam<FileCargoReq> appParam) throws Exception{
 		AppResult appResult = new AppResult();
 		appResult.setCode("000000");
-		FileOrgCargoReq req = appParam.getBody();
-		PaginationVO<FileOrgCargoResp> page = fileOrgCargoService.queryMyCargoInfoByCondition(req);
+		FileCargoReq req = appParam.getBody();
+		PaginationVO<FileCargoResp> page = fileCargoService.queryCargoInfoByCondition(req);
 		appResult.setReturnData(page.getList());
 		appResult.setTotal(page.getTotalInt());
 		return appResult;

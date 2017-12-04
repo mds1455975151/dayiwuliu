@@ -12,6 +12,8 @@
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
+	<link href="${trRoot}/tianrui/css/pick-pcc.min.1.0.1.css" rel="stylesheet">
+	<link href="${trRoot}/tianrui/css/jquery-ui.min.css" rel="stylesheet">
 </head>
 <body>
 <!-- head -->
@@ -60,7 +62,7 @@
 <div class="w1200">
     <div class="hysearch">
         <div class="zhaohuo">
-            <div class="zhaohuoleft">
+            <div class="zhaohuoleft" id="findCargo" >
                 <label>找货</label>
                 <span><img src="${trRoot}/tianrui/images/hydown.png" id="gengduo"></span>
             </div>
@@ -68,16 +70,20 @@
         </div>
         <div class="searcont">
             <div class="sline">
+                <a class="pick-area" style="display: none"></a>
                 <label>装货地：</label>
-                <input type="text" placeholder="请输入装货地">
+				<input type="hidden" id="zhuanghuo" >
+                <a href="javascript:void(0)" class="pick-area pick-area5" name="" id="ps1"></a>
             </div>
             <div class="sline">
                 <label>卸货地：</label>
-                <input type="text" placeholder="请输入装货地">
+                <input type="hidden" id="xiehuo" >
+                <a href="javascript:void(0)" class="pick-area pick-area5" name="" id="ps2"></a>
             </div>
             <div class="sline">
                 <label>货物名称：</label>
-                <input type="text" placeholder="请输入装货地">
+                <input type="text" id="modal_add_materName">
+                <input type="hidden" id="modal_add_materId">
             </div>
             <div class="sline">
                 <label>时间：</label>
@@ -308,22 +314,10 @@
 <jsp:include page="head/foot.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/pick-pcc.min.1.0.1.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	var trRoot ="${trRoot}";
-        //找货查询
-    $(".zhaohuo").on('click',function(){
-        var div1 = $(".searcont");
-        var div2 = $(".zhaohuoright");
-        div1.toggle();
-        div2.toggle();
-        if(div1.css("display") == 'none') {
-            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hydown.png");
-        }
-        else {
-
-            $("#gengduo").attr('src',"${trRoot}/tianrui/images/hyup.png");
-        }
-    });
 </script>
 <script type="text/javascript" src="/resources/js/count/freightDemand.js?12.3" ></script>
 </body>

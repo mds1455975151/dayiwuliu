@@ -134,3 +134,86 @@ $(window).scroll(function () {
     		moreSearch();
     }
 });
+
+var i = 0;
+//找货查询
+$(".zhaohuo").on('click', function () {
+    var div1 = $(".searcont");
+    var div2 = $(".zhaohuoright");
+    div1.toggle();
+    div2.toggle();
+    if (div1.css("display") == 'none') {
+        $("#gengduo").attr('src', trRoot+"/tianrui/images/hydown.png");
+    }
+    else {
+        $("#gengduo").attr('src', trRoot+"/tianrui/images/hyup.png");
+    }
+    getAndMakeCargoList();
+});
+
+//找货功能点击
+ function getAndMakeCargoList() {
+   if(i > 0){
+	   return;
+   }
+var materNameData = new Array();
+	$("#modal_add_materName").val("");
+	$.ajax({
+		url : '/publicMember/rollingMessage/getCargo',// 跳转到 action
+		data : {
+			"pageNo":1,
+			"pageSize":198
+		},
+		type : "post",
+		success : function(result) {
+			var data = result.data;
+			for (var i=0; i<data.length; i++) {
+				var orgObj =  new Object();
+				orgObj.value = data[i].id;
+				orgObj.label = data[i].materName;
+				materNameData[i] = orgObj;
+			}
+			$("#modal_add_materName").autocomplete({
+				minLength: 0,
+		        source: materNameData,
+		        select: function( event, ui ) {
+		            $( "#modal_add_materName" ).val( ui.item.label );
+		            $( "#modal_add_materId" ).val( ui.item.value );
+		            return false;
+		        }
+		    }).off('click').on('click',function(){
+		    	$(this).autocomplete('search');
+		    });
+		}
+	});
+	i++;
+};
+$("#ps1").pickArea({
+    "format":"province/city", //格式
+    "width":"300",
+    "borderColor":"#cccccc",//文本边框的色值
+    "arrowColor":"#cccccc",//下拉箭头颜色
+    "listBdColor":"#cccccc",//下拉框父元素ul的border色值
+    "color":"#555555",//字体颜色
+    "hoverColor":"#f7792d",
+    //"preSet":"山东省/临沂市/兰陵县", //预先设置地址
+    "getVal":function(){
+        var thisdom = $("."+$(".pick-area-dom").val());
+        thisdom.next().val($(".pick-area-hidden").val());
+        $("#zhuanghuo").val(($(".pick-area-hidden").val()));
+    }
+});
+$("#ps2").pickArea({
+    "format":"province/city", //格式
+    "width":"300",
+    "borderColor":"#cccccc",//文本边框的色值
+    "arrowColor":"#cccccc",//下拉箭头颜色
+    "listBdColor":"#cccccc",//下拉框父元素ul的border色值
+    "color":"#555555",//字体颜色
+    "hoverColor":"#f7792d",
+    "getVal":function(){
+        var thisdom = $("."+$(".pick-area-dom").val());
+        thisdom.next().val($(".pick-area-hidden").val());
+        $("#xiehuo").val(($(".pick-area-hidden").val()));
+    }
+});
