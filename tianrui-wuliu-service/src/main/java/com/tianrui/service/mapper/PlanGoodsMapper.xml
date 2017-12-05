@@ -196,6 +196,32 @@
     </where>
   </select>
   
+  <select id="countGoodsTotal" resultType="Double" parameterType="com.tianrui.service.bean.PlanGoods" >
+    select 
+    SUM(totalplanned)
+    from wuliu_plan_goods
+    <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and createtime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
+    </where>
+  </select>
+  <select id="countPlanTotal" resultType="Double" parameterType="com.tianrui.service.bean.PlanGoods" >
+    select 
+    SUM(totalplanned)
+    from wuliu_plan
+    <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and createtime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
+    </where>
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 

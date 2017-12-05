@@ -133,7 +133,18 @@ public class AppMoneyAction {
 		req.setUserId(head.getId());
 		req.setBegintime(System.currentTimeMillis());
 		req.setCapitalno(UUIDUtil.getId());
-		Result rs = withdrawRecordService.save(req);
+		
+		//校验支付密码
+		String userId = req.getUserId();
+		CheckPasswordReq check = new CheckPasswordReq();
+		check.setId(userId);
+		check.setCheckType(req.getCheckType());
+		check.setGesturepass(req.getGesturepass());
+		check.setPassword(req.getPassWord());
+		Result rs = capitalAccountService.checkPassword(check);
+		if(rs.getCode().equals("000000")){
+			rs = withdrawRecordService.save(req);
+		}
 		return AppResult.valueOf(rs);
 	}
 	

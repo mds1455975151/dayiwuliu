@@ -32,4 +32,8 @@ public interface IPlanGoodsService {
 	/** 货源基地-查询运单*/
 	public PaginationVO<SelectAppBillResp> appBillSelect(PlanGoodsReq req)throws Exception;
 	
+	/** 统计计划*/
+	public Double countPlanTotal(Long timeBegin,Long timeEnd);
+	/** 统计货源*/
+	public Double countGoodsTotal(Long timeBegin,Long timeEnd);
 }

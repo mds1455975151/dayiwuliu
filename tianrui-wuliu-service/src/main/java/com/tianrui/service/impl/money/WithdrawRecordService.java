@@ -104,17 +104,7 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 		String key = CacheHelper.buildKey(CacheModule.CAPITALACCOUNT, req.getCellphone());
 		if(CacheHelper.capitalLock(cache, key)){
 			try {
-				//校验支付密码
-				String userId = req.getUserId();
-				CheckPasswordReq check = new CheckPasswordReq();
-				check.setId(userId);
-				check.setCheckType(req.getCheckType());
-				check.setGesturepass(req.getGesturepass());
-				check.setPassword(req.getPassWord());
-				rs = capitalAccountService.checkPassword(check);
-				if(rs.getCode().equals("000000")){
-					rs = withdraw(req, rs);
-				}
+				rs = withdraw(req, rs);
 			} catch (Exception e) {
 				logger.error(e.getMessage());
 				throw new ApplicationExectpion("数据保存失败！");

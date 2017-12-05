@@ -6,6 +6,10 @@ public class PlanGoods {
 	
 	private Integer pageSize;
 	
+	private Long timeBegin;
+	
+	private Long timeEnd;
+	
 	private String searchKey;
 	
 	private String startOp;//启运省
@@ -610,5 +614,21 @@ public class PlanGoods {
 
 	public void setEndOc(String endOc) {
 		this.endOc = endOc;
+	}
+
+	public Long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(Long timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Long getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Long timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 }

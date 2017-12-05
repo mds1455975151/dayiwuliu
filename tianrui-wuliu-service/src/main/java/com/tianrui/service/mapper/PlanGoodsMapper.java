@@ -20,4 +20,8 @@ public interface PlanGoodsMapper {
     List<PlanGoods> selectByCondition(PlanGoods record);
     
     long selectByCount(PlanGoods record);
+    /** 统计货源量*/
+    Double countGoodsTotal(PlanGoods record);
+    /** 统计计划量*/
+    Double countPlanTotal(PlanGoods record);
 }

@@ -91,6 +91,23 @@ public class PlanGoodsService implements IPlanGoodsService {
 	BillMapper billMapper;
 
 	@Override
+	public Double countPlanTotal(Long timeBegin, Long timeEnd) {
+		PlanGoods query = new PlanGoods();
+		query.setTimeBegin(timeBegin);
+		query.setTimeEnd(timeEnd);
+		return planGoodsMapper.countPlanTotal(query);
+	}
+
+	@Override
+	public Double countGoodsTotal(Long timeBegin, Long timeEnd) {
+		PlanGoods query = new PlanGoods();
+		query.setTimeBegin(timeBegin);
+		query.setTimeEnd(timeEnd);
+		return planGoodsMapper.countGoodsTotal(query);
+	}
+
+	
+	@Override
 	@Transactional
 	public Result auditGoods(GoodsAuditReq req) {
 		Result rs = Result.getSuccessResult();
@@ -620,5 +637,4 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setStartcity(fileRoute.getOaddr());
 		plan.setEndcity(fileRoute.getDaddr());
 	}
-
 }

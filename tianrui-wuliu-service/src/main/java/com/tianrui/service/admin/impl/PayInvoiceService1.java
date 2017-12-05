@@ -229,15 +229,11 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 							String capitalno = UUIDUtil.getId();//流水号
 							PayInvoiceMsg payInvoiceMsg = loggerPayInvoiceMsg(payInvoice,capitalno);
 							PayInvoiceDriverPush push = setPayInvoiceDriver(payInvoice, payInvoiceMsg);
+							logger.info(HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
 							ApiResult apiResult = HttpUtil.post_longlong(push, HttpUrl.NC_URL_IP_PORT + HttpUrl.PAY_INVOICE_DRIVER_PUSH);
 							if (apiResult != null) {
 								logger.info("into service: driver pay invoice push NC http result{}: =" + JSON.toJSONString(apiResult).toString());
 								if (StringUtils.equals(apiResult.getCode(), ErrorCode.SYSTEM_SUCCESS.getCode())) {
-									//提现申请
-									result =  saveWithDraw(payInvoice,bankCard,capitalno);
-									if(!"000000".equals(result.getCode())){
-										return result;
-									}
 									PayInvoice bean = callBackPushStatus(payInvoice);
 									logger.info("into service: driver pay invoice update pushStatus Bean{}: " + JSON.toJSONString(bean).toString());
 									if (payInvoiceMapper.updateByPrimaryKeySelective(bean) == 1) {
@@ -247,7 +243,11 @@ public class PayInvoiceService1 implements IPayInvoiceService {
 									}
 									logger.info("into service: driver pay invoice insert payInvoiceMsg{}: " + payInvoiceMsg.toString());
 									payInvoiceMsgMapper.insertSelective(payInvoiceMsg);
-									
+									result =  saveWithDraw(payInvoice,bankCard,capitalno);
+									//提现申请
+									if(!"000000".equals(result.getCode())){
+										return result;
+									}
 								} else {
 									result.setErrorCode(ErrorCode.PAY_INVOICE_ERROR);
 									result.setError(result.getError() + ": "+ apiResult.getMessage());
