@@ -25,6 +25,7 @@ import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MessagePush;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.PlanGoods;
@@ -50,6 +51,12 @@ public class MessagePushService implements IMessagePushService {
 			messageContent = demandMessage(req, mp, messageContent);
 		}else if (req.getMessageType() == 2) {
 			messageContent = planMeaage(req, rs, messageContent);
+		}else if(req.getMessageType() == 3){//司机提货
+			Bill bill = (Bill) req.getGoods();
+			messageContent = MessageHelper.getPickUpRollingMesage(bill.getStartcity(), bill.getEndcity(), bill.getCargoname(), bill.getVehicleno());
+		}else if(req.getMessageType() == 4){//司机卸货
+			Bill bill = (Bill) req.getGoods();
+			messageContent = MessageHelper.getDischargeRollingMesage(bill.getStartcity(), bill.getEndcity(), bill.getCargoname(), bill.getVehicleno());
 		}
 		req.setChannel((byte)1);
 		req.setMessageContent(messageContent);

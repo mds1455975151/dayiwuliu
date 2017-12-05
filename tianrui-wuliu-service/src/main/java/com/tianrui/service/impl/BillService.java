@@ -1,5 +1,6 @@
 package com.tianrui.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +28,7 @@ import com.tianrui.api.intf.IFileService;
 import com.tianrui.api.intf.IMemberVoService;
 import com.tianrui.api.intf.IMoenyDisposeService;
 import com.tianrui.api.intf.IVehicleDriverService;
+import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.req.front.adminReport.StatReportReq;
@@ -42,6 +44,7 @@ import com.tianrui.api.req.front.position.PositionQueryReq;
 import com.tianrui.api.req.front.system.FileUploadReq;
 import com.tianrui.api.req.front.vehicle.MemberVehicleReq;
 import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.req.money.MessagePushReq;
 import com.tianrui.api.req.money.SaveBillMoneyReq;
 import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.admin.PageResp;
@@ -204,6 +207,8 @@ public class BillService implements IBillService{
 	AddVehicleBankCardMapper addVehicleBankCardMapper;
 	@Autowired
 	IMoenyDisposeService moenyDisposeService;
+	@Autowired
+	IMessagePushService messagePushService;
 
 	@Override
 	public Result findPlanId(String id,String type) {
@@ -1170,12 +1175,21 @@ public class BillService implements IBillService{
 							MemberVo receive =getMember(db.getVenderid());
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DISCHARGE, "vender");
 							//为货主发送
-							
 							Plan plan = planMapper.selectRootPlanByPlanId(db.getPlanid());
 							receive=getMember(plan.getCreator());
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2OWNER_DISCHARGE, "owner");
-							rs.setCode("000000");
-							rs.setData("操作成功");
+							//消息广场消息推送
+							try {
+								MessagePushReq mess = new MessagePushReq();
+								mess.setMessageType((byte)4);//司机卸货
+								mess.setChannel((byte)1);//app推送
+								mess.setCreateTime(System.currentTimeMillis());
+								mess.setGoods(db);
+								messagePushService.save(mess);
+							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							try {
 								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "0",db.getCargoname());
 							} catch (Exception e) {
@@ -1269,8 +1283,18 @@ public class BillService implements IBillService{
 							MemberVo currUser =getMember(req.getCurruId());
 							MemberVo receive =getMember(db.getVenderid());
 							sendMsgInside(Arrays.asList(new String[]{currUser.getRealName(),db.getWaybillno()}), db.getId(), currUser, receive, MessageCodeEnum.BILL_2VENDER_DEPARTURE, "vender");
-							rs.setCode("000000");
-							rs.setData("操作成功");
+							//消息广场消息推送
+							try {
+								MessagePushReq mess = new MessagePushReq();
+								mess.setMessageType((byte)3);//司机提货
+								mess.setChannel((byte)1);//app推送
+								mess.setCreateTime(System.currentTimeMillis());
+								mess.setGoods(db);
+								messagePushService.save(mess);
+							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							try {
 								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "1",db.getCargoname());
 							} catch (Exception e) {

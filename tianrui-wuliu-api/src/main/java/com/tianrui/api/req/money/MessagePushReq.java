@@ -2,7 +2,7 @@ package com.tianrui.api.req.money;
 
 public class MessagePushReq {
 
-	private Byte messageType;//消息类型1-货源需求，2-货运计划
+	private Byte messageType;//消息类型1-货源需求，2-货运计划 3-司机提货 4-司机卸货
 
     private Byte channel;//推送渠道，1-APP,2-短信，3-全部
 
