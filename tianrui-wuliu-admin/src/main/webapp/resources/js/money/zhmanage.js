@@ -66,7 +66,6 @@ function init(pageNo){
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	$("#zhbusi option[value='2']").hide();
 	
 	if(!data){
 		var hmlnull = "";
@@ -81,6 +80,7 @@ function innerHml(data){
 		hmlnull +='</td>';
 		$("#innerHtml").append(hmlnull);
 	}else {
+		alert(data.length);
 		for (var a = 0; a < data.length; a++) {
 			var hml = "<tr>" +
 				"<td>"+(a+1)+"</td>" +
@@ -107,7 +107,6 @@ $(".withdrawststus").on("click",function(){
 	$(".withdrawststus").removeClass("select");
 	$(this).addClass("select");
 	var type = $(".bag_tab").find(".select").attr("type");
-
 	if(type == 11 || type == 21){
 		$("#zhbusi option[value='2']").hide();
 		$("#zhbusi option[value='0']").show();
@@ -123,26 +122,39 @@ $(".withdrawststus").on("click",function(){
 	}
 	init(0);
 });
-//
-//function timetd(){
-//	   var mydate = new Date();
-//	   var year = mydate.getFullYear();
-//	   var month = (mydate.getMonth()+1);
-//	   var day =  mydate.getDate();
-//	   $("#starttime").val(year + "-" + month +"-" + day);
-//}
-//function timeseven(){
-//	var a=-7;
-//	   var mydate = new Date();
-//	   var year = mydate.getFullYear();
-//	   var month = (mydate.getMonth()+1);
-//	   var day =  (mydate.getDate()+a);
-//	   $("#starttime").val(year + "-" + month +"-" + day);
-//}
-//function timethirty(){
-//	   var mydate = new Date();
-//	   var year = mydate.getFullYear();
-//	   var month = (mydate.getMonth()+1);
-//	   var day =  mydate.getDate();
-//	   $("#starttime").val(year + "-" + month +"-" + day);
-//}
+
+function timenow(){
+	   var mydate = new Date();
+	   var year = mydate.getFullYear();
+	   var month = (mydate.getMonth()+1);
+	   var day =  mydate.getDate();
+	   var reday = year + "-" + month +"-" + day;
+	   return reday;
+}
+function timetd(){
+	$("#starttime").val("");
+	$("#endtime").val("");
+	   $("#starttime").val(timenow());
+	   $("#endtime").val(timenow());
+}
+function timeseven(){
+	$("#starttime").val("");
+	$("#endtime").val("");
+	var now = new Date();
+	   var mydate = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+	   var year = mydate.getFullYear();
+	   var month = (mydate.getMonth()+1);
+	   var day =  (mydate.getDate());
+	   $("#starttime").val(year + "-" + month +"-" + day);
+	   $("#endtime").val(timenow());
+}
+function timethirty(){
+	$("#starttime").val("");
+	$("#endtime").val("");
+	   var mydate = new Date();
+	   var year = mydate.getFullYear();
+	   var mon = (mydate.getMonth());
+	   var day =  mydate.getDate();
+	   $("#starttime").val(year + "-" + mon +"-" + day);
+	   $("#endtime").val(timenow());
+}

@@ -1,7 +1,19 @@
-	
+// 蓝色统计数据的js
+// 默认显示的可用余额记录
+var dongjie1 = "<div class=" + "bag_tjline" + ">" + "<label>今日支出金额：</label>" 
++ "<span>"+ "44"+"元</span></div>"+
+"<div class=" + "bag_tjline" + ">" + "<label>今日收入金额：</label>" 
++ "<span>"+ 845712+"元</span></div>"+
+"<div class=" + "bag_tjline" + ">" + "<label>昨日可用余额：</label>" 
++ "<span>"+ 845712+"元</span></div>"+
+"<div class=" + "bag_tjline" + ">" + "<label>今日可用余额：</label>" 
++ "<span>"+ 845712+"元</span></div>"
+$(".bag_tj").append(dongjie1);
+
+			
 function bagHml(data){
 	var type = $(".bag_tab").find(".select").attr("type");
-		if(type == 1){
+		if(type == 11){
 //			for (var a = 0; a < data.length; a++) {
 			$(".bag_tj").empty();
 			var dongjie1 = "<div class=" + "bag_tjline" + ">" + "<label>今日支出金额：</label>" 
@@ -15,7 +27,7 @@ function bagHml(data){
 			$(".bag_tj").append(dongjie1);
 //			}
 		}
-		else if(type == 2){
+		else if(type == 19){
 //			for (var a = 0; a < data.length; a++) {
 			$(".bag_tj").empty();
 			var dongjie2 = "<div class=" + "bag_tjline" + ">" + "<label>今日解冻金额：</label>" 
@@ -27,7 +39,7 @@ function bagHml(data){
 			$(".bag_tj").append(dongjie2);
 //			}
 			
-		 }else if(type == 3){
+		 }else if(type == 21){
 //			for (var a = 0; a < data.length; a++) {
 			$(".bag_tj").empty();
 			var dongjie3 = "<div class=" + "bag_tjline" + ">" + "<label>提现冻结：</label>" 
@@ -40,7 +52,7 @@ function bagHml(data){
 //				}
 		 }
 }
-function getParams(){
+function getdata(){
 	var type = $(".bag_tab").find(".select").attr("type");
 	var params = {
 			transactiontype:type,
@@ -49,9 +61,9 @@ function getParams(){
 }
 function tjtoal(){
 	$.ajax({
-		url:"/admin/money/capitalRecordSelect",
+		url:" ",
 		type:"POST",
-		data:getParams(),
+		data:getdata(),
 		success:function(ret){
 			if(ret.code == '000000'){
 				var data = ret.data.list;
@@ -61,7 +73,10 @@ function tjtoal(){
 	});
 }
 
-
+$(".withdrawststus").on("click",function(){
+	var type = $(".bag_tab").find(".select").attr("type");
+//	tjtoal();
+});
 
 
 

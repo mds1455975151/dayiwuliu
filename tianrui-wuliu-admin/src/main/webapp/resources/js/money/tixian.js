@@ -13,6 +13,9 @@ function reset(){
 	$("#txcell").val("");
 	$("#txno").val("");
 	$("#txliushui").val("");
+	$("#txqudao").val("");
+	$("#starttime").val("");
+	$("#endtime").val("");
 	init(0);
 }
 function getParams(pageNo){
@@ -122,3 +125,42 @@ $(".withdrawststus").on("click",function(){
 	$(this).addClass("select");
 	init(0);
 });
+
+
+function timenow(){
+	   var mydate = new Date();
+	   var year = mydate.getFullYear();
+	   var month = (mydate.getMonth()+1);
+	   var day =  mydate.getDate();
+	   var reday = year + "-" + month +"-" + day;
+	   return reday;
+}
+
+function timetd(){
+	$("#starttime").val("");
+	$("#endtime").val("");
+	   $("#starttime").val(timenow());
+	   $("#endtime").val(timenow());
+}
+function timeseven(){
+	$("#starttime").val("");
+	$("#endtime").val("");
+	var now = new Date();
+	   var mydate = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
+	   var year = mydate.getFullYear();
+	   var month = (mydate.getMonth()+1);
+	   var day =  (mydate.getDate());
+	   $("#starttime").val(year + "-" + month +"-" + day);
+	   $("#endtime").val(timenow());
+}
+function timethirty(){
+	$("#starttime").val("");
+	$("#endtime").val("");
+	   var mydate = new Date();
+	   var year = mydate.getFullYear();
+	   var mon = (mydate.getMonth());
+	   var day =  mydate.getDate();
+	   $("#starttime").val(year + "-" + mon +"-" + day);
+	   $("#endtime").val(timenow());
+}
+

@@ -61,9 +61,9 @@
 								class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 						</div>
 						<div class="ht_bagbtn">
-                            <button class="btn btngreen" onclick="init(0)" type="submit">今天</button>
-                            <button class="btn btngreen" onclick="reset()" type="submit">最近7天</button>
-                            <button class="btn btngreen" onclick="init(0)" type="submit">最近30天</button>
+                            <button class="btn btngreen" onclick="timetd()" type="submit">今天</button>
+                            <button class="btn btngreen" onclick="timeseven()" type="submit">最近7天</button>
+                            <button class="btn btngreen" onclick="timethirty()" type="submit">最近30天</button>
                         </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>

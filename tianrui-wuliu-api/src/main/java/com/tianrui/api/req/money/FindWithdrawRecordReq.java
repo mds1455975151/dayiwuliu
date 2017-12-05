@@ -14,7 +14,7 @@ public class FindWithdrawRecordReq {
 	
 	private String capitalno;//交易流水号
 	
-	private String expectpaycompany;//支付渠道
+	private String expectpaycompany;//支付渠道 
 	
 	private Short transactionstate;//交易状态 1-处理中 2-成功 3-失败 4-未知
 
