@@ -133,10 +133,6 @@ public class MessageHelper {
 	 */
 	public static String getPickUpRollingMesage(String qyd,String mdd,String hwmc,String cph){
 		StringBuffer sb = new StringBuffer();
-		sb.append(qyd);
-		sb.append("至");
-		sb.append(mdd);
-		sb.append("，");
 		sb.append(hwmc+"【");
 		sb.append(cph);
 		sb.append("】已经装货完成！");
@@ -154,10 +150,6 @@ public class MessageHelper {
 	 */
 	public static String getDischargeRollingMesage(String qyd,String mdd,String hwmc,String cph){
 		StringBuffer sb = new StringBuffer();
-		sb.append(qyd);
-		sb.append("至");
-		sb.append(mdd);
-		sb.append("，");
 		sb.append(hwmc+"【");
 		sb.append(cph);
 		sb.append("】已经完成卸货！");

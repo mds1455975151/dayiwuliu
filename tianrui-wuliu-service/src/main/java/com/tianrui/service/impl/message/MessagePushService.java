@@ -12,13 +12,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tianrui.api.admin.intf.IFileRouteService;
 import com.tianrui.api.message.intf.IMessagePushService;
 import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.req.money.AppMessageReq;
 import com.tianrui.api.req.money.MessagePushReq;
 import com.tianrui.api.req.money.MessageRollingReq;
+import com.tianrui.api.resp.admin.RoutePosition;
 import com.tianrui.api.resp.front.message.MessageAppResp;
 import com.tianrui.api.resp.money.MessagePushResp;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FilePositoin;
@@ -42,6 +45,8 @@ public class MessagePushService implements IMessagePushService {
 	FileRouteMapper fileRouteMapper;
 	@Autowired
 	FilePositoinMapper filePositoinMapper;
+	@Autowired
+	IFileRouteService routeService;
 	@Override
 	public Result save(MessagePushReq req) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Result rs = Result.getSuccessResult();
@@ -52,17 +57,53 @@ public class MessagePushService implements IMessagePushService {
 		}else if (req.getMessageType() == 2) {
 			messageContent = planMeaage(req, rs, messageContent);
 		}else if(req.getMessageType() == 3){//司机提货
-			Bill bill = (Bill) req.getGoods();
-			messageContent = MessageHelper.getPickUpRollingMesage(bill.getStartcity(), bill.getEndcity(), bill.getCargoname(), bill.getVehicleno());
+			saveRollingMessage(req);
+			return rs;
 		}else if(req.getMessageType() == 4){//司机卸货
-			Bill bill = (Bill) req.getGoods();
-			messageContent = MessageHelper.getDischargeRollingMesage(bill.getStartcity(), bill.getEndcity(), bill.getCargoname(), bill.getVehicleno());
+			saveRollingMessage(req);
+			return rs;
 		}
 		req.setChannel((byte)1);
 		req.setMessageContent(messageContent);
 		PropertyUtils.copyProperties(mp,req);
 		messagePushMapper.insertSelective(mp);
 		return rs;
+	}
+	/**
+	 * 保存司机提货、卸货消息
+	 * @param req
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	private void saveRollingMessage(MessagePushReq req)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		Bill bill = (Bill) req.getGoods();
+		MessageRollingReq roll =new MessageRollingReq();
+		roll.setMessageType(req.getMessageType());
+		roll.setCreateTime(new Date().getTime());
+		RoutePosition route = null;
+		try {
+			route = routeService.getPositionByRouteId(bill.getRouteid());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String qyd = "";
+		String mdd = "";
+		qyd = route.getStartCity();
+		mdd = route.getEndCity();
+		if(req.getMessageType() == 3){
+			roll.setMessageContent(MessageHelper.getPickUpRollingMesage(qyd, mdd, bill.getCargoname(), bill.getVehicleno()));
+		}else if (req.getMessageType() == 4) {
+			roll.setMessageContent(MessageHelper.getDischargeRollingMesage(qyd, mdd, bill.getCargoname(), bill.getVehicleno()));
+		}
+		 qyd = qyd + route.getStartName();
+		 mdd = mdd + route.getEndName();
+		String time = new SimpleDateFormat("yyyy年M月d日").format(DateUtil.parse(bill.getStarttime())) + "--"+new SimpleDateFormat("yyyy年M月d日").format(DateUtil.parse(bill.getEndtime()));
+		roll.setDesc1(qyd);
+		roll.setDesc2(mdd);
+		roll.setDesc3(time);
+		messageRollingService.save(roll);
 	}
 	/**
 	 * 货运计划消息处理
