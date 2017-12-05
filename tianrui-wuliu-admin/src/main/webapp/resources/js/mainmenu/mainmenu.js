@@ -197,6 +197,10 @@ function getNodeList(menu) {
 			_i.removeAttr("class");
 			_i.addClass("iconfontt").html('&#xe65c;');
 		}
+		else if(nodesList[i].nodename == "调度管理"){
+			_i.removeAttr("class");
+			_i.addClass("iconfontt").html('&#xe645;');
+		}
 		href.append(_i).append(span);
 		
 		

@@ -10,6 +10,8 @@ import com.tianrui.common.enums.TransactionType;
 import com.tianrui.common.vo.Result;
 
 public interface ICapitalAccountService {
+	/** 重置用户密码*/
+	Result deleteAcountPassword(String id);
 	/** 设置账户密码*/
 	Result saveOrUptAcountPassword(SavePasswordReq req);
 	/** 校验用户密码*/

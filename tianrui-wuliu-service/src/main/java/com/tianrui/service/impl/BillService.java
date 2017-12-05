@@ -1187,7 +1187,6 @@ public class BillService implements IBillService{
 								mess.setGoods(db);
 								messagePushService.save(mess);
 							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							try {
@@ -1292,7 +1291,6 @@ public class BillService implements IBillService{
 								mess.setGoods(db);
 								messagePushService.save(mess);
 							} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							try {

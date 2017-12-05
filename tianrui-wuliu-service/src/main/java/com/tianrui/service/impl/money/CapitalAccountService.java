@@ -31,6 +31,12 @@ public class CapitalAccountService implements ICapitalAccountService {
 	private MoneyCapitalAccountMapper moneyAccountMapper;
 	@Autowired
 	MoneyAccountPasswordMapper moneyAccountPasswordMapper;
+	@Override
+	public Result deleteAcountPassword(String id) {
+		Result rs = Result.getSuccessResult();
+		moneyAccountPasswordMapper.deleteByPrimaryKey(id);
+		return rs;
+	}
 	
 	@Override
 	public Result saveOrUptAcountPassword(SavePasswordReq req) {

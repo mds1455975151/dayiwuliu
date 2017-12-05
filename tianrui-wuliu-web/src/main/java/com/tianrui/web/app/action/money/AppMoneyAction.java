@@ -82,6 +82,7 @@ public class AppMoneyAction {
 	@ResponseBody
 	public AppResult checkValCode(AppParam<AppMemberReq> appParam) throws Exception{
 		Result rs = Result.getSuccessResult();
+		Head head = appParam.getHead();
 		boolean codeValidate = false;//验证码认证
 		String key = CacheHelper.buildKey(CacheModule.MOENY_APP_UPT_PASSWORD, new String[]{"3",appParam.getBody().getAccount()});
 		UserLoginVo value=(UserLoginVo) cache.getObj(key,UserLoginVo.class);
@@ -95,6 +96,8 @@ public class AppMoneyAction {
 		if(!(StringUtils.equals(Constant.authCodeValue, appParam.getBody().getAuthCode() )|| codeValidate)){
 			rs.setCode("123");
 			rs.setError("验证码校验失败");
+		}else{
+			capitalAccountService.deleteAcountPassword(head.getId());
 		}
 		return AppResult.valueOf(rs);
 	}

@@ -29,11 +29,13 @@ import com.tianrui.service.admin.mapper.FileOrgCargoMapper;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
 import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SignerBill;
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mapper.SignerBillMapper;
 import com.tianrui.service.util.TimeUtils;
@@ -57,6 +59,8 @@ public class SignerBillService implements ISignerBillService{
 	IFreightInfoService freightInfoService;
 	@Autowired
 	AnlianBillMapper anlianBillMapper;
+	@Autowired
+	MemberBankCardMapper memberBankCardMapper;
 	
 	@Override
 	public PaginationVO<SignerBillResp> select(SignerBillFindReq req) throws Exception {
@@ -133,6 +137,19 @@ public class SignerBillService implements ISignerBillService{
 		if(StringUtils.equals(req.getType(), "dy")){
 			//处理大易平台运单
 			Bill bill = billMapper.selectByPrimaryKey(req.getId());
+			if(StringUtils.isBlank(bill.getBankId())&&StringUtils.equals("1", bill.getPayment())){
+				//支付对象为司机 且 运单未保存司机银行卡信息
+				//校验司机是否添加银行卡
+				MemberBankCard bank = new MemberBankCard();
+				bank.setCreater(bill.getDriverid());
+				bank.setBankautid("1");
+				 List<MemberBankCard> bkls = memberBankCardMapper.selectByCondition(bank);
+				if(bkls.size()==0){
+					rs.setCode("4");
+					rs.setError("司机未添加或未引用设置银行卡...");
+					return rs;
+				}
+			}
 			pay = changeDyBill(req,bill);
 			pay.setRemark("dy");
 			Bill upt = new Bill();
@@ -143,6 +160,19 @@ public class SignerBillService implements ISignerBillService{
 		}else if(StringUtils.equals(req.getType(), "al")){
 			//处理安联平台运单
 			AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+			if(StringUtils.isBlank(bill.getBankId())&&StringUtils.equals("1", bill.getPayment())){
+				//支付对象为司机 且 运单未保存司机银行卡信息
+				//校验司机是否添加银行卡
+				MemberBankCard bank = new MemberBankCard();
+				bank.setCreater(bill.getDriverid());
+				bank.setBankautid("1");
+				 List<MemberBankCard> bkls = memberBankCardMapper.selectByCondition(bank);
+				if(bkls.size()==0){
+					rs.setCode("4");
+					rs.setError("司机未添加或未引用设置银行卡...");
+					return rs;
+				}
+			}
 			pay = changeAlBill(req,bill);
 			pay.setRemark("al");
 			AnlianBill alupt = new AnlianBill();
