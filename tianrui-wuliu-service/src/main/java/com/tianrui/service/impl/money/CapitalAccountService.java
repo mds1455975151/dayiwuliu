@@ -107,19 +107,23 @@ public class CapitalAccountService implements ICapitalAccountService {
 		if(pass!=null){
 			if("1".equals(req.getCheckType())){
 				//密码支付
-				if(!(StringUtils.isNotBlank(pass.getPassword())&&//支付密码不为空 
-						StringUtils.equals(pass.getPassword(), req.getPassword())//支付密码和输入密码相同
-						)){
+				if(StringUtils.isBlank(pass.getPassword())){//未设置支付密码
+					logger.error(ErrorCode.MONEY_CHECK_TP1_NULL+"未设置支付密码");
+					rs.setErrorCode(ErrorCode.MONEY_CHECK_TP1_NULL);
+				}else if(!StringUtils.equals(pass.getPassword(), req.getPassword())){
 					logger.error(ErrorCode.MONEY_CHECK_PW_TP1+"支付密码校验未通过");
 					rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_TP1);
 				}
 			}else if("2".equals(req.getCheckType())){
 				//手势支付
-				if(!(StringUtils.equals("1", pass.getGestureStatus())&& //开启手势支付
-						StringUtils.isNotBlank(pass.getGesturepass())&& //手势支付密码不为空
-							StringUtils.equals(pass.getGesturepass(), req.getGesturepass())//支付密码 和输入密码相同
-							)){
-					logger.error(ErrorCode.MONEY_CHECK_PW_TP2+"手势密码校验未通过或未开启手势密码");
+				if(StringUtils.isBlank(pass.getGesturepass())){
+					logger.error(ErrorCode.MONEY_CHECK_TP2_NULL+"未设置手势密码");
+					rs.setErrorCode(ErrorCode.MONEY_CHECK_TP2_NULL);
+				}else if(!StringUtils.equals("1", pass.getGestureStatus())){
+					logger.error(ErrorCode.MONEY_CHECK_TP2_FALL+"未开启手势密码");
+					rs.setErrorCode(ErrorCode.MONEY_CHECK_TP2_FALL);
+				}else if(!StringUtils.equals(pass.getGesturepass(), req.getGesturepass())){
+					logger.error(ErrorCode.MONEY_CHECK_PW_TP2+"手势密码校验未通过");
 					rs.setErrorCode(ErrorCode.MONEY_CHECK_PW_TP2);
 				}
 			}else{

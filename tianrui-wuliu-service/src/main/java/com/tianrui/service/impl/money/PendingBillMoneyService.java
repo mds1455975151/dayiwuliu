@@ -104,6 +104,8 @@ public class PendingBillMoneyService implements IPendingBillMoneyService {
 		query.setWaybillno(req.getWaybillno());
 		query.setUseryhno(req.getUseryhno());
 		query.setIfpaid(req.getIfpaid());
+		query.setTimeBegin(req.getTimeBegin());
+		query.setTimeEnd(req.getTimeEnd());
 		long a = billMoneyMapper.selectByCount(query);
 		page.setTotal(a);
 		if(a!=0l){

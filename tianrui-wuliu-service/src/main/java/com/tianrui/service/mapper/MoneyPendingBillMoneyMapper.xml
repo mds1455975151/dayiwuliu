@@ -30,6 +30,12 @@
     <include refid="Base_Column_List" />
     from money_pendingBillMoney
     <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and createtime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
     	<if test="ifpaid != null and ifpaid != ''">
     	 and ifPaid = #{ifpaid,jdbcType=SMALLINT}
     	</if>
@@ -53,6 +59,12 @@
     count(0)
     from money_pendingBillMoney
     <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and createtime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
     	<if test="ifpaid != null and ifpaid != ''">
     	 and ifPaid = #{ifpaid,jdbcType=SMALLINT}
     	</if>
