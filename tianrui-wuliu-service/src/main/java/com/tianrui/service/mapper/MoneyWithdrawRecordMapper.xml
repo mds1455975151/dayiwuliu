@@ -37,6 +37,12 @@
     <include refid="Base_Column_List" />
     from money_withdrawRecord
     <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and beginTime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and beginTime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
     	<if test="transactionstate != null and transactionstate != ''">
     		and transactionState = #{transactionstate,jdbcType=SMALLINT}
     	</if>
@@ -67,6 +73,12 @@
     count(0)
     from money_withdrawRecord
     <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and beginTime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and beginTime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
     	<if test="transactionstate != null and transactionstate != ''">
     		and transactionState = #{transactionstate,jdbcType=SMALLINT}
     	</if>

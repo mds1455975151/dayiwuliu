@@ -24,9 +24,23 @@ function getParams(pageNo){
 	if($("#txqudao").val() != -1){
 		expectpaycompany = $("#txqudao").val();
 	}
+	//开始时间 格式转换
+	var starttime = $("#starttime").val();
+	var starL = null;
+	if(starttime != ""){
+		starL = Date.parse(new Date(starttime));
+	}
+	//结束时间 格式转换
+	var endtime = $("#endtime").val();
+	var endL = null;
+	if(endtime != ""){
+		endL = Date.parse(new Date(endtime)) + (24 * 3600 * 1000);
+	}
 	var params = {pageNo:pageNo,
 			pageSize:10,
 			transactionstate:type,
+			timeBegin:starL,
+			timeEnd:endL,
 			bankcodeno:$("#txbank").val(),
 			cellPhone:$("#txcell").val(),
 			useryhno:$("#txno").val(),

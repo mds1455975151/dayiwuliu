@@ -21,8 +21,22 @@ function reset(){
 
 function getParams(pageNo){
 	var type = $(".bag_tab").find(".select").attr("type");
+	//开始时间  格式转换
+	var starttime = $("#starttime").val();
+	var starL = null;
+	if(starttime != ""){
+		starL = Date.parse(new Date(starttime));
+	}
+	//结束时间  格式转换
+	var endtime = $("#endtime").val();
+	var endL = null;
+	if(endtime != ""){
+		endL = Date.parse(new Date(endtime)) + (24 * 3600 * 1000);
+	}
 	var params = {pageNo:pageNo,
 			pageSize:10,
+			timeBegin:starL,
+			timeEnd:endL,
 			transactiontype:type,
 			username:$("#name").val(),
 			cellphone:$("#cellphone").val(),

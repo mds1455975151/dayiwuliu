@@ -17,7 +17,21 @@ function reset(){
 	init(0);
 }
 function getParams(pageNo){
+	//开始时间  格式转换
+	var starttime = $("#starttime").val();
+	var starL = null;
+	if(starttime != ""){
+		starL = Date.parse(new Date(starttime));
+	}
+	//结束时间   格式转换
+	var endtime = $("#endtime").val();
+	var endL = null;
+	if(endtime != ""){
+		endL = Date.parse(new Date(endtime)) + (24 * 3600 * 1000);
+	}
 	var params = {pageNo:pageNo,
+			timeBegin:starL,
+			timeEnd:endL,
 			waybillno:$("#billNo").val(),
 			cellphone:$("#cellphone").val(),
 			useryhno:$("#vehicleNo").val(),
@@ -109,10 +123,10 @@ function timeMonth(ti){
 	   return reday;
 }
 function timeDay(ti){
-	   var mydate = new Date(ti);
-	   var Day =  mydate.getDate();
-	   var reday = ""; 
-	    if (Day >= 10 )
+   var mydate = new Date(ti);
+   var Day =  mydate.getDate();
+   var reday = ""; 
+    if (Day >= 10 )
      {
 	    	reday += Day ;
      }
@@ -137,16 +151,16 @@ function timeseven(){
 	
 	var mydate = new Date();
 	var alltime =new Date(mydate.getTime() - 7 * 24 * 3600 * 1000);
-	 var month1 = mydate.getMonth()+1; 
-	 var month2 = alltime.getMonth()+1; 
-	   $("#starttime").val(timeYear(alltime) + "-" + timeMonth(month2) +"-" + timeDay(alltime));
-	   $("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month1) + "-" + timeDay(mydate));
+	var month1 = mydate.getMonth()+1; 
+	var month2 = alltime.getMonth()+1; 
+	$("#starttime").val(timeYear(alltime) + "-" + timeMonth(month2) +"-" + timeDay(alltime));
+	$("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month1) + "-" + timeDay(mydate));
 }
 function timethirty(){
 	$("#starttime").val("");
 	$("#endtime").val("");
-	   var mydate = new Date();
-	   var month = mydate.getMonth(); 
-	   $("#starttime").val(timeYear(mydate) + "-" + timeMonth(month) +"-" + timeDay(mydate));
-	   $("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month+1) + "-" + timeDay(mydate));
+	var mydate = new Date();
+	var month = mydate.getMonth(); 
+	$("#starttime").val(timeYear(mydate) + "-" + timeMonth(month) +"-" + timeDay(mydate));
+	$("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month+1) + "-" + timeDay(mydate));
 }

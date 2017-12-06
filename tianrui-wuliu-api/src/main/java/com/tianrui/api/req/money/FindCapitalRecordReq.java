@@ -5,6 +5,10 @@ public class FindCapitalRecordReq {
 	private Integer pageNo;
 	    
     private Integer pageSize;
+    //流水开始时间
+  	private Long timeBegin;
+  	//流水结束时间
+  	private Long timeEnd;
 
     private String cellphone;//登录账号
 
@@ -70,5 +74,21 @@ public class FindCapitalRecordReq {
 
 	public void setCapitalno(String capitalno) {
 		this.capitalno = capitalno;
+	}
+
+	public Long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(Long timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Long getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Long timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 }

@@ -34,6 +34,12 @@
     <include refid="Base_Column_List" />
     from money_capitalRecord 
     <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and createtime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
     	<if test="transactiontype != null and transactiontype != ''">
     		and transactionType = #{transactiontype,jdbcType=BIGINT}
     	</if>
@@ -60,6 +66,12 @@
     count(0)
     from money_capitalRecord 
     <where>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and createtime <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and createtime <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+    	</if>
     	<if test="transactiontype != null and transactiontype != ''">
     		and transactionType = #{transactiontype,jdbcType=BIGINT}
     	</if>
