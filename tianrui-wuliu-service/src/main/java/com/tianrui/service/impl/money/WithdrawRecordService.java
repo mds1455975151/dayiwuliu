@@ -75,6 +75,9 @@ public class WithdrawRecordService implements IWithdrawRecordService {
 		query.setBankcodeno(req.getBankcodeno());//银行卡
 		query.setCapitalno(req.getCapitalno());//流水号
 		query.setExpectpaycompany(req.getExpectpaycompany());//支付渠道
+		
+		query.setTimeBegin(req.getTimeBegin());
+		query.setTimeEnd(req.getTimeEnd());
 		//查询总条数
 		long a = withdrawRecordMapper.selectByCount(query);
 		page.setTotal(a);

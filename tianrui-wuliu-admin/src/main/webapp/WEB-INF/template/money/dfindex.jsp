@@ -117,6 +117,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/money/dfindex.js?1129"></script>
+	<script type="text/javascript" src="/resources/js/money/dfindex.js?1206"></script>
 </body>
 </html>

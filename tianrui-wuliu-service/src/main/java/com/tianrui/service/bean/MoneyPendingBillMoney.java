@@ -8,6 +8,10 @@ public class MoneyPendingBillMoney {
     private Integer pageNo;
     
     private Integer pageSize;
+    //卸货开始时间
+  	private Long timeBegin;
+  	//卸货结束时间
+  	private Long timeEnd;
 
     private String cellphone;//登录账号
 
@@ -191,5 +195,21 @@ public class MoneyPendingBillMoney {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(Long timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Long getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Long timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 }

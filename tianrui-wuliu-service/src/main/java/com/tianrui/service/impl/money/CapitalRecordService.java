@@ -56,6 +56,10 @@ public class CapitalRecordService implements ICapitalRecordService {
 		query.setUseryhno(req.getUseryhno());
 		query.setTransactiontype(req.getTransactiontype());//交易类型
 		query.setCapitalno(req.getCapitalno());//交易流水号
+		
+		query.setTimeBegin(req.getTimeBegin());
+		query.setTimeEnd(req.getTimeEnd());
+		
 		long a = recordMapper.selectByCount(query);
 		page.setTotal(a);
 		if(a != 0l){

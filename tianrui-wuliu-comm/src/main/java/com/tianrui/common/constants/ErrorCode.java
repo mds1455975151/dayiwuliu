@@ -106,8 +106,12 @@ public enum ErrorCode {
 	MONEY_CHECK_PW_NULL("E700001","用户未设置支付密码"),
 	MONEY_CHECK_PW_TYPE("E700002","未选择密码校验类型"),
 	MONEY_CHECK_PW_TP1("E700003","支付密码校验未通过"),
-	MONEY_CHECK_PW_TP2("E700004","手势密码校验未通过或未开启手势密码"),
-	MONEY_CHECK_PW_FALL("E700005","密码校验失败")
+	MONEY_CHECK_PW_TP2("E700004","手势密码校验未通过"),
+	MONEY_CHECK_PW_FALL("E700005","密码校验失败"),
+	
+	MONEY_CHECK_TP1_NULL("E700006","未设置支付密码"),
+	MONEY_CHECK_TP2_NULL("E700007","未设置手势密码"),
+	MONEY_CHECK_TP2_FALL("E700008","未开启手势密码")
 	;
 	
 	private String code;

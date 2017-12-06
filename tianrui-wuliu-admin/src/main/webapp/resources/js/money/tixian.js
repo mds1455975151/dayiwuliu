@@ -24,9 +24,23 @@ function getParams(pageNo){
 	if($("#txqudao").val() != -1){
 		expectpaycompany = $("#txqudao").val();
 	}
+	//开始时间 格式转换
+	var starttime = $("#starttime").val();
+	var starL = null;
+	if(starttime != ""){
+		starL = Date.parse(new Date(starttime));
+	}
+	//结束时间 格式转换
+	var endtime = $("#endtime").val();
+	var endL = null;
+	if(endtime != ""){
+		endL = Date.parse(new Date(endtime)) + (24 * 3600 * 1000);
+	}
 	var params = {pageNo:pageNo,
 			pageSize:10,
 			transactionstate:type,
+			timeBegin:starL,
+			timeEnd:endL,
 			bankcodeno:$("#txbank").val(),
 			cellPhone:$("#txcell").val(),
 			useryhno:$("#txno").val(),
@@ -127,40 +141,63 @@ $(".withdrawststus").on("click",function(){
 });
 
 
-function timenow(){
-	   var mydate = new Date();
+function timeYear(ti){
+	   var mydate = new Date(ti);
 	   var year = mydate.getFullYear();
-	   var month = (mydate.getMonth()+1);
-	   var day =  mydate.getDate();
-	   var reday = year + "-" + month +"-" + day;
+	   return year;
+}
+function timeMonth(ti){
+	   var reday = ""; 
+	    if (ti >= 10 )
+        {
+	    	reday += ti;
+        }
+        else
+        {
+        	reday += "0" + ti;
+        } 
 	   return reday;
 }
+function timeDay(ti){
+	   var mydate = new Date(ti);
+	   var Day =  mydate.getDate();
+	   var reday = ""; 
+	    if (Day >= 10 )
+     {
+	    	reday += Day ;
+     }
+     else
+     {
+     	reday += "0" + Day ;
+     } 
 
+	   return reday;
+}
 function timetd(){
 	$("#starttime").val("");
 	$("#endtime").val("");
-	   $("#starttime").val(timenow());
-	   $("#endtime").val(timenow());
+	 var mydate = new Date();
+	 var month = mydate.getMonth()+1; 
+	   $("#starttime").val(timeYear(mydate) +"-"+ timeMonth(month) + "-" + timeDay(mydate));
+	   $("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month) + "-" + timeDay(mydate));
 }
 function timeseven(){
 	$("#starttime").val("");
 	$("#endtime").val("");
-	var now = new Date();
-	   var mydate = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
-	   var year = mydate.getFullYear();
-	   var month = (mydate.getMonth()+1);
-	   var day =  (mydate.getDate());
-	   $("#starttime").val(year + "-" + month +"-" + day);
-	   $("#endtime").val(timenow());
+	
+	var mydate = new Date();
+	var alltime =new Date(mydate.getTime() - 7 * 24 * 3600 * 1000);
+	 var month1 = mydate.getMonth()+1; 
+	 var month2 = alltime.getMonth()+1; 
+	   $("#starttime").val(timeYear(alltime) + "-" + timeMonth(month2) +"-" + timeDay(alltime));
+	   $("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month1) + "-" + timeDay(mydate));
 }
 function timethirty(){
 	$("#starttime").val("");
 	$("#endtime").val("");
 	   var mydate = new Date();
-	   var year = mydate.getFullYear();
-	   var mon = (mydate.getMonth());
-	   var day =  mydate.getDate();
-	   $("#starttime").val(year + "-" + mon +"-" + day);
-	   $("#endtime").val(timenow());
+	   var month = mydate.getMonth(); 
+	   $("#starttime").val(timeYear(mydate) + "-" + timeMonth(month) +"-" + timeDay(mydate));
+	   $("#endtime").val(timeYear(mydate) +"-"+ timeMonth(month+1) + "-" + timeDay(mydate));
 }
 

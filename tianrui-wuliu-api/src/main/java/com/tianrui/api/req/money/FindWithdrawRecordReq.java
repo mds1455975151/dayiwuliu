@@ -5,6 +5,10 @@ public class FindWithdrawRecordReq {
 	private Integer pageNo;
 	
 	private Integer pageSize;
+	//提现申请开始时间
+	private Long timeBegin;
+	//提现申请结束时间
+	private Long timeEnd;
 	//登录账号
 	private String cellPhone;
 	//身份证号
@@ -80,6 +84,22 @@ public class FindWithdrawRecordReq {
 
 	public void setExpectpaycompany(String expectpaycompany) {
 		this.expectpaycompany = expectpaycompany;
+	}
+
+	public Long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(Long timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Long getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Long timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 	
 	
