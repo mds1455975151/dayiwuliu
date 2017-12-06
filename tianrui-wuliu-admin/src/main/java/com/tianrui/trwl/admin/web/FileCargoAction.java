@@ -154,6 +154,7 @@ public class FileCargoAction {
                                         String imgPath, 
                                          String userName,
                                           String desc1,
+                                          String desc3,
                                            String desc2) throws Exception{
 		
 		Result rs = Result.getSuccessResult();
@@ -188,6 +189,7 @@ public class FileCargoAction {
 			cargoReq.setPayType(payType);
 			cargoReq.setDesc1(desc1);
 			cargoReq.setDesc2(desc2);
+			cargoReq.setDesc3(desc3);
 			// 货物图片地址
 			if (rs.getData() == null) {
 				cargoReq.setImgPath(null);
@@ -239,6 +241,7 @@ public class FileCargoAction {
                                             String imgPath,
                                              String desc1,
                                               String desc2,
+                                              String desc3,
                                                String userName) throws Exception{
 		Result rs = Result.getSuccessResult();
 		if (imgPath != null) {
@@ -272,6 +275,7 @@ public class FileCargoAction {
 			cargoReq.setPayType(payType);
 			cargoReq.setDesc1(desc1);
 			cargoReq.setDesc2(desc2);
+			cargoReq.setDesc3(desc3);
 			// 货物图片地址
 			if (rs.getData() == null) {
 				cargoReq.setImgPath(null);

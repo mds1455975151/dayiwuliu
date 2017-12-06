@@ -27,9 +27,6 @@ $(function() {
 		$("#cargo_orgName").val(orgName);
 	}
 	
-	// 进入页面默认查询
-	$("#cargo_search").trigger("click");
-	
 	// 获取组织信息，用作模糊查询用
 //	$.ajax({
 //		url : CONTEXTPATH + '/Organization/query',// 跳转到 action
@@ -61,6 +58,7 @@ $("#cargo_search").click(function() {
 	displayData(0);
 });
 function displayData(pageNo){
+	alert(pageNo);
 	// 组织ID
 	var cargo_orgId = $("#cargo_orgId").val();
 	// 组织名称
@@ -90,13 +88,14 @@ function displayData(pageNo){
 	if (cargo_orgName == "") {
 		cargo_orgId = null;
 	}
+	
 	var pageSize=$("#pageSize").val();
 	// 按我的货物信息进行查询
 	if (cargo_orgId != null && cargo_orgId != "") {
 		$.ajax({
 			url : CONTEXTPATH + '/myCargo/getMyCargoInfo',// 跳转到 action
 			data : {
-				 pageNo :(pageNo + 1),
+				 pageNo :pageNo + 1,
 				 pageSize:pageSize,
 			     orgId: cargo_orgId,
 			     materCode: cargo_materCode,
@@ -116,7 +115,7 @@ function displayData(pageNo){
 				    }else {
 				    	$("#totalPages").html(parseInt((result.data.total-1)/pageSize+1));  
 				    }   
-				    appendContentToBody(data, 0);
+				    appendContentToBody(data, 0,pageNo);
 					$("#pagination").pagination(result.data.total, {   
 					    callback: pageCallback,   
 					    prev_text: '上一页',   
@@ -181,7 +180,7 @@ function displayData(pageNo){
 				    	$("#cargo_tbody").html(html);
 				    }else {
 				    	$("#totalPages").html(parseInt((result.data.total-1)/pageSize+1));  
-				    	appendContentToBody(data, 0,pageNo);
+				    	appendContentToBody(data, 0);
 				    }   
 					$("#pagination").pagination(result.data.total, {   
 					    callback: pageCallback,   
@@ -208,7 +207,7 @@ function displayData(pageNo){
  * @author kowuka
  * @time 2016.04.24
  */
-function appendContentToBody(data, flag,pageNo) {
+function appendContentToBody(data, flag) {
 	
 	// 搜索查询时清空表体，防止表体重复附加数据
 	if (flag == 0) {
@@ -240,6 +239,7 @@ function appendContentToBody(data, flag,pageNo) {
 			var td4 = $("<td id='rowIndex" + rowIndex + "_state'" + "></td>").append(getStatusByCode(data[i].state));
 			// 物料编码、物料名称、物料类别、状态、规格、型号、物料助记码
 			var td5 = $("<td></td>").append(data[i].materCode);
+			var td112 = $("<td></td>").append(data[i].desc3);
 			var td6 = $("<td></td>").append(data[i].materName);
 			var td2 = $("<td></td>").append(data[i].measUnit);
 			var td7 = $("<td></td>").append(data[i].materClass);
@@ -272,6 +272,7 @@ function appendContentToBody(data, flag,pageNo) {
 			var href1 = $("<a></a>")
 							.attr("href", "javascript:void(0);")
 							 .attr("onclick", "detailDisplay('" + data[i].id + "','" 
+									  							+ data[i].desc3 + "','" 
 										                         + data[i].orgName + "','" 
 										                          + data[i].orgType + "','" 
 										                           + data[i].state + "','" 
@@ -299,14 +300,15 @@ function appendContentToBody(data, flag,pageNo) {
 			var href3 = $("<a></a>")
 			               .attr("href", "javascript:void(0);")
 			                .attr("onclick", "cargoEdit('" + data[i].id + "','" 
+			                								+ data[i].desc3 + "','" 
 					                                        + data[i].materCode + "','" 
 					                                         + data[i].materName + "','" 
 					                                          + data[i].materClass + "','" 
 						                                       + data[i].spec + "','" 
 						                                        + data[i].model + "','" 
 						                                         + data[i].materMNCode + "','" 
-						                                          + data[i].measUnit + "','rowIndex"
-						                                           + rowIndex + "','" +pageNo + "')")
+						                                          + data[i].measUnit + 
+						                                       "')")
 						                .html("【修改】 ");
 
 			var href4 = $("<a></a>")
@@ -333,7 +335,7 @@ function appendContentToBody(data, flag,pageNo) {
 				td1.append(input1);
 			}
 			var tr = $("<tr></tr>").attr("id","rowIndex" + rowIndex).append(td1).append(td5)
-						             .append(td6).append(td2).append(td7).append(td4).append(td13).append(td8).append(td9)
+						             .append(td6).append(td2).append(td112).append(td7).append(td4).append(td13).append(td8).append(td9)
 						              .append(td10).append(td11);
 			
 			if (flag == 0) {
@@ -415,10 +417,18 @@ $("#modal_add_save").click(function() {
 	var cargo_payType = $("#modal_add_payType").val();
 	var desc1 = $("#modal_add_desc1 option:selected").val();
 	var desc2 = $("#modal_add_desc1 option:selected").text();
+	var desc3 = $("#modal_add_money").val();
 	// 图片地址
 	var cargo_imgPath = null;
 	if (cargo_imgPath != $("#add_imgCompare_back").val()) {
 		cargo_imgPath = $("#addCargoTarget").attr("src");
+	}
+	var reg=/^[-\+]?\d+(\.\d+)?$/;
+	if(!reg.test(desc3)){
+		$("#modal_common_content").html("货物单价输入不合法，请重新输入...");
+		$("#commonModal").modal();
+		$("#modal_add_money").focus();
+		return;
 	}
 	if( cargo_materCode ==""){
 		$("#modal_common_content").html("物料编码不能为空，请输入...");
@@ -451,6 +461,7 @@ $("#modal_add_save").click(function() {
 		     imgPath: cargo_imgPath,
 		     userName: userName,
 		     desc1:desc1,
+		     desc3:desc3,
 		     desc2:desc2
 		},
 		type : "post",
@@ -476,7 +487,7 @@ $("#modal_add_save").click(function() {
  * @author kowuka
  * @time 2016.05.23
  */
-function detailDisplay(id, orgName, orgType, state,
+function detailDisplay(id,desc3, orgName, orgType, state,
 		                materCode, materName, materClass,
 		                 spec, model, materMNCode, payType,desc2, mainMeasUnit) {
 	// var data = eval('(' + paramObj + ')'); 
@@ -489,6 +500,10 @@ function detailDisplay(id, orgName, orgType, state,
 	$("#modal_detail_materCode").html(materCode);
 	// 物料名称
 	$("#modal_detail_materName").html(materName);
+	// 货物单价
+	if(!desc3){
+		$("#modal_detail_money").html(desc3);
+	}
 	// 物料类别
 	$("#modal_detail_materClass").html(materClass);
 	// 状态
@@ -560,10 +575,10 @@ $("#modal_endisable_button").click(function() {
 	var id = $("#modal_endisable_id").val();
 	var state = $("#modal_endisable_state").val();
 	//var vRowIndex = $("#modal_endisable_rowIndex").val();
-	var pageNo =$("#pageNo").val();
 	// 隐藏模态框
 	$("#enDisableModal").modal('hide');
-	
+	var pageNo =$("#pageNo").val();
+	alert($("#pageNo").val());
 	$.ajax({
 		url : CONTEXTPATH + '/fileCargo/updateCargoInfo',// 跳转到 action
 		data : {
@@ -575,7 +590,7 @@ $("#modal_endisable_button").click(function() {
 		success : function(result) {
 			if (result && result.code == "000000") {
 				//$("#cargo_search").trigger("click");
-				displayData(parseInt(pageNo));
+				displayData(pageNo);
 			} else {
 				$("#modal_common_content").html(getStatusByCode(state) + "失败！"+result.error);
 				$("#commonModal").modal();
@@ -592,10 +607,12 @@ $("#modal_endisable_button").click(function() {
  * @author kowuka
  * @time 2016.04.13
  */
-function cargoEdit(id, materCode, materName, materClass,
-				         spec, model, materMNCode, mainMeasUnit,pageNo) {
+function cargoEdit(id, desc3,materCode, materName, materClass,
+				         spec, model, materMNCode, mainMeasUnit) {
 	// 主键
 	$("#modal_edit_id").val(id);
+	//单价
+	$("#modal_edit_money").val(desc3);
 	// 物料编码
 	$("#modal_edit_materCode").val(materCode);
 	// 物料名称
@@ -622,7 +639,6 @@ function cargoEdit(id, materCode, materName, materClass,
 			$(this).attr('selected', true);
 		}
 	});
-	$("#pageNo").val(pageNo);
 	$("#edit_mate").modal();
 }
 
@@ -680,9 +696,12 @@ $('#edit_mate').on('shown.bs.modal', function (e) {
 $("#modal_edit_save").click(function() {
 	// 主键
 	var id = $("#modal_edit_id").val();
-	var pageNo = $("#pageNo").val();
+	var pageNo = document.getElementById("goPage").value;
 	// 物料编码
 	var cargo_materCode = $("#modal_edit_materCode").val();
+	// 单价
+	var desc3 = $("#modal_edit_money").val();
+	
 	// 物料名称
 	var cargo_materName = $("#modal_edit_materName").val();
 	// 物料类别
@@ -711,6 +730,13 @@ $("#modal_edit_save").click(function() {
 	// 判断图片是否更换
 	if (cargo_imgPath == $("#edit_imgCompare_back").attr("src")) {
 		cargo_imgPath = null;
+	}
+	var reg=/^[-\+]?\d+(\.\d+)?$/;
+	if(!reg.test(desc3)){
+		$("#modal_common_content").html("货物单价输入不合法，请重新输入...");
+		$("#commonModal").modal();
+		$("#modal_add_money").focus();
+		return;
 	}
 	if( cargo_materCode ==""){
 		$("#modal_common_content").html("物料编码不能为空，请输入...");
@@ -745,6 +771,7 @@ $("#modal_edit_save").click(function() {
 		     imgPath: cargo_imgPath,
 		     userName: userName,
 		     desc1:desc1,
+		     desc3:desc3,
 		     desc2:desc2
 		},
 		type : "post",
@@ -753,7 +780,7 @@ $("#modal_edit_save").click(function() {
 				//$("#cargo_search").trigger("click");
 				// 隐藏模态框
 				$("#edit_mate").modal('hide');
-				displayData(parseInt(pageNo));
+				displayData(parseInt(pageNo-1));
 			} else {
 				$("#modal_common_content").html(result.error);
 				$("#commonModal").modal();

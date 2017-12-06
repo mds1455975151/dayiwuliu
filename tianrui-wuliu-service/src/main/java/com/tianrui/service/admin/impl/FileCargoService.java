@@ -304,6 +304,13 @@ public class FileCargoService implements IFileCargoService {
 				fileCargoResp.setImgPath(fileCargo.getImagepath());
 				fileCargoResp.setDesc1(fileCargo.getDesc1());
 				fileCargoResp.setDesc2(fileCargo.getDesc2());
+				if(null == fileCargo.getDesc3() || "".equals(fileCargo.getDesc3())){
+					fileCargoResp.setDesc3("");
+				}else {
+					fileCargoResp.setDesc3(fileCargo.getDesc3());
+				}
+				
+				fileCargoResp.setDesc4(fileCargo.getDesc4());
 				fileCargoRespList.add(fileCargoResp);
 			}
 		}

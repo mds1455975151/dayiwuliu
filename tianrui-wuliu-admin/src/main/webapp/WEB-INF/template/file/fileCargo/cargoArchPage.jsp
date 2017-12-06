@@ -76,7 +76,6 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 										<option>石膏、石膏粉</option>
 										<option>水泥助磨剂</option>
 		                            </select>
-		                        </div>
 		                        <div class="ht_divbtn">
 			                        <button class="btn btnblue" type="submit" id="cargo_search">搜索</button>
 			                        <button class="btn btngreen" type="reset" id="cargo_reset">重置</button>
@@ -131,6 +130,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                                <th>物料编码</th>
 		                                <th>物料名称</th>
 		                                <th>计量单位</th>
+		                                <th>货物单价</th>
 		                                <th>物料类别</th>
 		                                <th>状态</th>
 		                                <th>发票类型</th>
@@ -209,6 +209,9 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 				                      <option value="${aa.measureName }">${aa.measureName }</option>
 			                      </c:forEach>
 		                    </select>
+		                </div>
+		                 <div class="model_width">
+		                    <label>货物单价：</label><input type="text" maxlength="8" id="modal_add_money">
 		                </div>
 		                <div class="model_width">
 		                    <label>货物型号：</label><input type="text" maxlength="16" id="modal_add_model">
@@ -350,6 +353,9 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 		                    </select>
 		                </div>
 		                <div class="model_width">
+		                    <label>货物单价：</label><input type="text" maxlength="8" id="modal_edit_money">
+		                </div>
+		                <div class="model_width">
 		                    <label>货物规格：</label><input type="text" readonly="readonly" maxlength="16" id="modal_edit_spec">
 		                </div>
 		                <div class="model_width">
@@ -429,7 +435,6 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	
 	            </div>
 	            <div class="modal-footer">
-	            	<input type="hidden" id="pageNo">
 	                <button type="button" class="btn btn-primary" id="modal_edit_save">保存</button>
 	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 	            </div>
@@ -437,7 +442,6 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    </div>
 	</div>
 	<!--修改货物end-->
-	
 	<!--查看详情begin-->
 	<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	    <div class="modal-dialog" role="document">
@@ -466,6 +470,9 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <div class="file_detail">
 	                    <label>物料类别：</label><span id="modal_detail_materClass">钢铁</span>
 	                </div>
+	                <div class="file_detail">
+		                    <label>货物单价：</label><span id="modal_detail_money"></span>
+		            </div>
 	                <div class="file_detail">
 	                    <label>状态：</label><span id="modal_detail_state">可用</span>
 	                </div>
@@ -510,7 +517,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 	                        aria-hidden="true">&times;</span></button>
 	                <h4 class="modal-title">提示</h4>
-	                <input type="hidden" id="pageNo">
+	                <input type="hidden" id="pageNo" value="0">
 	                <input type="hidden" id="modal_endisable_id">
 	                <input type="hidden" id="modal_endisable_state">
 	                <input type="hidden" id="modal_endisable_rowIndex">
@@ -580,7 +587,7 @@ Users user = (Users) request.getSession().getAttribute("session_user");
 	    var orgName = "<%= user.getDesc2() %>";
 	    var imagesRoot="${imagesRoot }";
 	</script>
-	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?07.26"></script>
+	<script type="text/javascript" src="/resources/js/fileCargo/cargoArchPage.js?12.6"></script>
 	<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
