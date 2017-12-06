@@ -19,6 +19,8 @@ public class SelectAppPlanGoodsResp {
 	
 	private Double totalplanned;//计划量
 	
+	private Double residual;//剩余量
+	
 	private String endCity;
 	
 	private String endName;
@@ -44,6 +46,14 @@ public class SelectAppPlanGoodsResp {
     private Long createtime;
 
     private String plancode;
+
+	public Double getResidual() {
+		return residual;
+	}
+
+	public void setResidual(Double residual) {
+		this.residual = residual;
+	}
 
 	public String getId() {
 		return id;

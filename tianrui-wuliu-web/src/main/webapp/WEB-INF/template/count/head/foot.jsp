@@ -5,7 +5,7 @@
             <img src="${trRoot}/tianrui/images/footlogo2.png">
             <div class="footline">
                 <ul>
-                    <li><a href="/count/route">首页</a></li>
+                    <li><a href="/count/plan">首页</a></li>
                     <li><a href="/count/aboutUs">关于我们</a></li>
                     <li><a href="/count/contactUs">联系我们</a></li>
                 </ul>

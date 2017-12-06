@@ -522,7 +522,12 @@ public class PlanGoodsService implements IPlanGoodsService {
 			sp.setEndLat(post.getEndLat());
 			sp.setEndLon(post.getEndLon());
 			sp.setEndName(post.getEndName());
-			
+			Double residual = goods.getTotalplanned() - goods.getCompleted();
+			if(residual > 0){
+				sp.setResidual(residual);
+			}else {
+				sp.setResidual((double)0);
+			}
 			resp.add(sp);
 		}
 		return resp;

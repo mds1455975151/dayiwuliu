@@ -83,7 +83,7 @@ function innerHTML(ret,flag){
 			hml += '<div class="line3">';
 			hml += '<div class="huo fl">';
 			hml += '<img src="'+trRoot+'/tianrui/images/hygoods.png">';
-			hml += '<span>'+data[a].cargoname+data[a].totalplanned+data[a].measure+'</span>';
+			hml += '<span>'+data[a].cargoname+data[a].residual+data[a].measure+'</span>';
 			hml += '</div>';
 			hml += '<div class="price fl">';
 			hml += '<label>'+data[a].price+data[a].priceunits+'</label>';
