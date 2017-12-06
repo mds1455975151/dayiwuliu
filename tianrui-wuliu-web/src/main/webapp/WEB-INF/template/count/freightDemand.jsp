@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>货源基地</title>
+    <title>货源中心</title>
     <meta name="keywords" content="大易物流"/>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -29,7 +29,7 @@
         <img src="${trRoot}/tianrui/images/hylogo.png">
         <ul>
         	<li ><a href="/count/plan"><h4>首页</h4></a></li>
-            <li class="withbg"><a href="/count/freightDemand"><h4>货运基地</h4></a></li>
+            <li class="withbg"><a href="/count/freightDemand"><h4>货源中心</h4></a></li>
             <li><a href="/count/freightPlan"><h4>货运计划</h4></a></li>
             <li><a href="/count/onWaybill"><h4>在途运单</h4></a></li>
         </ul>

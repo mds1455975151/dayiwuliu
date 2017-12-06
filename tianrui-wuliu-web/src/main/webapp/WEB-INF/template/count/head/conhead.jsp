@@ -12,7 +12,7 @@
                 <div class="headerhy_tit">
                     <ul>
                         <li class="withbg"><a href="/count/plan"><h4>首页</h4></a></li>
-                        <li><a href="/count/freightDemand"><h4>货运基地</h4></a></li>
+                        <li><a href="/count/freightDemand"><h4>货源中心</h4></a></li>
                         <li><a href="/count/freightPlan"><h4>货运计划</h4></a></li>
                         <li><a href="/count/onWaybill"><h4>在途运单</h4></a></li>
                     </ul>

@@ -25,11 +25,11 @@ public interface IPlanGoodsService {
 	/** 货源审核*/
 	Result auditGoods(GoodsAuditReq req);
 	
-	/** 货源基地-查询货源*/
+	/** 货源中心-查询货源*/
 	public PaginationVO<SelectAppPlanGoodsResp> appSelect(PlanGoodsReq req)throws Exception;
-	/** 货源基地-查询计划*/
+	/** 货源中心-查询计划*/
 	public PaginationVO<SelectAppPlanResp> appPlanSelect(PlanGoodsReq req)throws Exception;
-	/** 货源基地-查询运单*/
+	/** 货源中心-查询运单*/
 	public PaginationVO<SelectAppBillResp> appBillSelect(PlanGoodsReq req)throws Exception;
 	
 	/** 统计计划*/
