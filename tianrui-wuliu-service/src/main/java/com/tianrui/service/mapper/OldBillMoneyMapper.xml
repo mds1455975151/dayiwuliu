@@ -9,9 +9,9 @@
 	price,
 	weight
 	FROM
-		wuliu_bill
+		wuliu_bill_copy
 	WHERE
-		payment = 1
+		(payment = 2 OR payment = 1)
 	AND trueweight IS NOT NULL
   </select>
   
@@ -23,7 +23,7 @@
 		yf price,
 	  1 weight
 	FROM
-		anlian_bill
+		anlian_bill_copy
 	WHERE
 		trueweight IS NOT NULL
 	AND billno != 'CS0000000'
@@ -35,7 +35,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1
+		pay_invoice_1_copy
 	WHERE
 		pay_status IN (1, 2, 3)
   </select>
@@ -45,7 +45,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1
+		pay_invoice_1_copy
 	WHERE
 		pay_status IN (1, 2, 3)
   </select>
@@ -55,7 +55,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1
+		pay_invoice_1_copy
 	WHERE
 		pay_status IN (2)
   </select>
@@ -65,7 +65,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1
+		pay_invoice_1_copy
 	WHERE
 		pay_status IN (3)
   </select>

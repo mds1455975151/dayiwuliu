@@ -200,7 +200,6 @@ public class MoenyDisposeService implements IMoenyDisposeService{
 	}
 	@Override
 	public Result saveWithDrawFail() throws Exception {
-		// TODO Auto-generated method stub
 		List<OldBillMoney> om = oldBillMoneyMapper.selectByOldWithDrawFail(null);
 		for(OldBillMoney mon : om){
 			PayInvoice payInvoice = payInvoiceMapper.selectByPrimaryKey(mon.getPayid());

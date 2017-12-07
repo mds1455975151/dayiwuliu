@@ -95,7 +95,11 @@ public class PlanGoodsService implements IPlanGoodsService {
 		PlanGoods query = new PlanGoods();
 		query.setTimeBegin(timeBegin);
 		query.setTimeEnd(timeEnd);
-		return planGoodsMapper.countPlanTotal(query);
+		Double tot = planGoodsMapper.countPlanTotal(query);
+		if(tot==null){
+			tot = 0.00;
+		}
+		return tot;
 	}
 
 	@Override
@@ -522,7 +526,10 @@ public class PlanGoodsService implements IPlanGoodsService {
 			sp.setEndLat(post.getEndLat());
 			sp.setEndLon(post.getEndLon());
 			sp.setEndName(post.getEndName());
-			Double residual = goods.getTotalplanned() - goods.getCompleted();
+			Double residual = goods.getTotalplanned();
+			if(goods.getCompleted()!=null){
+				residual = residual - goods.getCompleted();
+			}
 			if(residual > 0){
 				sp.setResidual(residual);
 			}else {

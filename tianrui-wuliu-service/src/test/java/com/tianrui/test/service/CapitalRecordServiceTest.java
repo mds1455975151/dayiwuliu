@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tianrui.api.message.intf.IMessageRollingService;
 import com.tianrui.api.money.intf.ICapitalRecordService;
 import com.tianrui.api.money.intf.IPendingBillMoneyService;
 import com.tianrui.api.money.intf.IWithdrawRecordService;
@@ -16,6 +17,7 @@ import com.tianrui.api.resp.money.FindCapitalRecordResp;
 import com.tianrui.api.resp.money.FindPendingBillMoneyResp;
 import com.tianrui.api.resp.money.FindWithdrawRecordResp;
 import com.tianrui.common.vo.PaginationVO;
+import com.tianrui.common.vo.Result;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/appliactionContext-service.xml" })
@@ -27,8 +29,15 @@ public class CapitalRecordServiceTest {
 	IPendingBillMoneyService pendingBillMoneyService;
 	@Autowired
 	IWithdrawRecordService withdrawRecordService;
-	
+	@Autowired
+	IMessageRollingService messageRollingService;
 	@Test
+	public void dsasd(){
+		Result rs = messageRollingService.getAppPlatformMessage();
+		System.out.println("success......");
+	}
+	
+	
 	public void withdrawRecordService() throws Exception{
 		System.out.println("开始");
 		FindWithdrawRecordReq req = new FindWithdrawRecordReq();

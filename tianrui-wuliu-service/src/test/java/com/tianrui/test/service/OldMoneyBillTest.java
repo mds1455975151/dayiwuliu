@@ -17,7 +17,7 @@ public class OldMoneyBillTest {
 	@Autowired
 	IMoenyDisposeService moenyDisposeService;
 	
-	@Test
+	
 	public void saveWithDrawFail() throws Exception{
 		logger.info("执行开始");
 		System.out.println("开始");
@@ -47,7 +47,7 @@ public class OldMoneyBillTest {
 		moenyDisposeService.uptPandMoney();
 		System.out.println("执行结束");
 	}
-	
+	@Test
 	public void saveOldALBill() throws Exception{
 		System.out.println("开始");
 		moenyDisposeService.oldALSaveBillMoney();
