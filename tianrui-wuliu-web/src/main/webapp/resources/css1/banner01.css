@@ -1,0 +1,53 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.bannerBox{
+	width:100%;
+}
+.Bj{
+    
+    height: 360px;
+    /*width: 1025px;*/
+    position: relative;
+    left:0px;
+    top:0px;
+}
+#img1,#img4,#img5,#img6,#img2,#img7{
+    position: absolute;
+    left:0;
+    top:0;
+}
+#img3{
+    position: absolute;
+    left:0;
+    top:-1px;
+    animation: fadeOut 6s infinite;
+}
+#img2{
+    animation: fadeOut 5s infinite;
+}
+#img7{
+    animation: fadeOut 3s infinite;
+}
+#img4,#img5{
+    transform-origin:50% 50%;
+    animation: run 10s linear infinite;
+}
+@keyframes run{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
+.chengjaio{
+    color: #e3e33f;
+    font-size: 24px;
+    font-family:"微软雅黑";
+    position: absolute;
+    font-weight: bold;
+    left:45%;
+    top: 220px;
+}

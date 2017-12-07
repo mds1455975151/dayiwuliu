@@ -12,6 +12,8 @@
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
+	<link rel="stylesheet" href="/resources/css1/banner01.css">
+    <link rel="stylesheet" href="/resources/css1/animate.min.css">
 </head>
 <body>
 <!-- head -->
@@ -26,7 +28,7 @@
     <div class="hynav">
         <img src="${trRoot}/tianrui/images/hylogo.png">
         <ul>
-        	<li ><a href="/count/plan"><h4>首页</h4></a></li>
+        	<li ><a href="/count/route"><h4>首页</h4></a></li>
             <li ><a href="/count/freightDemand"><h4>货源中心</h4></a></li>
             <li class="withbg"><a href="/count/freightPlan"><h4>货运计划</h4></a></li>
             <li><a href="/count/onWaybill"><h4>在途运单</h4></a></li>
@@ -34,30 +36,21 @@
     </div>
 </div>
 <!-- head -->
-
-<div class="bgpurple">
-    <div class="wrap1920">
-        <div class="alldata">
-            <div class="dataline fl">
-                <h3>货运总计划量</h3>
-                <h4 class="coloryello">61291.4万吨</h4>
-            </div>
-            <div class="dataline fr">
-                <h3>车辆总数</h3>
-                <h4 class="colorred">61291.4万吨</h4>
-            </div>
-            <div class="dataline fl">
-                <h3>交易总量</h3>
-                <h4 class="colorlv">61291.4万元</h4>
-            </div>
-            <div class="dataline fr">
-                <h3>运费总量</h3>
-                <h4 class="colorju">61291.4万元</h4>
-            </div>
+<div class="" style="background-color: #4b01a6;">
+    <div class="bannerBox">
+        <div class="Bj">
+            <img src="/resources/images1/66.png"  id="img6">
+            <img src="/resources/images1/dayiwul.png" class="animated bounceIn" id="img1">
+            <img src="/resources/images1/yun03.png"  id="img7">
+            <img src="/resources/images1/yun01.png"  id="img2">
+            <img src="/resources/images1/yun02.png"  id="img3">
+            <img src="/resources/images1/xiaoyuan01.png"  id="img4">
+            <img src="/resources/images1/xiaoyuan02.png" id="img5">
+            <div class="chengjaio">23,218.5156万元</div>
         </div>
+
     </div>
 </div>
-
 <div class="bghycont" id="freightPlanlist">
 
     <div class="hycontlist">

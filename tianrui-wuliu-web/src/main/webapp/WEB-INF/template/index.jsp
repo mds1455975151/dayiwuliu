@@ -4,5 +4,5 @@
 <html>
 <head>
 </head>
-<jsp:forward page="/count/plan"></jsp:forward>
+<jsp:forward page="/count/route"></jsp:forward>
 </html>

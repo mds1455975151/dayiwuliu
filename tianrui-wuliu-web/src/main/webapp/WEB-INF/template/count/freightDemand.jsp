@@ -14,6 +14,7 @@
 	<link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/pick-pcc.min.1.0.1.css" rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/jquery-ui.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/resources/css1/banner2.css">
 </head>
 <body>
 <!-- head -->
@@ -28,7 +29,7 @@
     <div class="hynav">
         <img src="${trRoot}/tianrui/images/hylogo.png">
         <ul>
-        	<li ><a href="/count/plan"><h4>首页</h4></a></li>
+        	<li ><a href="/count/route"><h4>首页</h4></a></li>
             <li class="withbg"><a href="/count/freightDemand"><h4>货源中心</h4></a></li>
             <li><a href="/count/freightPlan"><h4>货运计划</h4></a></li>
             <li><a href="/count/onWaybill"><h4>在途运单</h4></a></li>
@@ -36,27 +37,14 @@
     </div>
 </div>
 <!-- head -->
-
 <div class="bgpurple">
-    <div class="wrap1920">
-        <div class="alldata">
-            <div class="dataline fl">
-                <h3>货运总计划量</h3>
-                <h4 class="coloryello">61291.4万吨</h4>
-            </div>
-            <div class="dataline fr">
-                <h3>车辆总数</h3>
-                <h4 class="colorred">61291.4万吨</h4>
-            </div>
-            <div class="dataline fl">
-                <h3>交易总量</h3>
-                <h4 class="colorlv">61291.4万元</h4>
-            </div>
-            <div class="dataline fr">
-                <h3>运费总量</h3>
-                <h4 class="colorju">61291.4万元</h4>
-            </div>
+    <div class="bannerBox">
+        <div class="Bj">
+            <img src="/resources/images2/banner-2.png" id="img1">
+            <img src="/resources/images2/guang.png"  id="img2">
+            <img src="/resources/images2/jiehuo.png"  id="img3">
         </div>
+
     </div>
 </div>
 <div class="w1200">

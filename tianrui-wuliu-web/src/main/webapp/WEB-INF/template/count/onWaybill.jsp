@@ -12,6 +12,9 @@
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
+	<link rel="stylesheet" href="/resources/css1/banner03.css">
+    <link rel="stylesheet" href="/resources/css1/animate.min.css">
+    
 </head>
 <body>
 <!-- head -->
@@ -26,7 +29,7 @@
     <div class="hynav">
         <img src="${trRoot}/tianrui/images/hylogo.png">
         <ul>
-        	<li ><a href="/count/plan"><h4>首页</h4></a></li>
+        	<li ><a href="/count/route"><h4>首页</h4></a></li>
             <li ><a href="/count/freightDemand"><h4>货源中心</h4></a></li>
             <li><a href="/count/freightPlan"><h4>货运计划</h4></a></li>
             <li class="withbg"><a href="/count/onWaybill"><h4>在途运单</h4></a></li>
@@ -34,25 +37,16 @@
     </div>
 </div>
 <!-- head -->
-<div class="bgpurple">
-    <div class="wrap1920">
-        <div class="alldata">
-            <div class="dataline fl">
-                <h3>货运总计划量</h3>
-                <h4 class="coloryello">61291.4万吨</h4>
-            </div>
-            <div class="dataline fr">
-                <h3>车辆总数</h3>
-                <h4 class="colorred">61291.4万吨</h4>
-            </div>
-            <div class="dataline fl">
-                <h3>交易总量</h3>
-                <h4 class="colorlv">61291.4万元</h4>
-            </div>
-            <div class="dataline fr">
-                <h3>运费总量</h3>
-                <h4 class="colorju">61291.4万元</h4>
-            </div>
+<div style="background-color: #e13337;">
+   <div class="bannerBox">
+        <div class="Bj">
+            <img src="/resources/images2/bj2.png" id="img1">
+            <img src="/resources/images2/ljhyl.png" class="animated tada" id="img2">
+            <img src="/resources/images2/jtdz.png" class="animated rollIn" id="img3">
+            <img src="/resources/images2/da156.png" class="animated tada" id="img4">
+            <img src="/resources/images2/5.png" id="img5">
+            <img src="/resources/images2/huangguan.png" id="img6">
+            <img src="/resources/images2/qwgl.png" class="animated tada" id="img7">
         </div>
     </div>
 </div>

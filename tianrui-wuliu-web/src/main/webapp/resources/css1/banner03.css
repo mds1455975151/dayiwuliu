@@ -1,0 +1,24 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.bannerBox{
+	width:100%;
+}
+.Bj{
+    
+     height: 360px;
+    /*width: 1025px;*/
+    position: relative;
+    left:-0px;
+    top:0px;
+}
+#img1,#img2,#img3,#img4,#img5,#img6,#img7{
+    position: absolute;
+    left:0;
+    top:0;
+}
+#img5,#img6{
+    animation: bounceIn 2s infinite;
+}
+

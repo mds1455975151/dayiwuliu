@@ -1,0 +1,32 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.bannerBox{
+	width:100%;
+}
+.Bj{
+   
+    height: 360px;
+    /*width: 1025px;*/
+    position: relative;
+    left:0px;
+    top:0px;
+}
+#img1,#img2,#img3{
+    position: absolute;
+    left:0;
+    top:0;
+}
+#img2{
+    transform-origin:50% 50%;
+    animation: run 10s linear infinite;
+}
+@keyframes run{
+    0%{
+        transform: rotateZ(0deg);
+    }
+    100%{
+        transform: rotateZ(360deg);
+    }
+}
