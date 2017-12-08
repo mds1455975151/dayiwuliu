@@ -103,6 +103,159 @@
 	</where>
 	GROUP BY vender_id
   </select>
+  <select id="selectByCondition_copy" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
+    select 
+    	p.id,
+		p. CODE,
+		p.pay_invoice_id,
+		p.driver_id,
+		p.driver_id_no,
+		p.vender_id,
+		p.vender_id_no,
+		p.owner_id,
+		p.owner_id_no,
+		p.invoice_code,
+		p.invoice_name,
+		p.bill_id,
+		p.bill_code,
+		p.bill_type,
+		p.material_code,
+		p.material_name,
+		p.cargo_name,
+		p.bill_weight,
+		p.bill_price,
+		p.tax_rate,
+		p.reception_bill_total_price,
+		p.backstage_bill_total_price,
+		p.reception_deduct_weight_misc,
+		p.reception_deduct_money,
+		p.reception_deduct_other,
+		p.reception_deduct_oil_card,
+		p.backstage_deduct_weight_misc,
+		p.backstage_deduct_money,
+		p.backstage_deduct_other,
+		p.backstage_deduct_oil_card,
+		p.whether_close,
+		p.orgid,
+		p.orgname,
+		p.state,
+		p.creator,
+		p.create_time,
+		p.modifier,
+		p.modify_time,
+		p.remark,
+		p.appendix,
+		p.billweightB,
+		p.billpriceB,
+		p.memo,
+		dm.cellphone driverPhone,
+		dm.remarkname driverName,
+		vm.cellphone venderPhone,
+		vm.remarkname venderName,
+	  	wp.shipperMerchant,
+		fm.`name` shipname,
+		afm.`name` consignee,
+		ab.bankOwnerName albankOwnerName,
+  		ab.bankOwnerPhone albankOwnerPhone,
+		wb.bankOwnerName dybankOwnerName,
+  		wb.bankOwnerPhone dybankOwnerPhone
+    FROM
+		pay_invoice_detail_1_copy p
+		LEFT JOIN member dm ON dm.id = p.driver_id
+		LEFT JOIN member vm ON vm.id = p.vender_id
+		LEFT JOIN wuliu_plan wp ON wp.ID = p.planId
+		LEFT JOIN file_merchant fm ON wp.shipperMerchant = fm.id
+		LEFT JOIN file_merchant afm ON wp.consigneeMerchant = afm.id
+		LEFT JOIN anlian_bill ab ON ab.id = p.bill_id
+		LEFT JOIN wuliu_bill wb ON wb.ID = p.bill_id
+		<where>
+			<if test="creator != null and creator != ''">
+				and p.creator = #{creator,jdbcType=VARCHAR}
+			</if>
+			<if test="timeBegin != null">
+				 and p.create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+			</if>
+			<if test="timeEnd != null">
+				and p.create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
+			</if>
+			<if test="shipname != null and shipname != ''">
+				and fm.name like "%" #{shipname,jdbcType=VARCHAR} "%"
+			</if>
+			<if test="consignee != null and consignee != ''">
+				and afm.name like "%" #{consignee,jdbcType=VARCHAR} "%"
+			</if>
+			<if test="searchKey != null and searchKey != ''">
+				and (p.code like "%" #{searchKey,jdbcType=VARCHAR} "%"
+				or p.cargo_name like "%" #{searchKey,jdbcType=VARCHAR} "%")
+			</if>
+			<if test="billPayStatus == 1">
+				and p.backstage_bill_total_price = 0
+				and p.whether_close = 0
+			</if>
+			<if test="billPayStatus == 2">
+				and p.backstage_bill_total_price != 0
+				and p.whether_close = 0
+			</if>
+			<if test="billPayStatus == 3">
+				and p.whether_close = 1
+			</if>
+			<if test="whetherClose != null">
+				and p.whether_close = #{whetherClose,jdbcType=BIT}
+			</if>
+			<if test="invoiceName != null and invoiceName != ''">
+				and p.invoice_name like "%" #{invoiceName,jdbcType=VARCHAR} "%"
+			</if>
+   		  <if test="code != null and code != ''">
+   		  	and p.code like "%" #{code,jdbcType=VARCHAR} "%"
+   		  </if> 
+   		  <if test="cargoName != null and cargoName != ''">
+   		  	and p.cargo_name like "%" #{cargoName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="driverName != null and driverName != ''">
+   		  	and (dm.remarkname like "%" #{driverName,jdbcType=VARCHAR} "%"
+   		  	or ab.bankOwnerName like "%" #{driverName,jdbcType=VARCHAR} "%"
+   		  	or wb.bankOwnerName like "%" #{driverName,jdbcType=VARCHAR} "%")
+   		  </if>
+   		  <if test="driverPhone != null and driverPhone != ''">
+   		  	and (dm.cellphone like "%" #{driverPhone,jdbcType=VARCHAR} "%"
+   		  	or wb.bankOwnerPhone like "%" #{driverPhone,jdbcType=VARCHAR} "%"
+   		  	or ab.bankOwnerPhone like "%" #{driverPhone,jdbcType=VARCHAR} "%")
+   		  </if>
+   		  <if test="venderName != null and venderName != ''">
+   		  	and vm.remarkname like "%" #{venderName,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="venderPhone != null and venderPhone != ''">
+   		  	and vm.cellphone like "%" #{venderPhone,jdbcType=VARCHAR} "%"
+   		  </if>
+   		  <if test="remark != null and remark != ''">
+   		  	and p.remark = #{remark,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="venderId != null and venderId != ''">
+   		  	and p.vender_id = #{venderId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="billType != null and billType != ''">
+   		    and p.bill_type = #{billType,jdbcType=BIT}
+   		  </if>
+   		  <if test="payInvoiceId != null and payInvoiceId != ''">
+   		    and p.pay_invoice_id = #{payInvoiceId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="billId != null and billId != ''">
+   		  	and p.bill_id = #{billId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="ids != null">
+	      	and p.id in 
+	      	<foreach collection="ids" item="employeeId" index="index"
+	            open="(" close=")" separator=",">
+	            #{employeeId}
+	        </foreach> 
+	      </if>
+   		</where>
+   		order by p.create_time desc
+   		<if test="pageNo != null">
+   			limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+   		</if>
+  </select>
+  
   <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.admin.bean.PayInvoiceDetail" >
     select 
     	p.id,

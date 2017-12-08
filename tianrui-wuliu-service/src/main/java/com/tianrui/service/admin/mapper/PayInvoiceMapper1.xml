@@ -76,12 +76,20 @@
     backstage_bill_total_price, backstage_deduct_weight_misc, backstage_deduct_money, backstage_deduct_other, 
     backstage_deduct_oil_card, application_time, state, creator, create_time, modifier, modify_time, remark
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey_copy" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_invoice_1_copy
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from pay_invoice_1
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from pay_invoice_1
     where id = #{id,jdbcType=VARCHAR}

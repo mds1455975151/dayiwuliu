@@ -15,6 +15,8 @@ public interface PayInvoiceMapper1 {
     int insertSelective(PayInvoice record);
 
     PayInvoice selectByPrimaryKey(String id);
+    
+    PayInvoice selectByPrimaryKey_copy(String id);
 
     int updateByPrimaryKeySelective(PayInvoice record);
 

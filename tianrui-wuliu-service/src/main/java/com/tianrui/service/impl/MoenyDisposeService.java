@@ -98,14 +98,16 @@ public class MoenyDisposeService implements IMoenyDisposeService{
 	@Override
 	public Result oldALSaveBillMoney() throws Exception {
 		List<OldBillMoney> list = oldBillMoneyMapper.selectByOldALBill(null);
+		int a = 0;
 		for(OldBillMoney old : list){
+			a = a+1;
 			SaveBillMoneyReq bm = new SaveBillMoneyReq();
 			bm.setWaybillno(old.getWaybillno());
 			bm.setCreatetime(old.getUnloadtime());
 			bm.setPendingmoney((long) (old.getPrice()*old.getWeight()*100));
 			bm.setUseryhno(old.getDriverid());//身份证号
 			Result rs = billSaveMoney(bm);
-			System.out.println(rs.getCode()+rs.getError());
+			System.out.println(list.size()+"----->"+a+rs.getCode()+rs.getError());
 		}
 		return null;
 	}
@@ -130,7 +132,7 @@ public class MoenyDisposeService implements IMoenyDisposeService{
 				waybillno = waybillno+bill.getBillCode();
 			}
 			UpdateBillMoneyReq req = new UpdateBillMoneyReq();
-			req.setCellphone(bank.getTelphone());
+			req.setCellphone(payInvoice.getPayeeAccount());
 			req.setWaybillno(waybillno);
 			//支付总额
 			req.setPaidmoney(payInvoice.getAmountPayable().longValue() * 100);

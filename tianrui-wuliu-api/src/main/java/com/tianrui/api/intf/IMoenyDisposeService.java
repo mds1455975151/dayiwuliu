@@ -19,7 +19,7 @@ public interface IMoenyDisposeService {
 	/** 处理安联历史单据*/
 	Result oldALSaveBillMoney()throws Exception;
 	/** 处理历史账单*/
-	Result uptPandMoney() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	Result uptPandMoney()throws IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 	/** 历史账单提现申请*/
 	Result saveWithDraw()throws Exception;
 	/** 历史账单提现成功*/

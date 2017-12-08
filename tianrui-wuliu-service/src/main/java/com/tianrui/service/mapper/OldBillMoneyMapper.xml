@@ -9,10 +9,11 @@
 	price,
 	weight
 	FROM
-		wuliu_bill_copy
+		wuliu_bill
 	WHERE
-		(payment = 2 OR payment = 1)
-	AND trueweight IS NOT NULL
+		confirm_Price_A = '1'
+	AND confirm_Price_B = '1'
+	AND waybillno IN('YD1712070240','YD1712070233','YD1712070239','YD1712070234')
   </select>
   
   <select id="selectByOldALBill" resultType="com.tianrui.service.bean.OldBillMoney" parameterType="com.tianrui.service.bean.OldBillMoney">
@@ -23,11 +24,10 @@
 		yf price,
 	  1 weight
 	FROM
-		anlian_bill_copy
+		anlian_bill
 	WHERE
-		trueweight IS NOT NULL
-	AND billno != 'CS0000000'
-	AND signtime IS NOT NULL;
+		confirm_Price_A = '1'
+ 	AND confirm_Price_B = '1'
   </select>
   
   <select id="selectByOldUptMoney" resultType="com.tianrui.service.bean.OldBillMoney" parameterType="com.tianrui.service.bean.OldBillMoney">
@@ -35,7 +35,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1_copy
+		pay_invoice_1
 	WHERE
 		pay_status IN (1, 2, 3)
   </select>
@@ -45,7 +45,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1_copy
+		pay_invoice_1
 	WHERE
 		pay_status IN (1, 2, 3)
   </select>
@@ -55,7 +55,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1_copy
+		pay_invoice_1
 	WHERE
 		pay_status IN (2)
   </select>
@@ -65,7 +65,7 @@
 		id payid,
 		payee_bank_card_id bankid
 	FROM
-		pay_invoice_1_copy
+		pay_invoice_1
 	WHERE
 		pay_status IN (3)
   </select>

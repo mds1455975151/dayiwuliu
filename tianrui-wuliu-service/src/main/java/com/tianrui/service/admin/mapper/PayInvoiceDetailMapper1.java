@@ -19,6 +19,8 @@ public interface PayInvoiceDetailMapper1 {
     
     List<PayInvoiceDetail> selectByCondition(PayInvoiceDetail record);
     
+    List<PayInvoiceDetail> selectByCondition_copy(PayInvoiceDetail record);
+    
     long selectBycount(PayInvoiceDetail record);
     
     List<PayInvoiceDetail> selectByPrimary(String payInvoiceId);

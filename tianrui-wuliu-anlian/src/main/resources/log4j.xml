@@ -154,7 +154,7 @@
 	
 	<root>
 		<!--  <level value="debug" />  -->
-		 <level value="info" /> 
+		 <level value="INFO" /> 
 		<appender-ref ref="infoAppender" />
 		<appender-ref ref="errorAppender" />
 		<appender-ref ref="consoleAppender" />
