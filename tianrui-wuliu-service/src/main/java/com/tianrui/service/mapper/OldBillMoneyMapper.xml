@@ -13,7 +13,6 @@
 	WHERE
 		confirm_Price_A = '1'
 	AND confirm_Price_B = '1'
-	AND waybillno IN('YD1712070240','YD1712070233','YD1712070239','YD1712070234')
   </select>
   
   <select id="selectByOldALBill" resultType="com.tianrui.service.bean.OldBillMoney" parameterType="com.tianrui.service.bean.OldBillMoney">

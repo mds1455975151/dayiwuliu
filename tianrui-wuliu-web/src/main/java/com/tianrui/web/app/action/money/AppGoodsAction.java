@@ -33,7 +33,7 @@ public class AppGoodsAction {
 	 * 货物查询
 	 * */
 	@RequestMapping(value="/cargoSelect",method=RequestMethod.POST)
-	@ApiParamRawType(FileOrgCargoReq.class)
+	@ApiParamRawType(FileCargoReq.class)
 	@ApiTokenValidation
 	@ResponseBody
 	public AppResult cargoSelect(AppParam<FileCargoReq> appParam) throws Exception{
