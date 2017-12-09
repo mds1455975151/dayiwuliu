@@ -10,6 +10,8 @@ public class MessageRollingResp {
     private String departure;//起运地
     
     private String Unloading;//卸货地
+    
+    private Byte messageType;//消息类型1-需求发布，2-委派计划，3-提货确认，4-卸货确认
 
 	public Long getId() {
 		return id;
@@ -50,5 +52,12 @@ public class MessageRollingResp {
 	public void setUnloading(String unloading) {
 		Unloading = unloading;
 	}
-    
+
+	public Byte getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(Byte messageType) {
+		this.messageType = messageType;
+	}
 }

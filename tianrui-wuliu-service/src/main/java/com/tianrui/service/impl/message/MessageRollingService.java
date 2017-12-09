@@ -63,6 +63,7 @@ public class MessageRollingService implements IMessageRollingService {
 			resp.setMessageContent(mr.getMessageContent());
 			resp.setTime(mr.getDesc3());
 			resp.setUnloading(mr.getDesc2());
+			resp.setMessageType(mr.getMessageType());
 			respList.add(resp);
 		}
 		return respList;
