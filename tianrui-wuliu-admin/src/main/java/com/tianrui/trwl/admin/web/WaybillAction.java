@@ -102,6 +102,15 @@ public class WaybillAction {
 		rs.setData(resp);
 		return rs;
 	}
+	/** 修改运单为已查看状态*/
+	@RequestMapping("/uptJTBBill")
+	@ResponseBody
+	public Result uptJTBBill(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = billService.uptJtbBill(id);
+		return rs;
+	}
+	
 	@RequestMapping("/findJTBBillDetail")
 	@ResponseBody
 	public Result findJTBBillDetail(WaybillQueryReq req) throws Exception{
@@ -141,6 +150,16 @@ public class WaybillAction {
 	public Result putALJtbBill(String id) throws Exception{
 		Result rs = Result.getSuccessResult();
 		rs = billService.putAnlianJtbBill(id);
+		return rs;
+	}
+	
+	/** 运单推送交通部
+	 * @throws Exception */
+	@RequestMapping("/uptALJtbBill")
+	@ResponseBody
+	public Result uptALJtbBill(String id) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = billService.uptAnlianJtbBill(id);
 		return rs;
 	}
 	

@@ -68,6 +68,8 @@ function innerHTML(data){
 		var jtb = "";
 		if(data[a].jtb=="1"){
 			jtb = "已推送";
+		}else if(data[a].jtb=="3"){
+			jtb = "已查看";
 		}else{
 			jtb = "未推送";
 		}
@@ -136,8 +138,8 @@ function submit(obj){
 	$("#billNo").html(obj.waybillno);
 	/*$("#dj").html(obj.price || '').append('元');
 	$("#ysjl").html(obj.interDistance || '').append('km');*/
-	$("#qszl").html(obj.zzl || '').append('吨');
-	$("#zj").html(obj.yf || '').append('元');
+	$("#qszl").html(obj.zzl).append('吨');
+	$("#zj").html(obj.yf).append('元');
 	$("#submit").modal('show');
 }
 
@@ -154,7 +156,30 @@ $("#putJtb").on("click",function(){
 			if(ret.code=="000000"){
 				$("#billId").val("");
 				alert("操作成功");
-				searchFile();
+				displayData($("#goPage").val()-1);
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+	
+});
+
+
+$("#uptDelete").on("click",function(){
+	var id = $("#billId").val();
+	if(id==""){
+		alert("网络异常请稍候再试");
+	}
+	$.ajax({
+		url:"/admin/waybill/uptALJtbBill",
+		data:{"id":id},
+		type:"post",
+		success:function(ret){
+			if(ret.code=="000000"){
+				$("#billId").val("");
+				alert("操作成功");
+				displayData($("#goPage").val()-1);
 			}else{
 				alert(ret.error);
 			}

@@ -68,6 +68,8 @@ function innerHTML(data){
 		var jtb = "";
 		if(data[a].jtb=="1"){
 			jtb = "已推送";
+		}if(data[a].jtb=="3"){
+			jtb = "已查看";
 		}else{
 			jtb = "未推送";
 		}
@@ -171,11 +173,11 @@ function submit(obj){
 	$("#billId").val(obj.id);
 	$("#billNo").html(obj.waybillno);
 	$("#dj").html(price.toFixed(2) || '').append('元');
-	$("#ysjl").html(obj.interDistance || '').append('km');
+	$("#ysjl").html(obj.distance || '').append('km');
 	$("#qszl").html(trueweight.toFixed(2) || '').append('吨');
 	$("#thsj").html(new Date(obj.begintime).toString() || '');
 	$("#dhsj").html(new Date(obj.unloadtime).toString() || '');
-	$("#zj").html(obj.price * obj.trueweight || '').append('元');
+	$("#zj").html(obj.price.toFixed(2) * obj.trueweight.toFixed(2)).append('元');
 //	$("#jgsj").html((obj.interTime/(1000*60)) || '').append('分钟');
 	$("#submit").modal('show');
 }
@@ -193,7 +195,29 @@ $("#putJtb").on("click",function(){
 			if(ret.code=="000000"){
 				$("#billId").val("");
 				alert("操作成功");
-				searchFile();
+				displayData($("#goPage").val()-1);
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+	
+});
+//已查看
+$("#uptDelete").on("click",function(){
+	var id = $("#billId").val();
+	if(id==""){
+		alert("网络异常请稍候再试");
+	}
+	$.ajax({
+		url:"/admin/waybill/uptJTBBill",
+		data:{"id":id},
+		type:"post",
+		success:function(ret){
+			if(ret.code=="000000"){
+				$("#billId").val("");
+				alert("操作成功");
+				displayData($("#goPage").val()-1);
 			}else{
 				alert(ret.error);
 			}

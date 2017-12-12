@@ -175,6 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
             </div>
             <div class="modal-footer">
+            	<button type="button" class="btn btn-default" id="uptDelete" data-dismiss="modal">已查看</button>
                 <button type="button" class="btn btn-default" id="putJtb" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
@@ -191,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_JTB_bill.js?03.15" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_JTB_bill.js?1212" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
