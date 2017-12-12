@@ -53,6 +53,15 @@
         </div>
     </div>
 </div>
+<!--消息滚动开始-->
+ <section>
+    <div class="realtime ">
+		<div class="swiper-container">
+			<div class="swiper-wrapper" id="messgeloop">
+			</div>
+		</div>
+    </div>
+</section>
 <div class="bgdata">
     <div class="wrap">
         <div class="data_total">
