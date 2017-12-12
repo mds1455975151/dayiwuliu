@@ -32,6 +32,7 @@ function displayRect(pageNo){
 	var submitdateEnd = $("#subtimeend").val();
 	var ncStatus = $("#ncStatus").val();
 	var pageSize=$("#pageSize").val();
+	var idCard = $("#id_Card").val();
 	if(registtimeFor != '' && registtimeEnd != ''){
 		if(registtimeFor>registtimeEnd){
 			alert("请选择合适注册时间段");
@@ -50,6 +51,7 @@ function displayRect(pageNo){
 		data:{"userName":$.trim(userName),
 			"cellPhone":$.trim(cellPhone),
 			"status":status,
+			"idCard":idCard,
 			"registtimeForStr":registtimeFor,
 			"registtimeEndStr":registtimeEnd,
 			"submitdateForStr":submitdateFor,
@@ -265,6 +267,7 @@ function clearSearch(){
 	$("#aldriverid").val("");
 	$("#starttime").val("");
 	$("#endtime").val("");
+	$("#id_Card").val("");
 	driverSearch();
 }
 /**

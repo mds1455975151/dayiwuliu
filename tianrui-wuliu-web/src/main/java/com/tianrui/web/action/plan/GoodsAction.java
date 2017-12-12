@@ -71,6 +71,13 @@ public class GoodsAction {
 		Result rs= planGoodsService.savePlanGoods(req);
 		return rs;
 	}
+	/** 删除货源*/
+	@RequestMapping("goodsDelete")
+	@ResponseBody
+	public Result goodsDelete(String id){
+		Result rs =planGoodsService.deleteGoods(id);
+		return rs;
+	}
 	
 	/**
 	 * 查询发布的货源

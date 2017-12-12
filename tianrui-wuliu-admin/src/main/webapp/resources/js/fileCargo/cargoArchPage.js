@@ -58,7 +58,7 @@ $("#cargo_search").click(function() {
 	displayData(0);
 });
 function displayData(pageNo){
-	alert(pageNo);
+//	alert(pageNo);
 	// 组织ID
 	var cargo_orgId = $("#cargo_orgId").val();
 	// 组织名称
@@ -578,7 +578,7 @@ $("#modal_endisable_button").click(function() {
 	// 隐藏模态框
 	$("#enDisableModal").modal('hide');
 	var pageNo =$("#pageNo").val();
-	alert($("#pageNo").val());
+//	alert($("#pageNo").val());
 	$.ajax({
 		url : CONTEXTPATH + '/fileCargo/updateCargoInfo',// 跳转到 action
 		data : {

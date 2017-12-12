@@ -52,6 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                         <input type="text" onchange="firstPage();" id="cellphone" placeholder=" ">
                                     </div>
                                     <div class="ht_div">
+                                        <label>身份证号：</label>
+                                        <input type="text" onchange="firstPage();" id="id_Card" placeholder=" ">
+                                    </div>
+                                    <div class="ht_div">
                                         <label>档案状态：</label>
                                         <select id="status" onchange="firstPage();" class="form-control">
                                             <option value="">请选择</option>
@@ -400,7 +404,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 <script type="text/javascript" src="${trRoot}/js/cropper.js" ></script>
-<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?0311" ></script>
+<script type="text/javascript" src="/resources/js/adminMember/user_driver.js?1209" ></script>
 <script type="text/javascript">
     //upImg();
      $(function(){

@@ -77,10 +77,10 @@ function renderHtml(data){
 		
 		if(item.status=="0"){
 			sta="待审核";
-			hm = "<button class='btn btnyello cancleBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"' >删除</button>"
+			hm = "<button class='btn btnblue cancleBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"' >删除</button>"
 		}else if(item.status=="9"){
 			sta="审核失败";
-			hm = "<button class='btn btnblue editBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
+			hm = "<button class='btn btnblue cancleBtn' dataId='"+item.id+"' dataCode='"+item.plancode+"'>删除</button>"
 		}else if(item.status=="1"){
 			sta="审核通过";
 		}else if(item.status=="2"){
@@ -105,5 +105,24 @@ function renderHtml(data){
 		var id = $(this).attr("dataId");
 		window.location.href="/trwuliu/goods/goodsDetail?id="+id;
 	});
+	/** 货源删除*/
+	$(".cancleBtn").on("click",function(){
+		var clear = $(this);
+		var goodsid = $(this).attr("dataId");
+		$.ajax({
+			url:"/trwuliu/goods/goodsDelete",
+			type:"POST",
+			data:{id:goodsid},
+			success:function(ret){
+				if(ret.code == "000000"){
+					$("#totalRecords").html($("#totalRecords").html()-1);
+					clear.parent().parent().remove();
+				}else{
+					alert(ret.error);
+				}
+			}
+		});
+	});
 };
+
 

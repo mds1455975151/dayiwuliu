@@ -14,6 +14,7 @@ package com.tianrui.service.bean;
 public class MemberFind implements IModel{
 	
 	 private String id;
+	 private String idCard;
 	/**
 	 * 会员名
 	 */
@@ -304,6 +305,12 @@ public class MemberFind implements IModel{
 	}
 	public void setAudittime(Long audittime) {
 		this.audittime = audittime;
+	}
+	public String getIdCard() {
+		return idCard;
+	}
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
 	}
 
 	

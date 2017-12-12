@@ -91,6 +91,21 @@ public class PlanGoodsService implements IPlanGoodsService {
 	BillMapper billMapper;
 
 	@Override
+	public Result deleteGoods(String id) {
+		Result rs = Result.getSuccessResult();
+		PlanGoods goods = planGoodsMapper.selectByPrimaryKey(id);
+		if(goods!=null){
+			if(goods.getStatus()==(byte)0||goods.getStatus()==(byte)9){
+				planGoodsMapper.deleteByPrimaryKey(id);
+			}else{
+				rs.setCode("12");
+				rs.setError("审核通过货源不能删除");
+			}
+		}
+		return rs;
+	}
+	
+	@Override
 	public Double countPlanTotal(Long timeBegin, Long timeEnd) {
 		PlanGoods query = new PlanGoods();
 		query.setTimeBegin(timeBegin);
@@ -150,7 +165,7 @@ public class PlanGoodsService implements IPlanGoodsService {
 				}
 			}else if(ty == 4){
 				//关闭
-				if(sa==2||sa==3){
+				if(sa==1 || sa==2||sa==3){
 					upt.setStatus(ty);
 					planGoodsMapper.updateByPrimaryKeySelective(upt);
 				}else{
@@ -649,4 +664,5 @@ public class PlanGoodsService implements IPlanGoodsService {
 		plan.setStartcity(fileRoute.getOaddr());
 		plan.setEndcity(fileRoute.getDaddr());
 	}
+
 }

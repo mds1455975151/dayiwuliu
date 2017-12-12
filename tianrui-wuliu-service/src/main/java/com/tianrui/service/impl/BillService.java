@@ -1134,15 +1134,16 @@ public class BillService implements IBillService{
 							Long timestape = System.currentTimeMillis();
 							
 							Long money = (long) (db.getPrice()*db.getWeight()*100l);
-							SaveBillMoneyReq bm = new SaveBillMoneyReq();
-							bm.setWaybillno(db.getWaybillno());
-							bm.setCreatetime(timestape);
-							bm.setPendingmoney(money);
-							bm.setUseryhno(db.getDriverid());//身份证号
-							rs = moenyDisposeService.billSaveMoney(bm);
-							if(!rs.getCode().equals("000000")){
-								return rs;
-							}
+							//TODO钱包流水插入
+//							SaveBillMoneyReq bm = new SaveBillMoneyReq();
+//							bm.setWaybillno(db.getWaybillno());
+//							bm.setCreatetime(timestape);
+//							bm.setPendingmoney(money);
+//							bm.setUseryhno(db.getDriverid());//身份证号
+//							rs = moenyDisposeService.billSaveMoney(bm);
+//							if(!rs.getCode().equals("000000")){
+//								return rs;
+//							}
 							Bill update =new Bill();
 							update.setId(req.getId());
 							update.setSignweight(req.getPsweight());

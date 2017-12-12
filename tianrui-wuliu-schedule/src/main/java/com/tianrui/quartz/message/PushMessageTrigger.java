@@ -39,7 +39,7 @@ public class PushMessageTrigger {
 	@Autowired
 	ISendMobileMessage sendMobileMessage;
 	
-	@Scheduled(cron="0 0/5 *  * * ? ")
+//	@Scheduled(cron="0 0/5 *  * * ? ")
     public void getMessageAndPush() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[PushMessageTrigger]启动.时间是 :" + DateUtil.getDateString());  

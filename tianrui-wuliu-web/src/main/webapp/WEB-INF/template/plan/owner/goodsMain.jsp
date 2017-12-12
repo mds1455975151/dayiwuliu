@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${trRoot}/tianrui/js/cropbox.js"></script>
 <script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery.pagination.js"></script>
-<script type="text/javascript" src="/resources/js/plan/goods_page.js?12022" ></script>
+<script type="text/javascript" src="/resources/js/plan/goods_page.js?1212" ></script>
 <script type="text/javascript">
 	searchPlan(1);
 </script>

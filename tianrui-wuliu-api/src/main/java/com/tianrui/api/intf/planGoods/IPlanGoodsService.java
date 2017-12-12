@@ -24,6 +24,8 @@ public interface IPlanGoodsService {
 	Result goodsToPlan(GoodsTOPlanReq req);
 	/** 货源审核*/
 	Result auditGoods(GoodsAuditReq req);
+	/** 删除货源*/
+	Result deleteGoods(String id);
 	
 	/** 货源中心-查询货源*/
 	public PaginationVO<SelectAppPlanGoodsResp> appSelect(PlanGoodsReq req)throws Exception;

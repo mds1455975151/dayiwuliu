@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span>${data.completed }</span>
                                 </div>
                                 <div class="info_base_solo">
-                                    <label>货物单价：</label>
+                                    <label>运费单价：</label>
                                     <span>${data.price }${data.priceunits }</span>
                                 </div>
                                 
@@ -310,9 +310,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 <%@include file="../common/footer.jsp" %>
-<script type="text/javascript" src="/resources/js/goods/upt_page.js?1202"></script>
 <script type="text/javascript">
     var trRoot = "${trRoot}";
 </script>
+<script type="text/javascript" src="/resources/js/goods/upt_page.js?1202"></script>
 </body>
 </html>

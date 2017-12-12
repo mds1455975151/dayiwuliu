@@ -14,6 +14,8 @@ public class MemberFindReq extends BaseReq{
 	 * 会员名
 	 */
 	private String userName;
+	
+	private String idCard;
 	/**
 	 * 公司名称
 	 */
@@ -311,6 +313,12 @@ public class MemberFindReq extends BaseReq{
 			return endtimes;
 		}
 		return endtimes;
+	}
+	public String getIdCard() {
+		return idCard;
+	}
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
 	}
 
 	

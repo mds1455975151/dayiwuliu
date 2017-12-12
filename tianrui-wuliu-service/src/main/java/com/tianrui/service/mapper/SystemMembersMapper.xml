@@ -55,6 +55,9 @@
     from member m
    	LEFT JOIN member_info f ON f.memberId = m.ID 
    	<where> 1=1
+   		<if test="idCard != null and idCard != ''">
+   			and f.idcard like "%" #{idCard,jdbcType=VARCHAR} "%"
+   		</if>
    	  <if test="vehicleno != null and vehicleno != ''" >
       	and   m.ID  in(SELECT creator FROM wuliu_vehicle_driver where  vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
       </if>
@@ -189,6 +192,9 @@
     from member m
    	LEFT JOIN member_info f ON f.memberId = m.ID 
    <where> 1=1
+   		<if test="idCard != null and idCard != ''">
+   			and f.idcard like "%" #{idCard,jdbcType=VARCHAR} "%"
+   		</if>
    		<if test="vehicleno != null and vehicleno != ''" >
       	and   m.ID  in(SELECT creator FROM wuliu_vehicle_driver where  vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%")
       </if>
