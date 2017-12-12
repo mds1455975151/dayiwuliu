@@ -154,14 +154,18 @@
                 <div class="tj_btomid">
                     <div class="btleft fl" id="myscroll1">
                         <h4>货主</h4>
+                        <div class="scrollwrap">
                         <ul id="ownerThml">
                         </ul>
+                         </div>
                     </div>
                     <div class="btleft fr" id="myscroll2">
                         <h4>车主</h4>
+                        <div class="scrollwrap">
                         <ul id="venderHtml">
                         
                         </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- 右边车辆使用频率-->
@@ -191,44 +195,6 @@
 <!-- 
  -->
 <script type="text/javascript">
-$.fn.extend({
-    Scroli:function(opt,wid){
-        var num = 0;
-        function goLeft() {
-            //num是单个li尺寸，可变
-            var screenwid = $(document).width();
-            if(screenwid > 1 && screenwid <1500){
-                if (num == -wid) {
-                    num = 0;
-                }
-                num -= 1;
-                opt.css({
-                    left: num
-                })
-            }
-            else if(screenwid > 1500){
-                if (num == -wid){
-                    num = 0;
-                }
-                num -= 1;
-                opt.css({
-                    left: num
-                })
-            }
-        }
-        //设置滚动速度
-        var timer = setInterval(goLeft, 20);
-        //设置鼠标经过时滚动停止
-        this.hover(function() {
-                    clearInterval(timer);
-                },
-                function() {
-                    timer = setInterval(goLeft, 20);
-                })
-    }
-});
-
-
 
 $.fn.extend({
     Scroll:function(opt,callback){
@@ -237,21 +203,21 @@ $.fn.extend({
         if(!opt) var opt={};
         var _this=this.eq(0).find("ul:first");
         var lineH=_this.find("li:first").height(), //获取行高
-                line=opt.line?parseInt(opt.line,10):parseInt(this.height()/lineH,10), //每次滚动的行数，默认为一屏，即父容器高度
-                speed=opt.speed?parseInt(opt.speed,10):500, //卷动速度，数值越大，速度越慢（毫秒）
-                timer=opt.timer?parseInt(opt.timer,10):3000; //滚动的时间间隔（毫秒）
-        if(line==0) line=1;
-        var upHeight=0;
+        //每次滚动的行数，默认为一屏，即父容器高度
+//        line=opt.line?parseInt(opt.line,10):parseInt(this.height()/lineH,10),
+        speed=opt.speed?parseInt(opt.speed,10):2000, //卷动速度，数值越大，速度越慢（毫秒）
+        timer=opt.timer?parseInt(opt.timer,10):3000; //滚动的时间间隔（毫秒）
+
+        var upHeight=0-lineH;
         //滚动函数
         var scrollUp=function(){
-            _this.animate({marginTop:upHeight},speed,function(){
-                var i =1;
-                for(i=1;i <= line;i++){
-                    _this.find(".winBox:first").appendTo(_this);
-                }
-                _this.css({marginTop:0});
+            _this.animate({
+                marginTop:upHeight
+            },speed,function(){
+                _this.css({marginTop : "0px"}).find("li:first").appendTo(_this);
             });
-        }
+        };
+
         //鼠标事件绑定
         _this.hover(function(){
             if (timerId) {
@@ -264,8 +230,9 @@ $.fn.extend({
         }).mouseout();
     }
 });
-$("#myscroll1").Scroll({line:4,speed:5000,timer:5000});
-$("#myscroll2").Scroll({line:4,speed:5000,timer:5000});
+
+$("#myscroll1").Scroll({speed:2000,timer:3000});
+$("#myscroll2").Scroll({speed:2000,timer:3000});
 </script>
 </body>
 </html>

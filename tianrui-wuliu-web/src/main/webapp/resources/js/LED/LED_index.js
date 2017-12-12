@@ -157,28 +157,12 @@ function showOwner(){
 				var data = ret.data.list;
 				$("#ownerThml").empty();
 				for (var a = 0; a < data.length; a++) {
-					var hml =  "<div class='winBox'>"+
-				                    "<div class='scroll'>"+
-				                        "<li>"+
-				                            "<label>"+data[a].remark+"(货运量："+data[a].countdata+"吨)</label>"+
-				                        "</li>"+
-				                        "<li>"+
-				                            "<label>"+data[a].remark+"(货运量："+data[a].countdata+"吨)</label>"+
-				                        "</li>"+
-				                    "</div>"+
-				                "</div>";
+					var hml = "<li>"+
+		                            "<label>"+data[a].remark+ "</label>"+
+		                            "<span>" + "货运量："+data[a].countdata+"吨</span>"+
+		                        "</li>"
 					$("#ownerThml").append(hml);
 				}
-				$('#ownerThml .winBox').each(function () {
-					var labelw = $(this).find('label').width();
-			        $(".scroll").css({
-			            "width":"160px"
-			        });
-			        var labelleng = $(this).find('label').html().length;
-			        if(labelleng > 5){
-			            $(this).Scroli($(this).find('.scroll'),labelw);
-			        }
-				});
 			}else{
 				return;
 			}
@@ -200,29 +184,12 @@ function showVender(){
 				var data = ret.data.list;
 				$("#venderHtml").empty();
 				for (var a = 0; a < data.length; a++) {
-					var hml =  "<div class='winBox'>"+
-                                "<div class='scroll'>"+
-                                    "<li>"+
-                                        "<label>"+data[a].remark+"(运单量："+data[a].countdata+"单)</label>"+
-                                    "</li>"+
-                                    "<li>"+
-                                        "<label>"+data[a].remark+"(运单量："+data[a].countdata+"单)</label>"+
-                                    "</li>"+
-                                "</div>"+
-                            "</div>";
+					var hml = "<li>"+
+                                "<label>"+data[a].remark + "</label>"+
+                                "<span>" + "运单量："+data[a].countdata+"单</span>"+
+                                "</li>"
 					$("#venderHtml").append(hml);
 				}
-				$('#venderHtml .winBox').each(function () {
-					var labelw = $(this).find('label').width();
-			        $(".scroll").css({
-			            "width":"160px"
-			        });
-			        var labelleng = $(this).find('label').html().length;
-			        if(labelleng > 5){
-			            $(this).Scroli($(this).find('.scroll'),labelw);
-
-			        }
-				});
 			}else{
 				return;
 			}
