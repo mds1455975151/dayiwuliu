@@ -62,18 +62,21 @@ function displayData(pageNo){
 
 function innerHTML(data){
 	var hml = "";
+	$(".check_main").prop("checked", false);
 	for (var a = 0; a < data.length; a++) {
 		var d = a+1;
 		var createtimeStr = data[a].createtimeStr==undefined?"":data[a].createtimeStr;
 		var jtb = "";
-		if(data[a].jtb=="1"){
+		if(data[a].jtb == "1"){
 			jtb = "已推送";
-		}if(data[a].jtb=="3"){
+		}else if(data[a].jtb == "3"){
 			jtb = "已查看";
 		}else{
 			jtb = "未推送";
 		}
-		hml +="<tr><td>"+d+"</td>"+
+		hml +="<tr>" +
+				"<td><input class='check_child' type='checkbox' value='"+data[a].id+"'></td>"+
+				"<td>"+d+"</td>"+
 		"<td><a onclick=\"bill_map('"+data[a].id+"')\">"+data[a].waybillno+"</a></td>"+
 		"<td>"+data[a].vehicleno+"</td>"+
 		"<td>"+jtb+"</td>"+
@@ -83,7 +86,40 @@ function innerHTML(data){
 		"</td>";
 	}
 	document.getElementById("innhml").innerHTML=hml;
+	
 }
+$(".check_main").on("change",function(){
+	if($(this).is(':checked')) {
+		$(".check_child").prop("checked", true);
+	}else{
+		$(".check_child").prop("checked", false);
+	}
+});
+$("#batchDisable").on("click",function(){
+	var ids = "";
+	$(".check_child").each(function(){
+		if($(this).is(':checked')) {
+			ids = ids + $(this).val()+";";
+		}
+	});
+	if(ids == ""){
+		alert("请选择要操作的数据");
+		return;
+	}
+	$.ajax({
+		url:"/admin/waybill/uptJTBBill",
+		data:{"id":ids},
+		type:"post",
+		success:function(ret){
+			if(ret.code=="000000"){
+				alert("操作成功");
+				displayData($("#goPage").val()-1);
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+});
 function getDetail(id){
 	$.get(CONTEXTPATH + '/admin/waybill/findJTBBillDetail', {id: id}, function(result){
 		if (result && result.code == '000000') {

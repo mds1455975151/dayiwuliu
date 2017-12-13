@@ -180,12 +180,11 @@
     	<if test="cph != null and cph != ''">
 			AND cph like "%" #{cph,jdbcType=VARCHAR} "%"
 		</if>
-		<if test="desc2 != null and desc2 != '' and desc2 ==1 ">
+		<if test="desc2 != null and desc2 != '' and desc2 !=0 ">
 			AND desc2 = #{desc2,jdbcType=VARCHAR}
 		</if>
-		<if test=" desc2 != '' and desc2 ==0 ">
-			and (desc2 != '1' OR desc2 IS NULL)
-    		
+		<if test="desc2 != null and desc2 != '' and desc2 ==0 ">
+			and (desc2 IS NULL or desc2 = '0')
 		</if>
 		<if test="ptBegintime != null and ptBegintime != ''">
 			and createtime <![CDATA[>=]]> #{ptBegintime,jdbcType=BIGINT}
@@ -210,11 +209,11 @@
     	<if test="cph != null and cph != ''">
 			AND cph like "%" #{cph,jdbcType=VARCHAR} "%"
 		</if>
-		<if test="desc2 != null and desc2 != '' and desc2 ==1 ">
+		<if test="desc2 != null and desc2 != '' and desc2 !=0 ">
 			AND desc2 = #{desc2,jdbcType=VARCHAR}
 		</if>
-		<if test=" desc2 != '' and desc2 ==0 ">
-			and (desc2 != '1' OR desc2 IS NULL)
+		<if test="desc2 != null and desc2 != '' and desc2 ==0 ">
+			and (desc2 IS NULL or desc2 = '0')
 		</if>
 		<if test="ptBegintime != null and ptBegintime != ''">
 			and createtime <![CDATA[>=]]> #{ptBegintime,jdbcType=BIGINT}

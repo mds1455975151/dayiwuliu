@@ -2671,20 +2671,26 @@ public class BillService implements IBillService{
 	@Override
 	public Result uptJtbBill(String id) throws Exception {
 		Result rs = Result.getSuccessResult();
-		Bill upt = new Bill();
-		upt.setId(id);
-		upt.setJtb("3");
-		billMapper.updateByPrimaryKeySelective(upt);
+		String[] ids = id.split(";");
+		for(String i:ids){
+			Bill upt = new Bill();
+			upt.setId(i);
+			upt.setJtb("3");
+			billMapper.updateByPrimaryKeySelective(upt);
+		}
 		return rs;
 	}
 
 	@Override
 	public Result uptAnlianJtbBill(String id) throws Exception {
 		Result rs = Result.getSuccessResult();
-		AnlianBill upt = new AnlianBill();
-		upt.setId(id);
-		upt.setDesc2("3");
-		anlianBillMapper.updateByPrimaryKeySelective(upt);
+		String[] ids = id.split(";");
+		for(String i : ids){
+			AnlianBill upt = new AnlianBill();
+			upt.setId(i);
+			upt.setDesc2("3");
+			anlianBillMapper.updateByPrimaryKeySelective(upt);
+		}
 		return rs;
 	}
 }

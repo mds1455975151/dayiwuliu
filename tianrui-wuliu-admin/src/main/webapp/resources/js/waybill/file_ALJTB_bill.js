@@ -73,7 +73,9 @@ function innerHTML(data){
 		}else{
 			jtb = "未推送";
 		}
-		hml +="<tr><td>"+d+"</td>"+
+		hml +="<tr>" +
+		"<td><input class='check_child' type='checkbox' value='"+data[a].id+"'></td>"+
+				"<td>"+d+"</td>"+
 		"<td><a onclick=\"bill_map('"+data[a].id+"')\">"+data[a].waybillno+"</a></td>"+
 		"<td>"+data[a].vehicleno+"</td>"+
 		"<td>"+jtb+"</td>"+
@@ -84,6 +86,41 @@ function innerHTML(data){
 }
 	document.getElementById("innhml").innerHTML=hml;
 }
+$(".check_main").on("change",function(){
+	if($(this).is(':checked')) {
+		$(".check_child").prop("checked", true);
+	}else{
+		$(".check_child").prop("checked", false);
+	}
+});
+
+$("#batchDisable").on("click",function(){
+	var ids = "";
+	$(".check_child").each(function(){
+		if($(this).is(':checked')) {
+			ids = ids + $(this).val()+";";
+		}
+	});
+	if(ids == ""){
+		alert("请选择要操作的数据");
+		return;
+	}
+	$.ajax({
+		url:"/admin/waybill/uptALJtbBill",
+		data:{"id":ids},
+		type:"post",
+		success:function(ret){
+			if(ret.code=="000000"){
+				alert("操作成功");
+				displayData($("#goPage").val()-1);
+			}else{
+				alert(ret.error);
+			}
+		}
+	});
+	
+});
+
 function bill_map(id){
 	window.open("/report/map?type=a&id="+id+"&menuId=6");
 }

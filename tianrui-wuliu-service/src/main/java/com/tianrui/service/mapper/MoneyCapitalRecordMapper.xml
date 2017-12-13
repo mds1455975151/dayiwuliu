@@ -25,7 +25,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, cellphone, username, useryhNO, money, transactionType, income, expenditure, totalMoney, 
-    availableMoney, withdrawalsLockMoney, otherLockMoney, createtime, remark, 
+    availableMoney, withdrawalsLockMoney, otherLockMoney, createtime, remark, lastTime,
     capitalNO, desc1, desc2, desc3, desc4
   </sql>
    
