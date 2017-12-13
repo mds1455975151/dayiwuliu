@@ -225,7 +225,7 @@ function appendContentToBody(result, flag) {
 				var button6 = "";
 				//1临时车辆 2认证车辆
 				if(data[i].desc2 == 2){
-					button6 = "信息齐全";
+					button6 = "<p>信息齐全</p>";
 				}else if(data[i].desc2 == 1){
 					button6 = $("<button  onclick=\"buquanxinxi('"+data[i].id+"')\"></button>")
 					.addClass("btn btnyello")
@@ -233,9 +233,9 @@ function appendContentToBody(result, flag) {
 				}
 				var td6 = $("<td></td>");
 				    td6.addClass("f12 bill_lineh2");
-				    td6.append(button6);
-				
-				
+				var div_line_two = $('<div></div>').addClass("line_two").append(button6).append('<p><a  class="colorblue" target="_blank" href="/trwuliu/Member/myVehicle/agreement" >《车辆加盟协议》</a></p>');
+				var p_line_two = $("<p></p>").append(div_line_two);
+				    td6.append(p_line_two);
 				tr1.append(td1_1).append(td1_2).append(td3).append(td2).append(td3_1).append(td4).append(td5).append(td6);
 			
 			if (flag == 0) {

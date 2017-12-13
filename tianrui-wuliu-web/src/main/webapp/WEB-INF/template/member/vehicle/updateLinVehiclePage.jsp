@@ -176,7 +176,18 @@
 							<input type="hidden" id="file_djz_img">
 						</div>
 					</div>
-					
+					<div class="car_photo">
+						<div class="soft_protocol">
+	                            <div class="mycheck">
+	                                <input checked="checked" disabled="disabled" type="checkbox" value="1" id="checkbox1" name="" />
+	                                <label for="checkbox1"></label>
+	                            </div>
+	                            <span>
+	                                <i>我接受</i>
+	                                <a target="_blank" class="colorblue" href="/trwuliu/Member/myVehicle/agreement">《车辆加盟协议》</a>
+	                            </span>
+	                    </div>
+					</div>
 					<div class="car_photo">
 						<div class="car_addbtn">
 							<button type="submit" class="btn btnyello" id="vehicle_addBtn">修改</button>

@@ -183,6 +183,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!-- 弹框end -->
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?09.16" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?12.13" ></script>
 	</body>
 </html>

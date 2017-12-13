@@ -103,7 +103,22 @@ public class MyVehicleAction {
 		view.setViewName("/member/vehicle/updateLinVehiclePage");
 		return view;
 	}
-	
+	/**
+	 * 
+	 * @描述:车辆审核失败页面
+	 * @param id
+	 * @return
+	 * @throws Exception 
+	 * @返回类型 ModelAndView
+	 * @创建人 lsj
+	 * @创建时间 2016年6月25日下午3:43:42
+	 */
+	@RequestMapping("/agreement")
+	public ModelAndView agreement()throws Exception{
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/member/vehicle/franchisingAgreement");
+		return view;
+	}
 	
 	/**
 	 * 
