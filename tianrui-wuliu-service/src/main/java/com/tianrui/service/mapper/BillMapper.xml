@@ -153,11 +153,11 @@
 		<if test="vehicleno != null and vehicleno != ''">
 			AND wb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
 		</if>
-		<if test="jtb != null and jtb != '' and jtb ==1 ">
+		<if test="jtb != null and jtb != '' and jtb != 0">
 			AND wb.jtb = #{jtb,jdbcType=VARCHAR}
 		</if>
-		<if test=" jtb != '' and jtb ==0 ">
-			and (jtb != '1' OR jtb IS NULL)
+		<if test="jtb != null and jtb != '' and jtb == 0">
+			AND (wb.jtb is null or wb.jtb = '0')
 		</if>
 		<if test="createTimeBegin != null and createTimeBegin != ''">
 			and wb.createtime <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}
@@ -187,11 +187,11 @@
 		<if test="vehicleno != null and vehicleno != ''">
 			AND wb.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
 		</if>
-		<if test="jtb != null and jtb != '' and jtb ==1 ">
+		<if test="jtb != null and jtb != '' and jtb != 0">
 			AND wb.jtb = #{jtb,jdbcType=VARCHAR}
 		</if>
-		<if test=" jtb != '' and jtb ==0 ">
-			and (jtb != '1' OR jtb IS NULL)
+		<if test="jtb != null and jtb != '' and jtb == 0">
+			AND (wb.jtb is null or wb.jtb = '0')
 		</if>
 		<if test="createTimeBegin != null and createTimeBegin != ''">
 			and wb.createtime <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}

@@ -30,6 +30,7 @@ public class LEDSchedule {
 	
 	/** 每两个小时执行*/
 	@Scheduled(cron="0 0 0/2 * * ?")
+//	@Scheduled(cron="0/10 * * * * ?")
 	public void LEDCountAll() throws Exception{
 		Long timeBegin = System.currentTimeMillis();
 		logger.info("LED定时任务开始"+TimeUtils.LongZoString(timeBegin));
@@ -48,6 +49,8 @@ public class LEDSchedule {
 			//统计当天数据
 			lEDCountService.allCountToday(tdate);
 			//运量统计
+			
+			
 			lEDCountService.billCouAl(date, indexLong(date),dataStr);
 			//车主
 			lEDCountService.venderCount();

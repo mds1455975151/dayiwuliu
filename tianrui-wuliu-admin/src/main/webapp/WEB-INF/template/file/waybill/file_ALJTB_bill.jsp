@@ -77,9 +77,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="ht_div">
                             <label>推送状态：</label>
                             <select id="jtb"  class="form-control">
-                                 <option value="">请选择</option>
-                                 <option value="1">已推送</option>
                                  <option value="0">未推送</option>
+                                 <option value="1">已推送</option>
+                                 <option value="3">已查看</option>
                             </select>
                         </div>
                          <div class="ht_div">
@@ -96,10 +96,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="row mt15">
                 <div class="col-md-12">
                     <div class="content-user">
+                   		<div class="content-tou">
+                         <button id="batchDisable"><i class="iconfont icon-tingyong"></i><span>批量查看</span></button>
+                        </div>
                         <!--用户表格begin-->
                         <table class="table table-bordered">
                             <thead>
                             <tr>
+                            	<th><input class="check_main" type="checkbox"></th>
                             	<th>序号</th>
                                 <th>运单号</th>
                                 <th>车辆信息</th>
@@ -187,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
-<script type="text/javascript" src="/resources/js/waybill/file_ALJTB_bill.js?1212" ></script>
+<script type="text/javascript" src="/resources/js/waybill/file_ALJTB_bill.js?1213" ></script>
 <script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
 <script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
