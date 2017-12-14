@@ -30,7 +30,11 @@ public class PayInvoiceAction {
 		ModelAndView view = new ModelAndView("file/payInvoice/driver/payInvoice");
 		return view;
 	}
-
+	@RequestMapping("agreement")
+	public ModelAndView agreement(){
+		ModelAndView view = new ModelAndView("billAgreement/agreement");
+		return view;
+	}
 	@RequestMapping("driver/page")
 	@ResponseBody
 	public Result driverPage(PayInvoiceReq req){

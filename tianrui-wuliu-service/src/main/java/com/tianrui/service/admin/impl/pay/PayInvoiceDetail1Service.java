@@ -556,15 +556,22 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		//账单详情
 		PayInvoiceDetail pay = payInvoiceDetailMapper1.selectByPrimaryKey(id);
 		resp = changePayDetail(resp,pay);
+		PayInvoice payed = payInvoiceMapper1.selectByPrimaryKey(pay.getPayInvoiceId());
+		if(null != payed && !payed.getCode().equals(resp.getPayCode())){
+			resp.setPayCode(payed.getCode());
+		}
+		
 		//运单详情
 		if(pay.getRemark().equals("al")){
 			AnlianBill albill = anlianBillMapper.selectByPrimaryKey(pay.getBillId());
 			resp.setBankId(albill.getBankId());
 			resp = changeAlBillPayDetail(resp,albill);
+			resp.setBillOwerType("a");
 		}else if(pay.getRemark().equals("dy")){
 			Bill bill = billMapper.selectByPrimaryKey(pay.getBillId());
 			resp.setBankId(bill.getBankId());
 			resp = changeDyBillPayDetail(resp,bill);
+			resp.setBillOwerType("w");
 		}
 		//银行卡详情
 		MemberBankCard bank = new MemberBankCard();
@@ -616,6 +623,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	}
 	
 	protected PayAndBillDateilResp changeAlBillPayDetail(PayAndBillDateilResp resp,AnlianBill bill) {
+		resp.setBillId(bill.getId());
 		resp.setPayMent(bill.getPayment());
 		resp.setBillNo(bill.getBillno());
 		resp.setVehicleNo(bill.getCph());
@@ -644,6 +652,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	
 	/** 账单详情大易运单数据交换*/
 	protected PayAndBillDateilResp changeDyBillPayDetail(PayAndBillDateilResp resp,Bill bill) {
+		resp.setBillId(bill.getId());
 		resp.setPayMent(bill.getPayment());
 		resp.setBillNo(bill.getWaybillno());
 		resp.setVehicleNo(bill.getVehicleno());
@@ -705,7 +714,6 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 
 	@Override
 	public List<PayVenderGroupResp> groupByVender(PayInvoiceDetail1FindReq req) throws Exception {
-		// TODO Auto-generated method stub
 		PayInvoiceDetail rec = new PayInvoiceDetail();
 		rec.setCreator(req.getCreator());
 		rec.setBillType(req.getBillType());
@@ -730,7 +738,6 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	
 	@Override
 	public Result findPlanId(ReportPayAllReq req) throws Exception {
-		// TODO Auto-generated method stub
 		Result rs = Result.getSuccessResult();
 		PayInvoiceDetail record = new PayInvoiceDetail();
 		record.setPayInvoiceId(req.getId());

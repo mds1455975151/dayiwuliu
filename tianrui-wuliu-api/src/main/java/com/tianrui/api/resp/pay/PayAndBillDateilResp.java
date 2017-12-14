@@ -4,7 +4,10 @@ package com.tianrui.api.resp.pay;
 public class PayAndBillDateilResp {
 	//账单id
 	private String id;
-	
+	//运单ID
+	private String billId;
+	//运单类型
+	private String billOwerType;
 	private Double pickupweight; 
     private String pickupimgurl;
     
@@ -392,4 +395,17 @@ public class PayAndBillDateilResp {
 	public void setBankMember(String bankMember) {
 		this.bankMember = bankMember;
 	}
+	public String getBillId() {
+		return billId;
+	}
+	public void setBillId(String billId) {
+		this.billId = billId;
+	}
+	public String getBillOwerType() {
+		return billOwerType;
+	}
+	public void setBillOwerType(String billOwerType) {
+		this.billOwerType = billOwerType;
+	}
+	
 }

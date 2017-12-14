@@ -38,6 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                            <div class="person_cont">
 	                               <label>运单号：</label><span>${pay.billNo }</span><br>
 	                               <label>计划号：</label><span>${pay.plancode }</span><br>
+	                               <c:if test="${pay.billNo ne pay.payCode}">
+	                               <label>账单号：</label><span>${pay.payCode }</span><br>
+	                               </c:if>
 	                               <label>发票类型：</label><span>${pay.invoiceName }</span><br>
 	                               <label>货物名称：</label><span>${pay.cargoName }</span><br>
 	                               <label>税率：</label><span>${pay.taxRate }</span><br>
@@ -57,14 +60,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>签收重量：</label><span>${pay.trueweight }吨</span><br>
 	                               </c:if>
                               	 <c:if test="${pay.pickupimgurl ne null}">
-	                               <label>磅单图片：</label><span><a href="/imageView/index?imageUrl=${pay.pickupimgurl }" target="_blank">提货磅单</a></span><br>
+	                               <label>磅单图片(提货)：</label><span><a class="colorblue" href="/imageView/index?imageUrl=${pay.pickupimgurl }" target="_blank">查看提货磅单</a></span><br>
                               	 </c:if>
                               	  <c:if test="${pay.signimgurl ne null}">
-	                               <label>磅单图片：</label><span><a href="/imageView/index?imageUrl=${pay.signimgurl }" target="_blank">卸货磅单</a></span><br>
+	                               <label>磅单图片(卸货)：</label><span><a class="colorblue" href="/imageView/index?imageUrl=${pay.signimgurl }" target="_blank">查看卸货磅单</a></span><br>
                               	  </c:if>
 	                               <c:if test="${pay.remarkImg ne null}">
-	                               <label>磅单图片：</label><span><a href="/imageView/index?imageUrl=${pay.remarkImg }" target="_blank">附件图片</a></span><br>
+	                               <label>磅单图片：</label><span><a class="colorblue" href="/imageView/index?imageUrl=${pay.remarkImg }" target="_blank">附件图片</a></span><br>
 	                               </c:if>
+	                               <label>运输轨迹：</label><span><a class="colorblue" href="/report/map?type=${pay.billOwerType }&id=${pay.billId }&menuId=120" target="_blank">查看运单轨迹</a></span><br>
+	                               <label>运输合同：</label><span><a class="colorblue" href="/pay/invoice/agreement" target="_blank">查看电子合同</a></span><br>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -87,6 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>司机账号：</label><span>${pay.driverCellphone }</span><br>
 	                               <label>司机名称：</label><span>${pay.driverName }</span><br>
 	                               <label>司机安联账号：</label><span>${pay.driverAlcode }</span><br>
+	                               <label>车辆详情信息：</label><span><a class="colorblue" href="/pay/invoice/agreement" target="_blank">查看车辆详情</a></span><br>
+	                               <label>司机详情信息：</label><span><a class="colorblue" href="/pay/invoice/agreement" target="_blank">查看司机详情</a></span><br>
 	                            </div>
 	                        </div>
 	                    </div>
