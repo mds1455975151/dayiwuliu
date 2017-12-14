@@ -92,8 +92,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>司机账号：</label><span>${pay.driverCellphone }</span><br>
 	                               <label>司机名称：</label><span>${pay.driverName }</span><br>
 	                               <label>司机安联账号：</label><span>${pay.driverAlcode }</span><br>
-	                               <label>车辆详情信息：</label><span><a class="colorblue" href="/pay/invoice/agreement" target="_blank">查看车辆详情</a></span><br>
-	                               <label>司机详情信息：</label><span><a class="colorblue" href="/pay/invoice/agreement" target="_blank">查看司机详情</a></span><br>
+	                               <label>车辆详情信息：</label><span><a class="colorblue" data-toggle="modal" onclick="details('${pay.vehicleID }')" data-target='#detail'>查看车辆详情</a></span><br>
+	                               <label>司机详情信息：</label><span><a class="colorblue" data-toggle="modal" onclick="sjdetails('${pay.driverId }')" data-target='#detailsj'>查看司机详情</a></span><br>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -159,27 +159,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <!--侧边栏end-->
 </div>
-<!--通过begin-->
-<div class="modal fade" id="pass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--查看车辆详情begin-->
+<div class="modal fade" id="detail" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >个人用户审核</h4>
+                <h4 class="modal-title" >车辆信息详情</h4>
             </div>
-            <div class="modal-body">
-                确定通过审核吗？
+            <div class="modal-body" id="detailid" style="">
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="adminReview('1')" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
 </div>
-<!--通过end-->
+<!--查看车辆详情end-->
+<!--查看司机详情begin-->
+<div class="modal fade" id="detailsj" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >司机信息详情</h4>
+            </div>
+            <div class="modal-body" id="sjdetails" style=" ">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--查看司机详情end-->
 <%@include file="../../../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/resources/js/payInvoice/pay/invoice.js?12.14" ></script>
 </body>
 </html>

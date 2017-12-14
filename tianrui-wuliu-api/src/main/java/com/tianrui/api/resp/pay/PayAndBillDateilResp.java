@@ -26,6 +26,8 @@ public class PayAndBillDateilResp {
 	private String plancode;
 	//车牌号
 	private String vehicleNo;
+	//车辆ID
+	private String vehicleID;
 	//收货方
 	private String conMer;
 	private String conMerCode;
@@ -42,6 +44,8 @@ public class PayAndBillDateilResp {
 	private String venderName;
 	//司机账号
 	private String driverCellphone;
+	//司机ID
+	private String driverId;
 	private String driverName;
 	private String driverAlcode;
 	//收获人
@@ -406,6 +410,18 @@ public class PayAndBillDateilResp {
 	}
 	public void setBillOwerType(String billOwerType) {
 		this.billOwerType = billOwerType;
+	}
+	public String getVehicleID() {
+		return vehicleID;
+	}
+	public void setVehicleID(String vehicleID) {
+		this.vehicleID = vehicleID;
+	}
+	public String getDriverId() {
+		return driverId;
+	}
+	public void setDriverId(String driverId) {
+		this.driverId = driverId;
 	}
 	
 }

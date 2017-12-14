@@ -29,10 +29,12 @@ import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.bean.Merchant;
+import com.tianrui.service.admin.bean.MyVehicle;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
+import com.tianrui.service.admin.mapper.MyVehicleMapper;
 import com.tianrui.service.admin.mapper.PayInvoiceDetailMapper1;
 import com.tianrui.service.admin.mapper.PayInvoiceMapper1;
 import com.tianrui.service.bean.Bill;
@@ -72,7 +74,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	FileRouteMapper fileRouteMapper;
 	@Autowired
 	IMemberVoService memberVoService;
-	
+	@Autowired
+	MyVehicleMapper vehicleMapper;
 	@Override
 	public Result getPayBillId(String id) throws Exception {
 		// TODO Auto-generated method stub
@@ -627,6 +630,13 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		resp.setPayMent(bill.getPayment());
 		resp.setBillNo(bill.getBillno());
 		resp.setVehicleNo(bill.getCph());
+		MyVehicle mv = new MyVehicle();
+		mv.setVehicleno(bill.getCph().substring(2, bill.getCph().length()));
+		mv.setVehicleprefix(bill.getCph().substring(0, 2));
+		List<MyVehicle> vehicleList = vehicleMapper.findByEntity(mv);
+		if(null != vehicleList && vehicleList.size() > 0){
+			resp.setVehicleID(vehicleList.get(0).getId());
+		}
 		resp.setPickupimgurl(bill.getPickupimgurl());
 		resp.setPickupweight(bill.getPickupweight());
 		resp.setSignimgurl(bill.getSignimgurl());
@@ -656,6 +666,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		resp.setPayMent(bill.getPayment());
 		resp.setBillNo(bill.getWaybillno());
 		resp.setVehicleNo(bill.getVehicleno());
+		resp.setVehicleID(bill.getVehicleid());
 		resp.setPickupimgurl(bill.getPickupimgurl());
 		resp.setPickupweight(bill.getPickupweight());
 		resp.setSignimgurl(bill.getSignimgurl());
