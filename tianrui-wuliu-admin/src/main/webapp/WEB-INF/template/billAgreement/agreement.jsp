@@ -29,13 +29,15 @@
         }
     </style>
 </head>
-<body>
+<body  onmousemove=\HideMenu()\ oncontextmenu="return false" ondragstart="return false" onselectstart ="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()">
 	 <div class="container">
 		<!--后台右侧布局begin-->
 		        <div class="row">
+		        
             <div class="textBox">
+            	<div style="width:95%;margin:0 auto;">
                 <p style="text-align: center;font-size: 24px;">运输合同</p>
-                <p style="text-align: right">运单号：<span class="red">【取系统运单号】</span></p>
+                <p style="text-align: right">运单号：${agreement.billNo }</p>
                 <p>运输合同条款:</p>
                 <p> 1.承运人运输前应核实运输货物信息，如发现实际装车的货物数量、体积、重量与清单不符，承运人应及时提出异议，双方协商变更运费、实际货物信息或解除本合同。装车起运后视为承运人同意托运货物信息，承运人不得以货物及其数量、体积、重量的变更向托运人主张任何权利</p>
                 <p>2、承运人承运货物途中不得给物料掺假、兑水、偷换或添加杂质。如托运人发现视情况轻重有权追究承运人责任，赔偿数额应以承运人运输物料价值的2倍作为赔偿金。</p>
@@ -47,19 +49,19 @@
 
                 <p>附：运单明细单据：</p>
                 <table width="100%" border="1" cellspacing="0" cellpadding="0">
-                    <tr><td colSpan="8">&nbsp;&nbsp;承运人：<span class="red">【实际承运人】</span></td></tr>
+                    <tr><td colSpan="8">&nbsp;&nbsp;承运人：${agreement.venderName }</td></tr>
                     <tr>
-                        <td colSpan="2">收货人：<span class="red">取收货人名字</span></td>
-                        <td colSpan="2">手机号：<span class="red">取收货人手机号</span></td>
-                        <td colSpan="2">装货地点：<span class="red">取运单上起运地</span></td>
-                        <td colSpan="2">卸货地点：<span class="red">取运单上目的地</span></td>
+                        <td colSpan="2">收货人：${agreement.receiveName }</td>
+                        <td colSpan="2">手机号：${agreement.receiveCellphone }</td>
+                        <td colSpan="2">装货地点：${agreement.sposition }</td>
+                        <td colSpan="2">卸货地点：${agreement.eposition }</td>
                     </tr>
                     <tr>
-                        <td colSpan="2">驾驶员：<span class="red">取司机名字</span></td>
-                        <td colSpan="2">身份证号：<span class="red">取司机身份证号</span></td>
-                        <td>承运车牌号：<span class="red">取车牌号</span></td>
-                        <td>发动机号：<span class="red">取车辆发动机号</span></td>
-                        <td>随车电话：<span class="red">取司机电话</span></td>
+                        <td colSpan="2">驾驶员：${agreement.driverName }</td>
+                        <td colSpan="2">身份证号：${agreement.driverIDCardNO }</td>
+                        <td>承运车牌号：${agreement.vehicleNo }</td>
+                        <td>发动机号：${agreement.motor }</td>
+                        <td>随车电话：${agreement.driverCellphone }</td>
                     </tr>
                     <tr>
                         <td>货物名称</td>
@@ -71,46 +73,35 @@
                         <td>到达时间</td>
                     </tr>
                     <tr>
-                        <td> 取运单货物名</td>
+                        <td> ${agreement.cargoName }</td>
                         <td></td>
-                        <td>取运单原发数</td>
-                        <td>取运单计量单位</td>
-                        <td>取运单运费单价</td>
-                        <td>取运单实收数</td>
-                        <td rowSpan="2">取运单卸货时间</td>
+                        <td>${agreement.pickupweight }</td>
+                        <td>${agreement.measure }</td>
+                        <td>${agreement.billPrice }</td>
+                        <td>${agreement.trueweight }</td>
+                        <td>${agreement.dateUnloading }</td>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>合计</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td colSpan="4">  货物总价值（元):<span class="red">取货物价值 保险金额</span>  &nbsp; &nbsp; 运费总价：<span class="red">   取运单结算金额</span> </td>
-                        <td colSpan="4">付款方式：<span class="red">  根据支付对象   </span>  &nbsp; &nbsp;  现付 <input type="checkbox">     &nbsp; &nbsp;  月付 <input type="checkbox"></td>
+                        <td colSpan="4">  货物总价值（元):${agreement.cargoValue } &nbsp;保险金额:${agreement.insurance }  &nbsp; &nbsp; 运费总价：${agreement.backstageBillTotalPrice } </td>
+                        <td colSpan="4">付款方式： &nbsp; &nbsp; 
+                        		<c:if test="${agreement.payMent eq 1}">
+	                               	现付 <input type="checkbox" checked="checked" disabled="disabled" >     &nbsp; &nbsp;  月付 <input type="checkbox" disabled="disabled"></td>
+	                            </c:if> 
+	                            <c:if test="${agreement.payMent eq 2}">
+	                               	现付 <input type="checkbox" disabled="disabled" >     &nbsp; &nbsp;  月付 <input type="checkbox" checked="checked" disabled="disabled"></td>
+	                            </c:if> 
                     </tr>
                     <tr>
                         <td colSpan="4"> 托运单位：中原大易科技有限公司</td>
-                        <td colSpan="4">	承运人（代理人）签字：<span class="red">取司机名字</span>   &nbsp; &nbsp; 电话：<span class="red">取司机电话</span></td>
+                        <td colSpan="4">	承运人（代理人）签字：${agreement.driverName }   &nbsp; &nbsp; 电话：${agreement.driverCellphone }</td>
                     </tr>
                     <tr>
-                        <td colSpan="4">托运人（代理人）签字：   <span class="red">取发货人</span> &nbsp; &nbsp;电话： <span class="red">发货人电话</span></td>
-                        <td colSpan="4">收货人（代理人）签字：<span class="red">取收货人名字</span>  &nbsp; &nbsp;电话：<span class="red">取收货人电话</span></td>
+                        <td colSpan="4">托运人（代理人）签字：${agreement.linkman }   &nbsp; &nbsp;电话： ${agreement.linknumber }</td>
+                        <td colSpan="4">收货人（代理人）签字：${agreement.receiveName }  &nbsp; &nbsp;电话：${agreement.receiveCellphone }</td>
                     </tr>
-                    <tr><td colSpan="8" style="text-align: center"> 24小时热线电话：400-056-1156  &nbsp;  &nbsp; &nbsp;  取运单时间  &nbsp; &nbsp; 年  &nbsp; &nbsp; 月 &nbsp; &nbsp; 日</td></tr>
+                    <tr><td colSpan="8" style="text-align: center"> 24小时热线电话：400-056-1156  &nbsp;  &nbsp; &nbsp;  ${agreement.dateAcctept }</td></tr>
                 </table>
-				
+				</div>
             </div>
 				<br><br><br><br><br><br><br><br>
         </div>

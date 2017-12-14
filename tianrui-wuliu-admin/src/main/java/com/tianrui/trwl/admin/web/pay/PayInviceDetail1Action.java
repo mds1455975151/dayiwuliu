@@ -35,7 +35,7 @@ public class PayInviceDetail1Action {
 	/** 查看账单详情
 	 * @throws Exception */
 	@RequestMapping("payInviceDetail")
-	public ModelAndView payInviceDetail(String id) throws Exception{
+	public ModelAndView payInviceDetail(String id,String type) throws Exception{
 		ModelAndView view = new ModelAndView();
 		
 		PayAndBillDateilResp resp = payInvoiceDetail1Service.payInviuceDetail(id);

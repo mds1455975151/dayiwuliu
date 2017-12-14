@@ -8,6 +8,7 @@ import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.req.report.ReportPayAllReq;
+import com.tianrui.api.resp.AgreementResp;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
 import com.tianrui.api.resp.pay.PayAndBillDateilResp;
 import com.tianrui.api.resp.pay.PayVenderGroupResp;
@@ -39,4 +40,10 @@ public interface IPayInvoiceDetail1Service {
 	public Result getPayPlanlId(String id)throws Exception;
 	
 	public Result findPlanId(ReportPayAllReq req)throws Exception;
+	/**
+	 * 根据运单id封装合同模板
+	 * @param id
+	 * @return
+	 */
+	AgreementResp AgreementDetail(String id,String type);
 }

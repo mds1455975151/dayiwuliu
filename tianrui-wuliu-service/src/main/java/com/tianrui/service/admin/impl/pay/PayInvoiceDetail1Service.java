@@ -14,24 +14,32 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.intf.IMemberVoService;
+import com.tianrui.api.intf.IVehicleTicketService;
 import com.tianrui.api.req.admin.pay.PayInviceSave1Req;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1FindReq;
 import com.tianrui.api.req.admin.pay.PayInvoiceDetail1Req;
 import com.tianrui.api.req.front.bill.BillConfirmPriceReq;
 import com.tianrui.api.req.report.ReportPayAllReq;
+import com.tianrui.api.resp.AgreementResp;
 import com.tianrui.api.resp.admin.pay.PayInvoiceDetail1Resp;
+import com.tianrui.api.resp.front.vehicle.VehicleTicketResp;
 import com.tianrui.api.resp.pay.PayAndBillDateilResp;
 import com.tianrui.api.resp.pay.PayVenderGroupResp;
 import com.tianrui.common.constants.Constant;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FileCargo;
+import com.tianrui.service.admin.bean.FilePositoin;
 import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.bean.Merchant;
 import com.tianrui.service.admin.bean.MyVehicle;
 import com.tianrui.service.admin.bean.PayInvoice;
 import com.tianrui.service.admin.bean.PayInvoiceDetail;
+import com.tianrui.service.admin.mapper.FileCargoMapper;
+import com.tianrui.service.admin.mapper.FilePositoinMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.admin.mapper.MerchantMapper;
 import com.tianrui.service.admin.mapper.MyVehicleMapper;
@@ -41,13 +49,17 @@ import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.MemberBankCard;
 import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mapper.MemberBankCardMapper;
 import com.tianrui.service.mapper.PlanMapper;
+import com.tianrui.service.mapper.SystemMemberInfoMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mongo.CodeGenDao;
+import com.tianrui.service.util.MoneyUtils;
+import com.tianrui.service.util.TimeUtils;
 
 @Service
 public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
@@ -76,6 +88,14 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 	IMemberVoService memberVoService;
 	@Autowired
 	MyVehicleMapper vehicleMapper;
+	@Autowired
+	FilePositoinMapper filePositoinMapper;
+	@Autowired
+	SystemMemberInfoMapper memberInfoMapper;
+	@Autowired
+	IVehicleTicketService vehicleTicketService;
+	@Autowired
+	FileCargoMapper fileCargoMapper;
 	@Override
 	public Result getPayBillId(String id) throws Exception {
 		// TODO Auto-generated method stub
@@ -706,6 +726,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		if(shipMer != null){
 			resp.setShipMer(shipMer.getName());
 			resp.setShipMerCode(shipMer.getCode());
+			shipMer.getLinkman();
+			shipMer.getLinknumber();
 		}
 		//路线
 		FileRoute route = fileRouteMapper.selectByPrimaryKey(plan.getRouteid());
@@ -757,6 +779,80 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			rs.setData(list.get(0));
 		}
 		return rs;
+	}
+
+	@Override
+	public AgreementResp AgreementDetail(String id,String type) {
+		AgreementResp agreement = new AgreementResp();
+		try {
+			PayAndBillDateilResp resp = payInviuceDetail(id);
+			PropertyUtils.copyProperties(agreement, resp);
+			if("w".equals(type)){
+				Bill bill = billMapper.selectByPrimaryKey(resp.getBillId());
+				agreement.setDateAcctept(DateUtil.getDateString(bill.getAcctepttime(), "yyyy年M月d日"));
+				agreement.setDateUnloading(DateUtil.getDateString(bill.getUnloadtime(), "yyyy年M月d日"));
+			}else if ("a".equals(type)) {
+				AnlianBill albill =anlianBillMapper.selectByPrimaryKey(resp.getBillId());
+				agreement.setDateAcctept(DateUtil.getDateString(albill.getCreatetime(), "yyyy年M月d日"));
+				if(albill.getPtEndtime() != null && albill.getPtEndtime() > 0){
+					agreement.setDateUnloading(DateUtil.getDateString(albill.getPtEndtime(), "yyyy年M月d日"));
+				}else {
+					agreement.setDateUnloading(TimeUtils.getSpecifiedDay(albill.getCreatetime(),2, "yyyy年M月d日"));
+				}
+			}
+			Plan p = new Plan();
+			p.setPlancode(resp.getPlancode());
+			List<Plan> plans = planMapper.selectByCondition(p);
+			if(null != plans && plans.size() > 0){
+				//发货人信息
+				agreement.setLinkman(plans.get(0).getLinkman());
+				agreement.setLinknumber(plans.get(0).getTelephone());
+				//路径位置信息
+				FileRoute route;
+				FilePositoin o;
+				FilePositoin d;
+				String qyd;
+				String mdd;
+				 route = fileRouteMapper.selectByPrimaryKey(plans.get(0).getRouteid());
+				 o = filePositoinMapper.selectByPrimaryKey(route.getOpositionid());
+				 d =filePositoinMapper.selectByPrimaryKey(route.getDpositionid());
+				 qyd = o.getOp() + o.getOc() + o.getAddr();
+				 mdd = d.getOp() + d.getOc() + d.getAddr();
+				 agreement.setSposition(qyd);;
+				 agreement.setEposition(mdd);
+				 //货物信息
+				 FileCargo cargo = fileCargoMapper.selectByPlanId(plans.get(0).getId());
+				 agreement.setMeasure(cargo.getMeasure());
+				 agreement.setSpecifications(cargo.getSpecifications());
+				 Double cargoPrice = 300.00;
+				 if(null != cargo.getDesc3() && !"".equals(cargo.getDesc3())){
+					 try {
+						 Double price = Double.parseDouble(cargo.getDesc3());
+						if(price > 0){
+							cargoPrice = price;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				 }
+				 Double cargoValue = cargoPrice*resp.getBillWeight();
+				 agreement.setCargoValue(MoneyUtils.doubleFormat(cargoValue));
+				 Double insurance = cargoValue*3/10000;
+				 agreement.setInsurance(MoneyUtils.doubleFormat(insurance));
+			}
+			 SystemMemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(resp.getDriverId());
+			 if(memberInfo != null){
+				 agreement.setDriverIDCardNO(memberInfo.getIdcard());
+			 }
+			 
+			 VehicleTicketResp vt =vehicleTicketService.findById(resp.getVehicleID());
+			 if(vt != null){
+				 agreement.setMotor(vt.getMotor());
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return agreement;
 	}
 
 }

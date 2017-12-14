@@ -194,10 +194,24 @@ public class TimeUtils {
 		String dayBefore = new SimpleDateFormat( "yyyy-MM-dd" ).format( c.getTime() );
 		return(dayBefore);
 	}
-
+	/**
+	 * 获取所传时间前一天
+	 * @param time
+	 * @return
+	 */
+	public static String getSpecifiedDay( long time ,int days,String format)
+	{
+		Calendar	c	= Calendar.getInstance();
+		Date date = new Date(time);
+		c.setTime( date );
+		int day = c.get( Calendar.DATE );
+		c.set( Calendar.DATE, day + days );
+		String dayBefore = new SimpleDateFormat( format ).format( c.getTime() );
+		return(dayBefore);
+	}
 	public static void main(String[] args) throws Exception {
 		
-		System.out.println(getTadoyTime());
+		System.out.println(getSpecifiedDay(1487726607811L,7,"yyyy年M月d日"));
 		System.out.println(getYesterdayTime());
 	}
 }

@@ -89,7 +89,7 @@ public interface FileCargoMapper {
      * @param planId
      * @return
      */
-    FileCargo selectByPlanId(String planId);
+    FileCargo selectByPlanId(String id);
     /** 查询所有运费类型*/
     List<FileCargo> getCargoTypeName();
 }

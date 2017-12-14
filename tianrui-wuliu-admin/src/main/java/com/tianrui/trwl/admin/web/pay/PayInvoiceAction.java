@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tianrui.api.admin.intf.IPayInvoiceDetail1Service;
 import com.tianrui.api.admin.intf.IPayInvoiceService;
 import com.tianrui.api.req.admin.PayInvoiceAuditUpdate;
 import com.tianrui.api.req.admin.PayInvoiceReq;
+import com.tianrui.api.resp.AgreementResp;
 import com.tianrui.api.resp.admin.PayInvoiceVo;
+import com.tianrui.api.resp.pay.PayAndBillDateilResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -21,7 +24,8 @@ import com.tianrui.common.vo.Result;
 public class PayInvoiceAction {
 
 	private Logger logger = LoggerFactory.getLogger(PayInvoiceAction.class);
-	
+	@Autowired
+	IPayInvoiceDetail1Service payInvoiceDetail1Service;
 	@Autowired
 	private IPayInvoiceService payInvoiceService;
 	
@@ -31,8 +35,10 @@ public class PayInvoiceAction {
 		return view;
 	}
 	@RequestMapping("agreement")
-	public ModelAndView agreement(){
+	public ModelAndView agreement(String id,String type) throws Exception{
+		AgreementResp resp = payInvoiceDetail1Service.AgreementDetail(id,type);
 		ModelAndView view = new ModelAndView("billAgreement/agreement");
+		view.addObject("agreement", resp);
 		return view;
 	}
 	@RequestMapping("driver/page")

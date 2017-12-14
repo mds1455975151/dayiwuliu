@@ -22,7 +22,6 @@
             font-family: "微软雅黑";
             line-height: 40px;
             margin-top: 10px;
-            text-indent:1em;
         }
 </style>
 <script language="javascript" type="text/javascript" src="${trRoot}/tianrui/js/My97DatePicker/WdatePicker.js"></script>
@@ -34,6 +33,7 @@
 	<div class="container">
 		<div class="row">
             <div class="textBox">
+            <div style="width:95%;margin:0 auto;">
                 <p style="text-align: center;font-size: 24px;">车辆加盟协议</p>
                 <p style="color: deepskyblue">甲方：${user.realName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;乙方：中原大易科技有限公司</p>
                 <p>乙方系国家批准的可经营无车承运人业务的高科技企业，其平台上有大宗货源信息，甲方系道路运输户，为了解决甲方货源问题，经双方友好协商特签定本协议：</p>
@@ -47,6 +47,7 @@
                 <p>八、加盟期限内，甲方如需转让，转租或抵押车辆，需书面通知乙方。</p>
                 <p>九、如因本协议发生争议，纠纷双方协商解决，无法协商双方均应向乙方所在地法院提起诉讼。</p>
                 <p>十、本协议经甲方车辆在乙方平台注册确认后即生效。</p>
+                </div>
             </div>
         </div>
 	</div>

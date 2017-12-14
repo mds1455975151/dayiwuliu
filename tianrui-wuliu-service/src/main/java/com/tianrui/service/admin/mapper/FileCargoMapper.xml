@@ -45,7 +45,9 @@
     where ID = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectByPlanId" resultType="com.tianrui.service.admin.bean.FileCargo" parameterType="String" >
-	select <include refid="Base_Column_List" /> from    file_cargo  where id =( select  cargoid from file_org_cargo where id =(select cargoid from wuliu_plan where id = '68d98b22f3df4c73b81d6505006161e3'))
+	select <include refid="Base_Column_List" /> from    
+	file_cargo  where id =( select  cargoid from file_org_cargo where id =
+	(select cargoid from wuliu_plan where id = #{id,jdbcType=VARCHAR}))
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--
