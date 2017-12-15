@@ -41,6 +41,12 @@ public class PayInvoiceAction {
 		view.addObject("agreement", resp);
 		return view;
 	}
+	@RequestMapping("franchising")
+	public ModelAndView franchising(String name) throws Exception{
+		ModelAndView view = new ModelAndView("billAgreement/franchising");
+		view.addObject("name", java.net.URLDecoder.decode(name,"UTF-8"));
+		return view;
+	}
 	@RequestMapping("driver/page")
 	@ResponseBody
 	public Result driverPage(PayInvoiceReq req){

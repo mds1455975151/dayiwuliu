@@ -113,8 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>运单总价：</label><span>${pay.receptionBillTotalPrice }元</span><br>
 	                               <label>扣重扣杂：</label><span>${pay.receptionDeductWeightMisc }元</span><br>
 	                               <label>扣款：</label><span>${pay.receptionDeductMoney }元</span><br>
-	                               <label>其他扣款：</label><span>${pay.receptionDeductOther }元</span><br>
-	                               <label>油卡扣款：</label><span>${pay.receptionDeductOilCard }元</span><br>
+	                               <label>货物保险：</label><span>${pay.receptionDeductOther }元</span><br>
+	                               <label>油料费用：</label><span>${pay.receptionDeductOilCard }元</span><br>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -131,8 +131,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>运单总价：</label><span>${pay.backstageBillTotalPrice }元</span><br>
 	                               <label>扣重扣杂：</label><span>${pay.backstageDeductWeightMisc }元</span><br>
 	                               <label>扣款：</label><span>${pay.backstageDeductMoney }元</span><br>
-	                               <label>其他扣款：</label><span>${pay.backstageDeductOther }元</span><br>
-	                               <label>油卡扣款：</label><span>${pay.backstageDeductOilCard }元</span><br>
+	                               <label>货物保险：</label><span>${pay.backstageDeductOther }元</span><br>
+	                               <label>油料费用：</label><span>${pay.backstageDeductOilCard }元</span><br>
 	                            </div>
 	                        </div>
 	                    </div>

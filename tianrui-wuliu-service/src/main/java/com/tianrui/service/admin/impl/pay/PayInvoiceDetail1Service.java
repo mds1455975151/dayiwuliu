@@ -837,7 +837,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 				 }
 				 Double cargoValue = cargoPrice*resp.getBillWeight();
 				 agreement.setCargoValue(MoneyUtils.doubleFormat(cargoValue));
-				 Double insurance = cargoValue*3/10000;
+				 Double insurance = cargoValue*5/10000;
 				 agreement.setInsurance(MoneyUtils.doubleFormat(insurance));
 			}
 			 SystemMemberInfo memberInfo = memberInfoMapper.selectByPrimaryKey(resp.getDriverId());

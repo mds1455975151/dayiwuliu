@@ -158,7 +158,7 @@ function displayRec(pageNo){
 							}
 							hml +=
 							//去除删除功能
-							// "<span><a data-toggle='modal' data-target='#dele'>删除</a></span>"+
+							 '<span><a class="colorblue" href="/pay/invoice/franchising?name='+encodeURI(encodeURI(ownername))+ '" target="_blank">【加盟协议】</a></span>'+
 							"</td></tr>";
 					}
 			    }  
