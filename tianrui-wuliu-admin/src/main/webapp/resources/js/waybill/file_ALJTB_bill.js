@@ -74,7 +74,7 @@ function innerHTML(data){
 			jtb = "未推送";
 		}
 		hml +="<tr>" +
-		"<td><input class='check_child' type='checkbox' value='"+data[a].id+"'></td>"+
+		"<td>"+(jtb=="未推送"?"<input class='check_child' type='checkbox' value='"+data[a].id+"'>":"")+"</td>"+
 				"<td>"+d+"</td>"+
 		"<td><a onclick=\"bill_map('"+data[a].id+"')\">"+data[a].waybillno+"</a></td>"+
 		"<td>"+data[a].vehicleno+"</td>"+
