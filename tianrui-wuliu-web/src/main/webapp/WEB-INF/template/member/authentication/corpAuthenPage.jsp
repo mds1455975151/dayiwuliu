@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -37,42 +37,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </div>
            <div class="rz_box">
                <div class="reg_tel">
-                   <label><i>*</i>企业名称:</label>
-                   <input type="text" placeholder="请输入企业名称" id="corpAuthen_name">
+                   <label><i style="color: red">*</i>企业名称:</label>
+                   <input type="text" placeholder="请输入企业名称" value="${member.companyname }" id="corpAuthen_name">
                    <p id="message_corpAuthenName"></p>
                </div>
                <!--手机输入end-->
                <div class="reg_tel">
-                   <label><i>*</i>公司地址:</label>
-                   <input type="text" placeholder="请输入公司地址" id="corpAuthen_address">
+                   <label><i style="color: red">*</i>公司地址:</label>
+                   <input type="text" placeholder="请输入公司地址" value="${member.companyAddress }" id="corpAuthen_address">
                    <p id="message_corpAuthenAddress"></p>
                </div>
                <div class="reg_tel">
-                   <label><i>*</i>公司联系人:</label>
-                   <input type="text" placeholder="请输入公司联系人" id="corpAuthen_linkman">
+                   <label><i style="color: red">*</i>公司联系人:</label>
+                   <input type="text" placeholder="请输入公司联系人" value="${member.companycontact }" id="corpAuthen_linkman">
                    <p id="message_corpAuthenLinkman"></p>
                </div>
                <div class="reg_tel">
-                   <label><i>*</i>联系人电话:</label>
-                   <input type="text" placeholder="请输入联系人电话" id="corpAuthen_tel">
+                   <label><i style="color: red">*</i>联系人电话:</label>
+                   <input type="text" placeholder="请输入联系人电话" value="${member.companytel }" id="corpAuthen_tel">
                    <p id="message_corpAuthenTel"></p>
                </div>
                <div class="reg_tel">
-                   <label><i>*</i>营业执照号:</label>
-                   <input type="text" placeholder="请输入营业执照号" id="corpAuthen_code">
+                   <label><i style="color: red">*</i>营业执照号:</label>
+                   <input type="text" placeholder="请输入营业执照号" value="${member.companycode }" id="corpAuthen_code">
                    <p id="message_corpAuthencode"></p>
                </div>
                <div class="rz_personline">
-                   <label><i>*</i>营业执照:</label>
+                   <label><i style="color: red">*</i>营业执照:</label>
                    <div class="rz_persontab">
 						<div class="samples">
-							<img class="yyzz" src="${trRoot}/tianrui/images/zhizhao.png">
+							<c:if test="${member.licenseImagePath eq ''}">
+								<img class="yyzz" src="${trRoot}/tianrui/images/zhizhao.png">
+							</c:if>
+							<c:if test="${member.licenseImagePath ne ''}">
+								<img class="yyzz" src="${member.licenseImagePath }">
+							</c:if>
 						</div>
 						<div class="img_upload mt10">
 							<input id="file_yyzz" onchange="fileupload('file_yyzz','yyzz')" class="file" type="file">
 							<span class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
-						<input type="hidden" id="file_yyzz_str">
+						<input type="hidden" value="${member.licenseImagePath }" id="file_yyzz_str">
 					</div>
                </div>
                
@@ -80,13 +85,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<label>道路运输经营许可证：</label> <input type="text" id="rtblno">
 					<div class="rz_persontab">
 						<div class="samples">
-							<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
+							<c:if test="${member.rtblimgurl eq ''}">
+								<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
+							</c:if>
+							<c:if test="${member.rtblimgurl ne ''}">
+								<img class="xkz" style="max-height: 240px;" src="${member.rtblimgurl }">
+							</c:if>
 						</div>
 						<div class="img_upload mt10">
 							<input id="rtblimg" onchange="fileupload('rtblimg','xkz')" class="file" type="file"> <span
 								class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
 						</div>
-							<input type="hidden" id="rtblimg_str">
+							<input type="hidden" value="${member.rtblimgurl }" id="rtblimg_str">
 					</div>
 				</div>  
                <!--企业认证模块-->

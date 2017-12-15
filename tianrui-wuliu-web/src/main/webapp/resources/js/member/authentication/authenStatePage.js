@@ -33,8 +33,6 @@ $(function() {
 	
 	// 联系人电话
 	$("#perAuthen_tel").val(cellPhone);
-	// 姓名
-	$("#perAuthen_name").val(_userName == "null" ? "" : _userName);
 	
 	// 把驾驶证默认图片地址赋值予隐藏项
 	$("#driverCardImgBack_1").val($("#driverCardImg").attr("src"));

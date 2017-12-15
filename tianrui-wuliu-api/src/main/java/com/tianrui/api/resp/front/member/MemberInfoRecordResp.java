@@ -3,6 +3,8 @@ package com.tianrui.api.resp.front.member;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tianrui.api.resp.BaseResp;
 
 public class MemberInfoRecordResp extends BaseResp{
@@ -48,6 +50,9 @@ public class MemberInfoRecordResp extends BaseResp{
     private String licenseType;
 	
 	public String getDriverimage() {
+		if(StringUtils.isBlank(driverimage)){
+			driverimage = "";
+		}
 		return driverimage;
 	}
 	public void setDriverimage(String driverimage) {
@@ -102,6 +107,9 @@ public class MemberInfoRecordResp extends BaseResp{
 		this.idcard = idcard;
 	}
 	public String getIdcardimage() {
+		if(StringUtils.isBlank(idcardimage)){
+			idcardimage = "";
+		}
 		return idcardimage;
 	}
 	public void setIdcardimage(String idcardimage) {
@@ -151,6 +159,9 @@ public class MemberInfoRecordResp extends BaseResp{
 		this.companycode = companycode;
 	}
 	public String getLicenseImagePath() {
+		if(StringUtils.isBlank(licenseImagePath)){
+			licenseImagePath = "";
+		}
 		return licenseImagePath;
 	}
 	public void setLicenseImagePath(String licenseImagePath) {
@@ -193,6 +204,9 @@ public class MemberInfoRecordResp extends BaseResp{
 		this.rtblno = rtblno;
 	}
 	public String getRtblimgurl() {
+		if(StringUtils.isBlank(rtblimgurl)){
+			rtblimgurl = "";
+		}
 		return rtblimgurl;
 	}
 	public void setRtblimgurl(String rtblimgurl) {
@@ -247,12 +261,18 @@ public class MemberInfoRecordResp extends BaseResp{
 		this.idcardaddress = idcardaddress;
 	}
 	public String getPositive() {
+		if(StringUtils.isBlank(positive)){
+			positive = "";
+		}
 		return positive;
 	}
 	public void setPositive(String positive) {
 		this.positive = positive;
 	}
 	public String getOpposite() {
+		if(StringUtils.isBlank(opposite)){
+			opposite = "";
+		}
 		return opposite;
 	}
 	public void setOpposite(String opposite) {

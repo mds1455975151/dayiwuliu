@@ -42,8 +42,7 @@
 	FROM
 		member_info_record f
 	LEFT JOIN member m ON m.ID = f.memberid 
-	WHERE
-		1 = 1
+	<where>
 		<if test="memberid != null and memberid != ''">
 		   and	f.memberid = #{memberid,jdbcType=VARCHAR}
 		   and  m.submittime = f.submittime
@@ -54,6 +53,8 @@
 		<if test="id != null and id != ''">
 			and f.id = #{id,jdbcType=VARCHAR}
 		</if>
+		order by f.submittime desc
+	</where>
 		
   </select>
 </mapper>

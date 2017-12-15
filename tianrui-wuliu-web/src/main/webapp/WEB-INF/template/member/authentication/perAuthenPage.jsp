@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -39,7 +39,7 @@
 				<div class="rz_box">
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>姓名:</label> <input type="text" placeholder="请输入姓名"
-							id="perAuthen_name">
+							id="perAuthen_name" value="${member.username }">
 						<p id="message_perAuthenName"></p>
 					</div>
 					<div class="reg_tel">
@@ -51,17 +51,17 @@
 					<!--手机输入end-->
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>证件号码:</label> <input type="text"
-							placeholder="请输入身份证号" id="perAuthen_id">
+							placeholder="请输入身份证号" id="perAuthen_id" value="${member.idcard }">
 						<p id="message_perAuthenId"></p>
 					</div>
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>联系电话:</label> <input type="text"
-							disabled="disabled" placeholder="请输入联系电话" id="perAuthen_tel">
+							disabled="disabled" placeholder="请输入联系电话" value="${member.telphone }" id="perAuthen_tel">
 						<p id="message_perAuthenTel"></p>
 					</div>
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>出生日期:</label> <input type="text"
-						 placeholder="日期格式：yyyy-MM-dd" id="perAuthen_birthday">
+						 placeholder="日期格式：yyyy-MM-dd" value="${member.birthday }" id="perAuthen_birthday">
 						<p id="message_birthday"></p>
 					</div>
 					<div class="rz_personline">
@@ -72,15 +72,19 @@
 								<li class="select rz_p1">选择上传身份证</li>
 							</ul>
 							<div class="samples">
-								<img class="sfz" src="${trRoot}/tianrui/images/sfz.png"> <img
-									class="jsz hide" src="${trRoot}/tianrui/images/jz.png">
+								<c:if test="${member.idcardimage eq ''}">
+									<img class="sfz" src="${trRoot}/tianrui/images/sfz.png"> 
+								</c:if>
+								<c:if test="${member.idcardimage ne ''}">
+									<img class="sfz" src="${member.idcardimage }"> 
+								</c:if>
 							</div>
 							<div class="rz_persontab">
 								<div class="img_upload">
 									<input id="file_jsz" onchange="fileupload('file_jsz','sfz')" class="file" type="file">
 									<p style="color: red; padding-top: 5px;">*
 										图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</p>
-										<input type="hidden" id="file_jsz_str">
+										<input type="hidden" ${member.idcardimage } id="file_jsz_str">
 								</div>
 							</div>
 						</div>
@@ -89,13 +93,17 @@
 						<label>道路运输经营许可证：</label> <input type="text" id="rtblno">
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="xkz" style="max-height: 240px;"
-									src="${trRoot}/tianrui/images/yyz.jpg">
+								<c:if test="${member.rtblimgurl eq '' }">
+									<img class="xkz" style="max-height: 240px;" src="${trRoot}/tianrui/images/yyz.jpg">
+								</c:if>
+								<c:if test="${member.rtblimgurl ne '' }">
+									<img class="xkz" style="max-height: 240px;" src="${member.rtblimgurl }">
+								</c:if>
 							</div>
 							<div class="img_upload">
 								<input id="rtblimg" onchange="fileupload('rtblimg','xkz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-									<input type="hidden" id="rtblimg_str" value="">
+									<input type="hidden" id="rtblimg_str" value="${member.rtblimgurl }">
 							</div>
 						</div>
 					</div>
