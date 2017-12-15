@@ -119,16 +119,22 @@ public class MemberAction{
 	
 	/**
 	 * 
-	 * @描述:审核状态页面
+	 * @描述:司机认证页面
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 * @返回类型 ModelAndView
 	 * @创建人 lsj
 	 * @创建时间 2016年5月3日下午6:00:30
 	 */
 	@RequestMapping("/authenStatePage")
-	public ModelAndView authenStatePage() throws IOException{
-		return new ModelAndView("/member/authentication/authenStatePage");
+	public ModelAndView authenStatePage(HttpServletRequest request) throws Exception{
+		MemberVo vo = SessionManager.getSessionMember(request);
+		MemberInfoRecordResp resp = systemMemberInfoRecordService.findLastAutid(vo.getId(), "1");
+
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/member/authentication/authenStatePage");
+		view.addObject("member", resp);
+		return view;
 	}
 	
 	/**
@@ -161,14 +167,20 @@ public class MemberAction{
 	 * 
 	 * @描述:个人认证
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 * @返回类型 ModelAndView
 	 * @创建人 lsj
 	 * @创建时间 2016年4月26日下午6:13:21
 	 */
 	@RequestMapping("/perAuthenPage")
-	public ModelAndView perAuthenPage() throws IOException{
-		return new ModelAndView("/member/authentication/perAuthenPage");
+	public ModelAndView perAuthenPage(HttpServletRequest request) throws Exception{
+		MemberVo vo = SessionManager.getSessionMember(request);
+		MemberInfoRecordResp resp = systemMemberInfoRecordService.findLastAutid(vo.getId(), "2");
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/member/authentication/perAuthenPage");
+		view.addObject("member", resp);
+		return view;
 	}
 	/**
 	 * @描述:会员资料信息页面
@@ -188,14 +200,19 @@ public class MemberAction{
 	 * 企业认证
 	 * @描述:
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 * @返回类型 ModelAndView
 	 * @创建人 lsj
 	 * @创建时间 2016年4月26日下午6:14:16
 	 */
 	@RequestMapping("/corpAuthenPage")
-	public ModelAndView corpAuthenPage() throws IOException{
-		return new ModelAndView("/member/authentication/corpAuthenPage");
+	public ModelAndView corpAuthenPage(HttpServletRequest request) throws Exception{
+		MemberVo vo = SessionManager.getSessionMember(request);
+		MemberInfoRecordResp resp = systemMemberInfoRecordService.findLastAutid(vo.getId(), "3");
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/member/authentication/corpAuthenPage");
+		view.addObject("member", resp);
+		return view;
 	}
 	
 	/**

@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -40,7 +40,7 @@
 				<div class="rz_box">
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>姓名:</label> <input type="text" placeholder="请输入姓名"
-							id="perAuthen_name">
+							id="perAuthen_name" value="${member.username }">
 						<p id="message_perAuthenName"></p>
 					</div>
 					<div class="reg_tel">
@@ -51,12 +51,12 @@
 					</div>
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>身份证号/驾驶证号:</label> <input type="text"
-							placeholder="请输入证件号码" id="perAuthen_id">
+							placeholder="请输入证件号码" id="perAuthen_id" value="${member.idcard }">
 						<p id="massage_perAuthen_id"></p>
 					</div>
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>出生日期:</label>
-						<input id="per_birthday" type="text"
+						<input id="per_birthday" value="${member.birthday }" type="text"
 									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id="massage_birthday"></p>
@@ -69,13 +69,13 @@
 					</div>
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>身份证地址:</label> <input type="text"
-							placeholder="请输入身份证地址" id="per_idcardaddress">
+							placeholder="请输入身份证地址" value="${member.idcardaddress }" id="per_idcardaddress">
 						<p id="massage_idcardaddress"></p>
 					</div>
 					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>初次领证日期:</label>
-						<input id="per_firstlicens" type="text"
+						<input id="per_firstlicens" value="${member.firstlicens }" type="text"
 									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id="massage_firstlicens"></p>
@@ -83,13 +83,13 @@
 					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>发证机关:</label> <input type="text"
-							placeholder="请输入驾驶证发证机关" id="per_licenceorg">
+							placeholder="请输入驾驶证发证机关" value="${member.licenceorg }" id="per_licenceorg">
 						<p id="massage_licenceorg"></p>
 					</div>
 					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>有效起始日期:</label> 
-						<input id="per_starttime" type="text"
+						<input id="per_starttime" type="text" value="${member.starttime }"
 									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择日期" readonly/>
 						<p id="massage_starttime"></p>
@@ -97,7 +97,7 @@
 					
 					<div class="reg_tel">
 						<label><i style="color: red">*</i>有效年限:</label> <input type="text"
-							placeholder="请输入有效年限" id="per_usefullife">
+							placeholder="请输入有效年限" id="per_usefullife" value="${member.usefullife }">
 						<p id="massage_usefullife"></p>
 					</div>
 					
@@ -105,18 +105,23 @@
 						<label><i style="color: red">*</i>准驾车型：</label> 
 						<button class="btn btn-default" data-toggle="modal"
 									data-target="#car_zhunjia">请选择</button>
-									<span id="drivinglicensetype"></span>
+									<span id="drivinglicensetype">${member.licenseType }</span>
 					</div>
 					<div class="rz_personline">
 						<label><i style="color: red">*</i>驾驶证:</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="jsz" src="${trRoot}/tianrui/images/jz.png">
+								<c:if test="${member.driverimage eq ''}">
+									<img class="jsz" src="${trRoot}/tianrui/images/jz.png">
+								</c:if>
+								<c:if test="${member.driverimage ne ''}">
+									<img class="jsz" src="${member.driverimage }">
+								</c:if>
 							</div>
 							<div class="img_upload">
 								<input id="file_jsz" onchange="fileupload('file_jsz','jsz')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-								<input type="hidden" id="file_jsz_str" value="" >
+								<input type="hidden" id="file_jsz_str" value="${member.driverimage }" >
 							</div>
 						</div>
 					</div>
@@ -124,12 +129,17 @@
 						<label><i style="color: red">*</i>身份证正面:</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="sfz_A" src="${trRoot}/tianrui/images/sfz.png">
+								<c:if test="${member.positive eq '' }">
+									<img class="sfz_A" src="${trRoot}/tianrui/images/sfz.png">
+								</c:if>
+								<c:if test="${member.positive ne '' }">
+									<img class="sfz_A" src="${member.positive }">
+								</c:if>
 							</div>
 							<div class="img_upload">
 								<input id="file_shenfenzheng_A" onchange="fileupload('file_shenfenzheng_A','sfz_A')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-								<input type="hidden" id="file_shenfenzheng_A_str" value="" >
+								<input type="hidden" id="file_shenfenzheng_A_str" value="${member.positive }" >
 							</div>
 						</div>
 					</div>
@@ -137,12 +147,17 @@
 						<label><i style="color: red">*</i>身份证反面:</label>
 						<div class="rz_persontab">
 							<div class="samples">
-								<img class="sfz_B" style="width: 226px;height: 132px" src="${trRoot}/tianrui/images/sfz_b.jpg">
+								<c:if test="${member.opposite eq ''}">
+									<img class="sfz_B" style="width: 226px;height: 132px" src="${trRoot}/tianrui/images/sfz_b.jpg">
+								</c:if>
+								<c:if test="${member.opposite ne '' }">
+									<img class="sfz_B" style="width: 226px;height: 132px" src="${member.opposite }">
+								</c:if>
 							</div>
 							<div class="img_upload">
 								<input id="file_shenfenzheng_B" onchange="fileupload('file_shenfenzheng_B','sfz_B')" class="file" type="file"> <span
 									class="annotation">* 图片大小不超过5M，限上传1张，只支持JPG、JPEG、PNG格式</span>
-								<input type="hidden" id="file_shenfenzheng_B_str" value="" >
+								<input type="hidden" id="file_shenfenzheng_B_str" value="${member.opposite }" >
 							</div>
 						</div>
 					</div>
@@ -250,7 +265,7 @@
 	<!-- 引用公共footer部分 -->
 	<jsp:include page="../../common/member/footer_busi.jsp"></jsp:include>
 	<script type="text/javascript" src="/resources/js/common/member/header_busi.js"></script>
-	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?05.8"></script>
+	<script type="text/javascript" src="/resources/js/member/authentication/authenStatePage.js?1213"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput.js"></script>
 	<script type="text/javascript" src="${trRoot}/tianrui/js/fileinput_locale_zh.js"></script>

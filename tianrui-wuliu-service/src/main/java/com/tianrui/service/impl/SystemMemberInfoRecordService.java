@@ -40,6 +40,28 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	MemberVoService moberVoService;
+	
+
+	@Override
+	public MemberInfoRecordResp findLastAutid(String id,String type) throws Exception {
+		SystemMemberInfoRecord query = new SystemMemberInfoRecord();
+		query.setMemberid(id);
+		if(type.equals("1")){
+			query.setDriverpercheck("3");
+		}else if(type.equals("2")){
+			query.setUserpercheck("3");
+		}else if(type.equals("3")){
+			query.setCompanypercheck("3");
+		}
+		List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.selectByRecordEntity(query);
+		MemberInfoRecordResp resp = new MemberInfoRecordResp();
+		if(list.size()!=0){
+			SystemMemberInfoRecord bean = list.get(0);
+			PropertyUtils.copyProperties(resp, bean);
+		}
+		return resp;
+	}
+	
 	/**
 	 * 个人认证
 	 */
@@ -327,5 +349,4 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		}
 		return rs;
 	}
-
 }

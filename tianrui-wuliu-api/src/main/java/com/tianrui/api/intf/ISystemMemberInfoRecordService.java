@@ -91,4 +91,8 @@ public interface ISystemMemberInfoRecordService {
 	 * @创建时间 2016年6月23日下午3:42:24
 	 */
 	List<MemberInfoRecordResp> findListByEntity(String memberid)throws Exception;
+	/** 查询用户最后一次认真
+	 * type 1-司机 2-个人 3-企业
+	 * */
+	MemberInfoRecordResp findLastAutid(String id,String type)throws Exception;
 }
