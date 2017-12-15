@@ -40,6 +40,8 @@ public enum CacheModule {
 	FILE_MEMBER("m-","签收人信息档案"),
 	FILE_YHK("yhk-","银行卡信息档案"),
 	
+	COdE_GEN_STATUS("code-gen-status","获取运单号执行状态"),
+	
 	LOGIN_APP_AUTHCODE("loginAppCode-","APP端登录验证码"),
 	MEMBERLOGIN_APP("logincodeApp-","APP登录标识"),
 	MOENY_APP_UPT_PASSWORD("moneyUptPassword-","钱包修改密码"),
