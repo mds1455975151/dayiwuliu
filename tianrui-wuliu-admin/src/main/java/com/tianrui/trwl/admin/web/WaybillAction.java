@@ -276,15 +276,6 @@ public class WaybillAction {
 		Result rs = Result.getSuccessResult();
 		rs = anlianBillService.findByid(req);
 		AnlianBillResp bill = (AnlianBillResp) rs.getData();
-//		rs = anlianService.detail(bill.getBillno());
-		MemberResp resp = systemMemberService.findById(bill.getDriverid());
-		bill.setDrivertel(resp.getCellPhone());
-//		if(!rs.getCode().equals("000000")){
-//			bill.setStatus(rs.getError());
-//		}else{
-//			bill.setStatus("运输中");
-//		}
-//		Result rs2 = Result.getSuccessResult();
 		rs.setData(bill);
 		return rs;
 	}

@@ -37,6 +37,7 @@ import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.MemberVo;
@@ -353,6 +354,29 @@ public class AnlianBillService implements IAnlianBillService{
 	public Result findByid(AnlianBillFindReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
+		//判断银行卡号是否为空
+		if(bill!=null&&StringUtils.isEmpty(bill.getBankCard())){
+			String creater = "";
+			//1:司机  2:车主
+			if(bill.getPayment().equals("1")){
+				creater=bill.getDriverid();
+			}else{
+				creater=bill.getVenderid();
+			}
+			//获取默认的银行卡
+			MemberBankCard bankCard = getBankCard(creater);
+			if(bankCard!=null && StringUtils.isNotBlank(bankCard.getBankcard())){
+				bill.setBankCard(bankCard.getBankcard());
+				bill.setBankId(bankCard.getId());
+				bill.setBankType("1");
+				bill.setBankOwnerName(bankCard.getIdname() == null ? "":bankCard.getIdname());
+				bill.setBankOwnerPhone(bankCard.getTelphone());
+			}else{
+				//设置空字符串
+				bill.setBankCard("");
+				bill.setBankOwnerName("");
+			}
+		}
 		//车主
 		SystemMember vender = systemMemberMapper.selectByPrimaryKey(bill.getVenderid());
 		//司机
@@ -621,5 +645,20 @@ public class AnlianBillService implements IAnlianBillService{
 	private MemberVo getMember(String id){
 		MemberVo member =MemberVoService.get(id);
 		return member;
+	}
+	
+	/** 获取用户默认银行卡*/
+	protected MemberBankCard getBankCard(String creater) {
+		MemberBankCard card = null;
+		MemberBankCard bank = new MemberBankCard();
+		bank.setCreater(creater);
+		bank.setBankstatus("1");
+		bank.setBankautid("1");
+		List<MemberBankCard> bankList = memberBankCardMapper.selectByCondition(bank);
+		if(bankList.size()==1){
+			card = new MemberBankCard();
+			card = bankList.get(0);
+		}
+		return card;
 	}
 }
