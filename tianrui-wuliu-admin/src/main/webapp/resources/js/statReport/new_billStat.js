@@ -305,6 +305,13 @@ function bill_details(id,type){
 }
 
 function anlian_bill_innerHml(data){
+	//支付对象
+	var payment = "";
+	if(data.payment=="1"){
+		payment="司机"
+	}else if(data.payment=="2"){
+		payment="车主"
+	}
 	var hml = "<div class='file_detail'><label>运单号：</label><span>"+data.billno+"</span></div>"+
 	"<div class='file_detail'><label>货物名称：</label><span>"+data.hpmc+"</span></div>"+
 	"<div class='file_detail'><label>承运方：</label><span>"+data.systemShipper+"</span></div>"+
@@ -319,6 +326,7 @@ function anlian_bill_innerHml(data){
 	"<div class='file_detail'><label>要求提货日期：</label><span>"+data.yqthrq+"</span></div>"+
 	"<div class='file_detail'><label>要求到货日期：</label><span>"+data.yqdhrq+"</span></div>"+
 	"<div class='file_detail'><label>总运费：</label><span>"+data.yf+"元</span></div>"+
+	"<div class='file_detail'><label>支付对象：</label><span>"+payment+"</span></div>"+
 	"<div class='file_detail'><label>车辆：</label><span>"+data.cph+"</span></div>"+
 	"<div class='file_detail'><label>司机(安联)：</label><span>"+data.sj+"</span></div>"+
 	"<div class='file_detail'><label>联系方式：</label><span>"+data.drivertel+"</span></div>"+
@@ -335,6 +343,13 @@ function bill_innerHml(data){
 	var venderName = data.venderName;
 	if(venderName == undefined){
 		venderName = "";
+	}
+	//支付对象
+	var payment = "";
+	if(data.payment=="1"){
+		payment="司机"
+	}else if(data.payment=="2"){
+		payment="车主"
 	}
 	
 	//提货磅单
@@ -363,6 +378,7 @@ function bill_innerHml(data){
 				"<div class='file_detail'><label>原发运输量：</label><span>"+data.weight+"吨</span></div>"+
 				"<div class='file_detail'><label>签收运输量：</label><span>"+data.trueweight+"吨</span></div>"+
 				"<div class='file_detail'><label>运单价格：</label><span>"+data.price+"元</span></div>"+
+				"<div class='file_detail'><label>支付对象：</label><span>"+payment+"</span></div>"+
 				"<div class='file_detail2'><label>车辆信息：</label><span>"+data.vehicleno+"</span>" +
 				"<span>"+data.drivername+"</span><span>"+data.drivertel+"</span></div>"+
 				"<div class='file_detail'><label>提货磅单：</label><span>"+pickupimgurl+"</span></div>"+
@@ -381,6 +397,12 @@ function plan_datails(id){
 		success:function(ret){
 			if(ret.code=="000000"){
 				var d = ret.data;
+				var payment = "";
+				if(d.payment=="1"){
+					payment="司机"
+				}else if(d.payment=="2"){
+					payment="车主"
+				}
 				var hml = "<div class='file_detail'><label>计划编码：</label><span>"+trimVal(d.plancode)+"</span></div>"+
 					"<div class='file_detail'><label>组织名称：</label><span>"+trimVal(d.orgname)+"</span></div>"+
 					"<div class='file_detail'><label>创建人：</label><span>"+trimVal(d.ownerName)+"</span></div>"+
@@ -395,6 +417,7 @@ function plan_datails(id){
 					"<div class='file_detail'><label>结算里程数：</label><span>"+trimVal(d.distance)+"</span></div>"+
 					"<div class='file_detail'><label>计划总量：</label><span>"+trimVal(d.totalplanned)+"</span></div>"+
 					"<div class='file_detail'><label>计划费用：</label><span>"+trimVal(d.planprice)+"元</span></div>"+
+					"<div class='file_detail'><label>支付对象：</label><span>"+trimVal(payment)+"</span></div>"+
 					"<div class='file_detail'><label>联系人：</label><span>"+trimVal(d.linkman)+"</span></div>"+
 					"<div class='file_detail'><label>联系电话：</label><span>"+trimVal(d.telephone)+"</span></div>"+
 					"<div class='file_detail'><label>开始时间：</label><span>"+trimVal(d.starttimeStr)+"</span></div>"+

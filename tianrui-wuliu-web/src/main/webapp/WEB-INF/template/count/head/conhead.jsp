@@ -28,6 +28,39 @@
     </div>
 </div>
 <div class="banner">
+<div class="indexbanner">
+    <div class="advertise">
+        <div>
+            <h5>河南省</h5><h5 class="h5dy">首批</h5>
+        </div>
+        <h4>无车承运人物流试点企业</h4>
+        <div class="adverbott">
+            <div class="adverline"></div>
+            <div class="advernet">
+                <label class="advernet1">互联网</label>
+                <span class="advernet2">/</span>
+                <label class="advernet3">物流 </label>
+                <span class="advernet4">/</span>
+                <label class="advernet5">组建货源</label>
+            </div>
+            <div class="adverline"></div>
+        </div>
+    </div>
+    <div class="dywid">
+            <div class="w2000">
+                <img src="${trRoot}/tianrui/images/bannerl6.png" id="car1">
+                <img src="${trRoot}/tianrui/images/bannerl1.png" id="car2">
+                <img src="${trRoot}/tianrui/images/bannerl1.png" id="car3">
+                <img src="${trRoot}/tianrui/images/bannerl2.png" id="car4">
+                <img src="${trRoot}/tianrui/images/bannerl3.png" id="car5">
+                <img src="${trRoot}/tianrui/images/bannerl5.png" id="car6">
+                <img src="${trRoot}/tianrui/images/bannerl4.png" id="car7">
+            </div>
+        <div class="truck2"><img src="${trRoot}/tianrui/images/bannercar2.png"></div>
+        <div class="truck1"><img src="${trRoot}/tianrui/images/bannercar1.png" ></div>
+    </div>
+
+</div>
     <div class="login">
         <h2>用户登录</h2>
         <div class="lg_cont">
@@ -272,3 +305,4 @@
 <!--公共弹出模态框end--> 
 <script type="text/javascript" src="/resources/js/utils/md5.js" ></script>
 <script type="text/javascript" src="/resources/js/count/head/login.js"></script>
+

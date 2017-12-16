@@ -1371,6 +1371,29 @@ public class BillService implements IBillService{
 	@Override
 	public WaybillResp queryWayBillWithTrack(WaybillQueryReq req) throws Exception {
 		WaybillResp resp= queryWayBill(req);
+		//判断银行卡号是否为空
+		if(resp!=null&&StringUtils.isEmpty(resp.getBankCard())){
+			//1:司机  2:车主
+			String creater = "";
+			if(resp.getPayment().equals("1")){
+				creater=resp.getDriverid();
+			}else{
+				creater=resp.getVenderid();
+			}
+			//获取默认的银行卡
+			MemberBankCard bankCard = getBankCard(resp.getCreator());
+			if(bankCard!=null && StringUtils.isNotBlank(bankCard.getBankcard())){
+				resp.setBankCard(bankCard.getBankcard());
+				resp.setBankId(bankCard.getId());
+				resp.setBankType("1");
+				resp.setBankOwnerName(bankCard.getIdname()==null ? "":bankCard.getIdname());
+				resp.setBankOwnerPhone(bankCard.getTelphone());
+			}else{
+				//设置空字符串
+				resp.setBankCard("");
+				resp.setBankOwnerName("");
+			}
+		}
 		if(resp !=null && StringUtils.isNotBlank(resp.getId())){
 			List<BillTrack> list =billTrackDao.findWithBid(resp.getId());
 			resp.setBillTrackList(conver2billTrackResp(list));
