@@ -39,11 +39,13 @@ import com.tianrui.service.admin.bean.FileRoute;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
 import com.tianrui.service.bean.Bill;
 import com.tianrui.service.bean.BillAnlianPosition;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.bean.VehicleGpsZjxl;
 import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.impl.BillService;
 import com.tianrui.service.mapper.AnlianBillMapper;
 import com.tianrui.service.mapper.BillMapper;
+import com.tianrui.service.mapper.PlanMapper;
 import com.tianrui.service.mongo.VehicleGpsZjxlDao;
 import com.tianrui.service.util.TimeUtils;
 import com.tianrui.trwl.admin.util.BillReportExcilUtil;
@@ -69,6 +71,8 @@ public class ReportAction {
 	BillMapper billMapper;
 	@Autowired
 	FileRouteMapper routeMapper;
+	@Autowired
+	private PlanMapper planMapper;
 	@RequestMapping("page")
 	public ModelAndView page() throws Exception{
 		ModelAndView view = new ModelAndView();
@@ -171,9 +175,9 @@ public class ReportAction {
 					}else {
 						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
 					}
-					Bill db =billMapper.selectByPrimaryKey(bbid);
-					if( null != db){
-						routeid = db.getRouteid();
+					Plan plan = planMapper.selectByPrimaryKey(alresp.getDesc1());
+					if( null != plan){
+						routeid = plan.getRouteid();
 					}else {
 						return list;
 					}
@@ -230,9 +234,9 @@ public class ReportAction {
 					}else {
 						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
 					}
-					Bill db =billMapper.selectByPrimaryKey(bbid);
-					if( null != db){
-						routeid = db.getRouteid();
+					Plan plan = planMapper.selectByPrimaryKey(alresp.getDesc1());
+					if( null != plan){
+						routeid = plan.getRouteid();
 					}else {
 						return list;
 					}
@@ -310,9 +314,9 @@ public class ReportAction {
 					}else {
 						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
 					}
-					Bill db =billMapper.selectByPrimaryKey(bbid);
-					if( null != db){
-						routeid = db.getRouteid();
+					Plan plan = planMapper.selectByPrimaryKey(alresp.getDesc1());
+					if( null != plan){
+						routeid = plan.getRouteid();
 					}else {
 						return;
 					}
@@ -371,9 +375,9 @@ public class ReportAction {
 					}else {
 						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
 					}
-					Bill db =billMapper.selectByPrimaryKey(bbid);
-					if( null != db){
-						routeid = db.getRouteid();
+					Plan plan = planMapper.selectByPrimaryKey(alresp.getDesc1());
+					if( null != plan){
+						routeid = plan.getRouteid();
 					}else {
 						return;
 					}
