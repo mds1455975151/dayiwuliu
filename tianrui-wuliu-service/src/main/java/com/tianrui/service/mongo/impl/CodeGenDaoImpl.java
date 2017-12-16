@@ -57,9 +57,9 @@ public class CodeGenDaoImpl extends BaseDaoImpl<CodeGen,String> implements CodeG
 					newCoe = newCoe +1;
 					logger.info("获取上次单号和新单号相同新单号+1："+newCoe);
 				}
+				cacheClient.saveObject(key, newCoe);
 				Update update =Update.update("code", newCoe);
 				mongoTemplate.updateFirst(new Query().addCriteria(Criteria.where("id").is(code.getId())), update, CodeGen.class);
-				cacheClient.saveObject(key, newCoe);
 				rs = String.valueOf(newCoe);
 			}else{
 				rs = String.valueOf(getCurrDate()+"0001");
