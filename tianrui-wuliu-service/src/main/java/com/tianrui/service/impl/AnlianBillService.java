@@ -75,6 +75,7 @@ import com.tianrui.service.mapper.VehicleDriverMapper;
 import com.tianrui.service.mapper.VehicleTicketMapper;
 import com.tianrui.service.mongo.BillAnlianPositionDao;
 import com.tianrui.service.mongo.VehicleGpsZjxlDao;
+import com.tianrui.service.util.TimeUtils;
 @Service
 public class AnlianBillService implements IAnlianBillService{
 
@@ -431,8 +432,18 @@ public class AnlianBillService implements IAnlianBillService{
 	public Result zjfindPosition (AnlianBillFindReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		AnlianBill bill = anlianBillMapper.selectByPrimaryKey(req.getId());
-		if(bill != null){
-			//TODO
+		if(bill != null && null != bill.getCph() ){
+			long beginTime = bill.getCreatetime();
+			long endTime = 0;
+			if(null !=bill.getPtBegintime()){
+				beginTime = bill.getPtBegintime();
+			} 
+			if ( null != bill.getPtEndtime()) {
+				endTime = bill.getPtEndtime();
+			}else {
+				endTime = TimeUtils.getSpecifiedDay(beginTime, 2);
+			}
+				
 			//查询车辆是否有中交兴路地址
 			ZJXLVehicleReq zjreq = new ZJXLVehicleReq();
 			zjreq.setVehicleno(bill.getCph());
@@ -442,20 +453,28 @@ public class AnlianBillService implements IAnlianBillService{
 			List<ZJXLVehicleResp> zjlist = page.getList();
 			List<BillAnlianPosition> resp = new ArrayList<BillAnlianPosition>();
 			if(zjlist.size()==1){
-				List<VehicleGpsZjxl> list = vehicleGpsZjxlDao.getVehicleTrack(bill.getCph(), bill.getPtBegintime(), bill.getPtEndtime());
-				for(VehicleGpsZjxl zjxl : list){
-					BillAnlianPosition post = new BillAnlianPosition();
-					post.setCreatetime(zjxl.getUtc());
-					post.setLat(zjxl.getLat().toString());
-					post.setLng(zjxl.getLon().toString());
-					post.setShipmentno(bill.getBillno());
-					resp.add(post);
+				List<VehicleGpsZjxl> list = null;
+				try {
+					list = vehicleGpsZjxlDao.getVehicleTrack(bill.getCph(), beginTime, endTime);
+				} catch (Exception e) {
+					e.printStackTrace();
+					loger.error(e.getMessage());
+				}
+				if(null != list && list.size() > 0){
+					for(VehicleGpsZjxl zjxl : list){
+						BillAnlianPosition post = new BillAnlianPosition();
+						post.setCreatetime(zjxl.getUtc());
+						post.setLat(zjxl.getLat().toString());
+						post.setLng(zjxl.getLon().toString());
+						post.setShipmentno(bill.getBillno());
+						resp.add(post);
+					}
 				}
 			}
 			rs.setData(resp);
 		}else{
 			rs.setCode("1");
-			rs.setError("请输入正确id");
+			rs.setError("数据路径异常或者车牌号不存在");
 		}
 		return rs;
 	}

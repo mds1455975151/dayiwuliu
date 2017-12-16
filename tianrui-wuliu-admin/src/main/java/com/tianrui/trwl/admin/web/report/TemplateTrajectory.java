@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.tianrui.api.resp.front.bill.BillPositionResp;
+import com.tianrui.common.utils.DateUtil;
 
 public class TemplateTrajectory{
 	
@@ -145,7 +146,6 @@ public class TemplateTrajectory{
 		for( int i = 0;i < 10;i++){
 			System.out.println(1499646433096L+ i*temptime);
 		}
-		System.out.println(temptime);
-		System.out.println(1499654410957L - 1499654410961L);
+		System.out.println(DateUtil.getDateString(1503871273000L, "yyyyMMdd HH:mm:ss"));
 	}
 }

@@ -106,7 +106,7 @@
 	function dyshowToolAutoDef() { 
 		$.ajax({
     		url:"/report/dyPositiondata",
-    		data:{id:$("#bid").val(),key:$("#completion").val()},
+			data:{id:$("#bid").val(),key:$("#completion").val()},
 			type : "post",
 			dataType:"json",
 			success:function(rs){
@@ -131,7 +131,6 @@
 		var length = list.length;
 		//运单状态
 		var billStatus = list[0].billStatus;
-		console.log("billStatus="+billStatus);
 		var fla = 0;
 		for (var a = 0; a < list.length; a++) {
 			lon = list[a].lon/1000000;
