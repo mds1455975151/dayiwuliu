@@ -68,10 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <c:if test="${pay.remarkImg ne null}">
 	                               <label>磅单图片：</label><span><a class="colorblue" href="/imageView/index?imageUrl=${pay.remarkImg }" target="_blank">附件图片</a></span><br>
 	                               </c:if>
-	                               <label>运输轨迹：</label><span><a class="colorblue" href="/report/map?type=${pay.billOwerType }&id=${pay.billId }&menuId=120" target="_blank">查看运单轨迹</a></span><br>
-	                              <c:if test="${pay.billNo ne pay.payCode}">
+	                               <label>运输轨迹：</label><span><a class="colorblue" href="/report/map?type=${pay.billOwerType }&id=${pay.billId }&menuId=120&completion=6579" target="_blank">查看运单轨迹</a></span><br>
 	                              <label>运输合同：</label><span><a class="colorblue" href="/pay/invoice/agreement?id=${pay.id }&type=${pay.billOwerType }" target="_blank">查看电子合同</a></span><br>
-	                               </c:if>
 	                               
 	                            </div>
 	                        </div>

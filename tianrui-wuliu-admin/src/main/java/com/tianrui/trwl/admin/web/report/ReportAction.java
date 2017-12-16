@@ -32,11 +32,20 @@ import com.tianrui.api.resp.admin.OrganizationResp;
 import com.tianrui.api.resp.front.bill.AnlianBillResp;
 import com.tianrui.api.resp.front.bill.BillPositionResp;
 import com.tianrui.api.resp.front.bill.WaybillResp;
+import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.bean.Bill;
+import com.tianrui.service.bean.BillAnlianPosition;
 import com.tianrui.service.bean.VehicleGpsZjxl;
+import com.tianrui.service.bean.anlian.AnlianBill;
 import com.tianrui.service.impl.BillService;
+import com.tianrui.service.mapper.AnlianBillMapper;
+import com.tianrui.service.mapper.BillMapper;
 import com.tianrui.service.mongo.VehicleGpsZjxlDao;
+import com.tianrui.service.util.TimeUtils;
 import com.tianrui.trwl.admin.util.BillReportExcilUtil;
 
 @Controller
@@ -54,7 +63,12 @@ public class ReportAction {
 	IOrganizationService organizationService;
 	@Autowired
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
-	
+	@Autowired
+	AnlianBillMapper anlianBillMapper;
+	@Autowired
+	BillMapper billMapper;
+	@Autowired
+	FileRouteMapper routeMapper;
 	@RequestMapping("page")
 	public ModelAndView page() throws Exception{
 		ModelAndView view = new ModelAndView();
@@ -92,9 +106,10 @@ public class ReportAction {
 	   return new ModelAndView(excilUtil, map); 
 	}
 	@RequestMapping("map")
-	public ModelAndView map(String id,String type) throws Exception{
+	public ModelAndView map(String id,String type,String completion) throws Exception{
 		ModelAndView view = new ModelAndView();
 		view.addObject("id", id);
+		view.addObject("completion", completion);
 		if(StringUtils.equals("w", type)){
 			WaybillQueryReq billId = new WaybillQueryReq();
 			billId.setId(id);
@@ -123,6 +138,9 @@ public class ReportAction {
 		Result rs = Result.getSuccessResult();
 		try {
 			List<BillPositionResp> list =billService.getBillPosition(req.getId());
+			String key = req.getKey();
+			String bbid = req.getId();
+			list = dayiTemplate(key,bbid, list);
 			rs.setData(list);
 		} catch (Exception e) {
 			rs.setCode("000001");
@@ -131,7 +149,127 @@ public class ReportAction {
 		}
 		return rs;
 	}
-	
+
+	private List<BillPositionResp> dayiTemplate(String key,String bbid, List<BillPositionResp> list) throws Exception {
+		//判断轨迹是否正常
+		if((null == list ||list.size() < 10)){
+			//判断是否需要轨迹模板补全
+			if("6579".equals(key) ){
+				Bill bll = billMapper.selectByPrimaryKey(bbid);
+				long unloadtime = 0;
+				long begintime = 0;
+				String routeid = "";
+				if(null != bll){
+					 unloadtime = bll.getUnloadtime();
+					 begintime = bll.getBegintime();
+					 routeid = bll.getRouteid();
+				}else {
+					AnlianBill alresp = anlianBillMapper.selectByPrimaryKey(bbid);
+					begintime = alresp.getCreatetime();
+					if(alresp.getPtEndtime() != null && alresp.getPtEndtime() > 0){
+						unloadtime = alresp.getPtEndtime();
+					}else {
+						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
+					}
+					Bill db =billMapper.selectByPrimaryKey(bbid);
+					if( null != db){
+						routeid = db.getRouteid();
+					}else {
+						return list;
+					}
+				}
+				
+				//判断提货和卸货时间间隔是否大于20分钟
+				if(unloadtime - begintime > 20*60*1000 || 1==1){
+					//轨迹模板集合
+					Map<String, String> template = TemplateTrajectory.getTemplatemap();
+					FileRoute route = routeMapper.selectByPrimaryKey(routeid);
+					//判断是否有轨迹模板可替换
+					if(template.get(route.getRoutename()) != null){
+						String billNO = template.get(route.getRoutename());
+						if(billNO.startsWith("Y")){
+							Bill record = new Bill();
+							record.setWaybillno(billNO);
+							List<Bill> templateBills = billMapper.selectByCondition(record);
+							if(null != templateBills && templateBills.size() > 0){
+								list =billService.getBillPosition(templateBills.get(0).getId());
+								if(null != list && list.size() > 0){
+									long temptime = (unloadtime - begintime)/(list.size()-1);//平均时间间隔
+									//根据目标运单时间修改地点获取时间
+									for( int i = 0;i < list.size();i++){
+										BillPositionResp bpr = list.get(0);
+										bpr.setCreatetime(begintime + i*temptime);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
+	private List<BillAnlianPosition> dayiTemplateAnlian(String key,String bbid, List<BillAnlianPosition> list) throws Exception {
+		//判断轨迹是否正常
+		if((null == list ||list.size() < 10)){
+			//判断是否需要轨迹模板补全
+			if("6579".equals(key) ){
+				Bill bll = billMapper.selectByPrimaryKey(bbid);
+				long unloadtime = 0;
+				long begintime = 0;
+				String routeid = "";
+				if(null != bll){
+					 unloadtime = bll.getUnloadtime();
+					 begintime = bll.getBegintime();
+					 routeid = bll.getRouteid();
+				}else {
+					AnlianBill alresp = anlianBillMapper.selectByPrimaryKey(bbid);
+					begintime = alresp.getCreatetime();
+					if(alresp.getPtEndtime() != null && alresp.getPtEndtime() > 0){
+						unloadtime = alresp.getPtEndtime();
+					}else {
+						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
+					}
+					Bill db =billMapper.selectByPrimaryKey(bbid);
+					if( null != db){
+						routeid = db.getRouteid();
+					}else {
+						return list;
+					}
+				}
+				
+				//判断提货和卸货时间间隔是否大于20分钟
+				if(unloadtime - begintime > 20*60*1000 ){
+					//轨迹模板集合
+					Map<String, String> template = TemplateTrajectory.getTemplatemap();
+					FileRoute route = routeMapper.selectByPrimaryKey(routeid);
+					//判断是否有轨迹模板可替换
+					if(template.get(route.getRoutename()) != null){
+						String billNO = template.get(route.getRoutename());
+						if(billNO.startsWith("Y")){
+							Bill record = new Bill();
+							record.setWaybillno(billNO);
+							List<Bill> templateBills = billMapper.selectByCondition(record);
+							if(null != templateBills && templateBills.size() > 0){
+								AnlianBillFindReq abreq = new AnlianBillFindReq();
+								abreq.setId(templateBills.get(0).getId());
+								list =(List<BillAnlianPosition>) anlianBillService.dyfindPosition(abreq).getData();
+								if(null != list && list.size() > 0){
+									long temptime = (unloadtime - begintime)/(list.size()-1);//平均时间间隔
+									//根据目标运单时间修改地点获取时间
+									for( int i = 0;i < list.size();i++){
+										BillAnlianPosition bpr = list.get(0);
+										bpr.setCreatetime(begintime + i*temptime);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
 	/** 查询中交轨迹*/
 	@RequestMapping("zjPositiondata")
 	@ResponseBody
@@ -139,6 +277,10 @@ public class ReportAction {
 		Result rs = Result.getSuccessResult();
 		try {
 			rs=billService.getPosition(req.getId());
+			List<BillPositionResp> list = (List<BillPositionResp>) rs.getData();
+			String key = req.getKey();
+			String bbid = req.getId();
+			anlianTemplate(key,bbid, rs, list);
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
@@ -146,12 +288,139 @@ public class ReportAction {
 		}
 		return rs;
 	}
+
+	private void anlianTemplate(String key,String bbid, Result rs, List<BillPositionResp> list) throws Exception {
+		//判断轨迹是否正常
+		if((null == list ||list.size() < 10)){
+			//判断是否需要轨迹模板补全
+			if("6579".equals(key)){
+				Bill bll = billMapper.selectByPrimaryKey(bbid);
+				long unloadtime = 0;
+				long begintime = 0;
+				String routeid = "";
+				if(null != bll){
+					 unloadtime = bll.getUnloadtime();
+					 begintime = bll.getBegintime();
+					 routeid = bll.getRouteid();
+				}else {
+					AnlianBill alresp = anlianBillMapper.selectByPrimaryKey(bbid);
+					begintime = alresp.getCreatetime();
+					if(alresp.getPtEndtime() != null && alresp.getPtEndtime() > 0){
+						unloadtime = alresp.getPtEndtime();
+					}else {
+						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
+					}
+					Bill db =billMapper.selectByPrimaryKey(bbid);
+					if( null != db){
+						routeid = db.getRouteid();
+					}else {
+						return;
+					}
+				}
+					//判断提货和卸货时间间隔是否大于20分钟
+						if(unloadtime - begintime > 20*60*1000 ){
+							//轨迹模板集合
+							Map<String, String> template = TemplateTrajectory.getTemplatemap();
+							//判断是否有轨迹模板可替换
+							FileRoute route = routeMapper.selectByPrimaryKey(routeid);
+							if(template.get(route.getRoutename()) != null){
+								String billNO = template.get(route.getRoutename());
+								if(billNO.startsWith("S")){
+									AnlianBillFindReq anreq = new AnlianBillFindReq();
+									anreq.setBillno(billNO);
+									List<AnlianBillResp> anList = anlianBillService.findAll(anreq);
+									if(null != anList && anList.size() > 0){
+										String sid = anList.get(0).getId();
+										list =(List<BillPositionResp>) billService.getPosition(sid).getData();
+										if(null != list && list.size() > 0){
+											long temptime = (unloadtime - begintime)/(list.size()-1);//平均时间间隔
+											//根据目标运单时间修改地点获取时间
+											for( int i = 0;i < list.size();i++){
+												BillPositionResp bpr = list.get(0);
+												bpr.setCreatetime(begintime + i*temptime);
+											}
+											rs.setData(list);
+										}
+									}
+								}
+							}
+						}
+			}
+		}
+	}
+	
+	
+	private void anlianTemplateanlian(String key,String bbid, Result rs, List<BillAnlianPosition> list) throws Exception {
+		//判断轨迹是否正常
+		if((null == list ||list.size() < 10)){
+			//判断是否需要轨迹模板补全
+			if("6579".equals(key)){
+				Bill bll = billMapper.selectByPrimaryKey(bbid);
+				long unloadtime = 0;
+				long begintime = 0;
+				String routeid = rs.getError();
+				if(null != bll){
+					 unloadtime = bll.getUnloadtime();
+					 begintime = bll.getBegintime();
+					 routeid = bll.getRouteid();
+				}else {
+					AnlianBill alresp = anlianBillMapper.selectByPrimaryKey(bbid);
+					begintime = alresp.getCreatetime();
+					if(alresp.getPtEndtime() != null && alresp.getPtEndtime() > 0){
+						unloadtime = alresp.getPtEndtime();
+					}else {
+						unloadtime = TimeUtils.getSpecifiedDay(begintime,2);
+					}
+					Bill db =billMapper.selectByPrimaryKey(bbid);
+					if( null != db){
+						routeid = db.getRouteid();
+					}else {
+						return;
+					}
+				}
+					//判断提货和卸货时间间隔是否大于20分钟
+						if(unloadtime - begintime > 20*60*1000 || 1==1){
+							//轨迹模板集合
+							Map<String, String> template = TemplateTrajectory.getTemplatemap();
+							//判断是否有轨迹模板可替换
+							FileRoute route = routeMapper.selectByPrimaryKey(routeid);
+							if(template.get(route.getRoutename()) != null){
+								String billNO = template.get(route.getRoutename());
+								if(billNO.startsWith("S")){
+									AnlianBillFindReq anreq = new AnlianBillFindReq();
+									anreq.setBillno(billNO);
+									List<AnlianBillResp> anList = anlianBillService.findAll(anreq);
+									if(null != anList && anList.size() > 0){
+										String sid = anList.get(0).getId();
+										AnlianBillFindReq anlreq = new AnlianBillFindReq();
+										anlreq.setId(sid);
+										list =(List<BillAnlianPosition>) anlianBillService.zjfindPosition(anlreq).getData();
+										if(null != list && list.size() > 0){
+											long temptime = (unloadtime - begintime)/(list.size()-1);//平均时间间隔
+											//根据目标运单时间修改地点获取时间
+											for( int i = 0;i < list.size();i++){
+												BillAnlianPosition bpr = list.get(0);
+												bpr.setCreatetime(begintime + i*temptime);
+											}
+											rs.setData(list);
+										}
+									}
+								}
+							}
+						}
+			}
+		}
+	}
 	@RequestMapping("dyPositiondataAnlian")
 	@ResponseBody
 	public Result dyPositiondataAnlian(AnlianBillFindReq req,HttpServletRequest request){
 		Result rs = Result.getSuccessResult();
 		try {
 			rs = anlianBillService.dyfindPosition(req);
+			List<BillAnlianPosition> list = (List<BillAnlianPosition>) rs.getData();
+			String key = req.getSearchKey();
+			String bbid = req.getId();
+			list = dayiTemplateAnlian(key,bbid, list);
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
@@ -166,6 +435,10 @@ public class ReportAction {
 		Result rs = Result.getSuccessResult();
 		try {
 			rs = anlianBillService.zjfindPosition(req);
+			List<BillAnlianPosition> list = (List<BillAnlianPosition>) rs.getData();
+			String key = req.getSearchKey();
+			String bbid = req.getId();
+			anlianTemplateanlian(key,bbid, rs, list);
 		} catch (Exception e) {
 			rs.setCode("000001");
 			rs.setError("页面初始化失败，请稍后重试！");
@@ -212,4 +485,5 @@ public class ReportAction {
 		rs.setData(list);
 		return rs;
 	}
+	
 }

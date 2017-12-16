@@ -209,6 +209,20 @@ public class TimeUtils {
 		String dayBefore = new SimpleDateFormat( format ).format( c.getTime() );
 		return(dayBefore);
 	}
+	/**
+	 * 获取所传时间前一天
+	 * @param time
+	 * @return
+	 */
+	public static long getSpecifiedDay( long time ,int days)
+	{
+		Calendar	c	= Calendar.getInstance();
+		Date date = new Date(time);
+		c.setTime( date );
+		int day = c.get( Calendar.DATE );
+		c.set( Calendar.DATE, day + days );
+		return(c.getTime().getTime());
+	}
 	public static void main(String[] args) throws Exception {
 		
 		System.out.println(getSpecifiedDay(1487726607811L,7,"yyyy年M月d日"));

@@ -37,6 +37,7 @@
 				</div>
 			</div>	
 					<input type="hidden" id="bid" value="${id }">
+					<input type="hidden" id="completion" value="${completion }">
 			<div id="_bmap" style="height:700px;width:100%;margin-top:10px">
 					</div>
 			<!--后台右侧布局end-->
@@ -91,7 +92,7 @@ function setPosition(){
 function dyshowToolAutoDef() { 
 	$.ajax({
 		url:"/report/dyPositiondataAnlian",
-		data:{id:$("#bid").val()},
+		data:{id:$("#bid").val(),searchKey:$("#completion").val()},
 		type : "post",
 		dataType:"json",
 		success:function(rs){
@@ -108,7 +109,7 @@ function dyshowToolAutoDef() {
 function zjshowToolAutoDef(colour) { 
 	$.ajax({
 		url:"/report/zjPositiondataAnlian",
-		data:{id:$("#bid").val()},
+		data:{id:$("#bid").val(),searchKey:$("#completion").val()},
 		type : "post",
 		dataType:"json",
 		success:function(rs){
