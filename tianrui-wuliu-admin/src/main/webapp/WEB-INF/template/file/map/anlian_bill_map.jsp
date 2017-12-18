@@ -26,7 +26,7 @@
 				<div id="content-header">
 					<h3 style="float: left;">运单轨迹</h3>
 					<div style="float: right;width: 200px" class="contuser_search">
-						<div class="ht_div">
+						<div class="ht_div" id="divposition" >
 							<select id="postType" onchange="setPosition()">
 								<option value="0">全部轨迹</option>
 								<option value="1">中交轨迹</option>
@@ -56,6 +56,7 @@
 //百度地图API功能
 var map;
 var polyline;
+var completion = $("#completion").val();
 $(function () {
   // 百度地图API功能
   map = new BMap.Map("_bmap");
@@ -65,7 +66,11 @@ $(function () {
   map.enableScrollWheelZoom();                            //启用滚轮放大缩小
   map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
   map.centerAndZoom(new BMap.Point(114.309531, 30.59619),50);
-  dyshowToolAutoDef();
+  if(completion != 6579){
+	  dyshowToolAutoDef();
+  }else{
+	  $("#divposition").html("");
+  }
   zjshowToolAutoDef();
 });
 
@@ -151,6 +156,9 @@ function position(data,colour,ltype){
 
 //创建marker
 function addMarker(lng, lat, time, ptype){
+		if(completion == 6579){
+		 	ptype = "--------------------------";
+	 	}
 	    var point = new BMap.Point(lng,lat);
 	    var iconImg = createIcon(ptype);
 	    var marker = new BMap.Marker(point,{icon:iconImg});

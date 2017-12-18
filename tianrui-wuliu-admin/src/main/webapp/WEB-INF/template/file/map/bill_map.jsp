@@ -26,7 +26,7 @@
 				<div id="content-header">
 					<h3 style="float: left;">运单轨迹</h3>
 					<div style="float: right;width: 200px" class="contuser_search">
-						<div class="ht_div">
+						<div class="ht_div" id="divposition" >
 							<select id="postType" onchange="setPosition()">
 								<option value="0">全部轨迹</option>
 								<option value="1">中交轨迹</option>
@@ -54,6 +54,7 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7wG9zl9ryQt25NHfHxMECnbScLmSSkKj"></script>
 <script type="text/javascript">
 	// 百度地图API功能
+	var completion = $("#completion").val();
    	var map;
    	var polyline;
 	$(function () {
@@ -64,8 +65,12 @@
 	  map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
 	  map.enableScrollWheelZoom();                            //启用滚轮放大缩小
 	  map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+	  if(completion != 6579){
+		  dyshowToolAutoDef();
+	  }else{
+		  $("#divposition").html("");
+	  }
 	  zjshowToolAutoDef();
-	  dyshowToolAutoDef();
 	});
 	
 	function setPosition(){
@@ -144,11 +149,9 @@
 			var thePoint1 = new BMap.Point(lon,lat);
 			nlon = lon;
 			nlat = lat;
-			if(list[a].status == ""){
 				nlon = lon;
 				nlat = lat;
 				points.push(thePoint1);
-			}
 		}
 		map.centerAndZoom(new BMap.Point(nlon, nlat),13);
 		drawPolyline(map, points, colour);
@@ -156,6 +159,9 @@
 	
 	//创建marker
 	function addMarker(lng, lat, status , time ,ptype){
+		 if(completion == 6579){
+			 ptype = "--------------------------";
+		 }
 		    var point = new BMap.Point(lng,lat);
 		    var iconImg = createIcon(status,ptype);
 		    marker = new BMap.Marker(point,{icon:iconImg});

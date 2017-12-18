@@ -135,17 +135,15 @@ public class TemplateTrajectory{
     	templateMap.put("顺通煤场至汝州", "SP171020033");
     	templateMap.put("顺通煤场至荥阳水泥厂", "SP171108195");
     	templateMap.put("顺通煤场至光山水泥厂", "SP171025058");
+    	templateMap.put("铜川海发煤场至萧县水泥厂", "SP171216005");
+    	templateMap.put("铜川福达煤场至南召水泥", "SP171028123");
+    	templateMap.put("天瑞集团石龙水泥有限公司至天瑞集团周口水泥有限公司", "YD1712070003");
     }
 	public static Map<String, String> getTemplatemap() {
 		return templateMap;
 	}  
     public static void main(String[] args) {
-    	System.out.println(templateMap.size());
-    	long temptime = (1499654410961L - 1499646433096L)/(10-1);//平均时间间隔
-		//根据目标运单时间修改地点获取时间
-		for( int i = 0;i < 10;i++){
-			System.out.println(1499646433096L+ i*temptime);
-		}
-		System.out.println(DateUtil.getDateString(1503871273000L, "yyyyMMdd HH:mm:ss"));
+		System.out.println(DateUtil.getDateString(1512195831902L, "yyyyMMdd HH:mm:ss"));
+		System.out.println(DateUtil.getDateString(1512196800830L, "yyyyMMdd HH:mm:ss"));
 	}
 }
