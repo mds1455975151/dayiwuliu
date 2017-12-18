@@ -102,14 +102,14 @@
 <script src="${trRoot}/tianrui/js/highcharts-map.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
-<script src="${trRoot}/tianrui/js/swiper.min.js"></script>
+<script type="text/javascript" src="/resources/js/count/route.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/highcharts-cn-china.js" charset="utf-8"></script>
 
-<script type="text/javascript" src="/resources/js/count/route.js"></script>
-<script type="text/javascript" src="/resources/js/count/showmessage.js"></script>
+
 <script type="text/javascript">
 var trRoot = '${trRoot}';
 </script>
-
+<script src="${trRoot}/tianrui/js/swiper.min.js"></script>
+<script type="text/javascript" src="/resources/js/count/showmessage.js?12162"></script>
 </body>
 </html>
