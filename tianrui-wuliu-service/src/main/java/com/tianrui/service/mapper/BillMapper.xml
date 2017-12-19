@@ -299,6 +299,12 @@
 		<include refid="Base_Column_List" />
 		from wuliu_bill
 		<where>
+			<if test="receive_memberid != null and receive_memberid != ''">
+				and receive_memberid = #{receive_memberid,jdbcType=VARCHAR}
+			</if>
+			<if test="creator != null and creator != ''">
+				and creator = #{creator,jdbcType=VARCHAR}
+			</if>
 			<if test="planid != null and planid!=''">
 				and planid =#{planid,jdbcType=VARCHAR}
 			</if>
@@ -433,6 +439,12 @@
 		id
 		from wuliu_bill
 		<where>
+			<if test="receive_memberid != null and receive_memberid != ''">
+				and receive_memberid = #{receive_memberid,jdbcType=VARCHAR}
+			</if>
+			<if test="creator != null and creator != ''">
+				and creator = #{creator,jdbcType=VARCHAR}
+			</if>
 			<if test="planid != null and planid!=''">
 				and planid =#{planid,jdbcType=VARCHAR}
 			</if>

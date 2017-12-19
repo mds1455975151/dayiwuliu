@@ -173,7 +173,9 @@
     	<if test="billDriverId != null and billDriverId != ''">
     		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
     	</if>
-    	
+    	<if test="billReceiveId != null and billReceiveId != ''">
+    		and bill_receive_id = #{billReceiveId,jdbcType=VARCHAR}
+    	</if>
     	<if test="ownerName != null and ownerName != ''">
     		and owner_name like "%" #{ownerName,jdbcType=VARCHAR}"%"
     	</if>
@@ -278,6 +280,9 @@
     	</if>
     	<if test="billDriverId != null and billDriverId != ''">
     		and bill_driver_id = #{billDriverId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="billReceiveId != null and billReceiveId != ''">
+    		and bill_receive_id = #{billReceiveId,jdbcType=VARCHAR}
     	</if>
     	
     	<if test="ownerName != null and ownerName != ''">

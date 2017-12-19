@@ -94,6 +94,9 @@
     	     or mdcs like '%' #{searchKey,jdbcType=VARCHAR} '%'
     	    )
     	</if>
+    	<if test="receive_memberid != null and receive_memberid != ''">
+    		and receive_memberid = #{receive_memberid,jdbcType=VARCHAR} 
+    	</if>
     	<if test="billno != null and billno != ''">
     		and billno = #{billno,jdbcType=VARCHAR}
     	</if>
@@ -132,6 +135,9 @@
     	     or qycs like '%' #{searchKey,jdbcType=VARCHAR} '%'
     	     or mdcs like '%' #{searchKey,jdbcType=VARCHAR} '%'
     	     )
+    	</if>
+    	<if test="receive_memberid != null and receive_memberid != ''">
+    		and receive_memberid = #{receive_memberid,jdbcType=VARCHAR} 
     	</if>
     	<if test="desc4 != null">
     		and (desc4 != #{desc4,jdbcType=VARCHAR} 

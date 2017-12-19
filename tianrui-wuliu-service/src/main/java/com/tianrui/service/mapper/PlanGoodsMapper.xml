@@ -127,6 +127,9 @@
     	<if test="freightname != null and freightname != ''">
     		and freightname like "%" #{freightname,jdbcType=VARCHAR} "%"
     	</if>
+    	<if test="receiveid != null and receiveid != ''">
+    		and receiveid = #{receiveid,jdbcType=VARCHAR}
+    	</if>
     </where>
     order by createtime desc
     <if test="pageNo != null">
@@ -192,6 +195,9 @@
     	</if>
     	<if test="freightname != null and freightname != ''">
     		and freightname like "%" #{freightname,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="receiveid != null and receiveid != ''">
+    		and receiveid = #{receiveid,jdbcType=VARCHAR}
     	</if>
     </where>
   </select>

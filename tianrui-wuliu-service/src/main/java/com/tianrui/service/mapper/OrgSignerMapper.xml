@@ -31,6 +31,9 @@
     	<if test="orgid != null and orgid != ''">
     		and orgid = #{orgid,jdbcType=VARCHAR}
     	</if>
+    	<if test="memberid != null and memberid != ''">
+    		and memberid = #{memberid,jdbcType=VARCHAR}
+    	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
     	</if>
@@ -51,6 +54,9 @@
     <where>
     	<if test="orgid != null and orgid != ''">
     		and orgid = #{orgid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="memberid != null and memberid != ''">
+    		and memberid = #{memberid,jdbcType=VARCHAR}
     	</if>
     	<if test="cellphone != null and cellphone != ''">
     		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"

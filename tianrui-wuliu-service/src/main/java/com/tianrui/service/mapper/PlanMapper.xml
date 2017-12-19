@@ -189,6 +189,9 @@
       <if test="queryKey != null and queryKey != ''">
     	and (planCode like CONCAT('%',#{queryKey},'%') or cargoname like CONCAT('%',#{queryKey},'%') or vehicleownername like CONCAT('%',#{queryKey},'%') or vehicleownerphone like CONCAT('%',#{queryKey},'%')) 
       </if>
+      <if test="receiveid != null and receiveid != ''">
+      	and receiveid = #{receiveid,jdbcType=VARCHAR}
+      </if>
     </where>
        order by modifytime desc
 	   <if test="start != null and start != '0'">
@@ -300,6 +303,9 @@
       <if test="queryKey != null and queryKey != ''">
  	   and (planCode like CONCAT('%',#{queryKey},'%') or cargoname like CONCAT('%',#{queryKey},'%') or vehicleownername like CONCAT('%',#{queryKey},'%') or vehicleownerphone like CONCAT('%',#{queryKey},'%'))
    	  </if>
+   	  <if test="receiveid != null and receiveid != ''">
+      	and receiveid = #{receiveid,jdbcType=VARCHAR}
+      </if>
     </where>
   </select>
   

@@ -233,6 +233,13 @@
    		  <if test="venderId != null and venderId != ''">
    		  	and p.vender_id = #{venderId,jdbcType=VARCHAR}
    		  </if>
+   		  <if test="driverId != null and driverId != ''">
+   			and p.driver_id = #{driverId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="ownerId != null and ownerId != ''">
+			and	p.owner_id = #{ownerId,jdbcType=VARCHAR}
+   		  </if>
+   		  
    		  <if test="billType != null and billType != ''">
    		    and p.bill_type = #{billType,jdbcType=BIT}
    		  </if>
@@ -385,6 +392,12 @@
    		  </if>
    		  <if test="venderId != null and venderId != ''">
    		  	and p.vender_id = #{venderId,jdbcType=VARCHAR}
+   		  </if>
+	 	  <if test="driverId != null and driverId != ''">
+   			and p.driver_id = #{driverId,jdbcType=VARCHAR}
+   		  </if>
+   		  <if test="ownerId != null and ownerId != ''">
+			and	p.owner_id = #{ownerId,jdbcType=VARCHAR}
    		  </if>
    		  <if test="billType != null and billType != ''">
    		    and p.bill_type = #{billType,jdbcType=BIT}
