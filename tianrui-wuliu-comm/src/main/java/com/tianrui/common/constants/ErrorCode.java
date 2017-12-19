@@ -111,7 +111,11 @@ public enum ErrorCode {
 	
 	MONEY_CHECK_TP1_NULL("E700006","未设置支付密码"),
 	MONEY_CHECK_TP2_NULL("E700007","未设置手势密码"),
-	MONEY_CHECK_TP2_FALL("E700008","未开启手势密码")
+	MONEY_CHECK_TP2_FALL("E700008","未开启手势密码"),
+	
+	
+	MEMBER_MERGER_NULL("E800001","未查询到该用户"),
+	MEMBER_VEHICLE_STATUS("E800002","存在非空闲车辆")
 	;
 	
 	private String code;
