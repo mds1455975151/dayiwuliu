@@ -46,7 +46,7 @@
             <img src="/resources/images1/yun02.png"  id="img3">
             <img src="/resources/images1/xiaoyuan01.png"  id="img4">
             <img src="/resources/images1/xiaoyuan02.png" id="img5">
-            <div class="chengjaio">23,218.5156万元</div>
+            <div class="chengjaio">52,018.5156万元</div>
         </div>
 
     </div>

@@ -2,20 +2,16 @@
     margin: 0px;
     padding: 0px;
 }
-.bannerBox{
-	width:100%;
-}
 .Bj{
-    
+    margin: 0 auto;
     height: 360px;
-    /*width: 1025px;*/
     position: relative;
     left:0px;
     top:0px;
 }
 #img1,#img4,#img5,#img6,#img2,#img7{
     position: absolute;
-    left:0;
+    left:-125px;
     top:0;
 }
 #img3{
@@ -48,6 +44,6 @@
     font-family:"微软雅黑";
     position: absolute;
     font-weight: bold;
-    left:45%;
-    top: 220px;
+    left:734px;
+    top: 215px;
 }
