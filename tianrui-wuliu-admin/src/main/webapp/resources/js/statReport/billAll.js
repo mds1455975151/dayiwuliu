@@ -428,7 +428,7 @@ function anlian_bill_innerHml(data){
 	"<div class='file_detail'><label>要求到货日期：</label><span>"+data.yqdhrq+"</span></div>"+
 	"<div class='file_detail'><label>总运费：</label><span>"+data.yf+"元</span></div>"+
 	"<div class='file_detail'><label>支付对象：</label><span>"+payment+"</span></div>"+	
-	"<div class='file_detail'><label>收款人：</label><span>"+payeeName+"</span><span>"+data.bankOwnerName+"</span></div>"+	
+	"<div class='file_detail'><label>收款人：</label><span>"+payeeName+"</span></div>"+	
 	"<div class='file_detail'><label>银行卡号：</label><span>"+data.bankCard+"</span></div>"+	
 	"<div class='file_detail'><label>车辆：</label><span>"+data.cph+"</span></div>"+
 	"<div class='file_detail'><label>司机(安联)：</label><span>"+data.sj+"</span></div>"+
@@ -487,7 +487,7 @@ function bill_innerHml(data){
 				"<div class='file_detail'><label>签收运输量：</label><span>"+data.trueweight+"吨</span></div>"+
 				"<div class='file_detail'><label>运单价格：</label><span>"+data.price+"元</span></div>"+
 				"<div class='file_detail'><label>支付对象：</label><span>"+payment+"</span></div>"+
-				"<div class='file_detail'><label>收款人：</label><span>"+payeeName+"</span><span>"+data.bankOwnerName+"</span></div>"+	
+				"<div class='file_detail'><label>收款人：</label><span>"+payeeName+"</span></div>"+	
 				"<div class='file_detail'><label>银行卡号：</label><span>"+data.bankCard+"</span></div>"+
 				"<div class='file_detail2'><label>车辆信息：</label><span>"+data.vehicleno+"</span>" +
 				"<span>"+data.drivername+"</span><span>"+data.drivertel+"</span></div>"+
