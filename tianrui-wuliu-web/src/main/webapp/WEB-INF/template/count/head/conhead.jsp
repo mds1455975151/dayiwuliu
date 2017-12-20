@@ -19,7 +19,11 @@
                 </div>
                 <div class="headerhy_right">
                     <label><a href="/publicMember/registerPage" class="colorreg"> [免费注册]</a></label>
-                    <label><a href="/count/route">请[登录]</a></label>
+                    <!-- 
+                    <label class="indexlogin"><a href="/count/route">请[登录]</a></label>
+                     -->
+                    
+                    <label class="indexlogin">请[登录]</label>
                     <label>欢迎来到大易物流平台！</label>
                 </div>
             </div>
@@ -28,40 +32,42 @@
     </div>
 </div>
 <div class="banner">
-<div class="indexbanner">
-    <div class="advertise">
-        <div>
-            <h5>河南省</h5><h5 class="h5dy">首批</h5>
-        </div>
-        <h4>无车承运人物流试点企业</h4>
-        <div class="adverbott">
-            <div class="adverline"></div>
-            <div class="advernet">
-                <label class="advernet1">互联网</label>
-                <span class="advernet2">/</span>
-                <label class="advernet3">物流 </label>
-                <span class="advernet4">/</span>
-                <label class="advernet5">组建货源</label>
-            </div>
-            <div class="adverline"></div>
-        </div>
-    </div>
-    <div class="dywid">
-            <div class="w2000">
-                <img src="${trRoot}/tianrui/images/bannerl6.png" id="car1">
-                <img src="${trRoot}/tianrui/images/bannerl1.png" id="car2">
-                <img src="${trRoot}/tianrui/images/bannerl1.png" id="car3">
-                <img src="${trRoot}/tianrui/images/bannerl2.png" id="car4">
-                <img src="${trRoot}/tianrui/images/bannerl3.png" id="car5">
-                <img src="${trRoot}/tianrui/images/bannerl5.png" id="car6">
-                <img src="${trRoot}/tianrui/images/bannerl4.png" id="car7">
-            </div>
-        <div class="truck2"><img src="${trRoot}/tianrui/images/bannercar2.png"></div>
-        <div class="truck1"><img src="${trRoot}/tianrui/images/bannercar1.png" ></div>
-    </div>
-
-</div>
+	<div class="indexbanner">
+	    <div class="advertise">
+	        <div>
+	            <h5>河南省</h5><h5 class="h5dy">首批</h5>
+	        </div>
+	        <h4>无车承运人物流试点企业</h4>
+	        <div class="adverbott">
+	            <div class="adverline"></div>
+	            <div class="advernet">
+	                <label class="advernet1">互联网</label>
+	                <span class="advernet2">/</span>
+	                <label class="advernet3">物流 </label>
+	                <span class="advernet4">/</span>
+	                <label class="advernet5">组建货源</label>
+	            </div>
+	            <div class="adverline"></div>
+	        </div>
+	    </div>
+	    <div class="dywid">
+	            <div class="w2000">
+	                <img src="${trRoot}/tianrui/images/bannerl6.png" id="car1">
+	                <img src="${trRoot}/tianrui/images/bannerl1.png" id="car2">
+	                <img src="${trRoot}/tianrui/images/bannerl1.png" id="car3">
+	                <img src="${trRoot}/tianrui/images/bannerl2.png" id="car4">
+	                <img src="${trRoot}/tianrui/images/bannerl3.png" id="car5">
+	                <img src="${trRoot}/tianrui/images/bannerl5.png" id="car6">
+	                <img src="${trRoot}/tianrui/images/bannerl4.png" id="car7">
+	            </div>
+	        <div class="truck2"><img src="${trRoot}/tianrui/images/bannercar2.png"></div>
+	        <div class="truck1"><img src="${trRoot}/tianrui/images/bannercar1.png" ></div>
+	    </div>
+	</div>
     <div class="login">
+	    <div class="loginclose">
+	    <img src="${trRoot}/tianrui/images/lgclose.png" >
+	    </div>
         <h2>用户登录</h2>
         <div class="lg_cont">
             <div class="login_tel">
@@ -87,197 +93,209 @@
     </div>
 </div>
 <!--消息滚动开始-->
-<div class="realtime ">
-	<div class="swiper-container">
-		<div class="swiper-wrapper" id="messgeloop">
-		</div>
-	</div>
-</div>
-
 <div class="bgdata">
-    <div class="wrap">
-        <div class="data_total">
-            <h4 class="fbold">数据总览</h4>
-            <ul class="data_tta">
-                <li class="bgred">
-            	<a href="/count/plan">
-                    <div class="dtail_tit">
-                        <label>货运计划总量</label>
-                        <span class="fr">
-                        	<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
-                        	同比上月增长
-                        	<fmt:formatNumber value="${(plan.sumdate - monthplan.sumdate)/monthplan.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if>
-                        	<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
-                        	同比上月减少
-                        	<fmt:formatNumber value="${(monthplan.sumdate - plan.sumdate)/monthplan.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if> --%>
-                        	
-                       	</span>
-                    </div>
-                    <div class="divder_tm"></div>
-                    <div class="dtail_body">
-                        <%-- <label><fmt:formatNumber value="${plan.sumdate/10000 }" type="number" pattern="0.00"></fmt:formatNumber></label><span>万吨</span> --%>
-                        <label>61291.14</label><span>万吨</span>
-                    </div>
-                    <div class="dtail_foot">
-                        <label>本月</label><i class="icononline">
-						<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
-						&#xe617;</i>
-						<span>
-						<fmt:formatNumber value="${plan.sumdate - monthplan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber>
-						</span>
-						</c:if>
-						<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
-						&#xe619;</i>
-						<span><fmt:formatNumber value="${monthplan.sumdate - plan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber></span>
-						</c:if> --%>
-						&#xe617;</i>
-                        <span>2500.6975</span>
-                    </div>
-            	</a>
-                </li>
-                <li class="bgyello">
-            	<a href="/count/vehicle">
-                    <div class="dtail_tit">
-                        <label>车辆总数</label>
-                        <span class="fr">
-                        <%-- 	<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">
-                       		同比上月增长
-                       		<fmt:formatNumber value="${(vehicle.sumdate - monthvehicle.sumdate)/monthvehicle.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if>
-                        	<c:if test="${vehicle.sumdate - monthvehicle.sumdate < 0}">
-                       		同比上月减少
-                       		<fmt:formatNumber value="${(monthvehicle.sumdate - vehicle.sumdate)/monthvehicle.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if>
-                       		 --%>
-                       		</span>
-                    </div>
-                    <div class="divder_tm"></div>
-                    <div class="dtail_body">
-                        <label><fmt:formatNumber type="number" value="${vehicle.sumdate }" maxFractionDigits="0"/></label><span>辆</span>
-                    </div>
-                    <div class="dtail_foot">
-                        <label>本月</label><i class="icononline">
-						<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">&#xe617;
-						</i>
-                        <span><fmt:formatNumber type="number" value="${vehicle.sumdate - monthvehicle.sumdate }" maxFractionDigits="0"/></span>
-						</c:if>
-						<c:if test="${vehicle.sumdate - monthvehicle.sumdate < 0}">&#xe619;
-						</i>
-                        <span><fmt:formatNumber type="number" value="${monthvehicle.sumdate - vehicle.sumdate }" maxFractionDigits="0"/></span>
-						</c:if>
-						
-                    </div>
-            	</a>
-                </li>
-                <li class="bggreen">
-            	<a href="/count/bill">
-                    <div class="dtail_tit">
-                        <label>交易总量</label>
-                        <span class="fr">
-                        	<%-- <c:if test="${bill.sumdate - monthbill.sumdate >= 0}">
-                        	同比上月增长
-                        	<fmt:formatNumber value="${(bill.sumdate - monthbill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if>
-                        	<c:if test="${bill.sumdate - monthbill.sumdate < 0}">
-                        	同比上月减少
-                        	<fmt:formatNumber value="${(monthbill.sumdate - bill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
-                        	</c:if> --%>
-                       	</span>
-                    </div>
-                    <div class="divder_tm"></div>
-                    <div class="dtail_body">
-                        <label><fmt:formatNumber type="number" value="${bill.sumdate }" maxFractionDigits="0"/></label><span>单</span>
-                    </div>
-                    <div class="dtail_foot">
-                        <label>本月</label><i class="icononline">
-						<c:if test="${bill.sumdate - monthbill.sumdate >= 0}">&#xe617;
-						</i>
-                        <span><fmt:formatNumber type="number" value="${bill.sumdate - monthbill.sumdate }" maxFractionDigits="0"/></span>
-						</c:if>
-						<c:if test="${bill.sumdate - monthbill.sumdate < 0}">&#xe619;
-						</i>
-                        <span><fmt:formatNumber type="number" value="${monthbill.sumdate - bill.sumdate }" maxFractionDigits="0"/></span>
-						</c:if>
-						
-                    </div>
-            	</a>
-                </li>
-                <li class="bgblue">
-            	<a href="">
-            	<!-- 
-            		<div class="dtail_tit">
-                        <label>运费总额</label>
-                        <span class="fr">
-                        	同比上月增长16.28%
-                        </span>
-                    </div>
-                    <div class="divder_tm"></div>
-                    
-                    <div class="dtail_body">
-                        <label>
-                        <input type="hidden" value="${pay.id }">
-                        447.35
-                        </label>
-                        <span>万元</span>
-                    </div>
-					
-                    <div class="dtail_foot">
-                        <label>本月</label><i class="icononline">
-						&#xe617;
-						</i>
-                        <span>
-                        39.10万元
-                        </span>
-                    </div>
-            	 -->
-                    <div class="dtail_tit">
-                        <label>运费总额</label>
-                        <span class="fr">
-                        <%-- <c:if test="${pay.sumdate - monthpay.sumdate >= 0}">
-                        	同比上月增长
-                        <fmt:formatNumber value="${(pay.sumdate - monthpay.sumdate)/monthpay.sumdate }" type="number" pattern="0.00%" />
-                        </c:if>
-                        <c:if test="${pay.sumdate - monthpay.sumdate < 0}">
-                        	同比上月增长
-                        <fmt:formatNumber value="${(monthpay.sumdate - pay.sumdate)/monthpay.sumdate }" type="number" pattern="0.00%" />
-                        </c:if> --%>
-                        
-                        </span>
-                    </div>
-                    <div class="divder_tm"></div>
-                    
-                    <div class="dtail_body">
-                        <label>
-                        <input type="hidden" value="${pay.id }">
-                       	<fmt:formatNumber value="${pay.sumdate/10000 }" pattern="#.##" minFractionDigits="2" />
-                        </label>
-                        <span>万元</span>
-                    </div>
-					
-                    <div class="dtail_foot">
-                        <label>本月</label><i class="icononline">
-						<c:if test="${pay.sumdate - monthpay.sumdate >= 0}">&#xe617;
-						</i>
-                        <span>
-                        <fmt:formatNumber value="${(pay.sumdate - monthpay.sumdate)/10000 }" pattern="#.##" minFractionDigits="2" />万元
-                        </span>
-						</c:if>
-						<c:if test="${pay.sumdate - monthpay.sumdate < 0}">&#xe619;
-						</i>
-                        <span>
-                        <fmt:formatNumber value="${(monthpay.sumdate - pay.sumdate)/10000 }" pattern="#.##" minFractionDigits="2" />万元
-                        </span>
-						</c:if>
-						
-                    </div>
-            	</a>
-                </li>
-            </ul>
+   <div class="wrap">
+      <div class="realtime ">
+        <div class="real_title">
+            <h3>实时动态</h3>
+            <div class="blueline"></div>
+            <img src="${trRoot}/tianrui/images/hymessge.png">
         </div>
-    </div>
+		<div class="swiper-container">
+			<div class="swiper-wrapper" id="messgeloop">
+			</div>
+		</div>
+      </div>
+   </div>
 </div>
+<!--数据总览-->
+<div class="wrap">
+  <div class="data_total">
+     <div class="data_title">
+         <h3>数据总览</h3>
+         <div class="blueline"></div>
+         <img src="${trRoot}/tianrui/images/indexdata.png">
+     </div>
+         <ul class="data_tta">
+             <li class="bgred">
+         	<a href="/count/plan">
+                 <div class="dtail_tit">
+                     <label>货运计划总量</label>
+                     <span class="fr">
+                     	<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
+                     	同比上月增长
+                     	<fmt:formatNumber value="${(plan.sumdate - monthplan.sumdate)/monthplan.sumdate }" type="number" pattern="0.00%" />
+                     	</c:if>
+                     	<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
+                     	同比上月减少
+                     	<fmt:formatNumber value="${(monthplan.sumdate - plan.sumdate)/monthplan.sumdate }" type="number" pattern="0.00%" />
+                     	</c:if> --%>
+                     	
+                    	</span>
+                 </div>
+                 <div class="divder_tm"></div>
+                 <div class="dtail_body">
+                     <%-- <label><fmt:formatNumber value="${plan.sumdate/10000 }" type="number" pattern="0.00"></fmt:formatNumber></label><span>万吨</span> --%>
+                     <label>61291.14</label><span>万吨</span>
+                 </div>
+                <div class="dtail_foot">
+                    <label>本月</label><i class="icononline">
+					<%-- <c:if test="${plan.sumdate - monthplan.sumdate >= 0}">
+					&#xe617;</i>
+					<span>
+					<fmt:formatNumber value="${plan.sumdate - monthplan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber>
+					</span>
+					</c:if>
+					<c:if test="${plan.sumdate - monthplan.sumdate < 0}">
+					&#xe619;</i>
+					<span><fmt:formatNumber value="${monthplan.sumdate - plan.sumdate }" type="number" pattern="0.00"></fmt:formatNumber></span>
+					</c:if> --%>
+					&#xe617;</i>
+			        <span>2500.6975</span>
+                </div>
+         	</a>
+             </li>
+             <li class="bgyello">
+         	<a href="/count/vehicle">
+                 <div class="dtail_tit">
+                     <label>车辆总数</label>
+                     <span class="fr">
+                     <%-- 	<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">
+                    		同比上月增长
+                    		<fmt:formatNumber value="${(vehicle.sumdate - monthvehicle.sumdate)/monthvehicle.sumdate }" type="number" pattern="0.00%" />
+                     	</c:if>
+                     	<c:if test="${vehicle.sumdate - monthvehicle.sumdate < 0}">
+                    		同比上月减少
+                    		<fmt:formatNumber value="${(monthvehicle.sumdate - vehicle.sumdate)/monthvehicle.sumdate }" type="number" pattern="0.00%" />
+                     	</c:if>
+                    		 --%>
+                    		</span>
+                 </div>
+                 <div class="divder_tm"></div>
+                 <div class="dtail_body">
+                     <label><fmt:formatNumber type="number" value="${vehicle.sumdate }" maxFractionDigits="0"/></label><span>辆</span>
+                 </div>
+                 <div class="dtail_foot">
+                     <label>本月</label><i class="icononline">
+			<c:if test="${vehicle.sumdate - monthvehicle.sumdate >= 0}">&#xe617;
+			</i>
+                     <span><fmt:formatNumber type="number" value="${vehicle.sumdate - monthvehicle.sumdate }" maxFractionDigits="0"/></span>
+			</c:if>
+			<c:if test="${vehicle.sumdate - monthvehicle.sumdate < 0}">&#xe619;
+			</i>
+                     <span><fmt:formatNumber type="number" value="${monthvehicle.sumdate - vehicle.sumdate }" maxFractionDigits="0"/></span>
+			</c:if>
+			
+                 </div>
+         	</a>
+             </li>
+             <li class="bggreen">
+         	<a href="/count/bill">
+                 <div class="dtail_tit">
+                     <label>交易总量</label>
+                     <span class="fr">
+                     	<%-- <c:if test="${bill.sumdate - monthbill.sumdate >= 0}">
+                     	同比上月增长
+                     	<fmt:formatNumber value="${(bill.sumdate - monthbill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
+                     	</c:if>
+                     	<c:if test="${bill.sumdate - monthbill.sumdate < 0}">
+                     	同比上月减少
+                     	<fmt:formatNumber value="${(monthbill.sumdate - bill.sumdate)/monthbill.sumdate }" type="number" pattern="0.00%" />
+                     	</c:if> --%>
+                    	</span>
+                 </div>
+                 <div class="divder_tm"></div>
+                 <div class="dtail_body">
+                     <label><fmt:formatNumber type="number" value="${bill.sumdate }" maxFractionDigits="0"/></label><span>单</span>
+                 </div>
+                 <div class="dtail_foot">
+                     <label>本月</label><i class="icononline">
+			<c:if test="${bill.sumdate - monthbill.sumdate >= 0}">&#xe617;
+			</i>
+                     <span><fmt:formatNumber type="number" value="${bill.sumdate - monthbill.sumdate }" maxFractionDigits="0"/></span>
+			</c:if>
+			<c:if test="${bill.sumdate - monthbill.sumdate < 0}">&#xe619;
+			</i>
+                     <span><fmt:formatNumber type="number" value="${monthbill.sumdate - bill.sumdate }" maxFractionDigits="0"/></span>
+			</c:if>
+			
+                 </div>
+         	</a>
+             </li>
+             <li class="bgblue">
+         	<a href="/count/pay">
+         	<!-- 
+         		<div class="dtail_tit">
+                     <label>运费总额</label>
+                     <span class="fr">
+                     	同比上月增长16.28%
+                     </span>
+                 </div>
+                 <div class="divder_tm"></div>
+                 
+                 <div class="dtail_body">
+                     <label>
+                     <input type="hidden" value="${pay.id }">
+                     447.35
+                     </label>
+                     <span>万元</span>
+                 </div>
+		
+                 <div class="dtail_foot">
+                     <label>本月</label><i class="icononline">
+			&#xe617;
+			</i>
+                     <span>
+                     39.10万元
+                     </span>
+                 </div>
+         	 -->
+                 <div class="dtail_tit">
+                     <label>运费总额</label>
+                     <span class="fr">
+                     <%-- <c:if test="${pay.sumdate - monthpay.sumdate >= 0}">
+                     	同比上月增长
+                     <fmt:formatNumber value="${(pay.sumdate - monthpay.sumdate)/monthpay.sumdate }" type="number" pattern="0.00%" />
+                     </c:if>
+                     <c:if test="${pay.sumdate - monthpay.sumdate < 0}">
+                     	同比上月增长
+                     <fmt:formatNumber value="${(monthpay.sumdate - pay.sumdate)/monthpay.sumdate }" type="number" pattern="0.00%" />
+                     </c:if> --%>
+                     
+                     </span>
+                 </div>
+                 <div class="divder_tm"></div>
+                 
+                 <div class="dtail_body">
+                     <label>
+                     <input type="hidden" value="${pay.id }">
+                    	<fmt:formatNumber value="${pay.sumdate/10000 }" pattern="#.##" minFractionDigits="2" />
+                     </label>
+                     <span>万元</span>
+                 </div>
+		
+                 <div class="dtail_foot">
+                     <label>本月</label><i class="icononline">
+			<c:if test="${pay.sumdate - monthpay.sumdate >= 0}">&#xe617;
+			</i>
+                     <span>
+                     <fmt:formatNumber value="${(pay.sumdate - monthpay.sumdate)/10000 }" pattern="#.##" minFractionDigits="2" />万元
+                     </span>
+			</c:if>
+			<c:if test="${pay.sumdate - monthpay.sumdate < 0}">&#xe619;
+			</i>
+                     <span>
+                     <fmt:formatNumber value="${(monthpay.sumdate - pay.sumdate)/10000 }" pattern="#.##" minFractionDigits="2" />万元
+                     </span>
+			</c:if>
+			
+                 </div>
+         	</a>
+             </li>
+         </ul>
+     </div>
+ </div>
+
 <!--公共弹出模态框begin-->
 <div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="width:400px;">
@@ -304,4 +322,7 @@
 <!--公共弹出模态框end--> 
 <script type="text/javascript" src="/resources/js/utils/md5.js" ></script>
 <script type="text/javascript" src="/resources/js/count/head/login.js"></script>
+<script>
+
+</script>
 

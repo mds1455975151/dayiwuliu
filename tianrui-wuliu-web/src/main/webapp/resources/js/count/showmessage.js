@@ -41,7 +41,7 @@ function innerHml(data){
 		"<span>"  + messtype+ "</span>"+
 		"<label>" + data[a].time + "<label></div>"+
 		"<div class='maddr'>"+
-		"<img src='"+trRoot+"/tianrui/images/hym_yello.png"+"'>"+
+		"<img src='" + trRoot + "/tianrui/images/hym_yello.png"+"'>"+
 		"<label>" + data[a].departure + "<label></div>"+
 		"<div class='maddr'>"+
 		"<img src='"+trRoot+"/tianrui/images/hym_blue.png"+"'>"+
@@ -66,4 +66,9 @@ function innerHml(data){
 	   });
 }
 
-
+$(".indexlogin").on("click",function(){
+    $(".login").css("display","block");
+})
+$(".loginclose").on("click",function(){
+    $(".login").css("display","none");
+})

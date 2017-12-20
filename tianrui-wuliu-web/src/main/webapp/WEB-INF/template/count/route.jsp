@@ -24,43 +24,51 @@
 <!-- head -->
 
 <div class="data_yunying wrap">
-    <h5 class="fbold">运营数据</h5>
     <div class="data_road">
         <div class="data_roadtit">
-            <label>运输路线</label>
+            <label>车辆总数</label>
+            <div class="data_roadshow">
+                <span>新增车辆</span>
+                <img src="${trRoot}/tianrui/images/roadlan.png">
+                <span>活跃车辆</span>
+                <img src="${trRoot}/tianrui/images/roadred.png">
+            </div>
         </div>
         <div class="data_roadall">
-            <div class="data_roadl">
-                <div id="container" style="height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+            <div class="goods_chart">
+                <h5>辆</h5>
+                <!--折线图-->
+                <div id="indexzx" style="width: 920px; height:250px;">
+                </div>
+                <!--折线图-->
+                <div class="goods_time">
+                    <label>时间</label>
+                </div>
             </div>
-            <div class="data_roadm">
-                <div class="data_percent">
-                    <div class="data_pline">
-                        <label id="remarkname">河南</label>
-                        <span class="coloryello" id="sumroutedate">9个</span>
+            <div class="data_roadr">
+                <div class="data_roadcar">
+                    <h4>活跃车辆</h4>
+                    <div>
+                    	
+                       <%--  <label class="colorblue"><fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" /></label>
+                        <input type="hidden" id ="paivechiclesum" value="<fmt:formatNumber value="${vehicle.sumdate }" type="number" pattern="0" />">
+                        <input type="hidden" id ="paivechicleact" value="<fmt:formatNumber value="${actvehicle.sumdate }" type="number" pattern="0" />">
+                        --%> <span>辆</span>
+                         <label class="colorblue"><fmt:formatNumber value="7687" type="number" pattern="0" /></label>
+                        <input type="hidden" id ="paivechiclesum" value="<fmt:formatNumber value="${vehicle.sumdate }" type="number" pattern="0" />">
+                        <input type="hidden" id ="paivechicleact" value="<fmt:formatNumber value="7687" type="number" pattern="0" />">
+                         <span>辆</span>
                     </div>
-                </div>
-                <div class="data_big">
-                    <h5>运输最热地点</h5>
-                    <c:forEach items="${routemax }" var="aa">
-                    <p> ${aa.desc1 } ------ <fmt:formatNumber type="number" value="${aa.sumdate }" maxFractionDigits="0"/> 个</p>
-                   	</c:forEach>
-                </div>
-            </div>
-            <div class="data_roadr mt60">
-                <div class="data_roadrt border_goods">
-                    <h5>运输地点总数</h5>
-                    <p>
-                        <label class="colorgreen"><fmt:formatNumber type="number" value="${route.sumdate }" maxFractionDigits="0"/></label>
-                        <span>个</span>
-                    </p>
-                </div>
-                <div class="data_roadrb">
-                    <h5>本月新增</h5>
-                    <p>
-                        <label class="colorred"><fmt:formatNumber type="number" value="${route.sumdate - monthroute.sumdate}" maxFractionDigits="0"/></label>
-                        <span>个</span>
-                    </p>
+                     <div class="car_pie">
+                        <p>比例</p>
+                        <div class="border_pie">
+                            饼
+                            <div  id="indexpie" style="width: 350px; height:200px;">
+                            </div>
+                            饼
+                        </div>
+
+                    </div> 
                 </div>
             </div>
         </div>
@@ -68,7 +76,11 @@
 </div>
 <!--地图下面加上合作-->
 <div class="coperation">
-    <h2>合作伙伴</h2>
+    <div class="data_title">
+	     <h3>合作伙伴</h3>
+	     <div class="blueline"></div>
+	     <img src="${trRoot}/tianrui/images/copartner.png">
+    </div>
     <div class="cop_solo">
         <img src="${trRoot}/tianrui/images/hb1.jpg">
     </div>

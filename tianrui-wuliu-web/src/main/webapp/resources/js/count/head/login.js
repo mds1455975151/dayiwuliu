@@ -1,3 +1,6 @@
+
+
+
 function loginIn() {
 	// 获取输入的手机号
 	var login_tel = $("#login_tel").val();
@@ -29,6 +32,7 @@ function loginIn() {
 					url="/trwuliu/Member/message/message";	
 				}
 				window.location.href = url;
+				$(".login").css("display","none");
 			}else if(result && result.error){
 				$("#modal_common_content").html(result.error);
 				$("#commonModal").modal();
@@ -36,3 +40,5 @@ function loginIn() {
 		}
 	});
 }
+
+
