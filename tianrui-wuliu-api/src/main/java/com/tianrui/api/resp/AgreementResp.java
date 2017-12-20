@@ -24,12 +24,22 @@ public class AgreementResp {
 	private String	insurance;//保险金额
 	private String cargoValue;//货物总价值
 	private String dateAcctept;//运单日期
-	private String dateUnloading;//到达时间
+	private String dateUnloading;//到达日期
+	private String timeAcctept;//运单时间
+	private String timeBIllAcctept;//运单接受时间
+	private String timeUnloading;//到达时间
 	private Double backstageBillTotalPrice;//运费总价
 	private String payMent;//付款方式1-现付。2-月付
 	private String linkman;//发货人姓名
 	private String linknumber;//发货人电话
-	
+    //后台扣重扣杂
+    private Double backstageDeductWeightMisc;
+    //后台扣款
+    private Double backstageDeductMoney;
+    //后台其他扣款
+    private Double backstageDeductOther;
+    //后台油卡扣款
+    private Double backstageDeductOilCard;
 		public String getBillNo() {
 			return billNo;
 		}
@@ -179,6 +189,48 @@ public class AgreementResp {
 		}
 		public void setCargoValue(String cargoValue) {
 			this.cargoValue = cargoValue;
+		}
+		public Double getBackstageDeductWeightMisc() {
+			return backstageDeductWeightMisc;
+		}
+		public void setBackstageDeductWeightMisc(Double backstageDeductWeightMisc) {
+			this.backstageDeductWeightMisc = backstageDeductWeightMisc;
+		}
+		public Double getBackstageDeductMoney() {
+			return backstageDeductMoney;
+		}
+		public void setBackstageDeductMoney(Double backstageDeductMoney) {
+			this.backstageDeductMoney = backstageDeductMoney;
+		}
+		public Double getBackstageDeductOther() {
+			return backstageDeductOther;
+		}
+		public void setBackstageDeductOther(Double backstageDeductOther) {
+			this.backstageDeductOther = backstageDeductOther;
+		}
+		public Double getBackstageDeductOilCard() {
+			return backstageDeductOilCard;
+		}
+		public void setBackstageDeductOilCard(Double backstageDeductOilCard) {
+			this.backstageDeductOilCard = backstageDeductOilCard;
+		}
+		public String getTimeAcctept() {
+			return timeAcctept;
+		}
+		public void setTimeAcctept(String timeAcctept) {
+			this.timeAcctept = timeAcctept;
+		}
+		public String getTimeUnloading() {
+			return timeUnloading;
+		}
+		public void setTimeUnloading(String timeUnloading) {
+			this.timeUnloading = timeUnloading;
+		}
+		public String getTimeBIllAcctept() {
+			return timeBIllAcctept;
+		}
+		public void setTimeBIllAcctept(String timeBIllAcctept) {
+			this.timeBIllAcctept = timeBIllAcctept;
 		}
 		
 }

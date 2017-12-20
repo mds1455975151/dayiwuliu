@@ -34,6 +34,20 @@ public class PayInvoiceAction {
 		ModelAndView view = new ModelAndView("file/payInvoice/driver/payInvoice");
 		return view;
 	}
+	@RequestMapping("receipt")
+	public ModelAndView receipt(String id,String type) throws Exception{
+		AgreementResp resp = payInvoiceDetail1Service.AgreementDetail(id,type);
+		ModelAndView view = new ModelAndView("billAgreement/receipt");
+		view.addObject("agreement", resp);
+		return view;
+	}
+	@RequestMapping("invoice")
+	public ModelAndView invoice(String id,String type) throws Exception{
+		AgreementResp resp = payInvoiceDetail1Service.AgreementDetail(id,type);
+		ModelAndView view = new ModelAndView("billAgreement/invoice");
+		view.addObject("agreement", resp);
+		return view;
+	}
 	@RequestMapping("agreement")
 	public ModelAndView agreement(String id,String type) throws Exception{
 		AgreementResp resp = payInvoiceDetail1Service.AgreementDetail(id,type);

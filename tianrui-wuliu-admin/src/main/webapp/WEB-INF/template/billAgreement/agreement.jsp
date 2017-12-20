@@ -75,7 +75,7 @@
                     </tr>
                     <tr>
                         <td> ${agreement.cargoName }</td>
-                        <td></td>
+                        <td>${agreement.specifications }</td>
                         <td>${agreement.pickupweight }</td>
                         <td>${agreement.measure }</td>
                         <td>${agreement.billPrice }</td>

@@ -59,11 +59,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <c:if test="${pay.trueweight ne null}">
 	                               <label>签收重量：</label><span>${pay.trueweight }吨</span><br>
 	                               </c:if>
-	                               <label>发货单：</label><span><a class="colorblue" href="/pay/invoice/agreement?id=${pay.id }&type=${pay.billOwerType }" target="_blank">查看发货单</a></span><br>
+	                               <label>发货单：</label><span><a class="colorblue" href="/pay/invoice/invoice?id=${pay.id }&type=${pay.billOwerType }" target="_blank">查看发货单</a></span><br>
                               	 <c:if test="${pay.pickupimgurl ne null}">
 	                               <label>磅单图片(提货)：</label><span><a class="colorblue" href="/imageView/index?imageUrl=${pay.pickupimgurl }" target="_blank">查看提货磅单</a></span><br>
                               	 </c:if>
-                              	 <label>收货单：</label><span><a class="colorblue" href="/pay/invoice/agreement?id=${pay.id }&type=${pay.billOwerType }" target="_blank">查看收货单</a></span><br>
+                              	 <label>收货单：</label><span><a class="colorblue" href="/pay/invoice/receipt?id=${pay.id }&type=${pay.billOwerType }" target="_blank">查看收货单</a></span><br>
                               	  <c:if test="${pay.signimgurl ne null}">
 	                               <label>磅单图片(卸货)：</label><span><a class="colorblue" href="/imageView/index?imageUrl=${pay.signimgurl }" target="_blank">查看卸货磅单</a></span><br>
                               	  </c:if>

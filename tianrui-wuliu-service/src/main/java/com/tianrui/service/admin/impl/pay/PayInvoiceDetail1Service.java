@@ -787,17 +787,25 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 		try {
 			PayAndBillDateilResp resp = payInviuceDetail(id);
 			PropertyUtils.copyProperties(agreement, resp);
+			int timer = (int) (Math.random()*100)*(1000*60);
 			if("w".equals(type)){
 				Bill bill = billMapper.selectByPrimaryKey(resp.getBillId());
 				agreement.setDateAcctept(DateUtil.getDateString(bill.getAcctepttime(), "yyyy年M月d日"));
+				agreement.setTimeAcctept(DateUtil.getDateString(bill.getAcctepttime(), "yyyy-MM-dd HH:mm:ss"));
 				agreement.setDateUnloading(DateUtil.getDateString(bill.getUnloadtime(), "yyyy年M月d日"));
+				agreement.setTimeUnloading(DateUtil.getDateString(bill.getUnloadtime(), "yyyy-MM-dd HH:mm:ss"));
+				agreement.setTimeBIllAcctept(DateUtil.getDateString(bill.getUnloadtime()+timer, "yyyy-MM-dd HH:mm:ss"));
 			}else if ("a".equals(type)) {
 				AnlianBill albill =anlianBillMapper.selectByPrimaryKey(resp.getBillId());
 				agreement.setDateAcctept(DateUtil.getDateString(albill.getCreatetime(), "yyyy年M月d日"));
+				agreement.setTimeAcctept(DateUtil.getDateString(albill.getCreatetime(), "yyyy-MM-dd HH:mm:ss"));
+				agreement.setTimeBIllAcctept(DateUtil.getDateString(albill.getCreatetime()+timer, "yyyy-MM-dd HH:mm:ss"));
 				if(albill.getPtEndtime() != null && albill.getPtEndtime() > 0){
 					agreement.setDateUnloading(DateUtil.getDateString(albill.getPtEndtime(), "yyyy年M月d日"));
+					agreement.setTimeUnloading(DateUtil.getDateString(albill.getPtEndtime(), "yyyy-MM-dd HH:mm:ss"));
 				}else {
 					agreement.setDateUnloading(TimeUtils.getSpecifiedDay(albill.getCreatetime(),2, "yyyy年M月d日"));
+					agreement.setTimeUnloading(DateUtil.getDateString(albill.getPtEndtime(), "yyyy-MM-dd HH:mm:ss"));
 				}
 			}
 			Plan p = new Plan();
