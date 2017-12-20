@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.intf.memberMerger.IMemberMergerService;
@@ -36,7 +37,6 @@ import com.tianrui.service.bean.ReportBillAll;
 import com.tianrui.service.bean.ReportPayAll;
 import com.tianrui.service.bean.ReportPlanAll;
 import com.tianrui.service.bean.SystemMember;
-import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.bean.anlian.AnlianBill;
@@ -121,6 +121,7 @@ public class MemberMergerService implements IMemberMergerService{
 	}
 
 	@Override
+	@Transactional
 	public Result mergerCellphone(MergerCellphoneReq req) {
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getMainMemberid());
