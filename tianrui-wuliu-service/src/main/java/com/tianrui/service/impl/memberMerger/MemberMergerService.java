@@ -124,7 +124,7 @@ public class MemberMergerService implements IMemberMergerService{
 	public Result mergerCellphone(MergerCellphoneReq req) {
 		Result rs = Result.getSuccessResult();
 		SystemMember member = systemMemberMapper.selectByPrimaryKey(req.getMainMemberid());
-		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getMainMemberid());
+//		SystemMemberInfo info = systemMemberInfoMapper.selectByPrimaryKey(req.getMainMemberid());
 		//查询查询用户是否存在
 		if(member!=null){
 			String[] ids = req.getOtherMemberids().split(";");
@@ -144,22 +144,22 @@ public class MemberMergerService implements IMemberMergerService{
 							//处理 wuliu_plan 修改
 							plan(memberId,member);
 							//处理 wuliu_message 修改
-							//TODO
 							message(memberId);
 							//处理 report_bill_all 修改
-							reportBillAll(memberId);
+							reportBillAll(memberId,member);
 							//处理  report_plan_all 修改
 							reportPlanAll(memberId);
 							//处理 report_pay_all 修改
 							reportPayAll(memberId);
 							//处理 pay_invoice_detail_1 修改
 							payDetail(memberId);
-							//处理 wuliu_member_bankcard 修改
-							bankCard(memberId);
 							//处理 wuliu_bill 修改
-							bill(memberId);
+							bill(memberId,member);
 							//处理 anlian_bill 修改
-							anlianBill(memberId);
+							anlianBill(memberId,member);
+							
+							//处理 wuliu_member_bankcard 删除
+							bankCard(memberId);
 							//处理我的运力  wuliu_member_capa  解除用户绑定关系 删除
 							memberCapa(memberId);
 							//处理wuliu_member_owner  解除车主关系表 删除
@@ -278,7 +278,7 @@ public class MemberMergerService implements IMemberMergerService{
 		}
 	}
 
-	private void reportBillAll(String memberId) {
+	private void reportBillAll(String memberId,SystemMember member) {
 		ReportBillAll repblD = new ReportBillAll();
 		repblD.setBillDriverId(memberId);
 		List<ReportBillAll> repblDList = reportBillAllMapper.selectByCondition(repblD);
@@ -328,7 +328,6 @@ public class MemberMergerService implements IMemberMergerService{
 
 	private void orgMember(String memberId) {
 		OrgMember org = new OrgMember();
-		//TODO
 		org.setMembertel(memberId);
 		List<OrgMember> orgm = orgMemberMapper.findByEntity(org);
 		for(OrgMember orm : orgm){
@@ -336,7 +335,7 @@ public class MemberMergerService implements IMemberMergerService{
 		}
 	}
 
-	private void bill(String memberId) {
+	private void bill(String memberId,SystemMember member) {
 		Bill bdr = new Bill();
 		bdr.setDriverid(memberId);
 		List<Bill> bdrList = billMapper.selectByCondition(bdr);
@@ -344,6 +343,8 @@ public class MemberMergerService implements IMemberMergerService{
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
 			upt.setDriverid(memberId);
+			upt.setDrivername(member.getRemarkname());
+			upt.setDrivertel(member.getCellphone());
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 		
@@ -384,11 +385,13 @@ public class MemberMergerService implements IMemberMergerService{
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
 			upt.setReceive_memberid(memberId);
+			upt.setReceivername(member.getRemarkname());
+			upt.setReceivertel(member.getCellphone());
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 	}
 
-	private void anlianBill(String memberId) {
+	private void anlianBill(String memberId,SystemMember member) {
 		AnlianBill albd = new AnlianBill();
 		albd.setDriverid(memberId);
 		List<AnlianBill> albdList = anlianBillMapper.selectByCondition(albd);
@@ -434,7 +437,6 @@ public class MemberMergerService implements IMemberMergerService{
 		bank.setCreater(memberId);
 		List<MemberBankCard> banklist = memberBankCardMapper.selectByCondition(bank);
 		for(MemberBankCard sp : banklist){
-			//TODO  银行卡已推送NC...
 			memberBankCardMapper.deleteByPrimaryKey(sp.getId());
 		}
 	}
