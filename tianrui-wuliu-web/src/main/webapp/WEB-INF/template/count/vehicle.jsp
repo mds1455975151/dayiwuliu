@@ -18,6 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
 	<link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
+	<link href="${trRoot}/tianrui/css/swiper.min.css" rel="stylesheet">
+    <link href="${trRoot}/tianrui/css/banner-animate.css" rel="stylesheet">
+    <link href="${trRoot}/tianrui/css/animate.min.css" rel="stylesheet">
 </head>
 <body>
 <!-- head -->
@@ -25,7 +28,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- head -->
 
 <div class="data_yunying wrap">
-    <h5 class="fbold">运营数据</h5>
     <div class="data_road">
         <div class="data_roadtit">
             <label>车辆总数</label>
@@ -85,6 +87,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="/resources/js/count/vehicle.js?0609"></script>
-
+<script src="${trRoot}/tianrui/js/swiper.min.js"></script>
+<script type="text/javascript" src="/resources/js/count/showmessage.js?12162"></script>
+<script type="text/javascript">
+var trRoot = '${trRoot}';
+</script>
 </body>
 </html>

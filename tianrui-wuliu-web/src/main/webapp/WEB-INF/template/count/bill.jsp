@@ -14,6 +14,9 @@
     <link href="${trRoot}/tianrui/css/base.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/dystyle.css" rel="stylesheet">
     <link href="${trRoot}/tianrui/css/huoyun.css" rel="stylesheet">
+    <link href="${trRoot}/tianrui/css/swiper.min.css" rel="stylesheet">
+    <link href="${trRoot}/tianrui/css/banner-animate.css" rel="stylesheet">
+    <link href="${trRoot}/tianrui/css/animate.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -21,7 +24,6 @@
 <jsp:include page="head/conhead.jsp"></jsp:include>
 <!-- head -->
 <div class="data_yunying wrap">
-    <h5 class="fbold">运营数据</h5>
     <div class="data_road">
         <div class="data_roadtit">
             <label>交易量</label>
@@ -63,7 +65,11 @@
 <script src="${trRoot}/tianrui/js/highcharts-data.js"></script>
 <script src="${trRoot}/tianrui/js/highcharts-drilldown.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/highcharts-cn-china.js" charset="utf-8"></script>
+<script src="${trRoot}/tianrui/js/swiper.min.js"></script>
+<script type="text/javascript" src="/resources/js/count/showmessage.js?12162"></script>
 <script type="text/javascript" src="/resources/js/count/bill.js?12.3"></script>
-
+<script type="text/javascript">
+var trRoot = '${trRoot}';
+</script>
 </body>
 </html>
