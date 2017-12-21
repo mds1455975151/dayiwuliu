@@ -161,32 +161,7 @@ $(".zhaohuo").on('click', function () {
     }
     getAndMakeCargoList();
 });
-$(".zhaohuoleft label").on('click', function () {
-	var div1 = $(".searcont");
-    var div2 = $(".zhaohuoright");
-    div1.toggle();
-    div2.toggle();
-    if (div1.css("display") == 'none') {
-        $("#gengduo").attr('src', trRoot+"/tianrui/images/hydown.png");
-    }
-    else {
-        $("#gengduo").attr('src', trRoot+"/tianrui/images/hyup.png");
-    }
-    getAndMakeCargoList();
-});
-$(".zhaohuoleft span").on('click', function () {
-	var div1 = $(".searcont");
-    var div2 = $(".zhaohuoright");
-    div1.toggle();
-    div2.toggle();
-    if (div1.css("display") == 'none') {
-        $("#gengduo").attr('src', trRoot+"/tianrui/images/hydown.png");
-    }
-    else {
-        $("#gengduo").attr('src', trRoot+"/tianrui/images/hyup.png");
-    }
-    getAndMakeCargoList();
-});
+
 //找货功能点击
  function getAndMakeCargoList() {
    if(i > 0){

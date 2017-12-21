@@ -286,7 +286,7 @@
 <jsp:include page="head/foot.jsp"></jsp:include>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/bootstrap.js"></script>
-<script type="text/javascript" src="${trRoot}/tianrui/js/pick-pcc.min.1.0.1.js"></script>
+<script type="text/javascript" src="${trRoot}/tianrui/js/pick-pcc.min.1.0.2.js"></script>
 <script type="text/javascript" src="${trRoot}/tianrui/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	var trRoot ="${trRoot}";
