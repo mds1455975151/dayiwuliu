@@ -813,8 +813,8 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 			List<Plan> plans = planMapper.selectByCondition(p);
 			if(null != plans && plans.size() > 0){
 				//发货人信息
-				agreement.setLinkman(plans.get(0).getLinkman());
-				agreement.setLinknumber(plans.get(0).getTelephone());
+				agreement.setLinkman(plans.get(0).getSendperson());
+				agreement.setLinknumber(plans.get(0).getSendpersonphone());
 				//路径位置信息
 				FileRoute route;
 				FilePositoin o;
