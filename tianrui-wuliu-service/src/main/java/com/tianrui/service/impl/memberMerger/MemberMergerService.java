@@ -144,7 +144,7 @@ public class MemberMergerService implements IMemberMergerService{
 							
 							if(base!=null){
 								//wuliu_member_vehicle  处理用户车辆数据 修改车辆归属人 修改
-								wuliuMemberVehicle(memberId);
+								wuliuMemberVehicle(memberId,member);
 								//处理 wuliu_transfer 修改
 								tarnSfer(memberId,member);
 								//处理  wuliu_plan_goods 修改
@@ -152,15 +152,15 @@ public class MemberMergerService implements IMemberMergerService{
 								//处理 wuliu_plan 修改
 								plan(memberId,member);
 								//处理 wuliu_message 修改
-								message(memberId);
+								message(memberId,member);
 								//处理 report_bill_all 修改
 								reportBillAll(memberId,member);
 								//处理  report_plan_all 修改
-								reportPlanAll(memberId);
+								reportPlanAll(memberId,member);
 								//处理 report_pay_all 修改
-								reportPayAll(memberId);
+								reportPayAll(memberId,member);
 								//处理 pay_invoice_detail_1 修改
-								payDetail(memberId);
+								payDetail(memberId,member);
 								//处理 wuliu_bill 修改
 								bill(memberId,member);
 								//处理 anlian_bill 修改
@@ -209,14 +209,14 @@ public class MemberMergerService implements IMemberMergerService{
 		return rs;
 	}
 
-	private void payDetail(String memberId) {
+	private void payDetail(String memberId,SystemMember member) {
 		PayInvoiceDetail pdd = new PayInvoiceDetail();
 		pdd.setDriverId(memberId);
 		List<PayInvoiceDetail> pddList = payInvoiceDetailMapper1.selectByCondition(pdd);
 		for(PayInvoiceDetail sp : pddList){
 			PayInvoiceDetail upt = new PayInvoiceDetail();
 			upt.setId(sp.getId());
-			upt.setDriverId(memberId);
+			upt.setDriverId(member.getId());
 			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		}
 		PayInvoiceDetail pdo = new PayInvoiceDetail();
@@ -225,7 +225,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(PayInvoiceDetail sp : pdoList){
 			PayInvoiceDetail upt = new PayInvoiceDetail();
 			upt.setId(sp.getId());
-			upt.setOwnerId(memberId);
+			upt.setOwnerId(member.getId());
 			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		}
 		PayInvoiceDetail pdv = new PayInvoiceDetail();
@@ -234,19 +234,19 @@ public class MemberMergerService implements IMemberMergerService{
 		for(PayInvoiceDetail sp : pdvList){
 			PayInvoiceDetail upt = new PayInvoiceDetail();
 			upt.setId(sp.getId());
-			upt.setVenderId(memberId);
+			upt.setVenderId(member.getId());
 			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		}
 	}
 
-	private void reportPayAll(String memberId) {
+	private void reportPayAll(String memberId,SystemMember member) {
 		ReportPayAll rpay = new ReportPayAll();
 		rpay.setPayDriverId(memberId);
 		List<ReportPayAll> rpayList = reportPayAllMapper.selectByCondition(rpay);
 		for(ReportPayAll sp : rpayList){
 			ReportPayAll upt = new ReportPayAll();
 			upt.setId(sp.getId());
-			upt.setPayDriverId(memberId);
+			upt.setPayDriverId(member.getId());
 			reportPayAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportPayAll rpayv = new ReportPayAll();
@@ -255,7 +255,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportPayAll sp : rpayvList){
 			ReportPayAll upt = new ReportPayAll();
 			upt.setId(sp.getId());
-			upt.setPayVenderId(memberId);
+			upt.setPayVenderId(member.getId());
 			reportPayAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportPayAll rpayo = new ReportPayAll();
@@ -264,7 +264,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportPayAll sp : rpayoList){
 			ReportPayAll upt = new ReportPayAll();
 			upt.setId(sp.getId());
-			upt.setPayOwnerId(memberId);
+			upt.setPayOwnerId(member.getId());
 			reportPayAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportPayAll rpayr = new ReportPayAll();
@@ -273,19 +273,19 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportPayAll sp : rpayrList){
 			ReportPayAll upt = new ReportPayAll();
 			upt.setId(sp.getId());
-			upt.setPayReceiveId(memberId);
+			upt.setPayReceiveId(member.getId());
 			reportPayAllMapper.updateByPrimaryKeySelective(upt);
 		}
 	}
 
-	private void reportPlanAll(String memberId) {
+	private void reportPlanAll(String memberId,SystemMember member) {
 		ReportPlanAll repPlan = new ReportPlanAll();
 		repPlan.setPlanOwnerId(memberId);
 		List<ReportPlanAll> repPlanList = reportPlanAllMapper.selectByCondition(repPlan);
 		for(ReportPlanAll sp : repPlanList){
 			ReportPlanAll upt = new ReportPlanAll();
 			upt.setId(sp.getId());
-			upt.setPlanOwnerId(memberId);
+			upt.setPlanOwnerId(member.getId());
 			reportPlanAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportPlanAll repPlanv = new ReportPlanAll();
@@ -294,7 +294,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportPlanAll sp : repPlanvList){
 			ReportPlanAll upt = new ReportPlanAll();
 			upt.setId(sp.getId());
-			upt.setPlanVenderId(memberId);
+			upt.setPlanVenderId(member.getId());
 			reportPlanAllMapper.updateByPrimaryKeySelective(upt);
 		}
 	}
@@ -306,7 +306,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportBillAll sp : repblDList){
 			ReportBillAll upt = new ReportBillAll();
 			upt.setId(sp.getId());
-			upt.setBillDriverId(memberId);
+			upt.setBillDriverId(member.getId());
 			reportBillAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportBillAll repblO = new ReportBillAll();
@@ -315,7 +315,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportBillAll sp : repblOList){
 			ReportBillAll upt = new ReportBillAll();
 			upt.setId(sp.getId());
-			upt.setBillOwnerId(memberId);
+			upt.setBillOwnerId(member.getId());
 			reportBillAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportBillAll repblV = new ReportBillAll();
@@ -324,7 +324,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportBillAll sp : repblVList){
 			ReportBillAll upt = new ReportBillAll();
 			upt.setId(sp.getId());
-			upt.setBillVenderId(memberId);
+			upt.setBillVenderId(member.getId());
 			reportBillAllMapper.updateByPrimaryKeySelective(upt);
 		}
 		ReportBillAll repblR = new ReportBillAll();
@@ -333,7 +333,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(ReportBillAll sp : repblRList){
 			ReportBillAll upt = new ReportBillAll();
 			upt.setId(sp.getId());
-			upt.setBillReceiveId(memberId);
+			upt.setBillReceiveId(member.getId());
 			reportBillAllMapper.updateByPrimaryKeySelective(upt);
 		}
 	}
@@ -363,7 +363,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Bill sp : bdrList){
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
-			upt.setDriverid(memberId);
+			upt.setDriverid(member.getId());
 			upt.setDrivername(member.getRemarkname());
 			upt.setDrivertel(member.getCellphone());
 			billMapper.updateByPrimaryKeySelective(upt);
@@ -375,7 +375,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Bill sp : bdowList){
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
-			upt.setOwnerid(memberId);
+			upt.setOwnerid(member.getId());
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 		
@@ -385,7 +385,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Bill sp : bdvdList){
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
-			upt.setVenderid(memberId);
+			upt.setVenderid(member.getId());
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 		
@@ -395,7 +395,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Bill sp : bdcrList){
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
-			upt.setCreator(memberId);
+			upt.setCreator(member.getId());
 			billMapper.updateByPrimaryKeySelective(upt);
 		}
 		
@@ -405,7 +405,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Bill sp : bdrecList){
 			Bill upt = new Bill();
 			upt.setId(sp.getId());
-			upt.setReceive_memberid(memberId);
+			upt.setReceive_memberid(member.getId());
 			upt.setReceivername(member.getRemarkname());
 			upt.setReceivertel(member.getCellphone());
 			billMapper.updateByPrimaryKeySelective(upt);
@@ -419,7 +419,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(AnlianBill sp : albdList){
 			AnlianBill upt = new AnlianBill();
 			upt.setId(sp.getId());
-			upt.setDriverid(memberId);
+			upt.setDriverid(member.getId());
 			anlianBillMapper.updateByPrimaryKeySelective(upt);
 		}
 		
@@ -429,7 +429,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(AnlianBill sp : albowList){
 			AnlianBill upt = new AnlianBill();
 			upt.setId(sp.getId());
-			upt.setOwnerid(memberId);
+			upt.setOwnerid(member.getId());
 			anlianBillMapper.updateByPrimaryKeySelective(upt);
 		}
 		AnlianBill albvd = new AnlianBill();
@@ -438,7 +438,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(AnlianBill sp : albvdList){
 			AnlianBill upt = new AnlianBill();
 			upt.setId(sp.getId());
-			upt.setVenderid(memberId);
+			upt.setVenderid(member.getId());
 			anlianBillMapper.updateByPrimaryKeySelective(upt);
 		}
 		AnlianBill albrec = new AnlianBill();
@@ -447,7 +447,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(AnlianBill sp : albrecList){
 			AnlianBill upt = new AnlianBill();
 			upt.setId(sp.getId());
-			upt.setReceive_memberid(memberId);
+			upt.setReceive_memberid(member.getId());
 			anlianBillMapper.updateByPrimaryKeySelective(upt);
 		}
 	}
@@ -462,14 +462,14 @@ public class MemberMergerService implements IMemberMergerService{
 		}
 	}
 
-	private void message(String memberId) {
+	private void message(String memberId,SystemMember member) {
 		Message msg = new Message();
 		msg.setRecid(memberId);
 		List<Message> msgList = messageMapper.findByEntity(msg);
 		for(Message sp : msgList){
 			Message upt = new Message();
 			upt.setId(sp.getId());
-			upt.setRecid(memberId);
+			upt.setRecid(member.getId());
 			messageMapper.updateByPrimaryKeySelective(upt);
 		}
 		Message ssg = new Message();
@@ -478,7 +478,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Message sp : ssgList){
 			Message upt = new Message();
 			upt.setId(sp.getId());
-			upt.setSendid(memberId);
+			upt.setSendid(member.getId());
 			messageMapper.updateByPrimaryKeySelective(upt);
 		}
 	}
@@ -490,7 +490,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Plan sp : plcList){
 			Plan upt = new Plan();
 			upt.setId(sp.getId());
-			upt.setCreator(memberId);
+			upt.setCreator(member.getId());
 			planMapper.updateByPrimaryKeySelective(upt);
 		}
 		Plan plv = new Plan();
@@ -499,7 +499,9 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Plan sp : plvList){
 			Plan upt = new Plan();
 			upt.setId(sp.getId());
-			upt.setVehicleownerid(memberId);
+			upt.setVehicleownerid(member.getId());
+			upt.setVehicleownername(member.getRemarkname());
+			upt.setVehicleownerphone(member.getCellphone());
 			planMapper.updateByPrimaryKeySelective(upt);
 		}
 		Plan recv = new Plan();
@@ -508,7 +510,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Plan sp : recvList){
 			Plan upt = new Plan();
 			upt.setId(sp.getId());
-			upt.setReceiveid(memberId);
+			upt.setReceiveid(member.getId());
 			upt.setReceiveperson(member.getRemarkname());
 			upt.setReceivepersonphone(member.getCellphone());
 			planMapper.updateByPrimaryKeySelective(upt);
@@ -522,7 +524,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(PlanGoods cp : gsList){
 			PlanGoods upt = new PlanGoods();
 			upt.setId(cp.getId());
-			upt.setCreator(memberId);
+			upt.setCreator(member.getId());
 			planGoodsMapper.updateByPrimaryKeySelective(upt);
 		}
 		PlanGoods pgoodsc = new PlanGoods();
@@ -531,7 +533,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(PlanGoods cp : pgoodscList){
 			PlanGoods upt = new PlanGoods();
 			upt.setId(cp.getId());
-			upt.setReceiveid(memberId);
+			upt.setReceiveid(member.getId());
 			upt.setReceiveperson(member.getRemarkname());
 			upt.setReceivepersonphone(member.getCellphone());
 			planGoodsMapper.updateByPrimaryKeySelective(upt);
@@ -545,7 +547,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Transfer sp : trsList){
 			Transfer upt = new Transfer();
 			upt.setId(sp.getId());
-			upt.setSendid(memberId);
+			upt.setSendid(member.getId());
 			upt.setSender(member.getRemarkname());
 			upt.setSendtele(member.getCellphone());
 			transferMapper.updateByPrimaryKeySelective(upt);
@@ -556,7 +558,7 @@ public class MemberMergerService implements IMemberMergerService{
 		for(Transfer sp : trastList){
 			Transfer upt = new Transfer();
 			upt.setId(sp.getId());
-			upt.setStartid(memberId);
+			upt.setStartid(member.getId());
 			upt.setStarter(member.getRemarkname());
 			upt.setStarttele(member.getCellphone());
 			transferMapper.updateByPrimaryKeySelective(upt);
@@ -632,14 +634,14 @@ public class MemberMergerService implements IMemberMergerService{
 		}
 	}
 
-	private void wuliuMemberVehicle(String memberId) {
+	private void wuliuMemberVehicle(String memberId,SystemMember member) {
 		MemberVehicle vehicle = new MemberVehicle();
 		vehicle.setMemberid(memberId);
 		List<MemberVehicle> vehList = memberVehicleMapper.selectMyVehicleByCondition(vehicle);
 		for(MemberVehicle vehic : vehList){
 			MemberVehicle upt = new MemberVehicle();
 			upt.setId(vehic.getId());
-			upt.setMemberid(memberId);
+			upt.setMemberid(member.getId());
 			memberVehicleMapper.updateByPrimaryKeySelective(upt);
 			//被引用的车辆  解除引用关系
 			MemberCapa capac = new MemberCapa();
