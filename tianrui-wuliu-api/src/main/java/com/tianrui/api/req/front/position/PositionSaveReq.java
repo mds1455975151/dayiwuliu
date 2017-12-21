@@ -9,6 +9,8 @@ public class PositionSaveReq extends BaseReq{
 	private Integer lon;
 	private String proxyGps;
 	private String currId;
+	
+	private Long timeStap;
 	public Integer getLat() {
 		return lat;
 	}
@@ -32,6 +34,12 @@ public class PositionSaveReq extends BaseReq{
 	}
 	public void setCurrId(String currId) {
 		this.currId = currId;
+	}
+	public Long getTimeStap() {
+		return timeStap;
+	}
+	public void setTimeStap(Long timeStap) {
+		this.timeStap = timeStap;
 	}
 	
 }

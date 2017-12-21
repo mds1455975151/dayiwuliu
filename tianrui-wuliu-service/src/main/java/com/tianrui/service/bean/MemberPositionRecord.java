@@ -25,10 +25,12 @@ public class MemberPositionRecord implements Serializable{
 
     private String creator;
 
-    private Long createtime;
+    private Long createtime;//服务器保存点时间
     private String proxygps;
     
-    private String createTimeStr;
+    private String createTimeStr;//服务器保存点时间
+    
+    private Long timeStap;//移动端取点时间
 
     public String getId() {
         return id;
@@ -93,7 +95,13 @@ public class MemberPositionRecord implements Serializable{
 	public void setCreateTimeStr(String createTimeStr) {
 		this.createTimeStr = createTimeStr;
 	}
-	
-	
+
+	public Long getTimeStap() {
+		return timeStap;
+	}
+
+	public void setTimeStap(Long timeStap) {
+		this.timeStap = timeStap;
+	}
 
 }

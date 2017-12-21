@@ -68,6 +68,7 @@ public class MemberPositionService implements IMemberPositionService{
 		record.setCreatetime(System.currentTimeMillis());
 		record.setCreateTimeStr(DateUtil.getDateString());
 		record.setCreator(req.getCurrId());
+		record.setTimeStap(req.getTimeStap());
 		memberPositionRecordDao.save(record);
 	}
 
