@@ -2,6 +2,7 @@ package com.tianrui.service.impl.memberMerger;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ import com.tianrui.service.bean.ReportBillAll;
 import com.tianrui.service.bean.ReportPayAll;
 import com.tianrui.service.bean.ReportPlanAll;
 import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.SystemMemberInfoRecord;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
 import com.tianrui.service.bean.anlian.AnlianBill;
@@ -56,6 +58,7 @@ import com.tianrui.service.mapper.ReportBillAllMapper;
 import com.tianrui.service.mapper.ReportPayAllMapper;
 import com.tianrui.service.mapper.ReportPlanAllMapper;
 import com.tianrui.service.mapper.SystemMemberInfoMapper;
+import com.tianrui.service.mapper.SystemMemberInfoRecordMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.mapper.TransferMapper;
 import com.tianrui.service.mapper.VehicleDriverMapper;
@@ -73,6 +76,8 @@ public class MemberMergerService implements IMemberMergerService{
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	SystemMemberInfoMapper systemMemberInfoMapper;
+	@Autowired
+	SystemMemberInfoRecordMapper systemMemberInfoRecordMapper;
 	@Autowired
 	MemberVehicleMapper memberVehicleMapper;
 	@Autowired
@@ -129,52 +134,67 @@ public class MemberMergerService implements IMemberMergerService{
 		//查询查询用户是否存在
 		if(member!=null){
 			String[] ids = req.getOtherMemberids().split(";");
-			logger.info("待合并用户："+ids.length+","+ids);
+			logger.info("待合并用户："+ids.length+","+req.getOtherMemberids());
 			if(ids.length!=0){
 				if(checkVehicle(ids)){
 					for(String memberId:ids){
-						//待合并用户
-						SystemMember base = systemMemberMapper.selectByPrimaryKey(memberId);
-						if(base!=null){
-							//wuliu_member_vehicle  处理用户车辆数据 修改车辆归属人 修改
-							wuliuMemberVehicle(memberId);
-							//处理 wuliu_transfer 修改
-							tarnSfer(memberId,member);
-							//处理  wuliu_plan_goods 修改
-							planGoods(memberId,member);
-							//处理 wuliu_plan 修改
-							plan(memberId,member);
-							//处理 wuliu_message 修改
-							message(memberId);
-							//处理 report_bill_all 修改
-							reportBillAll(memberId,member);
-							//处理  report_plan_all 修改
-							reportPlanAll(memberId);
-							//处理 report_pay_all 修改
-							reportPayAll(memberId);
-							//处理 pay_invoice_detail_1 修改
-							payDetail(memberId);
-							//处理 wuliu_bill 修改
-							bill(memberId,member);
-							//处理 anlian_bill 修改
-							anlianBill(memberId,member);
+						if(StringUtils.isNotBlank(memberId)){
+							//待合并用户
+							SystemMember base = systemMemberMapper.selectByPrimaryKey(memberId);
 							
-							//处理 wuliu_member_bankcard 删除
-							bankCard(memberId);
-							//处理我的运力  wuliu_member_capa  解除用户绑定关系 删除
-							memberCapa(memberId);
-							//处理wuliu_member_owner  解除车主关系表 删除
-							memberOwner(memberId);
-							//处理 wuliu_owner_driver 解除司机绑定关系 删除
-							ownerDriver(memberId);
-							//处理 wuliu_vehicle_driver 删除车辆司机绑定关系 删除
-							vehicleDriver(memberId);
-							//处理 wulliu_addvehicle_bankcard 删除车主绑定关系 删除
-							vehicleBankCard(memberId);
-							//处理 file_org_member 删除
-							orgMember(memberId);
-							//处理 file_org_signer 删除
-							orgSigner(memberId);
+							if(base!=null){
+								//wuliu_member_vehicle  处理用户车辆数据 修改车辆归属人 修改
+								wuliuMemberVehicle(memberId);
+								//处理 wuliu_transfer 修改
+								tarnSfer(memberId,member);
+								//处理  wuliu_plan_goods 修改
+								planGoods(memberId,member);
+								//处理 wuliu_plan 修改
+								plan(memberId,member);
+								//处理 wuliu_message 修改
+								message(memberId);
+								//处理 report_bill_all 修改
+								reportBillAll(memberId,member);
+								//处理  report_plan_all 修改
+								reportPlanAll(memberId);
+								//处理 report_pay_all 修改
+								reportPayAll(memberId);
+								//处理 pay_invoice_detail_1 修改
+								payDetail(memberId);
+								//处理 wuliu_bill 修改
+								bill(memberId,member);
+								//处理 anlian_bill 修改
+								anlianBill(memberId,member);
+								
+								//处理 wuliu_member_bankcard 删除
+								bankCard(memberId);
+								//处理我的运力  wuliu_member_capa  解除用户绑定关系 删除
+								memberCapa(memberId);
+								//处理wuliu_member_owner  解除车主关系表 删除
+								memberOwner(memberId);
+								//处理 wuliu_owner_driver 解除司机绑定关系 删除
+								ownerDriver(memberId);
+								//处理 wuliu_vehicle_driver 删除车辆司机绑定关系 删除
+								vehicleDriver(memberId);
+								//处理 wulliu_addvehicle_bankcard 删除车主绑定关系 删除
+								vehicleBankCard(memberId);
+								//处理 file_org_member 删除
+								orgMember(memberId);
+								//处理 file_org_signer 删除
+								orgSigner(memberId);
+								
+								//用户删除
+								systemMemberMapper.deleteByPrimaryKey(memberId);
+								systemMemberInfoMapper.deleteByPrimaryKey(memberId);
+								
+								SystemMemberInfoRecord qq = new SystemMemberInfoRecord();
+								qq.setMemberid(memberId);
+								List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.findReason(qq);
+								for(SystemMemberInfoRecord sp : list){
+									systemMemberInfoRecordMapper.deleteByPrimaryKey(sp.getId());
+								}
+
+							}
 						}
 					}
 				}else{
@@ -197,7 +217,7 @@ public class MemberMergerService implements IMemberMergerService{
 			PayInvoiceDetail upt = new PayInvoiceDetail();
 			upt.setId(sp.getId());
 			upt.setDriverId(memberId);
-			payInvoiceDetailMapper1.updateByPrimaryKey(upt);
+			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		}
 		PayInvoiceDetail pdo = new PayInvoiceDetail();
 		pdo.setOwnerId(memberId);
@@ -206,7 +226,7 @@ public class MemberMergerService implements IMemberMergerService{
 			PayInvoiceDetail upt = new PayInvoiceDetail();
 			upt.setId(sp.getId());
 			upt.setOwnerId(memberId);
-			payInvoiceDetailMapper1.updateByPrimaryKey(upt);
+			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		}
 		PayInvoiceDetail pdv = new PayInvoiceDetail();
 		pdv.setVenderId(memberId);
@@ -215,7 +235,7 @@ public class MemberMergerService implements IMemberMergerService{
 			PayInvoiceDetail upt = new PayInvoiceDetail();
 			upt.setId(sp.getId());
 			upt.setVenderId(memberId);
-			payInvoiceDetailMapper1.updateByPrimaryKey(upt);
+			payInvoiceDetailMapper1.updateByPrimaryKeySelective(upt);
 		}
 	}
 
@@ -641,13 +661,15 @@ public class MemberMergerService implements IMemberMergerService{
 	private boolean checkVehicle(String[] ids) {
 		boolean a = true;
 		for(String memberId:ids){
-			MemberVehicle vehicle = new MemberVehicle();
-			vehicle.setMemberid(memberId);
-			List<MemberVehicle> vehList = memberVehicleMapper.selectMyVehicleByCondition(vehicle);
-			for(MemberVehicle veh : vehList){
-				if(!veh.getBillstatus().equals("5")){
-					a = false;
-					logger.info("非空闲车辆车牌号："+veh.getId()+veh.getVehicleprefix()+veh.getVehicleno());
+			if(StringUtils.isNotBlank(memberId)){
+				MemberVehicle vehicle = new MemberVehicle();
+				vehicle.setMemberid(memberId);
+				List<MemberVehicle> vehList = memberVehicleMapper.selectMyVehicleByCondition(vehicle);
+				for(MemberVehicle veh : vehList){
+					if(!veh.getBillstatus().equals("5")){
+						a = false;
+						logger.info("校验用户"+memberId+"非空闲车辆车牌号："+veh.getId()+veh.getVehicleprefix()+veh.getVehicleno());
+					}
 				}
 			}
 		}
