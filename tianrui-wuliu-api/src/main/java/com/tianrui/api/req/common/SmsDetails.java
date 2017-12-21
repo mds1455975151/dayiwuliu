@@ -15,7 +15,7 @@ public class SmsDetails  extends BaseReq{
 	private static final long serialVersionUID = -7099176114694519872L;
 	
 	/**
-	 * 接收人电话号码，not null
+	 * 接收人电话号码，not null,发多个号码：13800000001,13800000002,...N 。使用半角逗号分隔。
 	 */
 	private String  telephoneReceiver;
 	/**

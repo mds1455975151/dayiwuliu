@@ -70,7 +70,12 @@
 	  }else{
 		  $("#divposition").html("");
 	  }
-	  zjshowToolAutoDef();
+	  var slh = zjshowToolAutoDef();
+	  console.log("集合数量：-------", slh);
+	  console.log("加载大易轨迹：", slh < 20);
+	  if(slh < 20){
+		  dyshowToolAutoDef();
+	  }
 	});
 	
 	function setPosition(){
@@ -94,6 +99,7 @@
 	}
 	
 	function zjshowToolAutoDef() { 
+		var sizes = 0;
 		$.ajax({
     		url:"/report/zjPositiondata",
 			data:{id:$("#bid").val(),key:$("#completion").val()},
@@ -101,12 +107,18 @@
 			dataType:"json",
 			success:function(rs){
 				if( rs && rs.code =="000000" ){
-					position(rs.data,"blue","卫星获取");
+					sizes =  rs.data.length;
+					if(completion == 6579 && sizes < 20){
+							
+					}else{
+						position(rs.data,"blue","卫星获取");
+					}
 				}else{
 					alert(rs.error);
 				}
 			}
     	})
+    	return sizes;
 	}
 	function dyshowToolAutoDef() { 
 		$.ajax({
