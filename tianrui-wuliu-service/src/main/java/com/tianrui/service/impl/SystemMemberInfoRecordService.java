@@ -335,13 +335,14 @@ public class SystemMemberInfoRecordService implements ISystemMemberInfoRecordSer
 		SystemMemberInfoRecord record = new SystemMemberInfoRecord();
 		record.setMemberid(id);
 		record.setSubmittime(submitDate);
-		SystemMemberInfoRecord memberInfoRecord = systemMemberInfoRecordMapper.findReason(record);
-		SystemMember  member = systemMemberMapper.selectByPrimaryKey(id);
-		if(member!=null){
-			memberInfoRecord.setRegisttime(member.getRegisttime());
-			memberInfoRecord.setCellphone(member.getCellphone());
-		}
-		if(memberInfoRecord!=null){
+		List<SystemMemberInfoRecord> list = systemMemberInfoRecordMapper.findReason(record);
+		if(list.size()==1){
+			SystemMemberInfoRecord memberInfoRecord = list.get(0);
+			SystemMember  member = systemMemberMapper.selectByPrimaryKey(id);
+			if(member!=null){
+				memberInfoRecord.setRegisttime(member.getRegisttime());
+				memberInfoRecord.setCellphone(member.getCellphone());
+			}
 			rs.setData(memberInfoRecord);
 		}else{
 			rs.setCode("1");
