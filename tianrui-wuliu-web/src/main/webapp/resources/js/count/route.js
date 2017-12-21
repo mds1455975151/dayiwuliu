@@ -126,9 +126,3 @@ $(document).ready(function(){
 	window.scrollTo(0,560);
 });
 
-$(".indexlogin").on("click",function(){
-    $(".login").css("display","block");
-})
-$(".loginclose").on("click",function(){
-    $(".login").css("display","none");
-})

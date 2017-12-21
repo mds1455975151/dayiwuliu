@@ -83,7 +83,7 @@ public class AppPositionAction {
 				body.remove(sss);
 			}
 		}
-		for (int i = bandList.size(); i > 0; i--) {
+		for (int i = bandList.size(); i > 0; i--) { 
 			logger.info("位置时间="+bandList.get(i-1).getTimeStap());
 			PositionSaveReq saveBean = bandList.get(i-1);	
 			saveBean.setCurrId(uId);

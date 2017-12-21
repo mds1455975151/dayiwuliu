@@ -123,6 +123,18 @@ public class MemberPushService implements IMemberPushService{
 		}
 		return Result.getSuccessResult();
 	}
+	@Override
+	public Result selectChannelId(String memberId) {
+		Result rs = Result.getSuccessResult();
+		MemberPush memberPush=memberPushMapper.selectByMemberId(memberId);
+		if(memberPush != null){
+			rs.setData(memberPush);
+		}else{
+			rs.setCode("1");
+			rs.setError("查询为空");
+		}
+		return rs;
+	}
 	
 	
 }

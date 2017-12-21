@@ -24,5 +24,7 @@ public interface IMemberPushService {
 	Result sendPsuhOwnerMesage(String memberId, String msg,String code) throws Exception;
 	
 	Result deletePushWithMId(String memberId);
+	//获取用户ChannelId
+	Result selectChannelId(String memberId);
 	
 }
