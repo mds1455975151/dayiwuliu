@@ -25,6 +25,7 @@ public class AgreementResp {
 	private String cargoValue;//货物总价值
 	private String dateAcctept;//运单日期
 	private String dateUnloading;//到达日期
+	private String ownerSigntime;//签收时间
 	private String timeAcctept;//运单时间
 	private String timeBIllAcctept;//运单接受时间
 	private String timeUnloading;//到达时间
@@ -231,6 +232,12 @@ public class AgreementResp {
 		}
 		public void setTimeBIllAcctept(String timeBIllAcctept) {
 			this.timeBIllAcctept = timeBIllAcctept;
+		}
+		public String getOwnerSigntime() {
+			return ownerSigntime;
+		}
+		public void setOwnerSigntime(String ownerSigntime) {
+			this.ownerSigntime = ownerSigntime;
 		}
 		
 }

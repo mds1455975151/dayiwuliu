@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                               <label>司机名称：</label><span>${pay.driverName }</span><br>
 	                               <label>司机安联账号：</label><span>${pay.driverAlcode }</span><br>
 	                               <label>车辆详情信息：</label><span><a class="colorblue" data-toggle="modal" onclick="details('${pay.vehicleID }')" data-target='#detail'>查看车辆详情</a></span><br>
-	                               <label>司机详情信息：</label><span><a class="colorblue" data-toggle="modal" onclick="sjdetails('${pay.driverId }')" data-target='#detailsj'>查看司机详情</a></span><br>
+	                               <label>司机详情信息：</label><span><a class="colorblue" data-toggle="modal" onclick="sjdetails('${pay.driverCellphone }')" data-target='#detailsj'>查看司机详情</a></span><br>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -201,6 +201,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@include file="../../../common/footer.jsp" %>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${scriptsRoot }/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/resources/js/payInvoice/pay/invoice.js?12.14" ></script>
+<script type="text/javascript" src="/resources/js/payInvoice/pay/invoice.js?12.22" ></script>
 </body>
 </html>

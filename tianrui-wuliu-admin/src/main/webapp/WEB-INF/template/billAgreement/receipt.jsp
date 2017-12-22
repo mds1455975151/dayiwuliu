@@ -90,8 +90,8 @@
 	                            <c:if test="${agreement.payMent eq 2}">
 	                               	现付 <input type="checkbox" disabled="disabled" >     &nbsp; &nbsp;  月付 <input type="checkbox" checked="checked" disabled="disabled"></td>
 	                            </c:if> 
-                        <td colSpan="3">托运人（代理人）签字：${agreement.linkman }   &nbsp; &nbsp;${agreement.timeAcctept }</td>
-                        <td colSpan="3">司机签字：${agreement.driverName }  &nbsp; &nbsp;${agreement.timeBIllAcctept }</td>
+                        <td colSpan="3">收货人（代理人）签字：${agreement.receiveName }   &nbsp; &nbsp;${agreement.ownerSigntime }</td>
+                        <td colSpan="3">司机签字：${agreement.driverName }  &nbsp; &nbsp;${agreement.ownerSigntime }</td>
                     </tr>
                     <tr><td colSpan="8" style="text-align: left;">
 		                <p>运输合同条款:</p>

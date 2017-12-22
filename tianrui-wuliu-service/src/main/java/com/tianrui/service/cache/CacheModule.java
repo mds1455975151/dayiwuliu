@@ -13,6 +13,8 @@ package com.tianrui.service.cache;
  */
 public enum CacheModule {
 	
+	VEHICLE_TRACKING("tracking-","在途车辆跟踪"),
+	
 	SMS_TEL("smstel-","短信群推送手机号"),
 	
 	CAPITALACCOUNT("capital-","用户资金账户"),

@@ -795,6 +795,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 				agreement.setDateUnloading(DateUtil.getDateString(bill.getUnloadtime(), "yyyy年M月d日"));
 				agreement.setTimeUnloading(DateUtil.getDateString(bill.getUnloadtime(), "yyyy-MM-dd HH:mm:ss"));
 				agreement.setTimeBIllAcctept(DateUtil.getDateString(bill.getUnloadtime()+timer, "yyyy-MM-dd HH:mm:ss"));
+				agreement.setOwnerSigntime(DateUtil.getDateString(bill.getOwnerSigntime(), "yyyy-MM-dd HH:mm:ss"));
 			}else if ("a".equals(type)) {
 				AnlianBill albill =anlianBillMapper.selectByPrimaryKey(resp.getBillId());
 				agreement.setDateAcctept(DateUtil.getDateString(albill.getCreatetime(), "yyyy年M月d日"));
@@ -807,6 +808,7 @@ public class PayInvoiceDetail1Service implements IPayInvoiceDetail1Service{
 					agreement.setDateUnloading(TimeUtils.getSpecifiedDay(albill.getCreatetime(),2, "yyyy年M月d日"));
 					agreement.setTimeUnloading(DateUtil.getDateString(albill.getPtEndtime(), "yyyy-MM-dd HH:mm:ss"));
 				}
+				agreement.setOwnerSigntime(DateUtil.getDateString(albill.getSigntime(), "yyyy-MM-dd HH:mm:ss"));
 			}
 			Plan p = new Plan();
 			p.setPlancode(resp.getPlancode());

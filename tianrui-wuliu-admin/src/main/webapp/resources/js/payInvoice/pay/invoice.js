@@ -79,15 +79,15 @@ function details(id){
 
 /**
  * 司机详情
- * @param id
+ * @param cellPhone
  */
-function sjdetails(id){
+function sjdetails(cellPhone){
 	$.ajax({
-		url:'/AdminMember/findDriverDetail',
-		data:{"driverId":id},
+		url:'/AdminMember/findDriverMember',
+		data:{"cellPhone":cellPhone},
 		type:"post",
 		success: function(ret){
-			var a=ret.data;
+			var a=ret.data.list[0];
 			var per = "";
 			if(a.driverpercheck=='0'){
 				per = "未认证";
