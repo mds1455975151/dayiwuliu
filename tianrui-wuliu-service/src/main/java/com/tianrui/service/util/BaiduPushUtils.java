@@ -24,6 +24,8 @@ import com.baidu.yun.push.model.DeleteTagResponse;
 import com.baidu.yun.push.model.DeviceInfo;
 import com.baidu.yun.push.model.PushMsgToTagRequest;
 import com.baidu.yun.push.model.PushMsgToTagResponse;
+import com.baidu.yun.push.model.QueryDeviceNumInTagRequest;
+import com.baidu.yun.push.model.QueryDeviceNumInTagResponse;
 
 public class BaiduPushUtils {
 
@@ -371,21 +373,80 @@ public class BaiduPushUtils {
 		return "";
 	}
 	
+	public static int QueryDeviceNumInTag(String tageName,Integer type) throws PushClientException, PushServerException{
+		int num = 0;
+		String apiKey = "";
+		String secretKey = "";
+		if(type == 3){
+			apiKey = android_apiKey;
+			secretKey = android_secretKey;
+		}else if(type == 4){
+			apiKey = ios_apiKey;
+			secretKey = ios_secretKey;
+		}
+		if(StringUtils.isNotBlank(tageName)){
+			if(StringUtils.isNotBlank(apiKey)&&StringUtils.isNotBlank(secretKey)){
+				PushKeyPair pair = new PushKeyPair(apiKey, secretKey);
+				
+				BaiduPushClient pushClient = new BaiduPushClient(pair,
+						BaiduPushConstants.CHANNEL_REST_URL);
+				
+				pushClient.setChannelLogHandler(new YunLogHandler() {
+					@Override
+					public void onHandle(YunLogEvent event) {
+						System.out.println(event.getMessage());
+					}
+				});
+				
+				try {
+					QueryDeviceNumInTagRequest request = new QueryDeviceNumInTagRequest()
+							.addTagName(tageName).addDeviceType(type);
+					QueryDeviceNumInTagResponse response = pushClient
+							.queryDeviceNumInTag(request);
+					if (null != response) {
+						System.out.println(String.format("deviceNum: %d",
+								response.getDeviceNum()));
+						num = response.getDeviceNum();
+					}
+				} catch (PushClientException e) {
+					if (BaiduPushConstants.ERROROPTTYPE) {
+						throw e;
+					} else {
+						e.printStackTrace();
+					}
+				} catch (PushServerException e) {
+					if (BaiduPushConstants.ERROROPTTYPE) {
+						throw e;
+					} else {
+						System.out.println(String.format(
+								"requestId: %d, errorCode: %d, errorMsg: %s",
+								e.getRequestId(), e.getErrorCode(), e.getErrorMsg()));
+					}
+				}
+			}
+		}
+		
+		
+		return num;
+	} 
+	
 	public static void main(String[] args) throws PushClientException, PushServerException {
 
 		List<String> list = new ArrayList<String>();
 		list.add("5345561099824707259");
 		
 		//		createTage("vender_push", 3);
-		createTage("vender_push", 4);
+//		createTage("vender_push", 4);
 		String[] channelIds = list.toArray(new String[list.size()]);
 //		String[] android = {"4570357197846312062"};
 //		addUserToTage("vender_push", 3, android);
-		addUserToTage("vender_push", 4, channelIds);
+//		addUserToTage("vender_push", 4, channelIds);
 		
-//		pushMsgToTage("vender_push", 3, "这是一个测试消息", "123");
-		pushMsgToTage("vender_push", 4, "这是一个测试消息", "123");
+//		pushMsgToTage("vender_push_tage", 3, "这是一个测试消息", "123");
+//		pushMsgToTage("vender_push_tage", 4, "这是一个测试消息", "123");
 		
+		System.out.println("wqe="+QueryDeviceNumInTag("vender_push_tage", 4));
+//		QueryDeviceNumInTag("vender_push", 4);
 //		deleteTage("vender_push", 3);
 //		deleteTage("vender_push", 4);
 		
