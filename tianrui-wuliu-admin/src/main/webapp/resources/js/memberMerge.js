@@ -35,11 +35,11 @@ function search(){
 						var td5 = $("<td></td>").attr("field", "registtimeStr").append(ret[a].registtimeStr||"");
 						var td6 = $("<td></td>").attr("field", "operation");
 						var href1 = "<span><a data-toggle='modal' onclick=\"details('"+a+"')\" data-target='#detail'>【详情】</a></span>";
-						//var href2 = $("<a></a>").attr("href", "javascript:permissionDel('"+ret[a].id+ "','设置主账号')").html("【设置主账号】");
+						var href2 = "<span><a data-toggle='modal' onclick=\"remove(this)\" data-target='#remove'>【移除】</a></span>";
 						var span1 = $("<span></span>").append(href1);
-						//var span2 = $("<span></span>").append(href2);
+						var span2 = $("<span></span>").append(href2);
 						td1.append(input1);
-						td6.append(span1)/*.append(span2)*/
+						td6.append(span1).append(span2)
 						
 						var tr = $("<tr></tr>").append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);		
 						$("#memberInfo").append(tr);
@@ -73,11 +73,6 @@ function merge(){
 		return;
 	}
 	
-	//验证要合并的身份证号是否一致
-	/*if(!validateIdcard()){
-		return;
-	};*/
-	
 	//只有一条数据时无法合并
 	if(idStr == ''){
 		alert("只有一条数据无法合并！")
@@ -109,19 +104,19 @@ function merge(){
  */
 function details(id){
 	var a=list[id]
+	 var ellPhone = a.cellPhone
 	if(a.driverpercheck=='1'){
-		window.location.href="/AdminMember/userDriver?"+a.cellPhone;		
+		window.location.href="/memberUser/detailPage?"+"cellPhone="+ellPhone+"&type="+2+"&menuId=2";
 	}else if(a.userpercheck=='1'||a.companypercheck=='1'){
-		window.location.href="/AdminMember/userPerson?"+a.cellPhone;
+		window.location.href="/memberUser/detailPage?"+"cellPhone="+ellPhone+"&type="+1+"&menuId=2";		
+	}else{
+		alert("该数据没有详情！")
 	}
 }		
 
-//验证要合并的身份证号是否一致
-function validateIdcard(){
-	var a=list
-	var obj = {};
-	for (var i = 0; i < a.length; i++) {
-	    var obj = a[i].identityCard;
-	}	
-	
+/**
+ * 移除一条数据
+ */
+function remove(obj){
+	$(obj).parents("tr").remove();
 }

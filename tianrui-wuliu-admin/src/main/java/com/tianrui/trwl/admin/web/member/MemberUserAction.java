@@ -1,6 +1,8 @@
 package com.tianrui.trwl.admin.web.member;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import com.tianrui.api.req.memberMerger.MergerCellphoneReq;
 import com.tianrui.api.req.memberMerger.MergerQueryReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.front.member.MemberResp;
+import com.tianrui.common.constants.Constant;
 import com.tianrui.common.vo.Result;
 
 /**
@@ -64,5 +67,25 @@ public class MemberUserAction {
 	public Result setMergerMember(MergerCellphoneReq req){
 		Result result = memberMergeService.mergerCellphone(req);
 		return result;
+	}
+	
+	/**
+	 * 用户合并详情 1: 注册用户的类 2:司机管理类
+	 * @author xcy
+	 * @param req
+	 * @param cellPhone
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("detailPage")
+	public ModelAndView detailPage(HttpServletRequest req,String cellPhone,String type){
+		ModelAndView view = new ModelAndView();
+		view.addObject("cellPhone", cellPhone);
+		if(type.equals(Constant.ONE_STR)){
+			view.setViewName("/system/personDetail");
+		}else{
+			view.setViewName("/system/driverDetail");
+		}
+		return view;
 	}
 }
