@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,10 @@ public class PushMessageTage {
 	 * 创建推送分组 并塞入用户
 	 * @throws Exception 
 	 */
+	@Scheduled(cron="0 0/30 *  * * ? ")
 	public void savePushTage() throws Exception{
+		Long st = new Date().getTime();
+    	logger.info("定时器[savePushTage]启动创建消息分组.时间是 :" + DateUtil.getDateString());  
 		//删除原有分组
 		BaiduPushUtils.deleteTage(push_tage, 3);
 		BaiduPushUtils.deleteTage(push_tage, 4);
@@ -67,6 +69,7 @@ public class PushMessageTage {
 
 		//获取推送目标车主集合
 		List<MemberResp> memberList = systemMemberService.findAllVender();
+		logger.info("车主集合数="+memberList.size());
 		StringBuffer sb = new StringBuffer(1024);
 		for(int i = 0;  i < memberList.size();i++ ){
 			MemberResp member = memberList.get(i);
@@ -76,34 +79,54 @@ public class PushMessageTage {
 			}else if (i != memberList.size()-1) {
 				sb.append(",");
 			}
-			//设置短信发送群成员
-			String key = CacheHelper.buildKey(CacheModule.SMS_TEL, "push");
-			cacheClient.saveString(key, sb.toString(), -1);
 			Result rs = pushService.selectChannelId(member.getId());
 			if(rs.getCode().equals("000000")){
 				MemberPush push = (MemberPush) rs.getData();
-				if(push.getApptype().equals("1")){//adnroid
+				logger.info("推送用户 及 pushid"+member.getCellPhone()+push.getPushid());
+				if(push.getApptype()==(byte)1){//adnroid
 					android.add(push.getPushid());
+					logger.info("android.size()"+android.size());
 					if(android.size()>=9){
 						//最多保存9 推送并清空
 						String[] ids = android.toArray(new String[android.size()]);
 						BaiduPushUtils.addUserToTage(push_tage, 3, ids);
+						logger.info("添加用户至分组 android:"+ids.toString());
 						android.clear();
 					}
-				}else if(push.getApptype().equals("2")){//ios
+				}else if(push.getApptype()==(byte)2){//ios
 					ios.add(push.getPushid());
+					logger.info("ios.size()"+ios.size());
 					if(ios.size()>=9){
 						//最多保存9 推送并清空
 						String[] ids = ios.toArray(new String[ios.size()]);
 						BaiduPushUtils.addUserToTage(push_tage, 4, ids);
+						logger.info("添加用户至分组 ios:"+ids.toString());
 						ios.clear();
 					}
 				}
+			}else{
+				logger.info("未找到用户推送id"+member.getCellPhone());
 			}
 		}
+		logger.info("android.size()"+android.size());
+		String[] and_ = android.toArray(new String[android.size()]);
+		BaiduPushUtils.addUserToTage(push_tage, 3, and_);
+		logger.info("添加用户至分组 android:"+and_.toString());
+		
+		logger.info("ios.size()"+ios.size());
+		String[] ios_ = ios.toArray(new String[ios.size()]);
+		BaiduPushUtils.addUserToTage(push_tage, 4, ios_);
+		logger.info("添加用户至分组 ios:"+ios_.toString());
+		
+		//设置短信发送群成员
+		String key = CacheHelper.buildKey(CacheModule.SMS_TEL, "push");
+		cacheClient.saveString(key, sb.toString(), -1);
+		logger.info("短信推送成员："+cacheClient.getString(key));
+		
+		logger.info("定时任务[savePushTage]完成.耗时：{}",new Object[]{(new Date().getTime()-st)});
 	}
 	
-//	@Scheduled(cron="0 0/5 *  * * ? ")
+	@Scheduled(cron="0 0/5 *  * * ? ")
     public void getMessageAndPush() {  
     	Long st = new Date().getTime();
     	logger.info("定时器[PushMessageTrigger]启动.时间是 :" + DateUtil.getDateString());  
@@ -112,6 +135,7 @@ public class PushMessageTage {
         	//获取待推送的消息
         	List<MessagePushResp> ls = messagePushService.findPendingMessage();
         	if(ls != null && ls.size() > 0){
+        		logger.info("本次待推送消息条数" + ls.size()); 
         		for(MessagePushResp message :ls){//循环待推送消息
         			try {
         				Long beginTime = new Date().getTime();
@@ -131,7 +155,7 @@ public class PushMessageTage {
     	    						sms.setTelephoneReceiver(cells);
     	    						sms.setSmsContent(message.getMessageContent());
     	    						sendMobileMessage.sendMobileMessage(sms);
-    	    						count+=cells.split(",").length;
+    	    						count+=cells.split(",")   .length;
     	    						sendCount+=cells.split(",").length;
     							}
     						}
