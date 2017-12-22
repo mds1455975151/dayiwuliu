@@ -13,6 +13,8 @@ package com.tianrui.service.cache;
  */
 public enum CacheModule {
 	
+	SMS_TEL("smstel-","短信群推送手机号"),
+	
 	CAPITALACCOUNT("capital-","用户资金账户"),
 	
 	MEMBERVO("mvo-","用户实体"),

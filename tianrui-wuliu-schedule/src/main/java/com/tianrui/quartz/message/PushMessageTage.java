@@ -22,6 +22,9 @@ import com.tianrui.common.enums.MessageCodeEnum;
 import com.tianrui.common.utils.DateUtil;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.MemberPush;
+import com.tianrui.service.cache.CacheClient;
+import com.tianrui.service.cache.CacheHelper;
+import com.tianrui.service.cache.CacheModule;
 import com.tianrui.service.util.BaiduPushUtils;
 /**
  * 定时推送消息
@@ -43,9 +46,10 @@ public class PushMessageTage {
 	IMemberPushService pushService;
 	@Autowired
 	ISendMobileMessage sendMobileMessage;
+	@Autowired
+	CacheClient cacheClient;
 	
 	static String push_tage = "vender_push_tage";
-	
 	/**
 	 * 创建推送分组 并塞入用户
 	 * @throws Exception 
@@ -63,7 +67,18 @@ public class PushMessageTage {
 
 		//获取推送目标车主集合
 		List<MemberResp> memberList = systemMemberService.findAllVender();
-		for(MemberResp member : memberList){
+		StringBuffer sb = new StringBuffer(1024);
+		for(int i = 0;  i < memberList.size();i++ ){
+			MemberResp member = memberList.get(i);
+			sb.append(member.getCellPhone());
+			if(i%200 == 0 && i > 0 && i != memberList.size()-1){
+				sb.append("-");
+			}else if (i != memberList.size()-1) {
+				sb.append(",");
+			}
+			//设置短信发送群成员
+			String key = CacheHelper.buildKey(CacheModule.SMS_TEL, "push");
+			cacheClient.saveString(key, sb.toString(), -1);
 			Result rs = pushService.selectChannelId(member.getId());
 			if(rs.getCode().equals("000000")){
 				MemberPush push = (MemberPush) rs.getData();
@@ -101,8 +116,44 @@ public class PushMessageTage {
         			try {
         				Long beginTime = new Date().getTime();
         				int sendCount =0;
-        				BaiduPushUtils.pushMsgToTage(push_tage, 3, message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
-        				BaiduPushUtils.pushMsgToTage(push_tage, 4, message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
+            			if(message.getChannel() == 1){//推送APP消息
+            				BaiduPushUtils.pushMsgToTage(push_tage, 3, message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
+            				BaiduPushUtils.pushMsgToTage(push_tage, 4, message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
+    						count++;
+    						sendCount++;
+    					}else if (message.getChannel() == 2) {//发送短信通知
+    						String key = CacheHelper.buildKey(CacheModule.SMS_TEL, "push");
+    						String tels = cacheClient.getString(key);
+    						if(null != tels && ! "".equalsIgnoreCase(tels)){
+    							String [] ts = tels.split("-");
+    							for(String cells :ts){
+    								SmsDetails sms = new SmsDetails();
+    	    						sms.setTelephoneReceiver(cells);
+    	    						sms.setSmsContent(message.getMessageContent());
+    	    						sendMobileMessage.sendMobileMessage(sms);
+    	    						count+=cells.split(",").length;
+    	    						sendCount+=cells.split(",").length;
+    							}
+    						}
+    					}else if (message.getChannel() == 3) {//推送APP消息和发送短信通知
+    						String key = CacheHelper.buildKey(CacheModule.SMS_TEL, "push");
+    						String tels = cacheClient.getString(key);
+    						if(null != tels && ! "".equalsIgnoreCase(tels)){
+    							String [] ts = tels.split("-");
+    							for(String cells :ts){
+    								SmsDetails sms = new SmsDetails();
+    	    						sms.setTelephoneReceiver(cells);
+    	    						sms.setSmsContent(message.getMessageContent());
+    	    						sendMobileMessage.sendMobileMessage(sms);
+    	    						count+=cells.split(",").length;
+    	    						sendCount+=cells.split(",").length;
+    							}
+    						}
+    						BaiduPushUtils.pushMsgToTage(push_tage, 3, message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
+            				BaiduPushUtils.pushMsgToTage(push_tage, 4, message.getMessageContent(), MessageCodeEnum.MSG_ALL_OWNER.getCode()+"");
+    						count++;
+    						sendCount++;
+    					}
         				messagePushService.updatePushState(message.getId(),sendCount,beginTime);
 					} catch (Exception e) {
 						logger.error(e.getMessage(),e);
@@ -114,5 +165,16 @@ public class PushMessageTage {
 		}
         logger.info("定时任务[PushMessageTrigger]完成.推送消息{}条,耗时：{}",new Object[]{count,(new Date().getTime()-st)});
     }
-	
+	public static void main(String[] args) {
+		StringBuffer sb = new StringBuffer(1024);
+		for(int i = 0;  i < 1001;i++ ){
+			sb.append("AAAAA");
+			if(i%20 == 0 && i > 0 && i != 1001-1){
+				sb.append("-");
+			}else if (i != 1001-1) {
+				sb.append(",");
+			}
+		}
+		System.out.println(sb.toString());
+	}
 }
