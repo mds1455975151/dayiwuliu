@@ -16,14 +16,13 @@
 		</script>
     <!--公共头部begin-->
     <input type="hidden" id="menuId" value="${menuId}">
-    <div class="row">
-    	<div class="admin_head">
-	        <div class="col-md-2 bghead">
+    <div class="row bghead">
+	        <div class="col-md-2 ">
 	            <div class="header_logo">
 	                <img src="${imagesRoot }/logo2.png">
 	            </div>
 	        </div>
-	        <div class="col-md-10 bghead">
+	        <div class="col-md-10 ">
 	            <!--start-top-serch
 	            <div id="search">
 	                <input type="text" placeholder="请输入搜索内容"/>
@@ -39,7 +38,6 @@
 	            </div>
 	            <!--close-top-Header-menu-->
 	        </div>
-    	</div>
         
     </div>
 
