@@ -81,6 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
     var trRoot = "${trRoot}";
 </script>
-<script type="text/javascript" src="/resources/js/memberMerge.js?1221"></script>
+<script type="text/javascript" src="/resources/js/memberMerge.js?1223"></script>
 </body>
 </html>
