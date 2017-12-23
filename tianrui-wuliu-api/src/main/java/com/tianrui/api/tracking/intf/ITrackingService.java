@@ -1,6 +1,9 @@
 package com.tianrui.api.tracking.intf;
 
 import com.tianrui.api.req.money.TrackReq;
+import com.tianrui.api.req.money.TrackSelectReq;
+import com.tianrui.api.resp.money.CustomRcordResp;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 
 public interface ITrackingService {
@@ -11,4 +14,6 @@ public interface ITrackingService {
 	 * @return
 	 */
 	Result save(TrackReq req) ;
+	
+	public PaginationVO<CustomRcordResp> select(TrackSelectReq req)throws Exception;
 }

@@ -445,7 +445,7 @@ public class BaiduPushUtils {
 //		pushMsgToTage("vender_push_tage", 3, "这是一个测试消息", "123");
 //		pushMsgToTage("vender_push_tage", 4, "这是一个测试消息", "123");
 		
-		System.out.println("wqe="+QueryDeviceNumInTag("vender_push_tage", 4));
+		System.out.println("wqe="+QueryDeviceNumInTag("vender_push_tage", 3));
 //		QueryDeviceNumInTag("vender_push", 4);
 //		deleteTage("vender_push", 3);
 //		deleteTage("vender_push", 4);
