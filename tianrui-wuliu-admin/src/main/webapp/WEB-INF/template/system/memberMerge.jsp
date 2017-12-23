@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    <div class="user_shtitle mt20"></div>
                	
 	               	<div class="content-user"
-						style="overflow-x: scroll; width: 1544px;">
+						style="overflow-x: scroll">
 						<!-- 用户表格begin -->
                			<table id="memberInfo" style="white-space: nowrap"
 							class="table table-bordered" data-options="">
@@ -67,6 +67,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</tr>
 							</thead>
 							<tbody id="innerHtml">
+							<td colspan="12">
+					    		<div class="ht_none">
+					    		<img src="${imagesRoot}/s0.png" class="ht_nimg1">
+					    		<div>
+					    		<h3>请输入身份证号查询......</h3>
+					    		<p></p>
+					    		</div>
+					    		</div>
+					    		</td>
 							</tbody>
 						</table>
 						<!-- 用户表格end -->
