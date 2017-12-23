@@ -120,6 +120,8 @@ public class MemberMergerService implements IMemberMergerService{
 	@Override
 	public PageResp<MemberResp> selectMergerCellhpone(MergerQueryReq req) throws Exception {
 		MemberFindReq member = new MemberFindReq();
+		//手动设置查询条数
+		member.setPageSize(100);
 		member.setIdCard(req.getIdCard());
 		PageResp<MemberResp> list = systemMemberService.findMemberlist(member);
 		return list;
