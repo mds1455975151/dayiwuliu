@@ -1,6 +1,11 @@
 package com.tianrui.service.bean;
 
 public class CustomRcord {
+	
+	private Integer pageNo;
+	
+	private Integer pageSize;
+	
     private Long id;//主键
 
     private Byte problemType;//问题类型1-轨迹异常
@@ -230,4 +235,20 @@ public class CustomRcord {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
 }

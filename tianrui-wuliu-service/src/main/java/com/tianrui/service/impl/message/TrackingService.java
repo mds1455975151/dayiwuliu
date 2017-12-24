@@ -1,9 +1,18 @@
 package com.tianrui.service.impl.message;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tianrui.api.req.money.TrackReq;
+import com.tianrui.api.req.money.TrackSelectReq;
+import com.tianrui.api.resp.money.CustomRcordResp;
 import com.tianrui.api.tracking.intf.ITrackingService;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.CustomRcord;
 import com.tianrui.service.cache.CacheClient;
@@ -11,6 +20,7 @@ import com.tianrui.service.cache.CacheHelper;
 import com.tianrui.service.cache.CacheModule;
 import com.tianrui.service.mapper.CustomRcordMapper;
 
+@Service
 public class TrackingService implements ITrackingService {
 
 	@Autowired
@@ -45,6 +55,33 @@ public class TrackingService implements ITrackingService {
 			}
 		}
 		return rs;
+	}
+	@Override
+	public PaginationVO<CustomRcordResp> select(TrackSelectReq req) throws Exception {
+		PaginationVO<CustomRcordResp> page = new PaginationVO<CustomRcordResp>();
+		CustomRcord query = new CustomRcord();
+		if(req.getPageNo()!= null){
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		List<CustomRcord> list = customRcordMapper.selectByCondition(query);
+		long a = customRcordMapper.selectByCount(query);
+		List<CustomRcordResp> splist = copyProperties2(list);
+		page.setList(splist);
+		page.setTotal(a);
+		return page;
+	}
+	private List<CustomRcordResp> copyProperties2(List<CustomRcord> list)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		List<CustomRcordResp> splist = new ArrayList<CustomRcordResp>();
+		for(CustomRcord sp : list){
+			CustomRcordResp resp = new CustomRcordResp();
+			PropertyUtils.copyProperties(resp, sp);
+			splist.add(resp);
+		}
+		return splist;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.CustomRcord;
 
 public interface CustomRcordMapper {
@@ -20,4 +22,8 @@ public interface CustomRcordMapper {
      * @return
      */
     CustomRcord selectByCustomerId(String  customerId);
+    
+    List<CustomRcord> selectByCondition(CustomRcord record);
+    
+    long selectByCount(CustomRcord record);
 }

@@ -1,6 +1,8 @@
 package com.tianrui.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -31,6 +33,34 @@ public class MemberPositionService implements IMemberPositionService{
 	@Autowired
 	MemberPositionRecordDao memberPositionRecordDao; 
 	
+
+	@Override
+	public Result savePositionList(PositionSaveReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		if( req !=null && StringUtils.isNotBlank(req.getCurrId()) ){
+			if(req.getLat()<0||req.getLon()<0){
+				rs.setErrorCode(ErrorCode.PARAM_FU_ERROR);
+				LoggerFactory.getLogger("external").info("用户[{}],位置信息异常：lat [{}],lon[{}]", req.getCurrId(),req.getLat(),req.getLon());
+				return rs;
+			}
+			LoggerFactory.getLogger("external").info("用户[{}],位置信息：lat [{}],lon[{}]",req.getCurrId(), req.getLat(),req.getLon());
+			//查找是否有次记录
+			MemberPosition  posiotionDB =memberPositionMapper.findWithMid(req.getCurrId());
+			//存在就修改
+			if( posiotionDB !=null ){
+				updatePosition(req, posiotionDB);
+			//否则新增	
+			}else{
+				insertPosition(req);
+			}
+			//保存记录到mongo
+			insertPositionLs(req);
+		}else{
+			rs.setErrorCode(ErrorCode.PARAM_PARAM_ERROR);
+		}
+		return rs;
+	}
+	
 	@Override
 	public Result savePosition(PositionSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
@@ -60,13 +90,27 @@ public class MemberPositionService implements IMemberPositionService{
 
 	private void insertPositionRecord(PositionSaveReq req) {
 		MemberPositionRecord record =new MemberPositionRecord();
+		record.setId(UUIDUtil.getId());
 		record.setLat(req.getLat());
 		record.setLon(req.getLon());
 		record.setProxygps(req.getProxyGps());
-		record.setId(UUIDUtil.getId());
 		record.setMemberid(req.getCurrId());
 		record.setCreatetime(System.currentTimeMillis());
 		record.setCreateTimeStr(DateUtil.getDateString());
+		record.setCreator(req.getCurrId());
+		record.setTimeStap(req.getTimeStap());
+		memberPositionRecordDao.save(record);
+	}
+	
+	private void insertPositionLs(PositionSaveReq req) {
+		MemberPositionRecord record =new MemberPositionRecord();
+		record.setId(UUIDUtil.getId());
+		record.setLat(req.getLat());
+		record.setLon(req.getLon());
+		record.setProxygps(req.getProxyGps());
+		record.setMemberid(req.getCurrId());
+		record.setCreatetime(req.getTimeStap());
+		record.setCreateTimeStr(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format( new Date(req.getTimeStap())));
 		record.setCreator(req.getCurrId());
 		record.setTimeStap(req.getTimeStap());
 		memberPositionRecordDao.save(record);
@@ -139,4 +183,5 @@ public class MemberPositionService implements IMemberPositionService{
 		}
 		return list;
 	}
+
 }

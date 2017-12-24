@@ -2,7 +2,6 @@ package com.tianrui.web.app.action;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tianrui.api.intf.IMemberPositionService;
 import com.tianrui.api.req.front.position.PositionListSaveReq;
 import com.tianrui.api.req.front.position.PositionSaveReq;
+import com.tianrui.api.req.money.TrackReq;
+import com.tianrui.api.tracking.intf.ITrackingService;
 import com.tianrui.common.vo.AppParam;
 import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
@@ -37,6 +38,8 @@ public class AppPositionAction {
 	public Logger logger = LoggerFactory.getLogger(AppPositionAction.class);
 	@Autowired
 	IMemberPositionService positionService;
+	@Autowired
+	ITrackingService trackingService;
 
 	/**上传位置-单点位置上传
 	 */
@@ -68,78 +71,33 @@ public class AppPositionAction {
 		logger.info("本次传点个数="+req.getList().size());
 		List<PositionSaveReq> body = req.getList();
 		List<PositionSaveReq> bandList = new ArrayList<PositionSaveReq>();
-		if(body.size()>0){//位置按时间排序
-			int leng = body.size();
-			int sss = 0;
-			for (int b = 0; b < leng; b++) {
-				Long min = 0l;
-				for (int i = 0; i < body.size(); i++) {
-					if(body.get(i).getTimeStap()>min){
-						min = body.get(i).getTimeStap();
-						sss = i;
-					}
-				}
-				bandList.add(body.get(sss));
-				body.remove(sss);
-			}
+		
+		Long x = 0l;
+		Long timeStap = System.currentTimeMillis();
+		Long timebegig = System.currentTimeMillis() - (body.get(body.size()-1).getTimeStap()-body.get(0).getTimeStap());
+		for (int i = body.size()-1; i >= 0; i--) {
+			PositionSaveReq saveBean = body.get(i);
+			x = body.get(body.size()-1).getTimeStap()-body.get(i).getTimeStap();
+			saveBean.setTimeStap(timeStap-x);
+			bandList.add(saveBean);
 		}
-		for (int i = bandList.size(); i > 0; i--) { 
-			logger.info("位置时间="+bandList.get(i-1).getTimeStap());
-			PositionSaveReq saveBean = bandList.get(i-1);	
+		
+		for (int i = bandList.size()-1; i >= 0; i--) { 
+			logger.info("位置时间="+bandList.get(i).getTimeStap());
+			PositionSaveReq saveBean = bandList.get(i);	
 			saveBean.setCurrId(uId);
-			positionService.savePosition(saveBean);
+			positionService.savePositionList(saveBean);
 		}
+		
+		TrackReq treq = new TrackReq();
+		treq.setDriverid(uId);
+		treq.setBeginTime(timebegig);
+		treq.setEndTime(timeStap);
+		treq.setLat(bandList.get(0).getLat());
+		treq.setLng(bandList.get(0).getLon());
+		trackingService.save(treq);
+		
 		return AppResult.valueOf(rs);
 	}
-	
-	public static void main(String[] args) {
-		List<PositionSaveReq> body = new ArrayList<PositionSaveReq>();
-		PositionSaveReq save = new PositionSaveReq();
-		save.setTimeStap(12l);
-		save.setCurrId("12");
-		body.add(save);
-		
-		PositionSaveReq sg = new PositionSaveReq();
-		sg.setTimeStap(1l);
-		sg.setCurrId("1");
-		body.add(sg);
-		
-		PositionSaveReq ss = new PositionSaveReq();
-		ss.setTimeStap(133l);
-		ss.setCurrId("133");
-		body.add(ss);
-		
-		PositionSaveReq st = new PositionSaveReq();
-		st.setTimeStap(17l);
-		st.setCurrId("17");
-		body.add(st);
-	
-		List<PositionSaveReq> bandList = new ArrayList<PositionSaveReq>();
-		if(body.size()>0){
-			int leng = body.size();
-			int sss = 0;
-			for (int b = 0; b < leng; b++) {
-				Long min = 0l;
-				for (int i = 0; i < body.size(); i++) {
-					if(body.get(i).getTimeStap()>min){
-						min = body.get(i).getTimeStap();
-						sss = i;
-					}
-				}
-				bandList.add(body.get(sss));
-				body.remove(sss);
-			}
-		}
-		for(PositionSaveReq sp : bandList){
-			System.out.println("-----"+sp.getTimeStap()+","+sp.getCurrId());
-		}
-		for (int i = bandList.size(); i > 0; i--) {
-			System.out.println("-----=="+bandList.get(i-1).getTimeStap()+","+bandList.get(i-1).getCurrId());
-		}
-	}
-	
-	
-	
-	
 	
 }

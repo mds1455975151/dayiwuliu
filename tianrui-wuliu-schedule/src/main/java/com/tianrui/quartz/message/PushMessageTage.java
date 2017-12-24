@@ -53,7 +53,7 @@ public class PushMessageTage {
 	 * 创建推送分组 并塞入用户
 	 * @throws Exception 
 	 */
-	@Scheduled(cron="0 0/30 *  * * ? ")
+	@Scheduled(cron="0 0 0/2  * * ? ")
 	public void savePushTage() throws Exception{
 		Long st = new Date().getTime();
     	logger.info("定时器[savePushTage]启动创建消息分组.时间是 :" + DateUtil.getDateString());  

@@ -19,6 +19,8 @@ public interface IMemberPositionService {
 	
 	//上传位置
 	Result savePosition(PositionSaveReq req)throws Exception;
+	//上传位置
+	Result savePositionList(PositionSaveReq req)throws Exception;
 	//获取最后位置
 	PositionResp queryLastPosition(PositionQueryReq req)throws Exception;
 	//获取位置记录
