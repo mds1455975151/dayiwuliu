@@ -44,9 +44,9 @@ $(function(){
 			}else{
 				//已交班
 				if(item.status == -10){
-					dataArr.push('<td><span>'+item.waybillno+item.status+'</span></td>');
+					dataArr.push('<td><span>'+item.waybillno+'</span></td>');
 				}else{
-					dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+item.status+'</a></td>');
+					dataArr.push('<td><a href="'+URL.detailViewUrl+'?id='+item.id+'">'+item.waybillno+'</a></td>');
 				}
 			}
 			dataArr.push('<td>'+item.cargoname+'</td>');
