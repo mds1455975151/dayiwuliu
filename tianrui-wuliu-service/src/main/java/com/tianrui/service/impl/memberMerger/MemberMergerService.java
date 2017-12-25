@@ -38,6 +38,7 @@ import com.tianrui.service.bean.ReportBillAll;
 import com.tianrui.service.bean.ReportPayAll;
 import com.tianrui.service.bean.ReportPlanAll;
 import com.tianrui.service.bean.SystemMember;
+import com.tianrui.service.bean.SystemMemberInfo;
 import com.tianrui.service.bean.SystemMemberInfoRecord;
 import com.tianrui.service.bean.Transfer;
 import com.tianrui.service.bean.VehicleDriver;
@@ -143,8 +144,22 @@ public class MemberMergerService implements IMemberMergerService{
 						if(StringUtils.isNotBlank(memberId)){
 							//待合并用户
 							SystemMember base = systemMemberMapper.selectByPrimaryKey(memberId);
-							
 							if(base!=null){
+								//修改认证资料归属
+								doMemberInfo(member, memberId, base);
+								//处理 wuliu_owner_driver 修改司机归属关系
+								ownerDriver(memberId,member);
+								//处理wuliu_member_owner  修改车主归属关系
+								memberOwner(memberId,member);
+								//处理我的运力  wuliu_member_capa  修改运力归属关系  
+								memberCapa(memberId,member);
+								//处理 wuliu_vehicle_driver 修改车辆司机绑定关系 
+								vehicleDriver(memberId,member);
+								//处理 wulliu_addvehicle_bankcard 删除车主绑定关系 删除 
+								vehicleBankCard(memberId);
+								//处理 wuliu_member_bankcard 合并 
+								bankCard(memberId,member);
+								
 								//wuliu_member_vehicle  处理用户车辆数据 修改车辆归属人 修改
 								wuliuMemberVehicle(memberId,member);
 								//处理 wuliu_transfer 修改
@@ -168,18 +183,6 @@ public class MemberMergerService implements IMemberMergerService{
 								//处理 anlian_bill 修改
 								anlianBill(memberId,member);
 								
-								//处理 wuliu_member_bankcard 删除
-								bankCard(memberId);
-								//处理我的运力  wuliu_member_capa  解除用户绑定关系 删除
-								memberCapa(memberId);
-								//处理wuliu_member_owner  解除车主关系表 删除
-								memberOwner(memberId);
-								//处理 wuliu_owner_driver 解除司机绑定关系 删除
-								ownerDriver(memberId);
-								//处理 wuliu_vehicle_driver 删除车辆司机绑定关系 删除
-								vehicleDriver(memberId);
-								//处理 wulliu_addvehicle_bankcard 删除车主绑定关系 删除
-								vehicleBankCard(memberId);
 								//处理 file_org_member 删除
 								orgMember(memberId);
 								//处理 file_org_signer 删除
@@ -187,7 +190,6 @@ public class MemberMergerService implements IMemberMergerService{
 								
 								//用户删除
 								systemMemberMapper.deleteByPrimaryKey(memberId);
-								systemMemberInfoMapper.deleteByPrimaryKey(memberId);
 								
 								SystemMemberInfoRecord qq = new SystemMemberInfoRecord();
 								qq.setMemberid(memberId);
@@ -209,6 +211,32 @@ public class MemberMergerService implements IMemberMergerService{
 			rs.setErrorCode(ErrorCode.MEMBER_MERGER_NULL);
 		}
 		return rs;
+	}
+	/**
+	 * 司机认证信息变更为主账号
+	 * @param member
+	 * @param memberId
+	 * @param base
+	 */
+	private void doMemberInfo(SystemMember member, String memberId, SystemMember base) {
+		if(!"1".equals(member.getDriverpercheck())){
+			if("1".equals(base.getDriverpercheck())){
+				member.setDriverpercheck((short)1);//修改为司机认证成功
+				systemMemberMapper.updateByPrimaryKeySelective(member);
+				SystemMemberInfo record = new SystemMemberInfo();
+				record.setMemberid(memberId);
+				List<SystemMemberInfo>  list = systemMemberInfoMapper.selectSelective(record);
+				systemMemberInfoMapper.deleteByPrimaryKey(member.getId());//删除认证信息
+				for(SystemMemberInfo info :list){
+					info.setMemberid(member.getId());//修改认证资料归属
+					systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+				}
+			}else {
+				systemMemberInfoMapper.deleteByPrimaryKey(memberId);
+			}
+		}else {
+			systemMemberInfoMapper.deleteByPrimaryKey(memberId);
+		}
 	}
 
 	private void payDetail(String memberId,SystemMember member) {
@@ -455,12 +483,26 @@ public class MemberMergerService implements IMemberMergerService{
 	}
 
 
-	private void bankCard(String memberId) {
+	private void bankCard(String memberId,SystemMember member) {
 		MemberBankCard bank = new MemberBankCard();
 		bank.setCreater(memberId);
-		List<MemberBankCard> banklist = memberBankCardMapper.selectByCondition(bank);
+		List<MemberBankCard> banklist = memberBankCardMapper.selectSelective(bank);
+		
+		MemberBankCard memberBank = new MemberBankCard();
+		memberBank.setCreater(member.getId());
+		List<MemberBankCard> memberBanklist = memberBankCardMapper.selectSelective(memberBank);
 		for(MemberBankCard sp : banklist){
-			memberBankCardMapper.deleteByPrimaryKey(sp.getId());
+			Boolean flag = true;
+			for(MemberBankCard msp : memberBanklist){
+				if(sp.getBankcard().equals(msp.getBankcard())){
+					memberBankCardMapper.deleteByPrimaryKey(sp.getId());
+					flag = false;
+				}
+			}
+			if(flag){
+				sp.setCreater(member.getId());
+				memberBankCardMapper.updateByPrimaryKeySelective(sp);
+			}
 		}
 	}
 
@@ -582,57 +624,86 @@ public class MemberMergerService implements IMemberMergerService{
 		}
 	}
 
-	private void vehicleDriver(String memberId) {
+	private void vehicleDriver(String memberId,SystemMember member) {
 		VehicleDriver vd = new VehicleDriver();
-		vd.setCreator(memberId);//删除车主绑定
+		vd.setCreator(memberId);//修改归属车主绑定
 		List<VehicleDriver> vdList = vehicleDriverMapper.selectMyVehiDriverByCondition(vd);
 		for(VehicleDriver db : vdList){
-			vehicleDriverMapper.deleteByPrimaryKey(db.getId());
+			db.setCreator(member.getId());
+			vehicleDriverMapper.updateByPrimaryKeySelective(db);
 		}
 		VehicleDriver vdd = new VehicleDriver();
-		vdd.setDriverid(memberId);//删除司机绑定
+		vdd.setDriverid(memberId);//修改车辆、司机绑定
 		List<VehicleDriver> vddList = vehicleDriverMapper.selectMyVehiDriverByCondition(vdd);
 		for(VehicleDriver db : vddList){
-			vehicleDriverMapper.deleteByPrimaryKey(db.getId());
+			db.setDriverid(member.getId());
+			db.setDrivertel(member.getCellphone());
+			vehicleDriverMapper.updateByPrimaryKeySelective(db);
 		}
 	}
 
-	private void ownerDriver(String memberId) {
+	private void ownerDriver(String memberId,SystemMember member) {
 		OwnerDriver odd = new OwnerDriver();
 		odd.setDriverid(memberId);
 		List<OwnerDriver> oddList = ownerDriverMapper.selectMyDriverByCondition(odd);
 		for(OwnerDriver od : oddList){
-			ownerDriverMapper.deleteByPrimaryKey(od.getId());
+			od.setDriverid(member.getId());
+			od.setDrivertel(member.getCellphone());
+			ownerDriverMapper.updateByPrimaryKeySelective(od);//司机换人
 		}
 		OwnerDriver odc = new OwnerDriver();
 		odc.setCreator(memberId);
 		List<OwnerDriver> odcList = ownerDriverMapper.selectMyDriverByCondition(odc);
+		
+		OwnerDriver memberDriver = new OwnerDriver();
+		memberDriver.setDriverid(member.getId());
+		List<OwnerDriver> memberDrivers = ownerDriverMapper.selectMyDriverByCondition(memberDriver);
 		for(OwnerDriver od : odcList){
-			ownerDriverMapper.deleteByPrimaryKey(od.getId());
+			Boolean flag = true;
+			for(OwnerDriver md : memberDrivers){
+				if(od.getDriverid().equals(md.getDriverid())){//司机整合去重
+					ownerDriverMapper.deleteByPrimaryKey(od.getId());
+					flag = false;
+				}
+			}
+			if(flag){
+				od.setCreator(member.getId());
+				ownerDriverMapper.updateByPrimaryKeySelective(od);//司机归属更换
+			}
 		}
 	}
 
-	private void memberOwner(String memberId) {
+	private void memberOwner(String memberId,SystemMember member) {
 		MemberOwner ownerM = new MemberOwner();
 		ownerM.setMemberid(memberId);
 		List<MemberOwner> ownerMList = memberOwnerMapper.selectMyVehiOwnerByCondition(ownerM);
 		for(MemberOwner ow : ownerMList){
-			memberOwnerMapper.deleteByPrimaryKey(ow.getId());
+			ow.setMemberid(member.getId());
+			memberOwnerMapper.updateByPrimaryKeySelective(ow);
 		}
 		MemberOwner ownerO = new MemberOwner();
 		ownerO.setOwnerid(memberId);
 		List<MemberOwner> ownerOList = memberOwnerMapper.selectMyVehiOwnerByCondition(ownerO);
 		for(MemberOwner ow : ownerOList){
-			memberOwnerMapper.deleteByPrimaryKey(ow.getId());
+			ow.setOwnerid(member.getId());
+			memberOwnerMapper.updateByPrimaryKeySelective(ow);
 		}
 	}
 
-	private void memberCapa(String memberId) {
+	private void memberCapa(String memberId,SystemMember member) {
 		MemberCapa capao = new MemberCapa();
 		capao.setMemberid(memberId);
-		List<MemberCapaList> cpOw = memberCapaMapper.selectByCondition(capao);
-		for(MemberCapaList cp : cpOw){
-			memberCapaMapper.deleteByPrimaryKey(cp.getId());
+		List<MemberCapa> cpOw = memberCapaMapper.selectMemberCapaByCondition(capao);
+		for(MemberCapa cp : cpOw){
+			cp.setMemberid(member.getId());
+			memberCapaMapper.updateByPrimaryKeySelective(cp);
+		}
+		MemberCapa owner = new MemberCapa();
+		owner.setOwnerid(memberId);
+		List<MemberCapa> ownerCapa = memberCapaMapper.selectMemberCapaByCondition(owner);
+		for(MemberCapa cp : ownerCapa){
+			cp.setOwnerid(member.getId());
+			memberCapaMapper.updateByPrimaryKeySelective(cp);
 		}
 	}
 

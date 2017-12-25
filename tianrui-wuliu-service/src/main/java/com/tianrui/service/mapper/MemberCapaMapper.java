@@ -14,6 +14,8 @@ public interface MemberCapaMapper {
 
     MemberCapa selectByPrimaryKey(String id);
 
+    List<MemberCapa> selectMemberCapaByCondition(MemberCapa record);
+    
     int updateByPrimaryKeySelective(MemberCapa record);
 
     int updateByPrimaryKey(MemberCapa record);
