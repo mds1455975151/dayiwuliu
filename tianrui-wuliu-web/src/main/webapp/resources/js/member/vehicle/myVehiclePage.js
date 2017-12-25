@@ -249,6 +249,78 @@ function appendContentToBody(result, flag) {
 		}
 	}
 }
+
+/**
+ * 表体行『绑定司机』事件
+ * 
+ * @param vrowIndex_td td对应ID
+ * @param vehiId       车辆主键
+ * @param vehiNo 	   车牌号
+ * @param vehiTypeName 车型名
+ * @author guyuke
+ * @time 2016.06.12
+ */
+function vehiBind(vrowIndex_td, vehiDriverId, vehiId, vehiNo,alstatus, vehiTypeName) {
+//	alert(vehiId);
+	/** 隐藏项：车辆司机表主键 */
+	if (vehiDriverId == "undefined") {
+		$("#car_bdbox_vehiDriverId").val("");
+	} else {
+		$("#car_bdbox_vehiDriverId").val(vehiDriverId);
+	}
+	document.getElementById("car_bdbox_vehiId").value=vehiId;
+	document.getElementById("car_bdbox_vehiNo").value=vehiNo;
+	document.getElementById("car_bdbox_vehiTypeName").value=vehiTypeName;
+//	/** 隐藏项：车辆主键 */
+//	$("#car_bdbox_vehiId").val(vehiId);
+//	/** 隐藏项：车牌号 */
+//	$("#car_bdbox_vehiNo").val(vehiNo);
+//	/** 隐藏项：车辆类型名 */
+//	$("#car_bdbox_vehiTypeName").val(vehiTypeName);
+	/** 隐藏车辆安联认证状态*/
+	$("#car_bdbox_alstatus").val(alstatus);
+	//  -1 认证失败 0 未认证 1 认证成功 2 认证中
+	if(alstatus==2){
+		alert("车辆开票认证中,不能绑定司机");
+		return;
+	}
+	
+	// 暂时解除绑定关系
+	bindDiv.detach();
+	
+	// 重新建立绑定关系
+	$("#" + vrowIndex_td).append(bindDiv);
+	bindDiv.show();
+	$("#driverUl").empty();
+	if (driverList == null || driverList.length <= 0) {
+		/** <li> */	
+		var li1 = $("<li></li>");
+			/** <label> */	
+			var label1 = $("<label></label>").append("没有可用的司机信息！");
+			li1.append(label1);
+		$("#driverUl").append(li1);
+	} else {
+		for (var i=0; i<driverList.length; i++) {
+			var data = driverList[i];
+			appendContentToUl(data, i);
+		}
+		
+		// 司机信息列表某一项选中
+	    var chren = $('.car_mycar .car_bdbox ul li');
+	    chren.click(function(){
+	        $(this).addClass('select').siblings().removeClass('select');
+	    });
+	}
+	
+	// 绑定信息框关闭按钮
+    var cyclose = $('.car_bdbox i');
+    cyclose.click(function(){
+        $(".car_mycar .car_bdbox").hide();
+    });
+    
+    return false;
+}
+
 //开票认证 页面跳转
 function kaipiaoView(id,driverTel){
 	if(driverTel == 'undefined'){
@@ -348,73 +420,7 @@ $("#vehicle_searchBtn").click(function() {
 	
 });
 
-/**
- * 表体行『绑定司机』事件
- * 
- * @param vrowIndex_td td对应ID
- * @param vehiId       车辆主键
- * @param vehiNo 	   车牌号
- * @param vehiTypeName 车型名
- * @author guyuke
- * @time 2016.06.12
- */
-function vehiBind(vrowIndex_td, vehiDriverId, vehiId, vehiNo,alstatus, vehiTypeName) {
-	
-	/** 隐藏项：车辆司机表主键 */
-	if (vehiDriverId == "undefined") {
-		$("#car_bdbox_vehiDriverId").val("");
-	} else {
-		$("#car_bdbox_vehiDriverId").val(vehiDriverId);
-	}
-	/** 隐藏项：车辆主键 */
-	$("#car_bdbox_vehiId").val(vehiId);
-	/** 隐藏项：车牌号 */
-	$("#car_bdbox_vehiNo").val(vehiNo);
-	/** 隐藏项：车辆类型名 */
-	$("#car_bdbox_vehiTypeName").val(vehiTypeName);
-	/** 隐藏车辆安联认证状态*/
-	$("#car_bdbox_alstatus").val(alstatus);
-	//  -1 认证失败 0 未认证 1 认证成功 2 认证中
-	if(alstatus==2){
-		alert("车辆开票认证中,不能绑定司机");
-		return;
-	}
-	
-	// 暂时解除绑定关系
-	bindDiv.detach();
-	
-	// 重新建立绑定关系
-	$("#" + vrowIndex_td).append(bindDiv);
-	bindDiv.show();
-	$("#driverUl").empty();
-	if (driverList == null || driverList.length <= 0) {
-		/** <li> */	
-		var li1 = $("<li></li>");
-			/** <label> */	
-			var label1 = $("<label></label>").append("没有可用的司机信息！");
-			li1.append(label1);
-		$("#driverUl").append(li1);
-	} else {
-		for (var i=0; i<driverList.length; i++) {
-			var data = driverList[i];
-			appendContentToUl(data, i);
-		}
-		
-		// 司机信息列表某一项选中
-	    var chren = $('.car_mycar .car_bdbox ul li');
-	    chren.click(function(){
-	        $(this).addClass('select').siblings().removeClass('select');
-	    });
-	}
-	
-	// 绑定信息框关闭按钮
-    var cyclose = $('.car_bdbox i');
-    cyclose.click(function(){
-        $(".car_mycar .car_bdbox").hide();
-    });
-    
-    return false;
-}
+
 
 /**
  * 搜索功能使用的循环函数体，用于附加动态表体内容至<body/>标签
@@ -426,14 +432,6 @@ function vehiBind(vrowIndex_td, vehiDriverId, vehiId, vehiNo,alstatus, vehiTypeN
 function appendContentToUl(data, varI) {
 	
 	/** =======================此处坑爹，隐藏项不能及时更新 =======================*/
-	/** 隐藏项：车辆司机表主键 */
-	var vehiDriverId = $("#car_bdbox_vehiDriverId").val();
-	//** 隐藏项：车辆主键 */
-	var vehiId = $("#car_bdbox_vehiId").val();
-	//** 隐藏项：车牌号 *//*
-	var vehiNo = $("#car_bdbox_vehiNo").val();
-	//** 隐藏项：车辆类型名 */
-	var vehiTypeName = $("#car_bdbox_vehiTypeName").val();
 	/** <li> */	
 	var li1 = $("<li></li>");
 		/** <input> *//*	
@@ -448,11 +446,8 @@ function appendContentToUl(data, varI) {
 			var span1 = $("<button class='btn btnblue'></button>").attr("id", "driverUl_li_span" + varI)
 			.append("绑定")
 			.attr("onclick", 
-					"driverBind('" + vehiDriverId + "','"
-					+ vehiId + "','"
+					"driverBind('"
 					+ data.driverid + "','"
-					+ vehiNo + "','"
-					+ vehiTypeName + "','"
 					+ data.drivername + "','"
 					+ data.drivertel + "','"
 					+ data.remarkname + "','"
@@ -490,8 +485,7 @@ function buquanxinxi(id){
  * @author guyuke
  * @time 2016.06.13
  */
-function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName, 
-					        drivername, drivertel, remarkname, aldriverid, vListNo) {
+function driverBind(driverid,drivername, drivertel, remarkname, aldriverid, vListNo) {
 	
 	var status = $("#car_bdbox_alstatus").val();
 	//车辆，司机 均安联认证成功
@@ -503,14 +497,14 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 				url : PATH + '/trwuliu/Member/vehiDriver/delAndSaveVehiDriver',
 				data : {
 					memberId: member_id,
-					vehiDriverId: vehiDriverId,
+					vehiDriverId: $("#car_bdbox_vehiDriverId").val(),
 					driverId: driverid, 
 					driverName: drivername, 
 					driverTel: drivertel, 
 					driverRemark: remarkname, 
-					vehicleId: vehiId, 
-					vehicleNo: vehiNo, 
-					vehiTypeName: vehiTypeName, 
+					vehicleId: $("#car_bdbox_vehiId").val(), 
+					vehicleNo: $("#car_bdbox_vehiNo").val(), 
+					vehiTypeName: $("#car_bdbox_vehiTypeName").val(), 
 					vehiRemark: null
 				},
 				type : "post",
@@ -526,7 +520,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 						
 						$("#modal_common_content").html("绑定成功！");
 						$("#commonModal").modal();
-						
+						window.location.href=location;
 						// 延时关闭
 						setTimeout(function(){$("#commonModal").modal("hide");},1000);
 						$("#commonModal").on("hidden.bs.modal", function() {
@@ -552,14 +546,14 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 			url : PATH + '/trwuliu/Member/vehiDriver/delAndSaveVehiDriver',
 			data : {
 				memberId: member_id,
-				vehiDriverId: vehiDriverId,
+				vehiDriverId: $("#car_bdbox_vehiDriverId").val(),
 				driverId: driverid, 
 				driverName: drivername, 
 				driverTel: drivertel, 
 				driverRemark: remarkname, 
-				vehicleId: vehiId, 
-				vehicleNo: vehiNo, 
-				vehiTypeName: vehiTypeName, 
+				vehicleId: $("#car_bdbox_vehiId").val(), 
+				vehicleNo: $("#car_bdbox_vehiNo").val(), 
+				vehiTypeName: $("#car_bdbox_vehiTypeName").val(), 
 				vehiRemark: null
 			},
 			type : "post",
@@ -578,6 +572,7 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 					
 					// 延时关闭
 					setTimeout(function(){$("#commonModal").modal("hide");},1000);
+					window.location.href=location;
 					$("#commonModal").on("hidden.bs.modal", function() {
 						$("#vehicle_searchBtn").trigger("click");
 					});
@@ -589,6 +584,13 @@ function driverBind(vehiDriverId, vehiId, driverid, vehiNo, vehiTypeName,
 			}
 		});
 	}
+	
+	/** 隐藏项：车辆主键 */
+	$("#car_bdbox_vehiId").val("");
+	/** 隐藏项：车牌号 */
+	$("#car_bdbox_vehiNo").val("");
+	/** 隐藏项：车辆类型名 */
+	$("#car_bdbox_vehiTypeName").val("");
 	return false;
 }
 

@@ -118,11 +118,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <input type="text" placeholder="司机姓名 " id="car_bdbox_driverName">
 	            <input type="text" placeholder=" 联系方式" id="car_bdbox_driverTel">
 	            <!-- 隐藏项：车辆司机主键、车辆主键、车辆类型名、车牌号 -->
-	            <input type="hidden" id="car_bdbox_vehiDriverId">
-	            <input type="hidden" id="car_bdbox_vehiId">
-	            <input type="hidden" id="car_bdbox_vehiTypeName">
-	            <input type="hidden" id="car_bdbox_vehiNo">
-	             <input type="hidden" id="car_bdbox_alstatus">
+	            <input type="hidden" id="car_bdbox_vehiDriverId" value="">
+	            <input type="hidden" id="car_bdbox_vehiId" value="">
+	            <input type="hidden" id="car_bdbox_vehiTypeName" value="">
+	            <input type="hidden" id="car_bdbox_vehiNo" value="">
+	            <input type="hidden" id="car_bdbox_alstatus" value="">
 	            <button class="btn btnyello" type="submit" onclick="getTheDriverOutOfRange();" >搜索</button>
 	        </div>
 	        <div class="car_scroll">
@@ -183,6 +183,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!-- 弹框end -->
 		<script type="text/javascript" src="/resources/js/common/member/header_busi.js" ></script>
-		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?12.13" ></script>
+		<script type="text/javascript" src="/resources/js/member/vehicle/myVehiclePage.js?122365" ></script>
 	</body>
 </html>
