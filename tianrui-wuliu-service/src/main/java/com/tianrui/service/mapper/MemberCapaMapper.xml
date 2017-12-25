@@ -21,28 +21,22 @@
     desc1, desc2, desc3, desc4
   </sql>
   
-  <select id="selectMemberCapaByCondition" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectMemberCapaByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.MemberCapa" >
     select 
     <include refid="Base_Column_List" />
-    from wuliu_member_capa
+    from wuliu_member_capa vd 
     <where>1=1
 		<if test="id != null and id!= ''">
 			and vd.id = #{id,jdbcType=VARCHAR}
 		</if>
-    	<if test="vehicleno != null and vehicleno != ''">
-    		and vd.vehicleno like "%" #{vehicleno,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="drivername != null and drivername != ''">
-    		and vd.drivername like "%" #{drivername,jdbcType=VARCHAR} "%"
-    	</if>
-    	<if test="drivertel != null and drivertel != ''">
-    		and vd.drivertel like "%" #{drivertel,jdbcType=VARCHAR} "%"
+		<if test="creater != null and creater != ''">
+    		and vd.creater = #{creater,jdbcType=VARCHAR}
     	</if>
     	<if test="memberid != null and memberid != ''">
-    		and vd.creator = #{memberid,jdbcType=VARCHAR}
+    		and vd.memberid = #{memberid,jdbcType=VARCHAR}
     	</if>
-    	<if test="vehicleid != null and vehicleid != ''">
-    		and vd.vehicleid = #{vehicleid,jdbcType=VARCHAR}
+    	<if test="ownerid != null and ownerid != ''">
+    		and vd.ownerid = #{ownerid,jdbcType=VARCHAR}
     	</if>
     </where>
   </select>

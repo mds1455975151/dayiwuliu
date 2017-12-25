@@ -691,20 +691,37 @@ public class MemberMergerService implements IMemberMergerService{
 	}
 
 	private void memberCapa(String memberId,SystemMember member) {
+		
+		MemberCapa myorder = new MemberCapa();
+		myorder.setOwnerid(member.getId());
+		List<MemberCapa> myorders = memberCapaMapper.selectMemberCapaByCondition(myorder);
+		
+		MemberCapa owner = new MemberCapa();
+		owner.setOwnerid(memberId);
+		List<MemberCapa> ownerCapa = memberCapaMapper.selectMemberCapaByCondition(owner);
+		for(MemberCapa cp : ownerCapa){
+			boolean flag = true;
+			for(MemberCapa mo : myorders){
+				if(mo.getVehicleid().equals(cp.getVehicleid())){
+					memberCapaMapper.deleteByPrimaryKey(cp.getId());
+					flag = false;
+				}
+			}
+			if(flag){
+				cp.setOwnerid(member.getId());
+				memberCapaMapper.updateByPrimaryKeySelective(cp);
+			}
+		}
+		
 		MemberCapa capao = new MemberCapa();
 		capao.setMemberid(memberId);
 		List<MemberCapa> cpOw = memberCapaMapper.selectMemberCapaByCondition(capao);
 		for(MemberCapa cp : cpOw){
 			cp.setMemberid(member.getId());
+			cp.setCreater(member.getId());
 			memberCapaMapper.updateByPrimaryKeySelective(cp);
 		}
-		MemberCapa owner = new MemberCapa();
-		owner.setOwnerid(memberId);
-		List<MemberCapa> ownerCapa = memberCapaMapper.selectMemberCapaByCondition(owner);
-		for(MemberCapa cp : ownerCapa){
-			cp.setOwnerid(member.getId());
-			memberCapaMapper.updateByPrimaryKeySelective(cp);
-		}
+		
 	}
 
 	private void wuliuMemberVehicle(String memberId,SystemMember member) {
