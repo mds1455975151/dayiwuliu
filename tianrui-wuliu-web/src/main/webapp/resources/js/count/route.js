@@ -123,6 +123,6 @@ $(document).ready(function(){
 			}
 		}
 	});    
-	window.scrollTo(0,560);
+	//window.scrollTo(0,560);
 });
 
