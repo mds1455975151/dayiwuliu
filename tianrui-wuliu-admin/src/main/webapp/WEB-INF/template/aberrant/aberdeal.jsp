@@ -16,6 +16,7 @@
 <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
 <link href="${stylesRoot }/base.css" rel="stylesheet">
 <link href="${stylesRoot }/style.css" rel="stylesheet">
+<link href="${stylesRoot }/styleadmin.css" rel="stylesheet">
 <link href="${stylesRoot }/tr-media.css" rel="stylesheet">
 <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
 <link href="${stylesRoot }/bootstrap-datetimepicker.min.css"

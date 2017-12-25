@@ -16,6 +16,7 @@
 <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
 <link href="${stylesRoot }/base.css" rel="stylesheet">
 <link href="${stylesRoot }/style.css" rel="stylesheet">
+<link href="${stylesRoot }/styleadmin.css" rel="stylesheet">
 <link href="${stylesRoot }/tr-media.css" rel="stylesheet">
 <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
 <link href="${stylesRoot }/bootstrap-datetimepicker.min.css"
@@ -114,6 +115,50 @@
 	<!--后台整体布局end-->
 	<!--侧边栏end-->
 	</div>
+	
+	<!--新增begin-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >新增司机</h4>
+            </div>
+            <div class="modal-body" style=" ">
+                <div class="yichmodal">
+                    <div class="ycmodel_width">
+                        <label><i style="color: #ff2f00;">*</i>推送群体：</label>
+                        <select class="form-control">
+                            <option>请选择</option>
+                            <option>认证失败</option>
+                            <option>认证成功</option>
+                        </select>
+                    </div>
+                    <div class="ycmodel_width">
+                        <label><i style="color: #ff2f00;">*</i>推送渠道：</label>
+                        <select class="form-control">
+                            <option>请选择</option>
+                            <option>认证失败</option>
+                            <option>认证成功</option>
+                        </select>
+                    </div>
+                    <div class="yctexarea_width">
+                        <label><i style="color: #ff2f00;">*</i>推送内容：</label>
+                        <textarea class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">推送</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新增end-->
+
 	<!--修改密码end-->
 	<%@include file="../common/footer.jsp"%>
 	<script type="text/javascript" src="${scriptsRoot}/bootstrap-datetimepicker.js" charset="UTF-8"></script>
