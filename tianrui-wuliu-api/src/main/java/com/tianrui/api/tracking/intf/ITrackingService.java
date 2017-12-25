@@ -14,6 +14,6 @@ public interface ITrackingService {
 	 * @return
 	 */
 	Result save(TrackReq req) ;
-	
+	/** 在途轨迹查询*/
 	public PaginationVO<CustomRcordResp> select(TrackSelectReq req)throws Exception;
 }

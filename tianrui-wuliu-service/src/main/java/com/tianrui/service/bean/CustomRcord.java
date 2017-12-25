@@ -6,6 +6,10 @@ public class CustomRcord {
 	
 	private Integer pageSize;
 	
+	private Long createTimeBegin;//预警时间开始
+    
+    private Long createTimeEnd;//预警时间结束
+	
     private Long id;//主键
 
     private Byte problemType;//问题类型1-轨迹异常
@@ -250,5 +254,21 @@ public class CustomRcord {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Long getCreateTimeBegin() {
+		return createTimeBegin;
+	}
+
+	public void setCreateTimeBegin(Long createTimeBegin) {
+		this.createTimeBegin = createTimeBegin;
+	}
+
+	public Long getCreateTimeEnd() {
+		return createTimeEnd;
+	}
+
+	public void setCreateTimeEnd(Long createTimeEnd) {
+		this.createTimeEnd = createTimeEnd;
 	}
 }

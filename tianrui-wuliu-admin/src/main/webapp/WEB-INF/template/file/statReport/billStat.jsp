@@ -55,25 +55,24 @@
 									onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
 									class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
 							</div>
-							<div class="ht_divbtn">
-								<button class="btn btnblue search" type="submit">搜索</button>
-								<button class="btn btngreen reset" type="submit">重置</button>
-							</div>
-						</div>
-						<div class="contuser_search">
+							
 							<div class="ht_div">
 								<label>运输路线：</label> <input id="routename" type="text" placeholder="请输入运单路线">
 							</div>
 							<div class="ht_div">
 								<label>计划单号：</label> <input id="plancode" type="text" placeholder="请输入计划单号">
 							</div>
-						</div>
+							<div class="ht_divbtn">
+								<button class="btn btnblue search" type="submit">搜索</button>
+								<button class="btn btngreen reset" type="submit">重置</button>
+							</div>
 					</div>
+				</div>
 				</div>
 				<!--查询框end-->
 				<div class="row mt15">
 					<div class="col-md-12">
-						<div class="content-user" style="width: 1544px;">
+						<div class="content-user">
 							<div class="pro_opra">
 								<button class="btn btnblue exportReport">导出</button>
 								<button class="btn btnorange printReport">打印</button>
@@ -143,7 +142,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 			<!--后台右侧布局end-->
 		</div>
 		<!--后台整体布局end-->

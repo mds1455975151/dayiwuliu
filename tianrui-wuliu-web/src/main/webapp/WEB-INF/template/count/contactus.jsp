@@ -21,7 +21,7 @@
 <div class="bghui">
     <div class="wrap">
         <!--登录头部行begin-->
-        <div class="header">
+        <div class="header_tj">
             <div class="header_left">
                 <label class="mr10">大易物流平台</label>
                 <a href="/count/route"><label> 请[登录]</label></a>

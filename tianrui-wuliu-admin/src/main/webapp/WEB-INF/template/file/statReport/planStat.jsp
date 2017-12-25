@@ -68,7 +68,7 @@
 				<!--查询框end-->
 				<div class="row mt15">
 					<div class="col-md-12">
-						<div class="content-user" style="width: 1544px;">
+						<div class="content-user">
 							<div class="pro_opra">
 								<button class="btn btnblue exportReport">导出</button>
 								<button class="btn btnorange printReport">打印</button>

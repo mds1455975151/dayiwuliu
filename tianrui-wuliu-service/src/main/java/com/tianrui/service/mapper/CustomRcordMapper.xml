@@ -39,9 +39,33 @@
     from custom_record
     <where>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="customerName != null and customerName != ''">
+    		and customer_name like "%" #{customerName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="contactNumber != null and contactNumber != ''">
+    		and contact_number like "%" #{contactNumber,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR} "%"
+    	</if>
+    	
+    	<if test="problemType != null and problemType != ''">
+    		and problem_type = #{problemType,jdbcType=TINYINT}
+    	</if>
+    	<if test="solvingState != null and solvingState != ''">
+    		and solving_state = #{solvingState,jdbcType=TINYINT}
+    	</if>
+    	
+    	<if test="createTimeBegin != null and createTimeBegin != ''">
+    		and create_time <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="createTimeEnd != null and createTimeEnd != ''">
+    		and create_time <![CDATA[<=]]> #{createTimeEnd,jdbcType=BIGINT}
     	</if>
     </where>
+    order by create_time desc
     <if test="pageNo != null">
      limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
     </if>
@@ -53,7 +77,30 @@
     from custom_record
     <where>
     	<if test="cellphone != null and cellphone != ''">
-    		and cellphone = #{cellphone,jdbcType=VARCHAR}
+    		and cellphone like "%" #{cellphone,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="customerName != null and customerName != ''">
+    		and customer_name like "%" #{customerName,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="contactNumber != null and contactNumber != ''">
+    		and contact_number like "%" #{contactNumber,jdbcType=VARCHAR} "%"
+    	</if>
+    	<if test="vehicleNo != null and vehicleNo != ''">
+    		and vehicle_no like "%" #{vehicleNo,jdbcType=VARCHAR} "%"
+    	</if>
+    	
+    	<if test="problemType != null and problemType != ''">
+    		and problem_type = #{problemType,jdbcType=TINYINT}
+    	</if>
+    	<if test="solvingState != null and solvingState != ''">
+    		and solving_state = #{solvingState,jdbcType=TINYINT}
+    	</if>
+    	
+    	<if test="createTimeBegin != null and createTimeBegin != ''">
+    		and create_time <![CDATA[>=]]> #{createTimeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="createTimeEnd != null and createTimeEnd != ''">
+    		and create_time <![CDATA[<=]]> #{createTimeEnd,jdbcType=BIGINT}
     	</if>
     </where>
   </select>

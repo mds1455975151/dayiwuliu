@@ -60,6 +60,7 @@ public class TrackingService implements ITrackingService {
 	public PaginationVO<CustomRcordResp> select(TrackSelectReq req) throws Exception {
 		PaginationVO<CustomRcordResp> page = new PaginationVO<CustomRcordResp>();
 		CustomRcord query = new CustomRcord();
+		PropertyUtils.copyProperties(query, req);
 		if(req.getPageNo()!= null){
 			query.setPageNo(req.getPageNo()*req.getPageSize());
 			query.setPageSize(req.getPageSize());

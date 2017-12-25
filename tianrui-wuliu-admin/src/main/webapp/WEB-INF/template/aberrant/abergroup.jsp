@@ -16,6 +16,7 @@
 <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
 <link href="${stylesRoot }/base.css" rel="stylesheet">
 <link href="${stylesRoot }/style.css" rel="stylesheet">
+<link href="${stylesRoot }/styleadmin.css" rel="stylesheet">
 <link href="${stylesRoot }/tr-media.css" rel="stylesheet">
 <link href="${stylesRoot }/easyTree.css" rel="stylesheet">
 <link href="${stylesRoot }/bootstrap-datetimepicker.min.css"
@@ -42,28 +43,13 @@
 				<!--查询框begin-->
 				<div class="row">
                     <div class="col-md-12">
-                        <div class="ht_div">
-                            <label>运单号：</label> <input id="billNo" type="text" placeholder="请输入运单号">
-                        </div>
-                        <div class="ht_div">
-                            <label>登录手机号：</label> <input id="cellphone" type="text" placeholder="请输入手机号">
-                        </div>
-                        <div class="ht_div" >
-                            <label>身份证号：</label> <input id="vehicleNo" type="text" placeholder="请输入身份证号">
-                        </div>
-                        <div class="ht_div">
-							<label>卸货时间:</label>
-						 <input id="starttime" type="text" 
-						 onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\');}',dateFmt:'yyyy-MM-dd'})"
-								class="Wdate" style="width: 160px" placeholder="请选择开始日期" readonly/> <i>-</i>
-						<input id="endtime" type="text"
-								onfocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\');}',dateFmt:'yyyy-MM-dd'})"
-								class="Wdate" style="width: 160px" placeholder="请选择结束日期" readonly/>
-						</div>
-						<div class="ht_bagbtn">
-                            <button class="btn btngreen" onclick="timetd()" type="submit">今天</button>
-                            <button class="btn btngreen" onclick="timeseven()" type="submit">最近7天</button>
-                            <button class="btn btngreen" onclick="timethirty()" type="submit">最近30天</button>
+						<div class="ht_div">
+                           <label>群体类型：</label>
+                           <select class="form-control" id="zhbusi">
+                               <option value="">请选择</option>
+                               <option value="-1">全部</option>
+                               <option value="0">轨迹异常</option>
+                           </select>
                         </div>
                         <div class="ht_divbtn">
                             <button class="btn btnblue search" onclick="init(0)" type="submit">搜索</button>
@@ -72,6 +58,9 @@
                     </div>
                 </div>
 				<!--查询框end-->
+				<div class="quntibtn">
+                   <button class="btn btnblue " type="submit">更新</button>
+                </div>
 				<div class="row mt15">
 					<div class="col-md-12">
 						<div class="content-user">
@@ -79,14 +68,14 @@
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">
 								<thead>
-									<tr>
+								<tr>
                                     <th>序号</th>
+                                    <th>唯一识别码</th>
                                     <th>姓名</th>
-                                    <th>登录手机号</th>
-                                    <th>身份证号</th>
-                                    <th>卸货时间</th>
-                                    <th>预计收入金额</th>
-                                    <th>运单号</th>
+                                    <th>联系电话</th>
+                                    <th>账户</th>
+                                    <th>群体类别</th>
+                                    <th>备注</th>
                                 </tr>
 								</thead>
 								<tbody id="innerHtml">
