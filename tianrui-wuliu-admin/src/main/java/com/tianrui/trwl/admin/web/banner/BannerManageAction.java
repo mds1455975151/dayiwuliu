@@ -22,8 +22,25 @@ public class BannerManageAction {
 	@Autowired
 	private IBannerManageService bannerManageService;
 
+	/**
+	 * 跳转到AppBanner管理主页面
+	 * @author xcy
+	 * @return
+	 */
 	@RequestMapping("/bannerpage")
 	public ModelAndView bannerPage(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/appbanner/uploading");		
+		return view;
+	}
+	
+	/**
+	 * 跳转到AppBanner管理新增页面
+	 * @author xcy
+	 * @return
+	 */
+	@RequestMapping("/bannerAddPage")
+	public ModelAndView bannerAddPage(){
 		ModelAndView view = new ModelAndView();
 		view.setViewName("/appbanner/appbanner");		
 		return view;
