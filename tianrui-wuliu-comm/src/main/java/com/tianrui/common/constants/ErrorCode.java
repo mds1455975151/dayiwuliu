@@ -115,7 +115,12 @@ public enum ErrorCode {
 	
 	
 	MEMBER_MERGER_NULL("E800001","未查询到该用户"),
-	MEMBER_VEHICLE_STATUS("E800002","存在非空闲车辆")
+	MEMBER_VEHICLE_STATUS("E800002","存在非空闲车辆"),
+	
+	MESSAGE_GROUP_ERNULL("E900001","未查到对应数据"),
+	MESSAGE_GROUP_ERMEMBER("E900002","推送用户id有误"),
+	MESSAGE_GROUP_PUSHIDNULL("E900003","未找到用户推送ID"),
+	MESSAGE_GROUP_MSGNULL("E900004","推送消息为空")
 	;
 	
 	private String code;

@@ -2,7 +2,7 @@ package com.tianrui.api.req.groupMsg;
 
 public class PushGroupMessageReq {
 
-	private String id;//处理数据id
+	private Long id;//处理数据id
 	
 	private String msgType;//消息类型  1-手机(短信)  2-APP   3-电话通知
 	
@@ -14,11 +14,11 @@ public class PushGroupMessageReq {
 	
 	private String sysUser;//操作员
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
