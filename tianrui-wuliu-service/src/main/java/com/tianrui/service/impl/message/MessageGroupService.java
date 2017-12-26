@@ -1,5 +1,9 @@
 package com.tianrui.service.impl.message;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,15 +14,24 @@ import com.tianrui.api.intf.ISendMobileMessage;
 import com.tianrui.api.message.intf.IMessageGroupService;
 import com.tianrui.api.req.common.SmsDetails;
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
+import com.tianrui.api.req.groupMsg.MessageGroupReq;
 import com.tianrui.api.req.groupMsg.PushGroupMessageReq;
+import com.tianrui.api.resp.groupMsg.MessageGroupPushResp;
+import com.tianrui.api.resp.groupMsg.MessageGroupResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.CustomRcord;
 import com.tianrui.service.bean.MemberPush;
 import com.tianrui.service.bean.MemberPushOwner;
+import com.tianrui.service.bean.MessageGroup;
+import com.tianrui.service.bean.MessageGroupPush;
 import com.tianrui.service.mapper.CustomRcordMapper;
 import com.tianrui.service.mapper.MemberPushMapper;
 import com.tianrui.service.mapper.MemberPushOwnerMapper;
+import com.tianrui.service.mapper.MessageGroupMapper;
+import com.tianrui.service.mapper.MessageGroupPushMapper;
 import com.tianrui.service.util.AndroidPushUtils;
 import com.tianrui.service.util.IosPushUtils;
 
@@ -35,6 +48,56 @@ public class MessageGroupService implements IMessageGroupService{
 	MemberPushOwnerMapper memberPushOwnerMapper;
 	@Autowired
 	ISendMobileMessage sendMobileMessage;
+	@Autowired
+	MessageGroupPushMapper messageGroupPushMapper;
+	@Autowired
+	MessageGroupMapper messageGroupMapper;
+	
+	@Override
+	public PaginationVO<MessageGroupResp> selectMsgGroup(MessageGroupReq req) throws Exception {
+		PaginationVO<MessageGroupResp> page = new PaginationVO<MessageGroupResp>();
+		MessageGroup query = new MessageGroup();
+		if(req.getPageNo()!=null){
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		List<MessageGroup> list = messageGroupMapper.selectByCondition(query);
+		long a = messageGroupMapper.selectByCount(query);
+		List<MessageGroupResp> resp = new ArrayList<MessageGroupResp>();
+		for(MessageGroup sp : list){
+			MessageGroupResp msg = new MessageGroupResp();
+			PropertyUtils.copyProperties(msg, sp);
+			resp.add(msg);
+		}
+		page.setList(resp);
+		page.setTotal(a);
+		return page;
+	}
+
+	@Override
+	public PaginationVO<MessageGroupPushResp> selectMsgGroupPush(MessageGroupPushReq req) throws Exception {
+		PaginationVO<MessageGroupPushResp> page = new PaginationVO<MessageGroupPushResp>();
+		MessageGroupPush query = new MessageGroupPush();
+		if(req.getPageNo()!=null){
+			query.setPageNo(req.getPageNo()*req.getPageSize());
+			query.setPageSize(req.getPageSize());
+			page.setPageNo(req.getPageNo());
+			page.setPageSize(req.getPageSize());
+		}
+		List<MessageGroupPush> list = messageGroupPushMapper.selectByCondition(query);
+		long a = messageGroupPushMapper.selectByCount(query);
+		List<MessageGroupPushResp> resp = new ArrayList<MessageGroupPushResp>();
+		for(MessageGroupPush pu : list){
+			MessageGroupPushResp sp = new MessageGroupPushResp();
+			PropertyUtils.copyProperties(sp, pu);
+			resp.add(sp);
+		}
+		page.setList(resp);
+		page.setTotal(a);
+		return page;
+	}
 	
 	@Override
 	public Result uptErrMsg(CustomRcordReq req) throws Exception {

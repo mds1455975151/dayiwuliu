@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.MessageGroup;
 
 public interface MessageGroupMapper {
@@ -14,4 +16,8 @@ public interface MessageGroupMapper {
     int updateByPrimaryKeySelective(MessageGroup record);
 
     int updateByPrimaryKey(MessageGroup record);
+    
+    List<MessageGroup> selectByCondition(MessageGroup record);
+    
+    long selectByCount(MessageGroup record);
 }

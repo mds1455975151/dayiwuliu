@@ -1,6 +1,11 @@
 package com.tianrui.service.bean;
 
 public class MessageGroup {
+	
+	private Integer pageNo;
+	
+	private Integer pageSize;
+	
     private String id;
 
     private String groupType;
@@ -170,4 +175,20 @@ public class MessageGroup {
     public void setDesc4(String desc4) {
         this.desc4 = desc4 == null ? null : desc4.trim();
     }
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
 }

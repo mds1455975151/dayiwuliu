@@ -1,5 +1,7 @@
 package com.tianrui.service.mapper;
 
+import java.util.List;
+
 import com.tianrui.service.bean.MessageGroupPush;
 
 public interface MessageGroupPushMapper {
@@ -14,4 +16,8 @@ public interface MessageGroupPushMapper {
     int updateByPrimaryKeySelective(MessageGroupPush record);
 
     int updateByPrimaryKey(MessageGroupPush record);
+    
+    List<MessageGroupPush> selectByCondition(MessageGroupPush record);
+    
+    long selectByCount(MessageGroupPush record);
 }

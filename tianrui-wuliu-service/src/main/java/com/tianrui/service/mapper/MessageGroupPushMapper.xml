@@ -23,6 +23,33 @@
     id, group_type, group_name, chinnal_type, chinnal_name, push_count, push_message, 
     push_status, creater, create_time, modify, modify_time, desc1, desc2, desc3, desc4
   </sql>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.MessageGroupPush" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_group_push
+    <where>
+    	<if test="groupType != null and groupType != ''">
+    		and group_type = #{id,jdbcType=groupType}
+    	</if>
+    </where>
+    order by create_time desc
+    <if test="pageNo != null">
+     limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="selectByCount" resultType="long" parameterType="com.tianrui.service.bean.MessageGroupPush" >
+    select 
+    	count(0)
+    from message_group_push
+    <where>
+    	<if test="groupType != null and groupType != ''">
+    		and group_type = #{id,jdbcType=groupType}
+    	</if>
+    </where>
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
