@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.intf.IBannerManageService;
 import com.tianrui.api.req.admin.BannerManagerReq;
@@ -15,12 +16,19 @@ import com.tianrui.service.admin.bean.Users;
 import com.tianrui.trwl.admin.util.SessionManager;
 
 @Controller
-@RequestMapping("banner")
+@RequestMapping("/admin/banner")
 public class BannerManageAction {
 	
 	@Autowired
 	private IBannerManageService bannerManageService;
 
+	@RequestMapping("/bannerpage")
+	public ModelAndView bannerPage(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/appbanner/appbanner");		
+		return view;
+	}
+	
 	/**
 	 * 查询banner管理图片信息
 	 * @author xcy
