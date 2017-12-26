@@ -31,7 +31,12 @@ public class CapitalRecordServiceTest {
 	IWithdrawRecordService withdrawRecordService;
 	@Autowired
 	IMessageRollingService messageRollingService;
-	@Test
+	
+	public static void main(String[] args) {
+		System.out.println(System.currentTimeMillis()-Integer.valueOf(15)*24*60*60*1000);
+		
+	}
+	
 	public void dsasd(){
 		Result rs = messageRollingService.getAppPlatformMessage();
 		System.out.println("success......");

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.MessageGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.MessageGroup" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_type" property="groupType" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="chinnl_id" property="chinnlId" jdbcType="VARCHAR" />
+    <result column="chinnl_type" property="chinnlType" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
+    <result column="group_remark" property="groupRemark" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="caeate_time" property="caeateTime" jdbcType="BIGINT" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
+    <result column="desc1" property="desc1" jdbcType="VARCHAR" />
+    <result column="desc2" property="desc2" jdbcType="VARCHAR" />
+    <result column="desc3" property="desc3" jdbcType="VARCHAR" />
+    <result column="desc4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, group_type, group_name, chinnl_id, chinnl_type, user_name, user_phone, cellphone, 
+    group_remark, creater, caeate_time, modify, modify_time, desc1, desc2, desc3, desc4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_group
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from message_group
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.MessageGroup" >
+    insert into message_group (id, group_type, group_name, 
+      chinnl_id, chinnl_type, user_name, 
+      user_phone, cellphone, group_remark, 
+      creater, caeate_time, modify, 
+      modify_time, desc1, desc2, 
+      desc3, desc4)
+    values (#{id,jdbcType=VARCHAR}, #{groupType,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{chinnlId,jdbcType=VARCHAR}, #{chinnlType,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, #{groupRemark,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{caeateTime,jdbcType=BIGINT}, #{modify,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=BIGINT}, #{desc1,jdbcType=VARCHAR}, #{desc2,jdbcType=VARCHAR}, 
+      #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.MessageGroup" >
+    insert into message_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="groupType != null" >
+        group_type,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="chinnlId != null" >
+        chinnl_id,
+      </if>
+      <if test="chinnlType != null" >
+        chinnl_type,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="cellphone != null" >
+        cellphone,
+      </if>
+      <if test="groupRemark != null" >
+        group_remark,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="caeateTime != null" >
+        caeate_time,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="desc1 != null" >
+        desc1,
+      </if>
+      <if test="desc2 != null" >
+        desc2,
+      </if>
+      <if test="desc3 != null" >
+        desc3,
+      </if>
+      <if test="desc4 != null" >
+        desc4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="groupType != null" >
+        #{groupType,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="chinnlId != null" >
+        #{chinnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="chinnlType != null" >
+        #{chinnlType,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="groupRemark != null" >
+        #{groupRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="caeateTime != null" >
+        #{caeateTime,jdbcType=BIGINT},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.MessageGroup" >
+    update message_group
+    <set >
+      <if test="groupType != null" >
+        group_type = #{groupType,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="chinnlId != null" >
+        chinnl_id = #{chinnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="chinnlType != null" >
+        chinnl_type = #{chinnlType,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cellphone != null" >
+        cellphone = #{cellphone,jdbcType=VARCHAR},
+      </if>
+      <if test="groupRemark != null" >
+        group_remark = #{groupRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="caeateTime != null" >
+        caeate_time = #{caeateTime,jdbcType=BIGINT},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="desc1 != null" >
+        desc1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        desc2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        desc3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        desc4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.MessageGroup" >
+    update message_group
+    set group_type = #{groupType,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      chinnl_id = #{chinnlId,jdbcType=VARCHAR},
+      chinnl_type = #{chinnlType,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      cellphone = #{cellphone,jdbcType=VARCHAR},
+      group_remark = #{groupRemark,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      caeate_time = #{caeateTime,jdbcType=BIGINT},
+      modify = #{modify,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=BIGINT},
+      desc1 = #{desc1,jdbcType=VARCHAR},
+      desc2 = #{desc2,jdbcType=VARCHAR},
+      desc3 = #{desc3,jdbcType=VARCHAR},
+      desc4 = #{desc4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
