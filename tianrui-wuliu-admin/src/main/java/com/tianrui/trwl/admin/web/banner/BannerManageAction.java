@@ -30,7 +30,7 @@ public class BannerManageAction {
 	@RequestMapping("/bannerpage")
 	public ModelAndView bannerPage(){
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/appbanner/uploading");		
+		view.setViewName("/appbanner/appbanner");		
 		return view;
 	}
 	
@@ -42,7 +42,7 @@ public class BannerManageAction {
 	@RequestMapping("/bannerAddPage")
 	public ModelAndView bannerAddPage(){
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/appbanner/appbanner");		
+		view.setViewName("/appbanner/uploading");		
 		return view;
 	}
 	
