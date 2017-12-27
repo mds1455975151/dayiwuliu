@@ -219,23 +219,23 @@ public class MemberMergerService implements IMemberMergerService{
 	 * @param base
 	 */
 	private void doMemberInfo(SystemMember member, String memberId, SystemMember base) {
-		if(!"1".equals(member.getDriverpercheck())){
-			if("1".equals(base.getDriverpercheck())){
+		if(member.getDriverpercheck() != 1){
+			if(base.getDriverpercheck() == 1){
 				member.setDriverpercheck((short)1);//修改为司机认证成功
 				systemMemberMapper.updateByPrimaryKeySelective(member);
 				SystemMemberInfo record = new SystemMemberInfo();
 				record.setMemberid(memberId);
 				List<SystemMemberInfo>  list = systemMemberInfoMapper.selectSelective(record);
-				systemMemberInfoMapper.deleteByPrimaryKey(member.getId());//删除认证信息
 				for(SystemMemberInfo info :list){
+					info.setId(member.getId());
 					info.setMemberid(member.getId());//修改认证资料归属
-					systemMemberInfoMapper.updateByPrimaryKeySelective(info);
+					systemMemberInfoMapper.updateByPrimaryKeySelective(info);//删除认证信息
 				}
 			}else {
-				systemMemberInfoMapper.deleteByPrimaryKey(memberId);
+				systemMemberInfoMapper.deleteByPrimaryKey(memberId);//删除认证信息
 			}
 		}else {
-			systemMemberInfoMapper.deleteByPrimaryKey(memberId);
+			systemMemberInfoMapper.deleteByPrimaryKey(memberId);//删除认证信息
 		}
 	}
 
@@ -656,11 +656,11 @@ public class MemberMergerService implements IMemberMergerService{
 		List<OwnerDriver> odcList = ownerDriverMapper.selectMyDriverByCondition(odc);
 		
 		OwnerDriver memberDriver = new OwnerDriver();
-		memberDriver.setDriverid(member.getId());
+		memberDriver.setCreator(member.getId());
 		List<OwnerDriver> memberDrivers = ownerDriverMapper.selectMyDriverByCondition(memberDriver);
-		for(OwnerDriver od : odcList){
+		for(OwnerDriver od : odcList){//循环待处理司机
 			Boolean flag = true;
-			for(OwnerDriver md : memberDrivers){
+			for(OwnerDriver md : memberDrivers){//判定账户是否已有该司机
 				if(od.getDriverid().equals(md.getDriverid())){//司机整合去重
 					ownerDriverMapper.deleteByPrimaryKey(od.getId());
 					flag = false;
@@ -693,14 +693,14 @@ public class MemberMergerService implements IMemberMergerService{
 	private void memberCapa(String memberId,SystemMember member) {
 		
 		MemberCapa myorder = new MemberCapa();
-		myorder.setOwnerid(member.getId());
-		List<MemberCapa> myorders = memberCapaMapper.selectMemberCapaByCondition(myorder);
+		myorder.setCreater(member.getId());
+		List<MemberCapa> myorders = memberCapaMapper.selectMemberCapaByCondition(myorder);//原有运力
 		
 		MemberCapa owner = new MemberCapa();
-		owner.setOwnerid(memberId);
-		List<MemberCapa> ownerCapa = memberCapaMapper.selectMemberCapaByCondition(owner);
+		owner.setCreater(memberId);
+		List<MemberCapa> ownerCapa = memberCapaMapper.selectMemberCapaByCondition(owner);//待处理运力
+		boolean flag = true;
 		for(MemberCapa cp : ownerCapa){
-			boolean flag = true;
 			for(MemberCapa mo : myorders){
 				if(mo.getVehicleid().equals(cp.getVehicleid())){
 					memberCapaMapper.deleteByPrimaryKey(cp.getId());
@@ -708,17 +708,16 @@ public class MemberMergerService implements IMemberMergerService{
 				}
 			}
 			if(flag){
-				cp.setOwnerid(member.getId());
+				cp.setMemberid(member.getId());
+				cp.setCreater(member.getId());//修改运力所有人，创建者、使用者
 				memberCapaMapper.updateByPrimaryKeySelective(cp);
 			}
 		}
-		
 		MemberCapa capao = new MemberCapa();
-		capao.setMemberid(memberId);
+		capao.setOwnerid(memberId);
 		List<MemberCapa> cpOw = memberCapaMapper.selectMemberCapaByCondition(capao);
 		for(MemberCapa cp : cpOw){
-			cp.setMemberid(member.getId());
-			cp.setCreater(member.getId());
+			cp.setOwnerid(member.getId());//修改运力归属车主
 			memberCapaMapper.updateByPrimaryKeySelective(cp);
 		}
 		

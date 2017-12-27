@@ -59,9 +59,13 @@ public class TrackWarningTrigger {
         			record.setCreateTime(new Date().getTime());
         			record.setCustomerId(b.getDriverid());
         			record.setCustomerName(b.getDrivername());
-        			record.setLossTime(new Date().getTime() - 15*60*1000);
+        			record.setLossTime(new Date().getTime() - 4*60*1000);
         			record.setProblemType((byte)1);
         			record.setSolvingState((byte)0);
+        			record.setVehicleNo(b.getVehicleno());
+        			record.setIfCall((byte)0);
+        			record.setIfPush((byte)0);
+        			record.setIfSms((byte)0);
         			customRcordMapper.insert(record);
         			countAbnormal++;
         		}
