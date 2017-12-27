@@ -58,6 +58,7 @@
     width: 495px;
     border-radius: 5px;
     height: 25px;
+    line-height:25px;
     float:left;
     border: 1px solid #ccc;
 }

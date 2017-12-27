@@ -52,10 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="btn upload"><a href="#" class="astyle"><input type="file" value="上传图片" name="image_file" id="image_file" class="upload_pic" onchange="fileSelected('preview','image_file');">上传图片</a> </div>
 							</form>
                         </div>
-                        <div class="info"><div class="left1">名称：</div><div class="input"></div></div><br>
+                        <div class="info"><div class="left1">名称：</div><input class="input" id="nameUp"></div><br>
                         <div class="info"><div class="left1">链接：</div><div class="input" id="lianjie"></div></div>
                         <div class="clear"></div>
-                        <div class="button">添加</div>
+                        <div class="button" id="bottonUp">添加</div>
                     </div>
                 </div>
             </div>

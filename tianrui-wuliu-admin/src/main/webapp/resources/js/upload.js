@@ -12,7 +12,7 @@ function uploadBase64(base64Str){
 		data:{imgStr:base64Str},
 		success:function(ret){
 			if(ret.code==000000){
-				alert(ret.data);
+//				alert(ret.data);
 				$("#lianjie").html(ret.data)
 			}else{
 				alert("上传失败");
@@ -43,7 +43,18 @@ function fileSelected(a, b) {
     // read selected file as DataURL
     oReader.readAsDataURL(oFile);
 }
-    $(".queding").off('click').on('click',function(){
-    	alert(1);
+    $("#bottonUp").off('click').on('click',function(){
+    	var picName=$("#nameUp").val();
+    	var httpUrl=$("#lianjie").text();
+    	$.ajax({
+    		url:"/admin/banner/add",
+    		type:"POST",
+    		data:{picName:picName,httpUrl:httpUrl},
+    		success:function(ret){
+    			if(ret.code==000000){
+    				alert("新增成功");
+    			}
+    		}
+    	});
     })
    
