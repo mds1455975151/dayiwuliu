@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IBannerManageService;
 import com.tianrui.api.req.admin.BannerManagerReq;
-import com.tianrui.api.resp.admin.BannerManagerResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
@@ -35,7 +34,7 @@ public class BannerManageService implements IBannerManageService {
 		Result result = Result.getSuccessResult();
 		BannerManager bannerManager = new BannerManager();
 		bannerManager.setStatus(Constant.YES_STR);
-		List<BannerManagerResp> bannerList = bannerManagerMapper.queryBanner(bannerManager);
+		List<BannerManager> bannerList = bannerManagerMapper.queryBanner(bannerManager);
 		if(!bannerList.isEmpty()){
 			result.setData(bannerList);
 		}else{
@@ -126,7 +125,7 @@ public class BannerManageService implements IBannerManageService {
 	public Result queryPushBanner() {
 		Result result = Result.getSuccessResult();
 		//查询有效的and待发布and启用的数据
-		List<BannerManagerResp> bannerList = bannerManagerMapper.queryPushBanner();
+		List<BannerManager> bannerList = bannerManagerMapper.queryPushBanner();
 		if(!bannerList.isEmpty()){
 			result.setData(bannerList);
 		}else{

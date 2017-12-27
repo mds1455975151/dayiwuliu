@@ -12,11 +12,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="keywords" content=" 天瑞" />
     <meta name="description" content="">
     <meta name="author" content="">
-
+	<link href="${stylesRoot }/appbanner.css" rel="stylesheet">
     <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
     <link href="${stylesRoot }/base.css" rel="stylesheet">
     <link href="${stylesRoot }/style.css" rel="stylesheet">
-     <link href="${stylesRoot }/appbanner.css" rel="stylesheet">
     <link href="${stylesRoot }/tr-media.css"  rel="stylesheet">
     <link href="${stylesRoot }/easyTree.css"  rel="stylesheet">
     <link href="${stylesRoot }/imgcut.css" rel="stylesheet">
@@ -24,7 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--这个日历控件js必须放头部-->
     <script language="javascript" type="text/javascript" src="${scriptsRoot }/My97DatePicker/WdatePicker.js"></script>
 	<link rel="stylesheet" type="text/css" href="${stylesRoot }/pagination/pagination.css" />
-	
 </head>
 <body>
 
@@ -32,16 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<input type="hidden" id="recPageNo" value="${pageNo }">
     <!--公共头部begin-->
     <jsp:include page="../common/header.jsp" flush="false"></jsp:include>
-   <div class="appBannerBox">
-    <div class="nav"></div>
-    <div class="bottomBox">
-        <div class="left">
-            <div class="leftNav">
-                <img style="vertical-align:middle;" src="${trRoot}/tianrui/images/phoneTel.png">
-                <span>Appbanner管理</span>
-            </div>
-        </div>
-        <div class="right">
+     <!--后台左侧布局end-->
+                <!--后台右侧布局begin-->
+           <div class="bottomBox" style="width:80%">
+        <div class="right" style="width:100%">
             <div class="top">
                 <span>Appbanner管理</span>
             </div>
@@ -51,28 +43,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="infoBox">
                         <div class="border">
                             <div class="info">
-                                <img src="${trRoot}/tianrui/images/bannerhy1.png">
+                                <img src="${trRoot}/images/bannerhy1.png">
                                 <p>名称：货源中心数据总览</p>
                                 <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
                             </div>
                         </div>
                         <div class="border">
                             <div class="info">
-                                <img src="${trRoot}/tianrui/images/bannerhy4.jpg">
+                                <img src="${trRoot}/images/bannerhy4.jpg">
                                 <p>名称：在途运单数据总览</p>
                                 <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
                             </div>
                         </div>
                         <div class="border">
                             <div class="info">
-                                <img src="${trRoot}/tianrui/images/bannerhy2.jpg">
+                                <img src="${trRoot}/images/bannerhy2.jpg">
                                 <p>名称：在途运单数据总览</p>
                                 <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
                             </div>
                         </div>
                         <div class="border">
                             <div class="info">
-                                <img src="${trRoot}/tianrui/images/bannerhy3.jpg">
+                                <img src="${trRoot}/images/bannerhy3.jpg">
                                 <p>名称：在途运单数据总览</p>
                                 <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
                             </div>
@@ -85,12 +77,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
     </div>
+                <!--后台右侧布局end-->
+            </div>
+            <!--后台整体布局end-->
+    </div>
+    <!--侧边栏end-->
 </div>
-    
-    
-</div>
-	
-
+<!--查看详情begin-->
+<!--查看详情end-->
+<!--审核begin-->
+<!--审核详情end-->
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript">
     var CONTEXTPATH="${contextPath}";
@@ -98,7 +94,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
-<script type="text/javascript" src="${scriptsRoot }/jquery.pagination.js"></script>
-<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 </body>
 </html>

@@ -51,7 +51,9 @@ public class TrackWarningTrigger {
         		String key = CacheHelper.buildKey(CacheModule.VEHICLE_TRACKING, b.getDriverid());
         		//获取原本跟踪器key值
         		TrackReq track = cacheClient.getObj(key, TrackReq.class);
-        		if(null == track){//无跟踪器，记录轨迹异常信息
+        		//获取轨迹异常记录
+    			CustomRcord rcordOrder = customRcordMapper.selectByCustomerId(b.getDriverid());
+        		if(null == track && null==rcordOrder){//无跟踪器并且尚未报警信息，记录轨迹异常信息
         			CustomRcord record = new CustomRcord();
         			record.setBillNo(b.getWaybillno());
         			record.setCellphone(b.getDrivertel());
@@ -59,7 +61,7 @@ public class TrackWarningTrigger {
         			record.setCreateTime(new Date().getTime());
         			record.setCustomerId(b.getDriverid());
         			record.setCustomerName(b.getDrivername());
-        			record.setLossTime(new Date().getTime() - 4*60*1000);
+        			record.setLossTime(new Date().getTime() - 15*60*1000);
         			record.setProblemType((byte)1);
         			record.setSolvingState((byte)0);
         			record.setVehicleNo(b.getVehicleno());
