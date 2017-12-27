@@ -98,7 +98,6 @@ function innerHml(data){
 			if(abertype == 1){
 				avertypecont="轨迹异常";
 			}
-			
 			var tsid = data[a].id;
 			var customerId =data[a].customerId;
 			var hml = "<tr>" +
@@ -109,26 +108,24 @@ function innerHml(data){
 					"<td>"+(data[a].customerName||"")+"</td>" +
 					"<td>"+(data[a].cellphone||"")+"</td>" +
 					"<td>"+(data[a].contactNumber||"")+"</td>" +
-					"<td>"+(data[a].createTime||"")+"</td>" +
-					"<td>"+new Date(data[a].lossTime).format("yyyy-MM-dd ")+"</td>" +
-					"<td>"+new Date(data[a].reconnectionTime).format("yyyy-MM-dd ")+"</td>" +
+					"<td>"+(data[a].createTime == undefined ? "" : (new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
+					"<td>"+(data[a].lossTime == undefined ? "" : (new Date(data[a].lossTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
+					"<td>"+(data[a].reconnectionTime == undefined ? "" : (new Date(data[a].reconnectionTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
 					"<td>"+(data[a].solvingState||"")+"</td>" +
 					"<td>"+(data[a].solvingUsername||"")+"</td>" +
-					"<td>"+new Date(data[a].endTime).format("yyyy-MM-dd ")+"</td>" +
-					"<td ><span><a data-toggle='modal' data-target='#message' onclick=\"setMsgDetail('"+tsid+"','"+customerId+"')\">" +(tmess == 0 ? '推送' : tmess == 1 ? '' : '')+
+					"<td>"+(data[a].endTime == undefined ? "" : (new Date(data[a].endTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
+					"<td ><span><a data-toggle='modal' data-target='#message' onclick=\"setMsgDetail('"+tsid+"','"+customerId+"')\">" +(tmess == 1 ? '' : '推送')+
 					"</a></span></td>"+
-					"<td ><span><a data-toggle='modal' data-target='#information' onclick=\"setSmsDetail('"+tsid+"','"+customerId+"')\">" +(tsms == 0 ? '推送' : tsms == 1 ? '' : '')+
+					"<td ><span><a data-toggle='modal' data-target='#information' onclick=\"setSmsDetail('"+tsid+"','"+customerId+"')\">" +(tsms == 1 ? '' : '推送')+
 					"</a></span></td>"+
-					"<td ><span><a data-toggle='modal' data-target='#phone'onclick=\"setcallDetail('"+tsid+"','"+customerId+"')\">" +(tcall == 0 ? '推送' : tcall == 1 ? '' : '')+
+					"<td ><span><a data-toggle='modal' data-target='#phone'onclick=\"setcallDetail('"+tsid+"','"+customerId+"')\">" +(tcall == 1 ? '' : '推送')+
 					"</a></span></td>"+
-					"<td ><span><a data-toggle='modal' data-target='#close'>" +(tcall == 0 ? '关闭' : tcall == 1 ? '' : '')+
+					"<td ><span><a data-toggle='modal' data-target='#close'>" +(tcall == 1 ? '查看' : '关闭')+
 					"</a></span></td>"+
 					"</tr>";
 			$("#innerHtml").append(hml);
-			
 		}
 	}
-
 }
 //异常消息推送
 function setMsgDetail(id,memberId){
