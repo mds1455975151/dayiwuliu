@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.BannerManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.BannerManager" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pic_name" property="picName" jdbcType="VARCHAR" />
+    <result column="http_url" property="httpUrl" jdbcType="VARCHAR" />
+    <result column="pic_status" property="picStatus" jdbcType="TINYINT" />
+    <result column="push_status" property="pushStatus" jdbcType="TINYINT" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="BIGINT" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modifier_time" property="modifierTime" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pic_name, http_url, pic_status, push_status, creator, create_date, modifier, 
+    modifier_time, status, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tianrui.service.bean.BannerManagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from banner_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from banner_manager
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from banner_manager
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tianrui.service.bean.BannerManagerExample" >
+    delete from banner_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.BannerManager" >
+    insert into banner_manager (id, pic_name, http_url, 
+      pic_status, push_status, creator, 
+      create_date, modifier, modifier_time, 
+      status, remark)
+    values (#{id,jdbcType=VARCHAR}, #{picName,jdbcType=VARCHAR}, #{httpUrl,jdbcType=VARCHAR}, 
+      #{picStatus,jdbcType=TINYINT}, #{pushStatus,jdbcType=TINYINT}, #{creator,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=BIGINT}, #{modifier,jdbcType=VARCHAR}, #{modifierTime,jdbcType=BIGINT}, 
+      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.BannerManager" >
+    insert into banner_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="picName != null" >
+        pic_name,
+      </if>
+      <if test="httpUrl != null" >
+        http_url,
+      </if>
+      <if test="picStatus != null" >
+        pic_status,
+      </if>
+      <if test="pushStatus != null" >
+        push_status,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifierTime != null" >
+        modifier_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null" >
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUrl != null" >
+        #{httpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picStatus != null" >
+        #{picStatus,jdbcType=TINYINT},
+      </if>
+      <if test="pushStatus != null" >
+        #{pushStatus,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierTime != null" >
+        #{modifierTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tianrui.service.bean.BannerManagerExample" resultType="java.lang.Integer" >
+    select count(*) from banner_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update banner_manager
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picName != null" >
+        pic_name = #{record.picName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpUrl != null" >
+        http_url = #{record.httpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picStatus != null" >
+        pic_status = #{record.picStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.pushStatus != null" >
+        push_status = #{record.pushStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.creator != null" >
+        creator = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=BIGINT},
+      </if>
+      <if test="record.modifier != null" >
+        modifier = #{record.modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifierTime != null" >
+        modifier_time = #{record.modifierTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update banner_manager
+    set id = #{record.id,jdbcType=VARCHAR},
+      pic_name = #{record.picName,jdbcType=VARCHAR},
+      http_url = #{record.httpUrl,jdbcType=VARCHAR},
+      pic_status = #{record.picStatus,jdbcType=TINYINT},
+      push_status = #{record.pushStatus,jdbcType=TINYINT},
+      creator = #{record.creator,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=BIGINT},
+      modifier = #{record.modifier,jdbcType=VARCHAR},
+      modifier_time = #{record.modifierTime,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.BannerManager" >
+    update banner_manager
+    <set >
+      <if test="picName != null" >
+        pic_name = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUrl != null" >
+        http_url = #{httpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picStatus != null" >
+        pic_status = #{picStatus,jdbcType=TINYINT},
+      </if>
+      <if test="pushStatus != null" >
+        push_status = #{pushStatus,jdbcType=TINYINT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierTime != null" >
+        modifier_time = #{modifierTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.BannerManager" >
+    update banner_manager
+    set pic_name = #{picName,jdbcType=VARCHAR},
+      http_url = #{httpUrl,jdbcType=VARCHAR},
+      pic_status = #{picStatus,jdbcType=TINYINT},
+      push_status = #{pushStatus,jdbcType=TINYINT},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=BIGINT},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifier_time = #{modifierTime,jdbcType=BIGINT},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询有效的数据 -->
+  <select id="queryBanner" parameterType="com.tianrui.service.bean.BannerManager" resultMap="BaseResultMap">
+  	select * from banner_manager where 1=1
+  		<if test="status != null and status != '' " >
+        	and status = #{status,jdbcType=VARCHAR}
+        </if>
+  	order by create_date desc
+  </select>
+</mapper>

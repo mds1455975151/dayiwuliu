@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>待付运费</title>
+<title>异常处理</title>
 <meta name="keywords" content=" 天瑞" />
 <meta name="description" content="">
 <meta name="author" content="">
@@ -38,7 +38,7 @@
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
-					<h3>异常管理</h3>
+					<h3>异常处理</h3>
 				</div>
 				<!--查询框begin-->
 				<div class="row">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="ht_div">
                            <label>异常类型：</label>
-                           <select class="form-control" id="zhbusi">
+                           <select class="form-control" id="abertype">
                                <option value="">请选择</option>
                                <option value="-1">全部</option>
                                <option value="0">轨迹异常</option>
@@ -65,7 +65,7 @@
                        </div>
                        <div class="ht_div">
                            <label>处理状态：</label>
-                           <select class="form-control" id="zhbusi">
+                           <select class="form-control" id="aberstatus">
                                <option value="">请选择</option>
                                <option value="-1">全部</option>
                                <option value="0">未修复</option>
@@ -129,13 +129,149 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<!--后台右侧布局end-->
 	</div>
 	<!--后台整体布局end-->
 	<!--侧边栏end-->
 	</div>
-	<!--修改密码end-->
+<!--推送消息begin-->
+<div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <h4>您确定要推送消息吗？</h4>
+                <input type="hidden" id="id_message" value="">
+                <input type="hidden" id="msgType_message" value="2">
+                <input type="hidden" id="msgTxt_message" value="测试消息">
+                <input type="hidden" id="groupType_message" value="4">
+                <input type="hidden" id="message_memberId" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="messconfirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--推送短信begin-->
+<div class="modal fade" id="information" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <h4>确定要推送短信通知吗？</h4>
+                <input type="hidden" id="id_sms" value="">
+                <input type="hidden" id="msgType_sms" value="1">
+                <input type="hidden" id="msgTxt_sms" value="测试短信">
+                <input type="hidden" id="groupType_sms" value="4">
+                <input type="hidden" id="memberId_sms" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="smsconfirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--电话begin-->
+<div class="modal fade" id="phone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <h4>确定要电话通知吗？</h4>
+                <input type="hidden" id="id_call" value="">
+                <input type="hidden" id="msgType_call" value="1">
+                <input type="hidden" id="msgTxt_call" value="测试电话">
+                <input type="hidden" id="groupType_call" value="4">
+                <input type="hidden" id="memberId_call" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="callconfirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--关闭begin-->
+<div class="modal fade" id="close" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">备注信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="aberrant">
+                    <div class="abertop">
+                        <label>请选择</label>
+                        <div class="selecont">
+                            <div class="seleline">
+                                <input type="radio" name="plat">
+                                <em>A</em>
+                                <span>平台统计备注1</span>
+                            </div>
+                            <div class="seleline">
+                                <input type="radio" name="plat">
+                                <em>B</em>
+                                <span>平台统计备注2</span>
+                            </div>
+                            <div class="seleline">
+                                <input type="radio" name="plat">
+                                <em>C</em>
+                                <span>平台统计备注3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aberbottom">
+                        <p>备注信息:</p>
+                        <textarea class="form-control" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--关闭后的详情begin-->
+<div class="modal fade" id="closedd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">备注</h4>
+            </div>
+            <div class="modal-body">
+                <div class="closedabert">
+                    <h4>备注信息：确定要推送消息吗</h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 	<%@include file="../common/footer.jsp"%>
 	<script type="text/javascript" src="${scriptsRoot}/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="${scriptsRoot}/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
@@ -144,6 +280,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/money/dfindex.js?1206"></script>
+	<script type="text/javascript" src="/resources/js/aberrant/aberdeal.js?122622"></script>
 </body>
 </html>
