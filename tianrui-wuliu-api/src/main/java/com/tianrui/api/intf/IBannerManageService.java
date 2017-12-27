@@ -1,7 +1,5 @@
 package com.tianrui.api.intf;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.tianrui.api.req.admin.BannerManagerReq;
 import com.tianrui.common.vo.Result;
 
@@ -49,5 +47,12 @@ public interface IBannerManageService {
 	 * @return
 	 */
 	Result enableOrDisable(BannerManagerReq bannerReq);
+
+	/**
+	 * 查询能发布的banner图片
+	 * @author xcy
+	 * @return
+	 */
+	Result queryPushBanner();
 
 }
