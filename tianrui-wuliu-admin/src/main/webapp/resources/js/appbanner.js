@@ -35,5 +35,5 @@ $.ajax({
     }
 })
     $(".add").off('click').on('click',function(){
-    	window.location.href="/admin/banner/bannerAddPage";
+    	window.location.href="/admin/banner/bannerAddPage?menuId=158";
     })

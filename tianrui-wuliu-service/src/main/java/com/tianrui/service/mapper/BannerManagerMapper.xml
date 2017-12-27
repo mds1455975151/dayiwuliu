@@ -304,7 +304,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <!-- 查询有效的数据 -->
-  <select id="queryBanner" parameterType="com.tianrui.service.bean.BannerManager" resultType="com.tianrui.api.resp.admin.BannerManagerResp">
+  <select id="queryBanner" parameterType="com.tianrui.service.bean.BannerManager" resultMap="BaseResultMap">
   	select * from banner_manager where 1=1
   		<if test="status != null and status != '' " >
         	and status = #{status,jdbcType=VARCHAR}
@@ -312,7 +312,7 @@
   	order by create_date desc
   </select>
   <!-- 查询待发布的and启用的and有效的banner图片数据 -->
-  <select id="queryPushBanner" resultType="com.tianrui.api.resp.admin.BannerManagerResp">
+  <select id="queryPushBanner" resultMap="BaseResultMap">
   	select * from banner_manager where status='Y' and push_status='0' and pic_status='1' order by create_date desc
   </select>
 </mapper>
