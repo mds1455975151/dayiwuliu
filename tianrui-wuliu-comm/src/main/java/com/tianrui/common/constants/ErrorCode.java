@@ -120,7 +120,8 @@ public enum ErrorCode {
 	MESSAGE_GROUP_ERNULL("E900001","未查到对应数据"),
 	MESSAGE_GROUP_ERMEMBER("E900002","推送用户id有误"),
 	MESSAGE_GROUP_PUSHIDNULL("E900003","未找到用户推送ID"),
-	MESSAGE_GROUP_MSGNULL("E900004","推送消息为空")
+	MESSAGE_GROUP_MSGNULL("E900004","推送消息为空"),
+	MESSAGE_GROUP_GRNULL("E900005","未找到消息分组")
 	;
 	
 	private String code;
