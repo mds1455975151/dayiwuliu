@@ -48,15 +48,10 @@ $.ajax({
     }
 })
     $(".add").off('click').on('click',function(){
-<<<<<<< HEAD
-    	window.location.href="/admin/banner/bannerAddPage";
+    	window.location.href="/admin/banner/bannerAddPage?menuId=158";
     })
     
  window.onload=function(){
 	
 }
     
-=======
-    	window.location.href="/admin/banner/bannerAddPage?menuId=158";
-    })
->>>>>>> 4ca0a92fc7a5725291b9f5c4686a85d3522fe1c8
