@@ -2,6 +2,9 @@ package com.tianrui.api.req.admin;
 
 public class BannerManagerReq {
     private String id;
+    
+    //发布图片多张图片的id   多个id  ;  分割
+  	private String pushBannerIds;
 
     private String picName;
 
@@ -31,7 +34,15 @@ public class BannerManagerReq {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getPicName() {
+	public String getPushBannerIds() {
+		return pushBannerIds;
+	}
+
+	public void setPushBannerIds(String pushBannerIds) {
+		this.pushBannerIds = pushBannerIds;
+	}
+
+	public String getPicName() {
         return picName;
     }
 

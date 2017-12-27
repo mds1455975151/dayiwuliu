@@ -33,6 +33,10 @@ public class Constant {
 	public final static String THREE_STR = "3";
     
     public final static String INFO = "[INFO]";
+    //有效的数据
+    public final static String YES_STR = "Y";
+    //删除后的数据
+    public final static String NOT_STR = "N";
     
     public final static int MAX_PAGESIZE = 200;
     
