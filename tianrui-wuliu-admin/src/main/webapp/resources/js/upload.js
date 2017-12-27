@@ -13,6 +13,7 @@ function uploadBase64(base64Str){
 		success:function(ret){
 			if(ret.code==000000){
 				alert(ret.data);
+				$("#lianjie").html(ret.data)
 			}else{
 				alert("上传失败");
 			}
