@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.uploadingBox{
+    font-size: 14px;
+}
+.bottomBox1{
+	 float: right;
+    overflow: hidden;
+    width: 80%;
+}
+.bottomBox1 .left{
+    float: left;
+    width: 20%;
+    height: 1000px;
+    background-color: #f6f1f5;
+}
+.bottomBox1 .right{
+    float: right;
+    width: 100%;
+    height: 1000px;
+}
+.leftNav{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    background-color: #fff;
+    text-align: center;
+    color: #0088d9;
+}
+.clear{
+    overflow: hidden;
+    clear: both;
+}
+.right .top{
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #f4f4f4;
+}
+.right .top span{
+    margin-left: 10px;
+}
+.right .bottom .main{
+    width: 98%;
+    height: 1000px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+}
+.bottom .main .info{
+    width: 80%;
+    margin: 30px;
+}
+.bottom .main .info .left1{
+    float: left;
+}
+.bottom .main .info .input{
+    width: 495px;
+    border-radius: 5px;
+    height: 25px;
+    float:left;
+    border: 1px solid #ccc;
+}
+.bottom .main .button{
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #0188e0;
+    color: white;
+    margin: 60px auto;
+}
+#preview{
+    width: 540px;
+    height: 270px;
+    background: url(upload.png) no-repeat;
+    margin: 20px;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #D7D7D7;
+    text-align: center;
+}
+
+.astyle input {
+		    position: absolute;
+		    right:270px;
+		    top: 0;
+		    opacity: 0;
+		   filter: alpha(opacity=0); 
+		    cursor: pointer
+		}
+		
+		.astyle {
+			width:542px;
+		    height: 30px;
+		    line-height:30px;
+		    border-radius: 7px;
+		    position: relative;
+		    cursor: pointer;
+		    color: white;
+		    background: #0188e0;
+		    overflow: hidden;
+		    display: inline-block;
+		    font-size: 14px;;
+		    text-decoration: none;
+		    text-align:center:
+		} 
