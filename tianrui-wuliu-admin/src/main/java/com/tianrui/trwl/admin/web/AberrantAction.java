@@ -9,8 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.message.intf.IMessageGroupService;
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
+import com.tianrui.api.req.groupMsg.MessageGroupReq;
 import com.tianrui.api.req.groupMsg.PushGroupMessageReq;
 import com.tianrui.api.req.money.TrackSelectReq;
+import com.tianrui.api.resp.groupMsg.MessageGroupPushResp;
+import com.tianrui.api.resp.groupMsg.MessageGroupResp;
 import com.tianrui.api.resp.money.CustomRcordResp;
 import com.tianrui.api.tracking.intf.ITrackingService;
 import com.tianrui.common.vo.PaginationVO;
@@ -56,6 +60,26 @@ public class AberrantAction {
 		return rs;
 	}
 	
+	/**消息分组*/
+	@RequestMapping("selectMsgGroup")
+	@ResponseBody//返回数据      不写的话  返回的是页面
+	public Result selectMsgGroup(MessageGroupReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<MessageGroupResp> page = messageGroupService.selectMsgGroup(req);
+		rs.setData(page);
+		return rs;
+	}
+	
+	/** 群体消息*/
+	@RequestMapping("selectMsgGroupPush")
+	@ResponseBody//返回数据      不写的话  返回的是页面
+	public Result selectMsgGroupPush(MessageGroupPushReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		PaginationVO<MessageGroupPushResp> page = messageGroupService.selectMsgGroupPush(req);
+		rs.setData(page);
+		return rs;
+	}
+	
 	/** 发送消息推送
 	 * @throws Exception */
 	@RequestMapping("pushGroupMsg")
@@ -71,7 +95,8 @@ public class AberrantAction {
 	 * @throws Exception */
 	@RequestMapping("customRcord")
 	@ResponseBody
-	public Result customRcord(CustomRcordReq req) throws Exception{
+	public Result customRcord(CustomRcordReq req,HttpServletRequest request) throws Exception{
+		Users user = SessionManager.getSessionMember(request);
 		Result rs = Result.getSuccessResult();
 		rs = messageGroupService.uptErrMsg(req);
 		return rs;
