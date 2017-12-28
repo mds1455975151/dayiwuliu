@@ -7,7 +7,7 @@ var sResultFileSize = '';
 
 function uploadBase64(base64Str){
 	$.ajax({
-		url:"/upload/baes64Add",
+		url:"/upload/bannerBaes64Add",
 		type:"POST",
 		data:{imgStr:base64Str},
 		success:function(ret){

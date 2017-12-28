@@ -46,4 +46,14 @@ public class UploadAction {
 		rs = iFileService.uploadImg(req);
 		return rs;
 	}
+	
+	/** Banner图片上传
+	 * @throws Exception */
+	@RequestMapping(value="bannerBaes64Add",method=RequestMethod.POST )
+	@ResponseBody
+	public Result bannerBaes64Add(FileUploadReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = iFileService.uploadBannerImg(req);
+		return rs;
+	}
 }
