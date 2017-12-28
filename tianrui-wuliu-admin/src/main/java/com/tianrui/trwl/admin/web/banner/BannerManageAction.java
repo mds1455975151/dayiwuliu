@@ -47,6 +47,18 @@ public class BannerManageAction {
 	}
 	
 	/**
+	 * 跳转到AppBanner管理图片待发布页面
+	 * @author xcy
+	 * @return
+	 */
+	@RequestMapping("/bannerPushPage")
+	public ModelAndView bannerPushPage(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/appbanner/appbanner_push");		
+		return view;
+	}
+	
+	/**
 	 * 查询banner管理图片信息
 	 * @author xcy
 	 * @return
