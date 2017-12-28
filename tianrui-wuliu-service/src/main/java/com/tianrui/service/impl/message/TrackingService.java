@@ -27,7 +27,7 @@ public class TrackingService implements ITrackingService {
 	CacheClient cacheClient;
 	@Autowired
 	CustomRcordMapper customRcordMapper;
-	static int warningTime = 15*60;//15分钟
+	static int warningTime = 4*60;//15分钟
 	@Override
 	public Result save(TrackReq req) {
 		Result rs = Result.getSuccessResult();
@@ -46,8 +46,8 @@ public class TrackingService implements ITrackingService {
 					customRcord.setEndTime(req.getEndTime());
 					customRcord.setSolvingState((byte)2);
 					customRcord.setProblemDescribe("间歇性网络异常，已自动恢复");
-					customRcord.setCustomerId("-1");
-					customRcord.setCustomerName("系统跟踪");
+					customRcord.setSolvingUserid("-1");
+					customRcord.setSolvingUsername("系统跟踪");
 				}else {//轨迹重连，但是超时
 					customRcord.setSolvingState((byte)1);
 				}

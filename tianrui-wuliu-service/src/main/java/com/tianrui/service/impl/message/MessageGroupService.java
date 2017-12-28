@@ -11,27 +11,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.ISendMobileMessage;
+import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.message.intf.IMessageGroupService;
 import com.tianrui.api.req.common.SmsDetails;
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.MemberGroupReq;
 import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
 import com.tianrui.api.req.groupMsg.MessageGroupReq;
 import com.tianrui.api.req.groupMsg.PushGroupMessageReq;
+import com.tianrui.api.resp.front.member.MemberResp;
 import com.tianrui.api.resp.groupMsg.MessageGroupPushResp;
 import com.tianrui.api.resp.groupMsg.MessageGroupResp;
 import com.tianrui.common.constants.ErrorCode;
+import com.tianrui.common.enums.MemberGroupEnum;
+import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
+import com.tianrui.service.admin.bean.OrgMember;
+import com.tianrui.service.admin.mapper.OrgMemberMapper;
 import com.tianrui.service.bean.CustomRcord;
 import com.tianrui.service.bean.MemberPush;
 import com.tianrui.service.bean.MemberPushOwner;
 import com.tianrui.service.bean.MessageGroup;
 import com.tianrui.service.bean.MessageGroupPush;
+import com.tianrui.service.bean.SystemMember;
 import com.tianrui.service.mapper.CustomRcordMapper;
 import com.tianrui.service.mapper.MemberPushMapper;
 import com.tianrui.service.mapper.MemberPushOwnerMapper;
 import com.tianrui.service.mapper.MessageGroupMapper;
 import com.tianrui.service.mapper.MessageGroupPushMapper;
+import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.util.AndroidPushUtils;
 import com.tianrui.service.util.IosPushUtils;
 
@@ -52,6 +61,90 @@ public class MessageGroupService implements IMessageGroupService{
 	MessageGroupPushMapper messageGroupPushMapper;
 	@Autowired
 	MessageGroupMapper messageGroupMapper;
+	@Autowired
+	SystemMemberMapper systemMemberMapper;
+	@Autowired
+	private ISystemMemberService systemMemberService;
+	@Autowired
+	OrgMemberMapper orgMemberMapper;
+	
+	@Override
+	public Result uptMemberGroup(MemberGroupReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		if(req.getGroupType()==MemberGroupEnum.GROUP_DRIVER.getType()){
+			//司机分组
+			String code = MemberGroupEnum.GROUP_DRIVER.getCode();
+			String groupName = MemberGroupEnum.GROUP_DRIVER.getRemark();
+			SystemMember query = new SystemMember();
+			query.setDriverpercheck((short)1);
+			//查询出所有司机
+			List<SystemMember> list = systemMemberMapper.selectByCondition(query);
+			logger.info("司机集合数="+list.size());
+			for(SystemMember member : list){
+				MemberPush push = memberPushMapper.selectByMemberId(member.getId());
+				MessageGroup save = new MessageGroup();
+				save.setId(UUIDUtil.getId());
+				save.setGroupType(code);
+				save.setGroupName(groupName);
+				save.setCellphone(member.getCellphone());
+				save.setUserName(member.getRemarkname());
+				save.setUserPhone(member.getCellphone());
+				if(push!=null){
+					save.setChinnlId(push.getPushid());
+					save.setChinnlType(push.getApptype().toString());
+				}
+				messageGroupMapper.insertSelective(save);
+			}
+		}else if(req.getGroupType()==MemberGroupEnum.GROUP_VENDER.getType()){
+			//车主分组
+			String code = MemberGroupEnum.GROUP_VENDER.getCode();
+			String groupName = MemberGroupEnum.GROUP_VENDER.getRemark();
+			List<MemberResp> list = systemMemberService.findAllVender();
+			logger.info("车主集合数="+list.size());
+			for(MemberResp member : list){
+				MemberPush push = memberPushMapper.selectByMemberId(member.getId());
+				MessageGroup save = new MessageGroup();
+				save.setId(UUIDUtil.getId());
+				save.setGroupType(code);
+				save.setGroupName(groupName);
+				save.setCellphone(member.getCellPhone());
+				save.setUserName(member.getRemarkname());
+				save.setUserPhone(member.getCellPhone());
+				if(push!=null){
+					save.setChinnlId(push.getPushid());
+					save.setChinnlType(push.getApptype().toString());
+				}
+				messageGroupMapper.insertSelective(save);
+			}
+		}else if(req.getGroupType()==MemberGroupEnum.GROUP_OWNER.getType()){
+			//货主分组
+			String code = MemberGroupEnum.GROUP_OWNER.getCode();
+			String groupName = MemberGroupEnum.GROUP_OWNER.getRemark();
+			SystemMember query = new SystemMember();
+			query.setOrgid("notNull");
+			//查询出所有司机
+			List<SystemMember> list = systemMemberMapper.selectByCondition(query);
+			for(SystemMember member : list){
+				MemberPushOwner push = memberPushOwnerMapper.selectByMemberId(member.getId());
+				MessageGroup save = new MessageGroup();
+				save.setId(UUIDUtil.getId());
+				save.setGroupType(code);
+				save.setGroupName(groupName);
+				save.setCellphone(member.getCellphone());
+				save.setUserName(member.getRemarkname());
+				save.setUserPhone(member.getCellphone());
+				if(push!=null){
+					save.setChinnlId(push.getPushid());
+					save.setChinnlType(push.getApptype().toString());
+				}
+				messageGroupMapper.insertSelective(save);
+			}
+		}else{
+			logger.info("未找到消息分组");
+			rs.setErrorCode(ErrorCode.MESSAGE_GROUP_GRNULL);
+		}
+		return rs;
+	}
 	
 	@Override
 	public PaginationVO<MessageGroupResp> selectMsgGroup(MessageGroupReq req) throws Exception {

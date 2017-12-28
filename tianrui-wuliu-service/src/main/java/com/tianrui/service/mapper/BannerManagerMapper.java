@@ -1,11 +1,11 @@
 package com.tianrui.service.mapper;
 
-import com.tianrui.api.req.admin.BannerManagerReq;
-import com.tianrui.api.resp.admin.BannerManagerResp;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.tianrui.service.bean.BannerManager;
 import com.tianrui.service.bean.BannerManagerExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface BannerManagerMapper {
     int countByExample(BannerManagerExample example);
@@ -36,4 +36,11 @@ public interface BannerManagerMapper {
 	 * @return
 	 */
 	List<BannerManager> queryBanner(BannerManager bannerManager);
+
+	/**
+	 * 查询待发布的and启用的and有效的banner图片数据
+	 * @author xcy
+	 * @return
+	 */
+	List<BannerManager> queryPushBanner();
 }

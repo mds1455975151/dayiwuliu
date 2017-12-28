@@ -67,23 +67,36 @@
     select 
     <include refid="Base_Column_List" />
     from member
-    where 1=1
-    <if test="openid != null and openid != ''">
-    	and openid = #{openid,jdbcType=VARCHAR}
-    </if>
-    <if test="cellphone != null and cellphone != ''">
-    	and cellphone = #{cellphone,jdbcType=VARCHAR}
-    </if>
-    <if test="aldriverid != null and aldriverid != ''">
-    	and aldriverid = #{aldriverid,jdbcType=VARCHAR}
-    </if>
-    <if test="ids != null">
-      	and id in 
-      	<foreach collection="ids" item="itemId" index="index"
-            open="(" close=")" separator=",">
-            #{itemId}
-        </foreach> 
-    </if>
+    <where>
+	    <if test="driverpercheck != null and driverpercheck != ''">
+	    	and driverpercheck = #{driverpercheck,jdbcType=VARCHAR}
+	    </if>
+	    <if test="userpercheck != null and userpercheck != ''">
+	    	and userpercheck = #{userpercheck,jdbcType=VARCHAR}
+	    </if>
+	    <if test="companypercheck != null and companypercheck != null">
+	    	and companypercheck = #{companypercheck,jdbcType=VARCHAR}
+	    </if>
+	    <if test="openid != null and openid != ''">
+	    	and openid = #{openid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="cellphone != null and cellphone != ''">
+	    	and cellphone = #{cellphone,jdbcType=VARCHAR}
+	    </if>
+	    <if test="aldriverid != null and aldriverid != ''">
+	    	and aldriverid = #{aldriverid,jdbcType=VARCHAR}
+	    </if>
+	    <if test="orgid == notNull">
+	    	and orgid is not null
+	    </if>
+	    <if test="ids != null">
+	      	and id in 
+	      	<foreach collection="ids" item="itemId" index="index"
+	            open="(" close=")" separator=",">
+	            #{itemId}
+	        </foreach> 
+	    </if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--

@@ -311,4 +311,8 @@
         </if>
   	order by create_date desc
   </select>
+  <!-- 查询待发布的and启用的and有效的banner图片数据 -->
+  <select id="queryPushBanner" resultMap="BaseResultMap">
+  	select * from banner_manager where status='Y' and push_status='0' and pic_status='1' order by create_date desc
+  </select>
 </mapper>

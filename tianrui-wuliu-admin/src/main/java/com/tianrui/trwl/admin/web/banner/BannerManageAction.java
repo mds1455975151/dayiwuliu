@@ -123,4 +123,17 @@ public class BannerManageAction {
 		Result result = bannerManageService.enableOrDisable(bannerReq);
 		return result;
 	}
+	
+	/**
+	 * 查询待发布的banner图片
+	 * @author xcy
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("queryPushBanner")
+	@ResponseBody
+	public Result queryPushBanner(HttpServletRequest request){
+		Result result = bannerManageService.queryPushBanner();
+		return result;
+	}
 }
