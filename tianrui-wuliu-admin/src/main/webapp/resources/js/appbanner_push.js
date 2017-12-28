@@ -1,3 +1,5 @@
+//获取链接后的menuId参数
+var menuId = $("#menuId").val();
 var  pageSize=4;
 countload();
 function countload(){
@@ -48,16 +50,18 @@ function countload(){
 		    success:function(result){
 		        if(result.code == '000000'){
 		        	alert("发布成功")
+		        	//跳转到主页面
+		        	window.location.href="/admin/banner/bannerpage?menuId="+menuId;
 		        }
-		        }
+		    }
 		})
 	})
 }
     $(".add").off('click').on('click',function(){
-    	window.location.href="/admin/banner/bannerAddPage?menuId=158";
+    	window.location.href="/admin/banner/bannerAddPage?menuId="+menuId;
     })
     $(".push").off('click').on('click',function(){
-    	window.location.href="/admin/banner/bannerPushPage?menuId=158";
+    	window.location.href="/admin/banner/bannerPushPage?menuId="+menuId;
     })
    
     

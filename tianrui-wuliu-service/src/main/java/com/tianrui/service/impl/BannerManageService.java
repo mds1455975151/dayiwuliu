@@ -111,6 +111,7 @@ public class BannerManageService implements IBannerManageService {
 				bm.setPicStatus((byte)1);
 			}else if(picStatus.equals(Constant.ONE_STR)){
 				bm.setPicStatus((byte)0);
+				bm.setPushStatus((byte)0);
 			}
 			int count = bannerManagerMapper.updateByPrimaryKey(bm);
 			if(count>0){

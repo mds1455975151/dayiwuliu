@@ -4,6 +4,8 @@ var iPreviousBytesLoaded = 0;
 var iMaxFilesize = 1048576; // 1MB
 var oTimer = 0;
 var sResultFileSize = '';
+//获取链接后的menuId参数
+var menuId = $("#menuId").val();
 
 function uploadBase64(base64Str){
 	$.ajax({
@@ -53,6 +55,8 @@ function fileSelected(a, b) {
     		success:function(ret){
     			if(ret.code==000000){
     				alert("新增成功");
+    				//跳转到主页面
+    				window.location.href="/admin/banner/bannerpage?menuId="+menuId;
     			}
     		}
     	});

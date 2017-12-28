@@ -78,7 +78,6 @@ function countload(pageSize){
 	     	       $(".count2").each(function(){
 	     	    	   $(this).off('click').on('click',function(){
 	     	    			var id=$(this).parent().attr("data-id");
-	     	    			alert(id);
 	     	    			$.ajax({
 	     	    	    		url:"/admin/banner/delBanner",
 	     	    	    		type:"POST",
