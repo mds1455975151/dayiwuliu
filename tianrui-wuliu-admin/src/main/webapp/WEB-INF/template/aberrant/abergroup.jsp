@@ -92,6 +92,11 @@
 					</div>
 				</div>
 			</div>
+			<div class="loadingbg">
+               <div class="loadingposi" role="document">
+                  <img src="${imagesRoot}/loading3.gif">
+               </div>
+            </div>
 		</div>
 		<!--后台右侧布局end-->
 	</div>

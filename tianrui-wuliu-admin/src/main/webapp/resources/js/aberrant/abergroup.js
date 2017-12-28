@@ -97,18 +97,25 @@ function innerHml(data){
 //更新操作
 $("#typeupdate").on("click",function(){
 	var datatype = $("#selecttype").val();
-	$.ajax({
-		url:"/admin/aberrant/updategroup",
-		type:"POST",
-		data:{"groupType":datatype},
-		success: function(result) {
-			if(result.code == "000000"){
-				alert("更新完成！");
-				init(0);
-			}else{
-				alert(result.error);
+	if(datatype==1 || datatype==2 || datatype==3){
+		$(".loadingbg").show();
+		$.ajax({
+			url:"/admin/aberrant/updategroup",
+			type:"POST",
+			data:{"groupType":datatype},
+			success: function(result) {
+				$(".loadingbg").hide();
+				if(result.code == "000000"){
+					init(0);
+				}else{
+					alert(result.error);
+				}
 			}
-		}
-	
-	});
+		
+		});
+	}
+	else{
+		alert("请先选择一个群体类型再更新");
+	}
+
 })
