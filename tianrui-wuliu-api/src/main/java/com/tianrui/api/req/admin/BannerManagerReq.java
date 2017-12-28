@@ -5,26 +5,22 @@ public class BannerManagerReq {
     
     //发布图片多张图片的id   多个id  ;  分割
   	private String pushBannerIds;
-
+  	//名称
     private String picName;
-
+    //链接地址
     private String httpUrl;
-
+    //启用禁用状态 0：未启用 1：启用
     private Byte picStatus;
-
+    //发布状态 0：未发布 1 已发布
     private Byte pushStatus;
-
+    //创建人
     private String creator;
-
+    //创建时间
     private Long createDate;
-
+    //修改人
     private String modifier;
-
-    private Long modifierTime;
-
+    //数据状态 0：无效 1：有效
     private String status;
-
-    private String remark;
 
     public String getId() {
         return id;
@@ -98,14 +94,6 @@ public class BannerManagerReq {
         this.modifier = modifier == null ? null : modifier.trim();
     }
 
-    public Long getModifierTime() {
-        return modifierTime;
-    }
-
-    public void setModifierTime(Long modifierTime) {
-        this.modifierTime = modifierTime;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -114,11 +102,4 @@ public class BannerManagerReq {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tianrui.api.req.admin.BannerManagerReq;
+import com.tianrui.api.resp.admin.BannerManagerResp;
 import com.tianrui.service.bean.BannerManager;
 import com.tianrui.service.bean.BannerManagerExample;
 
@@ -43,4 +45,11 @@ public interface BannerManagerMapper {
 	 * @return
 	 */
 	List<BannerManager> queryPushBanner();
+
+	/**
+	 * 手机端显示banner图片
+	 * @author xcy
+	 * @return
+	 */
+	List<BannerManager> queryAppBanner(BannerManagerReq req);
 }
