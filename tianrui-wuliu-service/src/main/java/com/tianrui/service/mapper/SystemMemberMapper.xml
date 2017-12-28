@@ -86,7 +86,7 @@
 	    <if test="aldriverid != null and aldriverid != ''">
 	    	and aldriverid = #{aldriverid,jdbcType=VARCHAR}
 	    </if>
-	    <if test="orgid == notNull">
+	    <if test="orgid == 'notNull'">
 	    	and orgid is not null
 	    </if>
 	    <if test="ids != null">

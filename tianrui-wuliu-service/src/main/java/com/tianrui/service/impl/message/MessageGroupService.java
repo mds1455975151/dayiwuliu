@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baidu.yun.push.exception.PushClientException;
+import com.baidu.yun.push.exception.PushServerException;
 import com.tianrui.api.intf.ISendMobileMessage;
 import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.message.intf.IMessageGroupService;
@@ -42,6 +44,8 @@ import com.tianrui.service.mapper.MessageGroupMapper;
 import com.tianrui.service.mapper.MessageGroupPushMapper;
 import com.tianrui.service.mapper.SystemMemberMapper;
 import com.tianrui.service.util.AndroidPushUtils;
+import com.tianrui.service.util.BaiduPushUtils;
+import com.tianrui.service.util.BaiduPushUtilsOwner;
 import com.tianrui.service.util.IosPushUtils;
 
 @Service
@@ -72,78 +76,220 @@ public class MessageGroupService implements IMessageGroupService{
 	public Result uptMemberGroup(MemberGroupReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if(req.getGroupType()==MemberGroupEnum.GROUP_DRIVER.getType()){
-			//司机分组
-			String code = MemberGroupEnum.GROUP_DRIVER.getCode();
-			String groupName = MemberGroupEnum.GROUP_DRIVER.getRemark();
-			SystemMember query = new SystemMember();
-			query.setDriverpercheck((short)1);
-			//查询出所有司机
-			List<SystemMember> list = systemMemberMapper.selectByCondition(query);
-			logger.info("司机集合数="+list.size());
-			for(SystemMember member : list){
-				MemberPush push = memberPushMapper.selectByMemberId(member.getId());
-				MessageGroup save = new MessageGroup();
-				save.setId(UUIDUtil.getId());
-				save.setGroupType(code);
-				save.setGroupName(groupName);
-				save.setCellphone(member.getCellphone());
-				save.setUserName(member.getRemarkname());
-				save.setUserPhone(member.getCellphone());
-				if(push!=null){
-					save.setChinnlId(push.getPushid());
-					save.setChinnlType(push.getApptype().toString());
-				}
-				messageGroupMapper.insertSelective(save);
-			}
+			//司机分组-更新
+			uptDriverGroup();
 		}else if(req.getGroupType()==MemberGroupEnum.GROUP_VENDER.getType()){
 			//车主分组
-			String code = MemberGroupEnum.GROUP_VENDER.getCode();
-			String groupName = MemberGroupEnum.GROUP_VENDER.getRemark();
-			List<MemberResp> list = systemMemberService.findAllVender();
-			logger.info("车主集合数="+list.size());
-			for(MemberResp member : list){
-				MemberPush push = memberPushMapper.selectByMemberId(member.getId());
-				MessageGroup save = new MessageGroup();
-				save.setId(UUIDUtil.getId());
-				save.setGroupType(code);
-				save.setGroupName(groupName);
-				save.setCellphone(member.getCellPhone());
-				save.setUserName(member.getRemarkname());
-				save.setUserPhone(member.getCellPhone());
-				if(push!=null){
-					save.setChinnlId(push.getPushid());
-					save.setChinnlType(push.getApptype().toString());
-				}
-				messageGroupMapper.insertSelective(save);
-			}
+			uptVenderGroup();
 		}else if(req.getGroupType()==MemberGroupEnum.GROUP_OWNER.getType()){
 			//货主分组
-			String code = MemberGroupEnum.GROUP_OWNER.getCode();
-			String groupName = MemberGroupEnum.GROUP_OWNER.getRemark();
-			SystemMember query = new SystemMember();
-			query.setOrgid("notNull");
-			//查询出所有司机
-			List<SystemMember> list = systemMemberMapper.selectByCondition(query);
-			for(SystemMember member : list){
-				MemberPushOwner push = memberPushOwnerMapper.selectByMemberId(member.getId());
-				MessageGroup save = new MessageGroup();
-				save.setId(UUIDUtil.getId());
-				save.setGroupType(code);
-				save.setGroupName(groupName);
-				save.setCellphone(member.getCellphone());
-				save.setUserName(member.getRemarkname());
-				save.setUserPhone(member.getCellphone());
-				if(push!=null){
-					save.setChinnlId(push.getPushid());
-					save.setChinnlType(push.getApptype().toString());
-				}
-				messageGroupMapper.insertSelective(save);
-			}
+			uptOwnerGroup();
 		}else{
 			logger.info("未找到消息分组");
 			rs.setErrorCode(ErrorCode.MESSAGE_GROUP_GRNULL);
 		}
 		return rs;
+	}
+
+	private void uptOwnerGroup() throws PushClientException, PushServerException {
+		String code = MemberGroupEnum.GROUP_OWNER.getCode();
+		String groupName = MemberGroupEnum.GROUP_OWNER.getRemark();
+		//更新分组
+		uptBaiDuGroupOwner(code);
+		
+		SystemMember query = new SystemMember();
+		query.setOrgid("notNull");
+		//查询出所有货主
+		List<SystemMember> list = systemMemberMapper.selectByCondition(query);
+		
+		List<String> android = new ArrayList<String>();
+		List<String> ios = new ArrayList<String>();
+		
+		for(SystemMember member : list){
+			MemberPushOwner push = memberPushOwnerMapper.selectByMemberId(member.getId());
+			MessageGroup save = new MessageGroup();
+			save.setId(UUIDUtil.getId());
+			save.setGroupType(code);
+			save.setGroupName(groupName);
+			save.setCellphone(member.getCellphone());
+			save.setUserName(member.getRemarkname());
+			save.setUserPhone(member.getCellphone());
+			if(push!=null){
+				save.setChinnlId(push.getPushid());
+				if(push.getApptype()==(byte)1){//android
+					save.setChinnlType("3");
+					//3
+					android.add(push.getPushid());
+					if(android.size()>=9){
+						//最多保存9 推送并清空
+						String[] ids = android.toArray(new String[android.size()]);
+						BaiduPushUtilsOwner.addUserToTage(code, 3, ids);
+						logger.info("添加用户至分组货主 android:"+ids.length);
+						android.clear();
+					}
+				}else if(push.getApptype()==(byte)2){//IOS
+					//4
+					ios.add(push.getPushid());
+					save.setChinnlType("4");
+					if(ios.size()>=9){
+						//最多保存9 推送并清空
+						String[] ids = ios.toArray(new String[ios.size()]);
+						BaiduPushUtilsOwner.addUserToTage(code, 4, ids);
+						logger.info("添加用户至分组 货主ios:"+ids.length);
+						ios.clear();
+					}
+				}
+			}
+			messageGroupMapper.insertSelective(save);
+		}
+		String[] and_ = android.toArray(new String[android.size()]);
+		BaiduPushUtilsOwner.addUserToTage(code, 3, and_);
+		logger.info("添加用户至分组货主android:"+and_.length);
+		
+		String[] ios_ = ios.toArray(new String[ios.size()]);
+		BaiduPushUtilsOwner.addUserToTage(code, 4, ios_);
+		logger.info("添加用户至分组司机货主 ios:"+ios_.length);
+	}
+
+	private void uptBaiDuGroupOwner(String code) throws PushClientException, PushServerException {
+		//删除数据库分组
+		messageGroupMapper.deleteByGroup(code);
+		//删除分组
+		BaiduPushUtilsOwner.deleteTage(code, 3);
+		BaiduPushUtilsOwner.deleteTage(code, 4);
+		//创建分组
+		BaiduPushUtilsOwner.createTage(code, 3);
+		BaiduPushUtilsOwner.createTage(code, 4);
+	}
+
+	private void uptVenderGroup() throws Exception {
+		String code = MemberGroupEnum.GROUP_VENDER.getCode();
+		String groupName = MemberGroupEnum.GROUP_VENDER.getRemark();
+		//更新百度推送分组
+		uptBaiDuPushGroup(code);
+		List<MemberResp> list = systemMemberService.findAllVender();
+		logger.info("车主集合数="+list.size());
+		
+		List<String> android = new ArrayList<String>();
+		List<String> ios = new ArrayList<String>();
+		for(MemberResp member : list){
+			MemberPush push = memberPushMapper.selectByMemberId(member.getId());
+			MessageGroup save = new MessageGroup();
+			save.setId(UUIDUtil.getId());
+			save.setGroupType(code);
+			save.setGroupName(groupName);
+			save.setCellphone(member.getCellPhone());
+			save.setUserName(member.getRemarkname());
+			save.setUserPhone(member.getCellPhone());
+			if(push!=null){
+				save.setChinnlId(push.getPushid());
+				if(push.getApptype()==(byte)1){//android
+					save.setChinnlType("3");
+					//3
+					android.add(push.getPushid());
+					if(android.size()>=9){
+						//最多保存9 推送并清空
+						String[] ids = android.toArray(new String[android.size()]);
+						BaiduPushUtils.addUserToTage(code, 3, ids);
+						logger.info("添加用户至分组车主 android:"+ids.length);
+						android.clear();
+					}
+				}else if(push.getApptype()==(byte)2){//IOS
+					//4
+					ios.add(push.getPushid());
+					save.setChinnlType("4");
+					if(ios.size()>=9){
+						//最多保存9 推送并清空
+						String[] ids = ios.toArray(new String[ios.size()]);
+						BaiduPushUtils.addUserToTage(code, 4, ids);
+						logger.info("添加用户至分组 车主ios:"+ids.length);
+						ios.clear();
+					}
+				}
+			}
+			messageGroupMapper.insertSelective(save);
+		}
+		
+		String[] and_ = android.toArray(new String[android.size()]);
+		BaiduPushUtils.addUserToTage(code, 3, and_);
+		logger.info("添加用户至分组 车主android:"+and_.length);
+		
+		String[] ios_ = ios.toArray(new String[ios.size()]);
+		BaiduPushUtils.addUserToTage(code, 4, ios_);
+		logger.info("添加用户至分组司机 车主 ios:"+ios_.length);
+	}
+
+	private void uptDriverGroup() throws PushClientException, PushServerException {
+		
+		String code = MemberGroupEnum.GROUP_DRIVER.getCode();
+		String groupName = MemberGroupEnum.GROUP_DRIVER.getRemark();
+		//更新百度推送分组
+		uptBaiDuPushGroup(code);
+		
+		SystemMember query = new SystemMember();
+		query.setDriverpercheck((short)1);
+		//查询出所有司机
+		List<SystemMember> list = systemMemberMapper.selectByCondition(query);
+		logger.info("司机集合数="+list.size());
+		List<String> android = new ArrayList<String>();
+		List<String> ios = new ArrayList<String>();
+		for(SystemMember member : list){
+			MemberPush push = memberPushMapper.selectByMemberId(member.getId());
+			MessageGroup save = new MessageGroup();
+			save.setId(UUIDUtil.getId());
+			save.setGroupType(code);
+			save.setGroupName(groupName);
+			save.setCellphone(member.getCellphone());
+			save.setUserName(member.getRemarkname());
+			save.setUserPhone(member.getCellphone());
+			if(push!=null){
+				save.setChinnlId(push.getPushid());
+				if(push.getApptype()==(byte)1){//android
+					save.setChinnlType("3");
+					//3
+					android.add(push.getPushid());
+					if(android.size()>=9){
+						//最多保存9 推送并清空
+						String[] ids = android.toArray(new String[android.size()]);
+						BaiduPushUtils.addUserToTage(code, 3, ids);
+						logger.info("添加用户至分组司机 android:"+ids.length);
+						android.clear();
+					}
+				}else if(push.getApptype()==(byte)2){//IOS
+					//4
+					ios.add(push.getPushid());
+					save.setChinnlType("4");
+					if(ios.size()>=9){
+						//最多保存9 推送并清空
+						String[] ids = ios.toArray(new String[ios.size()]);
+						BaiduPushUtils.addUserToTage(code, 4, ids);
+						logger.info("添加用户至分组 司机ios:"+ids.length);
+						ios.clear();
+					}
+				}
+			}
+			messageGroupMapper.insertSelective(save);
+		}
+		
+		String[] and_ = android.toArray(new String[android.size()]);
+		BaiduPushUtils.addUserToTage(code, 3, and_);
+		logger.info("添加用户至分组 司机android:"+and_.length);
+		
+		logger.info("ios.size()"+ios.size());
+		String[] ios_ = ios.toArray(new String[ios.size()]);
+		BaiduPushUtils.addUserToTage(code, 4, ios_);
+		logger.info("添加用户至分组司机 ios:"+ios_.length);
+	}
+
+	private void uptBaiDuPushGroup(String code) throws PushClientException, PushServerException {
+		//删除数据库分组
+		messageGroupMapper.deleteByGroup(code);
+		//删除分组
+		BaiduPushUtils.deleteTage(code, 3);
+		BaiduPushUtils.deleteTage(code, 4);
+		//创建分组
+		BaiduPushUtils.createTage(code, 3);
+		BaiduPushUtils.createTage(code, 4);
 	}
 	
 	@Override
@@ -304,5 +450,4 @@ public class MessageGroupService implements IMessageGroupService{
 			rs.setErrorCode(ErrorCode.MESSAGE_GROUP_ERMEMBER);
 		}
 	}
-
 }

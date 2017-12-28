@@ -24,5 +24,4 @@ public interface IMessageGroupService {
 	/** 更新用户分组
 	 * @throws Exception */
 	public Result uptMemberGroup(MemberGroupReq req) throws Exception;
-	
 }
