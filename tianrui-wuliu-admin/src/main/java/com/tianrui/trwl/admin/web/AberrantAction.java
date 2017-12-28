@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.message.intf.IMessageGroupService;
+import com.tianrui.api.req.groupMsg.CustomRcordReq;
 import com.tianrui.api.req.groupMsg.PushGroupMessageReq;
 import com.tianrui.api.req.money.TrackSelectReq;
 import com.tianrui.api.resp.money.CustomRcordResp;
@@ -66,5 +67,13 @@ public class AberrantAction {
 		rs = messageGroupService.pushGroupMsg(req);
 		return rs;
 	}
-
+	/** 关闭查看操作
+	 * @throws Exception */
+	@RequestMapping("customRcord")
+	@ResponseBody
+	public Result customRcord(CustomRcordReq req) throws Exception{
+		Result rs = Result.getSuccessResult();
+		rs = messageGroupService.uptErrMsg(req);
+		return rs;
+	}
 }

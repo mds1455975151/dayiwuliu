@@ -38,7 +38,7 @@
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
-					<h3>消息通知</h3>
+					<h3>消息维护</h3>
 				</div>
 				<!--查询框begin-->
 				<div class="row">
@@ -47,7 +47,7 @@
                            <label>通知渠道：</label>
                            <select class="form-control" id="zhbusi">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
+                               <option value="">全部</option>
                                <option value="0">轨迹异常</option>
                            </select>
                        </div>

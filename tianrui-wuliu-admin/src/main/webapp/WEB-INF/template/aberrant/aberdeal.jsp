@@ -59,17 +59,16 @@
                            <label>异常类型：</label>
                            <select class="form-control" id="abertype">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="1">轨迹异常</option>
                            </select>
                        </div>
                        <div class="ht_div">
                            <label>处理状态：</label>
                            <select class="form-control" id="aberstatus">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">未修复</option>
-                               <option value="0">已修复</option>
+                               <option value="0">待处理</option>
+                               <option value="1">处理中</option>
+                               <option value="2">已处理</option>
                            </select>
                        </div>
                         <div class="ht_div">
@@ -239,19 +238,20 @@
                     </div>
                     <div class="aberbottom">
                         <p>备注信息:</p>
-                        <textarea class="form-control" rows="2"></textarea>
+                        <textarea class="form-control" id="tex_tdclose" rows="2"></textarea>
+                        <input type="hidden" id="id_tdclose" value="">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" id="td_close" data-dismiss="modal">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
-<!--关闭后的详情begin-->
-<div class="modal fade" id="closedd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--查看的详情begin-->
+<div class="modal fade" id="viewdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -261,12 +261,13 @@
             </div>
             <div class="modal-body">
                 <div class="closedabert">
-                    <h4>备注信息：确定要推送消息吗</h4>
+                    <div id="viewtxt">
+                    <h4></h4>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>

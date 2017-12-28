@@ -16,7 +16,7 @@ public interface IMessageGroupService {
 	/** 修改消息
 	 * @throws Exception */
 	public Result uptErrMsg(CustomRcordReq req)throws Exception;
-	/** 查询消息分组*/
+	/** 查询消息分组 -群体维护*/
 	public PaginationVO<MessageGroupResp> selectMsgGroup(MessageGroupReq req)throws Exception;
 	/** 查询消息分组推送*/
 	public PaginationVO<MessageGroupPushResp> selectMsgGroupPush(MessageGroupPushReq req)throws Exception;
