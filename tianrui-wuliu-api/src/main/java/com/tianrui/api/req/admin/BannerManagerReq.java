@@ -1,7 +1,8 @@
 package com.tianrui.api.req.admin;
 
 public class BannerManagerReq {
-    private String id;
+
+	private String id;
     
     //发布图片多张图片的id   多个id  ;  分割
   	private String pushBannerIds;
@@ -21,6 +22,10 @@ public class BannerManagerReq {
     private String modifier;
     //数据状态 0：无效 1：有效
     private String status;
+    
+    protected int pageNo;
+	
+	protected int pageSize;
 
     public String getId() {
         return id;
@@ -102,4 +107,20 @@ public class BannerManagerReq {
         this.status = status == null ? null : status.trim();
     }
 
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+    
 }

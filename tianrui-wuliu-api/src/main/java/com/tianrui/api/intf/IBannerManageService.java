@@ -15,7 +15,7 @@ public interface IBannerManageService {
 	 * @author xcy
 	 * @return
 	 */
-	Result queryBanner();
+	Result queryBanner(BannerManagerReq bannerReq);
 	
 	/**
 	 * banner管理图片新增
@@ -54,7 +54,7 @@ public interface IBannerManageService {
 	 * @author xcy
 	 * @return
 	 */
-	Result queryPushBanner();
+	Result queryPushBanner(BannerManagerReq bannerReq);
 
 	/**
 	 * App展示发布的banner图片

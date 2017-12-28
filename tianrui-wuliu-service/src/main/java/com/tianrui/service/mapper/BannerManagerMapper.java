@@ -37,14 +37,14 @@ public interface BannerManagerMapper {
 	 * @author xcy
 	 * @return
 	 */
-	List<BannerManager> queryBanner(BannerManager bannerManager);
+	List<BannerManager> queryBanner(BannerManagerReq bannerReq);
 
 	/**
 	 * 查询待发布的and启用的and有效的banner图片数据
 	 * @author xcy
 	 * @return
 	 */
-	List<BannerManager> queryPushBanner();
+	List<BannerManager> queryPushBanner(BannerManagerReq bannerReq);
 
 	/**
 	 * 手机端显示banner图片

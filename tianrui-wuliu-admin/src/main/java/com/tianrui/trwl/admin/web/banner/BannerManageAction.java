@@ -65,8 +65,8 @@ public class BannerManageAction {
 	 */
 	@RequestMapping("queryBanner")
 	@ResponseBody
-	public Result queryBanner(){
-		Result result = bannerManageService.queryBanner();
+	public Result queryBanner(BannerManagerReq bannerReq){
+		Result result = bannerManageService.queryBanner(bannerReq);
 		return result;
 	}
 	
@@ -144,8 +144,8 @@ public class BannerManageAction {
 	 */
 	@RequestMapping("queryPushBanner")
 	@ResponseBody
-	public Result queryPushBanner(HttpServletRequest request){
-		Result result = bannerManageService.queryPushBanner();
+	public Result queryPushBanner(HttpServletRequest request,BannerManagerReq bannerReq){
+		Result result = bannerManageService.queryPushBanner(bannerReq);
 		return result;
 	}
 }

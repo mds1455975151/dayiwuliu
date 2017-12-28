@@ -32,11 +32,10 @@ public class BannerManageService implements IBannerManageService {
 	private BannerManagerMapper bannerManagerMapper;
 	
 	@Override
-	public Result queryBanner() {
+	public Result queryBanner(BannerManagerReq bannerReq) {
 		Result result = Result.getSuccessResult();
-		BannerManager bannerManager = new BannerManager();
-		bannerManager.setStatus(Constant.YES_STR);
-		List<BannerManager> bannerList = bannerManagerMapper.queryBanner(bannerManager);
+		bannerReq.setStatus(Constant.YES_STR);
+		List<BannerManager> bannerList = bannerManagerMapper.queryBanner(bannerReq);
 		if(!bannerList.isEmpty()){
 			result.setData(bannerList);
 		}else{
@@ -124,10 +123,10 @@ public class BannerManageService implements IBannerManageService {
 	}
 
 	@Override
-	public Result queryPushBanner() {
+	public Result queryPushBanner(BannerManagerReq bannerReq) {
 		Result result = Result.getSuccessResult();
 		//查询有效的and待发布and启用的数据
-		List<BannerManager> bannerList = bannerManagerMapper.queryPushBanner();
+		List<BannerManager> bannerList = bannerManagerMapper.queryPushBanner(bannerReq);
 		if(!bannerList.isEmpty()){
 			result.setData(bannerList);
 		}else{
