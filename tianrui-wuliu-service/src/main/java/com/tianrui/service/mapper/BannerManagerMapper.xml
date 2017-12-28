@@ -315,4 +315,24 @@
   <select id="queryPushBanner" resultMap="BaseResultMap">
   	select * from banner_manager where status='Y' and push_status='0' and pic_status='1' order by create_date desc
   </select>
+  <!-- 手机端展示Banner图片 -->
+  <select id="queryAppBanner" parameterType="com.tianrui.api.req.admin.BannerManagerReq" resultMap="BaseResultMap">
+  	select * from banner_manager where 1=1 and pic_status='1' and push_status='1'
+  	  <if test="id != null and id != '' " >
+        and id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null and picName != '' " >
+        and pic_name = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpUrl != null and httpUrl != '' " >
+        and http_url = #{httpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null and createDate != '' " >
+        and create_date = #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null and status != '' " >
+        and status = #{status,jdbcType=VARCHAR}
+      </if>
+  	order by create_date desc
+  </select>
 </mapper>

@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.tianrui.api.intf.IBannerManageService;
 import com.tianrui.api.req.admin.BannerManagerReq;
+import com.tianrui.api.resp.admin.BannerManagerResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.BannerManager;
 import com.tianrui.service.mapper.BannerManagerMapper;
@@ -130,6 +132,19 @@ public class BannerManageService implements IBannerManageService {
 			result.setData(bannerList);
 		}else{
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+		}
+		return result;
+	}
+
+	@Override
+	public Result queryAppBanner(BannerManagerReq req) {
+		Result result = Result.getSuccessResult();
+	  	//设置有效的数据'Y'
+		req.setStatus(Constant.YES_STR);
+		List<BannerManager> appBanner = bannerManagerMapper.queryAppBanner(req);
+		if(!appBanner.isEmpty()){
+			result.setData(appBanner);
+			result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		}
 		return result;
 	}
