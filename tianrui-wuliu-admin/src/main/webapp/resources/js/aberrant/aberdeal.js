@@ -194,7 +194,7 @@ $("#smsconfirm").on("click",function(){
 		data:{"id":smsid,"msgType":smsType,"msgTxt":smsTxt,"groupType":smsgroupType,"memberId":smsmemberId},
 		success: function(result) {
 			if(result.code == "000000"){
-				alert("推送成功！");
+				alert("操作成功！");
 				init(0);
 			}else{
 				alert(result.error);
@@ -221,7 +221,7 @@ $("#callconfirm").on("click",function(){
 		data:{"id":callid,"msgType":callType,"msgTxt":callTxt,"groupType":callgroupType,"memberId":callmemberId},
 		success: function(result) {
 			if(result.code == "000000"){
-				alert("推送成功！");
+				alert("操作成功！");
 				init(0);
 			}else{
 				alert(result.error);
@@ -244,7 +244,7 @@ $("#td_close").on("click",function(){
 		data:{"id":closeid,"problemDescribe":closeTxt,"solvingState":2},
 		success: function(result) {
 			if(result.code == "000000"){
-				alert("推送成功！");
+				alert("操作成功！");
 				init(0);
 				var showstr = "";
 				var radiotex = $('input[name="plat"]:checked').siblings("span").text();

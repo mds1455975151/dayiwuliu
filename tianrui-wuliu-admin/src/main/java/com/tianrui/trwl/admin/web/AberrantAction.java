@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.message.intf.IMessageGroupService;
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.MemberGroupReq;
 import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
 import com.tianrui.api.req.groupMsg.MessageGroupReq;
 import com.tianrui.api.req.groupMsg.PushGroupMessageReq;
@@ -60,7 +61,7 @@ public class AberrantAction {
 		return rs;
 	}
 	
-	/**消息分组*/
+	/** 群体消息*/
 	@RequestMapping("selectMsgGroup")
 	@ResponseBody//返回数据      不写的话  返回的是页面
 	public Result selectMsgGroup(MessageGroupReq req) throws Exception{
@@ -69,8 +70,17 @@ public class AberrantAction {
 		rs.setData(page);
 		return rs;
 	}
-	
-	/** 群体消息*/
+	/** 群体消息更新
+	 * @throws Exception */
+	@RequestMapping("updategroup")
+	@ResponseBody
+	public Result updategroup(MemberGroupReq req,HttpServletRequest request) throws Exception{
+		Users user = SessionManager.getSessionMember(request);
+		Result rs = Result.getSuccessResult();
+		rs = messageGroupService.uptMemberGroup(req);
+		return rs;
+	}
+	/**消息维护*/
 	@RequestMapping("selectMsgGroupPush")
 	@ResponseBody//返回数据      不写的话  返回的是页面
 	public Result selectMsgGroupPush(MessageGroupPushReq req) throws Exception{
@@ -80,7 +90,7 @@ public class AberrantAction {
 		return rs;
 	}
 	
-	/** 发送消息推送
+	/** 异常处理发送消息推送
 	 * @throws Exception */
 	@RequestMapping("pushGroupMsg")
 	@ResponseBody
@@ -91,7 +101,7 @@ public class AberrantAction {
 		rs = messageGroupService.pushGroupMsg(req);
 		return rs;
 	}
-	/** 关闭查看操作
+	/** 异常处理关闭查看操作
 	 * @throws Exception */
 	@RequestMapping("customRcord")
 	@ResponseBody
