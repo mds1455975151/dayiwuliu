@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta name="keywords" content=" 天瑞" />
     <meta name="description" content="">
     <meta name="author" content="">
-	<link href="${stylesRoot }/appbanner.css" rel="stylesheet">
+	<link href="/resources/css/appbanner_push.css" rel="stylesheet">
     <link href="${stylesRoot }/bootstrap.css" rel="stylesheet">
     <link href="${stylesRoot }/base.css" rel="stylesheet">
     <link href="${stylesRoot }/style.css" rel="stylesheet">
@@ -41,38 +41,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div style="margin:30px 0 20px 10px;">banner发布</div>
                 <div class="main">
                     <div class="infoBox">
-                        <div class="border">
-                            <div class="info">
-                                <img src="${trRoot}/images/bannerhy1.png">
-                                <p>名称：货源中心数据总览</p>
-                                <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
-                            </div>
-                        </div>
-                        <div class="border">
-                            <div class="info">
-                                <img src="${trRoot}/images/bannerhy4.jpg">
-                                <p>名称：在途运单数据总览</p>
-                                <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
-                            </div>
-                        </div>
-                        <div class="border">
-                            <div class="info">
-                                <img src="${trRoot}/images/bannerhy2.jpg">
-                                <p>名称：在途运单数据总览</p>
-                                <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
-                            </div>
-                        </div>
-                        <div class="border">
-                            <div class="info">
-                                <img src="${trRoot}/images/bannerhy3.jpg">
-                                <p>名称：在途运单数据总览</p>
-                                <p>链接：http://172.19.74:8090/user/user?menuId=2</p>
-                            </div>
+                   
                         </div>
                         <div class="clear"></div>
-                    </div>
-                    <div class="more">更多</div>
+                         <div class="more">更多</div>
                     <div class="button">发布</div>
+                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -92,6 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     var CONTEXTPATH="${contextPath}";
     var imagesRoot="${imagesRoot }";
 </script>
+<script type="text/javascript" src="/resources/js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="/resources/js/appbanner_push.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>
 </body>

@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--审核begin-->
 <!--审核详情end-->
 <script type="text/javascript" src="/resources/js/jquery-2.1.0.js"></script>
-<script type="text/javascript" src="/resources/js/appbanner.js"></script>
+<script type="text/javascript" src="/resources/js/appbanner.js?888111"></script>
 <%@include file="../common/footer.jsp" %>
 <script type="text/javascript" src="${trRoot}/js/fileinput.js"></script>
 <script type="text/javascript" src="${trRoot}/js/fileinput_locale_zh.js"></script>

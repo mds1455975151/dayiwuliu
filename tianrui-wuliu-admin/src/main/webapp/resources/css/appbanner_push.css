@@ -1,0 +1,109 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.bottomBox{
+    overflow: hidden;
+    width: 100%;
+}
+.bottomBox .left{
+    float: left;
+    width: 20%;
+    min-height: 1000px;
+    background-color: #f6f1f5;
+}
+.bottomBox .right{
+    float: right;
+    width: 80%;
+    min-height: 1000px;
+}
+.leftNav{
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    background-color: #fff;
+    text-align: center;
+    color: #0088d9;
+}
+.clear{
+    overflow: hidden;
+    clear: both;
+}
+.right .top{
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #f4f4f4;
+}
+.right .top span{
+    margin-left: 10px;
+}
+.right .bottom .main{
+    width: 98%;
+    min-height: 1000px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+}
+.right .bottom .main .infoBox{
+    width: 90%;
+    margin: 20px auto;
+    overflow:hidden;
+}
+.right .bottom .main .infoBox .border{
+    width: 50%;
+    float: left;
+}
+.right .bottom .main .infoBox .info{
+    width:90%;
+    border: 1px solid #ccc;
+    height: 325px;
+    margin-bottom: 20px;
+     position: relative;
+}
+.right .bottom .main .infoBox .info img{
+    width:100%;
+}
+.right .bottom .main .infoBox .info p{
+    margin: 10px;
+}
+.right .bottom .more{
+    text-align: center;
+    color: #3572dc;
+}
+.right .bottom .button{
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #0188e0;
+    color: white;
+    margin: 40px auto;
+    cursor: pointer;
+}
+.piaochecked {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    float: left;
+    cursor: pointer;
+    margin-left: 10px;
+    text-align: center;
+    border-radius: 5px;
+    opacity: 0.8;
+    background-image: url("checkbox.gif");
+    background-repeat: no-repeat;
+    background-position:0 -21px;
+}
+
+.on_check {
+    background-position:0 0 ;
+}
+.radioclass {
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+}
