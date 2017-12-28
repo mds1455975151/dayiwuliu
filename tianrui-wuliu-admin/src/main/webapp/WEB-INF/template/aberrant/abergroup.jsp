@@ -45,10 +45,11 @@
                     <div class="col-md-12">
 						<div class="ht_div">
                            <label>群体类型：</label>
-                           <select class="form-control" id="zhbusi">
+                           <select class="form-control" id="selecttype">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="1">司机</option>
+                               <option value="2">车主</option>
+                               <option value="3">货主</option>
                            </select>
                         </div>
                         <div class="ht_divbtn">
@@ -59,7 +60,7 @@
                 </div>
 				<!--查询框end-->
 				<div class="quntibtn">
-                   <button class="btn btnblue " type="submit">更新</button>
+                   <button class="btn btnblue " type="submit" id="typeupdate">更新</button>
                 </div>
 				<div class="row mt15">
 					<div class="col-md-12">
@@ -106,6 +107,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/money/dfindex.js?1206"></script>
+	<script type="text/javascript" src="/resources/js/aberrant/abergroup.js?1228"></script>
 </body>
 </html>

@@ -82,7 +82,7 @@ public class AberrantAction {
 	}
 	/**消息维护*/
 	@RequestMapping("selectMsgGroupPush")
-	@ResponseBody//返回数据      不写的话  返回的是页面
+	@ResponseBody
 	public Result selectMsgGroupPush(MessageGroupPushReq req) throws Exception{
 		Result rs = Result.getSuccessResult();
 		PaginationVO<MessageGroupPushResp> page = messageGroupService.selectMsgGroupPush(req);

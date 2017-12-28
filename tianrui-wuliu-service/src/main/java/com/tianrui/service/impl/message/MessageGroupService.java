@@ -302,6 +302,14 @@ public class MessageGroupService implements IMessageGroupService{
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
+		if(req.getGroupType().equals("1")){
+			query.setGroupType(MemberGroupEnum.GROUP_DRIVER.getCode());
+		}else if(req.getGroupType().equals("2")){
+			query.setGroupType(MemberGroupEnum.GROUP_VENDER.getCode());
+		}else if(req.getGroupType().equals("3")){
+			query.setGroupType(MemberGroupEnum.GROUP_OWNER.getCode());
+		}
+		
 		List<MessageGroup> list = messageGroupMapper.selectByCondition(query);
 		long a = messageGroupMapper.selectByCount(query);
 		List<MessageGroupResp> resp = new ArrayList<MessageGroupResp>();
