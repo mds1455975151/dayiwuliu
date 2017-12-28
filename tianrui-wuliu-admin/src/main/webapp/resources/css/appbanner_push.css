@@ -61,7 +61,9 @@
      position: relative;
 }
 .right .bottom .main .infoBox .info img{
-    width:100%;
+    /* width:100%;*/
+    width:500px;
+    height:250px;
 }
 .right .bottom .main .infoBox .info p{
     margin: 10px;

@@ -54,7 +54,9 @@
     margin-bottom: 20px;
 }
 .right .bottom .main .infoBox .info img{
-    width:100%;
+    /* width:100%; */
+    width:500px;
+    height:250px;
 }
 .right .bottom .main .infoBox .info p{
     margin: 10px;
@@ -87,7 +89,7 @@
     border-radius: 5px;
     color: white;
     right: 60px;
-    top:200px;
+    top:260px;
     cursor: pointer;
 }
 .count2{
@@ -98,7 +100,7 @@
     background-color: #f55e5f;
     border-radius: 5px;
     right: 10px;
-    top:200px;
+    top:260px;
     text-align: center;
     color: white;
     cursor: pointer;
@@ -111,7 +113,7 @@
     background-color: #85aaee;
     border-radius: 5px;
     right: 10px;
-    top:200px;
+    top:260px;
     text-align: center;
     color: white;
     cursor: pointer;
