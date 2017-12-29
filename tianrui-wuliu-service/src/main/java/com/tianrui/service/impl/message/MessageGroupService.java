@@ -17,6 +17,7 @@ import com.tianrui.api.intf.ISystemMemberService;
 import com.tianrui.api.message.intf.IMessageGroupService;
 import com.tianrui.api.req.common.SmsDetails;
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.GroupMsgSaveReq;
 import com.tianrui.api.req.groupMsg.MemberGroupReq;
 import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
 import com.tianrui.api.req.groupMsg.MessageGroupReq;
@@ -26,6 +27,8 @@ import com.tianrui.api.resp.groupMsg.MessageGroupPushResp;
 import com.tianrui.api.resp.groupMsg.MessageGroupResp;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.enums.MemberGroupEnum;
+import com.tianrui.common.enums.MessageCodeEnum;
+import com.tianrui.common.enums.PushTypeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
@@ -71,6 +74,155 @@ public class MessageGroupService implements IMessageGroupService{
 	private ISystemMemberService systemMemberService;
 	@Autowired
 	OrgMemberMapper orgMemberMapper;
+	
+	@Override
+	public Result pushGroupMsg(GroupMsgSaveReq req) throws Exception {
+		Result rs = Result.getSuccessResult();
+		if(StringUtils.isNotBlank(req.getMsgTxt())){
+			if(PushTypeEnum.PUSH_APP.getType()==req.getMsgType()){
+				//2-APP
+				if(req.getGroupType()==MemberGroupEnum.GROUP_DRIVER.getType()){
+					//司机分组
+					appPushMsgDriver(req);
+				}else if(req.getGroupType()==MemberGroupEnum.GROUP_VENDER.getType()){
+					//车主分组
+					appPushMsgVender(req);
+				}else if(req.getGroupType()==MemberGroupEnum.GROUP_OWNER.getType()){
+					//货主分组
+					appPushMsgOwner(req);
+				}else{
+					logger.info("未找到消息分组");
+					rs.setErrorCode(ErrorCode.MESSAGE_GROUP_GRNULL);
+				}
+			}else if(PushTypeEnum.PUSH_PHONE_MSG.getType()==req.getMsgType()){
+				//短信
+				byte msgType = PushTypeEnum.PUSH_PHONE_MSG.getType();
+				String msgName = PushTypeEnum.PUSH_PHONE_MSG.getRemark();
+				String pushCode = "";
+				String pushName = "";
+				
+				if(req.getGroupType()==MemberGroupEnum.GROUP_DRIVER.getType()){
+					//司机分组
+					pushCode = MemberGroupEnum.GROUP_DRIVER.getCode();
+					pushName = MemberGroupEnum.GROUP_DRIVER.getRemark();
+				}else if(req.getGroupType()==MemberGroupEnum.GROUP_VENDER.getType()){
+					//车主分组
+					pushCode = MemberGroupEnum.GROUP_VENDER.getCode();
+					pushName = MemberGroupEnum.GROUP_VENDER.getRemark();
+				}else if(req.getGroupType()==MemberGroupEnum.GROUP_OWNER.getType()){
+					//货主分组
+					pushCode = MemberGroupEnum.GROUP_OWNER.getCode();
+					pushName = MemberGroupEnum.GROUP_OWNER.getRemark();
+				}
+				MessageGroup query = new MessageGroup();
+				query.setGroupType(pushCode);
+				List<MessageGroup> list = messageGroupMapper.selectByCondition(query);
+				for(MessageGroup rp : list){
+					String phone = rp.getCellphone();
+					SmsDetails sms = new SmsDetails();
+					sms.setTelephoneReceiver(phone);
+					sms.setSmsContent(req.getMsgTxt());
+					sendMobileMessage.sendMobileMessage(sms);
+				}
+				
+				MessageGroupPush save = new MessageGroupPush();
+				save.setId(UUIDUtil.getId());
+				save.setGroupType(pushCode);
+				save.setGroupName(pushName);
+				save.setChinnalType(msgType+"");
+				save.setChinnalName(msgName);
+				save.setPushCount(list.size());
+				save.setPushMessage(req.getMsgTxt());
+				save.setCreateTime(System.currentTimeMillis());
+				messageGroupPushMapper.insertSelective(save);
+				
+			}else if(PushTypeEnum.PUSH_TEL.getType()==req.getMsgType()){
+				//3-电话
+				rs.setCode("123");
+				rs.setError("功能开发中...");
+			}else{
+				logger.info("未找到消息分组");
+				rs.setErrorCode(ErrorCode.MESSAGE_GROUP_GRNULL);
+			}
+		}else{
+			logger.info("推送消息为空");
+			rs.setErrorCode(ErrorCode.MESSAGE_GROUP_MSGNULL);
+		}
+		
+		return rs;
+	}
+
+	private void appPushMsgOwner(GroupMsgSaveReq req) throws PushClientException, PushServerException {
+		String pushCode = MemberGroupEnum.GROUP_OWNER.getCode();
+		String pushName = MemberGroupEnum.GROUP_OWNER.getRemark();
+		//APP
+		byte msgType = PushTypeEnum.PUSH_APP.getType();
+		String msgName = PushTypeEnum.PUSH_APP.getRemark();
+		//分组成员个数
+		int android = BaiduPushUtilsOwner.QueryDeviceNumInTag(pushCode, 3);
+		int ios = BaiduPushUtilsOwner.QueryDeviceNumInTag(pushCode, 4);
+		MessageGroupPush save = new MessageGroupPush();
+		save.setId(UUIDUtil.getId());
+		save.setGroupType(pushCode);
+		save.setGroupName(pushName);
+		save.setChinnalType(msgType+"");
+		save.setChinnalName(msgName);
+		save.setPushCount(android+ios);
+		save.setPushMessage(req.getMsgTxt());
+		save.setCreateTime(System.currentTimeMillis());
+		messageGroupPushMapper.insertSelective(save);
+		
+		BaiduPushUtilsOwner.pushMsgToTage(pushCode, 3, req.getMsgTxt(), MessageCodeEnum.MSG_SYSTEM.getCode()+"");
+		BaiduPushUtilsOwner.pushMsgToTage(pushCode, 4, req.getMsgTxt(), MessageCodeEnum.MSG_SYSTEM.getCode()+"");
+	}
+
+	private void appPushMsgVender(GroupMsgSaveReq req) throws PushClientException, PushServerException {
+		String pushCode = MemberGroupEnum.GROUP_VENDER.getCode();
+		String pushName = MemberGroupEnum.GROUP_VENDER.getRemark();
+		//APP
+		byte msgType = PushTypeEnum.PUSH_APP.getType();
+		String msgName = PushTypeEnum.PUSH_APP.getRemark();
+		//分组成员个数
+		int android = BaiduPushUtils.QueryDeviceNumInTag(pushCode, 3);
+		int ios = BaiduPushUtils.QueryDeviceNumInTag(pushCode, 4);
+		MessageGroupPush save = new MessageGroupPush();
+		save.setId(UUIDUtil.getId());
+		save.setGroupType(pushCode);
+		save.setGroupName(pushName);
+		save.setChinnalType(msgType+"");
+		save.setChinnalName(msgName);
+		save.setPushCount(android+ios);
+		save.setPushMessage(req.getMsgTxt());
+		save.setCreateTime(System.currentTimeMillis());
+		messageGroupPushMapper.insertSelective(save);
+		
+		BaiduPushUtils.pushMsgToTage(pushCode, 3, req.getMsgTxt(), MessageCodeEnum.MSG_SYSTEM.getCode()+"");
+		BaiduPushUtils.pushMsgToTage(pushCode, 4, req.getMsgTxt(), MessageCodeEnum.MSG_SYSTEM.getCode()+"");
+	}
+
+	private void appPushMsgDriver(GroupMsgSaveReq req) throws PushClientException, PushServerException {
+		String pushCode = MemberGroupEnum.GROUP_DRIVER.getCode();
+		String pushName = MemberGroupEnum.GROUP_DRIVER.getRemark();
+		//APP
+		byte msgType = PushTypeEnum.PUSH_APP.getType();
+		String msgName = PushTypeEnum.PUSH_APP.getRemark();
+		//分组成员个数
+		int android = BaiduPushUtils.QueryDeviceNumInTag(pushCode, 3);
+		int ios = BaiduPushUtils.QueryDeviceNumInTag(pushCode, 4);
+		MessageGroupPush save = new MessageGroupPush();
+		save.setId(UUIDUtil.getId());
+		save.setGroupType(pushCode);
+		save.setGroupName(pushName);
+		save.setChinnalType(msgType+"");
+		save.setChinnalName(msgName);
+		save.setPushCount(android+ios);
+		save.setPushMessage(req.getMsgTxt());
+		save.setCreateTime(System.currentTimeMillis());
+		messageGroupPushMapper.insertSelective(save);
+		
+		BaiduPushUtils.pushMsgToTage(pushCode, 3, req.getMsgTxt(), MessageCodeEnum.MSG_SYSTEM.getCode()+"");
+		BaiduPushUtils.pushMsgToTage(pushCode, 4, req.getMsgTxt(), MessageCodeEnum.MSG_SYSTEM.getCode()+"");
+	}
 	
 	@Override
 	public Result uptMemberGroup(MemberGroupReq req) throws Exception {
@@ -140,6 +292,7 @@ public class MessageGroupService implements IMessageGroupService{
 					}
 				}
 			}
+			save.setCaeateTime(System.currentTimeMillis());
 			messageGroupMapper.insertSelective(save);
 		}
 		String[] and_ = android.toArray(new String[android.size()]);
@@ -207,6 +360,7 @@ public class MessageGroupService implements IMessageGroupService{
 					}
 				}
 			}
+			save.setCaeateTime(System.currentTimeMillis());
 			messageGroupMapper.insertSelective(save);
 		}
 		
@@ -268,6 +422,7 @@ public class MessageGroupService implements IMessageGroupService{
 					}
 				}
 			}
+			save.setCaeateTime(System.currentTimeMillis());
 			messageGroupMapper.insertSelective(save);
 		}
 		
@@ -333,6 +488,10 @@ public class MessageGroupService implements IMessageGroupService{
 			page.setPageNo(req.getPageNo());
 			page.setPageSize(req.getPageSize());
 		}
+		query.setChinnalType(req.getMsgType());
+		query.setGroupType(req.getGroupType());
+		query.setTimeBegin(req.getTimeBegin());
+		query.setTimeEnd(req.getTimeEnd());
 		List<MessageGroupPush> list = messageGroupPushMapper.selectByCondition(query);
 		long a = messageGroupPushMapper.selectByCount(query);
 		List<MessageGroupPushResp> resp = new ArrayList<MessageGroupPushResp>();
@@ -364,9 +523,9 @@ public class MessageGroupService implements IMessageGroupService{
 	@Override
 	public Result pushGroupMsg(PushGroupMessageReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
-		CustomRcord cust = customRcordMapper.selectByPrimaryKey(req.getId());
-		if(cust != null){
-			if("4".equals(req.getGroupType())){
+		if("4".equals(req.getGroupType())){
+			CustomRcord cust = customRcordMapper.selectByPrimaryKey(req.getId());
+			if(cust != null){
 				//用户消息推送
 				if("2".equals(req.getMsgType())){
 					//2-APP
@@ -380,11 +539,11 @@ public class MessageGroupService implements IMessageGroupService{
 					rs.setError("功能开发中...");
 				}
 			}else{
-				//TODO 分组消息推送
+				logger.info("未查到对应数据");
+				rs.setErrorCode(ErrorCode.MESSAGE_GROUP_ERNULL);
 			}
 		}else{
-			logger.info("未查到对应数据");
-			rs.setErrorCode(ErrorCode.MESSAGE_GROUP_ERNULL);
+			//TODO 分组消息推送
 		}
 		return rs;
 	}
