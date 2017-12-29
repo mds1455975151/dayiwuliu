@@ -512,6 +512,7 @@ public class MessageGroupService implements IMessageGroupService{
 		upt.setId(req.getId());
 		upt.setProblemDescribe(req.getProblemDescribe());
 		upt.setSolvingState(req.getSolvingState());
+		upt.setSolvingUsername(req.getSysUser());
 		int a = customRcordMapper.updateByPrimaryKeySelective(upt);
 		if(a==0){
 			logger.info("未查到对应数据");
@@ -560,6 +561,7 @@ public class MessageGroupService implements IMessageGroupService{
 				CustomRcord upt = new CustomRcord();
 				upt.setId(cust.getId());
 				upt.setIfSms((byte)1);
+				upt.setSolvingUsername(req.getSysUser());
 				customRcordMapper.updateByPrimaryKeySelective(upt);
 			}else{
 				logger.info("推送消息为空");
@@ -603,6 +605,7 @@ public class MessageGroupService implements IMessageGroupService{
 					CustomRcord upt = new CustomRcord();
 					upt.setId(cust.getId());
 					upt.setIfPush((byte)1);
+					upt.setSolvingUsername(req.getSysUser());
 					customRcordMapper.updateByPrimaryKeySelective(upt);
 				}else{
 					logger.info("未找到用户推送ID");
