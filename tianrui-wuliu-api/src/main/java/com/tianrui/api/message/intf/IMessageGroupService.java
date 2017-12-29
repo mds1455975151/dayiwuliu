@@ -26,5 +26,5 @@ public interface IMessageGroupService {
 	 * @throws Exception */
 	public Result uptMemberGroup(MemberGroupReq req) throws Exception;
 	/** 发送分组消息*/
-	public Result pushGroupMsg(GroupMsgSaveReq req)throws Exception;
+	public Result groupPushMsg(GroupMsgSaveReq req)throws Exception;
 }

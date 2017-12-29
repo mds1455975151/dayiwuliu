@@ -32,7 +32,6 @@ import com.tianrui.common.enums.PushTypeEnum;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.PaginationVO;
 import com.tianrui.common.vo.Result;
-import com.tianrui.service.admin.bean.OrgMember;
 import com.tianrui.service.admin.mapper.OrgMemberMapper;
 import com.tianrui.service.bean.CustomRcord;
 import com.tianrui.service.bean.MemberPush;
@@ -76,7 +75,7 @@ public class MessageGroupService implements IMessageGroupService{
 	OrgMemberMapper orgMemberMapper;
 	
 	@Override
-	public Result pushGroupMsg(GroupMsgSaveReq req) throws Exception {
+	public Result groupPushMsg(GroupMsgSaveReq req) throws Exception {
 		Result rs = Result.getSuccessResult();
 		if(StringUtils.isNotBlank(req.getMsgTxt())){
 			if(PushTypeEnum.PUSH_APP.getType()==req.getMsgType()){
