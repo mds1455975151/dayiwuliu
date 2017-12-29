@@ -1,6 +1,7 @@
 package com.tianrui.api.message.intf;
 
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.GroupMsgSaveReq;
 import com.tianrui.api.req.groupMsg.MemberGroupReq;
 import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
 import com.tianrui.api.req.groupMsg.MessageGroupReq;
@@ -24,4 +25,6 @@ public interface IMessageGroupService {
 	/** 更新用户分组
 	 * @throws Exception */
 	public Result uptMemberGroup(MemberGroupReq req) throws Exception;
+	/** 发送分组消息*/
+	public Result pushGroupMsg(GroupMsgSaveReq req)throws Exception;
 }

@@ -6,6 +6,10 @@ public class MessageGroupPush {
 	
 	private Integer pageSize;
 	
+	private Long timeBegin;//开始时间
+	
+	private Long timeEnd;//结束时间
+	
     private String id;
 
     private String groupType;
@@ -180,5 +184,21 @@ public class MessageGroupPush {
 
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Long getTimeBegin() {
+		return timeBegin;
+	}
+
+	public void setTimeBegin(Long timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Long getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Long timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 }
