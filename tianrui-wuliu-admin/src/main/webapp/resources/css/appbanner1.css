@@ -124,3 +124,16 @@
 .red{
     color:red;
 }
+.add,.push{
+	background-color:#304BFF;
+	text-align:center;
+	line-height:30px;
+	float:left;
+	width:50px;
+	height:30px;
+	margin: 0 10px;
+	cursor:pointer;
+	border:1px solid #ccc;
+	border-radius:5px;
+	color:#fff;
+}

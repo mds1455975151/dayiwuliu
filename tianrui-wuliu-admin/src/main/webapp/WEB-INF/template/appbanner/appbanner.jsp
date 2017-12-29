@@ -38,8 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <div class="bottom">
                 <div style="margin:30px 0 20px 10px;">
-                    <div class="add" style="float:left;">新增&nbsp;&nbsp;&nbsp;</div>
-                    <div class="push" style="float:left">发布</div>
+                    <div class="add">
+                  	  新增
+                    </div>
+                    <div class="push">  
+                    	发布
+                    </div>
                     <div class=clear></div>
                 </div>
                 <div class="main">
