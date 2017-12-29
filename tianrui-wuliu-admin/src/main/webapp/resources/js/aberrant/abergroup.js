@@ -47,13 +47,16 @@ function init(pageNo){
 				    link_to:"javascript:void(0)"
 				});
 			}
-		}
+		},
+		error:function(){
+            alert("hehe");
+        }
 	});
 }
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	if(!data){
+	if(data.length==0){
 		var hmlnull = "";
 		hmlnull +='<td colspan="12">';
 		hmlnull +='<div class="ht_none">';

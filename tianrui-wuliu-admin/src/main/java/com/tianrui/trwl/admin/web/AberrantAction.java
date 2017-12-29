@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tianrui.api.message.intf.IMessageGroupService;
 import com.tianrui.api.req.groupMsg.CustomRcordReq;
+import com.tianrui.api.req.groupMsg.GroupMsgSaveReq;
 import com.tianrui.api.req.groupMsg.MemberGroupReq;
 import com.tianrui.api.req.groupMsg.MessageGroupPushReq;
 import com.tianrui.api.req.groupMsg.MessageGroupReq;
@@ -89,7 +90,15 @@ public class AberrantAction {
 		rs.setData(page);
 		return rs;
 	}
-	
+	/**消息维护新增*/
+	@RequestMapping("groupPushMsg")
+	@ResponseBody
+	public Result groupPushMsg(GroupMsgSaveReq req,HttpServletRequest request) throws Exception{
+		Users user = SessionManager.getSessionMember(request);
+		Result rs = Result.getSuccessResult();
+		rs = messageGroupService.groupPushMsg(req);
+		return rs;
+	}
 	/** 异常处理发送消息推送
 	 * @throws Exception */
 	@RequestMapping("pushGroupMsg")

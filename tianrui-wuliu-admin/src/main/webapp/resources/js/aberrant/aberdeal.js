@@ -78,9 +78,9 @@ function init(pageNo){
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	if(!data){
+	if(data.length==0){
 		var hmlnull = "";
-		hmlnull +='<td colspan="12">';
+		hmlnull +='<td colspan="17">';
 		hmlnull +='<div class="ht_none">';
 		hmlnull +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
 		hmlnull +='<div>';

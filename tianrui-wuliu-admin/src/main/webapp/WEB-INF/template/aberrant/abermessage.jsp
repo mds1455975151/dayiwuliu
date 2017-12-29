@@ -47,16 +47,18 @@
                            <label>通知渠道：</label>
                            <select class="form-control" id="pushqudao">
                                <option value="">请选择</option>
-                               <option value="">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="1">手机(短信) </option>
+                               <option value="2">APP</option>
+                               <option value="3">电话通知</option>
                            </select>
                        </div>
                        <div class="ht_div">
                            <label>推送群体：</label>
                            <select class="form-control" id="pushgroup">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="GROUP_DRIVER">司机 </option>
+                       		   <option value="GROUP_VENDER">车主</option>
+                        	   <option value="GROUP_OWNER">货主</option>
                            </select>
                        </div>
                         <div class="ht_div">
@@ -111,6 +113,11 @@
 			</div>
 		</div>
 		<!--后台右侧布局end-->
+					<div class="loadingbg">
+               <div class="loadingposi" role="document">
+                  <img src="${imagesRoot}/loading3.gif">
+               </div>
+            </div>
 	</div>
 	<!--后台整体布局end-->
 	<!--侧边栏end-->
@@ -130,17 +137,19 @@
                     <div class="ycmodel_width">
                         <label><i style="color: #ff2f00;">*</i>推送群体：</label>
                         <select class="form-control" id="newtype">
-                            <option>请选择</option>
-                            <option>认证失败</option>
-                            <option>认证成功</option>
+                         <option value="">请选择</option>
+                         <option value="1">司机 </option>
+                         <option value="2">车主</option>
+                         <option value="3">货主</option>
                         </select>
                     </div>
                     <div class="ycmodel_width">
                         <label><i style="color: #ff2f00;">*</i>推送渠道：</label>
                         <select class="form-control" id="newqudao">
-                            <option>请选择</option>
-                            <option>认证失败</option>
-                            <option>认证成功</option>
+                            <option value="">请选择</option>
+                            <option value="1">手机(短信) </option>
+                            <option value="2">APP</option>
+                            <option value="3">电话通知</option>
                         </select>
                     </div>
                     <div class="yctexarea_width">
@@ -151,7 +160,7 @@
                 <div class="clear"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="newmodal()">确定</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="messpush_new">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -168,6 +177,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/aberrant/abermessage.js?1228"></script>
+	<script type="text/javascript" src="/resources/js/aberrant/abermessage.js?1229"></script>
 </body>
 </html>

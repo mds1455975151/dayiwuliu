@@ -13,11 +13,31 @@ function reset(){
 	$("#starttime").val("");
 	$("#endtime").val("");
 	init(0);
-
 }
 function getParams(pageNo){
+	//开始时间  格式转换
+	var starttime = $("#starttime").val();
+	var starL = null;
+	if(starttime != ""){
+		starL = Date.parse(new Date(starttime));
+	}
+	//结束时间   格式转换
+	var endtime = $("#endtime").val();
+	var endL = null;
+	if(endtime != ""){
+		endL = Date.parse(new Date(endtime));
+	}
+	if(starttime != "" && endtime == ""){
+		alert("请选择结束时间");
+	}
+	if(starttime == "" && endtime != ""){
+		alert("请选择开始时间");
+	}
 	var params = {pageNo:pageNo,
+			msgType:$("#pushqudao").val(),
 			groupType:$("#pushgroup").val(),
+			timeBegin:starL,
+			timeEnd:endL,
 			pageSize:10}
 	return params;
 }
@@ -56,7 +76,7 @@ function init(pageNo){
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	if(!data){
+	if(data.length==0){
 		var hmlnull = "";
 		hmlnull +='<td colspan="12">';
 		hmlnull +='<div class="ht_none">';
@@ -70,19 +90,12 @@ function innerHml(data){
 		$("#innerHtml").append(hmlnull);
 	}else {
 		for (var a = 0; a < data.length; a++) {
-			var messtatus=data[a].pushStatus;
-			var statusshow='';
-			if(messtatus == 0){
-				statusshow="未推送";
-			}else if(messtatus == 1){
-				statusshow="已推送";
-			}
 			var hml = "<tr>" +
 					"<td>"+(a+1)+"</td>" +
-					"<td>"+(data[a].modifyTime == undefined ? "" : (new Date(data[a].modifyTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
-					"<td>"+(data[a].chinnalType||"")+"</td>" +
+					"<td>"+(data[a].createTime == undefined ? "" : (new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
+					"<td>"+(data[a].chinnalName||"")+"</td>" +
 					"<td>"+(data[a].groupName||"")+"</td>" +
-					"<td>"+(statusshow||"")+"</td>" +
+					"<td>"+(data[a].pushCount||"")+"</td>" +
 					"<td>"+(data[a].pushMessage||"")+"</td>" +
 					"</tr>";
 			$("#innerHtml").append(hml);
@@ -91,22 +104,26 @@ function innerHml(data){
 }
 
 //新增操作
-function newmodal(){
+$("#messpush_new").on("click",function(){
 	var newtype = $("#newtype").val();
 	var newqudao = $("#newqudao").val();
 	var newtext = $("#newtext").val();
+	$(".loadingbg").show();
 	$.ajax({
-		url:"/admin/aberrant/updategroup",
+		url:"/admin/aberrant/groupPushMsg",
 		type:"POST",
-		data:{"groupType":newtype},
+		data:{"groupType":newtype,"msgType":newqudao,"msgTxt":newtext},
 		success: function(result) {
 			if(result.code == "000000"){
-				alert("更新完成！");
 				init(0);
+				$(".loadingbg").hide();
+				var newtype = $("#newtype").val("");
+				var newqudao = $("#newqudao").val("");
+				var newtext = $("#newtext").val("");
 			}else{
 				alert(result.error);
 			}
 		}
 	
 	});
-}
+})
