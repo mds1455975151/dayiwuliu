@@ -168,6 +168,27 @@
   <vehicle>豫RR9657</vehicle>
   <vehicle>豫D37591</vehicle>
 
+  <!-- 新增车辆 17.12.29 -->
+  <vehicle>豫K72888</vehicle>
+  <vehicle>豫K07888</vehicle>
+  <vehicle>豫K08555</vehicle>
+  <vehicle>豫K78973</vehicle>
+  <vehicle>豫K78993</vehicle>
+  <vehicle>豫K78933</vehicle>
+  <vehicle>豫K56688</vehicle>
+  <vehicle>豫K07866</vehicle>
+  <vehicle>豫K87876</vehicle>
+  <vehicle>豫K99148</vehicle>
+  <vehicle>豫RR7813</vehicle>
+  <vehicle>豫RR6713</vehicle>
+  <vehicle>豫K07168</vehicle>
+  <vehicle>豫KB0609</vehicle>
+  <vehicle>豫K61146</vehicle>
+  <vehicle>豫K61946</vehicle>
+  <vehicle>豫K66716</vehicle>
+  <vehicle>豫G56266</vehicle>
+  <vehicle>豫G56693</vehicle>
+  
   <!-- 货物过滤项 -->
   <cargo>水泥</cargo>
  
