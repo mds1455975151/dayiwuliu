@@ -2,19 +2,11 @@ package com.tianrui.api.req.groupMsg;
 
 public class GroupMsgSaveReq {
 
-	private byte groupType;//1-司机  2-车主  3-货主
+	private String groupType;//1-司机  2-车主  3-货主
 	
 	private byte msgType;//1-手机(短信) 2-APP 3-电话通知
 	
 	private String msgTxt;
-
-	public byte getGroupType() {
-		return groupType;
-	}
-
-	public void setGroupType(byte groupType) {
-		this.groupType = groupType;
-	}
 
 	public byte getMsgType() {
 		return msgType;
@@ -31,4 +23,12 @@ public class GroupMsgSaveReq {
 	public void setMsgTxt(String msgTxt) {
 		this.msgTxt = msgTxt;
 	}
+	public String getGroupType() {
+		return groupType;
+	}
+
+	public void setGroupType(String groupType) {
+		this.groupType = groupType;
+	}
+	
 }

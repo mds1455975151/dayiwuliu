@@ -79,19 +79,25 @@ public class MessageGroupService implements IMessageGroupService{
 		Result rs = Result.getSuccessResult();
 		if(StringUtils.isNotBlank(req.getMsgTxt())){
 			if(PushTypeEnum.PUSH_APP.getType()==req.getMsgType()){
-				//2-APP
-				if(req.getGroupType()==MemberGroupEnum.GROUP_DRIVER.getType()){
-					//司机分组
-					appPushMsgDriver(req);
-				}else if(req.getGroupType()==MemberGroupEnum.GROUP_VENDER.getType()){
-					//车主分组
-					appPushMsgVender(req);
-				}else if(req.getGroupType()==MemberGroupEnum.GROUP_OWNER.getType()){
-					//货主分组
-					appPushMsgOwner(req);
-				}else{
-					logger.info("未找到消息分组");
-					rs.setErrorCode(ErrorCode.MESSAGE_GROUP_GRNULL);
+				String[] group = req.getGroupType().split(",");
+				for(String type : group){
+					if(StringUtils.isNotBlank(type)){
+						byte a = Byte.valueOf(type);
+						//2-APP
+						if(a==MemberGroupEnum.GROUP_DRIVER.getType()){
+							//司机分组
+							appPushMsgDriver(req);
+						}else if(a==MemberGroupEnum.GROUP_VENDER.getType()){
+							//车主分组
+							appPushMsgVender(req);
+						}else if(a==MemberGroupEnum.GROUP_OWNER.getType()){
+							//货主分组
+							appPushMsgOwner(req);
+						}else{
+							logger.info("未找到消息分组");
+							rs.setErrorCode(ErrorCode.MESSAGE_GROUP_GRNULL);
+						}
+					}
 				}
 			}else if(PushTypeEnum.PUSH_PHONE_MSG.getType()==req.getMsgType()){
 				//短信
@@ -100,40 +106,46 @@ public class MessageGroupService implements IMessageGroupService{
 				String pushCode = "";
 				String pushName = "";
 				
-				if(req.getGroupType()==MemberGroupEnum.GROUP_DRIVER.getType()){
-					//司机分组
-					pushCode = MemberGroupEnum.GROUP_DRIVER.getCode();
-					pushName = MemberGroupEnum.GROUP_DRIVER.getRemark();
-				}else if(req.getGroupType()==MemberGroupEnum.GROUP_VENDER.getType()){
-					//车主分组
-					pushCode = MemberGroupEnum.GROUP_VENDER.getCode();
-					pushName = MemberGroupEnum.GROUP_VENDER.getRemark();
-				}else if(req.getGroupType()==MemberGroupEnum.GROUP_OWNER.getType()){
-					//货主分组
-					pushCode = MemberGroupEnum.GROUP_OWNER.getCode();
-					pushName = MemberGroupEnum.GROUP_OWNER.getRemark();
+				String[] group = req.getGroupType().split(",");
+				for(String type : group){
+					if(StringUtils.isNotBlank(type)){
+						byte a = Byte.valueOf(type);
+						if(a==MemberGroupEnum.GROUP_DRIVER.getType()){
+							//司机分组
+							pushCode = MemberGroupEnum.GROUP_DRIVER.getCode();
+							pushName = MemberGroupEnum.GROUP_DRIVER.getRemark();
+						}else if(a==MemberGroupEnum.GROUP_VENDER.getType()){
+							//车主分组
+							pushCode = MemberGroupEnum.GROUP_VENDER.getCode();
+							pushName = MemberGroupEnum.GROUP_VENDER.getRemark();
+						}else if(a==MemberGroupEnum.GROUP_OWNER.getType()){
+							//货主分组
+							pushCode = MemberGroupEnum.GROUP_OWNER.getCode();
+							pushName = MemberGroupEnum.GROUP_OWNER.getRemark();
+						}
+						MessageGroup query = new MessageGroup();
+						query.setGroupType(pushCode);
+						List<MessageGroup> list = messageGroupMapper.selectByCondition(query);
+						for(MessageGroup rp : list){
+							String phone = rp.getCellphone();
+							SmsDetails sms = new SmsDetails();
+							sms.setTelephoneReceiver(phone);
+							sms.setSmsContent(req.getMsgTxt());
+							sendMobileMessage.sendMobileMessage(sms);
+						}
+						
+						MessageGroupPush save = new MessageGroupPush();
+						save.setId(UUIDUtil.getId());
+						save.setGroupType(pushCode);
+						save.setGroupName(pushName);
+						save.setChinnalType(msgType+"");
+						save.setChinnalName(msgName);
+						save.setPushCount(list.size());
+						save.setPushMessage(req.getMsgTxt());
+						save.setCreateTime(System.currentTimeMillis());
+						messageGroupPushMapper.insertSelective(save);
+					}
 				}
-				MessageGroup query = new MessageGroup();
-				query.setGroupType(pushCode);
-				List<MessageGroup> list = messageGroupMapper.selectByCondition(query);
-				for(MessageGroup rp : list){
-					String phone = rp.getCellphone();
-					SmsDetails sms = new SmsDetails();
-					sms.setTelephoneReceiver(phone);
-					sms.setSmsContent(req.getMsgTxt());
-					sendMobileMessage.sendMobileMessage(sms);
-				}
-				
-				MessageGroupPush save = new MessageGroupPush();
-				save.setId(UUIDUtil.getId());
-				save.setGroupType(pushCode);
-				save.setGroupName(pushName);
-				save.setChinnalType(msgType+"");
-				save.setChinnalName(msgName);
-				save.setPushCount(list.size());
-				save.setPushMessage(req.getMsgTxt());
-				save.setCreateTime(System.currentTimeMillis());
-				messageGroupPushMapper.insertSelective(save);
 				
 			}else if(PushTypeEnum.PUSH_TEL.getType()==req.getMsgType()){
 				//3-电话
