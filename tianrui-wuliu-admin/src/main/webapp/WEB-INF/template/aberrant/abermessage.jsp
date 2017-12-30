@@ -136,12 +136,18 @@
                 <div class="yichmodal">
                     <div class="ycmodel_width">
                         <label><i style="color: #ff2f00;">*</i>推送群体：</label>
-                        <select class="form-control" id="newtype">
-                         <option value="">请选择</option>
-                         <option value="1">司机 </option>
-                         <option value="2">车主</option>
-                         <option value="3">货主</option>
-                        </select>
+                        <div class="newmessline">
+                            <input type="checkbox" name="newgroup" value="1">
+                            <span>司机</span>
+                        </div>
+                        <div class="newmessline">
+                            <input type="checkbox" name="newgroup" value="2">
+                            <span>车主</span>
+                        </div>
+                        <div class="newmessline">
+                            <input type="checkbox" name="newgroup" value="3">
+                            <span>货主</span>
+                        </div>
                     </div>
                     <div class="ycmodel_width">
                         <label><i style="color: #ff2f00;">*</i>推送渠道：</label>

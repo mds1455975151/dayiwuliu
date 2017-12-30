@@ -105,14 +105,19 @@ function innerHml(data){
 
 //新增操作
 $("#messpush_new").on("click",function(){
-	var newtype = $("#newtype").val();
+        //jquery获取复选框值
+        var chk_value ="";
+        $('input[name="newgroup"]:checked').each(function(){
+            chk_value += $(this).val()+",";
+        });
+    
 	var newqudao = $("#newqudao").val();
 	var newtext = $("#newtext").val();
 	$(".loadingbg").show();
 	$.ajax({
 		url:"/admin/aberrant/groupPushMsg",
 		type:"POST",
-		data:{"groupType":newtype,"msgType":newqudao,"msgTxt":newtext},
+		data:{"groupType":chk_value,"msgType":newqudao,"msgTxt":newtext},
 		success: function(result) {
 			if(result.code == "000000"){
 				init(0);

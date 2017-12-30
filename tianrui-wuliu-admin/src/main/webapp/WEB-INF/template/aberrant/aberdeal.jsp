@@ -146,12 +146,12 @@
                 <h4>您确定要推送消息吗？</h4>
                 <input type="hidden" id="id_message" value="">
                 <input type="hidden" id="msgType_message" value="2">
-                <input type="hidden" id="msgTxt_message" value="测试消息">
+                <input type="hidden" id="msgTxt_message" value="消息已推送成功">
                 <input type="hidden" id="groupType_message" value="4">
                 <input type="hidden" id="message_memberId" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="messconfirm">确定</button>
+                <button type="button" class="btn btn-primary" id="messconfirm" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -170,12 +170,12 @@
                 <h4>确定要推送短信通知吗？</h4>
                 <input type="hidden" id="id_sms" value="">
                 <input type="hidden" id="msgType_sms" value="1">
-                <input type="hidden" id="msgTxt_sms" value="测试短信">
+                <input type="hidden" id="msgTxt_sms" value="短信已推送成功">
                 <input type="hidden" id="groupType_sms" value="4">
                 <input type="hidden" id="memberId_sms" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="smsconfirm">确定</button>
+                <button type="button" class="btn btn-primary" id="smsconfirm" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -194,12 +194,12 @@
                 <h4>确定要电话通知吗？</h4>
                 <input type="hidden" id="id_call" value="">
                 <input type="hidden" id="msgType_call" value="1">
-                <input type="hidden" id="msgTxt_call" value="测试电话">
+                <input type="hidden" id="msgTxt_call" value="电话已推送成功">
                 <input type="hidden" id="groupType_call" value="4">
                 <input type="hidden" id="memberId_call" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="callconfirm">确定</button>
+                <button type="button" class="btn btn-primary" id="callconfirm" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
