@@ -113,22 +113,28 @@ $("#messpush_new").on("click",function(){
     
 	var newqudao = $("#newqudao").val();
 	var newtext = $("#newtext").val();
-	$(".loadingbg").show();
-	$.ajax({
-		url:"/admin/aberrant/groupPushMsg",
-		type:"POST",
-		data:{"groupType":chk_value,"msgType":newqudao,"msgTxt":newtext},
-		success: function(result) {
-			if(result.code == "000000"){
-				init(0);
-				$(".loadingbg").hide();
-				var newtype = $("#newtype").val("");
-				var newqudao = $("#newqudao").val("");
-				var newtext = $("#newtext").val("");
-			}else{
-				alert(result.error);
+	if(chk_value=="" || newqudao=="" || newtext==""){
+		alert("新增内容不能为空");
+	}else{
+		$(".loadingbg").show();
+		$.ajax({
+			url:"/admin/aberrant/groupPushMsg",
+			type:"POST",
+			data:{"groupType":chk_value,"msgType":newqudao,"msgTxt":newtext},
+			success: function(result) {
+				if(result.code == "000000"){
+					init(0);
+					$(".loadingbg").hide();
+					var newtype = $("#newtype").val("");
+					var newqudao = $("#newqudao").val("");
+					var newtext = $("#newtext").val("");
+				}else{
+					alert(result.error);
+					$(".loadingbg").hide();
+				}
 			}
-		}
-	
-	});
+		
+		});
+	}
+
 })
