@@ -1,7 +1,8 @@
 package com.tianrui.api.req.admin;
 
 public class MaterielRouteReq {
-
+	
+	//路径id
 	private String id;
     //路线的id拼成的字符串
     private String routeIds;
@@ -9,7 +10,7 @@ public class MaterielRouteReq {
     private String materieId;
 
     private String materieName;
-
+    //路径名称
     private String routeName;
 
     private String creator;

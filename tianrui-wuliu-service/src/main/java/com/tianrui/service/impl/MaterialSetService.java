@@ -64,22 +64,21 @@ public class MaterialSetService implements IMaterialSetService {
 		Result result = Result.getSuccessResult();
 		String[] ids = req.getMaterialIds().split(";");
 		for (String id : ids) {
-			FileCargo fileCargo = fileCargoMapper.selectByPrimaryKey(id);
-			if(fileCargo!=null){
-				Materiel materiel = new Materiel();
-				materiel.setId(id);
-				materiel.setMaterieName(fileCargo.getCargoname());
-				materiel.setMaterieStatus(Constant.ONE_STR);
-				materiel.setCreator(req.getCreator());
-				materiel.setCreateDate(System.currentTimeMillis());
-				materiel.setModifier(req.getCreator());
-				materiel.setModifierTime(System.currentTimeMillis());
-				int count = materielMapper.insert(materiel);
-				if(count>0){
-					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+			Materiel m = materielMapper.selectByPrimaryKey(id);
+			if(m!=null){
+				if(m.getMaterieStatus().equals(Constant.ZERO_STR)){
+					m.setMaterieStatus(Constant.ONE_STR);
+					m.setModifier(req.getCreator());
+					m.setModifierTime(System.currentTimeMillis());
 				}else{
-					result.setErrorCode(ErrorCode.SYSTEM_ERROR);
-				}
+					m.setMaterieStatus(Constant.ZERO_STR);
+					m.setModifier(req.getCreator());
+					m.setModifierTime(System.currentTimeMillis());
+				}				
+			}
+			int count = materielMapper.updateByPrimaryKey(m);
+			if(count==0){
+				result.setErrorCode(ErrorCode.SYSTEM_ERROR);
 			}
 		}
 		return result;
@@ -94,12 +93,25 @@ public class MaterialSetService implements IMaterialSetService {
 		return result;
 	}
 
+	//查询档案路线数据同步到新表
 	@Override
 	public Result queryRoute(RouteReq req) {
 		Result result = Result.getSuccessResult();
 		List<FileRoute> list = fileRouteMapper.queryRoute(req);
-		result.setData(list);
-		result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+		for (FileRoute fileRoute : list) {
+			MaterielRoute route = materielRouteMapper.selectByPrimaryKey(fileRoute.getId());
+			if(route==null){
+				MaterielRoute mr = new MaterielRoute();
+				mr.setId(fileRoute.getId());
+				mr.setRouteName(fileRoute.getRoutename());
+				mr.setCreator(req.getCreator());
+				mr.setMaterieStatus(Constant.ZERO_STR);
+				int count = materielRouteMapper.insert(mr);
+				if(count==0){
+					result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+				}
+			}
+		}
 		return result;
 	}
 	
@@ -108,20 +120,16 @@ public class MaterialSetService implements IMaterialSetService {
 		Result result = Result.getSuccessResult();
 		String[] ids = req.getRouteIds().split(";");
 		for (String id : ids) {
-			MaterielRoute mr = new MaterielRoute();
-			mr.setId(id);
-			mr.setMaterieId(req.getMaterieId());
-			mr.setRouteName(req.getRouteName());
-			mr.setCreator(req.getCreator());
-			mr.setCreateDate(System.currentTimeMillis());
-			mr.setMaterieName(req.getMaterieName());
-			mr.setMaterieStatus(Constant.ONE_STR);
-			mr.setModifier(req.getCreator());
-			mr.setModifierTime(System.currentTimeMillis());
-			int count = materielRouteMapper.insert(mr);
-			if(count>0){
-				result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+			MaterielRoute route = materielRouteMapper.selectByPrimaryKey(id);
+			if(route.getMaterieStatus().equals(Constant.ZERO_STR)){
+				route.setMaterieStatus(Constant.ONE_STR);
+				route.setMaterieId(req.getMaterieId());
+				route.setMaterieName(req.getMaterieName());
 			}else{
+				route.setMaterieStatus(Constant.ZERO_STR);
+			}
+			int count = materielRouteMapper.updateByPrimaryKey(route);
+			if(count==0){
 				result.setErrorCode(ErrorCode.SYSTEM_ERROR);
 			}
 		}
@@ -137,35 +145,20 @@ public class MaterialSetService implements IMaterialSetService {
 		return result;
 	}
 
+	//查询待选物料
 	@Override
-	public Result delMaterial(String id) {
+	public Result queryWaitMate(MaterialReq req) {
 		Result result = Result.getSuccessResult();
-		if(id.isEmpty()){
-			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
-			return result;
-		}
-		int count = materielMapper.deleteByPrimaryKey(id);
-		if(count>0){
-			result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-		}else{
-			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
-		}
+		List<Materiel> list = materielMapper.queryWaitMate(req);
+		result.setData(list);
 		return result;
 	}
 
 	@Override
-	public Result delRoute(String id) {
+	public Result queryWaitRoute(MaterielRouteReq req) {
 		Result result = Result.getSuccessResult();
-		if(id.isEmpty()){
-			result.setErrorCode(ErrorCode.PARAM_NULL_ERROR);
-			return result;
-		}
-		int count = materielRouteMapper.deleteByPrimaryKey(id);
-		if(count>0){
-			result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
-		}else{
-			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
-		}
+		List<MaterielRoute> list = materielRouteMapper.queryWaitRoute(req);
+		result.setData(list);
 		return result;
 	}
 	

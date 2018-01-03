@@ -61,6 +61,19 @@ public class MaterialSetAction {
 	}
 	
 	/**
+	 * 查询待选物料
+	 * @author xcy
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="/queryWaitMate")
+	@ResponseBody
+	public Result queryWaitMate(MaterialReq req){
+		Result result = materialSetService.queryWaitMate(req);
+		return result;
+	}
+	
+	/**
 	 * 搜索已选物料
 	 * @author xcy
 	 * @return
@@ -73,7 +86,7 @@ public class MaterialSetAction {
 	}
 	
 	/**
-	 * 设置到已选物料
+	 * 设置物料左右增减
 	 * @author xcy
 	 * @param req
 	 * @return
@@ -82,7 +95,7 @@ public class MaterialSetAction {
 	@ResponseBody
 	public Result setSelectedMaterial(HttpServletRequest request,MaterialReq req){
 		Users users = SessionManager.getSessionMember(request);
-		//设置创建人
+		//设置修改人
 		req.setCreator(users.getAccount());
 		Result result = materialSetService.setSelectedMaterial(req);
 		return result;
@@ -95,13 +108,29 @@ public class MaterialSetAction {
 	 */
 	@RequestMapping(value="/queryRoute")
 	@ResponseBody
-	public Result queryRoute(RouteReq req){
+	public Result queryRoute(HttpServletRequest request,RouteReq req){
+		Users users = SessionManager.getSessionMember(request);
+		req.setCreator(users.getAccount());
 		Result result = materialSetService.queryRoute(req);
 		return result;
 	}
 	
 	/**
-	 * 设置路线和物料为已选
+	 * 查询待选路线
+	 * @author xcy
+	 * @param request
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="/queryWaitRoute")
+	@ResponseBody
+	public Result queryWaitRoute(MaterielRouteReq req){
+		Result result = materialSetService.queryWaitRoute(req);
+		return result;
+	}
+	
+	/**
+	 * 设置路线待选和已选
 	 * @author xcy
 	 * @param req
 	 * @return
@@ -127,28 +156,4 @@ public class MaterialSetAction {
 		return result;
 	}
 	
-	/**
-	 * 删除已选物料
-	 * @author xcy
-	 * @return
-	 */
-	@RequestMapping(value="/delMaterial")
-	@ResponseBody
-	public Result delMaterial(String id){
-		Result result = materialSetService.delMaterial(id);
-		return result;
-	}
-	
-	/**
-	 * 删除已选路线
-	 * @author xcy
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value="/delRoute")
-	@ResponseBody
-	public Result delRoute(String id){
-		Result result = materialSetService.delRoute(id);
-		return result;
-	}
 }

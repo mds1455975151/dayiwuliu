@@ -301,4 +301,17 @@
 	      and route_name like CONCAT('%','${routeName}','%' )
     </if>
   </select>
+  <!-- 查询待选路线 -->
+  <select id="queryWaitRoute" parameterType="com.tianrui.api.req.admin.MaterielRouteReq" resultMap="BaseResultMap">
+  	select * from wuliu_materiel_route where materie_status='0'
+  	<if test="materieId != null and materieId != ''" >
+	      and materie_id = #{materieId,jdbcType=VARCHAR}
+    </if>
+  	<if test="materieName != null and materieName != ''" >
+	      and materie_name = #{materieName,jdbcType=VARCHAR}
+    </if>
+  	<if test="routeName != null and routeName != ''" >
+	      and route_name like CONCAT('%','${routeName}','%' )
+    </if>
+  </select>
 </mapper>

@@ -55,19 +55,19 @@ public interface IMaterialSetService {
 	Result querySelecedRoute(MaterielRouteReq req);
 
 	/**
-	 * 删除已选物料
+	 * 查询待选物料
 	 * @author xcy
-	 * @param id
+	 * @param req
 	 * @return
 	 */
-	Result delMaterial(String id);
+	Result queryWaitMate(MaterialReq req);
 
 	/**
-	 * 删除已选路线
+	 * 查询待选路线
 	 * @author xcy
-	 * @param id
+	 * @param req
 	 * @return
 	 */
-	Result delRoute(String id);
+	Result queryWaitRoute(MaterielRouteReq req);
 
 }

@@ -36,4 +36,12 @@ public interface MaterielMapper {
      * @return
      */
 	List<Materiel> querySelecedMaterial(MaterialReq req);
+
+	/**
+	 * 查询待选物料
+	 * @author xcy
+	 * @param req
+	 * @return
+	 */
+	List<Materiel> queryWaitMate(MaterialReq req);
 }

@@ -268,4 +268,15 @@
 	     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
 	 	</if>
   </select>
+  <select id="queryWaitMate" parameterType="com.tianrui.api.req.admin.MaterialReq" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from wuliu_materiel where materie_status='0' 
+  	<if test="cargoName != null and cargoName != ''" >
+	      and materie_name like CONCAT('%','${cargoName}','%' )
+    </if>
+    <if test="pageNo != null and pageSize != null">
+     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+ 	</if>
+  </select>
 </mapper>

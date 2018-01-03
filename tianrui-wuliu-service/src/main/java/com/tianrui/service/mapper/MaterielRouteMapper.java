@@ -38,4 +38,11 @@ public interface MaterielRouteMapper {
      * @return
      */
 	List<MaterielRoute> querySelecedRoute(MaterielRouteReq req);
+
+	/**
+	 * 查询待选路线
+	 * @author xcy
+	 * @return
+	 */
+	List<MaterielRoute> queryWaitRoute(MaterielRouteReq req);
 }
