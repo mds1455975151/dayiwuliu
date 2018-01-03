@@ -8,6 +8,8 @@ function displayData(pageNo){
 	}
 }
 function reset(){
+	$("#starttime").val("");
+	$("#endtime").val("");
 	$("#drivername").val("");
 	$("#carnum").val("");
 	$("#drivernum").val("");
@@ -76,9 +78,9 @@ function init(pageNo){
 
 function innerHml(data){
 	$("#innerHtml").empty();
-	if(!data){
+	if(data.length==0){
 		var hmlnull = "";
-		hmlnull +='<td colspan="12">';
+		hmlnull +='<td colspan="17">';
 		hmlnull +='<div class="ht_none">';
 		hmlnull +='<img src="'+imagesRoot+'/s0.png" class="ht_nimg1">';
 		hmlnull +='<div>';
@@ -93,11 +95,25 @@ function innerHml(data){
 			var tmess = data[a].ifPush;
 			var tsms = data[a].ifSms;
 			var tcall = data[a].ifCall;
+			
 			var abertype = data[a].problemType;
 			var avertypecont='';
 			if(abertype == 1){
 				avertypecont="轨迹异常";
 			}
+			
+			var solstate=data[a].solvingState;
+			var slostateshow='';
+			if(solstate == 0){
+				slostateshow="待处理";
+			}else if(solstate == 1){
+				slostateshow="处理中";
+			}else if(solstate == 2){
+				slostateshow="已处理";
+			}else{
+				slostateshow="";
+			}
+			
 			var tsid = data[a].id;
 			var customerId =data[a].customerId;
 			var hml = "<tr>" +
@@ -111,17 +127,21 @@ function innerHml(data){
 					"<td>"+(data[a].createTime == undefined ? "" : (new Date(data[a].createTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
 					"<td>"+(data[a].lossTime == undefined ? "" : (new Date(data[a].lossTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
 					"<td>"+(data[a].reconnectionTime == undefined ? "" : (new Date(data[a].reconnectionTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
-					"<td>"+(data[a].solvingState||"")+"</td>" +
+					"<td>"+ slostateshow + "</td>" +
 					"<td>"+(data[a].solvingUsername||"")+"</td>" +
 					"<td>"+(data[a].endTime == undefined ? "" : (new Date(data[a].endTime).format("yyyy-MM-dd hh:mm:ss")))+"</td>" +
 					"<td ><span><a data-toggle='modal' data-target='#message' onclick=\"setMsgDetail('"+tsid+"','"+customerId+"')\">" +(tmess == 1 ? '' : '推送')+
 					"</a></span></td>"+
 					"<td ><span><a data-toggle='modal' data-target='#information' onclick=\"setSmsDetail('"+tsid+"','"+customerId+"')\">" +(tsms == 1 ? '' : '推送')+
 					"</a></span></td>"+
-					"<td ><span><a data-toggle='modal' data-target='#phone'onclick=\"setcallDetail('"+tsid+"','"+customerId+"')\">" +(tcall == 1 ? '' : '推送')+
+					"<td ><span><a data-toggle='modal' data-target='#phone' onclick=\"setcallDetail('"+tsid+"','"+customerId+"')\">" +(tcall == 1 ? '' : '推送')+
 					"</a></span></td>"+
-					"<td ><span><a data-toggle='modal' data-target='#close'>" +(tcall == 1 ? '查看' : '关闭')+
-					"</a></span></td>"+
+					"<td>";
+					if(solstate == 2){
+						hml += "<span><a data-toggle='modal' data-target='#viewdetail'>"+"查看</a></span>";
+					}else{
+						hml += "<span><a data-toggle='modal' data-target='#close' onclick=\"setclose('"+tsid+"')\" >"+"关闭</a></span>";
+					}
 					"</tr>";
 			$("#innerHtml").append(hml);
 		}
@@ -174,7 +194,7 @@ $("#smsconfirm").on("click",function(){
 		data:{"id":smsid,"msgType":smsType,"msgTxt":smsTxt,"groupType":smsgroupType,"memberId":smsmemberId},
 		success: function(result) {
 			if(result.code == "000000"){
-				alert("推送成功！");
+				alert("操作成功！");
 				init(0);
 			}else{
 				alert(result.error);
@@ -192,7 +212,6 @@ function setcallDetail(id,memberId){
 }
 $("#callconfirm").on("click",function(){
 	var callid = $("#id_call").val();
-	var callType = $("#msgType_call").val();
 	var callTxt = $("#msgTxt_call").val();
 	var callgroupType = $("#groupType_call").val();
 	var callmemberId = $("#memberId_call").val();
@@ -202,8 +221,35 @@ $("#callconfirm").on("click",function(){
 		data:{"id":callid,"msgType":callType,"msgTxt":callTxt,"groupType":callgroupType,"memberId":callmemberId},
 		success: function(result) {
 			if(result.code == "000000"){
-				alert("推送成功！");
+				alert("操作成功！");
 				init(0);
+			}else{
+				alert(result.error);
+			}
+		}
+	
+	});
+})
+//关闭操作
+function setclose(id){
+	$("#id_tdclose").val("");
+	$("#id_tdclose").val(id);
+}
+$("#td_close").on("click",function(){
+	var closeid = $("#id_tdclose").val();
+	var closeTxt = $("#tex_tdclose").val();
+	$.ajax({
+		url:"/admin/aberrant/customRcord",
+		type:"POST",
+		data:{"id":closeid,"problemDescribe":closeTxt,"solvingState":2},
+		success: function(result) {
+			if(result.code == "000000"){
+				alert("操作成功！");
+				init(0);
+				var showstr = "";
+				var radiotex = $('input[name="plat"]:checked').siblings("span").text();
+				$("#viewtxt h4").text(radiotex+"，"+closeTxt);
+				$("#tex_tdclose").val("");
 			}else{
 				alert(result.error);
 			}

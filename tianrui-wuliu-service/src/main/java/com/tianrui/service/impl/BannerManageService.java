@@ -14,6 +14,7 @@ import com.tianrui.api.resp.admin.BannerManagerResp;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.utils.UUIDUtil;
+import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.bean.BannerManager;
 import com.tianrui.service.mapper.BannerManagerMapper;
@@ -31,11 +32,10 @@ public class BannerManageService implements IBannerManageService {
 	private BannerManagerMapper bannerManagerMapper;
 	
 	@Override
-	public Result queryBanner() {
+	public Result queryBanner(BannerManagerReq bannerReq) {
 		Result result = Result.getSuccessResult();
-		BannerManager bannerManager = new BannerManager();
-		bannerManager.setStatus(Constant.YES_STR);
-		List<BannerManagerResp> bannerList = bannerManagerMapper.queryBanner(bannerManager);
+		bannerReq.setStatus(Constant.YES_STR);
+		List<BannerManager> bannerList = bannerManagerMapper.queryBanner(bannerReq);
 		if(!bannerList.isEmpty()){
 			result.setData(bannerList);
 		}else{
@@ -111,6 +111,7 @@ public class BannerManageService implements IBannerManageService {
 				bm.setPicStatus((byte)1);
 			}else if(picStatus.equals(Constant.ONE_STR)){
 				bm.setPicStatus((byte)0);
+				bm.setPushStatus((byte)0);
 			}
 			int count = bannerManagerMapper.updateByPrimaryKey(bm);
 			if(count>0){
@@ -123,14 +124,27 @@ public class BannerManageService implements IBannerManageService {
 	}
 
 	@Override
-	public Result queryPushBanner() {
+	public Result queryPushBanner(BannerManagerReq bannerReq) {
 		Result result = Result.getSuccessResult();
 		//查询有效的and待发布and启用的数据
-		List<BannerManagerResp> bannerList = bannerManagerMapper.queryPushBanner();
+		List<BannerManager> bannerList = bannerManagerMapper.queryPushBanner(bannerReq);
 		if(!bannerList.isEmpty()){
 			result.setData(bannerList);
 		}else{
 			result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+		}
+		return result;
+	}
+
+	@Override
+	public Result queryAppBanner(BannerManagerReq req) {
+		Result result = Result.getSuccessResult();
+	  	//设置有效的数据'Y'
+		req.setStatus(Constant.YES_STR);
+		List<BannerManager> appBanner = bannerManagerMapper.queryAppBanner(req);
+		if(!appBanner.isEmpty()){
+			result.setData(appBanner);
+			result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		}
 		return result;
 	}

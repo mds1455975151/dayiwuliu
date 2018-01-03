@@ -28,5 +28,6 @@ public interface IFileService  {
 	/** byte[]上传图片*/ 
 	Result uploadByteImg(MultipartFile file,String uid) throws Exception;
 	
-	
+	/** Banner  base64 上传图片*/
+	Result uploadBannerImg(FileUploadReq fileUploadReq)throws Exception;
 }

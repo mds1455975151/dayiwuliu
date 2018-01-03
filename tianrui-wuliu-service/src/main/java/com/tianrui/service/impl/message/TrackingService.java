@@ -27,7 +27,7 @@ public class TrackingService implements ITrackingService {
 	CacheClient cacheClient;
 	@Autowired
 	CustomRcordMapper customRcordMapper;
-	static int warningTime = 15*60;//15分钟
+	static int warningTime = 4*60;//15分钟
 	@Override
 	public Result save(TrackReq req) {
 		Result rs = Result.getSuccessResult();

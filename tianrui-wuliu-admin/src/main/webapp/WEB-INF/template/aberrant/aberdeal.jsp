@@ -59,17 +59,16 @@
                            <label>异常类型：</label>
                            <select class="form-control" id="abertype">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="1">轨迹异常</option>
                            </select>
                        </div>
                        <div class="ht_div">
                            <label>处理状态：</label>
                            <select class="form-control" id="aberstatus">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">未修复</option>
-                               <option value="0">已修复</option>
+                               <option value="0">待处理</option>
+                               <option value="1">处理中</option>
+                               <option value="2">已处理</option>
                            </select>
                        </div>
                         <div class="ht_div">
@@ -147,12 +146,12 @@
                 <h4>您确定要推送消息吗？</h4>
                 <input type="hidden" id="id_message" value="">
                 <input type="hidden" id="msgType_message" value="2">
-                <input type="hidden" id="msgTxt_message" value="测试消息">
+                <input type="hidden" id="msgTxt_message" value="消息已推送成功">
                 <input type="hidden" id="groupType_message" value="4">
                 <input type="hidden" id="message_memberId" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="messconfirm">确定</button>
+                <button type="button" class="btn btn-primary" id="messconfirm" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -171,12 +170,12 @@
                 <h4>确定要推送短信通知吗？</h4>
                 <input type="hidden" id="id_sms" value="">
                 <input type="hidden" id="msgType_sms" value="1">
-                <input type="hidden" id="msgTxt_sms" value="测试短信">
+                <input type="hidden" id="msgTxt_sms" value="短信已推送成功">
                 <input type="hidden" id="groupType_sms" value="4">
                 <input type="hidden" id="memberId_sms" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="smsconfirm">确定</button>
+                <button type="button" class="btn btn-primary" id="smsconfirm" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -195,12 +194,12 @@
                 <h4>确定要电话通知吗？</h4>
                 <input type="hidden" id="id_call" value="">
                 <input type="hidden" id="msgType_call" value="1">
-                <input type="hidden" id="msgTxt_call" value="测试电话">
+                <input type="hidden" id="msgTxt_call" value="电话已推送成功">
                 <input type="hidden" id="groupType_call" value="4">
                 <input type="hidden" id="memberId_call" value="">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="callconfirm">确定</button>
+                <button type="button" class="btn btn-primary" id="callconfirm" data-dismiss="modal">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -239,19 +238,20 @@
                     </div>
                     <div class="aberbottom">
                         <p>备注信息:</p>
-                        <textarea class="form-control" rows="2"></textarea>
+                        <textarea class="form-control" id="tex_tdclose" rows="2"></textarea>
+                        <input type="hidden" id="id_tdclose" value="">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" id="td_close" data-dismiss="modal">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
 </div>
-<!--关闭后的详情begin-->
-<div class="modal fade" id="closedd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--查看的详情begin-->
+<div class="modal fade" id="viewdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -261,12 +261,13 @@
             </div>
             <div class="modal-body">
                 <div class="closedabert">
-                    <h4>备注信息：确定要推送消息吗</h4>
+                    <div id="viewtxt">
+                    <h4></h4>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>

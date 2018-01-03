@@ -903,6 +903,8 @@ public class BillService implements IBillService{
 		if( req !=null && StringUtils.isNotBlank(req.getId()) ){
 			Bill db =billMapper.selectByPrimaryKey(req.getId());
 			if( db !=null ){
+				//TODO
+//				vehicleDriverMapper.selectCountByCondition(argCondition);
 				MemberVehicleResp vehicle = memberVehicleService.queryMyVehicleInfoById(db.getVehicleid());
 				/** 车辆运输状态(2-发货中3-运货中4-卸货中5-空闲中)*/
 				if(!"5".equals(vehicle.getBillstatus())){

@@ -136,5 +136,31 @@ public class FileUploadService implements IFileService{
 		fileReg.setIsDelFlag((short)0);
 		fileRegDao.save(fileReg);
 	}
+
+	@Override
+	public Result uploadBannerImg(FileUploadReq fileUploadReq) throws Exception {
+		Result result=Result.getSuccessResult();
+		if( fileUploadReq !=null && StringUtils.isNotBlank(fileUploadReq.getImgStr()) ){
+				try {
+					String[] base64Img = fileUploadReq.getImgStr().split(",");
+					String imgURI = UUIDUtil.getId()+".png";
+					byte[] out = Base64.decodeFast(base64Img[1]);
+					InputStream input = new ByteArrayInputStream(out);
+					gridFsTemplate.store(input, imgURI);
+					String imgURL = Constant.FILE_URL_PRE+imgURI;
+					result.setCode("000000");
+					result.setData(imgURL);
+					//TODO 上传文件路径 时间
+					saveFileReg(imgURL,imgURI,fileUploadReq.getuId());
+				} catch (Exception e) {
+					logger.error("{}",e.getMessage(),e);
+					result =new Result("error","上传图片服务异常" );
+				}
+		}else{
+			result =new Result("error","上传图片为空" );
+		}
+		logger.info("图片上传结束！ result:{}",JSON.toJSON(result));
+		return result;
+	}
 	
 }

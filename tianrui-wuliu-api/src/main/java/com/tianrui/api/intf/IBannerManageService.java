@@ -1,6 +1,7 @@
 package com.tianrui.api.intf;
 
 import com.tianrui.api.req.admin.BannerManagerReq;
+import com.tianrui.common.vo.AppResult;
 import com.tianrui.common.vo.Result;
 
 /**
@@ -14,7 +15,7 @@ public interface IBannerManageService {
 	 * @author xcy
 	 * @return
 	 */
-	Result queryBanner();
+	Result queryBanner(BannerManagerReq bannerReq);
 	
 	/**
 	 * banner管理图片新增
@@ -53,6 +54,13 @@ public interface IBannerManageService {
 	 * @author xcy
 	 * @return
 	 */
-	Result queryPushBanner();
+	Result queryPushBanner(BannerManagerReq bannerReq);
+
+	/**
+	 * App展示发布的banner图片
+	 * @author xcy
+	 * @return
+	 */
+	Result queryAppBanner(BannerManagerReq req);
 
 }

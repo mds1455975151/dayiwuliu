@@ -30,7 +30,16 @@
     from message_group_push
     <where>
     	<if test="groupType != null and groupType != ''">
-    		and group_type = #{id,jdbcType=groupType}
+    		and group_type = #{groupType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="chinnalType != null and chinnalType != ''">
+    		and chinnal_type = #{chinnalType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
     	</if>
     </where>
     order by create_time desc
@@ -45,7 +54,16 @@
     from message_group_push
     <where>
     	<if test="groupType != null and groupType != ''">
-    		and group_type = #{id,jdbcType=groupType}
+    		and group_type = #{groupType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="chinnalType != null and chinnalType != ''">
+    		and chinnal_type = #{chinnalType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="timeBegin != null and timeBegin != ''">
+    		and create_time <![CDATA[>=]]> #{timeBegin,jdbcType=BIGINT}
+    	</if>
+    	<if test="timeEnd != null and timeEnd != ''">
+    		and create_time <![CDATA[<=]]> #{timeEnd,jdbcType=BIGINT}
     	</if>
     </where>
   </select>

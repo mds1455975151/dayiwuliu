@@ -38,25 +38,27 @@
 		<div class="col-md-10 ">
 			<div class="ht_content">
 				<div id="content-header">
-					<h3>消息通知</h3>
+					<h3>消息维护</h3>
 				</div>
 				<!--查询框begin-->
 				<div class="row">
                     <div class="col-md-12">
                         <div class="ht_div">
                            <label>通知渠道：</label>
-                           <select class="form-control" id="zhbusi">
+                           <select class="form-control" id="pushqudao">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="1">手机(短信) </option>
+                               <option value="2">APP</option>
+                               <option value="3">电话通知</option>
                            </select>
                        </div>
                        <div class="ht_div">
                            <label>推送群体：</label>
-                           <select class="form-control" id="zhbusi">
+                           <select class="form-control" id="pushgroup">
                                <option value="">请选择</option>
-                               <option value="-1">全部</option>
-                               <option value="0">轨迹异常</option>
+                               <option value="GROUP_DRIVER">司机 </option>
+                       		   <option value="GROUP_VENDER">车主</option>
+                        	   <option value="GROUP_OWNER">货主</option>
                            </select>
                        </div>
                         <div class="ht_div">
@@ -79,21 +81,21 @@
 					<div class="col-md-12">
 						<div class="content-user">
 						<div class="content-tou">
-                                        <button data-toggle="modal" data-target="#addModal"><i
-                                                class="glyphicon glyphicon-plus"></i><span>新增</span></button>
-                                    </div>
+                            <button data-toggle="modal" data-target="#addModal">
+                             <i class="glyphicon glyphicon-plus"></i><span>新增</span>
+                             </button>
+                        </div>
 							<!--用户表格begin-->
 							<table id="planReport" style="white-space: nowrap"
 								class="table table-bordered">
 								<thead>
 									<tr>
                                     <th>序号</th>
-                                    <th>姓名</th>
-                                    <th>登录手机号</th>
-                                    <th>身份证号</th>
-                                    <th>卸货时间</th>
-                                    <th>预计收入金额</th>
-                                    <th>运单号</th>
+                                    <th>通知时间</th>
+                                    <th>通知渠道</th>
+                                    <th>推送群体</th>
+                                    <th>成功到达</th>
+                                    <th>内容</th>
                                 </tr>
 								</thead>
 								<tbody id="innerHtml">
@@ -111,6 +113,11 @@
 			</div>
 		</div>
 		<!--后台右侧布局end-->
+					<div class="loadingbg">
+               <div class="loadingposi" role="document">
+                  <img src="${imagesRoot}/loading3.gif">
+               </div>
+            </div>
 	</div>
 	<!--后台整体布局end-->
 	<!--侧边栏end-->
@@ -129,30 +136,38 @@
                 <div class="yichmodal">
                     <div class="ycmodel_width">
                         <label><i style="color: #ff2f00;">*</i>推送群体：</label>
-                        <select class="form-control">
-                            <option>请选择</option>
-                            <option>认证失败</option>
-                            <option>认证成功</option>
-                        </select>
+                        <div class="newmessline">
+                            <input type="checkbox" name="newgroup" value="1">
+                            <span>司机</span>
+                        </div>
+                        <div class="newmessline">
+                            <input type="checkbox" name="newgroup" value="2">
+                            <span>车主</span>
+                        </div>
+                        <div class="newmessline">
+                            <input type="checkbox" name="newgroup" value="3">
+                            <span>货主</span>
+                        </div>
                     </div>
                     <div class="ycmodel_width">
                         <label><i style="color: #ff2f00;">*</i>推送渠道：</label>
-                        <select class="form-control">
-                            <option>请选择</option>
-                            <option>认证失败</option>
-                            <option>认证成功</option>
+                        <select class="form-control" id="newqudao">
+                            <option value="">请选择</option>
+                            <option value="1">手机(短信) </option>
+                            <option value="2">APP</option>
+                            <option value="3">电话通知</option>
                         </select>
                     </div>
                     <div class="yctexarea_width">
                         <label><i style="color: #ff2f00;">*</i>推送内容：</label>
-                        <textarea class="form-control" rows="4"></textarea>
+                        <textarea class="form-control" rows="4" id="newtext"></textarea>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">推送</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="messpush_new">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
@@ -168,6 +183,6 @@
 	<script type="text/javascript" src="${scriptsRoot }/pagination.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery-migrate-1.2.1.min.js"></script>
 	<script type="text/javascript" src="${scriptsRoot}/jquery.jqprint-0.3.js"></script>
-	<script type="text/javascript" src="/resources/js/money/dfindex.js?1206"></script>
+	<script type="text/javascript" src="/resources/js/aberrant/abermessage.js?1229"></script>
 </body>
 </html>

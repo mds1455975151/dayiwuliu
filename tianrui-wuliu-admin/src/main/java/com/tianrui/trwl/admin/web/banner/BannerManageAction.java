@@ -47,14 +47,26 @@ public class BannerManageAction {
 	}
 	
 	/**
+	 * 跳转到AppBanner管理图片待发布页面
+	 * @author xcy
+	 * @return
+	 */
+	@RequestMapping("/bannerPushPage")
+	public ModelAndView bannerPushPage(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/appbanner/appbanner_push");		
+		return view;
+	}
+	
+	/**
 	 * 查询banner管理图片信息
 	 * @author xcy
 	 * @return
 	 */
 	@RequestMapping("queryBanner")
 	@ResponseBody
-	public Result queryBanner(){
-		Result result = bannerManageService.queryBanner();
+	public Result queryBanner(BannerManagerReq bannerReq){
+		Result result = bannerManageService.queryBanner(bannerReq);
 		return result;
 	}
 	
@@ -132,8 +144,8 @@ public class BannerManageAction {
 	 */
 	@RequestMapping("queryPushBanner")
 	@ResponseBody
-	public Result queryPushBanner(HttpServletRequest request){
-		Result result = bannerManageService.queryPushBanner();
+	public Result queryPushBanner(HttpServletRequest request,BannerManagerReq bannerReq){
+		Result result = bannerManageService.queryPushBanner(bannerReq);
 		return result;
 	}
 }

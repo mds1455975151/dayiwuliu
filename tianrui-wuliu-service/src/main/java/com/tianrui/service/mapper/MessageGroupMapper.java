@@ -20,4 +20,6 @@ public interface MessageGroupMapper {
     List<MessageGroup> selectByCondition(MessageGroup record);
     
     long selectByCount(MessageGroup record);
+    
+    int deleteByGroup(String groupType);
 }
