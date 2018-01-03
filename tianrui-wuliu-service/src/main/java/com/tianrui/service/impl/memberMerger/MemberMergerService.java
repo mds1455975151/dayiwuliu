@@ -677,9 +677,22 @@ public class MemberMergerService implements IMemberMergerService{
 		MemberOwner ownerM = new MemberOwner();
 		ownerM.setMemberid(memberId);
 		List<MemberOwner> ownerMList = memberOwnerMapper.selectMyVehiOwnerByCondition(ownerM);
+		
+		MemberOwner ownerMorder = new MemberOwner();
+		ownerMorder.setMemberid(member.getId());
+		List<MemberOwner> ownerMListOrder = memberOwnerMapper.selectMyVehiOwnerByCondition(ownerMorder);
 		for(MemberOwner ow : ownerMList){
-			ow.setMemberid(member.getId());
-			memberOwnerMapper.updateByPrimaryKeySelective(ow);
+			Boolean flag = true;
+			for(MemberOwner oo :ownerMListOrder){
+				if(ow.getOwnerid().equals(oo.getOwnerid())){
+					memberOwnerMapper.deleteByPrimaryKey(ow.getId());
+					flag = false;
+				}
+			}
+			if(flag){
+				ow.setMemberid(member.getId());
+				memberOwnerMapper.updateByPrimaryKeySelective(ow);
+			}
 		}
 		MemberOwner ownerO = new MemberOwner();
 		ownerO.setOwnerid(memberId);
