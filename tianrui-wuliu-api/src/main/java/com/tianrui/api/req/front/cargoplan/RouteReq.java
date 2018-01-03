@@ -32,6 +32,14 @@ public class RouteReq {
     
     private String status;
 
+    //路线名称
+    private String routename;
+
+    private Integer pageNo;
+    private Integer pageSize;
+    //创建人
+    private String creator;
+    
 	public String getId() {
 		return id;
 	}
@@ -63,6 +71,37 @@ public class RouteReq {
 	public void setOrganizationid(String organizationid) {
 		this.organizationid = organizationid;
 	}
-    
 
+	public String getRoutename() {
+		return routename;
+	}
+
+	public void setRoutename(String routename) {
+		this.routename = routename;
+	}
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	
 }

@@ -543,4 +543,10 @@
     from file_cargo
     GROUP BY DESC1
   </select>
+  
+  <select id="queryMaterial" resultMap="BaseResultMap">
+  	select 
+  	 <include refid="Base_Column_List" />
+  	from file_cargo
+  </select>
 </mapper>

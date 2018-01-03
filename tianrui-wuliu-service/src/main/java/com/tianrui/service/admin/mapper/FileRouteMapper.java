@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tianrui.api.req.front.cargoplan.RouteReq;
 import com.tianrui.api.resp.front.cargoplan.PlanRouteResp;
 import com.tianrui.service.admin.bean.FileRoute;
 
@@ -63,4 +64,12 @@ public interface FileRouteMapper {
     long countByCondition(FileRoute record);
     
     List<PlanRouteResp> selectByPlanIds(@Param("ids")List<String> ids);
+
+    /**
+     * 查询所有路线
+     * @author xcy
+     * @param req
+     * @return
+     */
+	List<FileRoute> queryRoute(RouteReq req);
 }

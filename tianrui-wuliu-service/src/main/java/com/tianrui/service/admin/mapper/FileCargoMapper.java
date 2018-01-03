@@ -2,6 +2,7 @@ package com.tianrui.service.admin.mapper;
 
 import java.util.List;
 
+import com.tianrui.api.req.admin.MaterialReq;
 import com.tianrui.service.admin.bean.FileCargo;
 
 public interface FileCargoMapper {
@@ -92,4 +93,12 @@ public interface FileCargoMapper {
     FileCargo selectByPlanId(String id);
     /** 查询所有运费类型*/
     List<FileCargo> getCargoTypeName();
+
+    /**
+     * 查询所有物料
+     * @author xcy
+     * @param req
+     * @return
+     */
+	List<FileCargo> queryMaterial();
 }

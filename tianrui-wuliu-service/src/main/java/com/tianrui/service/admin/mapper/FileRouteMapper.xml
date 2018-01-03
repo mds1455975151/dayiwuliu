@@ -336,4 +336,13 @@
       modifytime = #{modifytime,jdbcType=BIGINT}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="queryRoute" parameterType="com.tianrui.api.req.front.cargoplan.RouteReq" resultMap="BaseResultMap">
+  	select * from file_route where 1=1
+  	<if test="routename != null and routename != ''" >
+      and routename like CONCAT('%','${routename}','%' )
+    </if>
+    <if test="pageNo != null and pageSize != null">
+     	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+ 	</if>
+  </select>
 </mapper>
