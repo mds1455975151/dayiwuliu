@@ -15,8 +15,13 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.mysql.fabric.xmlrpc.base.Array;
 import com.tianrui.api.intf.ICrossVehicleService;
+import com.tianrui.api.intf.IVehicleDriverService;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
+import com.tianrui.api.req.front.vehicle.VehicleDriverReq;
+import com.tianrui.api.req.money.TrackReq;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
+import com.tianrui.api.resp.front.vehicle.VehicleDriverResp;
+import com.tianrui.api.tracking.intf.ITrackingService;
 import com.tianrui.common.constants.Constant;
 import com.tianrui.common.utils.UUIDUtil;
 import com.tianrui.common.vo.ZjxlResult;
@@ -35,7 +40,12 @@ public class VehicleGpsZjxlSchedule {
 	VehicleGpsZjxlDao vehicleGpsZjxlDao;
 	@Autowired
 	ICrossVehicleService crossVehicleService;
+	@Autowired
+	IVehicleDriverService vehicleDriverService;
 
+	@Autowired
+	ITrackingService trackingService;
+	
 	Logger logger = LoggerFactory.getLogger(VehicleGpsZjxlSchedule.class);
 
 	@Scheduled(cron = "0 0/9 * * * ?")
@@ -84,6 +94,23 @@ public class VehicleGpsZjxlSchedule {
 							t.setTimeStamp(System.currentTimeMillis());
 							vehicleGpsZjxlDao.save(t);
 							logger.debug("本次查询保存车辆位置lat[{}],lon[{}]", f1lat, f1lon);
+							// 接入位置预警
+							try {
+								VehicleDriverReq vr = new VehicleDriverReq();
+								vr.setVehicleId(vehNo.getVehicleid());
+								List<VehicleDriverResp> vdl = vehicleDriverService.queryVehiDriverByCondition(vr);
+								if(vdl.size()!=0){
+									TrackReq treq = new TrackReq();
+									treq.setDriverid(vdl.get(0).getDriverId());
+									treq.setBeginTime(System.currentTimeMillis());
+									treq.setEndTime(System.currentTimeMillis());
+									treq.setLat((long) (f1lat*1000000l));
+									treq.setLng((long) (f1lon*1000000l));
+									trackingService.save(treq);
+								}
+							} catch (Exception e) {
+								logger.debug("车辆接入位置预警出错");
+							}
 							successFlag++;
 						} else {
 							logger.debug("车辆位置无变化-old_lat={} -old_lon={}", zjxl.getLat(), zjxl.getLon());

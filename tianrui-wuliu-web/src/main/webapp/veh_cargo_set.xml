@@ -5,7 +5,7 @@
   	<remark>1-启用 0-禁用</remark>
   </vehicleType>
   <cargoType>
-  	<value>1</value>
+  	<value>0</value>
   	<remark>1-启用 0-禁用</remark>
   </cargoType>
   <!-- 测试数据 -->
@@ -188,6 +188,43 @@
   <vehicle>豫K66716</vehicle>
   <vehicle>豫G56266</vehicle>
   <vehicle>豫G56693</vehicle>
+  
+  <!-- 禹州运输车辆 18.01.02 -->
+  <vehicle>豫K61946</vehicle>
+  <vehicle>豫K61146</vehicle>
+  <vehicle>豫K66716</vehicle>
+  <vehicle>豫K56688</vehicle>
+  <vehicle>豫G56266</vehicle>
+  <vehicle>豫K99148</vehicle>
+  <vehicle>豫K00361</vehicle>
+  <vehicle>豫K87876</vehicle>
+  <vehicle>豫K08555</vehicle>
+  <vehicle>豫K07888</vehicle>
+  <vehicle>豫RR7813</vehicle>
+  <vehicle>豫K07866</vehicle>
+  <vehicle>豫K78933</vehicle>
+  <vehicle>豫K78993</vehicle>
+  <vehicle>豫RR6713</vehicle>
+  <vehicle>豫K78973</vehicle>
+  <vehicle>豫G56693</vehicle>
+  <vehicle>豫KB0609</vehicle>
+  <vehicle>豫K07168</vehicle>
+  <vehicle>豫K72888</vehicle>
+  
+  <!--禹州一期 18.01.03  -->
+  <vehicle>豫K06088</vehicle>
+  <vehicle>豫K86146</vehicle>
+  <vehicle>豫K78416</vehicle>
+  <vehicle>豫K94585</vehicle>
+  <vehicle>豫D28585</vehicle>
+  <vehicle>豫K52666</vehicle>
+  <vehicle>豫K12176</vehicle>
+  <vehicle>豫K01197</vehicle>
+  <vehicle>豫D85726</vehicle>
+  <vehicle>豫K99932</vehicle>
+  <vehicle>豫K01197</vehicle>
+  <vehicle>豫K75848</vehicle>
+  <vehicle>豫K66818</vehicle>
   
   <!-- 货物过滤项 -->
   <cargo>水泥</cargo>
