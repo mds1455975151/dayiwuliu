@@ -139,7 +139,7 @@ public class MaterialSetService implements IMaterialSetService {
 			if(route==null){
 				MaterielRoute mr = new MaterielRoute();
 				mr.setId(id);
-				mr.setRoutename(req.getRouteName());
+				mr.setRoutename(req.getRoutename());
 				mr.setMaterieStatus(Constant.ONE_STR);
 				mr.setMaterieId(req.getMaterieId());
 				mr.setMaterieName(req.getMaterieName());

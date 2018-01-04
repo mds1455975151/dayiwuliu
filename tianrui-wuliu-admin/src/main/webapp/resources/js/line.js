@@ -103,7 +103,7 @@ function querySr(){
 				$("#select2").empty();
 				var data = ret.data;
 				for (var i=0; i<data.length; i++) {
-					$("#select2").append('<option value="'+data[i].id+'">'+ data[i].routeName+'</option>'); 
+					$("#select2").append('<option value="'+data[i].id+'">'+ data[i].routename+'</option>'); 
 				}
 			}
 		}
@@ -113,6 +113,7 @@ function querySelectName(){
 	$.ajax({
 		url:CONTEXTPATH+'/material/queryee',
 		type:"post",
+		async: false,
 		success: function(ret) {
 			if(ret.code!="000000"){
 				alert("加载失败");
