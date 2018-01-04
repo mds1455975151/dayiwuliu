@@ -125,10 +125,10 @@ public class MaterialSetService implements IMaterialSetService {
 	@Override
 	public Result setRoute(MaterielRouteReq req) {
 		Result result = Result.getSuccessResult();
-		List<MaterielRoute> list = materielRouteMapper.queryOne();
+		List<MaterielRoute> list = materielRouteMapper.queryOne(req);
 		if(list!=null){
 			for (MaterielRoute materielRoute : list) {
-				materielRoute.setMaterieStatus(Constant.ONE_STR);
+				materielRoute.setMaterieStatus(Constant.ZERO_STR);
 				materielRouteMapper.updateByPrimaryKey(materielRoute);
 			}
 		}
