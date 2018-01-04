@@ -314,4 +314,7 @@
 	      and route_name like CONCAT('%','${routeName}','%' )
     </if>
   </select>
+  <select id="selecedRoute" resultMap="BaseResultMap">
+  	select * from wuliu_materiel_route where materie_status='1' 
+  </select>
 </mapper>

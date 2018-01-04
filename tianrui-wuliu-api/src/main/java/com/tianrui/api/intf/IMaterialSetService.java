@@ -70,4 +70,12 @@ public interface IMaterialSetService {
 	 */
 	Result queryWaitRoute(MaterielRouteReq req);
 
+	/**
+	 * 档案数据
+	 * @author xcy
+	 * @param req
+	 * @return
+	 */
+	Result selectMaterial(RouteReq req);
+
 }

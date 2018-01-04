@@ -1,5 +1,7 @@
 package com.tianrui.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,19 +64,22 @@ public class MaterialSetService implements IMaterialSetService {
 	@Override
 	public Result setSelectedMaterial(MaterialReq req) {
 		Result result = Result.getSuccessResult();
+		//查询出状态==1（已选的物料）
+		List<Materiel> list = materielMapper.queryall();
+		if(list!=null){
+			//把状态为已选的改变成==0（待选的物料）
+			for (Materiel materiel : list) {
+				materiel.setMaterieStatus(Constant.ZERO_STR);	
+				materielMapper.updateByPrimaryKey(materiel);
+			}
+		}
 		String[] ids = req.getMaterialIds().split(";");
 		for (String id : ids) {
 			Materiel m = materielMapper.selectByPrimaryKey(id);
 			if(m!=null){
-				if(m.getMaterieStatus().equals(Constant.ZERO_STR)){
-					m.setMaterieStatus(Constant.ONE_STR);
-					m.setModifier(req.getCreator());
-					m.setModifierTime(System.currentTimeMillis());
-				}else{
-					m.setMaterieStatus(Constant.ZERO_STR);
-					m.setModifier(req.getCreator());
-					m.setModifierTime(System.currentTimeMillis());
-				}				
+				m.setMaterieStatus(Constant.ONE_STR);
+				m.setModifier(req.getCreator());
+				m.setModifierTime(System.currentTimeMillis());
 			}
 			int count = materielMapper.updateByPrimaryKey(m);
 			if(count==0){
@@ -159,6 +164,34 @@ public class MaterialSetService implements IMaterialSetService {
 		Result result = Result.getSuccessResult();
 		List<MaterielRoute> list = materielRouteMapper.queryWaitRoute(req);
 		result.setData(list);
+		return result;
+	}
+
+	@Override
+	public Result selectMaterial(RouteReq req) {
+		Result result = Result.getSuccessResult();
+		//新建一个返回数据的集合
+		List<FileRoute> data = new ArrayList<FileRoute>();
+		//查询总的档案路线数据==待选路线
+		List<FileRoute> list = fileRouteMapper.queryRoute(req);
+		//查询已选路线数据
+		List<MaterielRoute> listRout = materielRouteMapper.selecedRoute();
+		for (FileRoute fileRoute : list) {
+			if(listRout!=null){
+				for (MaterielRoute materielRoute : listRout) {
+					//根据id判断档案数据和已选数据是否有相等的  
+					if(!fileRoute.getId().equals(materielRoute.getId())){
+						//如果没有相等的就添加在新的集合里
+						data.add(fileRoute);
+					}
+				}
+			}else{
+				result.setData(list);
+				return result;
+			}
+		}
+		//最后返回的是去除已选路线的数据
+		result.setData(data);
 		return result;
 	}
 	

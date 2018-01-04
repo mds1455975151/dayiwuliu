@@ -279,4 +279,9 @@
      	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
  	</if>
   </select>
+  <select id="queryall" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from wuliu_materiel where materie_status='1'
+  </select>
 </mapper>

@@ -44,4 +44,11 @@ public interface MaterielMapper {
 	 * @return
 	 */
 	List<Materiel> queryWaitMate(MaterialReq req);
+
+	/**
+	 * 查询全部数据
+	 * @author xcy
+	 * @return
+	 */
+	List<Materiel> queryall();
 }
