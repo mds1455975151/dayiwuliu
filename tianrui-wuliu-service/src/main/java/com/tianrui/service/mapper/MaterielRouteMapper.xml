@@ -95,6 +95,12 @@
     from wuliu_materiel_route
     where id = #{id,jdbcType=VARCHAR}
   </select>
+   <select id="selectByPrimaryWiteKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_materiel_route
+    where id = #{id,jdbcType=VARCHAR} and materie_status = '1'
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_materiel_route
     where id = #{id,jdbcType=VARCHAR}
@@ -314,7 +320,10 @@
 	      and route_name like CONCAT('%','${routeName}','%' )
     </if>
   </select>
-  <select id="selecedRoute" resultMap="BaseResultMap">
-  	select * from wuliu_materiel_route where materie_status='1' 
+  <select id="selecedRoute" parameterType="com.tianrui.api.req.front.cargoplan.RouteReq" resultMap="BaseResultMap">
+  	select * from wuliu_materiel_route where materie_status='0' 
+  	<if test="materialId != null and materialId != ''" >
+	     and materie_id = #{materialId,jdbcType=VARCHAR}
+    </if>
   </select>
 </mapper>

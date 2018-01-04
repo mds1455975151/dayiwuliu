@@ -165,7 +165,7 @@ public class MaterialSetAction {
 	@RequestMapping(value="/select")
 	@ResponseBody
 	public Result selectMaterial(RouteReq req){
-		 Result result = materialSetService.selectMaterial(req);
+		Result result = materialSetService.selectMaterial(req);
 		return result;
 	}
 	

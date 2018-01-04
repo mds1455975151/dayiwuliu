@@ -15,13 +15,19 @@ import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
+import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.bean.FreightInfo;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
+import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.admin.mapper.FreightInfoMapper;
 import com.tianrui.service.bean.Materiel;
 import com.tianrui.service.bean.MaterielRoute;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.mapper.MaterielMapper;
 import com.tianrui.service.mapper.MaterielRouteMapper;
+import com.tianrui.service.mapper.PlanMapper;
 
 @Service
 public class MaterialSetService implements IMaterialSetService {
@@ -34,6 +40,8 @@ public class MaterialSetService implements IMaterialSetService {
 	private FileRouteMapper fileRouteMapper;
 	@Autowired
 	private MaterielRouteMapper materielRouteMapper;
+	@Autowired
+	PlanMapper planMapper;
 
 	@Override
 	public Result queryMaterial(MaterialReq req) {
@@ -168,15 +176,39 @@ public class MaterialSetService implements IMaterialSetService {
 	}
 
 	@Override
+	public Result selectRouteAndCargo(String id) {
+		Result rs = Result.getSuccessResult();
+		Plan plan = planMapper.selectByPrimaryKey(id);
+		if(plan != null){
+			String routId = plan.getRouteid();
+			String cagrgoId = plan.getCargoid();
+			MaterielRoute route = materielRouteMapper.selectByPrimaryWiteKey(routId);
+			Materiel cagrgo = materielMapper.selectByPrimaryWiteKey(cagrgoId);
+			if(route == null && cagrgo == null){
+				rs.setCode("1");
+				rs.setError("路线或货物不在白名单");
+			}
+		}else{
+			rs.setCode("1");
+			rs.setError("未找到计划");
+		}
+		return rs;
+	}
+	
 	public Result selectMaterial(RouteReq req) {
 		Result result = Result.getSuccessResult();
-		//新建一个返回数据的集合
-		List<FileRoute> data = new ArrayList<FileRoute>();
+		/*//新建一个返回数据的集合
+		List<FileRoute> data = new ArrayList<FileRoute>();*/
 		//查询总的档案路线数据==待选路线
 		List<FileRoute> list = fileRouteMapper.queryRoute(req);
-		//查询已选路线数据
-		List<MaterielRoute> listRout = materielRouteMapper.selecedRoute();
-		for (FileRoute fileRoute : list) {
+		//查询物料和路线有关系的待选路线数据
+		List<MaterielRoute> listRout = materielRouteMapper.selecedRoute(req);
+		if(listRout!=null && !listRout.isEmpty()){
+			result.setData(listRout);
+		}else{
+			result.setData(list);
+		}
+		/*for (FileRoute fileRoute : list) {
 			if(listRout!=null){
 				for (MaterielRoute materielRoute : listRout) {
 					//根据id判断档案数据和已选数据是否有相等的  
@@ -191,7 +223,8 @@ public class MaterialSetService implements IMaterialSetService {
 			}
 		}
 		//最后返回的是去除已选路线的数据
-		result.setData(data);
+		result.setData(data);*/
+		result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		return result;
 	}
 	

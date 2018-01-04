@@ -67,8 +67,12 @@ function changeSelectName(){
 		});  
   });
 function queryWaitRoute(){
+	var materieId = $("#nameSelect").val();
 	$.ajax({
-		url:CONTEXTPATH+'/material/queryWaitRoute',
+		url:CONTEXTPATH+'/material/select',
+		data:{
+			"materialId":$.trim(materieId)
+		},
 		type:"post",
 		success: function(ret) {
 			if(ret.code!="000000"){

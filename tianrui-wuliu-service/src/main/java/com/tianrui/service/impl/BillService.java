@@ -1197,7 +1197,8 @@ public class BillService implements IBillService{
 								e.printStackTrace();
 							}
 							try {
-								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "0",db.getCargoname());
+//								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "0",db.getCargoname());
+								crossVehicleService.updateLogoFright(db.getPlanid(), db.getVehicleno(), "0");
 							} catch (Exception e) {
 								System.out.println("关闭中交车辆状态失败");
 							}
@@ -1301,7 +1302,8 @@ public class BillService implements IBillService{
 								e.printStackTrace();
 							}
 							try {
-								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "1",db.getCargoname());
+//								crossVehicleService.updateLogoStatus(request,db.getVehicleno(), "1",db.getCargoname());
+								crossVehicleService.updateLogoFright(db.getPlanid(), db.getVehicleno(), "1");
 							} catch (Exception e) {
 								System.out.println("开启中交车辆状态失败");
 							}
