@@ -80,9 +80,8 @@ function queryWaitRoute(){
 			}else{
 				$("#select1").empty();
 				var data = ret.data;
-				alert(data.length);
 				for (var i=0; i<data.length; i++) {
-					$("#select1").append('<option value="'+data[i].id+'">'+ data[i].routeName+'</option>'); 
+					$("#select1").append('<option value="'+data[i].id+'">'+ data[i].routename+'</option>'); 
 				}
 			}
 		}

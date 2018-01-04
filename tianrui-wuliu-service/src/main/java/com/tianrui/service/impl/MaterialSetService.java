@@ -110,7 +110,7 @@ public class MaterialSetService implements IMaterialSetService {
 			if(route==null){
 				MaterielRoute mr = new MaterielRoute();
 				mr.setId(fileRoute.getId());
-				mr.setRouteName(fileRoute.getRoutename());
+				mr.setRoutename(fileRoute.getRoutename());
 				mr.setCreator(req.getCreator());
 				mr.setMaterieStatus(Constant.ZERO_STR);
 				int count = materielRouteMapper.insert(mr);
@@ -139,7 +139,7 @@ public class MaterialSetService implements IMaterialSetService {
 			if(route==null){
 				MaterielRoute mr = new MaterielRoute();
 				mr.setId(id);
-				mr.setRouteName(req.getRouteName());
+				mr.setRoutename(req.getRouteName());
 				mr.setMaterieStatus(Constant.ONE_STR);
 				mr.setMaterieId(req.getMaterieId());
 				mr.setMaterieName(req.getMaterieName());

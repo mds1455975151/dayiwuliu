@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="materie_id" property="materieId" jdbcType="VARCHAR" />
     <result column="materie_name" property="materieName" jdbcType="VARCHAR" />
-    <result column="route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="route_name" property="routename" jdbcType="VARCHAR" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="BIGINT" />
     <result column="modifier" property="modifier" jdbcType="VARCHAR" />
@@ -117,7 +117,7 @@
       modifier, modifier_time, materie_status, 
       remark)
     values (#{id,jdbcType=VARCHAR}, #{materieId,jdbcType=VARCHAR}, #{materieName,jdbcType=VARCHAR}, 
-      #{routeName,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=BIGINT}, 
+      #{routename,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=BIGINT}, 
       #{modifier,jdbcType=VARCHAR}, #{modifierTime,jdbcType=BIGINT}, #{materieStatus,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
@@ -133,7 +133,7 @@
       <if test="materieName != null" >
         materie_name,
       </if>
-      <if test="routeName != null" >
+      <if test="routename != null" >
         route_name,
       </if>
       <if test="creator != null" >
@@ -165,8 +165,8 @@
       <if test="materieName != null" >
         #{materieName,jdbcType=VARCHAR},
       </if>
-      <if test="routeName != null" >
-        #{routeName,jdbcType=VARCHAR},
+      <if test="routename != null" >
+        #{routename,jdbcType=VARCHAR},
       </if>
       <if test="creator != null" >
         #{creator,jdbcType=VARCHAR},
@@ -206,8 +206,8 @@
       <if test="record.materieName != null" >
         materie_name = #{record.materieName,jdbcType=VARCHAR},
       </if>
-      <if test="record.routeName != null" >
-        route_name = #{record.routeName,jdbcType=VARCHAR},
+      <if test="record.routename != null" >
+        route_name = #{record.routename,jdbcType=VARCHAR},
       </if>
       <if test="record.creator != null" >
         creator = #{record.creator,jdbcType=VARCHAR},
@@ -237,7 +237,7 @@
     set id = #{record.id,jdbcType=VARCHAR},
       materie_id = #{record.materieId,jdbcType=VARCHAR},
       materie_name = #{record.materieName,jdbcType=VARCHAR},
-      route_name = #{record.routeName,jdbcType=VARCHAR},
+      route_name = #{record.routename,jdbcType=VARCHAR},
       creator = #{record.creator,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=BIGINT},
       modifier = #{record.modifier,jdbcType=VARCHAR},
@@ -257,8 +257,8 @@
       <if test="materieName != null" >
         materie_name = #{materieName,jdbcType=VARCHAR},
       </if>
-      <if test="routeName != null" >
-        route_name = #{routeName,jdbcType=VARCHAR},
+      <if test="routename != null" >
+        route_name = #{routename,jdbcType=VARCHAR},
       </if>
       <if test="creator != null" >
         creator = #{creator,jdbcType=VARCHAR},
@@ -285,7 +285,7 @@
     update wuliu_materiel_route
     set materie_id = #{materieId,jdbcType=VARCHAR},
       materie_name = #{materieName,jdbcType=VARCHAR},
-      route_name = #{routeName,jdbcType=VARCHAR},
+      route_name = #{routename,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=BIGINT},
       modifier = #{modifier,jdbcType=VARCHAR},
@@ -303,8 +303,8 @@
   	<if test="materieName != null and materieName != ''" >
 	      and materie_name = #{materieName,jdbcType=VARCHAR}
     </if>
-  	<if test="routeName != null and routeName != ''" >
-	      and route_name like CONCAT('%','${routeName}','%' )
+  	<if test="routename != null and routename != ''" >
+	      and route_name like CONCAT('%','${routename}','%' )
     </if>
   </select>
   <!-- 查询待选路线 -->
@@ -316,8 +316,8 @@
   	<if test="materieName != null and materieName != ''" >
 	      and materie_name = #{materieName,jdbcType=VARCHAR}
     </if>
-  	<if test="routeName != null and routeName != ''" >
-	      and route_name like CONCAT('%','${routeName}','%' )
+  	<if test="routename != null and routename != ''" >
+	      and route_name like CONCAT('%','${routename}','%' )
     </if>
   </select>
   <select id="selecedRoute" parameterType="com.tianrui.api.req.front.cargoplan.RouteReq" resultMap="BaseResultMap">
