@@ -157,7 +157,7 @@ public class MaterialSetAction {
 	}
 	
 	/**
-	 * 档案全部路径（待选路径）
+	 * 档案全部路径（待选路径） 
 	 * @author xcy
 	 * @param req
 	 * @return
