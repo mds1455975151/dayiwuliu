@@ -91,6 +91,15 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 			return rs;
 		}
 		if("1".equals(req.getUserpercheck())){//认证通过
+			//增加身份证号唯一验证  
+			SystemMemberInfo infoIDcard = new SystemMemberInfo();
+			infoIDcard.setIdcard(record.getIdcard());
+			List<SystemMemberInfo> sysMember = systemMemberInfoMapper.selectSelective(infoIDcard);
+			if(null != sysMember && sysMember.size() > 0){
+				rs.setCode("11");
+				rs.setError("认证的身份证（驾驶证）号码，已经被认证，请检查:"+sysMember.get(0).getUsername()+"-"+sysMember.get(0).getTelphone());
+				return rs;
+			}
 			SystemMemberInfo info = new SystemMemberInfo();
 			info.setId(record.getMemberid());
 			info.setUsername(record.getUsername());
@@ -155,7 +164,15 @@ public class SystemMemberInfoService implements ISystemMemberInfoService {
 		}
 		
 		if("1".equals(req.getDriverpercheck())){//认证通过
-			
+			//增加身份证号唯一验证  
+			SystemMemberInfo infoIDcard = new SystemMemberInfo();
+			infoIDcard.setIdcard(record.getIdcard());
+			List<SystemMemberInfo> sysMember = systemMemberInfoMapper.selectSelective(infoIDcard);
+			if(null != sysMember && sysMember.size() > 0){
+				rs.setCode("11");
+				rs.setError("认证的身份证（驾驶证）号码，已经被认证，请检查:"+sysMember.get(0).getUsername()+"-"+sysMember.get(0).getTelphone());
+				return rs;
+			}
 			member.setAldriverid("1");
 			SystemMemberInfo info = new SystemMemberInfo();
 			info.setId(record.getMemberid());
