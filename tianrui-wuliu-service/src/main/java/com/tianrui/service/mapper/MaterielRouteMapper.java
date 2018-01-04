@@ -52,5 +52,5 @@ public interface MaterielRouteMapper {
 	 * @author xcy
 	 * @return
 	 */
-	List<MaterielRoute> selecedRoute();
+	List<MaterielRoute> selecedRoute(RouteReq req);
 }

@@ -170,13 +170,18 @@ public class MaterialSetService implements IMaterialSetService {
 	@Override
 	public Result selectMaterial(RouteReq req) {
 		Result result = Result.getSuccessResult();
-		//新建一个返回数据的集合
-		List<FileRoute> data = new ArrayList<FileRoute>();
+		/*//新建一个返回数据的集合
+		List<FileRoute> data = new ArrayList<FileRoute>();*/
 		//查询总的档案路线数据==待选路线
 		List<FileRoute> list = fileRouteMapper.queryRoute(req);
-		//查询已选路线数据
-		List<MaterielRoute> listRout = materielRouteMapper.selecedRoute();
-		for (FileRoute fileRoute : list) {
+		//查询物料和路线有关系的待选路线数据
+		List<MaterielRoute> listRout = materielRouteMapper.selecedRoute(req);
+		if(listRout!=null && !listRout.isEmpty()){
+			result.setData(listRout);
+		}else{
+			result.setData(list);
+		}
+		/*for (FileRoute fileRoute : list) {
 			if(listRout!=null){
 				for (MaterielRoute materielRoute : listRout) {
 					//根据id判断档案数据和已选数据是否有相等的  
@@ -191,7 +196,8 @@ public class MaterialSetService implements IMaterialSetService {
 			}
 		}
 		//最后返回的是去除已选路线的数据
-		result.setData(data);
+		result.setData(data);*/
+		result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
 		return result;
 	}
 	

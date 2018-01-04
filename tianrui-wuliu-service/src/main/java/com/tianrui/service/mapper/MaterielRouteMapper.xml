@@ -314,7 +314,10 @@
 	      and route_name like CONCAT('%','${routeName}','%' )
     </if>
   </select>
-  <select id="selecedRoute" resultMap="BaseResultMap">
-  	select * from wuliu_materiel_route where materie_status='1' 
+  <select id="selecedRoute" parameterType="com.tianrui.api.req.front.cargoplan.RouteReq" resultMap="BaseResultMap">
+  	select * from wuliu_materiel_route where materie_status='0' 
+  	<if test="materialId != null and materialId != ''" >
+	     and materie_id = #{materialId,jdbcType=VARCHAR}
+    </if>
   </select>
 </mapper>
