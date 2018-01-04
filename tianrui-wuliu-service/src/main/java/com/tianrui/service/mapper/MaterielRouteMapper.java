@@ -22,6 +22,8 @@ public interface MaterielRouteMapper {
     List<MaterielRoute> selectByExample(MaterielRouteExample example);
 
     MaterielRoute selectByPrimaryKey(String id);
+    
+    MaterielRoute selectByPrimaryWiteKey(String id);
 
     int updateByExampleSelective(@Param("record") MaterielRoute record, @Param("example") MaterielRouteExample example);
 

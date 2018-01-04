@@ -20,6 +20,8 @@ public interface MaterielMapper {
     List<Materiel> selectByExample(MaterielExample example);
 
     Materiel selectByPrimaryKey(String id);
+    
+    Materiel selectByPrimaryWiteKey(String id);
 
     int updateByExampleSelective(@Param("record") Materiel record, @Param("example") MaterielExample example);
 

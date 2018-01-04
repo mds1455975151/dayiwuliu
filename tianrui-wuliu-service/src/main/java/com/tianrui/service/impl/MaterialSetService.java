@@ -13,13 +13,19 @@ import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
+import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FileRoute;
+import com.tianrui.service.admin.bean.FreightInfo;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
+import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
+import com.tianrui.service.admin.mapper.FreightInfoMapper;
 import com.tianrui.service.bean.Materiel;
 import com.tianrui.service.bean.MaterielRoute;
+import com.tianrui.service.bean.Plan;
 import com.tianrui.service.mapper.MaterielMapper;
 import com.tianrui.service.mapper.MaterielRouteMapper;
+import com.tianrui.service.mapper.PlanMapper;
 
 @Service
 public class MaterialSetService implements IMaterialSetService {
@@ -32,6 +38,8 @@ public class MaterialSetService implements IMaterialSetService {
 	private FileRouteMapper fileRouteMapper;
 	@Autowired
 	private MaterielRouteMapper materielRouteMapper;
+	@Autowired
+	PlanMapper planMapper;
 
 	@Override
 	public Result queryMaterial(MaterialReq req) {
@@ -160,6 +168,26 @@ public class MaterialSetService implements IMaterialSetService {
 		List<MaterielRoute> list = materielRouteMapper.queryWaitRoute(req);
 		result.setData(list);
 		return result;
+	}
+
+	@Override
+	public Result selectRouteAndCargo(String id) {
+		Result rs = Result.getSuccessResult();
+		Plan plan = planMapper.selectByPrimaryKey(id);
+		if(plan != null){
+			String routId = plan.getRouteid();
+			String cagrgoId = plan.getCargoid();
+			MaterielRoute route = materielRouteMapper.selectByPrimaryWiteKey(routId);
+			Materiel cagrgo = materielMapper.selectByPrimaryWiteKey(cagrgoId);
+			if(route == null && cagrgo == null){
+				rs.setCode("1");
+				rs.setError("路线或货物不在白名单");
+			}
+		}else{
+			rs.setCode("1");
+			rs.setError("未找到计划");
+		}
+		return rs;
 	}
 	
 }

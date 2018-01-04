@@ -80,4 +80,7 @@ public interface ICrossVehicleService {
 	
 	/** 修改中交车辆状态  type 1-开启 2-关闭*/
 	public Result updateLogoStatus(HttpServletRequest request,String vehicleNo,String type,String cargo);
+	
+	/** 修改中交车辆状态  type 1-开启 2-关闭*/
+	public Result updateLogoFright(String planId,String vehicleNo,String type);
 }

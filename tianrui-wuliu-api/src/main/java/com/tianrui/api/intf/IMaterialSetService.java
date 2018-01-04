@@ -69,5 +69,8 @@ public interface IMaterialSetService {
 	 * @return
 	 */
 	Result queryWaitRoute(MaterielRouteReq req);
+	
+	/** 校验运价策略是否在白名单*/
+	Result selectRouteAndCargo(String id);
 
 }

@@ -95,6 +95,12 @@
     from wuliu_materiel_route
     where id = #{id,jdbcType=VARCHAR}
   </select>
+   <select id="selectByPrimaryWiteKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_materiel_route
+    where id = #{id,jdbcType=VARCHAR} and materie_status = '1'
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_materiel_route
     where id = #{id,jdbcType=VARCHAR}
