@@ -326,4 +326,8 @@
 	     and materie_id = #{materialId,jdbcType=VARCHAR}
     </if>
   </select>
+  <select id="queryOne" resultMap="BaseResultMap"> 
+  	select * from wuliu_materiel_route where materie_status='1'
+  </select>
+  
 </mapper>

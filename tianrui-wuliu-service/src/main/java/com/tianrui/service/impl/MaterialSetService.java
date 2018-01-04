@@ -1,7 +1,5 @@
 package com.tianrui.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +13,9 @@ import com.tianrui.common.constants.Constant;
 import com.tianrui.common.constants.ErrorCode;
 import com.tianrui.common.vo.Result;
 import com.tianrui.service.admin.bean.FileCargo;
-import com.tianrui.service.admin.bean.FileFreight;
 import com.tianrui.service.admin.bean.FileRoute;
-import com.tianrui.service.admin.bean.FreightInfo;
 import com.tianrui.service.admin.mapper.FileCargoMapper;
-import com.tianrui.service.admin.mapper.FileFreightMapper;
 import com.tianrui.service.admin.mapper.FileRouteMapper;
-import com.tianrui.service.admin.mapper.FreightInfoMapper;
 import com.tianrui.service.bean.Materiel;
 import com.tianrui.service.bean.MaterielRoute;
 import com.tianrui.service.bean.Plan;
@@ -131,19 +125,36 @@ public class MaterialSetService implements IMaterialSetService {
 	@Override
 	public Result setRoute(MaterielRouteReq req) {
 		Result result = Result.getSuccessResult();
+		List<MaterielRoute> list = materielRouteMapper.queryOne();
+		if(list!=null){
+			for (MaterielRoute materielRoute : list) {
+				materielRoute.setMaterieStatus(Constant.ONE_STR);
+				materielRouteMapper.updateByPrimaryKey(materielRoute);
+			}
+		}
+		
 		String[] ids = req.getRouteIds().split(";");
 		for (String id : ids) {
 			MaterielRoute route = materielRouteMapper.selectByPrimaryKey(id);
-			if(route.getMaterieStatus().equals(Constant.ZERO_STR)){
+			if(route==null){
+				MaterielRoute mr = new MaterielRoute();
+				mr.setId(id);
+				mr.setRouteName(req.getRouteName());
+				mr.setMaterieStatus(Constant.ONE_STR);
+				mr.setMaterieId(req.getMaterieId());
+				mr.setMaterieName(req.getMaterieName());
+				int count = materielRouteMapper.insert(mr);
+				if(count>0){
+					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+				}
+			}else{
 				route.setMaterieStatus(Constant.ONE_STR);
 				route.setMaterieId(req.getMaterieId());
 				route.setMaterieName(req.getMaterieName());
-			}else{
-				route.setMaterieStatus(Constant.ZERO_STR);
-			}
-			int count = materielRouteMapper.updateByPrimaryKey(route);
-			if(count==0){
-				result.setErrorCode(ErrorCode.SYSTEM_ERROR);
+				int count = materielRouteMapper.updateByPrimaryKey(route);
+				if(count>0){
+					result.setErrorCode(ErrorCode.SYSTEM_SUCCESS);
+				}
 			}
 		}
 		return result;

@@ -55,4 +55,11 @@ public interface MaterielRouteMapper {
 	 * @return
 	 */
 	List<MaterielRoute> selecedRoute(RouteReq req);
+	
+	/**
+	 * 查询状态为1的数据
+	 * @author xcy
+	 * @return
+	 */
+	List<MaterielRoute> queryOne();
 }
