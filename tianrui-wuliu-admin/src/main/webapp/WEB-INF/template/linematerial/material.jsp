@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="selectbox">
                             <div class="select-bar">
                                 <p style="text-align: center">待选物料</p>
-                                <p style="text-align: center"><input type="text" class="searchInput"><input type="button" class="searchBtn" value="搜索"></p>
+                                <p style="text-align: center"><input type="text" id="cargoName" class="searchInput"><input type="button" onclick="queryWaitMate()" class="searchBtn" value="搜索"></p>
                                 <select multiple="multiple" id="select1">
                                    <option value="超级管理员">超级管理员</option>
                                     <option value="普通管理员">普通管理员</option>
@@ -103,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!--效果html结束-->
                         <div class="clear"></div>
                     </div>
-                    <div class="queding">确定</div>
+                    <div class="queding"  >确定</div>
                 </div>
             </div>
         </div>

@@ -35,3 +35,73 @@
         });
 
     });
+$(function(){
+	queryWaitMate();
+	querySelecedMaterial();
+})
+ $('.queding').click(function(){
+	 var optionssel = document.getElementById('select2');
+	 alert( optionssel.options.length);
+	 var materialIds = "";
+		for (var i=0; i<optionssel.options.length; i++) {
+			materialIds += optionssel.options[i].value+";";
+		}
+		alert(materialIds);
+		$.ajax({
+			url:'/material/selected',
+			data:{
+				"materialIds":$.trim(materialIds)
+			},
+			type:"post",
+			success: function(ret) {
+				if(ret.code!="000000"){
+					alert("保存失败");
+				}else{
+					alert("设置成功");
+				}
+			}
+		});  
+  });
+function queryWaitMate(){
+	var cargoName = $("#cargoName").val();
+	$.ajax({
+		url:CONTEXTPATH+'/material/queryWaitMate',
+		data:{
+			"cargoName":$.trim(cargoName)
+		},
+		type:"post",
+		success: function(ret) {
+			if(ret.code!="000000"){
+				alert("加载失败");
+			}else{
+				$("#select1").empty();
+				var data = ret.data;
+				for (var i=0; i<data.length; i++) {
+					$("#select1").append('<option value="'+data[i].id+'">'+ data[i].materieName+'</option>'); 
+				}
+			}
+		}
+	});  
+}
+
+function querySelecedMaterial(){
+	var cargoName = $("#cargoName").val();
+	$.ajax({
+		url:CONTEXTPATH+'/material/queryee',
+		data:{
+			"cargoName":$.trim(cargoName)
+		},
+		type:"post",
+		success: function(ret) {
+			if(ret.code!="000000"){
+				alert("加载失败");
+			}else{
+				$("#select2").empty();
+				var data = ret.data;
+				for (var i=0; i<data.length; i++) {
+					$("#select2").append('<option value="'+data[i].id+'">'+ data[i].materieName+'</option>'); 
+				}
+			}
+		}
+	});  
+}
