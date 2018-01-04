@@ -61,5 +61,5 @@ public interface MaterielRouteMapper {
 	 * @author xcy
 	 * @return
 	 */
-	List<MaterielRoute> queryOne();
+	List<MaterielRoute> queryOne(MaterielRouteReq req);
 }
