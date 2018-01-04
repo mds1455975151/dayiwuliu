@@ -156,4 +156,17 @@ public class MaterialSetAction {
 		return result;
 	}
 	
+	/**
+	 * 档案全部路径（待选路径） 
+	 * @author xcy
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="/select")
+	@ResponseBody
+	public Result selectMaterial(RouteReq req){
+		Result result = materialSetService.selectMaterial(req);
+		return result;
+	}
+	
 }
