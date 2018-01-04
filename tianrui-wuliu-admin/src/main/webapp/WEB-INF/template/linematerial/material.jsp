@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					 <div class="bottomBox">
         <div class="right">
             <div class="top">
-                <span>车技轨迹物料设置</span>
+                <span>车机轨迹物料设置</span>
             </div>
             <div class="bottom">
                 <div class="main">
@@ -74,19 +74,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <p style="text-align: center">待选物料</p>
                                 <p style="text-align: center"><input type="text" id="cargoName" class="searchInput"><input type="button" onclick="queryWaitMate()" class="searchBtn" value="搜索"></p>
                                 <select multiple="multiple" id="select1">
-                                   <option value="超级管理员">超级管理员</option>
-                                    <option value="普通管理员">普通管理员</option>
-                                    <option value="信息发布员">信息发布员</option>
-                                    <option value="财务管理员">财务管理员</option>
-                                    <option value="产品管理员">产品管理员</option>
-                                    <option value="资源管理员">资源管理员</option>
-                                    <option value="系统管理员">系统管理员</option>
-                                    <option value="超级管理员">超级管理员</option>
-                                    <option value="普通管理员">普通管理员</option>
-                                    <option value="信息发布员">信息发布员</option>
-                                    <option value="财务管理员">财务管理员</option>
-                                    <option value="产品管理员">产品管理员</option>
-                                    <option value="资源管理员">资源管理员</option>
                                 </select>
                             </div>
 
@@ -96,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <div class="select-bar select-bar1">
                                 <p style="text-align: center">已选物料</p>
-                                <p style="text-align: center"><input type="text" class="searchInput"><input type="button" class="searchBtn" value="搜索"></p>
+                                <p style="text-align: center"><input type="text" id="cargoName1"  class="searchInput"><input onclick="querySelecedMaterial()"  type="button" class="searchBtn" value="搜索"></p>
                                 <select multiple="multiple" id="select2"></select>
                             </div>
                         </div>
