@@ -31,7 +31,8 @@ public class RouteReq {
     private String organizationid;
     
     private String status;
-
+    //物料id
+    private String materialId;
     //路线名称
     private String routename;
 
@@ -102,6 +103,14 @@ public class RouteReq {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+
+	public String getMaterialId() {
+		return materialId;
+	}
+
+	public void setMaterialId(String materialId) {
+		this.materialId = materialId;
 	}
 	
 }

@@ -146,7 +146,7 @@
                 <h4>您确定要推送消息吗？</h4>
                 <input type="hidden" id="id_message" value="">
                 <input type="hidden" id="msgType_message" value="2">
-                <input type="hidden" id="msgTxt_message" value="消息已推送成功">
+                <input type="hidden" id="msgTxt_message" value="您的轨迹上传异常，请检查网络状态！">
                 <input type="hidden" id="groupType_message" value="4">
                 <input type="hidden" id="message_memberId" value="">
             </div>
@@ -170,7 +170,7 @@
                 <h4>确定要推送短信通知吗？</h4>
                 <input type="hidden" id="id_sms" value="">
                 <input type="hidden" id="msgType_sms" value="1">
-                <input type="hidden" id="msgTxt_sms" value="短信已推送成功">
+                <input type="hidden" id="msgTxt_sms" value="您的轨迹上传异常，请检查网络状态！">
                 <input type="hidden" id="groupType_sms" value="4">
                 <input type="hidden" id="memberId_sms" value="">
             </div>
@@ -194,7 +194,7 @@
                 <h4>确定要电话通知吗？</h4>
                 <input type="hidden" id="id_call" value="">
                 <input type="hidden" id="msgType_call" value="1">
-                <input type="hidden" id="msgTxt_call" value="电话已推送成功">
+                <input type="hidden" id="msgTxt_call" value="您的轨迹上传异常，请检查网络状态！">
                 <input type="hidden" id="groupType_call" value="4">
                 <input type="hidden" id="memberId_call" value="">
             </div>

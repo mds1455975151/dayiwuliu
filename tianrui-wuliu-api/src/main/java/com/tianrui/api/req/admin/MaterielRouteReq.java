@@ -11,7 +11,7 @@ public class MaterielRouteReq {
 
     private String materieName;
     //路径名称
-    private String routeName;
+    private String routename;
 
     private String creator;
 
@@ -57,12 +57,12 @@ public class MaterielRouteReq {
 		this.materieName = materieName;
 	}
 
-	public String getRouteName() {
-		return routeName;
+	public String getRoutename() {
+		return routename;
 	}
 
-	public void setRouteName(String routeName) {
-		this.routeName = routeName;
+	public void setRoutename(String routename) {
+		this.routename = routename;
 	}
 
 	public String getCreator() {

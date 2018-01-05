@@ -36,19 +36,25 @@
 
     });
 $(function(){
-	queryWaitMate();
-	querySelecedMaterial();
+	querySelectName();
+	queryWaitRoute();
+	querySr();
 })
+function changeSelectName(){
+	queryWaitRoute();
+	querySr();
+}
  $('.queding').click(function(){
 	 var optionssel = document.getElementById('select2');
-	 var materialIds = "";
+	 var routeIds = "";
 		for (var i=0; i<optionssel.options.length; i++) {
-			materialIds += optionssel.options[i].value+";";
+			routeIds += optionssel.options[i].value+";";
 		}
 		$.ajax({
-			url:'/material/selected',
+			url:'/material/setRoute',
 			data:{
-				"materialIds":$.trim(materialIds)
+				"routeIds":$.trim(routeIds),
+				"materieId":$("#nameSelect").val()
 			},
 			type:"post",
 			success: function(ret) {
@@ -60,12 +66,12 @@ $(function(){
 			}
 		});  
   });
-function queryWaitMate(){
-	var cargoName = $("#cargoName").val();
+function queryWaitRoute(){
+	var materieId = $("#nameSelect").val();
 	$.ajax({
-		url:CONTEXTPATH+'/material/queryWaitMate',
+		url:CONTEXTPATH+'/material/select',
 		data:{
-			"cargoName":$.trim(cargoName)
+			"materialId":$.trim(materieId)
 		},
 		type:"post",
 		success: function(ret) {
@@ -75,19 +81,19 @@ function queryWaitMate(){
 				$("#select1").empty();
 				var data = ret.data;
 				for (var i=0; i<data.length; i++) {
-					$("#select1").append('<option value="'+data[i].id+'">'+ data[i].materieName+'</option>'); 
+					$("#select1").append('<option value="'+data[i].id+'">'+ data[i].routename+'</option>'); 
 				}
 			}
 		}
 	});  
 }
 
-function querySelecedMaterial(){
-	var cargoName = $("#cargoName1").val();
+function querySr(){
+	var materieId = $("#nameSelect").val();
 	$.ajax({
-		url:CONTEXTPATH+'/material/queryee',
+		url:CONTEXTPATH+'/material/querySr',
 		data:{
-			"cargoName":$.trim(cargoName)
+			"materieId":$.trim(materieId)
 		},
 		type:"post",
 		success: function(ret) {
@@ -97,7 +103,30 @@ function querySelecedMaterial(){
 				$("#select2").empty();
 				var data = ret.data;
 				for (var i=0; i<data.length; i++) {
-					$("#select2").append('<option value="'+data[i].id+'">'+ data[i].materieName+'</option>'); 
+					$("#select2").append('<option value="'+data[i].id+'">'+ data[i].routename+'</option>'); 
+				}
+			}
+		}
+	});  
+}
+function querySelectName(){
+	$.ajax({
+		url:CONTEXTPATH+'/material/queryee',
+		type:"post",
+		async: false,
+		success: function(ret) {
+			if(ret.code!="000000"){
+				alert("加载失败");
+			}else{
+				$("#nameSelect").empty();
+				var data = ret.data;
+				for (var i=0; i<data.length; i++) {
+					if(i == 0){
+						$("#nameSelect").append('<option selected="selected" value="'+data[i].id+'">'+ data[i].materieName+'</option>'); 
+					}else {
+						$("#nameSelect").append('<option value="'+data[i].id+'">'+ data[i].materieName+'</option>'); 
+					}
+					
 				}
 			}
 		}

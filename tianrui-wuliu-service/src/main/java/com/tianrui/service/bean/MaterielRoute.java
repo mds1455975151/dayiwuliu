@@ -7,7 +7,7 @@ public class MaterielRoute {
 
     private String materieName;
 
-    private String routeName;
+    private String routename;
 
     private String creator;
 
@@ -45,15 +45,15 @@ public class MaterielRoute {
         this.materieName = materieName == null ? null : materieName.trim();
     }
 
-    public String getRouteName() {
-        return routeName;
-    }
+    public String getRoutename() {
+		return routename;
+	}
 
-    public void setRouteName(String routeName) {
-        this.routeName = routeName == null ? null : routeName.trim();
-    }
+	public void setRoutename(String routename) {
+		this.routename = routename;
+	}
 
-    public String getCreator() {
+	public String getCreator() {
         return creator;
     }
 

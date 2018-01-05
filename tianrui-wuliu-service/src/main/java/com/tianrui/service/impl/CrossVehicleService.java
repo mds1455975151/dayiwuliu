@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tianrui.api.intf.ICrossVehicleService;
+import com.tianrui.api.intf.IMaterialSetService;
 import com.tianrui.api.req.admin.ZJXLVehicleReq;
 import com.tianrui.api.resp.admin.PageResp;
 import com.tianrui.api.resp.admin.ZJXLVehicleResp;
@@ -44,6 +45,9 @@ public class CrossVehicleService implements ICrossVehicleService{
 	SystemMemberMapper systemMemberMapper;
 	@Autowired
 	WuliuVehicleMapper wuliuVehicleMapper;
+	@Autowired
+	IMaterialSetService materialSetService;
+	
 	@SuppressWarnings("unused")
 	@Override
 	public Result updateLogoStatus(HttpServletRequest request,String vehicleNo, String type, String cargo) {
@@ -71,6 +75,27 @@ public class CrossVehicleService implements ICrossVehicleService{
 		}else{
 			System.out.println("白名单校验未通过");
 		};
+		return rs;
+	}
+	
+	@Override
+	public Result updateLogoFright(String planId,String vehicleNo, String type) {
+		Result rs = Result.getSuccessResult();
+		rs = materialSetService.selectRouteAndCargo(planId);
+		if(rs.getCode().equals("000000")){
+			ZJXLVehicle query = new ZJXLVehicle();
+			query.setVehicleno(vehicleNo);
+			List<ZJXLVehicle> list = zjxlVehicleMapper.selectByCondition(query);
+			if(list.size()==1){
+				ZJXLVehicle upt = new ZJXLVehicle();
+				upt.setId(list.get(0).getId());
+				upt.setVehiclelogo(type);
+				zjxlVehicleMapper.updateByPrimaryKeySelective(upt);
+			}else {
+				rs.setCode("1");
+				rs.setError("车辆未添加");
+			}
+		}
 		return rs;
 	}
 

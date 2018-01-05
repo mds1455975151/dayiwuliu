@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.tianrui.api.req.admin.MaterielRouteReq;
+import com.tianrui.api.req.front.cargoplan.RouteReq;
 import com.tianrui.service.bean.MaterielRoute;
 import com.tianrui.service.bean.MaterielRouteExample;
 
@@ -22,6 +23,8 @@ public interface MaterielRouteMapper {
     List<MaterielRoute> selectByExample(MaterielRouteExample example);
 
     MaterielRoute selectByPrimaryKey(String id);
+    
+    MaterielRoute selectByPrimaryWiteKey(String id);
 
     int updateByExampleSelective(@Param("record") MaterielRoute record, @Param("example") MaterielRouteExample example);
 
@@ -45,4 +48,18 @@ public interface MaterielRouteMapper {
 	 * @return
 	 */
 	List<MaterielRoute> queryWaitRoute(MaterielRouteReq req);
+
+	/**
+	 * 查询已选路线数据
+	 * @author xcy
+	 * @return
+	 */
+	List<MaterielRoute> selecedRoute(RouteReq req);
+	
+	/**
+	 * 查询状态为1的数据
+	 * @author xcy
+	 * @return
+	 */
+	List<MaterielRoute> queryOne(MaterielRouteReq req);
 }

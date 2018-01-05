@@ -93,6 +93,14 @@
     from wuliu_materiel
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  <select id="selectByPrimaryWiteKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wuliu_materiel
+    where id = #{id,jdbcType=VARCHAR} and materie_status = '1'
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from wuliu_materiel
     where id = #{id,jdbcType=VARCHAR}
@@ -278,5 +286,10 @@
     <if test="pageNo != null and pageSize != null">
      	limit #{pageNo,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
  	</if>
+  </select>
+  <select id="queryall" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from wuliu_materiel where materie_status='1'
   </select>
 </mapper>
