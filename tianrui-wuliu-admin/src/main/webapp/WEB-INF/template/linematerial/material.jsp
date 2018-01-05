@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     margin: 80px auto;
     cursor: pointer;
 }
-/* 效果CSS开始 */
+
 .searchInput{border: 1px solid #ccc;width: 100px;height:25px;border-radius: 10px;margin: 10px;outline: none;}
 .searchBtn{height:25px;width:50px;color: #fff;background-color: #2ca0fa;border: none;border-radius: 5px;}
 .kePublic{height: 370px; border-bottom: 1px solid #ccc;background-color: #f4f2f3}
@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .btn-bar p{margin:16px;}
 .selectbox .select-bar #select1{border-top: 1px solid #ccc;border-right: 1px solid #ccc;outline: none;background-color: #f4f2f3}
 .selectbox .select-bar #select2{border-top: 1px solid #ccc;border-right: 1px solid #ccc;border-left:1px solid #ccc;outline: none;background-color: #f4f2f3}
-/* 效果CSS结束 */
+
 </style>
 </head>
 <body>
