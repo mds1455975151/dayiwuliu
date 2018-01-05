@@ -107,8 +107,8 @@ public class AnlianBillPosition {
         	int a = 0;
         	for(AnlianBillResp resp : list){
         		try {
-        			crossVehicleService.updateLogoFright(resp.getDesc1(), resp.getCph(), "1");
-//					crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
+//        			crossVehicleService.updateLogoFright(resp.getDesc1(), resp.getCph(), "1");
+					crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
 				} catch (Exception e) {
 					logger.info("开启中交车辆状态失败"); 
 				}
@@ -134,8 +134,8 @@ public class AnlianBillPosition {
         					upt.setPtBegintime(times);
         					upt.setPtEndtime(times);
         					try {
-        						crossVehicleService.updateLogoFright(resp.getDesc1(), resp.getCph(), "1");
-//        						crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
+//        						crossVehicleService.updateLogoFright(resp.getDesc1(), resp.getCph(), "1");
+        						crossVehicleService.updateLogoStatus(request,resp.getCph(), "1",resp.getHpmc());
 							} catch (Exception e) {
 								logger.info("开启中交车辆状态失败"); 
 							}
@@ -157,8 +157,8 @@ public class AnlianBillPosition {
 								upt.setDesc4(rs.getError());
 							}
         					try {
-        						crossVehicleService.updateLogoFright(resp.getDesc1(), resp.getCph(), "0");
-//								crossVehicleService.updateLogoStatus(request,resp.getCph(), "0",resp.getHpmc());
+//        						crossVehicleService.updateLogoFright(resp.getDesc1(), resp.getCph(), "0");
+								crossVehicleService.updateLogoStatus(request,resp.getCph(), "0",resp.getHpmc());
 							} catch (Exception e) {
 								logger.info("关闭中交车辆状态失败"); 
 							}
