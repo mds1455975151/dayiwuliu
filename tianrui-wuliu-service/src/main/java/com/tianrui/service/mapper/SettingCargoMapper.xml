@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tianrui.service.mapper.SettingCargoMapper" >
+  <resultMap id="BaseResultMap" type="com.tianrui.service.bean.SettingCargo" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="cargoname" property="cargoname" jdbcType="VARCHAR" />
+    <result column="DESC1" property="desc1" jdbcType="VARCHAR" />
+    <result column="DESC2" property="desc2" jdbcType="VARCHAR" />
+    <result column="DESC3" property="desc3" jdbcType="VARCHAR" />
+    <result column="DESC4" property="desc4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, cargoname, DESC1, DESC2, DESC3, DESC4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from setting_cargo
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from setting_cargo
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tianrui.service.bean.SettingCargo" >
+    insert into setting_cargo (ID, cargoname, DESC1, 
+      DESC2, DESC3, DESC4
+      )
+    values (#{id,jdbcType=VARCHAR}, #{cargoname,jdbcType=VARCHAR}, #{desc1,jdbcType=VARCHAR}, 
+      #{desc2,jdbcType=VARCHAR}, #{desc3,jdbcType=VARCHAR}, #{desc4,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tianrui.service.bean.SettingCargo" >
+    insert into setting_cargo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cargoname != null" >
+        cargoname,
+      </if>
+      <if test="desc1 != null" >
+        DESC1,
+      </if>
+      <if test="desc2 != null" >
+        DESC2,
+      </if>
+      <if test="desc3 != null" >
+        DESC3,
+      </if>
+      <if test="desc4 != null" >
+        DESC4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cargoname != null" >
+        #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        #{desc4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tianrui.service.bean.SettingCargo" >
+    update setting_cargo
+    <set >
+      <if test="cargoname != null" >
+        cargoname = #{cargoname,jdbcType=VARCHAR},
+      </if>
+      <if test="desc1 != null" >
+        DESC1 = #{desc1,jdbcType=VARCHAR},
+      </if>
+      <if test="desc2 != null" >
+        DESC2 = #{desc2,jdbcType=VARCHAR},
+      </if>
+      <if test="desc3 != null" >
+        DESC3 = #{desc3,jdbcType=VARCHAR},
+      </if>
+      <if test="desc4 != null" >
+        DESC4 = #{desc4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tianrui.service.bean.SettingCargo" >
+    update setting_cargo
+    set cargoname = #{cargoname,jdbcType=VARCHAR},
+      DESC1 = #{desc1,jdbcType=VARCHAR},
+      DESC2 = #{desc2,jdbcType=VARCHAR},
+      DESC3 = #{desc3,jdbcType=VARCHAR},
+      DESC4 = #{desc4,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
