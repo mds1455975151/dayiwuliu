@@ -47,8 +47,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .selectbox .select-bar select{width:400px;height:300px;padding:4px;font-size:14px;border: none;}
 .btn-bar {margin:20px;margin-top: 140px;}
 .btn-bar p{margin:16px;}
-.selectbox .select-bar #select1{border-top: 1px solid #ccc;border-right: 1px solid #ccc;outline: none;background-color: #f4f2f3}
-.selectbox .select-bar #select2{border-top: 1px solid #ccc;border-right: 1px solid #ccc;border-left:1px solid #ccc;outline: none;background-color: #f4f2f3}
+.selectbox .select-bar #select1{padding-left:40px;border-top: 1px solid #ccc;border-right: 1px solid #ccc;outline: none;background-color: #f4f2f3}
+.selectbox .select-bar #select2{padding-left:40px;border-top: 1px solid #ccc;border-right: 1px solid #ccc;border-left:1px solid #ccc;outline: none;background-color: #f4f2f3}
 
 </style>
 </head>
