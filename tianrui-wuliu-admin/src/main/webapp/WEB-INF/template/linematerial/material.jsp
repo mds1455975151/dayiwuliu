@@ -31,13 +31,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     border-radius: 10px;
     background-color: #2ca0fa;
     color: white;
-    margin: 80px auto;
+    margin: 55px auto;
     cursor: pointer;
 }
 
 .searchInput{border: 1px solid #ccc;width: 100px;height:25px;border-radius: 10px;margin: 10px;outline: none;}
 .searchBtn{height:25px;width:50px;color: #fff;background-color: #2ca0fa;border: none;border-radius: 5px;}
-.kePublic{height: 370px; border-bottom: 1px solid #ccc;background-color: #f4f2f3}
+.kePublic{height:415px; border-bottom: 1px solid #ccc;background-color: #f4f2f3}
 .selectbox{width:100%;height:220px;margin:0px auto;}
 .selectbox div{float:left;}
 .selectbox .select-bar{border-right: 1px solid #ccc;}
@@ -71,19 +71,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!--效果html开始-->
                         <div class="selectbox">
                             <div class="select-bar">
-                                <p style="text-align: center">待选物料</p>
-                                <p style="text-align: center"><input type="text" id="cargoName" class="searchInput"><input type="button" onclick="queryWaitMate()" class="searchBtn" value="搜索"></p>
+                                <p style="margin-left:23px;padding:20px 0 10px 0;">待选物料</p>
+                                <p style="margin-left:15px;"><input type="text" id="cargoName" class="searchInput"><input type="button" onclick="queryWaitMate()" class="searchBtn" value="搜索"></p>
                                 <select multiple="multiple" id="select1">
                                 </select>
                             </div>
 
                             <div class="btn-bar">
-                                <p><span id="add"><img src="/resources/images/jiantou1%20(2).png" alt=""></span></p>
-                                <p><span id="remove"><img src="/resources/images/jiantou1%20(1).png" alt=""></span></p>
+                                <p><span id="add"><img style="cursor: pointer" src="/resources/images/jiantou1%20(2).png" alt=""></span></p>
+                                <p><span id="remove"><img style="cursor: pointer" src="/resources/images/jiantou1%20(1).png" alt=""></span></p>
                             </div>
                             <div class="select-bar select-bar1">
-                                <p style="text-align: center">已选物料</p>
-                                <p style="text-align: center"><input type="text" id="cargoName1"  class="searchInput"><input onclick="querySelecedMaterial()"  type="button" class="searchBtn" value="搜索"></p>
+                                <p style="margin-left:23px;padding:30px 0 10px 0;">已选物料</p>
+                                <p style="margin-left:15px;"><input type="text" id="cargoName1"  class="searchInput"><input onclick="querySelecedMaterial()"  type="button" class="searchBtn" value="搜索"></p>
                                 <select multiple="multiple" id="select2"></select>
                             </div>
                         </div>
